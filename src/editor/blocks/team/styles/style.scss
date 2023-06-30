@@ -1,0 +1,331 @@
+.guten-team {
+    position: relative;
+    
+    .profile-box {
+        text-align: center;
+
+        .profile-card {
+            background-color: var(--guten-bg-color);
+
+            .popup {
+                cursor: pointer;
+            }
+            
+            &.card-default {
+                padding: 20px 20px 40px;
+                z-index: 1;
+
+                .profile-header {
+                    display: inline-block;
+                    margin-bottom: 38px;
+                    
+                    img {
+                        object-fit: cover;
+                        width: 160px;
+                        height: 160px;
+                    }
+                }
+
+                .profile-body {
+                    padding-bottom: 20px;
+                    z-index: 2;
+                }
+            }
+
+            &.card-overlay {
+                width: 100%;
+                position: relative;
+                overflow: hidden;
+                display: inline-block;
+                
+                img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    display: block;
+                    margin: 0 auto;
+                }
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    top: 100%;
+                    left: 0;
+                    height: 100%;
+                    width: 100%;
+                    background-color: rgba(0,0,0,.7);
+                    transition: all .4s ease;
+                    z-index: 1;
+                    backface-visibility: hidden;
+                    opacity: 0;
+                    visibility: hidden;
+                }
+
+                &.scale {
+                    &:before {
+                        top: 0;
+                    }
+
+                    &:hover {
+                        &:before {
+                            transform: scale(.9);
+                        }
+                    }
+                }
+
+                &:hover {
+                    &:before {
+                        top: 0;
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    .profile-body {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: translateY(-50%);
+
+                        &.bottom {
+                            transform: translateY(0%);
+                        }
+                    }
+                }
+
+                .profile-body {
+                    top: 50%;
+                    left: 0;
+                    right: 0;
+                    transform: translateY(-20%);
+                    position: absolute;
+                    z-index: 2;
+                    width: 100%;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all .4s ease;
+                    padding: 10px;
+
+                    .profile-title, .profile-sub, .profile-desc {
+                        color: var(--guten-bg-color);
+                    }
+                }
+            }
+
+            &.card-hover {
+                padding: 20px 20px 0;
+                z-index: 1;
+                
+                &:hover {
+                    .profile-body{
+                        transform: translateY(-50px);
+
+                        &:before {
+                            opacity: 1;
+                        }
+
+                        .social-list, .guten-social-icons {
+                            display: flex;
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .profile-header {
+                    display: inline-block;
+                    margin-bottom: 38px;
+                    
+                    img {
+                        object-fit: cover;
+                        width: 160px;
+                        height: 160px;
+                    }
+                }
+
+                .profile-body {
+                    padding: 30px 20px;
+                    position: relative;
+                    transition: all .4s ease;
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        background-color: #e6f0ff;
+                        opacity: 0;
+                        transition: all .4s ease;
+                        z-index: -1;
+                        background-size: 101% 102%;
+                        backface-visibility: hidden;
+                    }
+
+                    .profile-title {
+                        margin: 0px;
+                    }
+
+                    .profile-sub {
+                        margin: 8px 0;
+                    }
+
+                    .social-list, .guten-social-icons {
+                        transition: all .4s ease;
+                        display: none;
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .border-bottom {
+        position: absolute;
+        overflow: hidden;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 5px;
+        
+        .animated {
+            z-index: 3;
+            width: 100%;
+            height: 5px;
+            background-color: #d8a600;
+        }
+
+        .left {
+            animation-name: slideInLeft;
+        }
+        
+        .right {
+            animation-name: slideInRight;
+        }
+    }
+
+    &:hover {
+        .border-bottom .left {
+            animation-name: slideOutRight;
+        }
+        .border-bottom .right {
+            animation-name: slideOutLeft;
+        }
+    }
+}
+
+.social-list,
+.editor-styles-wrapper .social-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .social-icon {
+        display: inline-block;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-decoration: none;
+            gap: 12px;
+            transition: all 0.3s;
+            color: var(--guten-bg-color);
+            background-color: #80b1ff;
+            border-radius: 50%;
+
+            i {
+                font-size: 16px;
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}
+
+.profile-popup {
+    display: none;
+
+    .guten-social-icons {
+        & > div:not(.guten-social-icon) {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 10px;
+        }
+    }
+
+    &.show {
+        display: flex;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        position: fixed;
+        align-items: center;
+        z-index: 997;
+        
+        .overlay {
+            width: 100%;
+            height: 100%;
+            background-color: var(--guten-base-color);
+            opacity: 0.5;
+            position: absolute;
+            z-index: 998;
+        }
+    
+        .popup {
+            display: flex;
+            position: relative;
+            width: 450px;
+            min-height: 400px;
+            background-color: var(--guten-bg-color);
+            margin: 1.75rem auto;
+            z-index: 999;
+            padding: 60px 40px;
+
+            .popup-close {
+                top: 0;
+                right: 0;
+                position: absolute;
+                padding: 8px;
+                cursor: pointer;
+            }
+    
+            img {
+                width: 100%;
+            }
+    
+            .content-1 {
+                width: 40%;
+                justify-content: center;
+            }
+    
+            .content-2 {
+                margin-left: 20px;
+                width: 60%;
+    
+                .profile-desc, .profile-phone, .profile-email {
+                    margin: 0;
+                    padding: 20px 0;
+                }
+    
+                .profile-title, .profile-sub {
+                    margin: 0;
+                }
+    
+                .profile-phone, .profile-email {
+                    border-top: 1px solid #ccc;
+                }
+    
+                .social-list {
+                    margin-top: 20px;
+                }
+            }
+        }
+    }
+}

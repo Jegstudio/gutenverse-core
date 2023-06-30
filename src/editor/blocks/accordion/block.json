@@ -1,0 +1,53 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/accordion",
+  "title": "Accordion Item",
+  "description": "Create content inside an accordion element.",
+  "category": "gutenverse-element",
+  "parent": [
+    "gutenverse/accordions"
+  ],
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".accordion-heading .accordion-text"
+    },
+    "first": {
+      "type": "boolean",
+      "default": false
+    },
+    "iconOpen": {
+      "type": "string",
+      "default": "fas fa-minus"
+    },
+    "iconClosed": {
+      "type": "string",
+      "default": "fas fa-plus"
+    },
+    "iconPosition": {
+      "type": "string",
+      "default": "left"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "span"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false,
+    "html": false
+  },
+  "keywords": [
+    "tabs",
+    "accordion",
+    "gutenverse"
+  ]
+}

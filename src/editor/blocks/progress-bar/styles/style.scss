@@ -1,0 +1,256 @@
+.progress-group {
+    margin-top: 10px;
+    
+    .progress-skill-bar {
+        .skill-bar-content {
+            margin-bottom: 7px;
+            .skill-title {
+                font-weight: 700;
+                color: var(--guten-txt-color);
+            }
+        }
+        .skill-bar {
+            height: 3px;
+            background-color: var(--guten-element-lighten-bg-color);
+            .skill-track {
+                width: 0;
+                background-color: var(--guten-element-darken-bg-color);
+                display: block;
+                height: 100%;
+                overflow: visible !important;
+                position: relative;
+
+                .number-percentage-wrapper {
+                    position: absolute;
+                    right: 0;
+                    top: -33px;
+                    z-index: 1;
+                }
+            }
+        }
+        .number-percentage {
+            color: var(--guten-txt-color);
+        }
+    }
+
+    &.inner-content {
+        .progress-skill-bar {
+            position: relative;
+            .skill-bar-content {
+                position: absolute;
+                z-index: 1;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-bottom: 0;
+                padding-left: 30px;
+                .skill-title {
+                    color: var(--guten-bg-color);
+                }
+            }
+            .skill-bar {
+                height: 35px;
+                .skill-track {
+                    .skill-track-icon {
+                        position: absolute;
+                        right: 19px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: var(--guten-bg-color);
+                        +.number-percentage-wrapper {
+                            padding-right: 57px;
+                        }
+                    }
+                    .number-percentage-wrapper {
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: var(--guten-bg-color);
+                        padding-right: 30px;
+                    }
+                }
+            }
+            .number-percentage {
+                color: var(--guten-bg-color);
+            }
+        }
+    }
+
+    &.bar-shadow {
+        .progress-skill-bar {
+            .skill-bar {
+                height: 30px;
+                background-color: var(--guten-bg-color);
+                padding: 10px;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.25);
+                border-radius: 15px;
+                .skill-track {
+                    height: 100%;
+                    border-radius: 5px;
+                    .number-percentage-wrapper {
+                        top: -39px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.tooltip-style {
+        .progress-skill-bar {
+            .skill-bar .skill-track .number-percentage-wrapper {
+                height: 24px;
+                line-height: 24px;
+                display: inline-block;
+                color: var(--guten-bg-color);
+                font-size: 13px;
+                background-color: var(--guten-txt-color);
+                text-align: center;
+                padding: 0 11px;
+                border-radius: 4.32px;
+                border-bottom-right-radius: 0;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    right: 0;
+                    bottom: -8px;
+                    color: var(--guten-txt-color);
+                    border-top: solid currentColor;
+                    border-right: solid currentColor;
+                    border-left: solid transparent;
+                    border-bottom: solid transparent;
+                    border-width: 4px;
+                }
+            }
+            .number-percentage {
+                color: var(--guten-bg-color);
+            }
+        }
+    }
+
+    &.tooltip-box,
+    &.tooltip-rounded {
+        .progress-skill-bar {
+            .skill-bar .skill-track .number-percentage-wrapper {
+                height: 22px;
+                padding: 0 8px;
+                background-color: var(--guten-txt-color);
+                text-align: center;
+                font-size: 13px;
+                color: var(--guten-bg-color);
+                z-index: 1;
+                right: -20px;
+                top: -31px;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    bottom: -6px;
+                    left: 50%;
+                    transform: translateX(-50%) rotate(45deg);
+                    width: 14px;
+                    height: 14px;
+                    background-color: var(--guten-txt-color);
+                    z-index: -1;
+                }
+            }
+            .number-percentage {
+                color: var(--guten-bg-color);
+            }
+        }
+    }
+
+    &.tooltip-rounded {
+        .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper {
+            border-radius: 8px;
+        }
+    }
+
+    &.tooltip-circle {
+        .progress-skill-bar {
+            .skill-bar .skill-track .number-percentage-wrapper {
+                width: 35px;
+                height: 35px;
+                line-height: 35px;
+                border-radius: 50%;
+                background-color: var(--guten-txt-color);
+                color: var(--guten-bg-color);
+                text-align: center;
+                font-size: 13px;
+                right: calc(0% - 15.5px);
+                top: -39.9px;
+                &:before {
+                    position: absolute;
+                    content: "";
+                    bottom: -5px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 3px;
+                    height: 5px;
+                    background-color: var(--guten-txt-color);
+                }
+            }
+            .number-percentage {
+                color: var(--guten-bg-color);
+            }
+        }
+    }
+
+    &.switch {
+        .progress-skill-bar {
+            .skill-bar-content {
+                margin-bottom: 18px;
+            }
+            .content-group {
+                width: calc(100% - 50px);
+                display: inline-block;
+                .skill-bar .skill-track {
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        right: 0;
+                        border-radius: 50%;
+                        color: var(--guten-txt-color);
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 20px;
+                        height: 20px;
+                        box-shadow: (-1.216px 6.894px 15px 0 rgba(0, 0, 0, 0.07), inset 0 2px 3px 0 rgba(0, 0, 0, 0.2));
+                        background-color: var(--guten-bg-color);
+                        border: 1px solid var(--guten-txt-color);
+                    }
+                }
+            }
+            .number-percentage-wrapper {
+                float: right;
+                position: relative;
+                top: 31px;
+            }
+        }
+    }
+
+    &.ribbon {
+        .skill-bar .skill-track .number-percentage-wrapper {
+            height: 35px;
+            line-height: 35px;
+            color: var(--guten-bg-color);
+            background-color: var(--guten-txt-color);
+            text-align: center;
+            padding: 0 8px;
+            top: -10px;
+            z-index: 1;
+            &:before {
+                position: absolute;
+                content: "";
+                top: 0;
+                left: -10px;
+                color: #1a1a1a;
+                border-top: solid #00000000;
+                border-left: solid #00000000;
+                border-right: solid var(--guten-txt-color);
+                border-bottom: solid var(--guten-txt-color);
+                border-width: 5px;
+            }
+        }
+        .number-percentage {
+            color: var(--guten-bg-color);
+        }
+    }
+}

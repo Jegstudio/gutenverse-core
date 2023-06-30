@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "gutenverse-core/*": ["gutenverse-core/src/*"],
+        }
+    },
+    "include": ["./src/**/*", "..config/**/*"],
+    "exclude": ["node_modules", "build"]
+}

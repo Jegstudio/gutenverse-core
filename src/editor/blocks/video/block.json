@@ -1,0 +1,141 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/video",
+    "title": "Video",
+    "description": "Embed a video you want to share.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "videoType": {
+            "type": "string"
+        },
+        "videoSrc": {
+            "type": "string"
+        },
+        "start": {
+            "type": "string"
+        },
+        "end": {
+            "type": "string"
+        },
+        "width": {
+            "type": "object"
+        },
+        "height": {
+            "type": "object"
+        },
+        "captionType": {
+            "type": "string",
+            "default": "none"
+        },
+        "captionOriginal": {
+            "type": "string"
+        },
+        "captionCustom": {
+            "type": "string"
+        },
+        "captionSpace": {
+            "type": "object"
+        },
+        "typography": {
+            "type": "object"
+        },
+        "captionColor": {
+            "type": "object"
+        },
+        "hideControls": {
+            "type": "boolean"
+        },
+        "playing": {
+            "type": "boolean"
+        },
+        "loop": {
+            "type": "boolean"
+        },
+        "muted": {
+            "type": "boolean"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        },
+        "advanceAnimation": {
+            "type": "object",
+            "default": {}
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "video",
+        "youtube",
+        "twitch",
+        "vimeo",
+        "dailymotion"
+    ]
+}

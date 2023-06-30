@@ -1,0 +1,101 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/social-icon",
+  "title": "Social Icon Item",
+  "parent": ["gutenverse/social-icons"],
+  "description": "Show social networks link to your website visitors.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "href"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "icon": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "i",
+      "attribute": "class",
+      "default": "fab fa-wordpress"
+    },
+    "text": {
+      "type": "string",
+      "source": "html",
+      "selector": "span"
+    },
+    "iconColor": {
+      "type": "object"
+    },
+    "bgColor": {
+      "type": "object"
+    },
+    "textColor": {
+      "type": "object"
+    },
+    "border": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object"
+    },
+    "hoverIconColor": {
+      "type": "object"
+    },
+    "hoverBgColor": {
+      "type": "object"
+    },
+    "hoverTextColor": {
+      "type": "object"
+    },
+    "hoverBorderColor": {
+      "type": "object"
+    },
+    "forceHideText": {
+      "type": "boolean",
+      "default": false
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "typography": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": ["social", "icon", "gutenverse"]
+}

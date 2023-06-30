@@ -1,0 +1,26 @@
+.guten-icon-list {
+    list-style: none;
+
+    &.inline-icon-list {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    .guten-icon-list-item {
+        .list-text {
+            &.no-icon {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+    a {
+        color: var(--guten-txt-color);
+        display: flex;
+        align-items: center;
+    }
+}

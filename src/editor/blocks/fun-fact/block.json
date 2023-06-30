@@ -1,0 +1,226 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/fun-fact",
+  "title": "Fun Fact",
+  "description": "Create an interesting fact about your website or something you achieved.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "iconType": {
+      "type": "string",
+      "default": "icon"
+    },
+    "icon": {
+      "type": "string",
+      "default": "fas fa-grip-horizontal"
+    },
+    "iconColor": {
+      "type": "object"
+    },
+    "iconBgColor": {
+      "type": "object"
+    },
+    "iconBorder": {
+      "type": "object"
+    },
+    "iconColorHover": {
+      "type": "object"
+    },
+    "iconBgColorHover": {
+      "type": "object"
+    },
+    "iconBorderHover": {
+      "type": "object"
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "iconRotate": {
+      "type": "object"
+    },
+    "iconPadding": {
+      "type": "object"
+    },
+    "iconMargin": {
+      "type": "object"
+    },
+    "image": {
+      "type": "object"
+    },
+    "imageAlt": {
+      "type": "string"
+    },
+    "imageSize": {
+      "type": "int",
+      "default": 150
+    },
+    "prefix": {
+      "type": "string",
+      "default": "$"
+    },
+    "number": {
+      "type": "string",
+      "default": "789"
+    },
+    "suffix": {
+      "type": "string",
+      "default": "M"
+    },
+    "title": {
+      "type": "string",
+      "default": "Fun Fact"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "span"
+    },
+    "showSupper": {
+      "type": "boolean",
+      "default": false
+    },
+    "supper": {
+      "type": "string",
+      "default": "+"
+    },
+    "superColor": {
+      "type": "object"
+    },
+    "superTypography": {
+      "type": "object"
+    },
+    "superTop": {
+      "type": "object"
+    },
+    "superSpace": {
+      "type": "object"
+    },
+    "superAlign": {
+      "type": "object"
+    },
+    "alignButtons": {
+      "type": "object"
+    },
+    "duration": {
+      "type": "int",
+      "default": 3500
+    },
+    "numberColor": {
+      "type": "object"
+    },
+    "titleColor": {
+      "type": "object"
+    },
+    "numberTypography": {
+      "type": "object"
+    },
+    "titleTypography": {
+      "type": "object"
+    },
+    "numberBottomSpace": {
+      "type": "object"
+    },
+    "titleBottomSpace": {
+      "type": "object"
+    },
+    "numberRightSpace": {
+      "type": "object"
+    },
+    "contentPadding": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "hoverBottom": {
+      "type": "boolean",
+      "default": false
+    },
+    "hoverBottomColor": {
+      "type": "object"
+    },
+    "hoverBottomDirection": {
+      "type": "string",
+      "default": "left"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+        "type": "object",
+        "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": [
+    "fun",
+    "fact",
+    "count",
+    "number"
+  ]
+}

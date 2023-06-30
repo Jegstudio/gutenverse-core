@@ -1,0 +1,138 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/post-title",
+    "class_callback": "\\Gutenverse\\Block\\Post_Title",
+    "title": "Post Title",
+    "description": "Show the title of a single post.",
+    "category": "gutenverse-post",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "postId": {
+            "type": "string",
+            "default": 0
+        },
+        "backendPostId": {
+            "type": "string"
+        },
+        "noContentText": {
+            "type": "string",
+            "default": "No Content"
+        },
+        "htmlTag": {
+            "type": "string",
+            "default": "h1"
+        },
+        "postLink": {
+            "type": "boolean"
+        },
+        "postLinkTarget": {
+            "type": "boolean"
+        },
+        "postLinkRel": {
+            "type": "string"
+        },
+        "linkTo": {
+            "type": "string",
+            "default": "none"
+        },
+        "customURL": {
+            "type": "string"
+        },
+        "alignment": {
+            "type": "object"
+        },
+        "typography": {
+            "type": "object"
+        },
+        "color": {
+            "type": "object"
+        },
+        "textShadow": {
+            "type": "object",
+            "default": {}
+        },
+        "colorHover": {
+            "type": "object"
+        },
+        "textShadowHover": {
+            "type": "object",
+            "default": {}
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+	"usesContext": [ "postId", "postType", "queryId" ],
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "post",
+        "title"
+    ]
+}

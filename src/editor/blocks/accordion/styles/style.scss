@@ -1,0 +1,28 @@
+.accordion-item  {
+
+  .accordion-icon {
+    margin-right: 10px;
+  }
+
+  .accordion-icon-open {
+    display: none;
+  }
+
+  .accordion-icon-closed {
+    display: block;
+  }
+
+  &.active {
+    .accordion-icon-open {
+      display: block;
+    }
+
+    .accordion-icon-closed {
+      display: none;
+    }
+
+    .expanded {
+      height: auto;
+    }
+  }
+}

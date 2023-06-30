@@ -1,0 +1,183 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/accordions",
+    "title": "Accordions", 
+    "description": "A vertically stacked list of expandable/collapsable item.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "iconOpen": {
+            "type": "string",
+            "default": "fas fa-minus"
+        },
+        "iconClosed": {
+            "type": "string",
+            "default": "fas fa-plus"
+        },
+        "iconPosition": {
+            "type": "string",
+            "default": "left"
+        },
+        "iconColor": {
+            "type": "object"
+        },
+        "iconActiveColor": {
+            "type": "object"
+        },
+        "iconSpacing": {
+            "type": "object"
+        },
+        "iconSize": {
+            "type": "object"
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "span"
+        },
+        "titleBackgroundColor": {
+            "type": "object"
+        },
+        "titleTextColor": {
+            "type": "object"
+        },
+        "titleActiveColor": {
+            "type": "object"
+        },
+        "titleTypography": {
+            "type": "object"
+        },
+        "titlePadding": {
+            "type": "object"
+        },
+        "borderWidth": {
+            "type": "object"
+        },
+        "borderColor": {
+            "type": "object"
+        },
+        "contentBackgroundColor": {
+            "type": "object"
+        },
+        "contentTextColor": {
+            "type": "object"
+        },
+        "contentTypography": {
+            "type": "object"
+        },
+        "contentPadding": {
+            "type": "object"
+        },
+        "accordionBorder": {
+            "type": "object"
+        },
+        "titleBorder": {
+            "type": "object"
+        },
+        "contentBorder": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        },
+        "accordionBorderActive": {
+            "type": "object"
+        },
+        "accordionMargin": {
+            "type": "object"
+        },
+        "contentBackgroundColorActive": {
+            "type": "object"
+        },
+        "contentTextColorActive": {
+            "type": "object"
+        },
+        "contentBorderActive": {
+            "type": "object"
+        },
+        "titleBackgroundActiveColor": {
+            "type": "object"
+        },
+        "titleBorderActive": {
+            "type": "object"
+        },
+        "accordionBoxShadow": {
+            "type": "object"
+        },
+        "accordionBoxShadowActive": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false,
+        "html": false
+    },
+    "keywords": [
+        "tabs",
+        "accordion"
+    ]
+}

@@ -1,0 +1,118 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/animated-text",
+    "title": "Animated Text",
+    "description": "Create text with beautiful animation flow.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h2"
+        },
+        "style": {
+            "type": "string",
+            "default": "none"
+        },
+        "text": {
+            "type": "string",
+            "default": "Placeholder Text"
+        },
+        "alignText": {
+            "type": "object"
+        },
+        "loop": {
+            "type": "boolean",
+            "default": true
+        },
+        "color": {
+            "type": "object"
+        },
+        "typography": {
+            "type": "object"
+        },
+        "textShadow": {
+            "type": "object",
+            "default": {}
+        },
+        "height": {
+            "type": "object"
+        },
+        "verticalAlign": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },        
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "heading",
+        "animated",
+        "animation",
+        "text"
+    ]
+}

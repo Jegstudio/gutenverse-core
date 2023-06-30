@@ -1,0 +1,75 @@
+.editor-styles-wrapper {
+    .guten-button-wrapper {
+        display: flex;
+    }
+
+    .guten-button {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        background-color: var(--guten-wp-color);
+        font-size: 15px;
+        padding: 12px 24px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        color: var(--guten-bg-color);
+        fill: var(--guten-bg-color);
+        text-align: center;
+        -webkit-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+        text-decoration: none;
+        border-color: transparent;
+        border-width: 0;
+        cursor: pointer;
+    
+        &:focus {
+            box-shadow: none;
+        }
+    }
+
+    .guten-button-xs {
+        font-size: 13px;
+        padding: 10px 20px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+    
+    .guten-button-md {
+        font-size: 16px;
+        padding: 15px 30px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+    }
+    
+    .guten-button-lg {
+        font-size: 18px;
+        padding: 20px 40px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+    }
+    
+    .guten-button-xl {
+        font-size: 20px;
+        padding: 25px 50px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+    }
+    
+    .guten-button-info{
+        background-color: var(--guten-btn-bg-info);
+    }
+    
+    .guten-button-success{
+        background-color: var(--guten-btn-bg-success);
+    }
+    
+    .guten-button-warning{
+        background-color: var(--guten-btn-bg-warning);
+    }
+    
+    .guten-button-danger{
+        background-color: var(--guten-btn-bg-danger);
+    }
+}

@@ -1,0 +1,127 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/star-rating",
+  "title": "Star Rating",
+  "description": "Showcase ratings of anything you want to share.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "default": "Lorem Ipsum"
+    },
+    "align": {
+      "type": "object"
+    },
+    "starIcon": {
+      "type": "string"
+    },
+    "rating": {
+      "type": "int",
+      "default": 7
+    },
+    "total": {
+      "type": "int",
+      "default": 10
+    },
+    "titleColor": {
+      "type": "object"
+    },
+    "titleTypography": {
+      "type": "object"
+    },
+    "gap": {
+      "type": "object"
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "iconGap": {
+      "type": "object"
+    },
+    "iconColorMarked": {
+      "type": "object"
+    },
+    "iconColorUnmarked": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": ["star", "rating", "review"]
+}

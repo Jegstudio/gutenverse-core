@@ -1,0 +1,395 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/post-list",
+    "class_callback": "\\Gutenverse\\Block\\Post_List",
+    "title": "Post List",
+    "description": "Show a list of posts of your choice.",
+    "category": "gutenverse-post",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "inheritQuery": {
+            "type": "boolean",
+            "default": true
+        },
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "numberPost": {
+            "type": "string",
+            "default": 3
+        },
+        "postOffset": {
+            "type": "string",
+            "default": 0
+        },
+        "includePost": {
+            "type": "array",
+            "default": []
+        },
+        "excludePost": {
+            "type": "array",
+            "default": []
+        },
+        "includeCategory": {
+            "type": "array",
+            "default": []
+        },
+        "excludeCategory": {
+            "type": "array",
+            "default": []
+        },
+        "includeAuthor": {
+            "type": "array",
+            "default": []
+        },
+        "includeTag": {
+            "type": "array",
+            "default": []
+        },
+        "excludeTag": {
+            "type": "array",
+            "default": []
+        },
+        "sortBy": {
+            "type": "string"
+        },
+        "layout": {
+            "type": "string",
+            "default": "vertical"
+        },
+        "column": {
+            "type": "object"
+        },
+        "columnGap": {
+            "type": "object"
+        },
+        "imageEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "backgroundImageEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "iconEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "icon": {
+            "type": "string",
+            "default": "fas fa-circle"
+        },
+        "noContentText": {
+            "type": "string",
+            "default": ""
+        },
+        "metaEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "metaDateEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "metaDateType": {
+            "type": "string",
+            "default": "published"
+        },
+        "metaDateFormat": {
+            "type": "string",
+            "default": "default"
+        },
+        "metaDateFormatCustom": {
+            "type": "string",
+            "default": ""
+        },
+        "metaDateIcon": {
+            "type": "string",
+            "default": "fas fa-clock"
+        },
+        "metaDateIconPosition": {
+            "type": "string"
+        },
+        "metaCategoryEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "metaCategoryIcon": {
+            "type": "string",
+            "default": "fas fa-tag"
+        },
+        "metaPosition": {
+            "type": "string",
+            "default": "top"
+        },
+        "paginationMode": {
+            "type": "string",
+            "default": "disable"
+        },
+        "paginationLoadmoreText": {
+            "type": "string",
+            "default": "Load More"
+        },
+        "paginationLoadingText": {
+            "type": "string",
+            "default": "Loading..."
+        },
+        "paginationNumberPost": {
+            "type": "string",
+            "default": 3
+        },
+        "paginationScrollLimit": {
+            "type": "string",
+            "default": 0
+        },
+        "paginationIcon": {
+            "type": "string",
+            "default": ""
+        },
+        "paginationIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "contentAlign": {
+            "type": "object"
+        },
+        "contentMargin": {
+            "type": "object"
+        },
+        "contentPadding": {
+            "type": "object"
+        },
+        "contentWidth": {
+            "type": "object"
+        },
+        "contentBackground": {
+            "type": "object"
+        },
+        "contentHoverBackground": {
+            "type": "object"
+        },
+        "contentBorder": {
+            "type": "object"
+        },
+        "contentHoverBorder": {
+            "type": "object"
+        },
+        "contentShadow": {
+            "type": "object"
+        },
+        "contentHoverShadow": {
+            "type": "object"
+        },
+        "titlePadding": {
+            "type": "object"
+        },
+        "titleColor": {
+            "type": "object"
+        },
+        "titleTypography": {
+            "type": "object"
+        },
+        "titleColorHover": {
+            "type": "object"
+        },
+        "titleTypographyHover": {
+            "type": "object"
+        },
+        "iconAlign": {
+            "type": "object"
+        },
+        "iconBackground": {
+            "type": "object"
+        },
+        "imageWidth": {
+            "type": "object"
+        },
+        "imageHeight": {
+            "type": "object"
+        },
+        "imageFit": {
+            "type": "object"
+        },
+        "imageMargin": {
+            "type": "object"
+        },
+        "iconWidth": {
+            "type": "object"
+        },
+        "iconHeight": {
+            "type": "object"
+        },
+        "iconLineHeight": {
+            "type": "object"
+        },
+        "iconSize": {
+            "type": "object"
+        },
+        "iconMargin": {
+            "type": "object"
+        },
+        "iconRadius": {
+            "type": "object"
+        },
+        "iconColor": {
+            "type": "object"
+        },
+        "iconHoverColor": {
+            "type": "object"
+        },
+        "metaAlign": {
+            "type": "object"
+        },
+        "metaTypography": {
+            "type": "object"
+        },
+        "metaIconSize": {
+            "type": "object"
+        },
+        "metaIconSpacing": {
+            "type": "object"
+        },
+        "metaMargin": {
+            "type": "object"
+        },
+        "metaPadding": {
+            "type": "object"
+        },
+        "metaColor": {
+            "type": "object"
+        },
+        "metaColorHover": {
+            "type": "object"
+        },
+        "metaBackground": {
+            "type": "object"
+        },
+        "metaHoverBackground": {
+            "type": "object"
+        },
+        "metaBorder": {
+            "type": "object"
+        },
+        "metaHoverBorder": {
+            "type": "object"
+        },
+        "paginationTypography": {
+            "type": "object"
+        },
+        "paginationMargin": {
+            "type": "object"
+        },
+        "paginationPadding": {
+            "type": "object"
+        },
+        "paginationWidth": {
+            "type": "object"
+        },
+        "paginationIconSpacing": {
+            "type": "object"
+        },
+        "paginationAlign": {
+            "type": "object"
+        },
+        "paginationColor": {
+            "type": "object"
+        },
+        "paginationHoverColor": {
+            "type": "object"
+        },
+        "paginationBackground": {
+            "type": "object"
+        },
+        "paginationHoverBackground": {
+            "type": "object"
+        },
+        "paginationBorder": {
+            "type": "object"
+        },
+        "paginationHoverBorder": {
+            "type": "object"
+        },
+        "paginationShadow": {
+            "type": "object"
+        },
+        "paginationHoverShadow": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "post",
+        "list"
+    ]
+}

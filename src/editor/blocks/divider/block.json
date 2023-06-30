@@ -1,0 +1,129 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/divider",
+  "title": "Divider",
+  "description": "Split your content with a customizable divider.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "default": "default"
+    },
+    "width": {
+      "type": "object"
+    },
+    "content": {
+      "type": "string",
+      "default": "none"
+    },
+    "dividerColor": {
+      "type": "object"
+    },
+    "size": {
+      "type": "object"
+    },
+    "gap": {
+      "type": "object"
+    },
+    "text": {
+      "type": "string"
+    },
+    "contentColor": {
+      "type": "object"
+    },
+    "contentSpacing": {
+      "type": "object"
+    },
+    "typography": {
+      "type": "object"
+    },
+    "icon": {
+      "type": "string",
+      "default": "fab fa-wordpress"
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "dividerAlign": {
+      "type": "object"
+    },
+    "contentAlign": {
+      "type": "string"
+    },
+    "background": {
+      "type": "object"
+    },
+    "backgroundHover": {
+      "type": "object"
+    },
+    "border": {
+      "type": "object"
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object"
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object"
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "keywords": [
+    "divider",
+    "line",
+    "separator"
+  ]
+}

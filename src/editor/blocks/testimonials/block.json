@@ -1,0 +1,325 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/testimonials",
+    "title": "Testimonials",
+    "description": "Showcase your client's or people's testimonals.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "contentType": {
+            "type": "int",
+            "default": 1
+        },
+        "spacing": {
+            "type": "object",
+            "default": {}
+        },
+        "itemShowed": {
+            "type": "object",
+            "default": {}
+        },
+        "autoplay": {
+            "type": "boolean",
+            "default": false
+        },
+        "autoplayTimeout": {
+            "type": "int",
+            "default": 2400
+        },
+        "loop": {
+            "type": "boolean",
+            "default": false
+        },
+        "showNav": {
+            "type": "boolean",
+            "default": false
+        },
+        "showArrow": {
+            "type": "boolean",
+            "default": false
+        },
+        "showQuote": {
+            "type": "boolean",
+            "default": false
+        },
+        "iconQuote": {
+            "type": "string",
+            "default": "fas fa-quote-left"
+        },
+        "testimonialData": {
+            "type": "array",
+            "default": [
+                {
+                    "name": "John Doe",
+                    "description": "Lorem Ipsum",
+                    "comment": "Lorem Ipsum Donor Mannor"
+                },
+                {
+                    "name": "John Doe",
+                    "description": "Lorem Ipsum",
+                    "comment": "Lorem Ipsum Donor Mannor"
+                },
+                {
+                    "name": "John Doe",
+                    "description": "Lorem Ipsum",
+                    "comment": "Lorem Ipsum Donor Mannor"
+                },
+                {
+                    "name": "John Doe",
+                    "description": "Lorem Ipsum",
+                    "comment": "Lorem Ipsum Donor Mannor"
+                }
+            ]
+        },
+        "dotsSpacingHorizontal": {
+            "type": "object"
+        },
+        "dotsSpacingVertical": {
+            "type": "object"
+        },
+        "dotsWidth": {
+            "type": "object"
+        },
+        "dotsHeight": {
+            "type": "object"
+        },
+        "dotsRadius": {
+            "type": "object"
+        },
+        "dotsColor": {
+            "type": "object"
+        },
+        "dotsActiveWidth": {
+            "type": "object"
+        },
+        "dotsActiveHeight": {
+            "type": "object"
+        },
+        "dotsActiveRadius": {
+            "type": "object"
+        },
+        "dotsActiveColor": {
+            "type": "object"
+        },
+        "arrowFontSize": {
+            "type": "object"
+        },
+        "arrowColor": {
+            "type": "object"
+        },
+        "arrowBgColor": {
+            "type": "object"
+        },
+        "arrowPadding": {
+            "type": "object"
+        },
+        "arrowMargin": {
+            "type": "object"
+        },
+        "arrowOpacity": {
+            "type": "object"
+        },
+        "arrowHoverColor": {
+            "type": "object"
+        },
+        "arrowHoverBgColor": {
+            "type": "object"
+        },
+        "arrowHoverPadding": {
+            "type": "object"
+        },
+        "arrowHoverMargin": {
+            "type": "object"
+        },
+        "arrowHoverOpacity": {
+            "type": "object"
+        },
+        "arrowBorder": {
+            "type": "object"
+        },
+        "arrowBoxShadow": {
+            "type": "object"
+        },
+        "arrowBorderHover": {
+            "type": "object"
+        },
+        "arrowBoxShadowHover": {
+            "type": "object"
+        },
+        "alignText": {
+            "type": "object"
+        },
+        "containerMargin": {
+            "type": "object"
+        },
+        "containerPadding": {
+            "type": "object"
+        },
+        "containerBackground": {
+            "type": "object"
+        },
+        "containerBackgroundHover": {
+            "type": "object"
+        },
+        "containerBorder": {
+            "type": "object"
+        },
+        "containerBoxShadow": {
+            "type": "object"
+        },
+        "containerBorderHover": {
+            "type": "object"
+        },
+        "containerBoxShadowHover": {
+            "type": "object"
+        },
+        "nameTypography": {
+            "type": "object"
+        },
+        "designationTypography": {
+            "type": "object"
+        },
+        "designationSpacing": {
+            "type": "object"
+        },
+        "descriptionTypography": {
+            "type": "object"
+        },
+        "descriptionMargin": {
+            "type": "object"
+        },
+        "quoteSize": {
+            "type": "object"
+        },
+        "nameNormalColor": {
+            "type": "object"
+        },
+        "nameHoverColor": {
+            "type": "object"
+        },
+        "designationNormalColor": {
+            "type": "object"
+        },
+        "designationHoverColor": {
+            "type": "object"
+        },
+        "descriptionNormalColor": {
+            "type": "object"
+        },
+        "descriptionHoverColor": {
+            "type": "object"
+        },
+        "quoteNormalColor": {
+            "type": "object"
+        },
+        "quoteHoverColor": {
+            "type": "object"
+        },
+        "imageBackground": {
+            "type": "object"
+        },
+        "imageBorder": {
+            "type": "object"
+        },
+        "imageMargin": {
+            "type": "object"
+        },
+        "imagePadding": {
+            "type": "object"
+        },
+        "bottomSpace": {
+            "type": "object"
+        },
+        "imageWidth": {
+            "type": "object"
+        },
+        "imageHeight": {
+            "type": "object"
+        },
+        "quoteOverride": {
+            "type": "boolean",
+            "default": false
+        },
+        "quotePositionTop": {
+            "type": "object"
+        },
+        "quotePositionLeft": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "testimonial",
+        "review"
+    ]
+}

@@ -1,0 +1,69 @@
+.guten-animated-text {
+    display: flex;
+    margin: 0;
+
+    .text-content {
+        margin: 0
+    }
+
+    &.style-zoom, &.style-jump, &.style-bend, &.style-drop, &.style-flip, &.style-pop, &.style-slide, &.style-rising, &.style-fall {
+        .text-content {
+            .letter {
+                display: inline-block;
+                line-height: 1em;
+            }
+        }
+    }
+
+    &.style-jump, &.style-bend, &.style-drop, &.style-flip {
+        .text-content {
+            position: relative;
+          
+            .text-wrapper {
+                position: relative;
+                display: inline-block;
+                overflow: hidden;
+            }
+        }
+    }
+
+    &.style-bend {
+        .text-content {
+            .letter {
+                transform-origin: 0 100%;
+            }
+        }
+    }
+
+    &.style-drop {
+        .text-content {
+            .letter {
+                transform-origin: 50% 100%;
+            }
+        }
+    }
+
+    &.style-drop {
+        .text-content {
+            .letter {
+                transform-origin: 0 0;
+            }
+        }
+    }
+
+    &.style-pop {
+        .text-content {
+            .text-wrapper {
+                position: relative;
+                display: inline-block;
+                padding-top: 0.1em;
+                padding-right: 0.05em;
+                padding-bottom: 0.15em;
+            }
+        }
+    }
+
+    &.style-fall {
+        overflow: hidden;
+    }
+}

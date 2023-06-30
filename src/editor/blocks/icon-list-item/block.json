@@ -1,0 +1,61 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/icon-list-item",
+  "title": "Icon List Item",
+  "description": "Show an icon list.",
+  "parent": ["gutenverse/icon-list"],
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "href"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "icon": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "i",
+      "attribute": "class",
+      "default": ""
+    },
+    "hideIcon": {
+      "type": "boolean",
+      "default": false
+    },
+    "text": {
+      "type": "string",
+      "source": "html",
+      "selector": "span",
+      "default": "List item"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": []
+}

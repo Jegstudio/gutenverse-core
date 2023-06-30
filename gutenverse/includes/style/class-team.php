@@ -1,0 +1,510 @@
+<?php
+/**
+ * Gutenverse Team
+ *
+ * @author Jegstudio
+ * @since 1.0.0
+ * @package gutenverse\style
+ */
+
+namespace Gutenverse\Style;
+
+use Gutenverse\Framework\Style_Abstract;
+
+/**
+ * Class Team
+ *
+ * @package gutenverse\style
+ */
+class Team extends Style_Abstract {
+	/**
+	 * Block Directory
+	 *
+	 * @var string
+	 */
+	protected $block_dir = GUTENVERSE_DIR . '/block/';
+
+	/**
+	 * Block Name
+	 *
+	 * @var array
+	 */
+	protected $name = 'team';
+
+
+	/**
+	 * Constructor
+	 *
+	 * @param array $attrs Attribute.
+	 */
+	public function __construct( $attrs ) {
+		parent::__construct( $attrs );
+
+		$this->set_feature(
+			array(
+				'background'  => null,
+				'border'      => null,
+				'positioning' => null,
+				'animation'   => null,
+				'advance'     => null,
+			)
+		);
+	}
+
+	/**
+	 * Generate style base on attribute.
+	 */
+	public function generate() {
+		if ( isset( $this->attrs['hoverBottomColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .border-bottom .animated",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['hoverBottomColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['alignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card",
+					'property'       => function( $value ) {
+						return "text-align: {$value};";
+					},
+					'value'          => $this->attrs['alignment'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['profilePadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default,
+						.{$this->element_id} .profile-box .profile-card.card-overlay,
+						.{$this->element_id} .profile-box .profile-card.card-hover",
+					'property'       => function( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['profilePadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['detailsPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default .profile-body,
+						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-body,
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-body",
+					'property'       => function( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['detailsPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['profileBorderRadius'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default,
+						.{$this->element_id} .profile-box .profile-card.card-overlay,
+						.{$this->element_id} .profile-box .profile-card.card-overlay.scale:hover:before,
+						.{$this->element_id} .profile-box .profile-card.card-hover",
+					'property'       => function( $value ) {
+						return $this->handle_border_radius( $value );
+					},
+					'value'          => $this->attrs['profileBorderRadius'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imgWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay img,
+						.{$this->element_id} .profile-box .profile-card.card-hover img,
+						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img",
+					'property'       => function( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['imgWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imgHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay img,
+						.{$this->element_id} .profile-box .profile-card.card-hover img,
+						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img",
+					'property'       => function( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['imgHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imgRotate'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay img,
+						.{$this->element_id} .profile-box .profile-card.card-hover img,
+						.{$this->element_id} .profile-box .profile-card.card-default .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-overlay .profile-header img,
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header img",
+					'property'       => function( $value ) {
+						return "transform: rotate({$value}deg);";
+					},
+					'value'          => $this->attrs['imgRotate'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imgSpacing'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card.card-default .profile-header,
+						.{$this->element_id} .profile-box .profile-card.card-hover .profile-header",
+					'property'       => function( $value ) {
+						return "margin-bottom: {$value}px;";
+					},
+					'value'          => $this->attrs['imgSpacing'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['nameColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['nameColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['nameColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .profile-title, #{$this->element_id}:hover .profile-title, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['nameColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['nameTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title",
+					'property'       => function( $value ) {},
+					'value'          => $this->attrs['nameTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['nameTextShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title",
+					'property'       => function( $value ) {
+						return $this->handle_text_shadow( $value );
+					},
+					'value'          => $this->attrs['nameTextShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['jobColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['jobColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['jobColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .profile-sub, #{$this->element_id}:hover .profile-sub, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['jobColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['jobTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub",
+					'property'       => function( $value ) {},
+					'value'          => $this->attrs['jobTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['jobTextShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub",
+					'property'       => function( $value ) {
+						return $this->handle_text_shadow( $value );
+					},
+					'value'          => $this->attrs['jobTextShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['descColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['descColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['descColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .profile-desc, #{$this->element_id}:hover .profile-desc, #{$this->element_id}:hover .profile-phone, #{$this->element_id}:hover .profile-email, .{$this->element_id}:hover .profile-box .profile-card.card-overlay .profile-body .profile-desc",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['descColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['descTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc",
+					'property'       => function( $value ) {},
+					'value'          => $this->attrs['descTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['descTextShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc",
+					'property'       => function( $value ) {
+						return $this->handle_text_shadow( $value );
+					},
+					'value'          => $this->attrs['descTextShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['profileBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card", $this->attrs['profileBackground'] );
+		}
+
+		if ( isset( $this->attrs['profileBackgroundHover'] ) ) {
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card:hover", $this->attrs['profileBackgroundHover'] );
+		}
+
+		if ( isset( $this->attrs['profileBorder'] ) ) {
+			$this->handle_border( 'profileBorder', ".{$this->element_id} .profile-box .profile-card" );
+		}
+
+		if ( isset( $this->attrs['profileBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['profileBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['profileBorderHover'] ) ) {
+			$this->handle_border( 'profileBorderHover', ".{$this->element_id} .profile-box .profile-card:hover" );
+		}
+
+		if ( isset( $this->attrs['profileBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card:hover",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['profileBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imageBorder'] ) ) {
+			$this->handle_border( 'imageBorder', ".{$this->element_id} .profile-box .profile-card img" );
+		}
+
+		if ( isset( $this->attrs['imageBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card img",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['imageBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imageBorderHover'] ) ) {
+			$this->handle_border( 'imageBorderHover', ".{$this->element_id} .profile-box .profile-card img:hover" );
+		}
+
+		if ( isset( $this->attrs['imageBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-box .profile-card img:hover",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['imageBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['hoverBgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before",
+					'property'       => function( $value ) {
+						return $this->handle_color( $value, 'background' );
+					},
+					'value'          => $this->attrs['hoverBgColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['hoverPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover:hover .profile-body",
+					'property'       => function( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['hoverPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['nameSpace'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-title, #{$this->element_id} .profile-title, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-title",
+					'property'       => function( $value ) {
+						return "margin-bottom: {$value}px;";
+					},
+					'value'          => $this->attrs['nameSpace'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['jobSpace'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-sub, #{$this->element_id} .profile-sub, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-sub",
+					'property'       => function( $value ) {
+						return "margin-bottom: {$value}px;";
+					},
+					'value'          => $this->attrs['jobSpace'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['descSpace'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .profile-desc, #{$this->element_id} .profile-desc, #{$this->element_id} .profile-phone, #{$this->element_id} .profile-email, .{$this->element_id} .profile-box .profile-card.card-overlay .profile-body .profile-desc",
+					'property'       => function( $value ) {
+						return "margin-bottom: {$value}px;";
+					},
+					'value'          => $this->attrs['descSpace'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['hoverContentBgColor'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before", $this->attrs['hoverContentBgColor'] );
+		}
+
+		if ( isset( $this->attrs['hoverContentBorder'] ) ) {
+			$this->handle_border( 'hoverContentBorder', ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before" );
+		}
+
+		if ( isset( $this->attrs['hoverContentShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['hoverContentShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+	}
+}

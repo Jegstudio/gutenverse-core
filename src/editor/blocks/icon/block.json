@@ -1,0 +1,144 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/icon",
+  "title": "Icon",
+  "description": "Add a beautiful icon with more than 100 icon options",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string",
+      "default": "fab fa-wordpress"
+    },
+    "iconAlign": {
+      "type": "object"
+    },
+    "iconColorOne": {
+      "type": "object"
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "iconPadding": {
+      "type": "object"
+    },
+    "iconRotate": {
+      "type": "object"
+    },
+    "iconColorTwo": {
+      "type": "object"
+    },
+    "iconColorHoverOne": {
+      "type": "object"
+    },
+    "iconColorHoverTwo": {
+      "type": "object"
+    },
+    "iconView": {
+      "type": "string",
+      "default": "stacked"
+    },
+    "iconShape": {
+      "type": "string",
+      "default": "rounded"
+    },
+    "iconBorderWidth": {
+      "type": "object"
+    },
+    "iconBorderRadius": {
+      "type": "object"
+    },
+    "url": {
+      "type": "string"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "keywords": [
+    "icon"
+  ]
+}

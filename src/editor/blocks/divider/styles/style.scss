@@ -1,0 +1,67 @@
+.wp-block-gutenverse-divider {
+    display: flex;
+    justify-content: center;
+    --divider-border-style:none;
+    --divider-border-width:1px;
+    --divider-color: var(--guten-base-lighter-color);
+    --divider-icon-size:20px;
+    --divider-element-spacing:10px;
+    --divider-pattern-height:24px;
+    --divider-pattern-size:20px;
+    --divider-pattern-url:none;
+    --divider-pattern-repeat:repeat-x;
+
+    &.guten-divider-tribal {
+        --divider-pattern-size: auto;
+    }
+}
+
+.guten-divider-wrapper {
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+    width: 50%;
+
+    .guten-divider-style {
+        width: 100%;
+        min-height: var(--divider-pattern-height);
+        -webkit-mask-size: var(--divider-pattern-size) 100%;
+        mask-size: var(--divider-pattern-size) 100%;
+        -webkit-mask-repeat: var(--divider-pattern-repeat);
+        mask-repeat: var(--divider-pattern-repeat);
+        background-color: var(--divider-color);
+        -webkit-mask-image: var(--divider-pattern-url);
+        mask-image: var(--divider-pattern-url);
+    }
+}
+
+.guten-divider-default{
+    border-bottom: 2px solid var(--guten-base-color);
+    width: 100%;
+}
+
+.guten-divider-double{
+    border-bottom: 3px double var(--guten-base-color);
+    width: 100%;
+}
+
+.guten-divider-dotted{
+    border-bottom: 2px dotted var(--guten-base-color);
+    width: 100%;
+}
+
+.guten-divider-dashed{
+    border-bottom: 2px dashed var(--guten-base-color);
+    width: 100%;
+}
+
+.guten-divider-content {
+    padding: 0 10px 0 10px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 425px) {
+    .guten-divider-wrapper {
+        width: 100%;
+    }
+}

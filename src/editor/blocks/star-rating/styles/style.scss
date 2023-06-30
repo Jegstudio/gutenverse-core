@@ -1,0 +1,26 @@
+.guten-star-rating {
+    .rating-title {
+        margin-right: 4px;
+    }
+
+    .rating-wrapper {
+        display: flex;
+        align-items: center;
+
+        i {
+            padding: 1px;
+
+            &.full {
+                color: #f0ad4e;
+            }
+        
+            &.empty {
+                color: #999;
+            }
+
+            &.fas.fa-thumbs-down {
+                transform: translateY(25%);
+            }
+        }
+    }
+}

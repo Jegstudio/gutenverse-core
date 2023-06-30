@@ -1,0 +1,462 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/gallery",
+    "title": "Gallery",
+    "description": "Showcase your images in grid or masonry layout, with a popup and zoom option.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "showed": {
+            "type": "int",
+            "default": 6
+        },
+        "zoomOptions": {
+            "type": "string",
+            "default": "item"
+        },
+        "zoomIcon": {
+            "type": "string",
+            "default": "fas fa-search-plus"
+        },
+        "linkIcon": {
+            "type": "string",
+            "default": "fas fa-link"
+        },
+        "filter": {
+            "type": "boolean",
+            "default": false
+        },
+        "filterType": {
+            "type": "string",
+            "default": "search"
+        },
+        "filterAll": {
+            "type": "string",
+            "default": "All"
+        },
+        "filterList": {
+            "type": "array",
+            "default": []
+        },
+        "column": {
+            "type": "object"
+        },
+        "grid": {
+            "type": "string",
+            "default": "grid"
+        },
+        "height": {
+            "type": "object"
+        },
+        "layout": {
+            "type": "string",
+            "default": "overlay"
+        },
+        "hover": {
+            "type": "string",
+            "default": "fade-in"
+        },
+        "animationDuration": {
+            "type": "int",
+            "default": 500
+        },
+        "images": {
+            "type": "array",
+            "default": [
+                {
+                    "id": "Two"
+                },
+                {
+                    "id": "Three"
+                },
+                {
+                    "id": "Four"
+                },
+                {
+                    "id": "Five"
+                }
+            ]
+        },
+        "iconBg": {
+            "type": "object"
+        },
+        "iconColor": {
+            "type": "object"
+        },
+        "iconSize": {
+            "type": "object"
+        },
+        "iconPadding": {
+            "type": "object"
+        },
+        "iconBorder": {
+            "type": "object"
+        },
+        "itemPadding": {
+            "type": "object"
+        },
+        "itemMargin": {
+            "type": "object"
+        },
+        "itemBorder": {
+            "type": "object"
+        },
+        "itemBoxShadow": {
+            "type": "object"
+        },
+        "itemBackground": {
+            "type": "object"
+        },
+        "itemHoverBackground": {
+            "type": "object"
+        },
+        "itemHoverOpacity": {
+            "type": "object"
+        },
+        "itemHoverPadding": {
+            "type": "object"
+        },
+        "itemHoverBorder": {
+            "type": "object"
+        },
+        "itemHoverAlign": {
+            "type": "object"
+        },
+        "itemHoverTitleColor": {
+            "type": "object"
+        },
+        "itemHoverTitleColorHover": {
+            "type": "object"
+        },
+        "itemHoverTitleTypography": {
+            "type": "object"
+        },
+        "itemHoverContentColor": {
+            "type": "object"
+        },
+        "itemHoverContentColorHover": {
+            "type": "object"
+        },
+        "itemHoverContentTypography": {
+            "type": "object"
+        },
+        "itemCardBackground": {
+            "type": "object"
+        },
+        "itemCardPadding": {
+            "type": "object"
+        },
+        "itemCardBorder": {
+            "type": "object"
+        },
+        "itemCardAlign": {
+            "type": "object"
+        },
+        "itemCardTitleColor": {
+            "type": "object"
+        },
+        "itemCardTitleColorHover": {
+            "type": "object"
+        },
+        "itemCardTitleTypography": {
+            "type": "object"
+        },
+        "itemCardContentColor": {
+            "type": "object"
+        },
+        "itemCardContentColorHover": {
+            "type": "object"
+        },
+        "itemCardContentTypography": {
+            "type": "object"
+        },
+        "thumbnailBorder": {
+            "type": "object"
+        },
+        "priceRatingPadding": {
+            "type": "object"
+        },
+        "priceColor": {
+            "type": "object"
+        },
+        "priceTypography": {
+            "type": "object"
+        },
+        "ratingColor": {
+            "type": "object"
+        },
+        "ratingStarColor": {
+            "type": "object"
+        },
+        "ratingTypography": {
+            "type": "object"
+        },
+        "categoryColor": {
+            "type": "object"
+        },
+        "categoryTypography": {
+            "type": "object"
+        },
+        "categoryBackground": {
+            "type": "object"
+        },
+        "categoryPadding": {
+            "type": "object"
+        },
+        "categoryMargin": {
+            "type": "object"
+        },
+        "categoryBorderRadius": {
+            "type": "object"
+        },
+        "enableLoadMore": {
+            "type": "boolean",
+            "default": false
+        },
+        "itemsPerLoad": {
+            "type": "int"
+        },
+        "enableLoadText": {
+            "type": "string",
+            "default": "Load More"
+        },
+        "enableLoadNoMore": {
+            "type": "string",
+            "default": "No More Item"
+        },
+        "enableLoadIcon": {
+            "type": "string"
+        },
+        "enableLoadIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "enableLoadAlign": {
+            "type": "string"
+        },
+        "loadMoreMarginTop": {
+            "type": "object"
+        },
+        "loadMoreIconSize": {
+            "type": "object"
+        },
+        "loadMoreIconSpacing": {
+            "type": "object"
+        },
+        "loadMoreTypography": {
+            "type": "object"
+        },
+        "loadMorePadding": {
+            "type": "object"
+        },
+        "loadMoreBoxShadow": {
+            "type": "object"
+        },
+        "loadMoreTextColor": {
+            "type": "object"
+        },
+        "loadMoreTextColorHover": {
+            "type": "object"
+        },
+        "loadMoreBackground": {
+            "type": "object"
+        },
+        "loadMoreBackgroundHover": {
+            "type": "object"
+        },
+        "loadMoreBorder": {
+            "type": "object"
+        },
+        "loadMoreBorderHover": {
+            "type": "object"
+        },
+        "filterTabPadding": {
+            "tye": "object"
+        },
+        "filterTabMargin": {
+            "tye": "object"
+        },
+        "filterTabTypography": {
+            "tye": "object"
+        },
+        "filterTabTextColor": {
+            "tye": "object"
+        },
+        "filterTabTextColorActive": {
+            "tye": "object"
+        },
+        "filterTabBackground": {
+            "tye": "object"
+        },
+        "filterTabBackgroundActive": {
+            "tye": "object"
+        },
+        "filterTabBorder": {
+            "tye": "object"
+        },
+        "filterTabBorderActive": {
+            "tye": "object"
+        },
+        "filterTabBoxShadow": {
+            "tye": "object"
+        },
+        "filterTabBoxShadowActive": {
+            "tye": "object"
+        },
+        "filterSearchTypography": {
+            "type": "object"
+        },
+        "filterSearchIcon": {
+            "type": "string",
+            "default": "fas fa-angle-down"
+        },
+        "filterSearchIconPosition": {
+            "type": "string",
+            "default": "after"
+        },
+        "fitlerSearchIconSpacing": {
+            "type": "object"
+        },
+        "fitlerSearchIconSize": {
+            "type": "object"
+        },
+        "fitlerSearchControlWidth": {
+            "type": "object"
+        },
+        "filterSearchTextColor": {
+            "type": "object"
+        },
+        "filterSearchTextBackground": {
+            "type": "object"
+        },
+        "filterSearchBorder": {
+            "type": "object"
+        },
+        "filterSearchMargin": {
+            "type": "object"
+        },
+        "filterSearchBoxShadow": {
+            "type": "object"
+        },
+        "filterSearchSeparatorSize": {
+            "type": "object"
+        },
+        "filterSearchSeparatorColor": {
+            "type": "object"
+        },
+        "filterSearchFormBackground": {
+            "type": "object"
+        },
+        "filterSearchFormText": {
+            "type": "string",
+            "default": "Search Gallery Item..."
+        },
+        "filterSearchFormTextColor": {
+            "type": "object"
+        },
+        "fitlerSearchFormWidth": {
+            "type": "object"
+        },
+        "filterSearchFormBorder": {
+            "type": "object"
+        },
+        "filterSearchFormBoxShadow": {
+            "type": "object"
+        },
+        "filterSearchDropdownTextColor": {
+            "type": "object"
+        },
+        "filterSearchDropdownTextColorHover": {
+            "type": "object"
+        },
+        "filterSearchDropdownBackground": {
+            "type": "object"
+        },
+        "filterSearchDropdownBorder": {
+            "type": "object"
+        },
+        "filterSearchDropdownPadding": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        },
+        "advanceAnimation": {
+            "type": "object",
+            "default": {}
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "gallery",
+        "image",
+        "carousel"
+    ]
+}

@@ -1,0 +1,64 @@
+{
+    "apiVersion": 2,
+    "category": "gutenverse-element",
+    "parent": [
+        "gutenverse/social-share"
+    ],
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "iconPading": {
+            "type": "object"
+        },
+        "textPading": {
+            "type": "object"
+        },
+        "showText": {
+            "type": "boolean",
+            "default": true
+        },
+        "iconColor": {
+            "type": "object"
+        },
+        "iconBackgroundColor": {
+            "type": "object"
+        },
+        "backgroundColor": {
+            "type": "object"
+        },
+        "textColor": {
+            "type": "object"
+        },
+        "border": {
+            "type": "object"
+        },
+        "iconColorHover": {
+            "type": "object"
+        },
+        "iconBackgroundColorHover": {
+            "type": "object"
+        },
+        "backgroundColorHover": {
+            "type": "object"
+        },
+        "textColorHover": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "iconSize": {
+            "type": "object"
+        },
+        "typography": {
+            "type": "object"
+        }
+    }
+    ,
+    "keywords": [
+        "social",
+        "share",
+        "gutenverse"
+    ]
+}

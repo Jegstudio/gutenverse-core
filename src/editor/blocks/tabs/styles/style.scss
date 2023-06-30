@@ -1,0 +1,215 @@
+.guten-tabs {
+  overflow: hidden;
+
+  .tab-heading {
+    display: flex;
+    flex-direction: row;
+
+    .tab-heading-item {
+      padding: 20px 25px;
+      border: 2px solid transparent;
+      position: relative;
+      cursor: pointer;
+
+      &:after,
+      &:before {
+        top: 100%;
+        height: 0;
+        width: 999em;
+        border-bottom-style: solid;
+        border-width: 2px;
+        border-color: transparent;
+        display: block;
+        content: '';
+        position: absolute;
+      }
+
+      &:after {
+        left: 100%;
+      }
+
+      &:before {
+        right: 100%;
+      }
+
+      &.active {
+        border-color: #ddd;
+        cursor: inherit;
+
+        &::after,
+        &::before {
+          border-color: #ddd;
+        }
+      }
+    }
+  }
+
+  .tab-heading-mobile {
+    border: 2px solid #ddd;
+    text-align: center;
+    display: none;
+    padding: 20px;
+    position: relative;
+
+    .tab-title {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      span {
+        margin-right: 20px;
+      }
+
+      .tab-dropdown-icon {
+        &:after {
+          content: "\f078";
+        }
+      }
+    }
+
+    .tab-option {
+      display: none;
+      position: absolute;
+      width: 80%;
+      background: white;
+      border: 2px solid #ddd;
+      z-index: 999;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      border-top-color: transparent !important;
+
+      .tab-option-item {
+        cursor: pointer;
+        line-height: 2em;
+        padding: 10px 0;
+      }
+    }
+
+    &.open {
+      .tab-option {
+        display: block;
+      }
+
+      .tab-title {
+        .tab-dropdown-icon {
+          &:after {
+            content: "\f077";
+          }
+        }
+      }
+    }
+  }
+
+  .tab-body {
+    border: 2px solid #ddd;
+    border-top-style: none;
+    overflow: hidden;
+    padding: 20px;
+
+    .tab-body-item {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+    }
+  }
+
+  &.horizontal {
+    &-center {
+      .tab-heading {
+        justify-content: center;
+
+        .tab-heading-item {
+          &.active {
+            border-bottom-color: transparent !important;
+          }
+        }
+      }
+    }
+
+    &-right {
+      .tab-heading {
+        justify-content: flex-end;
+
+        .tab-heading-item {
+          &.active {
+            border-bottom-color: transparent !important;
+          }
+        }
+      }
+    }
+
+    .tab-heading {
+      .tab-heading-item {
+        &.active {
+          border-bottom-color: transparent !important;
+        }
+      }
+    }
+  }
+
+  &.vertical {
+    display: flex;
+
+    .tab-heading {
+      flex-direction: column;
+      width: 25%;
+
+      .tab-heading-item {
+        border-right-color: transparent !important;
+
+        &:after,
+        &:before {
+          right: -2px;
+          bottom: auto;
+          height: 999em;
+          width: 0;
+          border-right-style: solid;
+          border-bottom-style: none;
+        }
+
+        &:after {
+          top: 100%;
+        }
+
+        &:before {
+          bottom: 100%;
+          left: 100%;
+          top: auto;
+        }
+
+        &.active {
+          border-bottom-color: #ddd;
+        }
+      }
+    }
+
+    .tab-body {
+      flex-grow: 1;
+      border-top-style: solid;
+      border-left-style: none;
+      width: 75%;
+    }
+  }
+}
+
+@media (max-width: 781px) {
+  .guten-tabs {
+    overflow: visible;
+    display: block;
+
+    .tab-heading {
+      display: none;
+    }
+
+    .tab-heading-mobile {
+      display: block;
+    }
+  }
+}
+
+
+

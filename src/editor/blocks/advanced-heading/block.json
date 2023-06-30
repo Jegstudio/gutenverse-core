@@ -1,0 +1,186 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/advanced-heading",
+    "title": "Advanced Heading",
+    "description": "Create more Advanced Heading with multiple options.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "alignText": {
+            "type": "object"
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h2"
+        },
+        "subTag": {
+            "type": "string",
+            "default": "span"
+        },
+        "text": {
+            "type": "string",
+            "default": "Heading "
+        },
+        "focusText": {
+            "type": "string",
+            "default": "Focused"
+        },
+        "subText": {
+            "type": "string",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        },
+        "showSub": {
+            "type": "string",
+            "default": "bottom"
+        },
+        "showLine": {
+            "type": "string",
+            "default": "before"
+        },
+        "lineWidth": {
+            "type": "object"
+        },
+        "lineHeight": {
+            "type": "object"
+        },
+        "lineStyle": {
+            "type": "string",
+            "default": "default"
+        },
+        "lineMargin": {
+            "type": "object"
+        },
+        "mainColor": {
+            "type": "object"
+        },
+        "mainTypography": {
+            "type": "object"
+        },
+        "mainBackground": {
+            "type": "object"
+        },
+        "mainMargin": {
+            "type": "object"
+        },
+        "mainPadding": {
+            "type": "object"
+        },
+        "focusColor": {
+            "type": "object"
+        },
+        "focusTypography": {
+            "type": "object"
+        },
+        "focusBackground": {
+            "type": "object"
+        },
+        "focusMargin": {
+            "type": "object"
+        },
+        "focusPadding": {
+            "type": "object"
+        },
+        "subColor": {
+            "type": "object"
+        },
+        "subTypography": {
+            "type": "object"
+        },
+        "subBackground": {
+            "type": "object"
+        },
+        "subMargin": {
+            "type": "object"
+        },
+        "subPadding": {
+            "type": "object"
+        },
+        "lineColor": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object",
+            "default": {}
+        },
+        "boxShadow": {
+            "type": "object",
+            "default": {
+                "position": "outline"
+            }
+        },
+        "borderHover": {
+            "type": "object",
+            "default": {}
+        },
+        "boxShadowHover": {
+            "type": "object",
+            "default": {
+                "position": "outline"
+            }
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        },
+        "advanceAnimation": {
+            "type": "object",
+            "default": {}
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": []
+}

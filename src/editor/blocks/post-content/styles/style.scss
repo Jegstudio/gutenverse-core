@@ -1,0 +1,50 @@
+.guten-post-content {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    & > *:not(div.section-wrapper):not(.guten-element) {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .guten-post-password-form {
+        & > * {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .guten-pass-inputs {
+            input, 
+            input:active,
+            input:hover,
+            input:visited,
+            input:target,
+            input:focus,
+            input:focus-within,
+            input:focus-visible {
+                border-radius: 0px;
+                border-width: 1px;
+                border-color: #2D3137;
+                outline: none;
+            }
+
+            .guten-submit {
+                background-color: #2D3137;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                line-height: 1;
+                font-size: 15px;
+                padding: 12px 24px;
+                color: #ffffff;
+                text-align: center;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}

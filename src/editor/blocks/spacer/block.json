@@ -1,0 +1,66 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/spacer",
+  "title": "Spacer",
+  "description": "Create a spacer to give a gap between content",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "space": {
+      "type": "object",
+      "default": {}
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "reusable": false,
+    "html": false
+  },
+  "keywords": ["container", "column"]
+}

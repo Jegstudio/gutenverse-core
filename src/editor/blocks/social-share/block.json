@@ -1,0 +1,171 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/social-share",
+    "title": "Social Share",
+    "description": "Allow your visitor to share the current page",
+    "category": "gutenverse-element",
+    "example": {
+        "innerBlocks": [{
+            "name": "gutenverse/social-share-facebook"
+        },{
+            "name": "gutenverse/social-share-twitter"
+        }]
+    },
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "orientation": {
+            "type": "string",
+            "default": "horizontal"
+        },
+        "iconPading": {
+            "type": "object"
+        },
+        "textPading": {
+            "type": "object"
+        },
+        "iconColor": {
+            "type": "object"
+        },
+        "iconBackgroundColor": {
+            "type": "object"
+        },
+        "backgroundColor": {
+            "type": "object"
+        },
+        "textColor": {
+            "type": "object"
+        },
+        "borderType": {
+            "type": "object"
+        },
+        "iconColorHover": {
+            "type": "object"
+        },
+        "iconBackgroundColorHover": {
+            "type": "object"
+        },
+        "backgroundColorHover": {
+            "type": "object"
+        },
+        "textColorHover": {
+            "type": "object"
+        },
+        "borderTypeHover": {
+            "type": "object"
+        },
+        "iconSize": {
+            "type": "object"
+        },
+        "typography": {
+            "type": "object"
+        },
+        "alignment": {
+            "type": "object",
+            "default": {
+                "Desktop": "center"
+            }
+        },
+        "gap": {
+            "type": "object",
+            "default": {
+                "Desktop": "10"
+            }
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "variations": [
+        {
+            "name": "social-share-horizontal",
+            "isDefault": true,
+            "title": "Horizontal",
+            "description": "Social share shown in a row.",
+            "attributes": {
+                "orientation": "horizontal"
+            },
+            "scope": ["transform"]
+        },
+        {
+            "name": "social-share-vertical",
+            "title": "Vertical",
+            "description": "Social share shown in a column.",
+            "attributes": {
+                "orientation": "vertical"
+            },
+            "scope": ["transform"]
+        }
+    ],
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "social",
+        "share"
+    ]
+}

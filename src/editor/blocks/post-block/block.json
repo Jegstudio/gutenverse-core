@@ -1,0 +1,504 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/post-block",
+    "class_callback": "\\Gutenverse\\Block\\Post_Block",
+    "title": "Post Block",
+    "description":  "Showcase a block of posts of your choice.",
+    "category": "gutenverse-post",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "inheritQuery": {
+            "type": "boolean",
+            "default": true
+        },
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "numberPost": {
+            "type": "string",
+            "default": 3
+        },
+        "postOffset": {
+            "type": "string",
+            "default": 0
+        },
+        "column": {
+            "type": "object",
+            "default": {}
+        },
+        "includePost": {
+            "type": "array",
+            "default": []
+        },
+        "excludePost": {
+            "type": "array",
+            "default": []
+        },
+        "includeCategory": {
+            "type": "array",
+            "default": []
+        },
+        "excludeCategory": {
+            "type": "array",
+            "default": []
+        },
+        "includeAuthor": {
+            "type": "array",
+            "default": []
+        },
+        "includeTag": {
+            "type": "array",
+            "default": []
+        },
+        "excludeTag": {
+            "type": "array",
+            "default": []
+        },
+        "sortBy": {
+            "type": "string"
+        },
+        "htmlTag": {
+            "type": "string",
+            "default": "h3"
+        },
+        "categoryEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "categoryPosition": {
+            "type": "string",
+            "default": "center"
+        },
+        "excerptEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "excerptLength": {
+            "type": "string",
+            "default": 20
+        },
+        "excerptMore": {
+            "type": "string",
+            "default": "..."
+        },
+        "readmoreEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "readmoreIcon": {
+            "type": "string",
+            "default": "fas fa-arrow-right"
+        },
+        "readmoreIconPosition": {
+            "type": "string",
+            "default": "after"
+        },
+        "readmoreText": {
+            "type": "string",
+            "default": "Read More"
+        },
+        "commentEnabled": {
+            "type": "boolean",
+            "default": false
+        },
+        "commentIcon": {
+            "type": "string",
+            "default": "fas fa-comment"
+        },
+        "commentIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "metaEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "metaAuthorEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "metaAuthorByText": {
+            "type": "string",
+            "default": "by"
+        },
+        "metaAuthorIcon": {
+            "type": "string",
+            "default": "fas fa-user"
+        },
+        "metaAuthorIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "metaDateEnabled": {
+            "type": "boolean",
+            "default": true
+        },
+        "metaDateType": {
+            "type": "string",
+            "default": "published"
+        },
+        "metaDateFormat": {
+            "type": "string",
+            "default": "default"
+        },
+        "metaDateFormatCustom": {
+            "type": "string",
+            "default": ""
+        },
+        "metaDateIcon": {
+            "type": "string",
+            "default": "fas fa-clock"
+        },
+        "metaDateIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "postblockType": {
+            "type": "string",
+            "default": "type-1"
+        },
+        "breakpoint": {
+            "type": "string",
+            "default": "tablet"
+        },
+        "noContentText": {
+            "type": "string",
+            "default": "No Content"
+        },
+        "paginationMode": {
+            "type": "string",
+            "default": "disable"
+        },
+        "paginationLoadmoreText": {
+            "type": "string",
+            "default": "Load More"
+        },
+        "paginationLoadingText": {
+            "type": "string",
+            "default": "Loading..."
+        },
+        "paginationNumberPost": {
+            "type": "string",
+            "default": 3
+        },
+        "paginationScrollLimit": {
+            "type": "string",
+            "default": 0
+        },
+        "paginationIcon": {
+            "type": "string",
+            "default": ""
+        },
+        "paginationIconPosition": {
+            "type": "string",
+            "default": "before"
+        },
+        "postItemGap": {
+            "type": "object"
+        },
+        "postItemBackground": {
+            "type": "object"
+        },
+        "postItemMargin": {
+            "type": "object"
+        },
+        "postItemPadding": {
+            "type": "object"
+        },
+        "postItemBorder": {
+            "type": "object"
+        },
+        "postItemBoxShadow": {
+            "type": "object"
+        },
+        "thumbnailWidth": {
+            "type": "object"
+        },
+        "thumbnailBackground": {
+            "type": "object"
+        },
+        "thumbnailOverlayOpacity": {
+            "type": "object"
+        },
+        "thumbnailMargin": {
+            "type": "object"
+        },
+        "thumbnailPadding": {
+            "type": "object"
+        },
+        "thumbnailBorder": {
+            "type": "object"
+        },
+        "thumbnailBoxShadow": {
+            "type": "object"
+        },
+        "thumbnailHeight": {
+            "type": "object"
+        },
+        "thumbnailContainerBackground": {
+            "type": "object"
+        },
+        "thumbnailRadius": {
+            "type": "object"
+        },
+        "thumbnailContainerShadow": {
+            "type": "object"
+        },
+        "contentAlign": {
+            "type": "object"
+        },
+        "contentContainerBackground": {
+            "type": "object"
+        },
+        "contentMargin": {
+            "type": "object"
+        },
+        "contentPadding": {
+            "type": "object"
+        },
+        "contentBorder": {
+            "type": "object"
+        },
+        "contentContainerShadow": {
+            "type": "object"
+        },
+        "categoryColor": {
+            "type": "object"
+        },
+        "categoryTypography": {
+            "type": "object"
+        },
+        "categoryBackground": {
+            "type": "object"
+        },
+        "categoryMargin": {
+            "type": "object"
+        },
+        "categoryPadding": {
+            "type": "object"
+        },
+        "categoryBorder": {
+            "type": "object"
+        },
+        "categoryShadow": {
+            "type": "object"
+        },
+        "titleMargin": {
+            "type": "object"
+        },
+        "titleColor": {
+            "type": "object"
+        },
+        "titleTypography": {
+            "type": "object"
+        },
+        "titleColorHover": {
+            "type": "object"
+        },
+        "titleTypographyHover": {
+            "type": "object"
+        },
+        "excerptMargin": {
+            "type": "object"
+        },
+        "excerptColor": {
+            "type": "object"
+        },
+        "excerptTypography": {
+            "type": "object"
+        },
+        "readmoreTypography": {
+            "type": "object"
+        },
+        "readmoreMargin": {
+            "type": "object"
+        },
+        "readmorePadding": {
+            "type": "object"
+        },
+        "readmoreSpacing": {
+            "type": "object"
+        },
+        "readmoreIconSize": {
+            "type": "object"
+        },
+        "readmoreColor": {
+            "type": "object"
+        },
+        "readmoreHoverColor": {
+            "type": "object"
+        },
+        "readmoreBackground": {
+            "type": "object"
+        },
+        "readmoreHoverBackground": {
+            "type": "object"
+        },
+        "readmoreBorder": {
+            "type": "object"
+        },
+        "readmoreHoverBorder": {
+            "type": "object"
+        },
+        "readmoreShadow": {
+            "type": "object"
+        },
+        "readmoreHoverShadow": {
+            "type": "object"
+        },
+        "commentColor": {
+            "type": "object"
+        },
+        "commentSize": {
+            "type": "object"
+        },
+        "commentSpacing": {
+            "type": "object"
+        },
+        "commentMargin": {
+            "type": "object"
+        },
+        "commentPadding": {
+            "type": "object"
+        },
+        "metaTypography": {
+            "type": "object"
+        },
+        "metaColor": {
+            "type": "object"
+        },
+        "metaAuthorTypography": {
+            "type": "object"
+        },
+        "metaAuthorColor": {
+            "type": "object"
+        },
+        "metaMargin": {
+            "type": "object"
+        },
+        "metaAuthorIconSpacing": {
+            "type": "object"
+        },
+        "metaDateIconSpacing": {
+            "type": "object"
+        },
+        "paginationTypography": {
+            "type": "object"
+        },
+        "paginationMargin": {
+            "type": "object"
+        },
+        "paginationPadding": {
+            "type": "object"
+        },
+        "paginationWidth": {
+            "type": "object"
+        },
+        "paginationIconSpacing": {
+            "type": "object"
+        },
+        "paginationAlign": {
+            "type": "object"
+        },
+        "paginationColor": {
+            "type": "object"
+        },
+        "paginationHoverColor": {
+            "type": "object"
+        },
+        "paginationBackground": {
+            "type": "object"
+        },
+        "paginationHoverBackground": {
+            "type": "object"
+        },
+        "paginationBorder": {
+            "type": "object"
+        },
+        "paginationHoverBorder": {
+            "type": "object"
+        },
+        "paginationShadow": {
+            "type": "object"
+        },
+        "paginationHoverShadow": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "post",
+        "block"
+    ]
+}

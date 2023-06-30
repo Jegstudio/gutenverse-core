@@ -1,0 +1,39 @@
+.guten-accordions {
+  .accordion-item {
+    border: 1px solid var(--guten-border-color);
+    margin: 0;
+
+    .accordion-heading {
+      margin: 0;
+      padding: 15px 20px;
+      font-weight: bold;
+      line-height: 1;
+      cursor: pointer;
+      outline: none;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--guten-border-color);
+
+      .accordion-text {
+        flex-grow: 1;
+      }
+
+      > p {
+        margin: 0;
+      }
+    }
+
+    .accordion-body {
+      height: 0;
+      overflow: hidden;
+    }
+
+    .accordion-content {
+      padding: 15px 20px;
+    }
+
+    + .accordion-item {
+      border-top: none;
+    }
+  }
+}

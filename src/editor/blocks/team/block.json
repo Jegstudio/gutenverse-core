@@ -1,0 +1,268 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/team",
+  "title": "Team",
+  "description": "Show your team details.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "profileType": {
+      "type": "string",
+      "default": "default"
+    },
+    "overlayType": {
+      "type": "string"
+    },
+    "overlayPosition": {
+      "type": "string"
+    },
+    "src": {
+      "type": "object"
+    },
+    "nameTag": {
+      "type": "string",
+      "default": "h3"
+    },
+    "name": {
+      "type": "string",
+      "default": "John Doe"
+    },
+    "job": {
+      "type": "string",
+      "default": "Designer"
+    },
+    "showDesc": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget dignissim quam. Nam posuere velit vitae ultricies commodo."
+    },
+    "phone": {
+      "type": "string",
+      "default": "+12 345 678 90"
+    },
+    "email": {
+      "type": "string",
+      "default": "placeholder@email.com"
+    },
+    "addPopup": {
+      "type": "boolean",
+      "default": false
+    },
+    "showSocial": {
+      "type": "boolean",
+      "default": true
+    },
+    "nameColor": {
+      "type": "object"
+    },
+    "nameColorHover": {
+      "type": "object"
+    },
+    "nameTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "nameTextShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "jobColor": {
+      "type": "object"
+    },
+    "jobColorHover": {
+      "type": "object"
+    },
+    "jobTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "jobTextShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "descColor": {
+      "type": "object"
+    },
+    "descColorHover": {
+      "type": "object"
+    },
+    "descTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "descTextShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "alignment": {
+      "type": "object"
+    },
+    "profilePadding": {
+      "type": "object"
+    },
+    "detailsPadding": {
+      "type": "object"
+    },
+    "profileBorderRadius": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "profileBackground": {
+      "type": "object",
+      "default": {}
+    },
+    "profileBackgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "profileBorder": {
+      "type": "object"
+    },
+    "profileBoxShadow": {
+      "type": "object"
+    },
+    "profileBorderHover": {
+      "type": "object"
+    },
+    "profileBoxShadowHover": {
+      "type": "object"
+    },
+    "imageBorder": {
+      "type": "object"
+    },
+    "imageBoxShadow": {
+      "type": "object"
+    },
+    "imageBorderHover": {
+      "type": "object"
+    },
+    "imageBoxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "imgWidth": {
+      "type": "object"
+    },
+    "imgHeight": {
+      "type": "object"
+    },
+    "imgRotate": {
+      "type": "object"
+    },
+    "imgSpacing": {
+      "type": "object"
+    },
+    "hoverPadding": {
+      "type": "object"
+    },
+    "hoverBottom": {
+      "type": "boolean",
+      "default": false
+    },
+    "hoverBottomColor": {
+      "type": "object"
+    },
+    "hoverBottomDirection": {
+      "type": "string",
+      "default": "left"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "hoverBgColor": {
+      "type": "object"
+    },
+    "nameSpace": {
+      "type": "object"
+    },
+    "jobSpace": {
+      "type": "object"
+    },
+    "descSpace": {
+      "type": "object"
+    },
+    "hoverContentBgColor": {
+      "type": "object"
+    },
+    "hoverContentBorder": {
+      "type": "object"
+    },
+    "hoverContentShadow": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {},
+  "keywords": ["team", "member"]
+}

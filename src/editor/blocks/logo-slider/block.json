@@ -1,0 +1,256 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/logo-slider",
+  "title": "Logo Slider",
+  "description": "Showcase your clients, sponsors, or a list of images on your website.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "logos": {
+      "type": "array",
+      "default": [
+        {
+          "title": "One"
+        },
+        {
+          "title": "Two"
+        },
+        {
+          "title": "Three"
+        },
+        {
+          "title": "Four"
+        }
+      ]
+    },
+    "imageFixHeight": {
+      "type": "boolean",
+      "default": false
+    },
+    "imageHeight": {
+      "type": "object"
+    },
+    "imageFit": {
+      "type": "object"
+    },
+    "imagePadding": {
+      "type": "object"
+    },
+    "imageMargin": {
+      "type": "object"
+    },
+    "imageHoverPadding": {
+      "type": "object"
+    },
+    "imageHoverMargin": {
+      "type": "object"
+    },
+    "imageBorder": {
+      "type": "object"
+    },
+    "imageBoxShadow": {
+      "type": "object"
+    },
+    "imageBorderHover": {
+      "type": "object"
+    },
+    "imageBoxShadowHover": {
+      "type": "object"
+    },
+    "spacing": {
+      "type": "object",
+      "default": {}
+    },
+    "itemShowed": {
+      "type": "object",
+      "default": {}
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "autoplayTimeout": {
+      "type": "int",
+      "default": 2400
+    },
+    "loop": {
+      "type": "boolean",
+      "default": false
+    },
+    "showNav": {
+      "type": "boolean",
+      "default": false
+    },
+    "showArrow": {
+      "type": "boolean",
+      "default": false
+    },
+    "leftArrow": {
+      "type": "string",
+      "default": "fa fa-angle-left"
+    },
+    "rightArrow": {
+      "type": "string",
+      "default": "fa fa-angle-right"
+    },
+    "arrowPosition": {
+      "type": "string",
+      "default": "bottom-edge"
+    },
+    "dotsSpacingHorizontal": {
+      "type": "object"
+    },
+    "dotsSpacingVertical": {
+      "type": "object"
+    },
+    "dotsWidth": {
+      "type": "object"
+    },
+    "dotsHeight": {
+      "type": "object"
+    },
+    "dotsRadius": {
+      "type": "object"
+    },
+    "dotsColor": {
+      "type": "object"
+    },
+    "dotsActiveWidth": {
+      "type": "object"
+    },
+    "dotsActiveHeight": {
+      "type": "object"
+    },
+    "dotsActiveRadius": {
+      "type": "object"
+    },
+    "dotsActiveColor": {
+      "type": "object"
+    },
+    "arrowFontSize": {
+      "type": "object"
+    },
+    "arrowColor": {
+      "type": "object"
+    },
+    "arrowBgColor": {
+      "type": "object"
+    },
+    "arrowPadding": {
+      "type": "object"
+    },
+    "arrowMargin": {
+      "type": "object"
+    },
+    "arrowOpacity": {
+      "type": "object"
+    },
+    "arrowHoverColor": {
+      "type": "object"
+    },
+    "arrowHoverBgColor": {
+      "type": "object"
+    },
+    "arrowHoverPadding": {
+      "type": "object"
+    },
+    "arrowHoverMargin": {
+      "type": "object"
+    },
+    "arrowHoverOpacity": {
+      "type": "object"
+    },
+    "arrowBorder": {
+      "type": "object"
+    },
+    "arrowBoxShadow": {
+      "type": "object"
+    },
+    "arrowBorderHover": {
+      "type": "object"
+    },
+    "arrowBoxShadowHover": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "opacity": {
+      "type": "float"
+    },
+    "hoverOpacity": {
+      "type": "float"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": ["logo", "slider"]
+}

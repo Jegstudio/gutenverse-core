@@ -1,0 +1,177 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/social-icons",
+  "title": "Social Icons",
+  "description": "Show social networks link to your website visitors",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "typography": {
+      "type": "object"
+    },
+    "iconSize": {
+      "type": "object"
+    },
+    "gap": {
+      "type": "object",
+      "default": {
+        "Desktop": "10"
+      }
+    },
+    "alignment": {
+      "type": "object",
+      "default": {
+        "Desktop": "center"
+      }
+    },
+    "orientation": {
+      "type": "string",
+      "default": "horizontal"
+    },
+    "shape": {
+      "type": "string",
+      "default": "rounded"
+    },
+    "showText": {
+      "type": "boolean",
+      "default": false
+    },
+    "color": {
+      "type": "string",
+      "default": "fill"
+    },
+    "iconColor": {
+      "type": "object"
+    },
+    "bgColor": {
+      "type": "object"
+    },
+    "textColor": {
+      "type": "object"
+    },
+    "iconBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "iconBoxShadow": {
+      "type": "object"
+    },
+    "iconBorderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "iconBoxShadowHover": {
+      "type": "object"
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "itemPadding": {
+      "type": "object"
+    },
+    "hoverIconColor": {
+      "type": "object"
+    },
+    "hoverBgColor": {
+      "type": "object"
+    },
+    "hoverTextColor": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "variations": [{
+      "name": "social-icons-horizontal",
+      "title": "Horizontal",
+      "description": "Social icons shown in a row.",
+      "attributes": {
+        "orientation": "horizontal"
+      },
+      "scope": ["transform"]
+    },
+    {
+      "name": "social-icons-vertical",
+      "isDefault": true,
+      "title": "Vertical",
+      "description": "Social icons shown in a column.",
+      "attributes": {
+        "orientation": "vertical"
+      },
+      "scope": ["transform"]
+    }
+  ],
+  "supports": {
+    "className": false
+  },
+  "keywords": ["social", "icon"]
+}

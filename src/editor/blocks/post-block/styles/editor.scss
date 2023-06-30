@@ -1,0 +1,62 @@
+@mixin postBlock1() {
+    .guten-post {
+        display: block;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+
+    .guten-thumb {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+        max-width: 100%;
+    }
+}
+
+@mixin postBlock4() {
+    .guten-post {
+        display: block;
+    }
+
+    .guten-thumb {
+        -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+        order: 0;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+        max-width: 100%;
+    }
+}
+
+.guten-postblock {
+    &.tablet,
+    &.mobile {
+        &.postblock-type-1 {
+            &.break-point-tablet {
+                @include postBlock1();
+            }
+        }
+
+        &.postblock-type-4 {
+            &.break-point-tablet {
+                @include postBlock4();
+            }
+        }
+    }
+
+    &.mobile {
+        &.postblock-type-1 {
+            &.break-point-mobile {
+                @include postBlock1();
+            }
+        }
+
+        &.postblock-type-4 {
+            &.break-point-mobile {
+                @include postBlock4();
+            }
+        }
+    }
+}

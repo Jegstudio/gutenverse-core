@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "bmewburn.vscode-intelephense-client",
+        "persoderlind.vscode-phpcbf",
+        "shevaua.phpcs",
+        "eamodio.gitlens",
+    ]
+}

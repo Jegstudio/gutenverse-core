@@ -1,0 +1,37 @@
+.guten-icon-wrapper {
+    display: inline-block;
+    line-height: 1;
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    text-align: center;
+    padding: 25px;
+
+    i {
+        font-size: 50px;
+        width: 1em;
+        height: 1em;
+        color: var(--guten-bg-color);
+    }
+
+    &.rounded {
+        border-radius: 10%;
+    }
+
+    &.circle {
+        border-radius: 100%;
+    }
+
+    &.stacked {
+        background-color: var(--guten-wp-color);
+    }
+
+    &.framed {
+        border: 2px solid var(--guten-wp-color);
+        background-color: var(--guten-bg-color);
+
+        i {
+            color: var(--guten-wp-color);
+        }
+    }
+}

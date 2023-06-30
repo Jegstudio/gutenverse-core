@@ -1,0 +1,239 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/image-box",
+  "title": "Image Box",
+  "description": "Add an information section with image box.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "separateButtonLink": {
+      "type": "boolean"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "title": {
+      "type": "string",
+      "default": "Image Box Heading"
+    },
+    "description": {
+      "type": "string",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.​"
+    },
+    "image": {
+      "type": "object"
+    },
+    "imageAlt": {
+      "type": "string"
+    },
+    "contentStyle": {
+      "type": "string",
+      "default": "default"
+    },
+    "equalHeight": {
+      "type": "string"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "h3"
+    },
+    "titleIcon": {
+      "type": "string"
+    },
+    "titleIconPosition": {
+      "type": "string",
+      "default": "before"
+    },
+    "bodyAlignment": {
+      "type": "object"
+    },
+    "hoverBottom": {
+      "type": "boolean",
+      "default": false
+    },
+    "hoverBottomColor": {
+      "type": "object"
+    },
+    "hoverBottomDirection": {
+      "type": "string",
+      "default": "left"
+    },
+    "imagePadding": {
+      "type": "object"
+    },
+    "imageBorderRadius": {
+      "type": "object"
+    },
+    "imageBoxShadow": {
+      "type": "object"
+    },
+    "imageHeight": {
+      "type": "object"
+    },
+    "imageFit": {
+      "type": "string"
+    },
+    "imageOpacity": {
+      "type": "object"
+    },
+    "imageHoverOpacity": {
+      "type": "object"
+    },
+    "imageHoverScale": {
+      "type": "object"
+    },
+    "bodyBackground": {
+      "type": "object"
+    },
+    "containerBorder": {
+      "type": "object"
+    },
+    "containerPadding": {
+      "type": "object"
+    },
+    "containerBoxShadow": {
+      "type": "object"
+    },
+    "titleMargin": {
+      "type": "object"
+    },
+    "titleTypography": {
+      "type": "object"
+    },
+    "titleIconSize": {
+      "type": "object"
+    },
+    "titleIconSpacing": {
+      "type": "object"
+    },
+    "titleNormalColor": {
+      "type": "object"
+    },
+    "titleNormalIconColor": {
+      "type": "object"
+    },
+    "titleHoverColor": {
+      "type": "object"
+    },
+    "titleHoverIconColor": {
+      "type": "object"
+    },
+    "descriptionMargin": {
+      "type": "object"
+    },
+    "descriptionTypography": {
+      "type": "object"
+    },
+    "descriptionNormalColor": {
+      "type": "object"
+    },
+    "descriptionHoverColor": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "floatMarginTop": {
+      "type": "object"
+    },
+    "floatWidth": {
+      "type": "object"
+    },
+    "floatHeight": {
+      "type": "object"
+    },
+    "floatHeightHover": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": [
+    "image",
+    "box"
+  ]
+}

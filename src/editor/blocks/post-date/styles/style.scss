@@ -1,0 +1,13 @@
+.guten-post-date {
+    display: flex;
+
+    h1, h2, h3, h4, h5, h6, p, span {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    &.block-editor-block-list__block {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}

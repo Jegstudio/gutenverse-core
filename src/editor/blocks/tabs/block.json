@@ -1,0 +1,129 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/tabs",
+    "title": "Tabs",
+    "description": "Create content inside a tab block.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "borderWidth": {
+            "type": "string",
+            "default": "2"
+        },
+        "borderColor": {
+            "type": "object"
+        },
+        "backgroundColor": {
+            "type": "object"
+        },
+        "titleColor": {
+            "type": "object"
+        },
+        "titleActiveColor": {
+            "type": "object"
+        },
+        "titleTypography": {
+            "type": "object"
+        },
+        "contentColor": {
+            "type": "object"
+        },
+        "contentTypography": {
+            "type": "object"
+        },
+        "headingTag": {
+            "type": "string",
+            "default": "span"
+        },
+        "orientation": {
+            "type": "string",
+            "default": "horizontal"
+        },
+        "tabs": {
+            "type": "array",
+            "source": "query",
+            "selector": ".tab-heading-item",
+            "query": {
+                "tabId": {
+                    "type": "string",
+                    "source": "attribute",
+                    "attribute": "data-id"
+                },
+                "text": {
+                    "type": "string",
+                    "source": "html",
+                    "selector": "span"
+                }
+            }
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "supports": {
+        "className": false,
+        "html": false
+    },
+    "keywords": [
+        "tabs",
+        "accordion",
+        "gutenverse"
+    ]
+}

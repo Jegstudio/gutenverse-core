@@ -1,0 +1,137 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/text-editor",
+  "title": "Text Editor",
+  "description": "A place to create a text content.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "dropcap": {
+      "type": "boolean",
+      "default": false
+    },
+    "dropcapTypography": {
+      "type": "boolean"
+    },
+    "dropcapColor": {
+      "type": "object"
+    },
+    "dropcapBgColor": {
+      "type": "object"
+    },
+    "dropcapMargin": {
+      "type": "object"
+    },
+    "dropcapPadding": {
+      "type": "object"
+    },
+    "dropcapBorderType": {
+      "type": "string"
+    },
+    "dropcapBorderColor": {
+      "type": "object"
+    },
+    "dropcapBorderWidth": {
+      "type": "object"
+    },
+    "dropcapBorderRadius": {
+      "type": "object"
+    },
+    "columns": {
+      "type": "object",
+      "default": {
+        "Desktop": "1"
+      }
+    },
+    "gap": {
+      "type": "object"
+    },
+    "alignment": {
+      "type": "object"
+    },
+    "textColor": {
+      "type": "object"
+    },
+    "typography": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": ["text", "editor", "textarea"]
+}

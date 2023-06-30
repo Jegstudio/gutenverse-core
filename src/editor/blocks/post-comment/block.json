@@ -1,0 +1,153 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/post-comment",
+    "class_callback": "\\Gutenverse\\Block\\Post_Comment",
+    "title": "Post Comment",
+    "description": "Show comment section of a single post.",
+    "category": "gutenverse-post",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "postId": {
+            "type": "string",
+            "default": 0
+        },
+        "backendPostId": {
+            "type": "string"
+        },
+        "showForm": {
+            "type": "boolean",
+            "default": true
+        },
+        "noContentText": {
+            "type": "string",
+            "default": "No Content"
+        },
+        "typographyHeading": {
+            "type": "object"
+        },
+        "typographyText": {
+            "type": "object"
+        },
+        "typographyLink": {
+            "type": "object"
+        },
+        "typographyLabel": {
+            "type": "object"
+        },
+        "colorHeading": {
+            "type": "object"
+        },
+        "colorText": {
+            "type": "object"
+        },
+        "colorLink": {
+            "type": "object"
+        },
+        "colorLabel": {
+            "type": "object"
+        },
+        "marginHeading": {
+            "type": "object"
+        },
+        "marginText": {
+            "type": "object"
+        },
+        "marginLink": {
+            "type": "object"
+        },
+        "marginLabel": {
+            "type": "object"
+        },
+        "inputBorder": {
+            "type": "object"
+        },
+        "typographyButton": {
+            "type": "object"
+        },
+        "marginButton": {
+            "type": "object"
+        },
+        "paddingButton": {
+            "type": "object"
+        },
+        "colorButton": {
+            "type": "object"
+        },
+        "bgcolorButton": { 
+            "type": "object"
+        },
+        "bggradientButton": {
+            "type": "object"
+        },
+        "borderButton": {
+            "type": "object"
+        },
+        "colorButtonHover": {
+            "type": "object"
+        },
+        "bgcolorButtonHover": {
+            "type": "object"
+        },
+        "bggradientButtonHover": {
+            "type": "object"
+        },
+        "borderButtonHover": {
+            "type": "object"
+        },
+        "marginButtonHover": {
+            "type": "object"
+        },
+        "paddingButtonHover": {
+            "type": "object"
+        },
+        "background": {
+            "type": "object"
+        },
+        "backgroundHover": {
+            "type": "object"
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object"
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        }
+    },
+    "usesContext": [ "postId", "postType" ],
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "post",
+        "comment"
+    ]
+}

@@ -1,0 +1,76 @@
+.tab-heading {
+  .tab-heading-item {
+    display: flex;
+    cursor: pointer;  
+
+    > * {
+      cursor: text;
+    }
+
+    .heading-navigation {
+      display: flex;
+      position: absolute;
+      right: 10px;
+      opacity: 0;
+      transition: opacity 0.5s;
+
+      .tab-shift-vertical {
+        background: #000;
+        cursor: pointer;
+
+        svg {
+          display: flex;
+          border-radius: 3px;
+          color: #fff;
+        }
+
+        &.tab-shift-up {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    &:hover {
+      .heading-navigation {
+        opacity: 1;
+      }
+    }
+
+    .tab-shift {
+      cursor: pointer;
+      overflow: hidden;
+      width: 0;
+      transition: width 0.1s;
+    }
+
+    &:hover{
+      .tab-shift {
+        margin: 0 25px;
+        width: 24px;
+
+        &-left {
+          margin-left: 0; 
+        }
+  
+        &-right {
+          margin-right: 0; 
+        }
+      }
+    }
+  }
+}
+
+.Mobile {
+  &.guten-tabs {
+    overflow: visible;
+    display: block;
+
+    .tab-heading {
+      display: none;
+    }
+
+    .tab-heading-mobile {
+      display: block;
+    }
+  }
+}

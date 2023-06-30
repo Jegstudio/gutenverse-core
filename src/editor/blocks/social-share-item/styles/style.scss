@@ -1,0 +1,169 @@
+.gutenverse-share-item {
+  display: flex;
+  text-decoration: none;
+  overflow: hidden;
+
+  a {
+    display: flex;
+    text-decoration: none;
+    color: var(--guten-bg-color);
+
+    &:active,
+    &:visited,
+    &:hover {
+      color: var(--guten-bg-color);
+    }
+  }
+
+  .gutenverse-share-icon {
+    vertical-align: middle;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 11px;
+
+    i {
+      font-size: 15px;
+      width: 15px;
+    }
+  }
+
+  .gutenverse-share-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
+  }
+
+  /** social share **/
+  &.gutenverse-share-facebook {
+    .gutenverse-share-icon {
+      background: #3b5998;
+    }
+
+    .gutenverse-share-text {
+      background: #263e98;
+    }
+  }
+
+  &.gutenverse-share-twitter {
+    .gutenverse-share-icon {
+      background: #1090e0;
+    }
+
+    .gutenverse-share-text {
+      background: #156a9f;
+    }
+  }
+
+  &.gutenverse-share-pinterest {
+    .gutenverse-share-icon {
+      background: #bd081c;
+    }
+
+    .gutenverse-share-text {
+      background: #9e0213;
+    }
+  }
+
+  &.gutenverse-share-stumbleupon {
+    .gutenverse-share-icon {
+      background: #EB4924;
+    }
+
+    .gutenverse-share-text {
+      background: #bd3213;
+    }
+  }
+
+  &.gutenverse-share-linkedin {
+    .gutenverse-share-icon {
+      background: #0077b5;
+    }
+
+    .gutenverse-share-text {
+      background: #046090;
+    }
+  }
+
+  &.gutenverse-share-reddit {
+    .gutenverse-share-icon {
+      background: #ff4500;
+    }
+
+    .gutenverse-share-text {
+      background: #c13805;
+    }
+  }
+
+  &.gutenverse-share-tumblr {
+    .gutenverse-share-icon {
+      background: #35465c;
+    }
+
+    .gutenverse-share-text {
+      background: #253347;
+    }
+  }
+
+  &.gutenverse-share-vk {
+    .gutenverse-share-icon {
+      background: #45668e;
+    }
+
+    .gutenverse-share-text {
+      background: #283f5b;
+    }
+  }
+
+  &.gutenverse-share-whatsapp {
+    .gutenverse-share-icon {
+      background: #17a74d;
+    }
+
+    .gutenverse-share-text {
+      background: #198642;
+    }
+  }
+
+  &.gutenverse-share-telegram {
+    .gutenverse-share-icon {
+      background: #2CA5E0;
+    }
+
+    .gutenverse-share-text {
+      background: #207ca9;
+    }
+  }
+
+  &.gutenverse-share-wechat {
+    .gutenverse-share-icon {
+      background: #5cc928;
+    }
+
+    .gutenverse-share-text {
+      background: #2f8819;
+    }
+  }
+
+  &.gutenverse-share-line {
+    .gutenverse-share-icon {
+      background: #00B900;
+    }
+
+    .gutenverse-share-text {
+      background: #0e8c0e;
+    }
+  }
+
+  &.gutenverse-share-email {
+    .gutenverse-share-icon {
+      background: #a53310;
+    }
+
+    .gutenverse-share-text {
+      background: #7d280e;
+    }
+  }
+}

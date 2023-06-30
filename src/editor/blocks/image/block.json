@@ -1,0 +1,157 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/image",
+  "title": "Image",
+  "description": "Edit, crop, and showcase your image.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "imgSrc": {
+      "type": "object"
+    },
+    "captionColor": {
+      "type": "object"
+    },
+    "ratio": {
+      "type": "int",
+      "default": 0
+    },
+    "altType": {
+      "type": "string",
+      "default": "none"
+    },
+    "altOriginal": {
+      "type": "string"
+    },
+    "altCustom": {
+      "type": "string"
+    },
+    "captionType": {
+      "type": "string",
+      "default": "none"
+    },
+    "captionOriginal": {
+      "type": "string"
+    },
+    "captionCustom": {
+      "type": "string"
+    },
+    "typography": {
+      "type": "object"
+    },
+    "width": {
+      "type": "object"
+    },
+    "height": {
+      "type": "object"
+    },
+    "imgFilter": {
+      "type": "object"
+    },
+    "imgFit": {
+      "type": "object"
+    },
+    "url": {
+      "type": "string"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "imgBorder": {
+      "type": "object"
+    },
+    "imgShadow": {
+      "type": "object"
+    },
+    "align": {
+      "type": "object"
+    },
+    "opacity": {
+      "type": "float"
+    },
+    "imageFit": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "captionSpace": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "keywords": [
+    "image"
+  ]
+}

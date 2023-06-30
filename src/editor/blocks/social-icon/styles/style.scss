@@ -1,0 +1,23 @@
+.guten-social-icon {
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    gap: 12px;
+    transition: all 0.3s;
+
+    i {
+      font-size: 22px;
+      width: 1em;
+      height: 1em;
+      text-align: center;
+    }
+
+    span {
+      font-size: 16px;
+    }
+  }
+}

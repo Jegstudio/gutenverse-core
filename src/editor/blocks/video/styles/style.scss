@@ -1,0 +1,84 @@
+.guten-video {
+    text-align: center;
+    padding: 10px 0;
+    margin: 0 auto;
+
+    .guten-caption {
+        display: block;
+    }
+
+    video {
+        width: 100%;
+    }
+
+    .guten-video-background, .video {
+        margin: 0 auto;
+    }
+
+    .title {
+        margin: 0;
+    }
+
+    .video-url-wrapper {
+        width: 100%;
+
+        .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+
+        span, button {
+            display: block;
+            margin: 20px auto 0;
+        }
+    }
+
+    .upload-mode {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+
+        & > div {
+            background-color: var(--guten-wp-color);
+            padding: 4px 12px;
+            margin: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--guten-btn-txt-color);
+
+            i {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .video-icons {
+        display: flex;
+        justify-content: center;
+
+        .video-icon {
+            width: 48px;
+            height: 48px;
+            padding: 6px;
+            margin: 0 12px;
+            text-align: center;
+
+            &.youtube i {
+                color: #cc1111;
+            }
+
+            &.twitch i {
+                color: #6441a5;
+            }
+
+            i {
+                color: #2271b1;
+                font-size: 24px;
+                line-height: 12px;
+                transform: translateY(50%);
+            }
+        }
+    }
+}

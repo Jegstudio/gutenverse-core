@@ -1,0 +1,110 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/buttons",
+    "title": "Multi Buttons",
+    "description": "Add a collection of beautiful and interactive action buttons.",
+    "category": "gutenverse-element",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "orientation": {
+            "type": "string",
+            "default": "horizontal"
+        },
+        "alignButtons": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "hideDesktop": {
+            "type": "boolean"
+        },
+        "hideTablet": {
+            "type": "boolean"
+        },
+        "hideMobile": {
+            "type": "boolean"
+        },
+        "background": {
+            "type": "object",
+            "default": {}
+        },
+        "backgroundHover": {
+            "type": "object",
+            "default": {}
+        },
+        "border": {
+            "type": "object"
+        },
+        "boxShadow": {
+            "type": "object"
+        },
+        "borderHover": {
+            "type": "object"
+        },
+        "boxShadowHover": {
+            "type": "object"
+        },
+        "margin": {
+            "type": "object"
+        },
+        "padding": {
+            "type": "object"
+        },
+        "zIndex": {
+            "type": "object"
+        },
+        "positioningType": {
+            "type": "object"
+        },
+        "positioningWidth": {
+            "type": "object"
+        },
+        "positioningAlign": {
+            "type": "object"
+        },
+        "positioningLocation": {
+            "type": "string"
+        },
+        "positioningLeft": {
+            "type": "object"
+        },
+        "positioningRight": {
+            "type": "object"
+        },
+        "positioningTop": {
+            "type": "object"
+        },
+        "positioningBottom": {
+            "type": "object"
+        }
+    },
+    "variations": [
+        {
+            "name": "buttons-horizontal",
+            "title": "Horizontal",
+            "isDefault": true,
+            "descriptions": "Arrange buttons in horizontal position",
+            "attributes": { "orientation": "horizontal" },
+            "scope": ["transform"]
+        },
+        {
+            "name": "buttons-vertical",
+            "title": "Vertical",
+            "descriptions": "Arrange buttons in vertical position",
+            "attributes": { "orientation": "vertical" },
+            "scope": ["transform"]
+        }
+    ],
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "button",
+        "link",
+        "action"
+    ]
+}

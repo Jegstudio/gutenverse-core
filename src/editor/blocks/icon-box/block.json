@@ -1,0 +1,307 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/icon-box",
+  "title": "Icon Box",
+  "description": "Add an information section with icon box.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "separateButtonLink": {
+      "type": "boolean"
+    },
+    "linkTarget": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "target"
+    },
+    "rel": {
+      "type": "string",
+      "source": "attribute",
+      "selector": "a",
+      "attribute": "rel"
+    },
+    "title": {
+      "type": "string",
+      "default": "Icon Box"
+    },
+    "titleTag": {
+      "type": "string",
+      "default": "h2"
+    },
+    "description": {
+      "type": "string",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    "badgeShow": {
+      "type": "boolean",
+      "default": false
+    },
+    "badge": {
+      "type": "string",
+      "default": "BADGE"
+    },
+    "badgePosition": {
+      "type": "string",
+      "default": "bottomcenter"
+    },
+    "watermarkShow": {
+      "type": "boolean",
+      "default": false
+    },
+    "watermarkIcon": {
+      "type": "string",
+      "default": "far fa-map"
+    },
+    "iconType": {
+      "type": "string",
+      "default": "icon"
+    },
+    "icon": {
+      "type": "string",
+      "default": "far fa-user"
+    },
+    "iconSize": {
+      "type": "object",
+      "default": {
+        "Desktop": 40
+      }
+    },
+    "iconBoxOverlay": {
+      "type": "object"
+    },
+    "iconBoxHoverOverlay": {
+      "type": "object"
+    },
+    "iconBoxOverlayDirection": {
+      "type": "string"
+    },
+    "imageWidth": {
+      "type": "int",
+      "default": 150
+    },
+    "imageHeight": {
+      "type": "int",
+      "default": 150
+    },
+    "image": {
+      "type": "object"
+    },
+    "imageAlt": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "iconPosition": {
+      "type": "string"
+    },
+    "align": {
+      "type": "object"
+    },
+    "containerPadding": {
+      "type": "object"
+    },
+    "containerPaddingHover": {
+      "type": "object"
+    },
+    "containerBackground": {
+      "type": "object"
+    },
+    "containerBackgroundHover": {
+      "type": "object"
+    },
+    "containerBorder": {
+      "type": "object"
+    },
+    "containerBoxShadow": {
+      "type": "object"
+    },
+    "containerBorderHover": {
+      "type": "object"
+    },
+    "containerBoxShadowHover": {
+      "type": "object"
+    },
+    "iconPadding": {
+      "type": "object"
+    },
+    "iconMargin": {
+      "type": "object"
+    },
+    "iconRotate": {
+      "type": "object"
+    },
+    "iconStyleMode": {
+      "type": "string"
+    },
+    "iconColor": {
+      "type": "object"
+    },
+    "iconHoverColor": {
+      "type": "object"
+    },
+    "iconBgColor": {
+      "type": "object"
+    },
+    "iconHoverBgColor": {
+      "type": "object"
+    },
+    "iconBackground": {
+      "type": "object"
+    },
+    "iconBackgroundHover": {
+      "type": "object"
+    },
+    "iconBorder": {
+      "type": "object"
+    },
+    "iconBoxShadow": {
+      "type": "object"
+    },
+    "iconBorderHover": {
+      "type": "object"
+    },
+    "iconBoxShadowHover": {
+      "type": "object"
+    },
+    "titlePadding": {
+      "type": "object"
+    },
+    "titleMargin": {
+      "type": "object"
+    },
+    "titleColor": {
+      "type": "object"
+    },
+    "titleHoverColor": {
+      "type": "object"
+    },
+    "titleTypography": {
+      "type": "object"
+    },
+    "descMargin": {
+      "type": "object"
+    },
+    "descColor": {
+      "type": "object"
+    },
+    "descHoverColor": {
+      "type": "object"
+    },
+    "descTypography": {
+      "type": "object"
+    },
+    "watermarkColor": {
+      "type": "object"
+    },
+    "watermarkSize": {
+      "type": "object"
+    },
+    "badgeTextColor": {
+      "type": "object"
+    },
+    "badgePadding": {
+      "type": "object"
+    },
+    "badgeMargin": {
+      "type": "object"
+    },
+    "badgeRadius": {
+      "type": "object"
+    },
+    "badgeBackground": {
+      "type": "object"
+    },
+    "badgeTypography": {
+      "type": "object"
+    },
+    "badgeShadow": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "border": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object",
+      "default": {}
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": [
+    "icon",
+    "box"
+  ]
+}

@@ -1,0 +1,99 @@
+.guten-post-list {
+    article {
+        overflow: hidden;
+        position: relative;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        a {
+            display: flex;
+            @include alignitemscenter();
+            @include transition(false, false, all .4s ease);
+            position: relative;
+            color: var(--guten-txt-h-color);
+
+            &:hover {
+                color: var(--guten-txt-h-color);
+            }
+            img {
+                margin-right: 15px;
+                z-index: 2;
+                position: relative;
+                line-height: 0;
+                width: 200px;
+            }
+            svg {
+                fill: var(--guten-txt-h-color);
+            }
+            .guten-postlist-content {
+                z-index: 2;
+                width: 100%;
+            }
+            .guten-postlist-title {
+                display: block;
+                margin-bottom: 0;
+            }
+            .meta-lists span {
+                color: var(--guten-txt-m-color);
+                font-size: 12px;
+                display: inline-block;
+                @include transition(false, false, all .4s ease);
+                svg {
+                    fill: var(--guten-txt-m-color);
+                    width: 12px;
+                }
+            }
+            .icon-list {
+                text-align: center;
+            }
+        }
+    }
+    &.layout-horizontal {
+        article a {
+            @include displayflex();
+        }
+        .guten-posts {
+            display: grid;
+        }
+    }
+    &.bg-image article a {
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        background-position: center center;
+        overflow: hidden;
+        &:after {
+            content: "";
+            background-color: rgba(34, 34, 34, .7);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            @include transition(false, false, all .4s ease);
+        }
+    }
+
+    .guten-block-pagination {
+        margin: 0 0 30px 0;
+        text-align: center;
+        .guten-block-loadmore {
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid var(--guten-border-color, #eaeaeb);
+            @include boxshadow(0 2px 4px rgba(0, 0, 0, 0.08));
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 3px;
+            @include transition(false, false, .25s ease);
+            color: var(--guten-txt-color);
+            a {
+                display: inline-block;
+                color: var(--guten-txt-color);
+            }
+        }
+    }
+}

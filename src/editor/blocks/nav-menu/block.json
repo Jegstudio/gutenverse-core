@@ -1,0 +1,313 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/nav-menu",
+  "class_callback": "\\Gutenverse\\Block\\Nav_Menu",
+  "title": "Nav Menu",
+  "description": "Create a navigation menu for your visitor to explore your website.",
+  "category": "gutenverse-element",
+  "attributes": {
+    "elementId": {
+      "type": "string"
+    },
+    "menuId": {
+      "type": "integer",
+      "default": 0
+    },
+    "alignment": {
+      "type": "object"
+    },
+    "breakpoint": {
+      "type": "string",
+      "default": "tablet"
+    },
+    "mobileMenuLogo": {
+      "type": "object"
+    },
+    "mobileMenuLink": {
+      "type": "string",
+      "default": "home"
+    },
+    "mobileMenuURL": {
+      "type": "string"
+    },
+    "mobileIcon": {
+      "type": "string",
+      "default": "fas fa-bars"
+    },
+    "mobileCloseIcon": {
+      "type": "string",
+      "default": "fas fa-times"
+    },
+    "mobileSubmenuClick": {
+      "type": "boolean",
+      "default": true
+    },
+    "mobileCloseOnClick": {
+      "type": "boolean",
+      "default": true
+    },
+    "mobileLogoWidth": {
+      "type": "object"
+    },
+    "mobileLogoHeight": {
+      "type": "object"
+    },
+    "mobileLogoFit": {
+      "type": "object"
+    },
+    "mobileMenuMargin": {
+      "type": "object"
+    },
+    "mobileMenuPadding": {
+      "type": "object"
+    },
+    "menuHeight": {
+      "type": "object"
+    },
+    "menuBackground": {
+      "type": "object"
+    },
+    "mobileWrapperBackground": {
+      "type": "object"
+    },
+    "menuPadding": {
+      "type": "object"
+    },
+    "menuMargin": {
+      "type": "object"
+    },
+    "menuRadius": {
+      "type": "object"
+    },
+    "itemTypography": {
+      "type": "object"
+    },
+    "itemSpacing": {
+      "type": "object"
+    },
+    "itemTextNormalColor": {
+      "type": "object"
+    },
+    "itemTextNormalBg": {
+      "type": "object"
+    },
+    "itemTextHoverColor": {
+      "type": "object"
+    },
+    "itemTextHoverBg": {
+      "type": "object"
+    },
+    "itemTextActiveColor": {
+      "type": "object"
+    },
+    "itemTextActiveBg": {
+      "type": "object"
+    },
+    "submenuItemIndicator": {
+      "type": "string",
+      "default": "fas fa-angle-down"
+    },
+    "submenuIndicatorColor": {
+      "type": "object"
+    },
+    "submenuIndicatorHoverColor": {
+      "type": "object"
+    },
+    "submenuIndicatorActiveColor": {
+      "type": "object"
+    },
+    "submenuIndicatorMargin": {
+      "type": "object"
+    },
+    "submenuIndicatorPadding": {
+      "type": "object"
+    },
+    "submenuIndicatorBorder": {
+      "type": "object"
+    },
+    "submenuTypography": {
+      "type": "object"
+    },
+    "submenuSpacing": {
+      "type": "object"
+    },
+    "submenuTextNormalColor": {
+      "type": "object"
+    },
+    "submenuTextNormalBg": {
+      "type": "object"
+    },
+    "submenuTextHoverColor": {
+      "type": "object"
+    },
+    "submenuTextHoverBg": {
+      "type": "object"
+    },
+    "submenuTextActiveColor": {
+      "type": "object"
+    },
+    "submenuTextActiveBg": {
+      "type": "object"
+    },
+    "submenuItemBorder": {
+      "type": "object"
+    },
+    "submenuFirstItemBorder": {
+      "type": "object"
+    },
+    "submenuLastItemBorder": {
+      "type": "object"
+    },
+    "submenuPanelPadding": {
+      "type": "object"
+    },
+    "submenuPanelBorder": {
+      "type": "object"
+    },
+    "submenuPanelBackground": {
+      "type": "object"
+    },
+    "submenuPanelShadow": {
+      "type": "object"
+    },
+    "submenuPanelWidth": {
+      "type": "object"
+    },
+    "hamburgerAlignment": {
+      "type": "object",
+      "default": {
+        "Desktop": "right"
+      }
+    },
+    "hamburgerWidth": {
+      "type": "object"
+    },
+    "hamburgerSize": {
+      "type": "object"
+    },
+    "hamburgerPadding": {
+      "type": "object"
+    },
+    "hamburgerMargin": {
+      "type": "object"
+    },
+    "hamburgerColorNormal": {
+      "type": "object"
+    },
+    "hamburgerBgNormal": {
+      "type": "object"
+    },
+    "hamburgerBorderNormal": {
+      "type": "object"
+    },
+    "hamburgerColorHover": {
+      "type": "object"
+    },
+    "hamburgerBgHover": {
+      "type": "object"
+    },
+    "hamburgerBorderHover": {
+      "type": "object"
+    },
+    "closeWidth": {
+      "type": "object"
+    },
+    "closeSize": {
+      "type": "object"
+    },
+    "closePadding": {
+      "type": "object"
+    },
+    "closeMargin": {
+      "type": "object"
+    },
+    "closeColorNormal": {
+      "type": "object"
+    },
+    "closeBgNormal": {
+      "type": "object"
+    },
+    "closeBorderNormal": {
+      "type": "object"
+    },
+    "closeColorHover": {
+      "type": "object"
+    },
+    "closeBgHover": {
+      "type": "object"
+    },
+    "closeBorderHover": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object"
+    },
+    "backgroundHover": {
+      "type": "object"
+    },
+    "border": {
+      "type": "object"
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object"
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object"
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    },
+    "positioningType": {
+      "type": "object"
+    },
+    "positioningWidth": {
+      "type": "object"
+    },
+    "positioningAlign": {
+      "type": "object"
+    },
+    "positioningLocation": {
+      "type": "string"
+    },
+    "positioningLeft": {
+      "type": "object"
+    },
+    "positioningRight": {
+      "type": "object"
+    },
+    "positioningTop": {
+      "type": "object"
+    },
+    "positioningBottom": {
+      "type": "object"
+    }
+  },
+  "supports": {
+    "className": false
+  },
+  "keywords": [
+    "navigation",
+    "menu"
+  ]
+}

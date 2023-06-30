@@ -1,0 +1,26 @@
+.guten-social-share {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+
+  &.horizontal > div:not(:first-child) {
+    margin-left: 10px;
+  }
+
+  &.vertical > div:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &.horizontal {
+    flex-direction: row;
+  }
+
+  &.vertical {
+    flex-direction: column;
+
+    div {
+      display: flex;
+    }
+  }
+}

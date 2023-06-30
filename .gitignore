@@ -1,0 +1,17 @@
+# Folders to ignore
+build
+release
+node_modules
+.idea
+gutenverse/block
+gutenverse/assets/js
+gutenverse/assets/css
+gutenverse/languages/gutenverse.pot
+gutenverse/lib/dependencies
+
+# Files to ignore
+package-lock.json
+gpro.js
+notes
+screenshots.zip
+banner & icon.zip

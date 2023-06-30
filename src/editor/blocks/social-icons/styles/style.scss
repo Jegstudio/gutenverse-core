@@ -1,0 +1,818 @@
+.guten-social-icons {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  
+  &.horizontal > div:not(:first-child) {
+    margin-left: 10px;
+  }
+
+  &.vertical > div:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  span {
+    display: none;
+  }
+
+  &.show-text {
+    span {
+      display: flex;
+    }
+  }
+
+  .wp-block {
+    margin: 0;
+  }
+
+  &.square {
+    a {
+      border-radius: 0;
+    }
+  }
+
+  &.rounded {
+    a {
+      border-radius: 5px;
+    }
+  }
+
+  &.circle {
+    a {
+      border-radius: 100%;
+    }
+  }
+
+
+
+
+
+
+
+
+  &.fill {
+    a {
+      background: #000;
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    .facebook {
+      a {
+        background-color: #3b5998;
+      }
+    }
+
+    .instagram {
+      a {
+        background-color: #e6405d;
+      }
+    }
+
+    .twitter {
+      a {
+        background-color: #1DA1F2;
+      }
+    }
+
+    .pinterest {
+      a {
+        background-color: #bd081c;
+      }
+    }
+
+    .android {
+      a {
+        background-color: #A4C639;
+      }
+    }
+
+    .apple {
+      a {
+        background-color: #999999;
+      }
+    }
+
+    .behance {
+      a {
+        background-color: #1769ff;
+      }
+    }
+
+    .bitbucket {
+      a {
+        background-color: #205081;
+      }
+    }
+
+    .codepen {
+      a {
+        background-color: #000000;
+      }
+    }
+
+    .delicious {
+      a {
+        background-color: #3399ff;
+      }
+    }
+
+    .deviantart {
+      a {
+        background-color: #05cc47;
+      }
+    }
+
+    .digg {
+      a {
+        background-color: #005be2;
+      }
+    }
+
+    .dribbble {
+      a {
+        background-color: #ea4c89;
+      }
+    }
+
+    .elementor {
+      a {
+        background-color: #D30C5C;
+      }
+    }
+
+    .envelope {
+      a {
+        background-color: #ea4335;
+      }
+    }
+
+    .flickr {
+      a {
+        background-color: #0063dc;
+      }
+    }
+
+    .foursquare {
+      a {
+        background-color: #2d5be3;
+      }
+    }
+
+    .freecodecamp {
+      a {
+        background-color: #006400;
+      }
+    }
+
+    .github {
+      a {
+        background-color: #333333;
+      }
+    }
+
+    .gitlab {
+      a {
+        background-color: #e24329;
+      }
+    }
+
+    .globe {
+      a {
+        background-color: #818a91;
+      }
+    }
+
+    .google {
+      a {
+        background-color: #dd4b39;
+      }
+    }
+
+    .houzz {
+      a {
+        background-color: #7ac142;
+      }
+    }
+
+    .jsfiddle {
+      a {
+        background-color: #487AA2;
+      }
+    }
+
+    .link {
+      a {
+        background-color: #818a91;
+      }
+    }
+
+    .linkedin {
+      a {
+        background-color: #0077b5;
+      }
+    }
+
+    .medium {
+      a {
+        background-color: #00ab6b;
+      }
+    }
+
+    .meetup {
+      a {
+        background-color: #ec1c40;
+      }
+    }
+
+    .mixcloud {
+      a {
+        background-color: #273a4b;
+      }
+    }
+
+    .odnoklassniki {
+      a {
+        background-color: #F4731C;
+      }
+    }
+
+    .product-hunt {
+      a {
+        background-color: #da552f;
+      }
+    }
+
+    .reddit {
+      a {
+        background-color: #ff4500;
+      }
+    }
+
+    .rss {
+      a {
+        background-color: #f26522;
+      }
+    }
+
+    .shopping-cart {
+      a {
+        background-color: #4CAF50;
+      }
+    }
+
+    .skype {
+      a {
+        background-color: #00AFF0;
+      }
+    }
+
+    .slideshare {
+      a {
+        background-color: #0077b5;
+      }
+    }
+
+    .snapchat {
+      a {
+        background-color: #fffc00;
+      }
+    }
+
+    .soundcloud {
+      a {
+        background-color: #ff8800;
+      }
+    }
+
+    .spotify {
+      a {
+        background-color: #2ebd59;
+      }
+    }
+
+    .stack-overflow {
+      a {
+        background-color: #fe7a15;
+      }
+    }
+
+    .steam {
+      a {
+        background-color: #00adee;
+      }
+    }
+
+    .stumbleupon {
+      a {
+        background-color: #EB4924;
+      }
+    }
+
+    .telegram {
+      a {
+        background-color: #2CA5E0;
+      }
+    }
+
+    .thumb-tack {
+      a {
+        background-color: #1aa1d8;
+      }
+    }
+
+    .tripadvisor {
+      a {
+        background-color: #589442;
+      }
+    }
+
+    .tumblr {
+      a {
+        background-color: #35465c;
+      }
+    }
+
+    .twitch {
+      a {
+        background-color: #6441A5;
+      }
+    }
+
+    .viber {
+      a {
+        background-color: #665cac;
+      }
+    }
+
+    .vimeo {
+      a {
+        background-color: #1ab7ea;
+      }
+    }
+
+    .vk {
+      a {
+        background-color: #45668e;
+      }
+    }
+
+    .weibo {
+      a {
+        background-color: #DD2430;
+      }
+    }
+
+    .weixin {
+      a {
+        background-color: #31A918;
+      }
+    }
+
+    .whatsapp {
+      a {
+        background-color: #25d366;
+      }
+    }
+
+    .wordpress {
+      a {
+        background-color: #21759b;
+      }
+    }
+
+    .xing {
+      a {
+        background-color: #026466;
+      }
+    }
+
+    .yelp {
+      a {
+        background-color: #af0606;
+      }
+    }
+
+    .youtube {
+      a {
+        background-color: #cd201f;
+      }
+    }
+  }
+
+
+  &.border {
+    a {
+      border: 2px solid #000;
+      background: #fff;
+      color: #000;
+    }
+
+    .facebook {
+      a {
+        border-color: #3b5998;
+        color: #3b5998;
+      }
+    }
+
+    .instagram {
+      a {
+        border-color: #e6405d;
+        color: #e6405d;
+      }
+    }
+
+    .twitter {
+      a {
+        border-color: #1DA1F2;
+        color: #1DA1F2;
+      }
+    }
+
+    .pinterest {
+      a {
+        border-color: #bd081c;
+        color: #bd081c;
+      }
+    }
+
+    .android {
+      a {
+        border-color: #A4C639;
+        color: #A4C639;
+      }
+    }
+
+    .apple {
+      a {
+        border-color: #999999;
+        color: #999999;
+      }
+    }
+
+    .behance {
+      a {
+        border-color: #1769ff;
+        color: #1769ff;
+      }
+    }
+
+    .bitbucket {
+      a {
+        border-color: #205081;
+        color: #205081;
+      }
+    }
+
+    .codepen {
+      a {
+        border-color: #000000;
+        color: #000000;
+      }
+    }
+
+    .delicious {
+      a {
+        border-color: #3399ff;
+        color: #3399ff;
+      }
+    }
+
+    .deviantart {
+      a {
+        border-color: #05cc47;
+        color: #05cc47;
+      }
+    }
+
+    .digg {
+      a {
+        border-color: #005be2;
+        color: #005be2;
+      }
+    }
+
+    .dribbble {
+      a {
+        border-color: #ea4c89;
+        color: #ea4c89;
+      }
+    }
+
+    .elementor {
+      a {
+        border-color: #D30C5C;
+        color: #D30C5C;
+      }
+    }
+
+    .envelope {
+      a {
+        border-color: #ea4335;
+        color: #ea4335;
+      }
+    }
+
+    .flickr {
+      a {
+        border-color: #0063dc;
+        color: #0063dc;
+      }
+    }
+
+    .foursquare {
+      a {
+        border-color: #2d5be3;
+        color: #2d5be3;
+      }
+    }
+
+    .freecodecamp {
+      a {
+        border-color: #006400;
+        color: #006400;
+      }
+    }
+
+    .github {
+      a {
+        border-color: #333333;
+        color: #333333;
+      }
+    }
+
+    .gitlab {
+      a {
+        border-color: #e24329;
+        color: #e24329;
+      }
+    }
+
+    .globe {
+      a {
+        border-color: #818a91;
+        color: #818a91;
+      }
+    }
+
+    .google {
+      a {
+        border-color: #dd4b39;
+        color: #dd4b39;
+      }
+    }
+
+    .houzz {
+      a {
+        border-color: #7ac142;
+        color: #7ac142;
+      }
+    }
+
+    .jsfiddle {
+      a {
+        border-color: #487AA2;
+        color: #487AA2;
+      }
+    }
+
+    .link {
+      a {
+        border-color: #818a91;
+        color: #818a91;
+      }
+    }
+
+    .linkedin {
+      a {
+        border-color: #0077b5;
+        color: #0077b5;
+      }
+    }
+
+    .medium {
+      a {
+        border-color: #00ab6b;
+        color: #00ab6b;
+      }
+    }
+
+    .meetup {
+      a {
+        border-color: #ec1c40;
+        color: #ec1c40;
+      }
+    }
+
+    .mixcloud {
+      a {
+        border-color: #273a4b;
+        color: #273a4b;
+      }
+    }
+
+    .odnoklassniki {
+      a {
+        border-color: #F4731C;
+        color: #F4731C;
+      }
+    }
+
+    .product-hunt {
+      a {
+        border-color: #da552f;
+        color: #da552f;
+      }
+    }
+
+    .reddit {
+      a {
+        border-color: #ff4500;
+        color: #ff4500;
+      }
+    }
+
+    .rss {
+      a {
+        border-color: #f26522;
+        color: #f26522;
+      }
+    }
+
+    .shopping-cart {
+      a {
+        border-color: #4CAF50;
+        color: #4CAF50;
+      }
+    }
+
+    .skype {
+      a {
+        border-color: #00AFF0;
+        color: #00AFF0;
+      }
+    }
+
+    .slideshare {
+      a {
+        border-color: #0077b5;
+        color: #0077b5;
+      }
+    }
+
+    .snapchat {
+      a {
+        border-color: #fffc00;
+        color: #fffc00;
+      }
+    }
+
+    .soundcloud {
+      a {
+        border-color: #ff8800;
+        color: #ff8800;
+      }
+    }
+
+    .spotify {
+      a {
+        border-color: #2ebd59;
+        color: #2ebd59;
+      }
+    }
+
+    .stack-overflow {
+      a {
+        border-color: #fe7a15;
+        color: #fe7a15;
+      }
+    }
+
+    .steam {
+      a {
+        border-color: #00adee;
+        color: #00adee;
+      }
+    }
+
+    .stumbleupon {
+      a {
+        border-color: #EB4924;
+        color: #EB4924;
+      }
+    }
+
+    .telegram {
+      a {
+        border-color: #2CA5E0;
+        color: #2CA5E0;
+      }
+    }
+
+    .thumb-tack {
+      a {
+        border-color: #1aa1d8;
+        color: #1aa1d8;
+      }
+    }
+
+    .tripadvisor {
+      a {
+        border-color: #589442;
+        color: #589442;
+      }
+    }
+
+    .tumblr {
+      a {
+        border-color: #35465c;
+        color: #35465c;
+      }
+    }
+
+    .twitch {
+      a {
+        border-color: #6441A5;
+        color: #6441A5;
+      }
+    }
+
+    .viber {
+      a {
+        border-color: #665cac;
+        color: #665cac;
+      }
+    }
+
+    .vimeo {
+      a {
+        border-color: #1ab7ea;
+        color: #1ab7ea;
+      }
+    }
+
+    .vk {
+      a {
+        border-color: #45668e;
+        color: #45668e;
+      }
+    }
+
+    .weibo {
+      a {
+        border-color: #DD2430;
+        color: #DD2430;
+      }
+    }
+
+    .weixin {
+      a {
+        border-color: #31A918;
+        color: #31A918;
+      }
+    }
+
+    .whatsapp {
+      a {
+        border-color: #25d366;
+        color: #25d366;
+      }
+    }
+
+    .wordpress {
+      a {
+        border-color: #21759b;
+        color: #21759b;
+      }
+    }
+
+    .xing {
+      a {
+        border-color: #026466;
+        color: #026466;
+      }
+    }
+
+    .yelp {
+      a {
+        border-color: #af0606;
+        color: #af0606;
+      }
+    }
+
+    .youtube {
+      a {
+        border-color: #cd201f;
+        color: #cd201f;
+      }
+    }
+  }
+}
+

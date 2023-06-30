@@ -1,0 +1,70 @@
+.gutenverse-image-box {
+    @include transition(false, false, all .4s ease);
+    text-align: center;
+    .image-box-header {
+        @include transition(false, false, all .4s ease);
+        position: relative;
+        overflow: hidden;
+        line-height: 0;
+        img {
+            @include transition(false, false, all .4s ease);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            width: -webkit-fill-available;
+            height: auto;
+            margin: 0;
+            object-fit: cover;
+        }
+    }
+    .image-box-body {
+        margin: 0 auto;
+    }
+    .body-inner {
+        padding: 30px 35px;
+        position: relative;
+        overflow: hidden;
+        background: var(--jkit-bg-color);
+        @include boxshadow(0 0 20px 0 rgba(0, 0, 0, 0.25));
+    }
+    .body-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: var(--jkit-txt-h-color);
+        font-weight: 700;
+
+        a {
+            text-decoration: none;
+            color: var(--jkit-txt-h-color);
+        }
+    }
+    &.style-floating {
+        .body-inner {
+            background-color: #fff;
+            @include boxshadow(0 2px 4px rgba(0, 0, 0, 0.08));
+            @include transition(false, false, all .4s ease);
+            height: 90px;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -50px;
+            .body-description,
+            .guten-button {
+                @include transition(false, false, all .4s ease);
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        &:hover {
+            .body-inner {
+                height: 220px;
+                .body-description,
+                .guten-button {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    @include borderBottom();
+}

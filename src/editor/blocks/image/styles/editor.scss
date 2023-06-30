@@ -1,0 +1,15 @@
+.guten-image {
+    &.select-image img {
+        cursor: pointer;
+    }
+
+    .ReactCrop {
+        width: fit-content;
+    }
+}
+
+.guten-image-crop-ratio-options {
+    .is-active {
+        font-weight: bold;
+    }
+}

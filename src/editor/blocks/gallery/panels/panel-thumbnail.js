@@ -1,0 +1,20 @@
+import { __ } from '@wordpress/i18n';
+import { BorderControl } from 'gutenverse-core/controls';
+import { handleBorder } from 'gutenverse-core/controls';
+
+export const thumbnailPanel = ({elementId}) => {
+    return [
+        {
+            id: 'thumbnailBorder',
+            label: __('Border Type', 'gutenverse'),
+            component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+    ];
+};
