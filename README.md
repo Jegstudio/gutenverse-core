@@ -1,2 +1,2 @@
 # Gutenverse Core
-Core framework for Gutenverse plugins ecosystem
+Core framework for Gutenverse plugins ecosystem.
