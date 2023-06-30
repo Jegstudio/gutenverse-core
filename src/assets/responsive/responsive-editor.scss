@@ -1,0 +1,19 @@
+.guten-hide-desktop, .guten-hide-tablet, .guten-hide-mobile {
+    display: inherit;
+    background: -webkit-repeating-linear-gradient(325deg,rgba(0,0,0,.1),rgba(0,0,0,.1) 1px,transparent 2px,transparent 9px);
+    background: -o-repeating-linear-gradient(325deg,rgba(0,0,0,.1),rgba(0,0,0,.1) 1px,transparent 2px,transparent 9px);
+    background: repeating-linear-gradient(125deg,rgba(0,0,0,.1),rgba(0,0,0,.1) 1px,transparent 2px,transparent 9px);
+    border: 1px solid rgba(0,0,0,.02);
+}
+  
+.guten-hide-desktop:before, .guten-hide-tablet:before, .guten-hide-mobile:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0,0%,100%,.6);
+    z-index: 30;
+}

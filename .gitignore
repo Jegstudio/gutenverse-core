@@ -1,0 +1,9 @@
+build
+node_modules
+framework/assets/js
+framework/assets/css
+framework/assets/dependencies
+framework/lib/dependencies
+framework/blocks
+framework/languages
+package-lock.json

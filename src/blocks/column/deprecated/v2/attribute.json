@@ -1,0 +1,40 @@
+{
+    "sticky": {
+        "type": "object",
+        "default": {
+            "Desktop": false
+        }
+    },
+    "stickyPosition": {
+        "type": "string",
+        "default": "top"
+    },
+    "topSticky": {
+        "type": "object",
+        "default": {
+            "Desktop": {
+                "point": "0",
+                "unit": "px"
+            }
+        }
+    },
+    "bottomSticky": {
+        "type": "object",
+        "default": {
+            "Desktop": {
+                "point": "0",
+                "unit": "px"
+            }
+        }
+    },
+    "stickyIndex": {
+        "type": "int",
+        "default": 99
+    },
+    "stickyBackground": {
+        "type": "object"
+    },
+    "stickyBoxShadow": {
+        "type": "object"
+    }
+}

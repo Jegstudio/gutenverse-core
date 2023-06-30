@@ -1,0 +1,12 @@
+#gutenverse-dashboard .themelist-panel {
+    background-image: url('../img/asset_bg_2.webp');
+    background-position-y: center;
+}
+
+#gutenverse-dashboard .rating-panel {
+    background-image: url('../img/asset_bg_3.webp');
+}
+
+#gutenverse-dashboard .upgrade-notice-head > div {
+    background-image: url('../img/upgrade-notice-hero.webp');
+}

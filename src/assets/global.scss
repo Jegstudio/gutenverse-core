@@ -1,0 +1,40 @@
+.editor-styles-wrapper {
+  .wp-block {
+    &.no-margin {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+
+#gutenverse-error {
+  position: absolute;
+  bottom: 50px;
+  right: 0;
+  left: 0;
+  text-align: center;
+
+  .gutenverse-error-wrapper {
+    border: 1px solid #000;
+    background: #050080;
+    padding: 35px 20px;
+    border-radius: 5px;
+  }
+
+  h3 {
+    line-height: 1.6em;
+    font-size: 15px;
+    font-weight: normal;
+    color: #fff;
+    margin-top: 0;
+  }
+
+  a {
+    border: 1px solid #aaa;
+    background: #fff;
+    padding: 8px 15px;
+    margin-top: 13px;
+    clear: both;
+    display: inline-block;
+  }
+}

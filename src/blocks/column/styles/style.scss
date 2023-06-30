@@ -1,0 +1,217 @@
+.guten-column {
+  padding: 10px;
+  display: flex;
+  align-content: stretch;
+  align-items: stretch;
+  position: relative;
+  box-sizing: border-box;
+
+  &.pinned {
+    position: sticky;
+
+    &.sticky-top {
+        top: 0;
+    }
+
+    &.sticky-bottom {
+        bottom: 0;
+    }
+  }
+
+  & > .sticky-wrapper {
+    width: 100%;
+    display: flex;
+    align-content: stretch;
+    align-items: stretch;
+
+    & > .guten-column-wrapper {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      align-content: flex-start;
+
+      & > * {
+        max-width: 100%;
+      }
+
+      & > [class*="wp-block-"]:not(.guten-element),
+      & > :not(.guten-element) {
+        position: relative;
+      }
+
+      &:before {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: inherit;
+      }
+
+      & > .guten-element:not(.guten-column),
+      & > .section-wrapper {
+        width: 100%;
+      }
+    }
+  }
+
+  &.vertical-top-desktop {
+    align-content: flex-start;
+    align-items: flex-start;
+  }
+
+  &.vertical-middle-desktop {
+    align-content: center;
+    align-items: center;
+  }
+
+  &.vertical-bottom-desktop {
+    align-content: flex-end;
+    align-items: flex-end;
+  }
+
+  &.vertical-between-desktop {
+    align-content: space-between;
+  }
+
+  &.vertical-around-desktop {
+    align-content: space-around;
+  }
+
+  &.vertical-evenly-desktop {
+    align-content: space-evenly;
+  }
+
+  &.horizontal-start-desktop {
+    justify-content: flex-start;
+  }
+
+  &.horizontal-center-desktop {
+    justify-content: center;
+  }
+
+  &.horizontal-end-desktop {
+    justify-content: flex-end;
+  }
+
+  &.horizontal-between-desktop {
+    justify-content: space-between;
+  }
+
+  &.horizontal-around-desktop {
+    justify-content: space-around;
+  }
+
+  &.horizontal-evenly-desktop {
+    justify-content: space-evenly;
+  }
+
+  @media only screen and (max-width: 780px) {
+    &.vertical-top-tablet {
+      align-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &.vertical-middle-tablet {
+      align-content: center;
+      align-items: center;
+    }
+
+    &.vertical-bottom-tablet {
+      align-content: flex-end;
+      align-items: flex-end;
+    }
+
+    &.vertical-between-tablet {
+      align-content: space-between;
+    }
+
+    &.vertical-around-tablet {
+      align-content: space-around;
+    }
+
+    &.vertical-evenly-tablet {
+      align-content: space-evenly;
+    }
+
+    &.horizontal-start-tablet {
+      justify-content: flex-start;
+    }
+
+    &.horizontal-center-tablet {
+      justify-content: center;
+    }
+
+    &.horizontal-end-tablet {
+      justify-content: flex-end;
+    }
+
+    &.horizontal-between-tablet {
+      justify-content: space-between;
+    }
+
+    &.horizontal-around-tablet {
+      justify-content: space-around;
+    }
+
+    &.horizontal-evenly-tablet {
+      justify-content: space-evenly;
+    }
+  }
+
+  @media only screen and (max-width: 425px) {
+    &.vertical-top-mobile {
+      align-content: flex-start;
+      align-items: flex-start;
+    }
+
+    &.vertical-middle-mobile {
+      align-content: center;
+      align-items: center;
+    }
+
+    &.vertical-bottom-mobile {
+      align-content: flex-end;
+      align-items: flex-end;
+    }
+
+    &.vertical-between-mobile {
+      align-content: space-between;
+    }
+
+    &.vertical-around-mobile {
+      align-content: space-around;
+    }
+
+    &.vertical-evenly-mobile {
+      align-content: space-evenly;
+    }
+
+    &.horizontal-start-mobile {
+      justify-content: flex-start;
+    }
+
+    &.horizontal-center-mobile {
+      justify-content: center;
+    }
+
+    &.horizontal-end-mobile {
+      justify-content: flex-end;
+    }
+
+    &.horizontal-between-mobile {
+      justify-content: space-between;
+    }
+
+    &.horizontal-around-mobile {
+      justify-content: space-around;
+    }
+
+    &.horizontal-evenly-mobile {
+      justify-content: space-evenly;
+    }
+  }
+}

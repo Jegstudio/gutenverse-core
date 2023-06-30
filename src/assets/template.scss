@@ -1,0 +1,68 @@
+body {
+  &.post-type-gutenverse-template,
+  &.gutenverse_blank,
+  &.gutenverse_full {
+    .wp-block {
+      max-width: 100%;      
+    }
+
+    .editor-styles-wrapper {
+      padding: 0;
+      margin: 0 auto;
+      background: #fff;
+      width: 100%;
+    }
+
+    .wp-block-template-part {
+      max-width: 100%;
+      margin: 0;
+    }
+  }
+
+  &.post-type-gutenverse-template,
+  &.gutenverse_blank {
+    .editor-styles-wrapper {
+      padding: 0;
+    }
+
+    .edit-post-visual-editor__post-title-wrapper {
+      .editor-post-title__block {
+        padding: 0;
+        margin: 0 40px;
+
+        textarea {
+          &::placeholder {
+            color: #fff;
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+
+  &.gutenverse_full {
+    .edit-post-visual-editor__post-title-wrapper {
+      padding: 0;
+    }
+  }
+
+  &.post-type-gutenverse-template,
+  &.gutenverse_blank,
+  &.gutenverse_full {
+    .edit-post-visual-editor__post-title-wrapper {
+      padding: 30px;
+      background: #eee;
+      margin-top: 0;
+
+      .editor-post-title {
+        line-height: 2em;
+      }
+    }
+  }
+
+  &.gutenverse_full {
+    .edit-post-visual-editor__post-title-wrapper {
+      background: #ddd;
+    }
+  }
+}

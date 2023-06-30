@@ -1,0 +1,108 @@
+#gutenverse-dashboard {
+    .system-header {
+        align-items: center;
+        border-bottom: 1px solid var(--gutenverse-dashboard-border);
+        display: flex;
+        justify-content: space-between;
+        min-height: 90px;
+        padding: 0 40px;
+    }
+
+    .system-body {
+        padding-bottom: 40px;
+
+        table {
+            border-radius: 5px;
+            border: 1px solid var(--gutenverse-dashboard-border);
+            width: 100%;
+
+            thead {
+                th {
+                    border-bottom: 1px solid var(--gutenverse-dashboard-border);
+                    font-size: 14px;
+                    font-weight: bold;
+                    line-height: 1.5em;
+                    padding: 12px 10px;
+                    text-align: left;
+                }
+            }
+
+            tbody {
+                tr:nth-child(2n) {
+                    background: #F2F4F7;
+                }
+
+                td {
+                    font-size: 14px;
+                    line-height: 1.4em;
+                    padding: 10px;
+                    vertical-align: middle;
+
+                    &.status-title {
+                        width: 35%;
+                    }
+
+                    &.status-flag {
+                        width: 12px;
+
+                        .status-flag-circle {
+                            border-radius: 100%;
+                            display: inline-block;
+                            height: 12px;
+                            margin: 0 auto;
+                            vertical-align: middle;
+                            width: 12px;
+
+                            &.yellow {
+                                background: #eca61a;
+                            }
+
+                            &.green {
+                                background: #3a9551;
+                            }
+
+                            &.red {
+                                background: #e73030;
+                            }
+                        }
+                    }
+
+                    &.status-value {
+                        .status-wrapper {
+                            height: 100%;
+
+                            span {
+                                font-size: 12px;
+                                font-style: italic;
+                            }
+
+                            svg {
+                                position: relative;
+                                top: 2px;
+                                height: 13px;
+                            }
+
+                            mark {
+                                &.yes {
+                                    background: transparent;
+                                    color: #3a9551;
+                                    font-weight: 700;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .tooltip-wrapper {
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        svg {
+            color: #bdbebf;
+        }
+    }
+}

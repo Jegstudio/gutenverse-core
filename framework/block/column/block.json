@@ -1,0 +1,166 @@
+{
+  "apiVersion": 2,
+  "name": "gutenverse/column",
+  "title": "Column",
+  "parent": ["gutenverse/section"],
+  "description": "Draggable column, to make your experience flawless when resize it.",
+  "category": "gutenverse-structure",
+  "attributes": {
+    "width": {
+      "type": "object"
+    },
+    "nieghborWidth": {
+      "type": "object"
+    },
+    "sticky": {
+      "type": "object",
+      "default": {
+        "Desktop": false
+      }
+    },
+    "stickyShowOn": {
+      "type": "string",
+      "default": "both"
+    },
+    "stickyEase": {
+      "type": "string",
+      "default": "none"
+    },
+    "stickyPosition": {
+      "type": "string",
+      "default": "top"
+    },
+    "stickyDuration": {
+      "type": "int",
+      "default": 0.25
+    },
+    "topSticky": {
+      "type": "object",
+      "default": {
+        "Desktop": {
+          "point": "0",
+          "unit": "px"
+        }
+      }
+    },
+    "bottomSticky": {
+      "type": "object",
+      "default": {
+        "Desktop": {
+          "point": "0",
+          "unit": "px"
+        }
+      }
+    },
+    "stickyIndex": {
+      "type": "int",
+      "default": 99
+    },
+    "stickyBackground": {
+      "type": "object"
+    },
+    "stickyBoxShadow": {
+      "type": "object"
+    },
+    "sectionVerticalAlign": {
+      "type": "string",
+      "default": "default"
+    },
+    "elementId": {
+      "type": "string"
+    },
+    "order": {
+      "type": "object"
+    },
+    "background": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundHover": {
+      "type": "object",
+      "default": {}
+    },
+    "backgroundOverlay": {
+      "type": "object"
+    },
+    "opacity": {
+      "type": "float"
+    },
+    "backgroundOverlayHover": {
+      "type": "object"
+    },
+    "opacityHover": {
+      "type": "float"
+    },
+    "verticalAlign": {
+      "type": "object",
+      "default": {
+        "Desktop": "default"
+      }
+    },
+    "horizontalAlign": {
+      "type": "object",
+      "default": {
+        "Desktop": "default"
+      }
+    },
+    "border": {
+      "type": "object"
+    },
+    "boxShadow": {
+      "type": "object"
+    },
+    "borderHover": {
+      "type": "object"
+    },
+    "boxShadowHover": {
+      "type": "object"
+    },
+    "typographyHeadingColor": {
+      "type": "object"
+    },
+    "typographyTextColor": {
+      "type": "object"
+    },
+    "typographyLinkColor": {
+      "type": "object"
+    },
+    "typographyLinkHoverColor": {
+      "type": "object"
+    },
+    "typographyTextAlign": {
+      "type": "object"
+    },
+    "margin": {
+      "type": "object"
+    },
+    "padding": {
+      "type": "object"
+    },
+    "zIndex": {
+      "type": "object"
+    },
+    "animation": {
+      "type": "object",
+      "default": {}
+    },
+    "hideDesktop": {
+      "type": "boolean"
+    },
+    "hideTablet": {
+      "type": "boolean"
+    },
+    "hideMobile": {
+      "type": "boolean"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "reusable": false,
+    "html": false
+  },
+  "keywords": [
+    "container",
+    "column"
+  ]
+}

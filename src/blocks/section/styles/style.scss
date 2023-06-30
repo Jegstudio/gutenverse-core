@@ -1,0 +1,247 @@
+.guten-sticky-wrapper {
+  position: relative;
+}
+
+.guten-sticky-flag {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  top: -210px;
+}
+
+.section-wrapper {
+  margin-block-start: 0!important;
+  margin-block-end: 0!important;
+}
+
+.guten-section-wrapper {
+  &.pinned {
+    position: sticky;
+
+    &.fixed {
+      position: fixed;
+    }
+
+    &.sticky-top {
+        top: 0;
+    }
+
+    &.sticky-bottom {
+        bottom: 0;
+    }
+  }
+}
+
+section.guten-section {
+  position: relative;
+  display: block;
+
+  & > .guten-container {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    .guten-column {
+      margin-left: initial;
+      margin-right: initial;
+    }
+  }
+
+  .guten-video-bg-wrapper {
+    div {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 25px;
+      height: 0;
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .guten-shape-divider {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    direction: ltr;
+
+    svg {
+      display: block;
+      width: calc(100% + 1.3px);
+      position: relative;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+
+    &.guten-shape-divider-top {
+      top: -1px;
+
+      &.guten-shape-flip > svg {
+        transform: translateX(-50%) rotateY(180deg);
+      }
+
+      &.guten-shape-zindex > svg {
+        z-index: 2;
+      }
+    }
+
+    &.guten-shape-divider-bottom {
+      bottom: -1px;
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+
+      &.guten-shape-flip > svg {
+        transform: translateX(-50%) rotateY(180deg);
+      }
+
+      &.guten-shape-zindex > svg {
+        z-index: 2;
+      }
+    }
+
+    .guten-shape-fill {
+      fill: #eee;
+    }
+  }
+
+  .guten-shape-divider-animated {
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    direction: ltr;
+
+    svg {
+      display: block;
+      width: calc(100% + 1.3px);
+      position: relative;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      transform: translateX(-50%);
+    }
+
+    &.guten-shape-divider-animated-top {
+      top: -1px;
+      -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      transform: rotate(180deg);
+
+      &.guten-shape-flip > svg {
+        transform: translateX(-50%) rotateY(180deg);
+      }
+
+      &.guten-shape-zindex {
+        z-index: 2;
+      }
+    }
+
+    &.guten-shape-divider-animated-bottom {
+      bottom: -1px;
+
+      &.guten-shape-flip > svg {
+        transform: translateX(-50%) rotateY(180deg);
+      }
+
+      &.guten-shape-zindex > svg {
+        z-index: 2;
+      }
+    }
+
+    .guten-shape-fill {
+      fill: #eee;
+    }
+  }
+
+  &.layout-fullwidth {
+    position: relative;
+    max-width: 100vw;
+  }
+
+  &.align-top {
+    & > .guten-container {
+      align-items: flex-start;
+    }
+  }
+
+  &.align-middle {
+    & > .guten-container {
+      align-items: center;
+    }
+  }
+
+  &.align-bottom {
+    & > .guten-container {
+      align-items: flex-end;
+    }
+  }
+
+  &.align-stretch {
+    & > .guten-container {
+      align-items: stretch;
+    }
+  }
+
+  &.overflow-auto {
+    & > .guten-container {
+      overflow: auto;
+    }
+  }
+
+  &.overflow-hidden {
+    & > .guten-container {
+      overflow: hidden;
+    }
+  }
+
+  @media (min-width: 781px) {
+    &.guten-section-height-full {
+      height: 100vh;
+
+      > .guten-container {
+        height: 100%;
+      }
+    }
+  }
+}
+
+// Columns Gap
+.guten-column {
+  padding: 10px;
+
+  .guten-column-gap-no > & {
+    padding: 0;
+  }
+
+  .guten-column-gap-narrow > & {
+    padding: 5px;
+  }
+
+  .guten-column-gap-extended > & {
+    padding: 15px;
+  }
+
+  .guten-column-gap-wide > & {
+    padding: 20px;
+  }
+
+  .guten-column-gap-wider > & {
+    padding: 30px;
+  }
+}
+
+// Section height

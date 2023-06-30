@@ -1,0 +1,33 @@
+@import "./lib/animate.compat";
+
+$animations:
+    fadeIn,
+    fadeInLeft,
+    fadeInDown,
+    fadeInRight,
+    fadeInUp,
+    slideInLeft,
+    slideInDown,
+    slideInRight,
+    slideInUp;
+
+@each $animation in $animations {
+    // Desktop
+    .__desktop-#{$animation} {
+        animation-name: $animation;
+    }
+
+    // Tablet
+    @media (max-width: 780px) {
+        .__tablet-#{$animation} {
+            animation-name: $animation;
+        }
+    }
+
+    // Mobile
+    @media only screen and (max-width: 425px) {
+        .__mobile-#{$animation} {
+            animation-name: $animation;
+        }
+    }
+}

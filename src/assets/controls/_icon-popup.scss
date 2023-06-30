@@ -1,0 +1,166 @@
+/** Icon Library **/
+
+.icon-library-wrapper {
+  .icon-library- {
+    &overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    &container {
+      position: absolute;
+      background: #fff;
+      top: 10vh;
+      width: 900px;
+      max-width: 80%;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      z-index: 99999999;
+      height: 80vh;
+      max-height: 80vh;
+      border-radius: 10px;
+
+      .icon-library-box {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+      }
+
+      .icon-library-header {
+        background: #F5F6F8;
+        border-radius: 10px 10px 0 0;
+        border-bottom: 1px solid #E3E4E6;
+
+        h2, .gutenverse-icon-logo {
+          margin: 0;
+          padding: 16px 20px;
+          color: #011627;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-family: "Poppins";
+          font-weight: 300;
+
+          svg {
+            margin-right: 2px;
+          }
+        }
+
+        svg.close {
+          position: absolute;
+          right: 16px;
+          top: 16px;
+          color: #99A2A9;
+          cursor: pointer;
+        }
+      }
+
+      .icon-library-search {
+        padding: 20px 25px;
+        position: relative;
+
+        .input {
+          display: flex;
+          align-items: center;
+          border: 1px solid #E6E6EF;
+          font-size: 12px;
+          border-radius: 3px;
+          
+          svg {
+            position: absolute;
+            padding: 8px 0 8px 18px;
+          }
+          
+          input, input:active, input:focus {
+            border: none;
+            box-shadow: none;
+            width: 100%;
+            padding: 8px 18px 8px 40px;
+            z-index: 1;
+            background: none;
+
+            &::placeholder {
+              color: #8181A5;
+            }
+          }
+        }
+      }
+
+      .icon-library-result {
+        margin: 0 25px 20px;
+        height: 100%;
+
+        .icon-library-item-wrapper {
+          display: flex;
+          align-items: stretch;
+          text-align: center;
+
+          .icon-library-item {
+            width: 100%;
+            margin: 0 10px 10px 0;
+            background: #F5F6F8;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &.active {
+              background: #3B57F7;
+              color: #fff;
+
+              i {
+                color: #fff;
+              }
+            }
+
+            .icon-library-content {
+              display: block;
+              width: 80%;
+            }
+
+            i {
+              font-size: 25px;
+              color: #011627;
+            }
+
+            .icon-library-title {
+              font-size: 11px;
+              padding: 9px 0 0 0;
+              text-align: center;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              display: block;
+            }
+          }
+        }
+      }
+
+      .icon-library-insert {
+        text-align: right;
+        background: #fff;
+        width: 100%;
+        border-top: 1px solid #ddd;
+        border-radius: 0 0 10px 10px;
+
+        button {
+          margin: 20px;
+          padding: 10px 25px;
+          background: #3B57F7;
+          border-radius: 50px;
+
+          &:hover {
+            background: #3B57F7;
+          }
+        }
+      }
+    }
+  }
+}

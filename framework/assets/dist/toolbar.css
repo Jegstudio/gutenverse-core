@@ -1,0 +1,25 @@
+#wp-admin-bar-gutenverse strong {
+    color: #539c3a !important;
+}
+
+#wp-admin-bar-space .ab-item {
+    height: 4px !important;
+    margin: 5px 0 2px !important;
+    background: #4f4d4d;
+}
+
+#wp-admin-bar-support a {
+    color: #ff677d !important;
+}
+
+#wp-admin-bar-support a:hover {
+    color: #fb2444 !important;
+}
+
+#wp-admin-bar-rate a {
+    color: #709bf2 !important;
+}
+
+#wp-admin-bar-rate a:hover {
+    color: #1d5fe2 !important;
+}

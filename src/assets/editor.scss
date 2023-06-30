@@ -1,0 +1,90 @@
+@import "mixin";
+@import "skeleton";
+@import "global";
+@import "wp-fix";
+
+/* reserved line for script, don't delete */
+
+// Components
+@import "gutenverse-library";
+@import "gutenverse-popup";
+@import "drawer";
+
+//@import "components/transition/editor";
+
+// Template
+@import "template";
+@import "templating";
+
+// Global Style
+@import "globalstyle-drawer";
+
+// Control
+@import "controls";
+
+// Animation CSS
+@import "animation";
+
+// Responsive
+@import "./responsive/responsive-editor";
+
+// React Image Crop
+@import "react-image-crop/lib/ReactCrop";
+
+// Swiper JS
+@import "./lib/swiper";
+
+// Blocks
+@import "../blocks/section/styles/editor";
+@import "../blocks/column/styles/editor";
+
+.guten-raw-wrapper {
+  width: 100%;
+
+  &.flex-base {
+    display: flex;
+    flex-basis: 100%;
+  }
+
+  .guten-empty {
+    width: 100%;
+    background-color: #eee;
+    color: #333;
+    padding: 8px;
+    text-align: center;
+  }
+}
+
+img {
+  height: auto;
+}
+
+.guten-variable-warning {
+  display: flex;
+  margin: 0 12px 20px 12px;
+  padding: 20px 15px 20px 15px;
+  background: #F5F5FA;
+  border-radius: 5px;
+
+  a, a:active {
+    width: 85%;
+    margin-left: 10px;
+    font-size: 12px;
+    text-decoration: none;
+  }
+}
+
+h2.block-editor-inserter__panel-title span.gutenverse-category {
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: 5px;
+  }
+}
+
+.editor-styles-wrapper {
+  [class*="guten"] a {
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,139 @@
+@mixin transform($var, $value) {
+    $prefixes: ("-moz-", "-webkit-", "-o-", "-ms-", "");
+    @if $var == false {
+        @each $prefix in $prefixes {
+            #{$prefix}transform: $value;
+        }
+    } @else {
+        @each $prefix in $prefixes {
+            #{$prefix}transform-#{$var}: $value;
+        }
+    }
+}
+
+@mixin animation($var, $value) {
+    $prefixes: ("-moz-", "-webkit-", "-o-", "-ms-", "");
+    @if $var == false {
+        @each $prefix in $prefixes {
+            #{$prefix}animation: $value;
+        }
+    } @else {
+        @each $prefix in $prefixes {
+            #{$prefix}animation-#{$var}: $value;
+        }
+    }
+}
+
+@mixin boxshadow($value) {
+    $prefixes: ("-moz-", "-webkit-", "-o-", "");
+    @each $prefix in $prefixes {
+        #{$prefix}box-shadow: $value;
+    }
+}
+
+@mixin transition($var, $property, $value) {
+    $prefixes: ("-moz-", "-webkit-", "-o-", "-ms-", "");
+    @if $property == transform {
+        @if $var == false {
+            @each $prefix in $prefixes {
+                #{$prefix}transition: #{if($value == false, #{$prefix}#{'transform'}, #{$prefix}#{'transform '}$value)};
+            }
+        } @else {
+            @each $prefix in $prefixes {
+                #{$prefix}transition-#{$var}: #{if($value == false, #{$prefix}#{'transform'}, #{$prefix}#{'transform '}$value)};
+            }
+        }
+    } @else if $property == false {
+        @if $var == false {
+            @each $prefix in $prefixes {
+                #{$prefix}transition: $value;
+            }
+        } @else {
+            @each $prefix in $prefixes {
+                #{$prefix}transition-#{$var}: $value;
+            }
+        }
+    } @else {
+        @if $var == false {
+            @each $prefix in $prefixes {
+                #{$prefix}transition: $property#{' '}$value;
+            }
+        } @else {
+            @each $prefix in $prefixes {
+                #{$prefix}transition-#{$var}: $property#{' '}$value;
+            }
+        }
+    }
+}
+
+@mixin displayflex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+@mixin flexwrap {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+@mixin alignitemscenter {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+@mixin alignitemsstart {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+@mixin alignitemsstretch {
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+@mixin userselect($value) {
+    -webkit-user-select: $value;
+    -moz-user-select: $value;
+    -ms-user-select: $value;
+    user-select: $value;
+}
+
+@mixin borderBottom() {
+    .border-bottom {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        width: 100%;
+        height: 5px;
+        
+        .animated {
+            z-index: 3;
+            width: 100%;
+            height: 5px;
+            background-color: #d8a600;
+        }
+
+        .left {
+            animation-name: slideInLeft;
+        }
+        
+        .right {
+            animation-name: slideInRight;
+        }
+    }
+
+    &:hover {
+        .border-bottom .left {
+            animation-name: slideOutRight;
+        }
+        .border-bottom .right {
+            animation-name: slideOutLeft;
+        }
+    }
+}

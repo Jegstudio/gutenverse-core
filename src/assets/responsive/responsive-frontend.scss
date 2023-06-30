@@ -1,0 +1,17 @@
+@media only screen and (min-width: 781px) {
+    .hide-desktop {
+        display: none!important;
+    }
+}
+  
+@media (max-width: 780px) and (min-width: 426px) {
+    .hide-tablet {
+        display: none!important;
+    }
+}
+  
+@media (max-width: 425px) {
+    .hide-mobile {
+        display: none!important;
+    }
+}

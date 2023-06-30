@@ -1,0 +1,87 @@
+.copy-clipboard {
+    display: flex;
+    align-items: center;
+  
+    .copy-wrapper {
+      border: 1px solid #949191;
+      background: #ddd;
+      cursor: pointer;
+      border-radius: 0;
+      text-align: center;
+      width: 120px;
+      line-height: 33px;
+      margin: 0 10px;
+  
+      &:focus {
+        border: 1px solid #949191;
+        box-shadow: none;
+      }
+    }
+  }
+
+.gutenverse-how {
+    background: #F9F9FF;
+    border: 1px solid #E3E4E6;
+    padding: 18px 20px;
+    margin: 10px 15px 15px;
+    border-radius: 7px;
+
+    >h2 {
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+        color: #011627;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+
+        svg {
+            margin-right: 10px;
+        }
+    }
+
+    .tutorial-accordion {
+        &.open {
+            .accordion-header {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        border-bottom: 1px solid #E3E4E6;
+        padding-bottom: 8px;
+        margin-bottom: 8px;
+    }
+
+    .accordion-header {
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        line-height: 33px;
+
+        h3 {
+            font-size: 13px;
+            color: #011627;
+            text-transform: none;
+            margin: 0;
+            line-height: 1.5em;
+            margin-right: 10px;
+            width: 90%;
+        }
+    }
+
+    .accordion-body {
+        font-size: 13px;
+        color: #40505D;
+        padding: 14px 0 7px;
+        line-height: 1.5em;
+    }
+
+    >div.tutorial-accordion:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,210 @@
+@import "settings-control.scss";
+
+#gutenverse-dashboard {
+    .content-wrapper.settings {
+        padding: 0;
+    }
+}
+
+.dashboard-content {
+
+    .setting-header {
+        align-items: center;
+        border-bottom: 1px solid var(--gutenverse-dashboard-border);
+        display: flex;
+        justify-content: space-between;
+        min-height: 90px;
+        padding: 0 40px;
+    }
+
+    .setting-tabs {
+        display: flex;
+        padding-bottom: 36px;
+
+        .actions {
+            bottom: 30px;
+            display: flex;
+            justify-content: flex-end;
+            position: absolute;
+            right: 30px;
+        }
+
+        .settings-tab-header {
+            flex: 0 0;
+
+            .tab-items {
+                .tab-item {
+                    border-radius: 5px;
+                    border: 1px solid #e6e6ef;
+                    color: #40505d;
+                    cursor: pointer;
+                    display: inline-block;
+                    margin-bottom: 20px;
+                    padding: 13px 20px;
+                    text-align: center;
+                    text-decoration: none;
+                    width: 150px;
+
+                    &:focus {
+                        box-shadow: none;
+                    }
+
+                    &.active {
+                        background: #e7ecfd;
+                        color: var(--gutenverse-dashboard-primary);
+                    }
+                }
+            }
+        }
+
+        .settings-tab-body {
+            background: #fff;
+            border-radius: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--gutenverse-dashboard-border);
+            margin-left: 30px;
+            min-height: 600px;
+            padding: 30px 30px 100px;
+            position: relative;
+            width: 100%;
+
+            span {
+                color: #40505d;
+            }
+
+            .control-wrapper {
+                &.control-number {
+                    > label {
+                        align-items: center;
+                        display: flex;
+                        justify-content: space-between;
+
+                        > input {
+                            border-radius: 3px;
+                            border: 1px solid var(--gutenverse-dashboard-border);
+                            color: #3e475b;
+                            font-size: 13px;
+                            max-width: 80px;
+                            min-height: 34px;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .setting-box {
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: 24px 86px 24px 24px;
+                background: #f9f9ff;
+                border: 1px solid #e3e4e6;
+                border-radius: 5px;
+
+                .icon {
+                    svg {
+                        color: #fff;
+                        height: 28px;
+                    }
+
+                    &-wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 64px;
+                        height: 64px;
+                        background: #3b57f7;
+                        border-radius: 50%;
+                    }
+                }
+
+                .info {
+                    margin-left: 24px;
+
+                    > * {
+                        margin: 0;
+                    }
+
+                    h4 {
+                        font-family: "Plus Jakarta Sans";
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 20px;
+                        line-height: 25px;
+                        color: #011627;
+                        margin-bottom: 8px;
+                    }
+
+                    p {
+                        font-family: "Roboto";
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 140%;
+                        color: #40505d;
+                    }
+                }
+
+                .action {
+                    position: absolute;
+                    top: 50%;
+                    right: 24px;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+
+                    .icon {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 38px;
+                        height: 38px;
+                        border-radius: 50%;
+                        border: 1px solid #3A9551;
+
+                        svg {
+                            height: 11px;
+                        }
+
+                        &.check {
+                            border-color: #3A9551;
+
+                            svg {
+                                color: #3A9551;
+                            }
+                        }
+
+                        &.download {
+                            border-color: #3b57f7;
+
+                            svg {
+                                color: #3b57f7;
+                            }
+
+                            &.downloading {
+                                border-color: transparent;
+                                
+                                &::before {
+                                    position: absolute;
+                                    content: "";
+                                    width: 100%;
+                                    height: 100%;
+                                    top: 0;
+                                    left: 0;
+                                    border: solid 1px transparent;
+                                    border-top-color: #3b57f7;
+                                    border-radius: 50%;
+                                    animation: spin 2s linear infinite;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
+    display: none;
+}

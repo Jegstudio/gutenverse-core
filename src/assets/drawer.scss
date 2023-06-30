@@ -1,0 +1,268 @@
+.gutenverse-drawer-body {
+  overflow: hidden;
+}
+
+.gutenverse-drawer-wrapper {
+  font-family: "poppins", sans-serif;
+
+  .gutenverse-drawer-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    height: 0;
+    z-index: 9990;
+  }
+}
+
+.gutenverse-drawer-container {
+  position: fixed;
+  background-color: #fff;
+  right: -450px;
+  top: 0;
+  bottom: 0;
+  width: 450px;
+  transition: all 0.2s ease-out;
+  z-index: 9991;
+
+  .gutenverse-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0px;
+    margin: 0 20px;
+    border-bottom: 1px solid #eee;
+    max-height: 60px;
+    box-sizing: border-box;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .gutenverse-close {
+      cursor: pointer;
+      display: flex;
+    }
+
+    .back-button {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
+
+  &.show-footer {
+    .gutenverse-drawer-scroller {
+      height: calc(100vh - 115px);
+    }
+  }
+
+  .gutenverse-drawer-scroller {
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    display: block;
+  }
+
+  .gutenverse-drawer-body {
+    .controls-wrapper {
+      padding: 20px;
+    }
+
+    .control-preview {
+      h4 {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.preview-box {
+  border: 1px solid #efefef;
+  background-color: #eeeeee;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 0 20px;
+  min-height: 100px;
+}
+
+.gutenverse-drawer-wrapper {
+  &.open {
+    .gutenverse-drawer-container {
+      right: 0;
+    }
+
+    .gutenverse-drawer-overlay {
+      animation: fadeinout 0.2s linear;
+      opacity: 1;
+      height: 100%;
+    }
+
+    &.fade {
+      .gutenverse-drawer-container {
+        right: -450px;
+      }
+
+      .gutenverse-drawer-overlay {
+        opacity: 0;
+        height: 100%;
+        transition: opacity 0.2s;
+      }
+    }
+  }
+
+  .gutenverse-drawer-button-wrapper {
+    background-color: #fff;
+    padding: 10px;
+
+    .gutenverse-drawer-button {
+      background-color: #007cba;
+      padding: 10px;
+      color: #fff;
+      border-radius: 2px;
+      cursor: pointer;
+      text-align: center;
+
+      &.loading {
+        background-color: #bbb;
+      }
+    }
+  }
+}
+
+/***** Drawer *****/
+.gutenverse-drawer-footer {
+  position: absolute;
+  bottom: 0;
+  background: #fff;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  border-top: 1px solid #eee;
+  justify-content: center;
+  align-items: center;
+}
+
+body:not(.is-fullscreen-mode) .gutenverse-drawer-header {
+  margin-top: 32px;
+}
+
+@keyframes fadeinout {
+  0% {
+    display: block;
+    height: 100%;
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.gutenverse-prompt-wrapper {
+  font-family: "poppins", sans-serif;
+}
+
+.gutenverse-prompt-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+.gutenverse-prompt-container {
+  position: fixed;
+  background-color: #fff;
+  width: 300px;
+  min-height: 100px;
+  transition: all 0.2s ease-out;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+
+  .gutenverse-prompt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: #3B57F7;
+    border-radius: 5px 5px 0px 0px;
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+      color: #ffffff;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    .gutenverse-close {
+      display: flex;
+      cursor: pointer;
+      color: #ffffff;
+    }
+  }
+
+  .gutenverse-prompt-body {
+    color: #8181A5;
+    font-family: Roboto;
+    font-style: normal;
+    font-size: 14px;
+    line-height: 16px;
+
+    p {
+      padding: 20px;
+      display: block;
+      text-align: justify;
+      margin: 0;
+    }
+
+    .prompt-buttons {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+      padding: 15px;
+      border-top: 1px solid #E6E6EF;
+
+      .prompt-button {
+        padding: 6px 20px;
+        margin: 0;
+        background: #F45E5E;
+        border-radius: 50px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 12px;
+
+        &.submit {
+          margin-left: 5px;
+        }
+
+        &:hover {
+          background-color: #7c0313;
+        }
+
+        &.cancel {
+          border: 1px solid #E6E6EF;
+          background: #fff;
+          color: #8181A5;
+
+          &:hover {
+            background: #eee;
+          }
+        }
+      }
+    }
+  }
+}

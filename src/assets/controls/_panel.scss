@@ -1,0 +1,105 @@
+/** Gutenverse Panel **/
+.block-editor-block-inspector {
+    &[data-gutenverse-tab='style'] {
+        .block-editor-block-inspector__advanced {
+            display: none;
+        }
+    }
+}
+
+.gutenverse-tab-list {
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+
+    .gutenverse-tab-item {
+        background: #F9F9F9;
+        border-radius: 0;
+        box-shadow: none;
+        cursor: pointer;
+        font-weight: 500;
+        height: 48px;
+        margin-left: 0;
+        padding: 3px 16px;
+        position: relative;
+        justify-content: center;
+        min-width: 36px;
+        padding: 6px;
+        flex: 1 1 0px;
+        align-items: center;
+        display: inline-flex;
+        border: 1px solid #E3E4E6;
+        border-left: none;
+
+        &.active {
+            background: #fff;
+            border-bottom: none;
+
+            svg {
+                fill: #3B57F7;
+            }
+
+            &:after {
+                background: #3B57F7;
+                border-radius: 0;
+                top: -1px;
+                content: "";
+                left: 0;
+                pointer-events: none;
+                position: absolute;
+                right: 0;
+                transition: all .1s linear;
+                height: 2.5px;
+                outline: 2px solid transparent;
+            }
+        }
+    }
+}
+
+.gutenverse-panel {
+    &.is-opened {
+        >h2 {
+            position: sticky;
+            top: 46px;
+            z-index: 9999;
+            background: #fff;
+            margin: -16px -16px 12px !important;
+            border-bottom: 1px solid #fff !important;
+
+            &:hover {
+                border-bottom: 1px solid #E3E4E6 !important;
+            }
+        }
+    }
+
+    >h2 {
+        >button {
+            box-shadow: none !important;
+        }
+
+        &:hover {
+            background: #F9F9F9 !important;
+        }
+    }
+
+    &.pro {
+        >h2 {
+            >button {
+                &:after {
+                    content: "PRO";
+                    background: #FFDBDE;
+                    border: 0.3px solid #C1313F;
+                    border-radius: 2px;
+                    font-size: 8px;
+                    color: #C1313F;
+                    padding: 4px 6px;
+                    border-radius: 3px;
+                    margin-left: 6px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

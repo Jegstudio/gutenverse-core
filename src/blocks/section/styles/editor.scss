@@ -1,0 +1,175 @@
+/** Editor Style **/
+.panel-structure {
+  .control-body {
+    label {
+      border: none !important;
+    }
+
+    .control-icon {
+      display: none;
+    }
+
+    svg {
+      fill: #f2f4f7;
+      border: 1px solid #e3e4e6;
+
+      &:hover {
+        fill: #e3e6f8;
+        border-color: #3b57f7;
+      }
+    }
+  }
+}
+
+.guten-section {
+  margin-top: 0;
+  margin-bottom: 0;
+
+  &.pinned {
+    margin-top: 60px;
+  }
+
+  &.layout-fullwidth {
+    > .guten-container {
+      > .wp-block {
+        max-width: 100%;
+      }
+    }
+  }
+
+  &:hover {
+    &:after {
+      box-shadow: 0 0 0 1.5px var(--guten-wp-color);
+    }
+  }
+}
+
+.section-variation-picker {
+  position: relative;
+
+  .guten-container {
+    padding: 10px;
+  }
+
+  .section-variation-picker-container {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed #ddd;
+    padding: 50px 0;
+    position: relative;
+  }
+
+  ul {
+    padding: 0 !important;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      line-height: 0;
+    }
+  }
+
+  h3.select-column-variation {
+    text-align: center;
+    font-size: 14px !important;
+    margin: 0 0 25px;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+  }
+
+  .column-picker {
+    list-style: none;
+    padding: 0 25px;
+    margin: 0 auto 0;
+    overflow: hidden;
+    max-width: 700px;
+  }
+
+  .section-variation-picker-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #aaa;
+    cursor: pointer;
+  }
+
+  .section-variation-picker-item {
+    &:not(:last-child) {
+      margin-right: 10px
+    }
+    button {
+      height: auto;
+      box-shadow: none !important;
+      color: transparent;
+      padding: 0px !important;
+      &:hover {
+        color: transparent !important;
+        svg {
+          box-shadow: 0 0 0 1px #3b57f7 !important;
+          border-radius: 3px;
+        }
+      }
+
+      svg {
+        height: 50px;
+        width: 94px;
+      }
+    }
+  }
+
+  .reset-column {
+    cursor: pointer;
+    text-align: center;
+
+    span {
+      svg {
+        vertical-align: bottom;
+      }
+
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-block;
+      color: #3c3c3c;
+      background: #dedede;
+      margin-top: 20px;
+      padding: 5px 20px;
+      border-radius: 15px;
+    }
+  }
+}
+
+.section-wrapper {
+  &:not(.inherit-layout) {
+    max-width: none !important;
+  }
+}
+
+// Force max width on backend
+body {
+  &.gutenverse_blank,
+  &.gutenverse_full {
+    section.guten-section {
+      &.layout-fullwidth {
+        position: relative;
+        max-width: 100vw;
+      }
+    }
+  }
+}
+
+.panel-structure {
+  .gutenverse-control-wrapper {
+    &.gutenverse-control-image-radio {
+      svg {
+        fill: transparent !important;
+        padding: unset !important;
+        border: unset !important;
+        &:hover {
+          box-shadow: 0 0 0 1px #3b57f7 !important;
+        }
+      }
+    }
+  }
+}

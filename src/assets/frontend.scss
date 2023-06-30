@@ -1,0 +1,66 @@
+@import "variables";
+@import "mixin";
+@import "wp-fix";
+@import "choices.js/public/assets/styles/choices.min";
+
+/* reserved line for script, don't delete */
+
+// Blocks
+@import "blocks";
+
+// Animation CSS
+@import "animation";
+
+// Responsive
+@import "./responsive/responsive-frontend";
+
+// Swiper JS
+@import "./lib/swiper";
+
+// Overwrite themes
+@import "themes";
+
+// General Frontend
+@import "general-frontend";
+
+// Blocks
+@import "../blocks/section/styles/style";
+@import "../blocks/column/styles/style";
+
+// Set element default position relative (this is required so element with Z Index could work properly)
+.guten-element {
+    position: relative;
+
+    * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+    }
+}
+
+// Hide block that has animation until animation is loaded
+
+.guten-element-hide[class^="desktop-"],
+.guten-element-hide[class*=" desktop-"],
+.guten-element-hide[class^="__desktop-"],
+.guten-element-hide[class*=" __desktop-"] {
+    visibility: hidden;
+}
+
+@media (max-width: 780px) {
+    .guten-element-hide[class^="tablet-"],
+    .guten-element-hide[class*=" tablet-"],
+    .guten-element-hide[class^="__tablet-"],
+    .guten-element-hide[class*=" __tablet-"] {
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 425px) {
+    .guten-element-hide[class^="mobile-"],
+    .guten-element-hide[class*=" mobile-"],
+    .guten-element-hide[class^="__mobile-"],
+    .guten-element-hide[class*=" __mobile-"] {
+        visibility: hidden;
+    }
+}

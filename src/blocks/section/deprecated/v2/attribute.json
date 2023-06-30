@@ -1,0 +1,75 @@
+{
+    "sticky": {
+        "type": "object",
+        "default": {
+            "Desktop": false
+        }
+    },
+    "stickyShowOn": {
+        "type": "string",
+        "default": "both"
+    },
+    "stickyEase": {
+        "type": "string",
+        "default": "none"
+    },
+    "stickyPosition": {
+        "type": "string",
+        "default": "top"
+    },
+    "stickyDuration": {
+        "type": "int",
+        "default": 0.25
+    },
+    "topSticky": {
+        "type": "object",
+        "default": {
+            "Desktop": {
+                "point": "0",
+                "unit": "px"
+            }
+        }
+    },
+    "bottomSticky": {
+        "type": "object",
+        "default": {
+            "Desktop": {
+                "point": "0",
+                "unit": "px"
+            }
+        }
+    },
+    "stickyIndex": {
+        "type": "int",
+        "default": 99
+    },
+    "stickyBackground": {
+        "type": "object"
+    },
+    "stickyBoxShadow": {
+        "type": "object"
+    },
+    "backgroundAnimated": {
+        "type": "object",
+        "default": {}
+    },
+    "topDividerAnimated": {
+        "type": "object",
+        "default": {
+            "type": "none",
+            "loadOn": "pageload",
+            "colorMode": "default",
+            "pauseOnLeave": true,
+            "loop": true
+        }
+    },
+    "bottomDividerAnimated": {
+        "type": "object",
+        "default": {
+            "type": "none",
+            "loadOn": "pageload",
+            "colorMode": "default",
+            "pauseOnLeave": true
+        }
+    }
+}

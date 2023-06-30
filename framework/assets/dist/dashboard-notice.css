@@ -1,0 +1,66 @@
+.gutenverse-upgrade-notice {
+    position: relative;
+    display: flex;
+    margin: 10px 0 20px !important;
+    padding: 0 !important;
+    border: 1px solid #c3c4c7;
+    border-left-width: 0;
+}
+
+.gutenverse-upgrade-notice .notice-logo {
+    background: #fff9e2;
+    padding: 20px 15px;
+    border-color: transparent;
+    border-left: 4px;
+    border-left-color: #ffc909;
+    border-right: 0;
+    border-style: solid;
+}
+
+.gutenverse-upgrade-notice .notice-content {
+    width: 100%;
+    padding: 20px 20px 25px 20px;
+}
+
+.gutenverse-upgrade-notice h2 {
+    margin-top: 5px;
+}
+
+.gutenverse-upgrade-action {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.gutenverse-upgrade-action a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
+.gutenverse-upgrade-action a[class^="button-"] {
+    font-size: 13px;
+    line-height: 1.4;
+    text-decoration: none;
+    color: #fff;
+    background: #1b67a5;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 7px 15px;
+}
+
+.gutenverse-upgrade-action a.button-success {
+    background: green;
+}
+
+.gutenverse-upgrade-action a.close-notification:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f057";
+}
+
+.gutenverse-upgrade-action a.get-support:before {
+    font-family: "Font Awesome 5 Free";
+    content: "\f1cd";
+}

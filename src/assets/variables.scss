@@ -1,0 +1,137 @@
+// Colors 
+$color-black:                         #181D23;
+$color-grey-900:                      #2D3137;
+$color-grey-800:                      #42464B;
+$color-grey-700:                      #575A5F;
+$color-grey-600:                      #6C6F73;
+$color-grey-500:                      #818387;
+$color-grey-400:                      #96989B;
+$color-grey-300:                      #ABACAF;
+$color-grey-200:                      #D5D5D7;
+$color-grey-100:                      #FAFCFF;
+$color-white:                         #ffffff;
+$color-blue:                          #0058E6;
+$color-yellow:                        #FFC402;
+$color-green:                         #00A878;
+$color-orange:                        #FC4E19;
+$color-red:                           #FF0000;
+$color-info:                          #5bc0de;
+$color-success:                       #5cb85c;
+$color-warning:                       #f0ad4e;
+$color-danger:                        #d9534f;
+$color-wp:                            #007cba;
+
+
+$border-color:                        lighten($color-grey-200, 8);
+$form-border-color:                   $color-grey-200;
+$form-bg-color:                       transparent;
+$form-bg-txt-color:                   $color-black;
+$selection-bg-color:                  darken($color-yellow, 8%);
+$element-bg-color:                    lighten($color-blue, 30);
+$element-darken-bg-color:             $color-blue;
+$element-lighten-bg-color:            lighten($color-blue, 50);
+$success-border-color:                darken($color-green, 8%);
+$success-bg-color:                    lighten($color-green, 40%);
+$error-border-color:                  darken($color-red, 8%);
+$error-bg-color:                      lighten($color-red, 40%);
+
+// Typography 
+$font-size-base:                      15px !default;
+$line-height-base:                    1.5 !default;
+$meta-font-size:                      0.75rem !default;
+$label-font-size:                     0.8em !default;
+
+// Forms 
+$form-font-size:                      $font-size-base;
+$input-padding:                       8px;
+$form-placeholder-color:              $color-grey-400;
+$form-border-focus:                 #b7b7b7;
+$input-switch-active:               #3557DC;
+$input-switch-shadow:               #2E384D;
+
+// Button 
+$btn-txt-color:                       $color-white;
+$btn-bg-color:                        $color-blue;
+$btn-bg-info:                         $color-info;
+$btn-bg-success:                      $color-success;
+$btn-bg-warning:                      $color-warning;
+$btn-bg-danger:                       $color-danger;
+$btn-bg-hover-color:                  darken($btn-bg-color, 8%);
+$btn-bg-disable-color:                lighten($btn-bg-color, 10%);
+$btn-border-width:                    1px;
+$btn-font-size:                       $font-size-base;
+$btn-padding-y:                       0.6875rem !default;
+$btn-padding-x:                       1.25rem !default;
+$btn-line-height:                     $line-height-base !default;
+$btn-border-radius:                   3px !default;
+
+// Transition
+$transition-base:                     .25s ease;
+
+// Grid
+$grid-sm-breakpoints:                  576px !default;
+$grid-md-breakpoints:                  768px !default;
+$grid-lg-breakpoints:                  1024px !default;
+$grid-xl-breakpoints:                  1200px !default;
+
+$grid-gutter-width:                    40px !default;
+$grid-column-padding:                  20px !default;
+$grid-module-padding:                  40px 40px 20px 40px;
+
+// Block
+$module-margin:                        2rem !default;
+$widget-margin:                        2.5rem !default;
+$item-margin:                          15px !default;
+
+$blocklink-overlay-color:            rgba(255, 255, 255, 0.3);
+$blocklink-shadow-color:             rgba(0, 0, 0, .15);
+
+$blockpopular-shadow-color1:         rgba(0,0,0,0.16);
+$blockpopular-shadow-color2:         rgba(0,0,0,0.12);
+
+// Border
+$border-radius-default:                10px;
+
+// :root {
+//   --guten-screen-xs-max:               #{$screen-xs-max};
+//   --guten-screen-sm-min:               #{$screen-sm-min};
+//   --guten-screen-sm-max:               #{$screen-sm-max};
+//   --guten-screen-md-min:               #{$screen-md-min};
+// }
+
+body { 
+  --guten-base-color:                  #{$color-black};
+  --guten-base-lighter-color:          #{$color-grey-900};
+  --guten-bg-color:                    #{$color-white};
+  --guten-border-color:                #{$border-color};
+  --guten-txt-color:                   #{$color-grey-700};    // Default text color
+  --guten-txt-h-color:                 #{$color-black};       // Heading text color
+  --guten-txt-a-color:                 #{$color-blue};        // Link text color
+  --guten-txt-m-color:                 #{$color-grey-400};    // Post meta text color 
+  --guten-txt-alt-color:               #{$color-white};
+  --guten-form-border-color:           #{$form-border-color};
+  --guten-form-bg-color:               #{$form-bg-color};
+  --guten-form-txt-color:              #{$form-bg-txt-color};
+  --guten-form-font-size:              #{$form-font-size};
+  --guten-form-border-focus:           #{$form-border-focus};
+  --guten-switch-active:               #{$input-switch-active};
+  --guten-switch-shadow:               #{$input-switch-shadow};
+  --guten-form-placeholder-color:      #{$form-placeholder-color};
+  --guten-btn-txt-color:               #{$btn-txt-color};
+  --guten-btn-bg-color:                #{$btn-bg-color};
+  --guten-btn-bg-info:                 #{$btn-bg-info};
+  --guten-btn-bg-success:              #{$btn-bg-success};
+  --guten-btn-bg-warning:              #{$btn-bg-warning};
+  --guten-btn-bg-danger:               #{$btn-bg-danger};
+  --guten-btn-bg-hover-color:          #{$btn-bg-hover-color};
+  --guten-selection-bg-color:          #{$selection-bg-color};
+  --guten-element-bg-color:            #{$element-bg-color};
+  --guten-element-darken-bg-color:     #{$element-darken-bg-color};
+  --guten-element-lighten-bg-color:    #{$element-lighten-bg-color};
+  --guten-success-bg-color:            #{$success-bg-color};
+  --guten-success-border-color:        #{$success-border-color};
+  --guten-error-text-color:            #{$error-border-color};
+  --guten-error-bg-color:              #{$error-bg-color};
+  --guten-error-border-color:          #{$error-border-color};
+  --guten-wp-color:                    #{$color-wp};
+}

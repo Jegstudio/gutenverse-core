@@ -1,0 +1,139 @@
+#gutenverse-dashboard {
+    .content-wrapper.system {
+        padding: 0 0 60px;
+        font-family: "Roboto";
+
+        .system-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 90px;
+            padding: 0 40px;
+            border-bottom: 1px solid #e3e4e6;
+        }
+
+        .system-body {
+            padding: 40px 40px 0px;
+
+            table {
+                width: 100%;
+                border: 1px solid #e3e4e6;
+                border-radius: 5px;
+
+                thead {
+                    th {
+                        text-align: left;
+                        font-size: 14px;
+                        line-height: 1.5em;
+                        padding: 12px 10px;
+                        border-bottom: 1px solid #e3e4e6;
+                        font-weight: bold;
+                    }
+                }
+
+                tbody {
+                    tr:nth-child(2n) {
+                        background: #f2f4f7;
+                    }
+
+                    td {
+                        font-size: 14px;
+                        line-height: 1.4em;
+                        padding: 10px;
+                        vertical-align: middle;
+
+                        &.status-title {
+                            width: 35%;
+                        }
+
+                        &.status-flag {
+                            width: 12px;
+
+                            .status-flag-circle {
+                                border-radius: 100%;
+                                display: inline-block;
+                                height: 12px;
+                                margin: 0 auto;
+                                vertical-align: middle;
+                                width: 12px;
+
+                                &.yellow {
+                                    background: #eca61a;
+                                }
+
+                                &.green {
+                                    background: #3a9551;
+                                }
+
+                                &.red {
+                                    background: #e73030;
+                                }
+                            }
+                        }
+
+                        &.status-value {
+                            .status-wrapper {
+                                height: 100%;
+
+                                span {
+                                    font-size: 12px;
+                                    font-style: italic;
+                                }
+
+                                svg {
+                                    position: relative;
+                                    top: 2px;
+                                    height: 13px;
+                                }
+
+                                mark {
+                                    &.yes {
+                                        color: #3a9551;
+                                        font-weight: 700;
+                                        background: transparent;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // .system-status-tooltip {
+            //     border-radius: 1px;
+            //     border: 1px solid #e0e0e0;
+            //     background: #fff;
+            //     color: #1d2327;
+            //     padding: 8px 12px;
+
+            //     &.place-right::after {
+            //         border-right-color: inherit;
+            //         border-top-color: inherit;
+            //     }
+
+            //     &.show {
+            //         opacity: 1;
+            //     }
+            // }
+        }
+
+        .gutenverse-button {
+            position: relative;
+            margin: 0;
+            bottom: 0;
+            right: 0;
+            padding: 10px 24px;
+        }
+
+        .tooltip-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            svg {
+                color: #bdbebf;
+                height: 11px;
+            }
+        }
+    }
+}

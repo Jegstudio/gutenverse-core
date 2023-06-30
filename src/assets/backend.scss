@@ -1,0 +1,300 @@
+@import "@wordpress/base-styles/variables";
+@import "@wordpress/base-styles/breakpoints";
+@import "@wordpress/base-styles/mixins";
+@import "@wordpress/components/src/snackbar/style.scss";
+@import "./controls/variable";
+
+#gutenverse-dashboard {
+    --gutenverse-dashboard-border: #E3E4E6;
+    --gutenverse-dashboard-primary: #3B57F7;
+}
+
+@import "./dashboard/blocklist.scss";
+@import "./dashboard/dashboard.scss";
+@import "./dashboard/ecosystem.scss";
+@import "./dashboard/settings.scss";
+@import "./dashboard/system.scss";
+@import "./dashboard/themelist.scss"; // todo
+@import "./dashboard/update-notice.scss"; // todo
+
+.components-snackbar-list {
+    bottom: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: fixed;
+    width: 350px;
+    z-index: 100000;
+}
+
+.noscroll {
+    overflow: hidden;
+}
+
+#gutenverse-dashboard {
+    margin: 0 auto;
+    max-width: 1180px;
+    padding: 0 20px;
+
+    // Content
+    .content-wrapper {
+        background-color: white;
+        margin: 30px 0px 50px 0px;
+
+        .dashboard-content {
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+
+            .gutenverse-button {
+                background: var(--gutenverse-dashboard-primary);
+                border-radius: 50px;
+                color: white;
+                cursor: pointer;
+                font-size: 12px;
+                line-height: 18px;
+                padding: 10px 40px;
+            }
+
+            .content-header {
+                align-items: center;
+                border-bottom: 1px solid var(--gutenverse-dashboard-border);
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 40px;
+                min-height: 90px;
+                padding: 0 40px;
+                position: relative;
+        
+                .header-control {
+                    align-items: center;
+                    display: flex;
+                    gap: 20px;
+                }
+
+                h2 {
+                    align-items: center;
+                    display: flex;
+                    font-family: 'Roboto';
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 30px;
+                }
+            }
+        
+            .content-body {
+                padding: 0 40px;
+            }
+        }
+    }
+
+    .plugin-install-popup {
+        bottom: 0;
+        left: 0;
+        overflow: scroll;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 9999;
+
+        .plugin-install-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            height: 100%;
+            position: absolute;
+            width: 100%;
+        }
+
+        .plugin-install-container {
+            align-items: flex-start;
+            display: flex;
+            height: 100%;
+            justify-content: center;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, 0);
+            width: 700px;
+        }
+
+        .plugin-install-wrapper {
+            background: white;
+            border-radius: 10px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            margin-top: 60px;
+            padding: 30px;
+
+            h2 {
+                font-size: 18px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .plugin-install-inner {
+                margin-bottom: 30px;
+            }
+
+            .plugin-install-item {
+                align-items: center;
+                border-top: 1px solid var(--gutenverse-dashboard-border);
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 0 35px;
+
+                .plugin-install-detail {
+                    h2 {
+                        font-size: 15px;
+                        margin: 10px 0;
+                    }
+
+                    span {
+                        color: #7b8084;
+                        font-size: 12px;
+                        font-style: italic;
+                    }
+                }
+
+                .plugin-install-action {
+                    .install-action {
+                        border-radius: 20px;
+                        border: 1px solid var(--gutenverse-dashboard-primary);
+                        color: var(--gutenverse-dashboard-primary);
+                        cursor: pointer;
+                        display: flex;
+                        font-size: 12px;
+                        padding: 8px 20px;
+
+                        .rotating {
+                            margin-right: 10px;
+                        }
+
+                        &.loading,
+                        &:hover {
+                            background: var(--gutenverse-dashboard-primary);
+                            color: white;
+                        }
+
+                        &.done {
+                            background: #047104;
+                            border-color: #116e11;
+                            color: white;
+                            cursor: inherit;
+                        }
+                    }
+                }
+            }
+        }
+
+        .plugin-close-wrapper {
+            border-radius: 2px;
+            border: 1px solid var(--gutenverse-dashboard-border);
+            cursor: pointer;
+            display: flex;
+            margin-top: -10px;
+            padding: 5px;
+            position: absolute;
+            right: 20px;
+
+            .plugin-close {
+                display: flex;
+            }
+        }
+    }
+
+    .navigation-wrapper {
+        align-items: center;
+        background: white;
+        border-radius: 0 0 5px 5px;
+        display: flex;
+        justify-content: flex-start;
+        line-height: 1em;
+        padding: 0px 50px 0px 20px;
+
+        .plugin-logo {
+            padding-right: 60px;
+        }
+
+        .navigation-item {
+            border-bottom: 2px solid transparent;
+            color: #011627;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "Roboto";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            padding: 30px 0px 27px 0px;
+            text-decoration: none;
+
+            &:not(:last-child) {
+                margin-right: 38px;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            &:hover,
+            &.active {
+                color: var(--gutenverse-dashboard-primary);
+            }
+
+            &.active {
+                border-bottom-color: var(--gutenverse-dashboard-primary);
+            }
+        }
+    }
+
+    .gutenverse-icon-logo {
+        align-items: center;
+        display: flex;
+        font-family: "Poppins", sans-serif;
+        font-size: 18px;
+        font-weight: 300;
+        margin: 0;
+        width: 100%;
+    }
+}
+
+
+@-webkit-keyframes rotating {
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+}
