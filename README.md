@@ -61,7 +61,7 @@ This is because the framework is initialized using the `init` hook it self.
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "gutenverse-core/*": ["../gutenverse-core/src/*"],
+            "gutenverse-core/*": ["./gutenverse-core/src/*"],
         }
     },
 }
