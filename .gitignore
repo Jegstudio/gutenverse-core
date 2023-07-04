@@ -8,6 +8,7 @@ gutenverse/assets/js
 gutenverse/assets/css
 gutenverse/languages/gutenverse.pot
 gutenverse/lib/dependencies
+gutenverse-core
 
 # Files to ignore
 package-lock.json
