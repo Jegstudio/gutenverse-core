@@ -28,6 +28,7 @@ import IconVideo from './icon-video.svg';
 import Icon from './icon.svg';
 import IconTabsItem from './icon-tabs-item.svg';
 import IconListItem from './icon-list-item.svg';
+import IconPopupBuilder from './icon-pop-up-builder.svg';
 
 /** Social */
 import IconShareEmail from './icon-share-email.svg';
@@ -274,4 +275,8 @@ export const IconPostTermsSVG = () => {
 
 export const IconPostTitleSVG = () => {
     return <IconPostTitle />;
+};
+
+export const IconPopupBuilderSVG = () => {
+    return <IconPopupBuilder />;
 };

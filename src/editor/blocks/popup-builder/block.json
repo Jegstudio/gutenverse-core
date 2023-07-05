@@ -1,0 +1,156 @@
+{
+    "apiVersion": 2,
+    "name": "gutenverse/popup-builder",
+    "title": "Popup Builder",
+    "description": "Build Popup using gutenverse popup builder.",
+    "category": "gutenverse-structure",
+    "attributes": {
+        "elementId": {
+            "type": "string"
+        },
+        "width": {
+            "type": "object",
+            "default": {
+                "Desktop": {
+                    "point": "450",
+                    "unit": "px"
+                },
+                "Tablet": {
+                    "point": "450",
+                    "unit": "px"
+                },
+                "Mobile": {
+                    "point": "100",
+                    "unit": "%"
+                }
+            }
+        },
+        "maxHeight": {
+            "type": "object"
+        },
+        "containerPadding": {
+            "type": "object"
+        },
+        "containerBorder": {
+            "type": "object"
+        },
+        "containerBoxShadow": {
+            "type": "object"
+        },
+        "backgroundColor": {
+            "type": "object"
+        },
+        "animation": {
+            "type": "object",
+            "default": {}
+        },
+        "position": {
+            "type": "string",
+            "default": "center"
+        },
+        "contentPosition": {
+            "type": "string",
+            "default": "center"
+        },
+        "sideMode": {
+            "type": "string",
+            "default": "space"
+        },
+        "overlayColor": {
+            "type": "object"
+        },
+        "showCloseButton": {
+            "type": "boolean",
+            "default": true
+        },
+        "closePopupOverlay": {
+            "type": "boolean",
+            "default": true
+        },
+        "closeIcon": {
+            "type": "string",
+            "default": "gtn gtn-x-line"
+        },
+        "closePosition": {
+            "type": "string",
+            "default": "container"
+        },
+        "closeButtonColor": {
+            "type": "object"
+        },
+        "closeButtonBgColor": {
+            "type": "object"
+        },
+        "closeButtonSize": {
+            "type": "object"
+        },
+        "closePositioningLeft": {
+            "type": "object"
+        },
+        "closePositioningRight": {
+            "type": "object",
+            "default": {
+                "Desktop": {
+                    "point": 10,
+                    "unit": "px"
+                }
+            }
+        },
+        "closePositioningTop": {
+            "type": "object",
+            "default": {
+                "Desktop": {
+                    "point": 10,
+                    "unit": "px"
+                }
+            }
+        },
+        "closePositioningBottom": {
+            "type": "object"
+        },
+        "closePadding": {
+            "type": "object"
+        },
+        "closeBorder": {
+            "type": "object"
+        },
+        "closeBoxShadow": {
+            "type": "object"
+        },
+        "closeButtonColorHover": {
+            "type": "object"
+        },
+        "closeButtonBgColorHover": {
+            "type": "object"
+        },
+        "closeBorderHover": {
+            "type": "object"
+        },
+        "closeBoxShadowHover": {
+            "type": "object"
+        },
+        "openTrigger": {
+            "type": "string",
+            "default": "load"
+        },
+        "openWaitTime": {
+            "type": "int"
+        },
+        "openScrollDistance": {
+            "type": "int"
+        },
+        "openAnchor": {
+            "type": "string"
+        },
+        "openMaxClick": {
+            "type": "int"
+        }
+    },
+    "supports": {
+        "className": false
+    },
+    "keywords": [
+        "popup",
+        "builder"
+    ]
+}
