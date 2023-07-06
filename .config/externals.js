@@ -76,7 +76,8 @@ const externals = {
 }
 
 const coreFrontendExternals = {
-	'gutenverse-core-frontend': 'gutenverseCoreFrontend'
+	'gutenverse-core-frontend': 'gutenverseCoreFrontend',
+	'gutenverse-core-frontend/helper': 'gutenverseCoreFrontend.helper',
 };
 
 module.exports = {
