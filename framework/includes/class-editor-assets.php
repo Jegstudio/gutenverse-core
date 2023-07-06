@@ -90,7 +90,7 @@ class Editor_Assets {
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
-		$theme_referal  = get_option( 'gutenverse-theme-referal-code', false );
+		$theme_referal  = apply_filters( 'gutenverse_theme_referal_code', null );
 		$theme_referal  = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
 
 		$config                     = array();
