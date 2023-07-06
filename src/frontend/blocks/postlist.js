@@ -2,7 +2,7 @@ import u from 'umbrellajs';
 import { Default } from 'gutenverse-core-frontend';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 class GutenversePostlist extends Default {
     /* public */
