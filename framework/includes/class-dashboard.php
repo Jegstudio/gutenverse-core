@@ -173,7 +173,7 @@ class Dashboard {
 
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
@@ -302,11 +302,11 @@ class Dashboard {
 	public function gutenverse_theme_list_config() {
 		$config = array();
 
-		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['serverEndpoint'] = 'wp-json/gutenverse-server/v1';
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
@@ -327,7 +327,7 @@ class Dashboard {
 	public function gutenverse_setting_config() {
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
-		$config['getPro']          = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']          = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['freeImg']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 

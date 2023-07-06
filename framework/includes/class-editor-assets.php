@@ -90,13 +90,15 @@ class Editor_Assets {
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
+		$theme_referal  = get_option( 'gutenverse-theme-referal-code', false );
+		$theme_referal  = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
 
 		$config                     = array();
 		$config['globals']          = array();
 		$config['fonts']            = ( new Fonts() )->get_font_settings();
 		$config['imagePlaceholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['serverUrl']        = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['serverUrl']        = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['serverEndpoint']   = 'wp-json/gutenverse-server/v1';
 		$config['proUrl']           = GUTENVERSE_FRAMEWORK_STORE_URL;
 		$config['openedTemplate']   = $template ? $template : array();
@@ -111,6 +113,8 @@ class Editor_Assets {
 		$config['plugins']          = self::list_plugin();
 		$config['gtniconURL']       = Init::instance()->assets->get_gtnicon_url();
 		$config['fontawesomeURL']   = Init::instance()->assets->get_fontawesome_url();
+		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
+		$config['referalUrl']       = $theme_referal;
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}
@@ -156,14 +160,14 @@ class Editor_Assets {
 	public function enqueue_backend() {
 		wp_enqueue_style(
 			'gutenverse-backend-font',
-			'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Poppins:wght@400;500;600&amp;family=Roboto:wght@300;400;500;600;700;800&display=swap',
+			'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
 		wp_enqueue_style(
 			'gutenverse-backend-font-2',
-			'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600&amp;display=swap',
+			'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600&family=Poppins:wght@400;500;600&display=swap',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);

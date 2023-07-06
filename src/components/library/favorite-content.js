@@ -9,6 +9,7 @@ import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
 import { saveLayoutLikeState } from 'gutenverse-core/requests';
+import BannerPro from './banner-pro';
 
 const FavoriteContent = props => {
     const { modalData, library } = props;
@@ -169,10 +170,10 @@ const FavoriteContent = props => {
                         <IconBlocksSVG /><span>{__('Section', 'gutenverse')}</span>
                     </li>
                 </ul>
-                {/* <>
+                <>
                     <h2 className="gutenverse-library-side-heading">{__('Licenses', 'gutenverse')}</h2>
                     <SelectLicense license={license} setLicense={setLicense}/>
-                </> */}
+                </>
                 {authors.length > 1 && <>
                     <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
                     <SelectAuthor authors={authors} author={author} setAuthor={setAuthor}/>
@@ -183,6 +184,7 @@ const FavoriteContent = props => {
                 <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
             </div>
             <div className="gutenverse-library-inner" ref={scrollerRef}>
+                <BannerPro/>
                 <>
                     {'layout' === layoutContentData.library && <LayoutContentData
                         current={content.current}

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
-import { RenderCategories, SelectAuthor } from './layout-content';
+import { RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
 import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
 import Paging from './paging';
 import { __, _n } from '@wordpress/i18n';
@@ -9,6 +9,7 @@ import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
+import BannerPro from './banner-pro';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
@@ -33,7 +34,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, libraryData: library } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library } = props;
     const { layoutContentData: data } = modalData;
 
     const [categories, setCategories] = useState({});
@@ -116,10 +117,10 @@ const SectionContentWrapper = (props) => {
 
     return <>
         <div className="gutenverse-library-sidebar">
-            {/* <>
+            <>
                 <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', 'gutenverse')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
-            </> */}
+            </>
             {authors.length > 1 && <>
                 <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
@@ -130,6 +131,7 @@ const SectionContentWrapper = (props) => {
             <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
+            <BannerPro/>
             <SectionContentData
                 current={content.current}
                 data={content.data}
