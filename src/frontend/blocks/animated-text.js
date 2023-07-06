@@ -1,5 +1,5 @@
 import u from 'umbrellajs';
-import { Default } from 'gutenverse-core/frontend';
+import { Default } from 'gutenverse-core-frontend';
 import anime from 'animejs';
 
 class GutenverseAnimatedText extends Default {

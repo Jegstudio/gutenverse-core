@@ -1,5 +1,5 @@
 import u from 'umbrellajs';
-import { Default } from 'gutenverse-core/frontend';
+import { Default } from 'gutenverse-core-frontend';
 import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
 import { applyFilters } from '@wordpress/hooks';
 

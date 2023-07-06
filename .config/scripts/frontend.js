@@ -3,8 +3,8 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const rules = require("gutenverse-core/.config/rules");
 const { output } = require('../config');
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreExternals } = require("gutenverse-core/.config/externals");
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const { externals, coreExternals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 const frontend = {
     mode: "development",
@@ -17,6 +17,7 @@ const frontend = {
     externals: {
         ...externals,
         ...coreExternals,
+        ...coreFrontendExternals
     },
     stats,
     output,

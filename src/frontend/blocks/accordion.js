@@ -1,4 +1,4 @@
-import { Default } from 'gutenverse-core/frontend';
+import { Default } from 'gutenverse-core-frontend';
 import u from 'umbrellajs';
 import anime from 'animejs';
 
