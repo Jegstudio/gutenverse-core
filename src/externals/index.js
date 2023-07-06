@@ -8,7 +8,6 @@ export * as store from '../store';
 export * as requests from '../requests';
 export * as icons from '../icons';
 export * as config from '../config';
-export * as frontend from '../frontend';
 export * as helper from '../helper';
 export * as editorHelper from '../editor-helper';
 export * as backend from '../backend';

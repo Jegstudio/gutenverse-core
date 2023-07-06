@@ -112,7 +112,7 @@ class Frontend_Assets {
 
 		wp_enqueue_script(
 			'gutenverse-frontend-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/core.js',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
