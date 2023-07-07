@@ -125,7 +125,8 @@ class Dashboard {
 		);
 
 		if ( 'toplevel_page_gutenverse' === $hook ) {
-			$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/dashboard.asset.php' )['dependencies'];
+			$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/dashboard.asset.php' )['dependencies'];
+			$include[] = 'gutenverse-frontend-event';
 
 			wp_enqueue_script(
 				'gutenverse-core-dashboard-event',
