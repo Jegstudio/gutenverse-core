@@ -5,7 +5,7 @@ import { chevronUp, chevronDown } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
 import { withParentControl } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
-import template from 'lodash.template';
+import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
 
 const CompositeComponent = ({ component: Component, index, itemProps, value = {}, onValueChange, onStyleChange }) => {

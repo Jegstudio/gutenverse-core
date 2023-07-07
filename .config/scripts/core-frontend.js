@@ -1,27 +1,32 @@
-const rules = require("../rules");
 const path = require("path");
+const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals, coreExternals, coreFrontendExternals } = require("../externals");
+const { externals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
-const frontend = {
+const corefrontend = {
     mode: "development",
     devtool: 'cheap-module-source-map',
     entry: {
-        frontend: {
-            import: path.resolve(__dirname, "../../src/frontend/blocks/index.js"),
+        corefrontend: {
+            import: path.resolve(__dirname, "../../src/frontend/index.js"),
+            library: {
+                name: "gutenverseCoreFrontend",
+                type: "window",
+            },
         },
-    },
-    externals: {
-        ...externals,
-        ...coreExternals,
-        ...coreFrontendExternals,
     },
     stats,
     output,
+    externals,
+    resolve: {
+        alias: {
+            "gutenverse-core-frontend": path.resolve(__dirname, "../../src/frontend"),
+        },
+    },
     module: {
-        strictExportPresence: true,
+        // strictExportPresence: true,
         rules,
     },
     plugins: [
@@ -32,11 +37,11 @@ const frontend = {
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/frontend.js",
+                            source: "./build/corefrontend.js",
                             destination: "./framework/assets/js/",
                         },
                         {
-                            source: "./build/frontend.asset.php",
+                            source: "./build/corefrontend.asset.php",
                             destination: "./framework/lib/dependencies/",
                         },
                     ],
@@ -48,5 +53,5 @@ const frontend = {
 };
 
 module.exports = {
-    frontend,
+    corefrontend,
 };

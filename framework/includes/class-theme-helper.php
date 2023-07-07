@@ -30,6 +30,9 @@ class Theme_Helper {
 		add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), null, 3 );
 		add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 3 );
 
+		// Action.
+		add_action( 'wp', array( $this, 'home_template' ), 99 );
+
 		/**
 		 * These functions used to be called inside init hook.
 		 * But because framework called using init hook.
@@ -38,6 +41,34 @@ class Theme_Helper {
 		$this->register_block_core_template_part();
 	}
 
+	/**
+	 * Home Template.
+	 */
+	public function home_template() {
+		$settings      = get_option( 'gutenverse-settings', array() );
+		$page_settings = isset( $settings['template_page'] ) ? $settings['template_page'] : null;
+
+		if ( is_front_page() && has_blocks() && ! empty( $page_settings ) && isset( $page_settings['use_setting_homepage'] ) && $page_settings['use_setting_homepage'] ) {
+			add_filter( 'pre_get_block_templates', array( $this, 'home_block_template' ), null, 3 );
+		}
+	}
+
+	/**
+	 * Filter Home Block.
+	 *
+	 * @param string $result Template Name.
+	 * @param string $query Query.
+	 * @param string $template_type Template Type.
+	 *
+	 * @return array Templates.
+	 */
+	public function home_block_template( $result, $query, $template_type ) {
+		if ( 'wp_template' === $template_type && isset( $query['slug__in'] ) && 'front-page' === $query['slug__in'][0] ) {
+			return array();
+		}
+
+		return $result;
+	}
 
 	/**
 	 * Re - Registers the `core/template-part` block on the server.

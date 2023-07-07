@@ -9,7 +9,7 @@
  */
 const camelCaseDash = string => string.replace(
 	/-([a-z])/g,
-	( match, letter ) => letter.toUpperCase()
+	(match, letter) => letter.toUpperCase()
 );
 
 /**
@@ -24,10 +24,10 @@ const wpExternals = [
 	'codeEditor',
 	'components',
 	'compose',
-    'core-data',
+	'core-data',
 	'data',
 	'date',
-    'editor',
+	'editor',
 	'element',
 	'escape-html',
 	'html-entities',
@@ -40,31 +40,31 @@ const wpExternals = [
 	'token-list',
 	'url',
 	'viewport',
-].reduce( ( externals, name ) => ( {
+].reduce((externals, name) => ({
 	...externals,
-	[ `@wordpress/${ name }` ]: `wp.${ camelCaseDash( name ) }`,
-} ), {} );
+	[`@wordpress/${name}`]: `wp.${camelCaseDash(name)}`,
+}), {});
 
 const coreExternals = [
-    'animation',
-    'components',
-    'config',
-    'controls',
-    'editor-helper',
-    'frontend',
-    'helper',
-    'hoc',
-    'hooks',
-    'icons',
-    'requests',
-    'store',
-    'toolbars',
-    'backend',
-    'router'
-].reduce( ( externals, name ) => ( {
+	'animation',
+	'components',
+	'config',
+	'controls',
+	'editor-helper',
+	'frontend',
+	'helper',
+	'hoc',
+	'hooks',
+	'icons',
+	'requests',
+	'store',
+	'toolbars',
+	'backend',
+	'router'
+].reduce((externals, name) => ({
 	...externals,
-	[ `gutenverse-core/${ name }` ]: `gutenverseCore.${ camelCaseDash( name ) }`,
-} ), {} );
+	[`gutenverse-core/${name}`]: `gutenverseCore.${camelCaseDash(name)}`,
+}), {});
 
 const externals = {
 	wp: 'wp',
@@ -75,8 +75,14 @@ const externals = {
 	...wpExternals,
 }
 
+const coreFrontendExternals = {
+	'gutenverse-core-frontend': 'gutenverseCoreFrontend',
+	'gutenverse-core-frontend/helper': 'gutenverseCoreFrontend.helper',
+};
+
 module.exports = {
-    camelCaseDash,
+	camelCaseDash,
 	externals,
-    coreExternals,
+	coreExternals,
+	coreFrontendExternals
 };

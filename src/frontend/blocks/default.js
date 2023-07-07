@@ -1,7 +1,7 @@
-import { isEmpty } from "lodash";
-import { animations } from "../data/animation";
-import { devices } from "../data/devices";
-import { responsiveBreakpoint } from "gutenverse-core/helper";
+import { animations } from '../data/animation';
+import { devices } from '../data/devices';
+import { responsiveBreakpoint } from '../helper';
+import isEmpty from 'lodash/isEmpty';
 
 export class Default {
     constructor(elements) {
@@ -28,7 +28,7 @@ export class Default {
             animationsData.push(...data);
         });
 
-        if (elementObj.hasClass("animated")) {
+        if (elementObj.hasClass('animated')) {
             animationsData.map((animation) => {
                 if (elementObj.hasClass(animation)) {
                     animationClasses.push(animation);
@@ -40,11 +40,11 @@ export class Default {
             // Devices list for responsive animation
             const devices = [];
             if (window.innerWidth <= mobileBreakpoint) {
-                devices.push("mobile", "tablet", "desktop");
+                devices.push('mobile', 'tablet', 'desktop');
             } else if (window.innerWidth > mobileBreakpoint && window.innerWidth <= tabletBreakpoint) {
-                devices.push("tablet", "desktop");
+                devices.push('tablet', 'desktop');
             } else if (window.innerWidth > mobileBreakpoint) {
-                devices.push("desktop");
+                devices.push('desktop');
             }
 
             // Load animation based on priority (mobile -> tablet -> desktop)
@@ -56,8 +56,8 @@ export class Default {
                 }
             }
 
-            if (elementObj.hasClass("guten-element-hide") && isEmpty(animationClass)) {
-                elementObj.removeClass("guten-element-hide");
+            if (elementObj.hasClass('guten-element-hide') && isEmpty(animationClass)) {
+                elementObj.removeClass('guten-element-hide');
             }
         }
 
@@ -71,7 +71,7 @@ export class Default {
         if (animationClass) {
             animationClasses.map((name) => elementObj.removeClass(name));
             elementObj.addClass(`__${animationClass}`);
-            elementObj.removeClass("guten-element-hide");
+            elementObj.removeClass('guten-element-hide');
         }
     }
 

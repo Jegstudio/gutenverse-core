@@ -1,10 +1,12 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-            "gutenverse-core/*": ["./src/*"],
-        }
-    },
-    "include": ["./src/**/*"],
-    "exclude": ["node_modules", "build"]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"gutenverse-core-frontend": ["./src/frontend"],
+			"gutenverse-core-frontend/*": ["./src/frontend/*"],
+			"gutenverse-core/*": ["./src/*"]
+		}
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules", "build"]
 }
