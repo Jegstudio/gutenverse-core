@@ -108,15 +108,7 @@ class Frontend_Assets {
 			true
 		);
 
-		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/corefrontend.asset.php' )['dependencies'];
-
-		wp_enqueue_script(
-			'gutenverse-frontend-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
-			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
+		wp_enqueue_script( 'gutenverse-frontend-event' );
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
 
