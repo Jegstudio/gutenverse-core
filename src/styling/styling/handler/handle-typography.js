@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash';
 import { variableFontName } from 'gutenverse-core/helper';
-import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from 'gutenverse-core/controls';
+import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 
 const handleFont = (typography, props, id) => {
     const weight = typography.weight && typography.style === 'italic' ? `${typography.weight}italic` : typography.weight;

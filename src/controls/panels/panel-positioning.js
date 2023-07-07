@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleAlignV, handleUnitPoint, deviceStyleValue } from 'gutenverse-core/controls';
+import { handleAlignV, handleUnitPoint, deviceStyleValue } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { select } from '@wordpress/data';

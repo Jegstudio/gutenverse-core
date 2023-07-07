@@ -7,7 +7,7 @@ import { dateI18n } from '@wordpress/date';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { filteredAttributes, isAlignStickyColumn, isFSE, getFixData, getIndex } from 'gutenverse-core/helper';
 import { identity, isArray, isEmpty, isInteger, isObject, mapValues, pickBy } from 'lodash';
-import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/controls';
+import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 
 export const check = val => isArray(val) && !isEmpty(val);
 

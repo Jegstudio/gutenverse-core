@@ -71,7 +71,7 @@ const externals = {
 	lodash: 'lodash', // WP loads lodash already.
 	fetch: 'fetch', // Used in our debugger sidebar.
 	// react: 'wp.element', // Use the bundled React in Gutenberg. (not working see https://github.com/WordPress/gutenberg/issues/33674)
-	'react-dom': 'wp.element', // Use the bundled ReactDom in Gutenberg.
+	// 'react-dom': 'wp.element', // Use the bundled ReactDom in Gutenberg.
 	...wpExternals,
 }
 

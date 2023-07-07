@@ -1,6 +1,6 @@
-import { getDimension } from 'gutenverse-core/controls';
-import { getFilter } from 'gutenverse-core/controls';
-import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/controls';
+import { getDimension } from 'gutenverse-core/styling';
+import { getFilter } from 'gutenverse-core/styling';
+import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/styling';
 
 export const renderBorderRadius = ({ action, from, to, device, elementId }) => {
     const {

@@ -6,7 +6,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select } from '@wordpress/data';
 import { isEmpty } from 'lodash';
-import { BuildColumnWidthStyle } from 'gutenverse-core/controls';
+import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
 const RangeColumnControl = (props) => {
     const {

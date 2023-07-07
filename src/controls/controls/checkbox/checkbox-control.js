@@ -4,7 +4,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
-import { deviceStyleValue } from 'gutenverse-core/controls';
+import { deviceStyleValue } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { __ } from '@wordpress/i18n';
 

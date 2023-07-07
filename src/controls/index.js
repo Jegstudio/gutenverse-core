@@ -80,24 +80,5 @@ export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance } from './panels/panel-constant';
 
-// Export Styling Handler
-export { handleBackground } from './styling/handler/handle-background';
-export { handleColor, getColor } from './styling/handler/handle-color';
-export { handleDimension, getDimension } from './styling/handler/handle-dimension';
-export { handleTypography } from './styling/handler/handle-typography';
-export { handleUnitPoint, getUnitPoint } from './styling/handler/handle-unit-point';
-export { handleFilter, getFilter } from './styling/handler/handle-filter';
-export { handleBorder } from './styling/handler/handle-border';
-export { handleGradient } from './styling/handler/handle-gradient';
-export { handleAlign } from './styling/handler/handle-align';
-export { handleAlignV } from './styling/handler/handle-align';
-export { handleBoxShadow, allowRenderBoxShadow } from './styling/handler/handle-box-shadow';
-export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handle-text-shadow';
-
-// Export Styling Set
-export { setStylePoint } from './styling/single/set-style-point';
-export { setStyleUnit } from './styling/single/set-style-unit';
-
-// Export Styling utility
-export { elementVar, DeviceLoop, BuildColumnWidthStyle, BuildAdminStyle, responsiveAppender, normalAppender, injectFont, setDeviceClasses, deviceStyleValue } from './styling/styling-utility';
+// Export advance animation options
 export { adanimOptions } from '../animation/options/advance-animation';

@@ -2,8 +2,6 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"gutenverse-core-frontend": ["./src/frontend"],
-			"gutenverse-core-frontend/*": ["./src/frontend/*"],
 			"gutenverse-core/*": ["./src/*"]
 		}
 	},

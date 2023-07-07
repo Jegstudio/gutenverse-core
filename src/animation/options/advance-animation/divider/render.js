@@ -1,5 +1,5 @@
-import { getColor } from 'gutenverse-core/controls';
-import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/controls';
+import { getColor } from 'gutenverse-core/styling';
+import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/styling';
 
 export const renderWidth = ({ action, from, to, device, elementId }) => {
     const {

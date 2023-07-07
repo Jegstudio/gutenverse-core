@@ -1,5 +1,5 @@
-import { getUnitPoint } from 'gutenverse-core/controls';
-import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/controls';
+import { getUnitPoint } from 'gutenverse-core/styling';
+import { DeviceLoop, deviceStyleValue } from 'gutenverse-core/styling';
 
 export const renderWidth = ({ action, from, to, device, elementId }) => {
     const {

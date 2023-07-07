@@ -1,5 +1,5 @@
 import { isEmpty } from "lodash";
-import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from "gutenverse-core/controls";
+import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from "gutenverse-core/styling";
 
 export const handleBorder = (value) => {
     const elementStyle = elementVar();

@@ -1,6 +1,7 @@
 export * as animation from '../animation';
 export * as components from '../components';
 export * as controls from '../controls';
+export * as styling from '../styling';
 export * as hoc from '../hoc';
 export * as hooks from '../hooks';
 export * as toolbars from '../toolbars';

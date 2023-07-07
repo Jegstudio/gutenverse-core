@@ -1,4 +1,4 @@
-import { handleBackground } from 'gutenverse-core/controls';
+import { handleBackground } from 'gutenverse-core/styling';
 import { BackgroundControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 

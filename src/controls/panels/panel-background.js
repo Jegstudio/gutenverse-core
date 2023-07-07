@@ -1,4 +1,4 @@
-import { handleBackground } from 'gutenverse-core/controls';
+import { handleBackground } from 'gutenverse-core/styling';
 import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const backgroundPanel = (props) => {

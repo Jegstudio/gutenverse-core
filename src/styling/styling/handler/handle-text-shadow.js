@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import { getColor } from 'gutenverse-core/controls';
+import { getColor } from 'gutenverse-core/styling';
 
 export const handleTextShadow = (value) => {
     const { color, horizontal = 0, vertical = 0, blur = 0, spread } = value;

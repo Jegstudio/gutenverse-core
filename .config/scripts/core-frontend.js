@@ -10,7 +10,7 @@ const corefrontend = {
     devtool: 'cheap-module-source-map',
     entry: {
         corefrontend: {
-            import: path.resolve(__dirname, "../../src/frontend/index.js"),
+            import: path.resolve(__dirname, "../../src/externals/frontend.js"),
             library: {
                 name: "gutenverseCoreFrontend",
                 type: "window",

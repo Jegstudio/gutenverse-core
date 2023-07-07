@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import { handleColor, getUnitPoint, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/controls';
+import { handleColor, getUnitPoint, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 
 export const handleBackground = (background) => {
     const { type } = background;

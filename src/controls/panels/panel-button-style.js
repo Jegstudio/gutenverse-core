@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleColor, handleTypography } from 'gutenverse-core/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const buttonStylePanel = (props) => {
