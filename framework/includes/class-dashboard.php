@@ -135,15 +135,7 @@ class Dashboard {
 				true
 			);
 
-			$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/blocks.asset.php' )['dependencies'];
-
-			wp_enqueue_script(
-				'gutenverse-blocks-event',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/js/blocks.js',
-				$include,
-				GUTENVERSE_FRAMEWORK_VERSION,
-				true
-			);
+			wp_enqueue_script( 'gutenverse-blocks-event' );
 
 			wp_enqueue_style(
 				'gutenverse-core-dashboard-bg',

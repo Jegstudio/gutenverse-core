@@ -135,6 +135,13 @@ class Assets {
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
+
+		wp_register_style(
+			'gutenverse-frontend-style',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/css/frontend.css',
+			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
 	}
 
 	/**
@@ -146,6 +153,36 @@ class Assets {
 		wp_register_script(
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
+			$include,
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/components.asset.php' )['dependencies'];
+
+		wp_register_script(
+			'gutenverse-components-event',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/components.js',
+			$include,
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/blocks.asset.php' )['dependencies'];
+
+		wp_register_script(
+			'gutenverse-blocks-event',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/blocks.js',
+			$include,
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/core.asset.php' )['dependencies'];
+
+		wp_enqueue_script(
+			'gutenverse-editor-event',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/core.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
