@@ -65,65 +65,83 @@
             letter-spacing: 0em;
             text-align: left;
         }
+    }
 
-        .plugins {
+    .plugins {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 20px;
+
+        h3, p {
+            margin: 0;
+        }
+
+        .plugins-desc {
             display: flex;
-            flex-wrap: wrap;
-            margin-top: 30px;
-            gap: 20px;
 
-            .plugin {
-                background-color: #343a6d;
-                box-sizing: border-box;
-                border-radius: 5px;
-                width: calc(33.3333% - 15px);
+            p {
+                width: 220px;
+            }
+        }
+
+        .plugin {
+            background-color: #343a6d;
+            box-sizing: border-box;
+            border-radius: 5px;
+            width: 100%;
+            color: white;
+            padding: 20px;
+
+            h4 {
+                margin: 0;
+                font-family: 'Plus Jakarta Sans';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 20px;
+                margin: 0;
+
+                span {
+                    font-weight: 800;
+                }
+            }
+
+            .actions {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                gap: 16px;
+                margin-top: 20px;
+            }
+
+            .rate {
+                cursor: pointer;
+                text-align: center;
+                font-size: 7px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                letter-spacing: 0.42px;
+                text-transform: uppercase;
+                display: flex;
+                justify-content: flex-start;
+            }
+
+            .support a {
                 color: white;
-                padding: 20px;
-
-                h4 {
-                    margin: 0;
-                    font-family: 'Plus Jakarta Sans';
-                    font-style: normal;
-                    font-weight: 300;
-                    font-size: 16px;
-                    line-height: 20px;
-                    margin: 0;
-
-                    span {
-                        font-weight: 800;
-                    }
-                }
-
-                .rate {
-                    cursor: pointer;
-                    margin-top: 20px;
-                    text-align: center;
-                    font-size: 7px;
-                    font-family: Roboto;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: normal;
-                    letter-spacing: 0.42px;
-                    text-transform: uppercase;
-                    display: flex;
-                    justify-content: flex-start;
-                }
-
-                .support a {
-                    color: white;
-                    text-decoration: none;
-                    cursor: pointer;
-                    margin-top: 12px;
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                    font-family: Roboto;
-                    font-size: 10px;
-                    font-weight: 400;
-                    line-height: 18px;
-                    letter-spacing: 0em;
-                    text-align: left;                    
-                }
+                text-decoration: none;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-family: Roboto;
+                font-size: 10px;
+                font-weight: 400;
+                line-height: 18px;
+                letter-spacing: 0em;
+                text-align: left;                    
             }
         }
     }
@@ -196,20 +214,20 @@
         padding: 0px;
     }
 
-    .help-plugin-list {
-        background-color: #E4F4FF;
-        border-radius: 5px;
-        width: 100%;
-    }
+    // .help-plugin-list {
+    //     background-color: #E4F4FF;
+    //     border-radius: 5px;
+    //     width: 100%;
+    // }
 
     .subscribe-panel {
-        // background: radial-gradient(35.35% 90.91% at 18.82% 68%, #5c8dc8 0%, #93bddb 100%);
-        // border-radius: 5px;
-        // padding: 0 30px;
+        background: radial-gradient(35.35% 90.91% at 18.82% 68%, #5c8dc8 0%, #93bddb 100%);
+        border-radius: 5px;
+        padding: 0 30px;
 
-        // > div {
-        //     width: 50%;
-        // }
+        > div {
+            width: 50%;
+        }
 
         > div:first-child {
             align-content: flex-end;
@@ -220,9 +238,10 @@
             border-radius: 3px;
             height: fit-content;
             position: relative;
+            top: 30px;
 
             > div {
-                padding: 24px;
+                padding: 30px 36px;
             }
 
             h2 {
@@ -232,7 +251,6 @@
                 font-weight: 600;
                 line-height: 23px;
                 letter-spacing: 0em;
-                text-align: center;
             }
 
             span {
@@ -242,7 +260,6 @@
                 font-weight: 400;
                 line-height: 20px;
                 letter-spacing: 0em;
-                text-align: center;
                 margin-top: 16px;
                 margin-bottom: 20px;
             }
@@ -251,11 +268,6 @@
         .illustration {
             height: calc(100% + 30px);
         }
-    }
-
-    .subscribe-panel h2,
-    .subscribe-panel span {
-        text-align: center;
     }
 
     .subscribe-panel h2,
