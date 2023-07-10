@@ -180,7 +180,7 @@ class Assets {
 
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/core.asset.php' )['dependencies'];
 
-		wp_enqueue_script(
+		wp_register_script(
 			'gutenverse-editor-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/core.js',
 			$include,
