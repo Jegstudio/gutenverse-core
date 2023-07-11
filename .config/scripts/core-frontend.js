@@ -2,7 +2,7 @@ const path = require("path");
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals } = require("../externals");
+const { externals, coreExternals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 const corefrontend = {
@@ -10,7 +10,7 @@ const corefrontend = {
     devtool: 'cheap-module-source-map',
     entry: {
         corefrontend: {
-            import: path.resolve(__dirname, "../../src/externals/frontend.js"),
+            import: path.resolve(process.cwd(), "src/frontend/index.js"),
             library: {
                 name: "gutenverseCoreFrontend",
                 type: "window",
@@ -19,10 +19,14 @@ const corefrontend = {
     },
     stats,
     output,
-    externals,
+    externals: {
+        ...externals,
+        ...coreExternals
+    },
     resolve: {
         alias: {
-            "gutenverse-core-frontend": path.resolve(__dirname, "../../src/frontend"),
+            "gutenverse-core": path.resolve(__dirname, "../../src/core/"),
+            "gutenverse-core-frontend": path.resolve(__dirname, "../../src/frontend/"),
         },
     },
     module: {

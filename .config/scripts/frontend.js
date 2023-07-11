@@ -10,7 +10,7 @@ const frontend = {
     devtool: 'cheap-module-source-map',
     entry: {
         frontend: {
-            import: path.resolve(__dirname, "../../src/frontend/blocks/index.js"),
+            import: path.resolve(process.cwd(), "src/frontend/blocks/blocks/index.js"),
         },
     },
     externals: {

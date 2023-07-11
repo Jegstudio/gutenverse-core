@@ -10,7 +10,7 @@ const core = {
     devtool: 'cheap-module-source-map',
     entry: {
         core: {
-            import: path.resolve(__dirname, "../../src/externals/core.js"),
+            import: path.resolve(process.cwd(), "src/core/index.js"),
             library: {
                 name: "gutenverseCore",
                 type: "window",
@@ -22,7 +22,7 @@ const core = {
     externals,
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(__dirname, "../../src/"),
+            "gutenverse-core": path.resolve(__dirname, "../../src/core/"),
         },
     },
     module: {

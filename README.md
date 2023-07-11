@@ -149,7 +149,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/backend';
+import * from 'gutenverse-core-editor/backend';
 ```
 package inside window object :
 `gutenverseCore.backend`
@@ -173,7 +173,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/components';
+import * from 'gutenverse-core-editor/components';
 ```
 package inside window object :
 `gutenverseCore.components`
@@ -197,7 +197,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/controls';
+import * from 'gutenverse-core-editor/controls';
 ```
 package inside window object :
 `gutenverseCore.controls`
@@ -233,7 +233,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/editor-helper';
+import * from 'gutenverse-core-editor/helper';
 ```
 package inside window object :
 `gutenverseCore.editorHelper`
@@ -281,7 +281,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/hoc';
+import * from 'gutenverse-core-editor/hoc';
 ```
 package inside window object :
 `gutenverseCore.hoc`
@@ -293,7 +293,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/hooks';
+import * from 'gutenverse-core-editor/hooks';
 ```
 package inside window object :
 `gutenverseCore.hooks`
@@ -305,7 +305,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/icons';
+import * from 'gutenverse-core-editor/icons';
 ```
 package inside window object :
 `gutenverseCore.icons`
@@ -317,7 +317,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/requests';
+import * from 'gutenverse-core-editor/requests';
 ```
 package inside window object :
 `gutenverseCore.requests`
@@ -329,7 +329,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core/router';
+import * from 'gutenverse-core-editor/router';
 ```
 package inside window object :
 `gutenverseCore.router`
@@ -357,7 +357,7 @@ Variables :
 
 import example : 
 ```js
-import * from 'gutenverse-core/store';
+import * from 'gutenverse-core-editor/store';
 ```
 package inside window object :
 `gutenverseCore.store`
@@ -409,7 +409,7 @@ select('gutenverse/router').getLocation()
 
 import example : 
 ```js
-import * from 'gutenverse-core/toolbars';
+import * from 'gutenverse-core-editor/toolbars';
 ```
 package inside window object :
 `gutenverseCore.toolbars`

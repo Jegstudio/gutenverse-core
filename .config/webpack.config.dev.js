@@ -4,12 +4,14 @@ const { frontend } = require('./scripts/frontend');
 const { corefrontend } = require('./scripts/core-frontend');
 const { blocks } = require('./scripts/blocks');
 const { components } = require('./scripts/components');
+const { coreeditor } = require('./scripts/core-editor');
 
 module.exports = [
-    core,
     blocks,
     dashboard,
     components,
-    corefrontend,
     frontend,
+    core,
+    corefrontend,
+    coreeditor,
 ];
