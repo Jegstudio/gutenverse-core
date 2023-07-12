@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Jegstudio/gutenverse.git"
+    "url": "git@github.com:Jegstudio/gutenverse-core.git"
   },
   "author": "Jegstudio",
   "license": "ISC",
