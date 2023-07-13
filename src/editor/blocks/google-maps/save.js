@@ -3,10 +3,10 @@ import { compose } from '@wordpress/compose';
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { encodeDataToURL } from 'gutenverse-core/helper';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
-import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
+import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
+import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
+import { useAnimationAdvanceData } from 'gutenverse-core-editor/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('google-maps'),

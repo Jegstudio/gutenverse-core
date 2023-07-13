@@ -1,4 +1,4 @@
-import { Default } from 'gutenverse-core-frontend';
+import { Default } from 'gutenverse-core-frontend/blocks';
 import u from 'umbrellajs';
 
 class GutenversePopupBuilder extends Default {

@@ -1,5 +1,5 @@
 
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { getImageSrc } from 'gutenverse-core-editor/helper';
 
 const TeamProfile = ({
     profileType,

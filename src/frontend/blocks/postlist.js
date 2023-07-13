@@ -1,5 +1,5 @@
 import u from 'umbrellajs';
-import { Default } from 'gutenverse-core-frontend';
+import { Default } from 'gutenverse-core-frontend/blocks';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import isEmpty from 'lodash/isEmpty';

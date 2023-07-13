@@ -2,9 +2,9 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "gutenverse-core-frontend": ["gutenverse-core/src/frontend"],
+            "gutenverse-core/*": ["gutenverse-core/src/core/*"],
             "gutenverse-core-frontend/*": ["gutenverse-core/src/frontend/*"],
-            "gutenverse-core/*": ["gutenverse-core/src/*"],
+            "gutenverse-core-editor/*": ["gutenverse-core/src/editor/*"]
         }
     },
     "include": ["./src/**/*", "..config/**/*"],

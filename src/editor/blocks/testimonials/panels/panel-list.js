@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core-editor/controls';
 import { arrowPanel } from './panel-arrow';
 import { panelContent } from './panel-content';
 import { itemPanel } from './panel-item';
@@ -7,8 +7,8 @@ import { dotsPanel } from './panel-dots';
 import { panelContentStyle } from './panel-content-style';
 import { panelContentTypography } from './panel-content-typography';
 import { panelImage } from './panel-image';
-import { sliderPanel } from 'gutenverse-core/controls';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { sliderPanel } from 'gutenverse-core-editor/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
 
 export const panelList = () => {
     return [

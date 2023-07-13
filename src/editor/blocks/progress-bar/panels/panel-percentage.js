@@ -1,8 +1,8 @@
 
 import { __ } from '@wordpress/i18n';
-import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography } from 'gutenverse-core/controls';
-import { allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/controls';
+import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const percentPanel = ({elementId, ...props}) => {
     return [

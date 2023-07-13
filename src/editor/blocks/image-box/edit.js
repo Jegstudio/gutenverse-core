@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import {
     BlockControls,
     MediaUpload,
@@ -11,18 +11,18 @@ import {
 } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { URLToolbar } from 'gutenverse-core-editor/toolbars';
 import { useCallback } from '@wordpress/element';
 import { Image } from 'react-feather';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
+import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
+import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 

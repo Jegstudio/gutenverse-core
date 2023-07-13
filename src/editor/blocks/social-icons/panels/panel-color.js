@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/controls';
+import { ColorControl, SelectControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const contentColor = (props) => {
     const {

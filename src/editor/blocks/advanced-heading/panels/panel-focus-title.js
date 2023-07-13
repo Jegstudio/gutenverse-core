@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/controls';
+import { BackgroundControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const focusTitlePanel = (props) => {
     const {

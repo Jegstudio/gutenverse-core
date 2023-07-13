@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl } from 'gutenverse-core/controls';
+import { CheckboxControl } from 'gutenverse-core-editor/controls';
 
 export const panelGeneral = () => {
 

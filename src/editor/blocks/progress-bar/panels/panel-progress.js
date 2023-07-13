@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
 
 export const progressPanel = () => {
     return [

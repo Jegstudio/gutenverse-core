@@ -1,8 +1,8 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
-import { handleDimension } from 'gutenverse-core/controls';
+import { DimensionControl, IconRadioControl } from 'gutenverse-core-editor/controls';
+import { handleDimension } from 'gutenverse-core/styling';
 
 export const contentPanel = ({elementId}) => {
     return [

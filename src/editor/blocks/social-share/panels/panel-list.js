@@ -9,8 +9,8 @@ import {
     borderPanel,
     positioningPanel,
     responsivePanel
-} from 'gutenverse-core/controls';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+} from 'gutenverse-core-editor/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
 
 export const panelList = () => {
     return [

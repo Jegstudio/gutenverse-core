@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { BackgroundControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { handleBackground, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core-editor/helper';
 
 export const menuWrapperPanel = (props) => {
     const {

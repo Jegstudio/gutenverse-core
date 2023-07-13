@@ -1,10 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { animationPanel } from 'gutenverse-core/controls';
+import { animationPanel } from 'gutenverse-core-editor/controls';
 import { popupPanel } from './panel-popup';
 import { overlayPanel } from './panel-overlay';
 import { closePanel } from './panel-close';
 import { containerPanel } from './panel-container';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
 
 export const panelList = () => {
     return [

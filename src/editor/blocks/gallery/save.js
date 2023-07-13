@@ -5,10 +5,10 @@ import { useBlockProps } from '@wordpress/block-editor';
 import GalleryItem from './components/gallery-item';
 import { Maximize, Minimize, X, ZoomIn } from 'react-feather';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
-import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
+import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
+import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
+import { useAnimationAdvanceData } from 'gutenverse-core-editor/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('gallery'),

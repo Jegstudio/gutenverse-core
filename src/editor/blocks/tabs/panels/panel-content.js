@@ -1,4 +1,4 @@
-import { SelectControl } from 'gutenverse-core/controls';
+import { SelectControl } from 'gutenverse-core-editor/controls';
 import { __ } from '@wordpress/i18n';
 
 export const contentPanel = () => {

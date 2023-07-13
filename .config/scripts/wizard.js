@@ -3,7 +3,7 @@ const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { output } = require("../config");
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreExternals } = require("gutenverse-core/.config/externals");
+const { externals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 const wizard = {
@@ -16,7 +16,6 @@ const wizard = {
     },
     externals: {
         ...externals,
-        ...coreExternals,
     },
     stats,
     output,

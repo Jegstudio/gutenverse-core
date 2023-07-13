@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
 
 export const iconPanel = ({ elementId, iconType, image, imageSize, removeStyle }) => {
     return [

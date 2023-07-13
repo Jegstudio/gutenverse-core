@@ -2,10 +2,10 @@
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { swiperData } from 'gutenverse-core/helper';
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { getImageSrc } from 'gutenverse-core-editor/helper';
 import { isEmpty } from 'lodash';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
-import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
+import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
 
 const save = ({ attributes }) => {
     const {

@@ -1,16 +1,16 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
-import { PanelController } from 'gutenverse-core/controls';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useEffect, useState } from '@wordpress/element';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
+import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 
 const PopupBuilder = compose(
     withCustomStyle(panelList),

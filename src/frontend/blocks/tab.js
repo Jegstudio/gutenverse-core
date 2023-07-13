@@ -1,5 +1,5 @@
 import u from 'umbrellajs';
-import { Default } from 'gutenverse-core-frontend';
+import { Default } from 'gutenverse-core-frontend/blocks';
 
 class GutenverseTabs extends Default {
     /* public */

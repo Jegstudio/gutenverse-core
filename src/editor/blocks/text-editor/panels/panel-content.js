@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
-import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'react-feather';
 
 export const panelContent = (props) => {

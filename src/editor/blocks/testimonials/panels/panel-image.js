@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorder, handleDimension } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderControl, DimensionControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
 
 export const panelImage = ({elementId, contentType}) => {
     return [

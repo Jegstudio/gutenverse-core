@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 
-import { handleColor, handleTypography } from 'gutenverse-core/controls';
-import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
+import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
-import { allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/controls';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {
     const {

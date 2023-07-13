@@ -1,5 +1,5 @@
-import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBackground } from 'gutenverse-core/controls';
+import { BackgroundControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { handleBackground } from 'gutenverse-core/styling';
 
 export const profileBackgroundPanel = (props) => {
     const {

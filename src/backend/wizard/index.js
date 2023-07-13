@@ -1,5 +1,5 @@
 import { render, useState } from '@wordpress/element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import { IconPluginCheckSVG, IconPluginFormSVG, IconPluginPopupSVG, IconPluginFontSVG } from '../../assets/icon/index';
 import classnames from 'classnames';
 import apiFetch from '@wordpress/api-fetch';
@@ -10,23 +10,23 @@ const WizardItem = ({ part, selected, toggleSelected, icon, title, subtitle }) =
     });
 
     return <div className={classes} onClick={() => toggleSelected(part)}>
-        <div className='wizard-item-icon'>
+        <div className="wizard-item-icon">
             {icon}
         </div>
-        <div className='wizard-item-content'>
+        <div className="wizard-item-content">
             <h3>{title()}</h3>
             <p>{subtitle}</p>
         </div>
-        {selected && <div className='wizard-item-check'>
+        {selected && <div className="wizard-item-check">
             <IconPluginCheckSVG />
         </div>}
-    </div>
+    </div>;
 };
 
 const WizardContainer = ({ setStage }) => {
     const { status, dashboard } = GutenverseWizard;
 
-    const totalActiveStatus = Object.keys(status).reduce((k, v) => status[v] ? k + 1 : k, 0)
+    const totalActiveStatus = Object.keys(status).reduce((k, v) => status[v] ? k + 1 : k, 0);
 
 
     const [selected, setSelected] = useState({
@@ -49,8 +49,8 @@ const WizardContainer = ({ setStage }) => {
                 return {
                     ...status,
                     [part]: !status[part]
-                }
-            })
+                };
+            });
         }
     };
 
@@ -117,13 +117,13 @@ const WizardContainer = ({ setStage }) => {
         }
     };
 
-    return totalActiveStatus > 0 ? <div className='wizard-wrapper'>
-        <div className='wizard-container'>
-            <div className='wizard-container-header'>
+    return totalActiveStatus > 0 ? <div className="wizard-wrapper">
+        <div className="wizard-container">
+            <div className="wizard-container-header">
                 <h1>{__('Thank you for upgrading Gutenverse', 'gutenverse')}</h1>
                 <p>{__('We separate block into several plugin on Version 2. Choose plugin or asset that you want to install & activate.', 'gutenverse')}</p>
             </div>
-            <div className='wizard-container-body'>
+            <div className="wizard-container-body">
                 {form && <WizardItem
                     title={() => {
                         return <>
@@ -163,25 +163,25 @@ const WizardContainer = ({ setStage }) => {
                     toggleSelected={toggleSelected}
                 />}
             </div>
-            <div className='wizard-container-footer'>
+            <div className="wizard-container-footer">
                 <div className={classnames('wizard-progress', {
                     hide: 'installing' !== flag
                 })}>
-                    <div className='wizard-progress-wrapper'>
-                        <div className='progress-text'> {progress.text} </div>
-                        {progress.step !== progress.totalStep && <div className='progress-step'>
+                    <div className="wizard-progress-wrapper">
+                        <div className="progress-text"> {progress.text} </div>
+                        {progress.step !== progress.totalStep && <div className="progress-step">
                             {progress.step + 1} / {progress.totalStep} {__('Completed', 'gutenverse')}
                         </div>}
                     </div>
-                    <div className='progress-bar'>
-                        <div className='progress-done' style={{
+                    <div className="progress-bar">
+                        <div className="progress-done" style={{
                             width: (progress.step + 1) / (progress.totalStep + 1) * 100 + '%'
                         }} />
                     </div>
                 </div>
-                {'choose' === flag && <div className='wizard-button'>
-                    <div className='button secondary' onClick={() => setStage('later')}>{__('Install Later')}</div>
-                    <div className='button active' onClick={() => doUpgrade(0)}>{__('Install & Activate')}</div>
+                {'choose' === flag && <div className="wizard-button">
+                    <div className="button secondary" onClick={() => setStage('later')}>{__('Install Later')}</div>
+                    <div className="button active" onClick={() => doUpgrade(0)}>{__('Install & Activate')}</div>
                 </div>}
             </div>
         </div>
@@ -191,13 +191,13 @@ const WizardContainer = ({ setStage }) => {
 const WizardInstallLater = ({ setStage }) => {
     const { dashboard } = GutenverseWizard;
 
-    return <div className='wizard-wrapper'>
-        <div className='wizard-container'>
-            <div className='wizard-container-header'>
+    return <div className="wizard-wrapper">
+        <div className="wizard-container">
+            <div className="wizard-container-header">
                 <h1>{__('Upgrading Gutenverse', 'gutenverse')}</h1>
                 <p>{__('If you decide to do upgrade later, you can follow this step.', 'gutenverse')}</p>
             </div>
-            <div className='wizard-container-body' style={{ margin: '70px 0px 90px' }}>
+            <div className="wizard-container-body" style={{ margin: '70px 0px 90px' }}>
                 <ol>
                     <li style={{ marginBottom: '40px' }}>
                         <h3 style={{ fontWeight: 500 }}>{__('Install Additional Gutenverse Plugin', 'gutenverse')}</h3>
@@ -209,10 +209,10 @@ const WizardInstallLater = ({ setStage }) => {
                     </li>
                 </ol>
             </div>
-            <div className='wizard-container-footer'>
-                <div className='wizard-button'>
-                    <a className='button secondary' href={dashboard}>{__('Go to Dashboard', 'gutenverse')}</a>
-                    <div className='button active' onClick={() => setStage('install')}>{__('Back to Upgrade Page', 'gutenverse')}</div>
+            <div className="wizard-container-footer">
+                <div className="wizard-button">
+                    <a className="button secondary" href={dashboard}>{__('Go to Dashboard', 'gutenverse')}</a>
+                    <div className="button active" onClick={() => setStage('install')}>{__('Back to Upgrade Page', 'gutenverse')}</div>
                 </div>
             </div>
         </div>

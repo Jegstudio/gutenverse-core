@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { handleColor, handleTypography } from 'gutenverse-core/controls';
-import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
+import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const jobPanel = (props) => {
     const {

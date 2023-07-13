@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { DimensionControl } from 'gutenverse-core/controls';
-import { handleDimension } from 'gutenverse-core/controls';
+import { DimensionControl } from 'gutenverse-core-editor/controls';
+import { handleDimension } from 'gutenverse-core/styling';
 
 export const panelSpacing = (props) => {
     const {

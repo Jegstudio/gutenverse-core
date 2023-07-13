@@ -1,11 +1,11 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle } from 'gutenverse-core/hoc';
-import { PanelController } from 'gutenverse-core/controls';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import { InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 
 const PopupContainer = compose(
     withCustomStyle(panelList),

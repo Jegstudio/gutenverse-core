@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -11,11 +11,11 @@ import { useRef } from '@wordpress/element';
 import u from 'umbrellajs';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
-import { NavSkeleton } from 'gutenverse-core/components';
-import { NavSkeletonNormal } from 'gutenverse-core/components';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { NavSkeleton } from 'gutenverse-core-editor/components';
+import { NavSkeletonNormal } from 'gutenverse-core-editor/components';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
+import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 
 const NavMenuBlock = compose(
     withCustomStyle(panelList),

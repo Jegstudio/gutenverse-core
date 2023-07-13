@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, responsivePanel } from 'gutenverse-core-editor/controls';
 import { panelGeneral } from './panel-general';
 
 export const panelList = () => {

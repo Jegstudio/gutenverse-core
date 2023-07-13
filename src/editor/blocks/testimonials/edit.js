@@ -1,19 +1,19 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import SwiperCore, { Autoplay, Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core/components';
+import { Swiper } from 'gutenverse-core-editor/components';
 import ContentItem from './components/content-item';
-import { swiperSettings } from 'gutenverse-core/editor-helper';
+import { swiperSettings } from 'gutenverse-core-editor/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
+import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 import { dispatch } from '@wordpress/data';
 
 SwiperCore.use([Autoplay, Navigation, Pagination, Zoom]);

@@ -1,25 +1,25 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
+import { IconLibrary } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { URLToolbar } from 'gutenverse-core-editor/toolbars';
 import { useCallback } from '@wordpress/element';
 import { displayShortcut } from '@wordpress/keycodes';
 import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor16SVG } from 'gutenverse-core/icons';
+import { LogoCircleColor16SVG } from 'gutenverse-core-editor/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
+import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
+import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 

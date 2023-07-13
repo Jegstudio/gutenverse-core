@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, ImageSizeControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
 
 export const mobileMenuPanel = (props) => {
     const {

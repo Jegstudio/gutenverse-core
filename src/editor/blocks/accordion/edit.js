@@ -1,17 +1,17 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { RichText } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { Check, X } from 'react-feather';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { dispatch, select, useSelect } from '@wordpress/data';
-import { SelectParent } from 'gutenverse-core/components';
-import { PanelTutorial } from 'gutenverse-core/controls';
+import { SelectParent } from 'gutenverse-core-editor/components';
+import { PanelTutorial } from 'gutenverse-core-editor/controls';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>

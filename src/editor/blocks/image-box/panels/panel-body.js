@@ -1,8 +1,8 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { CheckboxControl, ColorControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const panelBody = props => {
     const {

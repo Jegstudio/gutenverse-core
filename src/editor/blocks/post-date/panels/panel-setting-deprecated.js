@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { TextControl } from 'gutenverse-core/controls';
+import { TextControl } from 'gutenverse-core-editor/controls';
 
 export const settingPanelDeprecated = () => {
     return [

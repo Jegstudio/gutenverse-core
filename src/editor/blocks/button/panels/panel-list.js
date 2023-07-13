@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core-editor/controls';
 import { buttonPanel } from './panel-button';
 import { stylePanel } from './panel-style';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
 import { buttonBackgroundPanel } from './panel-button-background';
 import { buttonBorderPanel } from './panel-button-border';
 

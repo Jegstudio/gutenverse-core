@@ -3,8 +3,8 @@ import { compose } from '@wordpress/compose';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
-import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
+import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
 
 const save = compose(
 )((props) => {

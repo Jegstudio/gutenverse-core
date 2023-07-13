@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension } from 'gutenverse-core/controls';
+import { BorderControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconPanel = ({elementId}) => {
     return [

@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { panelList } from './panels/panel-list';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import SingleSocialShare from './single-social-share';
 import jsondata from './block.json';
-import { IconShareTelegramSVG } from 'gutenverse-core/icons';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { IconShareTelegramSVG } from 'gutenverse-core-editor/icons';
+import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 
 const SocialShareTelegram = compose(
     withCustomStyle(panelList),

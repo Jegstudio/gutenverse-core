@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { contentPanel } from './panel-content';
 import { contentStyle } from './panel-style';
-import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core-editor/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
 
 export const panelList = () => {
     return [

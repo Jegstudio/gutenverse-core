@@ -1,11 +1,11 @@
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { useRef, useEffect } from '@wordpress/element';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import ServerSideRender from '@wordpress/server-side-render';
 import { __ } from '@wordpress/i18n';
-import { SelectParent } from 'gutenverse-core/components';
+import { SelectParent } from 'gutenverse-core-editor/components';
 
 const SingleSocialShare = (props) => {
     const {

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, ImageControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, ImageControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core-editor/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const teamPanel = (props) => {
     const {

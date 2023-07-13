@@ -5,8 +5,8 @@ import {
     SizeControl,
     SwitchControl,
     TypographyControl
-} from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography, handleBorder } from 'gutenverse-core/controls';
+} from 'gutenverse-core-editor/controls';
+import { handleColor, handleUnitPoint, handleTypography, handleBorder } from 'gutenverse-core/styling';
 
 export const panelItemStyle = props => {
     const {

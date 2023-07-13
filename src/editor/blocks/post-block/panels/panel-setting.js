@@ -1,8 +1,8 @@
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import { NumberControl, RangeControl, SelectSearchControl, SelectControl, CheckboxControl, TextControl } from 'gutenverse-core/controls';
+import { NumberControl, RangeControl, SelectSearchControl, SelectControl, CheckboxControl, TextControl } from 'gutenverse-core-editor/controls';
 import { addQueryArgs } from '@wordpress/url';
-import { searchAuthor, searchCategory, searchTag } from 'gutenverse-core/requests';
+import { searchAuthor, searchCategory, searchTag } from 'gutenverse-core-editor/requests';
 
 export const settingPanel = ({postType}) => {
     const path = () => {

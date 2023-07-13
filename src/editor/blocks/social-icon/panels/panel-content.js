@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, DimensionControl, IconControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleUnitPoint, handleTypography } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconControl, SizeControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleDimension, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {

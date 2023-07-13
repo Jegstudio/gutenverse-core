@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SizeControl } from 'gutenverse-core/controls';
-import { handleUnitPoint } from 'gutenverse-core/controls';
+import { RangeControl, SizeControl } from 'gutenverse-core-editor/controls';
+import { handleUnitPoint } from 'gutenverse-core/styling';
 
 export const imagePanel = ({elementId}) => {
     return [

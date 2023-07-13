@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { handleDimension, handleUnitPoint } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
+import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const buttonPanel = (props) => {
     const {

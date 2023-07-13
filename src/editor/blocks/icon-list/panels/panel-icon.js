@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, RangeControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/controls';
+import { ColorControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const panelIcon = (props) => {
     const {

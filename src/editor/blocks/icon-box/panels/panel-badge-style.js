@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/controls';
+import { BackgroundControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelBadgeStyle = (props) => {
     const {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, NumberControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { IconControl, NumberControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
 
 export const paginationPanel = (props) => {
     const {

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBorder } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/controls';
+import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { handleBorder } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const imageBorderPanel = (props) => {
     const {
