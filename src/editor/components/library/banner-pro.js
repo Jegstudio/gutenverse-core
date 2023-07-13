@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownSVG } from 'gutenverse-core-editor/icons';
 
 const BannerPro = () => {
 	const {
