@@ -4,7 +4,7 @@ const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { output } = require("../config");
 const { stats, plugins } = require("gutenverse-core/.config/config");
-const { externals, coreExternals, coreFrontendExternals, coreEditorExternals } = require("gutenverse-core/.config/externals");
+const { externals, coreExternals, coreEditorExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 let copyPath = [];
@@ -34,7 +34,6 @@ const blocks = {
     externals: {
         ...externals,
         ...coreExternals,
-        ...coreFrontendExternals,
         ...coreEditorExternals
     },
     stats,
