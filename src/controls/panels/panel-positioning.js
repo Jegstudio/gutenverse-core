@@ -157,7 +157,7 @@ export const positioningPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.block-editor-block-list__layout ${selector}, ${selector}`,
+                    selector: customSelector,
                     allowRender: value => value && value !== 'default',
                     render: value => `position: ${value};`
                 }
