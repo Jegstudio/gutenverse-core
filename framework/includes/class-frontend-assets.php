@@ -130,7 +130,9 @@ class Frontend_Assets {
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
 
-		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
+		$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
+		$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
+		$include[] = 'gutenverse-frontend-event';
 
 		wp_enqueue_script(
 			'gutenverse-frontend-blocks-event',
@@ -140,14 +142,11 @@ class Frontend_Assets {
 			true
 		);
 
+		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
+
 		do_action( 'gutenverse_include_frontend' );
 
-		wp_enqueue_style(
-			'gutenverse-frontend-style',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/css/frontend.css',
-			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
+		wp_enqueue_style( 'gutenverse-frontend-style' );
 
 		wp_enqueue_style(
 			'gutenverse-frontend-icon',
@@ -209,7 +208,9 @@ class Frontend_Assets {
 		$config                 = array();
 		$config['postId']       = get_the_ID();
 		$config['query']        = $this->get_template_query();
-		$config['settingsData'] = ! empty( $settings_data ) ? $settings_data : array();
+		$config['settingsData'] = ! empty( $settings_data ) ? array(
+			'editor_settings' => $settings_data['editor_settings'],
+		) : array();
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}

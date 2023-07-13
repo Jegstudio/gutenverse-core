@@ -8,7 +8,6 @@ import { Plus, X, Monitor, Tablet, Smartphone } from 'react-feather';
 import { IconDimensionXSVG, IconDimensionYSVG, IconDimensionZSVG, IconChevronDownSVG } from 'gutenverse-core-editor/icons';
 import Select from 'react-select';
 import classnames from 'classnames';
-// import template from 'lodash.template';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import cryptoRandomString from 'crypto-random-string';
 

@@ -162,6 +162,83 @@ $border: #eaeaea;
         overflow: auto;
         box-sizing: border-box;
 
+        .banner-pro {
+            background-color: #8FE3EA;
+            border-radius: 5px;
+            margin: 16px;
+            padding: 32px;
+            position: relative;
+
+            .title {
+                font-family: Poppins;
+                font-size: 28px;
+                font-weight: 500;
+                line-height: 32px;
+                margin: 8px 0 0;
+                padding: 0;
+                width: 400px;
+                z-index: 1;
+                position: relative;
+            }
+
+            .subtitle {
+                color: var(--normal-text, #40505D);
+                font-size: 14px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: 400;
+                margin: 0;
+                padding: 0;
+                z-index: 1;
+                position: relative;
+            }
+
+            .banner-image {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 8px;
+                margin-top: 20px;
+                z-index: 1;
+                position: relative;
+
+                .gutenverse-button {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: #3b57f7;
+                    border-radius: 50px;
+                    color: #fff;
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-family: 'Roboto';
+                    line-height: 18px;
+                    padding: 8px 16px;
+                }
+
+                .demo-button {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    border: 1px solid #40505D;
+                    color: #40505D;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-family: 'Roboto';
+                    line-height: 18px;
+                    padding: 8px 16px;
+                }
+            }
+        }
+
         .library-items-wrapper {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

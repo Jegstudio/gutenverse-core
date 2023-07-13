@@ -10,6 +10,7 @@ import { Loader } from 'react-feather';
 import { customStyles } from './style';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core-editor/icons';
 import Paging from './paging';
+import BannerPro from './banner-pro';
 
 const LayoutContent = (props) => {
     const [slug, setSlug] = useState(null);
@@ -122,10 +123,10 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                     dispatch( 'gutenverse/library' ).setKeyword(keyword)
                 }}
             />
-            {/* {<>
+            {<>
                 <h2 className="gutenverse-library-side-heading">{__('Licenses', 'gutenverse')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} />
-            </>} */}
+            </>}
             {authors.length > 1 && <>
                 <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
@@ -136,6 +137,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <RenderCategories categories={categories} data={data} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
+            <BannerPro/>
             <LayoutContentData
                 current={content.current}
                 data={content.data}

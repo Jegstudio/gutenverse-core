@@ -101,21 +101,15 @@ class Dashboard {
 
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/core.asset.php' )['dependencies'];
 
-		wp_enqueue_script(
-			'gutenverse-backend-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/core.js',
-			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
+		wp_enqueue_script( 'gutenverse-editor-event' );
 
-		wp_localize_script( 'gutenverse-backend-event', 'GutenverseDashboard', $this->gutenverse_dashboard_config() );
+		wp_localize_script( 'gutenverse-editor-event', 'GutenverseDashboard', $this->gutenverse_dashboard_config() );
 
-		wp_localize_script( 'gutenverse-backend-event', 'GutenverseThemeList', $this->gutenverse_theme_list_config() );
+		wp_localize_script( 'gutenverse-editor-event', 'GutenverseThemeList', $this->gutenverse_theme_list_config() );
 
-		wp_localize_script( 'gutenverse-backend-event', 'GutenverseSettings', $this->gutenverse_setting_config() );
+		wp_localize_script( 'gutenverse-editor-event', 'GutenverseSettings', $this->gutenverse_setting_config() );
 
-		wp_set_script_translations( 'gutenverse-backend-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
+		wp_set_script_translations( 'gutenverse-editor-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
 
 		wp_register_style(
 			'fontawesome-gutenverse',
@@ -125,7 +119,8 @@ class Dashboard {
 		);
 
 		if ( 'toplevel_page_gutenverse' === $hook ) {
-			$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/dashboard.asset.php' )['dependencies'];
+			$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/dashboard.asset.php' )['dependencies'];
+			$include[] = 'gutenverse-frontend-event';
 
 			wp_enqueue_script(
 				'gutenverse-core-dashboard-event',
@@ -135,15 +130,7 @@ class Dashboard {
 				true
 			);
 
-			$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/blocks.asset.php' )['dependencies'];
-
-			wp_enqueue_script(
-				'gutenverse-blocks-event',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/js/blocks.js',
-				$include,
-				GUTENVERSE_FRAMEWORK_VERSION,
-				true
-			);
+			wp_enqueue_script( 'gutenverse-blocks-event' );
 
 			wp_enqueue_style(
 				'gutenverse-core-dashboard-bg',
@@ -173,7 +160,7 @@ class Dashboard {
 
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
@@ -302,11 +289,11 @@ class Dashboard {
 	public function gutenverse_theme_list_config() {
 		$config = array();
 
-		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['serverEndpoint'] = 'wp-json/gutenverse-server/v1';
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
@@ -327,7 +314,7 @@ class Dashboard {
 	public function gutenverse_setting_config() {
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
-		$config['getPro']          = GUTENVERSE_FRAMEWORK_LIBRARY_URL;
+		$config['getPro']          = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['freeImg']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 
