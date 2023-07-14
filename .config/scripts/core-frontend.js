@@ -25,9 +25,9 @@ const corefrontend = {
     },
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(__dirname, "../../src/"),
-            "gutenverse-core-frontend": path.resolve(__dirname, "../../src/"),
-            "gutenverse-core-frontend/blocks": path.resolve(__dirname, "../../src/frontend-blocks"),
+            "gutenverse-core": path.resolve(process.cwd(), "src/"),
+            "gutenverse-core-frontend": path.resolve(process.cwd(), "src/"),
+            "gutenverse-core-frontend/blocks": path.resolve(process.cwd(), "src/frontend-blocks"),
         },
     },
     module: {

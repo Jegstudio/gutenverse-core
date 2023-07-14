@@ -1,8 +1,6 @@
 import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
-import { dispatch } from '@wordpress/data';
-import u from 'umbrellajs';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -477,7 +475,7 @@ export const swiperData = (attributes) => {
 };
 
 export const getActiveWindow = () => {
-    if (u('iframe[name="editor-canvas"]').length) {
+    if (document.querySelector('iframe[name="editor-canvas"]')) {
         if (undefined !== window[2] && 'editor-canvas' === window[2].name) {
             return window[2];
         }

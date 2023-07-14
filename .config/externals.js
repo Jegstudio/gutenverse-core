@@ -65,15 +65,15 @@ const coreEditorExternals = [
     'components',
     'controls',
     'requests',
-    'editorHelper'
+    'helper'
 ].reduce((externals, name) => ({
 	...externals,
-	[`gutenverse-core/${name}`]: `gutenverseCore.${camelCaseDash(name)}`,
+	[`gutenverse-core-editor/${name}`]: `gutenverseCoreEditor.${camelCaseDash(name)}`,
 }), {});
 
 const coreFrontendExternals = [
     'styling',
-	'frontendBlocks'
+	'blocks'
 ].reduce((externals, name) => ({
 	...externals,
 	[`gutenverse-core-frontend/${name}`]: `gutenverseCoreFrontend.${camelCaseDash(name)}`,

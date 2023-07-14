@@ -22,7 +22,7 @@ const core = {
     externals,
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(__dirname, "../../src/"),
+            "gutenverse-core": path.resolve(process.cwd(), "src/"),
         },
     },
     module: {

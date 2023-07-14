@@ -2,7 +2,7 @@ const path = require("path");
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals, coreExternals } = require("../externals");
+const { externals, coreExternals, coreFrontendExternals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 const coreeditor = {
@@ -21,13 +21,16 @@ const coreeditor = {
     output,
     externals: {
         ...externals,
-        ...coreExternals
+        ...coreExternals,
+        ...coreFrontendExternals
     },
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(__dirname, "../../src/"),
-            "gutenverse-core-editor": path.resolve(__dirname, "../../src/"),
-            "gutenverse-core-editor/helper": path.resolve(__dirname, "../../src/editor-helper"),
+            "gutenverse-core": path.resolve(process.cwd(), "src/"),
+            "gutenverse-core-editor": path.resolve(process.cwd(), "src/"),
+            "gutenverse-core-editor/helper": path.resolve(process.cwd(), "src/editor-helper"),
+            "gutenverse-core-frontend": path.resolve(process.cwd(), "src/"),
+            "gutenverse-core-frontend/blocks": path.resolve(process.cwd(), "src/frontend-blocks"),
         },
     },
     module: {
