@@ -3,7 +3,7 @@ import { panelList } from './panels/panel-list';
 import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import SingleSocialShare from './single-social-share';
-import { IconShareEmailSVG } from 'gutenverse-core/icons';
+import { IconShareEmailSVG } from '../../../assets/icon/index';
 import jsondata from './block.json';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
