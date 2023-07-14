@@ -148,12 +148,10 @@ class Assets {
 	 * Register Scripts.
 	 */
 	private function init_scripts() {
-		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/corefrontend.asset.php' )['dependencies'];
-
 		wp_register_script(
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
-			$include,
+			array(),
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);

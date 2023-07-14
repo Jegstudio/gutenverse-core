@@ -1,4 +1,4 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default, u } from '../index';
 
 class GutenverseElements extends Default {
     init() {
