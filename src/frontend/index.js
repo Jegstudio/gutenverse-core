@@ -1,4 +1,5 @@
 export { Default } from './blocks/default';
+export { default as u } from 'umbrellajs';
 
 // Export Pro Utility
 // export { renderAdanim as renderAnimation } from '../animation';

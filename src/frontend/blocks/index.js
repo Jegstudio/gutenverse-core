@@ -1,6 +1,6 @@
-import u from 'umbrellajs';
-import GutenverseElements from './elements';
+import { u } from 'gutenverse-core-frontend';
 import { ReplaceCSS } from './replace-css';
+import GutenverseElements from './elements';
 
 const gutenClasses = {
     ['element']: GutenverseElements,
