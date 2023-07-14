@@ -1,7 +1,7 @@
 import { Children, cloneElement, useEffect, useState } from '@wordpress/element';
 import EscListener from '../esc-listener/esc-listener';
 import classnames from 'classnames';
-import u from 'umbrellajs';
+import { u } from 'gutenverse-core-frontend/blocks'
 
 export const DrawerHeader = ({ children, ...props }) => {
     return cloneElement(children, { ...props });
