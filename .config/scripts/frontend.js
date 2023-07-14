@@ -2,7 +2,7 @@ const rules = require("../rules");
 const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals, coreExternals, coreFrontendExternals } = require("../externals");
+const { coreFrontendExternals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 const frontend = {
@@ -14,8 +14,6 @@ const frontend = {
         },
     },
     externals: {
-        ...externals,
-        ...coreExternals,
         ...coreFrontendExternals,
     },
     stats,
