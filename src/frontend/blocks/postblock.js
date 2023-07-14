@@ -1,6 +1,4 @@
-import { Default, u } from 'gutenverse-core-frontend';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
+import { Default, u, addQueryArgs, apiFetch } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
 
 class GutenversePostblock extends Default {

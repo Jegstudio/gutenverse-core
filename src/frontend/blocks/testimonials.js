@@ -1,6 +1,5 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default, u, applyFilters } from 'gutenverse-core-frontend';
 import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
-import { applyFilters } from '@wordpress/hooks';
 
 Swiper.use([ Autoplay, Navigation, Pagination ]);
 
