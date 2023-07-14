@@ -1,6 +1,5 @@
 import anime from 'animejs';
-import u from 'umbrellajs';
-import { Default } from 'gutenverse-core-frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 
 class GutenverseFunFact extends Default {
     /* public */

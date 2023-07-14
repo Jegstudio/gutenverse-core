@@ -1,5 +1,4 @@
-import u from 'umbrellajs';
-import { Default } from 'gutenverse-core-frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 import Swiper, { Navigation, Pagination, Zoom } from 'swiper';
 import Shuffle from 'shufflejs';
 
