@@ -1,4 +1,3 @@
-
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';

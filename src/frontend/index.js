@@ -1,4 +1,4 @@
-import u from 'umbrellajs';
+import { u } from 'gutenverse-core-frontend/blocks';
 import GutenverseTabs from './blocks/tab';
 import GutenverseVideo from './blocks/video';
 import GutenverseAccordion from './blocks/accordion';

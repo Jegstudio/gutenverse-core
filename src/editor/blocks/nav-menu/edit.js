@@ -8,7 +8,6 @@ import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { useRef } from '@wordpress/element';
-import u from 'umbrellajs';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
 import { NavSkeleton } from 'gutenverse-core-editor/components';
@@ -104,8 +103,8 @@ const NavMenuBlock = compose(
 
     useEffect(() => {
         setTimeout(() => {
-            if (!u(elementRef.current).hasClass('injected')) {
-                u(elementRef.current).addClass('injected');
+            if (!elementRef.current.classList.contains('injected')) {
+                elementRef.current.classList.add('injected');
             }
             new GutenverseNavMenu([elementRef.current]);
         }, 1000);
