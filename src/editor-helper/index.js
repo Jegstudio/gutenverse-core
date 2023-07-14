@@ -1,6 +1,6 @@
 import MiniSignal from 'mini-signals';
 import { createBlock } from '@wordpress/blocks';
-import { select, useSelect, useDispatch } from '@wordpress/data';
+import { select, useSelect, useDispatch, dispatch } from '@wordpress/data';
 import { useMemo, useCallback } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { dateI18n } from '@wordpress/date';
@@ -413,4 +413,12 @@ export const setControlStyle = ({
     } else {
         removeStyle(id);
     }
+};
+
+export const updateBlockList = ({ name, settings, metadata }) => {
+    dispatch('gutenverse/blocklist')?.updateList({
+        name,
+        ...settings,
+        ...metadata
+    });
 };

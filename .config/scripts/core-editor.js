@@ -10,7 +10,7 @@ const coreeditor = {
     devtool: 'cheap-module-source-map',
     entry: {
         coreeditor: {
-            import: path.resolve(process.cwd(), "src/editor/index.js"),
+            import: path.resolve(process.cwd(), "src/externals/editor.js"),
             library: {
                 name: "gutenverseCoreEditor",
                 type: "window",
@@ -25,8 +25,9 @@ const coreeditor = {
     },
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(__dirname, "../../src/core/"),
-            "gutenverse-core-editor": path.resolve(__dirname, "../../src/editor/"),
+            "gutenverse-core": path.resolve(__dirname, "../../src/"),
+            "gutenverse-core-editor": path.resolve(__dirname, "../../src/"),
+            "gutenverse-core-editor/helper": path.resolve(__dirname, "../../src/editor-helper"),
         },
     },
     module: {

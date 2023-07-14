@@ -48,21 +48,14 @@ const wpExternals = [
 const coreExternals = [
 	'config',
     'helper',
-    'styling'
+    'styling',
 ].reduce((externals, name) => ({
 	...externals,
 	[`gutenverse-core/${name}`]: `gutenverseCore.${camelCaseDash(name)}`,
 }), {});
 
-const coreFrontendExternals = [
-	'blocks'
-].reduce((externals, name) => ({
-	...externals,
-	[`gutenverse-core-frontend/${name}`]: `gutenverseCoreFrontend.${camelCaseDash(name)}`,
-}), {});
-
 const coreEditorExternals = [
-	'icons',
+    'icons',
     'backend',
     'router',
     'toolbars',
@@ -72,10 +65,18 @@ const coreEditorExternals = [
     'components',
     'controls',
     'requests',
-    'helper'
+    'editorHelper'
 ].reduce((externals, name) => ({
 	...externals,
-	[`gutenverse-core-editor/${name}`]: `gutenverseCoreEditor.${camelCaseDash(name)}`,
+	[`gutenverse-core/${name}`]: `gutenverseCore.${camelCaseDash(name)}`,
+}), {});
+
+const coreFrontendExternals = [
+    'styling',
+	'frontendBlocks'
+].reduce((externals, name) => ({
+	...externals,
+	[`gutenverse-core-frontend/${name}`]: `gutenverseCoreFrontend.${camelCaseDash(name)}`,
 }), {});
 
 const externals = {
@@ -91,6 +92,6 @@ module.exports = {
 	camelCaseDash,
 	externals,
 	coreExternals,
-	coreFrontendExternals,
-    coreEditorExternals
+    coreEditorExternals,
+	coreFrontendExternals
 };

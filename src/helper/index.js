@@ -600,14 +600,6 @@ export const responsiveBreakpoint = () => {
     };
 };
 
-export const updateBlockList = ({ name, settings, metadata }) => {
-    dispatch('gutenverse/blocklist')?.updateList({
-        name,
-        ...settings,
-        ...metadata
-    });
-};
-
 export const isBlockActive = (name) => {
     const { settingsData } = window['GutenverseConfig'] || window['GutenverseSettings'] || {};
     const { active_blocks = {} } = settingsData;

@@ -2,9 +2,11 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"gutenverse-core/*": ["./src/core/*"],
-            "gutenverse-core-frontend/*": ["./src/frontend/*"],
-            "gutenverse-core-editor/*": ["./src/editor/*"]
+			"gutenverse-core/*": ["./src/*"],
+            "gutenverse-core-editor/*": ["./src/*"],
+            "gutenverse-core-editor/helper": ["./src/editor-helper"],
+            "gutenverse-core-frontend/*": ["./src/*"],
+            "gutenverse-core-frontend/blocks": ["./src/frontend-blocks"]
 		}
 	},
 	"include": ["./src/**/*"],
