@@ -4,7 +4,7 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import SingleSocialShare from './single-social-share';
 import jsondata from './block.json';
-import { IconShareRedditSVG } from 'gutenverse-core/icons';
+import { IconShareRedditSVG } from '../../../assets/icon/index';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const SocialShareReddit = compose(
