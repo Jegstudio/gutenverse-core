@@ -36,10 +36,6 @@ const corefrontend = {
                             source: "./build/corefrontend.js",
                             destination: "./framework/assets/js/",
                         },
-                        {
-                            source: "./build/corefrontend.asset.php",
-                            destination: "./framework/lib/dependencies/",
-                        },
                     ],
                 },
             },

@@ -156,6 +156,12 @@ class Assets {
 			true
 		);
 
+		wp_localize_script(
+			'gutenverse-frontend-event',
+			'GutenverseFrontendConfig',
+			$this->gutenverse_frontend_config()
+		);
+
 		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/components.asset.php' )['dependencies'];
 
 		wp_register_script(
@@ -185,5 +191,19 @@ class Assets {
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
 		);
+	}
+
+	/**
+	 * Frontend Config
+	 *
+	 * @return array
+	 */
+	public function gutenverse_frontend_config() {
+		$config                    = array();
+		$config['wpjson_url']      = get_rest_url();
+		$config['wpjson_nonce']    = wp_create_nonce( 'wp_rest' );
+		$config['wpjson_endpoint'] = admin_url( 'admin-ajax.php?action=rest-nonce' );
+
+		return $config;
 	}
 }

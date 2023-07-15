@@ -2,9 +2,10 @@ export { Default } from './blocks/default';
 export { default as u } from 'umbrellajs';
 export * from '@wordpress/hooks';
 export * from '@wordpress/url';
-export * as apiFetch from '@wordpress/api-fetch';
+export { default as apiFetch } from '@wordpress/api-fetch';
 
-// Section & Column Blocks.
+// Internal.
+export * from './helper/fetch';
 export * from './blocks/index';
 
 // Export Pro Utility
