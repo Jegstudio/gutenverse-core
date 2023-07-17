@@ -29,10 +29,16 @@ const frontend = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./gutenverse/assets/js/frontend.js*",
+                        "./gutenverse/lib/dependencies/frontend.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/frontend.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/frontend.js*" : "./build/frontend.js",
                             destination: "./gutenverse/assets/js/",
                         },
                         {

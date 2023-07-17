@@ -4,7 +4,7 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { output } = require("../config");
 const { stats, plugins } = require("gutenverse-core/.config/config");
 const { externals, coreExternals } = require("gutenverse-core/.config/externals");
-const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
+const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
 const wizard = {
     mode: "development",
@@ -29,10 +29,16 @@ const wizard = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./gutenverse/assets/js/wizard.js*",
+                        "./gutenverse/lib/dependencies/wizard.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/wizard.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/wizard.js*" : "./build/wizard.js",
                             destination: "./gutenverse/assets/js/",
                         },
                         {

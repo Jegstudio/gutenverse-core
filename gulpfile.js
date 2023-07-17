@@ -82,7 +82,7 @@ gulp.task('clean', function () {
         './gutenverse/assets/css/**',
         './gutenverse/languages/**',
         './gutenverse/lib/dependencies/**'
-    ], { force: true })
+    ], { force: true });
 });
 
 /**
