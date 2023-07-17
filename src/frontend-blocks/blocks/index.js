@@ -1,4 +1,4 @@
-import { u } from 'gutenverse-core-frontend';
+import { u } from '../index';
 import { ReplaceCSS } from './replace-css';
 import GutenverseElements from './elements';
 
@@ -15,4 +15,4 @@ Object.keys(gutenClasses).map((index) => {
     }
 });
 
-( new ReplaceCSS() ).init();
+export default ( new ReplaceCSS() ).init();

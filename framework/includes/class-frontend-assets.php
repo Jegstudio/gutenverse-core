@@ -109,21 +109,8 @@ class Frontend_Assets {
 		);
 
 		wp_enqueue_script( 'gutenverse-core-event' );
+
 		wp_enqueue_script( 'gutenverse-frontend-event' );
-
-		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
-
-		$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
-		$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
-		$include[] = 'gutenverse-frontend-event';
-
-		wp_enqueue_script(
-			'gutenverse-frontend-blocks-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/frontend.js',
-			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
 
