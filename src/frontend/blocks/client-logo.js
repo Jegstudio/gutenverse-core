@@ -1,8 +1,7 @@
-import { Default, u } from 'gutenverse-core-frontend/blocks';
+import { Default, u, applyFilters } from 'gutenverse-core-frontend/blocks';
 import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
-import { applyFilters } from '@wordpress/hooks';
 
-Swiper.use([ Autoplay, Navigation, Pagination ]);
+Swiper.use([Autoplay, Navigation, Pagination]);
 
 class GutenverseClientLogo extends Default {
     /* public */
@@ -58,7 +57,7 @@ class GutenverseClientLogo extends Default {
             settingsProps
         );
 
-        new Swiper( `.${id} .swiper-container`, settingsFilter);
+        new Swiper(`.${id} .swiper-container`, settingsFilter);
     }
 }
 

@@ -26,7 +26,8 @@ class Frontend_Assets {
 	 * Frontend Script
 	 */
 	public function enqueue_scripts() {
-		$include = ( include GUTENVERSE_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
+		$include   = ( include GUTENVERSE_DIR . '/lib/dependencies/frontend.asset.php' )['dependencies'];
+		$include[] = 'gutenverse-frontend-event';
 
 		wp_enqueue_script(
 			'gutenverse-frontend',
@@ -42,7 +43,5 @@ class Frontend_Assets {
 			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
 			GUTENVERSE_VERSION
 		);
-
-		wp_set_script_translations( 'gutenverse-frontend', 'gutenverse', GUTENVERSE_LANG_DIR );
 	}
 }

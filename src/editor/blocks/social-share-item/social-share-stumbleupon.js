@@ -4,8 +4,8 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import SingleSocialShare from './single-social-share';
 import jsondata from './block.json';
-import { IconShareStumbleuponSVG } from 'gutenverse-core-editor/icons';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { IconShareStumbleuponSVG } from '../../../assets/icon/index';
 
 const SocialShareStumbelupon = compose(
     withCustomStyle(panelList),

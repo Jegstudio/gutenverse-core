@@ -41,6 +41,8 @@ class Editor_Assets {
 			GUTENVERSE_VERSION
 		);
 
+		wp_enqueue_script( 'gutenverse-frontend-event' );
+
 		$include = ( include GUTENVERSE_DIR . '/lib/dependencies/blocks.asset.php' )['dependencies'];
 
 		wp_enqueue_script(

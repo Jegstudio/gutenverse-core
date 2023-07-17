@@ -4,8 +4,8 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core-editor/hoc';
 import SingleSocialShare from './single-social-share';
 import jsondata from './block.json';
-import { IconShareLinkedinSVG } from 'gutenverse-core-editor/icons';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { IconShareLinkedinSVG } from '../../../assets/icon/index';
 
 const SocialShareLinkedin = compose(
     withCustomStyle(panelList),
