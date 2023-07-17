@@ -28,10 +28,16 @@ const components = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./framework/assets/js/components.js*",
+                        "./framework/lib/dependencies/components.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/components.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/components.js*" : "./build/components.js",
                             destination: "./framework/assets/js/",
                         },
                         {

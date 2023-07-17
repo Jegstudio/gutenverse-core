@@ -30,10 +30,15 @@ const corefrontend = {
         ...plugins,
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./framework/assets/js/corefrontend.js*",
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/corefrontend.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/corefrontend.js*" : "./build/corefrontend.js",
                             destination: "./framework/assets/js/",
                         },
                     ],

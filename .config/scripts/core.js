@@ -34,10 +34,16 @@ const core = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./framework/assets/js/core.js*",
+                        "./framework/lib/dependencies/core.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/core.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/core.js*" : "./build/core.js",
                             destination: "./framework/assets/js/",
                         },
                         {

@@ -29,10 +29,16 @@ const dashboard = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        "./framework/assets/js/dashboard.js*",
+                        "./framework/lib/dependencies/dashboard.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         {
-                            source: "./build/dashboard.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/dashboard.js*" : "./build/dashboard.js",
                             destination: "./framework/assets/js/",
                         },
                         {
