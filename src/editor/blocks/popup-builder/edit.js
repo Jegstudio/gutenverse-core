@@ -7,7 +7,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
 import { useDisplayEditor } from 'gutenverse-core-editor/hooks';

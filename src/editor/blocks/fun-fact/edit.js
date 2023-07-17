@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import anime from 'animejs';
-import { getImageSrc } from 'gutenverse-core-editor/helper';
+import { getImageSrc } from 'gutenverse-core-editor/editor-helper';
 import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';

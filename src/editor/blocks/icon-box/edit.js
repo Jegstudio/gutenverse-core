@@ -16,7 +16,7 @@ import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { URLToolbar } from 'gutenverse-core-editor/toolbars';
 import { useCallback } from '@wordpress/element';
-import { getImageSrc } from 'gutenverse-core-editor/helper';
+import { getImageSrc } from 'gutenverse-core-editor/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
 import { useAnimationEditor } from 'gutenverse-core-editor/hooks';

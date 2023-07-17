@@ -2,7 +2,7 @@ import { SelectControl } from 'gutenverse-core-editor/controls';
 import { __ } from '@wordpress/i18n';
 import { ColorControl, IconControl, RangeControl, SwitchControl } from 'gutenverse-core-editor/controls';
 import { handleColor } from 'gutenverse-core/styling';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 
 export const panelIcon = (props) => {
     const {

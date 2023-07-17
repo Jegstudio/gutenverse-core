@@ -2,7 +2,7 @@
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { X } from 'react-feather';
-import { getImageSrc } from 'gutenverse-core-editor/helper';
+import { getImageSrc } from 'gutenverse-core-editor/editor-helper';
 
 const TeamPopup = ({elementId, show = false, onClose = () => {}, src, nameTag: NameTag, name, description, job, phone, email, socialComponent}) => {
     const classNames = {

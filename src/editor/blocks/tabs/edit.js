@@ -19,7 +19,7 @@ import { useRef } from '@wordpress/element';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'react-feather';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { reorder } from 'gutenverse-core/helper';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
 import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
 import { dispatch, useSelect } from '@wordpress/data';

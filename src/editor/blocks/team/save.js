@@ -3,7 +3,7 @@ import { compose } from '@wordpress/compose';
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import TeamProfile from './components/team-profile';
-import { getImageSrc } from 'gutenverse-core-editor/helper';
+import { getImageSrc } from 'gutenverse-core-editor/editor-helper';
 import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
 import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
 import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';

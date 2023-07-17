@@ -12,7 +12,7 @@ import ReactPlayer from 'react-player';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
 import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
 import { useAnimationEditor } from 'gutenverse-core-editor/hooks';

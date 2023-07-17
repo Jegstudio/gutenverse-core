@@ -7,7 +7,7 @@ import { PanelController } from 'gutenverse-core-editor/controls';
 import { panelList } from './panels/panel-list';
 import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
 import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
-import { getDate } from 'gutenverse-core-editor/helper';
+import { getDate } from 'gutenverse-core-editor/editor-helper';
 import { isEmpty } from 'lodash';
 import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
