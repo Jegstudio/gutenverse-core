@@ -10,7 +10,7 @@ const dashboard = {
     devtool: 'cheap-module-source-map',
     entry: {
         dashboard: {
-            import: path.resolve(process.cwd(), "src/editor/dashboard/index.js"),
+            import: path.resolve(process.cwd(), "src/dashboard/index.js"),
         },
     },
     stats,

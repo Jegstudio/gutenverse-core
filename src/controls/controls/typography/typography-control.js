@@ -7,7 +7,7 @@ import { Check, ChevronRight, Globe, RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
 import { withParentControl } from 'gutenverse-core-editor/hoc';
 import { FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
-import { isEmptyValue, signal } from 'gutenverse-core-editor/helper';
+import { isEmptyValue, signal } from 'gutenverse-core-editor/editor-helper';
 import isEmpty from 'lodash/isEmpty';
 import { IconTypographySVG } from 'gutenverse-core-editor/icons';
 import { select } from '@wordpress/data';

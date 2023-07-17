@@ -1,1 +1,1 @@
-export * as blocks from '../frontend-blocks';
+export * as frontend from '../frontend';

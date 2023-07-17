@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { CheckboxControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
 import { sectionLayoutControls } from '../components/section-layout-toolbar';
 import { handleUnitPoint } from 'gutenverse-core-editor/controls';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 
 export const layoutPanel = (props) => {
     const {

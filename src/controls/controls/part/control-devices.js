@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
 import { isFSE, setDeviceType } from 'gutenverse-core/helper';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { IconDeviceDesktopSVG, IconDeviceTabletSVG, IconDeviceMobileSVG } from 'gutenverse-core-editor/icons';
 
 const ControlDevices = () => {

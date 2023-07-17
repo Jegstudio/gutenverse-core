@@ -6,7 +6,7 @@ import { withCustomStyle, withCopyElementToolbar, withAnimationSticky } from 'gu
 import { panelList } from './panels/panel-list';
 import { PanelController, BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core-editor/controls';
 import { isSticky } from 'gutenverse-core/helper';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core-editor/hooks';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';

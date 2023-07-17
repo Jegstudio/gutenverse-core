@@ -8,7 +8,7 @@ const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extract
 
 let copyPath = [];
 
-const blockDir = path.resolve(process.cwd(), "src/editor/blocks");
+const blockDir = path.resolve(process.cwd(), "src/blocks");
 
 fs.readdirSync(blockDir).filter((file) => {
     const blockPath = `${blockDir}/${file}`;
@@ -30,7 +30,7 @@ const blocks = {
     devtool: 'cheap-module-source-map',
     entry: {
         blocks: {
-            import: path.resolve(process.cwd(), "src/editor/blocks/index.js"),
+            import: path.resolve(process.cwd(), "src/blocks/index.js"),
         },
     },
     externals: {

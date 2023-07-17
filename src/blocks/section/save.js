@@ -8,7 +8,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
 import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
 import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core-editor/hooks';
-import { isEmptyValue } from 'gutenverse-core-editor/helper';
+import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
 
 const save = compose(

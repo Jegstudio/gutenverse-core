@@ -7,7 +7,7 @@ import { LogoColorSVG, LogoWhiteSVG } from 'gutenverse-core-editor/icons';
 import GlobalStyleContent from './global-style-content';
 import { isFSE } from 'gutenverse-core/helper';
 import withGlobalVariable from './with-global-variable';
-import { signal } from 'gutenverse-core-editor/helper';
+import { signal } from 'gutenverse-core-editor/editor-helper';
 
 const GlobalStyleSidebar = props => {
     const { variable, googleFont } = props;

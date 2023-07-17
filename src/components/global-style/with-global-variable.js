@@ -17,7 +17,7 @@ import {
     renderColor,
     useGlobalStylesConfig,
     hexToRgb
-} from 'gutenverse-core-editor/helper';
+} from 'gutenverse-core-editor/editor-helper';
 import {
     injectFont,
     normalAppender,
@@ -25,7 +25,7 @@ import {
     deviceStyleValue,
     DeviceLoop,
     elementVar
-} from 'gutenverse-core-editor/controls';
+} from 'gutenverse-core/styling';
 import { modifyGlobalVariable } from 'gutenverse-core-editor/requests';
 import elementChange from 'element-change';
 

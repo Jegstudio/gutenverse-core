@@ -28,9 +28,7 @@ const coreeditor = {
         alias: {
             "gutenverse-core": path.resolve(process.cwd(), "src/"),
             "gutenverse-core-editor": path.resolve(process.cwd(), "src/"),
-            "gutenverse-core-editor/helper": path.resolve(process.cwd(), "src/editor-helper"),
             "gutenverse-core-frontend": path.resolve(process.cwd(), "src/"),
-            "gutenverse-core-frontend/blocks": path.resolve(process.cwd(), "src/frontend-blocks"),
         },
     },
     module: {

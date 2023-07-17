@@ -8,7 +8,7 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import { Tooltip } from '@wordpress/components';
 import { ColorControl } from 'gutenverse-core-editor/controls';
 import { RangeControl } from 'gutenverse-core-editor/controls';
-import { isEmptyValue } from 'gutenverse-core-editor/helper';
+import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
 import { IconTypographySVG } from 'gutenverse-core-editor/icons';
 
 const TextShadowControl = ({

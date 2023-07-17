@@ -8,4 +8,4 @@ export * as store from '../store';
 export * as components from '../components';
 export * as controls from '../controls';
 export * as requests from '../requests';
-export * as helper from '../editor-helper';
+export * as editorHelper from '../editor-helper';

@@ -2,7 +2,7 @@ const rules = require("../rules");
 const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { coreFrontendExternals } = require("../externals");
+const { coreExternals, coreFrontendExternals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 const frontend = {
@@ -10,10 +10,11 @@ const frontend = {
     devtool: 'cheap-module-source-map',
     entry: {
         frontend: {
-            import: path.resolve(process.cwd(), "src/frontend/blocks/blocks/index.js"),
+            import: path.resolve(process.cwd(), "src/frontend/blocks/index.js"),
         },
     },
     externals: {
+        ...coreExternals,
         ...coreFrontendExternals,
     },
     stats,

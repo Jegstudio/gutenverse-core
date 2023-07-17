@@ -3,7 +3,7 @@ import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { dispatch, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
 import { BuildColumnWidthStyle } from 'gutenverse-core/styling';

@@ -9,7 +9,7 @@ import { PanelTutorial, SelectControl } from 'gutenverse-core-editor/controls';
 import { Prompt, PromptContent, PromptHeader} from 'gutenverse-core-editor/components';
 import { IconCloseSVG } from 'gutenverse-core-editor/icons';
 import { FontControl, RangeControl, SizeControl } from 'gutenverse-core-editor/controls';
-import { injectFont } from 'gutenverse-core-editor/controls';
+import { injectFont } from 'gutenverse-core/styling';
 
 const handleFont = (typography, props, id) => {
     const weight = typography.weight && typography.style === 'italic' ? `${typography.weight}italic` : typography.weight;

@@ -233,7 +233,7 @@ package inside window object :
 
 import example : 
 ```js
-import * from 'gutenverse-core-editor/helper';
+import * from 'gutenverse-core-editor/editor-helper';
 ```
 package inside window object :
 `gutenverseCore.editorHelper`

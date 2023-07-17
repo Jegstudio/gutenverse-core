@@ -4,9 +4,7 @@
 		"paths": {
 			"gutenverse-core/*": ["./src/*"],
             "gutenverse-core-editor/*": ["./src/*"],
-            "gutenverse-core-editor/helper": ["./src/editor-helper"],
-            "gutenverse-core-frontend/*": ["./src/*"],
-            "gutenverse-core-frontend/blocks": ["./src/frontend-blocks"]
+            "gutenverse-core-frontend/*": ["./src/*"]
 		}
 	},
 	"include": ["./src/**/*"],

@@ -27,7 +27,7 @@ import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core-editor/icons';
-import { isEmptyValue } from 'gutenverse-core-editor/helper';
+import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
 
 // Placeholder
 const SectionPlaceholder = (props) => {

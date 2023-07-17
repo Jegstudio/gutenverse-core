@@ -5,7 +5,7 @@ import { withDeviceControl } from 'gutenverse-core-editor/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { deviceStyleValue } from 'gutenverse-core/styling';
-import { getDeviceType } from 'gutenverse-core-editor/helper';
+import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
 import { __ } from '@wordpress/i18n';
 
 const CheckboxControl = (props) => {

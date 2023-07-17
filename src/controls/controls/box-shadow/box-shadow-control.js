@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { Tooltip } from '@wordpress/components';
 import { ColorControl, RangeControl, SelectControl } from 'gutenverse-core-editor/controls';
-import { isEmptyValue } from 'gutenverse-core-editor/helper';
+import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
 import { IconTypographySVG } from 'gutenverse-core-editor/icons';
 
 const BoxShadowControl = ({

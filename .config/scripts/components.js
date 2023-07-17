@@ -10,7 +10,7 @@ const components = {
     devtool: 'cheap-module-source-map',
     entry: {
         components: {
-            import: path.resolve(process.cwd(), "src/editor/components/components.js"),
+            import: path.resolve(process.cwd(), "src/components/components.js"),
         },
     },
     externals: {

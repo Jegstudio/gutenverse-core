@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core-editor/requests';
-import { signal } from 'gutenverse-core-editor/helper';
+import { signal } from 'gutenverse-core-editor/editor-helper';
 export { libraryStore } from 'gutenverse-core-editor/store';
 
 const initLibraryState = {

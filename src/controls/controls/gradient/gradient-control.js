@@ -3,7 +3,7 @@ import { ChromePicker } from 'react-color';
 import { GradientPicker } from 'react-linear-gradient-picker';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';
-import { u } from 'gutenverse-core-frontend/blocks'
+import { u } from 'gutenverse-core-frontend/frontend'
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core-editor/hoc';
 import { withDeviceControl } from 'gutenverse-core-editor/hoc';
