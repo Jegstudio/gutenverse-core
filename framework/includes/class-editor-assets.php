@@ -42,6 +42,8 @@ class Editor_Assets {
 
 		wp_enqueue_script( 'gutenverse-editor-event' );
 
+		wp_enqueue_script( 'gutenverse-frontend-event' );
+
 		wp_localize_script(
 			apply_filters( 'gutenverse_editor_script_handle', 'gutenverse-editor-event' ),
 			'GutenverseConfig',
