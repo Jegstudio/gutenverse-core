@@ -7,6 +7,7 @@ const { externals, coreExternals, coreEditorExternals } = require("../externals"
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 let copyPath = [];
+let deletePath = [];
 
 const blockDir = path.resolve(process.cwd(), "src/blocks");
 
@@ -17,6 +18,7 @@ fs.readdirSync(blockDir).filter((file) => {
         const jsonPath = `${blockPath}/block.json`;
 
         if (fs.existsSync(jsonPath)) {
+            deletePath.push("./gutenverse/block/" + file + "/block.json");
             copyPath.push({
                 source: jsonPath,
                 destination: path.resolve(process.cwd(), `framework/block/${file}/block.json`),
@@ -49,11 +51,18 @@ const blocks = {
         new DependencyExtractionWebpackPlugin(),
         new FileManagerPlugin({
             events: {
+                onStart: {
+                    delete: [
+                        ...deletePath,
+                        "./framework/assets/js//blocks.js*",
+                        "./framework/lib/dependencies/blocks.asset.php"
+                    ]
+                },
                 onEnd: {
                     copy: [
                         ...copyPath,
-                        {
-                            source: "./build/blocks.js",
+                        {                            
+                            source: process.env.NODE_ENV === 'development' ? "./build/blocks.js*" : "./build/blocks.js",
                             destination: "./framework/assets/js/",
                         },
                         {

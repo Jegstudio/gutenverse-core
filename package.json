@@ -7,12 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run start:js\" \"npm run start:css\"",
     "build": "concurrently \"npm run build:js\" \"npm run build:css\"",
-    "start:js": "webpack --config .config/webpack.config.dev.js --watch",
-    "build:js": "webpack --config .config/webpack.config.prod.js",
-    "start:css": "gulp watch",
-    "build:css": "gulp build",
-    "development": "cross-env NODE_ENV=development && gulp clean && npm run build && npm run pot",
-    "production": "cross-env NODE_ENV=production && gulp clean && npm run build && npm run pot",
+    "development": "gulp clean && npm run start && npm run pot",
+    "production": "gulp clean && npm run build && npm run pot",
+    "start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
+    "build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
+    "start:css": "cross-env NODE_ENV=development gulp watch",
+    "build:css": "cross-env NODE_ENV=production gulp build",
     "pot": "wp i18n make-pot ./framework ./framework/languages/gutenverse-core.pot --domain=gutenverse"
   },
   "repository": {
