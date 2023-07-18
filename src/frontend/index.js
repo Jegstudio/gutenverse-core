@@ -1,6 +1,5 @@
-import { u } from 'gutenverse-core-frontend';
+import { GutenverseVideo, u } from 'gutenverse-core-frontend';
 import GutenverseTabs from './blocks/tab';
-import GutenverseVideo from './blocks/video';
 import GutenverseAccordion from './blocks/accordion';
 import GutenverseTeam from './blocks/team';
 import GutenverseProgressBar from './blocks/progress-bar';
@@ -18,7 +17,6 @@ const gutenClasses = {
     ['tabs']: GutenverseTabs,
     ['accordions']: GutenverseAccordion,
     ['video-wrapper']: GutenverseVideo,
-    ['video-background']: GutenverseVideo,
     ['team']: GutenverseTeam,
     ['progress-bar']: GutenverseProgressBar,
     ['fun-fact']: GutenverseFunFact,
