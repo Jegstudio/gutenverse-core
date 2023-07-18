@@ -8,6 +8,9 @@ export { default as apiFetch } from '@wordpress/api-fetch';
 export * from './helper/fetch';
 export * from './blocks/index';
 
+// Frontend Script.
+export { default as GutenverseVideo } from './blocks/video';
+
 // Export Pro Utility
 // export { renderAdanim as renderAnimation } from '../animation';
 // export { shapeDividerLoader } from '../data/shape-divider-animated';

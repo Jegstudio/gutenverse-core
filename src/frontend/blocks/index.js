@@ -1,9 +1,11 @@
 import { u } from '../index';
 import { ReplaceCSS } from './replace-css';
 import GutenverseElements from './elements';
+import GutenverseVideo from './video';
 
 const gutenClasses = {
     ['element']: GutenverseElements,
+    ['video-background']: GutenverseVideo,
 };
 
 Object.keys(gutenClasses).map((index) => {
@@ -15,4 +17,4 @@ Object.keys(gutenClasses).map((index) => {
     }
 });
 
-export default ( new ReplaceCSS() ).init();
+export default (new ReplaceCSS()).init();
