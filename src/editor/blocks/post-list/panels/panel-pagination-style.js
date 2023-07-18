@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
-import { BackgroundControl, BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { BackgroundControl, BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const buttonPanel = (props) => {
     const {

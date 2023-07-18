@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { handleAlign } from 'gutenverse-core/styling';
 

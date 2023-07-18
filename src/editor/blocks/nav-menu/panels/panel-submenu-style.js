@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconControl, SwitchControl, TypographyControl, BorderControl } from 'gutenverse-core-editor/controls';
+import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconControl, SwitchControl, TypographyControl, BorderControl } from 'gutenverse-core/controls';
 import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const SubmenuItemStyle = (props) => {

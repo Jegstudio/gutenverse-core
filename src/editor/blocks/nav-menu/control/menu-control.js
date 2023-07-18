@@ -5,10 +5,10 @@ import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
-import { ControlHeadingSimple } from 'gutenverse-core-editor/controls';
-import { ProLock } from 'gutenverse-core-editor/controls';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { ControlHeadingSimple } from 'gutenverse-core/controls';
+import { ProLock } from 'gutenverse-core/controls';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 
 const MenuControl = (props) => {
     const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, description = '', noOptionsText, proLabel } = props;

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ImageControl, RangeControl, RepeaterControl, TextareaControl, TextControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, ImageControl, RangeControl, RepeaterControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
 
 export const galleryPanel = () => {
     return [

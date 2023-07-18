@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
-import { ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {

@@ -2,7 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import {
     RichText,
@@ -14,14 +14,14 @@ import cryptoRandomString from 'crypto-random-string';
 import { trash, plus } from '@wordpress/icons';
 import { ToolbarButton, ToolbarGroup, Tooltip } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'react-feather';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { reorder } from 'gutenverse-core/helper';
-import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 
 const TabHeadingItem = ({

@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { IconRadioControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
+import { IconRadioControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 import { handleAlign } from 'gutenverse-core/styling';
 
 export const settingPanel = ({elementId, showSub}) => {

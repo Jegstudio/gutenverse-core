@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl } from 'gutenverse-core-editor/controls';
+import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 

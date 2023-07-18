@@ -7,8 +7,8 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
-import { useAnimationFrontend, useDisplayFrontend, useAnimationAdvanceData } from 'gutenverse-core-editor/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { useAnimationFrontend, useDisplayFrontend, useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('heading')

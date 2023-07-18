@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { handleBorder } from 'gutenverse-core/styling';
-import { BorderControl } from 'gutenverse-core-editor/controls';
+import { BorderControl } from 'gutenverse-core/controls';
 
 export const inputPanel = (props) => {
     const {

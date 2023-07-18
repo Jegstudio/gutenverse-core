@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageControl, RepeaterControl, TextControl } from 'gutenverse-core-editor/controls';
+import { ImageControl, RepeaterControl, TextControl } from 'gutenverse-core/controls';
 
 export const logosPanel = () => {
     return [

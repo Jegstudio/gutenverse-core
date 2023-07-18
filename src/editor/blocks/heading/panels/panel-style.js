@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
 import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
     const {

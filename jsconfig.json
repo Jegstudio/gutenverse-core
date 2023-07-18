@@ -3,8 +3,7 @@
         "baseUrl": ".",
         "paths": {
             "gutenverse-core/*": ["gutenverse-core/src/*"],
-            "gutenverse-core-editor/*": ["gutenverse-core/src/*"],
-            "gutenverse-core-frontend/*": ["gutenverse-core/src/*"]
+            "gutenverse-core-frontend": ["gutenverse-core/src/frontend"]
         }
     },
     "include": ["./src/**/*", "..config/**/*"],

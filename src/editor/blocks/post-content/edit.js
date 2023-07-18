@@ -1,13 +1,13 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 // import { useEntityBlockEditor } from '@wordpress/core-data';
 import {
     InspectorControls,
@@ -17,7 +17,7 @@ import {
     Warning,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
-import { PanelTutorial } from 'gutenverse-core-editor/controls';
+import { PanelTutorial } from 'gutenverse-core/controls';
 
 const Placeholder = () => {
     return <div className="post-content">

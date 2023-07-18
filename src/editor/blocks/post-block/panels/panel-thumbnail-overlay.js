@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { BackgroundControl, RangeControl } from 'gutenverse-core/controls';
 import { handleBackground, } from 'gutenverse-core/styling';
 
 export const thumbnailPanelOverlay = ({elementId}) => {

@@ -1,8 +1,8 @@
 
 import classnames from 'classnames';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
-import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
 
 const save = ({ attributes }) => {
     const {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl } from 'gutenverse-core-editor/controls';
+import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl } from 'gutenverse-core/controls';
 import { handleBackground, handleUnitPoint, setStylePoint } from 'gutenverse-core/styling';
 import { applyFilters } from '@wordpress/hooks';
 

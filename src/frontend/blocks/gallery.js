@@ -1,4 +1,4 @@
-import { Default, u } from 'gutenverse-core-frontend/frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 import Swiper, { Navigation, Pagination, Zoom } from 'swiper';
 import Shuffle from 'shufflejs';
 

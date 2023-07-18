@@ -2,7 +2,7 @@ import {registerBlockType} from '@wordpress/blocks';
 import {__} from '@wordpress/i18n';
 import {Type} from 'react-feather';
 
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import {
     AlignmentToolbar,
     BlockControls,
@@ -15,7 +15,7 @@ import classnames from 'classnames';
 import save from './save-demo';
 import { compose } from '@wordpress/compose';
 import { panelList } from './panels/panel-list';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 
 const DemoBlock = compose(withCustomStyle(panelList))(props => {
     const {attributes, setAttributes} = props;

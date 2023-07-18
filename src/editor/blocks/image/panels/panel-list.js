@@ -1,10 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core-editor/controls';
-// import { advanceAnimationPanel } from 'gutenverse-core-editor/controls';
+import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+// import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { altPanel } from './panel-alt';
 import { captionPanel } from './panel-caption';
 import { imagePanel } from './panel-image';
-import { TabSetting, TabStyle } from 'gutenverse-core-editor/controls';
+import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, RangeControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { IconControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 
 export const settingPanel = ({elementId, grid}) => {
     return [

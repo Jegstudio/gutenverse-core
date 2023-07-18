@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { IconRadioControl, TextControl, RangeControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { IconRadioControl, TextControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
 
 export const panelRating = ({elementId}) => {

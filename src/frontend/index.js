@@ -1,4 +1,4 @@
-import { u } from 'gutenverse-core-frontend/frontend';
+import { u } from 'gutenverse-core-frontend';
 import GutenverseTabs from './blocks/tab';
 import GutenverseVideo from './blocks/video';
 import GutenverseAccordion from './blocks/accordion';

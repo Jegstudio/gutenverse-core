@@ -1,9 +1,9 @@
 import { useRef, useState } from '@wordpress/element';
 import SwiperCore, { Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core-editor/components';
+import { Swiper } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'react-feather';
-import { swiperSettings } from 'gutenverse-core-editor/editor-helper';
+import { swiperSettings } from 'gutenverse-core/editor-helper';
 
 SwiperCore.use([ Navigation, Pagination, Zoom]);
 

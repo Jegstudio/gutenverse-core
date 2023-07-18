@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TextStyleZoom from './components/text-style-zoom';
 import TextStyleFade from './components/text-style-fade';
@@ -15,8 +15,8 @@ import TextStylePop from './components/text-style-pop';
 import TextStyleSlide from './components/text-style-slide';
 import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const AnimatedTextBlock = compose(
     withCustomStyle(panelList),

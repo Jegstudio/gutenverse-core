@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, RangeControl, SelectControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, RangeControl, SelectControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
 export const superPanel = ({elementId, ...props}) => {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { TextControl } from 'gutenverse-core-editor/controls';
+import { TextControl } from 'gutenverse-core/controls';
 
 export const settingPanel = () => {
     return [

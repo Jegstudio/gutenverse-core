@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight, AlignCenter } from 'react-feather';
-import { DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
+import { DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadius, iconShape, removeStyle }) => {

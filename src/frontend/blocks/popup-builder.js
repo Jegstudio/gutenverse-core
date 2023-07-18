@@ -1,4 +1,4 @@
-import { Default, u } from 'gutenverse-core-frontend/frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 
 class GutenversePopupBuilder extends Default {
     /* public */

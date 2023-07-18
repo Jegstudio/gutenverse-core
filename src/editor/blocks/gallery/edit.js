@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { createPortal } from 'react-dom';
@@ -11,10 +11,10 @@ import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
 import { u } from 'umbrellajs';
 import Shuffle from 'shufflejs';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const GalleryBlock = compose(
     withCustomStyle(panelList),

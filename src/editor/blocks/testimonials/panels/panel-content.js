@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageRadioControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, IconControl, ImageRadioControl } from 'gutenverse-core/controls';
 
 
 export const panelContent = ({showQuote}) => {

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl } from 'gutenverse-core-editor/controls';
-import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { SelectControl } from 'gutenverse-core/controls';
+import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitle = (props) => {

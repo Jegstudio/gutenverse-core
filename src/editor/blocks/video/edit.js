@@ -1,23 +1,23 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import { ArrowLeft } from 'react-feather';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { Button } from '@wordpress/components';
 import ReactPlayer from 'react-player';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
-import { AlertControl } from 'gutenverse-core-editor/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { AlertControl } from 'gutenverse-core/controls';
 
 const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
     const playerStyle = {};

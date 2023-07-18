@@ -9,9 +9,9 @@ import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core-editor/hooks';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { PanelController } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { panelList } from './panels/panel-list';

@@ -5,7 +5,7 @@ import {
     SwitchControl,
     TypographyControl,
     BorderControl
-} from 'gutenverse-core-editor/controls';
+} from 'gutenverse-core/controls';
 import { handleColor, handleUnitPoint, handleTypography, handleBorder } from 'gutenverse-core/styling';
 
 export const panelStyle = props => {

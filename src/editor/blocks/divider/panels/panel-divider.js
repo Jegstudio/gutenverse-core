@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { ColorControl, IconRadioControl, RangeControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, IconRadioControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { handleColor } from 'gutenverse-core/styling';
 
 export const dividerPanel = ({ elementId }) => {

@@ -1,4 +1,4 @@
-import { Default, u, addQueryArgs, apiFetch } from 'gutenverse-core-frontend/frontend';
+import { Default, u, addQueryArgs, apiFetch } from 'gutenverse-core-frontend';
 import isEmpty from 'lodash/isEmpty';
 
 class GutenversePostblock extends Default {

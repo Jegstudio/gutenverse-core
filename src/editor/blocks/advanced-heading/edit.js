@@ -1,14 +1,14 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const AdvancedHeadingBlock = compose(
     withCustomStyle(panelList),

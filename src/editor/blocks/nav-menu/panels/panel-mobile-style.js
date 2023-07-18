@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { DimensionControl, RangeControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { handleDimension } from 'gutenverse-core/styling';
 
 export const mobileMenuStyle = (props) => {

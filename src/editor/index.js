@@ -1,6 +1,6 @@
 import { getBlockType, registerBlockType } from '@wordpress/blocks';
 import { isBlockActive } from 'gutenverse-core/helper';
-import { updateBlockList } from 'gutenverse-core-editor/editor-helper';
+import { updateBlockList } from 'gutenverse-core/editor-helper';
 
 const registerBlocks = () => {
     const general = require.context('./blocks', true, /index\.js$/);

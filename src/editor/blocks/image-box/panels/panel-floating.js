@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { RangeControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const panelFloating = props => {
     const {

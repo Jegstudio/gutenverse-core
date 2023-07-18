@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { BackgroundControl, BorderControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { BackgroundControl, BorderControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemHoverPanel = (props) => {

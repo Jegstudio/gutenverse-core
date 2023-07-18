@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, NumberControl, RangeControl, SelectControl, TextControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, ColorControl, NumberControl, RangeControl, SelectControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { isYoutubeUrl } from 'gutenverse-core/helper';
 import { isEmpty } from 'lodash';
 import { handleColor, handleTypography } from 'gutenverse-core/styling';

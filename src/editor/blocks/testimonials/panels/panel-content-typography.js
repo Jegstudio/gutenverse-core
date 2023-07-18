@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelContentTypography = props => {

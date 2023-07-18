@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, SelectControl, TextControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const settingPanel = (props) => {
     const {

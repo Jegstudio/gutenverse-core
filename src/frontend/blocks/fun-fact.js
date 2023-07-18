@@ -1,5 +1,5 @@
 import anime from 'animejs';
-import { Default, u } from 'gutenverse-core-frontend/frontend';
+import { Default, u } from 'gutenverse-core-frontend';
 
 class GutenverseFunFact extends Default {
     /* public */

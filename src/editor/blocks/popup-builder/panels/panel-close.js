@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl } from 'gutenverse-core/controls';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const closePanel = (props) => {

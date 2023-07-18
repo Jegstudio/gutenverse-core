@@ -1,5 +1,5 @@
 
-import { getImageSrc } from 'gutenverse-core-editor/editor-helper';
+import { getImageSrc } from 'gutenverse-core/editor-helper';
 
 const GalleryItem = (attributes) => {
     const {

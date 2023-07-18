@@ -1,6 +1,6 @@
 
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import {
     useInnerBlocksProps,

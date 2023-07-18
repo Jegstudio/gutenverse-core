@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageFilterControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { ImageFilterControl, SwitchControl } from 'gutenverse-core/controls';
 import { isEmptyString } from 'gutenverse-core/helper';
 
 export const panelStyle = (props) => {

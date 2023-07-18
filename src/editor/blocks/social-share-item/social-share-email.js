@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { panelList } from './panels/panel-list';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import SingleSocialShare from './single-social-share';
 import { IconShareEmailSVG } from '../../../assets/icon/index';
 import jsondata from './block.json';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const SocialShareEmail = compose(
     withCustomStyle(panelList),

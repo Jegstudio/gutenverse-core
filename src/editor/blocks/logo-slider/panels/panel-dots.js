@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const dotsPanel = (props) => {

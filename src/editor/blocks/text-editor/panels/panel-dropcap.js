@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, TypographyControl, SelectControl, DimensionControl } from 'gutenverse-core-editor/controls';
+import { CheckboxControl, ColorControl, TypographyControl, SelectControl, DimensionControl } from 'gutenverse-core/controls';
 import { handleTypography, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const panelDropcap = (props) => {

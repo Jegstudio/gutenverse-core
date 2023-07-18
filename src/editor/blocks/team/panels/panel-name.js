@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
-import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const namePanel = (props) => {

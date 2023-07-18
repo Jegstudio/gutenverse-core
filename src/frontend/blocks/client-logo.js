@@ -1,4 +1,4 @@
-import { Default, u, applyFilters } from 'gutenverse-core-frontend/frontend';
+import { Default, u, applyFilters } from 'gutenverse-core-frontend';
 import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
 
 Swiper.use([Autoplay, Navigation, Pagination]);

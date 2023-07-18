@@ -1,8 +1,8 @@
 
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
-import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
 
 const SaveSocialShare = ({ attributes }) => {
     const {
