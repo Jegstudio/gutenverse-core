@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { BorderControl, BoxShadowControl, IconRadioControl, RangeControl, SizeControl } from 'gutenverse-core-editor/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { handleBorder, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {

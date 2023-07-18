@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core-editor/controls';
-import { handleDimension, handleBackground, handleBorder } from 'gutenverse-core/styling';
+import { handleDimension, handleBackground, handleBorder, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconBoxContainer = (props) => {

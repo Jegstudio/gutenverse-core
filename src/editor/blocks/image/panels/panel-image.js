@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { BorderControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
 import { isEmptyString } from 'gutenverse-core/helper';
-import { handleBorder, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const imagePanel = ({elementId}) => {

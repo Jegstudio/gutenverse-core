@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core-editor/controls';
-import { handleBackground, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const thumbnailContainerPanel = ({elementId}) => {

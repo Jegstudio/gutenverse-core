@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-import { handleAlign, handleColor, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderTextShadow, handleAlign, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
 import { handleTextShadow } from 'gutenverse-core/styling';

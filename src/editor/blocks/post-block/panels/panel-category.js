@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core-editor/controls';
-import { handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const categoryPanel = (props) => {

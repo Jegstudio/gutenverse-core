@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core-editor/controls';
 import { handleTextShadow } from 'gutenverse-core/styling';
 

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core-editor/controls';
-import { handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const arrowPanel = (props) => {

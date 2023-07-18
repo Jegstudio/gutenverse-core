@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core-editor/controls';
-import { handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelAccordion = (props) => {

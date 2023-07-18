@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core-editor/controls';
-import { handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const SubmenuPanelStyle = (props) => {

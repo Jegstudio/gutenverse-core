@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl, SwitchControl } from 'gutenverse-core-editor/controls';
-import { handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
