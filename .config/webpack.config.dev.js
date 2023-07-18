@@ -1,5 +1,4 @@
 const { dashboard } = require('./scripts/dashboard');
-const { frontend } = require('./scripts/frontend');
 const { blocks } = require('./scripts/blocks');
 const { components } = require('./scripts/components');
 const { core } = require('./scripts/core');
@@ -10,7 +9,6 @@ module.exports = [
     blocks,
     dashboard,
     components,
-    frontend,
     core,
     coreeditor,
     corefrontend,
