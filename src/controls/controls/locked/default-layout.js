@@ -1,4 +1,4 @@
-import { IconCrownSVG } from 'gutenverse-core-editor/icons';
+import { IconCrownSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 
 const DefaultLayout = ({

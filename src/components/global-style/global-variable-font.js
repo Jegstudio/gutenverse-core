@@ -5,10 +5,10 @@ import cryptoRandomString from 'crypto-random-string';
 import { Edit2, RefreshCw, Trash } from 'react-feather';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { PanelTutorial, SelectControl } from 'gutenverse-core-editor/controls';
-import { Prompt, PromptContent, PromptHeader} from 'gutenverse-core-editor/components';
-import { IconCloseSVG } from 'gutenverse-core-editor/icons';
-import { FontControl, RangeControl, SizeControl } from 'gutenverse-core-editor/controls';
+import { PanelTutorial, SelectControl } from 'gutenverse-core/controls';
+import { Prompt, PromptContent, PromptHeader} from 'gutenverse-core/components';
+import { IconCloseSVG } from 'gutenverse-core/icons';
+import { FontControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { injectFont } from 'gutenverse-core/styling';
 
 const handleFont = (typography, props, id) => {

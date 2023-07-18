@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useRef } from '@wordpress/element';
-import { ControlCheckbox } from 'gutenverse-core-editor/backend';
+import { ControlCheckbox } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 

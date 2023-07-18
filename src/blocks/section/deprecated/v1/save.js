@@ -1,13 +1,13 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground } from 'gutenverse-core-editor/hoc';
+import { withVideoBackground } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
-import { withAnimationAdvanceScript } from 'gutenverse-core-editor/hoc';
-import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
-import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
-import { useAnimationAdvanceData } from 'gutenverse-core-editor/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('section'),

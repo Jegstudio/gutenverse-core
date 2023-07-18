@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { IconInfoGraySVG, IconCheckCircleSVG, IconTimesSVG } from 'gutenverse-core-editor/icons';
+import { IconInfoGraySVG, IconCheckCircleSVG, IconTimesSVG } from 'gutenverse-core/icons';
 import ReactTooltip from 'react-tooltip';
 import classnames from 'classnames';
 import semver from 'semver';

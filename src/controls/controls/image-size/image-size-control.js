@@ -6,10 +6,10 @@ import {Button} from '@wordpress/components';
 import {__} from '@wordpress/i18n';
 import {Trash} from 'react-feather';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 import { ucfirst } from 'gutenverse-core/helper';
-import { SelectControl } from 'gutenverse-core-editor/controls';
+import { SelectControl } from 'gutenverse-core/controls';
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 

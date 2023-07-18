@@ -1,6 +1,6 @@
 import throttle from 'lodash/throttle'
 import { useCallback } from '@wordpress/element';
-import { setControlStyle } from 'gutenverse-core-editor/editor-helper';
+import { setControlStyle } from 'gutenverse-core/editor-helper';
 
 const BlockController = (props) => {
     const {

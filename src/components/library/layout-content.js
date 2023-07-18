@@ -8,7 +8,7 @@ import SearchBar from './search-bar';
 import Select from 'react-select';
 import { Loader } from 'react-feather';
 import { customStyles } from './style';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core-editor/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core/icons';
 import Paging from './paging';
 import BannerPro from './banner-pro';
 

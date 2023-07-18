@@ -1,6 +1,6 @@
 import { useState, useEffect } from "@wordpress/element";
 import { sprintf, __ } from "@wordpress/i18n";
-import { Link } from "gutenverse-core-editor/router";
+import { Link } from "gutenverse-core/router";
 import { applyFilters } from "@wordpress/hooks";
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 

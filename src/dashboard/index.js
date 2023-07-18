@@ -1,8 +1,8 @@
 import Navigation from './route/navigation';
 import Content from './route/content';
 import { render } from '@wordpress/element';
-import { Routing } from 'gutenverse-core-editor/router';
-export { blocklistStore, dashboardStore, libraryStore } from 'gutenverse-core-editor/store';
+import { Routing } from 'gutenverse-core/router';
+export { blocklistStore, dashboardStore, libraryStore } from 'gutenverse-core/store';
 
 const loadGutenverseDashboard = () => {
     const dashboardDiv = document.getElementById('gutenverse-dashboard');

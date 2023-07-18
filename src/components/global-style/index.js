@@ -1,8 +1,8 @@
 import { useEffect } from '@wordpress/element';
 import { registerPlugin } from '@wordpress/plugins';
-import { useGlobalStylesConfig } from 'gutenverse-core-editor/editor-helper';
+import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import GlobalStyleSidebar from './global-style-sidebar';
-export { globalStyleStore } from 'gutenverse-core-editor/store';
+export { globalStyleStore } from 'gutenverse-core/store';
 
 const GlobalStyle = () => {
     const { isUserConfigReady } = useGlobalStylesConfig();

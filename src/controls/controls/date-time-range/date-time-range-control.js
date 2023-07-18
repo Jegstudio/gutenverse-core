@@ -1,7 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import Flatpickr from 'react-flatpickr';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 import rangePlugin from 'flatpickr/dist/plugins/rangePlugin';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';

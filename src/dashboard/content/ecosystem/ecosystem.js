@@ -4,7 +4,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
-import { LogoCircleColor24SVG } from 'gutenverse-core-editor/icons';
+import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';

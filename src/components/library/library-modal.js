@@ -1,6 +1,6 @@
 import { withSelect, dispatch } from '@wordpress/data';
 import classnames from 'classnames';
-import { LogoFullColorSVG, IconCloseSVG } from 'gutenverse-core-editor/icons';
+import { LogoFullColorSVG, IconCloseSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LayoutContent from './layout-content';
 import SectionContent from './section-content';

@@ -3,16 +3,16 @@ import { useInstanceId } from '@wordpress/compose';
 import { ChromePicker } from 'react-color';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 import { __ } from '@wordpress/i18n';
 import { Tooltip } from '@wordpress/components';
 import { RefreshCw, Globe, ChevronRight } from 'react-feather';
-import { renderColor, signal, hexToRgb } from 'gutenverse-core-editor/editor-helper';
+import { renderColor, signal, hexToRgb } from 'gutenverse-core/editor-helper';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useSetting } from '@wordpress/block-editor';
-import { useGlobalStylesConfig } from 'gutenverse-core-editor/editor-helper';
+import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;

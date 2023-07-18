@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlCheckbox } from 'gutenverse-core-editor/backend';
+import { ControlCheckbox } from 'gutenverse-core/backend';
 
 const TemplateSetting = ({ settingValues, updateSettingValues, saving, saveData }) => {
     const {

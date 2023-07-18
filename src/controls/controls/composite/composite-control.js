@@ -3,7 +3,7 @@ import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { chevronUp, chevronDown } from '@wordpress/icons';
 import { Icon } from '@wordpress/components';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';

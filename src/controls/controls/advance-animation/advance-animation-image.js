@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { DimensionControl, ImageFilterControl } from 'gutenverse-core-editor/controls';
+import { DimensionControl, ImageFilterControl } from 'gutenverse-core/controls';
 import { handleAdanimImageFilter, handleAdanimImageRadius } from 'gutenverse-core/styling';
 
 export const customAdanimImage = () => {

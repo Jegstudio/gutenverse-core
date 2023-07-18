@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, RangeControl } from 'gutenverse-core-editor/controls';
+import { ColorControl, RangeControl } from 'gutenverse-core/controls';
 import { handleAdanimDividerColor, handleAdanimDividerSize, handleAdanimDividerWidth } from 'gutenverse-core/styling';
 
 export const customAdanimDivider = () => {

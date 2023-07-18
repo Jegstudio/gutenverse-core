@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlNumber } from 'gutenverse-core-editor/backend';
+import { ControlNumber } from 'gutenverse-core/backend';
 
 const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData }) => {
     const {

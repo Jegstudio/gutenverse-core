@@ -4,8 +4,8 @@ import { GradientPicker } from 'react-linear-gradient-picker';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 
 const ColorPicker = ({ onSelect, ...rest }) => {
     return <ChromePicker

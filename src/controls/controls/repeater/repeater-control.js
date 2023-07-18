@@ -1,15 +1,15 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { ControlHeadingSimple } from 'gutenverse-core-editor/controls';
+import { ControlHeadingSimple } from 'gutenverse-core/controls';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 import { X } from 'react-feather';
 import classnames from 'classnames';
 import { reorder } from 'gutenverse-core/helper';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
-import { IconDuplicateSVG } from 'gutenverse-core-editor/icons';
+import { IconDuplicateSVG } from 'gutenverse-core/icons';
 import { ReactSortable } from 'react-sortablejs';
 
 const DragDropList = ({ list, setList, children }) => {

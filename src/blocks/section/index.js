@@ -7,7 +7,7 @@ import saveV3 from './deprecated/v3/save';
 import attrV2 from './deprecated/v2/attribute.json';
 import metadata from './block.json';
 import example from './data/example';
-import { IconSectionSVG } from 'gutenverse-core-editor/icons';
+import { IconSectionSVG } from 'gutenverse-core/icons';
 
 const { name, attributes } = metadata;
 

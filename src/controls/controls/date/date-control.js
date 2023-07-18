@@ -2,7 +2,7 @@
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 import Flatpickr from 'react-flatpickr';
 
 const DateControl = (props) => {

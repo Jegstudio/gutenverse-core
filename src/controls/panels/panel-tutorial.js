@@ -1,6 +1,6 @@
 import { useState } from '@wordpress/element';
 import classnames from 'classnames';
-import { IconChevronSVG, IconInfoSVG } from 'gutenverse-core-editor/icons';
+import { IconChevronSVG, IconInfoSVG } from 'gutenverse-core/icons';
 
 const PanelAccordion = ({ title, content, open, setOpen, index }) => {
     const classname = classnames('tutorial-accordion', {

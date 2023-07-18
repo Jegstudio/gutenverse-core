@@ -5,7 +5,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { CheckboxControl, RangeControl, NumberControl, SelectControl, SizeControl, SwitchControl, SizeDoubleControl, ElementSelectorControl } from '../../index';
 import { Button } from '@wordpress/components';
 import { Plus, X, Monitor, Tablet, Smartphone } from 'react-feather';
-import { IconDimensionXSVG, IconDimensionYSVG, IconDimensionZSVG, IconChevronDownSVG } from 'gutenverse-core-editor/icons';
+import { IconDimensionXSVG, IconDimensionYSVG, IconDimensionZSVG, IconChevronDownSVG } from 'gutenverse-core/icons';
 import Select from 'react-select';
 import classnames from 'classnames';
 import ControlHeadingSimple from '../part/control-heading-simple';

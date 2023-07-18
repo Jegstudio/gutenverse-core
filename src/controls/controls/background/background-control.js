@@ -2,9 +2,9 @@
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Droplet, Image, Video } from 'react-feather';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl } from 'gutenverse-core-editor/controls';
-import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;

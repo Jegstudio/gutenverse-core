@@ -25,7 +25,7 @@ import {
     TextControl,
     TextShadowControl,
     TypographyControl
-} from 'gutenverse-core-editor/controls';
+} from 'gutenverse-core/controls';
 
 const processOptions = (options) => {
     const generatedStyle = [];

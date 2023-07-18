@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
-import { Link } from 'gutenverse-core-editor/router';
+import { Link } from 'gutenverse-core/router';
 import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';

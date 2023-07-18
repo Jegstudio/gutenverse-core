@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import classnames from 'classnames';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 import { RefreshCw } from 'react-feather';
 import { __ } from '@wordpress/i18n';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { Tooltip } from '@wordpress/components';
-import {RangeControl} from 'gutenverse-core-editor/controls';
-import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
-import { IconTypographySVG } from 'gutenverse-core-editor/icons';
+import {RangeControl} from 'gutenverse-core/controls';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { IconTypographySVG } from 'gutenverse-core/icons';
 
 const ImageFilterControl = ({
     label,

@@ -5,13 +5,13 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import classnames from 'classnames';
 import { Check, ChevronRight, Globe, RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core-editor/controls';
-import { isEmptyValue, signal } from 'gutenverse-core-editor/editor-helper';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { FontControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { isEmptyValue, signal } from 'gutenverse-core/editor-helper';
 import isEmpty from 'lodash/isEmpty';
-import { IconTypographySVG } from 'gutenverse-core-editor/icons';
+import { IconTypographySVG } from 'gutenverse-core/icons';
 import { select } from '@wordpress/data';
-export { globalStyleStore } from 'gutenverse-core-editor/store';
+export { globalStyleStore } from 'gutenverse-core/store';
 
 const VariableFontItem = (props) => {
     const { name, active, setActive, font: typography } = props;

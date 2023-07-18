@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IDGeneratorControl } from 'gutenverse-core-editor/controls';
+import { IDGeneratorControl } from 'gutenverse-core/controls';
 
 export const IDPanel = () => {
     return [

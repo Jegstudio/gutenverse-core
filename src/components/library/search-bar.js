@@ -1,6 +1,6 @@
 import { useState, useCallback } from '@wordpress/element';
 import debounce from 'lodash/debounce';
-import { IconCloseSVG, IconSearchSVG } from 'gutenverse-core-editor/icons';
+import { IconCloseSVG, IconSearchSVG } from 'gutenverse-core/icons';
 
 const SearchBar = ({ placeholder, onChange }) => {
     const [value, setValue] = useState('');

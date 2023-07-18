@@ -3,7 +3,7 @@ const rules = require("../rules");
 const path = require("path");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals, coreExternals, coreEditorExternals } = require("../externals");
+const { externals, coreExternals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
 
 let copyPath = [];
@@ -37,8 +37,7 @@ const blocks = {
     },
     externals: {
         ...externals,
-        ...coreExternals,
-        ...coreEditorExternals
+        ...coreExternals
     },
     stats,
     output,

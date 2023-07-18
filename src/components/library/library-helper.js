@@ -1,4 +1,4 @@
-import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core-editor/requests';
+import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core/requests';
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch } from '@wordpress/data';

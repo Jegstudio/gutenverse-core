@@ -3,11 +3,11 @@ import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
 import { ArrowLeft } from 'react-feather';
 import { PanelBody } from '@wordpress/components';
-import { LogoColorSVG, LogoWhiteSVG } from 'gutenverse-core-editor/icons';
+import { LogoColorSVG, LogoWhiteSVG } from 'gutenverse-core/icons';
 import GlobalStyleContent from './global-style-content';
 import { isFSE } from 'gutenverse-core/helper';
 import withGlobalVariable from './with-global-variable';
-import { signal } from 'gutenverse-core-editor/editor-helper';
+import { signal } from 'gutenverse-core/editor-helper';
 
 const GlobalStyleSidebar = props => {
     const { variable, googleFont } = props;

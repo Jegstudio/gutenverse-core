@@ -4,7 +4,7 @@ import { useState, useEffect } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import apiFetch from '@wordpress/api-fetch';
-import { IconDocsSVG } from 'gutenverse-core-editor/icons';
+import { IconDocsSVG } from 'gutenverse-core/icons';
 import { DashboardContent } from '../../components';
 
 const httpClient = (apiUrl) => axios.create({

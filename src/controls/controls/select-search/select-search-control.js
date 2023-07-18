@@ -3,8 +3,8 @@ import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import AsyncSelect from 'react-select/async';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 import { __ } from '@wordpress/i18n';
 
 const SelectSearchControl = (props) => {

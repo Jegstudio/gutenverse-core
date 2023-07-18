@@ -1,8 +1,8 @@
 
 import {useInstanceId} from '@wordpress/compose';
-import { SelectControl, ColorControl, RangeControl, CheckboxControl, GradientControl, AngleControl } from 'gutenverse-core-editor/controls';
+import { SelectControl, ColorControl, RangeControl, CheckboxControl, GradientControl, AngleControl } from 'gutenverse-core/controls';
 import {__} from '@wordpress/i18n';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
 
 const DividerControl = (props) => {
     const {

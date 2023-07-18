@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { handleDimension } from 'gutenverse-core/styling';
-import { DimensionControl, NumberControl } from 'gutenverse-core-editor/controls';
+import { DimensionControl, NumberControl } from 'gutenverse-core/controls';
 
 export const advancePanel = (props) => {
     const {elementId, selector, frontendSelector} = props;

@@ -3,7 +3,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { isAnimationActive, isFSE } from 'gutenverse-core/helper';
 import { responsiveBreakpoint } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
-import { Helmet } from 'gutenverse-core-editor/components';
+import { Helmet } from 'gutenverse-core/components';
 
 export const withAnimationBackground = (blockType) => (BlockElement) => {
     return (props) => {

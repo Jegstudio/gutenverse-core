@@ -7,7 +7,7 @@ import Paging from './paging';
 import { __, _n } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core-editor/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
 import BannerPro from './banner-pro';
 

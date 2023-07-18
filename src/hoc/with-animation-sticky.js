@@ -2,7 +2,7 @@ import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { isAlignStickyColumn, isFSE } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
-import { Helmet } from 'gutenverse-core-editor/components';
+import { Helmet } from 'gutenverse-core/components';
 
 export const withAnimationSticky = () => (BlockElement) => {
     return (props) => {

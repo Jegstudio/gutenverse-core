@@ -1,6 +1,6 @@
 
 import { useInstanceId } from '@wordpress/compose';
-import { IconInfoSVG } from 'gutenverse-core-editor/icons';
+import { IconInfoSVG } from 'gutenverse-core/icons';
 
 const AlertControl = (props) => {
     const {

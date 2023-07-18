@@ -2,7 +2,7 @@ import { sprintf, _n, __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import axios from 'axios';
-import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG } from 'gutenverse-core-editor/icons';
+import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import queryString from 'query-string';
 import isEmpty from 'lodash/isEmpty';

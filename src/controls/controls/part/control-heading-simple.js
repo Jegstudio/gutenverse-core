@@ -1,5 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
-import { IconInfoSVG } from 'gutenverse-core-editor/icons';
+import { IconInfoSVG } from 'gutenverse-core/icons';
 import ControlDevices from './control-devices';
 
 const ControlHeadingSimple = ({ id, label, description = '', allowDeviceControl, inLabel = null, outLabel = null }) => {

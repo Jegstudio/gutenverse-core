@@ -9,25 +9,25 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCustomStyle } from 'gutenverse-core-editor/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
-import { PanelController } from 'gutenverse-core-editor/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from './components/section-divider-animated';
 import { dispatch, useSelect } from '@wordpress/data';
-import { withCopyElementToolbar } from 'gutenverse-core-editor/hoc';
-import { withAnimationSticky } from 'gutenverse-core-editor/hoc';
-import { withAnimationAdvance } from 'gutenverse-core-editor/hoc';
-import { withAnimationBackground } from 'gutenverse-core-editor/hoc';
-import { useAnimationEditor } from 'gutenverse-core-editor/hooks';
-import { useDisplayEditor } from 'gutenverse-core-editor/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationSticky } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { withAnimationBackground } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { IconToolbarColumnAddSVG } from 'gutenverse-core-editor/icons';
-import { isEmptyValue } from 'gutenverse-core-editor/editor-helper';
+import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
+import { isEmptyValue } from 'gutenverse-core/editor-helper';
 
 // Placeholder
 const SectionPlaceholder = (props) => {

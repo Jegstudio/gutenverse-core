@@ -9,9 +9,9 @@ import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
 import set from 'lodash/set';
 import { getLastSequence, rgbToHex } from 'gutenverse-core/helper';
-import { hexToRgb, useGlobalStylesConfig, renderColor } from 'gutenverse-core-editor/editor-helper';
-import { IconCloseSVG } from 'gutenverse-core-editor/icons';
-import { Prompt, PromptContent, PromptHeader } from 'gutenverse-core-editor/components';
+import { hexToRgb, useGlobalStylesConfig, renderColor } from 'gutenverse-core/editor-helper';
+import { IconCloseSVG } from 'gutenverse-core/icons';
+import { Prompt, PromptContent, PromptHeader } from 'gutenverse-core/components';
 
 const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
     return openPopup ? <Prompt closePrompt={() => closePopup()} className={'variable-color'}>

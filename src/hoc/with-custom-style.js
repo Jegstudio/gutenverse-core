@@ -3,8 +3,8 @@ import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { getGoogleFontParams, isFSE, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
-import { setControlStyle, signal } from 'gutenverse-core-editor/editor-helper';
-import { Helmet } from 'gutenverse-core-editor/components';
+import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
+import { Helmet } from 'gutenverse-core/components';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes } = props;

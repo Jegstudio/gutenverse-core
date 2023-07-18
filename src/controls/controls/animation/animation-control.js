@@ -1,7 +1,7 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { NumberControl, SelectControl } from 'gutenverse-core-editor/controls';
+import { NumberControl, SelectControl } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
 
 const animationOption = ({ id, value, onValueChange, onStyleChange }) => {

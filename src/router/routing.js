@@ -2,7 +2,7 @@ import { useEffect } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
-export { routeStore } from 'gutenverse-core-editor/store';
+export { routeStore } from 'gutenverse-core/store';
 
 const Routing = ({ location, updateLocation, children: Content }) => {
     useEffect(() => {

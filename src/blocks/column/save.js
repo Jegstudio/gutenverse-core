@@ -2,8 +2,8 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isSticky } from 'gutenverse-core/helper';
-import { useAnimationFrontend } from 'gutenverse-core-editor/hooks';
-import { useDisplayFrontend } from 'gutenverse-core-editor/hooks';
+import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useDisplayFrontend } from 'gutenverse-core/hooks';
 
 const save = compose(
 )((props) => {

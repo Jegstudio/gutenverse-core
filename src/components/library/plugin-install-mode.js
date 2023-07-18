@@ -3,7 +3,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { withSelect, dispatch } from '@wordpress/data';
-import { IconArrowLeftSVG, IconInfoYellowSVG } from 'gutenverse-core-editor/icons';
+import { IconArrowLeftSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import apiFetch from '@wordpress/api-fetch';
 import semver from 'semver';

@@ -1,10 +1,10 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { useEffect, useState, useCallback } from '@wordpress/element';
-import { BlockController } from 'gutenverse-core-editor/controls';
+import { BlockController } from 'gutenverse-core/controls';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
-import { PanelSequence } from 'gutenverse-core-editor/controls';
+import { PanelSequence } from 'gutenverse-core/controls';
 import { Tooltip } from '@wordpress/components';
 
 const PanelController = ({ ...props }) => {

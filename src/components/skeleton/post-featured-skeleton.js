@@ -1,5 +1,5 @@
 
-import { Skeleton } from 'gutenverse-core-editor/components';
+import { Skeleton } from 'gutenverse-core/components';
 
 const PostFeaturedSkeleton = () => {
     return <div style={{width: '100%'}}>

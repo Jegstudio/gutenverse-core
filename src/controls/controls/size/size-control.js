@@ -1,8 +1,8 @@
 import {useEffect, useState, useRef} from '@wordpress/element';
 import {useInstanceId} from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 
 const UnitControl = ({units, activeUnit, changeUnit}) => {

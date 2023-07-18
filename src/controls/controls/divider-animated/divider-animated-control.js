@@ -1,9 +1,9 @@
 
 import { useInstanceId } from '@wordpress/compose';
-import { SelectControl } from 'gutenverse-core-editor/controls';
+import { SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { CheckboxControl, RangeControl, ColorControl, GradientControl, AngleControl, SizeControl, ElementSelectorControl } from 'gutenverse-core-editor/controls';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { CheckboxControl, RangeControl, ColorControl, GradientControl, AngleControl, SizeControl, ElementSelectorControl } from 'gutenverse-core/controls';
 
 const DividerAnimatedControl = (props) => {
     const {

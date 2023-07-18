@@ -1,5 +1,5 @@
 import { dispatch, select } from '@wordpress/data';
-import { AlertControl, ImageRadioControl } from 'gutenverse-core-editor/controls';
+import { AlertControl, ImageRadioControl } from 'gutenverse-core/controls';
 import { BuildAdminStyle, DeviceLoop, elementVar, responsiveAppender } from 'gutenverse-core/styling';
 import { column1_100, column2_33_66, column2_50_50, column2_66_33, column3_17_66_17, column3_25_25_50, column3_25_50_25, column3_33_33_33, column3_50_25_25, column4_25_25_25_25, column5_20_20_20_20_20 } from '../data/icons';
 import { col1_100, col2_33_66, col2_50_50, col2_66_33, col3_17_66_17, col3_25_25_50, col3_25_50_25, col3_33_33_33, col3_50_25_25, col4_25_25_25_25, col5_20_20_20_20_20 } from '../data/section-column';

@@ -1,4 +1,4 @@
-import { LockedProBackgroundControl } from 'gutenverse-core-editor/controls';
+import { LockedProBackgroundControl } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
 
 export const backgroundAnimatedPanel = (props) => {

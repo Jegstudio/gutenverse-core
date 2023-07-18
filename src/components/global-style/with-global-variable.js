@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { useSetting } from '@wordpress/block-editor';
-import { Helmet } from 'gutenverse-core-editor/components';
+import { Helmet } from 'gutenverse-core/components';
 
 import {
     getGoogleFontDatas,
@@ -17,7 +17,7 @@ import {
     renderColor,
     useGlobalStylesConfig,
     hexToRgb
-} from 'gutenverse-core-editor/editor-helper';
+} from 'gutenverse-core/editor-helper';
 import {
     injectFont,
     normalAppender,
@@ -26,7 +26,7 @@ import {
     DeviceLoop,
     elementVar
 } from 'gutenverse-core/styling';
-import { modifyGlobalVariable } from 'gutenverse-core-editor/requests';
+import { modifyGlobalVariable } from 'gutenverse-core/requests';
 import elementChange from 'element-change';
 
 const withGlobalVariable = GlobalStyle => {

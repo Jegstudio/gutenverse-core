@@ -12,7 +12,7 @@ import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch, withDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { compose } from '@wordpress/compose';
-import { fetchLibraryData } from 'gutenverse-core-editor/requests';
+import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {

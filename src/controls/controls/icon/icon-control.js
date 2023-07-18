@@ -9,11 +9,11 @@ import { Trash, X } from 'react-feather';
 import { Button } from '@wordpress/components';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withParentControl } from 'gutenverse-core-editor/hoc';
-import { withDeviceControl } from 'gutenverse-core-editor/hoc';
+import { withParentControl } from 'gutenverse-core/hoc';
+import { withDeviceControl } from 'gutenverse-core/hoc';
 import { AutoSizer, Grid } from 'react-virtualized';
 import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoFullColorSVG, IconSearchSVG } from 'gutenverse-core-editor/icons';
+import { LogoFullColorSVG, IconSearchSVG } from 'gutenverse-core/icons';
 
 const COLUMN_NUMBER = 8;
 

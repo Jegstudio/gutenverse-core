@@ -1,4 +1,4 @@
-import { LockedProDividerControl } from 'gutenverse-core-editor/controls';
+import { LockedProDividerControl } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
 
 export const dividerPanelAnimated = (props) => {

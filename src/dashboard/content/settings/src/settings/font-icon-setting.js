@@ -2,7 +2,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { store as noticesStore } from '@wordpress/notices';
 import { useDispatch } from '@wordpress/data';
-import { IconFontSVG, IconDownload2SVG, IconCheckSVG } from 'gutenverse-core-editor/icons';
+import { IconFontSVG, IconDownload2SVG, IconCheckSVG } from 'gutenverse-core/icons';
 import apiFetch from '@wordpress/api-fetch';
 
 const FontIconSetting = () => {

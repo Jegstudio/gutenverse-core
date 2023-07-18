@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { Edit3 } from 'react-feather';
 import { applyFilters } from '@wordpress/hooks';
-import { AlertControl } from 'gutenverse-core-editor/controls';
+import { AlertControl } from 'gutenverse-core/controls';
 
 const GlobalVariableList = ({ setStage }) => {
     return <>

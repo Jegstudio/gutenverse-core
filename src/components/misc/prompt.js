@@ -1,7 +1,7 @@
 import { cloneElement, Children } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import classnames from 'classnames';
-import { EscListener } from 'gutenverse-core-editor/components';
+import { EscListener } from 'gutenverse-core/components';
 
 export const PromptHeader = ({ children, ...props }) => {
     return cloneElement(children, { ...props });

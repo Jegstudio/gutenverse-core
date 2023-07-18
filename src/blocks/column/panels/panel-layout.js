@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { RangeColumnControl, SelectControl } from 'gutenverse-core-editor/controls';
-import { getDeviceType } from 'gutenverse-core-editor/editor-helper';
+import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
 export const layoutPanel = (props) => {

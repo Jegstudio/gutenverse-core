@@ -1,12 +1,12 @@
 import { useEffect, useState, createPortal } from '@wordpress/element';
 import { Loader } from 'react-feather';
-import { LogoFullWhiteSVG, IconBlocksSVG, IconLayoutsSVG, IconLoveSVG } from 'gutenverse-core-editor/icons';
+import { LogoFullWhiteSVG, IconBlocksSVG, IconLayoutsSVG, IconLoveSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
-import { fetchLibraryData } from 'gutenverse-core-editor/requests';
-import { signal } from 'gutenverse-core-editor/editor-helper';
-export { libraryStore } from 'gutenverse-core-editor/store';
+import { fetchLibraryData } from 'gutenverse-core/requests';
+import { signal } from 'gutenverse-core/editor-helper';
+export { libraryStore } from 'gutenverse-core/store';
 
 const initLibraryState = {
     active: 'layout',

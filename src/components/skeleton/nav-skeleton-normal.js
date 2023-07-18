@@ -1,5 +1,5 @@
 
-import { Skeleton } from 'gutenverse-core-editor/components';
+import { Skeleton } from 'gutenverse-core/components';
 
 const NavSkeletonNormal = () => {
     return <div style={{ display: 'flex' }}>

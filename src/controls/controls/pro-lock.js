@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core-editor/icons';
+import { IconCrownSVG } from 'gutenverse-core/icons';
 import { X } from 'react-feather';
 
 const ProLock = () => {

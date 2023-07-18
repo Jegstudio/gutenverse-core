@@ -1,8 +1,8 @@
 import { useEffect, useState } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
-import { Link } from 'gutenverse-core-editor/router';
+import { Link } from 'gutenverse-core/router';
 import { __ } from '@wordpress/i18n';
-import { LogoFullColor31SVG } from 'gutenverse-core-editor/icons';
+import { LogoFullColor31SVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 

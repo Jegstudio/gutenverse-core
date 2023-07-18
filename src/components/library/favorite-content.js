@@ -3,12 +3,12 @@ import { sprintf, __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import { filterCategories, filterSection, getDistincAuthor, filterLayout } from './library-helper';
-import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core-editor/icons';
+import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core/icons';
 import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
 import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
-import { saveLayoutLikeState } from 'gutenverse-core-editor/requests';
+import { saveLayoutLikeState } from 'gutenverse-core/requests';
 
 const FavoriteContent = props => {
     const { modalData, library } = props;

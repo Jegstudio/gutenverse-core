@@ -4,12 +4,12 @@ import { __ } from '@wordpress/i18n';
 import { RangeControl, SelectControl, SizeControl, SwitchControl, SizeDoubleControl, ElementSelectorControl } from '../../index';
 import { Button } from '@wordpress/components';
 import { Plus, X, Monitor, Tablet, Smartphone } from 'react-feather';
-import { IconDimensionXSVG, IconDimensionYSVG, IconDimensionZSVG, IconChevronSVG } from 'gutenverse-core-editor/icons';
+import { IconDimensionXSVG, IconDimensionYSVG, IconDimensionZSVG, IconChevronSVG } from 'gutenverse-core/icons';
 // import Select from 'react-select';
 import classnames from 'classnames';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import cryptoRandomString from 'crypto-random-string';
-import { bgScrollOptions } from 'gutenverse-core-editor/controls';
+import { bgScrollOptions } from 'gutenverse-core/controls';
 
 const customStyles = {
     input: () => {

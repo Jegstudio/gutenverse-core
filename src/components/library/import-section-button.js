@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { importImage, importSingleSectionContent } from 'gutenverse-core-editor/requests';
+import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
 import { withSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core-editor/icons';
+import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
