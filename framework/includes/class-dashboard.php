@@ -420,7 +420,7 @@ class Dashboard {
 			esc_html__( 'Gutenverse Themes', 'gutenverse' ),
 			esc_html__( 'Gutenverse Themes', 'gutenverse' ),
 			'manage_options',
-			$path . 'theme-list',
+			'admin.php?page=gutenverse&path=theme-list',
 			null,
 			1
 		);

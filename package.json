@@ -39,6 +39,7 @@
     "crypto-js": "^4.1.1",
     "crypto-random-string": "^5.0.0",
     "element-change": "^1.0.1",
+    "load-script": "^2.0.0",
     "lottie-web": "^5.11.0",
     "mini-signals": "^1.2.0",
     "object-assign": "^4.1.1",

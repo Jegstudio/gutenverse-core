@@ -99,17 +99,6 @@ class Frontend_Assets {
 	 * Frontend Script
 	 */
 	public function frontend_scripts() {
-		// Load standalone package for ReactPlayer ref : https://github.com/CookPete/react-player.
-		wp_enqueue_script(
-			'react-player-dep',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/frontend/react-player/ReactPlayer.standalone.js',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
-
-		wp_enqueue_script( 'gutenverse-core-event' );
-
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseData', $this->gutenverse_data() );
