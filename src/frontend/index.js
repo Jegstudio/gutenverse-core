@@ -1,7 +1,7 @@
 export { Default } from './blocks/default';
 export { default as u } from 'umbrellajs';
 export { default as apiFetch } from '@wordpress/api-fetch';
-export { responsiveBreakpoint } from './helper';
+export { responsiveBreakpoint } from './helper/index';
 
 export * from '@wordpress/hooks';
 export * from '@wordpress/url';

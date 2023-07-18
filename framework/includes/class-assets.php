@@ -158,16 +158,6 @@ class Assets {
 			true
 		);
 
-		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/coreeditor.asset.php' )['dependencies'];
-
-		wp_register_script(
-			'gutenverse-editor-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/coreeditor.js',
-			$include,
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
-
 		wp_register_script(
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',

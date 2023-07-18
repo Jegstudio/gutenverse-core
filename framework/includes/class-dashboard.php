@@ -103,15 +103,13 @@ class Dashboard {
 
 		wp_enqueue_script( 'gutenverse-core-event' );
 
-		wp_enqueue_script( 'gutenverse-editor-event' );
+		wp_localize_script( 'gutenverse-core-event', 'GutenverseDashboard', $this->gutenverse_dashboard_config() );
 
-		wp_localize_script( 'gutenverse-editor-event', 'GutenverseDashboard', $this->gutenverse_dashboard_config() );
+		wp_localize_script( 'gutenverse-core-event', 'GutenverseThemeList', $this->gutenverse_theme_list_config() );
 
-		wp_localize_script( 'gutenverse-editor-event', 'GutenverseThemeList', $this->gutenverse_theme_list_config() );
+		wp_localize_script( 'gutenverse-core-event', 'GutenverseSettings', $this->gutenverse_setting_config() );
 
-		wp_localize_script( 'gutenverse-editor-event', 'GutenverseSettings', $this->gutenverse_setting_config() );
-
-		wp_set_script_translations( 'gutenverse-editor-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
+		wp_set_script_translations( 'gutenverse-core-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
 
 		wp_register_style(
 			'fontawesome-gutenverse',
