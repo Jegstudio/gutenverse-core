@@ -1,4 +1,4 @@
-import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core-editor/controls';
+import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import { DividerControl, SwitchControl } from 'gutenverse-core-editor/controls';
 import { getColor } from 'gutenverse-core-editor/controls';
 import isEmpty from 'lodash/isEmpty';

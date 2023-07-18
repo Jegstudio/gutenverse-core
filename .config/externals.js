@@ -65,7 +65,7 @@ const coreEditorExternals = [
     'components',
     'controls',
     'requests',
-    'editorHelper'
+    'editor-helper'
 ].reduce((externals, name) => ({
 	...externals,
 	[`gutenverse-core-editor/${name}`]: `gutenverseCoreEditor.${camelCaseDash(name)}`,

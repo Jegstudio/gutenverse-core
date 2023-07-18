@@ -1,7 +1,6 @@
 import { Children, cloneElement, useEffect, useState } from '@wordpress/element';
 import EscListener from '../esc-listener/esc-listener';
 import classnames from 'classnames';
-import { u } from 'gutenverse-core-frontend/frontend'
 
 export const DrawerHeader = ({ children, ...props }) => {
     return cloneElement(children, { ...props });
@@ -69,9 +68,9 @@ const DrawerWrapper = ({ className, setOpen, open, children }) => {
 
     useEffect(() => {
         if (open) {
-            u('body').addClass('gutenverse-drawer-body');
+            document.body.classList.add('gutenverse-drawer-body');
         } else {
-            u('body').removeClass('gutenverse-drawer-body');
+            document.body.classList.remove('gutenverse-drawer-body');
         }
     }, [open]);
 
