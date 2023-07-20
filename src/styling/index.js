@@ -26,10 +26,4 @@ export {
     responsiveAppender
 } from './styling/styling-utility';
 
-export { renderAnimation as renderAdanim } from './styling/advance-animation';
-export { handleBgScrollWidth, handleBgScrollHeight } from './styling/handler/handle-background-scrolling';
-export { handleAdanimImageRadius, handleAdanimImageFilter } from './styling/handler/handle-adanim-image'
-export { handleAdanimDividerWidth, handleAdanimDividerSize, handleAdanimDividerColor } from './styling/handler/handle-adanim-divider';
-
 export { shapeDividerLoader } from './data/shape-divider';
-export { shapeDividerAnimatedLoader } from './data/shape-divider-animated';

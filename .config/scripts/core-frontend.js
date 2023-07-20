@@ -2,7 +2,6 @@ const path = require("path");
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { coreExternals } = require("../externals");
 
 const corefrontend = {
     mode: "development",
@@ -18,12 +17,8 @@ const corefrontend = {
     },
     stats,
     output,
-    externals: {
-        ...coreExternals
-    },
     resolve: {
         alias: {
-            "gutenverse-core": path.resolve(process.cwd(), "src/"),
             "gutenverse-core-frontend": path.resolve(process.cwd(), "src/frontend"),
         },
     },

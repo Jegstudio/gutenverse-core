@@ -4,9 +4,7 @@ export { default as BlockController } from './block-controller';
 // Export All Controls
 export { default as AlertControl } from './controls/alert/alert-control';
 export { default as AnimationControl } from './controls/animation/animation-control';
-export { default as AdvanceAnimationControl } from './controls/advance-animation/advance-animation-control';
 export { default as BackgroundControl } from './controls/background/background-control';
-export { default as BackgroundAnimatedControl } from './controls/background-animated/background-animated-control';
 export { default as BorderControl } from './controls/border/border-control';
 export { default as BoxShadowControl } from './controls/box-shadow/box-shadow-control';
 export { default as CheckboxControl } from './controls/checkbox/checkbox-control';
@@ -64,11 +62,9 @@ export { default as ProLock } from './controls/pro-lock';
 export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
-export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { advancePanel } from './panels/panel-advance';
 export { animationPanel } from './panels/panel-animation';
 export { backgroundPanel } from './panels/panel-background';
-export { backgroundAnimatedPanel } from './panels/panel-background-animated';
 export { backgroundOverlayPanel } from './panels/panel-background-overlay';
 export { borderPanel } from './panels/panel-border';
 export { buttonStylePanel } from './panels/panel-button-style';
@@ -79,6 +75,3 @@ export { sliderPanel } from './panels/panel-slider';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance } from './panels/panel-constant';
-
-export { bgScrollOptions } from './controls/background-scrolling/background-scrolling-options';
-export { adanimOptions } from './controls/advance-animation/advance-animation-options';
