@@ -24,7 +24,7 @@ const WizardItem = ({ part, selected, toggleSelected, icon, title, subtitle }) =
 };
 
 const WizardContainer = ({ setStage }) => {
-    const { status, dashboard } = GutenverseWizard;
+    const { status, dashboard } = window.GutenverseWizard;
 
     const totalActiveStatus = Object.keys(status).reduce((k, v) => status[v] ? k + 1 : k, 0);
 
@@ -189,7 +189,7 @@ const WizardContainer = ({ setStage }) => {
 };
 
 const WizardInstallLater = ({ setStage }) => {
-    const { dashboard } = GutenverseWizard;
+    const { dashboard } = window.GutenverseWizard;
 
     return <div className="wizard-wrapper">
         <div className="wizard-container">
