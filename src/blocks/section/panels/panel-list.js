@@ -4,8 +4,8 @@ import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
 import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
-// import { advanceAnimationPanel } from 'gutenverse-core/controls';
-// import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel } from 'gutenverse-core/controls';
+import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
 
@@ -54,12 +54,12 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Background Animated', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: backgroundAnimatedPanel,
-        //     pro: true
-        // },
+        {
+            title: __('Background Animated', 'gutenverse'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true
+        },
         {
             title: __('Border', 'gutenverse'),
             initialOpen: false,
@@ -105,16 +105,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Advance Animation', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'section'
-        //     }),
-        //     pro: true
-        // },
+        {
+            title: __('Advance Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'section'
+            }),
+            pro: true
+        },
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,

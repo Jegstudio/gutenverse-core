@@ -63,8 +63,10 @@ export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
 export { advancePanel } from './panels/panel-advance';
+export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { animationPanel } from './panels/panel-animation';
 export { backgroundPanel } from './panels/panel-background';
+export { backgroundAnimatedPanel } from './panels/panel-background-animated';
 export { backgroundOverlayPanel } from './panels/panel-background-overlay';
 export { borderPanel } from './panels/panel-border';
 export { buttonStylePanel } from './panels/panel-button-style';
