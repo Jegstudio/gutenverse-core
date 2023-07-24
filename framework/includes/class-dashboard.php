@@ -412,6 +412,18 @@ class Dashboard {
 			100
 		);
 
+		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Upgrade to PRO', 'gutenverse' ),
+				'<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Upgrade to PRO', 'gutenverse' ) . '</span>',
+				'manage_options',
+				'admin.php?page=gutenverse&path=upgrade-pro',
+				null,
+				9999
+			);
+		}
+
 		// Add Submenu on Appearance.
 		add_submenu_page(
 			'themes.php',

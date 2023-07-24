@@ -1,13 +1,22 @@
-#wp-admin-bar-gutenverse span {
+#wp-admin-bar-gutenverse span,
+#wp-admin-bar-gutenverse-pro span {
     display: flex;
 }
 
-#wp-admin-bar-gutenverse span img {
+#wp-admin-bar-gutenverse-pro a,
+#wp-admin-bar-gutenverse-pro:hover a {
+    background: #3B57F7!important;
+    color: white!important;
+}
+
+#wp-admin-bar-gutenverse span img,
+#wp-admin-bar-gutenverse-pro span img {
     margin-right: 6px!important;
     opacity: 0.8;
 }
 
-#wpadminbar #wp-admin-bar-gutenverse > .ab-item img {
+#wpadminbar #wp-admin-bar-gutenverse > .ab-item img,
+#wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item img {
     display: block;
     text-indent: 0;
     top: 7px;
@@ -17,16 +26,20 @@
 }
 
 @media only screen and (max-width: 782px) {
-    #wpadminbar #wp-admin-bar-gutenverse {
+    #wpadminbar #wp-admin-bar-gutenverse,
+    #wpadminbar #wp-admin-bar-gutenverse-pro {
         display: block!important;
     }
 
     #wp-admin-bar-gutenverse span,
-    #wpadminbar #wp-admin-bar-gutenverse > .ab-item img {
+    #wp-admin-bar-gutenverse-pro span,
+    #wpadminbar #wp-admin-bar-gutenverse > .ab-item img,
+    #wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item img {
         width: 28px;
     }
 
-    #wpadminbar #wp-admin-bar-gutenverse > .ab-item {
+    #wpadminbar #wp-admin-bar-gutenverse > .ab-item,
+    #wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item {
         text-indent: 200%;
         white-space: nowrap;
         overflow: hidden;

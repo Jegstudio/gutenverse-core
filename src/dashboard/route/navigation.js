@@ -2,7 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import { Link } from 'gutenverse-core/router';
 import { __ } from '@wordpress/i18n';
-import { LogoFullColor31SVG } from 'gutenverse-core/icons';
+import { IconCrownSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 
@@ -62,6 +62,13 @@ const Navigation = ({ location }) => {
                 path: 'update-notice',
                 priority: 100
             },
+            isEmpty(window?.gprodata) && {
+                name: <span><IconCrownSVG/>{__('Upgrade to PRO', 'gutenverse')}</span>,
+                slug: homeSlug,
+                upgrade: true,
+                path: 'upgrade-pro',
+                priority: 9999
+            },
         ],
         homeSlug
     );
@@ -106,9 +113,9 @@ const Navigation = ({ location }) => {
                         {menu.name}
                     </Link>
                 </li>;
-            } else {
-                return null;
             }
+            
+            return null;
         })}
     </>;
 
@@ -119,7 +126,7 @@ const Navigation = ({ location }) => {
             </div>
             <div className="navigation-items">
                 {menus.map((menu) => {
-                    if (menu) {
+                    if (menu && !menu?.upgrade) {
                         let param = `?page=${menu.slug}`;
 
                         if ('' !== menu.path) {
@@ -141,12 +148,15 @@ const Navigation = ({ location }) => {
                         >
                             {menu.name}
                         </Link>;
-                    } else {
-                        return null;
                     }
+                    
+                    return null;
                 })}
             </div>
-            <div className="whats-new"></div>
+            {isEmpty(window?.gprodata) && <a href={window?.GutenverseDashboard?.getPro} className="button-upgrade-pro" target='_blank' rel='norefferer'>
+                <IconCrownSVG />
+                {__('Upgrade to PRO', 'gutenverse')}
+            </a>}
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
     </>;

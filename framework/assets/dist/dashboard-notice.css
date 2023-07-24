@@ -64,3 +64,31 @@
     font-family: "Font Awesome 5 Free";
     content: "\f1cd";
 }
+
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"],
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] {
+    background-color: #3B57F7;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 4px 12px;
+    padding: 8px 14px;
+}
+
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"] span,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#toplevel_page_gutenverse > .wp-submenu > li.current:last-child > a[href="?page=gutenverse&path=upgrade-pro"],
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"]:hover,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"]:hover {
+    box-shadow: none;
+}

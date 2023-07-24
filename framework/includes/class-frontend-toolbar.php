@@ -155,6 +155,19 @@ class Frontend_Toolbar {
 			)
 		);
 
+		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
+			$admin_bar->add_menu(
+				array(
+					'id'    => 'gutenverse-pro',
+					'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', 'gutenverse' ) . '</span>',
+					'href'  => GUTENVERSE_FRAMEWORK_SERVER_URL,
+					'meta'  => array(
+						'target' => '_blank',
+					),
+				)
+			);
+		}
+
 		$this->setting_toolbar( $admin_bar, 'backend' );
 	}
 

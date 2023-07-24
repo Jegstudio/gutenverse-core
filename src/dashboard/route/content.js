@@ -19,7 +19,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const { createInfoNotice, createErrorNotice } = useDispatch(noticesStore);
     const query = new URLSearchParams(location?.search);
     const page = query.get('page');
-    const path = query.get('path');
+    let path = query.get('path');
     const {
         homeSlug
     } = window['GutenverseDashboard'];
@@ -129,7 +129,13 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
             case 'ecosystem':
                 routePage = <Ecosystem {...props} />;
                 break;
+            case 'upgrade-pro':
+                path = 'dashboard';
+                window?.GutenverseDashboard?.getPro && window.open(window?.GutenverseDashboard?.getPro, '_blank');
+                routePage = <Dashboard {...props} />;
+                break;
             default:
+                path = 'dashboard';
                 routePage = <Dashboard {...props} />;
                 break;
         }
