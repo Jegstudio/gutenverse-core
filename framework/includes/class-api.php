@@ -291,6 +291,16 @@ class Api {
 			)
 		);
 
+		register_rest_route(
+			self::ENDPOINT,
+			'notice/close',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'notice_close' ),
+				'permission_callback' => 'gutenverse_permission_check_author',
+			)
+		);
+
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
 		 */
@@ -722,6 +732,18 @@ class Api {
 				$this->fetch_file( $apipath . $endpoint, $directory . $filename, $endpoint );
 			}
 		}
+	}
+
+	/**
+	 * Close notice.
+	 *
+	 * @param object $request Request Object.
+	 */
+	public function notice_close( $request ) {
+		$notice_id = $this->esc_data( $request->get_param( 'id' ), 'string' );
+		update_option( "gutenverse_{$notice_id}", true );
+
+		return false;
 	}
 
 	/**

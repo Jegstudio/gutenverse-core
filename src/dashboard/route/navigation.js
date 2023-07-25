@@ -153,7 +153,7 @@ const Navigation = ({ location }) => {
                     return null;
                 })}
             </div>
-            {isEmpty(window?.gprodata) && <a href={window?.GutenverseDashboard?.getPro} className="button-upgrade-pro" target='_blank' rel='norefferer'>
+            {isEmpty(window?.gprodata) && <a href={window?.GutenverseDashboard?.getPro} className="button-upgrade-pro" target="_blank" rel="noreferrer">
                 <IconCrownSVG />
                 {__('Upgrade to PRO', 'gutenverse')}
             </a>}

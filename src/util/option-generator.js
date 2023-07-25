@@ -336,7 +336,7 @@ const OptionGenerator = ({ panelList }) => {
             <ToolbarButton
                 name="icon"
                 icon={cog}
-                title={__('Option Generator', 'gutenverse')}
+                title={__('Option Generator', 'gctd')}
                 onClick={() => generateOptions(panelList)}
             />
         </ToolbarGroup>}
