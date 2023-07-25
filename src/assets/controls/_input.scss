@@ -1420,8 +1420,7 @@
     }
 
     /** Repeater **/
-    &repeater,
-    &adanim-repeater {
+    &repeater {
       .repeater-item {
         border: 1px solid #e3e4e6;
         margin-bottom: 10px;
@@ -1529,86 +1528,8 @@
       }
     }
 
-    &adanim-repeater {
-      position: relative;
-
-      .repeater-header {
-        align-items: center;
-        background-color: #e7ecfd;
-
-        .control-title {
-          display: none;
-        }
-      }
-
-      .repeater-item,
-      .repeater-title {
-        overflow: visible;
-      }
-
-      .repeater-remove {
-        width: 20px;
-        height: 20px;
-        margin: 0;
-
-        svg {
-          stroke: #5e81f4;
-        }
-      }
-
-      .control-add {
-        position: absolute;
-        top: 8px;
-        right: 0;
-
-        button {
-          padding: 0px 8px;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 10px;
-          color: #1c1d21;
-          background: #f5f7fe;
-          border: 1px solid #dddddd;
-          border-radius: 2px;
-          height: 26px;
-
-          &:hover,
-          &:focus {
-            color: #1c1d21;
-            background: #f5f7fe;
-            border: 1px solid #dddddd;
-            outline: 0;
-            box-shadow: none;
-          }
-
-          svg {
-            width: 10px;
-            height: 10px;
-            padding: 2px;
-            margin-right: 4px;
-            color: #ffffff;
-            background-color: #5e81f4;
-            border-radius: 50%;
-          }
-        }
-      }
-
-      .gutenverse-control-select {
-        margin: 0;
-
-        .control-body {
-          margin: 0;
-        }
-      }
-
-      .gutenverse-control-hover {
-        margin: 20px 0 10px 0;
-      }
-    }
-
     /** Composite **/
-    &composite,
-    &adanim-composite {
+    &composite {
       .composite-item {
         border: 1px solid #e3e4e6;
         margin-bottom: 10px;
@@ -1701,36 +1622,6 @@
           border-radius: 3px;
           background-color: #3b57f7;
         }
-      }
-    }
-
-    &adanim-composite {
-      position: relative;
-
-      .composite-header {
-        align-items: center;
-        background-color: #e7ecfd;
-
-        .control-title {
-          display: none;
-        }
-      }
-
-      .composite-item,
-      .composite-title {
-        overflow: visible;
-      }
-
-      .gutenverse-control-select {
-        margin: 0;
-
-        .control-body {
-          margin: 0;
-        }
-      }
-
-      .gutenverse-control-hover {
-        margin: 20px 0 10px 0;
       }
     }
 
@@ -2269,93 +2160,6 @@
         color: #fff;
         cursor: pointer;
         width: fit-content;
-      }
-    }
-
-    &adanim-buttons {
-      .control-body {
-        display: flex;
-        gap: 10px;
-
-        button {
-          width: 100%;
-          border: 1px solid #e6e6ef;
-          padding: 8px;
-          justify-content: center;
-          background-color: transparent;
-          border-radius: 2px;
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          color: #1c1d21;
-          outline: none;
-          cursor: pointer;
-
-          &:focus {
-            outline: none;
-            box-shadow: none;
-          }
-
-          &.checked {
-            background-color: #e7ecfd;
-            border-color: #e7ecfd;
-            color: #5e81f4;
-          }
-        }
-      }
-    }
-
-    &adanim-breakpoints {
-      .control-body {
-        position: relative;
-        padding: 15px 11px;
-        background-color: #f9f9ff;
-      }
-
-      .devices {
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        .device,
-        .separator {
-          display: flex;
-          align-items: center;
-          margin: 0;
-        }
-
-        .device {
-          cursor: pointer;
-
-          &.active {
-
-            svg,
-            span {
-              color: #5e81f4;
-            }
-          }
-
-          svg {
-            margin-right: 5px;
-          }
-        }
-
-        svg,
-        span {
-          color: #8181a5;
-        }
-
-        svg {
-          width: 12px;
-          height: 12px;
-        }
-
-        span {
-          font-style: normal;
-          font-weight: 400;
-          font-size: 10px;
-        }
       }
     }
 
