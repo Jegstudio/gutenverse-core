@@ -5,19 +5,19 @@ import { Icon } from '@wordpress/components';
 
 export const TabSetting = {
     id: 'setting',
-    name: __('Settings', 'gutenverse'),
+    name: __('Settings', '--gctd--'),
     icon: <Icon icon={cog} width={24} height={24} />,
 };
 
 export const TabStyle = {
     id: 'style',
-    name: __('Style', 'gutenverse'),
+    name: __('Style', '--gctd--'),
     icon: <Icon icon={styles} width={24} height={24} />,
 };
 
 export const TabAdvance = {
     id: 'advance',
-    name: __('Advance', 'gutenverse'),
+    name: __('Advance', '--gctd--'),
     icon: <Icon icon={cog} width={24} height={24} />,
 };
 

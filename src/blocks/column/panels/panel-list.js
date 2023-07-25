@@ -7,17 +7,17 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 export const panelList = () => {
     return [
         {
-            title: __('Layouts', 'gctd'),
+            title: __('Layouts', '--gctd--'),
             panelArray: layoutPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Sticky', 'gctd'),
+            title: __('Sticky', '--gctd--'),
             panelArray: stickyPanel,
             pro: true
         },
         {
-            title: __('Background', 'gctd'),
+            title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
@@ -31,7 +31,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Overlay', 'gctd'),
+            title: __('Background Overlay', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
@@ -44,7 +44,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Border', 'gctd'),
+            title: __('Border', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => borderPanel({
                 ...props,
@@ -54,7 +54,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Typography', 'gctd'),
+            title: __('Typography', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => typographyPanel({
                 ...props,
@@ -63,13 +63,13 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Display', 'gctd'),
+            title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
             tabRole: TabSetting
         },
         {
-            title: __('Animation Effects', 'gctd'),
+            title: __('Animation Effects', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
@@ -78,7 +78,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', 'gctd'),
+            title: __('Spacing', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => advancePanel({
                 ...props,

@@ -48,7 +48,7 @@ const TableRowPlugin = ({ plugin }) => {
         </td>
         <td className="status-value">
             <div className="status-wrapper">
-                {__('by ', 'gutenverse')}
+                {__('by ', '--gctd--')}
                 <a href={link} target={'_blank'} rel="noreferrer">{link_text}</a>
                 &nbsp; - {additional_text}
             </div>
@@ -61,13 +61,13 @@ const TableRowFlag = ({ id, title, flag, children }) => {
 
     switch (flag) {
         case 'yellow':
-            description = __('This setting may not affect your website entirely, but it will cause some of the features not working as expected.', 'gutenverse');
+            description = __('This setting may not affect your website entirely, but it will cause some of the features not working as expected.', '--gctd--');
             break;
         case 'green':
-            description = __('Everything is Good', 'gutenverse');
+            description = __('Everything is Good', '--gctd--');
             break;
         case 'red':
-            description = __('You will need to fix this setting to make plugin work as expected.', 'gutenverse');
+            description = __('You will need to fix this setting to make plugin work as expected.', '--gctd--');
             break;
     }
 
@@ -96,31 +96,31 @@ const ThemeInformation = ({ system }) => {
         parent_version
     } = system;
 
-    return <ThemeBody header={__('Theme Information', 'gutenverse')}>
+    return <ThemeBody header={__('Theme Information', '--gctd--')}>
         <>
             <TableRow
                 id={'theme_name'}
-                title={__('Theme Name', 'gutenverse')}
-                description={__('Themes currently installed & activated', 'gutenverse')}
+                title={__('Theme Name', '--gctd--')}
+                description={__('Themes currently installed & activated', '--gctd--')}
                 value={theme_name}
             />
             <TableRow
                 id={'theme_version'}
-                title={__('Theme Version', 'gutenverse')}
-                description={__('Current theme version', 'gutenverse')}
+                title={__('Theme Version', '--gctd--')}
+                description={__('Current theme version', '--gctd--')}
                 value={theme_version}
             />
             {is_child_theme && <>
                 <TableRow
                     id={'parent_theme'}
-                    title={__('Parent Theme', 'gutenverse')}
-                    description={__('Current theme parent', 'gutenverse')}
+                    title={__('Parent Theme', '--gctd--')}
+                    description={__('Current theme parent', '--gctd--')}
                     value={parent_theme}
                 />
                 <TableRow
                     id={'parent_theme_version'}
-                    title={__('Parent Theme Version', 'gutenverse')}
-                    description={__('Current parent theme version', 'gutenverse')}
+                    title={__('Parent Theme Version', '--gctd--')}
+                    description={__('Current parent theme version', '--gctd--')}
                     value={parent_version}
                 />
             </>}
@@ -172,96 +172,96 @@ const WordPressEnvironment = ({ system }) => {
 
     const mlimit = 262144;
 
-    return <ThemeBody header={__('WordPress Environtment', 'gutenverse')}>
+    return <ThemeBody header={__('WordPress Environtment', '--gctd--')}>
         <>
             <TableRow
                 id={'home_url'}
-                title={__('Home URL', 'gutenverse')}
-                description={__('The URL of your site\'s homepage', 'gutenverse')}
+                title={__('Home URL', '--gctd--')}
+                description={__('The URL of your site\'s homepage', '--gctd--')}
                 value={home_url}
             />
             <TableRow
                 id={'site_url'}
-                title={__('Site URL', 'gutenverse')}
-                description={__('The root URL of your site', 'gutenverse')}
+                title={__('Site URL', '--gctd--')}
+                description={__('The root URL of your site', '--gctd--')}
                 value={site_url}
             />
             <TableRow
                 id={'login_url'}
-                title={__('Login URL', 'gutenverse')}
-                description={__('Your website login url', 'gutenverse')}
+                title={__('Login URL', '--gctd--')}
+                description={__('Your website login url', '--gctd--')}
                 value={login_url}
             />
             <TableRow
                 id={'wp_version'}
-                title={__('WP Version', 'gutenverse')}
-                description={__('The version of WordPress installed on your site', 'gutenverse')}
+                title={__('WP Version', '--gctd--')}
+                description={__('The version of WordPress installed on your site', '--gctd--')}
                 value={wp_version}
             />
             <TableRow
                 id={'wp_multisite'}
-                title={__('WP Multisite', 'gutenverse')}
-                description={__('Whether or not you have WordPress Multisite enabled', 'gutenverse')}
+                title={__('WP Multisite', '--gctd--')}
+                description={__('Whether or not you have WordPress Multisite enabled', '--gctd--')}
                 value={is_multisite ? <IconCheckCircleSVG /> : <IconTimesSVG />}
             />
             <TableRowFlag
                 id={'wp_debug_mode'}
-                title={__('WP Debug Mode', 'gutenverse')}
+                title={__('WP Debug Mode', '--gctd--')}
                 flag={wp_debug ? 'yellow' : 'green'}
             >
                 {wp_debug ? <>
-                    <strong>{__('Enabled', 'gutenverse')}</strong> &nbsp;
-                    <span>{__('Only enable WP DEBUG if you are on development server, once on production server, you will need to disable WP Debug', 'gutenverse')}</span>
+                    <strong>{__('Enabled', '--gctd--')}</strong> &nbsp;
+                    <span>{__('Only enable WP DEBUG if you are on development server, once on production server, you will need to disable WP Debug', '--gctd--')}</span>
                 </> : <>
-                    <strong>{__('Disabled', 'gutenverse')}</strong> &nbsp;
-                    <span>{__('Only enable WP DEBUG if you are on development server, once on production server, you will need to disable WP Debug', 'gutenverse')}</span>
+                    <strong>{__('Disabled', '--gctd--')}</strong> &nbsp;
+                    <span>{__('Only enable WP DEBUG if you are on development server, once on production server, you will need to disable WP Debug', '--gctd--')}</span>
                 </>}
             </TableRowFlag>
             <TableRowFlag
                 id={'php_memory_limit'}
-                title={__('PHP Memory Limit', 'gutenverse')}
+                title={__('PHP Memory Limit', '--gctd--')}
                 flag={mbToByte(memory_limit) >= mlimit ? 'green' : 'yellow'}
             >
                 {mbToByte(memory_limit) >= mlimit ?
                     <mark className="yes">{memory_limit}</mark> :
                     <>
                         <mark className="error">
-                            {memory_limit} {__(' - We recommend setting memory to at least 256MB.', 'gutenverse')}
+                            {memory_limit} {__(' - We recommend setting memory to at least 256MB.', '--gctd--')}
                         </mark>
                         &nbsp;&nbsp;
                         <a href="http://codex.wordpress.org/Editing_wp-config.php#Increasing_memory_allocated_to_PHP" target="_blank" rel="noreferrer">
-                            {__('See: Increasing memory allocated to PHP', 'gutenverse')}
+                            {__('See: Increasing memory allocated to PHP', '--gctd--')}
                         </a>
                     </>
                 }
             </TableRowFlag>
             <TableRowFlag
                 id={'wp_memory_limit'}
-                title={__('WP Memory Limit', 'gutenverse')}
+                title={__('WP Memory Limit', '--gctd--')}
                 flag={mbToByte(wp_memory_limit) >= mlimit ? 'green' : 'yellow'}
             >
                 {mbToByte(wp_memory_limit) >= mlimit ?
                     <mark className="yes">{wp_memory_limit}</mark> :
                     <>
                         <mark className="error">
-                            {wp_memory_limit} {__(' - We recommend setting memory to at least 256MB.', 'gutenverse')}
+                            {wp_memory_limit} {__(' - We recommend setting memory to at least 256MB.', '--gctd--')}
                         </mark>
                         &nbsp;&nbsp;
                         <a href="http://support.jegtheme.com/documentation/system-status/#memory-limit" target="_blank" rel="noreferrer">
-                            {__('See: Increasing the WordPress Memory Limit', 'gutenverse')}
+                            {__('See: Increasing the WordPress Memory Limit', '--gctd--')}
                         </a>
                     </>
                 }
             </TableRowFlag>
             <TableRow
                 id={'wp_language'}
-                title={__('WP Language', 'gutenverse')}
-                description={__('Default Language of your WordPress Installation', 'gutenverse')}
+                title={__('WP Language', '--gctd--')}
+                description={__('Default Language of your WordPress Installation', '--gctd--')}
                 value={wp_language}
             />
             <TableRowFlag
                 id={'writeable_upload'}
-                title={__('Writeable Upload Directory', 'gutenverse')}
+                title={__('Writeable Upload Directory', '--gctd--')}
                 flag={writeable_upload ? 'green' : 'red'}
             >
                 {writeable_upload ?
@@ -270,21 +270,21 @@ const WordPressEnvironment = ({ system }) => {
                     </mark> :
                     <>
                         <mark className="error">
-                            <IconTimesSVG /> &nbsp; &nbsp; {__('Please make sure your upload directory writeable. Some feature may not work as expected.', 'gutenverse')}
+                            <IconTimesSVG /> &nbsp; &nbsp; {__('Please make sure your upload directory writeable. Some feature may not work as expected.', '--gctd--')}
                         </mark>
                     </>
                 }
             </TableRowFlag>
             <TableRow
                 id={'number_category'}
-                title={__('Number of Category', 'gutenverse')}
-                description={__('The current number of post category on your site', 'gutenverse')}
+                title={__('Number of Category', '--gctd--')}
+                description={__('The current number of post category on your site', '--gctd--')}
                 value={count_category}
             />
             <TableRow
                 id={'number_tag'}
-                title={__('Number of Tag', 'gutenverse')}
-                description={__('The current number of post tag on your site', 'gutenverse')}
+                title={__('Number of Tag', '--gctd--')}
+                description={__('The current number of post tag on your site', '--gctd--')}
                 value={count_tag}
             />
         </>
@@ -311,32 +311,32 @@ const ServerEnvironment = ({ system }) => {
     const pmaxsize = 3000;
     const minputsize = 2000;
 
-    return <ThemeBody header={__('Server Environtment', 'gutenverse')}>
+    return <ThemeBody header={__('Server Environtment', '--gctd--')}>
         <>
             <TableRow
                 id={'server_info'}
-                title={__('Server Info', 'gutenverse')}
-                description={__('Information about the web server that is currently hosting your site', 'gutenverse')}
+                title={__('Server Info', '--gctd--')}
+                description={__('Information about the web server that is currently hosting your site', '--gctd--')}
                 value={server_info}
             />
             <TableRowFlag
                 id={'php_version'}
-                title={__('PHP Version', 'gutenverse')}
+                title={__('PHP Version', '--gctd--')}
                 flag={version === null ? 'yellow' : 'green'}
             >
                 {version !== null ? php_version : <mark className="error">
-                    {php_version} <span>{__('We recommend a minimum PHP version of 7.4', 'gutenverse')}</span>
+                    {php_version} <span>{__('We recommend a minimum PHP version of 7.4', '--gctd--')}</span>
                 </mark>}
             </TableRowFlag>
             <TableRow
                 id={'post_max_size'}
-                title={__('PHP Post Max Size', 'gutenverse')}
-                description={__('The largest filesize that can be contained in one post', 'gutenverse')}
+                title={__('PHP Post Max Size', '--gctd--')}
+                description={__('The largest filesize that can be contained in one post', '--gctd--')}
                 value={post_max_size}
             />
             <TableRowFlag
                 id={'php_time_limit'}
-                title={__('PHP Time Limit', 'gutenverse')}
+                title={__('PHP Time Limit', '--gctd--')}
                 flag={max_execution_time >= pmaxsize ? 'green' : 'yellow'}
             >
                 {max_execution_time >= pmaxsize ? max_execution_time :
@@ -344,14 +344,14 @@ const ServerEnvironment = ({ system }) => {
                         <mark className="error">
                             {max_execution_time} &nbsp;
                             <span>
-                                {__('max_execution_time should be bigger than ') + pmaxsize + __(', otherwise import process may not finished as expected', 'gutenverse')}
+                                {__('max_execution_time should be bigger than ', '--gctd--') + pmaxsize + __(', otherwise import process may not finished as expected', '--gctd--')}
                             </span>
                         </mark>
                     </>}
             </TableRowFlag>
             <TableRowFlag
                 id={'php_max_input'}
-                title={__('PHP Max Input Vars', 'gutenverse')}
+                title={__('PHP Max Input Vars', '--gctd--')}
                 flag={max_input_vars >= minputsize ? 'green' : 'yellow'}
             >
                 {max_input_vars >= minputsize ? max_input_vars :
@@ -359,20 +359,20 @@ const ServerEnvironment = ({ system }) => {
                         <mark className="error">
                             {max_input_vars} &nbsp;
                             <span>
-                                {__('max_input_vars should be bigger than  ') + minputsize + __(', otherwise you may not able to save setting on option panel', 'gutenverse')}
+                                {__('max_input_vars should be bigger than  ', '--gctd--') + minputsize + __(', otherwise you may not able to save setting on option panel', '--gctd--')}
                             </span>
                         </mark>
                     </>}
             </TableRowFlag>
             <TableRow
                 id={'suhosin'}
-                title={__('SUHOSIN Installed', 'gutenverse')}
-                description={__('Suhosin is an advanced protection system for PHP installations. It was designed to protect your servers on the one hand against a number of well known problems in PHP applications and on the other hand against potential unknown vulnerabilities within these applications or the PHP core itself. If enabled on your server, Suhosin may need to be configured to increase its data submission limits.', 'gutenverse')}
+                title={__('SUHOSIN Installed', '--gctd--')}
+                description={__('Suhosin is an advanced protection system for PHP installations. It was designed to protect your servers on the one hand against a number of well known problems in PHP applications and on the other hand against potential unknown vulnerabilities within these applications or the PHP core itself. If enabled on your server, Suhosin may need to be configured to increase its data submission limits.', '--gctd--')}
                 value={suhosin ? <IconCheckCircleSVG /> : <IconTimesSVG />}
             />
             <TableRowFlag
                 id={'wp_remote_get'}
-                title={__('WP Remote Get', 'gutenverse')}
+                title={__('WP Remote Get', '--gctd--')}
                 flag={wp_remote_get ? 'green' : 'red'}
             >
                 {wp_remote_get ?
@@ -381,13 +381,13 @@ const ServerEnvironment = ({ system }) => {
                     </mark> :
                     <mark className="error">
                         <span>
-                            {__('Please Enable WP Remote Get, some plugin feature may not work if remote get disabled.', 'gutenverse')}
+                            {__('Please Enable WP Remote Get, some plugin feature may not work if remote get disabled.', '--gctd--')}
                         </span>
                     </mark>}
             </TableRowFlag>
             <TableRowFlag
                 id={'php_image'}
-                title={__('PHP Image library installed', 'gutenverse')}
+                title={__('PHP Image library installed', '--gctd--')}
                 flag={imagick ? 'green' : 'yellow'}
             >
                 {imagick ?
@@ -396,13 +396,13 @@ const ServerEnvironment = ({ system }) => {
                     </mark> :
                     <mark className="error">
                         <span>
-                            {__('Please install PHP image Magic library', 'gutenverse')}
+                            {__('Please install PHP image Magic library', '--gctd--')}
                         </span>
                     </mark>}
             </TableRowFlag>
             <TableRowFlag
                 id={'php_gd'}
-                title={__('PHP GD library installed', 'gutenverse')}
+                title={__('PHP GD library installed', '--gctd--')}
                 flag={gd ? 'green' : 'yellow'}
             >
                 {gd ?
@@ -411,13 +411,13 @@ const ServerEnvironment = ({ system }) => {
                     </mark> :
                     <mark className="error">
                         <span>
-                            {__('Please install PHP GD library', 'gutenverse')}
+                            {__('Please install PHP GD library', '--gctd--')}
                         </span>
                     </mark>}
             </TableRowFlag>
             <TableRowFlag
                 id={'php_gd_webp'}
-                title={__('PHP GD WebP supported', 'gutenverse')}
+                title={__('PHP GD WebP supported', '--gctd--')}
                 flag={gd_webp ? 'green' : 'yellow'}
             >
                 {gd_webp ?
@@ -430,7 +430,7 @@ const ServerEnvironment = ({ system }) => {
             </TableRowFlag>
             <TableRowFlag
                 id={'php_fileinfo'}
-                title={__('PHP fileinfo library installed', 'gutenverse')}
+                title={__('PHP fileinfo library installed', '--gctd--')}
                 flag={fileinfo ? 'green' : 'yellow'}
             >
                 {fileinfo ?
@@ -443,7 +443,7 @@ const ServerEnvironment = ({ system }) => {
             </TableRowFlag>
             <TableRowFlag
                 id={'curl'}
-                title={__('CURL Installed', 'gutenverse')}
+                title={__('CURL Installed', '--gctd--')}
                 flag={curl ? 'green' : 'yellow'}
             >
                 {curl ?
@@ -460,7 +460,7 @@ const ServerEnvironment = ({ system }) => {
 
 const Plugins = ({ system }) => {
     const { plugins } = system;
-    return <ThemeBody header={__('Installed Plugin', 'gutenverse')}>
+    return <ThemeBody header={__('Installed Plugin', '--gctd--')}>
         {plugins.map((plugin, index) => {
             return <TableRowPlugin
                 key={index}
@@ -504,7 +504,7 @@ const systemText = system => {
     text += `Login URL : ${login_url}\n`;
     text += `WP Version : ${wp_version}\n`;
     text += `WP Multisite : ${is_multisite ? '✔' : '-'}\n`;
-    text += `WP Debug Mode : ${wp_debug ? __('Enabled', 'gutenverse') : __('Disabled', 'gutenverse')}\n`;
+    text += `WP Debug Mode : ${wp_debug ? __('Enabled', '--gctd--') : __('Disabled', '--gctd--')}\n`;
     text += `PHP Memory Limit : ${memory_limit}\n`;
     text += `WP Memory Limit : ${wp_memory_limit}\n`;
     text += `WP Language : ${wp_language}\n`;
@@ -549,14 +549,14 @@ const systemText = system => {
 
     plugins.map(plugin => {
         const { title, link_text, additional_text } = plugin;
-        text += `${title} : ${__('by', 'gutenverse')} ${link_text} - ${additional_text}\n`;
+        text += `${title} : ${__('by', '--gctd--')} ${link_text} - ${additional_text}\n`;
     });
 
     return text;
 };
 
 const System = () => {
-    const defaultCopyText = __('Copy System Status', 'gutenverse');
+    const defaultCopyText = __('Copy System Status', '--gctd--');
     const { system } = window['GutenverseDashboard'];
     const [copyText, setCopyText] = useState(defaultCopyText);
 
@@ -564,7 +564,7 @@ const System = () => {
         const text = systemText(system);
         await navigator.clipboard.writeText(text);
 
-        setCopyText(__('Copied...', 'gutenverse'));
+        setCopyText(__('Copied...', '--gctd--'));
         setTimeout(() => {
             setCopyText(defaultCopyText);
         }, 500);
@@ -572,7 +572,7 @@ const System = () => {
 
     return <DashboardContent>
         <DashboardHeader>
-            <h2>{__('System Status', 'gutenverse')}</h2>
+            <h2>{__('System Status', '--gctd--')}</h2>
             <div className="gutenverse-button" onClick={() => copySystem()}>
                 {copyText}
             </div>

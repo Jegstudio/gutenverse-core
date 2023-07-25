@@ -46,7 +46,7 @@ export const backgroundOverlayPanel = (props) => {
         {
             id: 'opacity',
             show: !switcher.bgOverlay || switcher.bgOverlay === 'normal',
-            label: __('Opacity Normal', 'gutenverse'),
+            label: __('Opacity Normal', '--gctd--'),
             component: RangeControl,
             min: 0.1,
             max: 1,
@@ -75,7 +75,7 @@ export const backgroundOverlayPanel = (props) => {
         {
             id: 'opacityHover',
             show: switcher.bgOverlay === 'hover',
-            label: __('Opacity Hover', 'gutenverse'),
+            label: __('Opacity Hover', '--gctd--'),
             component: RangeControl,
             min: 0.1,
             max: 1,

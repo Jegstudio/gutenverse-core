@@ -134,7 +134,7 @@ export const structurePanel = (props) => {
                 id: 'empty-structure',
                 component: AlertControl,
                 children: <>
-                    <span>{__('Please Select Column for your Section.', 'gutenverse')}</span>
+                    <span>{__('Please Select Column for your Section.', '--gctd--')}</span>
                 </>
             }
         ];

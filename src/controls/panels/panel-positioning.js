@@ -34,7 +34,7 @@ export const positioningPanel = (props) => {
     return [
         {
             id: 'positioningType',
-            label: __('Width', 'gutenverse'),
+            label: __('Width', '--gctd--'),
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -71,7 +71,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningWidth',
-            label: __('Custom Width', 'gutenverse'),
+            label: __('Custom Width', '--gctd--'),
             show: !!positioningType && positioningType[deviceType] === 'custom',
             component: SizeControl,
             allowDeviceControl: true,
@@ -108,7 +108,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningAlign',
-            label: __('Align', 'gutenverse'),
+            label: __('Align', '--gctd--'),
             show: !['fixed', 'absolute'].includes(positioningLocation),
             component: SelectControl,
             allowDeviceControl: true,
@@ -139,7 +139,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningLocation',
-            label: __('Location', 'gutenverse'),
+            label: __('Location', '--gctd--'),
             component: SelectControl,
             options: [
                 {
@@ -165,7 +165,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningLeft',
-            label: __('Left Orientation', 'gutenverse'),
+            label: __('Left Orientation', '--gctd--'),
             show: ['fixed', 'absolute'].includes(positioningLocation),
             component: SizeControl,
             allowDeviceControl: true,
@@ -209,7 +209,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningRight',
-            label: __('Right Orientation', 'gutenverse'),
+            label: __('Right Orientation', '--gctd--'),
             show: ['fixed', 'absolute'].includes(positioningLocation),
             component: SizeControl,
             allowDeviceControl: true,
@@ -253,7 +253,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningTop',
-            label: __('Top Orientation', 'gutenverse'),
+            label: __('Top Orientation', '--gctd--'),
             show: ['fixed', 'absolute'].includes(positioningLocation),
             component: SizeControl,
             allowDeviceControl: true,
@@ -297,7 +297,7 @@ export const positioningPanel = (props) => {
         },
         {
             id: 'positioningBottom',
-            label: __('Bottom Orientation', 'gutenverse'),
+            label: __('Bottom Orientation', '--gctd--'),
             show: ['fixed', 'absolute'].includes(positioningLocation),
             component: SizeControl,
             allowDeviceControl: true,

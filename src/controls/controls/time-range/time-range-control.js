@@ -190,7 +190,7 @@ const TimeRangeControl = (props) => {
                 <TimeBar onChange={setChangeBegin} value={value.begin} />
                 <TimeBar onChange={setChangeEnd} value={value.end} />
             </div>
-            {validTime ? '' : <span className="time-range-invalid">{__('Begin time more than end time, time range is not valid.', 'gutenverse')}</span>}
+            {validTime ? '' : <span className="time-range-invalid">{__('Begin time more than end time, time range is not valid.', '--gctd--')}</span>}
         </div>
     </div>;
 };

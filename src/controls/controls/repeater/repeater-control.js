@@ -212,7 +212,7 @@ const RepeaterControl = ({
         <div className={'control-body'}>
             <div className={'repeater-wrapper'}>
                 {value.length === 0 ? <div className="repeater-empty" onClick={addNewItem}>
-                    {__('Click Add Item to Add List', 'gutenverse')}
+                    {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
                     <DragDropList list={value} setList={onValueChange}>
                         {value.map((item, index) => (
@@ -234,7 +234,7 @@ const RepeaterControl = ({
                 </>}
                 <div className={'repeater-add-wrapper'}>
                     <Button isPrimary={true} onClick={addNewItem}>
-                        {__('Add Item', 'gutenverse')}
+                        {__('Add Item', '--gctd--')}
                     </Button>
                 </div>
             </div>

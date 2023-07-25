@@ -13,8 +13,8 @@ addAction('editor.ErrorBoundary.errorLogged', 'gutenverse/error/handler', () => 
 
         render(
             <div className="gutenverse-error-wrapper editor-error-boundary">
-                <h3>{__('If recovery doesn\'t work, you can try reseting your template. Visit this All template Link to reset Template.', 'gutenverse')}</h3>
-                <a href={allTemplatePath}>{__('Reset Template', 'gutenverse')}</a>
+                <h3>{__('If recovery doesn\'t work, you can try reseting your template. Visit this All template Link to reset Template.', '--gctd--')}</h3>
+                <a href={allTemplatePath}>{__('Reset Template', '--gctd--')}</a>
             </div>,
             document.getElementById('gutenverse-error')
         );

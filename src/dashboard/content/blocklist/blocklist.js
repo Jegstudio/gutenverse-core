@@ -88,18 +88,18 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
         <DashboardContent>
             <DashboardHeader>
                 <div className="header-control">
-                    <h2>{__('Global Control', 'gutenverse')}</h2>
+                    <h2>{__('Global Control', '--gctd--')}</h2>
                     <div className="block-enable-disable-all">
                         <div className={`disable-all ${checkAll(false) ? 'active' : ''}`} onClick={() => updateAll(false)}>
-                            {__('Disable All', 'gutenverse')}
+                            {__('Disable All', '--gctd--')}
                         </div>
                         <div className={`enable-all ${checkAll(true) ? 'active' : ''}`} onClick={() => updateAll(true)}>
-                            {__('Enable All', 'gutenverse')}
+                            {__('Enable All', '--gctd--')}
                         </div>
                     </div>
                 </div>
-                {saving ? <div className="gutenverse-button">{__('Saving...', 'gutenverse')}</div> : <div className="gutenverse-button" onClick={() => saveData(['active_blocks'])}>
-                    {__('Save Changes', 'gutenverse')}
+                {saving ? <div className="gutenverse-button">{__('Saving...', '--gctd--')}</div> : <div className="gutenverse-button" onClick={() => saveData(['active_blocks'])}>
+                    {__('Save Changes', '--gctd--')}
                 </div>}
             </DashboardHeader>
             <DashboardBody>
@@ -111,10 +111,10 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                             </svg>
                         </div>
                         <div className="info">
-                            <div>{__('Element Disable', 'gutenverse')}</div>
+                            <div>{__('Element Disable', '--gctd--')}</div>
                             <span></span>
                             <div>
-                                {__('if you disable an element that you have used in the WordPress editor, it will appear like ', 'gutenverse')}
+                                {__('if you disable an element that you have used in the WordPress editor, it will appear like ', '--gctd--')}
                                 <span>
                                     this
                                     <img src={`${imgDir}/block-tooltip.webp`} />
@@ -129,10 +129,10 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                     <span>{category.title}</span>
                                     <span>
                                         <a className={checkAllCategory(category, false) ? 'active' : ''} onClick={() => disableCategory(category.slug)}>
-                                            {__('Disable All', 'gutenverse')}
+                                            {__('Disable All', '--gctd--')}
                                         </a>
                                         <a className={checkAllCategory(category, true) ? 'active' : ''} onClick={() => enableCategory(category.slug)}>
-                                            {__('Enable All', 'gutenverse')}
+                                            {__('Enable All', '--gctd--')}
                                         </a>
                                     </span>
                                 </div>

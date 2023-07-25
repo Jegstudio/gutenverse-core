@@ -10,8 +10,8 @@ const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;
     return <>
         <GradientControl
-            label={__('Gradient Color', 'gutenverse')}
-            description={__('Drag a circle outside the box to remove it. \nYou can\'t remove if there are only two left.', 'gutenverse')}
+            label={__('Gradient Color', '--gctd--')}
+            description={__('Drag a circle outside the box to remove it. \nYou can\'t remove if there are only two left.', '--gctd--')}
             value={value.gradientColor}
             onValueChange={gradientColor => onValueChange({ ...value, gradientColor })}
             onStyleChange={gradientColor => onStyleChange({ ...value, gradientColor })}
@@ -19,17 +19,17 @@ const gradientOption = (props) => {
         <div className={'gradient-type'}>
             <div>
                 <SelectControl
-                    label={__('Gradient Type', 'gutenverse')}
+                    label={__('Gradient Type', '--gctd--')}
                     value={value.gradientType}
                     onValueChange={gradientType => onValueChange({ ...value, gradientType })}
                     onStyleChange={gradientType => onStyleChange({ ...value, gradientType })}
                     options={[
                         {
-                            label: __('Linear', 'gutenverse'),
+                            label: __('Linear', '--gctd--'),
                             value: 'linear'
                         },
                         {
-                            label: __('Radial', 'gutenverse'),
+                            label: __('Radial', '--gctd--'),
                             value: 'radial'
                         },
                     ]}
@@ -37,52 +37,52 @@ const gradientOption = (props) => {
             </div>
             <div>
                 {value.gradientType !== undefined && value.gradientType === 'linear' && <AngleControl
-                    label={__('Angle', 'gutenverse')}
+                    label={__('Angle', '--gctd--')}
                     value={value.gradientAngle}
                     onValueChange={gradientAngle => onValueChange({ ...value, gradientAngle })}
                     onStyleChange={gradientAngle => onStyleChange({ ...value, gradientAngle })}
                 />
                 }
                 {value.gradientType !== undefined && value.gradientType === 'radial' && <SelectControl
-                    label={__('Radial Position', 'gutenverse')}
+                    label={__('Radial Position', '--gctd--')}
                     value={value.gradientRadial}
                     onValueChange={gradientRadial => onValueChange({ ...value, gradientRadial })}
                     onStyleChange={gradientRadial => onStyleChange({ ...value, gradientRadial })}
                     options={[
                         {
-                            label: __('Center Center', 'gutenverse'),
+                            label: __('Center Center', '--gctd--'),
                             value: 'center center'
                         },
                         {
-                            label: __('Center Left', 'gutenverse'),
+                            label: __('Center Left', '--gctd--'),
                             value: 'center left'
                         },
                         {
-                            label: __('Center Right', 'gutenverse'),
+                            label: __('Center Right', '--gctd--'),
                             value: 'center right'
                         },
                         {
-                            label: __('Top Center', 'gutenverse'),
+                            label: __('Top Center', '--gctd--'),
                             value: 'top center'
                         },
                         {
-                            label: __('Top Left', 'gutenverse'),
+                            label: __('Top Left', '--gctd--'),
                             value: 'top left'
                         },
                         {
-                            label: __('Top Right', 'gutenverse'),
+                            label: __('Top Right', '--gctd--'),
                             value: 'top right'
                         },
                         {
-                            label: __('Bottom Center', 'gutenverse'),
+                            label: __('Bottom Center', '--gctd--'),
                             value: 'bottom center'
                         },
                         {
-                            label: __('Bottom Left', 'gutenverse'),
+                            label: __('Bottom Left', '--gctd--'),
                             value: 'bottom left'
                         },
                         {
-                            label: __('Bottom Right', 'gutenverse'),
+                            label: __('Bottom Right', '--gctd--'),
                             value: 'bottom right'
                         },
                     ]}
@@ -102,17 +102,17 @@ const BackgroundControl = (props) => {
 
     const availableOptions = [
         {
-            label: __('Image & Color', 'gutenverse'),
+            label: __('Image & Color', '--gctd--'),
             value: 'default',
             icon: <Image size={20} />,
         },
         {
-            label: __('Gradient', 'gutenverse'),
+            label: __('Gradient', '--gctd--'),
             value: 'gradient',
             icon: <Droplet size={20} />,
         },
         {
-            label: __('Video', 'gutenverse'),
+            label: __('Video', '--gctd--'),
             value: 'video',
             icon: <Video size={20} />,
         },
@@ -144,7 +144,7 @@ const BackgroundControl = (props) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-background'}>
         <IconRadioControl
-            label={__('Background Type', 'gutenverse')}
+            label={__('Background Type', '--gctd--')}
             value={value.type}
             onValueChange={type => {
                 if (type === null) {
@@ -159,67 +159,67 @@ const BackgroundControl = (props) => {
 
         {value.type !== undefined && value.type === 'default' && <>
             <ColorControl
-                label={__('Background Color', 'gutenverse')}
+                label={__('Background Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
             <ImageControl
-                label={__('Background Image', 'gutenverse')}
+                label={__('Background Image', '--gctd--')}
                 value={value.image}
                 onValueChange={image => onValueChange({ ...value, image })}
                 onStyleChange={image => onStyleChange({ ...value, image })}
                 allowDeviceControl={true}
             />
             <SelectControl
-                label={__('Background Position', 'gutenverse')}
+                label={__('Background Position', '--gctd--')}
                 value={value.position}
                 onValueChange={position => onValueChange({ ...value, position })}
                 onStyleChange={position => onStyleChange({ ...value, position })}
                 allowDeviceControl={true}
                 options={[
                     {
-                        label: __('Default', 'gutenverse'),
+                        label: __('Default', '--gctd--'),
                         value: 'default'
                     },
                     {
-                        label: __('Center center', 'gutenverse'),
+                        label: __('Center center', '--gctd--'),
                         value: 'center center'
                     },
                     {
-                        label: __('Center Left', 'gutenverse'),
+                        label: __('Center Left', '--gctd--'),
                         value: 'center left'
                     },
                     {
-                        label: __('Center Right', 'gutenverse'),
+                        label: __('Center Right', '--gctd--'),
                         value: 'center right'
                     },
                     {
-                        label: __('Top Center', 'gutenverse'),
+                        label: __('Top Center', '--gctd--'),
                         value: 'top center'
                     },
                     {
-                        label: __('Top Left', 'gutenverse'),
+                        label: __('Top Left', '--gctd--'),
                         value: 'top left'
                     },
                     {
-                        label: __('Top Right', 'gutenverse'),
+                        label: __('Top Right', '--gctd--'),
                         value: 'top right'
                     },
                     {
-                        label: __('Bottom Center', 'gutenverse'),
+                        label: __('Bottom Center', '--gctd--'),
                         value: 'bottom center'
                     },
                     {
-                        label: __('Bottom Left', 'gutenverse'),
+                        label: __('Bottom Left', '--gctd--'),
                         value: 'bottom left'
                     },
                     {
-                        label: __('Bottom Right', 'gutenverse'),
+                        label: __('Bottom Right', '--gctd--'),
                         value: 'bottom right'
                     },
                     {
-                        label: __('Custom', 'gutenverse'),
+                        label: __('Custom', '--gctd--'),
                         value: 'custom'
                     },
                 ]}
@@ -227,14 +227,14 @@ const BackgroundControl = (props) => {
             {position[deviceType] !== undefined && position[deviceType] === 'custom' &&
                 <>
                     <SizeControl
-                        label={__('X Position', 'gutenverse')}
+                        label={__('X Position', '--gctd--')}
                         value={value.xposition}
                         allowDeviceControl={true}
                         onValueChange={xposition => onValueChange({ ...value, xposition })}
                         onStyleChange={xposition => onStyleChange({ ...value, xposition })}
                     />
                     <SizeControl
-                        label={__('Y Position', 'gutenverse')}
+                        label={__('Y Position', '--gctd--')}
                         value={value.yposition}
                         allowDeviceControl={true}
                         onValueChange={yposition => onValueChange({ ...value, yposition })}
@@ -242,59 +242,59 @@ const BackgroundControl = (props) => {
                     />
                 </>}
             <SelectControl
-                label={__('Repeat', 'gutenverse')}
+                label={__('Repeat', '--gctd--')}
                 value={value.repeat}
                 onValueChange={repeat => onValueChange({ ...value, repeat })}
                 onStyleChange={repeat => onStyleChange({ ...value, repeat })}
                 allowDeviceControl={true}
                 options={[
                     {
-                        label: __('Default', 'gutenverse'),
+                        label: __('Default', '--gctd--'),
                         value: 'default'
                     },
                     {
-                        label: __('No repeat', 'gutenverse'),
+                        label: __('No repeat', '--gctd--'),
                         value: 'no-repeat'
                     },
                     {
-                        label: __('Repeat', 'gutenverse'),
+                        label: __('Repeat', '--gctd--'),
                         value: 'repeat'
                     },
                     {
-                        label: __('Repeat-x', 'gutenverse'),
+                        label: __('Repeat-x', '--gctd--'),
                         value: 'repeat-x'
                     },
                     {
-                        label: __('Repeat-y', 'gutenverse'),
+                        label: __('Repeat-y', '--gctd--'),
                         value: 'repeat-y'
                     },
                 ]}
             />
             <SelectControl
-                label={__('Size', 'gutenverse')}
+                label={__('Size', '--gctd--')}
                 value={value.size}
                 onValueChange={size => onValueChange({ ...value, size })}
                 onStyleChange={size => onStyleChange({ ...value, size })}
                 allowDeviceControl={true}
                 options={[
                     {
-                        label: __('Default', 'gutenverse'),
+                        label: __('Default', '--gctd--'),
                         value: 'default'
                     },
                     {
-                        label: __('Auto', 'gutenverse'),
+                        label: __('Auto', '--gctd--'),
                         value: 'auto'
                     },
                     {
-                        label: __('Cover', 'gutenverse'),
+                        label: __('Cover', '--gctd--'),
                         value: 'cover'
                     },
                     {
-                        label: __('Contain', 'gutenverse'),
+                        label: __('Contain', '--gctd--'),
                         value: 'contain'
                     },
                     {
-                        label: __('Custom', 'gutenverse'),
+                        label: __('Custom', '--gctd--'),
                         value: 'custom'
                     },
                 ]}
@@ -302,7 +302,7 @@ const BackgroundControl = (props) => {
             {size[deviceType] !== undefined && size[deviceType] === 'custom' &&
                 <>
                     <SizeControl
-                        label={__('Width', 'gutenverse')}
+                        label={__('Width', '--gctd--')}
                         value={value.width}
                         allowDeviceControl={true}
                         onValueChange={width => onValueChange({ ...value, width })}
@@ -341,81 +341,81 @@ const BackgroundControl = (props) => {
                 </>
             }
             <SelectControl
-                label={__('Blend Mode', 'gutenverse')}
+                label={__('Blend Mode', '--gctd--')}
                 value={blendMode}
                 onValueChange={blendMode => onValueChange({ ...value, blendMode })}
                 onStyleChange={blendMode => onStyleChange({ ...value, blendMode })}
                 allowDeviceControl={true}
                 options={[
                     {
-                        label: __('Normal', 'gutenverse'),
+                        label: __('Normal', '--gctd--'),
                         value: 'normal'
                     },
                     {
-                        label: __('Multiply', 'gutenverse'),
+                        label: __('Multiply', '--gctd--'),
                         value: 'multiply'
                     },
                     {
-                        label: __('Screen', 'gutenverse'),
+                        label: __('Screen', '--gctd--'),
                         value: 'screen'
                     },
                     {
-                        label: __('Overlay', 'gutenverse'),
+                        label: __('Overlay', '--gctd--'),
                         value: 'overlay'
                     },
                     {
-                        label: __('Darken', 'gutenverse'),
+                        label: __('Darken', '--gctd--'),
                         value: 'darken'
                     },
                     {
-                        label: __('Lighten', 'gutenverse'),
+                        label: __('Lighten', '--gctd--'),
                         value: 'lighten'
                     },
                     {
-                        label: __('Color Dodge', 'gutenverse'),
+                        label: __('Color Dodge', '--gctd--'),
                         value: 'color-dodge'
                     },
                     {
-                        label: __('Color Burn', 'gutenverse'),
+                        label: __('Color Burn', '--gctd--'),
                         value: 'color-burn'
                     },
                     {
-                        label: __('Hard Light', 'gutenverse'),
+                        label: __('Hard Light', '--gctd--'),
                         value: 'hard-light'
                     },
                     {
-                        label: __('Soft Light', 'gutenverse'),
+                        label: __('Soft Light', '--gctd--'),
                         value: 'soft-light'
                     },
                     {
-                        label: __('Difference', 'gutenverse'),
+                        label: __('Difference', '--gctd--'),
                         value: 'difference'
                     },
                     {
-                        label: __('Exclusion', 'gutenverse'),
+                        label: __('Exclusion', '--gctd--'),
                         value: 'exclusion'
                     },
                     {
-                        label: __('Hue', 'gutenverse'),
+                        label: __('Hue', '--gctd--'),
                         value: 'hue'
 
                     },
                     {
-                        label: __('Saturation', 'gutenverse'),
+                        label: __('Saturation', '--gctd--'),
                         value: 'saturation'
                     },
                     {
-                        label: __('Color', 'gutenverse'),
+                        label: __('Color', '--gctd--'),
                         value: 'color'
                     },
                     {
-                        label: __('Luminosity', 'gutenverse'),
+                        label: __('Luminosity', '--gctd--'),
                         value: 'luminosity'
                     },
                 ]}
             />
             <CheckboxControl
-                label={__('Fixed Background', 'gutenverse')}
+                label={__('Fixed Background', '--gctd--')}
                 value={fixed}
                 deviceValues={fixed}
                 allowDeviceControl={true}
@@ -429,42 +429,42 @@ const BackgroundControl = (props) => {
 
         {value.type !== undefined && value.type === 'video' && <>
             <TextControl
-                label={__('Video Link', 'gutenverse')}
+                label={__('Video Link', '--gctd--')}
                 value={value.videoLink}
                 onValueChange={videoLink => onValueChange({ ...value, videoLink })}
                 onStyleChange={videoLink => onStyleChange({ ...value, videoLink })}
                 placeholder={'https://www.youtube.com/watch?v=cAH1bSq2LmI'}
             />
             <TextControl
-                label={__('Start Time', 'gutenverse')}
-                description={__('in Seconds. For example 1:30 minutes will be 90', 'gutenverse')}
+                label={__('Start Time', '--gctd--')}
+                description={__('in Seconds. For example 1:30 minutes will be 90', '--gctd--')}
                 value={value.videoStartTime}
                 onValueChange={videoStartTime => onValueChange({ ...value, videoStartTime })}
                 onStyleChange={videoStartTime => onStyleChange({ ...value, videoStartTime })}
                 placeholder={'10'}
             />
             <TextControl
-                label={__('End Time', 'gutenverse')}
-                description={__('in Seconds. For example 1:30 minutes will be 90', 'gutenverse')}
+                label={__('End Time', '--gctd--')}
+                description={__('in Seconds. For example 1:30 minutes will be 90', '--gctd--')}
                 value={value.videoEndTime}
                 onValueChange={videoEndTime => onValueChange({ ...value, videoEndTime })}
                 onStyleChange={videoEndTime => onStyleChange({ ...value, videoEndTime })}
                 placeholder={'70'}
             />
             <CheckboxControl
-                label={__('Play Once', 'gutenverse')}
+                label={__('Play Once', '--gctd--')}
                 value={value.videoPlayOnce}
                 onValueChange={videoPlayOnce => onValueChange({ ...value, videoPlayOnce })}
                 onStyleChange={videoPlayOnce => onStyleChange({ ...value, videoPlayOnce })}
             />
             <CheckboxControl
-                label={__('Play On Mobile', 'gutenverse')}
+                label={__('Play On Mobile', '--gctd--')}
                 value={value.videoPlayOnMobile}
                 onValueChange={videoPlayOnMobile => onValueChange({ ...value, videoPlayOnMobile })}
                 onStyleChange={videoPlayOnMobile => onStyleChange({ ...value, videoPlayOnMobile })}
             />
             <ImageControl
-                label={__('Background Fallback', 'gutenverse')}
+                label={__('Background Fallback', '--gctd--')}
                 value={value.videoImage}
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
                 onStyleChange={videoImage => onStyleChange({ ...value, videoImage })}

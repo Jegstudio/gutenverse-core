@@ -144,13 +144,13 @@ export const IconLibrary = ({
         <div className={'icon-library-container'}>
             <div className={'icon-library-box'}>
                 <div className={'icon-library-header'}>
-                    <h2 className={'gutenverse-icon-logo'}><LogoFullColorSVG/>{__('Icon Library', 'gutenverse')}</h2>
+                    <h2 className={'gutenverse-icon-logo'}><LogoFullColorSVG/>{__('Icon Library', '--gctd--')}</h2>
                     <X className={'close'} onClick={() => closeLibrary()}/>
                 </div>
                 <div className={'icon-library-search'}>
                     <div className={'input'}>
                         <IconSearchSVG/>
-                        <input type={'text'} placeholder={__('Search Icon', 'gutenverse')} onChange={changeFilter}/>
+                        <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter}/>
                     </div>
                 </div>
                 <div className={'icon-library-result'}>
@@ -169,7 +169,7 @@ export const IconLibrary = ({
                 </div>
                 <div className={'icon-library-insert'}>
                     <Button isPrimary={true} onClick={changeIcon}>
-                        {__('Insert Icon', 'gutenverse')}
+                        {__('Insert Icon', '--gctd--')}
                     </Button>
                 </div>
             </div>
@@ -214,7 +214,7 @@ const IconControl = ({
                     <i className={value}/>
                 </div>
                 <div className={'icon-change'} onClick={() => setOpenIconLibrary(true)}>
-                    {__('Choose Icon', 'gutenverse')}
+                    {__('Choose Icon', '--gctd--')}
                 </div>
             </div>
         </div>

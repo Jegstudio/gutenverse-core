@@ -8,8 +8,8 @@ const LockedStickyControl = () => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-sticky gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Sticky', 'gutenverse' )}
-            description={__( 'Sticky elements remain fixed in position on a webpage while users interact with the rest of the page or application.', 'gutenverse' )}
+            title={__( 'Sticky', '--gctd--' )}
+            description={__( 'Sticky elements remain fixed in position on a webpage while users interact with the rest of the page or application.', '--gctd--' )}
             img={'pro/sticky.gif'}
         />
     </div>;

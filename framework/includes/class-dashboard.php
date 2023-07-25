@@ -260,12 +260,12 @@ class Dashboard {
 			foreach ( $plugins as $plugin ) {
 				$item                = array();
 				$item['uri']         = isset( $plugin['PluginURI'] ) ? esc_url( $plugin['PluginURI'] ) : '#';
-				$item['name']        = isset( $plugin['Name'] ) ? $plugin['Name'] : esc_html__( 'unknown', 'gutenverse' );
+				$item['name']        = isset( $plugin['Name'] ) ? $plugin['Name'] : esc_html__( 'unknown', '--gctd--' );
 				$item['author_uri']  = isset( $plugin['AuthorURI'] ) ? esc_url( $plugin['AuthorURI'] ) : '#';
-				$item['author_name'] = isset( $plugin['Author'] ) ? $plugin['Author'] : esc_html__( 'unknown', 'gutenverse' );
-				$item['version']     = isset( $plugin['Version'] ) ? $plugin['Version'] : esc_html__( 'unknown', 'gutenverse' );
+				$item['author_name'] = isset( $plugin['Author'] ) ? $plugin['Author'] : esc_html__( 'unknown', '--gctd--' );
+				$item['version']     = isset( $plugin['Version'] ) ? $plugin['Version'] : esc_html__( 'unknown', '--gctd--' );
 
-				$content = esc_html__( 'by', 'gutenverse' );
+				$content = esc_html__( 'by', '--gctd--' );
 
 				$active_plugin[] = array(
 					'type'            => 'status',
@@ -326,8 +326,8 @@ class Dashboard {
 	 */
 	public function parent_menu() {
 		add_menu_page(
-			esc_html__( 'Gutenverse', 'gutenverse' ),
-			esc_html__( 'Gutenverse', 'gutenverse' ),
+			esc_html__( 'Gutenverse', '--gctd--' ),
+			esc_html__( 'Gutenverse', '--gctd--' ),
 			'manage_options',
 			self::TYPE,
 			null,
@@ -344,8 +344,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Dashboard', 'gutenverse' ),
-			esc_html__( 'Dashboard', 'gutenverse' ),
+			esc_html__( 'Dashboard', '--gctd--' ),
+			esc_html__( 'Dashboard', '--gctd--' ),
 			'manage_options',
 			self::TYPE,
 			array( $this, 'load_gutenverse_dashboard' ),
@@ -354,8 +354,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Ecosystem', 'gutenverse' ),
-			esc_html__( 'Ecosystem', 'gutenverse' ),
+			esc_html__( 'Ecosystem', '--gctd--' ),
+			esc_html__( 'Ecosystem', '--gctd--' ),
 			'manage_options',
 			$path . 'ecosystem',
 			null,
@@ -364,8 +364,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Theme List', 'gutenverse' ),
-			esc_html__( 'Theme List', 'gutenverse' ),
+			esc_html__( 'Theme List', '--gctd--' ),
+			esc_html__( 'Theme List', '--gctd--' ),
 			'manage_options',
 			$path . 'theme-list',
 			null,
@@ -374,8 +374,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Blocks', 'gutenverse' ),
-			esc_html__( 'Blocks', 'gutenverse' ),
+			esc_html__( 'Blocks', '--gctd--' ),
+			esc_html__( 'Blocks', '--gctd--' ),
 			'manage_options',
 			$path . 'block-list',
 			null,
@@ -384,8 +384,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Settings', 'gutenverse' ),
-			esc_html__( 'Settings', 'gutenverse' ),
+			esc_html__( 'Settings', '--gctd--' ),
+			esc_html__( 'Settings', '--gctd--' ),
 			'manage_options',
 			$path . 'settings',
 			null,
@@ -394,8 +394,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'System Status', 'gutenverse' ),
-			esc_html__( 'System Status', 'gutenverse' ),
+			esc_html__( 'System Status', '--gctd--' ),
+			esc_html__( 'System Status', '--gctd--' ),
 			'manage_options',
 			$path . 'system',
 			null,
@@ -404,8 +404,8 @@ class Dashboard {
 
 		add_submenu_page(
 			self::TYPE,
-			esc_html__( 'Update Notice', 'gutenverse' ),
-			esc_html__( 'Update Notice', 'gutenverse' ),
+			esc_html__( 'Update Notice', '--gctd--' ),
+			esc_html__( 'Update Notice', '--gctd--' ),
 			'manage_options',
 			$path . 'update-notice&version=',
 			null,
@@ -415,8 +415,8 @@ class Dashboard {
 		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
 			add_submenu_page(
 				self::TYPE,
-				esc_html__( 'Upgrade to PRO', 'gutenverse' ),
-				'<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Upgrade to PRO', 'gutenverse' ) . '</span>',
+				esc_html__( 'Upgrade to PRO', '--gctd--' ),
+				'<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '</span>',
 				'manage_options',
 				'admin.php?page=gutenverse&path=upgrade-pro',
 				null,
@@ -427,8 +427,8 @@ class Dashboard {
 		// Add Submenu on Appearance.
 		add_submenu_page(
 			'themes.php',
-			esc_html__( 'Gutenverse Themes', 'gutenverse' ),
-			esc_html__( 'Gutenverse Themes', 'gutenverse' ),
+			esc_html__( 'Gutenverse Themes', '--gctd--' ),
+			esc_html__( 'Gutenverse Themes', '--gctd--' ),
 			'manage_options',
 			'admin.php?page=gutenverse&path=theme-list',
 			null,

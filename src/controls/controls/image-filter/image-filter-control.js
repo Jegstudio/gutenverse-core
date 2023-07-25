@@ -65,9 +65,9 @@ const ImageFilterControl = ({
         <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Image Filter', 'gutenverse')}
+                    {__('Image Filter', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
@@ -77,7 +77,7 @@ const ImageFilterControl = ({
                 </Tooltip>
             </div>
             <RangeControl
-                label={__('Blur', 'gutenverse')}
+                label={__('Blur', '--gctd--')}
                 min={0}
                 max={10}
                 step={0.1}
@@ -86,7 +86,7 @@ const ImageFilterControl = ({
                 onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
             <RangeControl
-                label={__('Brightness', 'gutenverse')}
+                label={__('Brightness', '--gctd--')}
                 min={0}
                 max={200}
                 step={1}
@@ -95,7 +95,7 @@ const ImageFilterControl = ({
                 onStyleChange={brightness => onStyleChange({ ...value, brightness })}
             />
             <RangeControl
-                label={__('Contrast', 'gutenverse')}
+                label={__('Contrast', '--gctd--')}
                 min={0}
                 max={200}
                 step={1}
@@ -104,7 +104,7 @@ const ImageFilterControl = ({
                 onStyleChange={contrast => onStyleChange({ ...value, contrast })}
             />
             <RangeControl
-                label={__('Saturation', 'gutenverse')}
+                label={__('Saturation', '--gctd--')}
                 min={0}
                 max={200}
                 step={1}
@@ -113,7 +113,7 @@ const ImageFilterControl = ({
                 onStyleChange={saturation => onStyleChange({ ...value, saturation })}
             />
             <RangeControl
-                label={__('Hue', 'gutenverse')}
+                label={__('Hue', '--gctd--')}
                 min={0}
                 max={360}
                 step={1}

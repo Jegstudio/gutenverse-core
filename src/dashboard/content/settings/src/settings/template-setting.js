@@ -14,8 +14,8 @@ const TemplateSetting = ({ settingValues, updateSettingValues, saving, saveData 
         <div className="template-tab-body">
             <ControlCheckbox
                 id={'use_setting_homepage'}
-                title={__('Use Reading Homepage Setting', 'gutenverse')}
-                description={__('Enable this option to use WordPress Reading Homepage Setting instead of themes front-page template..', 'gutenverse')}
+                title={__('Use Reading Homepage Setting', '--gctd--')}
+                description={__('Enable this option to use WordPress Reading Homepage Setting instead of themes front-page template..', '--gctd--')}
                 value={template_page.use_setting_homepage}
                 updateValue={updateValue}
             />
@@ -23,17 +23,17 @@ const TemplateSetting = ({ settingValues, updateSettingValues, saving, saveData 
         <div className="template-tab-body">
             <ControlCheckbox
                 id={'inherit_layout'}
-                title={__('Inherit Layout', 'gutenverse')}
-                description={__('Section\'s width inside post content will inherit your theme layout content size.', 'gutenverse')}
+                title={__('Inherit Layout', '--gctd--')}
+                description={__('Section\'s width inside post content will inherit your theme layout content size.', '--gctd--')}
                 value={template_page.inherit_layout}
                 updateValue={updateValue}
             />
         </div>
         <div className="actions">
             {saving ? <div className="gutenverse-button">
-                {__('Saving...', 'gutenverse')}
+                {__('Saving...', '--gctd--')}
             </div> : <div className="gutenverse-button" onClick={() => saveData(['template_page'])}>
-                {__('Save Changes', 'gutenverse')}
+                {__('Save Changes', '--gctd--')}
             </div>}
         </div>
     </div>;

@@ -25,7 +25,7 @@ const PluginItem = ({
 
     const installingPlugin = () => {
         setLoading(true);
-        setLoadingString(__('Installing Plugin', 'gutenverse'));
+        setLoadingString(__('Installing Plugin', '--gctd--'));
 
         apiFetch({
             path: 'wp/v2/plugins',
@@ -53,7 +53,7 @@ const PluginItem = ({
 
     const updatingPlugin = () => {
         setLoading(true);
-        setLoadingString(__('Disabling Plugin', 'gutenverse'));
+        setLoadingString(__('Disabling Plugin', '--gctd--'));
 
         if (installed) {
             apiFetch({
@@ -63,7 +63,7 @@ const PluginItem = ({
                     status: 'inactive'
                 }
             }).then(() => {
-                setLoadingString(__('Deleting Plugin', 'gutenverse'));
+                setLoadingString(__('Deleting Plugin', '--gctd--'));
     
                 return apiFetch({
                     path: `wp/v2/plugins/plugin?plugin=${installed?.path}`,
@@ -80,7 +80,7 @@ const PluginItem = ({
             updatingPlugin();
         } else {
             setLoading(true);
-            setLoadingString(__('Activating Plugin', 'gutenverse'));
+            setLoadingString(__('Activating Plugin', '--gctd--'));
             apiFetch({
                 path: `wp/v2/plugins/plugin?plugin=${installed?.path}`,
                 method: 'POST',
@@ -112,7 +112,7 @@ const PluginItem = ({
 
     if ( installed ) {
         const invalidVersion = !isEmpty(version) && !semver.gte(installed.version, version || '0.0.0');
-        const string = invalidVersion ? __('Update & Activate Plugin', 'gutenverse') : __('Activate Plugin', 'gutenverse');
+        const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
         if (installed.active === false) {
             action = <div className={`${singleClass} update`} onClick={() => {
                 activatingPlugin(invalidVersion)
@@ -125,19 +125,19 @@ const PluginItem = ({
             if (invalidVersion) {
                 action = <div className={`${singleClass} update`} onClick={() => updatingPlugin()}>
                     {loadingCircle}
-                    {loading ? loadingString : __('Update Plugin', 'gutenverse')}
+                    {loading ? loadingString : __('Update Plugin', '--gctd--')}
                 </div>;
             }
 
             action = <div className={`${singleClass} installed`} >
                 {loadingCircle}
-                {loading ? loadingString : __('Installed', 'gutenverse')}
+                {loading ? loadingString : __('Installed', '--gctd--')}
             </div>;
         }
     } else {
         action = <div className={singleClass} onClick={() => installingPlugin()}>
             {loadingCircle}
-            {loading ? loadingString : __('Install Plugin', 'gutenverse')}
+            {loading ? loadingString : __('Install Plugin', '--gctd--')}
         </div>;
     }
 
@@ -148,12 +148,12 @@ const PluginItem = ({
         <div className="details">
             <h2 className="plugin-title">
                 {name.includes('Gutenverse') ? <>
-                    <span>{__('Gutenverse', 'gutenverse')}</span>&nbsp;
+                    <span>{__('Gutenverse', '--gctd--')}</span>&nbsp;
                     {name.split('Gutenverse').join('')}
                 </> : name}
             </h2>
             {version && <p className="plugin-version">
-                {__('Version ', 'gutenverse')}
+                {__('Version ', '--gctd--')}
                 {version}
             </p>}
             {description && <p className="plugin-description">
@@ -207,7 +207,7 @@ const Ecosystem = props => {
 
     return <DashboardContent>
         <DashboardHeader>
-            <h2>{__('Gutenverse Ecosystem', 'gutenverse')}</h2>
+            <h2>{__('Gutenverse Ecosystem', '--gctd--')}</h2>
         </DashboardHeader>
         <DashboardBody>
             <div className="ecosystem-wrapper">

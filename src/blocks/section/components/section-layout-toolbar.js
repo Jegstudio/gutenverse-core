@@ -5,11 +5,11 @@ import {stretchFullWidth, stretchWide} from '@wordpress/icons';
 export const sectionLayoutControls = {
     fullwidth: {
         icon: stretchFullWidth,
-        title: __('Fullwidth Section', 'gctd'),
+        title: __('Fullwidth Section', '--gctd--'),
     },
     boxed: {
         icon: stretchWide,
-        title: __('Normal Width Section', 'gctd'),
+        title: __('Normal Width Section', '--gctd--'),
     },
 };
 
@@ -42,7 +42,7 @@ const SectionLayoutToolbar = (
                     ? activeLayout.icon
                     : defaultLayoutControl.icon
             }
-            label={__('Change section width', 'gctd')}
+            label={__('Change section width', '--gctd--')}
             controls={controls.map((control) => {
                 return {
                     ...sectionLayoutControls[control],

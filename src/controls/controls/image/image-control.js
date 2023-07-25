@@ -58,14 +58,14 @@ const ImageControl = (props) => {
                                         <Trash/>
                                     </div>
                                     <div className={'image-preview'} style={{backgroundImage: `url(${image})`}}/>
-                                    <div className={'image-change'}>{__('Change Image', 'gutenverse')}</div>
+                                    <div className={'image-change'}>{__('Change Image', '--gctd--')}</div>
                                 </div>
                             </>;
                         } else {
                             return <Button
                                 className={'select-image'}
                                 onClick={open}>
-                                {__('Select Image', 'gutenverse')}
+                                {__('Select Image', '--gctd--')}
                             </Button>;
                         }
                     }}/>

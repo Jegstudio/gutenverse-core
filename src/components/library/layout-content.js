@@ -23,14 +23,14 @@ const LayoutContent = (props) => {
             name={singleData.title}
             data={singleData}
             setPluginInstallMode={setPluginInstallMode}
-            backString={sprintf(__('Back to %s', 'gutenverse'), singleData.title)}
+            backString={sprintf(__('Back to %s', '--gctd--'), singleData.title)}
         />}
         {singleId !== null && <SingleLayoutContent
             id={singleId}
             slug={slug}
             setSingleId={setSingleId}
             setSlug={setSlug}
-            backText={__('Back to Layouts', 'gutenverse')}
+            backText={__('Back to Layouts', '--gctd--')}
             closeImporter={props.closeImporter}
             setSingleData={setSingleData}
             singleData={singleData}
@@ -118,21 +118,21 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     return <>
         <div className="gutenverse-library-sidebar">
             <SearchBar
-                placeholder={__('Search Layout', 'gutenverse')}
+                placeholder={__('Search Layout', '--gctd--')}
                 onChange={keyword => {
                     dispatch( 'gutenverse/library' ).setKeyword(keyword)
                 }}
             />
             {<>
-                <h2 className="gutenverse-library-side-heading">{__('Licenses', 'gutenverse')}</h2>
+                <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} />
             </>}
             {authors.length > 1 && <>
-                <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
+                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
             </>}
             <h2 className="gutenverse-library-side-heading">
-                {__('Categories', 'gutenverse')}
+                {__('Categories', '--gctd--')}
             </h2>
             <RenderCategories categories={categories} data={data} />
         </div>
@@ -161,9 +161,9 @@ export const SelectLicense = ({ license, setLicense }) => {
                 dispatch( 'gutenverse/library' ).setLicense(license.value);
             }}
             options={[
-                { value: '', label: __('All', 'gutenverse') },
-                { value: 'pro', label: __('Pro', 'gutenverse') },
-                { value: 'free', label: __('Free', 'gutenverse') },
+                { value: '', label: __('All', '--gctd--') },
+                { value: 'pro', label: __('Pro', '--gctd--') },
+                { value: 'free', label: __('Free', '--gctd--') },
             ]}
         />
     </div>;
@@ -180,7 +180,7 @@ export const SelectAuthor = ({ authors, author, setAuthor }) => {
                 dispatch( 'gutenverse/library' ).setAuthor(data.value);
             }}
             options={[
-                { value: '', label: __('All', 'gutenverse') },
+                { value: '', label: __('All', '--gctd--') },
                 ...authors.map(author => ({
                     value: author,
                     label: author
@@ -224,7 +224,7 @@ export const LayoutContentData = ({ data, current, total, setSingleId, setSlug, 
             <div className="empty-svg">
                 <IconEmptySVG />
             </div>
-            <h3>{__('Empty Result', 'gutenverse')}</h3>
+            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
             <LayoutItems data={data} setSingleId={setSingleId} setSlug={setSlug} scroller={scroller} />
             <Paging current={current} total={total} scroller={scroller} />
@@ -266,10 +266,10 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
         <div className="library-item-detail">
             <div className="library-item-wrapper">
                 <h2 onClick={() => showSingleLayout(item.id)}>
-                    {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', 'gutenverse')}</div>}
+                    {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
                     {item.title}
                 </h2>
-                {item.author && <span className="by">{__('by', 'gutenverse')} {item.author.name}</span>}
+                {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
             </div>
             {item.like ?
                 <div className="library-like active" onClick={() => likeLayout(item.slug, false)}>

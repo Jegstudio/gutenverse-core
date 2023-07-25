@@ -35,7 +35,7 @@ const SelectorItem = ({ data, indent, onChange, elementRef, showChild }) => {
     const blockName = select('core/block-editor').getBlockName(clientId);
     const blockType = select('core/blocks').getBlockType(blockName);
     const { title, icon } = blockType;
-    const text = elementId ? elementId : __('Not a Gutenverse Element', 'gutenverse');
+    const text = elementId ? elementId : __('Not a Gutenverse Element', '--gctd--');
 
     const { toggleBlockHighlight } = useDispatch(blockEditorStore);
 
@@ -153,7 +153,7 @@ const ElementSelectorControl = (props) => {
                 expand: expand
             })}>
                 <div className={'control-selector-heading'} onClick={toggleExpand}>
-                    <h3>{__('Select Element', 'gutenverse')}</h3>
+                    <h3>{__('Select Element', '--gctd--')}</h3>
                     <span>
                         <IconChevronDownSVG />
                     </span>

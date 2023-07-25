@@ -17,7 +17,7 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
     return openPopup ? <Prompt closePrompt={() => closePopup()} className={'variable-color'}>
         <PromptHeader>
             <>
-                <h3>{__('Delete Color Variable', 'gutenverse')}</h3>
+                <h3>{__('Delete Color Variable', '--gctd--')}</h3>
                 <div className={'gutenverse-close'} onClick={() => closePopup()}>
                     <IconCloseSVG size={20} />
                 </div>
@@ -25,13 +25,13 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
         </PromptHeader>
         <PromptContent>
             <>
-                <p>{__('You are about to delete one of your Color Variable. If you are assign this color variable to blocks, it will lost the color.', 'gutenverse')}</p>
+                <p>{__('You are about to delete one of your Color Variable. If you are assign this color variable to blocks, it will lost the color.', '--gctd--')}</p>
                 <div className={'prompt-buttons'}>
                     <div className={'prompt-button cancel'} onClick={() => closePopup()}>
-                        {__('Cancel', 'gutenverse')}
+                        {__('Cancel', '--gctd--')}
                     </div>
                     <div className={'prompt-button submit'} onClick={() => deleteColor(value.id)}>
-                        {__('Delete', 'gutenverse')}
+                        {__('Delete', '--gctd--')}
                     </div>
                 </div>
             </>
@@ -93,7 +93,7 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
         {open ? <div className={'control-color-display'} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Color Picker', 'gutenverse')}
+                    {__('Color Picker', '--gctd--')}
                 </h2>
             </div>
             <ChromePicker
@@ -160,7 +160,7 @@ const GlobalVariableColor = () => {
     });
 
     const addVariableColor = () => {
-        const name = `${__('Variable Color', 'gutenverse')} #${getLastSequence(customColor)}`;
+        const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customColor)}`;
 
         const newColor = {
             slug: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
@@ -222,7 +222,7 @@ const GlobalVariableColor = () => {
 
     return <>
         {<div className={'color-variable-wrapper'}>
-            <h4 style={{ marginTop: 0 }}>{__('Custom Colors', 'gutenverse')}</h4>
+            <h4 style={{ marginTop: 0 }}>{__('Custom Colors', '--gctd--')}</h4>
             {!isEmpty(customColor) && customColor.map((value, index) => {
                 return <SingleVariableColor
                     key={value.id}
@@ -232,24 +232,24 @@ const GlobalVariableColor = () => {
                 />;
             })}
             {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
-                {__('Empty Variable Color', 'gutenverse')}
+                {__('Empty Variable Color', '--gctd--')}
             </div>}
             {<div className={'color-variable-add'}>
                 <div onClick={() => addVariableColor()}>
-                    {__('Add Color', 'gutenverse')}
+                    {__('Add Color', '--gctd--')}
                 </div>
             </div>}
             <div style={{ display: 'block', height: '10px' }}></div>
-            <h4>{__('Theme Colors', 'gutenverse')}</h4>
+            <h4>{__('Theme Colors', '--gctd--')}</h4>
             {!isEmpty(themeColor) && themeColor.map(value => <ThemeVariableColor key={value.slug} value={value} />)}
-            <h4>{__('Default Colors', 'gutenverse')}</h4>
+            <h4>{__('Default Colors', '--gctd--')}</h4>
             {!isEmpty(defaultColor) && defaultColor.map(value => <ThemeVariableColor key={value.slug} value={value} />)}
             {/* {isTools && <div className="guten-dev-tools">
                 <textarea id="global-colors" name="global-colors" rows="4" cols="50" value={importColors} onChange={e => setImportColors(e.target.value)}>
                 </textarea>
                 <div className={'variable-import'}>
                     <div onClick={() => onImportColors()}>
-                        {__('Import Colors', 'gutenverse')}
+                        {__('Import Colors', '--gctd--')}
                     </div>
                 </div>
             </div>} */}

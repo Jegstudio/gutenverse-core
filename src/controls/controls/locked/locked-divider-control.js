@@ -8,8 +8,8 @@ const LockedDividerControl = () => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-divider gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Shape Divider Animated', 'gutenverse' )}
-            description={__( 'Shape divider is a website design element that divides sections with a customized shape and animation for appealing layouts.', 'gutenverse' )}
+            title={__( 'Shape Divider Animated', '--gctd--' )}
+            description={__( 'Shape divider is a website design element that divides sections with a customized shape and animation for appealing layouts.', '--gctd--' )}
             img={'pro/mockup-shape-divider.png'}
         />
     </div>;

@@ -8,14 +8,13 @@
     "start": "npm run start:js & npm run start:css",
     "dev": "npm run start:dev && npm run build:css",
     "build": "npm run build:js && npm run build:css",
-    "development": "gulp clean && npm run dev && npm run pot",
-    "production": "gulp clean && npm run build && npm run pot",
+    "development": "gulp clean && npm run dev",
+    "production": "gulp clean && npm run build",
     "start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
     "start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",
     "build:js": "cross-env NODE_ENV=production webpack --config .config/webpack.config.prod.js",
     "start:css": "cross-env NODE_ENV=development gulp watch",
-    "build:css": "cross-env NODE_ENV=production gulp build",
-    "pot": "wp i18n make-pot ./framework ./framework/languages/gutenverse-core.pot --domain=gutenverse"
+    "build:css": "cross-env NODE_ENV=production gulp build"
   },
   "repository": {
     "type": "git",

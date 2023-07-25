@@ -8,8 +8,8 @@ const LockedAnimationControl = () => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-animation gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Advance Animation', 'gutenverse' )}
-            description={__( 'Advanced animation techniques (using GSAP) in website development create visually captivating and interactive elements.', 'gutenverse' )}
+            title={__( 'Advance Animation', '--gctd--' )}
+            description={__( 'Advanced animation techniques (using GSAP) in website development create visually captivating and interactive elements.', '--gctd--' )}
             img={'pro/advance-animation.png'}
         />
     </div>;

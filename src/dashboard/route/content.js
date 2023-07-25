@@ -84,13 +84,13 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
             }
         }).then(() => {
             setSaving(false);
-            createInfoNotice(__('Setting Saved', 'gutenverse'), {
+            createInfoNotice(__('Setting Saved', '--gctd--'), {
                 type: 'snackbar',
                 isDismissible: true,
             });
         }).catch(() => {
             setSaving(false);
-            createErrorNotice(__('Saving Data Error', 'gutenverse'), {
+            createErrorNotice(__('Saving Data Error', '--gctd--'), {
                 type: 'snackbar',
                 isDismissible: true,
             });

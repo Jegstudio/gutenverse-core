@@ -23,13 +23,13 @@ const FontIconSetting = () => {
         }).then((data) => {
             setDownloading(false);
             setIsIconExists(data);
-            createInfoNotice(__('Icon was Downloaded', 'gutenverse'), {
+            createInfoNotice(__('Icon was Downloaded', '--gctd--'), {
                 type: 'snackbar',
                 isDismissible: true,
             });
         }).catch(() => {
             setDownloading(false);
-            createErrorNotice(__('Download Error', 'gutenverse'), {
+            createErrorNotice(__('Download Error', '--gctd--'), {
                 type: 'snackbar',
                 isDismissible: true,
             });
@@ -45,8 +45,8 @@ const FontIconSetting = () => {
                     </div>
                 </div>
                 <div className="info">
-                    <h4>{__('Gutenicon & Fontawesome', 'gutenverse')}</h4>
-                    <p>{__('Flexible and Design-Friendly Contact Form builder plugin for WordPress', 'gutenverse')}</p>
+                    <h4>{__('Gutenicon & Fontawesome', '--gctd--')}</h4>
+                    <p>{__('Flexible and Design-Friendly Contact Form builder plugin for WordPress', '--gctd--')}</p>
                 </div>
                 <div className="action">
                     {isIconExists ? <div className="icon check">

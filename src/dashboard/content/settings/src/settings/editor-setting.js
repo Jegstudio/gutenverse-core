@@ -17,10 +17,10 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
 
     return <div>
         <div className="form-tab-body">
-            <h2>{__('Responsive Breakpoints')}</h2>
+            <h2>{__('Responsive Breakpoints', '--gctd--')}</h2>
             <ControlNumber
                 id={'tablet_breakpoint'}
-                title={__('Tablet Breakpoint (px)', 'gutenverse')}
+                title={__('Tablet Breakpoint (px)', '--gctd--')}
                 min={780}
                 max={1024}
                 step={1}
@@ -29,7 +29,7 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
             />
             <ControlNumber
                 id={'mobile_breakpoint'}
-                title={__('Mobile Breakpoint (px)', 'gutenverse')}
+                title={__('Mobile Breakpoint (px)', '--gctd--')}
                 min={0}
                 max={779}
                 step={1}
@@ -39,9 +39,9 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
         </div>
         <div className="actions">
             {saving ? <div className="gutenverse-button">
-                {__('Saving...', 'gutenverse')}
+                {__('Saving...', '--gctd--')}
             </div> : <div className="gutenverse-button" onClick={() => saveData(['editor_settings'])}>
-                {__('Save Changes', 'gutenverse')}
+                {__('Save Changes', '--gctd--')}
             </div>}
         </div>
     </div>;

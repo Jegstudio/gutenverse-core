@@ -85,8 +85,8 @@ const DateTimeRangeControl = (props) => {
                         minDate: minDate,
                         enableTime: enableTime,
                     }}
-                    fromPlaceholder={__('From Date', 'gutenverse')}
-                    toPlaceholder={__('To Date', 'gutenverse')}
+                    fromPlaceholder={__('From Date', '--gctd--')}
+                    toPlaceholder={__('To Date', '--gctd--')}
                     id={id}
                     value={value}
                     onChange={onChange}

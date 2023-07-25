@@ -11,7 +11,7 @@ import ProLock from '../pro-lock';
 const SelectControl = (props) => {
     const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, isMulti = false, options, description = '', noOptionsText, proLabel, group = false } = props;
 
-    const noOptionsMessage = () => (noOptionsText ? noOptionsText : __('No Option', 'gutenverse'));
+    const noOptionsMessage = () => (noOptionsText ? noOptionsText : __('No Option', '--gctd--'));
 
     const onChange = (value) => {
         onValueChange(value);

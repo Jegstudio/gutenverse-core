@@ -8,7 +8,7 @@ export const advancePanel = (props) => {
     return [
         {
             id: 'margin',
-            label: __('Margin', 'gutenverse'),
+            label: __('Margin', '--gctd--'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
@@ -40,7 +40,7 @@ export const advancePanel = (props) => {
         },
         {
             id: 'padding',
-            label: __('Padding', 'gutenverse'),
+            label: __('Padding', '--gctd--'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
@@ -72,7 +72,7 @@ export const advancePanel = (props) => {
         },
         {
             id: 'zIndex',
-            label: __('Z Index', 'gutenverse'),
+            label: __('Z Index', '--gctd--'),
             component: NumberControl,
             allowDeviceControl: true,
             min: 1,

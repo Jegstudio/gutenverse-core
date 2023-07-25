@@ -24,7 +24,7 @@ const BorderControl = (props) => {
 
     const id = useInstanceId(BorderControl, 'inspector-borders-control');
 
-    const clearBorder = <Tooltip text={__('Clear Border', 'gutenverse')} key={'reset'}>
+    const clearBorder = <Tooltip text={__('Clear Border', '--gctd--')} key={'reset'}>
         <span className={'border-refresh'}>
             <RefreshCw size={14} onClick={() => {
                 onValueChange(undefined);
@@ -69,7 +69,7 @@ const BorderControl = (props) => {
             </div>
             {active && <div className={'border-value'}>
                 <div>
-                    <label>{__('Style', 'gutenverse')}</label>
+                    <label>{__('Style', '--gctd--')}</label>
                     <SelectControl
                         value={value && value[active] && value[active].type}
                         onValueChange={type => {
@@ -97,38 +97,38 @@ const BorderControl = (props) => {
                         })}
                         options={[
                             {
-                                label: __('Default'),
+                                label: __('Default', '--gctd--'),
                                 value: 'default'
                             },
                             {
-                                label: __('None'),
+                                label: __('None', '--gctd--'),
                                 value: 'none'
                             },
                             {
-                                label: __('Solid'),
+                                label: __('Solid', '--gctd--'),
                                 value: 'solid'
                             },
                             {
-                                label: __('Double'),
+                                label: __('Double', '--gctd--'),
                                 value: 'double'
                             },
                             {
-                                label: __('Dotted'),
+                                label: __('Dotted', '--gctd--'),
                                 value: 'dotted'
                             },
                             {
-                                label: __('Dashed'),
+                                label: __('Dashed', '--gctd--'),
                                 value: 'dashed'
                             },
                             {
-                                label: __('Groove'),
+                                label: __('Groove', '--gctd--'),
                                 value: 'groove'
                             },
                         ]}
                     />
                 </div>
                 <div>
-                    <label>{__('Width', 'gutenverse')}</label>
+                    <label>{__('Width', '--gctd--')}</label>
                     <NumberControl
                         min={0}
                         max={100}
@@ -151,7 +151,7 @@ const BorderControl = (props) => {
                     />
                 </div>
                 <ColorControl
-                    label={__('Color', 'gutenverse')}
+                    label={__('Color', '--gctd--')}
                     value={value && value[active] && value[active].color}
                     onValueChange={color => onValueChange({
                         ...value,
@@ -171,7 +171,7 @@ const BorderControl = (props) => {
             </div>}
         </div>
         <DimensionControl
-            label={__('Border Radius', 'gutenverse')}
+            label={__('Border Radius', '--gctd--')}
             position={['top', 'right', 'bottom', 'left']}
             units={{
                 px: {

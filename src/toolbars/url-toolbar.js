@@ -60,7 +60,7 @@ export const URLToolbar = ({
                 <ToolbarButton
                     name="link"
                     icon={link}
-                    title={__('Link')}
+                    title={__('Link', '--gctd--')}
                     shortcut={displayShortcut.primary('k')}
                     onClick={openLinkControl}
                 />
@@ -69,7 +69,7 @@ export const URLToolbar = ({
                 <ToolbarButton
                     name="link"
                     icon={linkOff}
-                    title={__('Unlink')}
+                    title={__('Unlink', '--gctd--')}
                     shortcut={displayShortcut.primaryShift('k')}
                     onClick={unlinkButton}
                     isActive={true}

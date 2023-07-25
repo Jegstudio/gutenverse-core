@@ -32,7 +32,7 @@ export const layoutPanel = (props) => {
     return [
         {
             id: 'width',
-            label: __('Column Width', 'gctd'),
+            label: __('Column Width', '--gctd--'),
             component: RangeColumnControl,
             min: minWidth[deviceType],
             step: 0.1,
@@ -48,7 +48,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'verticalAlign',
-            label: __('Vertical Align', 'gctd'),
+            label: __('Vertical Align', '--gctd--'),
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -97,7 +97,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'horizontalAlign',
-            label: __('Horizontal Align', 'gctd'),
+            label: __('Horizontal Align', '--gctd--'),
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -146,7 +146,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'order',
-            label: __('Column Order', 'gctd'),
+            label: __('Column Order', '--gctd--'),
             component: SelectControl,
             allowDeviceControl: true,
             options: [

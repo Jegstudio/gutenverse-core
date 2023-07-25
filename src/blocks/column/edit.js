@@ -708,7 +708,7 @@ const ColumnRemove = (props) => {
     return <ToolbarButton
         name="remove-column"
         icon={<IconToolbarColumnDeleteSVG />}
-        title={__('Remove Column', 'gctd')}
+        title={__('Remove Column', '--gctd--')}
         onClick={() => removeColumn()}
     />;
 };
@@ -758,7 +758,7 @@ const ColumnAdd = (props) => {
     return <ToolbarButton
         name="add-column"
         icon={<IconToolbarColumnAddSVG />}
-        title={__('Add Column', 'gctd')}
+        title={__('Add Column', '--gctd--')}
         onClick={() => addNewColumn()}
     />;
 };

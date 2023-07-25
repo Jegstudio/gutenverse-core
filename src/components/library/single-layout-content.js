@@ -137,7 +137,7 @@ const SingleLayoutContent = (props) => {
                     <div className="layout-action">
                         <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} />
                         {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
-                            {__('View Demo', 'gutenverse')}
+                            {__('View Demo', '--gctd--')}
                         </a>}
                     </div>
                 </div>
@@ -145,21 +145,21 @@ const SingleLayoutContent = (props) => {
                     <h2>{singleData.isPro && <div className="single-pro">PRO</div>} {singleData.title}</h2>
                     <div className="single-layout-meta">
                         {singleData.author && <span className="single-layout-author">
-                            {__('by ', 'gutenverse')}
+                            {__('by ', '--gctd--')}
                             <a href={singleData.author.url} target="_blank" rel="noreferrer" >
                                 {singleData.author.name}
                             </a>
                         </span>}
                         {singleData.like ?
                             <div className="single-like active" onClick={() => likeLayout(singleData.slug, false)}>
-                                <IconHeartFullSVG size={14} /> {__('Liked', 'gutenverse')}
+                                <IconHeartFullSVG size={14} /> {__('Liked', '--gctd--')}
                             </div> : <div className="single-like" onClick={() => likeLayout(singleData.slug, true)}>
-                                <IconLoveSVG size={16} /> {__('Like', 'gutenverse')}
+                                <IconLoveSVG size={16} /> {__('Like', '--gctd--')}
                             </div>
                         }
                         <span>
                             {singleData.isPro}
-                            {singleData.pages.length} {__('Layouts', 'gutenverse')}
+                            {singleData.pages.length} {__('Layouts', '--gctd--')}
                         </span>
                     </div>
 
@@ -192,7 +192,7 @@ const SingleLayoutContent = (props) => {
                         <div className="empty-svg">
                             <IconEmptySVG />
                         </div>
-                        <h3>{__('Empty Result', 'gutenverse')}</h3>
+                        <h3>{__('Empty Result', '--gctd--')}</h3>
                     </div>
                     <div className="back-button" onClick={() => setSingleId(null)}>
                         <span>
@@ -263,10 +263,10 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
         if (isInstalled) {
             if (!isActive && semver.gte(pluginVersion, singleData?.compatibleVersion || '0.0.0')) {
                 return <div className="single-install-themes active">
-                    <h3>{__('Activate', 'gutenverse')} {singleData.title} {__('Themes', 'gutenverse')}</h3>
-                    <p>{__('You already install the themes, you can get all template by activating this themes.')}</p>
+                    <h3>{__('Activate', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
+                    <p>{__('You already install the themes, you can get all template by activating this themes.', '--gctd--')}</p>
                     <a href={`${themeListUrl}&keyword=${singleData.title}&slug=${singleData.slug}&action=activate`} target={'_blank'} rel="noreferrer">
-                        {__('Activate Themes', 'gutenverse')} →
+                        {__('Activate Themes', '--gctd--')} →
                     </a>
                     <IconCircleExclamationSVG />
                 </div>;
@@ -275,10 +275,10 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
             return null;
         } else {
             return <div className="single-install-themes">
-                <h3>{__('Install', 'gutenverse')} {singleData.title} {__('Themes', 'gutenverse')}</h3>
-                <p>{__('Get all layout by installed themes instead. Please first backup your current templates if you have any changes.')}</p>
+                <h3>{__('Install', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
+                <p>{__('Get all layout by installed themes instead. Please first backup your current templates if you have any changes.', '--gctd--')}</p>
                 <a href={`${themeListUrl}&keyword=${singleData.slug}&action=install`} target={'_blank'} rel="noreferrer">
-                    {__('Install & Activate Themes', 'gutenverse')} →
+                    {__('Install & Activate Themes', '--gctd--')} →
                 </a>
                 <IconCircleExclamationSVG />
             </div>;
@@ -298,15 +298,15 @@ const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode })
             <IconInfoYellowSVG />
         </div>
         <div className="plugin-requirement-content">
-            <h3>{__('Plugin Requirements', 'gutenverse')}</h3>
+            <h3>{__('Plugin Requirements', '--gctd--')}</h3>
             <p>{sprintf(
-                _n('There is plugin need to be installed or updated for this layout work correctly.', 'There are %s plugins need to be installed or updated for this layout work correctly.', requirementStatus.length, 'gutenverse'),
+                _n('There is plugin need to be installed or updated for this layout work correctly.', 'There are %s plugins need to be installed or updated for this layout work correctly.', requirementStatus.length, '--gctd--'),
                 requirementStatus.length
             )}</p>
             <a href="#" onClick={(e) => {
                 setPluginInstallMode(true);
                 e.preventDefault();
-            }}>{__('Manage Plugin Requirement →', 'gutenverse')}</a>
+            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
         </div>
     </div>;
 };

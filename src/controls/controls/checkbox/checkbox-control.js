@@ -18,7 +18,7 @@ const CheckboxControl = (props) => {
         usePreviousDevice = false,
         value = false,
         deviceValues = allowDeviceControl ? {} : value,
-        description = allowDeviceControl && usePreviousDevice ? __('If value has not been set, it will follow the higher resolution\'s value', 'gutenverse') : '',
+        description = allowDeviceControl && usePreviousDevice ? __('If value has not been set, it will follow the higher resolution\'s value', '--gctd--') : '',
     } = props;
 
     const id = useInstanceId(CheckboxControl, 'inspector-checkbox-control');

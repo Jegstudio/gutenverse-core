@@ -115,7 +115,7 @@ class Frontend_Toolbar {
 	 * @param \WP_Admin_Bar $admin_bar Admin Bar Instance.
 	 */
 	public function add_toolbar( $admin_bar ) {
-		$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', 'gutenverse' ) . '</span>';
+		$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
 
 		$admin_bar->add_menu(
 			array(
@@ -150,7 +150,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'backend',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Gutenverse Admin', 'gutenverse' ),
+				'title'  => esc_html__( 'Gutenverse Admin', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 			)
 		);
@@ -159,7 +159,7 @@ class Frontend_Toolbar {
 			$admin_bar->add_menu(
 				array(
 					'id'    => 'gutenverse-pro',
-					'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', 'gutenverse' ) . '</span>',
+					'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '</span>',
 					'href'  => GUTENVERSE_FRAMEWORK_SERVER_URL,
 					'meta'  => array(
 						'target' => '_blank',
@@ -182,7 +182,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'dashboard',
 				'parent' => $parent,
-				'title'  => esc_html__( 'Dashboard', 'gutenverse' ),
+				'title'  => esc_html__( 'Dashboard', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 			)
 		);
@@ -191,7 +191,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'block-list',
 				'parent' => $parent,
-				'title'  => esc_html__( 'Block List', 'gutenverse' ),
+				'title'  => esc_html__( 'Block List', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=block-list' ),
 			)
 		);
@@ -200,7 +200,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'theme-list',
 				'parent' => $parent,
-				'title'  => esc_html__( 'Theme List', 'gutenverse' ),
+				'title'  => esc_html__( 'Theme List', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=theme-list' ),
 			)
 		);
@@ -209,7 +209,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'settings',
 				'parent' => $parent,
-				'title'  => esc_html__( 'Settings', 'gutenverse' ),
+				'title'  => esc_html__( 'Settings', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=settings' ),
 			)
 		);
@@ -218,7 +218,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'system',
 				'parent' => $parent,
-				'title'  => esc_html__( 'System Status', 'gutenverse' ),
+				'title'  => esc_html__( 'System Status', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=system' ),
 			)
 		);
@@ -227,7 +227,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'update-notice',
 				'parent' => $parent,
-				'title'  => esc_html__( 'Update Notice', 'gutenverse' ),
+				'title'  => esc_html__( 'Update Notice', '--gctd--' ),
 				'href'   => admin_url( 'admin.php?page=gutenverse&path=update-notice' ),
 			)
 		);
@@ -238,7 +238,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'gutenverse-site-editor',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Template Editor', 'gutenverse' ),
+				'title'  => esc_html__( 'Template Editor', '--gctd--' ),
 			)
 		);
 
@@ -246,7 +246,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'gutenverse-template',
 				'parent' => 'gutenverse-site-editor',
-				'title'  => esc_html__( 'All Template', 'gutenverse' ),
+				'title'  => esc_html__( 'All Template', '--gctd--' ),
 				'href'   => $is_wp_above_6_2 ? admin_url( 'site-editor.php?path=%2Fwp_template%2Fall' ) : admin_url( 'site-editor.php?postType=wp_template' ),
 			)
 		);
@@ -255,7 +255,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'gutenverse-template-part',
 				'parent' => 'gutenverse-site-editor',
-				'title'  => esc_html__( 'Template Part', 'gutenverse' ),
+				'title'  => esc_html__( 'Template Part', '--gctd--' ),
 				'href'   => $is_wp_above_6_2 ? admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ) : admin_url( 'site-editor.php?postType=wp_template_part' ),
 			)
 		);
@@ -264,7 +264,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'support',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Got Question?', 'gutenverse' ),
+				'title'  => esc_html__( 'Got Question?', '--gctd--' ),
 				'href'   => 'https://wordpress.org/support/plugin/gutenverse/',
 				'meta'   => array(
 					'target' => '_blank',
@@ -276,7 +276,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'rate',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Rate Us ★★★★★', 'gutenverse' ),
+				'title'  => esc_html__( 'Rate Us ★★★★★', '--gctd--' ),
 				'href'   => 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post',
 				'meta'   => array(
 					'target' => '_blank',
@@ -297,7 +297,7 @@ class Frontend_Toolbar {
 			array(
 				'id'     => 'no-template',
 				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Not a Block Themes', 'gutenverse' ),
+				'title'  => esc_html__( 'Not a Block Themes', '--gctd--' ),
 			)
 		);
 	}
@@ -314,7 +314,7 @@ class Frontend_Toolbar {
 				array(
 					'id'     => 'edit-template',
 					'parent' => 'gutenverse',
-					'title'  => esc_html__( 'Edit Template: ', 'gutenverse' ) . '<strong>' . $block->title . '</strong>',
+					'title'  => esc_html__( 'Edit Template: ', '--gctd--' ) . '<strong>' . $block->title . '</strong>',
 					'href'   => admin_url( 'site-editor.php' ) . '?postType=' . $block->type . '&postId=' . $block->id,
 					'meta'   => array(
 						'target' => 'blank',
@@ -329,7 +329,7 @@ class Frontend_Toolbar {
 					array(
 						'id'     => 'template-part',
 						'parent' => 'gutenverse',
-						'title'  => esc_html__( 'Included Template Part', 'gutenverse' ),
+						'title'  => esc_html__( 'Included Template Part', '--gctd--' ),
 						'href'   => admin_url( 'site-editor.php?postType=wp_template_part' ),
 					)
 				);
@@ -339,7 +339,7 @@ class Frontend_Toolbar {
 						array(
 							'id'     => 'edit-template-' . $part['attrs']['slug'],
 							'parent' => 'template-part',
-							'title'  => esc_html__( 'Edit: ', 'gutenverse' ) . '<strong>' . $part['attrs']['slug'] . '</strong>',
+							'title'  => esc_html__( 'Edit: ', '--gctd--' ) . '<strong>' . $part['attrs']['slug'] . '</strong>',
 							'href'   => admin_url( 'site-editor.php' ) . '?postType=wp_template_part&postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'],
 							'meta'   => array(
 								'target' => 'blank',

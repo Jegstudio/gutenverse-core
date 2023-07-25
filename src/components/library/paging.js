@@ -38,7 +38,7 @@ const Paging = (props) => {
         <div className={classNames('gutenverse-paging-button')} onClick={() => {
             dispatch( 'gutenverse/library' ).setPaging(current + 1);
         }}>
-            {__('Load More', 'gutenverse')}
+            {__('Load More', '--gctd--')}
         </div>
     </div> : null;
 };

@@ -12,25 +12,25 @@ import { dividerPanelAnimated } from './panel-divider-animated';
 export const panelList = () => {
     return [
         {
-            title: __('Layouts', 'gutenverse'),
+            title: __('Layouts', '--gctd--'),
             panelArray: layoutPanel,
             tabRole: TabSetting,
         },
         {
-            title: __('Structure', 'gutenverse'),
+            title: __('Structure', '--gctd--'),
             initialOpen: false,
             panelArray: structurePanel,
             id: 'structure',
             tabRole: TabSetting
         },
         {
-            title: __('Sticky', 'gutenverse'),
+            title: __('Sticky', '--gctd--'),
             initialOpen: false,
             panelArray: stickyPanel,
             pro: true
         },
         {
-            title: __('Background', 'gutenverse'),
+            title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
@@ -44,7 +44,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Overlay', 'gutenverse'),
+            title: __('Background Overlay', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
@@ -55,13 +55,13 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Animated', 'gutenverse'),
+            title: __('Background Animated', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
             pro: true
         },
         {
-            title: __('Border', 'gutenverse'),
+            title: __('Border', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => borderPanel({
                 ...props,
@@ -70,7 +70,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Typography', 'gutenverse'),
+            title: __('Typography', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => typographyPanel({
                 ...props,
@@ -79,25 +79,25 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Shape Divider', 'gutenverse'),
+            title: __('Shape Divider', '--gctd--'),
             initialOpen: false,
             panelArray: dividerPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Shape Divider Animated', 'gutenverse'),
+            title: __('Shape Divider Animated', '--gctd--'),
             initialOpen: false,
             panelArray: dividerPanelAnimated,
             pro: true
         },
         {
-            title: __('Display', 'gutenverse'),
+            title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
             tabRole: TabSetting
         },
         {
-            title: __('Animation Effects', 'gutenverse'),
+            title: __('Animation Effects', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
@@ -106,7 +106,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Advance Animation', '--gctd--'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
@@ -116,13 +116,13 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Positioning', 'gutenverse'),
+            title: __('Positioning', '--gctd--'),
             initialOpen: false,
             panelArray: positioningPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', 'gutenverse'),
+            title: __('Spacing', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => advancePanel({
                 ...props,

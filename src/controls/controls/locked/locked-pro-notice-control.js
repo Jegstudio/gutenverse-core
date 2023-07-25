@@ -13,8 +13,8 @@ const LockedProNoticeControl = () => {
             <img className="illustration" src={`${imgDir}/asset_8_1.webp`} />
         </div>
         <div>
-            <h2 className="title">{ __( 'Unlock The Amazing Page Builder For Gutenberg', 'gutenverse' ) }</h2>
-            <span className="description">{ __( 'You are currently using free version. Upgrade now to unlock full potential of your website design', 'gutenverse' ) }</span>
+            <h2 className="title">{ __( 'Unlock The Amazing Page Builder For Gutenberg', '--gctd--' ) }</h2>
+            <span className="description">{ __( 'You are currently using free version. Upgrade now to unlock full potential of your website design', '--gctd--' ) }</span>
         </div>
     </div>;
 };

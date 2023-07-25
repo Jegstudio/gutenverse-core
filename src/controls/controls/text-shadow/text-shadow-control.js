@@ -66,9 +66,9 @@ const TextShadowControl = ({
         <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Text Shadow', 'gutenverse')}
+                    {__('Text Shadow', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
@@ -78,13 +78,13 @@ const TextShadowControl = ({
                 </Tooltip>
             </div>
             <ColorControl
-                label={__('Color', 'gutenverse')}
+                label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
             <RangeControl
-                label={__('Horizontal', 'gutenverse')}
+                label={__('Horizontal', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}
@@ -93,7 +93,7 @@ const TextShadowControl = ({
                 onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
             />
             <RangeControl
-                label={__('Vertical', 'gutenverse')}
+                label={__('Vertical', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}
@@ -102,7 +102,7 @@ const TextShadowControl = ({
                 onStyleChange={vertical => onStyleChange({ ...value, vertical })}
             />
             <RangeControl
-                label={__('Blur', 'gutenverse')}
+                label={__('Blur', '--gctd--')}
                 min={0}
                 max={100}
                 step={1}
@@ -111,7 +111,7 @@ const TextShadowControl = ({
                 onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
             <RangeControl
-                label={__('Spread', 'gutenverse')}
+                label={__('Spread', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}

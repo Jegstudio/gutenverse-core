@@ -29,7 +29,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const importContent = () => {
-        dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', 'gutenverse'));
+        dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockLayoutImport({
             layout: slug,
             title: title
@@ -49,10 +49,10 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
 
         importSingleLayoutContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Importing Assets', 'gutenverse'));
+            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Importing Assets', '--gctd--'));
             return importImage(data);
         }).then(result => {
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Deploying Content', 'gutenverse'));
+            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
             setTimeout(() => {
@@ -73,11 +73,11 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             return <div className="layout-button manage" onClick={() => {
                 setPluginInstallMode(true);
             }}>
-                <span>{__('Manage Required Plugin', 'gutenverse')}</span>
+                <span>{__('Manage Required Plugin', '--gctd--')}</span>
             </div >;
         } else {
             return <div className="layout-button import-page" onClick={importContent}>
-                <IconDownloadSVG /><span>{__('Import this page', 'gutenverse')}</span>
+                <IconDownloadSVG /><span>{__('Import this page', '--gctd--')}</span>
             </div >;
         }
 
@@ -86,7 +86,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     const ProButton = () => {
         return <a href={proUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
             <IconVerifiedSVG />
-            {__('Upgrade to Pro', 'gutenverse')}
+            {__('Upgrade to Pro', '--gctd--')}
         </a>;
     };
 
@@ -110,7 +110,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             if (slug !== importer.lockLayoutImport?.layout) {
                 button = <div className="layout-button import-page loading">
                     <Loader size={18} />
-                    <span>{__('Importing ', 'gutenverse')} {importer.lockLayoutImport?.title}</span>
+                    <span>{__('Importing ', '--gctd--')} {importer.lockLayoutImport?.title}</span>
                 </div>;
             } else {
                 button = <div className="layout-button import-page loading">

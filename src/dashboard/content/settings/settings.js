@@ -45,9 +45,9 @@ const Settings = (props) => {
     const tabs = applyFilters(
         'gutenverse.dashboard.settings.navigation',
         {
-            editor: __('Editor', 'gutenverse'),
-            template: __('Template', 'gutenverse'),
-            ['font-icon']: __('Font Icon', 'gutenverse'),
+            editor: __('Editor', '--gctd--'),
+            template: __('Template', '--gctd--'),
+            ['font-icon']: __('Font Icon', '--gctd--'),
         }
     );
 
@@ -55,7 +55,7 @@ const Settings = (props) => {
 
     return <DashboardContent>
         <DashboardHeader>
-            <h2>{__('General Settings', 'gutenverse')}</h2>
+            <h2>{__('General Settings', '--gctd--')}</h2>
         </DashboardHeader>
         <DashboardBody>
             <div className="setting-tabs">

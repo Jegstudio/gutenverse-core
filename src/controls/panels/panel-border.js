@@ -31,7 +31,7 @@ export const borderPanel = (props) => {
         {
             id: 'border',
             show: !switcher.border || switcher.border === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            label: __('Border Type', '--gctd--'),
             component: BorderControl,
             style: [
                 {
@@ -44,7 +44,7 @@ export const borderPanel = (props) => {
         {
             id: 'borderHover',
             show: switcher.border === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            label: __('Border Type', '--gctd--'),
             component: BorderControl,
             style: [
                 {
@@ -57,7 +57,7 @@ export const borderPanel = (props) => {
         {
             id: _boxShadowId ? _boxShadowId : 'boxShadow',
             show: !switcher.border || switcher.border === 'normal',
-            label: __('Box Shadow', 'gutenverse'),
+            label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
             style: [
                 {
@@ -70,7 +70,7 @@ export const borderPanel = (props) => {
         {
             id: 'boxShadowHover',
             show: switcher.border === 'hover',
-            label: __('Box Shadow', 'gutenverse'),
+            label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
             style: [
                 {

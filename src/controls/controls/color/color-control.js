@@ -168,7 +168,7 @@ const ColorControl = (props) => {
 
     const ColorContent = <div className={'control-color-wrapper'}>
         <div className={'control-color-header'}>
-            <Tooltip text={__('Color Variable', 'gutenverse')}>
+            <Tooltip text={__('Color Variable', '--gctd--')}>
                 <div className={classnames('control-variable', {
                     active: value.type === 'variable' && value.type
                 })} onClick={() => toggleVariableOpen()} ref={variableRef}>
@@ -191,8 +191,8 @@ const ColorControl = (props) => {
         />
         {variableOpen ? <div className={'control-color-variable'} ref={variableWrapperRef}>
             <div className={'gutenverse-color-variable-header'}>
-                <h2>{__('Variable Color', 'gutenverse')}</h2>
-                <Tooltip text={__('Manage Variable Color', 'gutenverse')}>
+                <h2>{__('Variable Color', '--gctd--')}</h2>
+                <Tooltip text={__('Manage Variable Color', '--gctd--')}>
                     <span onClick={() => openColorDrawer()}>
                         <ChevronRight size={14} />
                     </span>
@@ -200,7 +200,7 @@ const ColorControl = (props) => {
             </div>
             <div className={'gutenverse-color-variable-body'}>
                 {!isEmpty(customColor) && <>
-                    <h4>{__('Custom Colors', 'gutenverse')}</h4>
+                    <h4>{__('Custom Colors', '--gctd--')}</h4>
                     <div className={classnames('active', 'gutenverse-color-variable-content')}>
                         {customColor.map(color => {
                             const { id } = color;
@@ -222,7 +222,7 @@ const ColorControl = (props) => {
                     </div>
                 </>}
                 {!isEmpty(themeColor) && <>
-                    <h4>{__('Theme Colors', 'gutenverse')}</h4>
+                    <h4>{__('Theme Colors', '--gctd--')}</h4>
                     <div className={classnames('active', 'gutenverse-color-variable-content')}>
                         {themeColor.map(color => {
                             const { id } = color;
@@ -244,7 +244,7 @@ const ColorControl = (props) => {
                     </div>
                 </>}
                 {<>
-                    <h4>{__('Default Colors', 'gutenverse')}</h4>
+                    <h4>{__('Default Colors', '--gctd--')}</h4>
                     <div className={classnames('active', 'gutenverse-color-variable-content')}>
                         {defaultColor.map(color => {
                             const { id } = color;
@@ -270,9 +270,9 @@ const ColorControl = (props) => {
         {open ? <div className={'control-color-display'} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Color Picker', 'gutenverse')}
+                    {__('Color Picker', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(allowDeviceControl ? {} : '');

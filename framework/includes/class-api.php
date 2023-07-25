@@ -848,7 +848,7 @@ class Api {
 			array(
 				array(
 					'id'    => '',
-					'name'  => esc_html__( 'All', 'gutenverse-server' ),
+					'name'  => esc_html__( 'All', '--gctd--' ),
 					'count' => count( $sections ),
 				),
 			),
@@ -1001,7 +1001,7 @@ class Api {
 			array(
 				array(
 					'id'    => '',
-					'name'  => esc_html__( 'All', 'gutenverse-server' ),
+					'name'  => esc_html__( 'All', '--gctd--' ),
 					'count' => count( $themes ),
 				),
 			),

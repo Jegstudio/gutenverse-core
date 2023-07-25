@@ -23,7 +23,7 @@ const SelectSearchControl = (props) => {
         defaultOptions = true
     } = props;
 
-    const noOptionsMessage = () => noOptionsText ? noOptionsText : __('Type to start searching...', 'gutenverse');
+    const noOptionsMessage = () => noOptionsText ? noOptionsText : __('Type to start searching...', '--gctd--');
 
     const onChange = value => {
         onValueChange(value);
@@ -64,7 +64,7 @@ const SelectSearchControl = (props) => {
             <div className={'control-select-async'}>
                 <AsyncSelect
                     id={`${id}-select-async`}
-                    placeholder={__('Search...', 'gutenverse')}
+                    placeholder={__('Search...', '--gctd--')}
                     noOptionsMessage={noOptionsMessage}
                     isMulti={isMulti}
                     styles={customStyles}

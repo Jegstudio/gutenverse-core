@@ -33,15 +33,15 @@ const PluginInstallMode = (props) => {
                     <IconInfoYellowSVG />
                 </div>
                 <div className="plugin-requirement-content">
-                    <strong>{__('Attention!', 'gutenverse')}</strong>
+                    <strong>{__('Attention!', '--gctd--')}</strong>
                     &nbsp;
-                    <span>{__('Please refresh this page after install or update plugin', 'gutenverse')}</span>
+                    <span>{__('Please refresh this page after install or update plugin', '--gctd--')}</span>
                 </div>
             </div>}
             <div className="plugin-install-container">
                 <div className="plugin-install-inner">
-                    <h2>{__('Plugin Requirement', 'gutenverse')}</h2>
-                    <p>{__('Please install or update and activate these missing requirements plugin for this section or layout to work correctly. We recommend to backup your site before install/update plugin listed below.', 'gutenverse')}</p>
+                    <h2>{__('Plugin Requirement', '--gctd--')}</h2>
+                    <p>{__('Please install or update and activate these missing requirements plugin for this section or layout to work correctly. We recommend to backup your site before install/update plugin listed below.', '--gctd--')}</p>
                 </div>
                 <PluginInstallItem
                     plugin={{
@@ -84,7 +84,7 @@ export const PluginInstallItem = (props) => {
 
     const installPlugin = () => {
         setLoading(true);
-        setLoadingString(__('Installing Plugin', 'gutenverse'));
+        setLoadingString(__('Installing Plugin', '--gctd--'));
 
         apiFetch({
             path: 'wp/v2/plugins',
@@ -115,7 +115,7 @@ export const PluginInstallItem = (props) => {
 
     const updatePlugin = () => {
         setLoading(true);
-        setLoadingString(__('Disabling Plugin', 'gutenverse'));
+        setLoadingString(__('Disabling Plugin', '--gctd--'));
 
         apiFetch({
             path: `wp/v2/plugins/plugin?plugin=${installed.path}`,
@@ -124,7 +124,7 @@ export const PluginInstallItem = (props) => {
                 status: 'inactive'
             }
         }).then(() => {
-            setLoadingString(__('Deleting Plugin', 'gutenverse'));
+            setLoadingString(__('Deleting Plugin', '--gctd--'));
 
             return apiFetch({
                 path: `wp/v2/plugins/plugin?plugin=${installed.path}`,
@@ -140,7 +140,7 @@ export const PluginInstallItem = (props) => {
             updatePlugin();
         } else {
             setLoading(true);
-            setLoadingString(__('Activating Plugin', 'gutenverse'));
+            setLoadingString(__('Activating Plugin', '--gctd--'));
             apiFetch({
                 path: `wp/v2/plugins/plugin?plugin=${installed.path}`,
                 method: 'POST',
@@ -172,17 +172,17 @@ export const PluginInstallItem = (props) => {
     </div>;
 
     const pluginPage = <a href={url} target={'_blank'} rel="noreferrer">
-        {__('Go to Plugin Page', 'gutenverse')} →
+        {__('Go to Plugin Page', '--gctd--')} →
     </a>;
 
     if (undefined === installed) {
         action = !isEmpty(url) ? pluginPage : <div className={singleClass} onClick={() => installPlugin()}>
             {loadingCircle}
-            {loading ? loadingString : __('Install Plugin', 'gutenverse')}
+            {loading ? loadingString : __('Install Plugin', '--gctd--')}
         </div>;
     } else {
         const invalidVersion = !isEmpty(version) && !semver.gte(installed.version, plugin.version || '0.0.0');
-        const string = invalidVersion ? __('Update & Activate Plugin', 'gutenverse') : __('Activate Plugin', 'gutenverse');
+        const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
         if (installed.active === false) {
             action = !isEmpty(url) ? pluginPage : <div className={singleClass} onClick={() => {
                 activatePlugin(invalidVersion)
@@ -195,7 +195,7 @@ export const PluginInstallItem = (props) => {
             if (invalidVersion) {
                 action = !isEmpty(url) ? pluginPage : <div className={singleClass} onClick={() => updatePlugin()}>
                     {loadingCircle}
-                    {loading ? loadingString : __('Update Plugin', 'gutenverse')}
+                    {loading ? loadingString : __('Update Plugin', '--gctd--')}
                 </div>;
             }
         }
@@ -209,7 +209,7 @@ export const PluginInstallItem = (props) => {
         />
         <div className="plugin-install-action">
             {action === null ? <div className="install-action done">
-                {__('Installed & Activated', 'gutenverse')}
+                {__('Installed & Activated', '--gctd--')}
             </div> : action}
         </div>
     </div>;
@@ -220,8 +220,8 @@ const PluginItemTitle = ({ version, name, installedVersion, flag }) => {
         <h2>{name}</h2>
         {
             flag ?
-                <span>{sprintf(__('Installed version %s', 'gutenverse'), installedVersion)}</span> :
-                !isEmpty(version) && <span>{sprintf(__('Required version %s or later', 'gutenverse'), version)}</span>
+                <span>{sprintf(__('Installed version %s', '--gctd--'), installedVersion)}</span> :
+                !isEmpty(version) && <span>{sprintf(__('Required version %s or later', '--gctd--'), version)}</span>
         }
     </div>;
 };

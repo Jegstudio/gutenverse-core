@@ -30,7 +30,7 @@ const LibraryModal = props => {
             <div className={'gutenverse-library-overlay'} onClick={closeImporter} />
             <div className={'gutenverse-library-container'}>
                 <div className={'gutenverse-library-header'}>
-                    <div className="gutenverse-header-logo"><LogoFullColorSVG />{__('Library', 'gutenverse')}</div>
+                    <div className="gutenverse-header-logo"><LogoFullColorSVG />{__('Library', '--gctd--')}</div>
                     <div className="gutenverse-section-switcher">
                         {modalData.libraryData.tabs.map((type, index) => {
                             const active = type.id === modalData.libraryData.active ? 'active' : '';

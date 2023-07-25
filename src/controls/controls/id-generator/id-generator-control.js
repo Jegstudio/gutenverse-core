@@ -36,7 +36,7 @@ const IDGeneratorControl = (props) => {
                 onChange={() => {}}
             />
             <div className={'gutenverse-control-button'} onClick={generateNewID}>
-                {__('Generate', 'gutenverse')}
+                {__('Generate', '--gctd--')}
             </div>
         </div>
     </div>;

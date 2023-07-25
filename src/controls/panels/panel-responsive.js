@@ -5,17 +5,17 @@ export const responsivePanel = () => {
     return [
         {
             id: 'hideDesktop',
-            label: __('Hide on Desktop', 'gutenverse'),
+            label: __('Hide on Desktop', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'hideTablet',
-            label: __('Hide on Tablet', 'gutenverse'),
+            label: __('Hide on Tablet', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'hideMobile',
-            label: __('Hide on Mobile', 'gutenverse'),
+            label: __('Hide on Mobile', '--gctd--'),
             component: CheckboxControl,
         },
     ];

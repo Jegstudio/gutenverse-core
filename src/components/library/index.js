@@ -14,17 +14,17 @@ const initLibraryState = {
         {
             id: 'layout',
             icon: <IconLayoutsSVG />,
-            label: __('Layouts', 'gutenverse'),
+            label: __('Layouts', '--gctd--'),
         },
         {
             id: 'section',
             icon: <IconBlocksSVG />,
-            label: __('Sections', 'gutenverse'),
+            label: __('Sections', '--gctd--'),
         },
         {
             id: 'favorite',
             icon: <IconLoveSVG />,
-            label: __('Favorite', 'gutenverse'),
+            label: __('Favorite', '--gctd--'),
         },
     ],
 };
@@ -79,7 +79,7 @@ const Library = () => {
                     <LogoFullWhiteSVG />
                 </div>
                 <span>
-                    {__('Library', 'gutenverse')}
+                    {__('Library', '--gctd--')}
                 </span>
             </div>
         </div>

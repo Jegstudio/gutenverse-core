@@ -34,7 +34,7 @@ const ChildIDGeneratorControl = (props) => {
     };
 
     const outLabel = <div className={'gutenverse-control-button'} onClick={() => generateChildIDs(clientId)}>
-        {__('Generate', 'gutenverse')}
+        {__('Generate', '--gctd--')}
     </div>;
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-child-id-generator'}>

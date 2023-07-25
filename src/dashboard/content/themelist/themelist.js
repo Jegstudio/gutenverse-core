@@ -91,7 +91,7 @@ const ThemeItem = (props) => {
                     setStatus(false);
                     setInitialAction('');
 
-                    createInfoNotice(__('Theme Activated', 'gutenverse'), {
+                    createInfoNotice(__('Theme Activated', '--gctd--'), {
                         type: 'snackbar',
                         isDismissible: true,
                     });
@@ -140,14 +140,14 @@ const ThemeItem = (props) => {
                     getInstalledThemes(() => {
                         setInitialAction('install' === initialAction ? 'activate' : '');
                         setStatus(false);
-                        createInfoNotice(__('Theme Installed', 'gutenverse'), {
+                        createInfoNotice(__('Theme Installed', '--gctd--'), {
                             type: 'snackbar',
                             isDismissible: true,
                         });
                     });
                 } else {
                     setStatus(false);
-                    createInfoNotice(__('Install Failed', 'gutenverse'), {
+                    createInfoNotice(__('Install Failed', '--gctd--'), {
                         type: 'snackbar',
                         isDismissible: true,
                     });
@@ -173,7 +173,7 @@ const ThemeItem = (props) => {
             return (
                 <span className={`${exist ? 'activate' : 'install'} theme-button`}>
                     <Loader size={14} />
-                    {exist ? __('Activating', 'gutenverse') : __('Installing', 'gutenverse')}
+                    {exist ? __('Activating', '--gctd--') : __('Installing', '--gctd--')}
                 </span>
             );
         }
@@ -181,7 +181,7 @@ const ThemeItem = (props) => {
         if (active) {
             return (
                 <span className="activate theme-button" onClick={() => (location.href = themeUrl + `${slug}-dashboard`)}>
-                    {__('Templates', 'gutenverse')}
+                    {__('Templates', '--gctd--')}
                 </span>
             );
         }
@@ -189,14 +189,14 @@ const ThemeItem = (props) => {
         if (exist) {
             return (
                 <span className="activate theme-button" onClick={() => activateTheme()}>
-                    {__('Activate', 'gutenverse')}
+                    {__('Activate', '--gctd--')}
                 </span>
             );
         }
 
         return (
             <span className="install theme-button" onClick={() => installTheme()}>
-                {__('Install', 'gutenverse')}
+                {__('Install', '--gctd--')}
             </span>
         );
     };
@@ -209,11 +209,11 @@ const ThemeItem = (props) => {
     const actionButton = () => {
         if (pro) {
             return <div className="theme-button pro" onClick={() => window.open(serverUrl)}>
-                {__('Upgrade to Pro', 'gutenverse')}
+                {__('Upgrade to Pro', '--gctd--')}
             </div>;
         } else {
             return requirementStatus?.length > 0 ? <div className="manage-plugin theme-button" onClick={setToCurrentItem}>
-                {__('Manage Plugin', 'gutenverse')}
+                {__('Manage Plugin', '--gctd--')}
             </div> : loadButton(active, exist);
         }
     };
@@ -224,7 +224,7 @@ const ThemeItem = (props) => {
                 <a href={demo} target="_blank" rel="noreferrer">
                     <img src={theme['cover'][0]} />
                 </a>
-                {active && <span className="status">{__('Active Theme', 'gutenverse')}</span>}
+                {active && <span className="status">{__('Active Theme', '--gctd--')}</span>}
             </div>
             <div className="theme-desc">
                 <h3 className="theme-title">
@@ -235,13 +235,13 @@ const ThemeItem = (props) => {
                     {requirementStatus?.length > 0 && <div className="section-requirement">
                         <div className="section-requirement-detail">
                             <p>{sprintf(
-                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, 'gutenverse'),
+                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
                                 requirementStatus.length
                             )}</p>
                             <a href="#" onClick={(e) => {
                                 setToCurrentItem();
                                 e.preventDefault();
-                            }}>{__('Manage Plugin Requirement →', 'gutenverse')}</a>
+                            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
                         </div>
                         <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
                             <IconInfoYellowSVG />
@@ -249,7 +249,7 @@ const ThemeItem = (props) => {
                     </div>}
                 </h3>
                 {author && <span className="theme-author">
-                    {__('by', 'gutenverse')} {author.name}
+                    {__('by', '--gctd--')} {author.name}
                 </span>}
                 <div className="theme-buttons">
                     {applyFilters(
@@ -259,7 +259,7 @@ const ThemeItem = (props) => {
                         pro
                     )}
                     <a href={demo} target="_blank" rel="noreferrer" className="demo theme-button">
-                        {__('View Demo', 'gutenverse')}
+                        {__('View Demo', '--gctd--')}
                     </a>
                 </div>
             </div>
@@ -291,14 +291,14 @@ const PluginInstallThemeList = props => {
                     </div>
                 </div>
                 <div className="plugin-install-inner">
-                    <h2>{sprintf(__('%s - Plugin Requirement', 'gutenverse'), data.title)}</h2>
-                    <p>{__('Please install or update and activate these missing requirements plugin for this themes to work correctly. We recommend to backup your site before install/update plugin listed below.', 'gutenverse')}</p>
+                    <h2>{sprintf(__('%s - Plugin Requirement', '--gctd--'), data.title)}</h2>
+                    <p>{__('Please install or update and activate these missing requirements plugin for this themes to work correctly. We recommend to backup your site before install/update plugin listed below.', '--gctd--')}</p>
                 </div>
                 <PluginInstallItem
                     plugin={{
                         installed: true,
                         name: 'Gutenverse',
-                        slug: 'gutenverse',
+                        slug: '--gctd--',
                         version: compatibleVersion
                     }}
                     plugins={installedPlugin}
@@ -362,12 +362,12 @@ const ThemesData = (props) => {
             return (
                 <div className="not-found">
                     <IconNotFoundSVG />
-                    <h2 className="not-found-title">{__('No result found!', 'gutenverse')}</h2>
-                    <span className="not-found-desc">{__('It seems we can’t find any results based on your search.', 'gutenverse')}</span>
+                    <h2 className="not-found-title">{__('No result found!', '--gctd--')}</h2>
+                    <span className="not-found-desc">{__('It seems we can’t find any results based on your search.', '--gctd--')}</span>
                     {'' !== keyword && (
                         <span className="not-found-button" onClick={() => setKeyword('')}>
                             <i className="fa fa-refresh" aria-hidden="true"></i>
-                            {__('Show All Themes', 'gutenverse')}
+                            {__('Show All Themes', '--gctd--')}
                         </span>
                     )}
                 </div>
@@ -499,9 +499,9 @@ const ThemeListPage = (props) => {
         />}
         <DashboardContent>
             <DashboardHeader>
-                <h2>{__('Discover themes for Gutenverse', 'gutenverse')}</h2>
+                <h2>{__('Discover themes for Gutenverse', '--gctd--')}</h2>
                 <div className="search-box">
-                    <input type="text" className="control-input-text" placeholder={__('Search Theme...', 'gutenverse')} value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+                    <input type="text" className="control-input-text" placeholder={__('Search Theme...', '--gctd--')} value={keyword} onChange={(e) => setKeyword(e.target.value)} />
                     <i className={keyword === '' ? 'fa fa-search' : 'fa fa-times'} aria-hidden="true" onClick={() => setKeyword('')}></i>
                 </div>
             </DashboardHeader>

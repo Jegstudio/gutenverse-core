@@ -65,9 +65,9 @@ const BoxShadowControl = ({
         <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Box Shadow', 'gutenverse')}
+                    {__('Box Shadow', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(undefined);
@@ -77,13 +77,13 @@ const BoxShadowControl = ({
                 </Tooltip>
             </div>
             <ColorControl
-                label={__('Color', 'gutenverse')}
+                label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
             <RangeControl
-                label={__('Horizontal', 'gutenverse')}
+                label={__('Horizontal', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}
@@ -92,7 +92,7 @@ const BoxShadowControl = ({
                 onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
             />
             <RangeControl
-                label={__('Vertical', 'gutenverse')}
+                label={__('Vertical', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}
@@ -101,7 +101,7 @@ const BoxShadowControl = ({
                 onStyleChange={vertical => onStyleChange({ ...value, vertical })}
             />
             <RangeControl
-                label={__('Blur', 'gutenverse')}
+                label={__('Blur', '--gctd--')}
                 min={0}
                 max={100}
                 step={1}
@@ -110,7 +110,7 @@ const BoxShadowControl = ({
                 onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
             <RangeControl
-                label={__('Spread', 'gutenverse')}
+                label={__('Spread', '--gctd--')}
                 min={-100}
                 max={100}
                 step={1}
@@ -119,17 +119,17 @@ const BoxShadowControl = ({
                 onStyleChange={spread => onStyleChange({ ...value, spread })}
             />
             <SelectControl
-                label={__('Position')}
+                label={__('Position', '--gctd--')}
                 value={value.position}
                 onValueChange={position => onValueChange({ ...value, position })}
                 onStyleChange={position => onStyleChange({ ...value, position })}
                 options={[
                     {
-                        label: __('Outset'),
+                        label: __('Outset', '--gctd--'),
                         value: 'outline'
                     },
                     {
-                        label: __('Inset'),
+                        label: __('Inset', '--gctd--'),
                         value: 'inset'
                     }
                 ]}

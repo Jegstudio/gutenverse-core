@@ -194,7 +194,7 @@ class Init {
 	public function register_menu_position() {
 		register_nav_menus(
 			array(
-				'primary' => __( 'Primary Navigation', 'gutenverse' ),
+				'primary' => esc_html__( 'Primary Navigation', '--gctd--' ),
 			)
 		);
 	}
@@ -317,8 +317,8 @@ class Init {
 		<div class="notice is-dismissible install-gutenverse-plugin-notice">
 			<div class="gutenverse-notice-inner">
 				<div class="gutenverse-notice-content">
-					<h3><?php esc_html_e( 'WordPress 5.9 required for Gutenverse.', 'gutenverse' ); ?></h3>
-					<p><?php esc_html_e( 'You are currently using lower version of WordPress, we recommend to update to WordPress 5.9 or higher. Or if you want to keep using lower version of WordPress, please install the latest version of Gutenberg', 'gutenverse' ); ?></p>					
+					<h3><?php esc_html_e( 'WordPress 5.9 required for Gutenverse.', '--gctd--' ); ?></h3>
+					<p><?php esc_html_e( 'You are currently using lower version of WordPress, we recommend to update to WordPress 5.9 or higher. Or if you want to keep using lower version of WordPress, please install the latest version of Gutenberg', '--gctd--' ); ?></p>					
 				</div>
 			</div>
 		</div>

@@ -5,8 +5,8 @@ export const IDPanel = () => {
     return [
         {
             id: 'elementId',
-            label: __('Block Element ID', 'gutenverse'),
-            description: __('This is the block\'s ID. Click Generate to create a new ID.'),
+            label: __('Block Element ID', '--gctd--'),
+            description: __('This is the block\'s ID. Click Generate to create a new ID.', '--gctd--'),
             component: IDGeneratorControl,
         },
     ];

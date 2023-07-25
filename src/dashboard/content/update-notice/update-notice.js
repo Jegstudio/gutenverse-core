@@ -68,7 +68,7 @@ const UpdateNotice = ({location}) => {
                 </div>
                 <div className="upgrade-notice-head">
                     <div>
-                        <div className="upgrade-notice-title">{sprintf(__("%s Version %s", "gutenverse"), name, version)}</div>
+                        <div className="upgrade-notice-title">{sprintf(__('%s Version %s', '--gctd--'), name, version)}</div>
                     </div>
                 </div>
                 <div className="upgrade-notice-body">
@@ -77,7 +77,7 @@ const UpdateNotice = ({location}) => {
                 <div className="upgrade-notice-footer">
                     <div>
                         <div className="upgrade-history">
-                            <h2>{__("Version History", "gutenverse")}</h2>
+                            <h2>{__('Version History', '--gctd--')}</h2>
                             <ul className={loaded >= versions.length ? "loaded" : ""}>
                                 {versions.slice(0, loaded).map((version) => (
                                     <li key={version}>
@@ -88,7 +88,7 @@ const UpdateNotice = ({location}) => {
                                                 search: `?page=${page}&plugin=${plugin}&path=${path}&version=${version}`,
                                             }}
                                         >
-                                            {__("Version %s", "gutenverse").replace("%s", version)}
+                                            {__('Version %s', '--gctd--').replace("%s", version)}
                                         </Link>
                                     </li>
                                 ))}
@@ -107,7 +107,7 @@ const UpdateNotice = ({location}) => {
                                         search: `?page=${page}&plugin=${plugin}&path=${path}&version=${prevVersion}`,
                                     }}
                                 >
-                                    <button className={`prev ${versions[versions.length - 1] === version ? "disable" : ""}`}>{__("Prev", "gutenverse")}</button>
+                                    <button className={`prev ${versions[versions.length - 1] === version ? "disable" : ""}`}>{__('Prev', '--gctd--')}</button>
                                 </Link>
                                 <Link
                                     to={{
@@ -115,7 +115,7 @@ const UpdateNotice = ({location}) => {
                                         search: `?page=${page}&plugin=${plugin}&path=${path}&version=${nextVersion}`,
                                     }}
                                 >
-                                    <button className={`next ${versions[0] === version ? "disable" : ""}`}>{__("Next", "gutenverse")}</button>
+                                    <button className={`next ${versions[0] === version ? "disable" : ""}`}>{__('Next', '--gctd--')}</button>
                                 </Link>
                             </div>
                         </div>

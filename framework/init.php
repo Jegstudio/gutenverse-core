@@ -157,10 +157,10 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 						</svg>
 					</div>
 					<div class="notice-content">
-						<h2><?php esc_html_e( 'Important Gutenverse Compatibility Notice!', 'gutenverse' ); ?></h2>
+						<h2><?php esc_html_e( 'Important Gutenverse Compatibility Notice!', '--gctd--' ); ?></h2>
 						<p>
 						<?php
-						esc_html_e( 'You are currently using lower version of Gutenverse plugin, we highly recommend to update to Gutenverse 2.0 or higher so you can continue using these plugins :', 'gutenverse' );
+						esc_html_e( 'You are currently using lower version of Gutenverse plugin, we highly recommend to update to Gutenverse 2.0 or higher so you can continue using these plugins :', '--gctd--' );
 						?>
 						</p>
 						<ul class="plugin-list">
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 						?>
 						</ul>
 						<div class="gutenverse-upgrade-action">
-							<a class='update-action' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><strong><?php esc_html_e( 'Update Gutenverse Now!', 'gutenverse' ); ?></strong></a>
+							<a class='update-action' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><strong><?php esc_html_e( 'Update Gutenverse Now!', '--gctd--' ); ?></strong></a>
 						</div>
 					</div>
 				</div>

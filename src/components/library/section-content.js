@@ -20,7 +20,7 @@ const SectionContent = (props) => {
         name={currentItem.title}
         data={currentItem}
         setPluginInstallMode={setPluginInstallMode}
-        backString={__('Back to sections', 'gutenverse')}
+        backString={__('Back to sections', '--gctd--')}
     />}
     <div className="gutenverse-library-inner-body">
         <SectionContentWrapper
@@ -118,15 +118,15 @@ const SectionContentWrapper = (props) => {
     return <>
         <div className="gutenverse-library-sidebar">
             <>
-                <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', 'gutenverse')}</h2>
+                <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
             </>
             {authors.length > 1 && <>
-                <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
+                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
             </>}
             <h2 className="gutenverse-library-side-heading">
-                {__('Categories', 'gutenverse')}
+                {__('Categories', '--gctd--')}
             </h2>
             <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
         </div>
@@ -154,7 +154,7 @@ export const SectionContentData = props => {
             <div className="empty-svg">
                 <IconEmptySVG />
             </div>
-            <h3>{__('Empty Result', 'gutenverse')}</h3>
+            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
             <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
@@ -263,33 +263,33 @@ const SectionContentItem = props => {
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>
                             <div className="section-button-inner">
                                 <span>
-                                    {__('Missing Requirement', 'gutenverse')}
+                                    {__('Missing Requirement', '--gctd--')}
                                     <br />
-                                    {__('Click for more detail', 'gutenverse')}
+                                    {__('Click for more detail', '--gctd--')}
                                 </span>
                             </div>
                         </div>
                     </div>}
-                    {item.pro && <div className="pro-flag">{__('PRO', 'gutenverse')}</div>}
+                    {item.pro && <div className="pro-flag">{__('PRO', '--gctd--')}</div>}
                 </div>
             </div>
         </div>
         <div className="library-item-bottom">
             <div className="library-item-wrapper">
                 <div className="library-item-left">
-                    {item.author && <span className="by">{__('by', 'gutenverse')} {item.author.name}</span>}
+                    {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
                 </div>
                 <div className="library-item-right">
                     {requirementStatus?.length > 0 && <div className="section-requirement">
                         <div className="section-requirement-detail">
                             <p>{sprintf(
-                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, 'gutenverse'),
+                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
                                 requirementStatus.length
                             )}</p>
                             <a href="#" onClick={(e) => {
                                 setToCurrentItem();
                                 e.preventDefault();
-                            }}>{__('Manage Plugin Requirement →', 'gutenverse')}</a>
+                            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
                         </div>
                         <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
                             <IconInfoYellowSVG />

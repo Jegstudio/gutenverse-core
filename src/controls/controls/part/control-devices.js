@@ -43,15 +43,15 @@ const ControlDevices = () => {
         {open && <ul className={'triangle'}>
             <li className={deviceType === 'Desktop' ? 'active' : ''} onClick={() => changeDevice('Desktop')}>
                 <span><IconDeviceDesktopSVG /></span>
-                <span>{__('Desktop', 'gutenverse')}</span>
+                <span>{__('Desktop', '--gctd--')}</span>
             </li>
             <li className={deviceType === 'Tablet' ? 'active' : ''} onClick={() => changeDevice('Tablet')}>
                 <span><IconDeviceTabletSVG /></span>
-                <span>{__('Tablet', 'gutenverse')}</span>
+                <span>{__('Tablet', '--gctd--')}</span>
             </li>
             <li className={deviceType === 'Mobile' ? 'active' : ''} onClick={() => changeDevice('Mobile')}>
                 <span><IconDeviceMobileSVG /></span>
-                <span>{__('Phone', 'gutenverse')}</span>
+                <span>{__('Phone', '--gctd--')}</span>
             </li>
         </ul>}
     </div>;

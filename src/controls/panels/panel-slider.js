@@ -9,7 +9,7 @@ export const sliderPanel = (props) => {
     return [
         {
             id: 'spacing',
-            label: __('Spacing Horizontal', 'gutenverse'),
+            label: __('Spacing Horizontal', '--gctd--'),
             component: RangeControl,
             min: 1,
             max: 50,
@@ -18,7 +18,7 @@ export const sliderPanel = (props) => {
         },
         {
             id: 'itemShowed',
-            label: __('Number Showed', 'gutenverse'),
+            label: __('Number Showed', '--gctd--'),
             component: RangeControl,
             min: 1,
             max: 5,
@@ -27,28 +27,28 @@ export const sliderPanel = (props) => {
         },
         {
             id: 'loop',
-            label: __('Loop', 'gutenverse'),
+            label: __('Loop', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'showNav',
-            label: __('Show Dots', 'gutenverse'),
+            label: __('Show Dots', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'showArrow',
-            label: __('Show Arrow', 'gutenverse'),
+            label: __('Show Arrow', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'autoplay',
-            label: __('Autoplay', 'gutenverse'),
+            label: __('Autoplay', '--gctd--'),
             component: CheckboxControl,
         },
         {
             id: 'autoplayTimeout',
             show: autoplay,
-            label: __('Autoplay Speed (ms)', 'gutenverse'),
+            label: __('Autoplay Speed (ms)', '--gctd--'),
             component: NumberControl,
         },
     ];

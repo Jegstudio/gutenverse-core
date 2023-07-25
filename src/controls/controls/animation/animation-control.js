@@ -7,7 +7,7 @@ import { applyFilters } from '@wordpress/hooks';
 const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
     return <div id={id}>
         <SelectControl
-            label={__('Animation Entrance', 'gutenverse')}
+            label={__('Animation Entrance', '--gctd--')}
             value={value.type}
             allowDeviceControl={true}
             onValueChange={type => onValueChange({ ...value, type })}
@@ -54,35 +54,35 @@ const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
                     value: 'slideInUp'
                 },
                 // {
-                //     label: __('More Options', 'gutenverse'),
+                //     label: __('More Options', '--gctd--'),
                 //     value: 'more',
                 //     pro: true
                 // },
             ]}
         />
         <SelectControl
-            label={__('Duration', 'gutenverse')}
+            label={__('Duration', '--gctd--')}
             value={value.duration}
             onValueChange={duration => onValueChange({ ...value, duration })}
             onStyleChange={duration => onStyleChange({ ...value, duration })}
             options={[
                 {
-                    label: __('Normal', 'gutenverse'),
+                    label: __('Normal', '--gctd--'),
                     value: 'normal'
                 },
                 {
-                    label: __('Slow', 'gutenverse'),
+                    label: __('Slow', '--gctd--'),
                     value: 'slow'
                 },
                 {
-                    label: __('Fast', 'gutenverse'),
+                    label: __('Fast', '--gctd--'),
                     value: 'fast'
                 },
             ]}
         />
         <NumberControl
-            label={__('Delay (ms)', 'gutenverse')}
-            description={__('Input in miliseconds (ms). Later will be converted into second (s)', 'gutenverse')}
+            label={__('Delay (ms)', '--gctd--')}
+            description={__('Input in miliseconds (ms). Later will be converted into second (s)', '--gctd--')}
             value={value.delay}
             min={100}
             max={5000}

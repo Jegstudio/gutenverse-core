@@ -25,7 +25,7 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
     return openPopup ? <Prompt closePrompt={() => closePopup()} className={'variable-font'}>
         <PromptHeader>
             <>
-                <h3>{__('Delete Font Variable', 'gutenverse')}</h3>
+                <h3>{__('Delete Font Variable', '--gctd--')}</h3>
                 <div className={'gutenverse-close'} onClick={() => closePopup()}>
                     <IconCloseSVG size={20} />
                 </div>
@@ -33,13 +33,13 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
         </PromptHeader>
         <PromptContent>
             <>
-                <p>{__('You are about to delete one of your Font Variable. If you are assign this variable to blocks, it will lost the typography.', 'gutenverse')}</p>
+                <p>{__('You are about to delete one of your Font Variable. If you are assign this variable to blocks, it will lost the typography.', '--gctd--')}</p>
                 <div className={'prompt-buttons'}>
                     <div className={'prompt-button cancel'} onClick={() => closePopup()}>
-                        {__('Cancel', 'gutenverse')}
+                        {__('Cancel', '--gctd--')}
                     </div>
                     <div className={'prompt-button submit'} onClick={() => deleteColor(value.id)}>
-                        {__('Delete', 'gutenverse')}
+                        {__('Delete', '--gctd--')}
                     </div>
                 </div>
             </>
@@ -92,14 +92,14 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
     return <div className={classnames('gutenverse-control-wrapper', 'gutenverse-control-typography')}>
         <div className={'single-variable-font-wrapper'}>
             <div className={'single-variable-item-wrapper'}>
-                <Tooltip text={__('Edit', 'gutenverse')}>
+                <Tooltip text={__('Edit', '--gctd--')}>
                     <div className={toggleClass} onClick={() => toggleOpen()} ref={fontRef}>
                         <Edit2 size={12} />
                     </div>
                 </Tooltip>
                 <input type="text" value={value.name} onChange={editName} className={'font-name'} />
             </div>
-            <Tooltip text={__('Delete', 'gutenverse')}>
+            <Tooltip text={__('Delete', '--gctd--')}>
                 <div className={'font-delete'} onClick={() => setOpenPopup(true)}>
                     <Trash size={12} />
                 </div>
@@ -108,9 +108,9 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
         {open && <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Typography', 'gutenverse')}
+                    {__('Typography', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => onTypographyChange({})} />
                     </span>
@@ -118,7 +118,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
             </div>
             <>
                 <FontControl
-                    label={__('Font Family', 'gutenverse')}
+                    label={__('Font Family', '--gctd--')}
                     value={value.font.font}
                     onValueChange={font => onTypographyChange({ ...value.font, font })}
                     onStyleChange={() => { }}
@@ -126,7 +126,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                 <div className={'font-value-wrapper'}>
                     <div>
                         <SizeControl
-                            label={__('Size', 'gutenverse')}
+                            label={__('Size', '--gctd--')}
                             value={value.font.size}
                             allowDeviceControl={true}
                             hideRange={true}
@@ -134,21 +134,21 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             onStyleChange={() => { }}
                         />
                         <SelectControl
-                            label={__('Weight', 'gutenverse')}
+                            label={__('Weight', '--gctd--')}
                             value={value.font.weight}
                             onValueChange={weight => onTypographyChange({ ...value.font, weight })}
                             onStyleChange={() => { }}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                                 {
-                                    label: __('Bold', 'gutenverse'),
+                                    label: __('Bold', '--gctd--'),
                                     value: 'bold'
                                 },
                                 {
@@ -190,25 +190,25 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             ]}
                         />
                         <SelectControl
-                            label={__('Style', 'gutenverse')}
+                            label={__('Style', '--gctd--')}
                             value={value.font.style}
                             onValueChange={style => onTypographyChange({ ...value.font, style })}
                             onStyleChange={() => { }}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                                 {
-                                    label: __('Italic', 'gutenverse'),
+                                    label: __('Italic', '--gctd--'),
                                     value: 'italic'
                                 },
                                 {
-                                    label: __('Oblique', 'gutenverse'),
+                                    label: __('Oblique', '--gctd--'),
                                     value: 'oblique'
                                 },
                             ]}
@@ -216,7 +216,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     </div>
                     <div>
                         <SizeControl
-                            label={__('Line Height', 'gutenverse')}
+                            label={__('Line Height', '--gctd--')}
                             value={value.font.lineHeight}
                             allowDeviceControl={true}
                             hideRange={true}
@@ -240,57 +240,57 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             onStyleChange={() => { }}
                         />
                         <SelectControl
-                            label={__('Transform', 'gutenverse')}
+                            label={__('Transform', '--gctd--')}
                             value={value.font.transform}
                             onValueChange={transform => onTypographyChange({ ...value.font, transform })}
                             onStyleChange={() => { }}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Uppercase', 'gutenverse'),
+                                    label: __('Uppercase', '--gctd--'),
                                     value: 'uppercase'
                                 },
                                 {
-                                    label: __('Lowercase', 'gutenverse'),
+                                    label: __('Lowercase', '--gctd--'),
                                     value: 'lowercase'
                                 },
                                 {
-                                    label: __('Capitalize', 'gutenverse'),
+                                    label: __('Capitalize', '--gctd--'),
                                     value: 'capitalize'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                             ]}
                         />
                         <SelectControl
-                            label={__('Decoration', 'gutenverse')}
+                            label={__('Decoration', '--gctd--')}
                             value={value.font.decoration}
                             onValueChange={decoration => onTypographyChange({ ...value.font, decoration })}
                             onStyleChange={() => { }}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Underline', 'gutenverse'),
+                                    label: __('Underline', '--gctd--'),
                                     value: 'underline'
                                 },
                                 {
-                                    label: __('Overline', 'gutenverse'),
+                                    label: __('Overline', '--gctd--'),
                                     value: 'overline'
                                 },
                                 {
-                                    label: __('Line Through', 'gutenverse'),
+                                    label: __('Line Through', '--gctd--'),
                                     value: 'line-through'
                                 },
                                 {
-                                    label: __('None', 'gutenverse'),
+                                    label: __('None', '--gctd--'),
                                     value: 'none'
                                 },
                             ]}
@@ -298,7 +298,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     </div>
                 </div>
                 <RangeControl
-                    label={__('Letter Spacing', 'gutenverse')}
+                    label={__('Letter Spacing', '--gctd--')}
                     min={-10}
                     max={10}
                     step={0.1}
@@ -319,7 +319,7 @@ const GlobalVariableFont = (props) => {
     const addVariableFont = () => {
         const newFont = {
             id: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
-            name: __('Variable Font', 'gutenverse'),
+            name: __('Variable Font', '--gctd--'),
             font: {}
         };
 
@@ -348,29 +348,29 @@ const GlobalVariableFont = (props) => {
     return <>
         <PanelTutorial
             style={{ margin: '0 0 15px' }}
-            title={__('Font Variable', 'gutenverse')}
+            title={__('Font Variable', '--gctd--')}
             list={[
                 {
-                    title: __('Where it shown?', 'gutenverse'),
-                    description: __('All Font Registered on this panel, will shown on each typography option of block.', 'gutenverse')
+                    title: __('Where it shown?', '--gctd--'),
+                    description: __('All Font Registered on this panel, will shown on each typography option of block.', '--gctd--')
                 },
                 {
-                    title: __('What happened if i change this option.', 'gutenverse'),
-                    description: __('By Changing this option, you will also change every block typograhpy assigned to this option.', 'gutenverse')
+                    title: __('What happened if i change this option.', '--gctd--'),
+                    description: __('By Changing this option, you will also change every block typograhpy assigned to this option.', '--gctd--')
                 },
                 {
-                    title: __('Save Behaviour', 'gutenverse'),
-                    description: __('Option will automatically saved after you change it.', 'gutenverse')
+                    title: __('Save Behaviour', '--gctd--'),
+                    description: __('Option will automatically saved after you change it.', '--gctd--')
                 }
             ]}
         />
         {isEmpty(variableFont) ? <div className={'font-variable-wrapper'}>
             <div className="empty-variable" onClick={() => addVariableFont()}>
-                {__('Empty Variable Font', 'gutenverse')}
+                {__('Empty Variable Font', '--gctd--')}
             </div>
             <div className={'font-variable-add'}>
                 <div onClick={() => addVariableFont()} >
-                    {__('Create Font', 'gutenverse')}
+                    {__('Create Font', '--gctd--')}
                 </div>
             </div>
         </div> : <div className={'font-variable-wrapper'}>
@@ -379,7 +379,7 @@ const GlobalVariableFont = (props) => {
             })}
             <div className={'font-variable-add'}>
                 <div onClick={() => addVariableFont()}>
-                    {__('Add Font', 'gutenverse')}
+                    {__('Add Font', '--gctd--')}
                 </div>
             </div>
         </div>}
@@ -388,7 +388,7 @@ const GlobalVariableFont = (props) => {
             </textarea>
             <div className={'variable-import'}>
                 <div onClick={() => onImportFonts()}>
-                    {__('Import Fonts', 'gutenverse')}
+                    {__('Import Fonts', '--gctd--')}
                 </div>
             </div>
         </div>} */}

@@ -37,8 +37,8 @@ class Fonts {
 	 */
 	public function get_font_groups() {
 		$groups = array(
-			self::SYSTEM_FONT => __( 'System', 'gutenverse' ),
-			self::GOOGLE_FONT => __( 'Google', 'gutenverse' ),
+			self::SYSTEM_FONT => __( 'System', '--gctd--' ),
+			self::GOOGLE_FONT => __( 'Google', '--gctd--' ),
 		);
 
 		return apply_filters( 'gutenverse_font_groups', $groups );
@@ -1627,8 +1627,8 @@ class Fonts {
 	 */
 	public function get_font_weights() {
 		$weights = array(
-			'normal' => esc_html__( 'Normal', 'gutenverse' ),
-			'bold'   => esc_html__( 'Bold', 'gutenverse' ),
+			'normal' => esc_html__( 'Normal', '--gctd--' ),
+			'bold'   => esc_html__( 'Bold', '--gctd--' ),
 			'100'    => '100',
 			'200'    => '200',
 			'300'    => '300',
@@ -1650,8 +1650,8 @@ class Fonts {
 	 */
 	public function get_font_styles() {
 		$styles = array(
-			'normal' => esc_html__( 'Normal', 'gutenverse' ),
-			'italic' => esc_html__( 'Italic', 'gutenverse' ),
+			'normal' => esc_html__( 'Normal', '--gctd--' ),
+			'italic' => esc_html__( 'Italic', '--gctd--' ),
 		);
 
 		return apply_filters( 'gutenverse_font_styles', $styles );
@@ -1664,10 +1664,10 @@ class Fonts {
 	 */
 	public function get_font_transform() {
 		$styles = array(
-			'uppercase'  => esc_html__( 'Uppercase', 'gutenverse' ),
-			'capitalize' => esc_html__( 'Capitalize', 'gutenverse' ),
-			'lowercase'  => esc_html__( 'Lowercase', 'gutenverse' ),
-			'none'       => esc_html__( 'None', 'gutenverse' ),
+			'uppercase'  => esc_html__( 'Uppercase', '--gctd--' ),
+			'capitalize' => esc_html__( 'Capitalize', '--gctd--' ),
+			'lowercase'  => esc_html__( 'Lowercase', '--gctd--' ),
+			'none'       => esc_html__( 'None', '--gctd--' ),
 		);
 
 		return apply_filters( 'gutenverse_font_transform', $styles );

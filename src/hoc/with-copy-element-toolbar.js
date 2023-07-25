@@ -15,7 +15,7 @@ export const withCopyElementToolbar = () => (BlockElement) => {
         const copyText = async () => {
             await navigator.clipboard.writeText(elementId);
 
-            setDummyID(__('Copied...', 'gutenverse'));
+            setDummyID(__('Copied...', '--gctd--'));
             setTimeout(() => {
                 setDummyID(elementId);
             }, 500);
@@ -29,7 +29,7 @@ export const withCopyElementToolbar = () => (BlockElement) => {
             <BlockElement {...props} />
             <BlockControls>
                 <ToolbarGroup>
-                    <Tooltip text={__('Click to Copy Element Id', 'gutenverse')}>
+                    <Tooltip text={__('Click to Copy Element Id', '--gctd--')}>
                         <div className="copy-clipboard">
                             <input className="copy-wrapper" onClick={copyText} ref={copyRef} value={dummyID} readOnly={true} type={'text'} />
                         </div>

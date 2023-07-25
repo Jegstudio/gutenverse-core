@@ -81,14 +81,14 @@ const ImageSizeControl = (props) => {
                                             <Trash/>
                                         </div>
                                         <div className={'image-preview'} style={{backgroundImage: `url(${sizes.full.url})`}}/>
-                                        <div className={'image-change'}>{__('Change Image', 'gutenverse')}</div>
+                                        <div className={'image-change'}>{__('Change Image', '--gctd--')}</div>
                                     </div>
                                 </>;
                             } else {
                                 return <Button
                                     className={'select-image'}
                                     onClick={open}>
-                                    {__('Select Image', 'gutenverse')}
+                                    {__('Select Image', '--gctd--')}
                                 </Button>;
                             }
                         }}/>
@@ -98,7 +98,7 @@ const ImageSizeControl = (props) => {
         {imageId && <div className={'gutenverse-control-image-upload'}>
             <div className={'control-body'}>
                 <SelectControl
-                    label={__('Image Size', 'gutenverse')}
+                    label={__('Image Size', '--gctd--')}
                     value={size}
                     onValueChange={size => onValueChange({...value, size})}
                     onStyleChange={size => onStyleChange({...value, size})}

@@ -76,7 +76,7 @@ const FavoriteContent = props => {
 
     useEffect(() => {
         if (license !== false) {
-            setLicenseData({ value: '', label: __('All', 'gutenverse') });
+            setLicenseData({ value: '', label: __('All', '--gctd--') });
         }
     }, [layoutContentData.library]);
 
@@ -136,13 +136,13 @@ const FavoriteContent = props => {
             name={currentItem.title}
             data={currentItem}
             setPluginInstallMode={setPluginInstallMode}
-            backString={'layout' === layoutContentData.library ? sprintf(__('Back to %s', 'gutenverse'), currentItem.title) : __('Back to sections', 'gutenverse')}
+            backString={'layout' === layoutContentData.library ? sprintf(__('Back to %s', '--gctd--'), currentItem.title) : __('Back to sections', '--gctd--')}
         />}
         {singleId !== null && 'layout' === layoutContentData.library && <SingleLayoutContent
             id={singleId}
             slug={slug}
             setSingleId={setSingleId}
-            backText={__('Back to Favorite Layout', 'gutenverse')}
+            backText={__('Back to Favorite Layout', '--gctd--')}
             closeImporter={props.closeImporter}
             changeContentLike={changeContentLike}
             setSingleData={setCurrentItem}
@@ -153,32 +153,32 @@ const FavoriteContent = props => {
         <div className="gutenverse-library-inner-body">
             <div className="gutenverse-library-sidebar">
                 <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}>
-                    {__('Library', 'gutenverse')}
+                    {__('Library', '--gctd--')}
                 </h2>
                 <ul className="gutenverse-sidebar-list">
                     <li className={layoutContentData.library === 'layout' ? 'active' : ''} onClick={() => {
                         setLibrary('layout');
                         dispatch( 'gutenverse/library' ).setCategories('');
                     }}>
-                        <IconLayoutsSVG /><span>{__('Layout', 'gutenverse')}</span>
+                        <IconLayoutsSVG /><span>{__('Layout', '--gctd--')}</span>
                     </li>
                     <li className={layoutContentData.library === 'section' ? 'active' : ''} onClick={() => {
                         setLibrary('section');
                         dispatch( 'gutenverse/library' ).setCategories('');
                     }}>
-                        <IconBlocksSVG /><span>{__('Section', 'gutenverse')}</span>
+                        <IconBlocksSVG /><span>{__('Section', '--gctd--')}</span>
                     </li>
                 </ul>
                 <>
-                    <h2 className="gutenverse-library-side-heading">{__('Licenses', 'gutenverse')}</h2>
+                    <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                     <SelectLicense license={license} setLicense={setLicense}/>
                 </>
                 {authors.length > 1 && <>
-                    <h2 className="gutenverse-library-side-heading">{__('Author', 'gutenverse')}</h2>
+                    <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                     <SelectAuthor authors={authors} author={author} setAuthor={setAuthor}/>
                 </>}
                 <h2 className="gutenverse-library-side-heading">
-                    {__('Categories', 'gutenverse')}
+                    {__('Categories', '--gctd--')}
                 </h2>
                 <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
             </div>

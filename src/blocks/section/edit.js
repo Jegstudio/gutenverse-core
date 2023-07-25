@@ -137,7 +137,7 @@ const SectionAddColumn = ({ clientId }) => {
     return <ToolbarButton
         name="add-column"
         icon={<IconToolbarColumnAddSVG />}
-        title={__('Add Column', 'gutenverse')}
+        title={__('Add Column', '--gctd--')}
         onClick={() => addNewColumn()}
     />;
 };

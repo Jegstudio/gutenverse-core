@@ -146,7 +146,7 @@ if ( ! function_exists( 'gutenverse_ago_time' ) ) {
 		return esc_html(
 			sprintf(
 				/* translators: 1: Time from now. */
-				esc_html__( '%s ago', 'gutenverse' ),
+				esc_html__( '%s ago', '--gctd--' ),
 				$time
 			)
 		);
@@ -902,7 +902,7 @@ if ( ! function_exists( 'gutenverse_permission_check_admin' ) ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return new WP_Error(
 				'forbidden_permission',
-				esc_html__( 'Forbidden Access', 'gutenverse' ),
+				esc_html__( 'Forbidden Access', '--gctd--' ),
 				array( 'status' => 403 )
 			);
 		}
@@ -921,7 +921,7 @@ if ( ! function_exists( 'gutenverse_permission_check_author' ) ) {
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			return new WP_Error(
 				'forbidden_permission',
-				esc_html__( 'Forbidden Access', 'gutenverse' ),
+				esc_html__( 'Forbidden Access', '--gctd--' ),
 				array( 'status' => 403 )
 			);
 		}

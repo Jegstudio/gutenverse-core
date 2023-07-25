@@ -36,15 +36,15 @@ class Import_Template {
 		<div class="notice is-dismissible">
 			<span>
 			<?php
-				echo esc_html_e( 'Thank you for installing Gutenverse templates!', 'gutenverse' );
+				echo esc_html_e( 'Thank you for installing Gutenverse templates!', '--gctd--' );
 				printf(
 					// translators: %2$s site editor url.
-					esc_html__( '%1$s %2$s', 'gutenverse' ),
-					esc_html__( ' Check out your tempates in ', 'gutenverse' ),
+					esc_html__( '%1$s %2$s', '--gctd--' ),
+					esc_html__( ' Check out your tempates in ', '--gctd--' ),
 					sprintf(
 						'<a href="%s">%s</a>',
 						esc_url( admin_url( 'site-editor.php' ) ),
-						esc_html__( 'Fullsite Editor.', 'gutenverse' )
+						esc_html__( 'Fullsite Editor.', '--gctd--' )
 					)
 				);
 			?>

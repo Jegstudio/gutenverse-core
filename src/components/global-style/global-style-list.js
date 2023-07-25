@@ -6,17 +6,17 @@ import { AlertControl } from 'gutenverse-core/controls';
 const GlobalVariableList = ({ setStage }) => {
     return <>
         <AlertControl>
-            <span>{__('Current color and font variables are tied to your current active theme.', 'gutenverse')}</span>
+            <span>{__('Current color and font variables are tied to your current active theme.', '--gctd--')}</span>
         </AlertControl>
-        <h3>{__('CSS Variable', 'gutenverse')}</h3>
+        <h3>{__('CSS Variable', '--gctd--')}</h3>
         <div className={'global-style-options'}>
             <ul>
                 <li onClick={() => setStage('color')}>
-                    {__('Color Variable', 'gutenverse')}
+                    {__('Color Variable', '--gctd--')}
                     <Edit3 size={12} />
                 </li>
                 <li onClick={() => setStage('font')}>
-                    {__('Font Variable', 'gutenverse')}
+                    {__('Font Variable', '--gctd--')}
                     <Edit3 size={12} />
                 </li>
             </ul>

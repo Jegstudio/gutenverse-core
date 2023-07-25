@@ -38,7 +38,7 @@ class Blocks {
 		$categories = apply_filters(
 			'gutenverse_block_categories',
 			array(
-				'gutenverse-structure' => __( 'Gutenverse Wrapper', 'gutenverse' ),
+				'gutenverse-structure' => esc_html__( 'Gutenverse Wrapper', '--gctd--' ),
 			)
 		);
 

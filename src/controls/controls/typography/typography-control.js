@@ -32,9 +32,9 @@ const VariableFontItem = (props) => {
 const EmptyVariableFont = ({ onClick }) => {
     return <div className={'variable-font-empty'}>
         <span>
-            <h3>{__('Empty Variable Font', 'gutenverse')}</h3>
+            <h3>{__('Empty Variable Font', '--gctd--')}</h3>
             <div onClick={() => onClick()} className={'gutenverse-button'}>
-                {__('Add Global Fonts', 'gutenverse')}
+                {__('Add Global Fonts', '--gctd--')}
             </div>
         </span>
     </div>;
@@ -126,7 +126,7 @@ const TypographyControl = (props) => {
 
     const TypographyToggle = () => <div className={'control-font-wrapper'}>
         <div className={'control-font-header'}>
-            <Tooltip text={__('Font Variable', 'gutenverse')}>
+            <Tooltip text={__('Font Variable', '--gctd--')}>
                 <div className={classnames('control-variable', {
                     active: value.type === 'variable' && value.type
                 })} onClick={() => toggleVariableOpen()} ref={variableRef}>
@@ -159,8 +159,8 @@ const TypographyControl = (props) => {
         />
         {variableOpen ? <div className={'control-font-variable'} ref={variableWrapperRef}>
             <div className={'gutenverse-font-variable-header'}>
-                <h2>{__('Variable Font', 'gutenverse')}</h2>
-                {<Tooltip text={__('Manage Variable Font', 'gutenverse')}>
+                <h2>{__('Variable Font', '--gctd--')}</h2>
+                {<Tooltip text={__('Manage Variable Font', '--gctd--')}>
                     <span onClick={() => openFontDrawer()}>
                         <ChevronRight size={14} />
                     </span>
@@ -190,9 +190,9 @@ const TypographyControl = (props) => {
         <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
-                    {__('Typography', 'gutenverse')}
+                    {__('Typography', '--gctd--')}
                 </h2>
-                <Tooltip text={__('Refresh', 'gutenverse')} key={'reset'}>
+                <Tooltip text={__('Refresh', '--gctd--')} key={'reset'}>
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(null);
@@ -203,7 +203,7 @@ const TypographyControl = (props) => {
             </div>
             {show && <>
                 <FontControl
-                    label={__('Font Family', 'gutenverse')}
+                    label={__('Font Family', '--gctd--')}
                     value={value.font}
                     onValueChange={font => onTypographyChange({ ...value, font })}
                     onStyleChange={font => onTypographyStyleChange({ ...value, font })}
@@ -211,7 +211,7 @@ const TypographyControl = (props) => {
                 <div className={'font-value-wrapper'}>
                     <div>
                         <SizeControl
-                            label={__('Size', 'gutenverse')}
+                            label={__('Size', '--gctd--')}
                             value={value.size}
                             allowDeviceControl={true}
                             hideRange={true}
@@ -219,85 +219,85 @@ const TypographyControl = (props) => {
                             onStyleChange={size => onTypographyStyleChange({ ...value, size })}
                         />
                         <SelectControl
-                            label={__('Weight', 'gutenverse')}
+                            label={__('Weight', '--gctd--')}
                             value={value.weight}
                             onValueChange={weight => onTypographyChange({ ...value, weight })}
                             onStyleChange={weight => onTypographyStyleChange({ ...value, weight })}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: '400'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                                 {
-                                    label: __('Bold', 'gutenverse'),
+                                    label: __('Bold', '--gctd--'),
                                     value: 'bold'
                                 },
                                 {
-                                    label: __('100', 'gutenverse'),
+                                    label: __('100', '--gctd--'),
                                     value: '100'
                                 },
                                 {
-                                    label: __('200', 'gutenverse'),
+                                    label: __('200', '--gctd--'),
                                     value: '200'
                                 },
                                 {
-                                    label: __('300', 'gutenverse'),
+                                    label: __('300', '--gctd--'),
                                     value: '300'
                                 },
                                 {
-                                    label: __('400', 'gutenverse'),
+                                    label: __('400', '--gctd--'),
                                     value: '400'
                                 },
                                 {
-                                    label: __('500', 'gutenverse'),
+                                    label: __('500', '--gctd--'),
                                     value: '500'
                                 },
                                 {
-                                    label: __('600', 'gutenverse'),
+                                    label: __('600', '--gctd--'),
                                     value: '600'
                                 },
                                 {
-                                    label: __('700', 'gutenverse'),
+                                    label: __('700', '--gctd--'),
                                     value: '700'
                                 },
                                 {
-                                    label: __('800', 'gutenverse'),
+                                    label: __('800', '--gctd--'),
                                     value: '800'
                                 },
                                 {
-                                    label: __('900', 'gutenverse'),
+                                    label: __('900', '--gctd--'),
                                     value: '900'
                                 },
                             ]}
                         />
                         <SelectControl
-                            label={__('Decoration', 'gutenverse')}
+                            label={__('Decoration', '--gctd--')}
                             value={value.decoration}
                             onValueChange={decoration => onTypographyChange({ ...value, decoration })}
                             onStyleChange={decoration => onTypographyStyleChange({ ...value, decoration })}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Underline', 'gutenverse'),
+                                    label: __('Underline', '--gctd--'),
                                     value: 'underline'
                                 },
                                 {
-                                    label: __('Overline', 'gutenverse'),
+                                    label: __('Overline', '--gctd--'),
                                     value: 'overline'
                                 },
                                 {
-                                    label: __('Line Through', 'gutenverse'),
+                                    label: __('Line Through', '--gctd--'),
                                     value: 'line-through'
                                 },
                                 {
-                                    label: __('None', 'gutenverse'),
+                                    label: __('None', '--gctd--'),
                                     value: 'none'
                                 },
                             ]}
@@ -305,7 +305,7 @@ const TypographyControl = (props) => {
                     </div>
                     <div>
                         <SizeControl
-                            label={__('Line Height', 'gutenverse')}
+                            label={__('Line Height', '--gctd--')}
                             value={value.lineHeight}
                             allowDeviceControl={true}
                             hideRange={true}
@@ -329,53 +329,53 @@ const TypographyControl = (props) => {
                             onStyleChange={lineHeight => onTypographyStyleChange({ ...value, lineHeight })}
                         />
                         <SelectControl
-                            label={__('Transform', 'gutenverse')}
+                            label={__('Transform', '--gctd--')}
                             value={value.transform}
                             onValueChange={transform => onTypographyChange({ ...value, transform })}
                             onStyleChange={transform => onTypographyStyleChange({ ...value, transform })}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Uppercase', 'gutenverse'),
+                                    label: __('Uppercase', '--gctd--'),
                                     value: 'uppercase'
                                 },
                                 {
-                                    label: __('Lowercase', 'gutenverse'),
+                                    label: __('Lowercase', '--gctd--'),
                                     value: 'lowercase'
                                 },
                                 {
-                                    label: __('Capitalize', 'gutenverse'),
+                                    label: __('Capitalize', '--gctd--'),
                                     value: 'capitalize'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                             ]}
                         />
                         <SelectControl
-                            label={__('Style', 'gutenverse')}
+                            label={__('Style', '--gctd--')}
                             value={value.style}
                             onValueChange={style => onTypographyChange({ ...value, style })}
                             onStyleChange={style => onTypographyStyleChange({ ...value, style })}
                             options={[
                                 {
-                                    label: __('Default', 'gutenverse'),
+                                    label: __('Default', '--gctd--'),
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Normal', 'gutenverse'),
+                                    label: __('Normal', '--gctd--'),
                                     value: 'normal'
                                 },
                                 {
-                                    label: __('Italic', 'gutenverse'),
+                                    label: __('Italic', '--gctd--'),
                                     value: 'italic'
                                 },
                                 {
-                                    label: __('Oblique', 'gutenverse'),
+                                    label: __('Oblique', '--gctd--'),
                                     value: 'Oblique'
                                 },
                             ]}
@@ -383,7 +383,7 @@ const TypographyControl = (props) => {
                     </div>
                 </div>
                 <RangeControl
-                    label={__('Letter Spacing', 'gutenverse')}
+                    label={__('Letter Spacing', '--gctd--')}
                     min={-10}
                     max={10}
                     step={0.1}

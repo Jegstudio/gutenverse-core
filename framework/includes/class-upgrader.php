@@ -74,20 +74,20 @@ class Upgrader {
 					</svg>
 				</div>
 				<div class="notice-content">
-					<h2><?php esc_html_e( 'Gutenverse Upgrade Notice!', 'gutenverse' ); ?></h2>
+					<h2><?php esc_html_e( 'Gutenverse Upgrade Notice!', '--gctd--' ); ?></h2>
 					<p>
 					<?php
-					echo esc_html__( 'We have noticed that the versions of your Gutenverse plugins do not match. We recommend updating Gutenverse to ensure seamless compatibility and functionality of the plugins.', 'gutenverse' );
+					echo esc_html__( 'We have noticed that the versions of your Gutenverse plugins do not match. We recommend updating Gutenverse to ensure seamless compatibility and functionality of the plugins.', '--gctd--' );
 					?>
 					<div class="gutenverse-upgrade-action">
 						<?php
 						if ( 'plugins.php' !== $pagenow ) {
 							?>
-							<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><?php esc_html_e( 'Go to plugin page', 'gutenverse' ); ?></a>
+							<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><?php esc_html_e( 'Go to plugin page', '--gctd--' ); ?></a>
 							<?php
 						}
 						?>
-						<a class='close-notification' href="#"><?php esc_html_e( 'Close notification', 'gutenverse' ); ?></a>
+						<a class='close-notification' href="#"><?php esc_html_e( 'Close notification', '--gctd--' ); ?></a>
 					</div>
 				</div>
 			</div>

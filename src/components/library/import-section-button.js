@@ -23,7 +23,7 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
 
     const importContent = (e) => {
         e.stopPropagation();
-        dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', 'gutenverse'));
+        dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockSectionImport(slug);
 
         const params = customAPI ? {
@@ -38,10 +38,10 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
 
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
-            dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', 'gutenverse'));
+            dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
             return importImage(data);
         }).then(result => {
-            dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', 'gutenverse'));
+            dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
             setTimeout(() => {
@@ -58,7 +58,7 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={importContent}>
                     <IconDownloadSVG />
-                    <span>{__('Import this section', 'gutenverse')}</span>
+                    <span>{__('Import this section', '--gctd--')}</span>
                 </div>
             </div>
         );
@@ -69,7 +69,7 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={() => { window.open(serverUrl); }}>
                     <IconVerifiedSVG />
-                    <span>{__('Upgrade to Pro', 'gutenverse')}</span>
+                    <span>{__('Upgrade to Pro', '--gctd--')}</span>
                 </div>
             </div>
         );
@@ -96,7 +96,7 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
                 button = (
                     <div className="section-button import-section importing">
                         <div className="section-button-inner">
-                            <span>{__('Import on Progress', 'gutenverse')}</span>
+                            <span>{__('Import on Progress', '--gctd--')}</span>
                         </div>
                     </div>
                 );

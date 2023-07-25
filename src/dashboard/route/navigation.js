@@ -21,49 +21,49 @@ const Navigation = ({ location }) => {
         'gutenverse.dashboard.route.navigation',
         [
             {
-                name: __('Dashboard', 'gutenverse'),
+                name: __('Dashboard', '--gctd--'),
                 slug: homeSlug,
                 path: '',
                 priority: 0
             },
             {
-                name: __('Ecosystem', 'gutenverse'),
+                name: __('Ecosystem', '--gctd--'),
                 slug: homeSlug,
                 path: 'ecosystem',
                 priority: 1
             },
             {
-                name: __('Theme List', 'gutenverse'),
+                name: __('Theme List', '--gctd--'),
                 slug: homeSlug,
                 path: 'theme-list',
                 priority: 2
             },
             {
-                name: __('Blocks', 'gutenverse'),
+                name: __('Blocks', '--gctd--'),
                 slug: homeSlug,
                 path: 'block-list',
                 priority: 3
             },
             {
-                name: __('Settings', 'gutenverse'),
+                name: __('Settings', '--gctd--'),
                 slug: homeSlug,
                 path: 'settings',
                 priority: 4
             },
             {
-                name: __('System Status', 'gutenverse'),
+                name: __('System Status', '--gctd--'),
                 slug: homeSlug,
                 path: 'system',
                 priority: 5
             },
             !isEmpty(pluginVersions) && {
-                name: __('Update Notice', 'gutenverse'),
+                name: __('Update Notice', '--gctd--'),
                 slug: homeSlug,
                 path: 'update-notice',
                 priority: 100
             },
             isEmpty(window?.gprodata) && {
-                name: <span><IconCrownSVG/>{__('Upgrade to PRO', 'gutenverse')}</span>,
+                name: <span><IconCrownSVG/>{__('Upgrade to PRO', '--gctd--')}</span>,
                 slug: homeSlug,
                 upgrade: true,
                 path: 'upgrade-pro',
@@ -155,7 +155,7 @@ const Navigation = ({ location }) => {
             </div>
             {isEmpty(window?.gprodata) && <a href={window?.GutenverseDashboard?.getPro} className="button-upgrade-pro" target="_blank" rel="noreferrer">
                 <IconCrownSVG />
-                {__('Upgrade to PRO', 'gutenverse')}
+                {__('Upgrade to PRO', '--gctd--')}
             </a>}
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}

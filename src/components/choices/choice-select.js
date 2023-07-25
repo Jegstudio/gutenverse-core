@@ -194,7 +194,7 @@ const ChoiceInnerSingle = ({ selected, clearSelected, placeholder }) => {
             onClick={clearSelected}
             type="button"
             className="choices__button">
-            {__('Remove item', 'gutenverse')}
+            {__('Remove item', '--gctd--')}
         </button>}
     </>;
 };
@@ -225,7 +225,7 @@ const ChoiceMultiInner = props => {
                 return <div key={item.value} className="choices__item choices__item--selectable">
                     {item.label}
                     <button type="button" className="choices__button" onClick={() => removeItem(item)}>
-                        {__('Remove item', 'gutenverse')}
+                        {__('Remove item', '--gctd--')}
                     </button>
                 </div>;
             })}

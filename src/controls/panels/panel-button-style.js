@@ -28,7 +28,7 @@ export const buttonStylePanel = (props) => {
         {
             id: 'color',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
-            label: __('Text Color', 'gutenverse'),
+            label: __('Text Color', '--gctd--'),
             component: ColorControl,
             style: [
                 {
@@ -40,7 +40,7 @@ export const buttonStylePanel = (props) => {
         {
             id: 'iconColor',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
-            label: __('Icon Color', 'gutenverse'),
+            label: __('Icon Color', '--gctd--'),
             component: ColorControl,
             style: [
                 {
@@ -52,7 +52,7 @@ export const buttonStylePanel = (props) => {
         {
             id: 'hoverTextColor',
             show: switcher.styleHover === 'hover',
-            label: __('Hover Text Color', 'gutenverse'),
+            label: __('Hover Text Color', '--gctd--'),
             component: ColorControl,
             style: [
                 {
@@ -64,7 +64,7 @@ export const buttonStylePanel = (props) => {
         {
             id: 'hoverIconColor',
             show: switcher.styleHover === 'hover',
-            label: __('Hover Icon Color', 'gutenverse'),
+            label: __('Hover Icon Color', '--gctd--'),
             component: ColorControl,
             style: [
                 {
@@ -75,7 +75,7 @@ export const buttonStylePanel = (props) => {
         },
         {
             id: 'typography',
-            label: __('Typography', 'gutenverse'),
+            label: __('Typography', '--gctd--'),
             component: TypographyControl,
             style: [
                 {
