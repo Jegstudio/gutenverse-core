@@ -1,6 +1,6 @@
 import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import { DividerControl, SwitchControl } from 'gutenverse-core/controls';
-import { getColor } from 'gutenverse-core/controls';
+import { getColor } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 
 export const dividerPanel = (props) => {
