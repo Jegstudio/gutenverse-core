@@ -25,7 +25,7 @@ export const layoutPanel = (props) => {
     return [
         {
             id: 'layout',
-            label: __('Content Width', 'gutenverse'),
+            label: __('Content Width', 'gctd'),
             component: SelectControl,
             options: layoutControls,
             style: [
@@ -39,7 +39,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'width',
-            label: __('Container Width', 'gutenverse'),
+            label: __('Container Width', 'gctd'),
             show: layout === 'boxed',
             component: RangeControl,
             min: 500,
@@ -55,8 +55,8 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'wrapColumn',
-            label: __('Wrap Column 100%', 'gutenverse'),
-            description: __('If the current wrap is unchecked, it will use the higher resolution\'s wrap value.', 'gutenverse'),
+            label: __('Wrap Column 100%', 'gctd'),
+            description: __('If the current wrap is unchecked, it will use the higher resolution\'s wrap value.', 'gctd'),
             allowDeviceControl: true,
             component: CheckboxControl,
             style: [
@@ -72,50 +72,50 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'gap',
-            label: __('Column Gap', 'gutenverse'),
+            label: __('Column Gap', 'gctd'),
             component: SelectControl,
             options: [
                 {
-                    label: __('Default'),
+                    label: __('Default', 'gctd'),
                     value: 'default'
                 },
                 {
-                    label: __('No gap'),
+                    label: __('No gap', 'gctd'),
                     value: 'no'
                 },
                 {
-                    label: __('Narrow'),
+                    label: __('Narrow', 'gctd'),
                     value: 'narrow'
                 },
                 {
-                    label: __('Extended'),
+                    label: __('Extended', 'gctd'),
                     value: 'extended'
                 },
                 {
-                    label: __('Wide'),
+                    label: __('Wide', 'gctd'),
                     value: 'wide'
                 },
                 {
-                    label: __('Wider'),
+                    label: __('Wider', 'gctd'),
                     value: 'wider'
                 }
             ],
         },
         {
             id: 'heightControl',
-            label: __('Height', 'gutenverse'),
+            label: __('Height', 'gctd'),
             component: SelectControl,
             options: [
                 {
-                    label: __('Default'),
+                    label: __('Default', 'gctd'),
                     value: 'default'
                 },
                 {
-                    label: __('Minimum Height'),
+                    label: __('Minimum Height', 'gctd'),
                     value: 'min'
                 },
                 {
-                    label: __('Fit Screen'),
+                    label: __('Fit Screen', 'gctd'),
                     value: 'fit'
                 },
             ],
@@ -140,7 +140,7 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'height',
-            label: __('Minimum Height', 'gutenverse'),
+            label: __('Minimum Height', 'gctd'),
             show: heightControl === 'min',
             component: SizeControl,
             allowDeviceControl: true,
@@ -174,59 +174,59 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'align',
-            label: __('Column Position', 'gutenverse'),
+            label: __('Column Position', 'gctd'),
             show: ['fit', 'min'].includes(heightControl),
             component: SelectControl,
             options: [
                 {
-                    label: 'Stretch',
+                    label: __('Stretch', 'gctd'),
                     value: 'stretch'
                 },
                 {
-                    label: 'Top',
+                    label: __('Top', 'gctd'),
                     value: 'top'
                 },
                 {
-                    label: 'Middle',
+                    label: __('Middle', 'gctd'),
                     value: 'middle'
                 },
                 {
-                    label: 'Bottom',
+                    label: __('Bottom', 'gctd'),
                     value: 'bottom'
                 },
             ],
         },
         {
             id: 'verticalAlign',
-            label: __('Vertical Align', 'gutenverse'),
+            label: __('Vertical Align', 'gctd'),
             component: SelectControl,
             options: [
                 {
-                    label: 'Default',
+                    label: ('Default', 'gctd'),
                     value: 'default'
                 },
                 {
-                    label: 'Top',
+                    label: ('Top', 'gctd'),
                     value: 'flex-start'
                 },
                 {
-                    label: 'Middle',
+                    label: ('Middle', 'gctd'),
                     value: 'center'
                 },
                 {
-                    label: 'Bottom',
+                    label: ('Bottom', 'gctd'),
                     value: 'flex-end'
                 },
                 {
-                    label: 'Space Between',
+                    label: ('Space Between', 'gctd'),
                     value: 'space-between'
                 },
                 {
-                    label: 'Space Around',
+                    label: ('Space Around', 'gctd'),
                     value: 'space-around'
                 },
                 {
-                    label: 'Space Evenly',
+                    label: ('Space Evenly', 'gctd'),
                     value: 'space-evenly'
                 },
             ],
@@ -246,19 +246,19 @@ export const layoutPanel = (props) => {
         },
         {
             id: 'overflow',
-            label: __('Overflow', 'gutenverse'),
+            label: __('Overflow', 'gctd'),
             component: SelectControl,
             options: [
                 {
-                    label: 'Default',
+                    label: ('Default', 'gctd'),
                     value: 'none'
                 },
                 {
-                    label: 'Hidden',
+                    label: ('Hidden', 'gctd'),
                     value: 'hidden'
                 },
                 {
-                    label: 'Auto',
+                    label: ('Auto', 'gctd'),
                     value: 'auto'
                 },
             ],
