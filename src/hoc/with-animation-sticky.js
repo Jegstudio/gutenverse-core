@@ -129,7 +129,10 @@ export const withAnimationSticky = () => (BlockElement) => {
 
         return <>
             {enable && <Helmet device={deviceType} head={headElement}>
-                {window.GutenverseProJSURL && <script async src={window.GutenverseProJSURL.editorSticky}></script>}
+                {window.GutenverseProJSURL && <>
+                    <script async src={window.GutenverseProJSURL.coreFrontend}></script>
+                    <script async src={window.GutenverseProJSURL.editorSticky}></script>
+                </>}
             </Helmet>}
             <Helmet device={deviceType} head={headElement}>
                 {enable && window.GutenverseProJSURL && <script>

@@ -112,7 +112,10 @@ export const withAnimationBackground = (blockType) => (BlockElement) => {
 
         return <>
             {enable && <Helmet device={deviceType} head={headElement}>
-                {window.GutenverseProJSURL && <script async src={window.GutenverseProJSURL?.editorBgAnimated}></script>}
+                {window.GutenverseProJSURL && <>
+                    <script async src={window.GutenverseProJSURL?.coreFrontend}></script>
+                    <script async src={window.GutenverseProJSURL?.editorBgAnimated}></script>
+                </>}
             </Helmet>}
             <Helmet device={deviceType} head={headElement}>
                 {enable && window.GutenverseProJSURL && <script>
