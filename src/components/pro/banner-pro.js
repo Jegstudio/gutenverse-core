@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-import { IconCrownSVG } from 'gutenverse-core/icons';
 import ButtonUpgradePro from './button-upgrade-pro';
 
 const BannerPro = ({
@@ -23,7 +22,7 @@ const BannerPro = ({
 
 	// Remove banner when script PRO is loaded.
 	return applyFilters(
-        'gutenverse.library.banner',
+        'gutenverse.pro.upgrade.banner',
         banner,
         null
     );
