@@ -30,4 +30,5 @@ export { default as SelectSkeleton } from './skeleton/select-skeleton';
 export { LeftSkeleton, RightSkeleton } from './skeleton/single-layout-skeleton';
 
 /* PRO notice */
+export { default as BannerPro } from './pro/banner-pro';
 export { default as ButtonUpgradePro } from './pro/button-upgrade-pro';

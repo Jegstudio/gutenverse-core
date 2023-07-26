@@ -156,7 +156,9 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_dashboard_config() {
-		$config = array();
+		$config        = array();
+		$theme_referal = apply_filters( 'gutenverse_theme_referal_code', null );
+		$theme_referal = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
 
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
@@ -176,6 +178,8 @@ class Dashboard {
 		$config['plugins']        = Editor_Assets::list_plugin();
 		$config['pluginVersions'] = array();
 		$config['fontIconExists'] = Init::instance()->assets->is_font_icon_exists();
+		$config['themesUrl']      = GUTENVERSE_FRAMEWORK_THEMES_URL;
+		$config['referralUrl']    = $theme_referal;
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}

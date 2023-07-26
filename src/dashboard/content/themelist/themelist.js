@@ -16,6 +16,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
+import { BannerPro } from 'gutenverse-core/components';
 
 const { installNonce, serverUrl, serverEndpoint, themeUrl } = window['GutenverseThemeList'];
 
@@ -506,6 +507,7 @@ const ThemeListPage = (props) => {
                 </div>
             </DashboardHeader>
             <DashboardBody>
+                <BannerPro customStyles={{margin: '0 0 30px'}} />
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>

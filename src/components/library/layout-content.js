@@ -10,7 +10,7 @@ import { Loader } from 'react-feather';
 import { customStyles } from './style';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core/icons';
 import Paging from './paging';
-import BannerPro from './banner-pro';
+import BannerPro from '../pro/banner-pro';
 
 const LayoutContent = (props) => {
     const [slug, setSlug] = useState(null);
@@ -137,7 +137,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <RenderCategories categories={categories} data={data} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
-            <BannerPro/>
+            <BannerPro customStyles={{margin: '10px'}}/>
             <LayoutContentData
                 current={content.current}
                 data={content.data}

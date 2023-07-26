@@ -9,7 +9,7 @@ import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
-import BannerPro from './banner-pro';
+import BannerPro from '../pro/banner-pro';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
@@ -131,7 +131,7 @@ const SectionContentWrapper = (props) => {
             <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
-            <BannerPro/>
+            <BannerPro customStyles={{margin: '10px'}}/>
             <SectionContentData
                 current={content.current}
                 data={content.data}

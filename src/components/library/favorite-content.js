@@ -9,6 +9,7 @@ import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
 import { saveLayoutLikeState } from 'gutenverse-core/requests';
+import BannerPro from '../pro/banner-pro';
 
 const FavoriteContent = props => {
     const { modalData, library } = props;
@@ -183,7 +184,7 @@ const FavoriteContent = props => {
                 <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
             </div>
             <div className="gutenverse-library-inner" ref={scrollerRef}>
-                <BannerPro/>
+                <BannerPro customStyles={{margin: '10px'}}/>
                 <>
                     {'layout' === layoutContentData.library && <LayoutContentData
                         current={content.current}

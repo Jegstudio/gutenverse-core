@@ -14,8 +14,10 @@ const ButtonUpgradePro = ({
     smallText = false,
     fullWidth = false,
     customStyles = {},
-    link = window?.GutenverseDashboard?.getPro
+    link = null
 }) => {
+    const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -26,7 +28,7 @@ const ButtonUpgradePro = ({
         }
     );
 
-    return isEmpty(window?.gprodata) && <a href={link} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
+    return isEmpty(window?.gprodata) && <a href={link ? link : referralUrl} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
         <IconCrownSVG />
         {text}
     </a>;
