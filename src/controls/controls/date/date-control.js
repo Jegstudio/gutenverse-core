@@ -1,4 +1,3 @@
-
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
@@ -14,7 +13,7 @@ const DateControl = (props) => {
         onStyleChange,
         enableTime = false,
         description = '',
-        dateFormat
+        dateFormat = 'F j, Y'
     } = props;
 
     const id = useInstanceId(DateControl, 'inspector-date-control');
@@ -34,7 +33,9 @@ const DateControl = (props) => {
         <div className={'control-body'}>
             <Flatpickr
                 value={value ? new Date(value) : ''}
-                onChange={date => onChange(date)}
+                onChange={date => {
+                    onChange(date[0]);
+                }}
                 options={{
                     enableTime: enableTime,
                     dateFormat: dateFormat,
