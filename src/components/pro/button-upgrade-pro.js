@@ -9,8 +9,10 @@ import classnames from 'classnames';
 
 const ButtonUpgradePro = ({
     text = __('Upgrade to PRO', '--gctd--'),
+    align = 'left', // center, right
     thin = false,
     smallText = false,
+    fullWidth = false,
     customStyles = {},
     link = window?.GutenverseDashboard?.getPro
 }) => {
@@ -19,13 +21,15 @@ const ButtonUpgradePro = ({
         {
             ['thin']: thin,
             ['text-sm']: smallText,
+            ['full']: fullWidth,
+            [`${align}`]: align,
         }
     );
 
-    return isEmpty(window?.gprodata) && <a href={link} className={buttonClasses} target='_blank' rel='noreferrer' styles={customStyles}>
+    return isEmpty(window?.gprodata) && <a href={link} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
         <IconCrownSVG />
         {text}
     </a>;
-}
+};
 
 export default ButtonUpgradePro;

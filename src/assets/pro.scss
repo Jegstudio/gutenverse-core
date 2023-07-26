@@ -14,6 +14,8 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    width: fit-content;
+    justify-content: flex-start;
 
     &.thin {
         padding: 8px 16px;
@@ -21,5 +23,21 @@
 
     &.text-sm {
         font-size: 10px;
+    }
+
+    &.full {
+        width: 100%;
+    }
+
+    &.left {
+        justify-content: flex-start;
+    }
+
+    &.center {
+        justify-content: center;
+    }
+
+    &.right {
+        justify-content: flex-end;
     }
 }
