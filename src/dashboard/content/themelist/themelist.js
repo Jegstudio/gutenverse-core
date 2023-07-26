@@ -507,7 +507,9 @@ const ThemeListPage = (props) => {
                 </div>
             </DashboardHeader>
             <DashboardBody>
-                <BannerPro customStyles={{margin: '0 0 30px'}} />
+                <BannerPro
+                    title={__('Explore Our Premium Themes For Your Business', '--gctd--')}
+                    customStyles={{margin: '0 0 30px'}} />
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>

@@ -1,8 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import ButtonUpgradePro from './button-upgrade-pro';
+import isEmpty from 'lodash/isEmpty';
 
 const BannerPro = ({
+	subtitle,
+	title,
 	customStyles = {},
 }) => {
 	const {
@@ -12,8 +15,8 @@ const BannerPro = ({
 
 	const banner = <div className="banner-pro" style={customStyles}>
 		{imgDir && <img className="banner-image" src={`${imgDir}/banner-pro.png`} />}
-		<p className="subtitle">{__('Welcome to Gutenverse Library', '--gctd--')}</p>
-		<h4 className="title">{__('Discover Our Premium Templates & Sections', '--gctd--')}</h4>
+		{!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
+		{!isEmpty(title) && <h4 className="title">{title}</h4>}
 		<div className="buttons">
 			<ButtonUpgradePro />
 			<a className="demo-button" href={themesUrl} target="_blank" rel="noreferrer">{__('View Demo', '--gctd--')}</a>
