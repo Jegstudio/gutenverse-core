@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { IconCrownSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { ButtonUpgradePro } from 'gutenverse-core/components';
 
 const Navigation = ({ location }) => {
     const {
@@ -153,10 +154,7 @@ const Navigation = ({ location }) => {
                     return null;
                 })}
             </div>
-            {isEmpty(window?.gprodata) && <a href={window?.GutenverseDashboard?.getPro} className="button-upgrade-pro" target="_blank" rel="noreferrer">
-                <IconCrownSVG />
-                {__('Upgrade to PRO', '--gctd--')}
-            </a>}
+            <ButtonUpgradePro />
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
     </>;
