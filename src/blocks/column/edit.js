@@ -775,8 +775,8 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
-    withAnimationSticky(),
     withCustomStyle(panelList),
+    withAnimationSticky(),
     withCopyElementToolbar()
 )((props) => {
     const {

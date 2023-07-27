@@ -161,10 +161,10 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
-    withAnimationSticky(),
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
     withAnimationBackground(),
+    withAnimationSticky(),
     withCopyElementToolbar()
 )((props) => {
     const {

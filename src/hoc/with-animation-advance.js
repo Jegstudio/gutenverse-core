@@ -1,9 +1,11 @@
 import { applyFilters } from '@wordpress/hooks';
 
 export const withAnimationAdvance = (blockType) => (BlockElement) => {
-    return applyFilters(
-        'gutenverse.hoc.animation-advance',
-        (props) => <BlockElement {...props} />,
-        { BlockElement, blockType }
-    );
+    return (props) => {
+        return applyFilters(
+            'gutenverse.hoc.advance-animation',
+            <BlockElement {...props} />,
+            { BlockElement, blockType, props }
+        );
+    };
 };
