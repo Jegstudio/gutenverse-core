@@ -61,8 +61,8 @@ const IconListBlock = compose(
 
     useEffect(() => {
         if (iconListRef.current) {
-            setElementRef(iconListRef.current);
-            setAdanimRef(iconListRef.current);
+            setElementRef && setElementRef(iconListRef.current);
+            setAdanimRef && setAdanimRef(iconListRef.current);
         }
     }, [iconListRef]);
 
