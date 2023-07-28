@@ -24,7 +24,6 @@ const GalleryBlock = compose(
     const {
         attributes,
         setElementRef,
-        setAdanimRef,
         deviceType
     } = props;
 
@@ -120,7 +119,6 @@ const GalleryBlock = compose(
         if (galleryRef.current) {
             setTimeout(() => {
                 setElementRef(galleryRef.current);
-                setAdanimRef && setAdanimRef(galleryRef.current);
                 elementId && initShuffleJS();
             }, 100);
         }

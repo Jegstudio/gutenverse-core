@@ -17,8 +17,7 @@ const AdvancedHeadingBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef,
+        setElementRef
     } = props;
 
     const {
@@ -50,7 +49,6 @@ const AdvancedHeadingBlock = compose(
     useEffect(() => {
         if (advHeadingRef.current) {
             setElementRef(advHeadingRef.current);
-            setAdanimRef && setAdanimRef(advHeadingRef.current);
         }
     }, [advHeadingRef]);
 

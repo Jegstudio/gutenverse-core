@@ -34,8 +34,7 @@ const TeamBlock = compose(
     const {
         clientId,
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -83,7 +82,6 @@ const TeamBlock = compose(
     useEffect(() => {
         if (teamRef.current) {
             setElementRef(teamRef.current);
-            setAdanimRef && setAdanimRef(teamRef.current);
         }
     }, [teamRef]);
 

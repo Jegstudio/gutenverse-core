@@ -20,8 +20,7 @@ const ProgressBarBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -57,7 +56,6 @@ const ProgressBarBlock = compose(
     useEffect(() => {
         if (progressBarRef.current) {
             setElementRef(progressBarRef.current);
-            setAdanimRef && setAdanimRef(progressBarRef.current);
         }
     }, [progressBarRef]);
 

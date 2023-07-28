@@ -20,8 +20,7 @@ const StarRatingBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -48,7 +47,6 @@ const StarRatingBlock = compose(
     useEffect(() => {
         if (ratingRef.current) {
             setElementRef(ratingRef.current);
-            setAdanimRef && setAdanimRef(ratingRef.current);
         }
     }, [ratingRef]);
 

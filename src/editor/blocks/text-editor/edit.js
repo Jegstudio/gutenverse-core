@@ -20,8 +20,7 @@ const TextEditorBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -55,7 +54,6 @@ const TextEditorBlock = compose(
     useEffect(() => {
         if (textEditorRef.current) {
             setElementRef(textEditorRef.current);
-            setAdanimRef && setAdanimRef(textEditorRef.current);
         }
     }, [textEditorRef]);
 

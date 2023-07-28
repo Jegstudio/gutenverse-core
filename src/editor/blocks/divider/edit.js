@@ -77,7 +77,6 @@ const DividerBlock = compose(
     const {
         attributes,
         setElementRef,
-        setAdanimRef,
         deviceType
     } = props;
 
@@ -126,7 +125,6 @@ const DividerBlock = compose(
     useEffect(() => {
         if (dividerRef.current) {
             setElementRef(dividerRef.current);
-            setAdanimRef && setAdanimRef(dividerRef.current);
         }
     }, [dividerRef]);
 

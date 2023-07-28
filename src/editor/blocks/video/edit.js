@@ -84,8 +84,7 @@ const VideoBlock = compose(
     const {
         attributes,
         setAttributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -186,7 +185,6 @@ const VideoBlock = compose(
     useEffect(() => {
         if (videoRef.current) {
             setElementRef(videoRef.current);
-            setAdanimRef && setAdanimRef(videoRef.current);
         }
     }, [videoRef]);
 

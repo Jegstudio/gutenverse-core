@@ -46,8 +46,7 @@ const IconBoxBlock = compose(
         isSelected,
         attributes,
         setAttributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -140,7 +139,6 @@ const IconBoxBlock = compose(
     useEffect(() => {
         if (iconBoxRef.current) {
             setElementRef(iconBoxRef.current);
-            setAdanimRef && setAdanimRef(iconBoxRef.current);
         }
     }, [iconBoxRef]);
 

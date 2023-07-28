@@ -20,8 +20,7 @@ const SpacerBlock = compose(
 )(props => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -47,7 +46,6 @@ const SpacerBlock = compose(
     useEffect(() => {
         if (spacerRef.current) {
             setElementRef(spacerRef.current);
-            setAdanimRef && setAdanimRef(spacerRef.current);
         }
     }, [spacerRef]);
 

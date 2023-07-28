@@ -21,7 +21,6 @@ const GoogleMapsBlock = compose(
     const {
         attributes,
         setElementRef,
-        setAdanimRef,
         isSelected
     } = props;
 
@@ -68,7 +67,6 @@ const GoogleMapsBlock = compose(
     useEffect(() => {
         if (googleMapRef.current) {
             setElementRef(googleMapRef.current);
-            setAdanimRef && setAdanimRef(googleMapRef.current);
         }
     }, [googleMapRef]);
 

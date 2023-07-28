@@ -37,8 +37,7 @@ const SocialIcon = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -90,7 +89,6 @@ const SocialIcon = compose(
     useEffect(() => {
         if (socialIconRef.current) {
             setElementRef(socialIconRef.current);
-            setAdanimRef && setAdanimRef(socialIconRef.current);
         }
     }, [socialIconRef]);
 

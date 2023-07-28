@@ -32,8 +32,7 @@ const IconBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -93,7 +92,6 @@ const IconBlock = compose(
     useEffect(() => {
         if (iconRef.current) {
             setElementRef(iconRef.current);
-            setAdanimRef && setAdanimRef(iconRef.current);
         }
     }, [iconRef]);
 

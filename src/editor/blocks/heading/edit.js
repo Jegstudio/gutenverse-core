@@ -60,7 +60,6 @@ const HeadingBlock = compose(
         attributes,
         setAttributes,
         setElementRef,
-        setAdanimRef,
     } = props;
 
     const {
@@ -87,7 +86,6 @@ const HeadingBlock = compose(
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
-            setAdanimRef && setAdanimRef(headingRef.current);
         }
     }, [headingRef]);
 

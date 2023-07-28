@@ -21,8 +21,7 @@ const IconListBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -62,7 +61,6 @@ const IconListBlock = compose(
     useEffect(() => {
         if (iconListRef.current) {
             setElementRef && setElementRef(iconListRef.current);
-            setAdanimRef && setAdanimRef(iconListRef.current);
         }
     }, [iconListRef]);
 

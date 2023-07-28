@@ -186,8 +186,7 @@ const ImageBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setAdanimRef
+        setElementRef
     } = props;
 
     const {
@@ -305,7 +304,6 @@ const ImageBlock = compose(
     useEffect(() => {
         if (imageRef.current) {
             setElementRef(imageRef.current);
-            setAdanimRef && setAdanimRef(imageRef.current);
         }
     }, [imageRef]);
 

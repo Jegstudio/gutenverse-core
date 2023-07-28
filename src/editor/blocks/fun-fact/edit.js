@@ -21,8 +21,7 @@ const FunFactBlock = compose(
     const {
         attributes,
         deviceType,
-        setElementRef,
-        setAdanimRef,
+        setElementRef
     } = props;
 
     const {
@@ -64,7 +63,6 @@ const FunFactBlock = compose(
     useEffect(() => {
         if (funFactRef.current) {
             setElementRef(funFactRef.current);
-            setAdanimRef && setAdanimRef(funFactRef.current);
         }
     }, [funFactRef]);
 
