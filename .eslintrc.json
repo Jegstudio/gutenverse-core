@@ -17,12 +17,16 @@
             "version": "detect"
         }
     },
+    "root": true,
     "rules": {
         /* Add more rules if needed : https://eslint.org/docs/rules/ */
         "indent": [
             "warn",
             4,
-            { "SwitchCase": 1 }
+            {
+                "SwitchCase": 1,
+                "ignoredNodes": ["TemplateLiteral"] 
+            }
         ],
         "quotes": ["error", "single"],
         "jsx-quotes": ["error", "prefer-double"],

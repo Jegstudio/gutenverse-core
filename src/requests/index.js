@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import { addQueryArgs } from '@wordpress/url';
 
 export const httpClient = (api = null) => {
-    const baseURL = !isEmpty(api) ? api.url + api.endpoint : serverUrl + serverEndpoint
+    const baseURL = !isEmpty(api) ? api.url + api.endpoint : serverUrl + serverEndpoint;
 
     return axios.create({baseURL});
 };

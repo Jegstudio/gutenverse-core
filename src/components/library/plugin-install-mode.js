@@ -154,7 +154,7 @@ export const PluginInstallItem = (props) => {
                 props.increaseCounter();
                 setLoading(false);
                 setLoadingString('');
-            }).catch(e => {
+            }).catch(() => {
                 if (isRetry) {
                     setIsRetry(false);
                     activatePlugin(false);
@@ -185,7 +185,7 @@ export const PluginInstallItem = (props) => {
         const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
         if (installed.active === false) {
             action = !isEmpty(url) ? pluginPage : <div className={singleClass} onClick={() => {
-                activatePlugin(invalidVersion)
+                activatePlugin(invalidVersion);
                 setIsRetry(true);
             }}>
                 {loadingCircle}
@@ -236,20 +236,20 @@ export default withSelect(select => {
             name,
             path,
             version
-        })
-    }
+        });
+    };
 
     const activatePlugin = (slug) => {
-        dispatch( 'gutenverse/library' ).activatePlugin(slug)
-    }
+        dispatch( 'gutenverse/library' ).activatePlugin(slug);
+    };
 
     const updatePlugin = (action) => {
         const { slug, version } = action;
         dispatch( 'gutenverse/library' ).updatePlugin({
             slug,
             version
-        })
-    }
+        });
+    };
 
     return {
         plugins: getPluginData(),

@@ -62,27 +62,27 @@ const PanelController = ({ ...props }) => {
 
     return <>
         <InspectorControls>
-            <div className='gutenverse-panel-wrapper' ref={onRefChange}>
+            <div className="gutenverse-panel-wrapper" ref={onRefChange}>
                 {applyFilters('gutenverse.inspectorcontrol.before', null, props)}
                 {tabPanel.length > 1 && <>
-                    <div className='gutenverse-tab-list'>
+                    <div className="gutenverse-tab-list">
                         {tabPanel.map((detail, index) => {
                             const { id, name, icon } = detail;
-                            return <Tooltip text={name}>
+                            return <Tooltip key={id} text={name}>
                                 <div className={classnames('gutenverse-tab-item', {
                                     active: activeTab === id || (activeTab === null && index === 0)
                                 })} onClick={() => setActiveTab(id)}>
                                     {icon}
                                 </div>
-                            </Tooltip>
+                            </Tooltip>;
                         })}
                     </div>
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
-                        const { tabRole, title } = panel;
+                        const { tabRole } = panel;
                         if (tabRole) {
                             const { id: tabId } = tabRole;
-                            return tabId === active
+                            return tabId === active;
                         } else {
                             return tabPanel[0].id === active;
                         }
@@ -91,7 +91,7 @@ const PanelController = ({ ...props }) => {
                             [`panel-${panel.id}`]: undefined !== panel.id,
                             pro: panel.pro
                         });
-                        const { id } = panel;
+
                         return <PanelBody
                             scrollAfterOpen={false}
                             className={panelBody}
@@ -113,7 +113,7 @@ const PanelController = ({ ...props }) => {
                         [`panel-${panel.id}`]: undefined !== panel.id,
                         pro: panel.pro
                     });
-                    const { id } = panel;
+
                     return <PanelBody
                         scrollAfterOpen={false}
                         className={panelBody}

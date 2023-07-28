@@ -1,4 +1,4 @@
-import throttle from 'lodash/throttle'
+import throttle from 'lodash/throttle';
 import { useCallback } from '@wordpress/element';
 import { setControlStyle } from 'gutenverse-core/editor-helper';
 

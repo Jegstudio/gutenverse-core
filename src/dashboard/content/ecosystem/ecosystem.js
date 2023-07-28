@@ -4,7 +4,6 @@ import apiFetch from '@wordpress/api-fetch';
 import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
@@ -64,7 +63,7 @@ const PluginItem = ({
                 }
             }).then(() => {
                 setLoadingString(__('Deleting Plugin', '--gctd--'));
-    
+
                 return apiFetch({
                     path: `wp/v2/plugins/plugin?plugin=${installed?.path}`,
                     method: 'DELETE',
@@ -115,7 +114,7 @@ const PluginItem = ({
         const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
         if (installed.active === false) {
             action = <div className={`${singleClass} update`} onClick={() => {
-                activatingPlugin(invalidVersion)
+                activatingPlugin(invalidVersion);
                 setIsRetry(true);
             }}>
                 {loadingCircle}
@@ -164,7 +163,7 @@ const PluginItem = ({
             {action}
         </div>
     </div>;
-}
+};
 
 const PluginsData = ({
     pluginEcosystem,
@@ -176,13 +175,14 @@ const PluginsData = ({
         <div className="ecosystem-data fetching" />
         <div className="ecosystem-data fetching" />
         <div className="ecosystem-data fetching" />
-    </> : pluginEcosystem && pluginEcosystem.map(plugin => {
+    </> : pluginEcosystem && pluginEcosystem.map((plugin, i) => {
         return <PluginItem
+            key={i}
             plugin={plugin}
             {...props}
         />;
-    })
-}
+    });
+};
 
 const Ecosystem = props => {
     const { library = null, plugins, installPlugin, activatePlugin, updatePlugin } = props;

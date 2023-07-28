@@ -115,7 +115,7 @@ const Navigation = ({ location }) => {
                     </Link>
                 </li>;
             }
-            
+
             return null;
         })}
     </>;
@@ -150,7 +150,7 @@ const Navigation = ({ location }) => {
                             {menu.name}
                         </Link>;
                     }
-                    
+
                     return null;
                 })}
             </div>

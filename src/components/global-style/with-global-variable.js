@@ -39,11 +39,11 @@ const withGlobalVariable = GlobalStyle => {
 
         const setWindow = () => {
             setTimeout(() => {
-                const canvas = document.querySelector("[name='editor-canvas']");
+                const canvas = document.querySelector('[name=\'editor-canvas\']');
                 const wrapper = !canvas ? window : canvas.contentWindow;
                 setHeadElement(wrapper.document.getElementsByTagName('head')[0]);
             }, 500);
-        }
+        };
 
         elementChange('#editor', setWindow);
         elementChange('#site-editor', setWindow);

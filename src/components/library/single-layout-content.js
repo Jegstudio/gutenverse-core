@@ -1,4 +1,4 @@
-import { __, _n } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import classnames from 'classnames';

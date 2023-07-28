@@ -4,32 +4,33 @@ import { useSelect, dispatch, withSelect } from '@wordpress/data';
 import { RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
 import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
 import Paging from './paging';
-import { __, _n } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
 import BannerPro from '../pro/banner-pro';
+import { Loader } from 'react-feather';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
 
     return <>
-    {pluginInstallMode && <PluginInstallMode
-        name={currentItem.title}
-        data={currentItem}
-        setPluginInstallMode={setPluginInstallMode}
-        backString={__('Back to sections', '--gctd--')}
-    />}
-    <div className="gutenverse-library-inner-body">
-        <SectionContentWrapper
-            {...props}
-            closeImporter={props.closeImporter}
+        {pluginInstallMode && <PluginInstallMode
+            name={currentItem.title}
+            data={currentItem}
             setPluginInstallMode={setPluginInstallMode}
-            setCurrentItem={setCurrentItem}
-        />
-    </div>
+            backString={__('Back to sections', '--gctd--')}
+        />}
+        <div className="gutenverse-library-inner-body">
+            <SectionContentWrapper
+                {...props}
+                closeImporter={props.closeImporter}
+                setPluginInstallMode={setPluginInstallMode}
+                setCurrentItem={setCurrentItem}
+            />
+        </div>
     </>;
 };
 
@@ -210,7 +211,7 @@ const SectionContentItem = props => {
         []
     );
     const plugins =  getPluginData();
-    const library =  getLibraryData()
+    const library =  getLibraryData();
 
     const { item, closeImporter, setCurrentItem, setPluginInstallMode } = props;
     const [image, setImage] = useState('');
@@ -309,7 +310,7 @@ const SectionContentItem = props => {
             </div>
         </div>
     </div>;
-}
+};
 
 export default withSelect(select => {
     const { getLibraryData, getModalData } = select('gutenverse/library');
