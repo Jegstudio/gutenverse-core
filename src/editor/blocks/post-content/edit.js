@@ -8,13 +8,10 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-// import { useEntityBlockEditor } from '@wordpress/core-data';
 import {
     InspectorControls,
     useBlockProps,
-    // useInnerBlocksProps,
     useSetting,
-    Warning,
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
@@ -26,17 +23,6 @@ const Placeholder = () => {
     </div>;
 };
 
-// const RecursionError = () => {
-//     const blockProps = useBlockProps();
-//     return (
-//         <div {...blockProps}>
-//             <Warning>
-//                 {__('Block cannot be rendered inside itself.')}
-//             </Warning>
-//         </div>
-//     );
-// };
-
 const PostContentBlock = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar()
@@ -44,7 +30,6 @@ const PostContentBlock = compose(
     const {
         attributes,
         setElementRef,
-        context: { postType, postId }
     } = props;
 
     const {
@@ -56,12 +41,6 @@ const PostContentBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const postTitleRef = useRef();
     const layout = useSetting('layout');
-
-    /* const [blocks, onInput, onChange] = useEntityBlockEditor(
-        'postType',
-        postType,
-        { id: postId }
-    ); */
 
     useEffect(() => {
         if (postTitleRef.current) {
@@ -79,15 +58,6 @@ const PostContentBlock = compose(
         ),
         ref: postTitleRef
     });
-
-    /* const innerProps = useInnerBlocksProps(
-        useBlockProps({ className: 'post-content' }),
-        {
-            value: blocks,
-            onInput,
-            onChange,
-        }
-    ); */
 
     return <>
         <InspectorControls>
@@ -112,7 +82,6 @@ const PostContentBlock = compose(
         <div
             {...blockProps}>
             <Placeholder />
-            {/* {postId && postType ? <div {...innerProps} /> : <Placeholder />} */}
         </div>
     </>;
 });

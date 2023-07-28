@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
@@ -16,7 +16,6 @@ import { PanelController } from 'gutenverse-core/controls';
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
-import Select from 'react-select';
 
 const HeadingBlockControl = ({ attributes, setAttributes }) => {
     const {

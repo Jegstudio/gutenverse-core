@@ -35,7 +35,7 @@ const GalleryItem = (attributes) => {
             }
         }
 
-        return arr.map(item => item === 2 ? <li><i className="fas fa-star"></i></li> : <li><i className="fas fa-star-half"></i></li>);
+        return arr.map((item, key) => item === 2 ? <li key={key}><i className="fas fa-star"></i></li> : <li key={key}><i className="fas fa-star-half"></i></li>);
     };
 
     return layout === 'overlay' ? <div className="grid-item">

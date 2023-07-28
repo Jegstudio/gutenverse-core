@@ -101,7 +101,7 @@ const WizardContainer = ({ setStage }) => {
                 data: {
                     step: currentKey,
                 },
-            }).then(res => {
+            }).then(() => {
                 doUpgrade(index + 1);
             });
         } else {
