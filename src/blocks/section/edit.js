@@ -181,10 +181,7 @@ const SectionBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
-        setAdanimRef,
-        setStickyRef,
-        setBgAnimatedRef
+        setElementRef
     } = props;
 
     const {
@@ -232,9 +229,6 @@ const SectionBlock = compose(
     useEffect(() => {
         if (sectionRef.current) {
             setElementRef(sectionRef.current);
-            setStickyRef && setStickyRef(sectionRef.current);
-            setAdanimRef && setAdanimRef(sectionRef.current);
-            setBgAnimatedRef && setBgAnimatedRef(sectionRef.current);
         }
     }, [sectionRef]);
 

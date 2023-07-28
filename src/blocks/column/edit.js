@@ -801,7 +801,6 @@ const ColumnBlock = compose(
         attributes,
         setAttributes,
         setElementRef,
-        setStickyRef,
         deviceType,
         isSelected,
     } = props;
@@ -973,7 +972,6 @@ const ColumnBlock = compose(
     useEffect(() => {
         if (columnRef.current) {
             setElementRef(columnRef.current);
-            setStickyRef && setStickyRef(columnRef.current);
         }
     }, [columnRef]);
 
