@@ -14,6 +14,8 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import { AutoSizer, Grid } from 'react-virtualized';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoFullColorSVG, IconSearchSVG } from 'gutenverse-core/icons';
+import { ButtonUpgradePro } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const COLUMN_NUMBER = 8;
 
@@ -153,6 +155,11 @@ export const IconLibrary = ({
                         <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter}/>
                     </div>
                 </div>
+                {isEmpty(window?.gprodata) && <div className="icon-pro-notice">
+                    <h3 className="title">{__('Upgrade to Gutenverse PRO', '--gctd--')}</h3>
+                    <p className="description">{__('Use full potential of Gutenverse Features', '--gctd--')}</p>
+                    <ButtonUpgradePro thin={true} smallText={true} />
+                </div>}
                 <div className={'icon-library-result'}>
                     <AutoSizer>
                         {({ height, width }) => (

@@ -36,7 +36,8 @@
         border-radius: 10px 10px 0 0;
         border-bottom: 1px solid #E3E4E6;
 
-        h2, .gutenverse-icon-logo {
+        h2,
+        .gutenverse-icon-logo {
           margin: 0;
           padding: 16px 20px;
           color: #011627;
@@ -61,8 +62,51 @@
         }
       }
 
+
+      .icon-pro-notice {
+        background: #8FE3EA;
+        border-radius: 5px;
+        padding: 20px 24px;
+        margin: 0 20px 20px;
+        position: relative;
+
+        .title {
+          color: #011627;
+          font-family: Roboto;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 22px;
+          margin: 0;
+        }
+
+        .description {
+          color: #40505D;
+          font-family: Roboto;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16.8px;
+          margin: 6px 0 14px;
+        }
+
+        .boxes {
+          display: flex;
+          bottom: 0;
+          right: 22px;
+          position: absolute;
+        }
+
+        .gutenverse-close {
+          cursor: pointer;
+          top: 10px;
+          right: 10px;
+          position: absolute;
+        }
+      }
+
       .icon-library-search {
-        padding: 20px 25px;
+        margin: 20px;
         position: relative;
 
         .input {
@@ -71,13 +115,15 @@
           border: 1px solid #E6E6EF;
           font-size: 12px;
           border-radius: 3px;
-          
+
           svg {
             position: absolute;
-            padding: 8px 0 8px 18px;
+            margin: 8px 0 8px 18px;
           }
-          
-          input, input:active, input:focus {
+
+          input,
+          input:active,
+          input:focus {
             border: none;
             box-shadow: none;
             width: 100%;
@@ -93,7 +139,7 @@
       }
 
       .icon-library-result {
-        margin: 0 25px 20px;
+        margin: 0 20px 20px;
         height: 100%;
 
         .icon-library-item-wrapper {

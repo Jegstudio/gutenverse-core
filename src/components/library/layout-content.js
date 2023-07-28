@@ -137,7 +137,10 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <RenderCategories categories={categories} data={data} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
-            <BannerPro customStyles={{margin: '10px'}}/>
+            <BannerPro
+                subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
+                title={__('Discover Our Premium Templates & Sections', '--gctd--')}
+                customStyles={{margin: '10px'}}/>
             <LayoutContentData
                 current={content.current}
                 data={content.data}
