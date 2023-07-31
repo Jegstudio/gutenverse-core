@@ -202,31 +202,31 @@ export const layoutPanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: ('Default', '--gctd--'),
+                    label: __('Default', '--gctd--'),
                     value: 'default'
                 },
                 {
-                    label: ('Top', '--gctd--'),
+                    label: __('Top', '--gctd--'),
                     value: 'flex-start'
                 },
                 {
-                    label: ('Middle', '--gctd--'),
+                    label: __('Middle', '--gctd--'),
                     value: 'center'
                 },
                 {
-                    label: ('Bottom', '--gctd--'),
+                    label: __('Bottom', '--gctd--'),
                     value: 'flex-end'
                 },
                 {
-                    label: ('Space Between', '--gctd--'),
+                    label: __('Space Between', '--gctd--'),
                     value: 'space-between'
                 },
                 {
-                    label: ('Space Around', '--gctd--'),
+                    label: __('Space Around', '--gctd--'),
                     value: 'space-around'
                 },
                 {
-                    label: ('Space Evenly', '--gctd--'),
+                    label: __('Space Evenly', '--gctd--'),
                     value: 'space-evenly'
                 },
             ],
@@ -250,15 +250,15 @@ export const layoutPanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: ('Default', '--gctd--'),
+                    label: __('Default', '--gctd--'),
                     value: 'none'
                 },
                 {
-                    label: ('Hidden', '--gctd--'),
+                    label: __('Hidden', '--gctd--'),
                     value: 'hidden'
                 },
                 {
-                    label: ('Auto', '--gctd--'),
+                    label: __('Auto', '--gctd--'),
                     value: 'auto'
                 },
             ],
