@@ -1,4 +1,4 @@
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'react-feather';
