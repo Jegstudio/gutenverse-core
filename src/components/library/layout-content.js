@@ -120,7 +120,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <SearchBar
                 placeholder={__('Search Layout', '--gctd--')}
                 onChange={keyword => {
-                    dispatch( 'gutenverse/library' ).setKeyword(keyword)
+                    dispatch( 'gutenverse/library' ).setKeyword(keyword);
                 }}
             />
             {<>
@@ -150,8 +150,8 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 scroller={scroller}
             />
         </div>
-    </>
-}
+    </>;
+};
 
 export const SelectLicense = ({ license, setLicense }) => {
     return <div className="gutenverse-library-select">
@@ -201,7 +201,7 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
                 className={category.id === data.categories ? 'active' : ''}
                 key={category.id}
                 onClick={() => {
-                    dispatch( 'gutenverse/library' ).setCategories(category.id, category.name)
+                    dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
                     categoryListClicked && categoryListClicked(category.id, category.name);
                 }}
             >

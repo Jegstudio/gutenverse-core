@@ -46,7 +46,6 @@ const  SelectSortableControl = props => {
         value = allowDeviceControl ? {} : '',
         onValueChange,
         onStyleChange,
-        options,
         description = '',
         proLabel,
     } = props;
@@ -55,37 +54,37 @@ const  SelectSortableControl = props => {
 
     const id = useInstanceId(SelectSortableControl, 'inspector-select-async-control');
 
-    const onChange = (selectedOptions) => {
-        onValueChange(selectedOptions);
-        onStyleChange(selectedOptions);
-    };
+    // const onChange = (selectedOptions) => {
+    //     onValueChange(selectedOptions);
+    //     onStyleChange(selectedOptions);
+    // };
 
-    const customStyles = {
-        input: () => {
-            return {
-                padding: 0,
-                margin: 0
-            };
-        },
-        control: (provided) => {
-            return {
-                ...provided,
-                borderRadius: '1px'
-            };
-        },
-        menu: (provided) => {
-            return {
-                ...provided,
-                zIndex: 99999
-            };
-        }
-    };
+    // const customStyles = {
+    //     input: () => {
+    //         return {
+    //             padding: 0,
+    //             margin: 0
+    //         };
+    //     },
+    //     control: (provided) => {
+    //         return {
+    //             ...provided,
+    //             borderRadius: '1px'
+    //         };
+    //     },
+    //     menu: (provided) => {
+    //         return {
+    //             ...provided,
+    //             zIndex: 99999
+    //         };
+    //     }
+    // };
 
-    const onSortEnd = ({ oldIndex, newIndex }) => {
-        const newValue = arrayMove(selected, oldIndex, newIndex);
-        onValueChange(newValue);
-        onStyleChange(newValue);
-    };
+    // const onSortEnd = ({ oldIndex, newIndex }) => {
+    //     const newValue = arrayMove(selected, oldIndex, newIndex);
+    //     onValueChange(newValue);
+    //     onStyleChange(newValue);
+    // };
 
     useEffect(() => {
         setSelected(value);

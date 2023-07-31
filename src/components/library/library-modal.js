@@ -9,11 +9,9 @@ import FavoriteContent from './favorite-content';
 const LibraryModal = props => {
     const {
         open,
-        setOpen,
         visible,
         setVisibility,
         loading,
-        setLoading,
         modalData
     } = props;
 

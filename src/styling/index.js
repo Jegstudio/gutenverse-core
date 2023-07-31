@@ -14,14 +14,14 @@ export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handl
 export { setStylePoint } from './styling/single/set-style-point';
 export { setStyleUnit } from './styling/single/set-style-unit';
 
-export { 
-    elementVar, 
-    DeviceLoop, 
-    BuildColumnWidthStyle, 
-    BuildAdminStyle, 
-    normalAppender, 
-    injectFont, 
-    setDeviceClasses, 
+export {
+    elementVar,
+    DeviceLoop,
+    BuildColumnWidthStyle,
+    BuildAdminStyle,
+    normalAppender,
+    injectFont,
+    setDeviceClasses,
     deviceStyleValue,
     responsiveAppender
 } from './styling/styling-utility';

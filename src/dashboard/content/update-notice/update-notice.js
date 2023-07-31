@@ -1,28 +1,28 @@
-import { useState, useEffect } from "@wordpress/element";
-import { sprintf, __ } from "@wordpress/i18n";
-import { Link } from "gutenverse-core/router";
-import { applyFilters } from "@wordpress/hooks";
-import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
+import { useState, useEffect } from '@wordpress/element';
+import { sprintf, __ } from '@wordpress/i18n';
+import { Link } from 'gutenverse-core/router';
+import { applyFilters } from '@wordpress/hooks';
+import { DashboardContent } from '../../components';
 
 const UpdateNotice = ({location}) => {
-    const { pluginVersions } = window["GutenverseDashboard"];
+    const { pluginVersions } = window['GutenverseDashboard'];
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
-    const page = query.get("page");
-    const path = query.get("path");
+    const page = query.get('page');
+    const path = query.get('path');
     const [data, setData] = useState({
-        name: "",
+        name: '',
         versions: [],
     });
 
     const { name, versions } = data;
 
-    const plugin = query.get("plugin") || (Object.keys(pluginVersions).length && Object.keys(pluginVersions)[0]);
-    const version = query.get("version") || (plugin && plugin in pluginVersions && pluginVersions[plugin].currentNotice);
+    const plugin = query.get('plugin') || (Object.keys(pluginVersions).length && Object.keys(pluginVersions)[0]);
+    const version = query.get('version') || (plugin && plugin in pluginVersions && pluginVersions[plugin].currentNotice);
 
     useEffect(() => {
         if (plugin) {
-            const name = (plugin && plugin in pluginVersions && pluginVersions[plugin].name) || "";
+            const name = (plugin && plugin in pluginVersions && pluginVersions[plugin].name) || '';
             const versions = (plugin && plugin in pluginVersions && pluginVersions[plugin].noticeVersions) || [];
 
             setData({
@@ -34,7 +34,7 @@ const UpdateNotice = ({location}) => {
 
     const [loaded, setLoaded] = useState(3);
 
-    let routePage = applyFilters("gutenverse.dashboard.notice.content", <></>, plugin, version);
+    let routePage = applyFilters('gutenverse.dashboard.notice.content', <></>, plugin, version);
 
     const increaseLoaded = () => setLoaded(loaded + 3);
     const versionIndex = versions.findIndex((ver) => ver === version);
@@ -53,13 +53,14 @@ const UpdateNotice = ({location}) => {
                         Object.keys(pluginVersions).map((key) => {
                             return (
                                 <Link
+                                    key={key}
                                     index={version}
                                     to={{
                                         pathname: pathname,
                                         search: `?page=${page}&plugin=${key}&path=${path}`,
                                     }}
                                 >
-                                    <div className={`tab ${plugin === key ? "active" : ""}`} key={key}>
+                                    <div className={`tab ${plugin === key ? 'active' : ''}`} key={key}>
                                         {pluginVersions[key]?.name}
                                     </div>
                                 </Link>
@@ -78,7 +79,7 @@ const UpdateNotice = ({location}) => {
                     <div>
                         <div className="upgrade-history">
                             <h2>{__('Version History', '--gctd--')}</h2>
-                            <ul className={loaded >= versions.length ? "loaded" : ""}>
+                            <ul className={loaded >= versions.length ? 'loaded' : ''}>
                                 {versions.slice(0, loaded).map((version) => (
                                     <li key={version}>
                                         <Link
@@ -88,7 +89,7 @@ const UpdateNotice = ({location}) => {
                                                 search: `?page=${page}&plugin=${plugin}&path=${path}&version=${version}`,
                                             }}
                                         >
-                                            {__('Version %s', '--gctd--').replace("%s", version)}
+                                            {__('Version %s', '--gctd--').replace('%s', version)}
                                         </Link>
                                     </li>
                                 ))}
@@ -107,7 +108,7 @@ const UpdateNotice = ({location}) => {
                                         search: `?page=${page}&plugin=${plugin}&path=${path}&version=${prevVersion}`,
                                     }}
                                 >
-                                    <button className={`prev ${versions[versions.length - 1] === version ? "disable" : ""}`}>{__('Prev', '--gctd--')}</button>
+                                    <button className={`prev ${versions[versions.length - 1] === version ? 'disable' : ''}`}>{__('Prev', '--gctd--')}</button>
                                 </Link>
                                 <Link
                                     to={{
@@ -115,7 +116,7 @@ const UpdateNotice = ({location}) => {
                                         search: `?page=${page}&plugin=${plugin}&path=${path}&version=${nextVersion}`,
                                     }}
                                 >
-                                    <button className={`next ${versions[0] === version ? "disable" : ""}`}>{__('Next', '--gctd--')}</button>
+                                    <button className={`next ${versions[0] === version ? 'disable' : ''}`}>{__('Next', '--gctd--')}</button>
                                 </Link>
                             </div>
                         </div>

@@ -52,7 +52,6 @@ const processTitle = (format, values, index) => {
 
 const CompositeItem = ({
     titleFormat,
-    id,
     values,
     options,
     index,
@@ -113,7 +112,6 @@ const CompositeItem = ({
 const CompositeControl = ({
     label,
     allowDeviceControl,
-    compositeDefault = {},
     value = [],
     onValueChange,
     onStyleChange,

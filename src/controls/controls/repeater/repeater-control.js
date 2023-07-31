@@ -6,7 +6,6 @@ import { __ } from '@wordpress/i18n';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { X } from 'react-feather';
 import classnames from 'classnames';
-import { reorder } from 'gutenverse-core/helper';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
 import { IconDuplicateSVG } from 'gutenverse-core/icons';
@@ -62,7 +61,6 @@ const processTitle = (format, values) => {
 
 const RepeaterItem = ({
     titleFormat,
-    id,
     values,
     options,
     index,
@@ -189,18 +187,18 @@ const RepeaterControl = ({
         onStyleChange(newValue);
     };
 
-    const onDragEnd = (result) => {
-        const { destination, source } = result;
+    // const onDragEnd = (result) => {
+    //     const { destination, source } = result;
 
-        if (!result.destination) {
-            return;
-        }
+    //     if (!result.destination) {
+    //         return;
+    //     }
 
-        const newLanguages = reorder(value, source.index, destination.index);
-        setOpenLast(null);
-        onValueChange(newLanguages);
-        onStyleChange(newLanguages);
-    };
+    //     const newLanguages = reorder(value, source.index, destination.index);
+    //     setOpenLast(null);
+    //     onValueChange(newLanguages);
+    //     onStyleChange(newLanguages);
+    // };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-repeater'}>
         <ControlHeadingSimple

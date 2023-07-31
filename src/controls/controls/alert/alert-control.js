@@ -5,7 +5,6 @@ import { IconInfoSVG } from 'gutenverse-core/icons';
 const AlertControl = (props) => {
     const {
         type = 'primary',
-        description = '',
     } = props;
 
     const id = useInstanceId(AlertControl, 'inspector-alert-control');

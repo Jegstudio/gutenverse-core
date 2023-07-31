@@ -195,7 +195,7 @@ export const withCustomStyle = panelList => BlockElement => {
                     setHasIcon(true);
                 }
             });
-        }, [])
+        }, []);
 
         /**
          * Refresh if there is change.

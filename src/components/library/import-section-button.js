@@ -65,9 +65,11 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
     };
 
     const ProButton = () => {
+        const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+
         return (
             <div className="section-button import-section">
-                <div className="section-button-inner" onClick={() => { window.open(serverUrl); }}>
+                <div className="section-button-inner" onClick={() => { window.open(referralUrl); }}>
                     <IconVerifiedSVG />
                     <span>{__('Upgrade to Pro', '--gctd--')}</span>
                 </div>
