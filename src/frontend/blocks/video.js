@@ -1,6 +1,4 @@
-import { Default } from '../blocks/default';
-import { u } from '../index';
-import load from 'load-script';
+import { Default, u, load } from 'gutenverse-core-frontend';
 
 class GutenverseVideo extends Default {
     /* public */
