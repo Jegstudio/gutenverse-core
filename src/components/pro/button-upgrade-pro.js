@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { IconCrownSVG } from 'gutenverse-core/icons';
-import isEmpty from 'lodash/isEmpty';
 import classnames from 'classnames';
+import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -14,7 +15,8 @@ const ButtonUpgradePro = ({
     smallText = false,
     fullWidth = false,
     customStyles = {},
-    link = null
+    link = null,
+    location = ''
 }) => {
     const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
@@ -28,10 +30,12 @@ const ButtonUpgradePro = ({
         }
     );
 
-    return isEmpty(window?.gprodata) && <a href={link ? link : referralUrl} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
+    const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) && <a href={link ? link : referralUrl} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
         <IconCrownSVG />
         {text}
-    </a>;
+    </a>, location);
+
+    return <TheButton />;
 };
 
 export default ButtonUpgradePro;

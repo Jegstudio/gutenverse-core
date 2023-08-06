@@ -180,6 +180,7 @@ class Dashboard {
 		$config['fontIconExists'] = Init::instance()->assets->is_font_icon_exists();
 		$config['themesUrl']      = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['referralUrl']    = $theme_referal;
+		$config['adminUrl']       = admin_url();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}

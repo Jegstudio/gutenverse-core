@@ -64,7 +64,7 @@ const Navigation = ({ location }) => {
                 priority: 100
             },
             isEmpty(window?.gprodata) && {
-                name: <span><IconCrownSVG/>{__('Upgrade to PRO', '--gctd--')}</span>,
+                name: <span><IconCrownSVG />{__('Upgrade to PRO', '--gctd--')}</span>,
                 slug: homeSlug,
                 upgrade: true,
                 path: 'upgrade-pro',
@@ -154,7 +154,7 @@ const Navigation = ({ location }) => {
                     return null;
                 })}
             </div>
-            <ButtonUpgradePro />
+            <ButtonUpgradePro location="dashboard-navigation" />
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
     </>;

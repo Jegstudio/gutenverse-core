@@ -40,6 +40,10 @@
     &.right {
         justify-content: flex-end;
     }
+
+    &.activate {
+        background-color: #d10000 !important;
+    }
 }
 
 .banner-pro {
