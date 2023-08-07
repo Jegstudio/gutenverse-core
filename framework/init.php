@@ -29,6 +29,13 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		private $versions;
 
 		/**
+		 * Loaded Slug.
+		 *
+		 * @var string
+		 */
+		private $loaded;
+
+		/**
 		 * Singleton Class
 		 *
 		 * @return Initialize_Gutenverse_Framework
@@ -45,7 +52,29 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		 * Construct.
 		 */
 		private function __construct() {
+			$this->hook();
 			$this->versions = array();
+		}
+
+		/**
+		 * Hooks.
+		 */
+		public function hook() {
+			add_action( 'admin_head', array( $this, 'print_info' ) );
+		}
+
+		/**
+		 * Print Information.
+		 */
+		public function print_info() {
+			?>
+			<script> 
+			var gutenverseLoadedFramework = {
+				plugin: "<?php echo esc_html( $this->loaded ); ?>",
+				version: "<?php echo esc_html( $this->versions[ $this->loaded ] ); ?>",
+			}; 
+			</script>
+			<?php
 		}
 
 		/**
@@ -108,7 +137,12 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 				}
 			}
 
-			return $latest['slug'] === $slug;
+			if ( $latest['slug'] === $slug ) {
+				$this->loaded = $slug;
+				return true;
+			}
+
+			return false;
 		}
 
 		/**
