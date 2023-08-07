@@ -1,6 +1,6 @@
 .button-upgrade-pro {
     align-items: center;
-    background-color: #3B57F7 !important;
+    background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%) !important;
     border-radius: 50px;
     color: white !important;
     cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 .banner-pro {
-    background-color: #8FE3EA;
+    background: linear-gradient(220deg, #FFC121 0%, #FFE68F 100%);
     border-radius: 5px;
     padding: 32px;
     position: relative;

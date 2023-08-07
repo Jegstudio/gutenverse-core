@@ -62,49 +62,6 @@
         }
       }
 
-
-      .icon-pro-notice {
-        background: #8FE3EA;
-        border-radius: 5px;
-        padding: 20px 24px;
-        margin: 0 20px 20px;
-        position: relative;
-
-        .title {
-          color: #011627;
-          font-family: Roboto;
-          font-size: 16px;
-          font-style: normal;
-          font-weight: 500;
-          line-height: 22px;
-          margin: 0;
-        }
-
-        .description {
-          color: #40505D;
-          font-family: Roboto;
-          font-size: 12px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: 16.8px;
-          margin: 6px 0 14px;
-        }
-
-        .boxes {
-          display: flex;
-          bottom: 0;
-          right: 22px;
-          position: absolute;
-        }
-
-        .gutenverse-close {
-          cursor: pointer;
-          top: 10px;
-          right: 10px;
-          position: absolute;
-        }
-      }
-
       .icon-library-search {
         margin: 20px;
         position: relative;

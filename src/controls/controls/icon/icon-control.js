@@ -155,11 +155,6 @@ export const IconLibrary = ({
                         <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter}/>
                     </div>
                 </div>
-                {isEmpty(window?.gprodata) && <div className="icon-pro-notice">
-                    <h3 className="title">{__('Upgrade to Gutenverse PRO', '--gctd--')}</h3>
-                    <p className="description">{__('Use full potential of Gutenverse Features', '--gctd--')}</p>
-                    <ButtonUpgradePro thin={true} smallText={true} />
-                </div>}
                 <div className={'icon-library-result'}>
                     <AutoSizer>
                         {({ height, width }) => (
