@@ -1,4 +1,4 @@
-import { getDevice } from 'gutenverse-core/helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const isAnimated = (type) => type.Desktop && type.Desktop !== 'none' || type.Tablet && type.Tablet !== 'none' || type.Mobile && type.Mobile !== 'none';
 
@@ -30,7 +30,7 @@ export const useAnimationFrontend = ({ animation }) => {
 
 export const useAnimationEditor = ({ animation }) => {
     if (animation) {
-        const deviceType = getDevice();
+        const deviceType = getDeviceType();
         const {
             type = {
                 Desktop: null,

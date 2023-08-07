@@ -1,10 +1,10 @@
 
-import { getDevice } from 'gutenverse-core/helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const withDeviceControl = (BlockControl) => {
     return (props) => {
         const { allowDeviceControl = false, value = {} } = props;
-        const deviceType = getDevice();
+        const deviceType = getDeviceType();
 
         const panelProps = allowDeviceControl ? {
             ...props,
