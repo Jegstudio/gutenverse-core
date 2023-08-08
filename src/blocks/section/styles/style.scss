@@ -10,8 +10,8 @@
 }
 
 .section-wrapper {
-  margin-block-start: 0!important;
-  margin-block-end: 0!important;
+  margin-block-start: 0 !important;
+  margin-block-end: 0 !important;
 }
 
 .guten-section-wrapper {
@@ -23,11 +23,11 @@
     }
 
     &.sticky-top {
-        top: 0;
+      top: 0;
     }
 
     &.sticky-bottom {
-        bottom: 0;
+      bottom: 0;
     }
   }
 }
@@ -36,7 +36,7 @@ section.guten-section {
   position: relative;
   display: block;
 
-  & > .guten-container {
+  &>.guten-container {
     display: flex;
     margin-right: auto;
     margin-left: auto;
@@ -51,11 +51,20 @@ section.guten-section {
   }
 
   .guten-video-bg-wrapper {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    &.loaded {
+      opacity: 1;
+    }
+
     div {
-      position: relative;
-      padding-bottom: 56.25%;
-      padding-top: 25px;
-      height: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
 
       iframe {
         position: absolute;
@@ -88,11 +97,11 @@ section.guten-section {
     &.guten-shape-divider-top {
       top: -1px;
 
-      &.guten-shape-flip > svg {
+      &.guten-shape-flip>svg {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex > svg {
+      &.guten-shape-zindex>svg {
         z-index: 2;
       }
     }
@@ -103,11 +112,11 @@ section.guten-section {
       -ms-transform: rotate(180deg);
       transform: rotate(180deg);
 
-      &.guten-shape-flip > svg {
+      &.guten-shape-flip>svg {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex > svg {
+      &.guten-shape-zindex>svg {
         z-index: 2;
       }
     }
@@ -141,7 +150,7 @@ section.guten-section {
       -ms-transform: rotate(180deg);
       transform: rotate(180deg);
 
-      &.guten-shape-flip > svg {
+      &.guten-shape-flip>svg {
         transform: translateX(-50%) rotateY(180deg);
       }
 
@@ -153,11 +162,11 @@ section.guten-section {
     &.guten-shape-divider-animated-bottom {
       bottom: -1px;
 
-      &.guten-shape-flip > svg {
+      &.guten-shape-flip>svg {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex > svg {
+      &.guten-shape-zindex>svg {
         z-index: 2;
       }
     }
@@ -173,37 +182,37 @@ section.guten-section {
   }
 
   &.align-top {
-    & > .guten-container {
+    &>.guten-container {
       align-items: flex-start;
     }
   }
 
   &.align-middle {
-    & > .guten-container {
+    &>.guten-container {
       align-items: center;
     }
   }
 
   &.align-bottom {
-    & > .guten-container {
+    &>.guten-container {
       align-items: flex-end;
     }
   }
 
   &.align-stretch {
-    & > .guten-container {
+    &>.guten-container {
       align-items: stretch;
     }
   }
 
   &.overflow-auto {
-    & > .guten-container {
+    &>.guten-container {
       overflow: auto;
     }
   }
 
   &.overflow-hidden {
-    & > .guten-container {
+    &>.guten-container {
       overflow: hidden;
     }
   }
@@ -212,7 +221,7 @@ section.guten-section {
     &.guten-section-height-full {
       height: 100vh;
 
-      > .guten-container {
+      >.guten-container {
         height: 100%;
       }
     }
@@ -223,23 +232,23 @@ section.guten-section {
 .guten-column {
   padding: 10px;
 
-  .guten-column-gap-no > & {
+  .guten-column-gap-no>& {
     padding: 0;
   }
 
-  .guten-column-gap-narrow > & {
+  .guten-column-gap-narrow>& {
     padding: 5px;
   }
 
-  .guten-column-gap-extended > & {
+  .guten-column-gap-extended>& {
     padding: 15px;
   }
 
-  .guten-column-gap-wide > & {
+  .guten-column-gap-wide>& {
     padding: 20px;
   }
 
-  .guten-column-gap-wider > & {
+  .guten-column-gap-wider>& {
     padding: 30px;
   }
 }

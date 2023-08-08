@@ -1001,7 +1001,7 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function( $value ) {
-							return "background-image: url({$value['image']})";
+							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
 						},
 						'value'          => $background['videoImage'],
 						'device_control' => true,

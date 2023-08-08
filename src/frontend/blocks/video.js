@@ -5,13 +5,36 @@ class GutenverseVideo extends Default {
     init() {
         const elements = this._elements;
         const { video_script: path } = window.GutenverseFrontendConfig;
-        elements.length > 0 && load(path, (err) => {
-            if (!err) {
-                elements.map(element => {
-                    this._renderVideo(element);
-                });
-            }
-        });
+        if (elements.length > 0) {
+            load(path, (err) => {
+                if (!err) {
+                    elements.map(element => {
+                        this._renderVideo(element);
+                    });
+                }
+
+                window.addEventListener('resize', () => {
+                    elements.map(element => {
+                        this._calculateSize(element);
+                    });
+                }, true);
+            });
+        }
+    }
+
+    _calculateSize(element) {
+        const wrapper = u(element).find('.guten-video-bg-wrapper');
+        const inner = u(element).find('.guten-video-bg-wrapper > div');
+        const wrapperSize = u(wrapper).size();
+
+        const height = Math.floor(wrapperSize.width * 0.56);
+        const width = Math.floor(wrapperSize.height / 0.56);
+
+        if (height > wrapperSize.height) {
+            inner.attr('style', `width: ${wrapperSize.width}px; height: ${height}px`);
+        } else {
+            inner.attr('style', `width: ${width}px; height: ${wrapperSize.height}px`);
+        }
     }
 
     /* private */
@@ -20,8 +43,12 @@ class GutenverseVideo extends Default {
         const videoData = data ? JSON.parse(data) : null;
 
         if (videoData && typeof videoData === 'object') {
-            /* the function below is from '\assets\frontend\react-player\ReactPlayer.standalone.js' */
-            renderReactPlayer(element, videoData); // eslint-disable-line
+            renderReactPlayer(element, videoData); // eslint-disable-line  
+
+            setTimeout(() => {
+                this._calculateSize(element);
+                u(element).find('.guten-video-bg-wrapper').addClass('loaded');
+            }, 1);
         }
     }
 }
