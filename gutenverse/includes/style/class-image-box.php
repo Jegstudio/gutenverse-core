@@ -93,6 +93,19 @@ class Image_Box extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['imageBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .image-box-header",
+					'property'       => function( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['imageBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageBorderRadius'] ) ) {
 			$this->inject_style(
 				array(
