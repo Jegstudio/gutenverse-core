@@ -70,15 +70,15 @@ export const layoutPanel = (props) => {
                 },
                 {
                     label: 'Space Between',
-                    value: 'between'
+                    value: 'space-between'
                 },
                 {
                     label: 'Space Around',
-                    value: 'around'
+                    value: 'space-around'
                 },
                 {
                     label: 'Space Evenly',
-                    value: 'evenly'
+                    value: 'space-evenly'
                 },
             ],
             style: [
