@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Block_Abstract;
+
 /**
  * Class Post Comment Block
  *
