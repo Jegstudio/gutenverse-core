@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Block;
 
+use Gutenverse\Framework\Block\Post_Abstract;
+
 /**
  * Class Post Block
  *
