@@ -1,7 +1,9 @@
+import classnames from 'classnames';
+
 export const withVideoBackground = (BlockSave) => {
     return (props) => {
-        const {attributes} = props;
-        const {background = {}} = attributes;
+        const { attributes } = props;
+        const { background = {} } = attributes;
 
         const style = {
             zIndex: 0,
@@ -24,7 +26,9 @@ export const withVideoBackground = (BlockSave) => {
 
         const dataProperties = JSON.stringify({
             url: background.videoLink ? background.videoLink : '',
-            class: 'guten-video-bg-wrapper',
+            class: classnames('guten-video-bg-wrapper', {
+                'show-phone': background.videoPlayOnMobile
+            }),
             width: '100%',
             height: '100%',
             playing: true,
@@ -42,6 +46,6 @@ export const withVideoBackground = (BlockSave) => {
             videoContainer
         };
 
-        return <BlockSave {...saveProps}/>;
+        return <BlockSave {...saveProps} />;
     };
 };

@@ -1,10 +1,15 @@
 
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import ReactPlayer from 'react-player';
 
-const SectionVideoContainer = ({attributes}) => {
+const SectionVideoContainer = ({ attributes }) => {
     const {
         background = {}
     } = attributes;
+
+    background.videoPlayOnMobile = background.videoPlayOnMobile || false;
+
+    const deviceType = getDeviceType();
 
     const playerStyle = {
         zIndex: 0,
@@ -13,6 +18,7 @@ const SectionVideoContainer = ({attributes}) => {
         position: 'absolute',
         overflow: 'hidden',
         pointerEvents: 'none',
+        opacity: 1,
     };
 
     const playerConfig = {
@@ -25,7 +31,7 @@ const SectionVideoContainer = ({attributes}) => {
         }
     };
 
-    return background.type && background.type === 'video' ? (
+    const videoPlayer = background.type && background.type === 'video' ? (
         <ReactPlayer
             className="guten-video-bg-wrapper"
             url={background.videoLink}
@@ -40,6 +46,16 @@ const SectionVideoContainer = ({attributes}) => {
             config={playerConfig}
         />
     ) : null;
+
+    if ('Mobile' === deviceType) {
+        if (background.videoPlayOnMobile) {
+            return videoPlayer;
+        } else {
+            return null;
+        }
+    } else {
+        return videoPlayer;
+    }
 };
 
 export default SectionVideoContainer;

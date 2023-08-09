@@ -253,4 +253,15 @@ section.guten-section {
   }
 }
 
+// Section Phone
+@media only screen and (max-width: 767px) {
+  .guten-video-bg-wrapper {
+    display: none;
+  }
+
+  .guten-video-bg-wrapper.show-phone {
+    display: block;
+  }
+}
+
 // Section height

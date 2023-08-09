@@ -168,7 +168,7 @@ export const handleBackground = (background) => {
 
             if (_videoImage) {
                 responsiveAppender({
-                    style: `background-image: url(${_videoImage.image});`,
+                    style: `background-image: url(${_videoImage.image}); background-size: cover; background-position: center;`,
                     device,
                     elementStyle
                 });
