@@ -1,6 +1,6 @@
 import { render, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { IconPluginCheckSVG, IconPluginFormSVG, IconPluginPopupSVG, IconPluginFontSVG } from '../../assets/icon/index';
+import { IconPluginCheckSVG, IconPluginFormSVG, IconPluginFontSVG } from '../../assets/icon/index';
 import classnames from 'classnames';
 import apiFetch from '@wordpress/api-fetch';
 
@@ -80,9 +80,6 @@ const WizardContainer = ({ setStage }) => {
             case 'form':
                 text = __('Install Gutenverse Form Plugin', 'gutenverse');
                 break;
-            case 'popup':
-                text = __('Install Gutenverse Popup Builder', 'gutenverse');
-                break;
             case 'icon':
                 text = __('Install Gutenverse Icon', 'gutenverse');
                 break;
@@ -134,19 +131,6 @@ const WizardContainer = ({ setStage }) => {
                     icon={<IconPluginFormSVG />}
                     part={'form'}
                     selected={selected.form}
-                    toggleSelected={toggleSelected}
-                />}
-
-                {popup && <WizardItem
-                    title={() => {
-                        return <>
-                            <strong>{__('Gutenverse', 'gutenverse')} </strong>{__('Popup Builder', 'gutenverse')}
-                        </>;
-                    }}
-                    subtitle={__('Build versatile popup, for your notification, GDPR notice, email subscriber, off canvas menu, and many more', 'gutenverse')}
-                    icon={<IconPluginPopupSVG />}
-                    part={'popup'}
-                    selected={selected.popup}
                     toggleSelected={toggleSelected}
                 />}
 

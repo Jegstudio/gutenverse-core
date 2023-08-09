@@ -123,9 +123,6 @@ class Api {
 			case 'form':
 				$result = $this->install_plugin( 'gutenverse-form', 'gutenverse-form/gutenverse-form.php' );
 				break;
-			case 'popup':
-				$result = $this->install_plugin( 'gutenverse-popup', 'gutenverse-popup/gutenverse-popup.php' );
-				break;
 			case 'icon':
 				$result = Init::instance()->assets->download_font_icon();
 				break;
