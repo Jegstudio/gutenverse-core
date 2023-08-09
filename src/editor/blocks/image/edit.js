@@ -35,23 +35,38 @@ export const ImageBoxFigure = attributes => {
     const { media = {}, size } = imgSrc || {};
     const { imageId, sizes = {} } = media || {};
 
-    let alt = null;
+    let imageAltText = null;
 
     switch (altType) {
         case 'original':
-            alt = altOriginal;
+            imageAltText = altOriginal;
             break;
         case 'custom':
-            alt = altCustom;
+            imageAltText = altCustom;
             break;
     }
 
-    if (imageId) {
-        const imageSrc = sizes[size];
-        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={alt} />;
-    } else {
-        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={alt} />;
+    // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
+
+    if (isEmpty(sizes)) {
+        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
     }
+
+    let imageSrc = sizes[size];
+
+    if (isEmpty(imageSrc)) {
+        if (isEmpty(sizes['full'])) {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        }
+
+        imageSrc = sizes['full'];
+    }
+
+    if (imageId && imageSrc) {
+        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+    }
+
+    return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
 };
 
 // const ImageCrop = (props) => {
