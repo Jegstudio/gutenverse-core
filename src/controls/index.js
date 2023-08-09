@@ -76,4 +76,4 @@ export { positioningPanel } from './panels/panel-positioning';
 export { sliderPanel } from './panels/panel-slider';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
-export { PanelSequence, TabSetting, TabStyle, TabAdvance } from './panels/panel-constant';
+export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';

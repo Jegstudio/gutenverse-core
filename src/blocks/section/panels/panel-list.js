@@ -6,7 +6,7 @@ import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, 
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { TabSetting, TabStyle, TabPro } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
 
 export const panelList = () => {
@@ -27,7 +27,8 @@ export const panelList = () => {
             title: __('Sticky', '--gctd--'),
             initialOpen: false,
             panelArray: stickyPanel,
-            pro: true
+            pro: true,
+            tabRole: TabPro
         },
         {
             title: __('Background', '--gctd--'),
@@ -58,7 +59,8 @@ export const panelList = () => {
             title: __('Background Animated', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
-            pro: true
+            pro: true,
+            tabRole: TabPro
         },
         {
             title: __('Border', '--gctd--'),
@@ -88,7 +90,8 @@ export const panelList = () => {
             title: __('Shape Divider Animated', '--gctd--'),
             initialOpen: false,
             panelArray: dividerPanelAnimated,
-            pro: true
+            pro: true,
+            tabRole: TabPro
         },
         {
             title: __('Display', '--gctd--'),
@@ -113,7 +116,8 @@ export const panelList = () => {
                 ...props,
                 blockType: 'section'
             }),
-            pro: true
+            pro: true,
+            tabRole: TabPro
         },
         {
             title: __('Positioning', '--gctd--'),

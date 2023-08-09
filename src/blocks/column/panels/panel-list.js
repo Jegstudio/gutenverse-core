@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { layoutPanel } from './panel-layout';
-import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, TabPro } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -14,7 +14,8 @@ export const panelList = () => {
         {
             title: __('Sticky', '--gctd--'),
             panelArray: stickyPanel,
-            pro: true
+            pro: true,
+            tabRole: TabPro
         },
         {
             title: __('Background', '--gctd--'),
