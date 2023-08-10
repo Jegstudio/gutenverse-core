@@ -82,7 +82,8 @@ class Post_Comment extends Block_Abstract {
 		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
+		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . ' guten-post-comment guten-element">' . $this->render_content( $post_id ) . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-comment guten-element">' . $this->render_content( $post_id ) . '</div>';
 	}
 }
