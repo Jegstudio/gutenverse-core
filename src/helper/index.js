@@ -491,9 +491,14 @@ export const getActiveWindow = () => {
         if (undefined !== window && 'editor-canvas' === window.name) {
             return window;
         }
-    } else {
+
+    } else if (document.getElementsByClassName('block-editor-block-preview__content')[0]) {
+        return document.getElementsByClassName('block-editor-block-preview__content')[0];
+    } else if (document.getElementsByClassName('interface-interface-skeleton__content')[0]) {
         return document.getElementsByClassName('interface-interface-skeleton__content')[0];
     }
+
+    return window;
 };
 
 export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {

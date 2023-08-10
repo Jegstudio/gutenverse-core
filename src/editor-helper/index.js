@@ -360,8 +360,17 @@ export const cleanEmptyObject = (object) => {
 export const getDeviceType = () => {
     const editor = isFSE() ? select('core/edit-site') : select('core/edit-post');
 
-    if (editor) {
-        return editor.__experimentalGetPreviewDeviceType();
+    if (isEmpty(editor)) {
+        return null;
+    }
+
+    if (editor?.__experimentalGetPreviewDeviceType) {
+        let device = editor.__experimentalGetPreviewDeviceType();
+
+        // Update for WordPress version 6.3
+        device = device.charAt(0).toUpperCase() + device.slice(1);
+
+        return device;
     }
 
     return null;
