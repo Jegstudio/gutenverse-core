@@ -35,7 +35,7 @@ const save = compose(
     const {
         elementId,
         title,
-        titleTag,
+        titleTag: TitleTag,
         description,
         image,
         imageAlt,
@@ -94,11 +94,7 @@ const save = compose(
                 {iconContent()}
                 <div className="icon-box icon-box-body">
                     <WrapAHref {...props}>
-                        <RichText.Content
-                            className={'title'}
-                            value={title}
-                            tagName={titleTag}
-                        />
+                        <TitleTag className="title">{title}</TitleTag>
                     </WrapAHref>
                     <RichText.Content
                         className="icon-box-description"
