@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useRef } from '@wordpress/element';
-import { ControlCheckbox } from 'gutenverse-core/backend';
+import { ControlCheckbox, ControlCheckboxPro } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 
@@ -144,6 +144,23 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                         .map((block) => {
                                             if (block?.parent) {
                                                 return null;
+                                            }
+
+                                            if (block?.locked) {
+                                                return (
+                                                    <div key={block.name} className="block-item locked">
+                                                        <p className="pro-label">PRO</p>
+                                                        <div className="block-info">
+                                                            <span className="block-icon">
+                                                                {block?.icon}
+                                                            </span>
+                                                            <p className="block-title">{block?.title}</p>
+                                                        </div>
+                                                        <div className="block-control" ref={controlRef}>
+                                                            <ControlCheckboxPro />
+                                                        </div>
+                                                    </div>
+                                                );
                                             }
 
                                             return (

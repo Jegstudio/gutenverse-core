@@ -1,8 +1,31 @@
 import { createReduxStore, combineReducers, register } from '@wordpress/data';
 
-const blockList = (state = [], action) => {
+const PRO_STATE_DEFAULT = [
+    {
+        name: 'gutenverse/conditions',
+        title: 'Condition Filter',
+        category: 'gutenverse-structure',
+        pro: true,
+        locked: true,
+    }
+];
+
+const blockList = (state = PRO_STATE_DEFAULT, action) => {
     switch (action.type) {
         case 'UPDATE_LIST':
+            if (action?.list?.pro) {
+                const updatedState = state.filter(block => {
+                    return action?.list?.name !== block.name;
+                });
+
+                console.log(updatedState);
+
+                return [
+                    ...updatedState,
+                    action.list,
+                ];
+            }
+
             return [
                 ...state,
                 action.list,
