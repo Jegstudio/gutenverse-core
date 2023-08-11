@@ -1,16 +1,19 @@
 import { Default, u } from 'gutenverse-core-frontend';
-import Swiper, { Navigation, Pagination, Zoom } from 'swiper';
 import Shuffle from 'shufflejs';
-
-Swiper.use([ Navigation, Pagination, Zoom]);
 
 class GutenverseGallery extends Default {
     /* public */
     init() {
-        this._elements.map(element => {
-            this._addSliderEffect(element);
-            this._addEvents(element);
-        });
+        const elements = this._elements;
+        if (elements.length > 0) {
+            import('swiper').then(({ default: Swiper, Navigation, Pagination, Zoom }) => {
+                Swiper.use(Navigation, Pagination, Zoom);
+                elements.map(element => {
+                    this._addSliderEffect(element, Swiper);
+                    this._addEvents(element, Swiper);
+                });
+            });
+        }
     }
 
     /* private */
@@ -33,7 +36,7 @@ class GutenverseGallery extends Default {
     _requestFullscreen(popup) {
         if (popup.requestFullscreen) {
             popup.requestFullscreen();
-        } else if (popup.webkitRequestFullscreen ) {
+        } else if (popup.webkitRequestFullscreen) {
             popup.webkitRequestFullscreen();
         } else if (popup.mozRequestFullScreen) {
             popup.mozRequestFullScreen();
@@ -54,7 +57,7 @@ class GutenverseGallery extends Default {
         }
     }
 
-    _addSliderEffect(element) {
+    _addSliderEffect(element, Swiper) {
         const $this = this;
         const thisElement = u(element);
         const gallery = thisElement.find('.gallery-items');
@@ -91,7 +94,7 @@ class GutenverseGallery extends Default {
                     observeParents: true,
                 };
 
-                const swiper = new Swiper( `.${id} .swiper-container`, settings);
+                const swiper = new Swiper(`.${id} .swiper-container`, settings);
 
                 galleryPopup.hasClass('hidden') ? galleryPopup.removeClass('hidden') : galleryPopup.addClass('hidden');
 
@@ -149,12 +152,12 @@ class GutenverseGallery extends Default {
         thisElement.find('.guten-gallery-control').on('click', e => {
             const filter = u(e.target).data('filter');
 
-            thisElement.find('#search-filter-trigger span').text(filter? filter : 'All');
+            thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
 
             u(e.target).addClass('active');
             u(e.target).siblings().removeClass('active');
 
-            this._onSearch(filter? filter : '', shuffle);
+            this._onSearch(filter ? filter : '', shuffle);
         });
 
         thisElement.find('.guten-gallery-load-more').on('click', (e) => {
@@ -166,7 +169,7 @@ class GutenverseGallery extends Default {
             const total = loaded + more;
             const items = gallery.find('.gallery-item-wrap');
 
-            if ( total - more <= max ) {
+            if (total - more <= max) {
                 items.map((item, index) => {
                     if (index >= loaded && index < total) {
                         u(item).removeClass('item-hidden');

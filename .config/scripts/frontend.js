@@ -32,6 +32,8 @@ const frontend = {
                 onStart: {
                     delete: [
                         "./gutenverse/assets/js/frontend.js*",
+                        "./gutenverse/assets/js/vendor*",
+                        "./gutenverse/assets/js/20.js",
                         "./gutenverse/lib/dependencies/frontend.asset.php"
                     ]
                 },
@@ -39,6 +41,10 @@ const frontend = {
                     copy: [
                         {
                             source: process.env.NODE_ENV === 'development' ? "./build/frontend.js*" : "./build/frontend.js",
+                            destination: "./gutenverse/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/vendors*" : "./build/20.js",
                             destination: "./gutenverse/assets/js/",
                         },
                         {

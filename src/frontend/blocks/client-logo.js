@@ -1,18 +1,21 @@
 import { Default, u, applyFilters } from 'gutenverse-core-frontend';
-import Swiper, { Autoplay, Navigation, Pagination } from 'swiper';
-
-Swiper.use([Autoplay, Navigation, Pagination]);
 
 class GutenverseClientLogo extends Default {
     /* public */
     init() {
-        this._elements.map(element => {
-            this._addSliderEffect(element);
-        });
+        const elements = this._elements;
+        if (elements.length > 0) {
+            import('swiper').then(({ default: Swiper, Autoplay, Navigation, Pagination }) => {
+                Swiper.use(Autoplay, Navigation, Pagination);
+                elements.map(element => {
+                    this._addSliderEffect(element, Swiper);
+                });
+            });
+        }
     }
 
     /* private */
-    _addSliderEffect(element) {
+    _addSliderEffect(element, Swiper) {
         const sliderContainer = u(element).find('.swiper-container');
         const id = sliderContainer.attr('id');
         const loop = sliderContainer.data('loop');
