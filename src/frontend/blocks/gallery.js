@@ -1,18 +1,24 @@
 import { Default, u } from 'gutenverse-core-frontend';
-import Shuffle from 'shufflejs';
 
 class GutenverseGallery extends Default {
     /* public */
     init() {
         const elements = this._elements;
         if (elements.length > 0) {
-            import('swiper').then(({ default: Swiper, Navigation, Pagination, Zoom }) => {
-                Swiper.use(Navigation, Pagination, Zoom);
-                elements.map(element => {
-                    this._addSliderEffect(element, Swiper);
-                    this._addEvents(element, Swiper);
+            const promiseShuffle = import('shufflejs');
+            const promiseSwiper = import('swiper');
+
+            Promise.all([promiseShuffle, promiseSwiper])
+                .then((result) => {
+                    const { default: Shuffle } = result[0];
+                    const { default: Swiper, Navigation, Pagination, Zoom } = result[1];
+
+                    Swiper.use(Navigation, Pagination, Zoom);
+                    elements.map(element => {
+                        this._addSliderEffect(element, Swiper);
+                        this._addEvents(element, Shuffle);
+                    });
                 });
-            });
         }
     }
 
@@ -133,7 +139,7 @@ class GutenverseGallery extends Default {
         });
     }
 
-    _addEvents(element) {
+    _addEvents(element, Shuffle) {
         const thisElement = u(element);
         const filterPopup = thisElement.find('.search-filter-controls');
 

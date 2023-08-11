@@ -34,6 +34,7 @@ const frontend = {
                         "./gutenverse/assets/js/frontend.js*",
                         "./gutenverse/assets/js/vendor*",
                         "./gutenverse/assets/js/20.js",
+                        "./gutenverse/assets/js/439.js",
                         "./gutenverse/lib/dependencies/frontend.asset.php"
                     ]
                 },
@@ -44,7 +45,15 @@ const frontend = {
                             destination: "./gutenverse/assets/js/",
                         },
                         {
-                            source: process.env.NODE_ENV === 'development' ? "./build/vendors*" : "./build/20.js",
+                            source: process.env.NODE_ENV === 'development' ? "./build/vendors*" : '',
+                            destination: "./gutenverse/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV !== 'development' ? "./build/20.js" : '',
+                            destination: "./gutenverse/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV !== 'development' ? "./build/439.js" : '',
                             destination: "./gutenverse/assets/js/",
                         },
                         {
