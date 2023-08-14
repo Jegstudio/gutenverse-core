@@ -1,14 +1,67 @@
 import { createReduxStore, combineReducers, register } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
-const PRO_STATE_DEFAULT = [
-    {
-        name: 'gutenverse/conditions',
-        title: 'Condition Filter',
-        category: 'gutenverse-structure',
-        pro: true,
-        locked: true,
-    }
-];
+const PRO_STATE_DEFAULT = applyFilters(
+    'gutenverse.blocklist.locked',
+    [
+        {
+            name: 'gutenverse/conditions',
+            title: 'Condition Filter',
+            category: 'gutenverse-structure',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/lottie',
+            title: 'Lottie',
+            category: 'gutenverse-element',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/mega-menu',
+            title: 'Mega Menu',
+            category: 'gutenverse-element',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/form-input-calculation',
+            title: 'Calculation Input',
+            category: 'gutenverse-form',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/form-input-image-radio',
+            title: 'Image Radio',
+            category: 'gutenverse-form',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/form-input-payment',
+            title: 'Payment',
+            category: 'gutenverse-form',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/form-stepper-navigation',
+            title: 'Stepper Navigation',
+            category: 'gutenverse-form',
+            pro: true,
+            locked: true,
+        },
+        {
+            name: 'gutenverse/form-stepper',
+            title: 'Stepper',
+            category: 'gutenverse-form',
+            pro: true,
+            locked: true,
+        },
+    ]
+);
 
 const blockList = (state = PRO_STATE_DEFAULT, action) => {
     switch (action.type) {
@@ -17,8 +70,6 @@ const blockList = (state = PRO_STATE_DEFAULT, action) => {
                 const updatedState = state.filter(block => {
                     return action?.list?.name !== block.name;
                 });
-
-                console.log(updatedState);
 
                 return [
                     ...updatedState,
