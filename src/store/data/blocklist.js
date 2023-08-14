@@ -1,5 +1,6 @@
 import { createReduxStore, combineReducers, register } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import { IconConditionsBlockSVG, IconFormCalculationSVG, IconFormImageRadioSVG, IconFormPaymentSVG, IconFormStepperNavigationButtonSVG, IconFormStepperSVG, IconLottieSVG, IconMegaMenuSVG } from 'gutenverse-core/icons';
 
 const PRO_STATE_DEFAULT = applyFilters(
     'gutenverse.blocklist.locked',
@@ -8,6 +9,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/conditions',
             title: 'Condition Filter',
             category: 'gutenverse-structure',
+            icon: <IconConditionsBlockSVG/>,
             pro: true,
             locked: true,
         },
@@ -15,6 +17,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/lottie',
             title: 'Lottie',
             category: 'gutenverse-element',
+            icon: <IconLottieSVG/>,
             pro: true,
             locked: true,
         },
@@ -22,6 +25,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/mega-menu',
             title: 'Mega Menu',
             category: 'gutenverse-element',
+            icon: <IconMegaMenuSVG/>,
             pro: true,
             locked: true,
         },
@@ -29,6 +33,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/form-input-calculation',
             title: 'Calculation Input',
             category: 'gutenverse-form',
+            icon: <IconFormCalculationSVG/>,
             pro: true,
             locked: true,
         },
@@ -36,6 +41,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/form-input-image-radio',
             title: 'Image Radio',
             category: 'gutenverse-form',
+            icon: <IconFormImageRadioSVG/>,
             pro: true,
             locked: true,
         },
@@ -43,6 +49,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/form-input-payment',
             title: 'Payment',
             category: 'gutenverse-form',
+            icon: <IconFormPaymentSVG/>,
             pro: true,
             locked: true,
         },
@@ -50,6 +57,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/form-stepper-navigation',
             title: 'Stepper Navigation',
             category: 'gutenverse-form',
+            icon: <IconFormStepperNavigationButtonSVG/>,
             pro: true,
             locked: true,
         },
@@ -57,6 +65,7 @@ const PRO_STATE_DEFAULT = applyFilters(
             name: 'gutenverse/form-stepper',
             title: 'Stepper',
             category: 'gutenverse-form',
+            icon: <IconFormStepperSVG/>,
             pro: true,
             locked: true,
         },
