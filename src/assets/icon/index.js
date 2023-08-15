@@ -61,6 +61,18 @@ import IconPluginForm from './icon-plugin-form.svg';
 import IconPluginFont from './icon-plugin-font.svg';
 import IconPluginCheck from './icon-plugin-check.svg';
 
+/** Block PRO */
+import IconMegaMenu from './icon-mega-menu.svg';
+import IconLottie from './icon-lottie.svg';
+
+export const IconMegaMenuSVG = () => {
+    return <IconMegaMenu />;
+};
+
+export const IconLottieSVG = () => {
+    return <IconLottie />;
+};
+
 export const IconPluginCheckSVG = () => {
     return <IconPluginCheck />;
 };
