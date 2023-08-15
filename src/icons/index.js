@@ -44,17 +44,7 @@ import IconColumn from './icon/icon-column.svg';
 import IconSection from './icon/icon-section.svg';
 
 /* Block Pro */
-import IconMegaMenu from './icon/icon-mega-menu.svg';
-import IconLottie from './icon/icon-lottie.svg';
 import IconConditionsBlock from './icon/icon-condition-filter.svg';
-
-/* Gutenverse Form Icons */
-import IconFormCalculation from './icon/icon-form-calculation.svg';
-import IconFormStepper from './icon/icon-form-stepper.svg';
-import IconFormImageRadio from './icon/icon-form-image-radio.svg';
-import IconFormPayment from './icon/icon-form-payment.svg';
-import IconFormStepperNavigationButton from './icon/icon-form-stepper-navigation-button.svg';
-import IconFormStepperSectionItem from './icon/icon-form-stepper-section-item.svg';
 
 export const LogoCircleColor16SVG = (props) => {
     return <LogoCircleColor16 { ...props } />;
@@ -327,38 +317,6 @@ export const IconCrownSVG = () => {
     </svg>;
 };
 
-export const IconMegaMenuSVG = () => {
-    return <IconMegaMenu />;
-};
-
-export const IconLottieSVG = () => {
-    return <IconLottie />;
-};
-
 export const IconConditionsBlockSVG = () => {
     return <IconConditionsBlock />;
-};
-
-export const IconFormCalculationSVG = () => {
-    return <IconFormCalculation />;
-};
-
-export const IconFormStepperSVG = () => {
-    return <IconFormStepper />;
-};
-
-export const IconFormImageRadioSVG = () => {
-    return <IconFormImageRadio />;
-};
-
-export const IconFormPaymentSVG = () => {
-    return <IconFormPayment />;
-};
-
-export const IconFormStepperNavigationButtonSVG = () => {
-    return <IconFormStepperNavigationButton />;
-};
-
-export const IconFormStepperSectionItemSVG = () => {
-    return <IconFormStepperSectionItem />;
 };
