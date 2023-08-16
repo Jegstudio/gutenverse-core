@@ -10,6 +10,7 @@ import withGlobalVariable from './with-global-variable';
 import { signal } from 'gutenverse-core/editor-helper';
 
 const GlobalStyleSidebar = props => {
+    const { wp } = window;
     const { variable, googleFont } = props;
     const [stage, setStage] = useState();
     const Sidebar = (isFSE() ? wp.editSite : wp.editPost).PluginSidebar;

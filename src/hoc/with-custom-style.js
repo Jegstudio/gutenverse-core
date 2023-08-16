@@ -1,7 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
-import { getGoogleFontParams, isFSE, recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
@@ -27,14 +27,14 @@ export const withCustomStyle = panelList => BlockElement => {
         const { elementId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
         const gutenverseSelector = select('gutenverse/style');
-        const [ adminStyles, setAdminStyle ] = useState({});
-        const [ totalChild, setTotalChild ] = useState(0);
-        const [ switcher, setSwitcher ] = useState({});
-        const [ refresh, setRefresh ] = useState(null);
-        const [ hasIcon, setHasIcon ] = useState(false);
-        const [ confirmSignal, setConfirmSignal ] = useState(false);
-        const [ elementRef, setElementRef ] = useState(null);
-        const [ headElement, setHeadElement ] = useState(null);
+        const [adminStyles, setAdminStyle] = useState({});
+        const [totalChild, setTotalChild] = useState(0);
+        const [switcher, setSwitcher] = useState({});
+        const [refresh, setRefresh] = useState(null);
+        const [hasIcon, setHasIcon] = useState(false);
+        const [confirmSignal, setConfirmSignal] = useState(false);
+        const [elementRef, setElementRef] = useState(null);
+        const [headElement, setHeadElement] = useState(null);
         const controls = panelList();
 
         const refreshSignal = (key) => {
@@ -56,17 +56,23 @@ export const withCustomStyle = panelList => BlockElement => {
             deviceType,
         } = useSelect(
             (select) => {
-                const editor = isFSE() ? select('core/edit-site') : select('core/edit-post');
+                const location = determineLocation();
+                let deviceType = 'Desktop';
 
-                if (isEmpty(editor)) {
-                    return ({
-                        deviceType: (isFSE() ? wp.data.select('core/edit-site') : wp.data.select('core/edit-post')).__experimentalGetPreviewDeviceType(),
-                    });
+                switch (location) {
+                    case 'editor':
+                        deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
+                        break;
+                    case 'post':
+                        deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
+                        break;
+                    default:
+                        deviceType = 'Desktop';
                 }
 
-                return ({
-                    deviceType: editor.__experimentalGetPreviewDeviceType(),
-                });
+                return {
+                    deviceType: deviceType
+                };
             },
             []
         );

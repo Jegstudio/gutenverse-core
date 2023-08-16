@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
-import { isFSE, setDeviceType } from 'gutenverse-core/helper';
+import { determineLocation, isFSE, setDeviceType } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { IconDeviceDesktopSVG, IconDeviceTabletSVG, IconDeviceMobileSVG } from 'gutenverse-core/icons';
 
@@ -33,28 +33,33 @@ const ControlDevices = () => {
     }, [wrapperRef]);
 
     const [open, setOpen] = useState(false);
+    const location = determineLocation();
 
-    return <div className={'control-heading-devices'} ref={wrapperRef}>
-        <div className={'active-device'} onClick={() => toggleOpen()}>
-            {deviceType === 'Desktop' && <IconDeviceDesktopSVG />}
-            {deviceType === 'Tablet' && <IconDeviceTabletSVG />}
-            {deviceType === 'Mobile' && <IconDeviceMobileSVG />}
-        </div>
-        {open && <ul className={'triangle'}>
-            <li className={deviceType === 'Desktop' ? 'active' : ''} onClick={() => changeDevice('Desktop')}>
-                <span><IconDeviceDesktopSVG /></span>
-                <span>{__('Desktop', '--gctd--')}</span>
-            </li>
-            <li className={deviceType === 'Tablet' ? 'active' : ''} onClick={() => changeDevice('Tablet')}>
-                <span><IconDeviceTabletSVG /></span>
-                <span>{__('Tablet', '--gctd--')}</span>
-            </li>
-            <li className={deviceType === 'Mobile' ? 'active' : ''} onClick={() => changeDevice('Mobile')}>
-                <span><IconDeviceMobileSVG /></span>
-                <span>{__('Phone', '--gctd--')}</span>
-            </li>
-        </ul>}
-    </div>;
+    if ('editor' === location || 'post' === location) {
+        return <div className={'control-heading-devices'} ref={wrapperRef}>
+            <div className={'active-device'} onClick={() => toggleOpen()}>
+                {deviceType === 'Desktop' && <IconDeviceDesktopSVG />}
+                {deviceType === 'Tablet' && <IconDeviceTabletSVG />}
+                {deviceType === 'Mobile' && <IconDeviceMobileSVG />}
+            </div>
+            {open && <ul className={'triangle'}>
+                <li className={deviceType === 'Desktop' ? 'active' : ''} onClick={() => changeDevice('Desktop')}>
+                    <span><IconDeviceDesktopSVG /></span>
+                    <span>{__('Desktop', '--gctd--')}</span>
+                </li>
+                <li className={deviceType === 'Tablet' ? 'active' : ''} onClick={() => changeDevice('Tablet')}>
+                    <span><IconDeviceTabletSVG /></span>
+                    <span>{__('Tablet', '--gctd--')}</span>
+                </li>
+                <li className={deviceType === 'Mobile' ? 'active' : ''} onClick={() => changeDevice('Mobile')}>
+                    <span><IconDeviceMobileSVG /></span>
+                    <span>{__('Phone', '--gctd--')}</span>
+                </li>
+            </ul>}
+        </div>;
+    } else {
+        return null;
+    }
 };
 
 export default ControlDevices;
