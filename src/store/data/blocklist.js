@@ -16,17 +16,6 @@ const PRO_STATE_DEFAULT = [
 const blockList = (state = [], action) => {
     switch (action.type) {
         case 'UPDATE_LIST':
-            if (action?.list?.pro) {
-                const updatedState = state.filter(block => {
-                    return action?.list?.name !== block.name;
-                });
-
-                return [
-                    ...updatedState,
-                    action.list,
-                ];
-            }
-
             return [
                 ...state,
                 action.list,
@@ -45,14 +34,33 @@ const updateList = (list) => {
 
 const getList = (state = []) => {
     const { blockList } = state;
+    const lockedList = [];
 
-    return applyFilters(
+    const lockedBlocks = applyFilters(
         'gutenverse.blocklist.locked',
         [
-            ...PRO_STATE_DEFAULT,
-            ...blockList
+            ...PRO_STATE_DEFAULT
         ]
     );
+
+    lockedBlocks.map(lockedBlock => {
+        let exist = false;
+
+        blockList.map(block => {
+            if (block.name === lockedBlock.name) {
+                exist = true;
+            }
+        });
+
+        if (!exist) {
+            lockedList.push(lockedBlock);
+        }
+    });
+
+    return [
+        ...lockedList,
+        ...blockList,
+    ];
 };
 
 export const store = createReduxStore('gutenverse/blocklist', {
