@@ -137,7 +137,7 @@ class Upgrader {
 	 * @return string.
 	 */
 	public function get_plugin_split_option_name() {
-		return 'gutenverse_' . wp_get_theme()->template . '_upgrader_plugin_split';
+		return 'gutenverse_upgrader_plugin_split';
 	}
 
 	/**
