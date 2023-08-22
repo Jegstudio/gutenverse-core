@@ -4,11 +4,11 @@
   flex-direction: row;
   justify-content: center;
 
-  &.horizontal > div:not(:first-child) {
+  &.horizontal>div:not(:first-child) {
     margin-left: 10px;
   }
 
-  &.vertical > div:not(:first-child) {
+  &.vertical>div:not(:first-child) {
     margin-top: 10px;
   }
 
@@ -21,6 +21,12 @@
 
     div {
       display: flex;
+    }
+  }
+
+  .gutenverse-share-item {
+    a {
+      color: #fff;
     }
   }
 }
