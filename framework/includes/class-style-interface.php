@@ -784,7 +784,7 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function( $value ) {
-							return $this->handle_color( $value['color'], 'background-color' );
+							return $this->handle_color( $value['color'], 'background' );
 						},
 						'value'          => $background,
 						'device_control' => false,

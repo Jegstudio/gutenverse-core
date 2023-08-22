@@ -9,7 +9,6 @@ export const handleTextShadow = (value) => {
     const horizontalValue = ! isEmpty(horizontal) ? horizontal : 0;
     const verticalValue = ! isEmpty(vertical) ? vertical : 0;
     const blurValue = ! isEmpty(blur) ? blur : 0;
-    const isSpread = ! isEmpty(spread) ? `${spread}px` : '';
 
     return `text-shadow: ${horizontalValue}px ${verticalValue}px ${blurValue}px ${shadowColor};`;
 };
