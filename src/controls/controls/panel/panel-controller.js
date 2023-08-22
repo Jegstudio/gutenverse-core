@@ -42,27 +42,33 @@ const PanelController = ({ ...props }) => {
         });
     };
 
-    const tabPanel = [
-        ...PanelSequence.filter(detail => {
-            const { id } = detail;
-            const numberPanel = panelList().reduce((accumulator, panel) => {
-                const { tabRole = false } = panel;
-                if (tabRole) {
-                    const { id: tabRoleId } = tabRole;
-                    if (tabRoleId === id) {
-                        return accumulator += 1;
-                    } else {
-                        return accumulator;
-                    }
+    const tabList = PanelSequence.filter(detail => {
+        const { id } = detail;
+        const numberPanel = panelList().reduce((accumulator, panel) => {
+            const { tabRole = false } = panel;
+            if (tabRole) {
+                const { id: tabRoleId } = tabRole;
+                if (tabRoleId === id) {
+                    return accumulator += 1;
                 } else {
                     return accumulator;
                 }
-            }, 0);
+            } else {
+                return accumulator;
+            }
+        }, 0);
 
-            return numberPanel > 0;
-        }),
-        TabPro
-    ];
+        return numberPanel > 0;
+    });
+
+    const tabPanel = applyFilters(
+        'gutenverse.panel.tab.pro',
+        (() => [
+            ...tabList,
+            TabPro
+        ])(),
+        tabList
+    );
 
     return <>
         <InspectorControls>
