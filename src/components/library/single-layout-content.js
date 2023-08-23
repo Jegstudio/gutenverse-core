@@ -48,17 +48,13 @@ const SingleLayoutContent = (props) => {
 
         if (singleData !== null) {
             if (singleData.pages[active] !== undefined) {
-                const img = new Image();
-                img.onload = () => {
-                    setImageCover(singleData.pages[active].fullImage);
-                };
-                img.src = singleData.pages[active].fullImage;
+                setImageCover(singleData.pages[active].fullImage);
             }
         }
     }, [active, singleData]);
 
     useEffect(() => {
-
+        setSingleData(null);
         layoutData.map(layout => {
             if (layout.id === id) {
                 const { id, name, data, like, customAPI, customArgs, author } = layout;
@@ -132,7 +128,7 @@ const SingleLayoutContent = (props) => {
                             <div className="rotating">
                                 <Loader size={20} />
                             </div>
-                        </div> : <img src={imageCover} />}
+                        </div> : <img src={imageCover} key={imageCover} />}
                     </div>
                     <div className="layout-action">
                         <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} />
@@ -180,7 +176,7 @@ const SingleLayoutContent = (props) => {
                             });
 
                             return <div className={singleClass} key={page.id} onClick={() => changeActive(page.id)}>
-                                <img src={page.coverImage} />
+                                <img src={page.coverImage} key={page.coverImage} />
                                 <span dangerouslySetInnerHTML={{ __html: page.title }} />
                             </div>;
                         })}
