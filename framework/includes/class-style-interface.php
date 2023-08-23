@@ -215,7 +215,6 @@ abstract class Style_Interface {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
-
 					if ( ! isset( $this->generated[ $device ][ $selector ] ) ) {
 						$this->generated[ $device ][ $selector ] = array();
 					}
@@ -565,14 +564,12 @@ abstract class Style_Interface {
 				'Tablet'  => ! empty( $this->attrs['hideTablet'] ) ? $this->attrs['hideTablet'] : null,
 				'Mobile'  => ! empty( $this->attrs['hideMobile'] ) ? $this->attrs['hideMobile'] : null,
 			);
-
 			$values = $this->merge_device_options(
 				array(
 					'type' => $this->attrs['positioningType'],
 					'hide' => $hide,
 				)
 			);
-
 			if ( isset( $this->attrs['positioningWidth'] ) ) {
 				$values = $this->merge_device_options(
 					array(
@@ -591,14 +588,14 @@ abstract class Style_Interface {
 						$display = 'display: inline-block!important;';
 
 						if ( ! empty( $value['hide'] ) ) {
-							$display = 'display: none!important;';
-							$output  = 'display: none!important;';
+							$display = '';
+							$output  = '';
 						}
 
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';
-							} elseif ( 'inline' === $value['type'] ) {
+							} elseif ( 'inline' === $value['type']) {
 								return "width: auto!important; {$display}";
 							} elseif ( 'custom' === $value['type'] ) {
 								if ( isset( $value['width'] ) ) {
@@ -1329,10 +1326,9 @@ abstract class Style_Interface {
 			$horizontal   = ! $this->truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
 			$vertical     = ! $this->truly_empty( $value['vertical'] ) ? $value['vertical'] : 0;
 			$blur         = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] : 0;
-			$spread       = ! $this->truly_empty( $value['spread'] ) ? "{$value['spread']}px" : '';
 			$shadow_color = $this->get_color( $value['color'] );
 
-			return "text-shadow: {$horizontal}px {$vertical}px {$blur}px {$spread} {$shadow_color};";
+			return "text-shadow: {$horizontal}px {$vertical}px {$blur}px {$shadow_color};";
 		}
 	}
 
