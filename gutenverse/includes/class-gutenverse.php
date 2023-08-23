@@ -161,7 +161,6 @@ class Gutenverse {
 		$this->register_framework();
 		add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
-		add_action( 'activated_plugin', array( $this, 'redirect_to_dashboard' ) );
 	}
 
 	/**
@@ -216,15 +215,6 @@ class Gutenverse {
 		$this->load_textdomain();
 		$this->init_instance();
 		$this->init_post_type();
-	}
-
-	/**
-	 * Redirect page after plugin is actived
-	 */
-	public function redirect_to_dashboard() {
-		if ( wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) ) ) {
-			exit;
-		}
 	}
 
 	/**
