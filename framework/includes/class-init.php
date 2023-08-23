@@ -136,6 +136,7 @@ class Init {
 		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
+		add_action( 'activated_plugin', array( $this, 'redirect_to_dashboard' ), 99 );
 		add_action( 'customize_register', '__return_true' );
 
 		// filters.
@@ -206,6 +207,15 @@ class Init {
 		if ( ! get_option( 'gutenverse_plugin_permalinks_flushed' ) ) {
 			flush_rewrite_rules();
 			update_option( 'gutenverse_plugin_permalinks_flushed', 1 );
+		}
+	}
+
+	/**
+	 * Redirect page after plugin is actived
+	 */
+	public function redirect_to_dashboard( $plugin ) {
+		if ( false !== strpos( $plugin, 'gutenverse' ) && wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) ) ) {
+			exit;
 		}
 	}
 

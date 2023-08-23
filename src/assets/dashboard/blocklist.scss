@@ -78,6 +78,14 @@
             input:checked + .switch::after {
                 transform: translate3d(26px, -50%, 0);
             }
+
+
+            &.pro {
+                input:checked + .switch::before,
+                .switch::before {
+                    content: "PRO";
+                }
+            }
         }
 
         .block-items {
@@ -105,10 +113,28 @@
             cursor: pointer;
             display: flex;
             margin-bottom: 30px;
+            overflow: hidden;
             padding: 18px 12px;
+            position: relative;
 
-            &:hover,
-            &.active {
+            &.locked {
+                border-color: #E32D64;
+            }
+
+            .pro-label {
+                background-color: #E32D64;
+                color: white;
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 6px 16px 2px;
+                margin: 0;
+                font-size: 9px;
+                transform: rotate(-45deg) translate(-9px, -13px);
+            }
+
+            &:hover:not(.locked),
+            &.active:not(.locked) {
                 border-color: var(--gutenverse-dashboard-primary);
             }
         }

@@ -424,9 +424,10 @@ export const setControlStyle = ({
     }
 };
 
-export const updateBlockList = ({ name, settings, metadata }) => {
+export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
     dispatch('gutenverse/blocklist')?.updateList({
         name,
+        pro,
         ...settings,
         ...metadata
     });
