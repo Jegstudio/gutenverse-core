@@ -524,7 +524,26 @@ export function rgbToHex({ r, g, b }) {
 }
 
 export const isFSE = () => {
+    const { wp } = window;
     return wp.editSite !== undefined;
+};
+
+export const determineLocation = () => {
+    const { wp } = window;
+
+    if (wp.editSite) {
+        return 'editor';
+    }
+
+    if (wp.editPost) {
+        return 'post';
+    }
+
+    if (wp.editWidgets) {
+        return 'widget';
+    }
+
+    return undefined;
 };
 
 export const getOffset = (el) => {

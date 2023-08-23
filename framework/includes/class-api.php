@@ -1476,7 +1476,7 @@ class Api {
 		$response = $http->get(
 			add_query_arg(
 				array(
-					'plugin_version' => GUTENVERSE_VERSION,
+					'framework_version' => GUTENVERSE_FRAMEWORK_VERSION,
 				),
 				$url
 			)

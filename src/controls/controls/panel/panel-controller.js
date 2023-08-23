@@ -1,11 +1,12 @@
 import { InspectorControls } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
 import { useEffect, useState, useCallback } from '@wordpress/element';
-import { BlockController } from 'gutenverse-core/controls';
+import { BlockController, TabPro } from 'gutenverse-core/controls';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import { PanelSequence } from 'gutenverse-core/controls';
 import { Tooltip } from '@wordpress/components';
+import PanelTabPro from './panel-tab-pro';
 
 const PanelController = ({ ...props }) => {
     const {
@@ -41,7 +42,7 @@ const PanelController = ({ ...props }) => {
         });
     };
 
-    const tabPanel = PanelSequence.filter(detail => {
+    const tabList = PanelSequence.filter(detail => {
         const { id } = detail;
         const numberPanel = panelList().reduce((accumulator, panel) => {
             const { tabRole = false } = panel;
@@ -60,6 +61,15 @@ const PanelController = ({ ...props }) => {
         return numberPanel > 0;
     });
 
+    const tabPanel = applyFilters(
+        'gutenverse.panel.tab.pro',
+        (() => [
+            ...tabList,
+            TabPro
+        ])(),
+        tabList
+    );
+
     return <>
         <InspectorControls>
             <div className="gutenverse-panel-wrapper" ref={onRefChange}>
@@ -77,6 +87,7 @@ const PanelController = ({ ...props }) => {
                             </Tooltip>;
                         })}
                     </div>
+                    <PanelTabPro activeTab={activeTab}/>
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
                         const { tabRole } = panel;
@@ -91,7 +102,6 @@ const PanelController = ({ ...props }) => {
                             [`panel-${panel.id}`]: undefined !== panel.id,
                             pro: panel.pro
                         });
-
                         return <PanelBody
                             scrollAfterOpen={false}
                             className={panelBody}

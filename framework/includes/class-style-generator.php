@@ -40,7 +40,28 @@ class Style_Generator {
 		add_action( 'wp_head', array( $this, 'global_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'template_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'content_style_generator' ) );
+		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
+	}
+
+	/**
+	 * Render CSS for Widget.
+	 */
+	public function widget_style_generator() {
+		if ( current_theme_supports( 'widgets' ) ) {
+			$widgets = get_option( 'widget_block' );
+			$style   = null;
+
+			foreach ( $widgets as $widget ) {
+				if ( isset( $widget['content'] ) ) {
+					$blocks = $this->parse_blocks( $widget['content'] );
+					$blocks = $this->flatten_blocks( $blocks );
+					$this->loop_blocks( $blocks, $style );
+				}
+			}
+
+			gutenverse_core_print_header_style( 'gutenverse-widget-css', $style );
+		}
 	}
 
 	/**

@@ -8,10 +8,10 @@ import { Helmet } from 'gutenverse-core/components';
 import {
     getGoogleFontDatas,
     getGoogleFontParams,
-    isFSE,
     variableColorName,
     variableFontName,
-    responsiveBreakpoint
+    responsiveBreakpoint,
+    determineLocation
 } from 'gutenverse-core/helper';
 import {
     renderColor,
@@ -59,17 +59,23 @@ const withGlobalVariable = GlobalStyle => {
             deviceType,
         } = useSelect(
             (select) => {
-                const editor = isFSE() ? select('core/edit-site') : select('core/edit-post');
+                const location = determineLocation();
+                let deviceType = 'Desktop';
 
-                if (isEmpty(editor)) {
-                    return ({
-                        deviceType: (isFSE() ? wp.data.select('core/edit-site') : wp.data.select('core/edit-post')).__experimentalGetPreviewDeviceType(),
-                    });
+                switch (location) {
+                    case 'editor':
+                        deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
+                        break;
+                    case 'post':
+                        deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
+                        break;
+                    default:
+                        deviceType = 'Desktop';
                 }
 
-                return ({
-                    deviceType: editor.__experimentalGetPreviewDeviceType(),
-                });
+                return {
+                    deviceType: deviceType
+                };
             },
             []
         );

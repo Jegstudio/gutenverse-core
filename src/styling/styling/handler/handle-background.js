@@ -20,7 +20,7 @@ export const handleBackground = (background) => {
         } = background;
 
         if (color) {
-            const result = handleColor(color, 'background-color');
+            const result = handleColor(color, 'background');
 
             normalAppender({
                 style: result,

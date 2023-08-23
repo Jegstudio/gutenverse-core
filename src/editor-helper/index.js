@@ -5,7 +5,7 @@ import { useMemo, useCallback } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { dateI18n } from '@wordpress/date';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { filteredAttributes, isAlignStickyColumn, isFSE, getFixData, getIndex } from 'gutenverse-core/helper';
+import { filteredAttributes, isAlignStickyColumn, isFSE, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
 import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import identity from 'lodash/identity';
 import isArray from 'lodash/isArray';
@@ -358,22 +358,22 @@ export const cleanEmptyObject = (object) => {
 };
 
 export const getDeviceType = () => {
-    const editor = isFSE() ? select('core/edit-site') : select('core/edit-post');
+    const location = determineLocation();
+    let deviceType = null;
 
-    if (isEmpty(editor)) {
-        return null;
+    switch (location) {
+        case 'editor':
+            deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
+            break;
+        case 'post':
+            deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
+            break;
+        default:
+            deviceType = 'Desktop';
     }
 
-    if (editor?.__experimentalGetPreviewDeviceType) {
-        let device = editor.__experimentalGetPreviewDeviceType();
-
-        // Update for WordPress version 6.3
-        device = device.charAt(0).toUpperCase() + device.slice(1);
-
-        return device;
-    }
-
-    return null;
+    // Update for WordPress version 6.3
+    return deviceType.charAt(0).toUpperCase() + deviceType.slice(1);
 };
 
 export const setControlStyle = ({

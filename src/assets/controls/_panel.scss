@@ -1,6 +1,7 @@
 /** Gutenverse Panel **/
 .block-editor-block-inspector {
-    &[data-gutenverse-tab='style'] {
+    &[data-gutenverse-tab='style'],
+    &[data-gutenverse-tab='pro'] {
         .block-editor-block-inspector__advanced {
             display: none;
         }
@@ -53,6 +54,15 @@
                 outline: 2px solid transparent;
             }
         }
+    }
+}
+
+.gutenverse-panel-pro {
+    padding: 24px 15px;
+
+    .banner-image {
+        cursor: pointer;
+        width: 100%;
     }
 }
 
