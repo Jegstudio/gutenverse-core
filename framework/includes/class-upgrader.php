@@ -12,6 +12,8 @@ namespace Gutenverse\Framework;
 /**
  * Class Upgrader
  *
+ * Show notice if user install Gutenverse below version 2.0.0 while they installing Satelite plugin with Core Framework.
+ *
  * @package gutenverse-framework
  */
 class Upgrader {
