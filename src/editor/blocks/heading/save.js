@@ -22,7 +22,7 @@ const save = compose(
         content,
         type,
     } = attributes;
-
+    
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
