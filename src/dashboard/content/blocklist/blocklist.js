@@ -88,7 +88,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
         <DashboardContent>
             <DashboardHeader>
                 <div className="header-control">
-                    <h2>{__('Global Control', '--gctd--')}</h2>
+                    <h2>{__('All Blocks', '--gctd--')}</h2>
                     <div className="block-enable-disable-all">
                         <div className={`disable-all ${checkAll(false) ? 'active' : ''}`} onClick={() => updateAll(false)}>
                             {__('Disable All', '--gctd--')}
