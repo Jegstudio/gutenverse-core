@@ -334,10 +334,10 @@ class Api {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
 
+		$this->update_library_data();
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
 			Meta_Option::instance()->set_option( 'fetch_library_time', $next_fetch );
-			$this->update_library_data();
 		}
 
 		return $this->library_data();
@@ -463,10 +463,9 @@ class Api {
 			$plugin                      = $this->fetch_plugin_detail( $value->slug );
 			$data[ $key ]                = (array) $data[ $key ];
 			$data[ $key ]['icons']       = $this->get_plugin_image( $plugin );
-			$data[ $key ]['description'] = $plugin['description'];
-			$data[ $key ]['version']     = $plugin['version'];
+			$data[ $key ]['description'] = $data[$key]['description'] ?  $data[$key]['description'] : $plugin['description'];
+			$data[ $key ]['version']     = $data[$key]['version'] ?  $data[$key]['version'] : $plugin['version'];
 		}
-
 		return $data;
 	}
 
@@ -496,7 +495,6 @@ class Api {
 			'version'     => $result->version,
 			'name'        => $result->name,
 		);
-
 		return $description;
 	}
 
@@ -1601,4 +1599,5 @@ class Api {
 
 		return null;
 	}
+
 }

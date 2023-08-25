@@ -15,13 +15,15 @@ const PluginItem = ({
     plugins,
     ...props
 }) => {
-    const { slug, name, version, icons, description } = plugin;
+    const { slug, name, version, icons, description, incoming, icon, url, host } = plugin;
     const [loadingString, setLoadingString] = useState('');
     const [loading, setLoading] = useState(false);
     const [isRetry, setIsRetry] = useState(true);
     const installed = plugins[slug];
     let action = null;
-
+    const downloadZip = (url) => {
+        window.location.href = url;
+    };
     const installingPlugin = () => {
         setLoading(true);
         setLoadingString(__('Installing Plugin', '--gctd--'));
@@ -108,7 +110,7 @@ const PluginItem = ({
     const loadingCircle = loading && <div className="rotating" style={{ display: 'flex' }}>
         <Loader size={20} />
     </div>;
-
+    
     if ( installed ) {
         const invalidVersion = !isEmpty(version) && !semver.gte(installed.version, version || '0.0.0');
         const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
@@ -130,31 +132,46 @@ const PluginItem = ({
 
             action = <div className={`${singleClass} installed`} >
                 {loadingCircle}
-                {loading ? loadingString : __('Installed', '--gctd--')}
+                {loading ? loadingString : __('Downloaded', '--gctd--')}
             </div>;
         }
-    } else {
-        action = <div className={singleClass} onClick={() => installingPlugin()}>
+    } else if ( !installed && incoming == 0) {
+        action = <div className={singleClass} onClick={() => host === 'server' ? downloadZip(url) : installingPlugin()}>
             {loadingCircle}
-            {loading ? loadingString : __('Install Plugin', '--gctd--')}
+            {loading ? loadingString : __('Download Plugin', '--gctd--')}
+        </div>;
+    }else{
+        action = <div className={`${singleClass} installed`}>
+            {loadingCircle}
+            {loading ? loadingString : __('Release Soon', '--gctd--')}
         </div>;
     }
-
     return <div key={slug} className="plugin-item">
-        {icons && <div className="icon-wrapper">
-            <img className="icon-plugin" src={icons}/>
-        </div>}
+        {
+            incoming === "1" && <div className="ribbon">SOON</div>
+        }
+        {
+            icon ? <div className="icon-wrapper">
+            <img className="icon-plugin" src={icon[0]}/> </div>: <div className="icon-wrapper"> 
+            <img className="icon-plugin" src={icons }></img></div>
+        }
         <div className="details">
+            
             <h2 className="plugin-title">
                 {name.includes('Gutenverse') ? <>
                     <span>{__('Gutenverse', '--gctd--')}</span>&nbsp;
                     {name.split('Gutenverse').join('')}
                 </> : name}
             </h2>
-            {version && <p className="plugin-version">
+            {version ? 
+            <p className="plugin-version">
                 {__('Version ', '--gctd--')}
                 {version}
-            </p>}
+            </p> : 
+            <p className="plugin-version">
+                {__('Coming Soon', '--gctd--')}
+            </p>
+            }
             {description && <p className="plugin-description">
                 {description.substring(0, 80) + '...'}
             </p>}
