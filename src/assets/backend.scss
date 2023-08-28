@@ -273,10 +273,12 @@
             flex-wrap: wrap;
             height: auto;
             justify-content: center;
-            margin: 30% auto 0;
             padding: 46px 50px 36px;
-            position: relative;
+            position: absolute;
             width: 460px;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
 
             .close {
                 cursor: pointer;
