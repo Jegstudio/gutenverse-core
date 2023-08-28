@@ -1,3 +1,5 @@
+export { default as PopupPro } from './popup-pro';
+
 
 export const DashboardContent = ({
     children

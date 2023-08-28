@@ -255,6 +255,65 @@
         margin: 0;
         width: 100%;
     }
+
+    .popup-pro {
+        background: rgba(0,0,0,.5);
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 999999;
+
+        .popup-content {
+            background: #fff;
+            border-radius: 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            height: auto;
+            justify-content: center;
+            margin: 30% auto 0;
+            padding: 46px 50px 36px;
+            position: relative;
+            width: 460px;
+
+            .close {
+                cursor: pointer;
+                position: absolute;
+                top: 16px;
+                right: 16px;
+            }
+
+            .grid {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+
+            .content {
+                z-index: 1;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .graphic {
+                height: 180px;
+            }
+    
+            .details {
+                color: #011627;
+                text-align: center;
+                font-family: Roboto;
+                font-size: 22px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 28.6px;
+                margin: 0 auto 20px;
+            }
+        }
+    }
 }
 
 

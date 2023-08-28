@@ -1,10 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { ControlCheckbox, ControlCheckboxPro } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
-import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
 
 const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettingValues }) => {
+    const [popupActive, setPopupActive] = useState(false);
     const { imgDir } = window['GutenverseDashboard'];
     const { active_blocks = {} } = settingValues;
     const { blockCategories } = window['GutenverseSettings'];
@@ -86,6 +87,10 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
 
     return (
         <DashboardContent>
+            <PopupPro
+                active={popupActive}
+                setActive={setPopupActive}
+            />
             <DashboardHeader>
                 <div className="header-control">
                     <h2>{__('All Blocks', '--gctd--')}</h2>
@@ -148,7 +153,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
 
                                             if (block?.locked) {
                                                 return (
-                                                    <div key={block.name} className="block-item locked">
+                                                    <div key={block.name} className="block-item locked" onClick={() => setPopupActive(true)}>
                                                         <p className="pro-label">PRO</p>
                                                         <div className="block-info">
                                                             <span className="block-icon">
