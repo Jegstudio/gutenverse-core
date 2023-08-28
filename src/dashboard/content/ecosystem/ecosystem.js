@@ -124,11 +124,11 @@ const PluginItem = ({
             </div>;
         } else {
             if (invalidVersion) {
-                action = <div className={`${singleClass} update`} onClick={() => updatingPlugin()}>
+                action = <div className={`${singleClass} update`} onClick={() => host === 'server' ? downloadZip(url) : updatingPlugin()}>
                     {loadingCircle}
                     {loading ? loadingString : __('Update Plugin', '--gctd--')}
                 </div>;
-            }
+            } 
 
             action = <div className={`${singleClass} installed`} >
                 {loadingCircle}
