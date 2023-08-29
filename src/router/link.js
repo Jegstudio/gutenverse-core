@@ -1,6 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { withDispatch } from '@wordpress/data';
 import { withSelect } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 const Link = ({
     location,
@@ -11,7 +12,6 @@ const Link = ({
     pro,
     setActive
 }) => {
-    const checkPro = window.gprodata;
     const onClick = (e) => {
         e.preventDefault();
         updateLocation({
@@ -19,9 +19,10 @@ const Link = ({
             search: to.search
         });
     };
-    if(pro){
+    let temp = applyFilters("gutenverse.custom-font")
+    if(pro && !temp ){
         return <div className={className} onClick={setActive}>
-                    { !checkPro && <p className="pro-label">PRO</p>}
+                    <p className="pro-label">PRO</p>
                     <div className="setting-label" >
                         {children}
                     </div>
