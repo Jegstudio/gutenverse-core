@@ -3,7 +3,7 @@
     .sizer-element {
         width: 8.33333%;
     }
-
+    
     .not-found {
         align-content: center;
         display: flex;
@@ -473,6 +473,8 @@
         margin: 0 11px 22px;
         padding: 24px;
         width: calc(50% - 72px);
+        position: relative;
+        overflow: hidden;
 
         .icon-plugin {
             width: 64px;
@@ -491,8 +493,19 @@
             span {
                 font-weight: 800;
             }
+        }   
+        .ribbon{
+            background-color: #FED134;
+            position: absolute;
+            top: -1px;
+            font-weight: bolder;
+            left: -36px;
+            padding: 20px 50px 5px;
+            margin: 0;
+            font-size: 13px;
+            transform: rotate(-40deg) translate(-9px, -13px);
+  
         }
-
         .plugin-version {
             color: #99A2A9;
             font-family: 'Roboto';
