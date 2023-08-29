@@ -28,7 +28,7 @@ class GutenverseElements extends Default {
                  * reachTrigger : when element's top touch the 75% mark of window's height
                  * atTheBottom : when element is at the bottom and cannot reach 75% mark, trigger it anyway
                  */
-                const reachTrigger = element.getBoundingClientRect().top > 0 && element.getBoundingClientRect().top <= (window.innerHeight * 0.75);
+                const reachTrigger = element.getBoundingClientRect().top <= (window.innerHeight * 0.75);
                 const atTheBottom = element.getBoundingClientRect().top > 0 && (window.innerHeight + Math.ceil(window.pageYOffset)) >= (document.body.offsetHeight - (window.innerHeight * 0.25));
 
                 if (reachTrigger || atTheBottom) {

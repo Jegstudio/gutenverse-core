@@ -9,6 +9,8 @@
 
 namespace Gutenverse\Framework;
 
+use Error;
+
 /**
  * Class Style_Interface
  *
@@ -591,8 +593,8 @@ abstract class Style_Interface {
 						$display = 'display: inline-block!important;';
 
 						if ( ! empty( $value['hide'] ) ) {
-							$display = 'display: none!important;';
-							$output  = 'display: none!important;';
+							$display = '';
+							$output  = '';
 						}
 
 						if ( isset( $value ) && isset( $value['type'] ) ) {

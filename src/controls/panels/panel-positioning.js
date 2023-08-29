@@ -30,7 +30,7 @@ export const positioningPanel = (props) => {
     const deviceType = getDeviceType();
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
-
+    
     return [
         {
             id: 'positioningType',
@@ -158,7 +158,7 @@ export const positioningPanel = (props) => {
             style: [
                 {
                     selector: customSelector,
-                    allowRender: value => value && value !== 'default',
+                    allowRender: value => value && positioningLocation !== 'default' ,
                     render: value => `position: ${value};`
                 }
             ]
@@ -291,7 +291,7 @@ export const positioningPanel = (props) => {
                 {
                     selector: customSelector,
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'top')
+                    render: value => handleUnitPoint(value, 'top'),
                 },
             ]
         },
@@ -335,7 +335,7 @@ export const positioningPanel = (props) => {
                 {
                     selector: customSelector,
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'bottom')
+                    render: value => handleUnitPoint(value, 'bottom'),
                 },
             ]
         }

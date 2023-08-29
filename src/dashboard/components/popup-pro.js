@@ -4,7 +4,8 @@ import { useRef, useEffect } from '@wordpress/element';
 
 const PopupPro = ({
     active = false,
-    setActive
+    setActive,
+    description
 }) => {
     const { imgDir } = window['GutenverseDashboard'];
     const popupRef = useRef(null);
@@ -30,7 +31,7 @@ const PopupPro = ({
                 <img className="grid" src={`${imgDir}/pro/popup-grid.png`} />
                 <img className="graphic" src={`${imgDir}/pro/popup-graphic-pro.png`} />
                 <div className="content">
-                    <h3 className="details">Upgrade Gutenverse PRO version to unlock these premium blocks ✌</h3>
+                    <h3 className="details">{description}</h3>
                     <ButtonUpgradePro />
                 </div>
             </div>

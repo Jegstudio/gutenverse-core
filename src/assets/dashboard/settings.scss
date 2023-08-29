@@ -44,6 +44,8 @@
                     text-align: center;
                     text-decoration: none;
                     width: 150px;
+                    position: relative;
+                    overflow: hidden;
 
                     &:focus {
                         box-shadow: none;
@@ -53,6 +55,19 @@
                         background: #e7ecfd;
                         color: var(--gutenverse-dashboard-primary);
                     }
+                }
+                .pro-label{
+                    background-color: #E32D64;
+                    color: white;
+                    position: absolute;
+                    top: -1px;
+                    font-weight: bolder;
+                    left: -36px;
+                    padding: 10px 50px 1px;
+                    margin: 0;
+                    font-size: 13px;
+                    transform: rotate(-40deg) translate(-9px, -13px);
+                    
                 }
             }
         }

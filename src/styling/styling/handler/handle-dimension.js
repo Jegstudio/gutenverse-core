@@ -2,7 +2,6 @@ export const handleDimension = (attribute, prefix, multi = true, min = 0) => {
     const { dimension, unit } = attribute;
     const positions = ['top', 'right', 'bottom', 'left'];
     const styles = [];
-
     if (dimension && unit) {
         if (multi) {
             positions.map(position => {

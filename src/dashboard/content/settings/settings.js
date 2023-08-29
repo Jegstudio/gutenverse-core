@@ -1,15 +1,15 @@
 import { __ } from '@wordpress/i18n';
 import classnames from 'classnames';
+import { useState } from '@wordpress/element';
 import { Link } from 'gutenverse-core/router';
 import { applyFilters } from '@wordpress/hooks';
 import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
-import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
+import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../../components';
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
-
     switch (settings) {
         case 'editor':
             body = <EditorSetting {...props} />;
@@ -35,25 +35,42 @@ const SettingsBody = ({ settings, ...props }) => {
 };
 
 const Settings = (props) => {
+    const [popupActive, setPopupActive] = useState(false);
     const { location } = props;
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
     const page = query.get('page');
     const path = query.get('path');
     const settings = query.get('settings') ? query.get('settings') : 'editor';
-
+    
     const tabs = applyFilters(
         'gutenverse.dashboard.settings.navigation',
         {
-            editor: __('Editor', '--gctd--'),
-            template: __('Template', '--gctd--'),
-            ['font-icon']: __('Font Icon', '--gctd--'),
+            editor: {
+                title : __('Editor', '--gctd--'),
+                pro   : false,
+            },
+            template: {
+                title : __('Template', '--gctd--'),
+                pro   : false,
+            },
+            ['font-icon']: {
+                title : __('Font Icon', '--gctd--'),
+                pro   : false,
+            },
+            ['custom-font']: {
+                title : __('Custom Font', '--gctd--'),
+                pro   : true,
+            },
         }
     );
-
     props = { ...props, settings };
-
     return <DashboardContent>
+        <PopupPro
+            active={popupActive}
+            setActive={setPopupActive}
+            description={"Upgrade Gutenverse PRO version to unlock these premium features ✌"}
+        />
         <DashboardHeader>
             <h2>{__('General Settings', '--gctd--')}</h2>
         </DashboardHeader>
@@ -62,7 +79,7 @@ const Settings = (props) => {
                 <div className="settings-tab-header">
                     <div className="tab-items">
                         {Object.keys(tabs).map(key => {
-                            const item = tabs[key];
+                            const item = tabs[key].title;
                             const param = `?page=${page}&path=${path}&settings=${key}`;
                             const classes = classnames('tab-item', {
                                 active: key === settings
@@ -77,6 +94,8 @@ const Settings = (props) => {
                                 }}
                                 className={classes}
                                 location={location}
+                                pro={tabs[key].pro}
+                                setActive={()=>setPopupActive(true)}
                             >
                                 {item}
                             </Link>;

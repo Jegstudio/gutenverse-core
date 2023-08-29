@@ -7,9 +7,11 @@ const Link = ({
     updateLocation,
     to,
     className,
-    children
+    children,
+    pro,
+    setActive
 }) => {
-
+    const checkPro = window.gprodata;
     const onClick = (e) => {
         e.preventDefault();
         updateLocation({
@@ -17,7 +19,14 @@ const Link = ({
             search: to.search
         });
     };
-
+    if(pro){
+        return <div className={className} onClick={setActive}>
+                    { !checkPro && <p className="pro-label">PRO</p>}
+                    <div className="setting-label" >
+                        {children}
+                    </div>
+                </div>
+    }
     return <a href={to?.search} className={className} onClick={onClick}>
         {children}
     </a>;
