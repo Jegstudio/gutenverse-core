@@ -134,7 +134,7 @@ const SectionContentWrapper = (props) => {
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                title={__('Discover Our Premium Templates & Sections', '--gctd--')}
+                title={__('Discover Our Premium Templates and Sections You Never Meet Before!', '--gctd--')}
                 customStyles={{margin: '10px'}}/>
             <SectionContentData
                 current={content.current}
