@@ -22,7 +22,6 @@ const LibraryModal = props => {
     const importerClass = classnames('gutenverse-library-wrapper', {
         'visible': visible
     });
-    console.log('disini');
     return (open && !loading) ? <>
         <div className={importerClass}>
             <div className={'gutenverse-library-overlay'} onClick={closeImporter} />
