@@ -9,6 +9,7 @@
 
 namespace Gutenverse;
 
+use Gutenverse\Framework\Api;
 use Gutenverse\Framework\Meta_Option;
 
 /**
