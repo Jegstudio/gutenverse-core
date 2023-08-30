@@ -26,7 +26,6 @@ class Upgrader {
 		add_action( 'init', array( $this, 'set_upgrader_plugin_split' ), 99 );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_content_close', array( $this, 'upgrader_page_content_close' ) );
 		add_action( 'gutenverse_plugin_upgrade', array( $this, 'upgrade_like' ), 20 );
-		add_action( 'gutenverse_plugin_upgrade', array( $this, 'upgrade_plugin' ), null, 2 );
 	}
 
 	/**
@@ -39,16 +38,6 @@ class Upgrader {
 			array(),
 			GUTENVERSE_VERSION
 		);
-	}
-
-	/**
-	 * Upgrade Plugin Hook.
-	 *
-	 * @param string $old_version Old Version.
-	 * @param string $new_version New Version.
-	 */
-	public function upgrade_plugin( $old_version, $new_version ) {
-		Meta_Option::instance()->upgrade_plugin( $old_version, $new_version, GUTENVERSE );
 	}
 
 	/**

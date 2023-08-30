@@ -56,6 +56,7 @@ class Meta_Option {
 
 		if ( version_compare( $version, GUTENVERSE_VERSION, '<' ) ) {
 			$meta->upgrade_plugin( $version, GUTENVERSE_VERSION, GUTENVERSE );
+			do_action( 'gutenverse_plugin_upgrade', $version, GUTENVERSE_VERSION );
 		}
 	}
 
