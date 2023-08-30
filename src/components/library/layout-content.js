@@ -43,12 +43,13 @@ const LayoutContent = (props) => {
                 setContent={setContent}
                 setSlug={setSlug}
                 setSingleId={setSingleId}
+                burger={props.burger}
             />
         </div>
     </>;
 };
 
-const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug }) => {
+const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug, burger }) => {
     const data = modalData.layoutContentData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState('');
@@ -57,7 +58,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const { keyword } = data;
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
-
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
@@ -116,7 +116,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     }, [license, keyword, author]);
 
     return <>
-        <div className="gutenverse-library-sidebar">
+        {burger && <div className="gutenverse-library-sidebar" >
             <SearchBar
                 placeholder={__('Search Layout', '--gctd--')}
                 onChange={keyword => {
@@ -135,7 +135,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 {__('Categories', '--gctd--')}
             </h2>
             <RenderCategories categories={categories} data={data} />
-        </div>
+        </div>}
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}

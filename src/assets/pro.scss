@@ -16,6 +16,7 @@
     line-height: normal;
     width: fit-content;
     justify-content: flex-start;
+    white-space: nowrap;
 
     &.thin {
         padding: 8px 16px;
@@ -89,7 +90,7 @@
         top: 0;
         height: 100%;
         width: 100%;
-        object-fit: fill;
+        object-fit: cover;
     }
 
     .buttons {
@@ -102,6 +103,7 @@
         width: 50%;
         justify-content: center;
         text-align: center;
+        white-space: nowrap;
 
         .gutenverse-button {
             display: flex;
