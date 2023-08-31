@@ -136,3 +136,36 @@
         }
     }
 }
+.card-pro-wrapper{
+    width: 100%;
+    border-radius: 50px;
+    border-radius: 5px;
+    padding: 25px;
+    margin-bottom: 15px;
+    background: linear-gradient(180deg, #7A7DFF -13.87%, #3D40BE 100%);
+
+    .card-pro-image{
+        margin-bottom:-30px
+    }
+    .card-pro-title{
+        font-family: Robotto;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 20px;
+        color: white;
+        text-align: center;
+        bottom: 10px;
+    }
+    .buttons {
+        display: flex;
+        gap: 8px;
+        padding-top: 10px;
+        margin: 0px auto;
+        z-index: 1;
+        position: relative;
+        width: 50%;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;       
+    }
+}

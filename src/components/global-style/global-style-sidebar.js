@@ -8,6 +8,7 @@ import GlobalStyleContent from './global-style-content';
 import { isFSE } from 'gutenverse-core/helper';
 import withGlobalVariable from './with-global-variable';
 import { signal } from 'gutenverse-core/editor-helper';
+import CardPro from '../pro/card-pro';
 
 const GlobalStyleSidebar = props => {
     const { wp } = window;
@@ -36,6 +37,7 @@ const GlobalStyleSidebar = props => {
         </div>}
     >
         <PanelBody>
+            <CardPro/>
             <GlobalStyleContent {...{
                 stage,
                 setStage,
