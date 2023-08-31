@@ -54,7 +54,7 @@ class Assets {
 			return $folder . 'gtnicon/gtnicon.css';
 		}
 
-		return 'https://cdn.rawgit.com/Jegstudio/font-icon/main/fonts/gtnicon/gtnicon.css';
+		return GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/gtnicon/gtnicon.css';
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Assets {
 			return $folder . 'fontawesome/css/all.min.css';
 		}
 
-		return 'https://cdn.rawgit.com/Jegstudio/font-icon/main/fonts/fontawesome/css/all.min.css';
+		return GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/fontawesome/css/all.min.css';
 	}
 
 	/**

@@ -111,13 +111,6 @@ class Dashboard {
 
 		wp_set_script_translations( 'gutenverse-core-event', 'gutenverse', GUTENVERSE_FRAMEWORK_LANG_DIR );
 
-		wp_register_style(
-			'fontawesome-gutenverse',
-			'https://cdn.rawgit.com/jegbagus/fluffy-funicular/main/fonts/fontawesome/css/all.css',
-			null,
-			GUTENVERSE_FRAMEWORK_VERSION
-		);
-
 		if ( 'toplevel_page_gutenverse' === $hook ) {
 			$include   = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/dashboard.asset.php' )['dependencies'];
 			$include[] = 'gutenverse-frontend-event';
