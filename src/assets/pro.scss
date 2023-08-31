@@ -145,7 +145,8 @@
     background: linear-gradient(180deg, #7A7DFF -13.87%, #3D40BE 100%);
 
     .card-pro-image{
-        margin-bottom:-30px
+        margin-bottom:-30px;
+        max-width: 100%;
     }
     .card-pro-title{
         font-family: Robotto;
