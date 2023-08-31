@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -9,7 +9,7 @@ import isEmpty from 'lodash/isEmpty';
  */
 
 const ButtonUpgradePro = ({
-    text = __('Upgrade to PRO', '--gctd--'),
+    text = __('Upgrade To PRO', '--gctd--'),
     align = 'left', // center, right
     thin = false,
     smallText = false,
@@ -19,7 +19,7 @@ const ButtonUpgradePro = ({
     location = ''
 }) => {
     const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
+   
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -29,9 +29,9 @@ const ButtonUpgradePro = ({
             [`${align}`]: align,
         }
     );
-
+    console.log('disini');
     const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) && <a href={link ? link : referralUrl} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
-        <IconCrownSVG />
+        <IconCrownSVG/>
         {text}
     </a>, location);
 
