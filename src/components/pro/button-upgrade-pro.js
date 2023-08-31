@@ -29,7 +29,6 @@ const ButtonUpgradePro = ({
             [`${align}`]: align,
         }
     );
-    console.log('disini');
     const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) && <a href={link ? link : referralUrl} className={buttonClasses} target="_blank" rel="noreferrer" style={customStyles}>
         <IconCrownSVG/>
         {text}
