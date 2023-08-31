@@ -13,6 +13,24 @@ export const positioningPanel = (props) => {
         positioningWidth,
         positioningLocation,
         selector,
+        options= [
+            {
+                value: 'default',
+                label: 'Default'
+            },
+            {
+                value: 'full',
+                label: 'Full Width (100%)'
+            },
+            {
+                value: 'inline',
+                label: 'Inline (auto)'
+            },
+            {
+                value: 'custom',
+                label: 'Custom'
+            }
+        ]
     } = props;
 
     const setPositioning = (value, width = false) => {
@@ -37,24 +55,7 @@ export const positioningPanel = (props) => {
             label: __('Width', '--gctd--'),
             component: SelectControl,
             allowDeviceControl: true,
-            options: [
-                {
-                    value: 'default',
-                    label: 'Default'
-                },
-                {
-                    value: 'full',
-                    label: 'Full Width (100%)'
-                },
-                {
-                    value: 'inline',
-                    label: 'Inline (auto)'
-                },
-                {
-                    value: 'custom',
-                    label: 'Custom'
-                }
-            ],
+            options: options,
             style: [
                 {
                     selector: customSelector,

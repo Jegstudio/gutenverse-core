@@ -4,7 +4,6 @@ const isAnimated = (type) => type.Desktop && type.Desktop !== 'none' || type.Tab
 
 export const useAnimationFrontend = ({ animation }) => {
     let animationClass = {};
-
     if (animation) {
         const {
             type = {
