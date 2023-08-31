@@ -1,7 +1,7 @@
 .button-upgrade-pro {
     align-items: center;
-    background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%) !important;
     border-radius: 50px;
+    background: rgba(255, 255, 255, 0.20);
     color: white !important;
     cursor: pointer;
     display: flex;
@@ -16,6 +16,7 @@
     line-height: normal;
     width: fit-content;
     justify-content: flex-start;
+    white-space: nowrap;
 
     &.thin {
         padding: 8px 16px;
@@ -45,6 +46,9 @@
         background-color: #d10000 !important;
     }
 }
+.button-upgrade-pro:hover{
+    background: rgba(255, 255, 255, 0.40);
+}
 
 .banner-pro {
     background: linear-gradient(220deg, #FFC121 0%, #FFE68F 100%);
@@ -57,20 +61,24 @@
         font-size: 28px;
         font-weight: 500;
         line-height: 32px;
-        margin: 8px 0 0;
+        margin: 0px auto;
+        color: white;
         padding: 0;
-        width: 400px;
+        width: 50%;
         z-index: 1;
         position: relative;
+        text-align: center;
+
     }
 
     .subtitle {
-        color: var(--normal-text, #40505D);
+        color: #FFD232;
         font-size: 14px;
         font-family: Roboto;
         font-style: normal;
         font-weight: 400;
-        margin: 0;
+        margin-bottom: 5px;
+        text-align: center;
         padding: 0;
         z-index: 1;
         position: relative;
@@ -81,14 +89,21 @@
         right: 0;
         top: 0;
         height: 100%;
+        width: 100%;
+        object-fit: cover;
     }
 
     .buttons {
         display: flex;
         gap: 8px;
-        margin-top: 20px;
+        padding-top: 10px;
+        margin: 0px auto;
         z-index: 1;
         position: relative;
+        width: 50%;
+        justify-content: center;
+        text-align: center;
+        white-space: nowrap;
 
         .gutenverse-button {
             display: flex;
@@ -109,8 +124,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid #40505D;
-            color: #40505D;
+            border: 1px solid #ffffff;
+            color: #ffffff;
             border-radius: 50px;
             cursor: pointer;
             font-size: 12px;
