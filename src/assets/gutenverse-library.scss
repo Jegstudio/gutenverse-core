@@ -80,6 +80,19 @@ $border: #eaeaea;
             svg {
                 margin-right: 2px;
             }
+            
+        }
+        .gutenverse-header-burger{
+            display: none !important;
+        }
+        @media only screen and (max-width: 900px) {
+            .gutenverse-header-burger{
+                display: inline !important;
+                cursor: pointer;
+            }
+            .gutenverse-header-logo{
+                display:none !important;
+            }
         }
 
         .gutenverse-section-switcher {
@@ -156,6 +169,11 @@ $border: #eaeaea;
         box-sizing: border-box;
         overflow: auto;
     }
+    .gutenverse-library-sidebar::after{
+        transition-duration: 0.5s;
+        transition-timing-function: linear;
+    }
+    
 
     .gutenverse-library-inner {
         height: 100%;

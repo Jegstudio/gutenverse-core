@@ -1,10 +1,11 @@
 import { withSelect, dispatch } from '@wordpress/data';
 import classnames from 'classnames';
-import { LogoFullColorSVG, IconCloseSVG } from 'gutenverse-core/icons';
+import { LogoFullColorSVG, IconCloseSVG, IconHamburgerSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LayoutContent from './layout-content';
 import SectionContent from './section-content';
 import FavoriteContent from './favorite-content';
+import { useState } from '@wordpress/element';
 
 const LibraryModal = props => {
     const {
@@ -18,17 +19,38 @@ const LibraryModal = props => {
     const closeImporter = () => {
         setVisibility(false);
     };
-
+    const [style, setStyle] = useState({
+        display : ''
+    })
+    const handleBurger = () => {
+        setBurger(!burger)
+        if(burger){
+            setStyle({
+                display: 'block !important'
+            })
+        }else{
+            setStyle({
+                display: 'none !important'
+            })
+        }
+        
+    }
+    const [burger,setBurger] = useState(false)
     const importerClass = classnames('gutenverse-library-wrapper', {
         'visible': visible
     });
-
     return (open && !loading) ? <>
         <div className={importerClass}>
             <div className={'gutenverse-library-overlay'} onClick={closeImporter} />
             <div className={'gutenverse-library-container'}>
                 <div className={'gutenverse-library-header'}>
-                    <div className="gutenverse-header-logo"><LogoFullColorSVG />{__('Library', '--gctd--')}</div>
+                        <div className="gutenverse-header-burger" onClick={handleBurger} >
+                        <IconHamburgerSVG  size={16} />
+                        </div> 
+                        <div className="gutenverse-header-logo">
+                            <LogoFullColorSVG />{__('Library', '--gctd--')}
+                        </div>                       
+                    
                     <div className="gutenverse-section-switcher">
                         {modalData.libraryData.tabs.map((type, index) => {
                             const active = type.id === modalData.libraryData.active ? 'active' : '';
@@ -61,6 +83,7 @@ const LibraryModal = props => {
                     <LibraryContent
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
+                        burger={burger}
                     />
                 </div>
             </div>
@@ -70,17 +93,17 @@ const LibraryModal = props => {
 
 const LibraryContent = (props) => {
     let template = null;
-    const { active } = props;
+    const { active} = props;
 
     switch (active) {
         case 'favorite':
-            template = <FavoriteContent {...props} />;
+            template = <FavoriteContent {...props}  />;
             break;
         case 'section':
             template = <SectionContent {...props} />;
             break;
         default:
-            template = <LayoutContent {...props} />;
+            template = <LayoutContent {...props}/>;
             break;
     }
 

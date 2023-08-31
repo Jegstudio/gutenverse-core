@@ -35,7 +35,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger } = props;
     const { layoutContentData: data } = modalData;
 
     const [categories, setCategories] = useState({});
@@ -117,24 +117,26 @@ const SectionContentWrapper = (props) => {
     };
 
     return <>
-        <div className="gutenverse-library-sidebar">
-            <>
-                <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
-                <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
-            </>
-            {authors.length > 1 && <>
-                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
-            </>}
-            <h2 className="gutenverse-library-side-heading">
-                {__('Categories', '--gctd--')}
-            </h2>
-            <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
-        </div>
+        {burger && <div className="gutenverse-library-sidebar">
+                <>
+                    <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
+                    <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
+                </>
+                {authors.length > 1 && <>
+                    <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
+                    <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
+                </>}
+                <h2 className="gutenverse-library-side-heading">
+                    {__('Categories', '--gctd--')}
+                </h2>
+                <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
+            </div>
+        }
+        
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                title={__('Discover Our Premium Templates & Sections', '--gctd--')}
+                title={__('Discover Our Premium Templates and Sections You Never Meet Before!', '--gctd--')}
                 customStyles={{margin: '10px'}}/>
             <SectionContentData
                 current={content.current}
