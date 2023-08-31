@@ -74,12 +74,7 @@ class Banner {
 	 * Enqueue Script.
 	 */
 	public function enqueue_script() {
-		wp_enqueue_style(
-			'fontawesome-gutenverse',
-			GUTENVERSE_URL . '/assets/fontawesome/css/all.css',
-			array(),
-			GUTENVERSE_VERSION
-		);
+		wp_enqueue_style( 'fontawesome-gutenverse' );
 	}
 
 	/**
