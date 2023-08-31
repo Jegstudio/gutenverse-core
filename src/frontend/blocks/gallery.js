@@ -7,7 +7,6 @@ class GutenverseGallery extends Default {
         if (elements.length > 0) {
             const promiseShuffle = import('shufflejs');
             const promiseSwiper = import('swiper');
-
             Promise.all([promiseShuffle, promiseSwiper])
                 .then((result) => {
                     const { default: Shuffle } = result[0];
