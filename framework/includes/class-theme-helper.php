@@ -195,8 +195,7 @@ class Theme_Helper {
 		$template_file = $this->get_block_template_file( $template_type, $slug );
 
 		if ( null === $template_file ) {
-			/** This filter is documented in wp-includes/block-template-utils.php */
-			return apply_filters( 'get_block_file_template', null, $id, $template_type );
+			return null; // Instead of apply filters, null is returned to prevent looping.
 		}
 
 		$block_template = _build_block_template_result_from_file( $template_file, $template_type );
