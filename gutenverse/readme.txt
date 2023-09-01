@@ -187,6 +187,47 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.0.0 - 2023-xx-xx =
+##### Bug Fixes
+* **Client Logo**, Fix Slider Arrow for Client Logo
+* **Client Logo**, Fix Slider Dots for Client Logo 
+* **Client Logo**, Remove Inline Auto Width for Client Logo 
+* **Testimonial**, Fix Slider Arrow for Testimonial
+* **Testimonial**, Fix Slider Dots for Testimonial
+* **Testimonial**, Remove Inline Auto Width for Testimonial
+* **Positioning**, Fix Fixed Positioning,
+* **Text Box**, Remove Text Spread,
+* **Button**, Fixed hover button background normal color
+
+= 2.0.0 - 2023-xx-xx =
+
+
+= 1.8.8 - 2023-08-15 =
+##### Bug Fixes
+* **Column**, Fix render minified issue
+* **Plugin Conflict**, Fix conflict issue with WooCommerce plugin when accessing pages
+
+= 1.8.7 - 2023-08-10 =
+##### Bug Fixes
+* **Editor Assets**, Fix issue with positioning option
+* **Column**, Fix issue with vertical alignment when space between, space around, or space evenly is chosen
+* **Date Input**, Fix issue when selecting dates
+* **Image Block**, Fix issue with missing image size
+* **Image Box**, Fix issue with image's box shadow
+* **Icon Box**, Fix issue with title URL
+* **Pattern Preview**, Fix issue when previewing pattern in new WordPress v6.3 editor
+* **Popup Builder**, Fix issue with popup wrapper on frontend
+* **Post Author**, Fix the issue of custom classes not being added
+* **Post Block**, Fix the issue of custom classes not being added
+* **Post Comment**, Fix the issue of custom classes not being added
+* **Post Content**, Fix the issue of custom classes not being added
+* **Post Date**, Fix the issue of custom classes not being added
+* **Post Excerpt**, Fix the issue of custom classes not being added
+* **Post Featured Image**, Fix the issue of custom classes not being added
+* **Post List**, Fix the issue of custom classes not being added
+* **Post Terms**, Fix the issue of custom classes not being added
+* **Post Title**, Fix the issue of custom classes not being added
+* **Responsive**, Fix issue with changing devices inside editor when changing templates in WordPress v6.3
 
 = 1.8.6 - 2023-06-14 =
 ##### Bug Fixes

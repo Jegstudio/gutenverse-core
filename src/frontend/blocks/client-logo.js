@@ -3,17 +3,16 @@ import { Default, u, applyFilters } from 'gutenverse-core-frontend';
 class GutenverseClientLogo extends Default {
     /* public */
     init() {
-        const elements = this._elements;
+        const elements =     this._elements;
         if (elements.length > 0) {
             import('swiper').then(({ default: Swiper, Autoplay, Navigation, Pagination }) => {
-                Swiper.use(Autoplay, Navigation, Pagination);
+                Swiper.use([Autoplay, Navigation, Pagination]);
                 elements.map(element => {
                     this._addSliderEffect(element, Swiper);
                 });
             });
         }
     }
-
     /* private */
     _addSliderEffect(element, Swiper) {
         const sliderContainer = u(element).find('.swiper-container');
@@ -24,7 +23,7 @@ class GutenverseClientLogo extends Default {
         const nav = sliderContainer.data('nav');
         const arrow = sliderContainer.data('arrow');
         const breakpoints = sliderContainer.data('breakpoints');
-
+        
         const isTrue = (val) => val === 'true';
 
         const settings = {
@@ -59,8 +58,7 @@ class GutenverseClientLogo extends Default {
             settings,
             settingsProps
         );
-
-        new Swiper(`.${id} .swiper-container`, settingsFilter);
+        new Swiper(`#${id}`, settingsFilter);
     }
 }
 
