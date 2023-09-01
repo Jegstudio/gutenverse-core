@@ -191,7 +191,7 @@ class Upgrader {
 		$theme = wp_get_theme();
 		$flag  = get_option( $this->get_page_content_option_name() );
 
-		// if ( $this->check_old_theme( $theme ) && $flag ) {
+		if ( $this->check_old_theme( $theme ) && $flag ) {
 			$this->enqueue_script();
 			?>
 			<div class="notice gutenverse-upgrade-notice page-content-upgrade">
@@ -236,6 +236,6 @@ class Upgrader {
 				})(jQuery);
 			</script>
 			<?php
-		// }
+		}
 	}
 }
