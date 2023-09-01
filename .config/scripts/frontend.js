@@ -6,6 +6,41 @@ const { stats, plugins } = require("gutenverse-core/.config/config");
 const { externals, coreFrontendExternals } = require("gutenverse-core/.config/externals");
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 
+let copyPath = [
+    {
+        source: "./build/frontend.asset.php",
+        destination: "./gutenverse/lib/dependencies/",
+    },
+];
+
+if (process.env.NODE_ENV === 'development') {
+    copyPath = [
+        ...copyPath,
+        {
+            source: "./build/frontend.js*",
+            destination: "./gutenverse/assets/js/",
+        },
+        {
+            source: "./build/vendors*",
+            destination: "./gutenverse/assets/js/",
+        },
+    ];
+}
+
+if (process.env.NODE_ENV !== 'development') {
+    copyPath = [
+        ...copyPath,
+        {
+            source: "./build/20.js",
+            destination: "./gutenverse/assets/js/",
+        },
+        {
+            source: "./build/439.js",
+            destination: "./gutenverse/assets/js/",
+        },
+    ];
+}
+
 const frontend = {
     mode: "development",
     devtool: "cheap-module-source-map",
@@ -39,28 +74,7 @@ const frontend = {
                     ]
                 },
                 onEnd: {
-                    copy: [
-                        {
-                            source: process.env.NODE_ENV === 'development' ? "./build/frontend.js*" : "./build/frontend.js",
-                            destination: "./gutenverse/assets/js/",
-                        },
-                        {
-                            source: process.env.NODE_ENV === 'development' ? "./build/vendors*" : '',
-                            destination: "./gutenverse/assets/js/",
-                        },
-                        {
-                            source: process.env.NODE_ENV !== 'development' ? "./build/20.js" : '',
-                            destination: "./gutenverse/assets/js/",
-                        },
-                        {
-                            source: process.env.NODE_ENV !== 'development' ? "./build/439.js" : '',
-                            destination: "./gutenverse/assets/js/",
-                        },
-                        {
-                            source: "./build/frontend.asset.php",
-                            destination: "./gutenverse/lib/dependencies/",
-                        },
-                    ],
+                    copy: copyPath,
                 },
             },
             runTasksInSeries: true,
