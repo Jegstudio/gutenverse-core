@@ -25,16 +25,6 @@ fs.readdirSync("./src/editor/blocks/").filter((file) => {
     }
 });
 
-if (process.env.NODE_ENV === 'development') {
-    copyPath = [
-        ...copyPath,
-        {
-            source: process.env.NODE_ENV === 'development' ? "./build/blocks.js*" : "./build/blocks.js",
-            destination: "./gutenverse/assets/js/",
-        },
-    ];
-}
-
 const blocks = {
     mode: "development",
     devtool: "cheap-module-source-map",
@@ -69,6 +59,10 @@ const blocks = {
                 onEnd: {
                     copy: [
                         ...copyPath,
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/blocks.js*" : "./build/blocks.js",
+                            destination: "./gutenverse/assets/js/",
+                        },
                         {
                             source: "./build/blocks.asset.php",
                             destination: "./gutenverse/lib/dependencies/",

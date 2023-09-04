@@ -17,25 +17,19 @@ if (process.env.NODE_ENV === 'development') {
     copyPath = [
         ...copyPath,
         {
-            source: "./build/frontend.js*",
-            destination: "./gutenverse/assets/js/",
-        },
-        {
             source: "./build/vendors*",
             destination: "./gutenverse/assets/js/",
         },
     ];
-}
-
-if (process.env.NODE_ENV !== 'development') {
+} else {
     copyPath = [
         ...copyPath,
         {
-            source: "./build/20.js",
+            source: "./build/chunk-shufflejs.js",
             destination: "./gutenverse/assets/js/",
         },
         {
-            source: "./build/439.js",
+            source: "./build/chunk-swiper.js",
             destination: "./gutenverse/assets/js/",
         },
     ];
@@ -68,13 +62,19 @@ const frontend = {
                     delete: [
                         "./gutenverse/assets/js/frontend.js*",
                         "./gutenverse/assets/js/vendor*",
-                        "./gutenverse/assets/js/20.js",
-                        "./gutenverse/assets/js/439.js",
+                        "./gutenverse/assets/js/chunk-shufflejs.js",
+                        "./gutenverse/assets/js/chunk-swiper.js",
                         "./gutenverse/lib/dependencies/frontend.asset.php"
                     ]
                 },
                 onEnd: {
-                    copy: copyPath,
+                    copy: [
+                        ...copyPath,
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/frontend.js*" : "./build/frontend.js",
+                            destination: "./gutenverse/assets/js/",
+                        },
+                    ],
                 },
             },
             runTasksInSeries: true,
