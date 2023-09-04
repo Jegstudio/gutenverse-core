@@ -1,8 +1,8 @@
 .button-upgrade-pro {
     align-items: center;
     border-radius: 50px;
-    background: rgba(255, 255, 255, 0.20);
-    color: white !important;
+    background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
+    color: rgba(255, 255, 255, 1) !important;
     cursor: pointer;
     display: flex;
     gap: 6px;
@@ -47,8 +47,19 @@
     }
 }
 .button-upgrade-pro:hover{
+    color: rgba(255, 255, 255, .6) !important;
+
+    svg{
+        opacity: 60%;
+    }
+}
+.button-upgrade-pro-banner{
+    background: rgba(255, 255, 255, 0.20);
+}
+.button-upgrade-pro-banner:hover{
     background: rgba(255, 255, 255, 0.40);
 }
+
 
 .banner-pro {
     border-radius: 5px;

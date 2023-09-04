@@ -21,7 +21,6 @@ const PopupPro = ({
 
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [popupRef]);
-
     return active && (
         <div className="popup-pro">
             <div className="popup-content" ref={popupRef}>

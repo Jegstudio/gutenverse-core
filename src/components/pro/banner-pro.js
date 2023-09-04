@@ -12,13 +12,13 @@ const BannerPro = ({
         imgDir,
         themesUrl,
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
+    
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && <img className="banner-image" src={`${imgDir}/banner_library.png`} />}
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
         {!isEmpty(title) && <h4 className="title">{title}</h4>}
         <div className="buttons">
-            <ButtonUpgradePro />
+            <ButtonUpgradePro isBanner = {true}/>
             <a className="demo-button" href={themesUrl} target="_blank" rel="noreferrer">{__('View Prebuild Demo', '--gctd--')}</a>
         </div>
     </div>;
