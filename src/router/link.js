@@ -20,7 +20,7 @@ const Link = ({
         });
     };
     let temp = applyFilters("gutenverse.custom-font")
-    if(pro && !temp ){
+    if(pro && temp == undefined ){
         return <div className={className} onClick={setActive}>
                     <p className="pro-label">PRO</p>
                     <div className="setting-label" >

@@ -3,6 +3,7 @@ import { useRef, useState } from '@wordpress/element';
 import { ControlCheckbox, ControlCheckboxPro } from 'gutenverse-core/backend';
 import { select } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader, PopupPro } from '../../components';
+import { applyFilters } from '@wordpress/hooks';
 
 const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettingValues }) => {
     const [popupActive, setPopupActive] = useState(false);
@@ -11,6 +12,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     const { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
     const blocks = select('gutenverse/blocklist').getList();
+    let temp = applyFilters("gutenverse.custom-font")
     blocks.map((block) => {
         if (!(block?.name in active_blocks) && !block?.parent) {
             active_blocks[block.name] = true;
@@ -48,7 +50,6 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
 
         updateValues('active_blocks', active_blocks);
     };
-
     const checkAll = (checkValue) => {
         let checkAll = true;
 
@@ -147,11 +148,13 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                             return category?.slug === block?.category;
                                         })
                                         .map((block) => {
+                                            console.log(block)
+                                            console.log(block?.pro, block?.pro)
                                             if (block?.parent) {
                                                 return null;
                                             }
 
-                                            if (block?.locked) {
+                                            if (block?.pro && temp==undefined) {
                                                 return (
                                                     <div key={block.name} className="block-item locked" onClick={() => setPopupActive(true)}>
                                                         <p className="pro-label">PRO</p>
