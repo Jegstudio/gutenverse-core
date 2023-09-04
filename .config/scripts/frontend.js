@@ -13,28 +13,6 @@ let copyPath = [
     },
 ];
 
-if (process.env.NODE_ENV === 'development') {
-    copyPath = [
-        ...copyPath,
-        {
-            source: "./build/vendors*",
-            destination: "./gutenverse/assets/js/",
-        },
-    ];
-} else {
-    copyPath = [
-        ...copyPath,
-        {
-            source: "./build/chunk-shufflejs.js",
-            destination: "./gutenverse/assets/js/",
-        },
-        {
-            source: "./build/chunk-swiper.js",
-            destination: "./gutenverse/assets/js/",
-        },
-    ];
-}
-
 const frontend = {
     mode: "development",
     devtool: "cheap-module-source-map",
@@ -61,9 +39,8 @@ const frontend = {
                 onStart: {
                     delete: [
                         "./gutenverse/assets/js/frontend.js*",
-                        "./gutenverse/assets/js/vendor*",
-                        "./gutenverse/assets/js/chunk-shufflejs.js",
-                        "./gutenverse/assets/js/chunk-swiper.js",
+                        "./gutenverse/assets/js/chunk-shufflejs.js*",
+                        "./gutenverse/assets/js/chunk-swiper.js*",
                         "./gutenverse/lib/dependencies/frontend.asset.php"
                     ]
                 },
@@ -72,6 +49,14 @@ const frontend = {
                         ...copyPath,
                         {
                             source: process.env.NODE_ENV === 'development' ? "./build/frontend.js*" : "./build/frontend.js",
+                            destination: "./gutenverse/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/chunk-shufflejs.js*" : "./build/chunk-shufflejs.js",
+                            destination: "./gutenverse/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/chunk-swiper.js*" : "./build/chunk-swiper.js",
                             destination: "./gutenverse/assets/js/",
                         },
                     ],
