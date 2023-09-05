@@ -12,7 +12,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     const { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
     const blocks = select('gutenverse/blocklist').getList();
-    let temp = applyFilters("gutenverse.custom-font")
+    let temp = applyFilters('gutenverse.custom-font');
     blocks.map((block) => {
         if (!(block?.name in active_blocks) && !block?.parent) {
             active_blocks[block.name] = true;
@@ -90,7 +90,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
             <PopupPro
                 active={popupActive}
                 setActive={setPopupActive}
-                description={"Upgrade Gutenverse PRO version to unlock these premium blocks ✌"}
+                description={'Upgrade Gutenverse PRO version to unlock these premium blocks ✌'}
             />
             <DashboardHeader>
                 <div className="header-control">

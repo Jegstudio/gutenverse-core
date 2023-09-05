@@ -9,6 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { Loader } from 'react-feather';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
+import { LogoIconGutenverseSVG } from 'gutenverse-core/icons';
 
 const PluginItem = ({
     plugin,
@@ -110,7 +111,7 @@ const PluginItem = ({
     const loadingCircle = loading && <div className="rotating" style={{ display: 'flex' }}>
         <Loader size={20} />
     </div>;
-    
+
     if ( installed ) {
         const invalidVersion = !isEmpty(version) && !semver.gte(installed.version, version || '0.0.0');
         const string = invalidVersion ? __('Update & Activate Plugin', '--gctd--') : __('Activate Plugin', '--gctd--');
@@ -128,7 +129,7 @@ const PluginItem = ({
                     {loadingCircle}
                     {loading ? loadingString : __('Update Plugin', '--gctd--')}
                 </div>;
-            } 
+            }
 
             action = <div className={`${singleClass} installed`} >
                 {loadingCircle}
@@ -148,29 +149,35 @@ const PluginItem = ({
     }
     return <div key={slug} className="plugin-item">
         {
-            incoming === "1" && <div className="ribbon">SOON</div>
+            incoming === '1' && <div className="ribbon">SOON</div>
         }
         {
             icon ? <div className="icon-wrapper">
-            <img className="icon-plugin" src={icon[0]}/> </div>: <div className="icon-wrapper"> 
-            <img className="icon-plugin" src={icons }></img></div>
+                <img className="icon-plugin" src={icon[0]}/> </div>
+                : icons ?
+                    <div className="icon-wrapper">
+                        <img className="icon-plugin" src={icons }></img></div> 
+                    :
+                    <div className="icon-wrapper">
+                        <LogoIconGutenverseSVG className= "icon-plugin"/></div> 
+
         }
         <div className="details">
-            
+
             <h2 className="plugin-title">
                 {name.includes('Gutenverse') ? <>
                     <span>{__('Gutenverse', '--gctd--')}</span>&nbsp;
                     {name.split('Gutenverse').join('')}
                 </> : name}
             </h2>
-            {version ? 
-            <p className="plugin-version">
-                {__('Version ', '--gctd--')}
-                {version}
-            </p> : 
-            <p className="plugin-version">
-                {__('Coming Soon', '--gctd--')}
-            </p>
+            {version ?
+                <p className="plugin-version">
+                    {__('Version ', '--gctd--')}
+                    {version}
+                </p> :
+                <p className="plugin-version">
+                    {__('Coming Soon', '--gctd--')}
+                </p>
             }
             {description && <p className="plugin-description">
                 {description.substring(0, 80) + '...'}

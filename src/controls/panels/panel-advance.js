@@ -35,7 +35,7 @@ export const advancePanel = (props) => {
                     selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
                     frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
                     render: value => {
-                        return handleDimension(value, 'margin')
+                        return handleDimension(value, 'margin');
                     }
                 }
             ]

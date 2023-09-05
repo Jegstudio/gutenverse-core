@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG} from 'gutenverse-core/icons';
+import { IconCrownSVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -19,7 +19,7 @@ const ButtonUpgradePro = ({
     location = '',
     isBanner = false,
 }) => {
-    
+
     const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
@@ -29,17 +29,17 @@ const ButtonUpgradePro = ({
             ['full']: fullWidth,
             [`${align}`]: align,
         },
-        isBanner && 'button-upgrade-pro-banner' 
+        isBanner && 'button-upgrade-pro-banner'
     );
-    const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) && 
-        <a 
-            href={link ? link : referralUrl} 
-            className={buttonClasses} 
-            target="_blank" 
-            rel="noreferrer" 
+    const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) &&
+        <a
+            href={link ? link : referralUrl}
+            className={buttonClasses}
+            target="_blank"
+            rel="noreferrer"
             style={customStyles}>
-        <IconCrownSVG/>
-        {text}
+            <IconCrownSVG />
+            {text}
         </a>, location);
     return <TheButton />;
 };

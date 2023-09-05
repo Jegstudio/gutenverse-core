@@ -48,7 +48,7 @@ export const positioningPanel = (props) => {
     const deviceType = getDeviceType();
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
-    
+
     return [
         {
             id: 'positioningType',

@@ -118,21 +118,21 @@ const SectionContentWrapper = (props) => {
 
     return <>
         {burger && <div className="gutenverse-library-sidebar">
-                <>
-                    <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
-                    <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
-                </>
-                {authors.length > 1 && <>
-                    <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                    <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
-                </>}
-                <h2 className="gutenverse-library-side-heading">
-                    {__('Categories', '--gctd--')}
-                </h2>
-                <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
-            </div>
+            <>
+                <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
+                <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
+            </>
+            {authors.length > 1 && <>
+                <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
+                <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
+            </>}
+            <h2 className="gutenverse-library-side-heading">
+                {__('Categories', '--gctd--')}
+            </h2>
+            <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
+        </div>
         }
-        
+
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}

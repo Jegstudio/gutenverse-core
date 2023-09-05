@@ -19,14 +19,14 @@ const Link = ({
             search: to.search
         });
     };
-    let temp = applyFilters("gutenverse.custom-font")
+    let temp = applyFilters('gutenverse.custom-font');
     if(pro && temp == undefined ){
         return <div className={className} onClick={setActive}>
-                    <p className="pro-label">PRO</p>
-                    <div className="setting-label" >
-                        {children}
-                    </div>
-                </div>
+            <p className="pro-label">PRO</p>
+            <div className="setting-label" >
+                {children}
+            </div>
+        </div>;
     }
     return <a href={to?.search} className={className} onClick={onClick}>
         {children}

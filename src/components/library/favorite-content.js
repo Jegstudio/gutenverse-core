@@ -185,7 +185,7 @@ const FavoriteContent = props => {
                     <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
                 </div>
             }
-            
+
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
                     subtitle={__('Welcome to Gutenverse Library', '--gctd--')}

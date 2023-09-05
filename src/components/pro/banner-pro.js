@@ -12,7 +12,7 @@ const BannerPro = ({
         imgDir,
         themesUrl,
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-    
+
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && <img className="banner-image" src={`${imgDir}/overlay-banner.png`} />}
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
