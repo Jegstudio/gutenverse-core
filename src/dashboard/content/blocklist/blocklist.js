@@ -12,7 +12,6 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
     const { blockCategories } = window['GutenverseSettings'];
     const controlRef = useRef();
     const blocks = select('gutenverse/blocklist').getList();
-    let temp = applyFilters('gutenverse.custom-font');
     blocks.map((block) => {
         if (!(block?.name in active_blocks) && !block?.parent) {
             active_blocks[block.name] = true;
@@ -152,7 +151,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                                 return null;
                                             }
 
-                                            if (block?.pro && temp==undefined) {
+                                            if (block?.pro) {
                                                 return (
                                                     <div key={block.name} className="block-item locked" onClick={() => setPopupActive(true)}>
                                                         <p className="pro-label">PRO</p>
