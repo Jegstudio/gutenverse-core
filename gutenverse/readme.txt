@@ -198,8 +198,9 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Positioning**, Fix Fixed Positioning,
 * **Text Box**, Remove Text Spread,
 * **Button**, Fixed hover button background normal color
+* **Gradient**, Fixed gradient color picker
+* **Section**, Fixed section overlay
 
-= 2.0.0 - 2023-xx-xx =
 
 
 = 1.8.8 - 2023-08-15 =
