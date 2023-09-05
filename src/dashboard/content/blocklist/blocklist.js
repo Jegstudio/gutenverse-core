@@ -152,7 +152,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                             }
 
                                             if (block?.pro) {
-                                                return (
+                                                const BlockPro = applyFilters('gutenverse.block-list-pro', () => 
                                                     <div key={block.name} className="block-item locked" onClick={() => setPopupActive(true)}>
                                                         <p className="pro-label">PRO</p>
                                                         <div className="block-info">
@@ -165,7 +165,8 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                                             <ControlCheckboxPro />
                                                         </div>
                                                     </div>
-                                                );
+                                                , {block, active_blocks, controlRef,ControlCheckbox, updateValue});
+                                                return <BlockPro/>;
                                             }
 
                                             return (

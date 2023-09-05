@@ -27,7 +27,7 @@ const Link = ({
                     {children}
                 </div>
             </div>,{to, className, onClick, children});
-        return <ButtonPro/>
+        return <ButtonPro/>;
     }
     return <a href={to?.search} className={className} onClick={onClick}>
         {children}
