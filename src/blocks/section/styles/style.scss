@@ -206,15 +206,11 @@ section.guten-section {
   }
 
   &.overflow-auto {
-    &>.guten-container {
-      overflow: auto;
-    }
+    overflow: auto;
   }
 
   &.overflow-hidden {
-    &>.guten-container {
-      overflow: hidden;
-    }
+    overflow: hidden;
   }
 
   @media (min-width: 781px) {

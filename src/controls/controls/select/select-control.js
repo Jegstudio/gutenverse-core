@@ -17,7 +17,7 @@ const SelectControl = (props) => {
         onValueChange(value);
         onStyleChange(value);
     };
-
+    console.log(props)
     const customStyles = {
         input: () => {
             return {

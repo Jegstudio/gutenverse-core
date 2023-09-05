@@ -148,8 +148,6 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                             return category?.slug === block?.category;
                                         })
                                         .map((block) => {
-                                            console.log(block)
-                                            console.log(block?.pro, block?.pro)
                                             if (block?.parent) {
                                                 return null;
                                             }
