@@ -40,7 +40,7 @@ const ButtonUpgradePro = ({
             style={customStyles}>
             <IconCrownSVG />
             {text}
-        </a>, location);
+        </a>, {location,isBanner});
     return <TheButton />;
 };
 

@@ -116,7 +116,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     }, [license, keyword, author]);
 
     return <>
-        {burger && <div className="gutenverse-library-sidebar" >
+        <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}  >
             <SearchBar
                 placeholder={__('Search Layout', '--gctd--')}
                 onChange={keyword => {
@@ -135,7 +135,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 {__('Categories', '--gctd--')}
             </h2>
             <RenderCategories categories={categories} data={data} />
-        </div>}
+        </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}

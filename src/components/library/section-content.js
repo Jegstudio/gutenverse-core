@@ -117,7 +117,7 @@ const SectionContentWrapper = (props) => {
     };
 
     return <>
-        {burger && <div className="gutenverse-library-sidebar">
+         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
             <>
                 <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
@@ -131,7 +131,7 @@ const SectionContentWrapper = (props) => {
             </h2>
             <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
         </div>
-        }
+        
 
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro

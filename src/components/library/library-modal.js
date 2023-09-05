@@ -45,7 +45,9 @@ const LibraryModal = props => {
             <div className={'gutenverse-library-container'}>
                 <div className={'gutenverse-library-header'}>
                     <div className="gutenverse-header-burger" onClick={handleBurger} >
-                        <IconHamburgerSVG  size={16} />
+                        {
+                            burger ? <IconCloseSVG  /> : <IconHamburgerSVG  size={16} />
+                        }
                     </div>
                     <div className="gutenverse-header-logo">
                         <LogoFullColorSVG />{__('Library', '--gctd--')}

@@ -94,7 +94,11 @@ $border: #eaeaea;
                 display:none !important;
             }
         }
-
+        @media only screen and (max-width: 900px){
+            .hide-sidebar{
+                display: none !important;
+            }
+        }
         .gutenverse-section-switcher {
             display: flex;
 
@@ -169,6 +173,13 @@ $border: #eaeaea;
         box-sizing: border-box;
         overflow: auto;
     }
+    @media only screen and (max-width: 900px){
+        .gutenverse-library-sidebar {
+            position: absolute;
+            z-index: 2;
+        }
+    }
+    
     .gutenverse-library-sidebar::after{
         transition-duration: 0.5s;
         transition-timing-function: linear;

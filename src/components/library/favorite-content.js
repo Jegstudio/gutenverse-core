@@ -152,8 +152,7 @@ const FavoriteContent = props => {
             setPluginInstallMode={setPluginInstallMode}
         />}
         <div className="gutenverse-library-inner-body">
-            {
-                burger && <div className="gutenverse-library-sidebar">
+            <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
                     <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}>
                         {__('Library', '--gctd--')}
                     </h2>
@@ -184,7 +183,6 @@ const FavoriteContent = props => {
                     </h2>
                     <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
                 </div>
-            }
 
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
