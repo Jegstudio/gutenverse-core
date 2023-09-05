@@ -475,13 +475,16 @@
         width: calc(50% - 72px);
         position: relative;
         overflow: hidden;
+        min-height: 100px;
 
         .icon-plugin {
             width: 64px;
             height: 64px;
             border-radius: 100px;
         }
-
+        .details{
+            width: 50%;
+        }
         .plugin-title {
             font-family: 'Plus Jakarta Sans';
             font-style: normal;
