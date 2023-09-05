@@ -162,7 +162,7 @@ class Frontend_Assets {
 	 * @return array
 	 */
 	public function gutenverse_data() {
-		$settings_data = get_option( 'gutenverse-settings' );
+		$settings_data          = get_option( 'gutenverse-settings' );
 		$config                 = array();
 		$config['postId']       = get_the_ID();
 		$config['query']        = $this->get_template_query();
