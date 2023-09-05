@@ -334,10 +334,10 @@ class Api {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
 
-		$this->update_library_data();
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
 			Meta_Option::instance()->set_option( 'fetch_library_time', $next_fetch );
+			$this->update_library_data();
 		}
 
 		return $this->library_data();

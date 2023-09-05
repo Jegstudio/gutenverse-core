@@ -132,15 +132,29 @@ class Editor_Assets {
 	 */
 	public function enqueue_backend() {
 		wp_enqueue_style(
-			'gutenverse-backend-font',
-			'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;display=swap',
+			'gutenverse-roboto-font',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/roboto/roboto.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
 		wp_enqueue_style(
-			'gutenverse-backend-font-2',
-			'https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600&amp;family=Poppins:wght@400;500;600&amp;display=swap',
+			'gutenverse-poppins-font',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/poppins/poppins.css',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
+		wp_enqueue_style(
+			'gutenverse-heebo-font',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/heebo/heebo.css',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
+		wp_enqueue_style(
+			'gutenverse-jakarta-sans-font',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/plus-jakarta-sans/plus-jakarta-sans.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);

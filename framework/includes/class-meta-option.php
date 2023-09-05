@@ -48,7 +48,7 @@ class Meta_Option {
 	 * Constructor
 	 */
 	private function __construct() {
-		add_action( 'gutenverse_check_update', array( $this, 'check_update' ) );
+		add_action( 'gutenverse_check_update', array( $this, 'check_assets' ) );
 		add_action( 'gutenverse_after_init_framework', array( $this, 'init_meta_option' ) );
 	}
 
@@ -106,9 +106,9 @@ class Meta_Option {
 	}
 
 	/**
-	 * Check if plugin has been upgraded.
+	 * Check upgrade assets if plugin has been upgraded.
 	 */
-	public function check_update() {
+	public function check_assets() {
 		$assets = Init::instance()->assets;
 
 		if ( $assets->is_font_icon_exists() ) {

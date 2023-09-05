@@ -67,11 +67,12 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		 * Print Information.
 		 */
 		public function print_info() {
+			$version = isset( $this->versions[ $this->loaded ] ) ? $this->versions[ $this->loaded ] : '';
 			?>
 			<script> 
 			var gutenverseLoadedFramework = {
 				plugin: "<?php echo esc_html( $this->loaded ); ?>",
-				version: "<?php echo esc_html( $this->versions[ $this->loaded ] ); ?>",
+				version: "<?php echo esc_html( $version ); ?>",
 			}; 
 			</script>
 			<?php

@@ -45,8 +45,8 @@ const FontIconSetting = () => {
                     </div>
                 </div>
                 <div className="info">
-                    <h4>{__('Gutenicon & Fontawesome', '--gctd--')}</h4>
-                    <p>{__('Flexible and Design-Friendly Contact Form builder plugin for WordPress', '--gctd--')}</p>
+                    <h4>{__('Download Complete Font Icon', '--gctd--')}</h4>
+                    <p>{__('Default font icon that come with plugin serve more than 98% of active browser, but you can download complete font icon to serve all active browser.', '--gctd--')}</p>
                 </div>
                 <div className="action">
                     {isIconExists ? <div className="icon check">
