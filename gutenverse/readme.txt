@@ -189,6 +189,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.0.0 - 2023-xx-xx =
 ##### Bug Fixes
+* **Button**, Fixed hover button background normal color
 * **Client Logo**, Fix Slider Arrow for Client Logo
 * **Client Logo**, Fix Slider Dots for Client Logo 
 * **Client Logo**, Remove Inline Auto Width for Client Logo 
@@ -197,10 +198,6 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Testimonial**, Remove Inline Auto Width for Testimonial
 * **Positioning**, Fix Fixed Positioning,
 * **Text Box**, Remove Text Spread,
-* **Button**, Fixed hover button background normal color
-
-= 2.0.0 - 2023-xx-xx =
-
 
 = 1.8.8 - 2023-08-15 =
 ##### Bug Fixes
