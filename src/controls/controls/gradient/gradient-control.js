@@ -38,6 +38,7 @@ const GradientControl = (props) => {
 
     const wrapperRef = useRef();
     const [controlOpen, setControlOpen] = useState(false);
+    console.log(controlOpen)
 
     const onChange = value => {
         onValueChange(value);
@@ -45,7 +46,8 @@ const GradientControl = (props) => {
     };
 
     useEffect(() => {
-        document.querySelector(`#${id} .csh .cs`).addEventListener('click', () => setControlOpen(true));
+        document.querySelector([ '.csh', '.cs']).addEventListener('click', () => setControlOpen(true));
+        console.log("here")
     }, [value]);
 
     useEffect(() => {
