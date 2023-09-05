@@ -110,15 +110,6 @@ const TextShadowControl = ({
                 onValueChange={blur => onValueChange({ ...value, blur })}
                 onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
-            <RangeControl
-                label={__('Spread', '--gctd--')}
-                min={-100}
-                max={100}
-                step={1}
-                value={value.spread}
-                onValueChange={spread => onValueChange({ ...value, spread })}
-                onStyleChange={spread => onStyleChange({ ...value, spread })}
-            />
         </div>
     </div>;
 };

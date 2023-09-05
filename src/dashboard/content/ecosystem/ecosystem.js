@@ -156,10 +156,10 @@ const PluginItem = ({
                 <img className="icon-plugin" src={icon[0]}/> </div>
                 : icons ?
                     <div className="icon-wrapper">
-                        <img className="icon-plugin" src={icons }></img></div> 
+                        <img className="icon-plugin" src={icons }></img></div>
                     :
                     <div className="icon-wrapper">
-                        <LogoIconGutenverseSVG className= "icon-plugin"/></div> 
+                        <LogoIconGutenverseSVG className= "icon-plugin"/></div>
 
         }
         <div className="details">
