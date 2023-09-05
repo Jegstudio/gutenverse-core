@@ -14,7 +14,7 @@ const BannerPro = ({
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     
     const banner = <div className="banner-pro" style={customStyles}>
-        {imgDir && <img className="banner-image" src={`${imgDir}/banner_library.png`} />}
+        {imgDir && <img className="banner-image" src={`${imgDir}/overlay-banner.png`} />}
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
         {!isEmpty(title) && <h4 className="title">{title}</h4>}
         <div className="buttons">
