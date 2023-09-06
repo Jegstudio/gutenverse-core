@@ -57,6 +57,7 @@ const BlockController = (props) => {
             onValueChange={onValueChange}
             onStyleChange={onStyleChange}
             elementRef={elementRef}
+            isOpen = {true}
         />;
     });
 };

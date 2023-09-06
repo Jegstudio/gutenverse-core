@@ -88,6 +88,7 @@ class Editor_Assets {
 		$config['fontawesomeURL']   = Init::instance()->assets->get_fontawesome_url();
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['referralUrl']      = $theme_referal;
+		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}

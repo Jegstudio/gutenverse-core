@@ -40,11 +40,15 @@ const SelectControl = (props) => {
 
     const id = useInstanceId(SelectControl, 'inspector-select-control');
 
-    const formatOptionLabel = ({ label, pro }) => {
+    const formatOptionLabel = ({ label, pro, description }) => {
         return (
             <div className={`select-option${pro && ' pro'}`}>
                 <div>{label}</div>
-                {pro && <ProLock />}
+                {pro && <ProLock
+                    title = {label}
+                    description = {description}
+                />}
+
             </div>
         );
     };

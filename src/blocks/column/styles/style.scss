@@ -33,9 +33,9 @@
       align-items: flex-start;
       align-content: flex-start;
 
-      & > * {
-        max-width: 100%;
-      }
+      // & > * {
+      //   max-width: 100%;
+      // }
 
       & > [class*="wp-block-"]:not(.guten-element),
       & > :not(.guten-element) {
