@@ -19,16 +19,18 @@ const Link = ({
             search: to.search
         });
     };
-    if(pro){
-        const ButtonPro = applyFilters('gutenverse.setting-pro-button', () => 
+
+    if (pro) {
+        const ButtonPro = applyFilters('gutenverse.setting-pro-button', () =>
             <div className={className} onClick={setActive}>
                 <p className="pro-label">PRO</p>
                 <div className="setting-label" >
                     {children}
                 </div>
-            </div>,{to, className, onClick, children});
-        return <ButtonPro/>;
+            </div>, { to, className, onClick, children });
+        return <ButtonPro />;
     }
+
     return <a href={to?.search} className={className} onClick={onClick}>
         {children}
     </a>;

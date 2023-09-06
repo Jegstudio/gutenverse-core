@@ -55,6 +55,10 @@
                         background: #e7ecfd;
                         color: var(--gutenverse-dashboard-primary);
                     }
+
+                    &.locked {
+                        border-color: #e32d64;
+                    }
                 }
 
                 .pro-label {
@@ -66,7 +70,7 @@
                     padding: 10px 49px 3px;
                     position: absolute;
                     top: -1px;
-                    transform: rotate(-40deg) translate(-9px,-13px);
+                    transform: rotate(-40deg) translate(-9px, -13px);
                 }
             }
         }
