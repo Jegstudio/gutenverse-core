@@ -66,7 +66,7 @@
                 min-height: 90px;
                 padding: 0 40px;
                 position: relative;
-        
+
                 .header-control {
                     align-items: center;
                     display: flex;
@@ -76,14 +76,14 @@
                 h2 {
                     align-items: center;
                     display: flex;
-                    font-family: 'Roboto';
+                    font-family: "Roboto", sans-serif;
                     font-size: 20px;
                     font-style: normal;
                     font-weight: 600;
                     line-height: 30px;
                 }
             }
-        
+
             .content-body {
                 padding: 0 40px;
             }
@@ -223,22 +223,22 @@
                 color: #011627;
                 cursor: pointer;
                 display: inline-block;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 500;
                 padding: 28px 4px;
                 text-decoration: none;
-    
+
                 &:focus {
                     box-shadow: none;
                 }
-    
+
                 &:hover,
                 &.active {
                     color: var(--gutenverse-dashboard-primary);
                 }
-    
+
                 &.active {
                     border-bottom-color: var(--gutenverse-dashboard-primary);
                 }
@@ -257,7 +257,7 @@
     }
 
     .popup-pro {
-        background: rgba(0,0,0,.5);
+        background: rgba(0, 0, 0, .5);
         bottom: 0;
         left: 0;
         position: fixed;
@@ -303,11 +303,11 @@
             .graphic {
                 height: 180px;
             }
-    
+
             .details {
                 color: #011627;
                 text-align: center;
-                font-family: Roboto;
+                font-family: "Roboto", sans-serif;
                 font-size: 22px;
                 font-style: normal;
                 font-weight: 500;

@@ -34,7 +34,7 @@
         text-transform: uppercase;
         padding: 4px 12px;
         background-color: #F2F4F7;
-        font-family: Roboto;
+        font-family: "Roboto", sans-serif;
         font-size: 12px;
         font-weight: 500;
         letter-spacing: 0.1em;
@@ -46,8 +46,8 @@
         min-height: 20px;
         padding: 20px;
 
-        & > h3 {
-            font-family: Roboto;
+        &>h3 {
+            font-family: "Roboto", sans-serif;
             font-size: 16px;
             font-weight: 500;
             margin: 0;
@@ -56,8 +56,8 @@
             text-align: left;
         }
 
-        & > p {
-            font-family: Roboto;
+        &>p {
+            font-family: "Roboto", sans-serif;
             font-size: 12px;
             font-weight: 400;
             margin: 16px 0 0;
@@ -73,7 +73,8 @@
         width: 100%;
         gap: 20px;
 
-        h3, p {
+        h3,
+        p {
             margin: 0;
         }
 
@@ -95,7 +96,7 @@
 
             h4 {
                 margin: 0;
-                font-family: 'Plus Jakarta Sans';
+                font-family: "Plus Jakarta Sans", sans-serif;
                 font-style: normal;
                 font-weight: 300;
                 font-size: 16px;
@@ -119,7 +120,7 @@
                 cursor: pointer;
                 text-align: center;
                 font-size: 7px;
-                font-family: Roboto;
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 500;
                 line-height: normal;
@@ -136,12 +137,12 @@
                 display: flex;
                 align-items: center;
                 gap: 5px;
-                font-family: Roboto;
+                font-family: "Roboto", sans-serif;
                 font-size: 10px;
                 font-weight: 400;
                 line-height: 18px;
                 letter-spacing: 0em;
-                text-align: left;                    
+                text-align: left;
             }
         }
     }
@@ -225,28 +226,28 @@
         border-radius: 5px;
         padding: 0 30px;
 
-        > div {
+        >div {
             width: 50%;
         }
 
-        > div:first-child {
+        >div:first-child {
             align-content: flex-end;
         }
 
-        > div:last-child {
+        >div:last-child {
             background: #fff48c;
             border-radius: 3px;
             height: fit-content;
             position: relative;
             top: 30px;
 
-            > div {
+            >div {
                 padding: 30px 36px;
             }
 
             h2 {
                 color: #011627;
-                font-family: Roboto;
+                font-family: "Roboto", sans-serif;
                 font-size: 20px;
                 font-weight: 600;
                 line-height: 23px;
@@ -255,7 +256,7 @@
 
             span {
                 color: #40505d;
-                font-family: Roboto;
+                font-family: "Roboto", sans-serif;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
@@ -281,7 +282,7 @@
 
     .feature-panel h2 {
         color: #011627;
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         font-size: 42px;
         font-style: normal;
         font-weight: 600;
@@ -292,7 +293,7 @@
     .subscribe-panel span,
     .feature-panel span {
         color: #40505d;
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -301,7 +302,7 @@
 
     .feature-panel a {
         color: var(--gutenverse-dashboard-primary);
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -343,7 +344,7 @@
             align-items: center;
             color: #FFFFFF;
             display: flex;
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             font-size: 13px;
             font-style: normal;
             font-weight: 500;
@@ -369,8 +370,8 @@
         font-size: 10px;
     }
 
-    .subscribe-panel > div,
-    .feature-panel > div {
+    .subscribe-panel>div,
+    .feature-panel>div {
         align-content: center;
         display: flex;
         flex-wrap: wrap;
@@ -389,7 +390,7 @@
         input {
             background: none;
             border: none;
-            font-family: "Roboto";
+            font-family: "Roboto", sans-serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -424,7 +425,7 @@
         }
 
         .btn {
-            font-family: "Roboto";
+            font-family: "Roboto", sans-serif;
         }
     }
 
@@ -483,14 +484,14 @@
 
     .feature-panel {
 
-        > div {
+        >div {
             width: 50%;
         }
 
-        > div:first-child {
+        >div:first-child {
             justify-content: flex-start;
 
-            > div {
+            >div {
                 margin-right: 40px;
             }
         }
@@ -544,7 +545,7 @@
         .feature-block {
             display: flex;
 
-            & > div {
+            &>div {
                 align-items: center;
                 background: #f5f5fa;
                 border-radius: 50px;
@@ -554,7 +555,7 @@
                 width: fit-content;
             }
 
-            & > div > .dot {
+            &>div>.dot {
                 align-items: center;
                 background: var(--gutenverse-dashboard-primary);
                 border-radius: 50px;
@@ -565,7 +566,7 @@
                 min-width: 18px;
             }
 
-            & > div > span {
+            &>div>span {
                 color: #40505d;
                 font-size: 10px;
                 font-style: normal;
@@ -635,7 +636,7 @@
 
             h2,
             span {
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 margin: 10px 0;
                 width: 100%;
             }
@@ -644,7 +645,7 @@
                 align-items: center;
                 color: var(--gutenverse-dashboard-primary);
                 display: flex;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -683,12 +684,12 @@
         gap: 20px;
         padding: 30px !important;
 
-        > div {
+        >div {
             justify-content: center !important;
             width: 100% !important;
         }
 
-        > div:last-child {
+        >div:last-child {
             top: 0 !important;
         }
 
@@ -702,7 +703,7 @@
         flex-wrap: wrap;
         gap: 0px;
 
-        > div {
+        >div {
             justify-content: center !important;
             text-align: center;
             width: 100% !important;
@@ -744,8 +745,8 @@
         width: 300px;
     }
 
-    .subscribe-panel > div,
-    .feature-panel > div {
+    .subscribe-panel>div,
+    .feature-panel>div {
         width: 100%;
     }
 }

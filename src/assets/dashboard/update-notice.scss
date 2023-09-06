@@ -13,7 +13,7 @@
         line-height: 1em;
         margin: 20px 0;
 
-        > a:not(:last-child) {
+        >a:not(:last-child) {
             margin-right: 38px;
         }
 
@@ -22,7 +22,7 @@
             color: #011627;
             cursor: pointer;
             display: inline-block;
-            font-family: "Roboto";
+            font-family: "Roboto", sans-serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 500;
@@ -47,7 +47,7 @@
     .upgrade-notice-head {
         height: 250px;
 
-        > div {
+        >div {
             background-color: #05131f;
             background-position: center;
             height: 100%;
@@ -81,7 +81,7 @@
     }
 
     .upgrade-notice-body {
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         margin-bottom: 140px;
         position: relative;
 
@@ -95,7 +95,7 @@
             z-index: 1;
         }
 
-        > div {
+        >div {
             margin: 0 auto;
             max-width: 1000px;
             position: relative;
@@ -132,7 +132,7 @@
             margin: 40px 0 0;
         }
 
-        ol li + [class^="upgrade-notice-figure"] {
+        ol li+[class^="upgrade-notice-figure"] {
             margin-top: 1em;
         }
 
@@ -155,11 +155,11 @@
             width: 100%;
         }
 
-        ol img + li {
+        ol img+li {
             margin-top: 40px 0 0;
         }
 
-        ol [class^="upgrade-notice-figure"] + li {
+        ol [class^="upgrade-notice-figure"]+li {
             margin-top: 1em;
         }
 
@@ -216,7 +216,7 @@
 
             h3 {
                 color: #011627;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 24px;
                 font-style: normal;
                 font-weight: 600;
@@ -227,7 +227,7 @@
 
             p {
                 color: #3c434a;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 400;
@@ -239,7 +239,7 @@
     .upgrade-notice-footer {
         margin-bottom: 40px;
 
-        > div {
+        >div {
             margin: 0 auto;
             max-width: 1000px;
         }
@@ -322,7 +322,7 @@
                 a {
                     color: var(--gutenverse-dashboard-primary);
                     cursor: pointer;
-                    font-family: "Roboto";
+                    font-family: "Roboto", sans-serif;
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 400;
@@ -346,7 +346,7 @@
                 border-radius: 4px;
                 border: 1px solid var(--gutenverse-dashboard-primary);
                 color: white;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 13px;
                 font-style: normal;
                 font-weight: 500;

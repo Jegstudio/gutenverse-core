@@ -13,7 +13,7 @@ $border: #eaeaea;
     height: 100%;
     width: 100%;
     z-index: 9999;
-    font-family: "poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 
     a {
         color: $primary;
@@ -55,7 +55,7 @@ $border: #eaeaea;
             padding: 8px 8px 8px 16px;
             border-bottom: 1px solid #e3e4e6;
 
-            > div {
+            >div {
                 flex: 1;
             }
 
@@ -80,25 +80,30 @@ $border: #eaeaea;
             svg {
                 margin-right: 2px;
             }
-            
+
         }
-        .gutenverse-header-burger{
+
+        .gutenverse-header-burger {
             display: none !important;
         }
+
         @media only screen and (max-width: 900px) {
-            .gutenverse-header-burger{
+            .gutenverse-header-burger {
                 display: inline !important;
                 cursor: pointer;
             }
-            .gutenverse-header-logo{
-                display:none !important;
-            }
-        }
-        @media only screen and (max-width: 900px){
-            .hide-sidebar{
+
+            .gutenverse-header-logo {
                 display: none !important;
             }
         }
+
+        @media only screen and (max-width: 900px) {
+            .hide-sidebar {
+                display: none !important;
+            }
+        }
+
         .gutenverse-section-switcher {
             display: flex;
 
@@ -111,12 +116,12 @@ $border: #eaeaea;
                 border: 1px solid #fff;
                 border-radius: 4px;
 
-                > svg {
+                >svg {
                     color: #99a2a9;
                     margin-right: 6px;
                 }
 
-                > span {
+                >span {
                     font-size: 12px;
                     color: #1c1d21;
                 }
@@ -125,11 +130,11 @@ $border: #eaeaea;
                 &.active {
                     border: 1px solid #f0f0f3;
 
-                    > svg path {
+                    >svg path {
                         fill: $primary;
                     }
 
-                    > span {
+                    >span {
                         color: #1c1d21;
                     }
                 }
@@ -173,18 +178,19 @@ $border: #eaeaea;
         box-sizing: border-box;
         overflow: auto;
     }
-    @media only screen and (max-width: 900px){
+
+    @media only screen and (max-width: 900px) {
         .gutenverse-library-sidebar {
             position: absolute;
             z-index: 2;
         }
     }
-    
-    .gutenverse-library-sidebar::after{
+
+    .gutenverse-library-sidebar::after {
         transition-duration: 0.5s;
         transition-timing-function: linear;
     }
-    
+
 
     .gutenverse-library-inner {
         height: 100%;
@@ -221,7 +227,7 @@ $border: #eaeaea;
                     right: 50%;
                     transform: translate(50%, -50%);
 
-                    > div {
+                    >div {
                         display: flex;
                     }
                 }
@@ -242,7 +248,7 @@ $border: #eaeaea;
 
                 .library-item-detail {
                     display: flex;
-                    font-family: "Heebo";
+                    font-family: "Heebo", sans-serif;
                     font-size: 12px;
                     align-items: center;
                     padding: 20px 10px 10px;
@@ -284,7 +290,7 @@ $border: #eaeaea;
                     span.by {
                         color: #797979;
                         font-size: 13px;
-                        font-family: "Heebo";
+                        font-family: "Heebo", sans-serif;
                     }
 
                     .library-item-right {
@@ -367,6 +373,7 @@ $border: #eaeaea;
                 }
 
                 .library-item {
+
                     &.importing,
                     &:hover {
                         .library-item-overlay {
@@ -464,7 +471,7 @@ $border: #eaeaea;
     position: relative;
 
     input {
-        font-family: "Heebo";
+        font-family: "Heebo", sans-serif;
         border: 1px solid #f0f0f3;
         border-radius: 3px;
         font-size: 12px;
@@ -476,7 +483,7 @@ $border: #eaeaea;
         }
     }
 
-    > svg {
+    >svg {
         position: absolute;
         top: 11px;
         right: 10px;
@@ -496,7 +503,7 @@ $border: #eaeaea;
 }
 
 .gutenverse-sidebar-list {
-    font-family: "Heebo";
+    font-family: "Heebo", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -543,7 +550,7 @@ $border: #eaeaea;
 }
 
 .gutenverse-library-select {
-    font-family: "Heebo";
+    font-family: "Heebo", sans-serif;
     font-size: 12px;
 
     input {
@@ -600,6 +607,7 @@ $border: #eaeaea;
     }
 
     &.loading {
+
         .single-previewer,
         .single-wrapper {
             overflow: hidden;
@@ -641,7 +649,7 @@ $border: #eaeaea;
             .layout-loader {
                 display: flex;
 
-                > div {
+                >div {
                     display: flex;
                 }
             }
@@ -756,7 +764,7 @@ $border: #eaeaea;
             margin-top: 10px;
             font-size: 28px;
             font-weight: bold;
-            font-family: "poppins", sans-serif;
+            font-family: "Poppins", sans-serif;
             margin-bottom: 17px;
             display: flex;
             align-items: center;
@@ -775,7 +783,7 @@ $border: #eaeaea;
         .single-layout-meta {
             align-items: center;
             display: flex;
-            font-family: "Heebo";
+            font-family: "Heebo", sans-serif;
             align-items: center;
 
             .single-layout-author {
@@ -890,7 +898,7 @@ $border: #eaeaea;
                 }
 
                 span {
-                    font-family: "Heebo";
+                    font-family: "Heebo", sans-serif;
                     font-weight: 500;
                     font-size: 12px;
                     text-align: center;
@@ -1011,7 +1019,7 @@ $border: #eaeaea;
         background: $primary;
         color: #fff;
         padding: 9px 50px;
-        font-family: "poppins", sans-serif;
+        font-family: "Poppins", sans-serif;
         font-weight: 500;
         margin-bottom: 15px;
         border: 1px solid #f0f0f3;
@@ -1116,7 +1124,7 @@ $border: #eaeaea;
         background: $primary;
         color: #fff;
         padding: 8px 16px;
-        font-family: "poppins", sans-serif;
+        font-family: "Poppins", sans-serif;
         font-weight: 500;
         border-right: 1px solid #88a2f5;
         border-radius: 3px;

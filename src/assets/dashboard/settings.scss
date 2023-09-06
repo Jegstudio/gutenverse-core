@@ -56,7 +56,8 @@
                         color: var(--gutenverse-dashboard-primary);
                     }
                 }
-                .pro-label{
+
+                .pro-label {
                     background-color: #E32D64;
                     color: white;
                     position: absolute;
@@ -67,7 +68,7 @@
                     margin: 0;
                     font-size: 13px;
                     transform: rotate(-40deg) translate(-9px, -13px);
-                    
+
                 }
             }
         }
@@ -89,12 +90,12 @@
 
             .control-wrapper {
                 &.control-number {
-                    > label {
+                    >label {
                         align-items: center;
                         display: flex;
                         justify-content: space-between;
 
-                        > input {
+                        >input {
                             border-radius: 3px;
                             border: 1px solid var(--gutenverse-dashboard-border);
                             color: #3e475b;
@@ -136,12 +137,12 @@
                 .info {
                     margin-left: 24px;
 
-                    > * {
+                    >* {
                         margin: 0;
                     }
 
                     h4 {
-                        font-family: "Plus Jakarta Sans";
+                        font-family: "Plus Jakarta Sans", sans-serif;
                         font-style: normal;
                         font-weight: 600;
                         font-size: 20px;
@@ -151,7 +152,7 @@
                     }
 
                     p {
-                        font-family: "Roboto";
+                        font-family: "Roboto", sans-serif;
                         font-style: normal;
                         font-weight: 400;
                         font-size: 14px;
@@ -198,7 +199,7 @@
 
                             &.downloading {
                                 border-color: transparent;
-                                
+
                                 &::before {
                                     position: absolute;
                                     content: "";

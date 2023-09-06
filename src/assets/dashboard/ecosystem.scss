@@ -3,7 +3,7 @@
     .sizer-element {
         width: 8.33333%;
     }
-    
+
     .not-found {
         align-content: center;
         display: flex;
@@ -50,7 +50,7 @@
         border: none;
         box-shadow: 0 0 0 transparent;
         color: #40505d;
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         font-weight: 400;
         padding: 5px 15px;
         width: 100%;
@@ -79,7 +79,7 @@
 
             input::placeholder {
                 color: #99a2a9;
-                font-family: "Heebo";
+                font-family: "Heebo", sans-serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -96,7 +96,7 @@
     }
 
     .content-body {
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         min-height: 720px;
 
         &>.ecosystem-wrapper {
@@ -482,11 +482,13 @@
             height: 64px;
             border-radius: 100px;
         }
-        .details{
+
+        .details {
             width: 50%;
         }
+
         .plugin-title {
-            font-family: 'Plus Jakarta Sans';
+            font-family: "Plus Jakarta Sans", sans-serif;
             font-style: normal;
             font-weight: 300;
             font-size: 16px;
@@ -496,8 +498,9 @@
             span {
                 font-weight: 800;
             }
-        }   
-        .ribbon{
+        }
+
+        .ribbon {
             background-color: #FED134;
             position: absolute;
             top: -1px;
@@ -507,11 +510,12 @@
             margin: 0;
             font-size: 13px;
             transform: rotate(-40deg) translate(-9px, -13px);
-  
+
         }
+
         .plugin-version {
             color: #99A2A9;
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             font-size: 12px;
             font-style: normal;
             font-weight: 400;
@@ -521,7 +525,7 @@
 
         .plugin-description {
             color: #40505D;
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -562,9 +566,10 @@
             }
         }
     }
+
     @media only screen and (max-width: 1000px) {
-        .plugin-item{
-            flex:100%
+        .plugin-item {
+            flex: 100%
         }
     }
 }
