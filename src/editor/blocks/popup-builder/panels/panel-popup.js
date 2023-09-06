@@ -174,22 +174,25 @@ export const popupPanel = (props) => {
             options: [
                 {
                     label: __('On Load', 'gutenverse'),
-                    value: 'load'
+                    value: 'load',
                 },
                 {
                     label: __('On Anchor Click', 'gutenverse'),
                     value: 'anchor',
-                    pro: true
+                    pro: true,
+                    description: __( 'When a user clicks on an anchor link, a pop-up can appear on the screen to display additional content or provide a specific call to action. ', '--gctd--') 
                 },
                 {
                     label: __('On Scroll', 'gutenverse'),
                     value: 'scroll',
-                    pro: true
+                    pro: true,
+                    description: __( 'Pop-ups that appear when a user scrolls down a web page can be an effective way to grab their attention and encourage engagement.', '--gctd--') 
                 },
                 {
                     label: __('On Exit Intent', 'gutenverse'),
                     value: 'exit',
-                    pro: true
+                    pro: true,
+                    description: __( 'Pop-ups that appear on exit intent are a type of pop-up that is triggered when a user attempts to leave a web page.', '--gctd--') 
                 },
             ],
         },
