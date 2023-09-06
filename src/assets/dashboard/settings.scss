@@ -58,17 +58,15 @@
                 }
 
                 .pro-label {
-                    background-color: #E32D64;
-                    color: white;
+                    background-color: #e32d64;
+                    color: #fff;
+                    font-size: 9px;
+                    left: -33px;
+                    margin: 0;
+                    padding: 10px 49px 3px;
                     position: absolute;
                     top: -1px;
-                    font-weight: bolder;
-                    left: -36px;
-                    padding: 10px 50px 1px;
-                    margin: 0;
-                    font-size: 13px;
-                    transform: rotate(-40deg) translate(-9px, -13px);
-
+                    transform: rotate(-40deg) translate(-9px,-13px);
                 }
             }
         }
