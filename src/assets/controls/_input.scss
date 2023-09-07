@@ -651,7 +651,7 @@
               background-color: white;
               position: relative;
 
-              & > * {
+              &>* {
                 display: flex;
               }
 
@@ -659,7 +659,7 @@
                 position: absolute;
                 top: 10px;
                 right: 10px;
-                
+
                 svg {
                   color: #99A2A9;
                   fill: #99A2A9;
@@ -667,7 +667,7 @@
               }
 
               h2 {
-                font-family: 'Roboto';
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 16px;
@@ -687,13 +687,13 @@
                 cursor: pointer;
                 font-size: 12px;
                 font-weight: 500;
-                font-family: 'Roboto';
+                font-family: "Roboto", sans-serif;
                 line-height: 18px;
                 padding: 8px 16px;
               }
 
               .description {
-                font-family: 'Roboto';
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 400;
                 font-size: 12px;
@@ -721,7 +721,7 @@
                 gap: 6px;
 
                 a {
-                  font-family: 'Roboto';
+                  font-family: "Roboto", sans-serif;
                   font-style: normal;
                   font-weight: 500;
                   font-size: 11px;
@@ -1549,6 +1549,7 @@
         &.open {
           .composite-header {
             border-bottom: 1px solid #ddd;
+
             .repeater-arrow-down {
               display: none;
             }
@@ -2166,7 +2167,7 @@
     &locked {
       &-layout {
         h2 {
-          font-family: 'Roboto';
+          font-family: "Roboto", sans-serif;
           font-style: normal;
           font-weight: 500;
           font-size: 16px;
@@ -2185,13 +2186,13 @@
           cursor: pointer;
           font-size: 12px;
           font-weight: 500;
-          font-family: 'Roboto';
+          font-family: "Roboto", sans-serif;
           line-height: 18px;
           padding: 8px 16px;
         }
 
         .description {
-          font-family: 'Roboto';
+          font-family: "Roboto", sans-serif;
           font-style: normal;
           font-weight: 400;
           font-size: 12px;
@@ -2218,7 +2219,7 @@
           gap: 6px;
 
           a {
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             font-style: normal;
             font-weight: 500;
             font-size: 11px;

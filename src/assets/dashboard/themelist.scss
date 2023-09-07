@@ -50,7 +50,7 @@
         border: none;
         box-shadow: 0 0 0 transparent;
         color: #40505d;
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
         font-weight: 400;
         padding: 5px 15px;
         width: 100%;
@@ -79,7 +79,7 @@
 
             input::placeholder {
                 color: #99a2a9;
-                font-family: "Heebo";
+                font-family: "Heebo", sans-serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -96,7 +96,7 @@
     }
 
     .content-body {
-        font-family: "Roboto";
+        font-family: "Roboto", sans-serif;
 
         &>.themelist-wrapper {
             align-items: flex-start;

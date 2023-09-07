@@ -30,7 +30,7 @@
                 width: 46px;
             }
 
-            input:checked + .switch {
+            input:checked+.switch {
                 background: var(--gutenverse-dashboard-primary);
             }
 
@@ -39,7 +39,7 @@
                 color: #40505d;
                 content: "OFF";
                 display: flex;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 11px;
                 font-style: normal;
                 font-weight: 500;
@@ -53,7 +53,7 @@
                 transform: translate3d(0, -50%, 0);
             }
 
-            input:checked + .switch::before {
+            input:checked+.switch::before {
                 color: #fff;
                 content: "ON";
                 left: 8px;
@@ -75,13 +75,14 @@
                 width: 14px;
             }
 
-            input:checked + .switch::after {
+            input:checked+.switch::after {
                 transform: translate3d(26px, -50%, 0);
             }
 
 
             &.pro {
-                input:checked + .switch::before,
+
+                input:checked+.switch::before,
                 .switch::before {
                     content: "PRO";
                 }
@@ -149,14 +150,14 @@
             align-items: center;
             display: flex;
 
-            > svg {
+            >svg {
                 width: 24px;
             }
         }
 
         .block-title {
             color: #011627;
-            font-family: "Roboto";
+            font-family: "Roboto", sans-serif;
             font-size: 15px;
             font-style: normal;
             font-weight: 400;
@@ -171,29 +172,29 @@
                 justify-content: space-between;
                 margin-bottom: 30px;
 
-                > span {
-                    > a {
+                >span {
+                    >a {
                         cursor: pointer;
                     }
                 }
 
-                > span:first-child {
+                >span:first-child {
                     color: #011627;
-                    font-family: "Roboto";
+                    font-family: "Roboto", sans-serif;
                     font-size: 18px;
                     font-style: normal;
                     font-weight: 500;
                     line-height: 21px;
                 }
 
-                > span:last-child {
+                >span:last-child {
                     border-radius: 3px;
                     border: 1px solid var(--gutenverse-dashboard-border);
                     padding: 2px;
 
                     a {
                         color: #40505d;
-                        font-family: "Roboto";
+                        font-family: "Roboto", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 400;
@@ -231,21 +232,21 @@
                 align-items: center;
                 display: flex;
                 flex: 1 1;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 gap: 7px;
                 padding: 0 15px;
 
-                > div:nth-child(1) {
+                >div:nth-child(1) {
                     font-weight: bold;
                 }
 
-                > span:nth-child(2) {
+                >span:nth-child(2) {
                     background-color: var(--gutenverse-dashboard-border);
                     height: 2px;
                     width: 15px;
                 }
 
-                > div:nth-child(3) {
+                >div:nth-child(3) {
                     span {
                         color: var(--gutenverse-dashboard-primary);
                         cursor: pointer;
@@ -278,10 +279,10 @@
             display: flex;
             padding: 2px;
 
-            > * {
+            >* {
                 color: #011627;
                 cursor: pointer;
-                font-family: "Roboto";
+                font-family: "Roboto", sans-serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -290,7 +291,7 @@
                 padding: 8px 16px;
             }
 
-            > .active {
+            >.active {
                 background: var(--gutenverse-dashboard-primary);
                 border-radius: 2px;
                 color: #ffffff;

@@ -9,7 +9,7 @@
     padding: 10px 16px;
     text-align: center;
     text-decoration: none;
-    font-family: Roboto;
+    font-family: "Roboto", sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -46,17 +46,20 @@
         background-color: rgba(255, 255, 255, 0.20);
     }
 }
-.button-upgrade-pro:hover{
+
+.button-upgrade-pro:hover {
     color: rgba(255, 255, 255, .6) !important;
 
-    svg{
+    svg {
         opacity: 60%;
     }
 }
-.button-upgrade-pro-banner{
+
+.button-upgrade-pro-banner {
     background: rgba(255, 255, 255, 0.20);
 }
-.button-upgrade-pro-banner:hover{
+
+.button-upgrade-pro-banner:hover {
     background: rgba(255, 255, 255, 0.40);
 }
 
@@ -65,7 +68,8 @@
     border-radius: 5px;
     padding: 32px;
     position: relative;
-    background: linear-gradient(180deg, #7A7DFF -16.83%, #696CE4 26.77%, #4E52D1 66.05%, #3D40BE 114.42%);;
+    background: linear-gradient(180deg, #7A7DFF -16.83%, #696CE4 26.77%, #4E52D1 66.05%, #3D40BE 114.42%);
+    ;
 
     .title {
         font-family: Poppins;
@@ -85,7 +89,7 @@
     .subtitle {
         color: #FFD232;
         font-size: 14px;
-        font-family: Roboto;
+        font-family: "Roboto", sans-serif;
         font-style: normal;
         font-weight: 400;
         margin-bottom: 5px;
@@ -126,7 +130,7 @@
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             line-height: 18px;
             padding: 8px 16px;
         }
@@ -141,14 +145,15 @@
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
-            font-family: 'Roboto';
+            font-family: "Roboto", sans-serif;
             line-height: 18px;
             padding: 8px 16px;
             text-decoration: none;
         }
     }
 }
-.card-pro-wrapper{
+
+.card-pro-wrapper {
     width: 100%;
     border-radius: 50px;
     border-radius: 5px;
@@ -156,11 +161,12 @@
     margin-bottom: 15px;
     background: linear-gradient(180deg, #7A7DFF -13.87%, #3D40BE 100%);
 
-    .card-pro-image{
-        margin-bottom:-30px;
+    .card-pro-image {
+        margin-bottom: -30px;
         max-width: 100%;
     }
-    .card-pro-title{
+
+    .card-pro-title {
         font-family: Robotto;
         font-size: 18px;
         font-weight: 500;
@@ -169,6 +175,7 @@
         text-align: center;
         bottom: 10px;
     }
+
     .buttons {
         display: flex;
         gap: 8px;
@@ -179,6 +186,6 @@
         width: 50%;
         justify-content: center;
         text-align: center;
-        white-space: nowrap;       
+        white-space: nowrap;
     }
 }

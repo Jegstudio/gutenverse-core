@@ -55,19 +55,22 @@
                         background: #e7ecfd;
                         color: var(--gutenverse-dashboard-primary);
                     }
+
+                    &.locked {
+                        border-color: #e32d64;
+                    }
                 }
-                .pro-label{
-                    background-color: #E32D64;
-                    color: white;
+
+                .pro-label {
+                    background-color: #e32d64;
+                    color: #fff;
+                    font-size: 9px;
+                    left: -33px;
+                    margin: 0;
+                    padding: 10px 49px 3px;
                     position: absolute;
                     top: -1px;
-                    font-weight: bolder;
-                    left: -36px;
-                    padding: 10px 50px 1px;
-                    margin: 0;
-                    font-size: 13px;
                     transform: rotate(-40deg) translate(-9px, -13px);
-                    
                 }
             }
         }
@@ -89,12 +92,12 @@
 
             .control-wrapper {
                 &.control-number {
-                    > label {
+                    >label {
                         align-items: center;
                         display: flex;
                         justify-content: space-between;
 
-                        > input {
+                        >input {
                             border-radius: 3px;
                             border: 1px solid var(--gutenverse-dashboard-border);
                             color: #3e475b;
@@ -136,12 +139,12 @@
                 .info {
                     margin-left: 24px;
 
-                    > * {
+                    >* {
                         margin: 0;
                     }
 
                     h4 {
-                        font-family: "Plus Jakarta Sans";
+                        font-family: "Plus Jakarta Sans", sans-serif;
                         font-style: normal;
                         font-weight: 600;
                         font-size: 20px;
@@ -151,7 +154,7 @@
                     }
 
                     p {
-                        font-family: "Roboto";
+                        font-family: "Roboto", sans-serif;
                         font-style: normal;
                         font-weight: 400;
                         font-size: 14px;
@@ -198,7 +201,7 @@
 
                             &.downloading {
                                 border-color: transparent;
-                                
+
                                 &::before {
                                     position: absolute;
                                     content: "";

@@ -92,7 +92,8 @@ const Settings = (props) => {
                             const item = tabs[key].title;
                             const param = `?page=${page}&path=${path}&settings=${key}`;
                             const classes = classnames('tab-item', {
-                                active: key === settings
+                                active: key === settings,
+                                locked: tabs[key].pro
                             });
 
                             return <Link
