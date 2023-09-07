@@ -77,7 +77,6 @@ class Editor_Assets {
 		$config['openedTemplate']   = $template ? $template : array();
 		$config['globalSetting']    = ! empty( $global_setting ) ? $global_setting : array();
 		$config['userId']           = get_current_user_id();
-		$config['freeImg']          = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21_small.webp';
 		$config['isTools']          = ! ! defined( 'GUTENVERSE_TOOLS' );
 		$config['settingsData']     = get_option( 'gutenverse-settings', array() );
 		$config['globalVariable']   = Init::instance()->global_variable->get_global_variable();

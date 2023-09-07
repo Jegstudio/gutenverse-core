@@ -154,9 +154,7 @@ class Dashboard {
 		$theme_referal = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
 
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
+		$config['serverApi']      = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
 		$config['subscribed']     = Meta_Option::instance()->get_option( 'subscribed' );
@@ -290,9 +288,7 @@ class Dashboard {
 		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['serverEndpoint'] = 'wp-json/gutenverse-server/v1';
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['freeImg']        = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
-		$config['getPro']         = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['apiUrl']         = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
+		$config['serverApi']      = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
 		$config['url']            = home_url();
 		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
 		$config['subscribed']     = get_option( 'gutenverse-subscribed', false );
@@ -312,8 +308,6 @@ class Dashboard {
 	public function gutenverse_setting_config() {
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
-		$config['getPro']          = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['freeImg']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
 
 		return $config;
