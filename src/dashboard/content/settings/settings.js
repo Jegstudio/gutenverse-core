@@ -10,6 +10,7 @@ import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../..
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
+    console.log(settings)
     switch (settings) {
         case 'editor':
             body = <EditorSetting {...props} />;
@@ -20,16 +21,25 @@ const SettingsBody = ({ settings, ...props }) => {
         case 'font-icon':
             body = <FontIconSetting {...props} />;
             break;
+        case 'form':
+            body = applyFilters(
+                'gutenverse.dashboard.settings.body',
+                body,
+                settings,
+                props
+            );
+            break;
+        case 'custom-font':
+            body = applyFilters(
+                'gutenverse.setting-pro-content',
+                body,
+                settings,
+                props
+            );
+            break;
         default:
             break;
     }
-
-    body = applyFilters(
-        'gutenverse.dashboard.settings.body',
-        body,
-        settings,
-        props
-    );
 
     return <div className="settings-tab-body">{body}</div>;
 };
