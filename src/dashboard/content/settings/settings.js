@@ -10,7 +10,6 @@ import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../..
 
 const SettingsBody = ({ settings, ...props }) => {
     let body = '';
-    console.log(settings)
     switch (settings) {
         case 'editor':
             body = <EditorSetting {...props} />;

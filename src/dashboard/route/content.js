@@ -30,7 +30,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     const [settingValues, setSettingValues] = useState(settingsData);
     const [saving, setSaving] = useState(false);
-
     useEffect(() => {
         fetchLibraryData().then(result => {
             initialLibraryData({
@@ -60,6 +59,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     };
 
     const updateSettingValues = (setting, id, value) => {
+        console.log(id,value,setting)
         setSettingValues({
             ...settingValues,
             [setting]: {
