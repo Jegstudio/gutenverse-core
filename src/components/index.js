@@ -32,3 +32,5 @@ export { LeftSkeleton, RightSkeleton } from './skeleton/single-layout-skeleton';
 /* PRO notice */
 export { default as BannerPro } from './pro/banner-pro';
 export { default as ButtonUpgradePro } from './pro/button-upgrade-pro';
+export { default as CardBannerPro } from './pro/card-banner-pro';
+export { default as CardPro } from './pro/card-pro';
