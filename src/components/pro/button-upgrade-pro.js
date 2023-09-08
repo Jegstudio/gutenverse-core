@@ -19,7 +19,6 @@ const ButtonUpgradePro = ({
     location = '',
     isBanner = false,
 }) => {
-
     const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
