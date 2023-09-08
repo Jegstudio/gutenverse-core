@@ -1182,7 +1182,6 @@ class Api {
 		foreach ( $data as $key => $setting ) {
 			$value[ $key ] = $setting;
 		}
-
 		if ( ! isset( $option ) ) {
 			add_option( 'gutenverse-settings', $value );
 		} else {

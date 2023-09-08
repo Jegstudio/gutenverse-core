@@ -27,8 +27,8 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const {
         settingsData
     } = window['GutenverseSettings'];
-
     const [settingValues, setSettingValues] = useState(settingsData);
+    console.log(settingValues)
     const [saving, setSaving] = useState(false);
     useEffect(() => {
         fetchLibraryData().then(result => {
@@ -59,7 +59,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     };
 
     const updateSettingValues = (setting, id, value) => {
-        console.log(id,value,setting)
         setSettingValues({
             ...settingValues,
             [setting]: {

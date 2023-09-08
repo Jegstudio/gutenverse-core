@@ -122,7 +122,7 @@ class Dashboard {
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true
 			);
-
+			wp_enqueue_media();
 			wp_enqueue_script( 'gutenverse-blocks-event' );
 
 			wp_enqueue_style(

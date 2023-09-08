@@ -141,6 +141,8 @@ class Init {
 
 		// filters.
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
+		add_filter( 'upload_mimes', array( $this, 'add_fonts_to_allowed_mimes' ) );
+		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
 
 		/**
 		 * These functions used to be called inside init hook.
@@ -231,7 +233,35 @@ class Init {
 			}
 		}
 	}
+	/**
+	 * Add mime type
+	 */
+	public function add_fonts_to_allowed_mimes( $mimes ) {
+		$mimes['woff']  = 'application/x-font-woff';
+		$mimes['woff2'] = 'application/x-font-woff2';
+		$mimes['ttf']   = 'application/x-font-ttf';
+		$mimes['svg']   = 'image/svg+xml';
+		$mimes['eot']   = 'application/vnd.ms-fontobject';
+		$mimes['otf']   = 'application/otf';
 
+		return $mimes;
+	}
+	/**
+	 * Update mime type for otf and ttf
+	 */
+	public function update_mime_types( $defaults, $file, $filename ) {
+		if ( 'ttf' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-ttf';
+			$defaults['ext']  = 'ttf';
+		}
+
+		if ( 'otf' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-otf';
+			$defaults['ext']  = 'otf';
+		}
+
+		return $defaults;
+	}
 	/**
 	 * Show notification to install Gutenverse Plugin.
 	 */
