@@ -20,7 +20,7 @@ const ButtonUpgradePro = ({
     isBanner = false,
 }) => {
 
-    const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -33,7 +33,7 @@ const ButtonUpgradePro = ({
     );
     const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) &&
         <a
-            href={link ? link : referralUrl}
+            href={link ? link : upgradeProUrl}
             className={buttonClasses}
             target="_blank"
             rel="noreferrer"

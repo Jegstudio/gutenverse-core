@@ -62,9 +62,7 @@ class Editor_Assets {
 	 */
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
-		$global_setting = get_option( 'gutenverse-global-setting' );
-		$theme_referal  = apply_filters( 'gutenverse_theme_referal_code', null );
-		$theme_referal  = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
+		$global_setting = get_option( 'gutenverse-global-setting' );		
 
 		$config                     = array();
 		$config['globals']          = array();
@@ -73,7 +71,6 @@ class Editor_Assets {
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['serverUrl']        = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['serverEndpoint']   = 'wp-json/gutenverse-server/v1';
-		$config['proUrl']           = GUTENVERSE_FRAMEWORK_STORE_URL;
 		$config['openedTemplate']   = $template ? $template : array();
 		$config['globalSetting']    = ! empty( $global_setting ) ? $global_setting : array();
 		$config['userId']           = get_current_user_id();
@@ -86,7 +83,9 @@ class Editor_Assets {
 		$config['gtniconURL']       = Init::instance()->assets->get_gtnicon_url();
 		$config['fontawesomeURL']   = Init::instance()->assets->get_fontawesome_url();
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
-		$config['referralUrl']      = $theme_referal;
+		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
+		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
+		$config['proDemoUrl']       = GUTENVERSE_FRAMEWORK_DEMO_PRO_URL;
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}

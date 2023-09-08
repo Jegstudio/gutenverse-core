@@ -149,9 +149,7 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_dashboard_config() {
-		$config        = array();
-		$theme_referal = apply_filters( 'gutenverse_theme_referal_code', null );
-		$theme_referal = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
+		$config = array();
 
 		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['serverApi']      = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
@@ -170,8 +168,8 @@ class Dashboard {
 		$config['pluginVersions'] = array();
 		$config['fontIconExists'] = Init::instance()->assets->is_font_icon_exists();
 		$config['themesUrl']      = GUTENVERSE_FRAMEWORK_THEMES_URL;
-		$config['referralUrl']    = $theme_referal;
 		$config['adminUrl']       = admin_url();
+		$config['upgradeProUrl']  = gutenverse_upgrade_pro();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -285,17 +283,8 @@ class Dashboard {
 	public function gutenverse_theme_list_config() {
 		$config = array();
 
-		$config['serverUrl']      = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['serverEndpoint'] = 'wp-json/gutenverse-server/v1';
-		$config['imgDir']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['serverApi']      = 'https://gutenverse.com/wp-json/gutenverse-server/v1';
-		$config['url']            = home_url();
-		$config['fseUrl']         = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
-		$config['subscribed']     = get_option( 'gutenverse-subscribed', false );
-		$config['rating']         = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
-		$config['support']        = 'https://wordpress.org/support/plugin/gutenverse/';
-		$config['installNonce']   = wp_create_nonce( 'updates' );
-		$config['themeUrl']       = admin_url( 'themes.php?page=' );
+		$config['installNonce'] = wp_create_nonce( 'updates' );
+		$config['themeUrl']     = admin_url( 'themes.php?page=' );
 
 		return $config;
 	}

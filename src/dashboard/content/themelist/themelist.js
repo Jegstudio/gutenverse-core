@@ -18,11 +18,7 @@ import { withDispatch } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { BannerPro } from 'gutenverse-core/components';
 
-const { installNonce, serverUrl, serverEndpoint, themeUrl } = window['GutenverseThemeList'];
-
-export const httpClient = axios.create({
-    baseURL: serverUrl + serverEndpoint,
-});
+const { installNonce, themeUrl } = window['GutenverseThemeList'];
 
 const urlData = () => {
     const url = location.search.replace('?', '');
@@ -208,8 +204,10 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
+        const { upgradeProUrl } = window['GutenverseDashboard'];
+
         if (pro) {
-            return <div className="theme-button pro" onClick={() => window.open(serverUrl)}>
+            return <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
                 {__('Upgrade to Pro', '--gctd--')}
             </div>;
         } else {

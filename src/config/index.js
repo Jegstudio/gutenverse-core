@@ -2,7 +2,6 @@ const {
     imagePlaceholder,
     serverUrl,
     serverEndpoint,
-    proUrl,
     openedTemplate,
     globalSetting,
     globalVariable = {
@@ -16,14 +15,14 @@ const {
     current,
     proImg,
     isTools,
-    settingsData
+    settingsData,
+    upgradeProUrl
 } = window['GutenverseConfig'] || {};
 
 export {
     imagePlaceholder,
     serverUrl,
     serverEndpoint,
-    proUrl,
     openedTemplate,
     globalSetting,
     globalVariable,
@@ -34,5 +33,6 @@ export {
     current,
     proImg,
     isTools,
-    settingsData
+    settingsData,
+    upgradeProUrl
 };

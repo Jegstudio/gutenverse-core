@@ -84,9 +84,9 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const ProButton = () => {
-        const { referralUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+        const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
-        return <a href={referralUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
+        return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
             <IconVerifiedSVG />
             {__('Upgrade to Pro', '--gctd--')}
         </a>;
