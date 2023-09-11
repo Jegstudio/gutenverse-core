@@ -27,6 +27,11 @@ class Fonts {
 	const GOOGLE_FONT = 'google';
 
 	/**
+	 * Custom Font
+	 */
+	const CUSTOM_FONT = 'custom_font';
+
+	/**
 	 * Fonts constructor.
 	 */
 	public function __construct() {
@@ -39,6 +44,7 @@ class Fonts {
 		$groups = array(
 			self::SYSTEM_FONT => __( 'System', '--gctd--' ),
 			self::GOOGLE_FONT => __( 'Google', '--gctd--' ),
+			self::CUSTOM_FONT => __( 'Custom Font', '--gctd--'),
 		);
 
 		return apply_filters( 'gutenverse_font_groups', $groups );
@@ -48,6 +54,7 @@ class Fonts {
 	 * Get fonts
 	 */
 	public function get_fonts() {
+
 		$fonts = array(
 			// System fonts.
 			'Arial'                            => self::SYSTEM_FONT,
@@ -1616,7 +1623,6 @@ class Fonts {
 			'Zilla Slab'                       => self::GOOGLE_FONT,
 			'Zilla Slab Highlight'             => self::GOOGLE_FONT,
 		);
-
 		return apply_filters( 'gutenverse_fonts', $fonts );
 	}
 

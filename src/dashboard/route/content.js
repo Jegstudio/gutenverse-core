@@ -28,7 +28,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
         settingsData
     } = window['GutenverseSettings'];
     const [settingValues, setSettingValues] = useState(settingsData);
-    console.log(settingValues)
     const [saving, setSaving] = useState(false);
     useEffect(() => {
         fetchLibraryData().then(result => {
