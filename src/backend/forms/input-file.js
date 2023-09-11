@@ -47,16 +47,16 @@ const ControlFile = (props) => {
         }
     };
     const inputValue = value === undefined ? defaultValue : value;
-    let inputFileName = '';
+    let inputFileName = [];
     if( value !== undefined ){
-        inputFileName = inputValue.split('/')[-1];
+        inputFileName = inputValue.split('/');
     }
 
 
     return <div className="control-wrapper control-text">
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{color:'red'}}> *</span>}</label>
         <button onClick={() => selectItem(fileFrame)}>{__('Choose File', 'gtb')}</button>
-        <span>{dashboard ? dashboard[0].filename : inputFileName !== undefined && { inputFileName }}</span>
+        <span>{dashboard ? dashboard[0].filename : inputFileName !== undefined && inputFileName[inputFileName.length-1] }</span>
         {description !== '' && <span className="control-description">
             {description}
         </span>}
