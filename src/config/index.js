@@ -17,7 +17,7 @@ const {
     isTools,
     settingsData,
     upgradeProUrl
-} = window['GutenverseConfig'] || {};
+} = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
 export {
     imagePlaceholder,
