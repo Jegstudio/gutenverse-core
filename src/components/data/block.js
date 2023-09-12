@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
     styles: {},
     fonts: {},
     googleFonts: {},
+    customFonts: {},
     elements: {}
 };
 
@@ -30,6 +31,14 @@ const reducer = (state = DEFAULT_STATE, action) => {
                 ...state,
                 googleFonts: {
                     ...state.googleFonts,
+                    [action.id]: action.data,
+                },
+            };
+        case 'INJECT_CUSTOM_FONTS':
+            return {
+                ...state,
+                customFonts: {
+                    ...state.customFonts,
                     [action.id]: action.data,
                 },
             };
@@ -91,6 +100,13 @@ const actions = {
             data
         };
     },
+    setCustomFonts(id, data) {
+        return {
+            type: 'INJECT_CUSTOM_FONTS',
+            id,
+            data
+        };
+    },
     registerElement(id, data) {
         return {
             type: 'REGISTER_ELEMENT',
@@ -125,6 +141,9 @@ const selectors = {
     },
     getGoogleFonts(state) {
         return state === undefined ? {} : state.googleFonts;
+    },
+    getCustomFonts(state) {
+        return state === undefined ? {} : state.customFonts;
     },
     elementExist(state, id) {
         if (state !== undefined) {

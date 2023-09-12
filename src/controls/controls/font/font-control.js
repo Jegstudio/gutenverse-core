@@ -33,7 +33,6 @@ const FontComponent = (props) => {
             </Helmet>
         } 
         else if(props.data.type === 'custom_font_pro' && !isEmpty(props.data.value) ){
-            console.log('hereee');
             return <Helmet>
                 <link href={`${uploadPath}/${props.data.value}.css`} rel="stylesheet" type="text/css" />
             </Helmet>
