@@ -290,6 +290,24 @@ export const getGoogleFontParams = (googleFont) => {
 
     return arrString.join('|');
 };
+export const getCustomFontParams = (customFont) => {
+    const family = {};
+    let stringName = '';
+
+    Object.keys(customFont).map(key => {
+        if (customFont[key] !== undefined) {
+            family[customFont[key]['value']] = family[customFont[key]['value']] ? [
+                ...family[customFont[key]['value']],
+                customFont[key]['weight']
+            ] : [customFont[key]['weight']];
+        }
+    });
+    Object.keys(family).map(name => {
+        stringName = name
+    });
+
+    return stringName;
+};
 
 export const getGoogleFontDatas = (googleFonts) => Object.keys(googleFonts).map(key => {
     if (googleFonts[key] !== undefined) {

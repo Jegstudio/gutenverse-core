@@ -90,7 +90,7 @@ class Editor_Assets {
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['referralUrl']      = $theme_referal;
 		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
-		$config['uploadPath'] 		= $upload_dir['basedir'];
+		$config['uploadPath'] 		= $upload_dir['baseurl'];
 		
 
 		return apply_filters( 'gutenverse_block_config', $config );
