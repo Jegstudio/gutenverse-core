@@ -29,7 +29,7 @@ class Fonts {
 	/**
 	 * Custom Font
 	 */
-	const CUSTOM_FONT = 'custom_font';
+	const CUSTOM_FONT = 'custom_font_pro';
 
 	/**
 	 * Fonts constructor.
@@ -42,9 +42,9 @@ class Fonts {
 	 */
 	public function get_font_groups() {
 		$groups = array(
+			self::CUSTOM_FONT => __( 'Custom Font', '--gctd--' ),
 			self::SYSTEM_FONT => __( 'System', '--gctd--' ),
 			self::GOOGLE_FONT => __( 'Google', '--gctd--' ),
-			self::CUSTOM_FONT => __( 'Custom Font', '--gctd--'),
 		);
 
 		return apply_filters( 'gutenverse_font_groups', $groups );

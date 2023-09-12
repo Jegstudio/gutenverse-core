@@ -1178,9 +1178,24 @@ class Api {
 		$data   = $request->get_param( 'setting' );
 		$option = get_option( 'gutenverse-settings' );
 		$value  = $option ? $option : array();
-
+		$upload_dir = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
 		foreach ( $data as $key => $setting ) {
 			$value[ $key ] = $setting;
+			if ( $key === 'custom_font' ) {
+				foreach ( $data['custom_font']['value'] as $v ) {
+					$format_file = end(explode( '.', $v['font_src'] ));
+					$text = "
+						@font-face {
+							font-family: {$v['font_family']} ;
+							font-style: {$v['font_style']};
+							font-weight: {$v['font_weight']};
+							src: url({$v['font_src']}) format({$format_file});
+							}
+					";
+					file_put_contents( $upload_path . '/' . $v['font_family'] . '.css', $text, FILE_APPEND );
+				}
+			}
 		}
 		if ( ! isset( $option ) ) {
 			add_option( 'gutenverse-settings', $value );

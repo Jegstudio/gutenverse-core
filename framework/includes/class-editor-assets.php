@@ -65,6 +65,7 @@ class Editor_Assets {
 		$global_setting = get_option( 'gutenverse-global-setting' );
 		$theme_referal  = apply_filters( 'gutenverse_theme_referal_code', null );
 		$theme_referal  = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
+		$upload_dir		= wp_upload_dir();
 
 		$config                     = array();
 		$config['globals']          = array();
@@ -89,6 +90,8 @@ class Editor_Assets {
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['referralUrl']      = $theme_referal;
 		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
+		$config['uploadPath'] 		= $upload_dir['basedir'];
+		
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}

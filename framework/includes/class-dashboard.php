@@ -310,11 +310,14 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_setting_config() {
+		
+		$upload_path = wp_upload_dir();
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
 		$config['getPro']          = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['freeImg']         = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21.webp';
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
+		$config['uploadPath']       = $upload_path['basedir'];
 
 		return $config;
 	}

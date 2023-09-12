@@ -1,33 +1,62 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
-import Select from 'react-select';
+import Select, { components, GroupHeadingProps} from 'react-select';
 import classnames from 'classnames';
 import { useVisibility } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
+import { __ } from '@wordpress/i18n';
 import { Helmet } from 'gutenverse-core/components';
+import ProLock from '../pro-lock';
 
 const FontComponent = (props) => {
-    const { innerProps, isSelected, isFocused } = props;
+    const { innerProps, isSelected, isFocused, isDisabled} = props;
     const [ isVisible, currentElement ] = useVisibility(200, 50);
+    const { uploadPath } = window['GutenverseConfig'];
+    const fontClass = classnames(
+        'font-option',
+        {
+            'selected': isSelected,
+            'focused': isFocused,
+            'disabled' : isDisabled,
+        },
+        props.data.pro && `select-option${props.data.pro && ' pro'}`
+    );
 
-    const fontClass = classnames('font-option', {
-        'selected': isSelected,
-        'focused': isFocused,
-    });
+    const fontStyleHead = () => {
+        if (props.data.type === 'google' && !isEmpty(props.data.value) && isVisible){
+            return <Helmet>
+                <link href={`https://fonts.googleapis.com/css?family=${props.data.value}&text=${props.data.value}`} rel="stylesheet" type="text/css" />
+            </Helmet>
+        } 
+        else if(props.data.type === 'custom_font_pro' && !isEmpty(props.data.value) ){
+            console.log('hereee');
+            return <Helmet>
+                <link href={`${uploadPath}/${props.data.value}.css`} rel="stylesheet" type="text/css" />
+            </Helmet>
+        }
+    }
 
     return <>
-        {props.data.type !== 'system' && !isEmpty(props.data.value) && isVisible && <Helmet>
-            <link href={`https://fonts.googleapis.com/css?family=${props.data.value}&text=${props.data.value}`} rel="stylesheet" type="text/css" />
-        </Helmet>}
+        {fontStyleHead}
         <div {...innerProps} ref={currentElement} className={fontClass} style={{ fontFamily: props.data.value }}>
             {props.data.label}
+            {props.data.pro && <ProLock
+                title = {props.data.label}
+                description = {props.data.description}
+            />}
         </div>
     </>;
 };
+// const GroupHeading = (props) => {
+//     return <div className='guten-label-pro-wrapper'>
+//         <components.GroupHeading {...props} />
+//         { props.children === 'Custom Font' && <span className="pro-label">Pro</span>}
+//     </div>;
+// }
 
 const FontControl = (props) => {
     const {
@@ -72,22 +101,29 @@ const FontControl = (props) => {
     };
 
     const fontOptions = fontsData.groups.map(group => {
-        const options = fontsData.fonts.filter(item => item.class === group.value).map(font => {
+        let options = fontsData.fonts.filter(item => item.class === group.value).map(font => {
             return {
                 label: font.name,
                 value: font.value,
                 type: font.class
             };
         });
-
+        
+        if(group.label === 'Custom Font' && options.length === 0){
+            options = [{
+                label : 'Custom Font',
+                value : 'Custom Font',
+                type  : 'custom_font_pro',
+                pro   : true,
+                description: __( 'Lorem Ipsum...', '--gctd--') 
+            }]
+        }
         return {
             label: group.label,
             options
         };
     });
-
     const id = useInstanceId(FontControl, 'inspector-font-control');
-
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-font'}>
         <ControlHeadingSimple
             id={`${id}-font`}
@@ -103,6 +139,7 @@ const FontControl = (props) => {
                     value={value}
                     onChange={onChange}
                     options={fontOptions}
+                    isOptionDisabled={(option) => option.disabled || option.pro}
                     components={{
                         Option: FontComponent,
                     }}
