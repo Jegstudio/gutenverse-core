@@ -40,7 +40,7 @@ const FontComponent = (props) => {
     };
 
     return <>
-        {fontStyleHead}
+        {() => fontStyleHead}
         <div {...innerProps} ref={currentElement} className={fontClass} style={{ fontFamily: props.data.value }}>
             {props.data.label}
             {props.data.pro && <ProLock
