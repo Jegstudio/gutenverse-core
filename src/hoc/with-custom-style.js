@@ -102,14 +102,14 @@ export const withCustomStyle = panelList => BlockElement => {
 
         const renderGoogleFont = () => {
             const googleFont = gutenverseSelector.getGoogleFonts();
-            return !isEmpty(googleFont) && 
+            return !isEmpty(googleFont) &&
                 <link
                     href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
-                    rel="stylesheet" type="text/css" />
+                    rel="stylesheet" type="text/css" />;
         };
         const renderCustomFont = () => {
             const customFont = gutenverseSelector.getCustomFonts();
-            return !isEmpty(customFont) && 
+            return !isEmpty(customFont) &&
                 <link
                     href={`${uploadPath}/${getCustomFontParams(customFont)}.css`}
                     rel="stylesheet" type="text/css" />;

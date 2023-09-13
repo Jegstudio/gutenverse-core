@@ -22,7 +22,7 @@ const ControlFile = (props) => {
         });
         setFileFrame(fontFrame);
     }, []);
-    
+
     useEffect(() => {
         if (fileFrame) {
             fileFrame.on('select', function () {
@@ -37,7 +37,7 @@ const ControlFile = (props) => {
     }, [fileFrame]);
     useEffect(() => {
         if (dashboard) {
-            updateValue(id,dashboard[0].url)
+            updateValue(id,dashboard[0].url);
         }
     }, [dashboard]);
     const selectItem = (frame) => {

@@ -152,7 +152,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                             }
 
                                             if (block?.pro) {
-                                                const BlockPro = applyFilters('gutenverse.block-list-pro', () => 
+                                                const BlockPro = applyFilters('gutenverse.block-list-pro', () =>
                                                     <div key={block.name} className="block-item locked" onClick={() => setPopupActive(true)}>
                                                         <p className="pro-label">PRO</p>
                                                         <div className="block-info">

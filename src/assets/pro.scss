@@ -158,7 +158,6 @@
     border-radius: 50px;
     border-radius: 5px;
     padding: 25px;
-    margin-bottom: 15px;
     background: linear-gradient(180deg, #7A7DFF -13.87%, #3D40BE 100%);
 
     .card-pro-image {
@@ -187,4 +186,281 @@
         text-align: center;
         white-space: nowrap;
     }
+}
+.guten-pro-themes-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.guten-pro-themes-wrapper{
+    .guten-pro-themes-full{
+        width: 100%;
+    }
+    .guten-pro-themes-half{
+        width: calc(50% - 5px);
+        height: 118px;
+        flex-shrink: 0;
+    }
+}
+.guten-pro-advance-animation-banner{
+    margin-top: 5px;
+    border-radius: 5px;
+    background: linear-gradient(102deg, #4569FF -1.22%, #4C82FD 29.7%, #3CAAF8 53.88%, #20BCFF 80.4%, #0FE6F9 104.19%);
+    position: relative;
+    .guten-pro-advance-animation-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%; /* 19.2px */
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+    .guten-pro-advance-animation-image{
+        display: flex;
+        img{
+            max-width: 20%;
+        }
+        .guten-pro-advance-animation-arrow{
+            z-index: 1;
+            position: absolute;
+            width: 40px;
+            left: 30px;
+            top: 60px;
+        }
+        .guten-pro-advance-animation-mockup{
+            max-width: 100%;
+            width: 70%;
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+    }
+}
+.guten-pro-total-themes{
+    border-radius: 5px;
+    background: linear-gradient(225deg, #FFDE8A 0.43%, #FFBD64 43.48%, #FF965A 100%);
+    position: relative;
+    padding: 0px 3px;
+    .guten-pro-total-themes-number{
+        color: #011627;
+        font-family: Roboto;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px; /* 71.429% */
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-bottom: 15px;
+    }
+    .guten-pro-total-themes-title{
+        color: rgba(1, 22, 39, 0.80);
+        font-family: Roboto;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 0px; /* 12px */
+        margin-left: 10px;
+    }
+    .guten-pro-total-themes-image{
+        position: absolute;
+        bottom: 0px;
+    }
+}
+.guten-pro-popup-builder{
+    border-radius: 5px;
+    background: linear-gradient(180deg, #D6E3FF 0%, #C6D9FF 129.24%);
+    position: relative;
+    overflow: hidden;
+    .guten-pro-popup-builder-row{
+        .guten-pro-popup-builder-title{
+            color: var(--Black, #011627);
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 16.8px */
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-bottom: 0px;
+        }
+        .guten-pro-popup-builder-arrow{
+            position: absolute;
+            width: 30px;
+            left: 65px;
+            top: 30px;
+        }
+    }
+}
+.guten-pro-themes-wrapper{
+
+    .guten-pro-form{
+        border-radius: 5px;
+        background: linear-gradient(180deg, #D6E3FF 0.47%, #C6D9FF 103.81%);
+        position: relative;
+        .guten-pro-form-title{
+            color: var(--Black, #011627);
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 16.8px */
+            margin: 10px 0px 0px 15px;
+        }
+        .guten-pro-form-icon{
+            width: 25px;
+            position: absolute;
+            right: 10px;
+        }
+    }
+    .guten-pro-premium-theme{
+        border-radius: 5px;
+        background: linear-gradient(224deg, #CFA6FF -13.56%, #6B52FF 113.78%);
+        position: relative;
+        overflow: hidden;
+    
+        .guten-pro-premium-image{
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            z-index: 1;
+        }
+        .guten-pro-premium-number{
+            color: #FFF;
+            font-family: Roboto;
+            font-size: 28px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 20px; /* 71.429% */
+            letter-spacing: -0.56px;
+            margin: 20px 0px 0px 15px;
+        }
+        .guten-pro-premium-title{
+            color: var(--White, #FFF);
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 16.8px */
+            margin: 30px 0px 0px 15px;
+        }
+    }
+}
+.guten-pro-element-pro{
+    border-radius: 5px;
+    background: linear-gradient(75deg, #4569FF -7.56%, #4C82FD 27.01%, #3CAAF8 54.04%, #20BCFF 83.7%, #0AEBFF 110.31%);
+    position: relative;
+    height: 139px;
+    overflow: hidden;
+    .guten-pro-element-pro-image{
+        position: absolute;
+        top: -40px;
+        right: -30px;
+        width: 70%;
+    }
+    .guten-pro-element-pro-title{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px; /* 125% */
+        padding-left: 10px;
+        padding-top: 20px;
+    }
+    .guten-pro-element-pro-description{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 15.6px */
+        padding-left: 10px;
+        padding-top: 20px;
+    }
+}
+.guten-pro-themes-wrapper{
+
+    .guten-pro-shape-divider{
+        border-radius: 5px;
+        height: 118px;
+        background: linear-gradient(349deg, #36C5A4 43.06%, #36DDB7 99.6%);
+        position: relative;
+        .guten-pro-shape-divider-icon{
+            position: absolute;
+            right: 10px;
+            width: 25px;
+            top: 40px;
+        }
+        .guten-pro-shape-divider-image{
+            position: absolute;
+            bottom: 0px;
+        }
+        .guten-pro-shape-divider-title{
+            color: var(--White, #FFF);
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 16.8px */
+            margin: 15px 0px 0px 15px;
+        }
+    }
+    .guten-pro-background{
+        border-radius: 5px;
+        height: 118px;
+        background: linear-gradient(180deg, #FF8F50 -6.36%, #FFDE8A 122.88%);
+        position: relative;
+        overflow: hidden;
+        .guten-pro-background-image{
+            position: absolute;
+            top: -25px;
+        }
+        .guten-pro-background-title{
+            color: var(--Black, #011627);
+            text-align: center;
+            font-family: Roboto;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 120%; /* 16.8px */
+            position: absolute;
+            bottom: 5px;
+            left: 20%;
+        }
+    }
+}
+.detail-button{
+    cursor: pointer;
+    border-radius: 50px;
+    border: 1px solid var(--Primary, #3B57F7);
+    background: rgba(255, 255, 255, 0.00);
+    color: var(--Primary, #3B57F7);
+    text-align: center;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: calc(50% - 5px);
+    height: 30px;
+    padding-top: 8px;
+    margin-top: 15px;
+}
+.pro-button{
+    cursor: pointer;
+    width: calc(50% - 5px);
+    height: 30px;
+    padding-top: 8px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 15px;
 }

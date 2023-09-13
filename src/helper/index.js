@@ -303,7 +303,7 @@ export const getCustomFontParams = (customFont) => {
         }
     });
     Object.keys(family).map(name => {
-        stringName = name
+        stringName = name;
     });
 
     return stringName;

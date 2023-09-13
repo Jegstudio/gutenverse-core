@@ -8,9 +8,9 @@ const ControlSelect = (props) => {
     let objValue = null;
     options.map( el => {
         if(el.value == value){
-            objValue = el
+            objValue = el;
         }
-    })
+    });
     const inputChange = (value) => {
         updateValue(id,value.value);
     };

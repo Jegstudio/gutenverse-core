@@ -30,14 +30,14 @@ const FontComponent = (props) => {
         if (props.data.type === 'google' && !isEmpty(props.data.value) && isVisible){
             return <Helmet>
                 <link href={`https://fonts.googleapis.com/css?family=${props.data.value}&text=${props.data.value}`} rel="stylesheet" type="text/css" />
-            </Helmet>
-        } 
+            </Helmet>;
+        }
         else if(props.data.type === 'custom_font_pro' && !isEmpty(props.data.value) ){
             return <Helmet>
                 <link href={`${uploadPath}/${props.data.value}.css`} rel="stylesheet" type="text/css" />
-            </Helmet>
+            </Helmet>;
         }
-    }
+    };
 
     return <>
         {fontStyleHead}
@@ -107,15 +107,15 @@ const FontControl = (props) => {
                 type: font.class
             };
         });
-        
+
         if(group.label === 'Custom Font' && options.length === 0){
             options = [{
                 label : 'Custom Font',
                 value : 'Custom Font',
                 type  : 'custom_font_pro',
                 pro   : true,
-                description: __( 'Lorem Ipsum...', '--gctd--') 
-            }]
+                description: __( 'Lorem Ipsum...', '--gctd--')
+            }];
         }
         return {
             label: group.label,
