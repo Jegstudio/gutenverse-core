@@ -57,7 +57,6 @@ const IconListBlock = compose(
         allowedBlocks: ['gutenverse/icon-list-item'],
         __experimentalAppenderTagName: 'div',
     });
-
     useEffect(() => {
         if (iconListRef.current) {
             setElementRef && setElementRef(iconListRef.current);

@@ -56,7 +56,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
-                selector: `.${props.elementId}.guten-element, .${props.elementId}.guten-element.inline-icon-list > li`
+                selector: `.${props.elementId}.guten-element, .${props.elementId}.guten-element.inline-icon-list > ul`
             }),
             tabRole: TabSetting
         },

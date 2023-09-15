@@ -43,7 +43,7 @@ class Icon_List extends Style_Abstract {
 			array(
 				'background'  => null,
 				'border'      => null,
-				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.inline-icon-list > .guten-icon-list-item",
+				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.inline-icon-list ",
 				'animation'   => null,
 				'advance'     => null,
 			)
