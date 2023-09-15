@@ -756,7 +756,6 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 				}
 			}
 		}
-
 		return 'body { ' . $variable_style['Desktop'] . ' } 
 				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Tablet' ) . 'px) { body {' . $variable_style['Tablet'] . '}
 				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Mobile' ) . 'px) { body {' . $variable_style['Mobile'] . '}';
