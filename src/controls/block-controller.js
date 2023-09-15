@@ -23,13 +23,13 @@ const BlockController = (props) => {
         }, 100),
         []
     );
-
+    
     return panelArray(panelProps).map((item) => {
         const { id, show, onChange, component: Component, style, allowDeviceControl = false, proLabel } = item;
-
         const { clientId, setAttributes } = panelProps;
-
+        
         const onValueChange = (value) => {
+            
             const newValue = {
                 [id]: value
             };

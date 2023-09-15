@@ -592,7 +592,7 @@ abstract class Style_Interface {
 							$display = 'display: inline-block';
 							$output  = 'display: inline-block';
 						}
-
+						
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';
