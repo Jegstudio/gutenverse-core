@@ -337,9 +337,10 @@ class Style_Generator {
 	 */
 	public function load_global_fonts() {
 		$variable_fonts = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'google' ) );
-
-		if ( ! empty( $variable_fonts ) ) {
-			$this->font_families = array_merge( $variable_fonts, $this->font_families );
+		$custom_fonts = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'custom_font_pro' ) );
+		$font_families = array( ...$custom_fonts, ...$variable_fonts );
+		if ( ! empty( $font_families ) ) {
+			$this->font_families = array_merge( $font_families, $this->font_families );
 		}
 	}
 

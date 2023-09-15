@@ -235,6 +235,7 @@ const withGlobalVariable = GlobalStyle => {
         };
 
         const renderFont = () => {
+            console.log("here");
             return !isEmpty(googleFont) && <link
                 href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                 rel="stylesheet" type="text/css" />;

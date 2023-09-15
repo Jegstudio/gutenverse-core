@@ -315,7 +315,6 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$family 		= $font['value'];
 			$type  			= $font['type'];
 			$id     		= ! empty( $font['id'] ) ? $font['id'] : null;
-
 			if ( 'google' === $type && ( in_array( $id, $font_variables, true ) || null === $id ) ) {
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
@@ -351,7 +350,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 				// Enqueue google font.
 				$font_url = $upload_url . '/' . $value . '.css';
 				wp_enqueue_style(
-					'gutenverse-custom-font' . uniqid( $value ),
+					'gutenverse-custom-font-' . uniqid( $value ),
 					$font_url,
 					array(),
 					GUTENVERSE_FRAMEWORK_VERSION
