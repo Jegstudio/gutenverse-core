@@ -12,13 +12,14 @@ class GutenverseGallery extends Default {
                     const { default: Shuffle } = result[0];
                     const { default: Swiper, Navigation, Pagination, Zoom } = result[1];
 
-                    Swiper.use(Navigation, Pagination, Zoom);
+                    Swiper.use([Navigation, Pagination, Zoom]);
                     elements.map(element => {
                         this._addSliderEffect(element, Swiper);
                         this._addEvents(element, Shuffle);
                     });
                 });
         }
+        
     }
 
     /* private */
@@ -91,7 +92,7 @@ class GutenverseGallery extends Default {
                         prevEl: '.swiper-button-prev',
                     },
                     zoom: {
-                        maxRatio: 2
+                        maxRatio: 2,
                     },
                     spaceBetween: 10,
                     slidesPerView: 1,
