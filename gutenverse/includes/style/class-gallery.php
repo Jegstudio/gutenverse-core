@@ -917,7 +917,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['priceColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
@@ -939,7 +939,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['ratingColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
@@ -952,7 +952,7 @@ class Gallery extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['ratingStarColor'],
-					'device_control' => true,
+					'device_control' => false,
 				)
 			);
 		}
