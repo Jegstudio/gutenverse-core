@@ -7,13 +7,13 @@ import apiFetch from '@wordpress/api-fetch';
 import { IconDocsSVG } from 'gutenverse-core/icons';
 import { DashboardContent } from '../../components';
 
-const httpClient = (serverApi) => axios.create({
-    baseURL: serverApi
+const httpClient = (libraryApi) => axios.create({
+    baseURL: libraryApi
 });
 
 const subscribeNews = (data) => {
-    const { serverApi } = window['GutenverseDashboard'];
-    return httpClient(serverApi).post('/subscribe', data);
+    const { libraryApi } = window['GutenverseDashboard'];
+    return httpClient(libraryApi).post('/subscribe', data);
 };
 
 const DefaultDashboard = () => {

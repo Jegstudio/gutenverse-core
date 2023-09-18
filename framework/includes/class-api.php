@@ -122,7 +122,7 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
-			'taxonomies',
+			'taxonomies', 
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_taxonomies' ),
@@ -354,7 +354,7 @@ class Api {
 		$key   = $this->esc_data( $request->get_param( 'key' ), 'string' );
 
 		if ( empty( $info ) ) {
-			$info = GUTENVERSE_FRAMEWORK_SERVER_URL . '/wp-json/gutenverse-server/v1/theme/information';
+			$info = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1/theme/information';
 		}
 
 		$request = wp_remote_post(
@@ -720,7 +720,7 @@ class Api {
 				'plugin/ecosystem',
 			);
 
-			$apipath   = GUTENVERSE_FRAMEWORK_SERVER_URL . 'wp-json/gutenverse-server/v3/';
+			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v3/';
 			$basedir   = wp_upload_dir()['basedir'];
 			$directory = $basedir . '/gutenverse/data/';
 			wp_mkdir_p( $directory );

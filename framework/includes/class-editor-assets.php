@@ -62,15 +62,14 @@ class Editor_Assets {
 	 */
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
-		$global_setting = get_option( 'gutenverse-global-setting' );		
+		$global_setting = get_option( 'gutenverse-global-setting' );
 
 		$config                     = array();
 		$config['globals']          = array();
 		$config['fonts']            = ( new Fonts() )->get_font_settings();
 		$config['imagePlaceholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['serverUrl']        = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['serverEndpoint']   = 'wp-json/gutenverse-server/v1';
+		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v1';
 		$config['openedTemplate']   = $template ? $template : array();
 		$config['globalSetting']    = ! empty( $global_setting ) ? $global_setting : array();
 		$config['userId']           = get_current_user_id();

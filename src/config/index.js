@@ -1,7 +1,6 @@
 const {
     imagePlaceholder,
-    serverUrl,
-    serverEndpoint,
+    libraryApi,
     openedTemplate,
     globalSetting,
     globalVariable = {
@@ -21,8 +20,7 @@ const {
 
 export {
     imagePlaceholder,
-    serverUrl,
-    serverEndpoint,
+    libraryApi,
     openedTemplate,
     globalSetting,
     globalVariable,
