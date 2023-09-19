@@ -8,6 +8,7 @@ export { handleBorder } from './styling/handler/handle-border';
 export { handleGradient } from './styling/handler/handle-gradient';
 export { handleAlign } from './styling/handler/handle-align';
 export { handleAlignV } from './styling/handler/handle-align';
+export { handleAlignReverse } from './styling/handler/handle-align';
 export { handleBoxShadow, allowRenderBoxShadow } from './styling/handler/handle-box-shadow';
 export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handle-text-shadow';
 

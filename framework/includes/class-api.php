@@ -275,7 +275,7 @@ class Api {
 			self::ENDPOINT,
 			'library/data',
 			array(
-				'method'              => 'GET',
+				'methods'             => 'GET',
 				'callback'            => array( $this, 'fetch_library_data' ),
 				'permission_callback' => 'gutenverse_permission_check_author',
 			)
