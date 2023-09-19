@@ -188,6 +188,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.0.0 - 2023-xx-xx =
+##### New
+* **Ecosystem**, Add gutenverse plugin ecosystem
+
+##### Improvements
+* **Codes**, Improve codes to be more lightweight
+* **Dashboard**, Improve dashboard experience
+
 ##### Bug Fixes
 * **Button**, Fixed hover button background normal color
 * **Client Logo**, Fix Slider Arrow for Client Logo

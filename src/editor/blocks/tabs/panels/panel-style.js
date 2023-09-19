@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl } from 'gutenverse-core/controls';
+import { DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { ColorControl } from 'gutenverse-core/controls';
 import { TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const contentStyle = (props) => {
     const {
@@ -124,6 +124,33 @@ export const contentStyle = (props) => {
                     render: (value, id) => handleTypography(value, props, id)
                 }
             ],
+        },
+        {
+            id: 'contentPadding',
+            label: __('Content Padding', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .tab-body`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

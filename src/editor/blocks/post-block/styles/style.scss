@@ -89,6 +89,13 @@
         -ms-flex-pack: justify;
         justify-content: space-between;
         margin-top: 1.5rem;
+        position: relative;
+        
+        .guten-meta-comment {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
     }
     .guten-readmore {
         display: flex;

@@ -33,6 +33,9 @@
         "contentTypography": {
             "type": "object"
         },
+        "contentPadding": {
+            "type": "object"
+        },
         "headingTag": {
             "type": "string",
             "default": "span"

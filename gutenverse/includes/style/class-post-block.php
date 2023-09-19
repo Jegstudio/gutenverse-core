@@ -64,7 +64,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-posts",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "grid-template-columns: repeat({$value}, minmax(0, 1fr));";
 					},
 					'value'          => $this->attrs['column'],
@@ -77,7 +77,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-posts",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "grid-column-gap:{$value}px;";
 					},
 					'value'          => $this->attrs['postItemGap'],
@@ -94,7 +94,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['postItemMargin'],
@@ -107,7 +107,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['postItemPadding'],
@@ -124,7 +124,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['postItemBoxShadow'],
@@ -137,7 +137,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock:not(.postblock-type-5) .guten-thumb, .{$this->element_id} .guten-postblock.postblock-type-5 .guten-post",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%; flex-basis: {$value}%;";
 					},
 					'value'          => $this->attrs['thumbnailWidth'],
@@ -154,7 +154,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-overlay",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['thumbnailOverlayOpacity'],
@@ -167,7 +167,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['thumbnailMargin'],
@@ -180,7 +180,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['thumbnailPadding'],
@@ -197,7 +197,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['thumbnailBoxShadow'],
@@ -210,7 +210,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb .thumbnail-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px; padding-bottom: 0;";
 					},
 					'value'          => $this->attrs['thumbnailHeight'],
@@ -227,7 +227,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb .thumbnail-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['thumbnailRadius'],
@@ -240,7 +240,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb .thumbnail-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['thumbnailContainerShadow'],
@@ -253,8 +253,19 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
+					},
+					'value'          => $this->attrs['contentAlign'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta-bottom",
+					'property'       => function ( $value ) {
+						return "justify-content: {$this->handle_align_reverse($value)};";
 					},
 					'value'          => $this->attrs['contentAlign'],
 					'device_control' => true,
@@ -270,7 +281,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['contentMargin'],
@@ -283,7 +294,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['contentPadding'],
@@ -300,7 +311,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['contentContainerShadow'],
@@ -313,7 +324,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['categoryColor'],
@@ -335,7 +346,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background' );
 					},
 					'value'          => $this->attrs['categoryBackground'],
@@ -348,7 +359,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['categoryMargin'],
@@ -361,7 +372,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['categoryPadding'],
@@ -378,7 +389,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['categoryShadow'],
@@ -391,7 +402,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-post-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['titleMargin'],
@@ -404,7 +415,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-post-title a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -426,7 +437,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post:hover .guten-postblock-content .guten-post-title a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColorHover'],
@@ -448,7 +459,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['excerptMargin'],
@@ -461,7 +472,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt p",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['excerptColor'],
@@ -492,7 +503,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-readmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['readmoreMargin'],
@@ -505,7 +516,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-readmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['readmorePadding'],
@@ -518,7 +529,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-before .guten-readmore i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['readmoreSpacing'],
@@ -529,7 +540,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-after .guten-readmore i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['readmoreSpacing'],
@@ -542,7 +553,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['readmoreIconSize'],
@@ -555,7 +566,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['readmoreColor'],
@@ -568,7 +579,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['readmoreHoverColor'],
@@ -593,7 +604,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['readmoreShadow'],
@@ -610,7 +621,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['readmoreHoverShadow'],
@@ -623,7 +634,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['commentColor'],
@@ -636,7 +647,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['commentSize'],
@@ -649,7 +660,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-before span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['commentSpacing'],
@@ -660,7 +671,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-after span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['commentSpacing'],
@@ -673,7 +684,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['commentMargin'],
@@ -686,7 +697,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['commentPadding'],
@@ -708,7 +719,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['metaColor'],
@@ -730,7 +741,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['metaAuthorColor'],
@@ -743,7 +754,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['metaMargin'],
@@ -756,7 +767,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['metaAuthorIconSpacing'],
@@ -767,7 +778,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['metaAuthorIconSpacing'],
@@ -780,7 +791,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['metaDateIconSpacing'],
@@ -791,7 +802,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['metaDateIconSpacing'],
@@ -813,7 +824,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['paginationMargin'],
@@ -826,7 +837,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['paginationPadding'],
@@ -839,7 +850,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['paginationWidth'],
@@ -852,7 +863,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationIconSpacing'],
@@ -863,7 +874,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationIconSpacing'],
@@ -876,7 +887,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['paginationAlign'],
@@ -889,7 +900,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['paginationColor'],
@@ -902,7 +913,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['paginationHoverColor'],
@@ -931,7 +942,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['paginationShadow'],
@@ -944,7 +955,7 @@ class Post_Block extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['paginationHoverShadow'],
