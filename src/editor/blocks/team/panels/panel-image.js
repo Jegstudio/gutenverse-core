@@ -39,7 +39,8 @@ export const imagePanel = ({elementId}) => {
                             .${elementId} .profile-box .profile-card.card-hover img,
                             .${elementId} .profile-box .profile-card.card-default .profile-header img,
                             .${elementId} .profile-box .profile-card.card-overlay .profile-header img,
-                            .${elementId} .profile-box .profile-card.card-hover .profile-header img`,
+                            .${elementId} .profile-box .profile-card.card-hover .profile-header img,
+                            .${elementId} .profile-box .profile-card.card-overlay`,
                     render: value => handleUnitPoint(value, 'width')
                 },
             ]
