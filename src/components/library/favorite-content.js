@@ -26,10 +26,10 @@ const FavoriteContent = props => {
     const [author, setAuthor] = useState(null);
 
     useEffect(() => {
-        dispatch( 'gutenverse/library' ).setCategories('');
-        dispatch( 'gutenverse/library' ).setAuthor('');
-        dispatch( 'gutenverse/library' ).setLicense('');
-        dispatch( 'gutenverse/library' ).setPaging(1);
+        dispatch('gutenverse/library').setCategories('');
+        dispatch('gutenverse/library').setAuthor('');
+        dispatch('gutenverse/library').setLicense('');
+        dispatch('gutenverse/library').setPaging(1);
     }, []);
 
     const refreshContent = items => {
@@ -43,12 +43,12 @@ const FavoriteContent = props => {
     };
 
     const setLibrary = (library) => {
-        dispatch( 'gutenverse/library' ).setLibrary(library);
+        dispatch('gutenverse/library').setLibrary(library);
     };
 
     const setLicenseData = (licenseData) => {
         setLicense(licenseData);
-        dispatch( 'gutenverse/library' ).setLicense(licenseData.value);
+        dispatch('gutenverse/library').setLicense(licenseData.value);
     };
 
     const updateCategoryList = () => {
@@ -72,7 +72,7 @@ const FavoriteContent = props => {
     };
 
     const categoryListClicked = (id) => {
-        dispatch( 'gutenverse/library' ).setCategories(id);
+        dispatch('gutenverse/library').setCategories(id);
     };
 
     useEffect(() => {
@@ -172,23 +172,22 @@ const FavoriteContent = props => {
                 </ul>
                 <>
                     <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
-                    <SelectLicense license={license} setLicense={setLicense}/>
+                    <SelectLicense license={license} setLicense={setLicense} />
                 </>
                 {authors.length > 1 && <>
                     <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
-                    <SelectAuthor authors={authors} author={author} setAuthor={setAuthor}/>
+                    <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
                 </>}
                 <h2 className="gutenverse-library-side-heading">
                     {__('Categories', '--gctd--')}
                 </h2>
-                <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData}/>
+                <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData} />
             </div>
-
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
                     subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
                     title={__('Discover Our Premium Templates and Sections You Never Meet Before!', '--gctd--')}
-                    customStyles={{margin: '10px'}}/>
+                    customStyles={{ margin: '10px' }} />
                 <>
                     {'layout' === layoutContentData.library && <LayoutContentData
                         current={content.current}

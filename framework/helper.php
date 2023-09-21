@@ -970,3 +970,18 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 		}
 	}
 }
+
+if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
+	/**
+	 * Referral URL.
+	 */
+	function gutenverse_upgrade_pro() {
+		$referral = apply_filters( 'gutenverse_theme_referral_code', null );
+
+		if ( ! empty( $referral ) ) {
+			return GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $referral;
+		} else {
+			return GUTENVERSE_PRO_URL;
+		}
+	}
+}

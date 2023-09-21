@@ -9,18 +9,18 @@ const DefaultLayout = ({
 }) => {
     const {
         imgDir,
-        proUrl,
-        serverUrl,
-        documentationUrl
+        upgradeProUrl,
+        documentationUrl,
+        proDemoUrl
     } = window['GutenverseConfig'];
 
     const openLink = () => {
-        window.open(proUrl);
+        window.open(upgradeProUrl);
     };
     return <>
         <h2 className="title">{title}</h2>
         <div>
-            <div className="gutenverse-button" onClick={openLink}><IconCrownSVG /> Available in Pro Version</div>
+            <div className="gutenverse-button" onClick={openLink}><IconCrownSVG /> {__('Available in Pro Version', '--gctd--')}</div>
         </div>
         <div>
             <span className="description">{description}</span>
@@ -37,7 +37,7 @@ const DefaultLayout = ({
                     <circle cx="8" cy="8" r="7.75" stroke="#3B57F7" strokeWidth="0.5"/>
                     <path d="M6.21875 11.1128V4.89062L11.1076 8.00174L6.21875 11.1128Z" fill="#3B57F7"/>
                 </svg>
-                <a href={serverUrl} target="_blank" rel="noreferrer">{__('View Demo', '--gctd--')}</a>
+                <a href={proDemoUrl} target="_blank" rel="noreferrer">{__('View Demo', '--gctd--')}</a>
             </div>
             <div className="more-detail">
                 <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -18,7 +18,7 @@ const BannerPro = ({
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
         {!isEmpty(title) && <h4 className="title">{title}</h4>}
         <div className="buttons">
-            <ButtonUpgradePro isBanner = {true}/>
+            <ButtonUpgradePro isBanner={true}/>
             <a className="demo-button" href={themesUrl} target="_blank" rel="noreferrer">{__('View Prebuild Demo', '--gctd--')}</a>
         </div>
     </div>;

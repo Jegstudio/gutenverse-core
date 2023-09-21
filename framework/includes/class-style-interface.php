@@ -224,13 +224,11 @@ abstract class Style_Interface {
 					$this->generated[ $device ][ $selector ][] = $property;
 				}
 			}
-		} else {
-			if ( isset( $data['value'] ) && isset( $data['property'] ) ) {
+		} elseif ( isset( $data['value'] ) && isset( $data['property'] ) ) {
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
 
 				$this->generated['Desktop'][ $selector ][] = $property;
-			}
 		}
 	}
 
@@ -342,49 +340,49 @@ abstract class Style_Interface {
 	protected function typography_format() {
 		return array(
 			'font'       => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "font-family: var({$this->variable_font_name($value['id'], 'family')});" : "font-family: \"{$value['value']}\";";
 				},
 				'device_control' => false,
 			),
 			'size'       => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "font-size: var({$this->variable_font_name($value['id'], 'size')});" : $this->handle_unit_point( $value, 'font-size' );
 				},
 				'device_control' => true,
 			),
 			'weight'     => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "font-weight: var({$this->variable_font_name($value['id'], 'weight')});" : "font-weight: {$value};";
 				},
 				'device_control' => false,
 			),
 			'transform'  => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "text-transform: var({$this->variable_font_name($value['id'], 'transform')});" : "text-transform: {$value};";
 				},
 				'device_control' => false,
 			),
 			'style'      => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "font-style: var({$this->variable_font_name($value['id'], 'style')});" : "font-style: {$value};";
 				},
 				'device_control' => false,
 			),
 			'decoration' => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "text-decoration: var({$this->variable_font_name($value['id'], 'decoration')});" : "text-decoration: {$value};";
 				},
 				'device_control' => false,
 			),
 			'lineHeight' => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "line-height: var({$this->variable_font_name($value['id'], 'lineHeight')});" : $this->handle_unit_point( $value, 'line-height' );
 				},
 				'device_control' => true,
 			),
 			'spacing'    => array(
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					return $this->is_variable( $value ) ? "letter-spacing: var({$this->variable_font_name($value['id'], 'spacing')});" : "letter-spacing: {$value}em;";
 				},
 				'device_control' => true,
@@ -561,7 +559,7 @@ abstract class Style_Interface {
 		}
 
 		if ( isset( $this->attrs['positioningType'] ) ) {
-			$hide = array(
+			$hide   = array(
 				'Desktop' => ! empty( $this->attrs['hideDesktop'] ) ? $this->attrs['hideDesktop'] : null,
 				'Tablet'  => ! empty( $this->attrs['hideTablet'] ) ? $this->attrs['hideTablet'] : null,
 				'Mobile'  => ! empty( $this->attrs['hideMobile'] ) ? $this->attrs['hideMobile'] : null,
@@ -584,7 +582,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value, $device ) {
+					'property'       => function ( $value, $device ) {
 						$output  = '';
 						$display = 'display: inline-block;';
 
@@ -596,7 +594,7 @@ abstract class Style_Interface {
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';
-							} elseif ( 'inline' === $value['type']) {
+							} elseif ( 'inline' === $value['type'] ) {
 								return "width: auto!important; {$display}";
 							} elseif ( 'custom' === $value['type'] ) {
 								if ( isset( $value['width'] ) ) {
@@ -620,7 +618,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							$align = $this->handle_align_v( $value );
 							return "align-self: {$value}; vertical-align: {$align};";
 						},
@@ -635,9 +633,9 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( 'default' !== $value ) {
-							return "position: {$value};";
+							return "position: {$value}!important;";
 						}
 					},
 					'value'          => $this->attrs['positioningLocation'],
@@ -650,7 +648,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'left' );
 							},
 							'value'          => $this->attrs['positioningLeft'],
@@ -663,7 +661,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'right' );
 							},
 							'value'          => $this->attrs['positioningRight'],
@@ -676,7 +674,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'top' );
 							},
 							'value'          => $this->attrs['positioningTop'],
@@ -689,7 +687,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'bottom' );
 							},
 							'value'          => $this->attrs['positioningBottom'],
@@ -744,6 +742,28 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Handle Alignment Reverse
+	 *
+	 * @param array $value Value of Alignment in Text Align.
+	 *
+	 * @return string|null
+	 */
+	protected function handle_align_reverse( $value ) {
+		switch ( $value ) {
+			case 'left':
+				return 'flex-start';
+			case 'right':
+				return 'flex-end';
+			case 'center':
+				return 'center';
+			case 'justify':
+				return 'space-between';
+			default:
+				return $value;
+		}
+	}
+
+	/**
 	 * Handle Background Feature
 	 *
 	 * @param string $selector Selector.
@@ -781,7 +801,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_color( $value['color'], 'background' );
 						},
 						'value'          => $background,
@@ -794,7 +814,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "background-image: url({$value['image']});";
 						},
 						'value'          => $background['image'],
@@ -807,7 +827,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'custom' !== $value && 'default' !== $value ) {
 								return "background-position: {$value};";
 							}
@@ -821,7 +841,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								$position = $value['position'];
 								$xposition = isset( $value['xposition'] ) ? $value['xposition'] : false;
 
@@ -846,7 +866,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								$position = $value['position'];
 								$yposition = isset( $value['yposition'] ) ? $value['yposition'] : false;
 
@@ -872,7 +892,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "background-repeat: {$value};";
 						},
 						'value'          => $background['repeat'],
@@ -885,7 +905,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'custom' !== $value && 'default' !== $value ) {
 								return "background-size: {$value};";
 							}
@@ -899,7 +919,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => $selector,
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								$size = $value['size'];
 								$width = isset( $value['width'] ) ? $value['width'] : null;
 
@@ -925,7 +945,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "background-blend-mode: {$value};";
 						},
 						'value'          => $background['blendMode'],
@@ -938,7 +958,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							$bg_attachment = '';
 
 							if ( is_bool( $value ) ) {
@@ -958,7 +978,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						$gradient_color        = $value['gradientColor'];
 						$gradient_type         = $value['gradientType'];
 						$gradient_angle        = $value['gradientAngle'];
@@ -998,7 +1018,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
 						},
 						'value'          => $background['videoImage'],
@@ -1059,7 +1079,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['normal'],
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['boxShadow'],
@@ -1072,7 +1092,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['hover'],
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['boxShadowHover'],
@@ -1094,7 +1114,7 @@ abstract class Style_Interface {
 
 			uksort(
 				$borders,
-				function( $a, $b ) {
+				function ( $a, $b ) {
 					if ( 'all' === $a ) {
 						return -1;
 					}
@@ -1112,7 +1132,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => "$selector",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_border_radius( $value );
 							},
 							'value'          => $value,
@@ -1125,7 +1145,7 @@ abstract class Style_Interface {
 					$this->inject_style(
 						array(
 							'selector'       => "$selector",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "border-{$value['position']}style: {$value['value']};";
 							},
 							'value'          => array(
@@ -1140,7 +1160,7 @@ abstract class Style_Interface {
 						$this->inject_style(
 							array(
 								'selector'       => "$selector",
-								'property'       => function( $value ) {
+								'property'       => function ( $value ) {
 									return "border-{$value['position']}width: {$value['value']}px;";
 								},
 								'value'          => array(
@@ -1156,7 +1176,7 @@ abstract class Style_Interface {
 						$this->inject_style(
 							array(
 								'selector'       => "$selector",
-								'property'       => function( $value ) {
+								'property'       => function ( $value ) {
 									return $this->handle_color( $value['value'], "border-{$value['position']}color" );
 								},
 								'value'          => array(
@@ -1217,7 +1237,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['margin'],
@@ -1230,7 +1250,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['padding'],
@@ -1243,7 +1263,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "z-index: {$value};";
 					},
 					'value'          => $this->attrs['zIndex'],
@@ -1267,7 +1287,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( ! $this->truly_empty( $value['delay'] ) ) {
 							$delay = (int) $value['delay'] / 1000;
 							return "animation-delay: {$delay}s;";
@@ -1282,7 +1302,7 @@ abstract class Style_Interface {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
 								return 'animation-name: none; visibility: visible !important;';
 							}

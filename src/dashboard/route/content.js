@@ -128,7 +128,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 break;
             case 'upgrade-pro':
                 path = 'dashboard';
-                window?.GutenverseDashboard?.referralUrl && window.open(window?.GutenverseDashboard?.referralUrl, '_blank');
+                window?.GutenverseDashboard?.upgradeProUrl && window.open(window?.GutenverseDashboard?.upgradeProUrl, '_blank');
                 routePage = <Dashboard {...props} />;
                 break;
             default:
