@@ -33,7 +33,7 @@ export const panelAccordion = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .accordion-item`,
+                    selector: `.guten-column .wp-block .${elementId} .accordion-item`,
                     render: value => handleDimension(value, 'margin')
                 }
             ],
