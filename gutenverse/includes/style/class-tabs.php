@@ -57,7 +57,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-heading-item, .guten-tabs.{$this->element_id} .tab-heading-item:after, .guten-tabs.{$this->element_id} .tab-heading-item:before, .guten-tabs.{$this->element_id} .tab-body, .guten-tabs.{$this->element_id} .tab-heading-mobile, .guten-tabs.{$this->element_id} .tab-heading-mobile .tab-option",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "border-width: {$value}px;";
 					},
 					'value'          => $this->attrs['borderWidth'],
@@ -70,7 +70,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-heading-item.active, .guten-tabs.{$this->element_id}.vertical .tab-heading-item.active,  .guten-tabs.{$this->element_id} .tab-heading-item.active:after, .guten-tabs.{$this->element_id} .tab-heading-item.active:before, .guten-tabs.{$this->element_id} .tab-body, .guten-tabs.{$this->element_id} .tab-heading-mobile, .guten-tabs.{$this->element_id} .tab-heading-mobile .tab-option",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-color' );
 					},
 					'value'          => $this->attrs['borderColor'],
@@ -83,7 +83,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-heading-item.active,.guten-tabs.{$this->element_id} .tab-body, .guten-tabs.{$this->element_id} .tab-heading-mobile, .guten-tabs.{$this->element_id} .tab-heading-mobile .tab-option",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['backgroundColor'],
@@ -96,7 +96,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-heading-item, .guten-tabs.{$this->element_id} .tab-heading-item svg",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "{$this->handle_color( $value, 'color' )}";
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -109,7 +109,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-heading-item.active, .guten-tabs.{$this->element_id} .tab-heading-mobile .tab-title, .guten-tabs.{$this->element_id} .tab-heading-mobile .tab-option .tab-option-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "{$this->handle_color( $value, 'color' )}";
 					},
 					'value'          => $this->attrs['titleActiveColor'],
@@ -131,7 +131,7 @@ class Tabs extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-tabs.{$this->element_id} .tab-body",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['contentColor'],
@@ -145,6 +145,19 @@ class Tabs extends Style_Abstract {
 				array(
 					'selector' => ".guten-tabs.{$this->element_id} .tab-body",
 					'value'    => $this->attrs['contentTypography'],
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['contentPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .tab-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['contentPadding'],
+					'device_control' => true,
 				)
 			);
 		}

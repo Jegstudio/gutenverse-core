@@ -188,19 +188,32 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.0.0 - 2023-xx-xx =
+##### New
+* **Ecosystem**, Add gutenverse plugin ecosystem
+
+##### Improvements
+* **Codes**, Improve codes to be more lightweight
+* **Dashboard**, Improve dashboard experience
+
 ##### Bug Fixes
+* **Button**, Fixed hover button background normal color
 * **Client Logo**, Fix Slider Arrow for Client Logo
 * **Client Logo**, Fix Slider Dots for Client Logo 
-* **Client Logo**, Remove Inline Auto Width for Client Logo 
+* **Client Logo**, Remove Inline Auto Width for Client Logo
+* **Fun Fact**, Fix icon display property
 * **Testimonial**, Fix Slider Arrow for Testimonial
 * **Testimonial**, Fix Slider Dots for Testimonial
 * **Testimonial**, Remove Inline Auto Width for Testimonial
-* **Positioning**, Fix Fixed Positioning,
+* **Positioning**, Fix positioning for the value "fixed" and "absolute",
 * **Text Box**, Remove Text Spread,
 * **Button**, Fixed hover button background normal color
 * **Gradient**, Fixed gradient color picker
 * **Section**, Fixed section overlay
-
+* **Team**, Fixed width image and overlay
+* **Icon List**, Fixed when width inline and using postition fixed,
+* **ProgressBar**, Removing Progressbar Width Inline Auto
+* **Galery**, Fixed Rating and Star Color
+* **Galery**, Fixed Galery FrontEnd Zoom
 
 
 = 1.8.8 - 2023-08-15 =

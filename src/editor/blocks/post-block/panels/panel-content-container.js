@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentContainerPanel = ({ elementId }) => {
@@ -33,6 +33,10 @@ export const contentContainerPanel = ({ elementId }) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content`,
                     render: value => `text-align: ${value};`
+                },
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta-bottom`,
+                    render: value => `justify-content: ${handleAlignReverse(value)};`
                 }
             ]
         },
