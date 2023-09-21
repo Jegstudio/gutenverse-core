@@ -49,6 +49,10 @@
                 margin: 0;
                 color: var(--guten-txt-color);
             }
+
+            & > * {
+                display: block;
+            }
         }
     }
 
