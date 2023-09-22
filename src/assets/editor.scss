@@ -88,3 +88,16 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
     text-decoration: none;
   }
 }
+.guten-label-pro-wrapper{
+  display: flex;
+  justify-content: start;
+
+  .pro-label{
+    background: #ffdbde;
+    border: 0.3px solid #c1313f;
+    border-radius: 2px;
+    color: #c1313f;
+    font-size: 8px;
+    width: 200px;
+  }
+}

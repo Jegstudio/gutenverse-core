@@ -150,7 +150,6 @@ const SizeControl = (props) => {
                         });
                         setLocalValue(e.target.value);
                         setUpdating(true);
-
                         liveUpdate ? onValueChange({
                             ...value,
                             point: e.target.value,
@@ -158,6 +157,14 @@ const SizeControl = (props) => {
                         }) : null;
                     }}
                     onMouseUp={(e) => {
+                        onValueChange({
+                            ...value,
+                            point: e.target.value,
+                            unit: activeUnit
+                        });
+                        setUpdating(false);
+                    }}
+                    onTouchEnd={(e) => {
                         onValueChange({
                             ...value,
                             point: e.target.value,

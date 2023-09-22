@@ -43,6 +43,13 @@
       font-size: 12px;
       margin-top: 5px;
     }
+    .control-error {
+      color: red;
+      display: block;
+      font-size: 12px;
+      margin-top: 5px;
+      background-color: rgb(243, 162, 162);
+    }
 
     &.control-text {
       input {

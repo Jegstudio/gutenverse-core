@@ -9,8 +9,8 @@ import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../../components';
 
 const SettingsBody = ({ settings, ...props }) => {
+
     let body = '';
-    console.log(settings)
     switch (settings) {
         case 'editor':
             body = <EditorSetting {...props} />;

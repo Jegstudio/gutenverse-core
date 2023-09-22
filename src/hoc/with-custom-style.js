@@ -1,14 +1,13 @@
 import { useEffect, useState } from '@wordpress/element';
 import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
-import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck, getCustomFontParams } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes } = props;
-
     if (props.name === 'gutenverse/column') {
         return [attributes.sectionVerticalAlign];
     } else if (props.name === 'gutenverse/mega-menu') {
@@ -36,6 +35,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [elementRef, setElementRef] = useState(null);
         const [headElement, setHeadElement] = useState(null);
         const controls = panelList();
+        const { uploadPath } = window['GutenverseConfig'];
 
         const refreshSignal = (key) => {
             setRefresh(key);
@@ -92,14 +92,27 @@ export const withCustomStyle = panelList => BlockElement => {
                     ...font,
                     weight
                 });
+            }else if( font !== undefined && font.type === 'custom_font_pro'){
+                gutenverse.setCustomFonts(fontId, {
+                    ...font,
+                    weight
+                });
             }
         };
 
-        const renderFont = () => {
+        const renderGoogleFont = () => {
             const googleFont = gutenverseSelector.getGoogleFonts();
-            return !isEmpty(googleFont) && <link
-                href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
-                rel="stylesheet" type="text/css" />;
+            return !isEmpty(googleFont) &&
+                <link
+                    href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
+                    rel="stylesheet" type="text/css" />;
+        };
+        const renderCustomFont = () => {
+            const customFont = gutenverseSelector.getCustomFonts();
+            return !isEmpty(customFont) &&
+                <link
+                    href={`${uploadPath}/${getCustomFontParams(customFont)}.css`}
+                    rel="stylesheet" type="text/css" />;
         };
 
         const removeStyle = (id) => {
@@ -244,7 +257,8 @@ export const withCustomStyle = panelList => BlockElement => {
                 </Helmet>
             )}
             <Helmet device={deviceType} head={headElement}>
-                {elementId !== undefined && renderFont()}
+                {elementId !== undefined && renderGoogleFont()}
+                {elementId !== undefined && renderCustomFont()}
             </Helmet>
             {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
             <BlockElement

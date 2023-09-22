@@ -753,6 +753,9 @@
         &.selected {
           background: #eee;
         }
+        &.disabled{
+          color: grey;
+        }
       }
     }
 

@@ -308,18 +308,21 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	 */
 	function gutenverse_header_font( $font_families, $font_variables ) {
 		$families = array();
-
+		$upload_path = wp_upload_dir();
+		$upload_url = $upload_path['baseurl'];
+		$custom_family = [];
 		foreach ( $font_families as $font ) {
-			$family = $font['value'];
-			$type   = $font['type'];
-			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
-
+			$family 		= $font['value'];
+			$type  			= $font['type'];
+			$id     		= ! empty( $font['id'] ) ? $font['id'] : null;
 			if ( 'google' === $type && ( in_array( $id, $font_variables, true ) || null === $id ) ) {
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
 				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
 					array_push( $families[ $family ], $font['weight'] );
 				}
+			}else if( 'custom_font_pro' === $type ){
+				array_push($custom_family,$family);
 			}
 		}
 
@@ -341,6 +344,18 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
+		}
+		if ( ! empty( $custom_family ) ) {
+			foreach ( $custom_family as $value ) {
+				// Enqueue google font.
+				$font_url = $upload_url . '/' . $value . '.css';
+				wp_enqueue_style(
+					'gutenverse-custom-font-' . uniqid( $value ),
+					$font_url,
+					array(),
+					GUTENVERSE_FRAMEWORK_VERSION
+				);
+			}
 		}
 	}
 }
@@ -741,7 +756,6 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 				}
 			}
 		}
-
 		return 'body { ' . $variable_style['Desktop'] . ' } 
 				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Tablet' ) . 'px) { body {' . $variable_style['Tablet'] . '}
 				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Mobile' ) . 'px) { body {' . $variable_style['Mobile'] . '}';

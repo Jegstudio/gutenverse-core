@@ -122,7 +122,7 @@ class Dashboard {
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true
 			);
-
+			wp_enqueue_media();
 			wp_enqueue_script( 'gutenverse-blocks-event' );
 
 			wp_enqueue_style(
@@ -295,9 +295,12 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_setting_config() {
+		
+		$upload_path = wp_upload_dir();
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
+		$config['uploadPath']       = $upload_path['basedir'];
 
 		return $config;
 	}

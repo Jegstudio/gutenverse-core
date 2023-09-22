@@ -258,7 +258,6 @@ const processOptions = (options) => {
             }
         }
     });
-
     return generatedStyle;
 };
 

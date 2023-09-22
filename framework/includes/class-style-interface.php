@@ -579,19 +579,18 @@ abstract class Style_Interface {
 					)
 				);
 			}
-
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
 					'property'       => function ( $value, $device ) {
 						$output  = '';
-						$display = 'display: inline-block!important;';
+						$display = 'display: inline-block;';
 
 						if ( ! empty( $value['hide'] ) ) {
-							$display = '';
+							$display = 'display: inline-block;';
 							$output  = '';
 						}
-
+						
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';

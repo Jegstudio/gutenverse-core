@@ -23,14 +23,11 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const {
         homeSlug
     } = window['GutenverseDashboard'];
-
     const {
         settingsData
     } = window['GutenverseSettings'];
-
     const [settingValues, setSettingValues] = useState(settingsData);
     const [saving, setSaving] = useState(false);
-
     useEffect(() => {
         fetchLibraryData().then(result => {
             initialLibraryData({

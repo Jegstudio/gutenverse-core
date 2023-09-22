@@ -38,7 +38,6 @@ const ButtonUpgradePro = ({
             target="_blank"
             rel="noreferrer"
             style={customStyles}>
-            <IconCrownSVG />
             {text}
         </a>, {location,isBanner});
     return <TheButton />;

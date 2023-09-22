@@ -127,6 +127,22 @@ class Global_Variable {
 		if ( 'google' === $type ) {
 			return $google_fonts;
 		}
+		if ( 'custom_font_pro' === $type ) {
+			$custom_font = array();
+			foreach ( $global_fonts as $value ) {
+				if ( $value ['font']['font']['type'] === 'custom_font_pro' ) {
+					$temp_arr = array(
+						'value' => $value['font']['font']['value'],
+						'type'  => $value['font']['font']['type'],
+						'weight' => $value['font']['weight'],
+					);
+					array_push( $custom_font, $temp_arr );
+				}else {
+					continue;
+				}
+			}
+			return $custom_font;
+		}
 
 		return array(
 			'colors'    => $global_colors,
