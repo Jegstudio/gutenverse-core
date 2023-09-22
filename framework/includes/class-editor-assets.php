@@ -63,6 +63,7 @@ class Editor_Assets {
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
+		$upload_path    = wp_upload_dir();
 
 		$config                     = array();
 		$config['globals']          = array();
@@ -85,6 +86,7 @@ class Editor_Assets {
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['proDemoUrl']       = GUTENVERSE_FRAMEWORK_DEMO_PRO_URL;
+		$config['uploadPath']       = $upload_path['baseurl'];
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}

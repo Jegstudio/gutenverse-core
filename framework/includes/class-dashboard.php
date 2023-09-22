@@ -295,12 +295,12 @@ class Dashboard {
 	 * @return array
 	 */
 	public function gutenverse_setting_config() {
-		
 		$upload_path = wp_upload_dir();
+
 		$config                    = array();
 		$config['settingsData']    = get_option( 'gutenverse-settings', array() );
 		$config['blockCategories'] = Init::instance()->blocks->gutenverse_categories();
-		$config['uploadPath']       = $upload_path['basedir'];
+		$config['uploadPath']      = $upload_path['basedir'];
 
 		return $config;
 	}
