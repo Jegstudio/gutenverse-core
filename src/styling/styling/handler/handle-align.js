@@ -25,3 +25,18 @@ export const handleAlignV = value => {
             return value;
     }
 };
+
+export const handleAlignReverse = (value) => {
+    switch (value) {
+        case 'left':
+            return 'flex-start';
+        case 'right':
+            return 'flex-end';
+        case 'center':
+            return 'center';
+        case 'justify':
+            return 'space-between';
+        default:
+            return value;
+    }
+};

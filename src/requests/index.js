@@ -1,11 +1,12 @@
 import axios from 'axios';
 import apiFetch from '@wordpress/api-fetch';
-import { serverUrl, serverEndpoint } from 'gutenverse-core/config';
+import { libraryApi } from 'gutenverse-core/config';
 import isEmpty from 'lodash/isEmpty';
 import { addQueryArgs } from '@wordpress/url';
 
 export const httpClient = (api = null) => {
-    const baseURL = !isEmpty(api) ? api.url + api.endpoint : serverUrl + serverEndpoint;
+    const baseURL = !isEmpty(api) ? api.url + api.endpoint : libraryApi;
+    console.log(baseURL);
 
     return axios.create({baseURL});
 };

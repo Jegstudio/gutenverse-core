@@ -212,7 +212,6 @@ class Style_Generator {
 		foreach ( $blocks as $block ) {
 			$this->generate_block_style( $block, $style );
 
-			error_log(var_export($block,true));
 			if ( 'core/template-part' === $block['blockName'] ) {
 				$parts = $this->get_template_part_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );

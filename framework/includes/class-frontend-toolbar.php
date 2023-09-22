@@ -160,7 +160,7 @@ class Frontend_Toolbar {
 				array(
 					'id'    => 'gutenverse-pro',
 					'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '</span>',
-					'href'  => GUTENVERSE_FRAMEWORK_SERVER_URL,
+					'href'  => gutenverse_upgrade_pro(),
 					'meta'  => array(
 						'target' => '_blank',
 					),

@@ -63,21 +63,16 @@ class Editor_Assets {
 	public function gutenverse_config() {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
-		$theme_referal  = apply_filters( 'gutenverse_theme_referal_code', null );
-		$theme_referal  = ! empty( $theme_referal ) ? GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $theme_referal : GUTENVERSE_FRAMEWORK_STORE_URL;
 
 		$config                     = array();
 		$config['globals']          = array();
 		$config['fonts']            = ( new Fonts() )->get_font_settings();
 		$config['imagePlaceholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
-		$config['serverUrl']        = GUTENVERSE_FRAMEWORK_SERVER_URL;
-		$config['serverEndpoint']   = 'wp-json/gutenverse-server/v1';
-		$config['proUrl']           = GUTENVERSE_FRAMEWORK_STORE_URL;
+		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v1';
 		$config['openedTemplate']   = $template ? $template : array();
 		$config['globalSetting']    = ! empty( $global_setting ) ? $global_setting : array();
 		$config['userId']           = get_current_user_id();
-		$config['freeImg']          = GUTENVERSE_FRAMEWORK_URL . '/assets/img/asset_21_small.webp';
 		$config['isTools']          = ! ! defined( 'GUTENVERSE_TOOLS' );
 		$config['settingsData']     = get_option( 'gutenverse-settings', array() );
 		$config['globalVariable']   = Init::instance()->global_variable->get_global_variable();
@@ -87,8 +82,9 @@ class Editor_Assets {
 		$config['gtniconURL']       = Init::instance()->assets->get_gtnicon_url();
 		$config['fontawesomeURL']   = Init::instance()->assets->get_fontawesome_url();
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
-		$config['referralUrl']      = $theme_referal;
+		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
+		$config['proDemoUrl']       = GUTENVERSE_FRAMEWORK_DEMO_PRO_URL;
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}
