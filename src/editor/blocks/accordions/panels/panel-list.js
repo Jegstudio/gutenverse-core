@@ -58,7 +58,6 @@ export const panelList = () => {
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            // panelArray: positioningPanel,
             panelArray: (props) => positioningPanel({
                 ...props,
                 selector : `.guten-accordions.${props.elementId}`
