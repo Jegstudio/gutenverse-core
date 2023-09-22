@@ -6,7 +6,6 @@ import { addQueryArgs } from '@wordpress/url';
 
 export const httpClient = (api = null) => {
     const baseURL = !isEmpty(api) ? api.url + api.endpoint : libraryApi;
-    console.log(baseURL);
 
     return axios.create({baseURL});
 };
