@@ -4,11 +4,11 @@ import { useState,useEffect } from '@wordpress/element';
 
 
 const ControlFile = (props) => {
-    const { id, title, description, value, defaultValue = '',customLabel, updateValue, isRequired = false } = props;
+    const { id, title, description, value, defaultValue = [],customLabel, updateValue, isRequired = false } = props;
     let uuid = uuidv4();
     const [dashboard, setDashboard] = useState(null);
     const [fileFrame, setFileFrame] = useState(null);
-
+    const [fileName, setFileName] = useState('');
     useEffect(() => {
         const fontFrame = wp?.media({
             title: 'Select or Upload Media',
@@ -18,7 +18,7 @@ const ControlFile = (props) => {
             library: {
                 type: ['application','image']
             },
-            multiple: false
+            multiple: true,
         });
         setFileFrame(fontFrame);
     }, []);
@@ -37,7 +37,14 @@ const ControlFile = (props) => {
     }, [fileFrame]);
     useEffect(() => {
         if (dashboard) {
-            updateValue(id,dashboard[0].url);
+            let arrUrl = []
+            let tempFileName = ''
+            dashboard.map(element => {
+                arrUrl.push(element.url);
+                tempFileName += element.filename + ', '
+                setFileName(tempFileName);
+            })
+            updateValue(id,arrUrl);
         }
     }, [dashboard]);
     const selectItem = (frame) => {
@@ -48,15 +55,20 @@ const ControlFile = (props) => {
     };
     const inputValue = value === undefined ? defaultValue : value;
     let inputFileName = [];
-    if( value !== undefined ){
-        inputFileName = inputValue.split('/');
-    }
-
-
+    useEffect(() => {
+        if( inputValue.length != 0){
+            inputValue.map(element => {
+                let newArr = element.split('/');
+                inputFileName.push(newArr[newArr.length - 1])
+            });
+            setFileName(inputFileName.join(', '));
+        }
+    },[])
+   
     return <div className="control-wrapper control-text">
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{color:'red'}}> *</span>}</label>
         <button onClick={() => selectItem(fileFrame)}>{__('Choose File', 'gtb')}</button>
-        <span>{dashboard ? dashboard[0].filename : inputFileName !== undefined && inputFileName[inputFileName.length-1] }</span>
+        <span>{fileName }</span>
         {description !== '' && <span className="control-description">
             {description}
         </span>}

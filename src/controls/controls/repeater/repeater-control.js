@@ -213,21 +213,24 @@ const RepeaterControl = ({
                     {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
                     <DragDropList list={value} setList={onValueChange}>
-                        {value.map((item, index) => (
-                            <RepeaterItem
-                                key={item._key === undefined ? `${id}-${index}` : item._key}
-                                id={item._key === undefined ? `${id}-${index}` : item._key}
-                                index={index}
-                                values={value}
-                                options={options}
-                                onValueChange={onValueChange}
-                                onStyleChange={onStyleChange}
-                                titleFormat={titleFormat}
-                                onRemove={() => removeIndex(index)}
-                                onDuplicate={() => duplicateIndex(index)}
-                                initialOpen={index === openLast}
-                            />
-                        ))}
+                        {value.map((item, index) => {
+                            return (
+                                <RepeaterItem
+                                    key={item._key === undefined ? `${id}-${index}` : item._key}
+                                    id={item._key === undefined ? `${id}-${index}` : item._key}
+                                    index={index}
+                                    values={value}
+                                    options={options}
+                                    onValueChange={onValueChange}
+                                    onStyleChange={onStyleChange}
+                                    titleFormat={titleFormat}
+                                    onRemove={() => removeIndex(index)}
+                                    onDuplicate={() => duplicateIndex(index)}
+                                    initialOpen={index === openLast}
+                                />
+                            )
+                        })
+                        }
                     </DragDropList>
                 </>}
                 <div className={'repeater-add-wrapper'}>

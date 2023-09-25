@@ -1184,14 +1184,24 @@ class Api {
 			$value[ $key ] = $setting;
 			if ( $key === 'custom_font' ) {
 				foreach ( $data['custom_font']['value'] as $v ) {
-					$text = "
-						@font-face {
-							font-family: '{$v['font_family']}' ;
-							font-style: {$v['font_style']};
-							font-weight: {$v['font_weight']};
-							src: url('{$v['font_src']}');
-							}
-					";
+					if(!$v['font_style']){
+						$v['font_style'] = "normal";
+					}
+					if(!$v['font_weight']){
+						$v['font_weight'] = "normal";
+					}
+					$text = "";
+					foreach ($v['font_src'] as $font_src) {
+						$text .= "
+							@font-face {
+								font-family: '{$v['font_family']}' ;
+								font-style: {$v['font_style']};
+								font-weight: {$v['font_weight']};
+								src: url('{$font_src}');
+								}
+						";
+					}
+					
 					file_put_contents( $upload_path . '/' . $v['font_family'] . '.css', $text, FILE_APPEND );
 				}
 			}

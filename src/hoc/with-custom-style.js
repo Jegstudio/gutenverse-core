@@ -107,12 +107,16 @@ export const withCustomStyle = panelList => BlockElement => {
                     href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                     rel="stylesheet" type="text/css" />;
         };
+
         const renderCustomFont = () => {
             const customFont = gutenverseSelector.getCustomFonts();
             return !isEmpty(customFont) &&
-                <link
-                    href={`${uploadPath}/${getCustomFontParams(customFont)}.css`}
-                    rel="stylesheet" type="text/css" />;
+                Object.keys(customFont).map( (element,index) => {
+                    return <link
+                        key={index}
+                        href={`${uploadPath}/${customFont[element].value}.css`}
+                        rel="stylesheet" type="text/css" />;
+                });
         };
 
         const removeStyle = (id) => {

@@ -260,6 +260,16 @@ class Init {
 			$defaults['ext']  = 'otf';
 		}
 
+		if ( 'woff' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-woff';
+			$defaults['ext']  = 'woff';
+		}
+
+		if ( 'woff2' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {
+			$defaults['type'] = 'application/x-font-woff2';
+			$defaults['ext']  = 'woff2';
+		}
+
 		return $defaults;
 	}
 	/**
