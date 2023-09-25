@@ -125,10 +125,13 @@ class GutenverseGallery extends Default {
         });
 
         galleryPopup.find('.gallery-header .icon-close').on('click', () => {
+            const activeSlider = galleryPopup.find('.swiper-slide.swiper-slide-active');
             galleryPopup.addClass('hidden');
             popupFullscreen.hasClass('hidden') && $this._exitFullscreen();
             popupFullscreen.removeClass('hidden');
             popupMinimize.addClass('hidden');
+            swiper.zoom.out();
+            activeSlider.removeClass('zoomed');
         });
 
         popupFullscreen.on('click', () => {
