@@ -104,6 +104,10 @@
         },
         "positioningBottom": {
             "type": "object"
+        },
+        "textClip": {
+            "type": "object",
+            "default": {}
         }
     },
     "supports": {

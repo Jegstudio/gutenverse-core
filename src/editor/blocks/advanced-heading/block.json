@@ -97,6 +97,14 @@
         "subPadding": {
             "type": "object"
         },
+        "mainTextClip": {
+            "type": "object",
+            "default": {}
+        },
+        "focusTextClip": {
+            "type": "object",
+            "default": {}
+        },
         "lineColor": {
             "type": "object"
         },
