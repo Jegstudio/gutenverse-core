@@ -53,6 +53,7 @@ export { default as LockedProInputLogicControl } from './controls/locked/locked-
 export { default as LockedProBackgroundControl } from './controls/locked/locked-background-control';
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
+export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -65,6 +66,7 @@ export { default as PanelController } from './controls/panel/panel-controller';
 // Export General Panel
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
+export { textClipPanel } from './panels/panel-text-clip';
 export { animationPanel } from './panels/panel-animation';
 export { backgroundPanel } from './panels/panel-background';
 export { backgroundAnimatedPanel } from './panels/panel-background-animated';
