@@ -116,7 +116,7 @@ gulp.task('release', gulp.series(
 
 gulp.task('zip', function () {
     return gulp
-        .src('./release/gutenverse/**')
+        .src('./release/gutenverse/**', {base: './release'})
         .pipe(zip('gutenverse.zip'))
         .pipe(gulp.dest('./release'));
 });
