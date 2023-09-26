@@ -222,7 +222,9 @@
         }
     }
 }
-
+.gutenverse-control-wrapper.gutenverse-control-alert .control-body{
+    display: flex;
+}
 body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
 }
