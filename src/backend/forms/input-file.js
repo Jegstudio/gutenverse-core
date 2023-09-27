@@ -4,11 +4,13 @@ import { useState,useEffect } from '@wordpress/element';
 
 
 const ControlFile = (props) => {
-    const { id, title, description, value, defaultValue = [],customLabel, updateValue, isRequired = false } = props;
+    const { id, title, description, value, defaultValue = [],customLabel, updateValue, isRequired = false, typeMedia = [] } = props;
     let uuid = uuidv4();
     const [dashboard, setDashboard] = useState(null);
     const [fileFrame, setFileFrame] = useState(null);
-    const [fileName, setFileName] = useState('');
+    const handleUpdate = (e) => {
+        updateValue(id,e.target.value)
+    }
     useEffect(() => {
         const fontFrame = wp?.media({
             title: 'Select or Upload Media',
@@ -16,9 +18,9 @@ const ControlFile = (props) => {
                 text: 'Select for Font File'
             },
             library: {
-                type: ['application','image']
+                type: typeMedia,
             },
-            multiple: true,
+            multiple: false,
         });
         setFileFrame(fontFrame);
     }, []);
@@ -37,14 +39,7 @@ const ControlFile = (props) => {
     }, [fileFrame]);
     useEffect(() => {
         if (dashboard) {
-            let arrUrl = []
-            let tempFileName = ''
-            dashboard.map(element => {
-                arrUrl.push(element.url);
-                tempFileName += element.filename + ', '
-                setFileName(tempFileName);
-            })
-            updateValue(id,arrUrl);
+            updateValue(id,dashboard[0].url)
         }
     }, [dashboard]);
     const selectItem = (frame) => {
@@ -54,21 +49,13 @@ const ControlFile = (props) => {
         }
     };
     const inputValue = value === undefined ? defaultValue : value;
-    let inputFileName = [];
-    useEffect(() => {
-        if( inputValue.length != 0){
-            inputValue.map(element => {
-                let newArr = element.split('/');
-                inputFileName.push(newArr[newArr.length - 1])
-            });
-            setFileName(inputFileName.join(', '));
-        }
-    },[])
    
     return <div className="control-wrapper control-text">
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{color:'red'}}> *</span>}</label>
-        <button onClick={() => selectItem(fileFrame)}>{__('Choose File', 'gtb')}</button>
-        <span>{fileName }</span>
+        <div className="input-file-wrapper">
+            <input type="text" value={inputValue}  id={`${id}-${uuid}`} onChange={handleUpdate}/>
+            <button onClick={() => selectItem(fileFrame)} className="input-file-button">{__('Choose File', 'gtb')}</button>
+        </div>
         {description !== '' && <span className="control-description">
             {description}
         </span>}

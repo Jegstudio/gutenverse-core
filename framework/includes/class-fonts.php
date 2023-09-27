@@ -1693,12 +1693,14 @@ class Fonts {
 		$data['transform'] = $this->get_font_transform();
 
 		$fonts = $this->get_fonts();
-		foreach ( $fonts as $font => $group ) {
-			$data['fonts'][] = array(
-				'class' => $group,
-				'value' => $font,
-				'name'  => $font,
-			);
+		if ( isset( $fonts ) ) {
+			foreach ( $fonts as $font => $group ) {
+				$data['fonts'][] = array(
+					'class' => $group,
+					'value' => $font,
+					'name'  => $font,
+				);
+			}
 		}
 
 		$groups = $this->get_font_groups();
@@ -1711,5 +1713,4 @@ class Fonts {
 
 		return $data;
 	}
-
 }
