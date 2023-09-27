@@ -122,7 +122,7 @@ class Api {
 
 		register_rest_route(
 			self::ENDPOINT,
-			'taxonomies', 
+			'taxonomies',
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_taxonomies' ),
@@ -380,7 +380,7 @@ class Api {
 		/** Need to allow file locally hosted. */
 		add_filter(
 			'http_request_host_is_external',
-			function() {
+			function () {
 				return true;
 			}
 		);
@@ -463,8 +463,8 @@ class Api {
 			$plugin                      = $this->fetch_plugin_detail( $value->slug );
 			$data[ $key ]                = (array) $data[ $key ];
 			$data[ $key ]['icons']       = $this->get_plugin_image( $plugin );
-			$data[ $key ]['description'] = $data[$key]['description'] ?  $data[$key]['description'] : $plugin['description'];
-			$data[ $key ]['version']     = $data[$key]['version'] ?  $data[$key]['version'] : $plugin['version'];
+			$data[ $key ]['description'] = $data[ $key ]['description'] ? $data[ $key ]['description'] : $plugin['description'];
+			$data[ $key ]['version']     = $data[ $key ]['version'] ? $data[ $key ]['version'] : $plugin['version'];
 		}
 		return $data;
 	}
@@ -787,7 +787,7 @@ class Api {
 		foreach ( $data as $item ) {
 			foreach ( $item->categories as $category ) {
 				if ( $category->slug === $slug ) {
-					$count++;
+					++$count;
 				}
 			}
 		}
@@ -805,7 +805,7 @@ class Api {
 	public function sort_section( $sections ) {
 		usort(
 			$sections,
-			function( $a, $b ) {
+			function ( $a, $b ) {
 				return $a->count < $b->count;
 			}
 		);
@@ -1175,33 +1175,43 @@ class Api {
 	 * @param object $request .
 	 */
 	public function modify_settings( $request ) {
-		$data   = $request->get_param( 'setting' );
-		$option = get_option( 'gutenverse-settings' );
-		$value  = $option ? $option : array();
-		$upload_dir = wp_upload_dir();
+		$data        = $request->get_param( 'setting' );
+		$option      = get_option( 'gutenverse-settings' );
+		$value       = $option ? $option : array();
+		$upload_dir  = wp_upload_dir();
 		$upload_path = $upload_dir['basedir'];
 		foreach ( $data as $key => $setting ) {
 			$value[ $key ] = $setting;
 			if ( $key === 'custom_font' ) {
 				foreach ( $data['custom_font']['value'] as $v ) {
-					if(!$v['font_style']){
-						$v['font_style'] = "normal";
+					if ( file_exists( $upload_path . '/' . $v['font_family'] . '.css' ) ) {
+						unlink( $upload_path . '/' . $v['font_family'] . '.css' );
 					}
-					if(!$v['font_weight']){
-						$v['font_weight'] = "normal";
+				}
+				foreach ( $data['custom_font']['value'] as $v ) {
+
+					if ( ! $v['font_style'] ) {
+						$v['font_style'] = 'normal';
 					}
-					$text = "";
-					foreach ($v['font_src'] as $font_src) {
-						$text .= "
-							@font-face {
-								font-family: '{$v['font_family']}' ;
-								font-style: {$v['font_style']};
-								font-weight: {$v['font_weight']};
-								src: url('{$font_src}');
-								}
-						";
+					if ( ! $v['font_weight'] ) {
+						$v['font_weight'] = 'normal';
 					}
-					
+					$text = '';
+					if ( $v['font_src_woff'] ) {
+						$text .= $this->add_css_custom_font( $v, $v['font_src_woff'] );
+					}
+					if ( $v['font_src_woff2'] ) {
+						$text .= $this->add_css_custom_font( $v, $v['font_src_woff2'] );
+					}
+					if ( $v['font_src_ttf'] ) {
+						$text .= $this->add_css_custom_font( $v, $v['font_src_ttf'] );
+					}
+					if ( $v['font_src_otf'] ) {
+						$text .= $this->add_css_custom_font( $v, $v['font_src_otf'] );
+					}
+					if ( $v['font_src_svg'] ) {
+						$text .= $this->add_css_custom_font( $v, $v['font_src_svg'] );
+					}
 					file_put_contents( $upload_path . '/' . $v['font_family'] . '.css', $text, FILE_APPEND );
 				}
 			}
@@ -1213,6 +1223,16 @@ class Api {
 		}
 
 		return true;
+	}
+	public function add_css_custom_font( $custom_data, $url ) {
+		return "
+			@font-face {
+				font-family: '{$custom_data['font_family']}' ;
+				font-style: {$custom_data['font_style']};
+				font-weight: {$custom_data['font_weight']};
+				src: url('{$url}');
+				}
+		";
 	}
 
 	/**
@@ -1622,5 +1642,4 @@ class Api {
 
 		return null;
 	}
-
 }
