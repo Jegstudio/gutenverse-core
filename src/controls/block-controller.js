@@ -29,7 +29,6 @@ const BlockController = (props) => {
         const { clientId, setAttributes } = panelProps;
 
         const onValueChange = (value) => {
-
             const newValue = {
                 [id]: value
             };
@@ -57,7 +56,7 @@ const BlockController = (props) => {
             onValueChange={onValueChange}
             onStyleChange={onStyleChange}
             elementRef={elementRef}
-            isOpen = {true}
+            isOpen={true}
         />;
     });
 };

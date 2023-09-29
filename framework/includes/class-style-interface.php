@@ -1403,6 +1403,15 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Get Name.
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+		return $this->name;
+	}
+
+	/**
 	 * Generate Element.
 	 */
 	abstract protected function generate();
