@@ -338,9 +338,7 @@ class Style_Generator {
 	public function load_global_fonts() {
 		$variable_fonts = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'google' ) );
 		$custom_fonts   = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'custom_font_pro' ) );
-		$font_families  = array();
-		array_push( $font_families, $custom_fonts );
-		array_push( $font_families, $variable_fonts );
+		$font_families  = array_merge( $custom_fonts, $variable_fonts );
 		if ( ! empty( $font_families ) ) {
 			$this->font_families = array_merge( $font_families, $this->font_families );
 		}

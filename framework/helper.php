@@ -307,22 +307,22 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	 * @return void
 	 */
 	function gutenverse_header_font( $font_families, $font_variables ) {
-		$families = array();
-		$upload_path = wp_upload_dir();
-		$upload_url = $upload_path['baseurl'];
-		$custom_family = [];
+		$families      = array();
+		$upload_path   = wp_upload_dir();
+		$upload_url    = $upload_path['baseurl'];
+		$custom_family = array();
 		foreach ( $font_families as $font ) {
-			$family 		= $font['value'];
-			$type  			= $font['type'];
-			$id     		= ! empty( $font['id'] ) ? $font['id'] : null;
+			$family = $font['value'];
+			$type   = $font['type'];
+			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
 			if ( 'google' === $type && ( in_array( $id, $font_variables, true ) || null === $id ) ) {
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
 				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
 					array_push( $families[ $family ], $font['weight'] );
 				}
-			}else if( 'custom_font_pro' === $type ){
-				array_push($custom_family,$family);
+			} elseif ( 'custom_font_pro' === $type ) {
+				array_push( $custom_family, $family );
 			}
 		}
 
