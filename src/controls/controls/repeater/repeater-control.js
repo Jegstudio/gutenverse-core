@@ -228,7 +228,7 @@ const RepeaterControl = ({
                                     onDuplicate={() => duplicateIndex(index)}
                                     initialOpen={index === openLast}
                                 />
-                            )
+                            );
                         })
                         }
                     </DragDropList>

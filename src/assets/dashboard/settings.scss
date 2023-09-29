@@ -4,6 +4,28 @@
     .content-wrapper.settings {
         padding: 0;
     }
+    .input-file-wrapper{
+        display: flex;
+        .input-file-text{
+            width: 100%;
+            border: solid 1px #e3e4e6;
+            border-radius: 5px 0px 0px 5px;
+            margin : 0px;
+        }
+        .input-file-button{
+            width: 25%;
+            height: inherit;
+            color:white;
+            background-color: #3b57f7;
+            border: solid 1px #3b57f7;
+            border-radius: 0px 5px 5px 0px;
+            cursor: pointer;
+            
+        }
+        .input-file-button:hover{
+            opacity: 80%;
+        }
+    }   
 }
 
 .dashboard-content {
@@ -225,6 +247,10 @@
 .gutenverse-control-wrapper.gutenverse-control-alert .control-body{
     display: flex;
 }
+
+
+
+
 body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
 }

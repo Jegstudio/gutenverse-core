@@ -32,7 +32,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'body',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['bodyTextColor'],
@@ -54,7 +54,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'p',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'margin-bottom' );
 					},
 					'value'          => $this->attrs['paragraphSpacing'],
@@ -67,7 +67,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'a',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['linkTextColor'],
@@ -89,7 +89,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h1',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h1TextColor'],
@@ -111,7 +111,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h2',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h2TextColor'],
@@ -133,7 +133,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h3',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h3TextColor'],
@@ -155,7 +155,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h4',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h4TextColor'],
@@ -177,7 +177,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h5',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h5TextColor'],
@@ -199,7 +199,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'h6',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['h6TextColor'],
@@ -230,7 +230,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['buttonTextShadow'],
@@ -247,7 +247,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['buttonTextColor'],
@@ -260,7 +260,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['buttonBoxShadow'],
@@ -281,7 +281,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button:hover',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['buttonTextColorHover'],
@@ -294,7 +294,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button:hover',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['buttonBoxShadowHover'],
@@ -311,7 +311,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.guten-button-wrapper .guten-button',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['buttonPadding'],
@@ -324,7 +324,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'label, .guten-form-input .input-label',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['formTextColor'],
@@ -355,7 +355,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input, select, .radio, .check, .choices, .guten-form-input .gutenverse-input, .guten-form-input .choices__item, .guten-form-input .choices__placeholder',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['inputTextColor'],
@@ -368,7 +368,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input, select, .choices, .guten-form-input .gutenverse-input',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['inputBgColor'],
@@ -381,7 +381,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input, select, .choices, .guten-form-input .gutenverse-input',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['inputBoxShadow'],
@@ -398,7 +398,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input:focus, select:focus, .radio:focus, .check:focus, .choices:focus, .guten-form-input .gutenverse-input, .guten-form-input:focus .choices__item:focus, .guten-form-input .choices__placeholder:focus',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['inputTextColorFocus'],
@@ -411,7 +411,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input:focus, select:focus, .choices:focus, .guten-form-input .gutenverse-input:focus',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['inputBgColorFocus'],
@@ -424,7 +424,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input:focus, select:focus, .choices:focus, .guten-form-input .gutenverse-input:focus',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['inputBoxShadowFocus'],
@@ -441,7 +441,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'input, select, .radio, .check, .choices, .guten-form-input .gutenverse-input',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['inputPadding'],
@@ -454,7 +454,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => '.input-helper',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['inputHelperColor'],
@@ -480,7 +480,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'img',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['imageOpacity'],
@@ -493,7 +493,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'img',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadow'],
@@ -510,7 +510,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'img:hover',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['imageOpacityHover'],
@@ -523,7 +523,7 @@ class Global_Style extends Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => 'img:hover',
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadowHover'],

@@ -34,8 +34,9 @@ const withGlobalVariable = GlobalStyle => {
         const { variable, googleFont, initFontVar, setGoogleFonts } = props;
         const [adminStyles, setAdminStyles] = useState('');
         const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
-
+        const [customFonts, setCustomFonts] = useState([]);
         const [headElement, setHeadElement] = useState(null);
+        const { uploadPath } = window['GutenverseConfig'];
 
         const setWindow = () => {
             setTimeout(() => {
@@ -109,7 +110,6 @@ const withGlobalVariable = GlobalStyle => {
         const buildStyle = (variable) => {
             let variableStyle = elementVar();
             const { fonts, userConfig } = variable;
-
             fonts?.map(item => {
                 const { id, font: typography } = item;
                 if (typography) {
@@ -231,7 +231,9 @@ const withGlobalVariable = GlobalStyle => {
                     ...font,
                     weight
                 });
-            }
+            }else if(font?.type === 'custom_font_pro'){
+                setCustomFonts([...customFonts, font?.value]);
+            }   
         };
 
         const renderFont = () => {
@@ -239,6 +241,16 @@ const withGlobalVariable = GlobalStyle => {
                 href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                 rel="stylesheet" type="text/css" />;
         };
+        const renderCustomFont = () => {
+            let uniqueFont = customFonts.filter((value, index, array) => array.indexOf(value) === index)
+            return !isEmpty(uniqueFont) &&
+                uniqueFont.map( (element,index) => {
+                    return <link
+                        key={index}
+                        href={`${uploadPath}/${element}.css`}
+                        rel="stylesheet" type="text/css" />;
+                });
+        }
 
         const handleFont = (typography, addFont, id) => {
             const weight = typography?.weight && typography?.style === 'italic' ? `${typography?.weight}italic` : typography?.weight;
@@ -285,6 +297,7 @@ const withGlobalVariable = GlobalStyle => {
             <Helmet device={deviceType} head={headElement}>
                 {<style id="global-variable-style">{adminStyles}</style>}
                 {renderFont()}
+                {renderCustomFont()}
             </Helmet>
             <GlobalStyle
                 {...props}

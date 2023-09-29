@@ -9,8 +9,8 @@ const ControlFile = (props) => {
     const [dashboard, setDashboard] = useState(null);
     const [fileFrame, setFileFrame] = useState(null);
     const handleUpdate = (e) => {
-        updateValue(id,e.target.value)
-    }
+        updateValue(id,e.target.value);
+    };
     useEffect(() => {
         const fontFrame = wp?.media({
             title: 'Select or Upload Media',
@@ -39,7 +39,7 @@ const ControlFile = (props) => {
     }, [fileFrame]);
     useEffect(() => {
         if (dashboard) {
-            updateValue(id,dashboard[0].url)
+            updateValue(id,dashboard[0].url);
         }
     }, [dashboard]);
     const selectItem = (frame) => {
@@ -49,12 +49,12 @@ const ControlFile = (props) => {
         }
     };
     const inputValue = value === undefined ? defaultValue : value;
-   
+
     return <div className="control-wrapper control-text">
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{color:'red'}}> *</span>}</label>
         <div className="input-file-wrapper">
-            <input type="text" value={inputValue}  id={`${id}-${uuid}`} onChange={handleUpdate}/>
-            <button onClick={() => selectItem(fileFrame)} className="input-file-button">{__('Choose File', 'gtb')}</button>
+            <input type="text" className="input-file-text" value={inputValue}  id={`${id}-${uuid}`} onChange={handleUpdate}/>
+            <button onClick={() => selectItem(fileFrame)} className="input-file-button" >{__('Choose File', 'gtb')}</button>
         </div>
         {description !== '' && <span className="control-description">
             {description}
