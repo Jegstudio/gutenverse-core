@@ -27,6 +27,9 @@ defined( 'GUTENVERSE_LANG_DIR' ) || define( 'GUTENVERSE_LANG_DIR', GUTENVERSE_DI
 defined( 'GUTENVERSE_PATH' ) || define( 'GUTENVERSE_PATH', plugin_basename( __FILE__ ) );
 defined( 'GUTENVERSE_FRAMEWORK_URL' ) || define( 'GUTENVERSE_FRAMEWORK_URL', plugins_url( GUTENVERSE ) . '/lib/framework' );
 
+// Required Pro Version.
+defined( 'GUTENVERSE_REQUIRED_PRO_VERSION' ) || define( 'GUTENVERSE_REQUIRED_PRO_VERSION', '1.0.1' );
+
 require_once GUTENVERSE_DIR . 'lib/autoload.php';
 
 Gutenverse::instance();

@@ -193,6 +193,7 @@ class Gutenverse {
 		$framework_file    = GUTENVERSE_DIR . 'lib/framework/bootstrap.php';
 		$framework_version = $init->get_framework_version( $framework_file );
 		$init->register_version( GUTENVERSE, $framework_version );
+		$init->register_pro_version( GUTENVERSE, GUTENVERSE_REQUIRED_PRO_VERSION );
 	}
 
 	/**
