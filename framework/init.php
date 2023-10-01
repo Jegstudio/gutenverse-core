@@ -80,7 +80,8 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 			var gutenverseLoadedFramework = {
 				plugin: "<?php echo esc_html( $this->loaded ); ?>",
 				version: "<?php echo esc_html( $version ); ?>",
-				registered: <?php echo wp_json_encode( $this->versions ); ?>
+				registered: <?php echo wp_json_encode( $this->versions ); ?>,
+				pro: <?php echo wp_json_encode( $this->pro ); ?>
 			}; 
 			</script>
 			<?php
