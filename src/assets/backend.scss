@@ -36,6 +36,32 @@
     max-width: 1180px;
     padding: 0 20px;
 
+    // Notice Update
+    .pro-update {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+
+        .pro-update-wrapper {
+            display: flex;
+            gap: 15px;
+            padding: 0 30px;
+            border-radius: 30px;
+            background: #f8d772;
+            border: 1px solid #d9ad6c;
+
+            span {
+                width: 20px !important;
+                display: flex;
+
+                svg {
+                    color: #d2791c;
+                }
+            }
+        }
+    }
+
     // Content
     .content-wrapper {
         background-color: white;

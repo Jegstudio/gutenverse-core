@@ -2,6 +2,7 @@ import Navigation from './route/navigation';
 import Content from './route/content';
 import { render } from '@wordpress/element';
 import { Routing } from 'gutenverse-core/router';
+import { ProUpdateNotice } from './content/update-notice/pro-update-notice';
 export { blocklistStore, dashboardStore, libraryStore } from 'gutenverse-core/store';
 
 const loadGutenverseDashboard = () => {
@@ -13,6 +14,7 @@ const loadGutenverseDashboard = () => {
                 {(props) => {
                     return <>
                         <Navigation {...props}/>
+                        <ProUpdateNotice/>
                         <Content {...props}/>
                     </>;
                 }}
