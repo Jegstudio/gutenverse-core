@@ -16,6 +16,10 @@ export const focusTitlePanel = (props) => {
                 {
                     selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
                     render: value => handleColor(value, 'color')
+                },
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
+                    render: value => handleColor(value, '-webkit-text-fill-color')
                 }
             ]
         },

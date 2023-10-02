@@ -191,7 +191,7 @@ class Advanced_Heading extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
 					'property'       => function( $value ) {
-						return $this->handle_color( $value, 'color' );
+						return $this->handle_color( $value, 'color' ) . $this->handle_color( $value, '-webkit-text-fill-color' );
 					},
 					'value'          => $this->attrs['focusColor'],
 					'device_control' => false,
