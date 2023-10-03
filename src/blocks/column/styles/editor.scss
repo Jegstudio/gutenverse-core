@@ -83,6 +83,7 @@
 
   .guten-column-wrapper > .block-editor-inner-blocks,
   .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout {
+    position: unset!important;
     height: 100%;
   }
 
