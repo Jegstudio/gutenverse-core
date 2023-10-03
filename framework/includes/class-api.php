@@ -1224,6 +1224,14 @@ class Api {
 
 		return true;
 	}
+	/**
+	 * Add css font face to string
+	 *
+	 * @param array  $custom_data .
+	 * @param string $url .
+	 *
+	 * @return string
+	 */
 	public function add_css_custom_font( $custom_data, $url ) {
 		return "
 			@font-face {
