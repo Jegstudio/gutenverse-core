@@ -1,7 +1,7 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
-import Select, { components, GroupHeadingProps} from 'react-select';
+import Select from 'react-select';
 import classnames from 'classnames';
 import { useVisibility } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
@@ -13,26 +13,25 @@ import { Helmet } from 'gutenverse-core/components';
 import ProLock from '../pro-lock';
 
 const FontComponent = (props) => {
-    const { innerProps, isSelected, isFocused, isDisabled} = props;
-    const [ isVisible, currentElement ] = useVisibility(200, 50);
+    const { innerProps, isSelected, isFocused, isDisabled } = props;
+    const [isVisible, currentElement] = useVisibility(250, 10);
     const { uploadPath } = window['GutenverseConfig'];
     const fontClass = classnames(
         'font-option',
         {
             'selected': isSelected,
             'focused': isFocused,
-            'disabled' : isDisabled,
+            'disabled': isDisabled,
         },
         props.data.pro && `select-option${props.data.pro && ' pro'}`
     );
 
-    const fontStyleHead = () => {
-        if (props.data.type === 'google' && !isEmpty(props.data.value) && isVisible){
+    const FontStyleHead = () => {
+        if (props.data.type === 'google' && !isEmpty(props.data.value) && isVisible) {
             return <Helmet>
                 <link href={`https://fonts.googleapis.com/css?family=${props.data.value}&text=${props.data.value}`} rel="stylesheet" type="text/css" />
             </Helmet>;
-        }
-        else if(props.data.type === 'custom_font_pro' && !isEmpty(props.data.value) ){
+        } else if (props.data.type === 'custom_font_pro' && !isEmpty(props.data.value)) {
             return <Helmet>
                 <link href={`${uploadPath}/${props.data.value}.css`} rel="stylesheet" type="text/css" />
             </Helmet>;
@@ -40,22 +39,16 @@ const FontComponent = (props) => {
     };
 
     return <>
-        {() => fontStyleHead}
+        <FontStyleHead />
         <div {...innerProps} ref={currentElement} className={fontClass} style={{ fontFamily: props.data.value }}>
             {props.data.label}
             {props.data.pro && <ProLock
-                title = {props.data.label}
-                description = {props.data.description}
+                title={props.data.label}
+                description={props.data.description}
             />}
         </div>
     </>;
 };
-// const GroupHeading = (props) => {
-//     return <div className='guten-label-pro-wrapper'>
-//         <components.GroupHeading {...props} />
-//         { props.children === 'Custom Font' && <span className="pro-label">Pro</span>}
-//     </div>;
-// }
 
 const FontControl = (props) => {
     const {
@@ -108,13 +101,13 @@ const FontControl = (props) => {
             };
         });
 
-        if(group.label === 'Custom Font' && options.length === 0){
+        if (group.label === 'Custom Font' && options.length === 0) {
             options = [{
-                label : 'Custom Font',
-                value : 'Custom Font',
-                type  : 'custom_font_pro',
-                pro   : true,
-                description: __( 'Lorem Ipsum...', '--gctd--')
+                label: 'Custom Font',
+                value: 'Custom Font',
+                type: 'custom_font_pro',
+                pro: true,
+                description: __('Lorem Ipsum...', '--gctd--')
             }];
         }
         return {
