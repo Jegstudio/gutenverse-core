@@ -166,7 +166,7 @@ section.guten-section {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex>svg {
+      &.guten-shape-zindex {
         z-index: 2;
       }
     }

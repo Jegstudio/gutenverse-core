@@ -45,7 +45,7 @@ const GradientControl = (props) => {
     };
 
     useEffect(() => {
-        document.querySelector([ '.csh', '.cs']).addEventListener('click', () => setControlOpen(true));
+        wrapperRef?.current?.querySelector([ '.csh', '.cs']).addEventListener('click', () => setControlOpen(true));
     }, [value]);
 
     useEffect(() => {
