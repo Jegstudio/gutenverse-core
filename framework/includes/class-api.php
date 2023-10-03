@@ -1182,7 +1182,7 @@ class Api {
 		$upload_path = $upload_dir['basedir'];
 		foreach ( $data as $key => $setting ) {
 			$value[ $key ] = $setting;
-			if ( $key === 'custom_font' ) {
+			if ( 'custom_font' === $key ) {
 				foreach ( $data['custom_font']['value'] as $v ) {
 					if ( file_exists( $upload_path . '/' . $v['font_family'] . '.css' ) ) {
 						unlink( $upload_path . '/' . $v['font_family'] . '.css' );
