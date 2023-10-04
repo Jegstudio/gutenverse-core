@@ -87,10 +87,13 @@ const PanelController = ({ ...props }) => {
                             </Tooltip>;
                         })}
                     </div>
+                </>}
+                <>
                     <PanelTabPro activeTab={activeTab}/>
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
                         const { tabRole } = panel;
+
                         if (tabRole) {
                             const { id: tabId } = tabRole;
                             return tabId === active;
@@ -117,7 +120,7 @@ const PanelController = ({ ...props }) => {
                             />
                         </PanelBody>;
                     })}
-                </>}
+                </>
                 {tabPanel.length === 0 && panelList().map((panel, index) => {
                     const panelBody = classnames('gutenverse-panel', {
                         [`panel-${panel.id}`]: undefined !== panel.id,
