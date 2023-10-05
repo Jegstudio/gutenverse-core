@@ -51,6 +51,13 @@ class Fonts {
 	}
 
 	/**
+	 * Get Custom fonts
+	 */
+	public function get_custom_fonts() {
+		$fonts = array();
+		return apply_filters( 'gutenverse_custom_fonts', $fonts );
+	}
+	/**
 	 * Get fonts
 	 */
 	public function get_fonts() {
@@ -1685,6 +1692,40 @@ class Fonts {
 	 * @return array
 	 */
 	public function get_font_settings() {
+		$data              = array();
+		$data['fonts']     = array();
+		$data['groups']    = array();
+		$data['weights']   = $this->get_font_weights();
+		$data['styles']    = $this->get_font_styles();
+		$data['transform'] = $this->get_font_transform();
+
+		$fonts = $this->get_fonts();
+		if ( isset( $fonts ) ) {
+			foreach ( $fonts as $font => $group ) {
+				$data['fonts'][] = array(
+					'class' => $group,
+					'value' => $font,
+					'name'  => $font,
+				);
+			}
+		}
+
+		$groups = $this->get_font_groups();
+		foreach ( $groups as $id => $group ) {
+			$data['groups'][] = array(
+				'value' => $id,
+				'label' => $group,
+			);
+		}
+
+		return $data;
+	}
+	/**
+	 * Get Custom Font Settings
+	 *
+	 * @return array
+	 */
+	public function get_custom_font_settings() {
 		$data              = array();
 		$data['fonts']     = array();
 		$data['groups']    = array();

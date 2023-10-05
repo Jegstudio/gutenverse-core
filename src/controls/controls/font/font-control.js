@@ -11,6 +11,7 @@ import isEmpty from 'lodash/isEmpty';
 import { __ } from '@wordpress/i18n';
 import { Helmet } from 'gutenverse-core/components';
 import ProLock from '../pro-lock';
+import { applyFilters } from '@wordpress/hooks';
 
 const FontComponent = (props) => {
     const { innerProps, isSelected, isFocused, isDisabled} = props;
@@ -68,13 +69,19 @@ const FontControl = (props) => {
         description = '',
     } = props;
 
-    const { fonts: fontsData } = window['GutenverseConfig'];
+    const { fonts: fontsData, customFonts } = window['GutenverseConfig'];
 
+    console.log(fontsData,customFonts)
     const onChange = value => {
         onValueChange(value);
         onStyleChange(value);
     };
 
+    let fonts = applyFilters(
+        'gutenverse.custom-font',
+        fontsData,
+        customFonts
+    )
     const customStyles = {
         input: () => {
             return {

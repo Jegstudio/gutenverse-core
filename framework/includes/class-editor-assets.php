@@ -68,6 +68,7 @@ class Editor_Assets {
 		$config                     = array();
 		$config['globals']          = array();
 		$config['fonts']            = ( new Fonts() )->get_font_settings();
+		$config['customFonts']      = ( new Fonts() )->get_custom_font_settings();
 		$config['imagePlaceholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v1';
