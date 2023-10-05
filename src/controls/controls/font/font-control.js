@@ -70,8 +70,7 @@ const FontControl = (props) => {
     } = props;
 
     const { fonts: fontsData, customFonts } = window['GutenverseConfig'];
-
-    console.log(fontsData,customFonts)
+    console.log(fontsData)
     const onChange = value => {
         onValueChange(value);
         onStyleChange(value);
@@ -81,7 +80,7 @@ const FontControl = (props) => {
         'gutenverse.custom-font',
         fontsData,
         customFonts
-    )
+    );
     const customStyles = {
         input: () => {
             return {
@@ -106,8 +105,8 @@ const FontControl = (props) => {
         }
     };
 
-    const fontOptions = fontsData.groups.map(group => {
-        let options = fontsData.fonts.filter(item => item.class === group.value).map(font => {
+    const fontOptions = fonts.groups.map(group => {
+        let options = fonts.fonts.filter(item => item.class === group.value).map(font => {
             return {
                 label: font.name,
                 value: font.value,

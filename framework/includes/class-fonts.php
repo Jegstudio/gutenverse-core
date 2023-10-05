@@ -1733,7 +1733,7 @@ class Fonts {
 		$data['styles']    = $this->get_font_styles();
 		$data['transform'] = $this->get_font_transform();
 
-		$fonts = $this->get_fonts();
+		$fonts = $this->get_custom_fonts();
 		if ( isset( $fonts ) ) {
 			foreach ( $fonts as $font => $group ) {
 				$data['fonts'][] = array(
