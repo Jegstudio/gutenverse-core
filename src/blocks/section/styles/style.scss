@@ -16,7 +16,7 @@
 
 .guten-section-wrapper {
   &.pinned {
-    position: sticky;
+    position: sticky !important;
 
     &.fixed {
       position: fixed;
