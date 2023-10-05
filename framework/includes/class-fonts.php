@@ -1717,7 +1717,6 @@ class Fonts {
 				'label' => $group,
 			);
 		}
-
 		return $data;
 	}
 	/**
@@ -1734,6 +1733,7 @@ class Fonts {
 		$data['transform'] = $this->get_font_transform();
 
 		$fonts = $this->get_custom_fonts();
+		
 		if ( isset( $fonts ) ) {
 			foreach ( $fonts as $font => $group ) {
 				$data['fonts'][] = array(

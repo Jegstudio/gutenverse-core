@@ -12,6 +12,7 @@ import { __ } from '@wordpress/i18n';
 import { Helmet } from 'gutenverse-core/components';
 import ProLock from '../pro-lock';
 import { applyFilters } from '@wordpress/hooks';
+import { useState,useEffect } from '@wordpress/element';
 
 const FontComponent = (props) => {
     const { innerProps, isSelected, isFocused, isDisabled} = props;
@@ -70,17 +71,16 @@ const FontControl = (props) => {
     } = props;
 
     const { fonts: fontsData, customFonts } = window['GutenverseConfig'];
-    console.log(fontsData)
+    const [ fonts, setFonts ] = useState({});
     const onChange = value => {
         onValueChange(value);
         onStyleChange(value);
     };
+    
+    useEffect(() => {
+        setFonts(applyFilters('gutenverse.custom-font',fontsData,customFonts))
+    }, [fontsData]);
 
-    let fonts = applyFilters(
-        'gutenverse.custom-font',
-        fontsData,
-        customFonts
-    );
     const customStyles = {
         input: () => {
             return {
@@ -105,7 +105,7 @@ const FontControl = (props) => {
         }
     };
 
-    const fontOptions = fonts.groups.map(group => {
+    const fontOptions = fonts?.groups?.map(group => {
         let options = fonts.fonts.filter(item => item.class === group.value).map(font => {
             return {
                 label: font.name,
