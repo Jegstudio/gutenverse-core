@@ -37,6 +37,29 @@
         border-bottom: none;
         padding: 12px 0px;
     }
+    .repeater-empty .repeater-empty-wrapper{
+
+        .empty-repeater-img{
+            align-items: center;
+        }
+        h2{
+            font-family: Roboto;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 19px;
+            letter-spacing: 0em;
+            text-align: center;
+            display: block  ;
+        }
+        h3{
+            font-family: Roboto;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0em;
+            text-align: center;
+        }
+    }
     
 }
 
@@ -314,29 +337,7 @@
 
     }
 }
-.repeater-empty .repeater-empty-wrapper{
 
-    .empty-repeater-img{
-
-    }
-    h2{
-        font-family: Roboto;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 19px;
-        letter-spacing: 0em;
-        text-align: left;
-
-    }
-    h3{
-        font-family: Roboto;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 20px;
-        letter-spacing: 0em;
-        text-align: center;
-    }
-}
 .gutenverse-control-wrapper.gutenverse-control-repeater{
     padding-top: 24px;
 }
