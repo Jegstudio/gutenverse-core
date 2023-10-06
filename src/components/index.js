@@ -8,6 +8,7 @@ export { default as Prompt, PromptContent, PromptHeader } from './misc/prompt';
 export { default as EscListener } from './esc-listener/esc-listener';
 export { default as DrawerWrapper } from './drawer/drawer-wrapper';
 export * from './drawer/drawer-wrapper';
+export { default as AlertModal } from './alert/alert-modal';
 
 /* Skeleton */
 export { default as Skeleton } from './skeleton/skeleton';
