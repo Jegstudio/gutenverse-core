@@ -6,26 +6,38 @@
     }
     .input-file-wrapper{
         display: flex;
+        position: relative;
         .input-file-text{
             width: 100%;
             border: solid 1px #e3e4e6;
-            border-radius: 5px 0px 0px 5px;
+            border-radius: 3px;
             margin : 0px;
         }
         .input-file-button{
-            width: 25%;
-            height: inherit;
-            color:white;
-            background-color: #3b57f7;
-            border: solid 1px #3b57f7;
-            border-radius: 0px 5px 5px 0px;
+            width: 100px;
+            height: 30px;
+            color:black;         
+            background-color: #F2F4F7;
+            border: solid 1px #E3E4E6;
+            border-radius: 3px;
             cursor: pointer;
-            
+            position: absolute;
+            right : 0;
+            top: 8px;
+            margin-right: 8px;
         }
         .input-file-button:hover{
             opacity: 80%;
         }
-    }   
+    }
+    .repeater-body .control-wrapper.control-text input[type=text]{
+        border: 1px solid #BDBEBF
+    }
+    .repeater-body .control-wrapper{
+        border-bottom: none;
+        padding: 12px 0px;
+    }
+    
 }
 
 .dashboard-content {
@@ -244,11 +256,90 @@
         }
     }
 }
-.gutenverse-control-wrapper.gutenverse-control-alert .control-body{
+.repeater-body .gutenverse-control-wrapper.gutenverse-control-alert .control-body{
     display: flex;
+    align-items: center;
+    font-style: italic;
 }
 
+.form-header-repeater{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2{
+        font-family: Roboto;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+    .custom-font-add-button{
+        cursor: pointer;
+        border: 1px solid #3B57F7;
+        color: #3B57F7;
+        background-color: white;
+        border-radius: 50px;
+        height: 34px;
+        width: 136px;
+    }
+    .custom-font-add-button:hover{
+        background: #3B57F7;
+        border: 1px solid #3B57F7;
+        color: white;
+    }
+}
+.repeater-item .repeater-title {
+    .custom-font-family{
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-right: 10px;   
+    }
+    .custom-font-style{
+        border: 1px solid #E3E4E6;
+        background-color: white;
+        padding: 5px 5px;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: left;
+        border-radius: 3px;
+        margin-right: 10px;   
 
+    }
+}
+.repeater-empty .repeater-empty-wrapper{
+
+    .empty-repeater-img{
+
+    }
+    h2{
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19px;
+        letter-spacing: 0em;
+        text-align: left;
+
+    }
+    h3{
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+}
+.gutenverse-control-wrapper.gutenverse-control-repeater{
+    padding-top: 24px;
+}
 
 
 body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {

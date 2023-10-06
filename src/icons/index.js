@@ -39,6 +39,7 @@ import IconToolbarColumnAdd from './icon/icon-toolbar-column-add.svg';
 import IconToolbarColumnDelete from './icon/icon-toolbar-column-delete.svg';
 import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
+import IconAddFont form './icon/icon-add-font.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -201,6 +202,9 @@ export const IconColumnSVG = (props) => {
 
 export const IconSectionSVG = (props) => {
     return <IconSection { ...props } />;
+};
+export const IconAddFontSVG = (props) => {
+    return <IconAddFont { ...props } />;
 };
 
 export const IconHeartFullSVG = ({ size = 16, ...props }) => {
