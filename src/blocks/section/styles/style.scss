@@ -19,7 +19,7 @@
     position: sticky !important;
 
     &.fixed {
-      position: fixed;
+      position: fixed !important;
     }
 
     &.sticky-top {
