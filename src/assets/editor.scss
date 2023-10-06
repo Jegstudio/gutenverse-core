@@ -101,3 +101,8 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
     width: 200px;
   }
 }
+
+// This is set because sticky not working in page editor
+.interface-interface-skeleton__content .edit-post-visual-editor {
+  overflow: unset;
+}
