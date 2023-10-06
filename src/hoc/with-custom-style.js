@@ -5,6 +5,7 @@ import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck, getCus
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
+import { applyFilters } from '@wordpress/hooks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes } = props;
@@ -110,13 +111,16 @@ export const withCustomStyle = panelList => BlockElement => {
 
         const renderCustomFont = () => {
             const customFont = gutenverseSelector.getCustomFonts();
+            let customFontData = Object.keys(customFont).map((value) => {
+                return customFont[value].value
+            })
+            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index)
             return !isEmpty(customFont) &&
-                Object.keys(customFont).map( (element,index) => {
-                    return <link
-                        key={index}
-                        href={`${uploadPath}/${customFont[element].value}.css`}
-                        rel="stylesheet" type="text/css" />;
-                });
+                applyFilters(
+                    'gutenverse.apply-custom-font',
+                    uniqueFont,
+                    uploadPath
+                )
         };
 
         const removeStyle = (id) => {

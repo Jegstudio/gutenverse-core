@@ -28,13 +28,13 @@ import {
 } from 'gutenverse-core/styling';
 import { modifyGlobalVariable } from 'gutenverse-core/requests';
 import elementChange from 'element-change';
+import { applyFilters } from '@wordpress/hooks';
 
 const withGlobalVariable = GlobalStyle => {
     return props => {
-        const { variable, googleFont, initFontVar, setGoogleFonts } = props;
+        const { variable, googleFont, initFontVar, setGoogleFonts, customFont, setCustomFonts } = props;
         const [adminStyles, setAdminStyles] = useState('');
         const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
-        const [customFonts, setCustomFonts] = useState([]);
         const [headElement, setHeadElement] = useState(null);
         const { uploadPath } = window['GutenverseConfig'];
 
@@ -232,8 +232,11 @@ const withGlobalVariable = GlobalStyle => {
                     weight
                 });
             }else if(font?.type === 'custom_font_pro'){
-                setCustomFonts([...customFonts, font?.value]);
-            }   
+                setCustomFonts(id, {
+                    ...font,
+                    weight
+                });
+            }
         };
 
         const renderFont = () => {
@@ -242,14 +245,16 @@ const withGlobalVariable = GlobalStyle => {
                 rel="stylesheet" type="text/css" />;
         };
         const renderCustomFont = () => {
-            let uniqueFont = customFonts.filter((value, index, array) => array.indexOf(value) === index)
+            let customFontData = Object.keys(customFont).map((value) => {
+                return customFont[value].value
+            })
+            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index)
             return !isEmpty(uniqueFont) &&
-                uniqueFont.map( (element,index) => {
-                    return <link
-                        key={index}
-                        href={`${uploadPath}/${element}.css`}
-                        rel="stylesheet" type="text/css" />;
-                });
+                applyFilters(
+                    'gutenverse.apply-custom-font',
+                    uniqueFont,
+                    uploadPath
+                )
         }
 
         const handleFont = (typography, addFont, id) => {
@@ -265,7 +270,6 @@ const withGlobalVariable = GlobalStyle => {
         useEffect(() => {
             if (window?.GutenverseConfig?.globalVariable?.fonts) {
                 const fonts = window?.GutenverseConfig?.globalVariable?.fonts;
-
                 // Init Global Font Variables
                 initFontVar(fonts);
 

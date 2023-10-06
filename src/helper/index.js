@@ -301,6 +301,7 @@ export const getGoogleFontDatas = (googleFonts) => Object.keys(googleFonts).map(
     }
 });
 
+
 export const buildFrontendStyles = styles => {
     const frontend = {};
 

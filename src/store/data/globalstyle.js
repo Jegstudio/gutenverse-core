@@ -104,19 +104,50 @@ export const googleFontSelector = {
         return googleFont;
     }
 };
+export const customFontReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'ADD_CUSTOM_FONT':
+            return {
+                ...state,
+                [action.id]: action.data,
+            };
+        default:
+            return state;
+    }
+};
+
+export const customFontAction = {
+    setCustomFonts: (id, data) => {
+        return {
+            type: 'ADD_CUSTOM_FONT',
+            id,
+            data
+        };
+    },
+};
+
+export const customFontSelector = {
+    getCustomFont: (state) => {
+        const { customFont } = state;
+        return customFont;
+    }
+};
 
 export const store = createReduxStore('gutenverse/global-style', {
     reducer: combineReducers({
         variable: variableReducer,
-        googleFont: googleFontReducer
+        googleFont: googleFontReducer,
+        customFont: customFontReducer
     }),
     actions: {
         ...variableAction,
-        ...googleFontAction
+        ...googleFontAction,
+        ...customFontAction
     },
     selectors: {
         ...variableSelector,
         ...googleFontSelector,
+        ...customFontSelector
     }
 });
 

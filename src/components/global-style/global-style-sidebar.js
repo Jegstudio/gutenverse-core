@@ -55,11 +55,13 @@ export default compose(
         const {
             getVariable,
             getGoogleFont,
+            getCustomFont,
         } = select('gutenverse/global-style');
 
         return {
             variable: getVariable(),
-            googleFont: getGoogleFont()
+            googleFont: getGoogleFont(),
+            customFont: getCustomFont()
         };
     }),
     withDispatch((dispatch) => {
@@ -68,7 +70,8 @@ export default compose(
             addVariableFont,
             editVariableFont,
             deleteVariableFont,
-            setGoogleFonts
+            setGoogleFonts,
+            setCustomFonts,
         } = dispatch('gutenverse/global-style');
 
         return {
@@ -76,7 +79,8 @@ export default compose(
             addFontVar: addVariableFont,
             editFontVar: editVariableFont,
             deleteFontVar: deleteVariableFont,
-            setGoogleFonts: setGoogleFonts
+            setGoogleFonts: setGoogleFonts,
+            setCustomFonts: setCustomFonts
         };
     }),
     withGlobalVariable,

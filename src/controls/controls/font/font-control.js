@@ -78,9 +78,9 @@ const FontControl = (props) => {
     };
     
     useEffect(() => {
-        setFonts(applyFilters('gutenverse.custom-font',fontsData,customFonts))
-    }, [fontsData]);
-
+        setFonts(applyFilters('gutenverse.custom-font',fontsData,customFonts))        
+    }, []);
+    
     const customStyles = {
         input: () => {
             return {
