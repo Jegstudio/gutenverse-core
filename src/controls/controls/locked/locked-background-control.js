@@ -10,7 +10,7 @@ const LockedBackgroundControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Background Animated', '--gctd--' )}
             description={__( 'Background animated is a website design feature that involves adding animations or movements to the background of a webpage.', '--gctd--' )}
-            img={'pro/video/background-animated.mp4'}
+            img={'/background-animated.mp4'}
             isOpen={isOpen}
         />
     </div>;

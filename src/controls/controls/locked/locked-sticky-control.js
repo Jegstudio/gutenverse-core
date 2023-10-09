@@ -9,7 +9,7 @@ const LockedStickyControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Sticky', '--gctd--' )}
             description={__( 'Sticky elements remain fixed in position on a webpage while users interact with the rest of the page or application.', '--gctd--' )}
-            img={'pro/video/scroll-sticky.mp4'}
+            img={'/scroll-sticky.mp4'}
             isOpen={isOpen}
         />
     </div>;

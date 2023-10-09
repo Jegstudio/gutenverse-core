@@ -10,7 +10,7 @@ const LockedAnimationControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Advance Animation', '--gctd--' )}
             description={__( 'Advanced animation techniques (using GSAP) in website development create visually captivating and interactive elements.', '--gctd--' )}
-            img={'pro/video/advance-animation.mp4'}
+            img={'/advance-animation.mp4'}
             isOpen={isOpen}
         />
     </div>;

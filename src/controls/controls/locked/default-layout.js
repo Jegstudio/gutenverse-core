@@ -8,7 +8,7 @@ const DefaultLayout = ({
     isOpen
 }) => {
     const {
-        imgDir,
+        videoDir,
         upgradeProUrl,
         documentationUrl,
         proDemoUrl
@@ -27,7 +27,7 @@ const DefaultLayout = ({
         </div>
         <div>
             <video width="320" height="240" autoPlay={isOpen} loop={isOpen}>
-                <source src={`${imgDir}/${img}`} type="video/mp4" />
+                <source src={`${videoDir}/${img}`} type="video/mp4" />
             </video>
             {/* <img className="illustration" src={`${imgDir}/${img}`} /> */}
         </div>

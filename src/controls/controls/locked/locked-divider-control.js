@@ -10,7 +10,7 @@ const LockedDividerControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Shape Divider Animated', '--gctd--' )}
             description={__( 'Shape divider is a website design element that divides sections with a customized shape and animation for appealing layouts.', '--gctd--' )}
-            img={'pro/video/shape-divider-animated.mp4'}
+            img={'/shape-divider-animated.mp4'}
             isOpen={isOpen}
         />
     </div>;

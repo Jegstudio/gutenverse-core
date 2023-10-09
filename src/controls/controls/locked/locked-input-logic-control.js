@@ -10,7 +10,7 @@ const LockedInputLogicControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Input Logic', '--gctd--' )}
             description={__( 'Input Logic allows you to create a conditional display for certain input values.', '--gctd--' )}
-            img={'pro/video/form-logic.mp4'}
+            img={'/form-logic.mp4'}
             isOpen={isOpen}
         />
     </div>;
