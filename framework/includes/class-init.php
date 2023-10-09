@@ -214,6 +214,8 @@ class Init {
 
 	/**
 	 * Redirect page after plugin is actived
+	 *
+	 * @param string $plugin .
 	 */
 	public function redirect_to_dashboard( $plugin ) {
 		if ( false !== strpos( $plugin, 'gutenverse' ) && wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) ) ) {
@@ -235,6 +237,10 @@ class Init {
 	}
 	/**
 	 * Add mime type
+	 *
+	 * @param array $mimes .
+	 *
+	 * @return array $mimes
 	 */
 	public function add_fonts_to_allowed_mimes( $mimes ) {
 		$mimes['woff']  = 'application/x-font-woff';
@@ -248,6 +254,10 @@ class Init {
 	}
 	/**
 	 * Update mime type for otf and ttf
+	 *
+	 * @param array  $defaults .
+	 * @param array  $file .
+	 * @param string $filename .
 	 */
 	public function update_mime_types( $defaults, $file, $filename ) {
 		if ( 'ttf' === pathinfo( $filename, PATHINFO_EXTENSION ) ) {

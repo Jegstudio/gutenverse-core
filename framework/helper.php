@@ -157,14 +157,14 @@ if ( ! function_exists( 'gutenverse_post_class' ) ) {
 	/**
 	 * Get post class
 	 *
-	 * @param string $class User defined class.
+	 * @param string $class_name User defined class.
 	 * @param null   $post_id Post ID.
 	 *
 	 * @return string
 	 */
-	function gutenverse_post_class( $class = '', $post_id = null ) {
+	function gutenverse_post_class( $class_name = '', $post_id = null ) {
 		// Separates classes with a single space, collates classes for post DIV.
-		return 'class="' . join( ' ', gutenverse_get_post_class( $class, $post_id ) ) . '"';
+		return 'class="' . join( ' ', gutenverse_get_post_class( $class_name, $post_id ) ) . '"';
 	}
 }
 
@@ -172,19 +172,19 @@ if ( ! function_exists( 'gutenverse_get_post_class' ) ) {
 	/**
 	 * Custom implementation of get_post_class for Jeg Element
 	 *
-	 * @param string|array $class One or more classes to add to the class list.
+	 * @param string|array $class_name One or more classes to add to the class list.
 	 * @param int|WP_Post  $post_id Optional. Post ID or post object.
 	 *
 	 * @return array Array of classes.
 	 */
-	function gutenverse_get_post_class( $class = '', $post_id = null ) {
+	function gutenverse_get_post_class( $class_name = '', $post_id = null ) {
 		$post = get_post( $post_id );
 
 		$classes = array();
 
-		if ( $class ) {
-			if ( ! is_array( $class ) ) {
-				$class = preg_split( '#\s+#', $class );
+		if ( $class_name ) {
+			if ( ! is_array( $class_name ) ) {
+				$class = preg_split( '#\s+#', $class_name );
 			}
 			$classes = array_map( 'esc_attr', $class );
 		} else {
@@ -390,7 +390,7 @@ if ( ! function_exists( 'gutenverse_is_previewer' ) ) {
 	 * If current page is previewer
 	 */
 	function gutenverse_is_previewer() {
-		return isset( $_GET['preview'] );
+		return isset( $_GET['preview'] ); //phpcs:ignore
 	}
 }
 
@@ -549,7 +549,10 @@ if ( ! function_exists( 'gutenverse_template_part_content' ) ) {
 				}
 
 				if ( 0 === validate_file( $attributes['slug'] ) && file_exists( $template_part_file_path ) ) {
-					$content = file_get_contents( $template_part_file_path );
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					WP_Filesystem();
+					global $wp_filesystem;
+					$content = $wp_filesystem->get_contents( $template_part_file_path );
 					$content = is_string( $content ) && '' !== $content
 						? _inject_theme_attribute_in_block_template_content( $content )
 						: '';
@@ -867,7 +870,7 @@ if ( ! function_exists( 'gutenverse_get_theme_settings' ) && class_exists( 'WP_T
 	 * @return array
 	 */
 	function gutenverse_get_theme_settings() {
-		return WP_Theme_Json_Resolver::get_merged_data( 'theme' )->get_settings();
+		return WP_Theme_JSON_Resolver::get_merged_data( 'theme' )->get_settings();
 	}
 }
 
@@ -952,7 +955,7 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 	 */
 	function gutenverse_remove_folder( $dir ) {
 		if ( is_dir( $dir ) ) {
-			if ( substr( $dir, strlen( $dir ) - 1, 1 ) != '/' ) {
+			if ( substr( $dir, strlen( $dir ) - 1, 1 ) !== '/' ) {
 				$dir .= '/';
 			}
 
@@ -962,11 +965,13 @@ if ( ! function_exists( 'gutenverse_remove_folder' ) ) {
 				if ( is_dir( $file ) ) {
 					gutenverse_remove_folder( $file );
 				} else {
-					unlink( $file );
+					wp_delete_file( $file );
 				}
 			}
-
-			rmdir( $dir );
+			global $wp_filesystem;
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			WP_Filesystem();
+			$wp_filesystem->rmdir( $dir );
 		}
 	}
 }

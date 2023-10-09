@@ -246,16 +246,16 @@ const withGlobalVariable = GlobalStyle => {
         };
         const renderCustomFont = () => {
             let customFontData = Object.keys(customFont).map((value) => {
-                return customFont[value].value
-            })
-            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index)
+                return customFont[value].value;
+            });
+            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index);
             return !isEmpty(uniqueFont) &&
                 applyFilters(
                     'gutenverse.apply-custom-font',
                     uniqueFont,
                     uploadPath
-                )
-        }
+                );
+        };
 
         const handleFont = (typography, addFont, id) => {
             const weight = typography?.weight && typography?.style === 'italic' ? `${typography?.weight}italic` : typography?.weight;

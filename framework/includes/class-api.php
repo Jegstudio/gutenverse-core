@@ -664,8 +664,8 @@ class Api {
 				$pages[] = array(
 					'id'         => $page->index,
 					'title'      => $page->title,
-					'coverImage' => $page->coverImage[0],
-					'fullImage'  => $page->fullImage[0],
+					'coverImage' => $page->coverImage[0], //phpcs:ignore
+					'fullImage'  => $page->fullImage[0], //phpcs:ignore
 				);
 			}
 
@@ -1175,6 +1175,9 @@ class Api {
 	 * @param object $request .
 	 */
 	public function modify_settings( $request ) {
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
 		$data        = $request->get_param( 'setting' );
 		$option      = get_option( 'gutenverse-settings' );
 		$value       = $option ? $option : array();
@@ -1184,8 +1187,9 @@ class Api {
 			$value[ $key ] = $setting;
 			if ( 'custom_font' === $key ) {
 				foreach ( $data['custom_font']['value'] as $v ) {
-					if ( file_exists( $upload_path . '/' . $v['font_family'] . '.css' ) ) {
-						unlink( $upload_path . '/' . $v['font_family'] . '.css' );
+					$local_file = $upload_path . '/' . $v['font_family'] . '.css';
+					if ( file_exists( $local_file ) ) {
+						wp_delete_file( $local_file );
 					}
 				}
 				foreach ( $data['custom_font']['value'] as $v ) {
@@ -1212,7 +1216,14 @@ class Api {
 					if ( $v['font_src_svg'] ) {
 						$text .= $this->add_css_custom_font( $v, $v['font_src_svg'] );
 					}
-					file_put_contents( $upload_path . '/' . $v['font_family'] . '.css', $text, FILE_APPEND );
+					$local_file = $upload_path . '/' . $v['font_family'] . '.css';
+					if ( $wp_filesystem->exists( $local_file ) ) {
+						$content  = $wp_filesystem->get_contents( $local_file );
+						$content .= $text;
+					} else {
+						$content = $text;
+					}
+					$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 				}
 			}
 		}

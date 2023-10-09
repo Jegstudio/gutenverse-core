@@ -112,15 +112,15 @@ export const withCustomStyle = panelList => BlockElement => {
         const renderCustomFont = () => {
             const customFont = gutenverseSelector.getCustomFonts();
             let customFontData = Object.keys(customFont).map((value) => {
-                return customFont[value].value
-            })
-            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index)
+                return customFont[value].value;
+            });
+            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index);
             return !isEmpty(customFont) &&
                 applyFilters(
                     'gutenverse.apply-custom-font',
                     uniqueFont,
                     uploadPath
-                )
+                );
         };
 
         const removeStyle = (id) => {

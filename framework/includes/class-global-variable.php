@@ -130,10 +130,10 @@ class Global_Variable {
 		if ( 'custom_font_pro' === $type ) {
 			$custom_font = array();
 			foreach ( $global_fonts as $value ) {
-				if ( 'custom_font_pro' === $value ['font']['font']['type'] ) {
+				if ( isset( $value ['font']['font']['type'] ) && 'custom_font_pro' === $value ['font']['font']['type'] ) {
 					$temp_arr = array(
-						'value' => $value['font']['font']['value'],
-						'type'  => $value['font']['font']['type'],
+						'value'  => $value['font']['font']['value'],
+						'type'   => $value['font']['font']['type'],
 						'weight' => $value['font']['weight'],
 					);
 					array_push( $custom_font, $temp_arr );
