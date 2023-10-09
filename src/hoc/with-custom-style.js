@@ -1,7 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
-import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck, getCustomFontParams } from 'gutenverse-core/helper';
+import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
