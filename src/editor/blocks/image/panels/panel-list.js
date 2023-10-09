@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
-// import { advanceAnimationPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { altPanel } from './panel-alt';
 import { captionPanel } from './panel-caption';
 import { imagePanel } from './panel-image';
@@ -43,16 +43,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Advance Animation', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'image'
-        //     }),
-        //     pro: true
-        // },
+        {
+            title: __('Advance Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'image'
+            }),
+            pro: true
+        },
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { contentPanel } from './panel-content';
 import { contentColor } from './panel-color';
 import { contentSpace } from './panel-space';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
 import { iconBorderPanel } from './panel-icon-border';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -76,16 +76,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Advance Animation', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'social-icons'
-        //     }),
-        //     pro: true
-        // },
+        {
+            title: __('Advance Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'social-icons'
+            }),
+            pro: true
+        },
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,

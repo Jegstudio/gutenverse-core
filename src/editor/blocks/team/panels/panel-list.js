@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
 import { teamPanel } from './panel-team';
 import { namePanel } from './panel-name';
 import { jobPanel } from './panel-job';
@@ -132,16 +132,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Advance Animation', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'team'
-        //     }),
-        //     pro: true
-        // },
+        {
+            title: __('Advance Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'team'
+            }),
+            pro: true
+        },
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,

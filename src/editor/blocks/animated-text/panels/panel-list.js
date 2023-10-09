@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, textClipPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -15,6 +15,21 @@ export const panelList = () => {
             title: __('Style', 'gutenverse'),
             initialOpen: false,
             panelArray: stylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Focus Title Text Clip', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => {
+                const {elementId} = props;
+                return textClipPanel({
+                    ...props,
+                    textClipSelector: `.editor-styles-wrapper .${elementId} .text-content .letter, .editor-styles-wrapper .${elementId} .text-content`,
+                    textClipId: 'textClip'
+                });
+            },
+            pro: true,
             tabRole: TabStyle
         },
         {

@@ -77,6 +77,7 @@ class GutenverseGallery extends Default {
         const popupMinimize = galleryPopup.find('.gallery-header .icon-minimize');
         const popupFullscreen = galleryPopup.find('.gallery-header .icon-fullscreen');
         const id = sliderContainer.attr('id');
+        let swiper = null;
 
         galleryItems.map(item => {
             const triggerItem = zoom === 'button' ? u(item).find('.gallery-link.zoom') : u(item);
@@ -100,30 +101,37 @@ class GutenverseGallery extends Default {
                     observeParents: true,
                 };
 
-                const swiper = new Swiper(`.${id} .swiper-container`, settings);
+                swiper = new Swiper(`.${id} .swiper-container`, settings);
 
                 galleryPopup.hasClass('hidden') ? galleryPopup.removeClass('hidden') : galleryPopup.addClass('hidden');
-
-                galleryPopup.find('.gallery-header .icon-zoom').on('click', () => {
-                    const activeSlider = galleryPopup.find('.swiper-slide.swiper-slide-active');
-
-                    if (activeSlider.hasClass('zoomed')) {
-                        swiper.zoom.out();
-                        activeSlider.removeClass('zoomed');
-                    } else {
-                        swiper.zoom.in();
-                        activeSlider.addClass('zoomed');
-                        activeSlider.siblings().removeClass('zoomed');
-                    }
-                });
             });
         });
 
+        galleryPopup.find('.gallery-header .icon-zoom').on('click', () => {
+            const activeSlider = galleryPopup.find('.swiper-slide.swiper-slide-active');
+
+            if (!swiper) {
+                return;
+            }
+
+            if (activeSlider.hasClass('zoomed')) {
+                swiper.zoom.out();
+                activeSlider.removeClass('zoomed');
+            } else {
+                swiper.zoom.in();
+                activeSlider.addClass('zoomed');
+                activeSlider.siblings().removeClass('zoomed');
+            }
+        });
+
         galleryPopup.find('.gallery-header .icon-close').on('click', () => {
+            const activeSlider = galleryPopup.find('.swiper-slide.swiper-slide-active');
             galleryPopup.addClass('hidden');
             popupFullscreen.hasClass('hidden') && $this._exitFullscreen();
             popupFullscreen.removeClass('hidden');
             popupMinimize.addClass('hidden');
+            swiper.zoom.out();
+            activeSlider.removeClass('zoomed');
         });
 
         popupFullscreen.on('click', () => {

@@ -214,7 +214,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **ProgressBar**, Removing Progressbar Width Inline Auto
 * **Galery**, Fixed Rating and Star Color
 * **Galery**, Fixed Galery FrontEnd Zoom
-
+* **Section**, Fix issue with Shape Divider bottom Bring to Front option
 
 = 1.8.8 - 2023-08-15 =
 ##### Bug Fixes
