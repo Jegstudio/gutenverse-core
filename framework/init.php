@@ -36,6 +36,13 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		private $loaded;
 
 		/**
+		 * Hold Minimal Pro Version of Plugin.
+		 *
+		 * @var array
+		 */
+		private $pro;
+
+		/**
 		 * Singleton Class
 		 *
 		 * @return Initialize_Gutenverse_Framework
@@ -73,6 +80,8 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 			var gutenverseLoadedFramework = {
 				plugin: "<?php echo esc_html( $this->loaded ); ?>",
 				version: "<?php echo esc_html( $version ); ?>",
+				registered: <?php echo wp_json_encode( $this->versions ); ?>,
+				pro: <?php echo wp_json_encode( $this->pro ); ?>
 			}; 
 			</script>
 			<?php
@@ -86,6 +95,38 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		 */
 		public function register_version( $slug, $framework_version ) {
 			$this->versions[ $slug ] = $framework_version;
+		}
+
+		/**
+		 * Register Pro.
+		 *
+		 * @param string $slug Plugin Slug.
+		 * @param string $pro_version Minimal Pro Version.
+		 */
+		public function register_pro_version( $slug, $pro_version ) {
+			$this->pro[ $slug ] = $pro_version;
+		}
+
+		/**
+		 * Check if pro need to be updated.
+		 */
+		public function need_update_pro() {
+			$flag    = false;
+			$version = '0.0.0';
+
+			if ( defined( 'GUTENVERSE_PRO' ) && ! empty( $this->pro ) ) {
+				foreach ( $this->pro as $pro ) {
+					$version = version_compare( $pro, $version, '>' ) ? $pro : $version;
+					if ( version_compare( GUTENVERSE_PRO_VERSION, $pro, '<' ) ) {
+						$flag = true;
+					}
+				}
+			}
+
+			return array(
+				'minimal_version' => $version,
+				'need_update'     => $flag,
+			);
 		}
 
 		/**

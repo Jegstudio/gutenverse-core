@@ -16,10 +16,10 @@
 
 .guten-section-wrapper {
   &.pinned {
-    position: sticky;
+    position: sticky !important;
 
     &.fixed {
-      position: fixed;
+      position: fixed !important;
     }
 
     &.sticky-top {
@@ -101,7 +101,7 @@ section.guten-section {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex>svg {
+      &.guten-shape-zindex {
         z-index: 2;
       }
     }
@@ -116,7 +116,7 @@ section.guten-section {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex>svg {
+      &.guten-shape-zindex {
         z-index: 2;
       }
     }
@@ -166,7 +166,7 @@ section.guten-section {
         transform: translateX(-50%) rotateY(180deg);
       }
 
-      &.guten-shape-zindex>svg {
+      &.guten-shape-zindex {
         z-index: 2;
       }
     }

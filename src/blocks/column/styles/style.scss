@@ -7,7 +7,7 @@
   box-sizing: border-box;
 
   &.pinned {
-    position: sticky;
+    position: sticky !important;
 
     &.sticky-top {
         top: 0;

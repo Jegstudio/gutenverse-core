@@ -74,7 +74,7 @@ const PanelController = ({ ...props }) => {
         <InspectorControls>
             <div className="gutenverse-panel-wrapper" ref={onRefChange}>
                 {applyFilters('gutenverse.inspectorcontrol.before', null, props)}
-                {tabPanel.length > 1 && <>
+                {tabPanel.length >= 1 && <>
                     <div className="gutenverse-tab-list">
                         {tabPanel.map((detail, index) => {
                             const { id, name, icon } = detail;
@@ -91,6 +91,7 @@ const PanelController = ({ ...props }) => {
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
                         const { tabRole } = panel;
+
                         if (tabRole) {
                             const { id: tabId } = tabRole;
                             return tabId === active;

@@ -952,13 +952,18 @@
 
       .image-remove {
         @include icon-remove();
+
+        svg {
+          color: #fb6363;
+        }
       }
 
       .image-preview {
         padding-bottom: 50%;
-        height: 100%;
         background-size: cover;
         background-position: center;
+        border: 1px dashed #e7ecfd;
+        border-radius: 5px;
       }
     }
 
@@ -2169,6 +2174,11 @@
 
     &locked {
       &-layout {
+
+        video {
+          border-radius: 6px;
+        }
+
         h2 {
           font-family: "Roboto", sans-serif;
           font-style: normal;
