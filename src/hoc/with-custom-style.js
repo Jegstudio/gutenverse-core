@@ -8,16 +8,18 @@ import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
 
 const renderStyleCustomDeps = (props) => {
-    const { attributes } = props;
-    if (props.name === 'gutenverse/column') {
-        return [attributes.sectionVerticalAlign];
-    } else if (props.name === 'gutenverse/mega-menu') {
-        return [attributes.breakpoint, attributes.orientation];
-    } else if (props.name === 'gutenverse/mega-menu-item') {
-        return [attributes.breakpoint, attributes.orientation];
-    }
+    const { attributes, name } = props;
 
-    return [];
+    switch (name) {
+        case 'gutenverse/column':
+            return [attributes.sectionVerticalAlign];
+        case 'gutenverse/mega-menu':
+            return [attributes.breakpoint, attributes.orientation];
+        case 'gutenverse/mega-menu-item':
+            return [attributes.breakpoint, attributes.orientation];
+        default:
+            return [];
+    }
 };
 
 export const withCustomStyle = panelList => BlockElement => {
