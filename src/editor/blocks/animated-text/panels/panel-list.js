@@ -63,7 +63,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
-                inBlock: false
+                inFlex: false
             }),
             tabRole: TabSetting
         },

@@ -36,7 +36,26 @@ export const panelList = () => {
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            panelArray: positioningPanel,
+            panelArray: (props) => {
+                return positioningPanel({
+                    ...props,
+                    inFlex : props.orientation !== 'vertical',
+                    options: [
+                        {
+                            value: 'default',
+                            label: 'Default'
+                        },
+                        {
+                            value: 'full',
+                            label: 'Full Width (100%)'
+                        },
+                        {
+                            value: 'custom',
+                            label: 'Custom'
+                        }
+                    ]
+                });
+            },
             tabRole: TabSetting
         },
         {
