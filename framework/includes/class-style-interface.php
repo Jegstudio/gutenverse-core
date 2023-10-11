@@ -25,6 +25,13 @@ abstract class Style_Interface {
 	protected $attrs;
 
 	/**
+	 * Inline-Block Componen
+	 *
+	 * @var boolean .
+	 */
+	protected $in_block = true;
+
+	/**
 	 * Element ID
 	 *
 	 * @var array
@@ -584,13 +591,13 @@ abstract class Style_Interface {
 					'selector'       => $selector,
 					'property'       => function ( $value, $device ) {
 						$output  = '';
-						$display = 'display: inline-block;';
-
-						if ( ! empty( $value['hide'] ) ) {
+						if ( $this->in_block ) {
 							$display = 'display: inline-block;';
-							$output  = '';
+						} else {
+							$display = 'display: inline-flex;';
+
 						}
-						
+
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';

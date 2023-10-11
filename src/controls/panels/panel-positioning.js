@@ -30,7 +30,8 @@ export const positioningPanel = (props) => {
                 value: 'custom',
                 label: 'Custom'
             }
-        ]
+        ],
+        inBlock = true,
     } = props;
 
     const setPositioning = (value, width = false) => {
@@ -38,9 +39,9 @@ export const positioningPanel = (props) => {
             case 'full':
                 return 'width: 100%!important;';
             case 'inline':
-                return 'width: auto!important; display: inline-block!important;';
+                return `width: auto!important; display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
             case 'custom':
-                return `${handleUnitPoint(width, 'width', true)} display: inline-block!important;`;
+                return `${handleUnitPoint(width, 'width', true)} display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
         }
     };
 
