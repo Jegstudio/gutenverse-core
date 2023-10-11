@@ -31,17 +31,16 @@ export const positioningPanel = (props) => {
                 label: 'Custom'
             }
         ],
-        inBlock = true,
+        inFlex = true,
     } = props;
-
     const setPositioning = (value, width = false) => {
         switch (value) {
             case 'full':
                 return 'width: 100%!important;';
             case 'inline':
-                return `width: auto!important; display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
+                return `width: auto!important; display: ${ inFlex ? 'inline-block' : 'inline-flex' }!important;`;
             case 'custom':
-                return `${handleUnitPoint(width, 'width', true)} display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
+                return `${handleUnitPoint(width, 'width', true)} display: ${ inFlex ? 'inline-block' : 'inline-flex' }!important;`;
         }
     };
 

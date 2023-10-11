@@ -29,7 +29,7 @@ abstract class Style_Interface {
 	 *
 	 * @var boolean .
 	 */
-	protected $in_block = true;
+	protected $in_flex = true;
 
 	/**
 	 * Element ID
@@ -591,7 +591,7 @@ abstract class Style_Interface {
 					'selector'       => $selector,
 					'property'       => function ( $value, $device ) {
 						$output  = '';
-						if ( $this->in_block ) {
+						if ( $this->in_flex ) {
 							$display = 'display: inline-block;';
 						} else {
 							$display = 'display: inline-flex;';
