@@ -57,6 +57,7 @@ const BlockController = (props) => {
             onStyleChange={onStyleChange}
             elementRef={elementRef}
             isOpen={true}
+            throttleSave={throttleSave}
         />;
     });
 };

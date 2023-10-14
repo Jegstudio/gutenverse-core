@@ -95,7 +95,7 @@ export const withCustomStyle = panelList => BlockElement => {
                     ...font,
                     weight
                 });
-            }else if( font !== undefined && font.type === 'custom_font_pro'){
+            } else if (font !== undefined && font.type === 'custom_font_pro') {
                 gutenverse.setCustomFonts(fontId, {
                     ...font,
                     weight
@@ -171,17 +171,48 @@ export const withCustomStyle = panelList => BlockElement => {
         const renderStyle = () => {
             controls.map(data => {
                 data.panelArray(panelProps).map(data => {
-                    const { id, style, allowDeviceControl, onChange } = data;
+                    const { id, style, allowDeviceControl, onChange, options } = data;
 
-                    !isEmpty(style) && style.map((item, index) => setControlStyle({
-                        ...panelProps,
-                        id: item.updateID ? item.updateID : `${id}-style-${index}`,
-                        value: panelProps[id],
-                        style: item,
-                        allowDeviceControl
-                    }));
+                    if (!isEmpty(style)) {
+                        style.map((item, index) => setControlStyle({
+                            ...panelProps,
+                            id: item.updateID ? item.updateID : `${id}-style-${index}`,
+                            value: panelProps[id],
+                            style: item,
+                            allowDeviceControl
+                        }));
+                    }
 
                     !!onChange && onChange(panelProps);
+
+                    !isEmpty(options) && options.map(option => {
+                        const { id: optionId, style: repeaterStyle, allowDeviceControl } = option;
+
+                        if (!isEmpty(repeaterStyle)) {
+                            panelProps[id].map((value, valueIndex) => {
+                                const theStyle = repeaterStyle.map(item => {
+                                    const { selector } = item;
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex);
+
+                                    return {
+                                        ...item,
+                                        selector: theSelector
+                                    };
+                                });
+
+                                theStyle.map((item, index) => {
+                                    const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
+                                    return setControlStyle({
+                                        ...panelProps,
+                                        id: item.updateID ? item.updateID : styleId,
+                                        value: value[optionId],
+                                        style: item,
+                                        allowDeviceControl
+                                    });
+                                });
+                            });
+                        }
+                    });
                 });
             });
         };
