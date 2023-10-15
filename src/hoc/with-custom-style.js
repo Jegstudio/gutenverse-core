@@ -37,8 +37,14 @@ export const withCustomStyle = panelList => BlockElement => {
         const [confirmSignal, setConfirmSignal] = useState(false);
         const [elementRef, setElementRef] = useState(null);
         const [headElement, setHeadElement] = useState(null);
+        const [refreshId, setRefreshId] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
+
+        const refreshStyle = () => {
+            const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+            setRefreshId(uniqueId);
+        };
 
         const refreshSignal = (key) => {
             setRefresh(key);
@@ -116,7 +122,7 @@ export const withCustomStyle = panelList => BlockElement => {
             let customFontData = Object.keys(customFont).map((value) => {
                 return customFont[value].value;
             });
-            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index);
+            let uniqueFont = customFontData.filter((value, index, array) => array.indexOf(value) === index);
             return !isEmpty(customFont) &&
                 applyFilters(
                     'gutenverse.apply-custom-font',
@@ -145,6 +151,7 @@ export const withCustomStyle = panelList => BlockElement => {
             switcher,
             setSwitcher,
             setAttributes,
+            refreshStyle,
             ...attributes
         };
 
@@ -186,7 +193,7 @@ export const withCustomStyle = panelList => BlockElement => {
                     !!onChange && onChange(panelProps);
 
                     !isEmpty(options) && options.map(option => {
-                        const { id: optionId, style: repeaterStyle, allowDeviceControl } = option;
+                        const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
 
                         if (!isEmpty(repeaterStyle)) {
                             panelProps[id].map((value, valueIndex) => {
@@ -212,6 +219,8 @@ export const withCustomStyle = panelList => BlockElement => {
                                 });
                             });
                         }
+
+                        !!onChange && onChange(panelProps);
                     });
                 });
             });
@@ -273,6 +282,7 @@ export const withCustomStyle = panelList => BlockElement => {
             }
         }, [
             elementId,
+            refreshId,
             confirmSignal,
             deviceType,
             ...renderStyleCustomDeps(props),
@@ -311,6 +321,7 @@ export const withCustomStyle = panelList => BlockElement => {
                 deviceType={deviceType}
                 setElementRef={setElementRef}
                 elementRef={elementRef}
+                refreshStyle={refreshStyle}
             />
         </>;
     };

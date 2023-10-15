@@ -10,9 +10,16 @@ import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
 import { IconDuplicateSVG } from 'gutenverse-core/icons';
 import { ReactSortable } from 'react-sortablejs';
+import { isEqual } from 'lodash';
 
 const DragDropList = ({ list, setList, children }) => {
-    return <ReactSortable list={list} setList={setList}>
+    return <ReactSortable
+        list={list}
+        setList={setList}
+        animation="100"
+        easing="ease-out"
+        handle=".repeater-header"
+    >
         {children}
     </ReactSortable>;
 };
@@ -160,7 +167,7 @@ const RepeaterControl = ({
     values,
     id: rootId
 }) => {
-    const { addStyle, removeStyle } = values;
+    const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
 
@@ -226,7 +233,12 @@ const RepeaterControl = ({
                 {value.length === 0 ? <div className="repeater-empty" onClick={addNewItem}>
                     {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
-                    <DragDropList list={value} setList={onValueChange}>
+                    <DragDropList list={value} setList={values => {
+                        if (!isEqual(value, values)) {
+                            onValueChange(values);
+                            refreshStyle();
+                        }
+                    }}>
                         {value.map((item, index) => {
                             return (
                                 <RepeaterItem
@@ -246,8 +258,7 @@ const RepeaterControl = ({
                                     throttleSave={throttleSave}
                                 />
                             );
-                        })
-                        }
+                        })}
                     </DragDropList>
                 </>}
                 <div className={'repeater-add-wrapper'}>
