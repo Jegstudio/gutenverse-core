@@ -197,6 +197,7 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
 
     const removeIndex = index => {
@@ -204,6 +205,7 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
 
     const duplicateIndex = index => {
@@ -219,6 +221,7 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-repeater'}>
