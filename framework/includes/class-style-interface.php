@@ -58,6 +58,13 @@ abstract class Style_Interface {
 	);
 
 	/**
+	 * Additional Style.
+	 *
+	 * @var array
+	 */
+	protected $additional_style = array();
+
+	/**
 	 * Block Font variables
 	 *
 	 * @var array
@@ -155,7 +162,24 @@ abstract class Style_Interface {
 			}
 		}
 
+		$generated_style = array_merge( $generated_style, $this->get_additional_style() );
 		return join( ' ', $generated_style );
+	}
+
+	/**
+	 * Get additional style that cannot be covered with normal inject style.
+	 */
+	public function get_additional_style() {
+		return $this->additional_style;
+	}
+
+	/**
+	 * Push Additonal Style.
+	 *
+	 * @param string $style Generated Style.
+	 */
+	public function push_additional_style( $style ) {
+		$this->additional_style[] = $style;
 	}
 
 	/**

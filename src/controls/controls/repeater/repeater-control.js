@@ -10,15 +10,23 @@ import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
 import { IconDuplicateSVG } from 'gutenverse-core/icons';
 import { ReactSortable } from 'react-sortablejs';
+import { isEqual } from 'lodash';
 
 const DragDropList = ({ list, setList, children }) => {
-    return <ReactSortable list={list} setList={setList}>
+    return <ReactSortable
+        list={list}
+        setList={setList}
+        animation="100"
+        easing="ease-out"
+        handle=".repeater-header"
+    >
         {children}
     </ReactSortable>;
 };
 
-const RepeaterComponent = ({ component: Component, index, itemProps, value = {}, onValueChange, onStyleChange }) => {
-    const { id, onChange } = itemProps;
+const RepeaterComponent = (props) => {
+    const { component: Component, index: repeaterIndex, itemProps, value = {}, id: rootId, onValueChange, addStyle, removeStyle, throttleSave } = props;
+    const { id, allowDeviceControl, style, onChange } = itemProps;
 
     const onRepeaterComponentChange = (val) => {
         const newVal = {
@@ -30,16 +38,30 @@ const RepeaterComponent = ({ component: Component, index, itemProps, value = {},
 
         onChange ? onChange({
             ...newVal
-        }, index) : null;
+        }, repeaterIndex) : null;
     };
 
-    const onRepeaterStyleChange = (val) => {
-        const newVal = {
-            ...value,
-            [id]: val,
-        };
+    const onRepeaterStyleChange = (value) => {
+        if (style) {
+            const theStyle = style.map(item => {
+                const { selector } = item;
+                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex);
 
-        onStyleChange(newVal);
+                return {
+                    ...item,
+                    selector: theSelector
+                };
+            });
+
+            throttleSave({
+                id: rootId,
+                value,
+                style: theStyle,
+                allowDeviceControl,
+                addStyle,
+                removeStyle,
+            });
+        }
     };
 
     return <Component
@@ -69,6 +91,10 @@ const RepeaterItem = ({
     onRemove,
     onDuplicate,
     initialOpen = true,
+    addStyle,
+    removeStyle,
+    throttleSave,
+    id
 }) => {
     const [open, setOpen] = useState(initialOpen);
 
@@ -112,11 +138,15 @@ const RepeaterItem = ({
                 return showControl && <RepeaterComponent
                     index={index}
                     component={item.component}
-                    key={`${index}-${item.id}`}
+                    key={`${id}-${item.id}`}
+                    id={`${id}-${item.id}`}
                     value={values[index]}
                     itemProps={item}
                     onValueChange={val => onUpdateIndexValue(val)}
                     onStyleChange={val => onUpdateIndexStyle(val)}
+                    addStyle={addStyle}
+                    removeStyle={removeStyle}
+                    throttleSave={throttleSave}
                 />;
             })}
         </div>}
@@ -133,7 +163,11 @@ const RepeaterControl = ({
     options,
     titleFormat,
     description = '',
+    throttleSave,
+    values,
+    id: rootId
 }) => {
+    const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
 
@@ -163,6 +197,7 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
 
     const removeIndex = index => {
@@ -170,6 +205,7 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
 
     const duplicateIndex = index => {
@@ -185,20 +221,8 @@ const RepeaterControl = ({
 
         onValueChange(newValue);
         onStyleChange(newValue);
+        refreshStyle();
     };
-
-    // const onDragEnd = (result) => {
-    //     const { destination, source } = result;
-
-    //     if (!result.destination) {
-    //         return;
-    //     }
-
-    //     const newLanguages = reorder(value, source.index, destination.index);
-    //     setOpenLast(null);
-    //     onValueChange(newLanguages);
-    //     onStyleChange(newLanguages);
-    // };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-repeater'}>
         <ControlHeadingSimple
@@ -212,12 +236,17 @@ const RepeaterControl = ({
                 {value.length === 0 ? <div className="repeater-empty" onClick={addNewItem}>
                     {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
-                    <DragDropList list={value} setList={onValueChange}>
+                    <DragDropList list={value} setList={values => {
+                        if (!isEqual(value, values)) {
+                            onValueChange(values);
+                            refreshStyle();
+                        }
+                    }}>
                         {value.map((item, index) => {
                             return (
                                 <RepeaterItem
                                     key={item._key === undefined ? `${id}-${index}` : item._key}
-                                    id={item._key === undefined ? `${id}-${index}` : item._key}
+                                    id={`${rootId}-style-${index}`}
                                     index={index}
                                     values={value}
                                     options={options}
@@ -227,10 +256,12 @@ const RepeaterControl = ({
                                     onRemove={() => removeIndex(index)}
                                     onDuplicate={() => duplicateIndex(index)}
                                     initialOpen={index === openLast}
+                                    addStyle={addStyle}
+                                    removeStyle={removeStyle}
+                                    throttleSave={throttleSave}
                                 />
                             );
-                        })
-                        }
+                        })}
                     </DragDropList>
                 </>}
                 <div className={'repeater-add-wrapper'}>

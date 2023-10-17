@@ -753,7 +753,8 @@
         &.selected {
           background: #eee;
         }
-        &.disabled{
+
+        &.disabled {
           color: grey;
         }
       }
@@ -1444,12 +1445,17 @@
             border-bottom: 1px solid #ddd;
           }
         }
+
+        &.sortable-ghost {
+          opacity: 0.5;
+        }
       }
 
       .repeater-header {
         padding: 8px 14px;
         display: flex;
         background: #f2f4f7;
+        cursor: pointer;
       }
 
       .repeater-body {

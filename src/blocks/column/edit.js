@@ -960,15 +960,6 @@ const ColumnBlock = compose(
         },
     });
 
-    const style = `.${elementId} {
-        max-width: ${ width ? width[deviceType] ? width[deviceType] : width['Desktop'] : 10 }% !important;
-    }
-    @media only screen and (max-width: 767px) {
-        .${elementId} {
-            max-width: ${ width ? width[deviceType] ? width[deviceType] : 100 : 100 }% !important;
-        }
-    }`;
-
     useEffect(() => {
         if (columnRef.current) {
             setElementRef(columnRef.current);
@@ -1016,7 +1007,6 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
-        <style id={elementId}>{style}</style>
         <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock}  clientId={clientId} />
         <ColumnInspection {...props} />
         <Component {...theProps} />

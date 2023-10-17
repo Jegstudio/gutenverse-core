@@ -391,6 +391,7 @@ export const setControlStyle = ({
         render
     } = style;
 
+
     if (allowRender(value) && (!isNaN(value) || !isEmpty(value))) {
         const elementStyle = hasChild ? render(value, id) : elementVar();
 
