@@ -106,7 +106,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', '--gctd--'),
+            title: __('Advanced Animation', '--gctd--'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
