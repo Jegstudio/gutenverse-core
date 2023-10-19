@@ -29,7 +29,7 @@ export const panelList = () => {
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
-                const {elementId} = props;
+                const { elementId } = props;
                 return textClipPanel({
                     ...props,
                     textClipSelector: `.editor-styles-wrapper .${elementId} .heading-title`,
@@ -49,7 +49,7 @@ export const panelList = () => {
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
-                const {elementId} = props;
+                const { elementId } = props;
                 return textClipPanel({
                     ...props,
                     textClipSelector: `.editor-styles-wrapper .${elementId} .heading-focus`,
@@ -70,8 +70,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'advanced-heading-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -106,7 +106,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

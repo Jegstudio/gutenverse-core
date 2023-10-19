@@ -52,8 +52,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'fun-fact-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -88,7 +88,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
