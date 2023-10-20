@@ -54,6 +54,7 @@ export { default as LockedProBackgroundControl } from './controls/locked/locked-
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
 export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
+export { default as LockedTransform } from './controls/locked/locked-transform';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -77,6 +78,7 @@ export { responsivePanel } from './panels/panel-responsive';
 export { typographyPanel } from './panels/panel-typography';
 export { positioningPanel } from './panels/panel-positioning';
 export { sliderPanel } from './panels/panel-slider';
+export { transformPanel } from './panels/panel-transform';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
