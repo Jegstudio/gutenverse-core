@@ -1,11 +1,11 @@
 import { applyFilters } from '@wordpress/hooks';
-import { LockedTransform } from 'gutenverse-core/controls';
+import { LockedTransformControl } from 'gutenverse-core/controls';
 
 export const transformPanel = (props) => {
     return applyFilters(
-        'gutenverse.transform',
+        'gutenverse.transform-options',
         [{
-            component: LockedTransform,
+            component: LockedTransformControl,
         }],
         props
     );
