@@ -8,6 +8,7 @@ export const handleTransform = (values) => {
         duration,
         ease,
         perspective,
+        transformOrigin,
         rotateZ,
         rotateX,
         rotateY,
@@ -42,6 +43,20 @@ export const handleTransform = (values) => {
             if (_perspective && _perspective.point) {
                 responsiveAppender({
                     style: `--guten-transform-perspective: ${_perspective.point}${_perspective.unit};`,
+                    device,
+                    elementStyle
+                });
+            }
+        });
+    }
+
+    if (transformOrigin) {
+        DeviceLoop(device => {
+            const _transformOrigin = deviceStyleValue(device, transformOrigin);
+
+            if (_transformOrigin) {
+                responsiveAppender({
+                    style: `--guten-transform-origin: ${_transformOrigin};`,
                     device,
                     elementStyle
                 });
