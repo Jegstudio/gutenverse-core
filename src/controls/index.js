@@ -80,7 +80,6 @@ export { responsivePanel } from './panels/panel-responsive';
 export { typographyPanel } from './panels/panel-typography';
 export { positioningPanel } from './panels/panel-positioning';
 export { sliderPanel } from './panels/panel-slider';
-export { transformPanel } from './panels/panel-transform';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
