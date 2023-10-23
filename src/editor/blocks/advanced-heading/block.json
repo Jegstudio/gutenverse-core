@@ -185,7 +185,10 @@
         "advanceAnimation": {
             "type": "object",
             "default": {}
-        }
+        },
+		"transform": {
+			"type": "object"
+		}
     },
     "supports": {
         "className": false

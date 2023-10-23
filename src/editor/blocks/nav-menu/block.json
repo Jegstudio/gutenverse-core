@@ -301,6 +301,9 @@
     },
     "positioningBottom": {
       "type": "object"
+    },
+    "transform": {
+      "type": "object"
     }
   },
   "supports": {

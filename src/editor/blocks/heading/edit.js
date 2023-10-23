@@ -16,8 +16,7 @@ import { PanelController } from 'gutenverse-core/controls';
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
-import { DeviceLoop, handleTransform, handleTransformHover } from 'gutenverse-core/styling';
-import { isEmptyString } from 'gutenverse-core/helper';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = ({ attributes, setAttributes }) => {
     const {
@@ -52,28 +51,6 @@ const HeadingInspection = (props) => {
     />;
 };
 
-export const isEmptyStyle = (style) => {
-    if (style === undefined) {
-        return true;
-    } else {
-        let flag = true;
-        const { adminStyle } = style;
-
-        DeviceLoop(device => {
-            flag = flag && isEmptyString(adminStyle[device]);
-        });
-
-        return flag;
-    }
-};
-
-export const canRenderTransform = (transform) => {
-    const normal = handleTransform(transform);
-    const hover = handleTransformHover(transform);
-
-    return !(isEmptyStyle(normal) && isEmptyStyle(hover));
-};
-
 const HeadingBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('heading'),
@@ -96,7 +73,6 @@ const HeadingBlock = compose(
     const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-
     const [theTransform, setTheTransform] = useState(false);
 
     useEffect(() => {

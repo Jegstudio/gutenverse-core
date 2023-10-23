@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { buttonPanel } from './panel-button';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -78,6 +78,12 @@ export const panelList = () => {
                 selector: `.${props.elementId} .guten-button`
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

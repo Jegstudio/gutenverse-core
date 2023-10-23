@@ -14,6 +14,7 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostListBlock = compose(
     withCustomStyle(panelList),
@@ -60,6 +61,7 @@ const PostListBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -68,6 +70,11 @@ const PostListBlock = compose(
     const [loading, setLoading] = useState(true);
     const [postLoaded, setPostLoaded] = useState(0);
     const postListRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (postListRef.current) {
@@ -128,6 +135,7 @@ const PostListBlock = compose(
                     paginationScrollLimit,
                     paginationIcon,
                     paginationIconPosition,
+                    transform
                 },
             }),
         }).then((data) => {
@@ -169,6 +177,7 @@ const PostListBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        transform
     ]);
 
     const blockProps = useBlockProps({
@@ -179,7 +188,10 @@ const PostListBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            [`layout-${layout}`]
+            [`layout-${layout}`],
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: postListRef
     });

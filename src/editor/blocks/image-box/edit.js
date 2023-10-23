@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import {
     BlockControls,
@@ -25,6 +25,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -190,11 +191,17 @@ const ImageBoxBlock = compose(
         rel,
         linkTarget,
         contentStyle,
+        transform
     } = attributes;
 
     const imageBoxRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -204,7 +211,10 @@ const ImageBoxBlock = compose(
             'gutenverse-image-box',
             'guten-element',
             'no-margin',
-            `style-${contentStyle}`
+            `style-${contentStyle}`,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: imageBoxRef
     });

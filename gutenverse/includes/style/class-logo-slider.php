@@ -68,7 +68,7 @@ class Logo_Slider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "height: {$value}px;";
 						},
 						'value'          => $this->attrs['imageHeight'],
@@ -81,7 +81,7 @@ class Logo_Slider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "object-fit: {$value};";
 						},
 						'value'          => $this->attrs['imageFit'],
@@ -95,7 +95,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['imagePadding'],
@@ -108,7 +108,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['imageMargin'],
@@ -121,7 +121,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['imageHoverPadding'],
@@ -134,7 +134,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['imageHoverMargin'],
@@ -155,7 +155,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadow'],
@@ -168,7 +168,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadowHover'],
@@ -181,7 +181,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacity'],
@@ -194,7 +194,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['hoverOpacity'],
@@ -212,7 +212,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullets .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin: 0 calc({$value}px / 2);";
 					},
 					'value'          => $this->attrs['dotsSpacingHorizontal'],
@@ -225,7 +225,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullets",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-top: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsSpacingVertical'],
@@ -238,7 +238,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsWidth'],
@@ -251,7 +251,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsHeight'],
@@ -264,7 +264,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['dotsRadius'],
@@ -277,7 +277,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['dotsColor'],
@@ -290,7 +290,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsActiveWidth'],
@@ -303,7 +303,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsActiveHeight'],
@@ -316,7 +316,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['dotsActiveColor'],
@@ -334,7 +334,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['arrowFontSize'],
@@ -347,7 +347,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['arrowColor'],
@@ -360,7 +360,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['arrowBgColor'],
@@ -373,7 +373,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['arrowPadding'],
@@ -386,7 +386,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['arrowMargin'],
@@ -399,7 +399,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['arrowOpacity'],
@@ -412,7 +412,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['arrowHoverColor'],
@@ -425,7 +425,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['arrowHoverBgColor'],
@@ -438,7 +438,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['arrowHoverPadding'],
@@ -451,7 +451,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['arrowHoverMargin'],
@@ -464,7 +464,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['arrowHoverOpacity'],
@@ -481,7 +481,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['arrowBoxShadow'],
@@ -498,7 +498,7 @@ class Logo_Slider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['arrowBoxShadowHover'],

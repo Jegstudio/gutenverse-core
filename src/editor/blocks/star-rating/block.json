@@ -118,10 +118,17 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
+    },
+    "transform": {
+      "type": "object"
     }
   },
   "supports": {
     "className": false
   },
-  "keywords": ["star", "rating", "review"]
+  "keywords": [
+    "star",
+    "rating",
+    "review"
+  ]
 }

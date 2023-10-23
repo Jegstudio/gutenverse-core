@@ -156,10 +156,17 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
+    },
+    "transform": {
+      "type": "object"
     }
   },
   "supports": {
     "className": false
   },
-  "keywords": ["progress", "bar", "loading"]
+  "keywords": [
+    "progress",
+    "bar",
+    "loading"
+  ]
 }

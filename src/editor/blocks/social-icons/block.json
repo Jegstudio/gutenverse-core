@@ -148,16 +148,22 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
+    },
+    "transform": {
+      "type": "object"
     }
   },
-  "variations": [{
+  "variations": [
+    {
       "name": "social-icons-horizontal",
       "title": "Horizontal",
       "description": "Social icons shown in a row.",
       "attributes": {
         "orientation": "horizontal"
       },
-      "scope": ["transform"]
+      "scope": [
+        "transform"
+      ]
     },
     {
       "name": "social-icons-vertical",
@@ -167,11 +173,16 @@
       "attributes": {
         "orientation": "vertical"
       },
-      "scope": ["transform"]
+      "scope": [
+        "transform"
+      ]
     }
   ],
   "supports": {
     "className": false
   },
-  "keywords": ["social", "icon"]
+  "keywords": [
+    "social",
+    "icon"
+  ]
 }

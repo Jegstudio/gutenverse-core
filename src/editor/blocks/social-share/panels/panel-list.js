@@ -8,7 +8,8 @@ import {
     backgroundPanel,
     borderPanel,
     positioningPanel,
-    responsivePanel
+    responsivePanel,
+    transformPanel
 } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -75,6 +76,12 @@ export const panelList = () => {
                 styleId: 'social-share-animation'
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

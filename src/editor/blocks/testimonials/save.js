@@ -5,6 +5,7 @@ import ContentItem from './components/content-item';
 import { swiperData } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = ({ attributes }) => {
     const {
@@ -15,11 +16,13 @@ const save = ({ attributes }) => {
         showArrow,
         showQuote,
         iconQuote,
-        quoteOverride
+        quoteOverride,
+        transform
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -28,7 +31,10 @@ const save = ({ attributes }) => {
         animationClass,
         displayClass,
         `style-${contentType}`,
-        'quote-override'
+        'quote-override',
+        {
+            'gutenverse-transform': theTransform
+        }
     );
 
     return (

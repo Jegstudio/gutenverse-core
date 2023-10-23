@@ -60,7 +60,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > *:not(.alignfull)",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "max-width: {$value['contentSize']}; margin-left:auto; margin-right:auto;";
 					},
 					'value'          => $theme_settings['layout'],
@@ -73,7 +73,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value}; text-align: {$this->handle_align($value)};";
 					},
 					'value'          => $this->attrs['alignment'],
@@ -95,7 +95,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['color'],
@@ -108,7 +108,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadow'],
@@ -121,7 +121,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover > *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['colorHover'],
@@ -134,7 +134,7 @@ class Post_Content extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover > *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadowHover'],

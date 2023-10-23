@@ -17,6 +17,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const TeamBlock = compose(
     withCustomStyle(panelList),
@@ -40,11 +41,17 @@ const TeamBlock = compose(
     const {
         elementId,
         addPopup,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const teamRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -53,7 +60,10 @@ const TeamBlock = compose(
             'no-margin',
             elementId,
             displayClass,
-            animationClass
+            animationClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: teamRef
     });

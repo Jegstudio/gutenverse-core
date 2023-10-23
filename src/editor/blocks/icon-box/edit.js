@@ -22,6 +22,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -69,7 +70,8 @@ const IconBoxBlock = compose(
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
-        separateButtonLink
+        separateButtonLink,
+        transform
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -77,6 +79,11 @@ const IconBoxBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const iconBoxRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -86,7 +93,10 @@ const IconBoxBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            `icon-position-${iconPosition}`
+            `icon-position-${iconPosition}`,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: iconBoxRef
     });

@@ -23,6 +23,7 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const TabHeadingItem = ({
     tab,
@@ -192,6 +193,7 @@ const Tabs = compose(
         elementId,
         tabs,
         orientation,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -199,6 +201,11 @@ const Tabs = compose(
     const deviceType = getDeviceType();
     const [activeTab, setActiveTab] = useState(0);
     const tabsRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (tabs === undefined) {
@@ -247,6 +254,9 @@ const Tabs = compose(
             animationClass,
             displayClass,
             deviceType,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: tabsRef
     });

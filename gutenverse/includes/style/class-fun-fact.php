@@ -59,7 +59,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['alignButtons'],
@@ -73,7 +73,7 @@ class Fun_Fact extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .border-bottom .animated",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'background-color' );
 						},
 						'value'          => $this->attrs['hoverBottomColor'],
@@ -88,7 +88,7 @@ class Fun_Fact extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .fun-fact-inner .icon img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "width: {$value}px; height: {$value}px; object-fit: cover;";
 						},
 						'value'          => $this->attrs['imageSize'],
@@ -102,7 +102,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -115,7 +115,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconBgColor'],
@@ -132,7 +132,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner:hover .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColorHover'],
@@ -145,7 +145,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner:hover .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconBgColorHover'],
@@ -162,7 +162,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -175,7 +175,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "transform: rotate({$value}deg);";
 					},
 					'value'          => $this->attrs['iconRotate'],
@@ -188,7 +188,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['iconPadding'],
@@ -201,7 +201,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['iconMargin'],
@@ -214,7 +214,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['numberColor'],
@@ -227,7 +227,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -240,7 +240,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['numberTypography'],
 					'device_control' => false,
 				)
@@ -251,7 +251,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .title",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
 				)
@@ -262,7 +262,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper ",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-bottom: {$value}px;";
 					},
 					'value'          => $this->attrs['numberBottomSpace'],
@@ -275,7 +275,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .title ",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-bottom: {$value}px;";
 					},
 					'value'          => $this->attrs['titleBottomSpace'],
@@ -288,7 +288,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .number.loaded",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['numberRightSpace'],
@@ -301,7 +301,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['contentPadding'],
@@ -314,7 +314,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .super",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['superColor'],
@@ -327,7 +327,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .super",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['superTypography'],
 					'device_control' => false,
 				)
@@ -338,7 +338,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .super",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "top: {$value}px;";
 					},
 					'value'          => $this->attrs['superTop'],
@@ -351,7 +351,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .super",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "left: {$value}px;";
 					},
 					'value'          => $this->attrs['superSpace'],
@@ -364,7 +364,7 @@ class Fun_Fact extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .content .number-wrapper .super",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "vertical-align: {$value};";
 					},
 					'value'          => $this->attrs['superAlign'],

@@ -72,7 +72,7 @@ class Icon_Box extends Style_Abstract {
 		$this->inject_style(
 			array(
 				'selector'       => $selector,
-				'property'       => function( $value ) {
+				'property'       => function ( $value ) {
 					$gradient_color        = $value['gradientColor'];
 					$gradient_type         = $value['gradientType'];
 					$gradient_angle        = $value['gradientAngle'];
@@ -117,7 +117,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$this->handle_align($value)};justify-content: {$value};";
 					},
 					'value'          => $this->attrs['align'],
@@ -136,7 +136,7 @@ class Icon_Box extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon i",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "font-size: {$value}px";
 						},
 						'value'          => $this->attrs['iconSize'],
@@ -151,7 +151,7 @@ class Icon_Box extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "width: {$value}px;";
 						},
 						'value'          => $this->attrs['imageWidth'],
@@ -164,7 +164,7 @@ class Icon_Box extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "height: {$value}px";
 						},
 						'value'          => $this->attrs['imageHeight'],
@@ -183,7 +183,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['containerPadding'],
@@ -196,7 +196,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['containerPaddingHover'],
@@ -221,7 +221,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadow'],
@@ -238,7 +238,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadowHover'],
@@ -256,7 +256,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -269,7 +269,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconHoverColor'],
@@ -282,7 +282,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconBgColor'],
@@ -295,7 +295,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconHoverBgColor'],
@@ -320,7 +320,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['iconBoxShadow'],
@@ -337,7 +337,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['iconBoxShadowHover'],
@@ -350,7 +350,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['iconPadding'],
@@ -363,7 +363,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['iconMargin'],
@@ -376,7 +376,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "transform: rotate({$value}deg);";
 					},
 					'value'          => $this->attrs['iconRotate'],
@@ -394,7 +394,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['titlePadding'],
@@ -407,7 +407,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['titleMargin'],
@@ -420,7 +420,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -433,7 +433,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-body .title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleHoverColor'],
@@ -446,7 +446,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .title",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
 				)
@@ -457,7 +457,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['descMargin'],
@@ -470,7 +470,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descColor'],
@@ -483,7 +483,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-body .icon-box-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descHoverColor'],
@@ -496,7 +496,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-body .icon-box-description",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['descTypography'],
 					'device_control' => false,
 				)
@@ -507,7 +507,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .hover-watermark i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['watermarkColor'],
@@ -520,7 +520,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .hover-watermark i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['watermarkSize'],
@@ -538,7 +538,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['badgeTextColor'],
@@ -551,7 +551,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['badgePadding'],
@@ -564,7 +564,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['badgeMargin'],
@@ -577,7 +577,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['badgeRadius'],
@@ -594,7 +594,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['badgeTypography'],
 					'device_control' => false,
 				)
@@ -605,7 +605,7 @@ class Icon_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box-badge .badge-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['badgeShadow'],

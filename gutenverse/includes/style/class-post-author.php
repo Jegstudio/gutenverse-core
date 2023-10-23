@@ -58,7 +58,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['alignment'],
@@ -71,7 +71,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} *",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typography'],
 					'device_control' => false,
 				)
@@ -82,7 +82,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['color'],
@@ -95,7 +95,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadow'],
@@ -108,7 +108,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['colorHover'],
@@ -121,7 +121,7 @@ class Post_Author extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadowHover'],
@@ -136,7 +136,7 @@ class Post_Author extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'max-width' );
 						},
 						'value'          => $this->attrs['size'],
@@ -149,7 +149,7 @@ class Post_Author extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "opacity: calc({$value}/100);";
 						},
 						'value'          => $this->attrs['opacity'],
@@ -162,7 +162,7 @@ class Post_Author extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "margin-right: {$value}px;";
 						},
 						'value'          => $this->attrs['avatarGap'],
@@ -175,7 +175,7 @@ class Post_Author extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "transform: rotate({$value}deg);";
 						},
 						'value'          => $this->attrs['rotate'],
@@ -192,7 +192,7 @@ class Post_Author extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_box_shadow( $value );
 						},
 						'value'          => $this->attrs['authorBoxShadow'],

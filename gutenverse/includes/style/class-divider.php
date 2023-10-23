@@ -58,7 +58,7 @@ class Divider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-wrapper",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "width: {$value}%;";
 						},
 						'value'          => $this->attrs['width'],
@@ -71,7 +71,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-divider-style",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "--divider-pattern-height: {$value}px;";
 					},
 					'value'          => $this->attrs['size'],
@@ -82,7 +82,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-divider-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "border-width: {$value}px;";
 					},
 					'value'          => $this->attrs['size'],
@@ -95,7 +95,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-divider-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "padding: {$value}px 0;";
 					},
 					'value'          => $this->attrs['gap'],
@@ -108,7 +108,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-divider-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-color' );
 					},
 					'value'          => $this->attrs['dividerColor'],
@@ -119,7 +119,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-divider-style",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['dividerColor'],
@@ -134,7 +134,7 @@ class Divider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-content span, .{$this->element_id} .guten-divider-content i",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
 						},
 						'value'          => $this->attrs['contentColor'],
@@ -147,7 +147,7 @@ class Divider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-content span, .{$this->element_id} .guten-divider-content i",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "margin: 0 {$value}px;";
 						},
 						'value'          => $this->attrs['contentSpacing'],
@@ -160,7 +160,7 @@ class Divider extends Style_Abstract {
 				$this->inject_typography(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-content span",
-						'property'       => function( $value ) {},
+						'property'       => function ( $value ) {},
 						'value'          => $this->attrs['typography'],
 						'device_control' => false,
 					)
@@ -171,7 +171,7 @@ class Divider extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-content i",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'font-size' );
 						},
 						'value'          => $this->attrs['iconSize'],
@@ -185,7 +185,7 @@ class Divider extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['dividerAlign'],

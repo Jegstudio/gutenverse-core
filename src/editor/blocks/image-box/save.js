@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const WrapAHref = ({ attributes, children }) => {
     const {
@@ -42,11 +43,13 @@ const save = compose(
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
+        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         elementId,
@@ -54,7 +57,10 @@ const save = compose(
         displayClass,
         'gutenverse-image-box',
         'guten-element',
-        `style-${contentStyle}`
+        `style-${contentStyle}`,
+        {
+            'gutenverse-transform': theTransform
+        }
     );
 
     return (

@@ -8,11 +8,12 @@ import {
 import classnames from 'classnames';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const SocialShare = compose(
     withCustomStyle(panelList),
@@ -28,12 +29,18 @@ const SocialShare = compose(
         orientation = 'horizontal',
         shape,
         color,
-        showText
+        showText,
+        transform
     } = attributes;
 
     const socialShareRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -46,6 +53,9 @@ const SocialShare = compose(
             color,
             animationClass,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            },
             {
                 'show-text': showText,
             }),

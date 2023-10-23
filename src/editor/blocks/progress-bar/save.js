@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
     withAnimationAdvanceScript('progress-bar')
@@ -18,11 +19,13 @@ const save = compose(
     const {
         elementId,
         style,
+        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -36,6 +39,9 @@ const save = compose(
         'progress-group',
         {
             [`${style}`]: style && style !== 'default'
+        },
+        {
+            'gutenverse-transform': theTransform
         }
     );
 

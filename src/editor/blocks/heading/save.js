@@ -9,7 +9,7 @@ import { compose } from '@wordpress/compose';
 /* Gutenverse dependencies */
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend, useDisplayFrontend, useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { canRenderTransform } from './edit';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
     withAnimationAdvanceScript('heading')

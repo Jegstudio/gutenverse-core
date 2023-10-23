@@ -58,7 +58,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						$value = $value / 1000;
 						return "animation-duration: {$value}s!important;";
 					},
@@ -72,7 +72,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:not([data-grid='masonry']) .gallery-items .gallery-item-wrap .thumbnail-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['height'],
@@ -85,7 +85,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .load-more-items",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['enableLoadAlign'],
@@ -98,7 +98,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['filterTabPadding'],
@@ -111,7 +111,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['filterTabMargin'],
@@ -133,7 +133,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterTabTextColor'],
@@ -146,7 +146,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control.active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterTabTextColorActive'],
@@ -175,7 +175,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['filterTabBoxShadow'],
@@ -188,7 +188,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control.active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['filterTabBoxShadowActive'],
@@ -210,7 +210,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filter-trigger.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'margin-left' );
 					},
 					'value'          => $this->attrs['fitlerSearchIconSpacing'],
@@ -221,7 +221,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filter-trigger.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'margin-right' );
 					},
 					'value'          => $this->attrs['fitlerSearchIconSpacing'],
@@ -234,7 +234,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filter-trigger i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['filterSearchIconSize'],
@@ -247,7 +247,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'flex-basis' );
 					},
 					'value'          => $this->attrs['fitlerSearchControlWidth'],
@@ -260,7 +260,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['filterSearchTextBackground'],
@@ -273,7 +273,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterSearchTextColor'],
@@ -290,7 +290,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['filterSearchMargin'],
@@ -303,7 +303,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['filterSearchBoxShadow'],
@@ -316,7 +316,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "border-right-width: {$value}px;";
 					},
 					'value'          => $this->attrs['filterSearchSeparatorSize'],
@@ -329,7 +329,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-right-color' );
 					},
 					'value'          => $this->attrs['filterSearchSeparatorColor'],
@@ -342,7 +342,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['filterSearchFormBackground'],
@@ -355,7 +355,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap form.guten-gallery-search-box input[type=text], .{$this->element_id} .search-filters-wrap form.guten-gallery-search-box input[type=text]::placeholder",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterSearchFormTextColor'],
@@ -368,7 +368,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'flex-basis' );
 					},
 					'value'          => $this->attrs['fitlerSearchFormWidth'],
@@ -385,7 +385,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['filterSearchFormBoxShadow'],
@@ -398,7 +398,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls li",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterSearchDropdownTextColor'],
@@ -411,7 +411,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls li:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['filterSearchDropdownTextColorHover'],
@@ -432,7 +432,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['filterSearchDropdownPadding'],
@@ -445,7 +445,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background' );
 					},
 					'value'          => $this->attrs['iconBg'],
@@ -458,7 +458,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -471,7 +471,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -484,7 +484,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['iconPadding'],
@@ -501,7 +501,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['itemPadding'],
@@ -514,7 +514,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['itemMargin'],
@@ -531,7 +531,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['itemBoxShadow'],
@@ -552,7 +552,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['itemHoverOpacity'],
@@ -565,7 +565,7 @@ class Gallery extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['itemHoverPadding'],

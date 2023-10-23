@@ -58,7 +58,7 @@ class Video extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} video, .{$this->element_id} .guten-video-background",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%!important;";
 					},
 					'value'          => $this->attrs['width'],
@@ -71,7 +71,7 @@ class Video extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} video, .{$this->element_id} .guten-video-background",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px!important;";
 					},
 					'value'          => $this->attrs['height'],
@@ -85,7 +85,7 @@ class Video extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-caption",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "margin-top: {$value}px;";
 						},
 						'value'          => $this->attrs['captionSpace'],
@@ -98,7 +98,7 @@ class Video extends Style_Abstract {
 				$this->inject_typography(
 					array(
 						'selector'       => ".{$this->element_id} .guten-caption",
-						'property'       => function( $value ) {},
+						'property'       => function ( $value ) {},
 						'value'          => $this->attrs['typography'],
 						'device_control' => false,
 					)
@@ -109,7 +109,7 @@ class Video extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-caption",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
 						},
 						'value'          => $this->attrs['captionColor'],

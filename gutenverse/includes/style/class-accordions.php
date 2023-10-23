@@ -66,7 +66,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['accordionBoxShadow'],
@@ -79,7 +79,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['accordionBoxShadowActive'],
@@ -92,7 +92,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['accordionMargin'],
@@ -105,7 +105,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -118,7 +118,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconActiveColor'],
@@ -132,7 +132,7 @@ class Accordions extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "margin-right: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSpacing'],
@@ -145,7 +145,7 @@ class Accordions extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return "margin-left: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSpacing'],
@@ -159,7 +159,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -172,7 +172,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-heading",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['titleBackgroundColor'],
@@ -185,7 +185,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleTextColor'],
@@ -198,7 +198,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-heading",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['titleBackgroundActiveColor'],
@@ -211,7 +211,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleActiveColor'],
@@ -224,7 +224,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-text",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
 				)
@@ -235,7 +235,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-heading",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['titlePadding'],
@@ -256,7 +256,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['contentBackgroundColor'],
@@ -269,7 +269,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['contentTextColor'],
@@ -282,7 +282,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['contentBackgroundColorActive'],
@@ -295,7 +295,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['contentTextColorActive'],
@@ -308,7 +308,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-content",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['contentTypography'],
 					'device_control' => false,
 				)
@@ -319,7 +319,7 @@ class Accordions extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['contentPadding'],

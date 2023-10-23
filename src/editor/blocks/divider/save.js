@@ -7,6 +7,7 @@ import * as divider from './data/divider-style';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;
@@ -48,12 +49,14 @@ const save = compose(
     const {
         elementId,
         content,
-        type
+        type,
+        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const theTransform = canRenderTransform(transform);
 
     const dividerStyle = divider[`divider_${type}`] && {
         ['--divider-pattern-url']: divider[`divider_${type}`]
@@ -73,6 +76,9 @@ const save = compose(
             displayClass,
             {
                 ['guten-divider-tribal']: type && isTribal,
+            },
+            {
+                'gutenverse-transform': theTransform
             }
         )
     });

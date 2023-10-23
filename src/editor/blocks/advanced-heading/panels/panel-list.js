@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel, transformPanel } from 'gutenverse-core/controls';
 import { focusTitlePanel } from './panel-focus-title';
 import { linePanel } from './panel-line';
 import { mainTitlePanel } from './panel-main-title';
@@ -113,6 +113,12 @@ export const panelList = () => {
                 ...props,
                 blockType: 'advance-heading'
             }),
+            pro: true
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
             pro: true
         },
         {
