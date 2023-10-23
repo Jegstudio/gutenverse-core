@@ -125,7 +125,7 @@ export const handleTransform = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateZ: ${_moveZ.point}${_moveZ.unit};`,
+                    style: `--guten-transform-moveZ: ${_moveZ.point}${_moveZ.unit};`,
                     device,
                     elementStyle
                 });
@@ -139,7 +139,7 @@ export const handleTransform = (values) => {
 
             if (_moveX && _moveX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateX: ${_moveX.point}${_moveX.unit};`,
+                    style: `--guten-transform-moveX: ${_moveX.point}${_moveX.unit};`,
                     device,
                     elementStyle
                 });
@@ -153,7 +153,7 @@ export const handleTransform = (values) => {
 
             if (_moveY && _moveY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateY: ${_moveY.point}${_moveY.unit};`,
+                    style: `--guten-transform-moveY: ${_moveY.point}${_moveY.unit};`,
                     device,
                     elementStyle
                 });
@@ -293,7 +293,7 @@ export const handleTransformHover = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateZ: ${_moveZ.point}${_moveZ.unit};`,
+                    style: `--guten-transform-moveZ: ${_moveZ.point}${_moveZ.unit};`,
                     device,
                     elementStyle
                 });
@@ -307,7 +307,7 @@ export const handleTransformHover = (values) => {
 
             if (_moveY && _moveY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateY: ${_moveY.point}${_moveY.unit};`,
+                    style: `--guten-transform-moveY: ${_moveY.point}${_moveY.unit};`,
                     device,
                     elementStyle
                 });
@@ -321,7 +321,7 @@ export const handleTransformHover = (values) => {
 
             if (_moveX && _moveX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-translateX: ${_moveX.point}${_moveX.unit};`,
+                    style: `--guten-transform-moveX: ${_moveX.point}${_moveX.unit};`,
                     device,
                     elementStyle
                 });
