@@ -26,7 +26,9 @@ export {
     injectFont,
     setDeviceClasses,
     deviceStyleValue,
-    responsiveAppender
+    responsiveAppender,
+    canRenderTransform,
+    isEmptyStyle
 } from './styling/styling-utility';
 
 export { shapeDividerLoader } from './data/shape-divider';
