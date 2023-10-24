@@ -117,6 +117,204 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Transform class
+	 *
+	 * @return string
+	 */
+	protected function set_transform_class() {
+		if ( ! isset( $this->attributes['transform'] ) ) {
+			return;
+		}
+
+		$class = '';
+
+		$duration         = ! empty( $this->attributes['transform']['duration'] );
+		$ease             = ! empty( $this->attributes['transform']['ease'] );
+		$perspective      = $this->isset_device_value(
+			$this->attributes['transform']['perspective'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$transform_origin = $this->isset_device_value(
+			$this->attributes['transform']['transformOrigin'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$rotate_z         = $this->isset_device_value(
+			$this->attributes['transform']['rotateZ'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$rotate_x         = $this->isset_device_value(
+			$this->attributes['transform']['rotateX'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$rotate_y         = $this->isset_device_value(
+			$this->attributes['transform']['rotateY'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$scale_x          = $this->isset_device_value(
+			$this->attributes['transform']['scaleX'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$scale_y          = $this->isset_device_value(
+			$this->attributes['transform']['scaleY'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$move_x           = $this->isset_device_value(
+			$this->attributes['transform']['moveX'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$move_y           = $this->isset_device_value(
+			$this->attributes['transform']['moveY'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$move_z           = $this->isset_device_value(
+			$this->attributes['transform']['moveZ'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$skew_x           = $this->isset_device_value(
+			$this->attributes['transform']['skewX'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$skew_y           = $this->isset_device_value(
+			$this->attributes['transform']['skewY'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$opacity          = $this->isset_device_value(
+			$this->attributes['transform']['opacity'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$rotate_z_hover   = $this->isset_device_value(
+			$this->attributes['transform']['rotateZHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$rotate_x_hover   = $this->isset_device_value(
+			$this->attributes['transform']['rotateXHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$rotate_y_hover   = $this->isset_device_value(
+			$this->attributes['transform']['rotateYHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$scale_x_hover    = $this->isset_device_value(
+			$this->attributes['transform']['scaleXHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$scale_y_hover    = $this->isset_device_value(
+			$this->attributes['transform']['scaleYHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+		$move_x_hover     = $this->isset_device_value(
+			$this->attributes['transform']['moveXHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$move_y_hover     = $this->isset_device_value(
+			$this->attributes['transform']['moveYHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$move_z_hover     = $this->isset_device_value(
+			$this->attributes['transform']['moveZHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$skew_x_hover     = $this->isset_device_value(
+			$this->attributes['transform']['skewXHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$skew_y_hover     = $this->isset_device_value(
+			$this->attributes['transform']['skewYHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value['point'] );
+			}
+		);
+		$opacity_hover    = $this->isset_device_value(
+			$this->attributes['transform']['opacityHover'],
+			function ( $value ) {
+				return ! $this->truly_empty( $value );
+			}
+		);
+
+		if ( $duration || $ease || $perspective || $transform_origin || $rotate_z || $rotate_x || $rotate_y || $scale_x || $scale_y || $move_x || $move_y || $move_z || $skew_x || $skew_y || $opacity || $rotate_z_hover || $rotate_x_hover || $rotate_y_hover || $scale_x_hover || $scale_y_hover || $move_x_hover || $move_y_hover || $move_z_hover || $skew_x_hover || $skew_y_hover || $opacity_hover ) {
+			$class = ' gutenverse-transform';
+		}
+
+		return $class;
+	}
+
+	/**
+	 * Check if variable is empty and not contain 0
+	 *
+	 * @param mixed $value .
+	 *
+	 * @return boolean
+	 */
+	public function truly_empty( &$value = '' ) {
+		return empty( $value ) && '0' !== $value && 0 !== $value;
+	}
+
+	/**
+	 * Isset device value
+	 *
+	 * @param array  $values .
+	 * @param object $func .
+	 *
+	 * @return boolean
+	 */
+	private function isset_device_value( $values, $func ) {
+		$devices = array( 'Desktop', 'Laptop', 'Tablet', 'Mobile' );
+		$result  = false;
+
+		foreach ( $devices as $device ) {
+			if ( ! empty( $values[ $device ] ) ) {
+				$result = $result || call_user_func( $func, $values[ $device ] );
+			}
+		}
+
+		return $result;
+	}
+
+	/**
 	 * Display classes
 	 *
 	 * @return string

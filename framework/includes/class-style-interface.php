@@ -536,6 +536,8 @@ abstract class Style_Interface {
 
 			return "{$property}: {$point}{$unit}{$imp};";
 		}
+
+		return '';
 	}
 
 	/**
