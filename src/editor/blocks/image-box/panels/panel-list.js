@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelImage } from './panel-image';
 import { panelBody } from './panel-body';
 import { panelImageStyle } from './panel-image-style';
@@ -103,6 +103,12 @@ export const panelList = () => {
                 ...props,
                 blockType: 'image-box'
             }),
+            pro: true
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
             pro: true
         },
         {

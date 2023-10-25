@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -14,6 +14,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostDateBlock = compose(
     withCustomStyle(panelList),
@@ -32,12 +33,18 @@ const PostDateBlock = compose(
         customFormat,
         linkTo,
         customURL,
-        htmlTag: HtmlTag
+        htmlTag: HtmlTag,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postDateRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         postDateRef.current && setElementRef(postDateRef.current);
@@ -51,6 +58,9 @@ const PostDateBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: postDateRef
     });

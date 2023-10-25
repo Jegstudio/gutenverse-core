@@ -58,7 +58,7 @@ class Google_Maps extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.gutenverse-maps iframe",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['height'],
@@ -71,7 +71,7 @@ class Google_Maps extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.gutenverse-maps iframe",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
 						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
 						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
@@ -90,7 +90,7 @@ class Google_Maps extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.gutenverse-maps iframe:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
 						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
 						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
@@ -104,6 +104,5 @@ class Google_Maps extends Style_Abstract {
 				)
 			);
 		}
-
 	}
 }

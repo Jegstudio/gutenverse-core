@@ -128,10 +128,17 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
+    },
+    "transform": {
+      "type": "object"
     }
   },
   "supports": {
     "className": false
   },
-  "keywords": ["text", "editor", "textarea"]
+  "keywords": [
+    "text",
+    "editor",
+    "textarea"
+  ]
 }

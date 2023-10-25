@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -12,6 +12,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const FunFactBlock = compose(
     withCustomStyle(panelList),
@@ -39,26 +40,19 @@ const FunFactBlock = compose(
         hoverBottomDirection,
         iconType,
         image,
-        imageAlt
+        imageAlt,
+        transform
     } = attributes;
 
     const imageAltText = imageAlt || null;
     const funFactRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const blockProps = useBlockProps({
-        className: classnames(
-            'guten-element',
-            'guten-fun-fact',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayClass,
-            'align-center',
-            'hover-from-left',
-        ),
-        ref: funFactRef
-    });
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (funFactRef.current) {
@@ -86,6 +80,23 @@ const FunFactBlock = compose(
                 return null;
         }
     };
+
+    const blockProps = useBlockProps({
+        className: classnames(
+            'guten-element',
+            'guten-fun-fact',
+            'no-margin',
+            elementId,
+            animationClass,
+            displayClass,
+            'align-center',
+            'hover-from-left',
+            {
+                'gutenverse-transform': theTransform
+            }
+        ),
+        ref: funFactRef
+    });
 
     return <>
         <PanelController panelList={panelList} {...props} />

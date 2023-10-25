@@ -58,7 +58,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}, .{$this->element_id} .heading-section",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value}; text-align: {$this->handle_align($value)};";
 					},
 					'value'          => $this->attrs['alignText'],
@@ -71,7 +71,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['lineWidth'],
@@ -84,7 +84,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "border-top-width: {$value}px;";
 					},
 					'value'          => $this->attrs['lineHeight'],
@@ -97,7 +97,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "border-top-style: {$value};";
 					},
 					'value'          => $this->attrs['lineStyle'],
@@ -110,7 +110,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-color' );
 					},
 					'value'          => $this->attrs['lineColor'],
@@ -123,7 +123,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['lineMargin'],
@@ -136,7 +136,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['mainColor'],
@@ -149,7 +149,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .heading-title",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['mainTypography'],
 					'device_control' => false,
 				)
@@ -164,7 +164,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['mainMargin'],
@@ -177,7 +177,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['mainPadding'],
@@ -190,7 +190,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' ) . $this->handle_color( $value, '-webkit-text-fill-color' );
 					},
 					'value'          => $this->attrs['focusColor'],
@@ -203,7 +203,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['focusTypography'],
 					'device_control' => false,
 				)
@@ -218,7 +218,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['focusMargin'],
@@ -231,7 +231,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-focus",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['focusPadding'],
@@ -244,7 +244,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-subtitle",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['subColor'],
@@ -257,7 +257,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .heading-subtitle",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['subTypography'],
 					'device_control' => false,
 				)
@@ -272,7 +272,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-subtitle",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['subMargin'],
@@ -285,7 +285,7 @@ class Advanced_Heading extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .heading-subtitle",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['focusPadding'],

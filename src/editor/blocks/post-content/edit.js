@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
@@ -15,6 +15,7 @@ import {
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -34,13 +35,19 @@ const PostContentBlock = compose(
 
     const {
         elementId,
-        inheritLayout
+        inheritLayout,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postTitleRef = useRef();
     const layout = useSetting('layout');
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (postTitleRef.current) {
@@ -55,6 +62,9 @@ const PostContentBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: postTitleRef
     });

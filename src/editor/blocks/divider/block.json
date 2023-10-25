@@ -119,7 +119,10 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
-    }
+    },
+		"transform": {
+			"type": "object"
+		}
   },
   "keywords": [
     "divider",

@@ -14,6 +14,7 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostBlockBlock = compose(
     withCustomStyle(panelList),
@@ -73,6 +74,7 @@ const PostBlockBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -81,6 +83,11 @@ const PostBlockBlock = compose(
     const [loading, setLoading] = useState(true);
     const [postLoaded, setPostLoaded] = useState(0);
     const postBlockRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (postBlockRef.current) {
@@ -153,6 +160,7 @@ const PostBlockBlock = compose(
                     paginationScrollLimit,
                     paginationIcon,
                     paginationIconPosition,
+                    transform
                 },
             }),
         }).then((data) => {
@@ -206,6 +214,7 @@ const PostBlockBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        transform
     ]);
 
     const blockProps = useBlockProps({
@@ -217,6 +226,9 @@ const PostBlockBlock = compose(
             animationClass,
             displayClass,
             deviceType.toLowerCase(),
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: postBlockRef
     });

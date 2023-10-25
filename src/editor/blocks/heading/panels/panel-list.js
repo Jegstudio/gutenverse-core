@@ -66,10 +66,7 @@ export const panelList = () => {
         {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,
-            panelArray: (props) => transformPanel({
-                ...props,
-                selector: '',
-            }),
+            panelArray: transformPanel,
             pro: true
         },
         {

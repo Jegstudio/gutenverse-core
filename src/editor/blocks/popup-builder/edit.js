@@ -11,6 +11,7 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PopupBuilder = compose(
     withCustomStyle(panelList),
@@ -29,7 +30,8 @@ const PopupBuilder = compose(
         closePopupOverlay,
         showCloseButton,
         closeIcon,
-        closePosition
+        closePosition,
+        transform
     } = attributes;
 
     const [show, setShow] = useState(false);
@@ -39,6 +41,11 @@ const PopupBuilder = compose(
     const popupBuilderRef = useRef();
     const containerRef = useRef();
     const deviceType = getDeviceType();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (popupBuilderRef.current) {
@@ -68,6 +75,9 @@ const PopupBuilder = compose(
             `guten-popup-${deviceType}`,
             elementId,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: popupBuilderRef,
         'data-close-overlay': closePopupOverlay

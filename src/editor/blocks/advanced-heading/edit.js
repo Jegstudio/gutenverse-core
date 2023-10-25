@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -9,6 +9,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const AdvancedHeadingBlock = compose(
     withCustomStyle(panelList),
@@ -28,12 +29,14 @@ const AdvancedHeadingBlock = compose(
         focusText,
         subText,
         showSub,
-        showLine
+        showLine,
+        transform
     } = attributes;
 
     const advHeadingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [theTransform, setTheTransform] = useState(false);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -42,9 +45,16 @@ const AdvancedHeadingBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: advHeadingRef
     });
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     useEffect(() => {
         if (advHeadingRef.current) {

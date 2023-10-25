@@ -8,11 +8,12 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect } from '@wordpress/element';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const IconListBlock = compose(
     withCustomStyle(panelList),
@@ -26,12 +27,18 @@ const IconListBlock = compose(
 
     const {
         elementId,
-        displayInline
+        displayInline,
+        transform
     } = attributes;
 
     const iconListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -43,6 +50,9 @@ const IconListBlock = compose(
             displayClass,
             {
                 'inline-icon-list': displayInline
+            },
+            {
+                'gutenverse-transform': theTransform
             }
         ),
         ref: iconListRef

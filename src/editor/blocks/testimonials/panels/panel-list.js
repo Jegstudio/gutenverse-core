@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { arrowPanel } from './panel-arrow';
 import { panelContent } from './panel-content';
 import { itemPanel } from './panel-item';
@@ -114,6 +114,12 @@ export const panelList = () => {
                 styleId: 'testimonials-animation'
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

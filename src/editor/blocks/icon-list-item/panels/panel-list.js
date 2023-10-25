@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelGeneral } from './panel-general';
 
 export const panelList = () => {
@@ -12,6 +12,12 @@ export const panelList = () => {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
             panelArray: responsivePanel
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

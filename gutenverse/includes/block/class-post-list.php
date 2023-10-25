@@ -180,13 +180,11 @@ class Post_List extends Post_Abstract {
 
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
-			} else {
-				if ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
-					$icon = $this->attributes['icon'];
+			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
+				$icon = $this->attributes['icon'];
 
-					if ( $icon ) {
-						$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
-					}
+				if ( $icon ) {
+					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
 				}
 			}
 
@@ -221,8 +219,9 @@ class Post_List extends Post_Abstract {
 		$layout          = $this->attributes['layout'];
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
+		$transform_class = $this->set_transform_class();
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $transform_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
 	}
 }

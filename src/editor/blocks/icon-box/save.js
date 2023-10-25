@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const WrapAHref = ({ attributes, children }) => {
     const {
@@ -49,12 +50,14 @@ const save = compose(
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
+        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -62,7 +65,10 @@ const save = compose(
         animationClass,
         displayClass,
         'guten-icon-box',
-        `icon-position-${iconPosition}`
+        `icon-position-${iconPosition}`,
+        {
+            'gutenverse-transform': theTransform
+        }
     );
 
     const iconContent = () => {

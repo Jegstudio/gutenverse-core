@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -14,6 +14,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostFeaturedImageBlock = compose(
     withCustomStyle(panelList),
@@ -28,12 +29,18 @@ const PostFeaturedImageBlock = compose(
     const {
         elementId,
         postLink,
-        placeholderImg
+        placeholderImg,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postFeaturedRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const [ featuredImage ] = useEntityProp( 'postType', postType, 'featured_media', postId );
     const [ link ] = useEntityProp( 'postType', postType, 'link', postId );
@@ -66,6 +73,9 @@ const PostFeaturedImageBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: postFeaturedRef
     });

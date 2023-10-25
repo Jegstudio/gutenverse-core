@@ -10,11 +10,12 @@ import { Swiper } from 'gutenverse-core/components';
 import ContentItem from './components/content-item';
 import { swiperSettings } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 SwiperCore.use([Autoplay, Navigation, Pagination, Zoom]);
 
@@ -38,12 +39,18 @@ const TestimonialsBlock = compose(
         contentType,
         showQuote,
         iconQuote,
-        quoteOverride
+        quoteOverride,
+        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const testimonialRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -54,7 +61,10 @@ const TestimonialsBlock = compose(
             animationClass,
             displayClass,
             `style-${contentType}`,
-            'quote-override'
+            'quote-override',
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: testimonialRef
     });

@@ -58,7 +58,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-top: calc({$value}px/2);";
 					},
 					'value'          => $this->attrs['spaceBetween'],
@@ -69,7 +69,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "padding-bottom: calc({$value}px/2);";
 					},
 					'value'          => $this->attrs['spaceBetween'],
@@ -80,7 +80,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:last-child)",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['spaceBetween'],
@@ -93,7 +93,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:not(.inline-icon-list)",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$this->handle_align( $value )};";
 					},
 					'value'          => $this->attrs['alignList'],
@@ -104,7 +104,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.inline-icon-list, .{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['alignList'],
@@ -117,7 +117,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -130,7 +130,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item:hover i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColorHover'],
@@ -143,7 +143,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -156,7 +156,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item .list-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textColor'],
@@ -169,7 +169,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "align-items: {$value}";
 					},
 					'value'          => $this->attrs['verticalAlign'],
@@ -182,7 +182,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item:hover .list-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textColorHover'],
@@ -195,7 +195,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item .list-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "padding-left: {$value}px;";
 					},
 					'value'          => $this->attrs['textIndent'],
@@ -208,7 +208,7 @@ class Icon_List extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-list-item .list-text",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['textTypography'],
 					'device_control' => false,
 				)

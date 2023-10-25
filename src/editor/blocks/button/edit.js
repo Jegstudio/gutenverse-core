@@ -21,6 +21,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { link } from '@wordpress/icons';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -47,7 +48,8 @@ const ButtonBlock = compose(
         rel,
         linkTarget,
         iconPosition = 'before',
-        role
+        role,
+        transform
     } = attributes;
 
     const {
@@ -69,6 +71,11 @@ const ButtonBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [allowLink, setAllowLink] = useState(true);
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -76,7 +83,10 @@ const ButtonBlock = compose(
             'guten-button-wrapper',
             'no-margin',
             elementId,
-            displayClass
+            displayClass,
+            {
+                'gutenverse-transform': theTransform
+            }
         ),
         ref: buttonRef
     });
