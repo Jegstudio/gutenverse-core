@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import {
     BlockControls,
     useBlockProps,
@@ -28,6 +28,7 @@ import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { canRenderTransform } from 'gutenverse-core/styling';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -191,7 +192,8 @@ const SectionBlock = compose(
         overflow,
         sticky = {},
         stickyPosition,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
+        transform
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -205,6 +207,11 @@ const SectionBlock = compose(
     const sectionWrapper = useRef();
     const sectionRef = useRef();
     const containerRef = useRef();
+    const [theTransform, setTheTransform] = useState(false);
+
+    useEffect(() => {
+        setTheTransform(canRenderTransform(transform));
+    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -221,6 +228,7 @@ const SectionBlock = compose(
                 [`overflow-${overflow}`]: overflow && overflow !== 'none',
                 ['guten-sticky']: isSticky(sticky),
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
+                'gutenverse-transform': theTransform
             }
         ),
         ref: sectionRef
