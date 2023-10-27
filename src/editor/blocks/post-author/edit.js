@@ -14,7 +14,6 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostAuthorBlock = compose(
     withCustomStyle(panelList),
@@ -34,7 +33,6 @@ const PostAuthorBlock = compose(
         authorLink,
         authorLinkTarget,
         authorLinkRel,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -42,11 +40,6 @@ const PostAuthorBlock = compose(
     const postAuthorRef = useRef();
     const linkTarget = authorLinkTarget ? '_blank' : '_self';
     const [authorName, setAuthorName] = useState('Post Author');
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const authorDetails = useSelect(
         (select) => {
@@ -106,9 +99,6 @@ const PostAuthorBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: postAuthorRef
     });

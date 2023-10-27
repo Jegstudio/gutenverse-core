@@ -20,7 +20,6 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -44,18 +43,12 @@ const IconBlock = compose(
         url,
         rel,
         linkTarget,
-        transform
     } = attributes;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const iconRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -65,9 +58,6 @@ const IconBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: iconRef
     });
@@ -76,7 +66,7 @@ const IconBlock = compose(
         className: classnames(
             'guten-icon-wrapper',
             iconShape,
-            iconView
+            iconView,
         )
     };
 

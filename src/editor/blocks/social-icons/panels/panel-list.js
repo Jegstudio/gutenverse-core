@@ -77,6 +77,12 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
             title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
@@ -84,12 +90,6 @@ export const panelList = () => {
                 ...props,
                 blockType: 'social-icons'
             }),
-            pro: true
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
             pro: true
         },
         {

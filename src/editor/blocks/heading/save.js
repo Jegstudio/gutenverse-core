@@ -9,7 +9,6 @@ import { compose } from '@wordpress/compose';
 /* Gutenverse dependencies */
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend, useDisplayFrontend, useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
     withAnimationAdvanceScript('heading')
@@ -22,13 +21,11 @@ const save = compose(
         elementId,
         content,
         type,
-        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const theTransform = canRenderTransform(transform);
 
     const TagName = 'h' + type;
     const className = classnames(
@@ -36,9 +33,6 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
-        {
-            'gutenverse-transform': theTransform
-        }
     );
 
     return (

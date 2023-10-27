@@ -45,6 +45,10 @@ class Image extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} img",
+					'hover'  => ".{$this->element_id} img:hover",
+				),
 			)
 		);
 	}

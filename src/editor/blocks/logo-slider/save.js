@@ -6,7 +6,6 @@ import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = ({ attributes }) => {
     const {
@@ -15,12 +14,10 @@ const save = ({ attributes }) => {
         showNav,
         showArrow,
         arrowPosition,
-        transform
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -31,9 +28,6 @@ const save = ({ attributes }) => {
         displayClass,
         {
             [`arrow-${arrowPosition}`]: arrowPosition
-        },
-        {
-            'gutenverse-transform': theTransform
         }
     );
 

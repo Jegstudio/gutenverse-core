@@ -1,5 +1,5 @@
 /* External dependencies */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import classnames from 'classnames';
 
 /* WordPress dependencies */
@@ -16,7 +16,6 @@ import { PanelController } from 'gutenverse-core/controls';
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = ({ attributes, setAttributes }) => {
     const {
@@ -66,18 +65,12 @@ const HeadingBlock = compose(
         elementId,
         type,
         content,
-        transform
     } = attributes;
 
     const tagName = 'h' + type;
     const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -85,9 +78,6 @@ const HeadingBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: headingRef
     });

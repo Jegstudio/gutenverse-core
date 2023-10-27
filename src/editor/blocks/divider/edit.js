@@ -19,7 +19,6 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;
@@ -85,7 +84,6 @@ const DividerBlock = compose(
         elementId,
         content,
         type,
-        transform
     } = attributes;
 
     const dividerRef = useRef();
@@ -93,11 +91,6 @@ const DividerBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const [dividerStyle, setDividerStyle] = useState(null);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const isRegular = ['default', 'double', 'dotted', 'dashed'].includes(type);
 
@@ -114,9 +107,6 @@ const DividerBlock = compose(
             {
                 ['guten-divider-tribal']: type && isTribal,
             },
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: dividerRef
     });

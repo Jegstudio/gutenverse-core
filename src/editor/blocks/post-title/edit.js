@@ -6,13 +6,12 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostTitleBlock = compose(
     withCustomStyle(panelList),
@@ -30,18 +29,12 @@ const PostTitleBlock = compose(
         postLinkTarget,
         postLinkRel = 'noreferrer',
         htmlTag: HtmlTag,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postTitleRef = useRef();
     const linkTarget = postLinkTarget ? '_blank' : '_self';
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const [ postTitle = 'Post Title' ] = useEntityProp('postType', postType, 'title', postId);
     const [ link ] = useEntityProp( 'postType', postType, 'link', postId );
@@ -57,9 +50,6 @@ const PostTitleBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: postTitleRef
     });

@@ -5,7 +5,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
 )((props) => {
@@ -25,12 +24,10 @@ const save = compose(
         showCloseButton,
         closePosition,
         closePopupOverlay,
-        transform
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const theTransform = canRenderTransform(transform);
 
     const blockProps = useBlockProps.save({
         className: classnames(
@@ -38,9 +35,6 @@ const save = compose(
             'guten-popup-builder',
             elementId,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         'data-trigger': openTrigger,
         'data-wait': openWaitTime,

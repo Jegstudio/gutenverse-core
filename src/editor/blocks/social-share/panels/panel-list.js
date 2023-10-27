@@ -69,6 +69,12 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
             title: __('Animation Effects', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
@@ -76,12 +82,6 @@ export const panelList = () => {
                 styleId: 'social-share-animation'
             }),
             tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

@@ -5,14 +5,13 @@ import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import CommentPlaceholder from './components/comment-placeholder';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostCommentBlock = compose(
     withCustomStyle(panelList),
@@ -26,17 +25,11 @@ const PostCommentBlock = compose(
     const {
         elementId,
         showForm,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postCommentRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     useEffect(() => {
         postCommentRef.current && setElementRef(postCommentRef.current);
@@ -50,9 +43,6 @@ const PostCommentBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: postCommentRef
     });

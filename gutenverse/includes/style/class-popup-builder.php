@@ -46,6 +46,10 @@ class Popup_Builder extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} .guten-popup-content",
+					'hover'  => ".{$this->element_id} .guten-popup-content:hover",
+				),
 			)
 		);
 	}

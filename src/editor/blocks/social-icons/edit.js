@@ -7,13 +7,12 @@ import {
 import classnames from 'classnames';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const SocialIcons = compose(
     withCustomStyle(panelList),
@@ -31,17 +30,11 @@ const SocialIcons = compose(
         shape,
         color,
         showText,
-        transform
     } = attributes;
 
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const socialIconsRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -54,9 +47,6 @@ const SocialIcons = compose(
             color,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            },
             {
                 'show-text': showText,
             }),

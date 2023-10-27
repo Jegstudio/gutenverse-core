@@ -46,6 +46,10 @@ class Button extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => ".{$this->element_id} .guten-button",
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} .guten-button",
+					'hover'  => ".{$this->element_id} .guten-button:hover",
+				),
 			)
 		);
 	}

@@ -15,7 +15,6 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const GalleryBlock = compose(
     withCustomStyle(panelList),
@@ -47,7 +46,6 @@ const GalleryBlock = compose(
         filterSearchIcon,
         filterSearchIconPosition,
         filterSearchFormText,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -60,11 +58,6 @@ const GalleryBlock = compose(
     const [shuffleInstance, setShuffleInstance] = useState();
     const galleryRef = useRef();
     const sizerRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -79,9 +72,6 @@ const GalleryBlock = compose(
             [`grid-desktop-${column && column['Desktop'] ? column['Desktop'] : 3}`],
             [`grid-tablet-${column && column['Tablet'] ? column['Tablet'] : 2}`],
             [`grid-mobile-${column && column['Mobile'] ? column['Mobile'] : 2}`],
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
     });
 

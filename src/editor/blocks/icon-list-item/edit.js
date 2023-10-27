@@ -19,7 +19,6 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -44,17 +43,11 @@ const IconListItemBlock = compose(
         linkTarget,
         text,
         hideIcon,
-        transform
     } = attributes;
 
     const iconListItemRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -63,9 +56,6 @@ const IconListItemBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: iconListItemRef
     });

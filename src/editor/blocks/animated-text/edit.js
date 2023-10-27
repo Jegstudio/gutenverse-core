@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -17,7 +17,6 @@ import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const AnimatedTextBlock = compose(
     withCustomStyle(panelList),
@@ -33,16 +32,10 @@ const AnimatedTextBlock = compose(
         style,
         text,
         titleTag: TitleTag,
-        transform
     } = attributes;
 
     const animatedTextRef = useRef();
     const displayClass = useDisplayEditor(attributes);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     useEffect(() => {
         if (animatedTextRef.current) {
@@ -60,9 +53,6 @@ const AnimatedTextBlock = compose(
             {
                 [`style-${style}`]: style && style !== 'none'
             },
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: animatedTextRef
     });

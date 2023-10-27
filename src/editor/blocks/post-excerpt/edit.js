@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -13,7 +13,6 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostExcerptBlock = compose(
     withCustomStyle(panelList),
@@ -30,17 +29,11 @@ const PostExcerptBlock = compose(
         htmlTag: HtmlTag,
         showReadmore,
         readmoreText,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postExcerptRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     useEffect(() => {
         postExcerptRef.current && setElementRef(postExcerptRef.current);
@@ -54,9 +47,6 @@ const PostExcerptBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: postExcerptRef
     });

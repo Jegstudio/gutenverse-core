@@ -110,7 +110,11 @@ export const panelList = () => {
         {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,
-            panelArray: transformPanel,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} .guten-posts`,
+                hoverSelector: `.${props.elementId} .guten-posts:hover`,
+            }),
             pro: true
         },
         {

@@ -7,7 +7,6 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
     withAnimationAdvanceScript('fun-fact'),
@@ -32,14 +31,12 @@ const save = compose(
         hoverBottomDirection,
         image,
         imageAlt,
-        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -49,9 +46,6 @@ const save = compose(
         'guten-fun-fact',
         'align-center',
         'hover-from-left',
-        {
-            'gutenverse-transform': theTransform
-        }
     );
 
     const headerContent = () => {

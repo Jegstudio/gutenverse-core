@@ -6,12 +6,11 @@ import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps } from '@wordpress/block-editor';
 import { useRef } from '@wordpress/element';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const TextEditorBlock = compose(
     withCustomStyle(panelList),
@@ -26,17 +25,11 @@ const TextEditorBlock = compose(
     const {
         elementId,
         dropcap,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const textEditorRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -49,9 +42,6 @@ const TextEditorBlock = compose(
             {
                 'dropcap': dropcap
             },
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: textEditorRef
     });

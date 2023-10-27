@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
@@ -14,7 +14,6 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { isEmpty } from 'lodash';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const PostTermsBlock = compose(
     withCustomStyle(panelList),
@@ -32,17 +31,11 @@ const PostTermsBlock = compose(
         separator = ',',
         linkTo,
         htmlTag: HtmlTag,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postTermRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     let type = taxonomy === 'post_tag' ? 'tags' : 'categories';
 
@@ -80,9 +73,6 @@ const PostTermsBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: postTermRef
     });

@@ -70,6 +70,16 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} .guten-button`,
+                hoverSelector: `.${props.elementId} .guten-button:hover`,
+            }),
+            pro: true
+        },
+        {
             title: __('Animation Effects', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
@@ -78,12 +88,6 @@ export const panelList = () => {
                 selector: `.${props.elementId} .guten-button`
             }),
             tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

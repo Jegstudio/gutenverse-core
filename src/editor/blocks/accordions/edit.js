@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
@@ -14,7 +14,6 @@ import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { plus } from '@wordpress/icons';
 import { displayShortcut } from '@wordpress/keycodes';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const Accordions = compose(
     withCustomStyle(panelList),
@@ -44,17 +43,11 @@ const Accordions = compose(
         iconClosed,
         iconPosition,
         titleTag,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const accordionRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     useEffect(() => {
         if (accordionRef.current) {
@@ -77,9 +70,6 @@ const Accordions = compose(
         className: classnames(
             'guten-accordions',
             elementId,
-            {
-                'gutenverse-transform': theTransform
-            }
         )
     }, {
         template: [['gutenverse/accordion']],

@@ -18,7 +18,6 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { AlertControl } from 'gutenverse-core/controls';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
     const playerStyle = {};
@@ -101,17 +100,11 @@ const VideoBlock = compose(
         playing,
         loop,
         muted,
-        transform
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const videoRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -125,9 +118,6 @@ const VideoBlock = compose(
                 videoType: videoType,
                 'video-loaded': videoSrc
             },
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: videoRef
     });

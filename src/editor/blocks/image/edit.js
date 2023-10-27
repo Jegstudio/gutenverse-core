@@ -11,14 +11,13 @@ import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
 import { isEmpty } from 'lodash';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -127,7 +126,6 @@ const ImageBlock = compose(
         captionType,
         captionOriginal,
         captionCustom,
-        transform
     } = attributes;
 
     const defaultSrc = imagePlaceholder;
@@ -136,11 +134,7 @@ const ImageBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const imageRef = useRef();
-    const [theTransform, setTheTransform] = useState(false);
 
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -153,9 +147,6 @@ const ImageBlock = compose(
             {
                 'select-image': !imgSrc,
             },
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ref: imageRef
     });

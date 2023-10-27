@@ -15,7 +15,6 @@ import { NavSkeletonNormal } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const NavMenuBlock = compose(
     withCustomStyle(panelList),
@@ -49,11 +48,6 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [theTransform, setTheTransform] = useState(false);
-
-    useEffect(() => {
-        setTheTransform(canRenderTransform(transform));
-    }, [transform]);
 
     const removeClick = () => {
         if (elementRef.current) {
@@ -137,9 +131,6 @@ const NavMenuBlock = compose(
             displayClass,
             deviceType.toLowerCase(),
             `${breakpoint}-breakpoint`,
-            {
-                'gutenverse-transform': theTransform
-            }
         ),
         ['data-item-indicator']: submenuItemIndicator
     });

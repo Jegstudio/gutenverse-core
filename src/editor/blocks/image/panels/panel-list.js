@@ -44,6 +44,16 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} img`,
+                hoverSelector: `.${props.elementId} img:hover`,
+            }),
+            pro: true
+        },
+        {
             title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
@@ -64,12 +74,6 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: positioningPanel,
             tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),
