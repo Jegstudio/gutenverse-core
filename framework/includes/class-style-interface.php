@@ -539,6 +539,13 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Get Feature
+	 */
+	public function get_feature() {
+		return $this->features;
+	}
+
+	/**
 	 * Process Feature
 	 */
 	private function process_features() {
@@ -597,7 +604,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function ( $value, $device ) {
+					'property'       => function ( $value ) {
 						$output  = '';
 						$display = 'display: inline-block;';
 
@@ -1067,6 +1074,34 @@ abstract class Style_Interface {
 		}
 
 		return $results;
+	}
+
+
+
+	/**
+	 * Multi style values
+	 *
+	 * @param array $props .
+	 *
+	 * @return boolean
+	 */
+	public function multi_style_values( $props ) {
+		$devices = array( 'Desktop', 'Tablet', 'Mobile' );
+		$styles  = array();
+
+		foreach ( $props as $prop ) {
+			foreach ( $devices as $device ) {
+				if ( empty( $styles[ $device ] ) ) {
+					$styles[ $device ] = '';
+				}
+
+				if ( ! empty( $prop['value'][ $device ] ) ) {
+					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+				}
+			}
+		}
+
+		return $styles;
 	}
 
 	/**

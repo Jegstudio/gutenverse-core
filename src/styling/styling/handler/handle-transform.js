@@ -1,4 +1,5 @@
 import { DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
+import isEmpty from 'lodash/isEmpty';
 
 export const handleTransform = (values) => {
     if (values === undefined) return;
@@ -22,31 +23,16 @@ export const handleTransform = (values) => {
         opacity,
     } = values;
 
-    if (duration) {
-        normalAppender({
-            style: `--gutenverse-transform-transition-duration: ${duration}s;`,
-            elementStyle
-        });
-    }
+    const duration_ = ! isEmpty(duration) ? duration: '0.4';
+    normalAppender({
+        style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+        elementStyle
+    });
 
     if (ease) {
         normalAppender({
-            style: `--gutenverse-transform-timing-function: ${ease};`,
+            style: `transition-timing-function: ${ease};`,
             elementStyle
-        });
-    }
-
-    if (perspective) {
-        DeviceLoop(device => {
-            const _perspective = deviceStyleValue(device, perspective);
-
-            if (_perspective && _perspective.point) {
-                responsiveAppender({
-                    style: `--guten-transform-perspective: ${_perspective.point}${_perspective.unit};`,
-                    device,
-                    elementStyle
-                });
-            }
         });
     }
 
@@ -56,9 +42,25 @@ export const handleTransform = (values) => {
 
             if (_transformOrigin) {
                 responsiveAppender({
-                    style: `--guten-transform-origin: ${_transformOrigin};`,
+                    style: `transform-origin: ${_transformOrigin};`,
                     device,
                     elementStyle
+                });
+            }
+        });
+    }
+
+    const transformStyle = elementVar();
+
+    if (perspective) {
+        DeviceLoop(device => {
+            const _perspective = deviceStyleValue(device, perspective);
+
+            if (_perspective && _perspective.point) {
+                responsiveAppender({
+                    style: `perspective(${_perspective.point}${_perspective.unit}) `,
+                    device,
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -70,9 +72,9 @@ export const handleTransform = (values) => {
 
             if (_rotateZ && _rotateZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateZ: ${_rotateZ.point}${_rotateZ.unit};`,
+                    style: `rotate(${_rotateZ.point}${_rotateZ.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -84,9 +86,9 @@ export const handleTransform = (values) => {
 
             if (_rotateX && _rotateX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateX: ${_rotateX.point}${_rotateX.unit};`,
+                    style: `rotateX(${_rotateX.point}${_rotateX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -98,9 +100,9 @@ export const handleTransform = (values) => {
 
             if (_rotateY && _rotateY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateY: ${_rotateY.point}${_rotateY.unit};`,
+                    style: `rotateY(${_rotateY.point}${_rotateY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -112,9 +114,9 @@ export const handleTransform = (values) => {
 
             if (_scaleX) {
                 responsiveAppender({
-                    style: `--guten-transform-scaleX: ${_scaleX};`,
+                    style: `scaleX(${_scaleX}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -126,9 +128,9 @@ export const handleTransform = (values) => {
 
             if (_scaleY) {
                 responsiveAppender({
-                    style: `--guten-transform-scaleY: ${_scaleY};`,
+                    style: `scaleY(${_scaleY}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -140,9 +142,9 @@ export const handleTransform = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveZ: ${_moveZ.point}${_moveZ.unit};`,
+                    style: `translate(${_moveZ.point}${_moveZ.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -154,9 +156,9 @@ export const handleTransform = (values) => {
 
             if (_moveX && _moveX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveX: ${_moveX.point}${_moveX.unit};`,
+                    style: `translateX(${_moveX.point}${_moveX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -168,9 +170,9 @@ export const handleTransform = (values) => {
 
             if (_moveY && _moveY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveY: ${_moveY.point}${_moveY.unit};`,
+                    style: `translateY(${_moveY.point}${_moveY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -182,9 +184,9 @@ export const handleTransform = (values) => {
 
             if (_skewX && _skewX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-skewX: ${_skewX.point}${_skewX.unit};`,
+                    style: `skewX(${_skewX.point}${_skewX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -196,22 +198,30 @@ export const handleTransform = (values) => {
 
             if (_skewY && _skewY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-skewY: ${_skewY.point}${_skewY.unit};`,
+                    style: `skewY(${_skewY.point}${_skewY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
     }
 
     if (opacity) {
+        const opacity_ = ! isEmpty(opacity) ? opacity: '1';
+
         normalAppender({
-            style: `--gutenverse-transform-opacity: ${opacity};`,
+            style: `opacity: ${opacity_};`,
             elementStyle
         });
     }
 
-    return elementStyle;
+    return {
+        adminStyle: {
+            Desktop: `${elementStyle?.adminStyle?.Desktop} transform: ${transformStyle?.adminStyle?.Desktop};`,
+            Tablet: `${elementStyle?.adminStyle?.Tablet} transform: ${transformStyle?.adminStyle?.Tablet};`,
+            Mobile: `${elementStyle?.adminStyle?.Mobile} transform: ${transformStyle?.adminStyle?.Mobile};`
+        }
+    };
 };
 
 export const handleTransformHover = (values) => {
@@ -232,15 +242,17 @@ export const handleTransformHover = (values) => {
         opacityHover
     } = values;
 
+    const transformStyle = elementVar();
+
     if (rotateZHover) {
         DeviceLoop(device => {
             const _rotateZ = deviceStyleValue(device, rotateZHover);
 
             if (_rotateZ && _rotateZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateZ: ${_rotateZ.point}${_rotateZ.unit};`,
+                    style: `rotate(${_rotateZ.point}${_rotateZ.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -252,9 +264,9 @@ export const handleTransformHover = (values) => {
 
             if (_rotateX && _rotateX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateX: ${_rotateX.point}${_rotateX.unit};`,
+                    style: `rotateX(${_rotateX.point}${_rotateX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -266,9 +278,9 @@ export const handleTransformHover = (values) => {
 
             if (_rotateY && _rotateY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-rotateY: ${_rotateY.point}${_rotateY.unit};`,
+                    style: `rotateY(${_rotateY.point}${_rotateY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -280,9 +292,9 @@ export const handleTransformHover = (values) => {
 
             if (_scaleX) {
                 responsiveAppender({
-                    style: `--guten-transform-scaleX: ${_scaleX};`,
+                    style: `scaleX(${_scaleX}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -294,9 +306,9 @@ export const handleTransformHover = (values) => {
 
             if (_scaleY) {
                 responsiveAppender({
-                    style: `--guten-transform-scaleY: ${_scaleY};`,
+                    style: `scaleY(${_scaleY}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -308,9 +320,9 @@ export const handleTransformHover = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveZ: ${_moveZ.point}${_moveZ.unit};`,
+                    style: `translate(${_moveZ.point}${_moveZ.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -322,9 +334,9 @@ export const handleTransformHover = (values) => {
 
             if (_moveY && _moveY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveY: ${_moveY.point}${_moveY.unit};`,
+                    style: `translateY(${_moveY.point}${_moveY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -336,9 +348,9 @@ export const handleTransformHover = (values) => {
 
             if (_moveX && _moveX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-moveX: ${_moveX.point}${_moveX.unit};`,
+                    style: `translateX(${_moveX.point}${_moveX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -350,9 +362,9 @@ export const handleTransformHover = (values) => {
 
             if (_skewX && _skewX.point) {
                 responsiveAppender({
-                    style: `--guten-transform-skewX: ${_skewX.point}${_skewX.unit};`,
+                    style: `skewX(${_skewX.point}${_skewX.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
@@ -364,20 +376,28 @@ export const handleTransformHover = (values) => {
 
             if (_skewY && _skewY.point) {
                 responsiveAppender({
-                    style: `--guten-transform-skewY: ${_skewY.point}${_skewY.unit};`,
+                    style: `skewY(${_skewY.point}${_skewY.unit}) `,
                     device,
-                    elementStyle
+                    elementStyle: transformStyle
                 });
             }
         });
     }
 
     if (opacityHover) {
+        const opacity_ = ! isEmpty(opacityHover) ? opacityHover: '1';
+
         normalAppender({
-            style: `--gutenverse-transform-opacity: ${opacityHover};`,
+            style: `opacity: ${opacity_};`,
             elementStyle
         });
     }
 
-    return elementStyle;
+    return {
+        adminStyle: {
+            Desktop: `${elementStyle?.adminStyle?.Desktop} transform: ${transformStyle?.adminStyle?.Desktop};`,
+            Tablet: `${elementStyle?.adminStyle?.Tablet} transform: ${transformStyle?.adminStyle?.Tablet};`,
+            Mobile: `${elementStyle?.adminStyle?.Mobile} transform: ${transformStyle?.adminStyle?.Mobile};`
+        }
+    };
 };

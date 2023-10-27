@@ -10,7 +10,6 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
-import { canRenderTransform } from 'gutenverse-core/styling';
 
 const save = compose(
     withAnimationAdvanceScript('section'),
@@ -39,13 +38,11 @@ const save = compose(
         topSticky,
         bottomSticky,
         backgroundAnimated = {},
-        transform
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const theTransform = canRenderTransform(transform);
 
     const className = classnames(
         'guten-element',
@@ -60,7 +57,6 @@ const save = compose(
             [`overflow-${overflow}`]: overflow && overflow !== 'none',
             ['guten-sticky']: isSticky(sticky),
             [`sticky-${stickyPosition}`]: isSticky(sticky),
-            'gutenverse-transform': theTransform
         }
     );
 

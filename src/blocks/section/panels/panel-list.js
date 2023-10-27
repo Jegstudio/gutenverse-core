@@ -106,6 +106,13 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Advanced Animation', '--gctd--'),
             initialOpen: false,
             panelAdvance: true,
@@ -113,13 +120,6 @@ export const panelList = () => {
                 ...props,
                 blockType: 'section'
             }),
-            pro: true,
-        },
-        {
-            title: __('Transform', '--gctd--'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            tabRole: TabSetting,
             pro: true,
         },
         {
