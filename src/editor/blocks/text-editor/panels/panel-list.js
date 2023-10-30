@@ -4,6 +4,7 @@ import { panelDropcap } from './panel-dropcap';
 import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { panelChildStyle } from './panel-child-style';
 
 export const panelList = () => {
     return [
@@ -16,6 +17,12 @@ export const panelList = () => {
         {
             title: __('Dropcap', 'gutenverse'),
             panelArray: panelDropcap,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Child Style', 'gutenverse'),
+            panelArray: panelChildStyle,
             initialOpen: false,
             tabRole: TabStyle
         },
