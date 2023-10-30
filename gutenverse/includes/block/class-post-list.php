@@ -219,9 +219,8 @@ class Post_List extends Post_Abstract {
 		$layout          = $this->attributes['layout'];
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$transform_class = $this->set_transform_class();
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $transform_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
 	}
 }

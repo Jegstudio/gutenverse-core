@@ -40,14 +40,13 @@ class Nav_Menu extends Block_Abstract {
 		$custom_classes    = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
 		$display_classes   = $this->set_display_classes();
 		$animation_class   = $this->set_animation_classes();
-		$transform_class   = $this->set_transform_class();
 		$menu              = gutenverse_get_menu( $this->attributes['menuId'] );
 
 		if ( $remove_link ) {
 			$menu = str_replace( 'href', 'href="javascript:void(0);" data-href', $menu );
 		}
 
-		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $transform_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-close-on-click="' . $closeon_click . '">
+		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-close-on-click="' . $closeon_click . '">
 			<div class="gutenverse-hamburger-wrapper">
 				<button class="gutenverse-hamburger-menu">
 					<i aria-hidden="true" class="' . $mobile_menu_icon . '"></i>

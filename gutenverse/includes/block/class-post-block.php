@@ -394,9 +394,8 @@ class Post_Block extends Post_Abstract {
 		$element_id      = $this->attributes['elementId'];
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$transform_class = $this->set_transform_class();
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $transform_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content() . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content() . '</div>';
 	}
 }

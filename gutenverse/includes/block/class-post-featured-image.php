@@ -30,7 +30,6 @@ class Post_Featured_Image extends Block_Abstract {
 		$placeholder_img = ! empty( $this->attributes['placeholderImg'] ) ? $this->attributes['placeholderImg'] : false;
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$transform_class = $this->set_transform_class();
 		$post_url        = get_post_permalink( $post_id );
 		$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
@@ -43,9 +42,9 @@ class Post_Featured_Image extends Block_Abstract {
 		}
 
 		if ( ! empty( $post_link ) && ! empty( $post_url ) ) {
-			$content = '<a href="' . $post_url . '" class="' . $element_id . $display_classes . $animation_class . $transform_class . $custom_classes . ' guten-element guten-post-featured-image">' . $content . '</a>';
+			$content = '<a href="' . $post_url . '" class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-element guten-post-featured-image">' . $content . '</a>';
 		} else {
-			$content = '<div class="' . $element_id . $display_classes . $animation_class . $transform_class . $custom_classes . ' guten-element guten-post-featured-image">' . $content . '</div>';
+			$content = '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-element guten-post-featured-image">' . $content . '</div>';
 		}
 
 		return $content;
