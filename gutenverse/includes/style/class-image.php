@@ -60,9 +60,9 @@ class Image extends Style_Abstract {
 		if ( isset( $this->attrs['align'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}",
+					'selector'       => ".{$this->element_id} .guten-image-wrapper",
 					'property'       => function ( $value ) {
-						return "text-align: {$value};";
+						return "justify-content: {$this->handle_align_reverse($value)};";
 					},
 					'value'          => $this->attrs['align'],
 					'device_control' => true,
