@@ -38,6 +38,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [elementRef, setElementRef] = useState(null);
         const [headElement, setHeadElement] = useState(null);
         const [refreshId, setRefreshId] = useState(null);
+        const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
 
@@ -152,7 +153,8 @@ export const withCustomStyle = panelList => BlockElement => {
             setSwitcher,
             setAttributes,
             refreshStyle,
-            ...attributes
+            ...attributes,
+            ...additionalAttribute
         };
 
         const registerElement = (uniqueId) => {
@@ -285,6 +287,7 @@ export const withCustomStyle = panelList => BlockElement => {
             refreshId,
             confirmSignal,
             deviceType,
+            additionalAttribute,
             ...renderStyleCustomDeps(props),
         ]);
 
@@ -322,6 +325,7 @@ export const withCustomStyle = panelList => BlockElement => {
                 setElementRef={setElementRef}
                 elementRef={elementRef}
                 refreshStyle={refreshStyle}
+                setAdditionalAttribute={setAdditionalAttribute}
             />
         </>;
     };
