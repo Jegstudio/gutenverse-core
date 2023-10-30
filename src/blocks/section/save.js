@@ -37,7 +37,7 @@ const save = compose(
         stickyDuration,
         topSticky,
         bottomSticky,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);

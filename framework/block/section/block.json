@@ -234,6 +234,9 @@
     },
     "positioningBottom": {
       "type": "object"
+    },
+    "transform": {
+      "type": "object"
     }
   },
   "keywords": [

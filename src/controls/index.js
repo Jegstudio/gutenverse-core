@@ -49,11 +49,13 @@ export { default as LockedControl } from './controls/locked/locked-control';
 export { default as LockedProNoticeControl } from './controls/locked/locked-pro-notice-control';
 export { default as LockedSwitchControl } from './controls/locked/locked-switch-control';
 export { default as LockedProAnimationControl } from './controls/locked/locked-animation-control';
+export { default as LockedTransformControl } from './controls/locked/locked-transform-control';
 export { default as LockedProInputLogicControl } from './controls/locked/locked-input-logic-control';
 export { default as LockedProBackgroundControl } from './controls/locked/locked-background-control';
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
 export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
+export { default as LockedTransform } from './controls/locked/locked-transform';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -64,6 +66,7 @@ export { default as ProLock } from './controls/pro-lock';
 export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
+export { transformPanel } from './panels/panel-transform';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { textClipPanel } from './panels/panel-text-clip';

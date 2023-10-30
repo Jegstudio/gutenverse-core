@@ -12,6 +12,7 @@ export { handleAlignReverse } from './styling/handler/handle-align';
 export { handleBoxShadow, allowRenderBoxShadow } from './styling/handler/handle-box-shadow';
 export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handle-text-shadow';
 export { handleTextClip } from './styling/handler/handle-text-clip';
+export { handleTransform, handleTransformHover } from './styling/handler/handle-transform';
 
 export { setStylePoint } from './styling/single/set-style-point';
 export { setStyleUnit } from './styling/single/set-style-unit';
@@ -25,7 +26,9 @@ export {
     injectFont,
     setDeviceClasses,
     deviceStyleValue,
-    responsiveAppender
+    responsiveAppender,
+    canRenderTransform,
+    isEmptyStyle
 } from './styling/styling-utility';
 
 export { shapeDividerLoader } from './data/shape-divider';
