@@ -27,7 +27,7 @@ export const SubmenuPanelStyle = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-elementu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -38,7 +38,7 @@ export const SubmenuPanelStyle = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-elementu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -51,7 +51,7 @@ export const SubmenuPanelStyle = (props) => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-elementu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -67,7 +67,7 @@ export const SubmenuPanelStyle = (props) => {
             step: 1,
             style: [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-elementu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     render: value => `width: ${value}px;`
                 }
             ]
@@ -78,7 +78,7 @@ export const SubmenuPanelStyle = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-elementu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }
