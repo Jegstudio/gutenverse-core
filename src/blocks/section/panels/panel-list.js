@@ -8,6 +8,7 @@ import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
+import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
@@ -52,6 +53,12 @@ export const panelList = () => {
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
             tabRole: TabStyle
         },
         {

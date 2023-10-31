@@ -152,6 +152,12 @@
     },
     "hideMobile": {
       "type": "boolean"
+    },
+    "blur": {
+      "type": "object"
+    },
+    "blurHover": {
+      "type": "object"
     }
   },
   "supports": {

@@ -392,6 +392,32 @@ class Section extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['blur'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "section.guten-element.{$this->element_id}:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blur'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blurHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "section.guten-element.{$this->element_id}:hover:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blurHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		do_action( 'gutenverse_section_style', $this, $this->attrs );
 	}
 }

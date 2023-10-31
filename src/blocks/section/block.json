@@ -237,6 +237,12 @@
     },
     "transform": {
       "type": "object"
+    },
+    "blur": {
+      "type": "object"
+    },
+    "blurHover": {
+      "type": "object"
     }
   },
   "keywords": [
