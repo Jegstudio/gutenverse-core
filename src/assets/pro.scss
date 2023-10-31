@@ -266,6 +266,7 @@
     .guten-pro-total-themes-image{
         position: absolute;
         bottom: 0px;
+        width: 100%;
     }
 }
 .guten-pro-popup-builder{
@@ -292,6 +293,9 @@
             top: 30px;
         }
     }
+    .guten-pro-popup-builder-mockup{
+        width: 100%;
+    }
 }
 .guten-pro-themes-wrapper{
 
@@ -313,6 +317,9 @@
             position: absolute;
             right: 10px;
         }
+        .guten-pro-form-mockup{
+            width: 100%;
+        }
     }
     .guten-pro-premium-theme{
         border-radius: 5px;
@@ -325,6 +332,7 @@
             top: -10px;
             right: -10px;
             z-index: 1;
+            width: 100%;
         }
         .guten-pro-premium-number{
             color: #FFF;
@@ -394,6 +402,7 @@
             top: 40px;
         }
         .guten-pro-shape-divider-image{
+            width: 100%;
             position: absolute;
             bottom: 0px;
         }
@@ -416,6 +425,7 @@
         .guten-pro-background-image{
             position: absolute;
             top: -25px;
+            width: 100%;
         }
         .guten-pro-background-title{
             color: var(--Black, #011627);
