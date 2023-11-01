@@ -35,9 +35,9 @@ const TextEditorBlock = compose(
     } = props;
 
     const getContent = () => {
-        const childId = getBlocks(clientId)[0].clientId;
-        console.log(getBlocks(clientId));
-        const { content } = getBlockAttributes(childId);
+        // const childId = getBlocks(clientId)[0].clientId;
+        // console.log(getBlocks(clientId));
+        // const { content } = getBlockAttributes(childId);
         return content;
     };
 

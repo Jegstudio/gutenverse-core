@@ -20,12 +20,12 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabStyle
         },
-        {
-            title: __('Child Style', 'gutenverse'),
-            panelArray: panelChildStyle,
-            initialOpen: false,
-            tabRole: TabStyle
-        },
+        // {
+        //     title: __('Child Style', 'gutenverse'),
+        //     panelArray: panelChildStyle,
+        //     initialOpen: false,
+        //     tabRole: TabStyle
+        // },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
