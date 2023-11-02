@@ -54,7 +54,7 @@ const save = compose(
         displayClass,
         'gutenverse-image-box',
         'guten-element',
-        `style-${contentStyle}`
+        `style-${contentStyle}`,
     );
 
     return (

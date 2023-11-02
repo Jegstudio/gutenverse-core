@@ -38,7 +38,7 @@ const TestimonialsBlock = compose(
         contentType,
         showQuote,
         iconQuote,
-        quoteOverride
+        quoteOverride,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -54,7 +54,7 @@ const TestimonialsBlock = compose(
             animationClass,
             displayClass,
             `style-${contentType}`,
-            'quote-override'
+            'quote-override',
         ),
         ref: testimonialRef
     });

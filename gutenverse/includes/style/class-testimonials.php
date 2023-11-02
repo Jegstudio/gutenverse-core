@@ -59,7 +59,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['arrowFontSize'],
@@ -72,7 +72,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['arrowColor'],
@@ -85,7 +85,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['arrowBgColor'],
@@ -98,7 +98,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['arrowPadding'],
@@ -111,7 +111,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['arrowMargin'],
@@ -124,7 +124,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['arrowOpacity'],
@@ -137,7 +137,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['arrowHoverColor'],
@@ -150,7 +150,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['arrowHoverBgColor'],
@@ -163,7 +163,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['arrowHoverPadding'],
@@ -176,7 +176,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['arrowHoverMargin'],
@@ -189,7 +189,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['arrowHoverOpacity'],
@@ -206,7 +206,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['arrowBoxShadow'],
@@ -223,7 +223,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['arrowBoxShadowHover'],
@@ -236,7 +236,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullets .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin: 0 calc({$value}px / 2);";
 					},
 					'value'          => $this->attrs['dotsSpacingHorizontal'],
@@ -249,7 +249,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullets",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-top: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsSpacingVertical'],
@@ -262,7 +262,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsWidth'],
@@ -275,7 +275,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsHeight'],
@@ -288,7 +288,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['dotsRadius'],
@@ -301,7 +301,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['dotsColor'],
@@ -314,7 +314,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsActiveWidth'],
@@ -327,7 +327,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['dotsActiveHeight'],
@@ -340,7 +340,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['dotsActiveRadius'],
@@ -353,7 +353,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .swiper-pagination-bullet.swiper-pagination-bullet-active",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['dotsActiveColor'],
@@ -366,7 +366,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .testimonial-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['alignText'],
@@ -379,7 +379,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['containerMargin'],
@@ -392,7 +392,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['containerPadding'],
@@ -417,7 +417,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadow'],
@@ -434,7 +434,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadowHover'],
@@ -447,7 +447,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .profile-name",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['nameTypography'],
 					'device_control' => false,
 				)
@@ -458,7 +458,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .profile-des",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['designationTypography'],
 					'device_control' => false,
 				)
@@ -469,7 +469,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .profile-des",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-top: {$value}px;";
 					},
 					'value'          => $this->attrs['designationSpacing'],
@@ -482,7 +482,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['descriptionTypography'],
 					'device_control' => false,
 				)
@@ -493,7 +493,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['descriptionMargin'],
@@ -506,7 +506,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .icon-content i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['quoteSize'],
@@ -519,7 +519,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "top: {$value}px;";
 					},
 					'value'          => $this->attrs['quotePositionTop'],
@@ -532,7 +532,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "left: {$value}px;";
 					},
 					'value'          => $this->attrs['quotePositionLeft'],
@@ -545,7 +545,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-name",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['nameNormalColor'],
@@ -558,7 +558,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .profile-info .profile-name",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['nameHoverColor'],
@@ -571,7 +571,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-des",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['designationNormalColor'],
@@ -584,7 +584,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .profile-info .profile-des",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['designationHoverColor'],
@@ -597,7 +597,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descriptionNormalColor'],
@@ -610,7 +610,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .comment-content p",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descriptionHoverColor'],
@@ -623,7 +623,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .testimonial-box .icon-content i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['quoteNormalColor'],
@@ -636,7 +636,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item:hover .testimonial-box .icon-content i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['quoteHoverColor'],
@@ -657,7 +657,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .profile-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['imageMargin'],
@@ -670,7 +670,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-testimonial-item .profile-image",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['imagePadding'],
@@ -683,7 +683,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials.style-1 .swiper-container .guten-testimonial-item .testimonial-box .comment-bio",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "bottom: {$value}px;";
 					},
 					'value'          => $this->attrs['bottomSpace'],
@@ -696,7 +696,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['imageWidth'],
@@ -709,7 +709,7 @@ class Testimonials extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['imageHeight'],

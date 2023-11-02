@@ -30,7 +30,7 @@ const save = compose(
         hoverBottom,
         hoverBottomDirection,
         image,
-        imageAlt
+        imageAlt,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);

@@ -29,7 +29,7 @@ const SocialIcons = compose(
         orientation = 'horizontal',
         shape,
         color,
-        showText
+        showText,
     } = attributes;
 
     const displayClass = useDisplayEditor(attributes);

@@ -53,7 +53,7 @@ const TeamBlock = compose(
             'no-margin',
             elementId,
             displayClass,
-            animationClass
+            animationClass,
         ),
         ref: teamRef
     });

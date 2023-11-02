@@ -24,7 +24,7 @@ const save = compose(
         src,
         description,
         phone,
-        email
+        email,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -36,7 +36,7 @@ const save = compose(
         'guten-team',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     const socialComponent = <InnerBlocks.Content/>;

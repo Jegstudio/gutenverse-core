@@ -57,7 +57,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['alignText'],
@@ -70,7 +70,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'min-height' );
 					},
 					'value'          => $this->attrs['height'],
@@ -83,7 +83,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "align-items: {$value};";
 					},
 					'value'          => $this->attrs['verticalAlign'],
@@ -96,7 +96,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['color'],
@@ -109,7 +109,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} *",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typography'],
 					'device_control' => false,
 				)
@@ -120,7 +120,7 @@ class Animated_Text extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} *",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadow'],

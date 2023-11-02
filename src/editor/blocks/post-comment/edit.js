@@ -24,7 +24,7 @@ const PostCommentBlock = compose(
 
     const {
         elementId,
-        showForm
+        showForm,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

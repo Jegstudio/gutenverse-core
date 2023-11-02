@@ -47,7 +47,7 @@ const ButtonBlock = compose(
         rel,
         linkTarget,
         iconPosition = 'before',
-        role
+        role,
     } = attributes;
 
     const {
@@ -76,7 +76,7 @@ const ButtonBlock = compose(
             'guten-button-wrapper',
             'no-margin',
             elementId,
-            displayClass
+            displayClass,
         ),
         ref: buttonRef
     });

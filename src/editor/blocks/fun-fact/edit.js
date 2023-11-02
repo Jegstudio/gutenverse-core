@@ -39,26 +39,13 @@ const FunFactBlock = compose(
         hoverBottomDirection,
         iconType,
         image,
-        imageAlt
+        imageAlt,
     } = attributes;
 
     const imageAltText = imageAlt || null;
     const funFactRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const blockProps = useBlockProps({
-        className: classnames(
-            'guten-element',
-            'guten-fun-fact',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayClass,
-            'align-center',
-            'hover-from-left',
-        ),
-        ref: funFactRef
-    });
 
     useEffect(() => {
         if (funFactRef.current) {
@@ -86,6 +73,20 @@ const FunFactBlock = compose(
                 return null;
         }
     };
+
+    const blockProps = useBlockProps({
+        className: classnames(
+            'guten-element',
+            'guten-fun-fact',
+            'no-margin',
+            elementId,
+            animationClass,
+            displayClass,
+            'align-center',
+            'hover-from-left',
+        ),
+        ref: funFactRef
+    });
 
     return <>
         <PanelController panelList={panelList} {...props} />

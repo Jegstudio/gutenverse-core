@@ -66,7 +66,7 @@ const IconBlock = compose(
         className: classnames(
             'guten-icon-wrapper',
             iconShape,
-            iconView
+            iconView,
         )
     };
 

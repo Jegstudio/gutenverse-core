@@ -67,7 +67,10 @@ const Accordions = compose(
     }, [iconOpen, iconClosed, iconPosition, titleTag]);
 
     const innerBlocksProps = useInnerBlocksProps({
-        className: classnames('guten-accordions', elementId)
+        className: classnames(
+            'guten-accordions',
+            elementId,
+        )
     }, {
         template: [['gutenverse/accordion']],
         allowedBlocks: ['gutenverse/accordion'],

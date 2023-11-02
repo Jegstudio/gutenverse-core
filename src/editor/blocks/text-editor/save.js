@@ -17,7 +17,7 @@ const save = compose(
 
     const {
         elementId,
-        dropcap
+        dropcap,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);

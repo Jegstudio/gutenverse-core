@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel, transformPanel } from 'gutenverse-core/controls';
 import { focusTitlePanel } from './panel-focus-title';
 import { linePanel } from './panel-line';
 import { mainTitlePanel } from './panel-main-title';
@@ -29,7 +29,7 @@ export const panelList = () => {
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
-                const {elementId} = props;
+                const { elementId } = props;
                 return textClipPanel({
                     ...props,
                     textClipSelector: `.editor-styles-wrapper .${elementId} .heading-title`,
@@ -49,7 +49,7 @@ export const panelList = () => {
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
-                const {elementId} = props;
+                const { elementId } = props;
                 return textClipPanel({
                     ...props,
                     textClipSelector: `.editor-styles-wrapper .${elementId} .heading-focus`,
@@ -70,8 +70,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'advanced-heading-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -106,7 +106,13 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

@@ -48,7 +48,7 @@ const save = compose(
     const {
         elementId,
         content,
-        type
+        type,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -73,7 +73,7 @@ const save = compose(
             displayClass,
             {
                 ['guten-divider-tribal']: type && isTribal,
-            }
+            },
         )
     });
 

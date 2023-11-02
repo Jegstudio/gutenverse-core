@@ -1,11 +1,16 @@
 .guten-image {
     text-align: center;
 
+    .guten-image-wrapper {
+        display: flex;
+    }
+
     .guten-caption {
         display: block;
     }
 
     img {
         max-width: 100%;
+        display: block;
     }
 }

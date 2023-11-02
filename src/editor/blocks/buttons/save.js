@@ -7,7 +7,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 const save = ({ attributes }) => {
     const {
         elementId,
-        orientation
+        orientation,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -19,7 +19,7 @@ const save = ({ attributes }) => {
         `${orientation}`,
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     return (

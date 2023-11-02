@@ -27,7 +27,7 @@ const save = compose(
         muted,
         loop,
         width,
-        height
+        height,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -39,7 +39,7 @@ const save = compose(
         'guten-video',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     const style = {};

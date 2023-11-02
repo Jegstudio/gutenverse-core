@@ -28,7 +28,7 @@ const PostExcerptBlock = compose(
         elementId,
         htmlTag: HtmlTag,
         showReadmore,
-        readmoreText
+        readmoreText,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

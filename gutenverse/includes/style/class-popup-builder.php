@@ -46,6 +46,10 @@ class Popup_Builder extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} .guten-popup-content",
+					'hover'  => ".{$this->element_id} .guten-popup-content:hover",
+				),
 			)
 		);
 	}
@@ -58,7 +62,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['width'],
@@ -71,7 +75,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-center .guten-popup-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'max-height' );
 					},
 					'value'          => $this->attrs['maxHeight'],
@@ -88,7 +92,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['containerPadding'],
@@ -99,7 +103,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-left .guten-popup-container, .{$this->element_id} .guten-popup-right .guten-popup-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( isset( $value['dimension'] ) && isset( $value['unit'] ) ) {
 							$top       = 10;
 							$bottom    = 10;
@@ -132,7 +136,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadow'],
@@ -149,7 +153,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['closeButtonColor'],
@@ -162,7 +166,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['closeButtonColorHover'],
@@ -183,7 +187,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['closeButtonSize'],
@@ -196,7 +200,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'left' );
 					},
 					'value'          => $this->attrs['closePositioningLeft'],
@@ -209,7 +213,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'right' );
 					},
 					'value'          => $this->attrs['closePositioningRight'],
@@ -222,7 +226,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'top' );
 					},
 					'value'          => $this->attrs['closePositioningTop'],
@@ -235,7 +239,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'bottom' );
 					},
 					'value'          => $this->attrs['closePositioningBottom'],
@@ -248,7 +252,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['closePadding'],
@@ -269,7 +273,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['closeBoxShadow'],
@@ -282,7 +286,7 @@ class Popup_Builder extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['closeBoxShadowHover'],

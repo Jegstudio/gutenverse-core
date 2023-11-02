@@ -32,7 +32,7 @@ const PostDateBlock = compose(
         customFormat,
         linkTo,
         customURL,
-        htmlTag: HtmlTag
+        htmlTag: HtmlTag,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

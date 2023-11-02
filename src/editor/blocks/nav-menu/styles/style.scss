@@ -77,6 +77,8 @@
           font-size: 14px;
           font-weight: 400;
           width: 100%;
+          display: flex;
+          justify-content: space-between;
         }
       }
       li.menu-item-has-children {
@@ -95,6 +97,8 @@
         }
         > a i {
           margin-left: 5px;
+          display: flex;
+          align-items: center;
         }
       }
       .sub-menu {

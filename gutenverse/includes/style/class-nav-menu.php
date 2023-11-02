@@ -66,7 +66,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['alignment'],
@@ -79,7 +79,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['menuHeight'],
@@ -96,7 +96,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.break-point-mobile.guten-nav-menu .gutenverse-menu-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['mobileWrapperBackground'],
@@ -109,7 +109,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .gutenverse-menu-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['mobileWrapperBackground'],
@@ -122,7 +122,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['menuPadding'],
@@ -135,7 +135,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['menuMargin'],
@@ -148,7 +148,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['menuRadius'],
@@ -161,7 +161,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['itemTypography'],
 					'device_control' => false,
 				)
@@ -172,7 +172,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['itemSpacing'],
@@ -185,7 +185,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['itemTextNormalColor'],
@@ -202,7 +202,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['itemTextHoverColor'],
@@ -219,7 +219,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['itemTextActiveColor'],
@@ -232,7 +232,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['itemTextActiveColor'],
@@ -253,7 +253,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuIndicatorColor'],
@@ -266,7 +266,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuIndicatorHoverColor'],
@@ -279,7 +279,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuIndicatorActiveColor'],
@@ -292,7 +292,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['submenuIndicatorMargin'],
@@ -305,7 +305,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['submenuIndicatorPadding'],
@@ -322,7 +322,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['submenuTypography'],
 					'device_control' => false,
 				)
@@ -333,7 +333,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['submenuSpacing'],
@@ -346,7 +346,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuTextNormalColor'],
@@ -363,7 +363,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuTextHoverColor'],
@@ -380,7 +380,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuTextActiveColor'],
@@ -409,7 +409,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['submenuPanelPadding'],
@@ -430,7 +430,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['submenuPanelWidth'],
@@ -443,7 +443,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['submenuPanelShadow'],
@@ -456,7 +456,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-hamburger-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['hamburgerAlignment'],
@@ -469,7 +469,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['hamburgerWidth'],
@@ -482,7 +482,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['hamburgerSize'],
@@ -495,7 +495,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['hamburgerPadding'],
@@ -508,7 +508,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['hamburgerMargin'],
@@ -521,7 +521,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['hamburgerColorNormal'],
@@ -542,7 +542,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['hamburgerColorHover'],
@@ -563,7 +563,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['closeWidth'],
@@ -576,7 +576,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['closeSize'],
@@ -589,7 +589,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['closePadding'],
@@ -602,7 +602,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['closeMargin'],
@@ -615,7 +615,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['closeColorNormal'],
@@ -636,7 +636,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['closeColorHover'],
@@ -657,7 +657,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['mobileLogoWidth'],
@@ -670,7 +670,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['mobileLogoHeight'],
@@ -683,7 +683,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "object-fit: {$value};";
 					},
 					'value'          => $this->attrs['mobileLogoFit'],
@@ -696,7 +696,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['mobileMenuMargin'],
@@ -709,7 +709,7 @@ class Nav_Menu extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['mobileMenuPadding'],

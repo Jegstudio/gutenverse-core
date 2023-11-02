@@ -32,7 +32,7 @@ const PostAuthorBlock = compose(
         authorAvatar,
         authorLink,
         authorLinkTarget,
-        authorLinkRel
+        authorLinkRel,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

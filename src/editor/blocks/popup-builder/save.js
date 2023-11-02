@@ -34,7 +34,7 @@ const save = compose(
             'guten-element',
             'guten-popup-builder',
             elementId,
-            displayClass
+            displayClass,
         ),
         'data-trigger': openTrigger,
         'data-wait': openWaitTime,

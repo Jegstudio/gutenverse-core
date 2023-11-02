@@ -59,7 +59,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_gradient( $value, '90' );
 					},
 					'value'          => $this->attrs['barGradient'],
@@ -72,7 +72,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar .skill-track",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_gradient( $value, '90' );
 					},
 					'value'          => $this->attrs['trackGradient'],
@@ -85,7 +85,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['barColor'],
@@ -98,7 +98,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar .skill-track",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['trackColor'],
@@ -111,7 +111,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['trackHeight'],
@@ -124,7 +124,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['barRadius'],
@@ -137,7 +137,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar .skill-track",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['trackRadius'],
@@ -150,7 +150,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['barPadding'],
@@ -163,7 +163,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['barMargin'],
@@ -176,7 +176,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar-content .skill-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -189,7 +189,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar-content .skill-title",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
 				)
@@ -200,7 +200,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar-content .skill-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['titleTextShadow'],
@@ -213,7 +213,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group[class*='tooltip-'] .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper,.{$this->element_id} .progress-group.ribbon .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper,.{$this->element_id} .progress-group[class*='tooltip-']:not(.tooltip-style) .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['percentBgColor'],
@@ -224,7 +224,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group.tooltip-style .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['percentBgColor'],
@@ -235,7 +235,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group.ribbon .progress-skill-bar .skill-bar .skill-track .number-percentage-wrapper:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "{$this->handle_color( $value, 'border-right-color' )}{$this->handle_color( $value, 'border-bottom-color' )}";
 					},
 					'value'          => $this->attrs['percentBgColor'],
@@ -248,7 +248,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['barBoxShadow'],
@@ -261,7 +261,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .number-percentage, .{$this->element_id} .progress-group .number-percentage",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['percentColor'],
@@ -274,7 +274,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .number-percentage, .{$this->element_id} .progress-group .number-percentage",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['percentTypography'],
 					'device_control' => false,
 				)
@@ -285,7 +285,7 @@ class Progress_Bar extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .number-percentage, .{$this->element_id} .progress-group .number-percentage",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['percentTextShadow'],

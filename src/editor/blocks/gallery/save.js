@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import GalleryItem from './components/gallery-item';
@@ -36,7 +35,7 @@ const save = compose(
         filterSearchIconPosition,
         filterSearchFormText,
         itemsPerLoad,
-        zoomOptions
+        zoomOptions,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);

@@ -83,7 +83,7 @@ const DividerBlock = compose(
     const {
         elementId,
         content,
-        type
+        type,
     } = attributes;
 
     const dividerRef = useRef();
@@ -106,7 +106,7 @@ const DividerBlock = compose(
             deviceType.toLowerCase(),
             {
                 ['guten-divider-tribal']: type && isTribal,
-            }
+            },
         ),
         ref: dividerRef
     });

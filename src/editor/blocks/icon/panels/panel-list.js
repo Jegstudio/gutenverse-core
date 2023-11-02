@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { contentColor } from './panel-color';
 import { iconPanel } from './panel-icon';
@@ -24,8 +24,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'heading-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ]
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
             }),
             tabRole: TabStyle
         },
@@ -48,7 +48,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
@@ -68,6 +68,16 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: positioningPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} .guten-icon-wrapper`,
+                hoverSelector: `.${props.elementId} .guten-icon-wrapper:hover`,
+            }),
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

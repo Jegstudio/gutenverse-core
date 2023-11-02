@@ -42,7 +42,7 @@ const IconListItemBlock = compose(
         url,
         linkTarget,
         text,
-        hideIcon
+        hideIcon,
     } = attributes;
 
     const iconListItemRef = useRef();

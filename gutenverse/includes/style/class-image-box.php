@@ -58,7 +58,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['bodyAlignment'],
@@ -71,7 +71,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .border-bottom .animated",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['hoverBottomColor'],
@@ -84,7 +84,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['imagePadding'],
@@ -97,7 +97,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadow'],
@@ -110,7 +110,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['imageBorderRadius'],
@@ -123,7 +123,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'height' );
 					},
 					'value'          => $this->attrs['imageHeight'],
@@ -136,7 +136,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "object-fit: {$value};";
 					},
 					'value'          => $this->attrs['imageFit'],
@@ -149,7 +149,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value}%;";
 					},
 					'value'          => $this->attrs['imageOpacity'],
@@ -162,7 +162,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value}%;";
 					},
 					'value'          => $this->attrs['imageHoverOpacity'],
@@ -175,7 +175,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .image-box-header img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-transform: scale({$value}); 
 						-o-transform: scale({$value}); 
 						-moz-transform: scale({$value}); 
@@ -200,7 +200,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['containerBoxShadow'],
@@ -213,7 +213,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['containerPadding'],
@@ -226,7 +226,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['titleMargin'],
@@ -239,7 +239,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['titleTypography'],
 					'device_control' => false,
 				)
@@ -250,7 +250,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['titleIconSize'],
@@ -263,7 +263,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['titleIconSpacing'],
@@ -274,7 +274,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['titleIconSpacing'],
@@ -287,7 +287,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title, .{$this->element_id} .image-box-body .body-title a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleNormalColor'],
@@ -300,7 +300,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-title i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleNormalIconColor'],
@@ -313,7 +313,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .image-box-body .body-title, .{$this->element_id}:hover .image-box-body .body-title a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleHoverColor'],
@@ -326,7 +326,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .image-box-body .body-title i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleHoverIconColor'],
@@ -339,7 +339,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner .body-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['descriptionMargin'],
@@ -352,7 +352,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner .body-description",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['descriptionTypography'],
 					'device_control' => false,
 				)
@@ -363,7 +363,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner .body-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descriptionNormalColor'],
@@ -376,7 +376,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover .image-box-body .body-inner .body-description",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['descriptionHoverColor'],
@@ -389,7 +389,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.style-floating .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-top: {$value}px;";
 					},
 					'value'          => $this->attrs['floatMarginTop'],
@@ -402,7 +402,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.style-floating .image-box-body",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['floatWidth'],
@@ -415,7 +415,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.style-floating .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['floatHeight'],
@@ -428,7 +428,7 @@ class Image_Box extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.style-floating:hover .image-box-body .body-inner",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['floatHeightHover'],

@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { isEmpty } from 'lodash';
@@ -22,7 +21,7 @@ const save = compose(
         linkTarget,
         rel,
         iconShape,
-        iconView
+        iconView,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -34,13 +33,13 @@ const save = compose(
         elementId,
         'guten-icon',
         animationClass,
-        displayClass
+        displayClass,
     );
 
     const wrapperClass = classnames(
         'guten-icon-wrapper',
         iconShape,
-        iconView
+        iconView,
     );
 
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>

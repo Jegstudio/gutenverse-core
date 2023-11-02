@@ -36,7 +36,7 @@ const save = compose(
             'guten-image',
             elementId,
             animationClass,
-            displayClass
+            displayClass,
         ),
     });
 

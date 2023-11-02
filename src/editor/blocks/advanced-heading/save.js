@@ -22,7 +22,7 @@ const save = compose(
         focusText,
         subText,
         showSub,
-        showLine
+        showLine,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -34,7 +34,7 @@ const save = compose(
         'guten-advanced-heading',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     return (

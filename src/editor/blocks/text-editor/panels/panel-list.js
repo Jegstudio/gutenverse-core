@@ -1,9 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { panelContent } from './panel-content';
 import { panelDropcap } from './panel-dropcap';
-import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel } from 'gutenverse-core/controls';
+import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { panelChildStyle } from './panel-child-style';
 
 export const panelList = () => {
     return [
@@ -19,14 +20,20 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabStyle
         },
+        // {
+        //     title: __('Child Style', 'gutenverse'),
+        //     panelArray: panelChildStyle,
+        //     initialOpen: false,
+        //     tabRole: TabStyle
+        // },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'text-editor-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -61,7 +68,13 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

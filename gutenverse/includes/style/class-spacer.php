@@ -57,7 +57,7 @@ class Spacer extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-spacer",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'padding-bottom' );
 					},
 					'value'          => $this->attrs['space'],

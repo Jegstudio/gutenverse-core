@@ -12,7 +12,7 @@ const save = ({ attributes }) => {
         rel,
         url,
         linkTarget,
-        text
+        text,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);

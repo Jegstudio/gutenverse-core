@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import classnames from 'classnames';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
@@ -62,7 +61,7 @@ const save = compose(
         animationClass,
         displayClass,
         'guten-icon-box',
-        `icon-position-${iconPosition}`
+        `icon-position-${iconPosition}`,
     );
 
     const iconContent = () => {

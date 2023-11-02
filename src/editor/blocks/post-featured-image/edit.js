@@ -28,7 +28,7 @@ const PostFeaturedImageBlock = compose(
     const {
         elementId,
         postLink,
-        placeholderImg
+        placeholderImg,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

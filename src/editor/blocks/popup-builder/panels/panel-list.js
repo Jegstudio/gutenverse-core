@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { animationPanel } from 'gutenverse-core/controls';
+import { animationPanel, transformPanel } from 'gutenverse-core/controls';
 import { popupPanel } from './panel-popup';
 import { overlayPanel } from './panel-overlay';
 import { closePanel } from './panel-close';
@@ -35,6 +35,16 @@ export const panelList = () => {
                 styleId: 'popup-builder-animation'
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} .guten-popup-content`,
+                hoverSelector: `.${props.elementId} .guten-popup-content:hover`,
+            }),
+            pro: true
         },
     ];
 };

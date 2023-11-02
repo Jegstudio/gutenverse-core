@@ -28,7 +28,7 @@ const AdvancedHeadingBlock = compose(
         focusText,
         subText,
         showSub,
-        showLine
+        showLine,
     } = attributes;
 
     const advHeadingRef = useRef();

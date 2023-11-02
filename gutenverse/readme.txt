@@ -201,6 +201,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Client Logo**, Fix Slider Dots for Client Logo 
 * **Client Logo**, Remove Inline Auto Width for Client Logo
 * **Fun Fact**, Fix icon display property
+* **Global Style**, Fix color opacity not working
 * **Testimonial**, Fix Slider Arrow for Testimonial
 * **Testimonial**, Fix Slider Dots for Testimonial
 * **Testimonial**, Remove Inline Auto Width for Testimonial

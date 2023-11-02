@@ -15,7 +15,7 @@ const save = ({ attributes }) => {
         showArrow,
         showQuote,
         iconQuote,
-        quoteOverride
+        quoteOverride,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -28,7 +28,7 @@ const save = ({ attributes }) => {
         animationClass,
         displayClass,
         `style-${contentType}`,
-        'quote-override'
+        'quote-override',
     );
 
     return (

@@ -180,13 +180,11 @@ class Post_List extends Post_Abstract {
 
 			if ( $this->attr_is_true( $this->attributes['imageEnabled'] ) ) {
 				$thumbnail = get_the_post_thumbnail( $post->ID, $image_size );
-			} else {
-				if ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
-					$icon = $this->attributes['icon'];
+			} elseif ( $this->attr_is_true( $this->attributes['iconEnabled'] ) ) {
+				$icon = $this->attributes['icon'];
 
-					if ( $icon ) {
-						$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
-					}
+				if ( $icon ) {
+					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
 				}
 			}
 

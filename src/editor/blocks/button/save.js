@@ -16,7 +16,7 @@ const save = ({ attributes }) => {
         showIcon,
         icon,
         iconPosition,
-        role
+        role,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -26,7 +26,7 @@ const save = ({ attributes }) => {
         'guten-element',
         'guten-button-wrapper',
         elementId,
-        displayClass
+        displayClass,
     );
 
     const buttonClass = classnames(

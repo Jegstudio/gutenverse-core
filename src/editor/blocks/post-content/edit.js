@@ -34,7 +34,7 @@ const PostContentBlock = compose(
 
     const {
         elementId,
-        inheritLayout
+        inheritLayout,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

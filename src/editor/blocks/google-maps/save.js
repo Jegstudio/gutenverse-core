@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { encodeDataToURL } from 'gutenverse-core/helper';
@@ -18,7 +17,7 @@ const save = compose(
     const {
         elementId,
         location,
-        zoom
+        zoom,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -30,7 +29,7 @@ const save = compose(
         'gutenverse-maps',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     const parameter = {

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
 import { contentPanel } from './panel-content';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -24,8 +24,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'divider-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ]
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
             }),
             tabRole: TabStyle
         },
@@ -76,7 +76,13 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

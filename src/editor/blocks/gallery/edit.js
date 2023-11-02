@@ -45,7 +45,7 @@ const GalleryBlock = compose(
         enableLoadIconPosition,
         filterSearchIcon,
         filterSearchIconPosition,
-        filterSearchFormText
+        filterSearchFormText,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);

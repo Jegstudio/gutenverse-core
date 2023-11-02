@@ -53,7 +53,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['iconPading'],
@@ -66,7 +66,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['textPading'],
@@ -79,7 +79,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -92,7 +92,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconBackgroundColor'],
@@ -105,7 +105,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['backgroundColor'],
@@ -118,7 +118,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textColor'],
@@ -135,7 +135,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-icon i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColorHover'],
@@ -148,7 +148,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-icon",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['iconBackgroundColorHover'],
@@ -161,7 +161,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
 					'value'          => $this->attrs['backgroundColorHover'],
@@ -174,7 +174,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover .gutenverse-share-text",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textColorHover'],
@@ -191,7 +191,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item .gutenverse-share-text",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typography'],
 					'device_control' => false,
 				)
@@ -202,7 +202,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -213,7 +213,7 @@ class Social_Share_Item extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['iconSize'],

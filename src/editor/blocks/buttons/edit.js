@@ -37,7 +37,7 @@ const ButtonsBlock = compose(
             'no-margin',
             `${orientation}`,
             animationClass,
-            displayClass
+            displayClass,
         ),
         ref: buttonsRef
     });

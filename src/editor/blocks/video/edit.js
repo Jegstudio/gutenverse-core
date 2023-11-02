@@ -99,7 +99,7 @@ const VideoBlock = compose(
         hideControls,
         playing,
         loop,
-        muted
+        muted,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -117,7 +117,7 @@ const VideoBlock = compose(
             {
                 videoType: videoType,
                 'video-loaded': videoSrc
-            }
+            },
         ),
         ref: videoRef
     });

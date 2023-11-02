@@ -26,7 +26,7 @@ const IconListBlock = compose(
 
     const {
         elementId,
-        displayInline
+        displayInline,
     } = attributes;
 
     const iconListRef = useRef();
@@ -43,7 +43,7 @@ const IconListBlock = compose(
             displayClass,
             {
                 'inline-icon-list': displayInline
-            }
+            },
         ),
         ref: iconListRef
     });

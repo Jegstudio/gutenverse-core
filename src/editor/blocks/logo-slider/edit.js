@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -50,7 +49,7 @@ const LogoSlider = compose(
             'no-margin',
             elementId,
             animationClass,
-            displayClass
+            displayClass,
         ),
         ref: sliderRef
     });

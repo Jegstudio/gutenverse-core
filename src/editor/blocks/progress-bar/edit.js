@@ -27,7 +27,7 @@ const ProgressBarBlock = compose(
         elementId,
         style,
         percentage,
-        duration
+        duration,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -41,7 +41,7 @@ const ProgressBarBlock = compose(
             'no-margin',
             elementId,
             animationClass,
-            displayClass
+            displayClass,
         ),
         ref: progressBarRef
     });

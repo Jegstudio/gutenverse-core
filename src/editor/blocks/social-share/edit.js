@@ -28,7 +28,7 @@ const SocialShare = compose(
         orientation = 'horizontal',
         shape,
         color,
-        showText
+        showText,
     } = attributes;
 
     const socialShareRef = useRef();

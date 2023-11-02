@@ -69,7 +69,7 @@ const IconBoxBlock = compose(
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
-        separateButtonLink
+        separateButtonLink,
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -86,7 +86,7 @@ const IconBoxBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            `icon-position-${iconPosition}`
+            `icon-position-${iconPosition}`,
         ),
         ref: iconBoxRef
     });

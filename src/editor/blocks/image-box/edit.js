@@ -204,7 +204,7 @@ const ImageBoxBlock = compose(
             'gutenverse-image-box',
             'guten-element',
             'no-margin',
-            `style-${contentStyle}`
+            `style-${contentStyle}`,
         ),
         ref: imageBoxRef
     });

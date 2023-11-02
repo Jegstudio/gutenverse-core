@@ -6,8 +6,7 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { encodeDataToURL } from 'gutenverse-core/helper';
-import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -27,7 +26,7 @@ const GoogleMapsBlock = compose(
     const {
         elementId,
         location,
-        zoom
+        zoom,
     } = attributes;
 
     const googleMapRef = useRef();
@@ -42,7 +41,7 @@ const GoogleMapsBlock = compose(
             !isSelected && ['select-handler'],
             elementId,
             displayClass,
-            animationClass
+            animationClass,
         ),
         ref: googleMapRef
     });

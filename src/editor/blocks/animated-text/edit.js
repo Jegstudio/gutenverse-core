@@ -31,7 +31,7 @@ const AnimatedTextBlock = compose(
         elementId,
         style,
         text,
-        titleTag: TitleTag
+        titleTag: TitleTag,
     } = attributes;
 
     const animatedTextRef = useRef();
@@ -52,7 +52,7 @@ const AnimatedTextBlock = compose(
             displayClass,
             {
                 [`style-${style}`]: style && style !== 'none'
-            }
+            },
         ),
         ref: animatedTextRef
     });

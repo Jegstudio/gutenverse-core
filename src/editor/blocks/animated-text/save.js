@@ -10,7 +10,7 @@ const save = ({ attributes }) => {
         style,
         text,
         titleTag: TitleTag,
-        loop
+        loop,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -24,7 +24,7 @@ const save = ({ attributes }) => {
         displayClass,
         {
             [`style-${style}`]: style && style !== 'none'
-        }
+        },
     );
 
     const loadAnimatedText = () => {

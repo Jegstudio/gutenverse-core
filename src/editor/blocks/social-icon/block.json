@@ -2,7 +2,9 @@
   "apiVersion": 2,
   "name": "gutenverse/social-icon",
   "title": "Social Icon Item",
-  "parent": ["gutenverse/social-icons"],
+  "parent": [
+    "gutenverse/social-icons"
+  ],
   "description": "Show social networks link to your website visitors.",
   "category": "gutenverse-element",
   "attributes": {
@@ -97,5 +99,9 @@
   "supports": {
     "className": false
   },
-  "keywords": ["social", "icon", "gutenverse"]
+  "keywords": [
+    "social",
+    "icon",
+    "gutenverse"
+  ]
 }

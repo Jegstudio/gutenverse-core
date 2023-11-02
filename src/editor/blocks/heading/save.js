@@ -22,7 +22,7 @@ const save = compose(
         content,
         type,
     } = attributes;
-    
+
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -32,12 +32,12 @@ const save = compose(
         'guten-element',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     return (
         <TagName {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <RichText.Content value={content}/>
+            <RichText.Content value={content} />
         </TagName>
     );
 });

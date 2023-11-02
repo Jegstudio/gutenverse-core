@@ -127,8 +127,7 @@ const PostListBlock = compose(
                     paginationNumberPost,
                     paginationScrollLimit,
                     paginationIcon,
-                    paginationIconPosition,
-                },
+                    paginationIconPosition,                },
             }),
         }).then((data) => {
             setResponse(data.rendered);
@@ -179,7 +178,7 @@ const PostListBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            [`layout-${layout}`]
+            [`layout-${layout}`],
         ),
         ref: postListRef
     });

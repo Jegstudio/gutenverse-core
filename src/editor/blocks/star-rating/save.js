@@ -17,7 +17,7 @@ const save = compose(
 
     const {
         elementId,
-        title
+        title,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -29,7 +29,7 @@ const save = compose(
         'guten-star-rating',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
     return (

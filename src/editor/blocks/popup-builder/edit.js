@@ -29,7 +29,7 @@ const PopupBuilder = compose(
         closePopupOverlay,
         showCloseButton,
         closeIcon,
-        closePosition
+        closePosition,
     } = attributes;
 
     const [show, setShow] = useState(false);

@@ -16,7 +16,7 @@ const save = compose(
 
     const {
         elementId,
-        displayInline
+        displayInline,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -31,7 +31,7 @@ const save = compose(
         displayClass,
         {
             'inline-icon-list': displayInline
-        }
+        },
     );
 
     return (

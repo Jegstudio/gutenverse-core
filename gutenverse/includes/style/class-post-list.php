@@ -46,6 +46,10 @@ class Post_List extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id}.guten-element",
+					'hover'  => ".{$this->element_id}.guten-element:hover",
+				),
 			)
 		);
 	}
@@ -58,7 +62,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-posts",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "grid-template-columns: repeat({$value}, minmax(0, 1fr));";
 					},
 					'value'          => $this->attrs['column'],
@@ -71,7 +75,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-posts",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "grid-column-gap: {$value}px;";
 					},
 					'value'          => $this->attrs['columnGap'],
@@ -84,7 +88,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['contentAlign'],
@@ -97,7 +101,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['contentMargin'],
@@ -110,7 +114,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['contentPadding'],
@@ -123,7 +127,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['contentWidth'],
@@ -152,7 +156,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['contentShadow'],
@@ -165,7 +169,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['contentHoverShadow'],
@@ -178,7 +182,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post .guten-postlist-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['titlePadding'],
@@ -191,7 +195,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post .guten-postlist-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColor'],
@@ -213,7 +217,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover .guten-postlist-title",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['titleColorHover'],
@@ -235,7 +239,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "align-self: {$value};";
 					},
 					'value'          => $this->attrs['iconAlign'],
@@ -248,7 +252,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['imageWidth'],
@@ -261,7 +265,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['imageHeight'],
@@ -274,7 +278,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "object-fit: {$value};";
 					},
 					'value'          => $this->attrs['imageFit'],
@@ -287,7 +291,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['imageMargin'],
@@ -300,7 +304,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}px;";
 					},
 					'value'          => $this->attrs['iconWidth'],
@@ -313,7 +317,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['iconHeight'],
@@ -326,7 +330,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "line-height: {$value}px;";
 					},
 					'value'          => $this->attrs['iconLineHeight'],
@@ -339,7 +343,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['iconSize'],
@@ -352,7 +356,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['iconMargin'],
@@ -365,7 +369,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},
 					'value'          => $this->attrs['iconRadius'],
@@ -378,7 +382,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .icon-list i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
@@ -391,7 +395,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a .icon-list i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconHoverColor'],
@@ -408,7 +412,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['metaAlign'],
@@ -430,7 +434,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['metaIconSize'],
@@ -443,7 +447,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['metaIconSpacing'],
@@ -456,7 +460,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['metaMargin'],
@@ -469,7 +473,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['metaPadding'],
@@ -482,7 +486,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['metaColor'],
@@ -495,7 +499,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['metaColorHover'],
@@ -524,7 +528,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_typography(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore span",
-					'property'       => function( $value ) {},
+					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['paginationTypography'],
 					'device_control' => false,
 				)
@@ -535,7 +539,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['paginationMargin'],
@@ -548,7 +552,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['paginationPadding'],
@@ -561,7 +565,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['paginationWidth'],
@@ -574,7 +578,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore.icon-position-before i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-right: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationIconSpacing'],
@@ -585,7 +589,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore.icon-position-after i",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "margin-left: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationIconSpacing'],
@@ -598,7 +602,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['paginationAlign'],
@@ -611,7 +615,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore span",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['paginationColor'],
@@ -624,7 +628,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['paginationHoverColor'],
@@ -653,7 +657,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['paginationShadow'],
@@ -666,7 +670,7 @@ class Post_List extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['paginationHoverShadow'],

@@ -36,7 +36,7 @@ const save = compose(
         'progress-group',
         {
             [`${style}`]: style && style !== 'default'
-        }
+        },
     );
 
     return (

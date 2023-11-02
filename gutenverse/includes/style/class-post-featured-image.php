@@ -46,6 +46,10 @@ class Post_Featured_Image extends Style_Abstract {
 				'positioning' => null,
 				'animation'   => null,
 				'advance'     => null,
+				'transform'   => array(
+					'normal' => ".{$this->element_id} img",
+					'hover'  => ".{$this->element_id} img:hover",
+				),
 			)
 		);
 	}
@@ -58,7 +62,7 @@ class Post_Featured_Image extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
 					'value'          => $this->attrs['alignment'],
@@ -71,7 +75,7 @@ class Post_Featured_Image extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'max-width' );
 					},
 					'value'          => $this->attrs['size'],
@@ -84,7 +88,7 @@ class Post_Featured_Image extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['opacity'],
@@ -97,7 +101,7 @@ class Post_Featured_Image extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "transform: rotate({$value}deg);";
 					},
 					'value'          => $this->attrs['rotate'],
@@ -114,7 +118,7 @@ class Post_Featured_Image extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} img",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['imageBoxShadow'],
