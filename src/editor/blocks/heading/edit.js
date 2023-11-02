@@ -1,12 +1,15 @@
 /* External dependencies */
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import classnames from 'classnames';
+import { u } from 'gutenverse-core-frontend';
+import cryptoRandomString from 'crypto-random-string';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
+import { useSelect, subscribe } from '@wordpress/data';
 
 /* Gutenverse dependencies */
 import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -41,7 +44,6 @@ const HeadingInspection = (props) => {
         ...panelProps,
         ...props.attributes
     };
-
     return <PanelController
         panelList={panelList}
         panelProps={defaultPanelProps}
@@ -59,13 +61,51 @@ const HeadingBlock = compose(
         attributes,
         setAttributes,
         setElementRef,
+        clientId,
     } = props;
-
     const {
         elementId,
         type,
         content,
     } = attributes;
+    const [headingContent, setHeadingContent] = useState(content);
+    const {
+        getBlockAttributes
+    } = useSelect(
+        (select) => select('core/block-editor'),
+        []
+    );
+    const getContent = (clientId) => {
+        const block = getBlockAttributes(clientId);
+        let content = '';
+        if (block) {
+            content = block.content;
+        }
+        return content;
+    };
+    useEffect(() => {
+        const unsubscribe = subscribe(() => {
+            const theContent = getContent(clientId);
+            if (headingContent !== theContent) {
+                setHeadingContent(theContent);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+    useEffect(() => {
+        const child = getListOfChildTag(headingContent);
+        let childs = attributes.textChilds;
+        if (attributes.content) {
+            const newChild = child.map(element => {
+                const indexExist = childs.findIndex(item => element.id === item.id);
+                if (indexExist !== -1) {
+                    element.color = childs[indexExist].color;
+                }
+                return element;
+            });
+            setAttributes({ textChilds: newChild });
+        }
+    }, [headingContent]);
 
     const tagName = 'h' + type;
     const headingRef = useRef();
@@ -82,11 +122,51 @@ const HeadingBlock = compose(
         ref: headingRef
     });
 
+    const getListOfChildTag = () => {
+        if (headingRef?.current) {
+            const newElement = u(headingRef?.current).children().map(child => {
+                return {
+                    color: {},
+                    value: child,
+                    id: u(child).attr('id')
+                };
+            });
+            return newElement.nodes;
+        } else {
+            return [];
+        }
+    };
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
+
+    const handleOnChange = (value) => {
+        const newDiv = document.createElement('div');
+        newDiv.innerHTML = value;
+        const contentArray = [];
+        newDiv.childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                contentArray.push(node.textContent);
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                contentArray.push(node.outerHTML);
+            }
+        });
+        const newValue = contentArray.map(element => {
+            const regex = /id="([^"]+)"/;
+            const match = element.match(regex);
+            let index = element.indexOf('>');
+            if (!match && index !== -1) {
+                let part1 = element.slice(1, index);
+                const uniqeid = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                return element.replace(`<${part1}>`, `<${part1} id=${uniqeid}>`);
+            } else {
+                return element;
+            }
+        });
+        return setAttributes({ content: newValue.join('') });
+    };
 
     return <>
         <HeadingInspection {...props} />
@@ -96,7 +176,7 @@ const HeadingBlock = compose(
             identifier="content"
             tagName={tagName}
             value={content}
-            onChange={(value) => setAttributes({ content: value })}
+            onChange={handleOnChange}
             placeholder={__('Write heading…')}
             multiline={false}
             {...blockProps}

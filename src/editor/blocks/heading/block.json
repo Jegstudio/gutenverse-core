@@ -103,6 +103,10 @@
 		},
 		"transform": {
 			"type": "object"
+		},
+		"textChilds": {
+			"type": "array",
+			"default": []
 		}
 	},
 	"supports": {

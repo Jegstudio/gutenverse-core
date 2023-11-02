@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, childStylePanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
@@ -87,6 +87,13 @@ export const panelList = () => {
                 styleId: 'heading-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Child Style', 'gutenverse'),
+            panelArray: childStylePanel,
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
     ];
 };
