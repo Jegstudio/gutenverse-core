@@ -2,12 +2,13 @@ import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, typographyPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
+import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
@@ -52,6 +53,12 @@ export const panelList = () => {
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
             tabRole: TabStyle
         },
         {
@@ -106,7 +113,14 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advance Animation', '--gctd--'),
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

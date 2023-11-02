@@ -17,9 +17,6 @@ const output = {
 };
 
 const plugins = [
-    new webpack.ProvidePlugin({
-        process: "process/browser",
-    }),
 ];
 
 module.exports = {

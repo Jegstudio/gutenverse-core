@@ -990,3 +990,15 @@ if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
 		}
 	}
 }
+
+
+/**
+ * Check if variable is empty and not contain 0
+ *
+ * @param mixed $value .
+ *
+ * @return boolean
+ */
+function gutenverse_truly_empty( &$value = '' ) {
+	return empty( $value ) && '0' !== $value && 0 !== $value;
+}

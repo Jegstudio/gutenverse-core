@@ -51,6 +51,13 @@ abstract class Style_Interface {
 	);
 
 	/**
+	 * Additional Style.
+	 *
+	 * @var array
+	 */
+	protected $additional_style = array();
+
+	/**
 	 * Block Font variables
 	 *
 	 * @var array
@@ -148,7 +155,24 @@ abstract class Style_Interface {
 			}
 		}
 
+		$generated_style = array_merge( $generated_style, $this->get_additional_style() );
 		return join( ' ', $generated_style );
+	}
+
+	/**
+	 * Get additional style that cannot be covered with normal inject style.
+	 */
+	public function get_additional_style() {
+		return $this->additional_style;
+	}
+
+	/**
+	 * Push Additonal Style.
+	 *
+	 * @param string $style Generated Style.
+	 */
+	public function push_additional_style( $style ) {
+		$this->additional_style[] = $style;
 	}
 
 	/**
@@ -194,17 +218,6 @@ abstract class Style_Interface {
 	}
 
 	/**
-	 * Check if variable is empty and not contain 0
-	 *
-	 * @param mixed $value .
-	 *
-	 * @return boolean
-	 */
-	public function truly_empty( &$value = '' ) {
-		return empty( $value ) && '0' !== $value && 0 !== $value;
-	}
-
-	/**
 	 * Inject Control Style
 	 *
 	 * @param array $data Control.
@@ -213,7 +226,7 @@ abstract class Style_Interface {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
-				if ( ! $this->truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
+				if ( ! gutenverse_truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
@@ -512,6 +525,8 @@ abstract class Style_Interface {
 
 			return "{$property}: {$point}{$unit}{$imp};";
 		}
+
+		return '';
 	}
 
 	/**
@@ -521,6 +536,13 @@ abstract class Style_Interface {
 	 */
 	protected function set_feature( $features ) {
 		$this->features = $features;
+	}
+
+	/**
+	 * Get Feature
+	 */
+	public function get_feature() {
+		return $this->features;
 	}
 
 	/**
@@ -582,7 +604,7 @@ abstract class Style_Interface {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function ( $value, $device ) {
+					'property'       => function ( $value ) {
 						$output  = '';
 						$display = 'display: inline-block;';
 
@@ -590,7 +612,7 @@ abstract class Style_Interface {
 							$display = 'display: inline-block;';
 							$output  = '';
 						}
-						
+
 						if ( isset( $value ) && isset( $value['type'] ) ) {
 							if ( 'full' === $value['type'] ) {
 								return 'width: 100%!important;';
@@ -1054,6 +1076,34 @@ abstract class Style_Interface {
 		return $results;
 	}
 
+
+
+	/**
+	 * Multi style values
+	 *
+	 * @param array $props .
+	 *
+	 * @return boolean
+	 */
+	public function multi_style_values( $props ) {
+		$devices = array( 'Desktop', 'Tablet', 'Mobile' );
+		$styles  = array();
+
+		foreach ( $props as $prop ) {
+			foreach ( $devices as $device ) {
+				if ( empty( $styles[ $device ] ) ) {
+					$styles[ $device ] = '';
+				}
+
+				if ( ! empty( $prop['value'][ $device ] ) ) {
+					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+				}
+			}
+		}
+
+		return $styles;
+	}
+
 	/**
 	 * Handle Border Feature
 	 *
@@ -1156,7 +1206,7 @@ abstract class Style_Interface {
 						)
 					);
 
-					if ( ! $this->truly_empty( $value['width'] ) ) {
+					if ( ! gutenverse_truly_empty( $value['width'] ) ) {
 						$this->inject_style(
 							array(
 								'selector'       => "$selector",
@@ -1203,19 +1253,19 @@ abstract class Style_Interface {
 			$dimension = isset( $value['dimension'] ) ? $value['dimension'] : array();
 			$unit      = $value['unit'];
 
-			if ( ! $this->truly_empty( $dimension['top'] ) ) {
+			if ( ! gutenverse_truly_empty( $dimension['top'] ) ) {
 				$style .= "border-top-left-radius: {$dimension['top']}{$unit};";
 			}
 
-			if ( ! $this->truly_empty( $dimension['right'] ) ) {
+			if ( ! gutenverse_truly_empty( $dimension['right'] ) ) {
 				$style .= "border-top-right-radius: {$dimension['right']}{$unit};";
 			}
 
-			if ( ! $this->truly_empty( $dimension['bottom'] ) ) {
+			if ( ! gutenverse_truly_empty( $dimension['bottom'] ) ) {
 				$style .= "border-bottom-right-radius: {$dimension['bottom']}{$unit};";
 			}
 
-			if ( ! $this->truly_empty( $dimension['left'] ) ) {
+			if ( ! gutenverse_truly_empty( $dimension['left'] ) ) {
 				$style .= "border-bottom-left-radius: {$dimension['left']}{$unit};";
 			}
 
@@ -1288,7 +1338,7 @@ abstract class Style_Interface {
 				array(
 					'selector'       => $selector,
 					'property'       => function ( $value ) {
-						if ( ! $this->truly_empty( $value['delay'] ) ) {
+						if ( ! gutenverse_truly_empty( $value['delay'] ) ) {
 							$delay = (int) $value['delay'] / 1000;
 							return "animation-delay: {$delay}s;";
 						}
@@ -1323,12 +1373,12 @@ abstract class Style_Interface {
 	 * @return string|null
 	 */
 	public function handle_box_shadow( $value ) {
-		if ( ! $this->truly_empty( $value['color'] ) ) {
-			$position     = ! $this->truly_empty( $value['position'] ) && 'inset' === $value['position'] ? $value['position'] : '';
-			$horizontal   = ! $this->truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
-			$vertical     = ! $this->truly_empty( $value['vertical'] ) ? $value['vertical'] : 0;
-			$blur         = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] : 0;
-			$spread       = ! $this->truly_empty( $value['spread'] ) ? "{$value['spread']}px" : '';
+		if ( ! gutenverse_truly_empty( $value['color'] ) ) {
+			$position     = ! gutenverse_truly_empty( $value['position'] ) && 'inset' === $value['position'] ? $value['position'] : '';
+			$horizontal   = ! gutenverse_truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
+			$vertical     = ! gutenverse_truly_empty( $value['vertical'] ) ? $value['vertical'] : 0;
+			$blur         = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] : 0;
+			$spread       = ! gutenverse_truly_empty( $value['spread'] ) ? "{$value['spread']}px" : '';
 			$shadow_color = $this->get_color( $value['color'] );
 
 			return "box-shadow: {$position} {$horizontal}px {$vertical}px {$blur}px {$spread} {$shadow_color};";
@@ -1344,9 +1394,9 @@ abstract class Style_Interface {
 	 */
 	protected function handle_text_shadow( $value ) {
 		if ( isset( $value['color'] ) ) {
-			$horizontal   = ! $this->truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
-			$vertical     = ! $this->truly_empty( $value['vertical'] ) ? $value['vertical'] : 0;
-			$blur         = ! $this->truly_empty( $value['blur'] ) ? $value['blur'] : 0;
+			$horizontal   = ! gutenverse_truly_empty( $value['horizontal'] ) ? $value['horizontal'] : 0;
+			$vertical     = ! gutenverse_truly_empty( $value['vertical'] ) ? $value['vertical'] : 0;
+			$blur         = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] : 0;
 			$shadow_color = $this->get_color( $value['color'] );
 
 			return "text-shadow: {$horizontal}px {$vertical}px {$blur}px {$shadow_color};";
@@ -1374,7 +1424,7 @@ abstract class Style_Interface {
 
 			if ( $multi ) {
 				foreach ( $positions as $position ) {
-					if ( ! $this->truly_empty( $dimension[ $position ] ) ) {
+					if ( ! gutenverse_truly_empty( $dimension[ $position ] ) ) {
 						$styles[] = "{$prefix}-{$position}: {$dimension[ $position ]}{$unit};";
 					}
 				}
@@ -1384,7 +1434,7 @@ abstract class Style_Interface {
 				$is_empty = true;
 
 				foreach ( $positions as $position ) {
-					if ( ! $this->truly_empty( $dimension[ $position ] ) ) {
+					if ( ! gutenverse_truly_empty( $dimension[ $position ] ) ) {
 						$is_empty = false;
 						$styles[] = "{$dimension[ $position ]}{$unit}";
 					} else {

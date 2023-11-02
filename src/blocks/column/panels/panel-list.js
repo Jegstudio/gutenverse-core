@@ -3,6 +3,7 @@ import { layoutPanel } from './panel-layout';
 import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
@@ -41,6 +42,12 @@ export const panelList = () => {
                 normalSelector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:before`,
                 hoverSelector: `.editor-styles-wrapper .is-root-container .${props.elementId}:hover > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:before`
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
             tabRole: TabStyle
         },
         {

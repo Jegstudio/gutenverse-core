@@ -191,7 +191,7 @@ const SectionBlock = compose(
         overflow,
         sticky = {},
         stickyPosition,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];

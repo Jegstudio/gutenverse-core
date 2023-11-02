@@ -1,4 +1,5 @@
-import { checkEmpty, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { checkEmpty, isEmptyString, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { handleTransform, handleTransformHover } from './handler/handle-transform';
 
 export const elementVar = () => ({
     adminStyle: {
@@ -113,4 +114,26 @@ export const deviceStyleValue = (device, value) => {
     }
 
     return false;
+};
+
+export const isEmptyStyle = (style) => {
+    if (style === undefined) {
+        return true;
+    } else {
+        let flag = true;
+        const { adminStyle } = style;
+
+        DeviceLoop(device => {
+            flag = flag && isEmptyString(adminStyle[device]);
+        });
+
+        return flag;
+    }
+};
+
+export const canRenderTransform = (transform) => {
+    const normal = handleTransform(transform);
+    const hover = handleTransformHover(transform);
+
+    return !(isEmptyStyle(normal) && isEmptyStyle(hover));
 };
