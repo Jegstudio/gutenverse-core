@@ -56,6 +56,7 @@ export { default as LockedProStickyControl } from './controls/locked/locked-stic
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
 export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
 export { default as LockedTransform } from './controls/locked/locked-transform';
+export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -66,6 +67,7 @@ export { default as ProLock } from './controls/pro-lock';
 export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
+export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';

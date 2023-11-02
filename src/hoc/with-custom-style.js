@@ -176,12 +176,10 @@ export const withCustomStyle = panelList => BlockElement => {
 
             gutenverse.registerElement(clientId, data);
         };
-
         const renderStyle = () => {
             controls.map(data => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
-
                     if (!isEmpty(style)) {
                         style.map((item, index) => setControlStyle({
                             ...panelProps,
@@ -196,13 +194,11 @@ export const withCustomStyle = panelList => BlockElement => {
 
                     !isEmpty(options) && options.map(option => {
                         const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-
-                        if (!isEmpty(repeaterStyle)) {
-                            panelProps[id].map((value, valueIndex) => {
+                        if (!isEmpty(repeaterStyle) ) {
+                            panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex);
-
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex,value.id);
                                     return {
                                         ...item,
                                         selector: theSelector

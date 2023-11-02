@@ -27,13 +27,11 @@ const DragDropList = ({ list, setList, children }) => {
 const RepeaterComponent = (props) => {
     const { component: Component, index: repeaterIndex, itemProps, value = {}, id: rootId, onValueChange, addStyle, removeStyle, throttleSave } = props;
     const { id, allowDeviceControl, style, onChange } = itemProps;
-
     const onRepeaterComponentChange = (val) => {
         const newVal = {
             ...value,
             [id]: val,
         };
-
         onValueChange(newVal);
 
         onChange ? onChange({
@@ -45,14 +43,12 @@ const RepeaterComponent = (props) => {
         if (style) {
             const theStyle = style.map(item => {
                 const { selector } = item;
-                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex);
-
+                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, props.value.id);
                 return {
                     ...item,
                     selector: theSelector
                 };
             });
-
             throttleSave({
                 id: rootId,
                 value,
@@ -94,6 +90,7 @@ const RepeaterItem = ({
     addStyle,
     removeStyle,
     throttleSave,
+    isDuplicate = true,
     id
 }) => {
     const [open, setOpen] = useState(initialOpen);
@@ -126,9 +123,11 @@ const RepeaterItem = ({
             <div className={'repeater-remove'} onClick={() => onRemove()}>
                 <X />
             </div>
-            <div className={'repeater-duplicate'} onClick={e => duplicateIndex(e)}>
-                <IconDuplicateSVG />
-            </div>
+            {
+                isDuplicate && <div className={'repeater-duplicate'} onClick={e => duplicateIndex(e)}>
+                    <IconDuplicateSVG />
+                </div>
+            }
         </div>
 
         {open && <div className={'repeater-body'}>
@@ -165,7 +164,10 @@ const RepeaterControl = ({
     description = '',
     throttleSave,
     values,
-    id: rootId
+    id: rootId,
+    refreshDrag = true,
+    isDuplicate = true,
+    isAddNew = true
 }) => {
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
@@ -239,7 +241,7 @@ const RepeaterControl = ({
                     <DragDropList list={value} setList={values => {
                         if (!isEqual(value, values)) {
                             onValueChange(values);
-                            refreshStyle();
+                            refreshDrag && refreshStyle();
                         }
                     }}>
                         {value.map((item, index) => {
@@ -255,6 +257,7 @@ const RepeaterControl = ({
                                     titleFormat={titleFormat}
                                     onRemove={() => removeIndex(index)}
                                     onDuplicate={() => duplicateIndex(index)}
+                                    isDuplicate={isDuplicate}
                                     initialOpen={index === openLast}
                                     addStyle={addStyle}
                                     removeStyle={removeStyle}
@@ -264,11 +267,13 @@ const RepeaterControl = ({
                         })}
                     </DragDropList>
                 </>}
-                <div className={'repeater-add-wrapper'}>
-                    <Button isPrimary={true} onClick={addNewItem}>
-                        {__('Add Item', '--gctd--')}
-                    </Button>
-                </div>
+                {
+                    isAddNew && <div className={'repeater-add-wrapper'}>
+                        <Button isPrimary={true} onClick={addNewItem}>
+                            {__('Add Item', '--gctd--')}
+                        </Button>
+                    </div>
+                }
             </div>
         </div>
     </div>;
