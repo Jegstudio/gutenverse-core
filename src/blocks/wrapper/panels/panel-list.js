@@ -25,12 +25,12 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
-                blockType: 'section',
-                styleId: 'section-background',
+                blockType: 'wrapper',
+                styleId: 'wrapper-background',
                 normalOptions: ['default', 'gradient', 'video'],
                 hoverOptions: ['default', 'gradient'],
-                normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer`,
-                hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
+                normalSelector: `.${props.elementId}`,
+                hoverSelector: `.${props.elementId}:hover`,
             }),
             tabRole: TabStyle
         },
@@ -56,7 +56,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => borderPanel({
                 ...props,
-                styleId: 'section-border'
+                styleId: 'wrapper-border'
             }),
             tabRole: TabStyle
         },
@@ -65,7 +65,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
-                styleId: 'section-animation'
+                styleId: 'wrapper'
             }),
             tabRole: TabSetting
         },
@@ -82,7 +82,7 @@ export const panelList = () => {
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
                 ...props,
-                blockType: 'section'
+                blockType: 'wrapper'
             }),
             pro: true,
         },
@@ -91,7 +91,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => advancePanel({
                 ...props,
-                styleId: 'section-advance',
+                styleId: 'wrapper-advance',
             }),
             tabRole: TabSetting
         }

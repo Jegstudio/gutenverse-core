@@ -2,15 +2,20 @@
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
+import { compose } from '@wordpress/compose';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withAnimationAdvanceScript('wrapper')
+)(({ attributes }) => {
     const {
         elementId,
         displayType
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
 
     const blockProps = useBlockProps.save({
         className: classnames(
@@ -21,6 +26,7 @@ const save = ({ attributes }) => {
             animationClass,
             displayType
         ),
+        ...advanceAnimationData
     });
 
     return (
@@ -28,6 +34,6 @@ const save = ({ attributes }) => {
             <InnerBlocks.Content />
         </div>
     );
-};
+});
 
 export default save;

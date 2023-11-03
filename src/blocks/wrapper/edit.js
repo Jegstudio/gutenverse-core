@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
@@ -7,7 +7,6 @@ import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationSticky } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 
@@ -32,8 +31,8 @@ const WrapperPlaceholder = ({ blockProps, clientId }) => {
 
 const FlexibleWrapper = compose(
     withCustomStyle(panelList),
-    withAnimationSticky(),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withAnimationAdvance('wrapper'),
 )((props) => {
     const {
         getBlockOrder

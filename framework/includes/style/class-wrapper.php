@@ -71,7 +71,7 @@ class Wrapper extends Style_Abstract {
 					array(
 						'selector'       => $selector,
 						'property'       => function( $value ) {
-							return $this->handle_unit_point( $value, 'width' );
+							return $this->handle_unit_point( $value, 'width', true );
 						},
 						'value'          => $this->attrs['displayWidth'],
 						'device_control' => true,

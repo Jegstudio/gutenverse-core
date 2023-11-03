@@ -92,7 +92,7 @@ export const displayPanel = (props) => {
                 {
                     selector: customSelector,
                     allowRender: () => displayType && ['block', 'flex', 'grid'].includes(displayType),
-                    render: value => handleUnitPoint(value, 'width')
+                    render: value => handleUnitPoint(value, 'width', true)
                 }
             ]
         },
