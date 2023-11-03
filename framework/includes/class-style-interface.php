@@ -408,7 +408,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	protected function inject_typography( $data ) {
+	public function inject_typography( $data ) {
 		$selector   = $data['selector'];
 		$typography = $data['value'];
 		$format     = $this->typography_format();
@@ -1413,7 +1413,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string|null
 	 */
-	protected function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
+	public function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
 		$positions = array( 'top', 'right', 'bottom', 'left' );
 		$styles    = array();
 		$string    = '';
