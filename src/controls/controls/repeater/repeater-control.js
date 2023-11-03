@@ -91,7 +91,9 @@ const RepeaterItem = ({
     removeStyle,
     throttleSave,
     isDuplicate = true,
-    id
+    isRemove = true,
+    id,
+    booleanSwitcher = false,
 }) => {
     const [open, setOpen] = useState(initialOpen);
 
@@ -120,9 +122,11 @@ const RepeaterItem = ({
     return <div className={itemClass}>
         <div className={'repeater-header'} onClick={() => toggleOpen()}>
             <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
-            <div className={'repeater-remove'} onClick={() => onRemove()}>
-                <X />
-            </div>
+            {
+                isRemove && <div className={'repeater-remove'} onClick={() => onRemove()}>
+                    <X />
+                </div>
+            }
             {
                 isDuplicate && <div className={'repeater-duplicate'} onClick={e => duplicateIndex(e)}>
                     <IconDuplicateSVG />
@@ -132,7 +136,12 @@ const RepeaterItem = ({
 
         {open && <div className={'repeater-body'}>
             {options.map(item => {
-                const showControl = item.show !== undefined ? item.show(values[index]) : true;
+                let showControl = true;
+                if(booleanSwitcher){
+                    showControl = item.show;
+                }else{
+                    showControl = item.show !== undefined ? item.show(values[index]) : true;
+                }
 
                 return showControl && <RepeaterComponent
                     index={index}
@@ -167,7 +176,9 @@ const RepeaterControl = ({
     id: rootId,
     refreshDrag = true,
     isDuplicate = true,
-    isAddNew = true
+    isAddNew = true,
+    isRemove = true,
+    booleanSwitcher
 }) => {
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
@@ -258,10 +269,12 @@ const RepeaterControl = ({
                                     onRemove={() => removeIndex(index)}
                                     onDuplicate={() => duplicateIndex(index)}
                                     isDuplicate={isDuplicate}
+                                    isRemove={isRemove}
                                     initialOpen={index === openLast}
                                     addStyle={addStyle}
                                     removeStyle={removeStyle}
                                     throttleSave={throttleSave}
+                                    booleanSwitcher={booleanSwitcher}
                                 />
                             );
                         })}
