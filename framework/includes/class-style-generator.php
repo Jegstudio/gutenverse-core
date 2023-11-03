@@ -11,6 +11,7 @@ namespace Gutenverse\Framework;
 
 use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
+use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
 
 /**
@@ -324,6 +325,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/column':
 				$instance = new Column( $attrs );
+				break;
+			case 'gutenverse/wrapper':
+				$instance = new Wrapper( $attrs );
 				break;
 		}
 
