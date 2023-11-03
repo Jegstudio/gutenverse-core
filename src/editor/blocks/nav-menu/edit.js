@@ -108,8 +108,8 @@ const NavMenuBlock = compose(
         setTimeout(() => {
             if (!elementRef.current.classList.contains('injected')) {
                 elementRef.current.classList.add('injected');
+                new GutenverseNavMenu([elementRef.current]);
             }
-            new GutenverseNavMenu([elementRef.current]);
         }, 1000);
     }, [response, elementRef]);
 
