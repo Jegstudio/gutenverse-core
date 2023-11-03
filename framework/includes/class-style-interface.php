@@ -9,8 +9,6 @@
 
 namespace Gutenverse\Framework;
 
-use Error;
-
 /**
  * Class Style_Interface
  *
