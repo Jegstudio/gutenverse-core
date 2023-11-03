@@ -100,6 +100,15 @@ const HeadingBlock = compose(
                 const indexExist = childs.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
                     element.color = childs[indexExist].color;
+                    element.colorHover = childs[indexExist].colorHover;
+                    element.typography = childs[indexExist].typography;
+                    element.typographyHover = childs[indexExist].typographyHover;
+                    element.textClip = childs[indexExist].textClip;
+                    element.textClipHover = childs[indexExist].textClipHover;
+                    element.padding = childs[indexExist].padding;
+                    element.paddingHover = childs[indexExist].paddingHover;
+                    element.margin = childs[indexExist].margin;
+                    element.marginHover = childs[indexExist].marginHover;
                 }
                 return element;
             });
@@ -127,6 +136,15 @@ const HeadingBlock = compose(
             const newElement = u(headingRef?.current).children().map(child => {
                 return {
                     color: {},
+                    colorHover: {},
+                    typography: {},
+                    typographyHover: {},
+                    textClip:{},
+                    textClipHover:{},
+                    padding:{},
+                    paddingHover:{},
+                    margin:{},
+                    marginHover:{},
                     value: child,
                     id: u(child).attr('id')
                 };
