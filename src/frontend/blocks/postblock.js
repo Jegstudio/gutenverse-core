@@ -59,6 +59,19 @@ class GutenversePostblock extends Default {
             paginationScrollLimit,
             paginationIcon,
             paginationIconPosition,
+            postItemMargin,
+            postItemPadding,
+            postItemBorder,
+            thumbnailRadius,
+            paginationMargin,
+            paginationPadding,
+            paginationBorder,
+            hideDesktop,
+            hideTablet,
+            hideMobile,
+            breakpoint,
+            noContentText,
+            backgroundHover,
         } = settings;
 
         let query = null;
@@ -74,6 +87,19 @@ class GutenversePostblock extends Default {
         apiFetch({
             path: addQueryArgs('/gutenverse-client/v1/postblock/data', {
                 attributes: {
+                    postItemMargin,
+                    postItemPadding,
+                    postItemBorder,
+                    thumbnailRadius,
+                    paginationMargin,
+                    paginationPadding,
+                    paginationBorder,
+                    hideDesktop,
+                    hideTablet,
+                    hideMobile,
+                    breakpoint,
+                    noContentText,
+                    backgroundHover,
                     elementId,
                     postId,
                     inheritQuery,
