@@ -44,6 +44,7 @@ class Section extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'positioning' => ".section-wrapper[data-id=\"{$element_id}\"]",
+				'mask'        => null,
 			)
 		);
 	}

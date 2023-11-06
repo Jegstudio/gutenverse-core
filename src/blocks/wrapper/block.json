@@ -96,6 +96,9 @@
 		"transform": {
 			"type": "object"
 		},
+		"mask": {
+			"type": "object"
+		},
 		"advanceAnimation": {
 			"type": "object",
 			"default": {}

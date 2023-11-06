@@ -564,6 +564,116 @@ abstract class Style_Interface {
 				case 'animation':
 					$this->feature_animation( $selector );
 					break;
+				case 'mask':
+					$this->feature_mask( $selector );
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Handle Feature Mask.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_mask( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+
+		if ( isset( $this->attrs['mask'] ) ) {
+			$mask = $this->attrs['mask'];
+
+			if ( isset( $mask['shape'] ) && '' !== $mask['shape'] ) {
+				$svg_image = '';
+
+				switch ( $mask['shape'] ) {
+					case 'circle':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/circe.svg';
+						break;
+					case 'triangle':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/triangle.svg';
+						break;
+					case 'blob':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/blob.svg';
+						break;
+					case 'custom':
+						$svg       = $mask['svg'];
+						$image     = $svg['image'];
+						$svg_image = $image;
+				}
+
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "-webkit-mask-image: url($value); mask-image:url($value);";
+						},
+						'value'          => $svg_image,
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['size'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( 'custom' !== $value['size'] ) {
+								return "-webkit-mask-size: {$value['size']};";
+							} else {
+								return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
+							}
+						},
+						'value'          => $this->merge_device_options(
+							array(
+								'size'  => $mask['size'],
+								'scale' => $mask['scale'],
+							)
+						),
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['position'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( 'custom' !== $value['position'] && 'default' !== $value['position'] ) {
+								return "-webkit-mask-position: {$value['position']};";
+							} elseif ( 'custom' === $value['position'] ) {
+								$xposition = $value['xposition']['point'] ? "{$value['xposition']['point']}{$value['xposition']['unit']}" : 0;
+								$yposition = $value['yposition']['point'] ? "{$value['yposition']['point']}{$value['yposition']['unit']}" : 0;
+
+								return "-webkit-mask-position: {$xposition} {$yposition};";
+							}
+						},
+						'value'          => $this->merge_device_options(
+							array(
+								'position'  => $mask['position'],
+								'xposition' => $mask['xposition'],
+								'yposition' => $mask['yposition'],
+							)
+						),
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['repeat'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "-webkit-mask-repeat: {$value};";
+						},
+						'value'          => $mask['repeat'],
+						'device_control' => true,
+					)
+				);
 			}
 		}
 	}

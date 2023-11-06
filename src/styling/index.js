@@ -13,6 +13,7 @@ export { handleBoxShadow, allowRenderBoxShadow } from './styling/handler/handle-
 export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handle-text-shadow';
 export { handleTextClip } from './styling/handler/handle-text-clip';
 export { handleTransform, handleTransformHover } from './styling/handler/handle-transform';
+export { handleMask } from './styling/handler/handle-mask';
 
 export { setStylePoint } from './styling/single/set-style-point';
 export { setStyleUnit } from './styling/single/set-style-unit';

@@ -43,6 +43,7 @@ export { default as IDGeneratorControl } from './controls/id-generator/id-genera
 export { default as ChildIDGeneratorControl } from './controls/id-generator/child-id-generator-control';
 export { default as DateTimeRangeControl } from './controls/date-time-range/date-time-range-control';
 export { default as TimeRangeControl } from './controls/time-range/time-range-control';
+export { default as MaskControl } from './controls/mask/mask-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
@@ -67,6 +68,7 @@ export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
 export { transformPanel } from './panels/panel-transform';
+export { maskPanel } from './panels/panel-mask';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { textClipPanel } from './panels/panel-text-clip';
