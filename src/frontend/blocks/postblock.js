@@ -143,7 +143,6 @@ class GutenversePostblock extends Default {
     }
 
     _shouldItBeLoading(element, settings) {
-
         const { numberPost, paginationScrollLimit } = settings;
         const button = element.find('.guten-block-loadmore');
 
@@ -168,12 +167,8 @@ class GutenversePostblock extends Default {
         const blockElement = u(element);
         const settings = JSON.parse(blockElement.find('.guten-postblock').data('settings'));
         const { paginationMode } = settings;
-        // var displayHide = blockElement.classList.find(function (item, index) {
-        //     return item[index] === '' || item[index] === '' || item[index] === '';
-        // });
 
         if (paginationMode === 'scrollload') {
-
             let timeout;
             const scrolling = () => {
                 clearTimeout(timeout);
