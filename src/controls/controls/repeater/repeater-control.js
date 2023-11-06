@@ -100,7 +100,6 @@ const RepeaterItem = ({
     booleanSwitcher = false,
 }) => {
     const [open, setOpen] = useState(initialOpen);
-    console.log(resetStatus());
     const toggleOpen = () => {
         setOpen(state => !state);
     };
