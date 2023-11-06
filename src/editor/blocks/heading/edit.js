@@ -105,6 +105,8 @@ const HeadingBlock = compose(
                     element.typographyHover = childs[indexExist].typographyHover;
                     element.textClip = childs[indexExist].textClip;
                     element.textClipHover = childs[indexExist].textClipHover;
+                    element.background = childs[indexExist].background;
+                    element.backgroundHover = childs[indexExist].backgroundHover;
                     element.padding = childs[indexExist].padding;
                     element.paddingHover = childs[indexExist].paddingHover;
                     element.margin = childs[indexExist].margin;
@@ -141,6 +143,8 @@ const HeadingBlock = compose(
                     typographyHover: {},
                     textClip:{},
                     textClipHover:{},
+                    background: {},
+                    backgroundHover: {},
                     padding:{},
                     paddingHover:{},
                     margin:{},
