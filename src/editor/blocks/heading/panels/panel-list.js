@@ -89,7 +89,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Child Style', 'gutenverse'),
+            title: __('Highlight Style', 'gutenverse'),
             panelArray: childStylePanel,
             initialOpen: false,
             tabRole: TabStyle,
