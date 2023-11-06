@@ -120,6 +120,9 @@
 		},
 		"transform": {
 			"type": "object"
+		},
+		"mask": {
+			"type": "object"
 		}
 	},
 	"usesContext": [

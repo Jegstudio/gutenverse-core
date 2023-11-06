@@ -1,10 +1,9 @@
-import { SelectControl} from 'gutenverse-core/controls';
+import { SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { select } from '@wordpress/data';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import isEmpty from 'lodash/isEmpty';
 import { handleUnitPoint, deviceStyleValue } from 'gutenverse-core/styling';
-
 
 export const contentPanel = (props) => {
     const {
@@ -18,15 +17,16 @@ export const contentPanel = (props) => {
     const deviceType = getDeviceType();
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
-    const setPositioning = (width=false) => {
+
+    const setPositioning = (width = false) => {
         const value = 'custom';
         switch (value) {
             case 'full':
                 return 'width: 100%!important;';
             case 'inline':
-                return `width: auto!important; display: ${ inFlex ? 'inline-block' : 'inline-flex' }!important;`;
+                return `width: auto!important; display: ${inFlex ? 'inline-block' : 'inline-flex'}!important;`;
             case 'custom':
-                return `${handleUnitPoint(width, 'width', true)} display: ${ inFlex ? 'inline-block' : 'inline-flex' }!important;`;
+                return `${handleUnitPoint(width, 'width', true)} display: ${inFlex ? 'inline-block' : 'inline-flex'}!important;`;
         }
     };
     return [
@@ -62,7 +62,9 @@ export const contentPanel = (props) => {
                     selector: customSelector,
                     updateID: 'positioningWidth-style-0',
                     allowRender: value => value,
-                    render: () => setPositioning(deviceStyleValue(deviceType, positioningWidth))
+                    render: () => {
+                        return setPositioning(deviceStyleValue(deviceType, positioningWidth));
+                    }
                 }
             ]
         },

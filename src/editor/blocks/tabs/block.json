@@ -99,7 +99,12 @@
 			"type": "object"
 		},
 		"positioningWidth": {
-			"type": "object"
+			"type": "object",
+			"default": {
+				"Desktop": false,
+				"Tablet": false,
+				"Mobile": true
+			}
 		},
 		"positioningAlign": {
 			"type": "object"
@@ -121,15 +126,14 @@
 		},
 		"transform": {
 			"type": "object"
+		},
+		"mask": {
+			"type": "object"
 		}
 	},
 	"supports": {
 		"className": false,
 		"html": false
 	},
-	"keywords": [
-		"tabs",
-		"accordion",
-		"gutenverse"
-	]
+	"keywords": ["tabs", "accordion", "gutenverse"]
 }

@@ -50,6 +50,7 @@ class Post_List extends Style_Abstract {
 					'normal' => ".{$this->element_id}.guten-element",
 					'hover'  => ".{$this->element_id}.guten-element:hover",
 				),
+				'mask'        => null,
 			)
 		);
 	}

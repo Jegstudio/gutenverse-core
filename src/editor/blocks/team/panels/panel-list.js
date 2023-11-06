@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { teamPanel } from './panel-team';
 import { namePanel } from './panel-name';
 import { jobPanel } from './panel-job';
@@ -109,6 +109,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'team-border',
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

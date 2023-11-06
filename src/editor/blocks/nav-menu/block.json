@@ -304,7 +304,10 @@
     },
     "transform": {
       "type": "object"
-    }
+    },
+    "mask": {
+			"type": "object"
+		}
   },
   "supports": {
     "className": false

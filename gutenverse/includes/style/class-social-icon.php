@@ -46,6 +46,7 @@ class Social_Icon extends Style_Abstract {
 					'hover'  => "#{$this->element_id}:hover",
 				),
 				'animation' => null,
+				'mask'      => null,
 			)
 		);
 	}

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { panelContent } from './panel-content';
 import { panelStyle } from './panel-style';
 import { panelSpacing } from './panel-spacing';
-import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { TabSetting, TabStyle, maskPanel } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
@@ -17,6 +17,12 @@ export const panelList = () => {
             panelArray: panelSpacing,
             initialOpen: false,
             tabRole: TabSetting
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Style', 'gutenverse'),

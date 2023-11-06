@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { spacerPanel } from './panel-spacer';
-import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel, maskPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -18,6 +18,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'spacer-border',
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

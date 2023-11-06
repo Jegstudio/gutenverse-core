@@ -250,6 +250,9 @@
 		},
 		"transform": {
 			"type": "object"
+		},
+		"mask": {
+			"type": "object"
 		}
 	},
 	"supports": {

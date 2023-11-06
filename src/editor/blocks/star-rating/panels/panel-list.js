@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { panelRating } from './panel-rating';
 import { panelStyle } from './panel-style';
@@ -36,6 +36,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'star-rating-border',
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

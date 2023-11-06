@@ -55,7 +55,10 @@
     "advanceAnimation": {
       "type": "object",
       "default": {}
-    }
+    },
+    "mask": {
+			"type": "object"
+		}
   },
   "supports": {
     "anchor": true,

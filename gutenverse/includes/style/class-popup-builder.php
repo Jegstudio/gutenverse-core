@@ -50,6 +50,7 @@ class Popup_Builder extends Style_Abstract {
 					'normal' => ".{$this->element_id} .guten-popup-content",
 					'hover'  => ".{$this->element_id} .guten-popup-content:hover",
 				),
+				'mask'        => ".{$this->element_id} .guten-popup-content",
 			)
 		);
 	}
