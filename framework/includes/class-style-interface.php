@@ -813,7 +813,7 @@ abstract class Style_Interface {
 	 * @param string $selector selector.
 	 * @param array  $background Value of Color.
 	 */
-	protected function handle_background( $selector, $background ) {
+	public function handle_background( $selector, $background ) {
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}

@@ -32,7 +32,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const [adminStyles, setAdminStyle] = useState({});
         const [totalChild, setTotalChild] = useState(0);
         const [switcher, setSwitcher] = useState({});
-        const [mode, setMode] = useState({});
         const [refresh, setRefresh] = useState(null);
         const [hasIcon, setHasIcon] = useState(false);
         const [confirmSignal, setConfirmSignal] = useState(false);
@@ -151,8 +150,6 @@ export const withCustomStyle = panelList => BlockElement => {
             removeStyle,
             switcher,
             setSwitcher,
-            mode,
-            setMode,
             setAttributes,
             refreshStyle,
             ...attributes,
