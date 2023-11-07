@@ -1,6 +1,6 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { ControlHeadingSimple } from 'gutenverse-core/controls';
+import { ControlHeadingSimple, PanelTutorial } from 'gutenverse-core/controls';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -190,12 +190,12 @@ const RepeaterControl = ({
     isReset = false,
     resetStatus = false,
     resetMethod,
+    infoMessage,
     booleanSwitcher
 }) => {
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
-    
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
@@ -258,7 +258,13 @@ const RepeaterControl = ({
         />
         <div className={'control-body'}>
             <div className={'repeater-wrapper'}>
-                {value.length === 0 ? <div className="repeater-empty" onClick={addNewItem}>
+                {
+                    !isAddNew && value.length === 0  &&  <PanelTutorial
+                        title={infoMessage.title}
+                        list={infoMessage.list}
+                    />
+                }
+                {value.length === 0 ? isAddNew && <div className="repeater-empty" onClick={addNewItem}>
                     {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
                     <DragDropList list={value} isDragable={isDragable} setList={values => {
