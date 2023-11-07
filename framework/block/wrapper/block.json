@@ -1,0 +1,120 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/wrapper",
+	"title": "Flexible Wrapper",
+	"description": "Flexible Wrapper / Container to contain your block",
+	"category": "gutenverse-structure",
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"displayType": {
+			"type": "string"			
+		},
+		"displayWidth": {
+			"type": "object"
+		},
+		"displayHeight": {
+			"type": "object"
+		},
+		"displayOverflow": {
+			"type": "string",
+			"default": "inherit"
+		},
+		"horizontalAlign": {
+			"type": "object",
+			"default": {
+				"Desktop": false,
+				"Tablet": false,
+				"Mobile": false
+			}
+		},
+		"verticalAlign": {
+			"type": "object",
+			"default": {
+				"Desktop": false,
+				"Tablet": false,
+				"Mobile": false
+			}
+		},
+		"positionType": {
+			"type": "object",
+			"default": {
+				"Desktop": false,
+				"Tablet": false,
+				"Mobile": false
+			}
+		},
+		"positionLeft": {
+			"type": "object"
+		},
+		"positionRight": {
+			"type": "object"
+		},
+		"positionTop": {
+			"type": "object"
+		},
+		"positionBottom": {
+			"type": "object"
+		},
+		"background": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundOverlay": {
+			"type": "object"
+		},
+		"backgroundOverlayHover": {
+			"type": "object"
+		},
+		"blur": {
+			"type": "object"
+		},
+		"blurHover": {
+			"type": "object"
+		},
+		"border": {
+			"type": "object"
+		},
+		"boxShadow": {
+			"type": "object"
+		},
+		"borderHover": {
+			"type": "object"
+		},
+		"boxShadowHover": {
+			"type": "object"
+		},
+		"animation": {
+			"type": "object",
+			"default": {}
+		},
+		"transform": {
+			"type": "object"
+		},
+		"mask": {
+			"type": "object"
+		},
+		"advanceAnimation": {
+			"type": "object",
+			"default": {}
+		},
+		"margin": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object"
+		},
+		"zIndex": {
+			"type": "object"
+		}
+	},
+	"supports": {
+		"className": false
+	},
+	"keywords": ["wrapper", "container"]
+}

@@ -1744,6 +1744,13 @@
       }
     }
 
+    /** mask **/
+    &mask {
+      >* {
+        display: block;
+      }
+    }
+
     /** background **/
     &background {
       >* {

@@ -1,0 +1,14 @@
+.editor-styles-wrapper div.guten-wrap-helper.guten-element {
+    margin-left: inherit !important;
+    margin-right: inherit !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+
+    &.inline, &.inline-block {
+        width: auto !important;    
+    }
+
+    .block-editor-inner-blocks {
+        width: auto;
+    }
+}
