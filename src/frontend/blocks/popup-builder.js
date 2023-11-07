@@ -22,11 +22,13 @@ class GutenversePopupElement {
         this.overlay = this.element.find('.guten-popup-overlay');
         this.closeButton = this.element.find('.guten-popup-close');
         this.closeOverlay = this.element.data('close-overlay');
+        this.dontRepeatPopup = this.element.hasClass('hide-popup');
         this.wrapper = this.element.find('.guten-popup-wrapper');
         this.content = this.element.find('.guten-popup-content');
         this.contentClass = this.content.attr('class');
         this.playAnimation = playAnimation;
         this.getAnimationClass = getAnimationClass;
+        this.shownOnce = localStorage.getItem('popupHavePopped');
 
         this._addCloseClick();
         this._addLoadEvent();
@@ -34,12 +36,16 @@ class GutenversePopupElement {
 
     /* private */
     _showPopup() {
+        if (this.shownOnce !== null){
+            if (this.dontRepeatPopup) return;
+        }
         this.playAnimation(this.element.find('.guten-popup-content'));
         this.popup.addClass('show');
         this.playAnimation(this.content);
     }
 
     _closePopup() {
+        localStorage.setItem('popupHavePopped',true);
         this.popup.removeClass('show');
         this.popup.addClass('load');
         this.content.attr('class', this.contentClass);

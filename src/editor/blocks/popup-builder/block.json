@@ -63,6 +63,10 @@
 			"type": "boolean",
 			"default": true
 		},
+		"hideAfterClosed": {
+			"type": "boolean",
+			"default": false
+		},
 		"closePopupOverlay": {
 			"type": "boolean",
 			"default": true
