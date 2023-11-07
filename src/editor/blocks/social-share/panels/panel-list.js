@@ -7,6 +7,7 @@ import {
     animationPanel,
     backgroundPanel,
     borderPanel,
+    maskPanel,
     positioningPanel,
     responsivePanel,
     transformPanel
@@ -54,6 +55,12 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
             panelArray: responsivePanel,
@@ -64,7 +71,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
-                selector: `.${props.elementId}.guten-element, .${props.elementId}.guten-element.horizontal > div`
+                selector: `.${props.elementId}.guten-element, .${props.elementId}.guten-element.horizontal `
             }),
             tabRole: TabSetting
         },

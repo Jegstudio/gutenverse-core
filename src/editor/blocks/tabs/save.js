@@ -23,7 +23,7 @@ const SaveTabs = ({ attributes }) => {
         displayClass,
     );
 
-    return <div {...useBlockProps.save({ className })}>
+    return tabs && <div {...useBlockProps.save({ className })}>
         <div className={'tab-heading'}>
             {tabs.map((tab, index) => {
                 return <div className={classnames('tab-heading-item', {

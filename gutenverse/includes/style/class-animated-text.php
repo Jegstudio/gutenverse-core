@@ -38,13 +38,14 @@ class Animated_Text extends Style_Abstract {
 	 */
 	public function __construct( $attrs ) {
 		parent::__construct( $attrs );
-
+		$this->in_flex = false;
 		$this->set_feature(
 			array(
 				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}

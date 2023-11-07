@@ -46,6 +46,7 @@ class Icon_List extends Style_Abstract {
 				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.inline-icon-list ",
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}

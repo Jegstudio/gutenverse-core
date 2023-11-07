@@ -45,6 +45,7 @@ class Post_Comment extends Style_Abstract {
 				'border'     => null,
 				'animation'  => null,
 				'advance'    => null,
+				'mask'       => null,
 			)
 		);
 	}

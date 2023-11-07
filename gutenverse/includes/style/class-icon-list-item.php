@@ -42,6 +42,7 @@ class Icon_List_Item extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'advance' => null,
+				'mask'    => null,
 			)
 		);
 	}

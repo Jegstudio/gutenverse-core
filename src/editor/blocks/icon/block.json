@@ -139,7 +139,10 @@
     },
     "transform": {
       "type": "object"
-    }
+    },
+    "mask": {
+			"type": "object"
+		}
   },
   "keywords": [
     "icon"

@@ -1,0 +1,148 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/archive-title",
+	"class_callback": "\\Gutenverse\\Block\\Archive_Title",
+	"title": "Archive Title",
+	"description": "Show the title of an archive.",
+	"category": "gutenverse-element",
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"archiveId": {
+			"type": "string",
+			"default": 0
+		},
+		"backendArchiveId": {
+			"type": "string"
+		},
+		"noContentText": {
+			"type": "string",
+			"default": "No Content"
+		},
+		"htmlTag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"archiveLink": {
+			"type": "boolean"
+		},
+		"archiveLinkTarget": {
+			"type": "boolean"
+		},
+		"archiveLinkRel": {
+			"type": "string"
+		},
+		"linkTo": {
+			"type": "string",
+			"default": "none"
+		},
+		"customURL": {
+			"type": "string"
+		},
+		"alignment": {
+			"type": "object"
+		},
+		"typography": {
+			"type": "object"
+		},
+		"color": {
+			"type": "object"
+		},
+		"textShadow": {
+			"type": "object",
+			"default": {}
+		},
+		"colorHover": {
+			"type": "object"
+		},
+		"textShadowHover": {
+			"type": "object",
+			"default": {}
+		},
+		"background": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {}
+		},
+		"border": {
+			"type": "object"
+		},
+		"boxShadow": {
+			"type": "object"
+		},
+		"borderHover": {
+			"type": "object"
+		},
+		"boxShadowHover": {
+			"type": "object"
+		},
+		"margin": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object"
+		},
+		"zIndex": {
+			"type": "object"
+		},
+		"animation": {
+			"type": "object",
+			"default": {}
+		},
+		"hideDesktop": {
+			"type": "boolean"
+		},
+		"hideTablet": {
+			"type": "boolean"
+		},
+		"hideMobile": {
+			"type": "boolean"
+		},
+		"positioningType": {
+			"type": "object"
+		},
+		"positioningWidth": {
+			"type": "object"
+		},
+		"positioningAlign": {
+			"type": "object"
+		},
+		"positioningLocation": {
+			"type": "string"
+		},
+		"positioningLeft": {
+			"type": "object"
+		},
+		"positioningRight": {
+			"type": "object"
+		},
+		"positioningTop": {
+			"type": "object"
+		},
+		"positioningBottom": {
+			"type": "object"
+		},
+		"transform": {
+			"type": "object"
+		},
+		"mask": {
+			"type": "object"
+		}
+	},
+	"usesContext": [
+		"archiveId",
+		"archiveType",
+		"queryId"
+	],
+	"supports": {
+		"className": false
+	},
+	"keywords": [
+		"archive",
+		"title"
+	]
+}

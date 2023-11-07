@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { TabStyle, advancePanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelGeneral } from './panel-general';
 
 export const panelList = () => {
@@ -18,6 +18,12 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: transformPanel,
             pro: true
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Spacing', 'gutenverse'),

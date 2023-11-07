@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, textClipPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, textClipPanel, transformPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -53,6 +53,12 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
             panelArray: responsivePanel,
@@ -61,7 +67,10 @@ export const panelList = () => {
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            panelArray: positioningPanel,
+            panelArray: (props) => positioningPanel({
+                ...props,
+                inFlex: false
+            }),
             tabRole: TabSetting
         },
         {

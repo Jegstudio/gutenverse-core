@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { contentPanel } from './panel-content';
 import { contentStyle } from './panel-style';
-import { advancePanel, animationPanel, borderPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
@@ -28,6 +28,12 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
             panelArray: responsivePanel,
@@ -36,7 +42,26 @@ export const panelList = () => {
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            panelArray: positioningPanel,
+            panelArray: (props) => {
+                return positioningPanel({
+                    ...props,
+                    inFlex : props.orientation !== 'vertical',
+                    options: [
+                        {
+                            value: 'default',
+                            label: 'Default'
+                        },
+                        {
+                            value: 'full',
+                            label: 'Full Width (100%)'
+                        },
+                        {
+                            value: 'custom',
+                            label: 'Custom'
+                        }
+                    ]
+                });
+            },
             tabRole: TabSetting
         },
         {

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { panelContent } from './panel-content';
 import { panelDropcap } from './panel-dropcap';
-import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel } from 'gutenverse-core/controls';
+import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel, maskPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { panelChildStyle } from './panel-child-style';
@@ -20,12 +20,12 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabStyle
         },
-        {
-            title: __('Child Style', 'gutenverse'),
-            panelArray: panelChildStyle,
-            initialOpen: false,
-            tabRole: TabStyle
-        },
+        // {
+        //     title: __('Child Style', 'gutenverse'),
+        //     panelArray: panelChildStyle,
+        //     initialOpen: false,
+        //     tabRole: TabStyle
+        // },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
@@ -44,6 +44,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'text-editor-border',
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

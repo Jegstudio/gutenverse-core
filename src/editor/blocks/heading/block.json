@@ -107,6 +107,9 @@
 		"textChilds": {
 			"type": "array",
 			"default": []
+		},
+		"mask": {
+			"type": "object"
 		}
 	},
 	"supports": {

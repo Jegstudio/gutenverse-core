@@ -134,7 +134,15 @@ class Post_List extends Post_Abstract {
 				$date      = esc_attr( $this->format_date( $post ) );
 
 				if ( $date_icon ) {
-					$meta_date = '<i aria-hidden="true" class="' . $date_icon . '"></i> ' . $date;
+					$meta_date = '<i aria-hidden="true" class="' . $date_icon . '"></i> &nbsp;' . $date;
+					if ( isset( $this->attributes['metaDateIconPosition'] ) ) {
+						$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
+						if ( 'before' === $icon_position ) {
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $date_icon . '"></i> &nbsp;' . $date . '</div>';
+						} else {
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $date . '&nbsp;<i aria-hidden="true" class="' . $date_icon . '"></i></div>';
+						}
+					}
 				}
 
 				$meta_date = '<span class="meta-date">' . $meta_date . '</span>';
