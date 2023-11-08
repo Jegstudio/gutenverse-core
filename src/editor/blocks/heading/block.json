@@ -106,7 +106,11 @@
 		},
 		"mask": {
 			"type": "object"
-		}
+		},
+		"textClip": {
+            "type": "object",
+            "default": {}
+        }
 	},
 	"supports": {
 		"anchor": true,
