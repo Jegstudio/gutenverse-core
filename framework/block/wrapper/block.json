@@ -9,7 +9,7 @@
 			"type": "string"
 		},
 		"displayType": {
-			"type": "string"			
+			"type": "string"
 		},
 		"displayWidth": {
 			"type": "object"
@@ -68,8 +68,14 @@
 		"backgroundOverlay": {
 			"type": "object"
 		},
+		"opacity": {
+			"type": "float"
+		},
 		"backgroundOverlayHover": {
 			"type": "object"
+		},
+		"opacityHover": {
+			"type": "float"
 		},
 		"blur": {
 			"type": "object"
