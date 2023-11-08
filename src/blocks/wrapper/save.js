@@ -31,7 +31,10 @@ const save = compose(
 
     return (
         <div {...blockProps}>
-            <InnerBlocks.Content />
+            <div className="guten-background-overlay" />
+            <div className="guten-inner-wrap">
+                <InnerBlocks.Content />
+            </div>
         </div>
     );
 });

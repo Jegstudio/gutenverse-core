@@ -13,7 +13,10 @@ import { useSelect } from '@wordpress/data';
 const WrapperContainer = ({ blockProps }) => {
     return (
         <div {...blockProps}>
-            <InnerBlocks />
+            <div className="guten-background-overlay" />
+            <div className="guten-inner-wrap">
+                <InnerBlocks />
+            </div>
         </div>
     );
 };
@@ -21,10 +24,13 @@ const WrapperContainer = ({ blockProps }) => {
 const WrapperPlaceholder = ({ blockProps, clientId }) => {
     return (
         <div {...blockProps}>
-            <InnerBlocks
-                renderAppender={InnerBlocks.ButtonBlockAppender}
-                clientId={clientId}
-            />
+            <div className="guten-background-overlay" />
+            <div className="guten-inner-wrap">
+                <InnerBlocks
+                    renderAppender={InnerBlocks.ButtonBlockAppender}
+                    clientId={clientId}
+                />
+            </div>
         </div>
     );
 };

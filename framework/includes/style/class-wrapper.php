@@ -128,6 +128,14 @@ class Wrapper extends Style_Abstract {
 			}
 		}
 
+		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
+			$this->handle_background( ".{$this->element_id} > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
+		}
+
+		if ( isset( $this->attrs['backgroundOverlayHover'] ) ) {
+			$this->handle_background( ".{$this->element_id}:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
+		}
+
 		if ( isset( $this->attrs['displayOverflow'] ) ) {
 			$this->inject_style(
 				array(

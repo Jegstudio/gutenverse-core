@@ -39,7 +39,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
-                styleId: 'column-background-overlay',
+                styleId: 'wrapper-background-overlay',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
             }),

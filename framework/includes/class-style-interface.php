@@ -623,13 +623,15 @@ abstract class Style_Interface {
 							if ( 'custom' !== $value['size'] ) {
 								return "-webkit-mask-size: {$value['size']};";
 							} else {
-								return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
+								if ( isset( $value['scale'] ) ) {
+									return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
+								}
 							}
 						},
 						'value'          => $this->merge_device_options(
 							array(
 								'size'  => $mask['size'],
-								'scale' => $mask['scale'],
+								'scale' => isset( $mask['scale'] ) ? $mask['scale'] : null,
 							)
 						),
 						'device_control' => true,
@@ -645,8 +647,16 @@ abstract class Style_Interface {
 							if ( 'custom' !== $value['position'] && 'default' !== $value['position'] ) {
 								return "-webkit-mask-position: {$value['position']};";
 							} elseif ( 'custom' === $value['position'] ) {
-								$xposition = $value['xposition']['point'] ? "{$value['xposition']['point']}{$value['xposition']['unit']}" : 0;
-								$yposition = $value['yposition']['point'] ? "{$value['yposition']['point']}{$value['yposition']['unit']}" : 0;
+								$xposition = 0;
+								$yposition = 0;
+
+								if ( isset( $value['xposition'] ) && $value['xposition']['point'] ) {
+									$xposition = "{$value['xposition']['point']}{$value['xposition']['unit']}";
+								}
+
+								if ( isset( $value['yposition'] ) && $value['yposition']['point'] ) {
+									$yposition = "{$value['yposition']['point']}{$value['yposition']['unit']}";
+								}
 
 								return "-webkit-mask-position: {$xposition} {$yposition};";
 							}
@@ -654,8 +664,8 @@ abstract class Style_Interface {
 						'value'          => $this->merge_device_options(
 							array(
 								'position'  => $mask['position'],
-								'xposition' => $mask['xposition'],
-								'yposition' => $mask['yposition'],
+								'xposition' => isset( $mask['xposition'] ) ? $mask['xposition'] : null,
+								'yposition' => isset( $mask['yposition'] ) ? $mask['yposition'] : null,
 							)
 						),
 						'device_control' => true,
