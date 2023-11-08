@@ -149,7 +149,7 @@ class GutenversePostblock extends Default {
         if (button.length > 0) {
             const position = button.first().getBoundingClientRect();
 
-            if (position.y < (window.screen.height / 2)) {
+            if (position.y < (window.screen.height / 2) && position.y > 0) {
                 if (parseInt(paginationScrollLimit) >= parseInt(numberPost) || parseInt(paginationScrollLimit) === 0) {
                     return true;
                 }
