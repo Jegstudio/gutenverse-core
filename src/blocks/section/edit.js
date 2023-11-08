@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCursorEffect, withCustomStyle } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -161,6 +161,7 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
+    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
     withAnimationBackground(),
@@ -192,6 +193,7 @@ const SectionBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
+        cursorEffect
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -262,7 +264,7 @@ const SectionBlock = compose(
             clientId={clientId}
         />
         <SectionInspection {...props} />
-        <div className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''}`} ref={sectionWrapper} data-id={dataId}>
+        <div className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'show-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />

@@ -235,6 +235,9 @@
     "positioningBottom": {
       "type": "object"
     },
+    "cursorEffect": {
+      "type": "object"
+    },
     "transform": {
       "type": "object"
     },

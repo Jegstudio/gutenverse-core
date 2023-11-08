@@ -14,8 +14,6 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import { AutoSizer, Grid } from 'react-virtualized';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoFullColorSVG, IconSearchSVG } from 'gutenverse-core/icons';
-import { ButtonUpgradePro } from 'gutenverse-core/components';
-import isEmpty from 'lodash/isEmpty';
 
 const COLUMN_NUMBER = 8;
 
