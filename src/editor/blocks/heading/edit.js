@@ -95,7 +95,6 @@ const HeadingBlock = compose(
     useEffect(() => {
         const child = getListOfChildTag(headingContent);
         let childs = attributes.textChilds;
-        console.log(child)
         if (attributes.content) {
             const newChild = child.map(element => {
                 const indexExist = childs.findIndex(item => element.id === item.id);
