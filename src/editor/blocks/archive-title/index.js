@@ -5,14 +5,14 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
-import { IconPostTitleSVG } from '../../../assets/icon/index';
+import { IconArchiveTitleSVG } from '../../../assets/icon/index';
 
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-    icon: <IconPostTitleSVG />,
+    icon: <IconArchiveTitleSVG />,
     edit,
     save,
 };
