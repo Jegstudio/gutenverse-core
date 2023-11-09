@@ -95,6 +95,7 @@ const HeadingBlock = compose(
     useEffect(() => {
         const child = getListOfChildTag(headingContent);
         let childs = attributes.textChilds;
+        console.log(child)
         if (attributes.content) {
             const newChild = child.map(element => {
                 const indexExist = childs.findIndex(item => element.id === item.id);
@@ -136,22 +137,24 @@ const HeadingBlock = compose(
     const getListOfChildTag = () => {
         if (headingRef?.current) {
             const newElement = u(headingRef?.current).children().map(child => {
-                return {
-                    color: {},
-                    colorHover: {},
-                    typography: {},
-                    typographyHover: {},
-                    textClip:{},
-                    textClipHover:{},
-                    background: {},
-                    backgroundHover: {},
-                    padding:{},
-                    paddingHover:{},
-                    margin:{},
-                    marginHover:{},
-                    value: child,
-                    id: u(child).attr('id')
-                };
+                if( u(child).nodes[0].localName === 'strong' || u(child).nodes[0].localName === 'em'){
+                    return {
+                        color: {},
+                        colorHover: {},
+                        typography: {},
+                        typographyHover: {},
+                        textClip:{},
+                        textClipHover:{},
+                        background: {},
+                        backgroundHover: {},
+                        padding:{},
+                        paddingHover:{},
+                        margin:{},
+                        marginHover:{},
+                        value: child,
+                        id: u(child).attr('id')
+                    };
+                }
             });
             return newElement.nodes;
         } else {
