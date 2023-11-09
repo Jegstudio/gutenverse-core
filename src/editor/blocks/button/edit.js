@@ -49,7 +49,6 @@ const ButtonBlock = compose(
         iconPosition = 'before',
         role,
     } = attributes;
-
     const {
         getBlockRootClientId,
         getBlock,
@@ -106,7 +105,6 @@ const ButtonBlock = compose(
                 return false;
             }
         }
-
         return true;
     };
 

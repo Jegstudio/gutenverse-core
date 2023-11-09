@@ -54,6 +54,7 @@ use Gutenverse\Style\Testimonials;
 use Gutenverse\Style\Text_Editor;
 use Gutenverse\Style\Video;
 use Gutenverse\Style\Popup_Builder;
+use Gutenverse\Style\Search;
 
 /**
  * Class Style Generator
@@ -221,6 +222,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/social-share':
 				$instance = new Social_Share( $attrs );
+				break;
+			case 'gutenverse/search':
+				$instance = new Search( $attrs );
 				break;
 			case 'gutenverse/social-share-facebook':
 			case 'gutenverse/social-share-twitter':

@@ -11,13 +11,67 @@ export const inputPanel = props => {
 
     return [
         {
+            id: 'inputPadding',
+            label: __('Input Padding', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input `,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'inputMargin',
+            label: __('Input Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
             id: 'placeholderColor',
             label: __('Input Placeholder Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input::placeholder`,
+                    selector: `.${elementId} .gutenverse-search-input::placeholder`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -28,7 +82,7 @@ export const inputPanel = props => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
@@ -57,7 +111,7 @@ export const inputPanel = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -70,7 +124,7 @@ export const inputPanel = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     render: value => handleColor(value, 'background-color')
                 }
             ]
@@ -82,7 +136,7 @@ export const inputPanel = props => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -96,7 +150,7 @@ export const inputPanel = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input:hover`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -109,7 +163,7 @@ export const inputPanel = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input:hover`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
                     render: value => handleColor(value, 'background-color')
                 }
             ]
@@ -121,46 +175,7 @@ export const inputPanel = props => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-input:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
-                }
-            ]
-        },
-        {
-            id: 'inputColorFocus',
-            show: switcher.inputState === 'focus',
-            label: __('Input Color Focus', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-input:focus, .${elementId} .gutenverse-input:focus-visible`,
-                    render: value => handleColor(value, 'color')
-                },
-            ]
-        },
-        {
-            id: 'inputBgColorFocus',
-            show: switcher.inputState === 'focus',
-            label: __('Input Background Color Focus', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-input:focus, .${elementId} .gutenverse-input:focus-visible`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ]
-        },
-        {
-            id: 'inputBorderFocus',
-            show: switcher.inputState === 'focus',
-            label: __('Border Type', 'gutenverse'),
-            component: BorderControl,
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-input:focus, .${elementId} .gutenverse-input:focus-visible`,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }

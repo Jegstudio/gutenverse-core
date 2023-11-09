@@ -128,6 +128,22 @@ export const buttonPanel = (props) => {
             ]
         },
         {
+            id: 'buttonHeight',
+            label: __('Set Height', 'gutenverse'),
+            description: __('height calculated in px', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 1,
+            max: 1000,
+            step: 1,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    render: value => `height: ${value}px!important;`
+                }
+            ]
+        },
+        {
             id: 'showIcon',
             label: __('Show Icon', 'gutenverse'),
             component: CheckboxControl,

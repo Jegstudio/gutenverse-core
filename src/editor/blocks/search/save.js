@@ -1,6 +1,5 @@
 
-import isEmpty from 'lodash/isEmpty';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
@@ -16,7 +15,7 @@ const save = compose(
     const {
         inputPlaceholder,
         elementId,
-        buttonMode
+        showButton
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -31,20 +30,24 @@ const save = compose(
     );
 
     return (
-        <form
-        {...useBlockProps.save({ className, ...advanceAnimationData })}
-        >
-            <input type="search"
-                placeholder="Place Holder"
-                name="search"
-                className="gutenverse-search gutenverse-search-input"
-            />
-            {
-                buttonMode !== 'no-button' && <input type="submit" className="gutenverse-search-button " />
-            }
-
-        </form>
-
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+            <form
+                className="gutenverse-search-form"
+                action={window.location.origin}
+            >
+                <input type="search"
+                    placeholder={inputPlaceholder}
+                    name="s"
+                    className={classNames(
+                        'gutenverse-search',
+                        'gutenverse-search-input',
+                    )}
+                />
+                {
+                    showButton && <InnerBlocks.Content className="gutenverse-search-button" />
+                }
+            </form>
+        </div>
     );
 });
 

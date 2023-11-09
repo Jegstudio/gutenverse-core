@@ -2,14 +2,14 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
-import { IconSearchSVG } from 'gutenverse-core/icons';
+import { IconSearchSVG } from '../../../assets/icon/index';
 
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-    icon: <IconSeaSVG />,
+    icon: <IconSearchSVG />,
     edit,
     save,
 };

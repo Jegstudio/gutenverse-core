@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { inputPanel } from './panel-input';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { contentPanel } from './panel-content';
 
 export const panelList = () => {
     return [
@@ -10,6 +11,12 @@ export const panelList = () => {
             panelArray: inputPanel,
             initialOpen: false,
             tabRole: TabStyle
+        },
+        {
+            title: __('Search Setting', 'gutenverse'),
+            panelArray: contentPanel,
+            initialOpen: false,
+            tabRole: TabSetting
         },
         /* Put Your List Here */
         {

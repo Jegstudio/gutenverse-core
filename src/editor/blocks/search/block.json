@@ -8,34 +8,15 @@
 		"elementId": {
 			"type": "string"
 		},
-		"buttonMode": {
-			"type": "string",
-			"default": "outside"
-		},
-		"buttonStyle": {
-			"type": "object"
-		},
-		"inputPlaceholder": {
-			"type": "string",
-			"default": "Text Placeholder"
+		"showButton": {
+			"type": "boolean",
+			"default": true
 		},
 		"position": {
 			"type": "string",
 			"default": "top"
 		},
 		"buttonWidth": {
-			"type": "object"
-		},
-		"buttonColor": {
-			"type": "object"
-		},
-		"buttonTypography": {
-			"type": "object"
-		},
-		"buttonPadding": {
-			"type": "object"
-		},
-		"buttonMargin": {
 			"type": "object"
 		},
 		"positioningType": {
@@ -92,56 +73,72 @@
 			"type": "object"
 		},
 		"animation": {
-			"type": "object",
+			"type": "object", 
 			"default": {}
 		},
 		"hideDesktop": {
-			"type": "boolean"
+			"type": "boolean" 
 		},
 		"hideTablet": {
-			"type": "boolean"
+			"type": "boolean" 
 		},
 		"hideMobile": {
-			"type": "boolean"
-		},
-		"inputPadding": {
-			"type": "object"
-		},
-		"inputMargin": {
-			"type": "object"
-		},
-		"inputColor": {
-			"type": "object"
+			"type": "boolean" 
 		},
 		"placeholderColor": {
-			"type": "object"
+			"type": "object" 
+		},
+		"inputPlaceholder": {
+			"type": "string",
+			"default": "Text Placeholder" 
+		},
+		"inputPadding": {
+			"type": "object" 
+		},
+		"inputMargin": {
+			"type": "object" 
+		},
+		"inputColor": {
+			"type": "object" 
+		},
+		"inputHeight": {
+			"type": "object",
+			"default" : {
+				"Desktop" : "50" 
+			}
+		},
+		"inputWidth": {
+			"type": "object",
+			"default" : {
+				"Desktop" : "350" 
+			}
 		},
 		"inputTypography": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputColorNormal": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputBorderNormal": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputColorHover": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputBorderHover": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputBgColorNormal": {
-			"type": "object"
+			"type": "object" 
 		},
 		"inputBgColorHover": {
-			"type": "object"
+			"type": "object" 
 		},
 		"transform": {
-			"type": "object"
+			"type": "object" 
 		},
-		"mask": {
-			"type": "object"
+		"mask": { 
+			"type": "object" 
 		}
 	},
 	"supports": {
