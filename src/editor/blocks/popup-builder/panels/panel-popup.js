@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl } from 'gutenverse-core/controls';
+import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl, CheckboxControl} from 'gutenverse-core/controls';
 import { handleBackground, handleUnitPoint, setStylePoint } from 'gutenverse-core/styling';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -31,6 +31,12 @@ export const popupPanel = (props) => {
     return applyFilters(
         'gutenverse.popup-builder.options',
         [{
+            id: 'hideAfterClosed',
+            label: __('Don\'t Repeat Pop-Up', 'gutenverse'),
+            description: __('Hide Pop-up After Shown Once '),
+            component: CheckboxControl,
+        },
+        {
             id: 'width',
             label: __('Popup Container Width', 'gutenverse'),
             component: SizeControl,

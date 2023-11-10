@@ -24,6 +24,7 @@ const save = compose(
         showCloseButton,
         closePosition,
         closePopupOverlay,
+        hideAfterClosed,
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -38,6 +39,7 @@ const save = compose(
         ),
         'data-trigger': openTrigger,
         'data-wait': openWaitTime,
+        'data-hide': hideAfterClosed ? 'hide-' + elementId : undefined,
         'data-scroll': openScrollDistance,
         'data-anchor': openAnchor,
         'data-max-click': openMaxClick,

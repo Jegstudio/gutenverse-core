@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
@@ -20,6 +20,21 @@ export const panelList = () => {
             title: __('Style', 'gutenverse'),
             panelArray: stylePanel,
             initialOpen: false,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Text Clip', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => {
+                const { elementId } = props;
+                return textClipPanel({
+                    ...props,
+                    textClipSelector: `.${elementId}`,
+                    textClipId: 'textClip'
+                });
+            },
+            pro: true,
             tabRole: TabStyle
         },
         {
@@ -93,6 +108,13 @@ export const panelList = () => {
                 styleId: 'heading-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: childStylePanel,
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
     ];
 };
