@@ -119,6 +119,22 @@
 		},
 		"mask": {
 			"type": "object"
+		},
+		"colorDivider" : {
+			"type" : "object"
+		},
+		"typeDivider" : {
+			"type" : "object"
+		},
+		"sizeDivider" : {
+			"type" : "object"
+		},
+		"widthDivider" : {
+			"type" : "object"
+		},
+		"isDivider" : {
+			"type" : "boolean",
+			"default" : false
 		}
 	},
 	"supports": {
