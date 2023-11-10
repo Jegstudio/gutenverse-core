@@ -5,58 +5,24 @@ import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps } from '@wordpress/block-editor';
-import { useRef, useState, useEffect } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useSelect, subscribe } from '@wordpress/data';
 
 const TextEditorBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('text-editor'),
     withCopyElementToolbar()
 )((props) => {
-    const { panelProps, setAdditionalAttribute } = props;
-    const [content, setContent] = useState(null);
+    const { panelProps} = props;
 
-    const {
-        getBlocks,
-        getBlockAttributes
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
 
     const {
         attributes,
         setElementRef,
-        clientId
     } = props;
-
-    const getContent = () => {
-        if(getBlocks(clientId).length > 0){
-            const childId = getBlocks(clientId)[0].clientId;
-            const { content } = getBlockAttributes(childId);
-            return content;
-        }
-        return;
-    };
-
-    useEffect(() => {
-        const unsubscribe = subscribe(() => {
-            const theContent = getContent();
-            if (content !== theContent) setContent(theContent);
-        });
-
-        return () => unsubscribe();
-    });
-
-    useEffect(() => {
-        setAdditionalAttribute({
-            content
-        });
-    }, [content]);
 
     const {
         elementId,
