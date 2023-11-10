@@ -75,7 +75,7 @@ export const panelList = () => {
                 normalOptions: [ 'default', 'gradient' ],
                 hoverOptions: [ 'default', 'gradient' ],
                 normalSelector: `.${props.elementId}, .${props.elementId}.guten-spacer.is-selected`,
-                hoverSelector: `.${props.elementId}, .${props.elementId}.guten-spacer.is-selected:hover`,
+                hoverSelector: `.${props.elementId}:hover,.${props.elementId}.guten-spacer.is-selected:hover`,
             }),
             tabRole: TabStyle
         },
