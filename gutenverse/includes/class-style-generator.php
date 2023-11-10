@@ -13,6 +13,7 @@ use Gutenverse\Style\Accordion;
 use Gutenverse\Style\Accordions;
 use Gutenverse\Style\Advanced_Heading;
 use Gutenverse\Style\Animated_Text;
+use Gutenverse\Style\Archive_Title;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
 use Gutenverse\Style\Divider;
@@ -92,6 +93,9 @@ class Style_Generator {
 	 */
 	public function get_block_style_instance( $instance, $name, $attrs ) {
 		switch ( $name ) {
+			case 'gutenverse/archive-title':
+				$instance = new Archive_Title( $attrs );
+				break;
 			case 'gutenverse/accordion':
 				$instance = new Accordion( $attrs );
 				break;
