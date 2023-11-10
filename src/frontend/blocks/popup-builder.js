@@ -22,22 +22,27 @@ class GutenversePopupElement {
         this.overlay = this.element.find('.guten-popup-overlay');
         this.closeButton = this.element.find('.guten-popup-close');
         this.closeOverlay = this.element.data('close-overlay');
-        this.dontRepeatPopup = this.element.hasClass('hide-popup');
+        this.dontRepeatPopup = this.element.data('hide');
+        this.stickyWrapper = this.element.find('.sticky-wrapper');
+        this.wrapperId = this.stickyWrapper.data('id');
         this.wrapper = this.element.find('.guten-popup-wrapper');
         this.content = this.element.find('.guten-popup-content');
         this.contentClass = this.content.attr('class');
         this.playAnimation = playAnimation;
         this.getAnimationClass = getAnimationClass;
-        this.shownOnce = localStorage.getItem('popupHavePopped');
-
+        this.shownOnce = localStorage.getItem(this.dontRepeatPopup);
         this._addCloseClick();
         this._addLoadEvent();
+        if ( this.dontRepeatPopup === null || this.dontRepeatPopup === undefined ){
+            localStorage.removeItem(localStorage.getItem('data-hide'));
+        }
     }
 
     /* private */
     _showPopup() {
-        if (this.shownOnce !== null){
-            if (this.dontRepeatPopup) return;
+        if (this.dontRepeatPopup !== null ){
+            localStorage.setItem('data-hide', this.dontRepeatPopup);
+            if (this.shownOnce !== null) return;
         }
         this.playAnimation(this.element.find('.guten-popup-content'));
         this.popup.addClass('show');
@@ -45,7 +50,7 @@ class GutenversePopupElement {
     }
 
     _closePopup() {
-        localStorage.setItem('popupHavePopped',true);
+        if (this.dontRepeatPopup !== null ) localStorage.setItem(this.dontRepeatPopup,true);
         this.popup.removeClass('show');
         this.popup.addClass('load');
         this.content.attr('class', this.contentClass);

@@ -36,12 +36,10 @@ const save = compose(
             'guten-popup-builder',
             elementId,
             displayClass,
-            {
-                ['hide-popup']: hideAfterClosed,
-            }
         ),
         'data-trigger': openTrigger,
         'data-wait': openWaitTime,
+        'data-hide': hideAfterClosed ? 'hide-' + elementId : undefined,
         'data-scroll': openScrollDistance,
         'data-anchor': openAnchor,
         'data-max-click': openMaxClick,
