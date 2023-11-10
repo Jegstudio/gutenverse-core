@@ -343,7 +343,7 @@
         margin: 0 0 30px 0;
         text-align: center;
         .guten-block-loadmore {
-            display: inline-block;
+            display: inline-flex;
             text-align: center;
             cursor: pointer;
             border: 1px solid var(--guten-border-color, #eaeaeb);
@@ -362,6 +362,9 @@
             a {
                 display: inline-block;
                 color: var(--guten-txt-color);
+            }
+            i {
+                padding-top: 4px;
             }
         }
     }
