@@ -45,6 +45,9 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"buttonHeight": {
+			"type": "object"
+		},
 		"alignButton": {
 			"type": "object",
 			"copyStyle": true

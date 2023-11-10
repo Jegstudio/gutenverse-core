@@ -224,9 +224,15 @@ const PostBlockBlock = compose(
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
-            {!loading ? <RawHTML key="html" className="guten-raw-wrapper">
-                {response}
-            </RawHTML> : <PostSkeleton number={column[deviceType]} />}
+            {!loading ?
+                <RawHTML key="html" className="guten-raw-wrapper">
+                    {response}
+                </RawHTML> :
+                (column[deviceType] ?
+                    <PostSkeleton number={column[deviceType]} /> :
+                    <PostSkeleton number={1} />
+                )
+            }
         </div>
     </>;
 });

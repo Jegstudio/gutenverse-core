@@ -69,6 +69,7 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/text-editor/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/team/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/social-share/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/search/block.json' );
 
 		// Dynamic blocks.
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-author/block.json' );
