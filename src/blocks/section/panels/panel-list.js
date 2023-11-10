@@ -5,7 +5,6 @@ import { dividerPanel } from './panel-divider';
 import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
-import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
 import { blurPanel } from './panel-blur';
@@ -60,12 +59,6 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: blurPanel,
             tabRole: TabStyle
-        },
-        {
-            title: __('Background Animated', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundAnimatedPanel,
-            pro: true,
         },
         {
             title: __('Border', '--gctd--'),

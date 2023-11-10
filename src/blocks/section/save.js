@@ -37,7 +37,6 @@ const save = compose(
         stickyDuration,
         topSticky,
         bottomSticky,
-        backgroundAnimated = {},
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -51,7 +50,6 @@ const save = compose(
         animationClass,
         displayClass,
         {
-            'background-animated': isAnimationActive(backgroundAnimated),
             [`layout-${layout}`]: layout,
             [`align-${align}`]: align,
             [`overflow-${overflow}`]: overflow && overflow !== 'none',
@@ -74,7 +72,6 @@ const save = compose(
     });
 
     const _isSticky = isSticky(sticky);
-    const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const _isTopDividerAnimated = !isEmptyValue(topDividerAnimated) && topDividerAnimated.type !== 'none';
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
     const dataId = elementId?.split('-')[1];
@@ -82,7 +79,7 @@ const save = compose(
     return (
         <div className={wrapperClassName} data-id={dataId}>
             <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
-                {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
+                {(_isSticky || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
                         {_isSticky &&
                             <div data-var={`stickyData${dataId}`} data-value={JSON.stringify({
@@ -93,11 +90,6 @@ const save = compose(
                                 stickyDuration,
                                 topSticky,
                                 bottomSticky
-                            })} />
-                        }
-                        {_isBgAnimated &&
-                            <div data-var={`bgAnimatedData${dataId}`} data-value={JSON.stringify({
-                                ...backgroundAnimated
                             })} />
                         }
                         {_isTopDividerAnimated &&
@@ -112,7 +104,6 @@ const save = compose(
                         }
                     </div>
                 }
-                {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {videoContainer}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}

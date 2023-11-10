@@ -49,10 +49,6 @@
     "stickyBoxShadow": {
         "type": "object"
     },
-    "backgroundAnimated": {
-        "type": "object",
-        "default": {}
-    },
     "topDividerAnimated": {
         "type": "object",
         "default": {

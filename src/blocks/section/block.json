@@ -116,10 +116,6 @@
     "backgroundOverlayHover": {
       "type": "object"
     },
-    "backgroundAnimated": {
-      "type": "object",
-      "default": {}
-    },
     "opacityHover": {
       "type": "float"
     },

@@ -3,7 +3,7 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { withVideoBackground } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
 import { compose } from '@wordpress/compose';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { isSticky } from 'gutenverse-core/helper';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -32,7 +32,6 @@ const save = compose(
         stickyDuration,
         topSticky,
         bottomSticky,
-        backgroundAnimated = {}
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -45,7 +44,6 @@ const save = compose(
         animationClass,
         displayClass,
         {
-            'background-animated': isAnimationActive(backgroundAnimated),
             [`layout-${layout}`]: layout,
             [`align-${align}`]: align,
             [`overflow-${overflow}`]: overflow && overflow !== 'none',
@@ -84,7 +82,6 @@ const save = compose(
             </script>}
             <script>{`var top${elementId?.split('-')[1]} = ${JSON.stringify(topSticky)};var bottom${elementId?.split('-')[1]} = ${JSON.stringify(bottomSticky)};`}</script>
             <section {...useBlockProps.save({ className })}>
-                {isAnimationActive(backgroundAnimated) && <div className="guten-background-animated"><div className="animated-layer"></div></div>}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}
                 {bottomDivider && <SectionDividerBottom {...props} />}
