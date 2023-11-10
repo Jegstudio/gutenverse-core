@@ -4,22 +4,27 @@
 	"title": "Flexible Wrapper",
 	"description": "Flexible Wrapper / Container to contain your block",
 	"category": "gutenverse-structure",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
 		},
 		"displayType": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"displayWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"displayHeight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"displayOverflow": {
 			"type": "string",
-			"default": "inherit"
+			"default": "inherit",
+			"copyStyle": true
 		},
 		"horizontalAlign": {
 			"type": "object",
@@ -27,7 +32,8 @@
 				"Desktop": false,
 				"Tablet": false,
 				"Mobile": false
-			}
+			},
+			"copyStyle": true
 		},
 		"verticalAlign": {
 			"type": "object",
@@ -35,7 +41,8 @@
 				"Desktop": false,
 				"Tablet": false,
 				"Mobile": false
-			}
+			},
+			"copyStyle": true
 		},
 		"positionType": {
 			"type": "object",
@@ -43,80 +50,104 @@
 				"Desktop": false,
 				"Tablet": false,
 				"Mobile": false
-			}
+			},
+			"copyStyle": true
 		},
 		"positionLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positionRight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positionTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positionBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"background": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundHover": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundOverlay": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"opacity": {
-			"type": "float"
+			"type": "float",
+			"copyStyle": true
 		},
 		"backgroundOverlayHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"opacityHover": {
-			"type": "float"
+			"type": "float",
+			"copyStyle": true
 		},
 		"blur": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"blurHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"border": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"borderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"mask": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"advanceAnimation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

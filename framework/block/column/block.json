@@ -5,9 +5,11 @@
   "parent": ["gutenverse/section"],
   "description": "Draggable column, to make your experience flawless when resize it.",
   "category": "gutenverse-structure",
+  "allowCopyStyle": true,
   "attributes": {
     "width": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "nieghborWidth": {
       "type": "object"
@@ -16,23 +18,28 @@
       "type": "object",
       "default": {
         "Desktop": false
-      }
+      },
+			"copyStyle": true
     },
     "stickyShowOn": {
       "type": "string",
-      "default": "both"
+      "default": "both",
+			"copyStyle": true
     },
     "stickyEase": {
       "type": "string",
-      "default": "none"
+      "default": "none",
+			"copyStyle": true
     },
     "stickyPosition": {
       "type": "string",
-      "default": "top"
+      "default": "top",
+			"copyStyle": true
     },
     "stickyDuration": {
       "type": "int",
-      "default": 0.25
+      "default": 0.25,
+			"copyStyle": true
     },
     "topSticky": {
       "type": "object",
@@ -41,7 +48,8 @@
           "point": "0",
           "unit": "px"
         }
-      }
+      },
+			"copyStyle": true
     },
     "bottomSticky": {
       "type": "object",
@@ -50,21 +58,26 @@
           "point": "0",
           "unit": "px"
         }
-      }
+      },
+			"copyStyle": true
     },
     "stickyIndex": {
       "type": "int",
-      "default": 99
+      "default": 99,
+			"copyStyle": true
     },
     "stickyBackground": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "stickyBoxShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "sectionVerticalAlign": {
       "type": "string",
-      "default": "default"
+      "default": "default",
+			"copyStyle": true
     },
     "elementId": {
       "type": "string"
@@ -74,93 +87,120 @@
     },
     "background": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "backgroundHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "backgroundOverlay": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "opacity": {
-      "type": "float"
+      "type": "float",
+			"copyStyle": true
     },
     "backgroundOverlayHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "opacityHover": {
-      "type": "float"
+      "type": "float",
+			"copyStyle": true
     },
     "verticalAlign": {
       "type": "object",
       "default": {
         "Desktop": "default"
-      }
+      },
+			"copyStyle": true
     },
     "horizontalAlign": {
       "type": "object",
       "default": {
         "Desktop": "default"
-      }
+      },
+			"copyStyle": true
     },
     "border": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "boxShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "borderHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "boxShadowHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "typographyHeadingColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "typographyTextColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "typographyLinkColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "typographyLinkHoverColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "typographyTextAlign": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "margin": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "padding": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "zIndex": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "animation": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "hideDesktop": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "hideTablet": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "hideMobile": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "blur": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "blurHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "mask": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		}
   },
   "supports": {

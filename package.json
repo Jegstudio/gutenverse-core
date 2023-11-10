@@ -23,6 +23,10 @@
   },
   "author": "Jegstudio",
   "license": "ISC",
+  "overrides": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "dependencies": {
     "@wordpress/block-editor": "^12.0.0",
     "@wordpress/blocks": "^6.24.1",
@@ -38,6 +42,7 @@
     "axios": "^1.4.0",
     "choices.js": "^9.1.0",
     "classnames": "^2.2.6",
+    "clipboard-copy": "^4.0.1",
     "crypto-js": "^4.1.1",
     "crypto-random-string": "^5.0.0",
     "element-change": "^1.0.1",

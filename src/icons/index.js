@@ -14,6 +14,10 @@ import IconDimensionX from './icon/icon-dimension-x.svg';
 import IconDimensionY from './icon/icon-dimension-y.svg';
 import IconDimensionZ from './icon/icon-dimension-z.svg';
 
+/**  */
+import GradientIconCopy from './icon/gradient-icon-copy.svg';
+import GradientIconPaste from './icon/gradient-icon-paste.svg';
+
 /* Control Icons */
 import IconDuplicate from './icon/icon-duplicate.svg';
 import IconTypography from './icon/icon-typography.svg';
@@ -61,7 +65,16 @@ export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128
             <path d="m94.3806 90.2811h-45.2312l-7.5361 13.0589h45.2263z"/>
         </g>
     </svg>;
-}
+};
+
+export const GradientIconCopySVG = (props) => {
+    return <GradientIconCopy { ...props } />;
+};
+
+export const GradientIconPasteSVG = (props) => {
+    return <GradientIconPaste { ...props } />;
+};
+
 export const LogoCircleColor16SVG = (props) => {
     return <LogoCircleColor16 { ...props } />;
 };

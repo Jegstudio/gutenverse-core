@@ -22,11 +22,21 @@ const renderStyleCustomDeps = (props) => {
     }
 };
 
+/**
+ * Note :
+ *  Force Refresh style bakalan tertrigger kalau:
+ *      1. Kalau dari luar element, setAttribute dengan client element ini dengan attribute refreshStyleId
+ *      2. Kalua dari element ini sendiri, bisa dengan refreshStyle();
+ *      3. refreshSignal bakal merefresh semua block dalam page.
+ *
+ * @param {*} panelList.
+ * @returns
+ */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
         const { clientId, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
-        const { elementId } = attributes;
+        const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
         const gutenverseSelector = select('gutenverse/style');
         const [adminStyles, setAdminStyle] = useState({});
@@ -41,6 +51,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
+
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
             setRefreshId(uniqueId);
@@ -175,6 +186,7 @@ export const withCustomStyle = panelList => BlockElement => {
 
             gutenverse.registerElement(clientId, data);
         };
+
         const renderStyle = () => {
             controls.map(data => {
                 data.panelArray(panelProps).map(data => {
@@ -193,11 +205,11 @@ export const withCustomStyle = panelList => BlockElement => {
 
                     !isEmpty(options) && options.map(option => {
                         const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-                        if (!isEmpty(repeaterStyle) ) {
+                        if (!isEmpty(repeaterStyle)) {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex,value.id);
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, value.id);
                                     return {
                                         ...item,
                                         selector: theSelector
@@ -279,6 +291,7 @@ export const withCustomStyle = panelList => BlockElement => {
             }
         }, [
             elementId,
+            refreshStyleId,
             refreshId,
             confirmSignal,
             deviceType,
