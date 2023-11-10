@@ -20,7 +20,6 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationSticky } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { withAnimationBackground } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isSticky } from 'gutenverse-core/helper';
@@ -163,7 +162,6 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 const SectionBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
-    withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar()
 )((props) => {
