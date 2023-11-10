@@ -4,6 +4,7 @@
 	"title": "Button",
 	"description": "Add beautiful and interactive action button.",
 	"category": "gutenverse-element",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -32,149 +33,195 @@
 		},
 		"buttonType": {
 			"type": "string",
-			"default": "default"
+			"default": "default",
+			"copyStyle": true
 		},
 		"buttonSize": {
 			"type": "string",
-			"default": "sm"
+			"default": "sm",
+			"copyStyle": true
 		},
 		"buttonWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"alignButton": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paddingButton": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBackgroundHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBorderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"buttonBoxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"showIcon": {
 			"type": "boolean",
-			"default": false
+			"default": false,
+			"copyStyle": true
 		},
 		"icon": {
 			"type": "string",
-			"default": "fab fa-wordpress"
+			"default": "fab fa-wordpress",
+			"copyStyle": true
 		},
 		"iconPosition": {
 			"type": "string",
-			"default": "before"
+			"default": "before",
+			"copyStyle": true
 		},
 		"iconSpacing": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"background": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundHover": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"border": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"borderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"hideDesktop": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideTablet": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideMobile": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"color": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"typography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"hoverIconColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"hoverBgColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"hoverTextColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"hoverBorderColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningType": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningLocation": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"positioningLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningRight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"mask": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

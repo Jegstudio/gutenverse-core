@@ -4,6 +4,7 @@
 	"title": "Gallery",
 	"description": "Showcase your images in grid or masonry layout, with a popup and zoom option.",
 	"category": "gutenverse-element",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -45,22 +46,27 @@
 		},
 		"grid": {
 			"type": "string",
-			"default": "grid"
+			"default": "grid",
+			"copyStyle": true
 		},
 		"height": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"layout": {
 			"type": "string",
-			"default": "overlay"
+			"default": "overlay",
+			"copyStyle": true
 		},
 		"hover": {
 			"type": "string",
-			"default": "fade-in"
+			"default": "fade-in",
+			"copyStyle": true
 		},
 		"animationDuration": {
 			"type": "int",
-			"default": 500
+			"default": 500,
+			"copyStyle": true
 		},
 		"images": {
 			"type": "array",
@@ -80,143 +86,187 @@
 			]
 		},
 		"iconBg": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverOpacity": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverTitleColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverTitleColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverTitleTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverContentColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverContentColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemHoverContentTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardTitleColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardTitleColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardTitleTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardContentColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardContentColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"itemCardContentTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"thumbnailBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"priceRatingPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"priceColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"priceTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"ratingColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"ratingStarColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"ratingTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"categoryBorderRadius": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"enableLoadMore": {
 			"type": "boolean",
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "int"
+			"type": "int" 
 		},
 		"enableLoadText": {
 			"type": "string",
@@ -231,82 +281,108 @@
 		},
 		"enableLoadIconPosition": {
 			"type": "string",
-			"default": "before"
+			"default": "before",
+			"copyStyle": true
 		},
 		"enableLoadAlign": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"loadMoreMarginTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreIconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreIconSpacing": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMorePadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreTextColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreTextColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreBackgroundHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"loadMoreBorderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterTabPadding": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabMargin": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabTypography": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabTextColor": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabTextColorActive": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBackground": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBackgroundActive": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBorder": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBorderActive": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBoxShadow": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterTabBoxShadowActive": {
-			"tye": "object"
+			"tye": "object",
+			"copyStyle": true
 		},
 		"filterSearchTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchIcon": {
 			"type": "string",
@@ -314,147 +390,191 @@
 		},
 		"filterSearchIconPosition": {
 			"type": "string",
-			"default": "after"
+			"default": "after",
+			"copyStyle": true
 		},
 		"fitlerSearchIconSpacing": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"fitlerSearchIconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"fitlerSearchControlWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchTextColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchTextBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchSeparatorSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchSeparatorColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchFormBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchFormText": {
 			"type": "string",
 			"default": "Search Gallery Item..."
 		},
 		"filterSearchFormTextColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"fitlerSearchFormWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchFormBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchFormBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchDropdownTextColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchDropdownTextColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchDropdownBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchDropdownBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"filterSearchDropdownPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"background": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundHover": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"border": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"borderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadowHover": {
 			"type": "object"
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"hideDesktop": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideTablet": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideMobile": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"positioningType": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningLocation": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"positioningLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningRight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"advanceAnimation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"mask": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
