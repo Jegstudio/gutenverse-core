@@ -172,6 +172,10 @@ class GutenversePostblock extends Default {
         const { numberPost, paginationScrollLimit } = settings;
         const button = element.find('.guten-block-loadmore');
 
+        if(element.hasClass('hide-desktop') || element.hasClass('hide-tablet') || element.hasClass('hide-mobile')){
+            return false;
+        }
+
         if (button.length > 0) {
             const position = button.first().getBoundingClientRect();
 

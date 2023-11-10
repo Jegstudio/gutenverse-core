@@ -30,7 +30,6 @@ const AdvancedHeadingBlock = compose(
         showSub,
         showLine,
     } = attributes;
-
     const advHeadingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);

@@ -1,33 +1,62 @@
 {
 	"apiVersion": 2,
-	"name": "gutenverse/heading",
-	"title": "Heading",
-	"description": "Create Title/Heading on your page.",
+	"name": "gutenverse/archive-title",
+	"class_callback": "\\Gutenverse\\Block\\Archive_Title",
+	"title": "Archive Title",
+	"description": "Show the title of an archive.",
 	"category": "gutenverse-element",
 	"attributes": {
 		"elementId": {
 			"type": "string"
 		},
-		"content": {
+		"archiveId": {
 			"type": "string",
-			"source": "html",
-			"selector": "h1,h2,h3,h4,h5,h6",
-			"default": ""
+			"default": 0
 		},
-		"type": {
-			"type": "number",
-			"default": 2
+		"backendArchiveId": {
+			"type": "string"
 		},
-		"textAlign": {
-			"type": "object"
+		"noContentText": {
+			"type": "string",
+			"default": "No Content"
 		},
-		"color": {
+		"htmlTag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"archiveLink": {
+			"type": "boolean"
+		},
+		"archiveLinkTarget": {
+			"type": "boolean"
+		},
+		"archiveLinkRel": {
+			"type": "string"
+		},
+		"linkTo": {
+			"type": "string",
+			"default": "none"
+		},
+		"customURL": {
+			"type": "string"
+		},
+		"alignment": {
 			"type": "object"
 		},
 		"typography": {
 			"type": "object"
 		},
+		"color": {
+			"type": "object"
+		},
 		"textShadow": {
+			"type": "object",
+			"default": {}
+		},
+		"colorHover": {
+			"type": "object"
+		},
+		"textShadowHover": {
 			"type": "object",
 			"default": {}
 		},
@@ -97,25 +126,23 @@
 		"positioningBottom": {
 			"type": "object"
 		},
-		"advanceAnimation": {
-			"type": "object",
-			"default": {}
-		},
 		"transform": {
 			"type": "object"
-		},
-		"textChilds": {
-			"type": "array",
-			"default": []
 		},
 		"mask": {
 			"type": "object"
 		}
 	},
+	"usesContext": [
+		"archiveId",
+		"archiveType",
+		"queryId"
+	],
 	"supports": {
-		"anchor": true,
-		"reusable": false,
-		"html": false
+		"className": false
 	},
-	"keywords": ["heading", "text", "title"]
+	"keywords": [
+		"archive",
+		"title"
+	]
 }
