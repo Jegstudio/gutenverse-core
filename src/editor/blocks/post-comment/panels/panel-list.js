@@ -112,6 +112,6 @@ export const panelList = () => {
                 styleId: 'post-comment-advance',
             }),
             tabRole: TabSetting
-        }
+        },
     ];
 };

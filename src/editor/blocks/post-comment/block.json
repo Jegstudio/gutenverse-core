@@ -146,7 +146,31 @@
 		},
 		"mask": {
 			"type": "object"
-		}
+		},
+		"inputColorNormal": {
+            "type": "object"
+        },
+        "inputColorHover": {
+            "type": "object"
+        },
+        "inputColorFocus": {
+            "type": "object"
+        },
+        "inputBgColorNormal": {
+            "type": "object"
+        },
+        "inputBgColorHover": {
+            "type": "object"
+        },
+        "inputBgColorFocus": {
+            "type": "object"
+        },
+		"inputAreaBoxShadow": {
+            "type": "object"
+        },
+        "inputAreaBoxShadowHover": {
+            "type": "object"
+        }
 	},
 	"usesContext": [
 		"postId",
