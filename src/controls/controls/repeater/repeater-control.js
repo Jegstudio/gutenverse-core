@@ -44,7 +44,7 @@ const RepeaterComponent = (props) => {
         if (style) {
             const theStyle = style.map(item => {
                 const { selector } = item;
-                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, props.value.id);
+                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, props.value.id, props.value.spanId);
                 return {
                     ...item,
                     selector: theSelector
