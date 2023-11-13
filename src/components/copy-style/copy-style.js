@@ -45,7 +45,7 @@ const BlockSettingMenuCopy = () => {
     return <PluginBlockSettingsMenuItem
         allowedBlocks={registeredGutenverse}
         label={__('Copy Style', '--gctd--')}
-        icon={<GradientIconCopySVG/>}
+        icon={<GradientIconCopySVG />}
         onClick={() => {
             const block = getSelectedBlock();
             const { attributes, name } = block;
@@ -53,11 +53,22 @@ const BlockSettingMenuCopy = () => {
             const { title, attributes: blockAttributes } = blockDetail;
             let copiedStyle = {};
 
+            let copiedKey = [];
+            let nonCopiedKey = [];
+
             Object.keys(blockAttributes).map(key => {
                 if (blockAttributes[key].copyStyle === true) {
                     copiedStyle[key] = attributes[key];
+                    copiedKey.push(key);
+                } else {
+                    nonCopiedKey.push(key);
                 }
             });
+
+            console.log('======== Copied Key ========');
+            console.log(copiedKey);
+            console.log('======== Non Copied Key ========');
+            console.log(nonCopiedKey);
 
             copiedStyle = {
                 gutenverse: true,
