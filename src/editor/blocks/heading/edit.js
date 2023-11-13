@@ -136,24 +136,28 @@ const HeadingBlock = compose(
     const getListOfChildTag = () => {
         if (headingRef?.current) {
             const newElement = u(headingRef?.current).children().map(child => {
-                if( u(child).nodes[0].localName === 'strong' || u(child).nodes[0].localName === 'em'){
-                    return {
-                        color: {},
-                        colorHover: {},
-                        typography: {},
-                        typographyHover: {},
-                        textClip:{},
-                        textClipHover:{},
-                        background: {},
-                        backgroundHover: {},
-                        padding:{},
-                        paddingHover:{},
-                        margin:{},
-                        marginHover:{},
-                        value: child,
-                        id: u(child).attr('id')
-                    };
-                }
+                const newChild = u(child).children().map(grandChild => {
+                    if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
+                        return {
+                            color: {},
+                            colorHover: {},
+                            typography: {},
+                            typographyHover: {},
+                            textClip:{},
+                            textClipHover:{},
+                            background: {},
+                            backgroundHover: {},
+                            padding:{},
+                            paddingHover:{},
+                            margin:{},
+                            marginHover:{},
+                            value: child,
+                            id: u(grandChild).attr('id'),
+                            spanId: u(child).attr('id')
+                        };
+                    }
+                })
+                return newChild
             });
             return newElement.nodes;
         } else {
@@ -183,8 +187,10 @@ const HeadingBlock = compose(
             let index = element.indexOf('>');
             if (!match && index !== -1) {
                 let part1 = element.slice(1, index);
-                const uniqeid = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-                return element.replace(`<${part1}>`, `<${part1} id=${uniqeid}>`);
+                const uniqeidChild = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                const uniqeidSpan = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                const child = `<span id=${uniqeidSpan}>` + element.replace(`<${part1}>`, `<${part1} id=${uniqeidChild}>`) + '</span>'
+                return child;
             } else {
                 return element;
             }
