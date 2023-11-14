@@ -1,6 +1,7 @@
 export { withCustomStyle } from './with-custom-style';
 export { withAnimationAdvanceScript } from './with-animation-advance-script';
 export { withAnimationAdvance } from './with-animation-advance';
+export { withAnimationBackground } from './with-animation-background';
 export { withAnimationSticky } from './with-animation-sticky';
 export { withCopyElementToolbar } from './with-copy-element-toolbar';
 export { withVideoBackground } from './with-video-background';
