@@ -76,12 +76,6 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Animated', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundAnimatedPanel,
-            pro: true,
-        },
-        {
             title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
@@ -95,6 +89,12 @@ export const panelList = () => {
                 styleId: 'column-animation'
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Background Animation', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true,
         },
         {
             title: __('Spacing', '--gctd--'),
