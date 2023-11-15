@@ -19,7 +19,7 @@ const DragDropList = ({ list, setList, children, isDragable }) => {
         animation="100"
         easing="ease-out"
         handle=".repeater-header"
-        draggable={isDragable}
+        sort={isDragable}
     >
         {children}
     </ReactSortable>;
@@ -44,7 +44,7 @@ const RepeaterComponent = (props) => {
         if (style) {
             const theStyle = style.map(item => {
                 const { selector } = item;
-                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, props.value.id);
+                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, {props:props.value});
                 return {
                     ...item,
                     selector: theSelector

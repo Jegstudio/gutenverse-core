@@ -200,16 +200,14 @@ export const withCustomStyle = panelList => BlockElement => {
                             allowDeviceControl
                         }));
                     }
-
                     !!onChange && onChange(panelProps);
-
                     !isEmpty(options) && options.map(option => {
                         const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
                         if (!isEmpty(repeaterStyle)) {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, value.id);
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex,{props: value});
                                     return {
                                         ...item,
                                         selector: theSelector
