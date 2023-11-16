@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { spacerPanel } from './panel-spacer';
-import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel, maskPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel, maskPanel, backgroundPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -65,6 +65,19 @@ export const panelList = () => {
                 styleId: 'spacer-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'spacer-background',
+                normalOptions: [ 'default', 'gradient' ],
+                hoverOptions: [ 'default', 'gradient' ],
+                normalSelector: `.${props.elementId}, .${props.elementId}.guten-spacer.is-selected`,
+                hoverSelector: `.${props.elementId}:hover,.${props.elementId}.guten-spacer.is-selected:hover`,
+            }),
+            tabRole: TabStyle
+        },
     ];
 };

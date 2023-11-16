@@ -58,6 +58,14 @@
     },
     "mask": {
 			"type": "object"
+		},
+    "background": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {}
 		}
   },
   "supports": {

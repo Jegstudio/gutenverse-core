@@ -340,5 +340,107 @@ class Post_Comment extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['inputColorNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus, .{$this->element_id} .comment-form form input:not([type=submit]):focus-visible, .{$this->element_id} .comment-form form textarea:focus-visible",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]):focus, .{$this->element_id} .comment-form form textarea:focus, .{$this->element_id} .comment-form form input:not([type=submit]):focus-visible, .{$this->element_id} .comment-form form textarea:focus-visible",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit],[type=checkbox])	, .{$this->element_id} .comment-form form textarea	",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit],[type=checkbox]):hover, .{$this->element_id} .comment-form form textarea:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }
