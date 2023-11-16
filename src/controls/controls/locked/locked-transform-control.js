@@ -10,7 +10,7 @@ const LockedTransformControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Transform Element', '--gctd--' )}
             description={__( 'Modify your element, rotate, move, scale, change opacity on Normal and Hovered state', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/transform.mp4'}
             isOpen={isOpen}
         />
     </div>;

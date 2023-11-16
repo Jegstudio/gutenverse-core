@@ -10,7 +10,7 @@ const LockedChildStyleControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Style Your Child Element', '--gctd--' )}
             description={__( 'Modify your child element by modify their color', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/highlight-text.mp4'}
             isOpen={isOpen}
         />
     </div>;
