@@ -148,6 +148,10 @@
 		"zIndex": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"backgroundAnimated": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

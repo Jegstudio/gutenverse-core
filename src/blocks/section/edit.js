@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -22,7 +22,7 @@ import { withAnimationSticky } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { isSticky } from 'gutenverse-core/helper';
+import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
@@ -162,6 +162,7 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 const SectionBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
+    withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar()
 )((props) => {
@@ -189,6 +190,7 @@ const SectionBlock = compose(
         overflow,
         sticky = {},
         stickyPosition,
+        backgroundAnimated = {},
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -212,6 +214,7 @@ const SectionBlock = compose(
             displayClass,
             {
                 'section-variation-picker': !innerBlocksLength,
+                'background-animated': isAnimationActive(backgroundAnimated),
                 [`layout-${layout}`]: layout,
                 [`align-${align}`]: align,
                 [`overflow-${overflow}`]: overflow && overflow !== 'none',
@@ -260,6 +263,7 @@ const SectionBlock = compose(
         <SectionInspection {...props} />
         <div className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
+                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
                 <div className="guten-background-overlay" />
                 <Component {...componentProps} />
