@@ -181,12 +181,36 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputHeight'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input,.guten-button-wrapper .guten-button ",
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input, .{$this->element_id} .guten-button-wrapper .guten-button ",
 					'property'       => function ( $value ) {
 						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['inputHeight'],
 					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input, .{$this->element_id} .guten-button-wrapper .guten-button",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:hover, .{$this->element_id} .guten-button-wrapper .guten-button:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadowHover'],
+					'device_control' => false,
 				)
 			);
 		}
