@@ -35,8 +35,8 @@ class Wrapper extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'background' => array(
-					'normal' => ".{$this->element_id}",
-					'hover'  => ".{$this->element_id}:hover",
+					'normal' => ".{$this->element_id}:not(.background-animated), .{$this->element_id}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer",
+					'hover'  => ".{$this->element_id}:not(.background-animated):hover, .{$this->element_id}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer",
 				),
 				'border'     => array(
 					'normal' => ".{$this->element_id}",
@@ -126,6 +126,40 @@ class Wrapper extends Style_Abstract {
 					)
 				);
 			}
+		}
+
+		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
+			$this->handle_background( ".{$this->element_id} > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
+		}
+
+		if ( isset( $this->attrs['backgroundOverlayHover'] ) ) {
+			$this->handle_background( ".{$this->element_id}:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
+		}
+
+		if ( isset( $this->attrs['opacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > .guten-background-overlay",
+					'property'       => function( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['opacity'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['opacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover > .guten-background-overlay",
+					'property'       => function( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['opacityHover'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['displayOverflow'] ) ) {
