@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
@@ -23,6 +23,21 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Text Clip', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => {
+                const { elementId } = props;
+                return textClipPanel({
+                    ...props,
+                    textClipSelector: `.${elementId}`,
+                    textClipId: 'textClip'
+                });
+            },
+            pro: true,
+            tabRole: TabStyle
+        },
+        {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
@@ -40,6 +55,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'heading-border'
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {
@@ -87,6 +108,13 @@ export const panelList = () => {
                 styleId: 'heading-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: childStylePanel,
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
     ];
 };

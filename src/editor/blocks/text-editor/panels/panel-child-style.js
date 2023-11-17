@@ -20,7 +20,6 @@ export const panelChildStyle = (props) => {
     } = props;
 
     const child = getListOfChildTag(content);
-    console.log(child);
 
     return [
         {

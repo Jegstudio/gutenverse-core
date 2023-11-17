@@ -50,6 +50,7 @@ class Button extends Style_Abstract {
 					'normal' => ".{$this->element_id} .guten-button",
 					'hover'  => ".{$this->element_id} .guten-button:hover",
 				),
+				'mask'        => null,
 			)
 		);
 	}
@@ -79,6 +80,19 @@ class Button extends Style_Abstract {
 						return "width: {$value}%;";
 					},
 					'value'          => $this->attrs['buttonWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['buttonHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'property'       => function ( $value ) {
+						return "height: {$value}px;";
+					},
+					'value'          => $this->attrs['buttonHeight'],
 					'device_control' => true,
 				)
 			);

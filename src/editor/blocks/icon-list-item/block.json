@@ -7,6 +7,7 @@
 		"gutenverse/icon-list"
 	],
 	"category": "gutenverse-element",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -38,7 +39,8 @@
 		},
 		"hideIcon": {
 			"type": "boolean",
-			"default": false
+			"default": false,
+			"copyStyle": true
 		},
 		"text": {
 			"type": "string",
@@ -47,16 +49,24 @@
 			"default": "List item"
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

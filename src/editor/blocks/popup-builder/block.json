@@ -4,6 +4,7 @@
 	"title": "Popup Builder",
 	"description": "Build Popup using gutenverse popup builder.",
 	"category": "gutenverse-structure",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -23,45 +24,60 @@
 					"point": "100",
 					"unit": "%"
 				}
-			}
+			},
+			"copyStyle": true
 		},
 		"maxHeight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"containerPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"containerBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"containerBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"backgroundColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"position": {
 			"type": "string",
-			"default": "center"
+			"default": "center",
+			"copyStyle": true
 		},
 		"contentPosition": {
 			"type": "string",
-			"default": "center"
+			"default": "center",
+			"copyStyle": true
 		},
 		"sideMode": {
 			"type": "string",
-			"default": "space"
+			"default": "space",
+			"copyStyle": true
 		},
 		"overlayColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"showCloseButton": {
 			"type": "boolean",
 			"default": true
+		},
+		"hideAfterClosed": {
+			"type": "boolean",
+			"default": false
 		},
 		"closePopupOverlay": {
 			"type": "boolean",
@@ -73,19 +89,24 @@
 		},
 		"closePosition": {
 			"type": "string",
-			"default": "container"
+			"default": "container",
+			"copyStyle": true
 		},
 		"closeButtonColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeButtonBgColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeButtonSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closePositioningLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closePositioningRight": {
 			"type": "object",
@@ -94,7 +115,8 @@
 					"point": 10,
 					"unit": "px"
 				}
-			}
+			},
+			"copyStyle": true
 		},
 		"closePositioningTop": {
 			"type": "object",
@@ -103,31 +125,40 @@
 					"point": 10,
 					"unit": "px"
 				}
-			}
+			},
+			"copyStyle": true
 		},
 		"closePositioningBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closePadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeButtonColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeButtonBgColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeBorderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"closeBoxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"openTrigger": {
 			"type": "string",
@@ -146,7 +177,12 @@
 			"type": "int"
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

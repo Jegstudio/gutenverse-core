@@ -1,6 +1,7 @@
 {
     "apiVersion": 2,
     "category": "gutenverse-element",
+    "allowCopyStyle": true,
     "parent": [
         "gutenverse/social-share"
     ],
@@ -9,50 +10,68 @@
             "type": "string"
         },
         "iconPading": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "textPading": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "showText": {
             "type": "boolean",
             "default": true
         },
         "iconColor": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "iconBackgroundColor": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "backgroundColor": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "textColor": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "border": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "iconColorHover": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "iconBackgroundColorHover": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "backgroundColorHover": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "textColorHover": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "borderHover": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "iconSize": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
         },
         "typography": {
-            "type": "object"
+            "type": "object",
+			"copyStyle": true
+        },
+        "mask": {
+            "type": "object",
+			"copyStyle": true
         }
     },
     "keywords": [

@@ -47,6 +47,7 @@ class Social_Icons extends Style_Abstract {
 				'positioning' => ".{$this->element_id}.guten-element, .{$this->element_id}.guten-element.horizontal > div",
 				'animation'   => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}

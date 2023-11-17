@@ -4,6 +4,7 @@
   "title": "Team",
   "description": "Show your team details.",
   "category": "gutenverse-element",
+  "allowCopyStyle": true,
   "attributes": {
     "elementId": {
       "type": "string"
@@ -58,213 +59,281 @@
       "default": true
     },
     "nameColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "nameColorHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "nameTypography": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "nameTextShadow": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "jobColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "jobColorHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "jobTypography": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "jobTextShadow": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "descColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "descColorHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "descTypography": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "descTextShadow": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "alignment": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profilePadding": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "detailsPadding": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profileBorderRadius": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "background": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "backgroundHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "border": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "boxShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "borderHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "boxShadowHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profileBackground": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "profileBackgroundHover": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "profileBorder": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profileBoxShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profileBorderHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "profileBoxShadowHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imageBorder": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imageBoxShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imageBorderHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imageBoxShadowHover": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "margin": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "padding": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "zIndex": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "animation": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "hideDesktop": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "hideTablet": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "hideMobile": {
-      "type": "boolean"
+      "type": "boolean",
+			"copyStyle": true
     },
     "imgWidth": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imgHeight": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imgRotate": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "imgSpacing": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverPadding": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverBottom": {
       "type": "boolean",
-      "default": false
+      "default": false,
+			"copyStyle": true
     },
     "hoverBottomColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverBottomDirection": {
       "type": "string",
-      "default": "left"
+      "default": "left",
+			"copyStyle": true
     },
     "positioningType": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningWidth": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningAlign": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningLocation": {
-      "type": "string"
+      "type": "string",
+			"copyStyle": true
     },
     "positioningLeft": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningRight": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningTop": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "positioningBottom": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverBgColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "nameSpace": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "jobSpace": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "descSpace": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverContentBgColor": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverContentBorder": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "hoverContentShadow": {
-      "type": "object"
+      "type": "object",
+			"copyStyle": true
     },
     "advanceAnimation": {
       "type": "object",
-      "default": {}
+      "default": {},
+			"copyStyle": true
     },
     "transform": {
-      "type": "object"
-    }
+      "type": "object",
+			"copyStyle": true
+    },
+    "mask": {
+			"type": "object",
+			"copyStyle": true
+		}
   },
   "supports": {},
   "keywords": [

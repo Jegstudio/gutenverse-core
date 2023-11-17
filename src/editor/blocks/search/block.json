@@ -1,0 +1,149 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/search",
+	"title": "Search",
+	"description": "Gutenverse Search",
+	"category": "gutenverse-element",
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"showButton": {
+			"type": "boolean",
+			"default": true
+		},
+		"position": {
+			"type": "string",
+			"default": "top"
+		},
+		"buttonWidth": {
+			"type": "object"
+		},
+		"positioningType": {
+			"type": "object"
+		},
+		"positioningWidth": {
+			"type": "object"
+		},
+		"positioningAlign": {
+			"type": "object"
+		},
+		"positioningLocation": {
+			"type": "string"
+		},
+		"positioningLeft": {
+			"type": "object"
+		},
+		"positioningRight": {
+			"type": "object"
+		},
+		"positioningTop": {
+			"type": "object"
+		},
+		"positioningBottom": {
+			"type": "object"
+		},
+		"background": {
+			"type": "object",
+			"default": {}
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {}
+		},
+		"border": {
+			"type": "object"
+		},
+		"boxShadow": {
+			"type": "object"
+		},
+		"borderHover": {
+			"type": "object"
+		},
+		"boxShadowHover": {
+			"type": "object"
+		},
+		"margin": {
+			"type": "object"
+		},
+		"padding": {
+			"type": "object"
+		},
+		"zIndex": {
+			"type": "object"
+		},
+		"animation": {
+			"type": "object", 
+			"default": {}
+		},
+		"hideDesktop": {
+			"type": "boolean" 
+		},
+		"hideTablet": {
+			"type": "boolean" 
+		},
+		"hideMobile": {
+			"type": "boolean" 
+		},
+		"placeholderColor": {
+			"type": "object" 
+		},
+		"inputPlaceholder": {
+			"type": "string",
+			"default": "Text Placeholder" 
+		},
+		"inputPadding": {
+			"type": "object" 
+		},
+		"inputMargin": {
+			"type": "object" 
+		},
+		"inputColor": {
+			"type": "object" 
+		},
+		"inputHeight": {
+			"type": "object",
+			"default" : {
+				"Desktop" : "50" 
+			}
+		},
+		"inputWidth": {
+			"type": "object",
+			"default" : {
+				"Desktop" : "350" 
+			}
+		},
+		"inputTypography": {
+			"type": "object" 
+		},
+		"inputColorNormal": {
+			"type": "object" 
+		},
+		"inputBorderNormal": {
+			"type": "object" 
+		},
+		"inputColorHover": {
+			"type": "object" 
+		},
+		"inputBorderHover": {
+			"type": "object" 
+		},
+		"inputBgColorNormal": {
+			"type": "object" 
+		},
+		"inputBgColorHover": {
+			"type": "object" 
+		},
+		"transform": {
+			"type": "object" 
+		},
+		"mask": { 
+			"type": "object" 
+		}
+	},
+	"supports": {
+		"className": false
+	},
+	"keywords": ["search", "gutenverse"],
+	"example": {}
+}

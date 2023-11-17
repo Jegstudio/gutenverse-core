@@ -41,7 +41,9 @@ class Social_Share_Item extends Style_Abstract {
 		parent::__construct( $attrs );
 
 		$this->set_feature(
-			array()
+			array(
+				'mask' => null,
+			)
 		);
 	}
 

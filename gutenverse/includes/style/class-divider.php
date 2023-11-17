@@ -46,6 +46,7 @@ class Divider extends Style_Abstract {
 				'animation'   => null,
 				'positioning' => null,
 				'advance'     => null,
+				'mask'        => null,
 			)
 		);
 	}

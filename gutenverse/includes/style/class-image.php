@@ -49,6 +49,7 @@ class Image extends Style_Abstract {
 					'normal' => ".{$this->element_id} img",
 					'hover'  => ".{$this->element_id} img:hover",
 				),
+				'mask'        => null,
 			)
 		);
 	}

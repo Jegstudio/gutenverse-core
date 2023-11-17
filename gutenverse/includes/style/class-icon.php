@@ -50,6 +50,7 @@ class Icon extends Style_Abstract {
 					'normal' => ".{$this->element_id} .guten-icon-wrapper",
 					'hover'  => ".{$this->element_id} .guten-icon-wrapper:hover",
 				),
+				'mask'        => null,
 			)
 		);
 	}

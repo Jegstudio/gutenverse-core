@@ -7,6 +7,7 @@ import {
     animationPanel,
     backgroundPanel,
     borderPanel,
+    maskPanel,
     positioningPanel,
     responsivePanel,
     transformPanel
@@ -51,6 +52,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'social-share-border'
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

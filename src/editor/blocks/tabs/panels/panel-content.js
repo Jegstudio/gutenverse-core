@@ -1,8 +1,7 @@
-import { SelectControl} from 'gutenverse-core/controls';
+import { SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
-
 
 export const contentPanel = (props) => {
     const {
@@ -13,8 +12,6 @@ export const contentPanel = (props) => {
     const blockName = select('core/block-editor').getBlockName(clientId);
     const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
-
-   
     return [
         {
             id: 'orientation',

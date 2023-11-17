@@ -56,6 +56,7 @@ class Post_Block extends Style_Abstract {
 					'normal' => ".{$this->element_id}.guten-element",
 					'hover'  => ".{$this->element_id}.guten-element:hover",
 				),
+				'mask'        => null,
 			)
 		);
 	}

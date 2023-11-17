@@ -5,6 +5,7 @@
 	"title": "Post List",
 	"description": "Show a list of posts of your choice.",
 	"category": "gutenverse-post",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -58,13 +59,15 @@
 		},
 		"layout": {
 			"type": "string",
-			"default": "vertical"
+			"default": "vertical",
+			"copyStyle": true
 		},
 		"column": {
 			"type": "object"
 		},
 		"columnGap": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageEnabled": {
 			"type": "boolean",
@@ -72,7 +75,8 @@
 		},
 		"backgroundImageEnabled": {
 			"type": "boolean",
-			"default": false
+			"default": false,
+			"copyStyle": true
 		},
 		"iconEnabled": {
 			"type": "boolean",
@@ -154,238 +158,319 @@
 			"default": "before"
 		},
 		"contentAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentHoverBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentHoverBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"contentHoverShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"titlePadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"titleColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"titleTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"titleColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"titleTypographyHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageHeight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageFit": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconHeight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconLineHeight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconRadius": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"iconHoverColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaIconSize": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaIconSpacing": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaColorHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaHoverBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"metaHoverBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationTypography": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationMargin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationPadding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationIconSpacing": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationHoverColor": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationHoverBackground": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationHoverBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"paginationHoverShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"background": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundHover": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"border": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"borderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"hideDesktop": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideTablet": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideMobile": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"positioningType": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningLocation": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"positioningLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningRight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
