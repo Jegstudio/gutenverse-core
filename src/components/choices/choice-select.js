@@ -187,6 +187,67 @@ const ChoiceMultiOptions = props => {
     </div>;
 };
 
+const ChoiceGroupMultiOptions = props => {
+    const { open, selected, setSelected, options, searchKeyword, setSearch } = props;
+    const [hovered, setHovered] = useState(options[0].value);
+    const [choices, setChoices] = useState(options);
+
+    useEffect(() => {
+        setChoices(options.filter(option => {
+            const { value, label } = option;
+
+            if (value && label) {
+                return value.search(searchKeyword) >= 0 || label.search(searchKeyword) > 0;
+            } else {
+                return true;
+            }
+        }));
+    }, [searchKeyword, options]);
+
+    const updateSelected = (value) => {
+        setSearch('');
+        setSelected([
+            ...selected,
+            value
+        ]);
+    };
+    const handleGroupClick = (group) => {
+        group.options.map((option) => {
+            updateSelected(option);
+        });
+    };
+
+    return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
+        <div className="choices__list">
+            {
+                choices.map(group => 
+                    <div className="gutenverse-multi-group-select-group-wrapper" key={group.value}>
+                        <div
+                            style={{ fontWeight: 'bold', cursor: 'pointer' }}
+                            className="gutenverse-multi-group-select-group-label"
+                            onMouseDown={() => handleGroupClick(group)}
+                        >
+                            {group.label}
+                        </div>
+                        {
+                            group.options.map(option =>
+                                <ChoiceOptionMulti
+                                    key={option.value}
+                                    option={option}
+                                    hovered={hovered}
+                                    selected={selected}
+                                    setHovered={setHovered}
+                                    setSelected={updateSelected}
+                                />
+                            )
+                        }
+                    </div>
+                )
+            }
+        </div>
+    </div>;
+};
+
 const ChoiceInnerSingle = ({ selected, clearSelected, placeholder }) => {
     return <>
         {selected.value ? selected.label : placeholder}
@@ -266,7 +327,7 @@ const ChoiceSingleInner = (props) => {
 };
 
 const ChoiceSelect = (props) => {
-    const { placeholder, multi, selected, setSelected } = props;
+    const { placeholder, multi, selected, setSelected, isGroup = false } = props;
     const [searchKeyword, setSearch] = useState('');
     const [open, setOpen] = useState(false);
     const selectRef = useRef();
@@ -296,7 +357,10 @@ const ChoiceSelect = (props) => {
         data-type={multi ? 'select-multiple' : 'select-one'}
         ref={selectRef}
     >
-        {multi ? <>
+        {multi ? isGroup ? <>
+            <ChoiceMultiInner {...theProps} />
+            <ChoiceGroupMultiOptions {...theProps} />
+        </> : <>
             <ChoiceMultiInner {...theProps} />
             <ChoiceMultiOptions {...theProps} />
         </> : <>
