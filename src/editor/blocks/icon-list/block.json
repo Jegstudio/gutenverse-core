@@ -161,7 +161,7 @@
 			"copyStyle": true
 		},
 		"typeDivider" : {
-			"type" : "object",
+			"type" : "string",
 			"copyStyle": true
 		},
 		"sizeDivider" : {
