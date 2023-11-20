@@ -5,6 +5,7 @@
 	"title": "Post Featured Image",
 	"description": "Show the featured image of a single post.",
 	"category": "gutenverse-post",
+	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
 			"type": "string"
@@ -35,94 +36,123 @@
 			"type": "string"
 		},
 		"alignment": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"size": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"opacity": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"rotate": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageBorder": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"imageBoxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"background": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"backgroundHover": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"border": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadow": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"borderHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"boxShadowHover": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"margin": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"padding": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"zIndex": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"animation": {
 			"type": "object",
-			"default": {}
+			"default": {},
+			"copyStyle": true
 		},
 		"hideDesktop": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideTablet": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"hideMobile": {
-			"type": "boolean"
+			"type": "boolean",
+			"copyStyle": true
 		},
 		"positioningType": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningWidth": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningAlign": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningLocation": {
-			"type": "string"
+			"type": "string",
+			"copyStyle": true
 		},
 		"positioningLeft": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningRight": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningTop": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"positioningBottom": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"transform": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		},
 		"mask": {
-			"type": "object"
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"usesContext": [

@@ -189,11 +189,16 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.0.0 - 2023-xx-xx =
 ##### New
+* **Archive Title Block**, Add new block
+* **Copy Style**, Add new ability to copy styles between blocks
+* **Flexible Wrapper Block**, Add new block
 * **Ecosystem**, Add gutenverse plugin ecosystem
+* **Search Block**, Add new block
 
 ##### Improvements
 * **Codes**, Improve codes to be more lightweight
 * **Dashboard**, Improve dashboard experience
+* **Popup Builder**, Add option to only show popup once
 
 ##### Bug Fixes
 * **Button**, Fixed hover button background normal color
@@ -216,6 +221,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Galery**, Fixed Rating and Star Color
 * **Galery**, Fixed Galery FrontEnd Zoom
 * **Section**, Fix issue with Shape Divider bottom Bring to Front option
+* **Post Block**, Fix issue with autoload scroll and fix some predefined styles
 
 = 1.8.8 - 2023-08-15 =
 ##### Bug Fixes

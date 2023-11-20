@@ -60,6 +60,8 @@ import IconPluginPopup from './icon-plugin-popup.svg';
 import IconPluginForm from './icon-plugin-form.svg';
 import IconPluginFont from './icon-plugin-font.svg';
 import IconPluginCheck from './icon-plugin-check.svg';
+import IconSearch from './icon-search.svg';
+import IconArchiveTitle from './icon-archive-title.svg';
 
 /** Block PRO */
 import IconMegaMenu from './icon-mega-menu.svg';
@@ -287,6 +289,14 @@ export const IconPostTermsSVG = () => {
 
 export const IconPostTitleSVG = () => {
     return <IconPostTitle />;
+};
+
+export const IconArchiveTitleSVG = () => {
+    return <IconArchiveTitle />;
+};
+
+export const IconSearchSVG = () => {
+    return <IconSearch />;
 };
 
 export const IconPopupBuilderSVG = () => {

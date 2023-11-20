@@ -1,57 +1,32 @@
-/* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-
-/* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel } from 'gutenverse-core/controls';
-
-/* Local dependencies */
-import { contentPanel } from './panel-content';
-import { stylePanel } from './panel-style';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { inputPanel } from './panel-input';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { contentPanel } from './panel-content';
 
 export const panelList = () => {
     return [
         {
-            title: __('Content', 'gutenverse'),
+            title: __('Input Style', 'gutenverse'),
+            panelArray: inputPanel,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Search Setting', 'gutenverse'),
             panelArray: contentPanel,
+            initialOpen: false,
             tabRole: TabSetting
         },
-        {
-            title: __('Style', 'gutenverse'),
-            panelArray: stylePanel,
-            initialOpen: false,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Text Clip', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => {
-                const { elementId } = props;
-                return textClipPanel({
-                    ...props,
-                    textClipSelector: `.${elementId}`,
-                    textClipId: 'textClip'
-                });
-            },
-            pro: true,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Highlight Style', 'gutenverse'),
-            panelArray: childStylePanel,
-            initialOpen: false,
-            tabRole: TabStyle,
-            pro: true
-        },
+        /* Put Your List Here */
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
-                styleId: 'heading-background',
+                styleId: 'form-input-text-background',
                 normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -60,7 +35,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => borderPanel({
                 ...props,
-                styleId: 'heading-border'
+                styleId: 'form-input-text-border',
             }),
             tabRole: TabStyle
         },
@@ -87,7 +62,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
-                styleId: 'heading-animation'
+                styleId: 'form-input-text-animation'
             }),
             tabRole: TabSetting
         },
@@ -98,24 +73,13 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Advance Animation', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'heading'
-            }),
-            pro: true
-        },
-        {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => advancePanel({
                 ...props,
-                styleId: 'heading-advance',
+                styleId: 'form-input-text-advance',
             }),
             tabRole: TabSetting
-        },
-        
+        }
     ];
 };

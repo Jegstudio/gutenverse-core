@@ -85,6 +85,19 @@ class Button extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['buttonHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'property'       => function ( $value ) {
+						return "height: {$value}px;";
+					},
+					'value'          => $this->attrs['buttonHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconPosition'] ) && isset( $this->attrs['iconSpacing'] ) ) {
 			if ( 'before' === $this->attrs['iconPosition'] ) {
 				$this->inject_style(
