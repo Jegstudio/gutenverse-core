@@ -7,22 +7,23 @@ const TextStyleFade = (props) => {
         text,
         titleTag: TitleTag,
         loop,
-        animatedTextRef
+        animatedTextRef,
+        splitByWord
     } = props;
 
     const [animation, setAnimation] = useState();
 
     const animeInit = () => {
         const textWrapper = u(animatedTextRef.current).find('.text-content');
-        textWrapper.html(textWrapper.text().replace(/\S/g, '<span class=\'letter\'>$&</span>'));
+        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
 
-        const animeInit = anime.timeline({loop})
+        const animeInit = anime.timeline({ loop })
             .add({
                 targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                opacity: [0,1],
+                opacity: [0, 1],
                 easing: 'easeInOutQuad',
                 duration: 2250,
-                delay: (el, i) => 150 * (i+1)
+                delay: (el, i) => 150 * (i + 1)
             });
 
         loop && animeInit.add({

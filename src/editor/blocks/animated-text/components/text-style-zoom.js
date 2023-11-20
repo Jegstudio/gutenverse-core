@@ -7,14 +7,15 @@ const TextStyleZoom = (props) => {
         text,
         titleTag: TitleTag,
         loop,
-        animatedTextRef
+        animatedTextRef,
+        splitByWord
     } = props;
 
     const [animation, setAnimation] = useState();
 
     const animeInit = () => {
         const textWrapper = u(animatedTextRef.current).find('.text-content');
-        textWrapper.html(textWrapper.text().replace(/\S/g, '<span class=\'letter\'>$&</span>'));
+        textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
 
         const animeInit = anime.timeline({ loop })
             .add({

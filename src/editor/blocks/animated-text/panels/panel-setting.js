@@ -98,6 +98,11 @@ export const settingPanel = ({elementId}) => {
             component: TextControl
         },
         {
+            id: 'splitByWord',
+            label: __('Split By Word', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
             id: 'alignText',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
