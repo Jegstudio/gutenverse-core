@@ -155,6 +155,26 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"colorDivider" : {
+			"type" : "object",
+			"copyStyle": true
+		},
+		"typeDivider" : {
+			"type" : "object",
+			"copyStyle": true
+		},
+		"sizeDivider" : {
+			"type" : "object",
+			"copyStyle": true
+		},
+		"widthDivider" : {
+			"type" : "object",
+			"copyStyle": true
+		},
+		"isDivider" : {
+			"type" : "boolean",
+			"default" : false
 		}
 	},
 	"supports": {

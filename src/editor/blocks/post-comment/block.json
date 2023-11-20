@@ -188,7 +188,39 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
-		}
+		},
+		"inputColorNormal": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputColorHover": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputColorFocus": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputBgColorNormal": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputBgColorHover": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputBgColorFocus": {
+            "type": "object",
+			"copyStyle": true
+        },
+		"inputAreaBoxShadow": {
+            "type": "object",
+			"copyStyle": true
+        },
+        "inputAreaBoxShadowHover": {
+            "type": "object",
+			"copyStyle": true
+        }
 	},
 	"usesContext": [
 		"postId",

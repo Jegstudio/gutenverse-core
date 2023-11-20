@@ -13,6 +13,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { typography } from '@wordpress/icons';
 
 const IconListBlock = compose(
     withCustomStyle(panelList),
@@ -28,7 +29,6 @@ const IconListBlock = compose(
         elementId,
         displayInline,
     } = attributes;
-
     const iconListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);

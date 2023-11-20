@@ -20,6 +20,7 @@ export const contentPanel = props => {
         {
             id: 'inputHeight',
             label: __('Height', 'gutenverse'),
+            description: __('Height calculated in px', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
             min: 1,
@@ -27,7 +28,7 @@ export const contentPanel = props => {
             step: 1,
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input,.guten-button-wrapper .guten-button `,
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button `,
                     render: value => `height: ${value}px!important;`
                 }
             ]
@@ -35,6 +36,7 @@ export const contentPanel = props => {
         {
             id: 'inputWidth',
             label: __('Width', 'gutenverse'),
+            description: __('Width calculated in px', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
             min: 1,

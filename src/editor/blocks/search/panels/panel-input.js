@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleColor, handleTypography, handleBorder } from 'gutenverse-core/styling';
+import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleDimension, handleColor, handleTypography, handleBorder, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const inputPanel = props => {
     const {
@@ -181,5 +181,31 @@ export const inputPanel = props => {
                 }
             ]
         },
+        {
+            id: 'inputAreaBoxShadow',
+            show: !switcher.inputState || switcher.inputState === 'normal',
+            label: __('Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
+        },
+        {
+            id: 'inputAreaBoxShadowHover',
+            show: switcher.inputState === 'hover',
+            label: __('Hover Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
+        }
     ];
 };

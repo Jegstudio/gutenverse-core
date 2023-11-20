@@ -41,6 +41,7 @@ class Image extends Style_Abstract {
 
 		$this->set_feature(
 			array(
+				'background'  => null,
 				'border'      => null,
 				'positioning' => null,
 				'animation'   => null,
