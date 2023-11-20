@@ -78,6 +78,13 @@ const SizeControl = (props) => {
                 step: 1,
                 unit: '%',
             },
+            ['s']: {
+                text: 's',
+                min: 1,
+                max: 100,
+                step: 1,
+                unit: 's'
+            }
         },
         value = {},
         liveUpdate,
@@ -138,9 +145,9 @@ const SizeControl = (props) => {
                     id={`${id}-range`}
                     type="range"
                     className="control-input-range"
-                    min={activeUnit ? units[activeUnit].min : null}
-                    max={activeUnit ? units[activeUnit].max : null}
-                    step={activeUnit ? units[activeUnit].step : null}
+                    min={activeUnit ? units[activeUnit]?.min : null}
+                    max={activeUnit ? units[activeUnit]?.max : null}
+                    step={activeUnit ? units[activeUnit]?.step : null}
                     value={updating ? localValue : point}
                     onChange={(e) => {
                         onStyleChange({
@@ -178,9 +185,9 @@ const SizeControl = (props) => {
                 <input
                     type="number"
                     className="control-input-number"
-                    min={activeUnit ? units[activeUnit].min : null}
-                    max={activeUnit ? units[activeUnit].max : null}
-                    step={activeUnit ? units[activeUnit].step : null}
+                    min={activeUnit ? units[activeUnit]?.min : null}
+                    max={activeUnit ? units[activeUnit]?.max : null}
+                    step={activeUnit ? units[activeUnit]?.step : null}
                     value={updating ? localValue : point}
                     onChange={(e) => changePoint(e.target.value)}
                 />
