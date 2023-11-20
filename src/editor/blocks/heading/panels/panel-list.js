@@ -38,6 +38,13 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: childStylePanel,
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
+        {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
@@ -109,12 +116,6 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        {
-            title: __('Highlight Style', 'gutenverse'),
-            panelArray: childStylePanel,
-            initialOpen: false,
-            tabRole: TabStyle,
-            pro: true
-        },
+        
     ];
 };
