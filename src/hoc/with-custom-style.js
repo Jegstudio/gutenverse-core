@@ -207,7 +207,7 @@ export const withCustomStyle = panelList => BlockElement => {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex,{props: value});
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, {props:value});
                                     return {
                                         ...item,
                                         selector: theSelector
