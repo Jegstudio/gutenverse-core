@@ -1,60 +1,81 @@
-import isEmpty from 'lodash/isEmpty';
-import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar, responsiveAppender } from 'gutenverse-core/styling';
+import { isEmpty } from 'lodash';
+import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 
-export const handleBorder = (value) => {
+// Use this for the old version of border control
+export const handleBorderOld = (value) => {
     const elementStyle = elementVar();
+    const keys = Object.keys(value);
+    const sortedKeys = [
+        ...keys.filter(key => key === 'all'),
+        ...keys.filter(key => key !== 'all'),
+    ];
 
-    DeviceLoop((device) => {
-        const border = deviceStyleValue(device, value);
+    sortedKeys.map((pos) => {
+        if (pos === 'radius') {
+            DeviceLoop((device) => {
+                const _radius = deviceStyleValue(device, value[pos]);
 
-        if (isEmpty(border)) {
-            return;
+                responsiveAppender({
+                    style: `${handleDimension(_radius, 'border-radius', false)}`,
+                    device,
+                    elementStyle,
+                });
+            });
+        } else if (!isEmpty(value[pos]) && value[pos].type && value[pos].type !== 'default') {
+            const position = 'all' === pos ? '' : `${pos}-`;
+
+            normalAppender({
+                style: `border-${position}style: ${value[pos].type};`,
+                elementStyle,
+            });
+
+            if (value[pos].width) {
+                normalAppender({
+                    style: `border-${position}width: ${value[pos].width}px;`,
+                    elementStyle,
+                });
+            }
+
+            if (value[pos].color) {
+                normalAppender({
+                    style: `${handleColor(value[pos].color, `border-${position}color`)}`,
+                    elementStyle,
+                });
+            }
         }
-
-        const keys = Object.keys(border);
-        const sortedKeys = [
-            ...keys.filter(key => key === 'all'),
-            ...keys.filter(key => key !== 'all'),
-        ];
-
-        // console.log(border);
-
-        sortedKeys.map((pos) => {
-            if (!isEmpty(border[pos]) && border[pos].type && border[pos].type !== 'default') {
-                const position = 'all' === pos ? '' : `${pos}-`;
-
-                responsiveAppender({
-                    style: `border-${position}style: ${border[pos].type};`,
-                    device,
-                    elementStyle,
-                });
-
-                if (border[pos].width) {
-                    responsiveAppender({
-                        style: `border-${position}width: ${border[pos].width}px;`,
-                        device,
-                        elementStyle,
-                    });
-                }
-
-                if (border[pos].color) {
-                    responsiveAppender({
-                        style: `${handleColor(border[pos].color, `border-${position}color`)}`,
-                        device,
-                        elementStyle,
-                    });
-                }
-            }
-
-            if (!isEmpty(border['radius'])) {
-                responsiveAppender({
-                    style: `${handleDimension(border['radius'], 'border-radius', false)}`,
-                    device,
-                    elementStyle,
-                });
-            }
-        });
     });
 
     return elementStyle;
+};
+
+
+export const handleBorder = (value) => {
+    let style = '';
+    const keys = Object.keys(value);
+    const sortedKeys = [
+        ...keys.filter(key => key === 'all'),
+        ...keys.filter(key => key !== 'all'),
+    ];
+
+    sortedKeys.map((pos) => {
+        if (!isEmpty(value[pos]) && value[pos].type && value[pos].type !== 'default') {
+            const position = 'all' === pos ? '' : `${pos}-`;
+
+            style += `border-${position}style: ${value[pos].type};`;
+
+            if (value[pos].width) {
+                style += `border-${position}width: ${value[pos].width}px;`;
+            }
+
+            if (value[pos].color) {
+                style += `${handleColor(value[pos].color, `border-${position}color`)}`;
+            }
+        }
+
+        if (!isEmpty(value['radius'])) {
+            style += `${handleDimension(value['radius'], 'border-radius', false)}`;
+        }
+    });
+
+    return style;
 };

@@ -5,8 +5,6 @@ export const handleBackground = (background) => {
     const { type } = background;
     const elementStyle = elementVar();
 
-    console.log(background)
-
     if (type === 'default') {
         const {
             color,

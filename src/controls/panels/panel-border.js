@@ -28,32 +28,6 @@ export const borderPanel = (props) => {
             ],
             onChange: ({__borderHover}) => setSwitcher({...switcher, border: __borderHover})
         },
-        // {
-        //     id: 'border',
-        //     show: !switcher.border || switcher.border === 'normal',
-        //     label: __('Border Type', '--gctd--'),
-        //     component: BorderControl,
-        //     style: [
-        //         {
-        //             selector: selector ? selector : `.${elementId}`,
-        //             hasChild: true,
-        //             render: value => handleBorder(value)
-        //         }
-        //     ]
-        // },
-        // {
-        //     id: 'borderHover',
-        //     show: switcher.border === 'hover',
-        //     label: __('Border Type', '--gctd--'),
-        //     component: BorderControl,
-        //     style: [
-        //         {
-        //             selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
-        //             hasChild: true,
-        //             render: value => handleBorder(value)
-        //         }
-        //     ]
-        // },
         {
             id: 'borderResponsive',
             show: !switcher.border || switcher.border === 'normal',
@@ -63,7 +37,6 @@ export const borderPanel = (props) => {
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
-                    hasChild: true,
                     render: value => handleBorder(value)
                 }
             ]
@@ -77,7 +50,6 @@ export const borderPanel = (props) => {
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
-                    hasChild: true,
                     render: value => handleBorder(value)
                 }
             ]
