@@ -115,57 +115,64 @@ class Frontend_Toolbar {
 	 * @param \WP_Admin_Bar $admin_bar Admin Bar Instance.
 	 */
 	public function add_toolbar( $admin_bar ) {
-		$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
+		if ( is_user_logged_in() ) {
+			$user  = wp_get_current_user();
+			$roles = (array) $user->roles;
 
-		$admin_bar->add_menu(
-			array(
-				'id'    => 'gutenverse',
-				'title' => $title,
-			)
-		);
+			if ( in_array( 'administrator', $roles ) || in_array( 'editor', $roles ) ) {
 
-		if ( ! is_admin() ) {
-			if ( current_theme_supports( 'block-templates' ) && $this->is_block_template ) {
-				$block_template = resolve_block_template(
-					$this->hierarchy['type'],
-					$this->hierarchy['templates'],
-					null
+				$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
+
+				$admin_bar->add_menu(
+					array(
+						'id'    => 'gutenverse',
+						'title' => $title,
+					)
 				);
 
-				$this->the_toolbar( $admin_bar, $block_template );
-			} else {
-				$this->not_toolbar( $admin_bar );
+				if ( ! is_admin() ) {
+					if ( current_theme_supports( 'block-templates' ) && $this->is_block_template ) {
+						$block_template = resolve_block_template(
+							$this->hierarchy['type'],
+							$this->hierarchy['templates'],
+							null
+						);
+
+						$this->the_toolbar( $admin_bar, $block_template );
+					} else {
+						$this->not_toolbar( $admin_bar );
+					}
+
+					$admin_bar->add_menu(
+						array(
+							'id'     => 'space',
+							'parent' => 'gutenverse',
+							'title'  => '',
+						)
+					);
+				}
+				$admin_bar->add_menu(
+					array(
+						'id'     => 'backend',
+						'parent' => 'gutenverse',
+						'title'  => esc_html__( 'Gutenverse Admin', '--gctd--' ),
+						'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
+					)
+				);
+
+				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
+					$admin_bar->add_menu(
+						array(
+							'id'    => 'gutenverse-pro',
+							'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '</span>',
+							'href'  => gutenverse_upgrade_pro(),
+							'meta'  => array(
+								'target' => '_blank',
+							),
+						)
+					);
+				}
 			}
-
-			$admin_bar->add_menu(
-				array(
-					'id'     => 'space',
-					'parent' => 'gutenverse',
-					'title'  => '',
-				)
-			);
-		}
-
-		$admin_bar->add_menu(
-			array(
-				'id'     => 'backend',
-				'parent' => 'gutenverse',
-				'title'  => esc_html__( 'Gutenverse Admin', '--gctd--' ),
-				'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
-			)
-		);
-
-		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
-			$admin_bar->add_menu(
-				array(
-					'id'    => 'gutenverse-pro',
-					'title' => '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '</span>',
-					'href'  => gutenverse_upgrade_pro(),
-					'meta'  => array(
-						'target' => '_blank',
-					),
-				)
-			);
 		}
 
 		$this->setting_toolbar( $admin_bar, 'backend' );
