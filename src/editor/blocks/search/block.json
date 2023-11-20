@@ -110,7 +110,10 @@
 		"inputWidth": {
 			"type": "object",
 			"default" : {
-				"Desktop" : "350" 
+				"Desktop" : {
+					"point" : "350",
+					"unit" : "px"
+				} 
 			}
 		},
 		"inputTypography": {
@@ -145,7 +148,10 @@
         },
         "inputAreaBoxShadowHover": {
             "type": "object"
-        }
+        },
+		"alignContent" : {
+			"type": "object"
+		}
 	},
 	"supports": {
 		"className": false

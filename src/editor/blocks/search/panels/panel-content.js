@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 
 export const contentPanel = props => {
     const {
@@ -36,16 +37,67 @@ export const contentPanel = props => {
         {
             id: 'inputWidth',
             label: __('Width', 'gutenverse'),
-            description: __('Width calculated in px', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             min: 1,
             max: 1000,
             step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
-                    render: value => `width: ${value}px!important;`
+                    render: value => `width: ${value.point}${value.unit}!important;`
+                }
+            ]
+        },
+        {
+            id: 'alignContent',
+            label: __('Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'flex-start',
+                    icon: <AlignLeft/>,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter/>,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'flex-end',
+                    icon: <AlignRight/>,
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search-form`,
+                    render: value => `justify-content: ${value};`
                 }
             ]
         },

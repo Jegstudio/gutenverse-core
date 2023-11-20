@@ -180,7 +180,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
-						return "width: {$value}px;";
+						return "width: {$value['point']}{$value['unit']};";
 					},
 					'value'          => $this->attrs['inputWidth'],
 					'device_control' => true,
@@ -221,6 +221,18 @@ class Search extends Style_Abstract {
 					},
 					'value'          => $this->attrs['inputAreaBoxShadowHover'],
 					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['alignContent'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form",
+					'property'       => function ( $value ) {
+						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['alignContent'],
+					'device_control' => true,
 				)
 			);
 		}
