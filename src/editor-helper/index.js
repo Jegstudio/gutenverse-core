@@ -435,11 +435,14 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
 
 const migrateBorderAttr = (from) => {
     const devices = ['Desktop', 'Tablet', 'Mobile'];
-    const radius = from?.radius;
+    const radius = from?.radius && {
+        ...from?.radius
+    };
     const newValue = {
-        'Desktop': from
+        'Desktop': {...from}
     };
 
+    console.log(radius)
     if (radius) {
         devices.map(device => {
             if (radius[device]) {
