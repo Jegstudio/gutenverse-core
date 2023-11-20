@@ -442,11 +442,13 @@ const migrateBorderAttr = (from) => {
         'Desktop': {...from}
     };
 
-    console.log(radius)
     if (radius) {
         devices.map(device => {
             if (radius[device]) {
-                newValue[device]['radius'] = radius[device];
+                newValue[device] = {
+                    ...newValue[device],
+                    radius: radius[device]
+                };
             }
         });
     }
