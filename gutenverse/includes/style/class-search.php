@@ -168,6 +168,16 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputWidth'] ) ) {
 			$this->inject_style(
 				array(
+					'selector'       => ".{$this->element_id} .guten-button-wrapper",
+					'property'       => function ( $value ) {
+						return 'width:auto;';
+					},
+					'value'          => $this->attrs['inputWidth'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
 						return "width: {$value}px;";
