@@ -520,8 +520,22 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
     return count;
 };
 
-export function rgbToHex({ r, g, b }) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+export function rgbToHex({ r, g, b, a }) {
+    const color = [
+        r.toString(16),
+        g.toString(16),
+        b.toString(16),
+        a < 1 ? Math.round(a * 255).toString(16).substring(0, 2) : ''
+    ];
+
+    // Pad single-digit output values
+    color.forEach(function (part, i) {
+        if (part.length === 1) {
+            color[i] = '0' + part;
+        }
+    });
+
+    return ('#' + color.join(''));
 }
 
 export const isFSE = () => {

@@ -10,7 +10,7 @@ const LockedTransform = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Transform Element', '--gctd--' )}
             description={__( 'Lets you rotate, scale, skew, or translate an element', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/transform.mp4'}
             isOpen={isOpen}
         />
     </div>;

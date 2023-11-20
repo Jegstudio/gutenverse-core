@@ -9,8 +9,6 @@
 
 namespace Gutenverse\Framework;
 
-use Error;
-
 /**
  * Class Style_Interface
  *
@@ -415,7 +413,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	protected function inject_typography( $data ) {
+	public function inject_typography( $data ) {
 		$selector   = $data['selector'];
 		$typography = $data['value'];
 		$format     = $this->typography_format();
@@ -573,6 +571,126 @@ abstract class Style_Interface {
 				case 'animation':
 					$this->feature_animation( $selector );
 					break;
+				case 'mask':
+					$this->feature_mask( $selector );
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Handle Feature Mask.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_mask( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+
+		if ( isset( $this->attrs['mask'] ) ) {
+			$mask = $this->attrs['mask'];
+
+			if ( isset( $mask['shape'] ) && '' !== $mask['shape'] ) {
+				$svg_image = '';
+
+				switch ( $mask['shape'] ) {
+					case 'circle':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/circe.svg';
+						break;
+					case 'triangle':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/triangle.svg';
+						break;
+					case 'blob':
+						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/blob.svg';
+						break;
+					case 'custom':
+						$svg       = $mask['svg'];
+						$image     = $svg['image'];
+						$svg_image = $image;
+				}
+
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "-webkit-mask-image: url($value); mask-image:url($value);";
+						},
+						'value'          => $svg_image,
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['size'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( 'custom' !== $value['size'] ) {
+								return "-webkit-mask-size: {$value['size']};";
+							} else {
+								if ( isset( $value['scale'] ) ) {
+									return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
+								}
+							}
+						},
+						'value'          => $this->merge_device_options(
+							array(
+								'size'  => $mask['size'],
+								'scale' => isset( $mask['scale'] ) ? $mask['scale'] : null,
+							)
+						),
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['position'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( 'custom' !== $value['position'] && 'default' !== $value['position'] ) {
+								return "-webkit-mask-position: {$value['position']};";
+							} elseif ( 'custom' === $value['position'] ) {
+								$xposition = 0;
+								$yposition = 0;
+
+								if ( isset( $value['xposition'] ) && $value['xposition']['point'] ) {
+									$xposition = "{$value['xposition']['point']}{$value['xposition']['unit']}";
+								}
+
+								if ( isset( $value['yposition'] ) && $value['yposition']['point'] ) {
+									$yposition = "{$value['yposition']['point']}{$value['yposition']['unit']}";
+								}
+
+								return "-webkit-mask-position: {$xposition} {$yposition};";
+							}
+						},
+						'value'          => $this->merge_device_options(
+							array(
+								'position'  => $mask['position'],
+								'xposition' => isset( $mask['xposition'] ) ? $mask['xposition'] : null,
+								'yposition' => isset( $mask['yposition'] ) ? $mask['yposition'] : null,
+							)
+						),
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $mask['repeat'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "-webkit-mask-repeat: {$value};";
+						},
+						'value'          => $mask['repeat'],
+						'device_control' => true,
+					)
+				);
 			}
 		}
 	}
@@ -820,7 +938,7 @@ abstract class Style_Interface {
 	 * @param string $selector selector.
 	 * @param array  $background Value of Color.
 	 */
-	protected function handle_background( $selector, $background ) {
+	public function handle_background( $selector, $background ) {
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}
@@ -1420,7 +1538,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string|null
 	 */
-	protected function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
+	public function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
 		$positions = array( 'top', 'right', 'bottom', 'left' );
 		$styles    = array();
 		$string    = '';

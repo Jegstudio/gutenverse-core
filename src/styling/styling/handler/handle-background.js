@@ -21,7 +21,6 @@ export const handleBackground = (background) => {
 
         if (color) {
             const result = handleColor(color, 'background');
-
             normalAppender({
                 style: result,
                 elementStyle

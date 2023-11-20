@@ -1,11 +1,13 @@
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { isAlignStickyColumn, isSticky } from 'gutenverse-core/helper';
+import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 
 const save = compose(
+    withAnimationAdvanceScript('column'),
 )((props) => {
     const {
         attributes,
@@ -20,7 +22,8 @@ const save = compose(
         stickyDuration,
         topSticky,
         bottomSticky,
-        sectionVerticalAlign
+        sectionVerticalAlign,
+        backgroundAnimated = {},
     } = attributes;
 
     const isCanSticky =  isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
@@ -40,6 +43,9 @@ const save = compose(
         animationClass,
         displayClass,
         stickyClass,
+        {
+            'background-animated': isAnimationActive(backgroundAnimated),
+        }
     );
 
     const blockProps = useBlockProps.save({
@@ -51,11 +57,14 @@ const save = compose(
         )
     });
 
+    const _isBgAnimated = isAnimationActive(backgroundAnimated);
+    const dataId = elementId?.split('-')[1];
+
     return (
         <div {...blockProps}>
-            {isCanSticky &&
+            {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">
-                    <div data-var={`stickyData${elementId?.split('-')[1]}`} data-value={JSON.stringify({
+                    {isCanSticky && <div data-var={`stickyData${elementId?.split('-')[1]}`} data-value={JSON.stringify({
                         sticky,
                         stickyShowOn,
                         stickyPosition,
@@ -63,11 +72,17 @@ const save = compose(
                         stickyDuration,
                         topSticky,
                         bottomSticky
-                    })} />
+                    })} />}
+                    {_isBgAnimated &&
+                        <div data-var={`bgAnimatedData${dataId}`} data-value={JSON.stringify({
+                            ...backgroundAnimated
+                        })} />
+                    }
                 </div>}
             <div className="guten-background-overlay"></div>
             <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
                 <div className="guten-column-wrapper">
+                    {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                     <InnerBlocks.Content />
                 </div>
             </div>

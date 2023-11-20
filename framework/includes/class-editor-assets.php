@@ -89,6 +89,7 @@ class Editor_Assets {
 		$config['documentationUrl'] = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
 		$config['proDemoUrl']       = GUTENVERSE_FRAMEWORK_DEMO_PRO_URL;
 		$config['uploadPath']       = $upload_path['baseurl'];
+		$config['updateLicensePage'] = admin_url( 'admin.php?page=gutenverse&path=license' );
 
 		return apply_filters( 'gutenverse_block_config', $config );
 	}

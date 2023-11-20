@@ -10,7 +10,7 @@ const LockedTextClip = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Text Clip Overlay', '--gctd--' )}
             description={__( 'Create stuning website with text clip for both image background and CSS Gradient', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/text-clip.mp4'}
             isOpen={isOpen}
         />
     </div>;

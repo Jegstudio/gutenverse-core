@@ -44,6 +44,7 @@ class Section extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'positioning' => ".section-wrapper[data-id=\"{$element_id}\"]",
+				'mask'        => null,
 			)
 		);
 	}
@@ -388,6 +389,32 @@ class Section extends Style_Abstract {
 					},
 					'value'          => $this->attrs['opacityHover'],
 					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blur'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "section.guten-element.{$this->element_id}:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blur'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blurHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "section.guten-element.{$this->element_id}:hover:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blurHover'],
+					'device_control' => true,
 				)
 			);
 		}

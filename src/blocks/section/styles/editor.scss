@@ -173,3 +173,61 @@ body {
     }
   }
 }
+.gutenverse-control-wrapper{
+  .no-license-control-body{
+    display: block;
+    .no-license-image-wrapper{
+      display: flex;
+      justify-content: center;
+      .no-license-image{
+        max-width: 154px;
+      }
+    }
+    .no-license-title{
+      margin-top: 20px;
+      text-align: center;
+      font-family: Roboto;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: -0.01em;
+
+      span{
+        color: #E32D64;
+      }
+    }
+    .no-license-description{
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 17px;
+      letter-spacing: 0em;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .no-license-button-wrapper{
+      display: flex;
+      justify-content: center;
+      .no-license-button{
+        align-items: center;
+        border-radius: 50px;
+        background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
+        color: rgba(255, 255, 255, 1) !important;
+        cursor: pointer;
+        display: flex;
+        gap: 6px;
+        padding: 10px 16px;
+        text-align: center;
+        text-decoration: none;
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        width: fit-content;
+        justify-content: flex-start;
+        white-space: nowrap;
+      }
+    }
+  }
+}

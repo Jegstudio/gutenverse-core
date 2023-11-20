@@ -2,12 +2,13 @@ import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { dividerPanelAnimated } from './panel-divider-animated';
+import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
@@ -48,10 +49,16 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
-                styleId: 'column-background-overlay',
+                styleId: 'section-background-overlay',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
             tabRole: TabStyle
         },
         {
@@ -67,6 +74,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'section-border'
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         {

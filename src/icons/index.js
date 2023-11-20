@@ -14,6 +14,10 @@ import IconDimensionX from './icon/icon-dimension-x.svg';
 import IconDimensionY from './icon/icon-dimension-y.svg';
 import IconDimensionZ from './icon/icon-dimension-z.svg';
 
+/**  */
+import GradientIconCopy from './icon/gradient-icon-copy.svg';
+import GradientIconPaste from './icon/gradient-icon-paste.svg';
+
 /* Control Icons */
 import IconDuplicate from './icon/icon-duplicate.svg';
 import IconTypography from './icon/icon-typography.svg';
@@ -40,6 +44,7 @@ import IconToolbarColumnDelete from './icon/icon-toolbar-column-delete.svg';
 import IconFont from './icon/icon-font.svg';
 import IconDownload from './icon/icon-download.svg';
 import IconAddFont from './icon/icon-add-font.svg';
+import IconFlexibleWrapper from './icon/icon-flexible-wrapper.svg';
 
 /* Block */
 import IconColumn from './icon/icon-column.svg';
@@ -47,6 +52,28 @@ import IconSection from './icon/icon-section.svg';
 
 /* Block Pro */
 import IconConditionsBlock from './icon/icon-condition-filter.svg';
+
+export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128'}) => {
+    return <svg fill={fill} height={height} viewBox="0 0 128 128" width={width} xmlns="http://www.w3.org/2000/svg">
+        <path d="m0 0h128v128h-128z" fill="#3b57f7"/>
+        <g fill="#fff">
+            <path d="m41.613 25-7.541 13.0543h45.2313l7.541-13.0543z"/>
+            <path d="m101.917 77.222 7.536-13.0543h.005l-22.6135-39.1677-7.541 13.0543z"/>
+            <path d="m26.5361 51.1085 7.5411 13.0592h30.1492l7.541-13.0592z"/>
+            <path d="m71.7673 51.1085-7.541 13.0592 15.0771 26.1135h15.0771z"/>
+            <path d="m26.5361 51.1085-7.5361 13.0592 22.6132 39.1723 7.536-13.0588z"/>
+            <path d="m94.3806 90.2811h-45.2312l-7.5361 13.0589h45.2263z"/>
+        </g>
+    </svg>;
+};
+
+export const GradientIconCopySVG = (props) => {
+    return <GradientIconCopy { ...props } />;
+};
+
+export const GradientIconPasteSVG = (props) => {
+    return <GradientIconPaste { ...props } />;
+};
 
 export const LogoCircleColor16SVG = (props) => {
     return <LogoCircleColor16 { ...props } />;
@@ -205,6 +232,10 @@ export const IconSectionSVG = (props) => {
 };
 export const IconAddFontSVG = (props) => {
     return <IconAddFont { ...props } />;
+};
+
+export const IconFlexibleWrapperSVG = (props) => {
+    return <IconFlexibleWrapper {...props} />;
 };
 
 export const IconHeartFullSVG = ({ size = 16, ...props }) => {

@@ -3,9 +3,14 @@ import GlobalStyle from './global-style';
 import domReady from '@wordpress/dom-ready';
 import GutenverseLibrary from './library';
 import elementChange from 'element-change';
+
 /* Other Editor Components */
 import './hook';
 import './data/block';
+
+/* Copy & Paste Style */
+import './copy-style/copy-style';
+import './copy-style/paste-style';
 
 elementChange('#site-editor', () => {
     const library = document.getElementById('gutenverse-library-button');

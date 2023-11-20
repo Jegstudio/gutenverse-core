@@ -684,7 +684,6 @@ abstract class Post_Abstract extends Block_Abstract {
 		$output           = '';
 		$icon             = esc_attr( $this->attributes['paginationIcon'] );
 		$icon_position    = esc_attr( $this->attributes['paginationIconPosition'] );
-		$pagination_align = isset( $this->attributes['paginationAlign'] ) ? esc_attr( $this->attributes['paginationAlign'] ) : '';
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
@@ -698,7 +697,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			}
 
 			$output = '<div class="guten-block-loadmore icon-position-' . $icon_position . '">' . $output . '</div>';
-			$output = '<div class="guten-block-pagination guten-align' . $pagination_align . '">' . apply_filters( 'gutenverse_module_block_pagination_extend', $output, $this->attributes ) . '</div>';
+			$output = '<div class="guten-block-pagination guten-align">' . apply_filters( 'gutenverse_module_block_pagination_extend', $output, $this->attributes ) . '</div>';
 		}
 
 		return $output;

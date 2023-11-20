@@ -35,8 +35,8 @@ class Column extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'background' => array(
-					'normal' => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
-					'hover'  => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover",
+					'normal' => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer",
+					'hover'  => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper:hover, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer",
 				),
 				'border'     => array(
 					'normal' => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
@@ -44,6 +44,7 @@ class Column extends Style_Abstract {
 				),
 				'animation'  => ".{$this->element_id}",
 				'advance'    => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
+				'mask'       => null,
 			)
 		);
 	}
@@ -198,6 +199,32 @@ class Column extends Style_Abstract {
 					},
 					'value'          => $this->attrs['opacityHover'],
 					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blur'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blur'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['blurHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover:before",
+					'property'       => function( $value ) {
+						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+					},
+					'value'          => $this->attrs['blurHover'],
+					'device_control' => true,
 				)
 			);
 		}

@@ -117,21 +117,6 @@ abstract class Block_Abstract {
 	}
 
 	/**
-	 * Transform class
-	 *
-	 * @return string
-	 */
-	protected function set_transform_class() {
-		if ( empty( $this->attributes['transform'] ) ) {
-			return;
-		}
-
-		$class = '';
-
-		return $class;
-	}
-
-	/**
 	 * Display classes
 	 *
 	 * @return string

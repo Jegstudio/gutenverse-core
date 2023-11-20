@@ -1493,6 +1493,7 @@
 
       .repeater-remove,
       .repeater-duplicate,
+      .repeater-clear,
       .repeater-add {
         @include centering-element();
         width: 28px;
@@ -1503,7 +1504,7 @@
         background: #fff;
 
         svg {
-          width: 12px;
+          width: 25px;
           height: 12px;
           color: #99a2a9;
         }
@@ -1739,6 +1740,13 @@
       }
 
       .gutenverse-control-dimension {
+        display: block;
+      }
+    }
+
+    /** mask **/
+    &mask {
+      >* {
         display: block;
       }
     }
