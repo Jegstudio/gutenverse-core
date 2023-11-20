@@ -1,12 +1,13 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { CheckboxControl, IconRadioControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
-import { handleAlign } from 'gutenverse-core/styling';
+import { CheckboxControl, ColorControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { handleAlign, handleColor } from 'gutenverse-core/styling';
 
 export const panelGeneral = (props) => {
     const {
-        elementId
+        elementId,
+        isDivider,
     } = props;
 
     return [
@@ -16,12 +17,113 @@ export const panelGeneral = (props) => {
             component: CheckboxControl,
         },
         {
+            id: 'isDivider',
+            label: __('Divider', 'gutenverse'),
+            component: CheckboxControl,
+            style: [
+                {
+                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
+                    allowRender : value => value,
+                    render: () => 'border-top-style : solid;'
+                },
+                {
+                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
+                    allowRender : value => value,
+                    render: () => 'border-left-style : solid;'
+                },
+            ]
+        },
+        {
+            id: 'colorDivider',
+            label: __('Color Divider', 'gutenverse'),
+            show: isDivider,
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => handleColor(value, 'border-color')
+                },
+                {
+                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => handleColor(value, 'border-color')
+                },
+            ]
+        },
+        {
+            id: 'typeDivider',
+            label: __('Type Divider', 'gutenverse'),
+            show: isDivider,
+            component: SelectControl,
+            options:[
+                {
+                    label: __('Solid', 'gutenverse'),
+                    value: 'solid'
+                },
+                {
+                    label: __('Double', 'gutenverse'),
+                    value: 'double'
+                },
+                {
+                    label: __('Dotted', 'gutenverse'),
+                    value: 'dotted'
+                },
+                {
+                    label: __('Dashed', 'gutenverse'),
+                    value: 'dashed'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
+                    allowRender : value => value,
+                    render: value => `border-top-style : ${value};`
+                },
+                {
+                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
+                    allowRender : value => value,
+                    render: value => `border-left-style : ${value};`
+                },
+            ]
+        },
+        {
+            id: 'widthDivider',
+            label: __('Width Divider', 'gutenverse'),
+            show: isDivider,
+            component: SizeControl,
+            style: [
+                {
+                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => `width : ${value.point}${value.unit};`
+                },
+                {
+                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => `width : ${value.point}${value.unit};`
+                },
+            ]
+        },
+        {
+            id: 'sizeDivider',
+            label: __('Size Divider', 'gutenverse'),
+            show: isDivider,
+            component: SizeControl,
+            style: [
+                {
+                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => `border-top-width : ${value.point}${value.unit};`
+                },
+                {
+                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
+                    render: value => `border-left-width : ${value.point}${value.unit};`
+                },
+            ]
+        },
+        {
             id: 'spaceBetween',
             label: __('Space Between', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
             min: 1,
-            max : 100,
+            max: 100,
             step: 1,
             style: [
                 {
@@ -50,17 +152,17 @@ export const panelGeneral = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'flex-start',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'flex-end',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [

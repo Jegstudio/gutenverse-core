@@ -75,7 +75,17 @@
     "mask": {
 			"type": "object",
 			"copyStyle": true
-		}
+		},
+    "background": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+    }
   },
   "supports": {
     "anchor": true,

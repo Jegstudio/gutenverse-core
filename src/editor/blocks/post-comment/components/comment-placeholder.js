@@ -30,7 +30,7 @@ const CommentPlaceholder = (showForm = true) => {
         {showForm && <div className="comment-form">
             <div id="respond" className="comment-respond">
                 <h3 id="reply-title" className="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="javascript:void(0);" style={{display: 'none'}}>Cancel reply</a></small></h3>
-                <form>
+                <div>
                     <p className="comment-notes">
                         <span id="email-notes">Your email address will not be published.</span>
                         <span className="required-field-message" aria-hidden="true">Required fields are marked
@@ -68,7 +68,7 @@ const CommentPlaceholder = (showForm = true) => {
                         <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" />
                         <input type="hidden" name="comment_parent" id="comment_parent" value="0" />
                     </p>
-                </form>
+                </div>
             </div>
         </div>}
     </>;

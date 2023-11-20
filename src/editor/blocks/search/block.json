@@ -139,7 +139,13 @@
 		},
 		"mask": { 
 			"type": "object" 
-		}
+		},
+		"inputAreaBoxShadow": {
+            "type": "object"
+        },
+        "inputAreaBoxShadowHover": {
+            "type": "object"
+        }
 	},
 	"supports": {
 		"className": false
