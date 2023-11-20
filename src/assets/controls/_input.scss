@@ -1509,7 +1509,13 @@
           color: #99a2a9;
         }
       }
-
+      .repeater-duplicate{
+        svg {
+          width: 12px;
+          height: 12px;
+          color: #99a2a9;
+        }
+      }
       .repeater-empty {
         border: 1px dashed #c1c1c1;
         padding: 20px;
