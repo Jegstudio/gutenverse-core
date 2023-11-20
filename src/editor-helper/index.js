@@ -5,7 +5,7 @@ import { useMemo, useCallback } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { dateI18n } from '@wordpress/date';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { filteredAttributes, isAlignStickyColumn, isFSE, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
+import { filteredAttributes, isAlignStickyColumn, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
 import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import identity from 'lodash/identity';
 import isArray from 'lodash/isArray';
@@ -431,4 +431,31 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
         ...settings,
         ...metadata
     });
+};
+
+const migrateBorderAttr = (from) => {
+    const devices = ['Desktop', 'Tablet', 'Mobile'];
+    const radius = from?.radius;
+    const newValue = {
+        'Desktop': from
+    };
+
+    if (radius) {
+        devices.map(device => {
+            if (radius[device]) {
+                newValue[device]['radius'] = radius[device];
+            }
+        });
+    }
+
+    return newValue;
+};
+
+export const migrateAttribute = (type, from) => {
+    switch (type) {
+        case 'border':
+            return migrateBorderAttr(from);
+        default:
+            return from;
+    }
 };

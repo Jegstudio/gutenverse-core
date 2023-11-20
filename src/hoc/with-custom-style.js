@@ -3,9 +3,10 @@ import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
-import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
+import { migrateAttribute, setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
+import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;
@@ -34,7 +35,7 @@ const renderStyleCustomDeps = (props) => {
  */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
-        const { clientId, attributes, setAttributes } = props;
+        const { clientId, name, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
@@ -51,6 +52,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
+        const { attributes: blockAttributes } = getBlockType(name);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -191,6 +193,15 @@ export const withCustomStyle = panelList => BlockElement => {
             controls.map(data => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
+
+                    // Migrate attribute if required
+                    if (!isEmpty(blockAttributes[id]?.migrate) && !isEmpty(panelProps[blockAttributes[id]?.migrate?.attr]) && isEmpty(panelProps[id])) {
+                        const newAttrValue = migrateAttribute(blockAttributes[id]?.migrate?.type, panelProps[blockAttributes[id]?.migrate?.attr]);
+                        setAttributes({
+                            [id]: newAttrValue
+                        });
+                    }
+
                     if (!isEmpty(style)) {
                         style.map((item, index) => setControlStyle({
                             ...panelProps,

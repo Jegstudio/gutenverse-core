@@ -28,11 +28,38 @@ export const borderPanel = (props) => {
             ],
             onChange: ({__borderHover}) => setSwitcher({...switcher, border: __borderHover})
         },
+        // {
+        //     id: 'border',
+        //     show: !switcher.border || switcher.border === 'normal',
+        //     label: __('Border Type', '--gctd--'),
+        //     component: BorderControl,
+        //     style: [
+        //         {
+        //             selector: selector ? selector : `.${elementId}`,
+        //             hasChild: true,
+        //             render: value => handleBorder(value)
+        //         }
+        //     ]
+        // },
+        // {
+        //     id: 'borderHover',
+        //     show: switcher.border === 'hover',
+        //     label: __('Border Type', '--gctd--'),
+        //     component: BorderControl,
+        //     style: [
+        //         {
+        //             selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+        //             hasChild: true,
+        //             render: value => handleBorder(value)
+        //         }
+        //     ]
+        // },
         {
-            id: 'border',
+            id: 'borderResponsive',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
@@ -42,10 +69,11 @@ export const borderPanel = (props) => {
             ]
         },
         {
-            id: 'borderHover',
+            id: 'borderResponsiveHover',
             show: switcher.border === 'hover',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
