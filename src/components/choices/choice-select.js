@@ -212,9 +212,14 @@ const ChoiceGroupMultiOptions = props => {
         ]);
     };
     const handleGroupClick = (group) => {
-        group.options.map((option) => {
-            updateSelected(option);
-        });
+        let notInSelect = group.options;
+        for(let i = 0; i < selected.length; i++ ){
+            notInSelect = notInSelect.filter(item => item.value !== selected[i].value)
+        }
+        setSelected([
+            ...selected,
+            ...notInSelect
+        ])
     };
 
     return <div className={`choices__list choices__list--dropdown ${open? 'is-active' : ''}`}>
@@ -225,7 +230,7 @@ const ChoiceGroupMultiOptions = props => {
                         <div
                             style={{ fontWeight: 'bold', cursor: 'pointer' }}
                             className="gutenverse-multi-group-select-group-label"
-                            onMouseDown={() => handleGroupClick(group)}
+                            onClick={() => handleGroupClick(group)}
                         >
                             {group.label}
                         </div>
