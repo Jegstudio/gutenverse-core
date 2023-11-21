@@ -2,8 +2,7 @@ import { compose } from '@wordpress/compose';
 
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
-import { BlockControls, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { ToolbarGroup } from '@wordpress/components';
+import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -36,7 +35,6 @@ const SearchBlock = compose(
         ),
         ref: searchRef
     });
-    console.log(attributes)
     const innerBlockProps = useInnerBlocksProps(
         {className: classnames('guten-search-button-wrapper')},
         {
