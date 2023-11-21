@@ -73,7 +73,6 @@ const SortableItem = SortableElement(props => {
 
     const itemClass = classnames('repeater-item', open ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
-
     return <div className={itemClass}>
         <div className={'repeater-header'} >
             <DragHandle /><br />
@@ -89,7 +88,7 @@ const SortableItem = SortableElement(props => {
                 </div>
             }
             {
-                isReset && resetStatus() && <div className="repeater-clear" onClick={resetMethod} >
+                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={resetMethod} >
                     <RotateCcw size={12} />
                 </div>
             }
@@ -123,7 +122,7 @@ const SortableItem = SortableElement(props => {
 });
 
 const SortableList = SortableContainer(props => {
-    const { items, id } = props;
+    const { items, id, resetMethod, onStyleChange, onValueChange, refreshStyle, value } = props;
     return (
         <ul>
             {items.map((item, index) => {
@@ -134,6 +133,7 @@ const SortableList = SortableContainer(props => {
                     value={item}
                     item={item}
                     items={items}
+                    resetMethod={() => resetMethod(index, value, onStyleChange, onValueChange, refreshStyle)}
                     {...props}
                 />;
             })}
@@ -250,7 +250,6 @@ const RepeaterControl = ({
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
-
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
