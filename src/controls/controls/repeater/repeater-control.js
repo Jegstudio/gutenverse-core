@@ -8,7 +8,7 @@ import { RotateCcw, X } from 'react-feather';
 import classnames from 'classnames';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
-import { IconDragSVG, IconDuplicateSVG} from 'gutenverse-core/icons';
+import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 
@@ -74,9 +74,9 @@ const SortableItem = SortableElement(props => {
     const itemClass = classnames('repeater-item', open ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
-        <div className={'repeater-header'} >
-            <DragHandle /><br />
-            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} onClick={() => toggleOpen()} />
+        <div className={'repeater-header'} onClick={() => toggleOpen()}>
+            <DragHandle />
+            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
             {
                 isRemove && <div className={'repeater-remove'} onClick={() => removeIndex(index)}>
                     <X />
@@ -154,7 +154,7 @@ const SortableComponent = (props) => {
             return ['button'].includes(el.tagName.toLowerCase());
         });
     };
-    return <SortableList {...props} onSortEnd={onSortEnd} useDragHandle={true} disabled={!isDragable} shouldCancelStart={shouldCancelSortStart}/>;
+    return <SortableList {...props} onSortEnd={onSortEnd} useDragHandle={true} disabled={!isDragable} shouldCancelStart={shouldCancelSortStart} />;
 };
 
 export const targetHasProp = (
