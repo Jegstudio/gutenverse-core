@@ -1,32 +1,56 @@
 import { elementVar, normalAppender } from '../styling-utility';
+import { handleBackground } from './handle-background';
 import { getColor } from './handle-color';
 
 export const handleCursorEffect = (style) => {
-    const elementStyle = elementVar();
+    let elementStyle = elementVar();
 
     const {
         primaryColor,
         primarySize,
-        type
+        type,
+        textColor,
+        background
     } = style;
 
-    if (type === 'default'){
-        if(primaryColor){
-            normalAppender({
-                style: `border: 4px solid ${getColor(primaryColor)};`,
-                elementStyle
-            });
-        }
-    }
+    switch (type) {
+        case 'text':
+            if(textColor){
+                normalAppender({
+                    style: `color: ${getColor(textColor)};`,
+                    elementStyle
+                });
+            }
+            if(background){
+                elementStyle = handleBackground(background);
+            }
+            break;
 
-    if (primarySize?.point){
-        normalAppender({
-            style: `
-                width: ${primarySize.point}${primarySize.unit};
-                height: ${primarySize.point}${primarySize.unit};
-            `,
-            elementStyle
-        });
+        case 'icon':
+            
+            break;
+
+        case 'image':
+            
+            break;
+
+        default:
+            if(primaryColor){
+                normalAppender({
+                    style: `border: 4px solid ${getColor(primaryColor)};`,
+                    elementStyle
+                });
+            }
+            if (primarySize?.point){
+                normalAppender({
+                    style: `
+                        width: ${primarySize.point}${primarySize.unit};
+                        height: ${primarySize.point}${primarySize.unit};
+                    `,
+                    elementStyle
+                });
+            }
+            break;
     }
     return elementStyle;
 };
