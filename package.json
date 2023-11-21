@@ -74,7 +74,8 @@
     "semver": "^6.3.0",
     "sortablejs": "^1.15.0",
     "swiper": "https://gitpkg.now.sh/jegbagus/swiper/dist?master",
-    "umbrellajs": "^3.2.3"
+    "umbrellajs": "^3.2.3",
+    "array-move": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
