@@ -210,6 +210,7 @@ export const withCustomStyle = panelList => BlockElement => {
                         }
 
                         // On update, also update the old attribute
+                        // This is done to prevent missing value when user switch back to older version
                         if (!isEmpty(panelProps[id])) {
                             const updateOldAttr = updateOldAttribute(type, panelProps[id]);
                             setAttributes({
