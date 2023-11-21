@@ -16,6 +16,7 @@ const DragHandle = SortableHandle(() =>
     <div className={'repeater-drag-handle'}>
         <IconDragSVG />
     </div>);
+
 const SortableItem = SortableElement(props => {
     const {
         titleFormat,
@@ -39,22 +40,14 @@ const SortableItem = SortableElement(props => {
         resetMethod,
         booleanSwitcher = false,
     } = props;
-    const [open, setOpen] = useState(false);
+
     const toggleOpen = () => {
-        setOpen(state => !state);
-        setOpenLast(index);
-    };
-    useEffect(() => {
-        if (!openLast) {
-            setOpen(false);
+        if (openLast === null || openLast !== index) {
+            setOpenLast(index);
         } else {
-            if (openLast === index) {
-                setOpen(true);
-            } else {
-                setOpen(false);
-            }
+            setOpenLast(null);
         }
-    }, [openLast]);
+    };
 
     const onUpdateIndexValue = (val) => {
         const newValue = items.map((item, idx) => index === idx ? val : item);
@@ -71,7 +64,7 @@ const SortableItem = SortableElement(props => {
         duplicateIndex(index);
     };
 
-    const itemClass = classnames('repeater-item', open ? 'open' : 'close');
+    const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
         <div className={'repeater-header'} onClick={() => toggleOpen()}>
@@ -94,7 +87,7 @@ const SortableItem = SortableElement(props => {
             }
         </div>
 
-        {open && <div className={'repeater-body'}>
+        {index === openLast && <div className={'repeater-body'}>
             {options.map(item => {
                 let showControl = true;
                 if (booleanSwitcher) {
@@ -250,6 +243,7 @@ const RepeaterControl = ({
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
+
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
