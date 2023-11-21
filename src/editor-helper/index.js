@@ -467,10 +467,10 @@ export const migrateAttribute = (type, from) => {
 
 const updateOldBorderAttr = (from) => {
     const devices = ['Desktop', 'Tablet', 'Mobile'];
-    const newValue = {};
+    let newValue = {};
 
     if (!isEmpty(from)) {
-        const newValue = {
+        newValue = {
             ...from['Desktop'],
             radius: {}
         };
