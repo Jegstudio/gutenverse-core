@@ -1,6 +1,13 @@
 .editor-styles-wrapper {
-    .gutenverse-search-form form{
+    .gutenverse-search-form{
         display: flex;
-        justify-content: start;
+        flex-wrap: wrap;
+    
+        .guten-search-button-wrapper{
+            flex-grow: 1;
+        }
+        .guten-button-wrapper{
+            flex-grow: 1;
+        }
     }
 }

@@ -36,8 +36,9 @@ const SearchBlock = compose(
         ),
         ref: searchRef
     });
+    console.log(attributes)
     const innerBlockProps = useInnerBlocksProps(
-        {},
+        {className: classnames('guten-search-button-wrapper')},
         {
             template: [['gutenverse/button', {
                 role: 'submit',
@@ -54,7 +55,8 @@ const SearchBlock = compose(
                 }
             }]],
             allowedBlocks: ['gutenverse/button'],
-            renderAppender: false
+            renderAppender: false,
+            __experimentalAppenderTagName: 'div',
         }
     );
     useEffect(() => {
