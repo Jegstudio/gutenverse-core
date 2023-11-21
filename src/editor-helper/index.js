@@ -464,3 +464,34 @@ export const migrateAttribute = (type, from) => {
             return from;
     }
 };
+
+const updateOldBorderAttr = (from) => {
+    const devices = ['Desktop', 'Tablet', 'Mobile'];
+    const newValue = {};
+
+    if (!isEmpty(from)) {
+        const newValue = {
+            ...from['Desktop'],
+            radius: {}
+        };
+
+        devices.map(device => {
+            if (from[device]?.radius) {
+                newValue['radius'][device] = {
+                    ...from[device]?.radius
+                };
+            }
+        });
+    }
+
+    return newValue;
+};
+
+export const updateOldAttribute = (type, from) => {
+    switch (type) {
+        case 'border':
+            return updateOldBorderAttr(from);
+        default:
+            return from;
+    }
+};

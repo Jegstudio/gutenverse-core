@@ -3,7 +3,7 @@ import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
-import { migrateAttribute, setControlStyle, signal } from 'gutenverse-core/editor-helper';
+import { migrateAttribute, setControlStyle, signal, updateOldAttribute } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
 import { getBlockType } from '@wordpress/blocks';
@@ -194,12 +194,28 @@ export const withCustomStyle = panelList => BlockElement => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
 
-                    // Migrate attribute if required
-                    if (!isEmpty(blockAttributes[id]?.migrate) && !isEmpty(panelProps[blockAttributes[id]?.migrate?.attr]) && isEmpty(panelProps[id])) {
-                        const newAttrValue = migrateAttribute(blockAttributes[id]?.migrate?.type, panelProps[blockAttributes[id]?.migrate?.attr]);
-                        setAttributes({
-                            [id]: newAttrValue
-                        });
+                    // Sync migrated attributes
+                    if (!isEmpty(blockAttributes[id]?.migrate)) {
+                        const {
+                            attr,
+                            type
+                        } = blockAttributes[id].migrate;
+
+                        // First time migrate
+                        if (!isEmpty(panelProps[attr]) && isEmpty(panelProps[id])) {
+                            const newAttrValue = migrateAttribute(type, panelProps[attr]);
+                            setAttributes({
+                                [id]: newAttrValue
+                            });
+                        }
+
+                        // On update, also update the old attribute
+                        if (!isEmpty(panelProps[id])) {
+                            const updateOldAttr = updateOldAttribute(type, panelProps[id]);
+                            setAttributes({
+                                [attr]: updateOldAttr
+                            });
+                        }
                     }
 
                     if (!isEmpty(style)) {
