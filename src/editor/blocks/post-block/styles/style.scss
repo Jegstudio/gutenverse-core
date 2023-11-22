@@ -355,6 +355,7 @@
             border-radius: 3px;
             @include transition(false, false, .25s ease);
             color: var(--guten-txt-color);
+            align-items: center;
 
             span {
                 display: block;
