@@ -16,12 +16,12 @@ export const itemPanel = () => {
                 },
                 {
                     id: 'src',
-                    label: __('Profile Picture', 'gutenverse'),
+                    label: __('Client Picture', 'gutenverse'),
                     component: ImageControl,
                 },
                 {
                     id: 'description',
-                    label: __('Description', 'gutenverse'),
+                    label: __('Designation', 'gutenverse'),
                     component: TextControl,
                 },
                 {
