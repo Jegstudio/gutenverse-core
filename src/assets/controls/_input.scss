@@ -66,10 +66,10 @@
 
 .repeater-drag-handle {
   @include centering-element();
-  width: 28px;
   height: 28px;
+  width: 28px;
   cursor: grab;
-  margin-right:2px;
+  margin-right:10px;
   margin-left:-10px;
 }
 .repeater-remove,
@@ -1591,9 +1591,9 @@
       .repeater-drag-handle {
         @include centering-element();
         width: 28px;
-        height: 28px;
+        width: 16px;
+        margin-right: 10px;
         cursor: grab;
-        margin-right:2px;
         margin-left:-10px;
       }
       .repeater-remove,

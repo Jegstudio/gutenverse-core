@@ -8,7 +8,7 @@ import { RotateCcw, X } from 'react-feather';
 import classnames from 'classnames';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
-import { IconDragSVG, IconDuplicateSVG} from 'gutenverse-core/icons';
+import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 
@@ -16,6 +16,7 @@ const DragHandle = SortableHandle(() =>
     <div className={'repeater-drag-handle'}>
         <IconDragSVG />
     </div>);
+
 const SortableItem = SortableElement(props => {
     const {
         titleFormat,
@@ -39,22 +40,14 @@ const SortableItem = SortableElement(props => {
         resetMethod,
         booleanSwitcher = false,
     } = props;
-    const [open, setOpen] = useState(false);
+
     const toggleOpen = () => {
-        setOpen(state => !state);
-        setOpenLast(index);
-    };
-    useEffect(() => {
-        if (!openLast) {
-            setOpen(false);
+        if (openLast === null || openLast !== index) {
+            setOpenLast(index);
         } else {
-            if (openLast === index) {
-                setOpen(true);
-            } else {
-                setOpen(false);
-            }
+            setOpenLast(null);
         }
-    }, [openLast]);
+    };
 
     const onUpdateIndexValue = (val) => {
         const newValue = items.map((item, idx) => index === idx ? val : item);
@@ -71,12 +64,12 @@ const SortableItem = SortableElement(props => {
         duplicateIndex(index);
     };
 
-    const itemClass = classnames('repeater-item', open ? 'open' : 'close');
+    const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
-        <div className={'repeater-header'} >
-            <DragHandle /><br />
-            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} onClick={() => toggleOpen()} />
+        <div className={'repeater-header'} onClick={() => toggleOpen()}>
+            <DragHandle />
+            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
             {
                 isRemove && <div className={'repeater-remove'} onClick={() => removeIndex(index)}>
                     <X />
@@ -94,7 +87,7 @@ const SortableItem = SortableElement(props => {
             }
         </div>
 
-        {open && <div className={'repeater-body'}>
+        {index === openLast && <div className={'repeater-body'}>
             {options.map(item => {
                 let showControl = true;
                 if (booleanSwitcher) {
@@ -124,7 +117,7 @@ const SortableItem = SortableElement(props => {
 const SortableList = SortableContainer(props => {
     const { items, id, resetMethod, onStyleChange, onValueChange, refreshStyle, value } = props;
     return (
-        <ul>
+        <div>
             {items.map((item, index) => {
                 return <SortableItem
                     key={item._key === undefined ? `${id}-${index}` : item._key}
@@ -137,7 +130,7 @@ const SortableList = SortableContainer(props => {
                     {...props}
                 />;
             })}
-        </ul>
+        </div>
     );
 });
 
@@ -154,7 +147,7 @@ const SortableComponent = (props) => {
             return ['button'].includes(el.tagName.toLowerCase());
         });
     };
-    return <SortableList {...props} onSortEnd={onSortEnd} useDragHandle={true} disabled={!isDragable} shouldCancelStart={shouldCancelSortStart}/>;
+    return <SortableList {...props} onSortEnd={onSortEnd} useDragHandle={true} disabled={!isDragable} shouldCancelStart={shouldCancelSortStart} />;
 };
 
 export const targetHasProp = (
@@ -250,6 +243,7 @@ const RepeaterControl = ({
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
+
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
