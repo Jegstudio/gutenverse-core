@@ -69,7 +69,7 @@
   height: 28px;
   width: 28px;
   cursor: grab;
-  margin-right:10px;
+  margin-right:2px;
   margin-left:-10px;
 }
 .repeater-remove,
@@ -1592,7 +1592,7 @@
         @include centering-element();
         width: 28px;
         width: 16px;
-        margin-right: 10px;
+        margin-right: 2px;
         cursor: grab;
         margin-left:-10px;
       }
