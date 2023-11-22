@@ -3,7 +3,7 @@ import { IconInfoSVG } from 'gutenverse-core/icons';
 import ControlDevices from './control-devices';
 
 const ControlHeadingSimple = ({ id, label, description = '', allowDeviceControl, inLabel = null, outLabel = null }) => {
-    return <div className={'control-title'}>
+    return label && <div className={'control-title'}>
         {allowDeviceControl && <ControlDevices />}
         <label htmlFor={id}>
             {label}

@@ -117,7 +117,7 @@ const SortableItem = SortableElement(props => {
 const SortableList = SortableContainer(props => {
     const { items, id, resetMethod, onStyleChange, onValueChange, refreshStyle, value } = props;
     return (
-        <ul>
+        <div>
             {items.map((item, index) => {
                 return <SortableItem
                     key={item._key === undefined ? `${id}-${index}` : item._key}
@@ -130,7 +130,7 @@ const SortableList = SortableContainer(props => {
                     {...props}
                 />;
             })}
-        </ul>
+        </div>
     );
 });
 
