@@ -1243,12 +1243,30 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['border'] ) ) {
-			$this->handle_border( 'border', $selector['normal'] );
+		if ( isset( $this->attrs['borderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['normal'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderResponsive'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['borderHover'] ) ) {
-			$this->handle_border( 'borderHover', $selector['hover'] );
+		if ( isset( $this->attrs['borderResponsiveHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['hover'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderResponsiveHover'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['boxShadow'] ) ) {
@@ -1276,6 +1294,37 @@ abstract class Style_Interface {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Handle Border V2
+	 *
+	 * @param array $value .
+	 *
+	 * @return string
+	 */
+	protected function handle_border_v2( $data ) {
+		$style = '';
+
+		foreach ( $data as $key => $value ) {
+			if ( 'radius' === $key ) {
+				$style .= $this->handle_border_radius( $value );
+			} elseif ( ! empty( $value ) && ! empty( $value['type'] ) ) {
+				$position = 'all' === $key ? '' : "{$key}-";
+
+				$style .= "border-{$position}style: {$value['type']};";
+
+				if ( ! gutenverse_truly_empty( $value['width'] ) ) {
+					$style .= "border-{$position}width: {$value['width']}px;";
+				}
+
+				if ( ! empty( $value['color'] ) ) {
+					$style .= $this->handle_color( $value['color'], "border-{$position}color" );
+				}
+			}
+		}
+
+		return $style;
 	}
 
 	/**

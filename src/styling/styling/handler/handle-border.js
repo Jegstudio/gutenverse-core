@@ -3,7 +3,6 @@ import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar,
 
 // Use this for the old version of border control
 export const handleBorder = (value) => {
-
     const elementStyle = elementVar();
     const keys = Object.keys(value);
     const sortedKeys = [
