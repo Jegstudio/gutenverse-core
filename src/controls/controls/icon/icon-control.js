@@ -26,7 +26,7 @@ const IconItem = ({ active, columnWidth, onClick, icon, title }) => {
 
     return <div style={{ maxWidth: `${columnWidth}px` }} className={iconClass} onClick={() => onClick()}>
         <div className={'icon-library-content'}>
-            <i className={icon}/>
+            <i className={icon} />
             <div className={'icon-library-title'}>{title}</div>
         </div>
     </div>;
@@ -81,6 +81,33 @@ const IconLibraryContent = ({ width, height, cellRenderer, selected, setSelected
     />;
 };
 
+const getAllFont = () => {
+    return [
+        ...faIcons,
+        ...gtnIcons
+    ];
+};
+
+function rankStringsByWordMatch(strings, searchTerm) {
+    const searchWords = searchTerm.toLowerCase().split(' ');
+
+    // Map each string with a count of how many search words it contains
+    const rankedStrings = strings.map(str => {
+        const lowerStr = str.toLowerCase();
+        const matchCount = searchWords.reduce((count, word) => {
+            // Add 1 for each occurrence of the word
+            return count + (lowerStr.includes(word) ? 1 : 0);
+        }, 0);
+        return { str, matchCount };
+    });
+
+    // Filter out strings with no matches and sort the remaining strings
+    return rankedStrings
+        .filter(item => item.matchCount > 0)
+        .sort((a, b) => b.matchCount - a.matchCount)
+        .map(item => item.str);
+}
+
 export const IconLibrary = ({
     closeLibrary,
     value,
@@ -88,31 +115,22 @@ export const IconLibrary = ({
 }) => {
     const [filter, setFilter] = useState('');
     const [selected, setSelected] = useState(value);
+    const [iconList, setIconList] = useState(getAllFont());
 
     const changeFilter = (e) => {
         setFilter(e.target.value);
     };
 
+    useEffect(() => {
+        const fonts = getAllFont();
+        const data = rankStringsByWordMatch(fonts, filter);
+        setIconList(data);
+    }, [filter]);
+
     const changeIcon = () => {
         onChange(selected);
         closeLibrary();
     };
-
-    const iconList = faIcons.filter(icon => {
-        if (filter === '') {
-            return true;
-        } else {
-            return icon.toLowerCase().includes(filter.toLowerCase());
-        }
-    });
-
-    iconList.push(...gtnIcons.filter(icon => {
-        if (filter === '') {
-            return true;
-        } else {
-            return icon.toLowerCase().includes(filter.toLowerCase());
-        }
-    }));
 
     const cellRenderer = ({
         columnIndex,
@@ -142,17 +160,17 @@ export const IconLibrary = ({
     };
 
     return <div className={'icon-library-wrapper'}>
-        <div className={'icon-library-overlay'} onClick={() => closeLibrary()}/>
+        <div className={'icon-library-overlay'} onClick={() => closeLibrary()} />
         <div className={'icon-library-container'}>
             <div className={'icon-library-box'}>
                 <div className={'icon-library-header'}>
-                    <h2 className={'gutenverse-icon-logo'}><LogoFullColorSVG/>{__('Icon Library', '--gctd--')}</h2>
-                    <X className={'close'} onClick={() => closeLibrary()}/>
+                    <h2 className={'gutenverse-icon-logo'}><LogoFullColorSVG />{__('Icon Library', '--gctd--')}</h2>
+                    <X className={'close'} onClick={() => closeLibrary()} />
                 </div>
                 <div className={'icon-library-search'}>
                     <div className={'input'}>
-                        <IconSearchSVG/>
-                        <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter}/>
+                        <IconSearchSVG />
+                        <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter} />
                     </div>
                 </div>
                 <div className={'icon-library-result'}>
@@ -210,10 +228,10 @@ const IconControl = ({
         <div className={'control-body'}>
             <div className={'icon-wrapper'}>
                 {value !== '' && <div className={'icon-remove'} onClick={e => removeIcon(e)}>
-                    <Trash/>
+                    <Trash />
                 </div>}
                 <div className={'icon-preview'} onClick={() => setOpenIconLibrary(true)}>
-                    <i className={value}/>
+                    <i className={value} />
                 </div>
                 <div className={'icon-change'} onClick={() => setOpenIconLibrary(true)}>
                     {__('Choose Icon', '--gctd--')}
