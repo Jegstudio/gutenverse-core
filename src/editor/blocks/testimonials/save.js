@@ -16,6 +16,10 @@ const save = ({ attributes }) => {
         showQuote,
         iconQuote,
         quoteOverride,
+        contentPosition,
+        showRating,
+        iconRatingHalf,
+        iconRatingFull
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -37,12 +41,21 @@ const save = ({ attributes }) => {
                 <div id={elementId} className="swiper-container" {...swiperData(attributes)}>
                     <div className="swiper-wrapper">
                         {testimonialData.map((data, index) => <div key={index} className="swiper-slide">
-                            <ContentItem {...data} contentType={contentType} showQuote={showQuote} iconQuote={iconQuote} quoteOverride={quoteOverride}/>
+                            <ContentItem {...data}
+                                contentType={contentType}
+                                showQuote={showQuote}
+                                iconQuote={iconQuote}
+                                quoteOverride={quoteOverride}
+                                contentPosition={contentPosition}
+                                showRating={showRating}
+                                iconRatingFull={iconRatingFull}
+                                iconRatingHalf={iconRatingHalf}
+                            />
                         </div>)}
                     </div>
-                    {showNav &&<div className="swiper-pagination"/>}
-                    {showArrow && <div className="swiper-button-prev"/>}
-                    {showArrow && <div className="swiper-button-next"/>}
+                    {showNav && <div className="swiper-pagination" />}
+                    {showArrow && <div className="swiper-button-prev" />}
+                    {showArrow && <div className="swiper-button-next" />}
                 </div>
             </div>
         </div>
