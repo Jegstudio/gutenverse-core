@@ -73,8 +73,7 @@
 }
 .repeater-remove,
 .repeater-duplicate,
-.repeater-clear,
-.repeater-add {
+.repeater-clear{
   @include centering-element();
   width: 28px;
   height: 28px;
