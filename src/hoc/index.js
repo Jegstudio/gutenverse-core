@@ -8,3 +8,4 @@ export { withCopyElementToolbar } from './with-copy-element-toolbar';
 export { withVideoBackground } from './with-video-background';
 export { withDeviceControl } from './with-device-control';
 export { withParentControl } from './with-parent-control';
+export { withCursorEffectScript } from './with-cursor-effect-script';

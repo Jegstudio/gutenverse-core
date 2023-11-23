@@ -57,7 +57,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.layout-boxed > .guten-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "max-width: {$value}px;";
 					},
 					'value'          => $this->attrs['width'],
@@ -70,7 +70,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'min-height' );
 					},
 					'value'          => $this->attrs['height'],
@@ -83,7 +83,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return 'height: 100vh;';
 					},
 					'value'          => $this->attrs['heightControl'],
@@ -94,7 +94,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return 'height: 100%;';
 					},
 					'value'          => $this->attrs['heightControl'],
@@ -107,7 +107,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-container",
-					'property'       => function() {
+					'property'       => function () {
 						return 'flex-wrap: wrap;';
 					},
 					'value'          => $this->attrs['wrapColumn'],
@@ -118,7 +118,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-container > .guten-column",
-					'property'       => function() {
+					'property'       => function () {
 						return 'width: 100%;';
 					},
 					'value'          => $this->attrs['wrapColumn'],
@@ -131,7 +131,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "section.guten-element.{$this->element_id} > .guten-container",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( 'default' === $value ) {
 							return null;
 						} else {
@@ -151,7 +151,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-top svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "width: calc( {$value}% + 1.3px);";
 							},
 							'value'          => $divider['width'],
@@ -164,7 +164,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-top svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "height: {$value}px;";
 							},
 							'value'          => $divider['height'],
@@ -177,7 +177,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-top .guten-shape-fill path",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'fill' );
 							},
 							'value'          => $divider['color'],
@@ -195,7 +195,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "width: calc( {$value}% + 1.3px);";
 							},
 							'value'          => $divider['width'],
@@ -208,7 +208,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "height: {$value}px;";
 							},
 							'value'          => $divider['height'],
@@ -221,7 +221,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider.guten-shape-divider-bottom .guten-shape-fill path",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'fill' );
 							},
 							'value'          => $divider['color'],
@@ -239,7 +239,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-top svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "width: calc( {$value}% + 1.3px);";
 							},
 							'value'          => $divider['width'],
@@ -252,7 +252,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-top svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "height: {$value}px;";
 							},
 							'value'          => $divider['height'],
@@ -270,7 +270,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-bottom svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "width: calc( {$value}% + 1.3px);";
 							},
 							'value'          => $divider['width'],
@@ -283,7 +283,7 @@ class Section extends Style_Abstract {
 					$this->inject_style(
 						array(
 							'selector'       => "section.{$this->element_id} .guten-shape-divider-animated.guten-shape-divider-animated-bottom svg",
-							'property'       => function( $value ) {
+							'property'       => function ( $value ) {
 								return "height: {$value}px;";
 							},
 							'value'          => $divider['height'],
@@ -298,7 +298,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .wp-block-gutenverse-heading",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyHeadingColor'],
@@ -311,7 +311,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyTextColor'],
@@ -324,7 +324,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyLinkColor'],
@@ -337,7 +337,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} a:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyLinkHoverColor'],
@@ -350,7 +350,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['typographyTextAlign'],
@@ -371,7 +371,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-background-overlay",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacity'],
@@ -384,7 +384,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover > .guten-background-overlay",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacityHover'],
@@ -397,7 +397,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "section.guten-element.{$this->element_id}:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blur'],
@@ -410,7 +410,7 @@ class Section extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => "section.guten-element.{$this->element_id}:hover:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blurHover'],
