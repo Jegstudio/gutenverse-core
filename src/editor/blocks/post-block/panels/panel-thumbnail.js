@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const thumbnailPanel = ({elementId}) => {
+export const thumbnailPanel = ({ elementId }) => {
     return [
         {
             id: 'thumbnailWidth',
@@ -75,14 +75,14 @@ export const thumbnailPanel = ({elementId}) => {
             ]
         },
         {
-            id: 'thumbnailBorder',
+            id: 'thumbnailBorderResponsive',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-thumb`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

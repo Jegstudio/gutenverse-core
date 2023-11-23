@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { handleBorderV2, handleColor, handleDimension } from 'gutenverse-core/styling';
 
-export const iconPanel = ({elementId}) => {
+export const iconPanel = ({ elementId }) => {
     return [
         {
             id: 'iconBg',
@@ -77,15 +77,15 @@ export const iconPanel = ({elementId}) => {
             ]
         },
         {
-            id: 'iconBorder',
+            id: 'iconBorderResponsive',
             label: __('Icon Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
                     .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

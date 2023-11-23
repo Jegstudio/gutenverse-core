@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { BackgroundControl, BorderControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemHoverPanel = (props) => {
     const {
@@ -14,7 +14,7 @@ export const itemHoverPanel = (props) => {
             id: 'itemHoverBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg`,
@@ -70,14 +70,14 @@ export const itemHoverPanel = (props) => {
             ]
         },
         {
-            id: 'itemHoverBorder',
+            id: 'itemHoverBorderResponsive',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -90,17 +90,17 @@ export const itemHoverPanel = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
@@ -145,7 +145,7 @@ export const itemHoverPanel = (props) => {
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -184,7 +184,7 @@ export const itemHoverPanel = (props) => {
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { BackgroundControl, BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const buttonPanel = (props) => {
@@ -18,7 +18,7 @@ export const buttonPanel = (props) => {
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -35,7 +35,7 @@ export const buttonPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__buttonHoverControl}) => setSwitcher({...switcher, buttonHoverControl: __buttonHoverControl})
+            onChange: ({ __buttonHoverControl }) => setSwitcher({ ...switcher, buttonHoverControl: __buttonHoverControl })
         },
         {
             id: 'colorButton',
@@ -66,7 +66,7 @@ export const buttonPanel = (props) => {
             component: BackgroundControl,
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             allowDeviceControl: true,
-            options: ['gradient' ],
+            options: ['gradient'],
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]`,
@@ -76,15 +76,15 @@ export const buttonPanel = (props) => {
             ]
         },
         {
-            id: 'borderButton',
+            id: 'borderButtonResponsive',
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             label: __('Button Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -173,7 +173,7 @@ export const buttonPanel = (props) => {
             component: BackgroundControl,
             show: switcher.buttonHoverControl === 'hover',
             allowDeviceControl: true,
-            options: ['gradient' ],
+            options: ['gradient'],
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
@@ -183,15 +183,15 @@ export const buttonPanel = (props) => {
             ]
         },
         {
-            id: 'borderButtonHover',
+            id: 'borderButtonHoverResponsive',
             show: switcher.buttonHoverControl === 'hover',
             label: __('Button Border Hover', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

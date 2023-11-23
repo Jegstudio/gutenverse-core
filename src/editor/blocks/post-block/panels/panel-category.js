@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const categoryPanel = (props) => {
@@ -28,7 +28,7 @@ export const categoryPanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-post-category a`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ]
         },
@@ -98,14 +98,14 @@ export const categoryPanel = (props) => {
             ]
         },
         {
-            id: 'categoryBorder',
+            id: 'categoryBorderResponsive',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post-category`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const loadMoreStylePanel = (props) => {
@@ -68,7 +68,7 @@ export const loadMoreStylePanel = (props) => {
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -124,7 +124,7 @@ export const loadMoreStylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__loadHover}) => setSwitcher({...switcher, loadHover: __loadHover})
+            onChange: ({ __loadHover }) => setSwitcher({ ...switcher, loadHover: __loadHover })
         },
         {
             id: 'loadMoreTextColor',
@@ -158,7 +158,7 @@ export const loadMoreStylePanel = (props) => {
             label: __('Normal Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
@@ -173,7 +173,7 @@ export const loadMoreStylePanel = (props) => {
             label: __('Hover Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
@@ -183,28 +183,28 @@ export const loadMoreStylePanel = (props) => {
             ]
         },
         {
-            id: 'loadMoreBorder',
+            id: 'loadMoreBorderResponsive',
             show: !switcher.loadHover || switcher.loadHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'loadMoreBorderHover',
+            id: 'loadMoreBorderResponsiveHover',
             show: switcher.loadHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

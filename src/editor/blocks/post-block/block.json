@@ -218,6 +218,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"postItemBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "postItemBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"postItemBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -244,6 +252,14 @@
 		},
 		"thumbnailBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"thumbnailBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "thumbnailBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"thumbnailBoxShadow": {
@@ -286,6 +302,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "contentBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"contentContainerShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -312,6 +336,14 @@
 		},
 		"categoryBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"categoryBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "categoryBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"categoryShadow": {
@@ -390,8 +422,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"readmoreBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "readmoreBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"readmoreHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"readmoreHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "readmoreHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"readmoreShadow": {
@@ -498,8 +546,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"paginationBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "paginationBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"paginationHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"paginationHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "paginationHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"paginationShadow": {
@@ -524,12 +588,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

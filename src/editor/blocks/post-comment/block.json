@@ -77,6 +77,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"inputBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "inputBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"typographyButton": {
 			"type": "object",
 			"copyStyle": true
@@ -105,6 +113,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderButtonResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderButton",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"colorButtonHover": {
 			"type": "object",
 			"copyStyle": true
@@ -119,6 +135,14 @@
 		},
 		"borderButtonHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderButtonHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderButtonHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"marginButtonHover": {
@@ -141,12 +165,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

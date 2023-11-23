@@ -58,10 +58,26 @@
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "borderHover": {
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "hoverIconColor": {
       "type": "object",
 			"copyStyle": true

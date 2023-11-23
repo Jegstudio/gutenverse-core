@@ -185,8 +185,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "contentBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"contentHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"contentHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "contentHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"contentShadow": {
@@ -317,8 +333,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"metaBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "metaBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"metaHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"metaHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "metaHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"paginationTypography": {
@@ -365,8 +397,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"paginationBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "paginationBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"paginationHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"paginationHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "paginationHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"paginationShadow": {
@@ -391,12 +439,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

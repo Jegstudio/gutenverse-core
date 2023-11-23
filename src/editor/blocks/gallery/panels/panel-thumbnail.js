@@ -1,18 +1,18 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl } from 'gutenverse-core/controls';
-import { handleBorder } from 'gutenverse-core/styling';
+import { handleBorderV2 } from 'gutenverse-core/styling';
 
-export const thumbnailPanel = ({elementId}) => {
+export const thumbnailPanel = ({ elementId }) => {
     return [
         {
-            id: 'thumbnailBorder',
+            id: 'thumbnailBorderResponsive',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

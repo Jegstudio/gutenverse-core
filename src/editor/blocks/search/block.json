@@ -54,11 +54,27 @@
 		"border": {
 			"type": "object"
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object"
 		},
 		"borderHover": {
 			"type": "object"
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
 		},
 		"boxShadowHover": {
 			"type": "object"
@@ -125,11 +141,27 @@
 		"inputBorderNormal": {
 			"type": "object" 
 		},
+		"inputBorderNormalResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "inputBorderNormal",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"inputColorHover": {
 			"type": "object" 
 		},
 		"inputBorderHover": {
 			"type": "object" 
+		},
+		"inputBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "inputBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
 		},
 		"inputBgColorNormal": {
 			"type": "object" 

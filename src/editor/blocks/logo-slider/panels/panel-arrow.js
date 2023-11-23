@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleColor, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const arrowPanel = (props) => {
@@ -39,7 +39,7 @@ export const arrowPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__arrowHover}) => setSwitcher({...switcher, arrowHover: __arrowHover})
+            onChange: ({ __arrowHover }) => setSwitcher({ ...switcher, arrowHover: __arrowHover })
         },
         {
             id: 'arrowColor',
@@ -238,15 +238,15 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorder',
+            id: 'arrowBorderResponsive',
             show: !switcher.arrowHover || switcher.arrowHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} div[class*='swiper-button-']`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -264,15 +264,15 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorderHover',
+            id: 'arrowBorderResponsiveHover',
             show: switcher.arrowHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

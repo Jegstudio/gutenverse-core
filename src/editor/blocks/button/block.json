@@ -68,12 +68,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"buttonBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "buttonBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"buttonBoxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"buttonBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"buttonBorderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "buttonBorderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"buttonBoxShadowHover": {
@@ -117,12 +133,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

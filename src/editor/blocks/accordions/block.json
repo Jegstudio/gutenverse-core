@@ -92,12 +92,36 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"accordionBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "accordionBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"titleBorder": {
 			"type": "object",
 			"copyStyle": true
 		},
+		"titleBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "titleBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"contentBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"contentBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "contentBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"background": {
@@ -114,12 +138,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {
@@ -191,6 +231,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"accordionBorderActiveResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "accordionBorderActive",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"accordionMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -207,12 +255,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"contentBorderActiveResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "contentBorderActive",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"titleBackgroundActiveColor": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"titleBorderActive": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"titleBorderActiveResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "titleBorderActive",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"accordionBoxShadow": {
@@ -252,6 +316,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"iconBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "iconBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"iconBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -263,6 +335,14 @@
 		},
 		"iconActiveBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"iconActiveBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "iconActiveBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"iconActiveBoxShadow": {

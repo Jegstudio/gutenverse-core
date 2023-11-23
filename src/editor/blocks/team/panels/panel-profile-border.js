@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const profileBorderPanel = (props) => {
@@ -24,18 +24,18 @@ export const profileBorderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__profileBorderHover}) => setSwitcher({...switcher, profileBorder: __profileBorderHover})
+            onChange: ({ __profileBorderHover }) => setSwitcher({ ...switcher, profileBorder: __profileBorderHover })
         },
         {
-            id: 'profileBorder',
+            id: 'profileBorderResponsive',
             show: !switcher.profileBorder || switcher.profileBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -53,15 +53,15 @@ export const profileBorderPanel = (props) => {
             ]
         },
         {
-            id: 'profileBorderHover',
+            id: 'profileBorderHoverResponsive',
             show: switcher.profileBorder === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

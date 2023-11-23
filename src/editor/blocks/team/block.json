@@ -128,6 +128,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"profileBorderRadiusResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "profileBorderRadius",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "background": {
       "type": "object",
       "default": {},
@@ -143,6 +151,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -152,6 +168,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadowHover": {
       "type": "object",
 			"copyStyle": true
@@ -170,6 +194,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"profileBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "profileBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "profileBoxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -178,6 +210,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"profileBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "profileBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "profileBoxShadowHover": {
       "type": "object",
 			"copyStyle": true
@@ -186,6 +226,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"imageBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "imageBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "imageBoxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -194,6 +242,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"imageBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "imageBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "imageBoxShadowHover": {
       "type": "object",
 			"copyStyle": true
@@ -317,6 +373,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"hoverContentBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "hoverContentBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "hoverContentShadow": {
       "type": "object",
 			"copyStyle": true

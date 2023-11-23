@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterTabPanel = (props) => {
@@ -73,7 +73,7 @@ export const filterTabPanel = (props) => {
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -90,7 +90,7 @@ export const filterTabPanel = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__filterTab}) => setSwitcher({...switcher, filterTab: __filterTab})
+            onChange: ({ __filterTab }) => setSwitcher({ ...switcher, filterTab: __filterTab })
         },
         {
             id: 'filterTabTextColor',
@@ -124,7 +124,7 @@ export const filterTabPanel = (props) => {
             label: __('General Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control`,
@@ -139,7 +139,7 @@ export const filterTabPanel = (props) => {
             label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
@@ -149,28 +149,28 @@ export const filterTabPanel = (props) => {
             ]
         },
         {
-            id: 'filterTabBorder',
+            id: 'filterTabBorderResponsive',
             show: !switcher.filterTab || switcher.filterTab === 'general',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'filterTabBorderActive',
+            id: 'filterTabBorderResponsiveActive',
             show: switcher.filterTab === 'active',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

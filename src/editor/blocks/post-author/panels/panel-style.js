@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-import { allowRenderBoxShadow, allowRenderTextShadow, handleBorder, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, allowRenderTextShadow, handleBorderV2, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, ColorControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
 import { handleTextShadow } from 'gutenverse-core/styling';
@@ -59,7 +59,7 @@ export const stylePanel = (props) => {
                 {
                     selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ]
         },
@@ -77,7 +77,7 @@ export const stylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__styleHover}) => setSwitcher({...switcher, styleHover: __styleHover})
+            onChange: ({ __styleHover }) => setSwitcher({ ...switcher, styleHover: __styleHover })
         },
         {
             id: 'color',
@@ -215,16 +215,16 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'authorBorder',
+            id: 'authorBorderResponsive',
             show: authorAvatar,
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} img`,
                     allowRender: () => authorAvatar,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

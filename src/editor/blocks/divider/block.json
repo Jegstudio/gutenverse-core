@@ -77,6 +77,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -85,6 +93,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadowHover": {
       "type": "object",
 			"copyStyle": true

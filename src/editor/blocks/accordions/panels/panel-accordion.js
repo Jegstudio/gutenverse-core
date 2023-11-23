@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelAccordion = (props) => {
@@ -54,28 +54,28 @@ export const panelAccordion = (props) => {
             onChange: ({__accBorderHover}) => setSwitcher({...switcher, accBorder: __accBorderHover})
         },
         {
-            id: 'accordionBorder',
+            id: 'accordionBorderResponsive',
             show: !switcher.accBorder || switcher.accBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'accordionBorderActive',
+            id: 'accordionBorderActiveResponsive',
             show: switcher.accBorder === 'active',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight } from 'react-feather';
 import { IconRadioControl, SizeControl, RangeControl, SwitchControl, BackgroundControl, ColorControl, DimensionControl, HeadingControl, BorderControl } from 'gutenverse-core/controls';
-
-import { handleBackground, handleBorder, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderV2, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const hamburgerStyle = (props) => {
     const {
@@ -174,15 +173,15 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'hamburgerBorderNormal',
+            id: 'hamburgerBorderResponsiveNormal',
             show: switcher.hamburgerState === undefined || switcher.hamburgerState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -214,15 +213,15 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'hamburgerBorderHover',
+            id: 'hamburgerBorderResponsiveHover',
             show: switcher.hamburgerState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -369,15 +368,15 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'closeBorderNormal',
+            id: 'closeBorderResponsiveNormal',
             show: switcher.closeState === undefined || switcher.closeState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -409,15 +408,15 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'closeBorderHover',
+            id: 'closeBorderResponsiveHover',
             show: switcher.closeState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

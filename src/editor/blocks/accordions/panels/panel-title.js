@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitle = (props) => {
     const {
@@ -126,15 +126,15 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorder',
+            id: 'titleBorderResponsive',
             show: !switcher.accTitle || switcher.accTitle === 'normal',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-heading`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -163,15 +163,15 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorderActive',
+            id: 'titleBorderActiveResponsive',
             show: switcher.accTitle === 'active',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-heading`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

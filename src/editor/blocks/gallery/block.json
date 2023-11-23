@@ -105,6 +105,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"iconBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "iconBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"itemPadding": {
 			"type": "object",
 			"copyStyle": true
@@ -115,6 +123,14 @@
 		},
 		"itemBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"itemBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "itemBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"itemBoxShadow": {
@@ -139,6 +155,14 @@
 		},
 		"itemHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"ItemHoverBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "ItemHoverBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"itemHoverAlign": {
@@ -181,6 +205,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"itemCardBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "itemCardBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"itemCardAlign": {
 			"type": "object",
 			"copyStyle": true
@@ -211,6 +243,14 @@
 		},
 		"thumbnailBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"thumbnailBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "thumbnailBorder",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"priceRatingPadding": {
@@ -332,8 +372,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"loadMoreBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "loadMoreBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"loadMoreBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"loadMoreBorderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "loadMoreBorderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"filterTabPadding": {
@@ -368,8 +424,24 @@
 			"tye": "object",
 			"copyStyle": true
 		},
+		"filterTabBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "filterTabBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterTabBorderActive": {
 			"tye": "object",
+			"copyStyle": true
+		},
+		"filterTabBorderResponsiveActive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "filterTabBorderActive",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"filterTabBoxShadow": {
@@ -417,6 +489,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "filterSearchBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -453,6 +533,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchFormBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "filterSearchFormBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchFormBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -473,6 +561,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchDropdownBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "filterSearchDropdownBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchDropdownPadding": {
 			"type": "object",
 			"copyStyle": true
@@ -491,12 +587,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

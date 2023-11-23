@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const closePanel = (props) => {
     const {
@@ -308,12 +308,12 @@ export const closePanel = (props) => {
             id: 'closeBorder',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             show: showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close`,
-                    hasChild: true,
-                    render: (value) => handleBorder(value),
+                    render: (value) => handleBorderV2(value),
                 },
             ],
         },
@@ -361,12 +361,12 @@ export const closePanel = (props) => {
             id: 'closeBorderHover',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover'),
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
-                    hasChild: true,
-                    render: (value) => handleBorder(value),
+                    render: (value) => handleBorderV2(value),
                 },
             ],
         },

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const readmorePanel = (props) => {
@@ -19,7 +19,7 @@ export const readmorePanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-readmore`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ]
         },
@@ -135,7 +135,7 @@ export const readmorePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__readmoreHover}) => setSwitcher({...switcher, readmoreHover: __readmoreHover})
+            onChange: ({ __readmoreHover }) => setSwitcher({ ...switcher, readmoreHover: __readmoreHover })
         },
         {
             id: 'readmoreColor',
@@ -167,7 +167,7 @@ export const readmorePanel = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
@@ -182,7 +182,7 @@ export const readmorePanel = (props) => {
             label: __('Hover Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
@@ -192,28 +192,28 @@ export const readmorePanel = (props) => {
             ]
         },
         {
-            id: 'readmoreBorder',
+            id: 'readmoreBorderResponsive',
             show: !switcher.readmoreHover || switcher.readmoreHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'readmoreHoverBorder',
+            id: 'readmoreHoverBorderResponsive',
             show: switcher.readmoreHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

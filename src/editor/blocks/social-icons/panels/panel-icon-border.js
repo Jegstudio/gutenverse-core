@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
@@ -24,31 +24,31 @@ export const iconBorderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__iconBorderHover}) => setSwitcher({...switcher, iconBorder: __iconBorderHover})
+            onChange: ({ __iconBorderHover }) => setSwitcher({ ...switcher, iconBorder: __iconBorderHover })
         },
         {
-            id: 'iconBorder',
+            id: 'iconBorderResponsive',
             show: !switcher.iconBorder || switcher.iconBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'iconBorderHover',
+            id: 'iconBorderResponsiveHover',
             show: switcher.iconBorder === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

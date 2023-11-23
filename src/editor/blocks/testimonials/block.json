@@ -179,12 +179,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"arrowBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "arrowBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"arrowBoxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"arrowBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"arrowBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "arrowBorderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"arrowBoxShadowHover": {
@@ -215,12 +231,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"containerBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "containerBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"containerBoxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"containerBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"containerBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "containerBorderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"containerBoxShadowHover": {
@@ -291,6 +323,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "imageBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"imageMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -338,12 +378,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

@@ -1,7 +1,7 @@
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { ColorControl, IconControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const panelIconStyle = (props) => {
     const {
@@ -130,15 +130,15 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorder',
+            id: 'iconBorderResponsive',
             show: !switcher.accIcon || switcher.accIcon === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -205,15 +205,15 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconActiveBorder',
+            id: 'iconActiveBorderResponsive',
             show: switcher.accIcon === 'active',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

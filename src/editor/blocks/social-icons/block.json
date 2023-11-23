@@ -67,6 +67,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"iconBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "iconBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "iconBoxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -76,6 +84,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"iconBorderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "iconBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "iconBoxShadowHover": {
       "type": "object",
 			"copyStyle": true
@@ -85,6 +101,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -94,6 +118,14 @@
       "default": {},
 			"copyStyle": true
     },
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadowHover": {
       "type": "object",
 			"copyStyle": true

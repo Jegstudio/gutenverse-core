@@ -2,10 +2,10 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
+export const panelContentStyle = ({ elementId, switcher, setSwitcher }) => {
     return [
         {
             id: 'alignText',
@@ -16,17 +16,17 @@ export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
@@ -103,7 +103,7 @@ export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__containerStyleHover}) => setSwitcher({...switcher, containerStyle: __containerStyleHover})
+            onChange: ({ __containerStyleHover }) => setSwitcher({ ...switcher, containerStyle: __containerStyleHover })
         },
         {
             id: 'containerBackground',
@@ -134,15 +134,15 @@ export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
             ]
         },
         {
-            id: 'containerBorder',
+            id: 'containerBorderResponsive',
             show: !switcher.containerStyle || switcher.containerStyle === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -160,15 +160,15 @@ export const panelContentStyle = ({elementId, switcher, setSwitcher}) => {
             ]
         },
         {
-            id: 'containerBorderHover',
+            id: 'containerBorderHoverResponsive',
             show: switcher.containerStyle === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

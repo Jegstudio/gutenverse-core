@@ -152,6 +152,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"submenuIndicatorBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "submenuIndicatorBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "submenuTypography": {
       "type": "object",
 			"copyStyle": true
@@ -188,14 +196,38 @@
       "type": "object",
 			"copyStyle": true
     },
+		"submenuItemBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "submenuItemBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "submenuFirstItemBorder": {
       "type": "object",
 			"copyStyle": true
     },
+		"submenuFirstItemBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "submenuFirstItemBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "submenuLastItemBorder": {
       "type": "object",
 			"copyStyle": true
     },
+		"submenuLastItemBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "submenuLastItemBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "submenuPanelPadding": {
       "type": "object",
 			"copyStyle": true
@@ -204,6 +236,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"submenuPanelBorderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "submenuPanelBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "submenuPanelBackground": {
       "type": "object",
 			"copyStyle": true
@@ -251,6 +291,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"hamburgerBorderResponsiveNormal": {
+			"type": "object",
+			"migrate": {
+			  "attr": "hamburgerBorderNormal",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "hamburgerColorHover": {
       "type": "object",
 			"copyStyle": true
@@ -263,6 +311,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"hamburgerBorderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "hamburgerBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "closeWidth": {
       "type": "object",
 			"copyStyle": true
@@ -291,6 +347,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"closeBorderResponsiveNormal": {
+			"type": "object",
+			"migrate": {
+			  "attr": "closeBorderNormal",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "closeColorHover": {
       "type": "object",
 			"copyStyle": true
@@ -303,6 +367,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"closeBorderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "closeBorderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "background": {
       "type": "object",
 			"copyStyle": true
@@ -315,6 +387,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+			  "attr": "border",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadow": {
       "type": "object",
 			"copyStyle": true
@@ -323,6 +403,14 @@
       "type": "object",
 			"copyStyle": true
     },
+		"borderResponsiveHover": {
+			"type": "object",
+			"migrate": {
+			  "attr": "borderHover",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
     "boxShadowHover": {
       "type": "object",
 			"copyStyle": true

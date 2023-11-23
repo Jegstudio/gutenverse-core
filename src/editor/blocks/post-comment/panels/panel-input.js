@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder, handleBoxShadow, handleColor } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleBoxShadow, handleColor } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, ColorControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const inputPanel = (props) => {
@@ -11,14 +11,14 @@ export const inputPanel = (props) => {
 
     return [
         {
-            id: 'inputBorder',
+            id: 'inputBorderResponsive',
             label: __('Input Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -132,7 +132,7 @@ export const inputPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__inputAreaHover}) => setSwitcher({...switcher, inputAreaHover: __inputAreaHover})
+            onChange: ({ __inputAreaHover }) => setSwitcher({ ...switcher, inputAreaHover: __inputAreaHover })
         },
         {
             id: 'inputAreaBoxShadow',

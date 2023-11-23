@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBoxShadow, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleDimension } from 'gutenverse-core/styling';
 
 export const containerPanel = (props) => {
     const { elementId } = props;
@@ -29,7 +29,7 @@ export const containerPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-content`,
-                    render: (value) =>  handleDimension(value, 'padding')
+                    render: (value) => handleDimension(value, 'padding')
                 },
                 {
                     selector: `.${elementId} .guten-popup-left .guten-popup-container, .${elementId} .guten-popup-right .guten-popup-container`,
@@ -56,14 +56,14 @@ export const containerPanel = (props) => {
             ],
         },
         {
-            id: 'containerBorder',
+            id: 'containerBorderResponsive',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-content`,
-                    hasChild: true,
-                    render: (value) => handleBorder(value),
+                    render: (value) => handleBorderV2(value),
                 },
             ],
         },
