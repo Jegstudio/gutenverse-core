@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { handleBorder } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const borderPanel = (props) => {
     const {
@@ -37,7 +36,7 @@ export const borderPanel = (props) => {
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -50,7 +49,7 @@ export const borderPanel = (props) => {
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

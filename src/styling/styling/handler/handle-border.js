@@ -2,7 +2,8 @@ import { isEmpty } from 'lodash';
 import { handleColor, handleDimension, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 
 // Use this for the old version of border control
-export const handleBorderOld = (value) => {
+export const handleBorder = (value) => {
+
     const elementStyle = elementVar();
     const keys = Object.keys(value);
     const sortedKeys = [
@@ -49,7 +50,7 @@ export const handleBorderOld = (value) => {
 };
 
 
-export const handleBorder = (value) => {
+export const handleBorderV2 = (value) => {
     let style = '';
     const keys = Object.keys(value);
     const sortedKeys = [

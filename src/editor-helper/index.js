@@ -433,12 +433,13 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
     });
 };
 
+export const devices = ['Desktop', 'Tablet', 'Mobile'];
+
 /**
  * Attribute Migration functions
  */
 
 const migrateBorderAttr = (from) => {
-    const devices = ['Desktop', 'Tablet', 'Mobile'];
     const radius = from?.radius && {
         ...from?.radius
     };
@@ -470,7 +471,6 @@ export const migrateAttribute = (type, from) => {
 };
 
 const updateOldBorderAttr = (from) => {
-    const devices = ['Desktop', 'Tablet', 'Mobile'];
     let newValue = {};
 
     if (!isEmpty(from)) {

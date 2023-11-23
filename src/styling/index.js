@@ -4,7 +4,7 @@ export { handleDimension, getDimension } from './styling/handler/handle-dimensio
 export { handleTypography } from './styling/handler/handle-typography';
 export { handleUnitPoint, getUnitPoint } from './styling/handler/handle-unit-point';
 export { handleFilter, getFilter } from './styling/handler/handle-filter';
-export { handleBorder } from './styling/handler/handle-border';
+export { handleBorder, handleBorderV2 } from './styling/handler/handle-border';
 export { handleGradient } from './styling/handler/handle-gradient';
 export { handleAlign } from './styling/handler/handle-align';
 export { handleAlignV } from './styling/handler/handle-align';

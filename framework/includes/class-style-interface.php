@@ -23,6 +23,13 @@ abstract class Style_Interface {
 	protected $attrs;
 
 	/**
+	 * Attribute Migration Data
+	 *
+	 * @var array
+	 */
+	protected $attrs_migrated;
+
+	/**
 	 * Element ID
 	 *
 	 * @var array
@@ -82,6 +89,9 @@ abstract class Style_Interface {
 	 * @return string.
 	 */
 	public function generate_style() {
+		// migrate data before generate style.
+		$this->migrated_attr();
+
 		// need to reset style.
 		$this->generate();
 		$this->process_features();
@@ -622,10 +632,8 @@ abstract class Style_Interface {
 						'property'       => function ( $value ) {
 							if ( 'custom' !== $value['size'] ) {
 								return "-webkit-mask-size: {$value['size']};";
-							} else {
-								if ( isset( $value['scale'] ) ) {
-									return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
-								}
+							} elseif ( isset( $value['scale'] ) ) {
+								return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
 							}
 						},
 						'value'          => $this->merge_device_options(
@@ -1568,6 +1576,65 @@ abstract class Style_Interface {
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Migrate Border Attribute
+	 *
+	 * @param array $from Previous Data.
+	 *
+	 * @return array
+	 */
+	protected function migrated_border( $from ) {
+		$devices = $this->get_all_device();
+
+		if ( ! isset( $from ) ) {
+			return;
+		}
+
+		$new_value = array(
+			'Desktop' => $from,
+		);
+
+		if ( isset( $from['radius'] ) ) {
+			foreach ( $devices as $device ) {
+				if ( isset( $from['radius'][ $device ] ) ) {
+					if ( ! isset( $new_value[ $device ] ) ) {
+						$new_value[ $device ] = array();
+					}
+
+					$new_value[ $device ] = array_merge(
+						$new_value[ $device ],
+						array(
+							'radius' => $from['radius'][ $device ],
+						)
+					);
+				}
+			}
+		}
+
+		return $new_value;
+	}
+
+	/**
+	 * If the Migrated Attribute is empty, it will uses the old attribute value
+	 */
+	protected function migrated_attr() {
+		if ( isset( $this->attrs_migrated ) ) {
+			foreach ( $this->attrs_migrated as $key => $data ) {
+				if ( ! isset( $this->attrs[ $data['attr'] ] ) || isset( $this->attrs[ $key ] ) ) {
+					continue;
+				}
+
+				switch ( $data['type'] ) {
+					case 'border':
+						$this->attrs[ $key ] = $this->migrated_border( $this->attrs[ $data['attr'] ] );
+						break;
+					default:
+						break;
+				}
+			}
+		}
 	}
 
 	/**
