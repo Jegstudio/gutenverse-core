@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const paginationStylePanel = (props) => {
@@ -21,7 +21,7 @@ export const paginationStylePanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore span`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ]
         },
@@ -114,6 +114,36 @@ export const paginationStylePanel = (props) => {
             ],
         },
         {
+            id: 'paginationIconSize',
+            label: __('Icon Size', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                },
+                em: {
+                    text: 'em',
+                    min: 0.1,
+                    max: 3,
+                    step: 0.1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i`,
+                    render: value => handleUnitPoint(value, 'font-size')
+                },
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i`,
+                    render: value => handleUnitPoint(value, 'font-size')
+                },
+            ]
+        },
+        {
             id: 'paginationAlign',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
@@ -122,17 +152,17 @@ export const paginationStylePanel = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
@@ -155,7 +185,7 @@ export const paginationStylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__paginationHover}) => setSwitcher({...switcher, paginationHover: __paginationHover})
+            onChange: ({ __paginationHover }) => setSwitcher({ ...switcher, paginationHover: __paginationHover })
         },
         {
             id: 'paginationColor',
@@ -187,7 +217,7 @@ export const paginationStylePanel = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
@@ -202,7 +232,7 @@ export const paginationStylePanel = (props) => {
             label: __('Hover Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,

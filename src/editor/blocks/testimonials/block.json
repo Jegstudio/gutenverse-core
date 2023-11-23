@@ -13,6 +13,10 @@
 			"type": "int",
 			"default": 1
 		},
+		"contentPosition": {
+			"type": "string",
+			"copyStyle": true
+		},
 		"spacing": {
 			"type": "object",
 			"default": {},
@@ -46,9 +50,21 @@
 			"type": "boolean",
 			"default": false
 		},
+		"showRating": {
+			"type": "boolean",
+			"default": false
+		},
 		"iconQuote": {
 			"type": "string",
 			"default": "fas fa-quote-left"
+		},
+		"iconRatingFull":{
+			"type": "string",
+			"default": "fas fa-star"
+		},
+		"iconRatingHalf":{
+			"type": "string",
+			"default": "fas fa-star-half"
 		},
 		"testimonialData": {
 			"type": "array",
@@ -402,13 +418,34 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"ratingAlignment": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingIconSize": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingIconGap": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingMargin": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"testimonial",
-		"review"
-	]
+	"keywords": ["testimonial", "review"]
 }
