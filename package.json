@@ -61,6 +61,7 @@
   "dependencies": {
     "animejs": "^3.2.1",
     "gutenverse-core": "file:gutenverse-core",
-    "shufflejs": "^6.1.0"
+    "shufflejs": "^6.1.0",
+    "classnames": "^2.2.6"
   }
 }

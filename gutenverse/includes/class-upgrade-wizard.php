@@ -104,7 +104,7 @@ class Upgrade_Wizard {
 
 		// Handle `wp_enqueue_scripts`.
 		remove_all_actions( 'wp_enqueue_scripts' );
-		add_filter( 'gutenverse_include_dashboard', array( $this, 'enqueue_scripts' ) );
+		add_filter( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 999999 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 999999 );
 	}
 
@@ -112,7 +112,6 @@ class Upgrade_Wizard {
 	 * Enqueue Scripts
 	 */
 	public function enqueue_scripts() {
-		$include = ( include GUTENVERSE_FRAMEWORK_DIR . '/lib/dependencies/core.asset.php' )['dependencies'];
 		$include = ( include GUTENVERSE_DIR . '/lib/dependencies/wizard.asset.php' )['dependencies'];
 
 		wp_enqueue_script(
