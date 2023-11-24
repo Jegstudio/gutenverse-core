@@ -5,7 +5,7 @@ import { panelList } from './panels/panel-list';
 import {
     useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 

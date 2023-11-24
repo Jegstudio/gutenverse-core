@@ -7,7 +7,7 @@ import { ToolbarGroup } from '@wordpress/components';
 import { useEffect, useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 
 

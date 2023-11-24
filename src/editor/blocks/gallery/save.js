@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import GalleryItem from './components/gallery-item';
-import { Maximize, Minimize, X, ZoomIn } from 'react-feather';
+import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';

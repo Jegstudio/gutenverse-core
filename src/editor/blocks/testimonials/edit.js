@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import SwiperCore, { Autoplay, Navigation, Pagination, Zoom } from 'swiper';

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { CheckboxControl, IconRadioControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleUnitPoint, handleTypography, handleAlign } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {

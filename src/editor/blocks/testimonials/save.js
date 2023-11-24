@@ -1,5 +1,5 @@
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import ContentItem from './components/content-item';
 import { swiperData } from 'gutenverse-core/helper';

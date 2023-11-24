@@ -1,5 +1,5 @@
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useRef, useEffect } from '@wordpress/element';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';

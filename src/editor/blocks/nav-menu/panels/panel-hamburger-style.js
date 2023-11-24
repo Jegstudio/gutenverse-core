@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { AlignLeft, AlignRight } from 'react-feather';
+import { AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl, SizeControl, RangeControl, SwitchControl, BackgroundControl, ColorControl, DimensionControl, HeadingControl, BorderControl } from 'gutenverse-core/controls';
-
 import { handleBackground, handleBorder, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const hamburgerStyle = (props) => {

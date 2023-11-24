@@ -1,6 +1,6 @@
 
 import { InnerBlocks } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 const SaveTab = ({ attributes }) => {
     const {

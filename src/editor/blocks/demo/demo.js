@@ -1,6 +1,6 @@
 import {registerBlockType} from '@wordpress/blocks';
 import {__} from '@wordpress/i18n';
-import {Type} from 'react-feather';
+import {Type} from 'gutenverse-core/components';
 
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@wordpress/block-editor';
 import {ToolbarGroup} from '@wordpress/components';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import save from './save-demo';
 import { compose } from '@wordpress/compose';
 import { panelList } from './panels/panel-list';

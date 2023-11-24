@@ -1,6 +1,6 @@
 
 import { InnerBlocks, RichText } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { AccordionIcon } from './edit';
 
 export const save = (props) => {

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { allowRenderBoxShadow, allowRenderTextShadow, handleBorder, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, ColorControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleTextShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 

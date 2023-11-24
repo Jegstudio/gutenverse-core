@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';

@@ -1,7 +1,7 @@
 
 import { compose } from '@wordpress/compose';
 import { InnerBlocks } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 const save = compose(
 )((props) => {

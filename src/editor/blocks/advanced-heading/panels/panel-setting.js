@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 import { handleAlign } from 'gutenverse-core/styling';
 

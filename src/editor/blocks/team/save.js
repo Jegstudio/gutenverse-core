@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import TeamProfile from './components/team-profile';
 import { getImageSrc } from 'gutenverse-core/editor-helper';

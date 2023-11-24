@@ -1,6 +1,6 @@
 /* External dependencies */
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { useBlockProps } from '@wordpress/block-editor';

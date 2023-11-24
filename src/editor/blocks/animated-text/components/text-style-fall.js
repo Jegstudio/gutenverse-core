@@ -1,6 +1,6 @@
 import anime from 'animejs';
 import { useEffect, useState } from '@wordpress/element';
-import { u } from 'umbrellajs';
+import { u } from 'gutenverse-core/components';
 
 const TextStyleFall = (props) => {
     const {
