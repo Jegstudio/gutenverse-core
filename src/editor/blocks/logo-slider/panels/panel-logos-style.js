@@ -224,7 +224,7 @@ export const logosStylePanel = (props) => {
             ]
         },
         {
-            id: 'imageBorderResponsive',
+            id: 'imageBorder_v2',
             show: !switcher.imageHover || switcher.imageHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -265,7 +265,7 @@ export const logosStylePanel = (props) => {
             ],
         },
         {
-            id: 'imageBorderResponsiveHover',
+            id: 'imageBorderHover_v2',
             show: switcher.imageHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

@@ -218,11 +218,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"postItemBorderResponsive": {
+		"postItemBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "postItemBorder",
-			  "type": "border"
+				"attr": "postItemBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -254,11 +254,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"thumbnailBorderResponsive": {
+		"thumbnailBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "thumbnailBorder",
-			  "type": "border"
+				"attr": "thumbnailBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -302,11 +302,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentBorderResponsive": {
+		"contentBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "contentBorder",
-			  "type": "border"
+				"attr": "contentBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -338,11 +338,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"categoryBorderResponsive": {
+		"categoryBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "categoryBorder",
-			  "type": "border"
+				"attr": "categoryBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -422,11 +422,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreBorderResponsive": {
+		"readmoreBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "readmoreBorder",
-			  "type": "border"
+				"attr": "readmoreBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -434,11 +434,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreHoverBorderResponsive": {
+		"readmoreHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "readmoreHoverBorder",
-			  "type": "border"
+				"attr": "readmoreHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -546,11 +546,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationBorderResponsive": {
+		"paginationBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "paginationBorder",
-			  "type": "border"
+				"attr": "paginationBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -558,11 +558,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationHoverBorderResponsive": {
+		"paginationHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "paginationHoverBorder",
-			  "type": "border"
+				"attr": "paginationHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -588,11 +588,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -604,11 +604,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},

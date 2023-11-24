@@ -24,7 +24,7 @@ export const panelBody = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -68,7 +68,7 @@ export const panelBody = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__accBodyActive}) => setSwitcher({...switcher, accBody: __accBodyActive})
+            onChange: ({ __accBodyActive }) => setSwitcher({ ...switcher, accBody: __accBodyActive })
         },
         {
             id: 'contentBackgroundColor',
@@ -95,7 +95,7 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorderResponsive',
+            id: 'contentBorder_v2',
             show: !switcher.accBody || switcher.accBody === 'normal',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
@@ -132,7 +132,7 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorderActiveResponsive',
+            id: 'contentBorderActive_v2',
             show: switcher.accBody === 'active',
             label: __('Border', 'gutenverse'),
             component: BorderControl,

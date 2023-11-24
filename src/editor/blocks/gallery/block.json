@@ -105,11 +105,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBorderResponsive": {
+		"iconBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "iconBorder",
-			  "type": "border"
+				"attr": "iconBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -125,11 +125,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemBorderResponsive": {
+		"itemBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "itemBorder",
-			  "type": "border"
+				"attr": "itemBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -157,11 +157,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"ItemHoverBorderResponsive": {
+		"ItemHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "ItemHoverBorder",
-			  "type": "border"
+				"attr": "ItemHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -205,11 +205,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemCardBorderResponsive": {
+		"itemCardBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "itemCardBorder",
-			  "type": "border"
+				"attr": "itemCardBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -245,11 +245,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"thumbnailBorderResponsive": {
+		"thumbnailBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "thumbnailBorder",
-			  "type": "border"
+				"attr": "thumbnailBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -306,7 +306,7 @@
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "int" 
+			"type": "int"
 		},
 		"enableLoadText": {
 			"type": "string",
@@ -372,11 +372,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"loadMoreBorderResponsive": {
+		"loadMoreBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "loadMoreBorder",
-			  "type": "border"
+				"attr": "loadMoreBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -384,11 +384,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"loadMoreBorderResponsiveHover": {
+		"loadMoreBorderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "loadMoreBorderHover",
-			  "type": "border"
+				"attr": "loadMoreBorderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -424,11 +424,11 @@
 			"tye": "object",
 			"copyStyle": true
 		},
-		"filterTabBorderResponsive": {
+		"filterTabBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "filterTabBorder",
-			  "type": "border"
+				"attr": "filterTabBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -436,11 +436,11 @@
 			"tye": "object",
 			"copyStyle": true
 		},
-		"filterTabBorderResponsiveActive": {
+		"filterTabBorderActive_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "filterTabBorderActive",
-			  "type": "border"
+				"attr": "filterTabBorderActive",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -489,11 +489,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchBorderResponsive": {
+		"filterSearchBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "filterSearchBorder",
-			  "type": "border"
+				"attr": "filterSearchBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -533,11 +533,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchFormBorderResponsive": {
+		"filterSearchFormBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "filterSearchFormBorder",
-			  "type": "border"
+				"attr": "filterSearchFormBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -561,11 +561,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchDropdownBorderResponsive": {
+		"filterSearchDropdownBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "filterSearchDropdownBorder",
-			  "type": "border"
+				"attr": "filterSearchDropdownBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -587,11 +587,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -603,11 +603,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},

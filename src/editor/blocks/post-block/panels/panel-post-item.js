@@ -89,7 +89,7 @@ export const postItemPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'postItemBorderResponsive',
+            id: 'postItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

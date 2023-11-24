@@ -55,7 +55,7 @@ export const itemCardPanel = (props) => {
             ]
         },
         {
-            id: 'itemCardBorderResponsive',
+            id: 'itemCardBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

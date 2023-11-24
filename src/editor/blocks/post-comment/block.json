@@ -77,11 +77,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"inputBorderResponsive": {
+		"inputBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "inputBorder",
-			  "type": "border"
+				"attr": "inputBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -113,11 +113,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderButtonResponsive": {
+		"borderButton_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderButton",
-			  "type": "border"
+				"attr": "borderButton",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -137,11 +137,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderButtonHoverResponsive": {
+		"borderButtonHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderButtonHover",
-			  "type": "border"
+				"attr": "borderButtonHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -165,11 +165,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -181,11 +181,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -230,37 +230,37 @@
 			"copyStyle": true
 		},
 		"inputColorNormal": {
-            "type": "object",
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputColorHover": {
-            "type": "object",
+		},
+		"inputColorHover": {
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputColorFocus": {
-            "type": "object",
+		},
+		"inputColorFocus": {
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputBgColorNormal": {
-            "type": "object",
+		},
+		"inputBgColorNormal": {
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputBgColorHover": {
-            "type": "object",
+		},
+		"inputBgColorHover": {
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputBgColorFocus": {
-            "type": "object",
+		},
+		"inputBgColorFocus": {
+			"type": "object",
 			"copyStyle": true
-        },
+		},
 		"inputAreaBoxShadow": {
-            "type": "object",
+			"type": "object",
 			"copyStyle": true
-        },
-        "inputAreaBoxShadowHover": {
-            "type": "object",
+		},
+		"inputAreaBoxShadowHover": {
+			"type": "object",
 			"copyStyle": true
-        }
+		}
 	},
 	"usesContext": [
 		"postId",

@@ -75,7 +75,7 @@ export const thumbnailPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'thumbnailBorderResponsive',
+            id: 'thumbnailBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

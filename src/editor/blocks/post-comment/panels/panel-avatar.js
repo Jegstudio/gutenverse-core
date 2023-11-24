@@ -9,7 +9,7 @@ export const avatarPanel = (props) => {
 
     return [
         {
-            id: 'avatarBorderResponsive',
+            id: 'avatarBorder_v2',
             label: __('Avatar Border', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

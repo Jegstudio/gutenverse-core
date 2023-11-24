@@ -11,7 +11,7 @@ export const inputPanel = (props) => {
 
     return [
         {
-            id: 'inputBorderResponsive',
+            id: 'inputBorder_v2',
             label: __('Input Border', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

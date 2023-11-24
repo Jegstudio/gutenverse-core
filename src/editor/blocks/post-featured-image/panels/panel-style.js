@@ -103,7 +103,7 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'imageBorderResponsive',
+            id: 'imageBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

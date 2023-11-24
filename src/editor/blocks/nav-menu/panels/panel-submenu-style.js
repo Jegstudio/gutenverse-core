@@ -70,7 +70,7 @@ export const SubmenuItemStyle = (props) => {
             ]
         },
         {
-            id: 'submenuIndicatorBorderResponsive',
+            id: 'submenuIndicatorBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,
@@ -276,7 +276,7 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu First Child Border')
         },
         {
-            id: 'submenuFirstItemBorderResponsive',
+            id: 'submenuFirstItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,
@@ -293,7 +293,7 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu Last Child Border')
         },
         {
-            id: 'submenuLastItemBorderResponsive',
+            id: 'submenuLastItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

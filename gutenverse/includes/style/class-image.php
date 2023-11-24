@@ -145,8 +145,17 @@ class Image extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imgBorder'] ) ) {
-			$this->handle_border( 'imgBorder', ".{$this->element_id} img" );
+		if ( isset( $this->attrs['imgBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['imgBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['imgShadow'] ) ) {

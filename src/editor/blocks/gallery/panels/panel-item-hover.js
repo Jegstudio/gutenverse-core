@@ -70,7 +70,7 @@ export const itemHoverPanel = (props) => {
             ]
         },
         {
-            id: 'itemHoverBorderResponsive',
+            id: 'itemHoverBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

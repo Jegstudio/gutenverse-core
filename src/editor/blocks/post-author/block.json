@@ -94,11 +94,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"authorBorderResponsive": {
+		"authorBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "authorBorder",
-			  "type": "border"
+				"attr": "authorBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -118,11 +118,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -134,11 +134,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},

@@ -5,7 +5,7 @@ import { handleBorderV2 } from 'gutenverse-core/styling';
 export const thumbnailPanel = ({ elementId }) => {
     return [
         {
-            id: 'thumbnailBorderResponsive',
+            id: 'thumbnailBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

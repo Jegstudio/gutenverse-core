@@ -174,7 +174,7 @@ export const contentListPanel = (props) => {
             ]
         },
         {
-            id: 'contentBorderResponsive',
+            id: 'contentBorder_v2',
             show: !switcher.contentHover || switcher.contentHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -187,7 +187,7 @@ export const contentListPanel = (props) => {
             ]
         },
         {
-            id: 'contentHoverBorderResponsive',
+            id: 'contentHoverBorder_v2',
             show: switcher.contentHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

@@ -242,7 +242,7 @@ export const paginationStylePanel = (props) => {
             ]
         },
         {
-            id: 'paginationBorderResponsive',
+            id: 'paginationBorder_v2',
             show: !switcher.paginationHover || switcher.paginationHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -255,7 +255,7 @@ export const paginationStylePanel = (props) => {
             ]
         },
         {
-            id: 'paginationHoverBorderResponsive',
+            id: 'paginationHoverBorder_v2',
             show: switcher.paginationHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

@@ -23,7 +23,7 @@ export const panelBodyStyle = props => {
             ]
         },
         {
-            id: 'containerBorderResponsive',
+            id: 'containerBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

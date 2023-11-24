@@ -68,11 +68,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"buttonBorderResponsive": {
+		"buttonBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "buttonBorder",
-			  "type": "border"
+				"attr": "buttonBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -84,11 +84,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"buttonBorderResponsiveHover": {
+		"buttonBorderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "buttonBorderHover",
-			  "type": "border"
+				"attr": "buttonBorderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -133,11 +133,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -149,11 +149,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},

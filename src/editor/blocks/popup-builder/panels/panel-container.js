@@ -56,7 +56,7 @@ export const containerPanel = (props) => {
             ],
         },
         {
-            id: 'containerBorderResponsive',
+            id: 'containerBorder_v2',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

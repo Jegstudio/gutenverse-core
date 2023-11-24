@@ -144,8 +144,17 @@ class Social_Share extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['borderType'] ) ) {
-			$this->handle_border( 'borderType', ".{$this->element_id} .gutenverse-share-item" );
+		if ( isset( $this->attrs['borderType_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-share-item",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderType_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
@@ -200,8 +209,17 @@ class Social_Share extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['borderTypeHover'] ) ) {
-			$this->handle_border( 'borderTypeHover', ".{$this->element_id} .gutenverse-share-item:hover" );
+		if ( isset( $this->attrs['borderTypeHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderTypeHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['typography'] ) ) {

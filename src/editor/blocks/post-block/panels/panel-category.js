@@ -98,7 +98,7 @@ export const categoryPanel = (props) => {
             ]
         },
         {
-            id: 'categoryBorderResponsive',
+            id: 'categoryBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

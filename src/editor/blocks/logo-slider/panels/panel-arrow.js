@@ -238,7 +238,7 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorderResponsive',
+            id: 'arrowBorder_v2',
             show: !switcher.arrowHover || switcher.arrowHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -264,7 +264,7 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorderResponsiveHover',
+            id: 'arrowBorderHover_v2',
             show: switcher.arrowHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

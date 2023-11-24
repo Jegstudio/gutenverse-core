@@ -173,7 +173,7 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'hamburgerBorderResponsiveNormal',
+            id: 'hamburgerBorderNormal_v2',
             show: switcher.hamburgerState === undefined || switcher.hamburgerState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -213,7 +213,7 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'hamburgerBorderResponsiveHover',
+            id: 'hamburgerBorderHover_v2',
             show: switcher.hamburgerState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -368,7 +368,7 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'closeBorderResponsiveNormal',
+            id: 'closeBorderNormal_v2',
             show: switcher.closeState === undefined || switcher.closeState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -408,7 +408,7 @@ export const hamburgerStyle = (props) => {
             ]
         },
         {
-            id: 'closeBorderResponsiveHover',
+            id: 'closeBorderHover_v2',
             show: switcher.closeState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

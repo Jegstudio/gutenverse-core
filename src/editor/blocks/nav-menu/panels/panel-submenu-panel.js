@@ -33,7 +33,7 @@ export const SubmenuPanelStyle = (props) => {
             ]
         },
         {
-            id: 'submenuPanelBorderResponsive',
+            id: 'submenuPanelBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

@@ -214,8 +214,17 @@ class Icon_Box extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id}:hover .guten-icon-box-wrapper", $this->attrs['containerBackgroundHover'] );
 		}
 
-		if ( isset( $this->attrs['containerBorder'] ) ) {
-			$this->handle_border( 'containerBorder', ".{$this->element_id} .guten-icon-box-wrapper" );
+		if ( isset( $this->attrs['containerBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['containerBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['containerBoxShadow'] ) ) {
@@ -231,8 +240,17 @@ class Icon_Box extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['containerBorderHover'] ) ) {
-			$this->handle_border( 'containerBorderHover', ".{$this->element_id}:hover .guten-icon-box-wrapper" );
+		if ( isset( $this->attrs['containerBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['containerBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['containerBoxShadowHover'] ) ) {
@@ -313,8 +331,17 @@ class Icon_Box extends Style_Abstract {
 			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.style-gradient", $this->attrs['iconBackgroundHover'] );
 		}
 
-		if ( isset( $this->attrs['iconBorder'] ) ) {
-				$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
+		if ( isset( $this->attrs['iconBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['iconBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
@@ -330,8 +357,17 @@ class Icon_Box extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBorderHover'] ) ) {
-			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
+		if ( isset( $this->attrs['iconBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['iconBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadowHover'] ) ) {

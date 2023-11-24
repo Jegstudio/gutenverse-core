@@ -207,7 +207,7 @@ export const metaPanel = (props) => {
             ]
         },
         {
-            id: 'metaBorderResponsive',
+            id: 'metaBorder_v2',
             show: !switcher.metaHover || switcher.metaHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -220,7 +220,7 @@ export const metaPanel = (props) => {
             ]
         },
         {
-            id: 'metaHoverBorderResponsive',
+            id: 'metaHoverBorder_v2',
             show: switcher.metaHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

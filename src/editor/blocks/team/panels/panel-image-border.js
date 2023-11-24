@@ -27,7 +27,7 @@ export const imageBorderPanel = (props) => {
             onChange: ({ __imageBorderHover }) => setSwitcher({ ...switcher, imageBorder: __imageBorderHover })
         },
         {
-            id: 'imageBorderResponsive',
+            id: 'imageBorder_v2',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -53,7 +53,7 @@ export const imageBorderPanel = (props) => {
             ]
         },
         {
-            id: 'imageBorderHoverResponsive',
+            id: 'imageBorderHover_v2',
             show: switcher.border === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

@@ -54,7 +54,7 @@ export const hoverPanel = (props) => {
             ]
         },
         {
-            id: 'hoverContentBorderResponsive',
+            id: 'hoverContentBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

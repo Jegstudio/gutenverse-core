@@ -55,7 +55,7 @@ export const panelTitle = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-text`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -99,7 +99,7 @@ export const panelTitle = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__accTitleActive}) => setSwitcher({...switcher, accTitle: __accTitleActive})
+            onChange: ({ __accTitleActive }) => setSwitcher({ ...switcher, accTitle: __accTitleActive })
         },
         {
             id: 'titleBackgroundColor',
@@ -126,7 +126,7 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorderResponsive',
+            id: 'titleBorder_v2',
             show: !switcher.accTitle || switcher.accTitle === 'normal',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
@@ -163,7 +163,7 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorderActiveResponsive',
+            id: 'titleBorderActive_v2',
             show: switcher.accTitle === 'active',
             label: __('Border', 'gutenverse'),
             component: BorderControl,

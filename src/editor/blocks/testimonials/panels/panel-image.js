@@ -18,7 +18,7 @@ export const panelImage = ({ elementId, contentType }) => {
             ]
         },
         {
-            id: 'imageBorderResponsive',
+            id: 'imageBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

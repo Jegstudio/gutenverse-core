@@ -109,7 +109,7 @@ export const contentContainerPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'contentBorderResponsive',
+            id: 'contentBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

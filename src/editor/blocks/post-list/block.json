@@ -185,11 +185,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentBorderResponsive": {
+		"contentBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "contentBorder",
-			  "type": "border"
+				"attr": "contentBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -197,11 +197,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentHoverBorderResponsive": {
+		"contentHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "contentHoverBorder",
-			  "type": "border"
+				"attr": "contentHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -333,11 +333,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"metaBorderResponsive": {
+		"metaBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "metaBorder",
-			  "type": "border"
+				"attr": "metaBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -345,11 +345,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"metaHoverBorderResponsive": {
+		"metaHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "metaHoverBorder",
-			  "type": "border"
+				"attr": "metaHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -397,11 +397,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationBorderResponsive": {
+		"paginationBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "paginationBorder",
-			  "type": "border"
+				"attr": "paginationBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -409,11 +409,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationHoverBorderResponsive": {
+		"paginationHoverBorder_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "paginationHoverBorder",
-			  "type": "border"
+				"attr": "paginationHoverBorder",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -439,11 +439,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -455,11 +455,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},

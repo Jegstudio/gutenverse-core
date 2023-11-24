@@ -118,7 +118,7 @@ export const panelItemStyle = props => {
             ]
         },
         {
-            id: 'borderTypeResponsive',
+            id: 'borderType_v2',
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -179,7 +179,7 @@ export const panelItemStyle = props => {
             ]
         },
         {
-            id: 'borderTypeHoverResponsive',
+            id: 'borderTypeHover_v2',
             show: switcher.socialHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

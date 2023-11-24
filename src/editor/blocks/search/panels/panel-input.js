@@ -130,7 +130,7 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderNormalResponsive',
+            id: 'inputBorderNormal_v2',
             show: !switcher.inputState || switcher.inputState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -169,7 +169,7 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderHoverResponsive',
+            id: 'inputBorderHover_v2',
             show: switcher.inputState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

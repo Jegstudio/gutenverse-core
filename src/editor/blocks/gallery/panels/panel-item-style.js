@@ -60,7 +60,7 @@ export const itemStylePanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'itemBorderResponsive',
+            id: 'itemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

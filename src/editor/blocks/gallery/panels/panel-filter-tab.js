@@ -149,7 +149,7 @@ export const filterTabPanel = (props) => {
             ]
         },
         {
-            id: 'filterTabBorderResponsive',
+            id: 'filterTabBorder_v2',
             show: !switcher.filterTab || switcher.filterTab === 'general',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -162,7 +162,7 @@ export const filterTabPanel = (props) => {
             ]
         },
         {
-            id: 'filterTabBorderResponsiveActive',
+            id: 'filterTabBorderActive_v2',
             show: switcher.filterTab === 'active',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

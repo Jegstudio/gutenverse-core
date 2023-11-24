@@ -50,11 +50,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
+		"border_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "border",
-			  "type": "border"
+				"attr": "border",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -66,11 +66,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
+		"borderHover_v2": {
 			"type": "object",
 			"migrate": {
-			  "attr": "borderHover",
-			  "type": "border"
+				"attr": "borderHover",
+				"type": "border"
 			},
 			"copyStyle": true
 		},
@@ -157,15 +157,19 @@
 			"copyStyle": true
 		},
 		"textClip": {
-            "type": "object",
-            "default": {},
+			"type": "object",
+			"default": {},
 			"copyStyle": true
-        }
+		}
 	},
 	"supports": {
 		"anchor": true,
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["heading", "text", "title"]
+	"keywords": [
+		"heading",
+		"text",
+		"title"
+	]
 }

@@ -215,7 +215,7 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'authorBorderResponsive',
+            id: 'authorBorder_v2',
             show: authorAvatar,
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

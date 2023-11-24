@@ -154,7 +154,7 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchBorderResponsive',
+            id: 'filterSearchBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,
@@ -297,7 +297,7 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchFormBorderResponsive',
+            id: 'filterSearchFormBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,
@@ -364,7 +364,7 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchDropdownBorderResponsive',
+            id: 'filterSearchDropdownBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

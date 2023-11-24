@@ -76,7 +76,7 @@ export const buttonPanel = (props) => {
             ]
         },
         {
-            id: 'borderButtonResponsive',
+            id: 'borderButton_v2',
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             label: __('Button Border', 'gutenverse'),
             component: BorderControl,
@@ -183,7 +183,7 @@ export const buttonPanel = (props) => {
             ]
         },
         {
-            id: 'borderButtonHoverResponsive',
+            id: 'borderButtonHover_v2',
             show: switcher.buttonHoverControl === 'hover',
             label: __('Button Border Hover', 'gutenverse'),
             component: BorderControl,

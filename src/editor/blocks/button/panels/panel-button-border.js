@@ -24,10 +24,10 @@ export const buttonBorderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__buttonBorderHover}) => setSwitcher({...switcher, buttonBorder: __buttonBorderHover})
+            onChange: ({ __buttonBorderHover }) => setSwitcher({ ...switcher, buttonBorder: __buttonBorderHover })
         },
         {
-            id: 'buttonBorderResponsive',
+            id: 'buttonBorder_v2',
             show: !switcher.buttonBorder || switcher.buttonBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -40,7 +40,7 @@ export const buttonBorderPanel = (props) => {
             ]
         },
         {
-            id: 'buttonBorderHoverResponsive',
+            id: 'buttonBorderHover_v2',
             show: switcher.buttonBorder === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

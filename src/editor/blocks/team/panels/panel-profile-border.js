@@ -27,7 +27,7 @@ export const profileBorderPanel = (props) => {
             onChange: ({ __profileBorderHover }) => setSwitcher({ ...switcher, profileBorder: __profileBorderHover })
         },
         {
-            id: 'profileBorderResponsive',
+            id: 'profileBorder_v2',
             show: !switcher.profileBorder || switcher.profileBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -53,7 +53,7 @@ export const profileBorderPanel = (props) => {
             ]
         },
         {
-            id: 'profileBorderHoverResponsive',
+            id: 'profileBorderHover_v2',
             show: switcher.profileBorder === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

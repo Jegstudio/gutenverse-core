@@ -77,7 +77,7 @@ export const iconPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'iconBorderResponsive',
+            id: 'iconBorder_v2',
             label: __('Icon Border', 'gutenverse'),
             component: BorderControl,
             allowDeviceControl: true,

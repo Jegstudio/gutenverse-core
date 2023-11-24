@@ -39,7 +39,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"containerBorderResponsive": {
+		"containerBorder_v2": {
 			"type": "object",
 			"migrate": {
 			  "attr": "containerBorder",
@@ -148,7 +148,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"closeBorderResponsive": {
+		"closeBorder_v2": {
 			"type": "object",
 			"migrate": {
 			  "attr": "closeBorder",
@@ -172,7 +172,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"closeBorderResponsiveHover": {
+		"closeBorderHover_v2": {
 			"type": "object",
 			"migrate": {
 			  "attr": "closeBorderHover",

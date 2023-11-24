@@ -51,10 +51,10 @@ export const panelAccordion = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__accBorderHover}) => setSwitcher({...switcher, accBorder: __accBorderHover})
+            onChange: ({ __accBorderHover }) => setSwitcher({ ...switcher, accBorder: __accBorderHover })
         },
         {
-            id: 'accordionBorderResponsive',
+            id: 'accordionBorder_v2',
             show: !switcher.accBorder || switcher.accBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -67,7 +67,7 @@ export const panelAccordion = (props) => {
             ]
         },
         {
-            id: 'accordionBorderActiveResponsive',
+            id: 'accordionBorderActive_v2',
             show: switcher.accBorder === 'active',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

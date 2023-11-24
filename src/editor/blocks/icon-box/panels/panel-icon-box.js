@@ -111,7 +111,7 @@ export const panelIconBoxContainer = (props) => {
             ]
         },
         {
-            id: 'containerBorderResponsive',
+            id: 'containerBorder_v2',
             show: !switcher.containerStyle || switcher.containerStyle === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -137,7 +137,7 @@ export const panelIconBoxContainer = (props) => {
             ]
         },
         {
-            id: 'containerBorderResponsiveHover',
+            id: 'containerBorderHover_v2',
             show: switcher.containerStyle === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

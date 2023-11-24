@@ -192,7 +192,7 @@ export const readmorePanel = (props) => {
             ]
         },
         {
-            id: 'readmoreBorderResponsive',
+            id: 'readmoreBorder_v2',
             show: !switcher.readmoreHover || switcher.readmoreHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -205,7 +205,7 @@ export const readmorePanel = (props) => {
             ]
         },
         {
-            id: 'readmoreHoverBorderResponsive',
+            id: 'readmoreHoverBorder_v2',
             show: switcher.readmoreHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

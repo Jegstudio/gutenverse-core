@@ -52,7 +52,7 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorderResponsive',
+            id: 'iconBorder_v2',
             show: !switcher.iconStyle || switcher.iconStyle === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -91,7 +91,7 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorderResponsiveHover',
+            id: 'iconBorderHover_v2',
             show: switcher.iconStyle === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

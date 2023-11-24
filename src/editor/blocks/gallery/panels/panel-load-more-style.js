@@ -183,7 +183,7 @@ export const loadMoreStylePanel = (props) => {
             ]
         },
         {
-            id: 'loadMoreBorderResponsive',
+            id: 'loadMoreBorder_v2',
             show: !switcher.loadHover || switcher.loadHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -196,7 +196,7 @@ export const loadMoreStylePanel = (props) => {
             ]
         },
         {
-            id: 'loadMoreBorderResponsiveHover',
+            id: 'loadMoreBorderHover_v2',
             show: switcher.loadHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,

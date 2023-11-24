@@ -245,8 +245,17 @@ class Social_Icons extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBorder'] ) ) {
-			$this->handle_border( 'iconBorder', ".{$this->element_id} .guten-social-icon a" );
+		if ( isset( $this->attrs['iconBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-social-icon a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['iconBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
@@ -262,8 +271,17 @@ class Social_Icons extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBorderHover'] ) ) {
-			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .guten-social-icon:hover a" );
+		if ( isset( $this->attrs['iconBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-social-icon:hover a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['iconBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['iconBoxShadowHover'] ) ) {
