@@ -60,7 +60,6 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
-    "crypto-random-string": "^5.0.0",
     "gutenverse-core": "file:gutenverse-core",
     "shufflejs": "^6.1.0"
   }

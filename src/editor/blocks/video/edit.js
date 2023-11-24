@@ -8,7 +8,7 @@ import { ArrowLeft } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { Button } from '@wordpress/components';
-import ReactPlayer from 'gutenverse-core/components';
+import { ReactPlayer } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
