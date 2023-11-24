@@ -45,4 +45,7 @@ export { default as cryptoRandomString } from 'crypto-random-string';
 export * from 'react-feather';
 export { default as Select } from 'react-select';
 export { default as u } from 'umbrellajs';
-export { default as ReactPlayer } from 'react-player'
+export { default as ReactPlayer } from 'react-player';
+export { default as queryString } from 'query-string';
+export * from '@wordpress/block-editor';
+export * from '@wordpress/components';
