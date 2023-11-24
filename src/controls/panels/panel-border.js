@@ -25,10 +25,10 @@ export const borderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__borderHover}) => setSwitcher({...switcher, border: __borderHover})
+            onChange: ({ __borderHover }) => setSwitcher({ ...switcher, border: __borderHover })
         },
         {
-            id: 'borderResponsive',
+            id: 'border_v2',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
@@ -41,7 +41,7 @@ export const borderPanel = (props) => {
             ]
         },
         {
-            id: 'borderResponsiveHover',
+            id: 'borderHover_v2',
             show: switcher.border === 'hover',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,

@@ -59,7 +59,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "display: {$value};";
 					},
 					'value'          => $this->attrs['displayType'],
@@ -71,7 +71,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'width', true );
 						},
 						'value'          => $this->attrs['displayWidth'],
@@ -84,7 +84,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'height' );
 						},
 						'value'          => $this->attrs['displayHeight'],
@@ -97,7 +97,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'default' === $value ) {
 								return null;
 							} else {
@@ -114,7 +114,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'default' === $value ) {
 								return null;
 							} else {
@@ -140,7 +140,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .guten-background-overlay",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacity'],
@@ -153,7 +153,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover > .guten-background-overlay",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacityHover'],
@@ -166,7 +166,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "overflow: {$value};";
 					},
 					'value'          => $this->attrs['displayOverflow'],
@@ -179,7 +179,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "position: {$value};";
 					},
 					'value'          => $this->attrs['positionType'],
@@ -244,7 +244,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-element.{$this->element_id}:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blur'],
@@ -257,7 +257,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-element.{$this->element_id}:hover:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blurHover'],

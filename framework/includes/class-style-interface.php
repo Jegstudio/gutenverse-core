@@ -32,7 +32,7 @@ abstract class Style_Interface {
 	/**
 	 * Element ID
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $element_id;
 
@@ -1243,27 +1243,27 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['borderResponsive'] ) ) {
+		if ( isset( $this->attrs['border_v2'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['normal'],
 					'property'       => function ( $value ) {
 						return $this->handle_border_v2( $value );
 					},
-					'value'          => $this->attrs['borderResponsive'],
+					'value'          => $this->attrs['border_v2'],
 					'device_control' => true,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['borderResponsiveHover'] ) ) {
+		if ( isset( $this->attrs['borderHover_v2'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['hover'],
 					'property'       => function ( $value ) {
 						return $this->handle_border_v2( $value );
 					},
-					'value'          => $this->attrs['borderResponsiveHover'],
+					'value'          => $this->attrs['borderHover_v2'],
 					'device_control' => true,
 				)
 			);
@@ -1299,7 +1299,7 @@ abstract class Style_Interface {
 	/**
 	 * Handle Border V2
 	 *
-	 * @param array $value .
+	 * @param array $data .
 	 *
 	 * @return string
 	 */

@@ -107,13 +107,13 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsive": {
-		  "type": "object",
-		  "migrate": {
-			"attr": "border",
-			"type": "border"
-		  },
-				"copyStyle": true
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
 		},
 		"boxShadow": {
 			"type": "object",
@@ -123,13 +123,13 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderResponsiveHover": {
-		  "type": "object",
-		  "migrate": {
-			"attr": "borderHover",
-			"type": "border"
-		  },
-				"copyStyle": true
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
 		},
 		"boxShadowHover": {
 			"type": "object",
@@ -173,5 +173,8 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["wrapper", "container"]
+	"keywords": [
+		"wrapper",
+		"container"
+	]
 }
