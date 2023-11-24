@@ -60,18 +60,8 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
-    "choices.js": "^10.2.0",
-    "classnames": "^2.3.2",
     "crypto-random-string": "^5.0.0",
-    "flatpickr": "^4.6.13",
     "gutenverse-core": "file:gutenverse-core",
-    "react-datepicker": "^4.11.0",
-    "react-feather": "^2.0.10",
-    "react-id-swiper": "^4.0.0",
-    "react-player": "^2.12.0",
-    "react-select": "^3.1.1",
-    "shufflejs": "^6.1.0",
-    "swiper": "https://gitpkg.now.sh/jegbagus/swiper/dist?master",
-    "umbrellajs": "^3.3.1"
+    "shufflejs": "^6.1.0"
   }
 }
