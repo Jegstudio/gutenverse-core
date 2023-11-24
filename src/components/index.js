@@ -35,3 +35,14 @@ export { default as BannerPro } from './pro/banner-pro';
 export { default as ButtonUpgradePro } from './pro/button-upgrade-pro';
 export { default as CardBannerPro } from './pro/card-banner-pro';
 export { default as CardPro } from './pro/card-pro';
+
+
+//export dependency
+export { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+export * from '@wordpress/icons';
+export { default as classnames } from 'classnames';
+export { default as cryptoRandomString } from 'crypto-random-string';
+export * from 'react-feather';
+export { default as Select } from 'react-select';
+export { default as u } from 'umbrellajs';
+
