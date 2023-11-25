@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder, handleBoxShadow, handleColor } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, ColorControl, SwitchControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBorder, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const inputPanel = (props) => {
     const {
@@ -11,14 +11,88 @@ export const inputPanel = (props) => {
 
     return [
         {
+            id: 'inputTypography',
+            label: __('Input Typography', 'gutenverse'),
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
             id: 'inputBorder',
             label: __('Input Border', 'gutenverse'),
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
                     hasChild: true,
                     render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'inputMargin',
+            label: __('Input Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'inputPadding',
+            label: __('Input Padding', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleDimension(value, 'padding')
                 }
             ]
         },
@@ -132,7 +206,7 @@ export const inputPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__inputAreaHover}) => setSwitcher({...switcher, inputAreaHover: __inputAreaHover})
+            onChange: ({ __inputAreaHover }) => setSwitcher({ ...switcher, inputAreaHover: __inputAreaHover })
         },
         {
             id: 'inputAreaBoxShadow',
