@@ -1,11 +1,8 @@
 import { useRef, useState } from '@wordpress/element';
-import SwiperCore, { Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core/components';
+import Swiper from '../../../components/swiper/id-swiper';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from 'gutenverse-core/editor-helper';
-
-SwiperCore.use([ Navigation, Pagination, Zoom]);
 
 const GalleryPopup = ({ activeIndex, images, onClose }) => {
     const [zoomIn, setZoomIn] = useState(false);

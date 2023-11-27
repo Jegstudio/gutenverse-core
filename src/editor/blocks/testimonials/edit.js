@@ -4,8 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import SwiperCore, { Autoplay, Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core/components';
+import Swiper from '../../components/swiper/id-swiper';
 import ContentItem from './components/content-item';
 import { swiperSettings } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
@@ -14,8 +13,6 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
-
-SwiperCore.use([Autoplay, Navigation, Pagination, Zoom]);
 
 const TestimonialsBlock = compose(
     withCustomStyle(panelList),

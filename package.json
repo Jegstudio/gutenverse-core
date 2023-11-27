@@ -60,8 +60,9 @@
   },
   "dependencies": {
     "animejs": "^3.2.1",
+    "classnames": "^2.2.6",
     "gutenverse-core": "file:gutenverse-core",
     "shufflejs": "^6.1.0",
-    "classnames": "^2.2.6"
+    "swiper": "https://gitpkg.now.sh/jegbagus/swiper/dist?master"
   }
 }
