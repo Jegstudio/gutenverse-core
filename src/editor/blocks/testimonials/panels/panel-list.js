@@ -9,6 +9,7 @@ import { panelContentTypography } from './panel-content-typography';
 import { panelImage } from './panel-image';
 import { sliderPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { panelRatingStyle } from './panel-rating-style';
 
 export const panelList = () => {
     return [
@@ -44,6 +45,12 @@ export const panelList = () => {
             title: __('Client Image', 'gutenverse'),
             initialOpen: false,
             panelArray: panelImage,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Rating Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: panelRatingStyle,
             tabRole: TabStyle
         },
         {

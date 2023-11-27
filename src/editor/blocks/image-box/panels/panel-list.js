@@ -9,9 +9,16 @@ import { panelDescriptionStyle } from './panel-description-style';
 import { panelFloating } from './panel-floating';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { panelWrapper } from './panel-wrapper';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Wrapper', 'gutenverse'),
+            panelArray: panelWrapper,
+            initialOpen: false,
+            tabRole: TabSetting
+        },
         {
             title: __('Image', 'gutenverse'),
             panelArray: panelImage,

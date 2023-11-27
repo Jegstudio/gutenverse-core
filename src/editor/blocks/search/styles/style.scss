@@ -1,4 +1,11 @@
 .gutenverse-search-form{
     display: flex;
     flex-wrap: wrap;
+
+    .guten-search-button-wrapper{
+        flex-grow: 1;
+    }
+    .guten-button-wrapper{
+        flex-grow: 1;
+    }
 }
