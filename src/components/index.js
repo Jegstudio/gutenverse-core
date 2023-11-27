@@ -1,3 +1,4 @@
+
 export { default as Helmet } from './helmet/helmet';
 export { default as ChoiceSelect } from './choices/choice-select';
 export { default as Swiper } from './swiper/id-swiper';
@@ -35,3 +36,20 @@ export { default as BannerPro } from './pro/banner-pro';
 export { default as ButtonUpgradePro } from './pro/button-upgrade-pro';
 export { default as CardBannerPro } from './pro/card-banner-pro';
 export { default as CardPro } from './pro/card-pro';
+
+
+//export dependency
+export { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+export * from '@wordpress/icons';
+export { default as classnames } from 'classnames';
+export { default as cryptoRandomString } from 'crypto-random-string';
+export * from 'react-feather';
+export { default as Select } from 'react-select';
+export { default as u } from 'umbrellajs';
+export { default as ReactPlayer } from 'react-player';
+export { default as queryString } from 'query-string';
+export * from '@wordpress/block-editor';
+export * from '@wordpress/components';
+export * from 'react-beautiful-dnd';
+export * from 'react-datepicker';
+

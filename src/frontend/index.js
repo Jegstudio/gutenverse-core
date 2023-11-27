@@ -19,3 +19,6 @@ export { default as GutenverseVideo } from './blocks/video';
 // export { shapeDividerLoader } from '../data/shape-divider-animated';
 // export { renderBorderRadius, renderFilter } from '../animation/options/advance-animation/image/render';
 // export { renderColor, renderSize, renderWidth } from '../animation/options/advance-animation/divider/render';
+
+// dependency Exposh
+export { default as Choices } from 'choices.js';
