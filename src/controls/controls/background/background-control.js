@@ -3,7 +3,7 @@ import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Droplet, Image, Video } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const gradientOption = (props) => {
@@ -97,7 +97,11 @@ const BackgroundControl = (props) => {
         value = {},
         onValueChange,
         onStyleChange,
-        options = []
+        options = [],
+        label,
+        description,
+        proLabel,
+        allowDeviceControl,
     } = props;
 
     const availableOptions = [
@@ -143,6 +147,13 @@ const BackgroundControl = (props) => {
     const id = useInstanceId(BackgroundControl, 'inspector-background-control');
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-background'}>
+        <ControlHeadingSimple
+            label={label}
+            description={description}
+            proLabel={proLabel}
+            id={`${id}-range`}
+            allowDeviceControl={allowDeviceControl}
+        />
         <IconRadioControl
             label={__('Background Type', '--gctd--')}
             value={value.type}

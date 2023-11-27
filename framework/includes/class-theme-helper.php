@@ -38,7 +38,7 @@ class Theme_Helper {
 		 * But because framework called using init hook.
 		 * Now these functions will be called directly.
 		 */
-		$this->register_block_core_template_part();
+		add_action( 'wp', array( $this, 'register_block_core_template_part' ) );
 	}
 
 	/**

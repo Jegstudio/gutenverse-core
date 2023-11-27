@@ -38,9 +38,9 @@ const SortableItem = SortableElement(props => {
         resetStatus,
         id,
         resetMethod,
+        refreshStyle,
         booleanSwitcher = false,
     } = props;
-
     const toggleOpen = () => {
         if (openLast === null || openLast !== index) {
             setOpenLast(index);
@@ -63,7 +63,6 @@ const SortableItem = SortableElement(props => {
         e.stopPropagation();
         duplicateIndex(index);
     };
-
     const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
@@ -81,7 +80,7 @@ const SortableItem = SortableElement(props => {
                 </div>
             }
             {
-                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={resetMethod} >
+                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index,items,onStyleChange,onValueChange,refreshStyle) } >
                     <RotateCcw size={12} />
                 </div>
             }
@@ -95,12 +94,11 @@ const SortableItem = SortableElement(props => {
                 } else {
                     showControl = item.show !== undefined ? item.show(items[index]) : true;
                 }
-
                 return showControl && <RepeaterComponent
                     index={index}
                     component={item.component}
                     key={`${id}-${item.id}`}
-                    id={`${id}-${item.id}`}
+                    id={item._key === undefined ? `${id}-${index}` : item._key}
                     value={items[index]}
                     itemProps={item}
                     onValueChange={val => onUpdateIndexValue(val)}
@@ -115,9 +113,9 @@ const SortableItem = SortableElement(props => {
 });
 
 const SortableList = SortableContainer(props => {
-    const { items, id, resetMethod, onStyleChange, onValueChange, refreshStyle, value } = props;
+    const { items, id} = props;
     return (
-        <div>
+        <ul>
             {items.map((item, index) => {
                 return <SortableItem
                     key={item._key === undefined ? `${id}-${index}` : item._key}
@@ -126,11 +124,10 @@ const SortableList = SortableContainer(props => {
                     value={item}
                     item={item}
                     items={items}
-                    resetMethod={() => resetMethod(index, value, onStyleChange, onValueChange, refreshStyle)}
                     {...props}
                 />;
             })}
-        </div>
+        </ul>
     );
 });
 
