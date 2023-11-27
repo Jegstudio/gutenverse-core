@@ -144,6 +144,9 @@
       "type": "object",
       "default": {}
     },
+    "cursorEffect": {
+      "type": "object"
+    },
     "hideDesktop": {
       "type": "boolean"
     },

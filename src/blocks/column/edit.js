@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
@@ -775,6 +775,7 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
+    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationSticky(),
     withCopyElementToolbar()
@@ -812,6 +813,7 @@ const ColumnBlock = compose(
         width,
         sticky = {},
         stickyPosition,
+        cursorEffect,
     } = attributes;
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -949,6 +951,7 @@ const ColumnBlock = compose(
                 'column-filled': hasChildBlocks,
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
                 'is-hovered': isHovered,
+                [`${elementId}-disable-cursor-default`]: cursorEffect?.disableDefault && cursorEffect?.show,
             }
         ),
         ref: columnRef,

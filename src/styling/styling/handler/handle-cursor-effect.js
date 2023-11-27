@@ -17,7 +17,7 @@ export const handleCursorEffect = (style, props, id) => {
         iconColor,
         iconSize,
         imageSize,
-        texBorder,
+        textBorder,
         typography,
     } = style;
 
@@ -49,9 +49,9 @@ export const handleCursorEffect = (style, props, id) => {
                     }
                 });
             }
-            if(texBorder){
+            if(textBorder){
                 DeviceLoop(device => {
-                    const _border = deviceStyleValue(device, texBorder);
+                    const _border = deviceStyleValue(device, textBorder);
                     const newElementStyle = handleBorder(_border);
                     elementStyle.adminStyle = {...elementStyle.adminStyle,
                         Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
@@ -87,7 +87,7 @@ export const handleCursorEffect = (style, props, id) => {
         case 'image':
             if(imageSize?.point){
                 normalAppender({
-                    style: `width: ${imageSize.point}${imageSize.unit};height: ${imageSize.point}${imageSize.unit};display:flex;`,
+                    style: `width: ${imageSize.point}${imageSize.unit};height: ${imageSize.point}${imageSize.unit};`,
                     elementStyle
                 });
             }

@@ -39,6 +39,7 @@ const save = compose(
         topSticky,
         bottomSticky,
         backgroundAnimated = {},
+        cursorEffect,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -58,6 +59,7 @@ const save = compose(
             [`overflow-${overflow}`]: overflow && overflow !== 'none',
             ['guten-sticky']: isSticky(sticky),
             [`sticky-${stickyPosition}`]: isSticky(sticky),
+            [`${elementId}-disable-cursor-default`]: cursorEffect?.disableDefault && cursorEffect?.show,
         }
     );
 

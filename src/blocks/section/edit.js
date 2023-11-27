@@ -183,7 +183,6 @@ const SectionBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
-        setBound
     } = props;
 
     const {
@@ -259,26 +258,13 @@ const SectionBlock = compose(
     const Component = innerBlocksLength ? SectionWrapper : SectionPlaceholder;
     const dataId = elementId ? elementId.split('-')[1] : '';
 
-    var selectedSection = document.getElementById(dataId);
-    var bound = selectedSection?.getBoundingClientRect();
-
-    function handleMouseEvents() {
-        if (setBound) {
-            bound = selectedSection?.getBoundingClientRect();
-            setBound(bound);
-        }
-    }
-
-    selectedSection?.addEventListener('mouseover', handleMouseEvents);
-    selectedSection?.addEventListener('mouseout', handleMouseEvents);
-
     return <>
         <SectionBlockControl
             {...props}
             clientId={clientId}
         />
         <SectionInspection {...props} />
-        <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'show-cursor-effect' : ''} ${cursorEffect?.disableDefault ? 'disable-cursor-default' : ''}`} ref={sectionWrapper} data-id={dataId}>
+        <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? elementId + '-show-cursor-effect' : ''} ${cursorEffect?.disableDefault && cursorEffect?.show? elementId + '-disable-cursor-default' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
