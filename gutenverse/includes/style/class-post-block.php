@@ -888,6 +888,30 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['paginationIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['paginationIconSize'],
+					'device_control' => true,
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'font-size' );
+					},
+					'value'          => $this->attrs['paginationIconSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['paginationAlign'] ) ) {
 			$this->inject_style(
 				array(

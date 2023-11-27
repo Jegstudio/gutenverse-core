@@ -28,7 +28,7 @@ defined( 'GUTENVERSE_PATH' ) || define( 'GUTENVERSE_PATH', plugin_basename( __FI
 defined( 'GUTENVERSE_FRAMEWORK_URL' ) || define( 'GUTENVERSE_FRAMEWORK_URL', plugins_url( GUTENVERSE ) . '/lib/framework' );
 
 // Required Pro Version.
-defined( 'GUTENVERSE_REQUIRED_PRO_VERSION' ) || define( 'GUTENVERSE_REQUIRED_PRO_VERSION', '1.0.1' );
+defined( 'GUTENVERSE_REQUIRED_PRO_VERSION' ) || define( 'GUTENVERSE_REQUIRED_PRO_VERSION', '1.0.0' );
 
 require_once GUTENVERSE_DIR . 'lib/autoload.php';
 

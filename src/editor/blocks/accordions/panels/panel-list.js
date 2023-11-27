@@ -5,9 +5,16 @@ import { panelAccordion } from './panel-accordion';
 import { panelBody } from './panel-body';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { panelIconStyle } from './panel-icon-style';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Icon Style', 'gutenverse'),
+            panelArray: panelIconStyle,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
         {
             title: __('Accordion Item', 'gutenverse'),
             panelArray: panelAccordion,
@@ -18,7 +25,6 @@ export const panelList = () => {
             title: __('Icon', 'gutenverse'),
             panelArray: panelIcon,
             initialOpen: false,
-            tabRole: TabStyle
         },
         {
             title: __('Title', 'gutenverse'),

@@ -211,8 +211,10 @@
         .rating-stars {
             margin: 0px;
             padding: 0px;
+            display: flex;
+            list-style: none;
+            justify-content: center;
             li {
-                display: inline-block;
                 color: $color-yellow;
             }
             li:not(:last-child) {
@@ -241,8 +243,10 @@
                 margin: 0px;
                 margin-bottom: 15px;
                 padding: 0px;
+                display: flex;
+                list-style: none;
+                justify-content: center;
                 li {
-                    display: inline-block;
                     color: $color-yellow;
                 }
                 li:not(:last-child) {
@@ -366,11 +370,12 @@
         }
         .rating-stars {
             margin: 0px;
-            padding: 0px;
-            text-align: center;
+            padding: 0px;            
             margin-bottom: 15px;
+            display: flex;
+            list-style: none;
+            justify-content: center;
             li {
-                display: inline-block;
                 color: $color-yellow;
             }
             li:not(:last-child) {
@@ -429,10 +434,11 @@
         .rating-stars {
             margin: 0px;
             padding: 0px;
-            text-align: center;
             margin-bottom: 15px;
+            display: flex;
+            list-style: none;
+            justify-content: center;
             li {
-                display: inline-block;
                 color: $color-yellow;
             }
             li:not(:last-child) {

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageControl, RepeaterControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
+import { ImageControl, RangeControl, RepeaterControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
 
 export const itemPanel = () => {
     return [
@@ -16,19 +16,27 @@ export const itemPanel = () => {
                 },
                 {
                     id: 'src',
-                    label: __('Profile Picture', 'gutenverse'),
+                    label: __('Client Picture', 'gutenverse'),
                     component: ImageControl,
                 },
                 {
+                    id: 'rating',
+                    label: __('Rating', 'gutenverse'),
+                    component: RangeControl,
+                    min: 0,
+                    max: 5,
+                    step: 0.5,
+                },
+                {
                     id: 'description',
-                    label: __('Description', 'gutenverse'),
+                    label: __('Designation', 'gutenverse'),
                     component: TextControl,
                 },
                 {
                     id: 'comment',
                     label: __('Comment', 'gutenverse'),
                     component: TextareaControl,
-                }
+                },
             ],
         },
     ];

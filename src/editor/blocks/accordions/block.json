@@ -230,14 +230,49 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"iconMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconActiveSize": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBackground": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"iconBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBoxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconActiveBackground": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"iconActiveBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconActiveBoxShadow": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
 		"className": false,
 		"html": false
 	},
-	"keywords": [
-		"tabs",
-		"accordion"
-	]
+	"keywords": ["tabs", "accordion"]
 }
