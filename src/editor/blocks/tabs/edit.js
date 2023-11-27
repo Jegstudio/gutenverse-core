@@ -9,14 +9,14 @@ import {
     useBlockProps,
     useInnerBlocksProps, BlockControls
 } from '@wordpress/block-editor';
-import classnames from 'classnames';
-import cryptoRandomString from 'crypto-random-string';
-import { trash, plus } from '@wordpress/icons';
+import { classnames } from 'gutenverse-core/components';
+import { cryptoRandomString } from 'gutenverse-core/components';
+import { trash, plus } from 'gutenverse-core/components';
 import { ToolbarButton, ToolbarGroup, Tooltip } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { PanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
-import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'react-feather';
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { reorder } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';

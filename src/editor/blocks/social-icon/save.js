@@ -1,5 +1,5 @@
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { getSocialType } from 'gutenverse-core/helper';
 import { compose } from '@wordpress/compose';

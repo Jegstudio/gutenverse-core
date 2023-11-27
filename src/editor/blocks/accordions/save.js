@@ -1,6 +1,6 @@
 
 import { InnerBlocks } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 

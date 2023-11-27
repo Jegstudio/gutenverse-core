@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';

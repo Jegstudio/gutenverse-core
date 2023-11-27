@@ -1,6 +1,9 @@
 .gutenverse-image-box {
     @include transition(false, false, all .4s ease);
+    display: flex;
     text-align: center;
+    flex-direction: column;
+
     .image-box-header {
         @include transition(false, false, all .4s ease);
         position: relative;

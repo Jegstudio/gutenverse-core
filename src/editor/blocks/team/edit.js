@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { getSaveElement } from '@wordpress/blocks';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';

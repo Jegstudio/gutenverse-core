@@ -3,7 +3,7 @@ import {Dropdown, ToolbarButton} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { DOWN } from '@wordpress/keycodes';
 import { imageRatio } from '../data/image-ratio';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 const IMAGE_RATIO = imageRatio();
 

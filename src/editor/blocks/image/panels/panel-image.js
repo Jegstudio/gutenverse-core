@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BorderControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { isEmptyString } from 'gutenverse-core/helper';
 import { allowRenderBoxShadow, handleAlignReverse, handleBorderV2, handleUnitPoint } from 'gutenverse-core/styling';

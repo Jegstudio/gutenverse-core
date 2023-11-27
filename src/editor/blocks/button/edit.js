@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -20,7 +20,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
-import { link } from '@wordpress/icons';
+import { link } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 

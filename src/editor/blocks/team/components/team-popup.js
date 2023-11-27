@@ -1,7 +1,7 @@
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { X } from 'react-feather';
+import { X } from 'gutenverse-core/components';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 
 const TeamPopup = ({elementId, show = false, onClose = () => {}, src, nameTag: NameTag, name, description, job, phone, email, socialComponent}) => {

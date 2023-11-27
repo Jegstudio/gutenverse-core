@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';

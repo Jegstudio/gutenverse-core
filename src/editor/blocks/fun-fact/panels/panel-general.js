@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleColor } from 'gutenverse-core/styling';
 
 export const generalPanel = ({ elementId, hoverBottom }) => {

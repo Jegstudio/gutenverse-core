@@ -3,7 +3,7 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -12,7 +12,7 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
-import { plus } from '@wordpress/icons';
+import { plus } from 'gutenverse-core/components';
 import { displayShortcut } from '@wordpress/keycodes';
 
 const Accordions = compose(

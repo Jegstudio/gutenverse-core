@@ -9,14 +9,14 @@ import {
     useBlockProps,
     useInnerBlocksProps
 } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
-import { Image } from 'react-feather';
+import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';

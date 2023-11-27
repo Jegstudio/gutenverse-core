@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { allowRenderTextShadow, handleAlign, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { IconRadioControl, RangeControl } from 'gutenverse-core/controls';
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
 
 export const contentStyle = (props) => {

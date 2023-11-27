@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import StarIcons from './components/star-icons';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';

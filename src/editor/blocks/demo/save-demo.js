@@ -1,5 +1,5 @@
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import {RichText, useBlockProps} from '@wordpress/block-editor';
 
 const save = ({attributes}) => {

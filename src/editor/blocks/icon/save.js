@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { isEmpty } from 'lodash';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';

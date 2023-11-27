@@ -316,13 +316,14 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"imagePosition": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"image",
-		"box"
-	]
+	"keywords": ["image", "box"]
 }
