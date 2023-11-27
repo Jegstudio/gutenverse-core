@@ -20,5 +20,5 @@ export { default as GutenverseVideo } from './blocks/video';
 // export { renderBorderRadius, renderFilter } from '../animation/options/advance-animation/image/render';
 // export { renderColor, renderSize, renderWidth } from '../animation/options/advance-animation/divider/render';
 
-// dependency Exposh
+// dependency Expose
 export { default as Choices } from 'choices.js';

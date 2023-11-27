@@ -1,7 +1,6 @@
 
 export { default as Helmet } from './helmet/helmet';
 export { default as ChoiceSelect } from './choices/choice-select';
-export { default as Swiper } from './swiper/id-swiper';
 
 /* Misc */
 export { default as SelectParent } from './misc/select-parent';

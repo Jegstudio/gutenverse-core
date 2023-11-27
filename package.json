@@ -39,6 +39,7 @@
     "@wordpress/icons": "^9.23.0",
     "@wordpress/keycodes": "^2.18.3",
     "@wordpress/plugins": "^6.1.0",
+    "array-move": "^4.0.0",
     "axios": "^1.4.0",
     "choices.js": "^9.1.0",
     "classnames": "^2.3.2",
@@ -71,10 +72,8 @@
     "redux": "^4.1.1",
     "round-to": "^6.0.0",
     "semver": "^6.3.0",
-    "sortablejs": "^1.15.0",
-    "swiper": "https://gitpkg.now.sh/jegbagus/swiper/dist?master",
-    "umbrellajs": "^3.3.1",
-    "array-move": "^4.0.0"
+    "sortablejs": "^1.15.0",    
+    "umbrellajs": "^3.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
