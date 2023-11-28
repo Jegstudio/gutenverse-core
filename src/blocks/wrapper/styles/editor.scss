@@ -12,3 +12,9 @@
         width: auto;
     }
 }
+.guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout{
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex !important;
+    flex-wrap: wrap;
+}
