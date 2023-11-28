@@ -66,7 +66,6 @@ const LogoSlider = compose(
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
                     {...swiperSettings(attributes)}
-                    centeredSlides={true}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {
