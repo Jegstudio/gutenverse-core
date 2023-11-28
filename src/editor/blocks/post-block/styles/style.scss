@@ -345,7 +345,7 @@
         text-align: center;
         .guten-block-loadmore {
             display: inline-flex;
-            text-align: center;
+            justify-content: center;
             cursor: pointer;
             border: 1px solid var(--guten-border-color, #eaeaeb);
             @include boxshadow(0 2px 4px rgba(0, 0, 0, 0.08));
@@ -355,6 +355,7 @@
             border-radius: 3px;
             @include transition(false, false, .25s ease);
             color: var(--guten-txt-color);
+            align-items: center;
 
             span {
                 display: block;

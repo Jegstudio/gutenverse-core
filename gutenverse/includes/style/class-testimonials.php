@@ -718,5 +718,83 @@ class Testimonials extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['ratingAlignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return "justify-content: {$value};";
+					},
+					'value'          => $this->attrs['ratingAlignment'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars li, .{$this->element_id}.style-2 ul.rating-stars li, .{$this->element_id}.style-3 ul.rating-stars li, .{$this->element_id}.style-4 ul.rating-stars li",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['ratingColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-2 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-3 .guten-testimonial-item:hover ul.rating-stars li, .{$this->element_id}.style-4 .guten-testimonial-item:hover ul.rating-stars li",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['ratingColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingIconSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} ul.rating-stars li i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value};";
+					},
+					'value'          => $this->attrs['ratingIconSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingIconGap'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return "gap: {$value}px;";
+					},
+					'value'          => $this->attrs['ratingIconGap'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['ratingMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['ratingMargin'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

@@ -55,6 +55,19 @@ class Image_Box extends Style_Abstract {
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
+		if ( isset( $this->attrs['imagePosition'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "flex-direction: {$value};";
+					},
+					'value'          => $this->attrs['imagePosition'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['bodyAlignment'] ) ) {
 			$this->inject_style(
 				array(

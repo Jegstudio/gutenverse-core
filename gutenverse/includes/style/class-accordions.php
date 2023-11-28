@@ -336,5 +336,86 @@ class Accordions extends Style_Abstract {
 		if ( isset( $this->attrs['contentBorderActive'] ) ) {
 			$this->handle_border( 'contentBorderActive', ".{$this->element_id} .accordion-item.active .accordion-content" );
 		}
+
+		if ( isset( $this->attrs['iconMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['iconMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['iconPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconActiveSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['iconActiveSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .accordion-item .accordion-icon", $this->attrs['iconBackground'] );
+		}
+
+		if ( isset( $this->attrs['iconBorder'] ) ) {
+			$this->handle_border( 'iconBorder', ".{$this->element_id} .accordion-item .accordion-icon" );
+		}
+
+		if ( isset( $this->attrs['iconBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['iconBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['iconActiveBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .accordion-item.active .accordion-icon", $this->attrs['iconActiveBackground'] );
+		}
+
+		if ( isset( $this->attrs['iconActiveBorder'] ) ) {
+			$this->handle_border( 'iconActiveBorder', ".{$this->element_id} .accordion-item.active .accordion-icon" );
+		}
+
+		if ( isset( $this->attrs['iconActiveBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['iconActiveBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
 	}
 }

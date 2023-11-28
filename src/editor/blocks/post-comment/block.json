@@ -220,7 +220,19 @@
         "inputAreaBoxShadowHover": {
             "type": "object",
 			"copyStyle": true
-        }
+        },
+		"inputTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"inputMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"inputPadding": {
+			"type": "object",
+			"copyStyle": true
+		}
 	},
 	"usesContext": [
 		"postId",

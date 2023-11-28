@@ -51,7 +51,7 @@ export const panelContentTypography = props => {
         },
         {
             id: 'descriptionTypography',
-            label: __('Description Typography', 'gutenverse'),
+            label: __('Comment Typography', 'gutenverse'),
             component: TypographyControl,
             style: [
                 {
@@ -63,7 +63,7 @@ export const panelContentTypography = props => {
         },
         {
             id: 'descriptionMargin',
-            label: __('Description Margin', 'gutenverse'),
+            label: __('Comment Margin', 'gutenverse'),
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
@@ -207,7 +207,7 @@ export const panelContentTypography = props => {
         {
             id: 'descriptionNormalColor',
             show: !__textHover || __textHover === 'normal',
-            label: __('Description Color', 'gutenverse'),
+            label: __('Comment Color', 'gutenverse'),
             component: ColorControl,
             style: [
                 {
@@ -219,7 +219,7 @@ export const panelContentTypography = props => {
         {
             id: 'descriptionHoverColor',
             show: __textHover === 'hover',
-            label: __('Description Hover Color', 'gutenverse'),
+            label: __('Comment Hover Color', 'gutenverse'),
             component: ColorControl,
             style: [
                 {

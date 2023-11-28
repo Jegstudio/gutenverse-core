@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
@@ -39,6 +38,10 @@ const TestimonialsBlock = compose(
         showQuote,
         iconQuote,
         quoteOverride,
+        contentPosition,
+        showRating,
+        iconRatingHalf,
+        iconRatingFull
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -78,7 +81,16 @@ const TestimonialsBlock = compose(
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {testimonialData.map((data, index) => <div key={index} >
-                        <ContentItem {...data} contentType={contentType} showQuote={showQuote} iconQuote={iconQuote} quoteOverride={quoteOverride} />
+                        <ContentItem {...data}
+                            contentType={contentType}
+                            showQuote={showQuote}
+                            iconQuote={iconQuote}
+                            quoteOverride={quoteOverride}
+                            contentPosition={contentPosition}
+                            showRating={showRating}
+                            iconRatingFull={iconRatingFull}
+                            iconRatingHalf={iconRatingHalf}
+                        />
                     </div>)}
                 </Swiper>
             </div>
