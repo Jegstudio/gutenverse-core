@@ -2,12 +2,12 @@
   position: relative;
   width: 100%;
 
-  .swiper-wrapper {
-    height: auto;
-  }
-
   .swiper-container {
     overflow: hidden;
+  }
+
+  .swiper-wrapper {
+    height: auto;
     .image-list {
       @include displayflex();
       @include alignitemscenter();

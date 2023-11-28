@@ -4,9 +4,9 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import Swiper from '../../components/swiper/id-swiper';
+import WPSwiper from '../../components/swiper/wp-swiper';
 import ContentItem from './components/content-item';
-import { swiperSettings } from 'gutenverse-core/editor-helper';
+import { swiperSettings } from '../../components/swiper/helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -73,7 +73,7 @@ const TestimonialsBlock = compose(
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div className="testimonials-list" onClick={focusBlock}>
-                <Swiper
+                <WPSwiper
                     {...swiperSettings(attributes)}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
@@ -89,7 +89,7 @@ const TestimonialsBlock = compose(
                             iconRatingHalf={iconRatingHalf}
                         />
                     </div>)}
-                </Swiper>
+                </WPSwiper>
             </div>
         </div>
     </>;

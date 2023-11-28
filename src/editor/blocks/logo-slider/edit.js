@@ -4,8 +4,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import Swiper from '../../components/swiper/id-swiper';
-import { swiperSettings } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
@@ -14,6 +12,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
+import { Swiper, swiperSettings } from '../../components/swiper';
 
 const LogoSlider = compose(
     withCustomStyle(panelList),
@@ -31,7 +30,7 @@ const LogoSlider = compose(
 
     const {
         elementId,
-        logos,
+        logos
     } = attributes;
 
     const sliderRef = useRef();
@@ -67,6 +66,7 @@ const LogoSlider = compose(
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
                     {...swiperSettings(attributes)}
+                    centeredSlides={true}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {

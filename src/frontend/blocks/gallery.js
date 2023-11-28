@@ -19,7 +19,6 @@ class GutenverseGallery extends Default {
                     });
                 });
         }
-        
     }
 
     /* private */

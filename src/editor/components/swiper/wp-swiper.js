@@ -1,10 +1,11 @@
 import { cloneElement, isValidElement, Children, useRef, useMemo, forwardRef, useEffect, useCallback, createElement } from '@wordpress/element';
-import Swiper, { Autoplay, Navigation, Pagination, Zoom } from 'swiper';
+import Swiper from 'swiper';
+import { Autoplay, Navigation, Pagination, Zoom } from 'swiper/modules';
 import objectAssign from 'object-assign';
 
 Swiper.use([Autoplay, Navigation, Pagination, Zoom]);
 
-const WpIdSwiper = forwardRef((props, externalRef) => {
+const WpSwiper = forwardRef((props, externalRef) => {
     const {
         activeSlideKey,
         ContainerEl = 'div',
@@ -190,4 +191,4 @@ const isReactElement = (element) => {
             typeof element.type === 'object');
 };
 
-export default WpIdSwiper;
+export default WpSwiper;
