@@ -10,7 +10,6 @@ import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppend
 import identity from 'lodash/identity';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
-import isInteger from 'lodash/isInteger';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import pickBy from 'lodash/pickBy';
@@ -214,55 +213,6 @@ export function useGlobalStylesConfig() {
         setUserConfig: setConfig
     };
 }
-
-export const swiperSettings = (attributes) => {
-    const deviceType = getDeviceType();
-    const {
-        initialSlide,
-        spacing,
-        itemShowed,
-        loop,
-        showNav,
-        showArrow,
-        zoom,
-        zoomRatio,
-        autoplay,
-        autoplayTimeout
-    } = attributes;
-
-    const slidesNumber = () => {
-        switch (deviceType) {
-            case 'Mobile':
-                return 1;
-            case 'Tablet':
-                return 2;
-            default:
-                return 3;
-        }
-    };
-
-    return {
-        initialSlide: initialSlide ? initialSlide : 0,
-        loop: loop ? loop : false,
-        autoplay: autoplay ? {
-            delay: parseInt(autoplayTimeout)
-        } : false,
-        navigation: showArrow ? {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        } : false,
-        pagination: showNav ? {
-            el: '.swiper-pagination',
-            type: 'bullets',
-            clickable: true
-        } : false,
-        zoom: zoom ? {
-            maxRatio: zoomRatio ? zoomRatio : 2,
-        } : false,
-        spaceBetween: spacing && spacing[deviceType] ? parseInt(spacing[deviceType]) : isInteger(spacing) ? spacing : 10,
-        slidesPerView: itemShowed && itemShowed[deviceType] ? parseInt(itemShowed[deviceType]) : isInteger(itemShowed) ? itemShowed : slidesNumber(),
-    };
-};
 
 export const renderColor = (color) => {
     if (!isEmpty(color)) {
