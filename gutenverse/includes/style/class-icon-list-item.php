@@ -50,5 +50,18 @@ class Icon_List_Item extends Style_Abstract {
 	/**
 	 * Generate style base on attribute.
 	 */
-	public function generate() {}
+	public function generate() {
+		if ( isset( $this->attrs['iconLineHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} i",
+					'property'       => function ( $value ) {
+						return "line-height: {$value}px;";
+					},
+					'value'          => $this->attrs['iconLineHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+	}
 }

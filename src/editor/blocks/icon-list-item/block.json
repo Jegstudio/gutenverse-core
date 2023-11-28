@@ -67,6 +67,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"iconLineHeight": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
