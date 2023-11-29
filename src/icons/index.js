@@ -370,3 +370,11 @@ export const IconHamburgerSVG = ({size = 16}) => {
         <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path>
     </svg>;
 };
+export const IconDragSVG = ({size = 16}) => {
+    return <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="11" r="1" fill="#BDBEBF"/>
+        <circle cx="5" cy="6" r="1" fill="#BDBEBF"/>
+        <circle cx="11" cy="11" r="1" fill="#BDBEBF"/>
+        <circle cx="11" cy="6" r="1" fill="#BDBEBF"/>
+    </svg>;
+};

@@ -23,16 +23,16 @@ abstract class Style_Interface {
 	protected $attrs;
 
 	/**
-	 * Inline-Block Componen
+	 * Attribute Migration Data
 	 *
-	 * @var boolean .
+	 * @var array
 	 */
-	protected $in_flex = true;
+	protected $attrs_migrated;
 
 	/**
 	 * Element ID
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $element_id;
 
@@ -89,6 +89,9 @@ abstract class Style_Interface {
 	 * @return string.
 	 */
 	public function generate_style() {
+		// migrate data before generate style.
+		$this->migrated_attr();
+
 		// need to reset style.
 		$this->generate();
 		$this->process_features();
@@ -629,10 +632,8 @@ abstract class Style_Interface {
 						'property'       => function ( $value ) {
 							if ( 'custom' !== $value['size'] ) {
 								return "-webkit-mask-size: {$value['size']};";
-							} else {
-								if ( isset( $value['scale'] ) ) {
-									return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
-								}
+							} elseif ( isset( $value['scale'] ) ) {
+								return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
 							}
 						},
 						'value'          => $this->merge_device_options(
@@ -1242,12 +1243,30 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['border'] ) ) {
-			$this->handle_border( 'border', $selector['normal'] );
+		if ( isset( $this->attrs['border_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['normal'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['border_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['borderHover'] ) ) {
-			$this->handle_border( 'borderHover', $selector['hover'] );
+		if ( isset( $this->attrs['borderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['hover'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['boxShadow'] ) ) {
@@ -1275,6 +1294,37 @@ abstract class Style_Interface {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Handle Border V2
+	 *
+	 * @param array $data .
+	 *
+	 * @return string
+	 */
+	protected function handle_border_v2( $data ) {
+		$style = '';
+
+		foreach ( $data as $key => $value ) {
+			if ( 'radius' === $key ) {
+				$style .= $this->handle_border_radius( $value );
+			} elseif ( ! empty( $value ) && ! empty( $value['type'] ) ) {
+				$position = 'all' === $key ? '' : "{$key}-";
+
+				$style .= "border-{$position}style: {$value['type']};";
+
+				if ( ! gutenverse_truly_empty( $value['width'] ) ) {
+					$style .= "border-{$position}width: {$value['width']}px;";
+				}
+
+				if ( ! empty( $value['color'] ) ) {
+					$style .= $this->handle_color( $value['color'], "border-{$position}color" );
+				}
+			}
+		}
+
+		return $style;
 	}
 
 	/**
@@ -1575,6 +1625,65 @@ abstract class Style_Interface {
 		}
 
 		return $string;
+	}
+
+	/**
+	 * Migrate Border Attribute
+	 *
+	 * @param array $from Previous Data.
+	 *
+	 * @return array
+	 */
+	protected function migrated_border( $from ) {
+		$devices = $this->get_all_device();
+
+		if ( ! isset( $from ) ) {
+			return;
+		}
+
+		$new_value = array(
+			'Desktop' => $from,
+		);
+
+		if ( isset( $from['radius'] ) ) {
+			foreach ( $devices as $device ) {
+				if ( isset( $from['radius'][ $device ] ) ) {
+					if ( ! isset( $new_value[ $device ] ) ) {
+						$new_value[ $device ] = array();
+					}
+
+					$new_value[ $device ] = array_merge(
+						$new_value[ $device ],
+						array(
+							'radius' => $from['radius'][ $device ],
+						)
+					);
+				}
+			}
+		}
+
+		return $new_value;
+	}
+
+	/**
+	 * If the Migrated Attribute is empty, it will uses the old attribute value
+	 */
+	protected function migrated_attr() {
+		if ( isset( $this->attrs_migrated ) ) {
+			foreach ( $this->attrs_migrated as $key => $data ) {
+				if ( ! isset( $this->attrs[ $data['attr'] ] ) || isset( $this->attrs[ $key ] ) ) {
+					continue;
+				}
+
+				switch ( $data['type'] ) {
+					case 'border':
+						$this->attrs[ $key ] = $this->migrated_border( $this->attrs[ $data['attr'] ] );
+						break;
+					default:
+						break;
+				}
+			}
+		}
 	}
 
 	/**

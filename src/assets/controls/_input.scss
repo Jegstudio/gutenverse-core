@@ -3,6 +3,101 @@
 @import "icon-popup";
 @import "react-datepicker/src/stylesheets/datepicker";
 
+.repeater-item {
+  border: 1px solid #e3e4e6;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  overflow: visible;
+
+  &:last-child {
+    margin-bottom: 20px;
+  }
+
+  &.open {
+    .repeater-header {
+      border-bottom: 1px solid #ddd;
+    }
+  }
+
+  &.sortable-ghost {
+    opacity: 0.5;
+  }
+}
+
+.repeater-header {
+  padding: 8px 14px;
+  display: flex;
+  background: #f2f4f7;
+  cursor: pointer;
+}
+
+.repeater-body {
+  padding: 5px 15px 10px;
+  background: #fff;
+}
+
+.repeater-title {
+  flex-grow: 1;
+  line-height: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.repeater-expand {
+  cursor: pointer;
+  display: flex;
+
+  svg {
+    transform: rotate(-90deg);
+
+    path {
+      fill: #242424;
+      stroke: #242424;
+    }
+  }
+
+  &.expand {
+    svg {
+      transform: rotate(0);
+    }
+  }
+}
+
+.repeater-drag-handle {
+  @include centering-element();
+  width: 28px;
+  width: 16px;
+  margin-right: 10px;
+  cursor: grab;
+}
+.repeater-remove,
+.repeater-duplicate,
+.repeater-clear{
+  @include centering-element();
+  width: 28px;
+  height: 28px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #fff;
+
+  svg {
+    width: 25px;
+    height: 12px;
+    color: #99a2a9;
+  }
+}
+.repeater-remove{
+  margin-right: 10px;
+}
+.repeater-duplicate{
+  svg {
+    width: 12px;
+    height: 12px;
+    color: #99a2a9;
+  }
+}
 .gutenverse-control-wrapper {
 
   font-size: 13px;
@@ -779,6 +874,7 @@
             text-align: center;
             padding-right: 27px;
             padding-left: 0;
+            width: 50px;
           }
 
           label {
@@ -787,7 +883,6 @@
             color: #969696;
             font-size: 9px;
             margin-top: 2px;
-            padding-left: 5px;
             margin-right: 2px;
           }
         }
@@ -1491,6 +1586,13 @@
         }
       }
 
+      .repeater-drag-handle {
+        @include centering-element();
+        width: 28px;
+        width: 16px;
+        margin-right: 10px;
+        cursor: grab;
+      }
       .repeater-remove,
       .repeater-duplicate,
       .repeater-clear,
@@ -1509,7 +1611,13 @@
           color: #99a2a9;
         }
       }
-
+      .repeater-duplicate{
+        svg {
+          width: 12px;
+          height: 12px;
+          color: #99a2a9;
+        }
+      }
       .repeater-empty {
         border: 1px dashed #c1c1c1;
         padding: 20px;
