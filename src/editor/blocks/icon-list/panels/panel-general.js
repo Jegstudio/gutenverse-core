@@ -127,8 +127,8 @@ export const panelGeneral = (props) => {
             step: 1,
             style: [
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child),
-                    .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)`,
+                    selector: `.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(li:first-of-type) > a,
+                    .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(li:first-of-type) > a`,
                     render: value => `margin-top: calc(${value}px/2);`
                 },
                 {
