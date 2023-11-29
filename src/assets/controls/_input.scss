@@ -74,8 +74,7 @@
 }
 .repeater-remove,
 .repeater-duplicate,
-.repeater-clear,
-.repeater-add {
+.repeater-clear{
   @include centering-element();
   width: 28px;
   height: 28px;
@@ -876,6 +875,7 @@
             text-align: center;
             padding-right: 27px;
             padding-left: 0;
+            width: 50px;
           }
 
           label {
@@ -884,7 +884,6 @@
             color: #969696;
             font-size: 9px;
             margin-top: 2px;
-            padding-left: 5px;
             margin-right: 2px;
           }
         }

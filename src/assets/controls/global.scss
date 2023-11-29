@@ -18,7 +18,19 @@
       }
     }
   }
-
+.gutenverse-info{
+    background: #F9F9FF;
+    border: 1px solid #E3E4E6;
+    padding: 10px;
+    margin: 10px 5px 10px;
+    border-radius: 7px;
+    display: flex;
+    gap: 10;
+    
+    svg{
+        margin: 2px;
+    }
+}
 .gutenverse-how {
     background: #F9F9FF;
     border: 1px solid #E3E4E6;

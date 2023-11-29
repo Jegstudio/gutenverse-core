@@ -184,7 +184,6 @@ const BorderControl = (props) => {
                 }
             }}
             value={value && value.radius}
-            allowDeviceControl={true}
             onValueChange={radius => onValueChange({ ...value, radius })}
             onStyleChange={radius => onStyleChange({ ...value, radius })}
         />

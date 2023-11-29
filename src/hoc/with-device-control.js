@@ -9,18 +9,18 @@ export const withDeviceControl = (BlockControl) => {
         const panelProps = allowDeviceControl ? {
             ...props,
             onValueChange: (data) => {
-                const newData = {
+                const newData = data ? {
                     ...value,
                     [deviceType]: data
-                };
+                } : {};
 
                 props.onValueChange(newData);
             },
             onStyleChange: (data) => {
-                const newData = {
+                const newData = data ? {
                     ...value,
                     [deviceType]: data
-                };
+                } : {};
 
                 props.onStyleChange(newData);
             },
