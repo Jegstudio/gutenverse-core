@@ -33,6 +33,7 @@ export const panelGeneral = (props) => {
             id: 'iconPosition',
             label: __('Icon Position', 'gutenverse'),
             component: SelectControl,
+            allowDeviceControl: true,
             options: [
                 {
                     value: 'top',

@@ -109,7 +109,7 @@
 			"type": "string"
 		},
 		"iconPosition": {
-			"type": "string",
+			"type": "object",
 			"copyStyle": true
 		},
 		"align": {

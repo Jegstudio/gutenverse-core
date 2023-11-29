@@ -60,8 +60,7 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
-        'guten-icon-box',
-        `icon-position-${iconPosition}`,
+        'guten-icon-box'
     );
 
     const iconContent = () => {
@@ -87,8 +86,10 @@ const save = compose(
         }
     };
 
+    const position = iconPosition? JSON.stringify({...iconPosition})  : undefined;
+
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-position={position}>
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconContent()}
                 <div className="icon-box icon-box-body">

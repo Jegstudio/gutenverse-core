@@ -46,7 +46,8 @@ const IconBoxBlock = compose(
         isSelected,
         attributes,
         setAttributes,
-        setElementRef
+        setElementRef,
+        deviceType,
     } = props;
 
     const {
@@ -72,6 +73,22 @@ const IconBoxBlock = compose(
         separateButtonLink,
     } = attributes;
 
+    let responsiveIconPosition;
+    switch (deviceType) {
+        case 'Mobile':
+            responsiveIconPosition = iconPosition?.Mobile;
+            break;
+        case 'Tablet':
+            responsiveIconPosition = iconPosition?.Tablet;
+            break;
+        case 'Desktop':
+            responsiveIconPosition = iconPosition?.Desktop;
+            break;
+        default :
+            responsiveIconPosition = 'top';
+            break;
+    }
+
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -86,7 +103,7 @@ const IconBoxBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            `icon-position-${iconPosition}`,
+            {[`icon-position-${responsiveIconPosition}`]: iconPosition},
         ),
         ref: iconBoxRef
     });
