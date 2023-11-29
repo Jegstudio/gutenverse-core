@@ -59,7 +59,7 @@ const save = compose(
             [`overflow-${overflow}`]: overflow && overflow !== 'none',
             ['guten-sticky']: isSticky(sticky),
             [`sticky-${stickyPosition}`]: isSticky(sticky),
-            [`${elementId}-disable-cursor-default`]: cursorEffect?.disableDefault && cursorEffect?.show,
+            ['guten-cursor-effect']: cursorEffect?.show,
         }
     );
 

@@ -71,6 +71,9 @@
 		"backgroundOverlayHover": {
 			"type": "object"
 		},
+		"cursorEffect": {
+			"type": "object"
+		  },
 		"blur": {
 			"type": "object"
 		},

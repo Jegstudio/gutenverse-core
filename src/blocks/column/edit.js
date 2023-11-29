@@ -951,7 +951,6 @@ const ColumnBlock = compose(
                 'column-filled': hasChildBlocks,
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
                 'is-hovered': isHovered,
-                [`${elementId}-disable-cursor-default`]: cursorEffect?.disableDefault && cursorEffect?.show,
             }
         ),
         ref: columnRef,

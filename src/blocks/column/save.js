@@ -33,6 +33,10 @@ const save = compose(
         [`sticky-${stickyPosition}`]: isCanSticky,
     };
 
+    const cursorEffectClass = {
+        ['guten-cursor-effect']: cursorEffect?.show
+    };
+
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -43,9 +47,7 @@ const save = compose(
         animationClass,
         displayClass,
         stickyClass,
-        {
-            [`${elementId}-disable-cursor-default`]: cursorEffect?.disableDefault && cursorEffect?.show,
-        }
+        cursorEffectClass,
     );
 
     const blockProps = useBlockProps.save({

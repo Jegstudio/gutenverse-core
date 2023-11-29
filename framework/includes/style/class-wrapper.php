@@ -34,17 +34,18 @@ class Wrapper extends Style_Abstract {
 
 		$this->set_feature(
 			array(
-				'background' => array(
+				'background'    => array(
 					'normal' => ".{$this->element_id}",
 					'hover'  => ".{$this->element_id}:hover",
 				),
-				'border'     => array(
+				'border'        => array(
 					'normal' => ".{$this->element_id}",
 					'hover'  => ".{$this->element_id}:hover",
 				),
-				'animation'  => ".{$this->element_id}",
-				'advance'    => ".{$this->element_id}",
-				'mask'       => null,
+				'animation'     => ".{$this->element_id}",
+				'advance'       => ".{$this->element_id}",
+				'mask'          => null,
+				'cursor-effect' => null,
 			)
 		);
 	}

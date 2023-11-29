@@ -264,7 +264,7 @@ const SectionBlock = compose(
             clientId={clientId}
         />
         <SectionInspection {...props} />
-        <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? elementId + '-show-cursor-effect' : ''} ${cursorEffect?.disableDefault && cursorEffect?.show? elementId + '-disable-cursor-default' : ''}`} ref={sectionWrapper} data-id={dataId}>
+        <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
