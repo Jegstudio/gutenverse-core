@@ -8,7 +8,8 @@ export const panelGeneral = (props) => {
     const {
         elementId,
         watermarkShow,
-        badgeShow
+        badgeShow,
+        deviceType
     } = props;
 
     return [
@@ -32,6 +33,29 @@ export const panelGeneral = (props) => {
         {
             id: 'iconPosition',
             label: __('Icon Position', 'gutenverse'),
+            show: deviceType === 'Desktop',
+            component: SelectControl,
+            allowDeviceControl: true,
+            protectedValue: true,
+            options: [
+                {
+                    value: 'top',
+                    label: 'Top'
+                },
+                {
+                    value: 'left',
+                    label: 'Left'
+                },
+                {
+                    value: 'right',
+                    label: 'Right'
+                },
+            ]
+        },
+        {
+            id: 'iconPosition_v2',
+            label: __('Icon Position', 'gutenverse'),
+            show: deviceType !== 'Desktop',
             component: SelectControl,
             allowDeviceControl: true,
             options: [

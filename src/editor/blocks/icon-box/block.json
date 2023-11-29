@@ -109,6 +109,10 @@
 			"type": "string"
 		},
 		"iconPosition": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"iconPosition_v2": {
 			"type": "object",
 			"copyStyle": true
 		},

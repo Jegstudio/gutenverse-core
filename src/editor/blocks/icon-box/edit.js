@@ -63,6 +63,7 @@ const IconBoxBlock = compose(
         icon,
         iconType,
         iconPosition,
+        iconPosition_v2,
         iconStyleMode = 'color',
         watermarkIcon,
         watermarkShow,
@@ -73,16 +74,18 @@ const IconBoxBlock = compose(
         separateButtonLink,
     } = attributes;
 
+    console.log(iconPosition + '---' + iconPosition_v2);
+
     let responsiveIconPosition;
     switch (deviceType) {
         case 'Mobile':
-            responsiveIconPosition = iconPosition?.Mobile;
+            responsiveIconPosition = iconPosition_v2?.Mobile;
             break;
         case 'Tablet':
-            responsiveIconPosition = iconPosition?.Tablet;
+            responsiveIconPosition = iconPosition_v2?.Tablet;
             break;
         case 'Desktop':
-            responsiveIconPosition = iconPosition?.Desktop;
+            responsiveIconPosition = iconPosition;
             break;
         default :
             responsiveIconPosition = 'top';
@@ -103,7 +106,7 @@ const IconBoxBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {[`icon-position-${responsiveIconPosition}`]: iconPosition},
+            {[`icon-position-${responsiveIconPosition}`]: responsiveIconPosition},
         ),
         ref: iconBoxRef
     });
@@ -159,6 +162,12 @@ const IconBoxBlock = compose(
         }
     }, [iconBoxRef]);
 
+    useEffect(()=>{
+        setAttributes({
+            deviceType: deviceType,
+        });
+    },[deviceType]);
+
     useEffect(() => {
         !separateButtonLink && getBlocks(clientId).map(block => {
             updateBlockAttributes(block.clientId, { url, rel, linkTarget });
@@ -166,7 +175,7 @@ const IconBoxBlock = compose(
     }, [url, rel, linkTarget, separateButtonLink]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar

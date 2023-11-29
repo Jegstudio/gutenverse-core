@@ -40,6 +40,7 @@ const save = compose(
         imageAlt,
         icon,
         iconType,
+        iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
         watermarkShow,
@@ -59,7 +60,7 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
-        'guten-icon-box'
+        {[`icon-position-${iconPosition}`] : iconPosition}
     );
 
     const iconContent = () => {
