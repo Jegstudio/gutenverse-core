@@ -81,12 +81,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const imageBorderPanel = (props) => {
@@ -24,18 +24,18 @@ export const imageBorderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__imageBorderHover}) => setSwitcher({...switcher, imageBorder: __imageBorderHover})
+            onChange: ({ __imageBorderHover }) => setSwitcher({ ...switcher, imageBorder: __imageBorderHover })
         },
         {
-            id: 'imageBorder',
+            id: 'imageBorder_v2',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card img`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -53,15 +53,15 @@ export const imageBorderPanel = (props) => {
             ]
         },
         {
-            id: 'imageBorderHover',
+            id: 'imageBorderHover_v2',
             show: switcher.border === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card img:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

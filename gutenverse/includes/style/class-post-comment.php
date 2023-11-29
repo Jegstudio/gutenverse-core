@@ -198,12 +198,30 @@ class Post_Comment extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['inputBorder'] ) ) {
-			$this->handle_border( 'inputBorder', ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea" );
+		if ( isset( $this->attrs['inputBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['inputBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['avatarBorder'] ) ) {
-			$this->handle_border( 'avatarBorder', ".{$this->element_id} .comment-author img.avatar" );
+		if ( isset( $this->attrs['avatarBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-author img.avatar",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['avatarBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['typographyButton'] ) ) {
@@ -246,8 +264,17 @@ class Post_Comment extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id}.guten-post-comment input[type=submit]", $this->attrs['bggradientButton'] );
 		}
 
-		if ( isset( $this->attrs['borderButton'] ) ) {
-			$this->handle_border( 'borderButton', ".{$this->element_id}.guten-post-comment input[type=submit]" );
+		if ( isset( $this->attrs['borderButton_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderButton_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['marginButton'] ) ) {
@@ -306,8 +333,17 @@ class Post_Comment extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id}.guten-post-comment input[type=submit]:hover", $this->attrs['bggradientButtonHover'] );
 		}
 
-		if ( isset( $this->attrs['borderButtonHover'] ) ) {
-			$this->handle_border( 'borderButtonHover', ".{$this->element_id}.guten-post-comment input[type=submit]:hover" );
+		if ( isset( $this->attrs['borderButtonHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['borderButtonHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['marginButtonHover'] ) ) {

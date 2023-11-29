@@ -50,12 +50,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {
@@ -141,15 +157,19 @@
 			"copyStyle": true
 		},
 		"textClip": {
-            "type": "object",
-            "default": {},
+			"type": "object",
+			"default": {},
 			"copyStyle": true
-        }
+		}
 	},
 	"supports": {
 		"anchor": true,
 		"reusable": false,
 		"html": false
 	},
-	"keywords": ["heading", "text", "title"]
+	"keywords": [
+		"heading",
+		"text",
+		"title"
+	]
 }

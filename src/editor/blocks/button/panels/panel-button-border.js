@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
@@ -24,31 +24,31 @@ export const buttonBorderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__buttonBorderHover}) => setSwitcher({...switcher, buttonBorder: __buttonBorderHover})
+            onChange: ({ __buttonBorderHover }) => setSwitcher({ ...switcher, buttonBorder: __buttonBorderHover })
         },
         {
-            id: 'buttonBorder',
+            id: 'buttonBorder_v2',
             show: !switcher.buttonBorder || switcher.buttonBorder === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'buttonBorderHover',
+            id: 'buttonBorderHover_v2',
             show: switcher.buttonBorder === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

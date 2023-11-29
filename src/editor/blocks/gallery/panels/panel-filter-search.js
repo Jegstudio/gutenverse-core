@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterSearchPanel = (props) => {
@@ -23,7 +23,7 @@ export const filterSearchPanel = (props) => {
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap span, .${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls li, .${elementId} .search-filters-wrap form.guten-gallery-search-box input[type=text]`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -34,7 +34,7 @@ export const filterSearchPanel = (props) => {
         },
         {
             id: 'filterSearchIconPosition',
-            label:  __('Icon Position', 'gutenverse'),
+            label: __('Icon Position', 'gutenverse'),
             component: SelectControl,
             options: [
                 {
@@ -154,14 +154,14 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchBorder',
+            id: 'filterSearchBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap button.search-filter-trigger`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -297,14 +297,14 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchFormBorder',
+            id: 'filterSearchFormBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -354,7 +354,7 @@ export const filterSearchPanel = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls`,
@@ -364,14 +364,14 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchDropdownBorder',
+            id: 'filterSearchDropdownBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

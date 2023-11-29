@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentListPanel = (props) => {
@@ -22,17 +22,17 @@ export const contentListPanel = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
@@ -141,7 +141,7 @@ export const contentListPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__contentHover}) => setSwitcher({...switcher, contentHover: __contentHover})
+            onChange: ({ __contentHover }) => setSwitcher({ ...switcher, contentHover: __contentHover })
         },
         {
             id: 'contentBackground',
@@ -149,7 +149,7 @@ export const contentListPanel = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post`,
@@ -164,7 +164,7 @@ export const contentListPanel = (props) => {
             label: __('Hover Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post:hover`,
@@ -174,28 +174,28 @@ export const contentListPanel = (props) => {
             ]
         },
         {
-            id: 'contentBorder',
+            id: 'contentBorder_v2',
             show: !switcher.contentHover || switcher.contentHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
         {
-            id: 'contentHoverBorder',
+            id: 'contentHoverBorder_v2',
             show: switcher.contentHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

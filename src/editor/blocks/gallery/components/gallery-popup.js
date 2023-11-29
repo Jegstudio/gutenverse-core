@@ -1,11 +1,8 @@
 import { useRef, useState } from '@wordpress/element';
-import SwiperCore, { Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core/components';
+import WPSwiper from '../../../components/swiper/wp-swiper';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { Maximize, Minimize, X, ZoomIn } from 'react-feather';
-import { swiperSettings } from 'gutenverse-core/editor-helper';
-
-SwiperCore.use([ Navigation, Pagination, Zoom]);
+import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
+import { swiperSettings } from '../../../components/swiper/helper';
 
 const GalleryPopup = ({ activeIndex, images, onClose }) => {
     const [zoomIn, setZoomIn] = useState(false);
@@ -64,7 +61,7 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
         </div>
         <div className="gallery-body">
             <div className="images">
-                <Swiper
+                <WPSwiper
                     {...swiperSettings({
                         initialSlide : activeIndex,
                         loop: true,
@@ -79,7 +76,7 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
                             {image && <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title}/>}
                         </div>
                     </div>)}
-                </Swiper>
+                </WPSwiper>
             </div>
         </div>
     </div>;

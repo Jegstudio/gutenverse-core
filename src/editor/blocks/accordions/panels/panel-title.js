@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitle = (props) => {
     const {
@@ -55,7 +55,7 @@ export const panelTitle = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-text`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -99,7 +99,7 @@ export const panelTitle = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__accTitleActive}) => setSwitcher({...switcher, accTitle: __accTitleActive})
+            onChange: ({ __accTitleActive }) => setSwitcher({ ...switcher, accTitle: __accTitleActive })
         },
         {
             id: 'titleBackgroundColor',
@@ -126,15 +126,15 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorder',
+            id: 'titleBorder_v2',
             show: !switcher.accTitle || switcher.accTitle === 'normal',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-heading`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -163,15 +163,15 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorderActive',
+            id: 'titleBorderActive_v2',
             show: switcher.accTitle === 'active',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-heading`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

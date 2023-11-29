@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const postItemPanel = ({elementId}) => {
+export const postItemPanel = ({ elementId }) => {
     return [
         {
             id: 'postItemGap',
@@ -25,7 +25,7 @@ export const postItemPanel = ({elementId}) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post`,
@@ -89,14 +89,14 @@ export const postItemPanel = ({elementId}) => {
             ]
         },
         {
-            id: 'postItemBorder',
+            id: 'postItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

@@ -6,7 +6,7 @@ import {
     TypographyControl,
     BorderControl
 } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography, handleBorder } from 'gutenverse-core/styling';
+import { handleColor, handleUnitPoint, handleTypography, handleBorderV2 } from 'gutenverse-core/styling';
 
 export const panelStyle = props => {
     const {
@@ -27,7 +27,7 @@ export const panelStyle = props => {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item .gutenverse-share-text`,
                     hasChild: true,
                     allowRender: () => showText,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -70,7 +70,7 @@ export const panelStyle = props => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__socialHover}) => setSwitcher({...switcher, socialHover: __socialHover})
+            onChange: ({ __socialHover }) => setSwitcher({ ...switcher, socialHover: __socialHover })
         },
         {
             id: 'iconColor',
@@ -123,15 +123,15 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'border',
+            id: 'border_v2',
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -186,15 +186,15 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'borderHover',
+            id: 'borderHover_v2',
             show: switcher.socialHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

@@ -111,8 +111,17 @@ class Post_Featured_Image extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imageBorder'] ) ) {
-			$this->handle_border( 'imageBorder', ".{$this->element_id} img" );
+		if ( isset( $this->attrs['imageBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['imageBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['imageBoxShadow'] ) ) {

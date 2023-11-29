@@ -1,12 +1,12 @@
 import { __ } from '@wordpress/i18n';
 
-import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BorderControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { isEmptyString } from 'gutenverse-core/helper';
-import { allowRenderBoxShadow, handleAlignReverse, handleBorder, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleAlignReverse, handleBorderV2, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const imagePanel = ({elementId}) => {
+export const imagePanel = ({ elementId }) => {
     return [
         {
             id: 'align',
@@ -17,17 +17,17 @@ export const imagePanel = ({elementId}) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
@@ -159,14 +159,14 @@ export const imagePanel = ({elementId}) => {
             ]
         },
         {
-            id: 'imgBorder',
+            id: 'imgBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} img`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

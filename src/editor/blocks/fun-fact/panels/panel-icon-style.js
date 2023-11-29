@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { handleBorderV2, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconStylePanel = (props) => {
     const {
@@ -23,7 +23,7 @@ export const iconStylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__iconHover}) => setSwitcher({...switcher, iconStyle: __iconHover})
+            onChange: ({ __iconHover }) => setSwitcher({ ...switcher, iconStyle: __iconHover })
         },
         {
             id: 'iconColor',
@@ -52,15 +52,15 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorder',
+            id: 'iconBorder_v2',
             show: !switcher.iconStyle || switcher.iconStyle === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -91,15 +91,15 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorderHover',
+            id: 'iconBorderHover_v2',
             show: switcher.iconStyle === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

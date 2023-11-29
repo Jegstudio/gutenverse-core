@@ -55,6 +55,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "imageBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"imageBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -73,12 +81,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

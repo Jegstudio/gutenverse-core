@@ -145,12 +145,30 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-post:hover", $this->attrs['contentHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['contentBorder'] ) ) {
-			$this->handle_border( 'contentBorder', ".{$this->element_id} .guten-post a" );
+		if ( isset( $this->attrs['contentBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['contentBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['contentHoverBorder'] ) ) {
-			$this->handle_border( 'contentHoverBorder', ".{$this->element_id} .guten-post:hover a" );
+		if ( isset( $this->attrs['contentHoverBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post:hover a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['contentHoverBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['contentShadow'] ) ) {
@@ -517,12 +535,30 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-post:hover a .meta-lists span", $this->attrs['metaHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['metaBorder'] ) ) {
-			$this->handle_border( 'metaBorder', ".{$this->element_id} .guten-post a .meta-lists span" );
+		if ( isset( $this->attrs['metaBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['metaBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['metaHoverBorder'] ) ) {
-			$this->handle_border( 'metaHoverBorder', ".{$this->element_id} .guten-post:hover a .meta-lists span" );
+		if ( isset( $this->attrs['metaHoverBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists span",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['metaHoverBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['paginationTypography'] ) ) {
@@ -646,12 +682,30 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover", $this->attrs['paginationHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['paginationBorder'] ) ) {
-			$this->handle_border( 'paginationBorder', ".{$this->element_id} .guten-block-pagination .guten-block-loadmore" );
+		if ( isset( $this->attrs['paginationBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['paginationBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['paginationHoverBorder'] ) ) {
-			$this->handle_border( 'paginationHoverBorder', ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover" );
+		if ( isset( $this->attrs['paginationHoverBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['paginationHoverBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['paginationShadow'] ) ) {

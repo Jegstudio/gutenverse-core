@@ -1,12 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import SwiperCore, { Autoplay, Navigation, Pagination, Zoom } from 'swiper';
-import { Swiper } from 'gutenverse-core/components';
-import { swiperSettings } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
@@ -15,8 +12,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
-
-SwiperCore.use([Autoplay, Navigation, Pagination, Zoom]);
+import { Swiper, swiperSettings } from '../../components/swiper';
 
 const LogoSlider = compose(
     withCustomStyle(panelList),
@@ -34,7 +30,7 @@ const LogoSlider = compose(
 
     const {
         elementId,
-        logos,
+        logos
     } = attributes;
 
     const sliderRef = useRef();

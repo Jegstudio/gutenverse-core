@@ -131,8 +131,17 @@ class Search extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['inputBorderNormal'] ) ) {
-			$this->handle_border( 'inputBorderNormal', ".{$this->element_id} .gutenverse-search.gutenverse-search-input" );
+		if ( isset( $this->attrs['inputBorderNormal_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['inputBorderNormal_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['inputColorHover'] ) ) {
@@ -161,8 +170,17 @@ class Search extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['inputBorderHover'] ) ) {
-			$this->handle_border( 'inputBorderHover', ".{$this->element_id} .gutenverse-search.gutenverse-search-input:hover" );
+		if ( isset( $this->attrs['inputBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['inputBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['inputWidth'] ) ) {

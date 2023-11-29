@@ -39,6 +39,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"containerBorder_v2": {
+			"type": "object",
+			"migrate": {
+			  "attr": "containerBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"containerBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -140,6 +148,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"closeBorder_v2": {
+			"type": "object",
+			"migrate": {
+			  "attr": "closeBorder",
+			  "type": "border"
+			},
+			"copyStyle": true
+		},
 		"closeBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -154,6 +170,14 @@
 		},
 		"closeBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"closeBorderHover_v2": {
+			"type": "object",
+			"migrate": {
+			  "attr": "closeBorderHover",
+			  "type": "border"
+			},
 			"copyStyle": true
 		},
 		"closeBoxShadowHover": {

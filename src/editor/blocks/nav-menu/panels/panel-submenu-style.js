@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { HeadingControl, BackgroundControl, ColorControl, DimensionControl, IconControl, SwitchControl, TypographyControl, BorderControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const SubmenuItemStyle = (props) => {
     const {
@@ -70,14 +70,14 @@ export const SubmenuItemStyle = (props) => {
             ]
         },
         {
-            id: 'submenuIndicatorBorder',
+            id: 'submenuIndicatorBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -89,7 +89,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -254,7 +254,7 @@ export const SubmenuItemStyle = (props) => {
             ]
         },
         {
-            id: 'submenuItemBorderHeading',
+            id: 'submenuItemBorderHeadingResponsive',
             component: HeadingControl,
             label: __('Submenu Border')
         },
@@ -262,11 +262,11 @@ export const SubmenuItemStyle = (props) => {
             id: 'submenuItemBorder',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -276,14 +276,14 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu First Child Border')
         },
         {
-            id: 'submenuFirstItemBorder',
+            id: 'submenuFirstItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -293,14 +293,14 @@ export const SubmenuItemStyle = (props) => {
             label: __('Submenu Last Child Border')
         },
         {
-            id: 'submenuLastItemBorder',
+            id: 'submenuLastItemBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

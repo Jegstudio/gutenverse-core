@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 
-export const panelImage = ({elementId, contentType}) => {
+export const panelImage = ({ elementId, contentType }) => {
     return [
         {
             id: 'imageBackground',
@@ -18,14 +18,14 @@ export const panelImage = ({elementId, contentType}) => {
             ]
         },
         {
-            id: 'imageBorder',
+            id: 'imageBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

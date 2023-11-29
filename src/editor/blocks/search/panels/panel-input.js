@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleColor, handleTypography, handleBorder, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
+import { handleDimension, handleColor, handleTypography, handleBorderV2, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const inputPanel = props => {
     const {
@@ -84,7 +84,7 @@ export const inputPanel = props => {
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -130,15 +130,15 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderNormal',
+            id: 'inputBorderNormal_v2',
             show: !switcher.inputState || switcher.inputState === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -169,15 +169,15 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderHover',
+            id: 'inputBorderHover_v2',
             show: switcher.inputState === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

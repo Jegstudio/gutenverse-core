@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleDimension, handleBackground, handleBorder, allowRenderBoxShadow } from 'gutenverse-core/styling';
+import { handleDimension, handleBackground, handleBorderV2, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconBoxContainer = (props) => {
@@ -24,7 +24,7 @@ export const panelIconBoxContainer = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__containerStyleHover}) => setSwitcher({...switcher, containerStyle: __containerStyleHover})
+            onChange: ({ __containerStyleHover }) => setSwitcher({ ...switcher, containerStyle: __containerStyleHover })
         },
         {
             id: 'containerPadding',
@@ -111,15 +111,15 @@ export const panelIconBoxContainer = (props) => {
             ]
         },
         {
-            id: 'containerBorder',
+            id: 'containerBorder_v2',
             show: !switcher.containerStyle || switcher.containerStyle === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -137,15 +137,15 @@ export const panelIconBoxContainer = (props) => {
             ]
         },
         {
-            id: 'containerBorderHover',
+            id: 'containerBorderHover_v2',
             show: switcher.containerStyle === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover .guten-icon-box-wrapper`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

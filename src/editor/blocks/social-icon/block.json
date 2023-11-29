@@ -44,79 +44,95 @@
     },
     "iconColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "bgColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "textColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "border": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
+    },
+    "border_v2": {
+      "type": "object",
+      "migrate": {
+        "attr": "border",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "borderHover": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
+    },
+    "borderHover_v2": {
+      "type": "object",
+      "migrate": {
+        "attr": "borderHover",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "hoverIconColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hoverBgColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hoverTextColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hoverBorderColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "forceHideText": {
       "type": "boolean",
       "default": false,
-			"copyStyle": true
+      "copyStyle": true
     },
     "iconSize": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "typography": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "animation": {
       "type": "object",
       "default": {},
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideDesktop": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideTablet": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideMobile": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "advanceAnimation": {
       "type": "object",
       "default": {},
-			"copyStyle": true
+      "copyStyle": true
     },
     "mask": {
-			"type": "object",
-			"copyStyle": true
-		}
+      "type": "object",
+      "copyStyle": true
+    }
   },
   "supports": {
     "className": false

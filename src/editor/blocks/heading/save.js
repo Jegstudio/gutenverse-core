@@ -1,6 +1,6 @@
 /* External dependencies */
 
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { RichText, useBlockProps } from '@wordpress/block-editor';

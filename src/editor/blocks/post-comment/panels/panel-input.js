@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const inputPanel = (props) => {
@@ -23,14 +23,14 @@ export const inputPanel = (props) => {
             ],
         },
         {
-            id: 'inputBorder',
+            id: 'inputBorder_v2',
             label: __('Input Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

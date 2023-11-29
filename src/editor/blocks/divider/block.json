@@ -12,11 +12,11 @@
     "type": {
       "type": "string",
       "default": "default",
-			"copyStyle": true
+      "copyStyle": true
     },
     "width": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "content": {
       "type": "string",
@@ -24,30 +24,30 @@
     },
     "dividerColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "size": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "gap": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "text": {
       "type": "string"
     },
     "contentColor": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "contentSpacing": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "typography": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "icon": {
       "type": "string",
@@ -55,113 +55,129 @@
     },
     "iconSize": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "dividerAlign": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "contentAlign": {
       "type": "string",
-			"copyStyle": true
+      "copyStyle": true
     },
     "background": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "backgroundHover": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "border": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
+    },
+    "border_v2": {
+      "type": "object",
+      "migrate": {
+        "attr": "border",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadow": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "borderHover": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
+    },
+    "borderHover_v2": {
+      "type": "object",
+      "migrate": {
+        "attr": "borderHover",
+        "type": "border"
+      },
+      "copyStyle": true
     },
     "boxShadowHover": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "margin": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "padding": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "zIndex": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "animation": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideDesktop": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideTablet": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "hideMobile": {
       "type": "boolean",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningType": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningWidth": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningAlign": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningLocation": {
       "type": "string",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningLeft": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningRight": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningTop": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "positioningBottom": {
       "type": "object",
-			"copyStyle": true
+      "copyStyle": true
     },
     "advanceAnimation": {
       "type": "object",
       "default": {},
-			"copyStyle": true
+      "copyStyle": true
     },
-		"transform": {
-			"type": "object",
-			"copyStyle": true
-		},
+    "transform": {
+      "type": "object",
+      "copyStyle": true
+    },
     "mask": {
-			"type": "object",
-			"copyStyle": true
-		}
+      "type": "object",
+      "copyStyle": true
+    }
   },
   "keywords": [
     "divider",

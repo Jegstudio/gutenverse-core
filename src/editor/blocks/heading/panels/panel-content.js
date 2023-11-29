@@ -1,6 +1,6 @@
 /* External dependencies */
 
-import { AlignLeft, AlignRight, AlignCenter, AlignJustify } from 'react-feather';
+import { AlignLeft, AlignRight, AlignCenter, AlignJustify } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';

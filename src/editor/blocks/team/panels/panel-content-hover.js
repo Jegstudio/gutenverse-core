@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const hoverPanel = (props) => {
@@ -44,7 +44,7 @@ export const hoverPanel = (props) => {
             id: 'hoverContentBgColor',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
             style: [
                 {
                     selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
@@ -54,14 +54,14 @@ export const hoverPanel = (props) => {
             ]
         },
         {
-            id: 'hoverContentBorder',
+            id: 'hoverContentBorder_v2',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

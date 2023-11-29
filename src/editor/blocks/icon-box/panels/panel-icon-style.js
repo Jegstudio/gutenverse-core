@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleBorder, elementVar, normalAppender, allowRenderBoxShadow } from 'gutenverse-core/styling';
+import { handleColor, handleDimension, handleBorderV2, elementVar, normalAppender, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconStyle = (props) => {
@@ -71,7 +71,7 @@ export const panelIconStyle = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__iconHover}) => setSwitcher({...switcher, icon: __iconHover})
+            onChange: ({ __iconHover }) => setSwitcher({ ...switcher, icon: __iconHover })
         },
         {
             id: 'iconColor',
@@ -148,15 +148,15 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorder',
+            id: 'iconBorder_v2',
             show: !switcher.icon || switcher.icon === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -174,15 +174,15 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorderHover',
+            id: 'iconBorderHover_v2',
             show: switcher.icon === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
-import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'react-feather';
+import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {

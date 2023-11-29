@@ -52,6 +52,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"borderType_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderType",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"iconColorHover": {
 			"type": "object",
 			"copyStyle": true
@@ -70,6 +78,14 @@
 		},
 		"borderTypeHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderTypeHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderTypeHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"iconSize": {
@@ -108,12 +124,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

@@ -105,6 +105,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"iconBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "iconBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"itemPadding": {
 			"type": "object",
 			"copyStyle": true
@@ -115,6 +123,14 @@
 		},
 		"itemBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"itemBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "itemBorder",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"itemBoxShadow": {
@@ -139,6 +155,14 @@
 		},
 		"itemHoverBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"ItemHoverBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "ItemHoverBorder",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"itemHoverAlign": {
@@ -181,6 +205,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"itemCardBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "itemCardBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"itemCardAlign": {
 			"type": "object",
 			"copyStyle": true
@@ -211,6 +243,14 @@
 		},
 		"thumbnailBorder": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"thumbnailBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "thumbnailBorder",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"priceRatingPadding": {
@@ -266,7 +306,7 @@
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "int" 
+			"type": "int"
 		},
 		"enableLoadText": {
 			"type": "string",
@@ -332,8 +372,24 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"loadMoreBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "loadMoreBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"loadMoreBorderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"loadMoreBorderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "loadMoreBorderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"filterTabPadding": {
@@ -368,8 +424,24 @@
 			"tye": "object",
 			"copyStyle": true
 		},
+		"filterTabBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "filterTabBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterTabBorderActive": {
 			"tye": "object",
+			"copyStyle": true
+		},
+		"filterTabBorderActive_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "filterTabBorderActive",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"filterTabBoxShadow": {
@@ -417,6 +489,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "filterSearchBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchMargin": {
 			"type": "object",
 			"copyStyle": true
@@ -453,6 +533,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchFormBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "filterSearchFormBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchFormBoxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -473,6 +561,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"filterSearchDropdownBorder_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "filterSearchDropdownBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"filterSearchDropdownPadding": {
 			"type": "object",
 			"copyStyle": true
@@ -491,12 +587,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"borderHover": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {

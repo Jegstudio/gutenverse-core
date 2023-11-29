@@ -1,8 +1,8 @@
 /* External dependencies */
 import { useEffect, useRef, useState } from '@wordpress/element';
-import classnames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 import { u } from 'gutenverse-core-frontend';
-import cryptoRandomString from 'crypto-random-string';
+import { cryptoRandomString } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';

@@ -3,7 +3,7 @@ import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-import classNames from 'classnames';
+import { classnames } from 'gutenverse-core/components';
 
 const save = compose(
     withAnimationAdvanceScript('icon'),
@@ -21,7 +21,7 @@ const save = compose(
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
-    const className = classNames(
+    const className = classnames(
         'guten-element',
         elementId,
         'guten-icon',
@@ -38,7 +38,7 @@ const save = compose(
                 <input type="search"
                     placeholder={inputPlaceholder}
                     name="s"
-                    className={classNames(
+                    className={classnames(
                         'gutenverse-search',
                         'gutenverse-search-input',
                     )}

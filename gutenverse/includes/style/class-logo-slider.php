@@ -144,12 +144,30 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imageBorder'] ) ) {
-			$this->handle_border( 'imageBorder', ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image" );
+		if ( isset( $this->attrs['imageBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['imageBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['imageBorderHover'] ) ) {
-			$this->handle_border( 'imageBorderHover', ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image" );
+		if ( isset( $this->attrs['imageBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['imageBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['imageBoxShadow'] ) ) {
@@ -474,8 +492,17 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorder'] ) ) {
-			$this->handle_border( 'arrowBorder', ".{$this->element_id} div[class*='swiper-button-']" );
+		if ( isset( $this->attrs['arrowBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['arrowBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['arrowBoxShadow'] ) ) {
@@ -491,8 +518,17 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
-			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']" );
+		if ( isset( $this->attrs['arrowBorderHover_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['arrowBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['arrowBoxShadowHover'] ) ) {

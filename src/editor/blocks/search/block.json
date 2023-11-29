@@ -54,11 +54,27 @@
 		"border": {
 			"type": "object"
 		},
+		"border_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"boxShadow": {
 			"type": "object"
 		},
 		"borderHover": {
 			"type": "object"
+		},
+		"borderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
 		},
 		"boxShadowHover": {
 			"type": "object"
@@ -73,89 +89,108 @@
 			"type": "object"
 		},
 		"animation": {
-			"type": "object", 
+			"type": "object",
 			"default": {}
 		},
 		"hideDesktop": {
-			"type": "boolean" 
+			"type": "boolean"
 		},
 		"hideTablet": {
-			"type": "boolean" 
+			"type": "boolean"
 		},
 		"hideMobile": {
-			"type": "boolean" 
+			"type": "boolean"
 		},
 		"placeholderColor": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputPlaceholder": {
 			"type": "string",
-			"default": "Text Placeholder" 
+			"default": "Text Placeholder"
 		},
 		"inputPadding": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputMargin": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputColor": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputHeight": {
 			"type": "object",
-			"default" : {
-				"Desktop" : "50" 
+			"default": {
+				"Desktop": "50"
 			}
 		},
 		"inputWidth": {
 			"type": "object",
-			"default" : {
-				"Desktop" : {
-					"point" : "350",
-					"unit" : "px"
-				} 
+			"default": {
+				"Desktop": {
+					"point": "350",
+					"unit": "px"
+				}
 			}
 		},
 		"inputTypography": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputColorNormal": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputBorderNormal": {
-			"type": "object" 
+			"type": "object"
+		},
+		"inputBorderNormal_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "inputBorderNormal",
+				"type": "border"
+			},
+			"copyStyle": true
 		},
 		"inputColorHover": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputBorderHover": {
-			"type": "object" 
+			"type": "object"
+		},
+		"inputBorderHover_v2": {
+			"type": "object",
+			"migrate": {
+				"attr": "inputBorderHover",
+				"type": "border"
+			},
+			"copyStyle": true
 		},
 		"inputBgColorNormal": {
-			"type": "object" 
+			"type": "object"
 		},
 		"inputBgColorHover": {
-			"type": "object" 
+			"type": "object"
 		},
 		"transform": {
-			"type": "object" 
+			"type": "object"
 		},
-		"mask": { 
-			"type": "object" 
+		"mask": {
+			"type": "object"
 		},
 		"inputAreaBoxShadow": {
-            "type": "object"
-        },
-        "inputAreaBoxShadowHover": {
-            "type": "object"
-        },
-		"alignContent" : {
+			"type": "object"
+		},
+		"inputAreaBoxShadowHover": {
+			"type": "object"
+		},
+		"alignContent": {
 			"type": "object"
 		}
 	},
 	"supports": {
 		"className": false
 	},
-	"keywords": ["search", "gutenverse"],
+	"keywords": [
+		"search",
+		"gutenverse"
+	],
 	"example": {}
 }

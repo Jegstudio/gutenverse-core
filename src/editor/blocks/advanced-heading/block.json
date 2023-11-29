@@ -11,7 +11,7 @@
         },
         "alignText": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "titleTag": {
             "type": "string",
@@ -36,212 +36,228 @@
         "showSub": {
             "type": "string",
             "default": "bottom",
-			"copyStyle": true
+            "copyStyle": true
         },
         "showLine": {
             "type": "string",
             "default": "before",
-			"copyStyle": true
+            "copyStyle": true
         },
         "lineWidth": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "lineHeight": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "lineStyle": {
             "type": "string",
             "default": "default",
-			"copyStyle": true
+            "copyStyle": true
         },
         "lineMargin": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainColor": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainTypography": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainBackground": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainMargin": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainPadding": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusColor": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusTypography": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusBackground": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusMargin": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusPadding": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "subColor": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "subTypography": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "subBackground": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "subMargin": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "subPadding": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "mainTextClip": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
         "focusTextClip": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
         "lineColor": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "background": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
         "backgroundHover": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
         "border": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
+        },
+        "border_v2": {
+            "type": "object",
+            "migrate": {
+                "attr": "border",
+                "type": "border"
+            },
+            "copyStyle": true
         },
         "boxShadow": {
             "type": "object",
             "default": {
                 "position": "outline"
             },
-			"copyStyle": true
+            "copyStyle": true
         },
         "borderHover": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
+        },
+        "borderHover_v2": {
+            "type": "object",
+            "migrate": {
+                "attr": "borderHover",
+                "type": "border"
+            },
+            "copyStyle": true
         },
         "boxShadowHover": {
             "type": "object",
             "default": {
                 "position": "outline"
             },
-			"copyStyle": true
+            "copyStyle": true
         },
         "margin": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "padding": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "zIndex": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "animation": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
         "hideDesktop": {
             "type": "boolean",
-			"copyStyle": true
+            "copyStyle": true
         },
         "hideTablet": {
             "type": "boolean",
-			"copyStyle": true
+            "copyStyle": true
         },
         "hideMobile": {
             "type": "boolean",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningType": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningWidth": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningAlign": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningLocation": {
             "type": "string",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningLeft": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningRight": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningTop": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "positioningBottom": {
             "type": "object",
-			"copyStyle": true
+            "copyStyle": true
         },
         "advanceAnimation": {
             "type": "object",
             "default": {},
-			"copyStyle": true
+            "copyStyle": true
         },
-		"transform": {
-			"type": "object",
-			"copyStyle": true
-		},
+        "transform": {
+            "type": "object",
+            "copyStyle": true
+        },
         "mask": {
-			"type": "object",
-			"copyStyle": true
-		}
+            "type": "object",
+            "copyStyle": true
+        }
     },
     "supports": {
         "className": false

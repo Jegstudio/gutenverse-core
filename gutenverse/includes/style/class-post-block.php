@@ -121,8 +121,17 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['postItemBorder'] ) ) {
-			$this->handle_border( 'postItemBorder', ".{$this->element_id} .guten-postblock .guten-post" );
+		if ( isset( $this->attrs['postItemBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['postItemBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['postItemBoxShadow'] ) ) {
@@ -194,8 +203,17 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['thumbnailBorder'] ) ) {
-			$this->handle_border( 'thumbnailBorder', ".{$this->element_id} .guten-postblock .guten-thumb" );
+		if ( isset( $this->attrs['thumbnailBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-thumb",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['thumbnailBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['thumbnailBoxShadow'] ) ) {
@@ -308,8 +326,17 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['contentBorder'] ) ) {
-			$this->handle_border( 'contentBorder', ".{$this->element_id} .guten-postblock .guten-postblock-content" );
+		if ( isset( $this->attrs['contentBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-postblock-content",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['contentBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['contentContainerShadow'] ) ) {
@@ -386,8 +413,17 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['categoryBorder'] ) ) {
-			$this->handle_border( 'categoryBorder', ".{$this->element_id} .guten-postblock .guten-post-category" );
+		if ( isset( $this->attrs['categoryBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post-category",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['categoryBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['categoryShadow'] ) ) {
@@ -601,8 +637,17 @@ class Post_Block extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a", $this->attrs['readmoreHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['readmoreBorder'] ) ) {
-			$this->handle_border( 'readmoreBorder', ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a" );
+		if ( isset( $this->attrs['readmoreBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['readmoreBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['readmoreShadow'] ) ) {
@@ -618,8 +663,17 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['readmoreHoverBorder'] ) ) {
-			$this->handle_border( 'readmoreHoverBorder', ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a" );
+		if ( isset( $this->attrs['readmoreHoverBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['readmoreHoverBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['readmoreHoverShadow'] ) ) {
@@ -959,12 +1013,30 @@ class Post_Block extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover", $this->attrs['paginationHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['paginationBorder'] ) ) {
-			$this->handle_border( 'paginationBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore" );
+		if ( isset( $this->attrs['paginationBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['paginationBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['paginationHoverBorder'] ) ) {
-			$this->handle_border( 'paginationHoverBorder', ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover" );
+		if ( isset( $this->attrs['paginationHoverBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['paginationHoverBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['paginationShadow'] ) ) {

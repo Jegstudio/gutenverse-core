@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBorder, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const logosStylePanel = (props) => {
@@ -224,15 +224,15 @@ export const logosStylePanel = (props) => {
             ]
         },
         {
-            id: 'imageBorder',
+            id: 'imageBorder_v2',
             show: !switcher.imageHover || switcher.imageHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -265,15 +265,15 @@ export const logosStylePanel = (props) => {
             ],
         },
         {
-            id: 'imageBorderHover',
+            id: 'imageBorderHover_v2',
             show: switcher.imageHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },

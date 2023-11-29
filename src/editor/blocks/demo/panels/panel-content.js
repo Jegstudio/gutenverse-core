@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { Image, Grid, Video } from 'react-feather';
+import { Image, Grid, Video } from 'gutenverse-core/components';
 
 import {
     CheckboxControl,

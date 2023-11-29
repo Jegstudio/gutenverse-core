@@ -129,8 +129,17 @@ class Popup_Builder extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['containerBorder'] ) ) {
-			$this->handle_border( 'containerBorder', ".{$this->element_id} .guten-popup .guten-popup-content" );
+		if ( isset( $this->attrs['containerBorder_v2'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['containerBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['containerBoxShadow'] ) ) {
@@ -262,12 +271,30 @@ class Popup_Builder extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['closeBorder'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
-			$this->handle_border( 'closeBorder', ".{$this->element_id} .guten-popup .guten-popup-close" );
+		if ( isset( $this->attrs['closeBorder_v2'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['closeBorder_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
-		if ( isset( $this->attrs['closeBorderHover'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
-			$this->handle_border( 'closeBorderHover', ".{$this->element_id} .guten-popup .guten-popup-close:hover" );
+		if ( isset( $this->attrs['closeBorderHover_v2'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_v2( $value );
+					},
+					'value'          => $this->attrs['closeBorderHover_v2'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['closeBoxShadow'] ) ) {

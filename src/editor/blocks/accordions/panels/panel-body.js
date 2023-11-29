@@ -6,7 +6,7 @@ import {
     SwitchControl,
     TypographyControl
 } from 'gutenverse-core/controls';
-import { handleBorder, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelBody = (props) => {
     const {
@@ -24,7 +24,7 @@ export const panelBody = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -68,7 +68,7 @@ export const panelBody = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__accBodyActive}) => setSwitcher({...switcher, accBody: __accBodyActive})
+            onChange: ({ __accBodyActive }) => setSwitcher({ ...switcher, accBody: __accBodyActive })
         },
         {
             id: 'contentBackgroundColor',
@@ -95,15 +95,15 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorder',
+            id: 'contentBorder_v2',
             show: !switcher.accBody || switcher.accBody === 'normal',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
@@ -132,15 +132,15 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorderActive',
+            id: 'contentBorderActive_v2',
             show: switcher.accBody === 'active',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-content`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    render: value => handleBorderV2(value)
                 }
             ]
         },
