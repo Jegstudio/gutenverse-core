@@ -88,7 +88,7 @@ const save = compose(
     };
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-position={JSON.stringify({...iconPosition})}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconContent()}
                 <div className="icon-box icon-box-body">

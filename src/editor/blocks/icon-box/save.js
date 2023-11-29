@@ -40,7 +40,6 @@ const save = compose(
         imageAlt,
         icon,
         iconType,
-        iconPosition,
         iconStyleMode = 'color',
         watermarkIcon,
         watermarkShow,
@@ -86,10 +85,8 @@ const save = compose(
         }
     };
 
-    const position = iconPosition? JSON.stringify({...iconPosition})  : undefined;
-
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-position={position}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconContent()}
                 <div className="icon-box icon-box-body">
