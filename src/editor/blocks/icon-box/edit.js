@@ -63,7 +63,6 @@ const IconBoxBlock = compose(
         icon,
         iconType,
         iconPosition,
-        iconPosition_v2,
         iconStyleMode = 'color',
         watermarkIcon,
         watermarkShow,
@@ -73,22 +72,6 @@ const IconBoxBlock = compose(
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
     } = attributes;
-
-    let responsiveIconPosition;
-    switch (deviceType) {
-        case 'Mobile':
-            responsiveIconPosition = iconPosition_v2?.Mobile;
-            break;
-        case 'Tablet':
-            responsiveIconPosition = iconPosition_v2?.Tablet;
-            break;
-        case 'Desktop':
-            responsiveIconPosition = iconPosition;
-            break;
-        default :
-            responsiveIconPosition = 'top';
-            break;
-    }
 
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
@@ -104,7 +87,7 @@ const IconBoxBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {[`icon-position-${responsiveIconPosition}`]: responsiveIconPosition},
+            `icon-position-${iconPosition}`,
         ),
         ref: iconBoxRef
     });

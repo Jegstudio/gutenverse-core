@@ -126,7 +126,7 @@ class Icon_Box extends Style_Abstract {
 				)
 			);
 		}
-		if ( isset( $this->attrs['iconPosition_v2'] ) ) {
+		if ( isset( $this->attrs['iconPositionResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
@@ -139,7 +139,7 @@ class Icon_Box extends Style_Abstract {
 							return 'display: block !important';
 						}
 					},
-					'value'          => $this->attrs['iconPosition_v2'],
+					'value'          => $this->attrs['iconPositionResponsive'],
 					'device_control' => true,
 				)
 			);
@@ -155,7 +155,7 @@ class Icon_Box extends Style_Abstract {
 							return 'position: relative; z-index: 2; line-height: 0;';
 						}
 					},
-					'value'          => $this->attrs['iconPosition_v2'],
+					'value'          => $this->attrs['iconPositionResponsive'],
 					'device_control' => true,
 				)
 			);
