@@ -112,7 +112,7 @@
 			"type": "string",
 			"copyStyle": true
 		},
-		"iconPosition_v2": {
+		"iconPositionResponsive": {
 			"type": "object",
 			"copyStyle": true
 		},
