@@ -74,8 +74,6 @@ const IconBoxBlock = compose(
         separateButtonLink,
     } = attributes;
 
-    console.log(iconPosition + '---' + iconPosition_v2);
-
     let responsiveIconPosition;
     switch (deviceType) {
         case 'Mobile':

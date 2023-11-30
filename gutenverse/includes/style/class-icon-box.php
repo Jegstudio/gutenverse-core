@@ -136,7 +136,7 @@ class Icon_Box extends Style_Abstract {
 						} elseif ( 'right' === $value ) {
 							return 'display: flex; -webkit-box-orient: horizontal; -webkit-box-direction: reverse; -ms-flex-direction: row-reverse; flex-direction: row-reverse;';
 						} elseif ( 'top' === $value ) {
-							return 'display: unset';
+							return 'display: block !important';
 						}
 					},
 					'value'          => $this->attrs['iconPosition_v2'],
