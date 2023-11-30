@@ -3,14 +3,16 @@ import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleAlign } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const panelGeneral = (props) => {
     const {
         elementId,
         watermarkShow,
         badgeShow,
-        deviceType
     } = props;
+
+    const deviceType = getDeviceType();
 
     return [
         {
@@ -113,17 +115,17 @@ export const panelGeneral = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'flex-start',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'flex-end',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
             style: [
