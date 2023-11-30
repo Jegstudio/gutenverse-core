@@ -226,10 +226,9 @@ const ChoiceGroupMultiOptions = props => {
         <div className="choices__list">
             {
                 choices.map(group => 
-                    <div className="gutenverse-multi-group-select-group-wrapper" key={group.value}>
+                    <div className="choices__group" key={group.value}>
                         <div
-                            style={{ fontWeight: 'bold', cursor: 'pointer' }}
-                            className="gutenverse-multi-group-select-group-label"
+                            className="choices__heading"
                             onClick={() => handleGroupClick(group)}
                         >
                             {group.label}
