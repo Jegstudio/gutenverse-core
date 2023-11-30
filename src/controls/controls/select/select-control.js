@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 import ProLock from '../pro-lock';
 
 const SelectControl = (props) => {
-    const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, isMulti = false, options, description = '', noOptionsText, proLabel, group = false } = props;
+    const { label, protectedValue = false, allowDeviceControl,  value = allowDeviceControl && !protectedValue ? {} : undefined, onValueChange, onStyleChange, isMulti = false, options, description = '', noOptionsText, proLabel, group = false } = props;
 
     const noOptionsMessage = () => (noOptionsText ? noOptionsText : __('No Option', '--gctd--'));
 
