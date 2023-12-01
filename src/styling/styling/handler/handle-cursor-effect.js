@@ -42,7 +42,7 @@ export const handleCursorEffect = (style, props, id) => {
                     const _dimension = deviceStyleValue(device, padding);
                     if(_dimension && _dimension.dimension){
                         responsiveAppender({
-                            style: `padding : ${_dimension.dimension.top}${_dimension.unit} ${_dimension.dimension.right}${_dimension.unit} ${_dimension.dimension.bottom}${_dimension.unit} ${_dimension.dimension.left}${_dimension.unit};`,
+                            style: `padding-top: ${_dimension?.dimension.top}${_dimension?.unit}; padding-right: ${_dimension?.dimension.right}${_dimension?.unit}; padding-bottom: ${_dimension?.dimension.bottom}${_dimension?.unit}; padding-left: ${_dimension?.dimension.left}${_dimension?.unit};`,
                             device,
                             elementStyle
                         });

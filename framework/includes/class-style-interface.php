@@ -666,11 +666,11 @@ abstract class Style_Interface {
 								if ( ! gutenverse_truly_empty( $value['width'] ) ) {
 									$this->inject_style(
 										array(
-											'selector'       => "$selector",
-											'property'       => function ( $value ) {
+											'selector' => "$selector",
+											'property' => function ( $value ) {
 												return "border-{$value['position']}width: {$value['value']}px;";
 											},
-											'value'          => array(
+											'value'    => array(
 												'position' => $position,
 												'value'    => $value['width'],
 											),
@@ -682,11 +682,11 @@ abstract class Style_Interface {
 								if ( ! empty( $value['color'] ) ) {
 									$this->inject_style(
 										array(
-											'selector'       => "$selector",
-											'property'       => function ( $value ) {
+											'selector' => "$selector",
+											'property' => function ( $value ) {
 												return $this->handle_color( $value['value'], "border-{$value['position']}color" );
 											},
-											'value'          => array(
+											'value'    => array(
 												'position' => $position,
 												'value'    => $value['color'],
 											),
@@ -814,11 +814,11 @@ abstract class Style_Interface {
 								if ( ! gutenverse_truly_empty( $value['width'] ) ) {
 									$this->inject_style(
 										array(
-											'selector'       => "$selector",
-											'property'       => function ( $value ) {
+											'selector' => "$selector",
+											'property' => function ( $value ) {
 												return "border-{$value['position']}width: {$value['value']}px;";
 											},
-											'value'          => array(
+											'value'    => array(
 												'position' => $position,
 												'value'    => $value['width'],
 											),
@@ -830,11 +830,11 @@ abstract class Style_Interface {
 								if ( ! empty( $value['color'] ) ) {
 									$this->inject_style(
 										array(
-											'selector'       => "$selector",
-											'property'       => function ( $value ) {
+											'selector' => "$selector",
+											'property' => function ( $value ) {
 												return $this->handle_color( $value['value'], "border-{$value['position']}color" );
 											},
-											'value'          => array(
+											'value'    => array(
 												'position' => $position,
 												'value'    => $value['color'],
 											),
