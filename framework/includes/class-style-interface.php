@@ -732,11 +732,11 @@ abstract class Style_Interface {
 					'selector'       => $selector,
 					'property'       => function ( $value ) {
 						$output  = '';
-						$display = 'display: inline-block;';
-
-						if ( ! empty( $value['hide'] ) ) {
+						if ( $this->in_flex ) {
 							$display = 'display: inline-block;';
-							$output  = '';
+						} else {
+							$display = 'display: inline-flex;';
+
 						}
 
 						if ( isset( $value ) && isset( $value['type'] ) ) {

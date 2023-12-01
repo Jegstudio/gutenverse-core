@@ -200,7 +200,7 @@ const ChoiceInnerSingle = ({ selected, clearSelected, placeholder }) => {
 };
 
 const ChoiceMultiInner = props => {
-    const { selected, setSelected, setOpen, setSearch, searchKeyword } = props;
+    const { selected, setSelected, setOpen, setSearch, searchKeyword, placeholder } = props;
     const innerRef = useRef();
     const inputRef = useRef();
 
@@ -230,14 +230,13 @@ const ChoiceMultiInner = props => {
                 </div>;
             })}
         </div>
-        <input type="text" className="choices__input" ref={inputRef} onChange={searchOption} value={searchKeyword} />
+        <input type="text" className="choices__input" ref={inputRef} onChange={searchOption} placeholder={placeholder} value={searchKeyword} />
     </div >;
 };
 
 const ChoiceSingleInner = (props) => {
     const { selected, setSelected, placeholder, setOpen } = props;
     const innerRef = useRef();
-
     const choiceClass = classnames(
         'choices__item',
         'choices__item--selectable',
@@ -270,7 +269,6 @@ const ChoiceSelect = (props) => {
     const [searchKeyword, setSearch] = useState('');
     const [open, setOpen] = useState(false);
     const selectRef = useRef();
-
     const theProps = {
         ...props,
         open,
