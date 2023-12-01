@@ -23,4 +23,8 @@ div.guten-wrap-helper.guten-element {
     .block-editor-inner-blocks {
         width: auto;
     }
+
+    .guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout .section-wrapper {
+        width: 100%;
+    }
 }
