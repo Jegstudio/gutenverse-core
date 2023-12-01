@@ -77,6 +77,13 @@ abstract class Style_Interface {
 	protected $font_families;
 
 	/**
+	 * Inline block status
+	 *
+	 * @var array
+	 */
+	protected $in_block = true;
+
+	/**
 	 * List of feature on blocks.
 	 *
 	 * @var array
@@ -732,11 +739,10 @@ abstract class Style_Interface {
 					'selector'       => $selector,
 					'property'       => function ( $value ) {
 						$output  = '';
-						if ( $this->in_flex ) {
+						if ( $this->in_block ) {
 							$display = 'display: inline-block;';
 						} else {
 							$display = 'display: inline-flex;';
-
 						}
 
 						if ( isset( $value ) && isset( $value['type'] ) ) {
