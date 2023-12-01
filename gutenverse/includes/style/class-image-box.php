@@ -245,6 +245,19 @@ class Image_Box extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['containerMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['containerMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['titleMargin'] ) ) {
 			$this->inject_style(
 				array(

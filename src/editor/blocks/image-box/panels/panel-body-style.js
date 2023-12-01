@@ -66,6 +66,37 @@ export const panelBodyStyle = props => {
             ]
         },
         {
+            id: 'containerMargin',
+            label: __('Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .image-box-body .body-inner`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
             id: 'containerBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,

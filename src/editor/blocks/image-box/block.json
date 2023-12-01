@@ -131,6 +131,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"containerMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"containerBoxShadow": {
 			"type": "object",
 			"copyStyle": true
