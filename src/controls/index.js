@@ -59,6 +59,7 @@ export { default as LockedProTextClip } from './controls/locked/locked-text-clip
 export { default as LockedTransform } from './controls/locked/locked-transform';
 export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
 export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
+export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/locked-form-multi-group-select';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
