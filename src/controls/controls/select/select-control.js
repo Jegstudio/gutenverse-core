@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 import ProLock from '../pro-lock';
 
 const SelectControl = (props) => {
-    const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, isMulti = false, options, description = '', noOptionsText, proLabel, group = false } = props;
+    const { label, allowDeviceControl, showDeviceControlOnly, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, isMulti = false, options, description = '', noOptionsText, proLabel, group = false } = props;
 
     const noOptionsMessage = () => (noOptionsText ? noOptionsText : __('No Option', '--gctd--'));
 
@@ -85,7 +85,7 @@ const SelectControl = (props) => {
 
     return (
         <div id={id} className={'gutenverse-control-wrapper gutenverse-control-select'}>
-            <ControlHeadingSimple id={`${id}-select`} label={label} description={description} proLabel={proLabel} allowDeviceControl={allowDeviceControl} />
+            <ControlHeadingSimple id={`${id}-select`} label={label} description={description} proLabel={proLabel} allowDeviceControl={allowDeviceControl} showDeviceControlOnly={showDeviceControlOnly} />
             <div className={'control-body'}>
                 <div className={'control-select'}>
                     <Select
