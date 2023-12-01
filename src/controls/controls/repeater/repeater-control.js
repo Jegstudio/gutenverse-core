@@ -186,7 +186,7 @@ const RepeaterComponent = (props) => {
                 };
             });
             throttleSave({
-                id: rootId,
+                id: `${rootId}-${id}`,
                 value,
                 style: theStyle,
                 allowDeviceControl,
