@@ -9,7 +9,7 @@
     }
 
     .block-editor-inner-blocks {
-        width: auto;
+        width: 100%;
     }
 }
 .guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout{
@@ -17,4 +17,8 @@
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
+    
+    .block-list-appender {
+        width: 100%;
+    }
 }
