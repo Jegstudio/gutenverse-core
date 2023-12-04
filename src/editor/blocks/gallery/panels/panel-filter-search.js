@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterSearchPanel = (props) => {
@@ -161,7 +161,7 @@ export const filterSearchPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap button.search-filter-trigger`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -304,7 +304,7 @@ export const filterSearchPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -371,7 +371,7 @@ export const filterSearchPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

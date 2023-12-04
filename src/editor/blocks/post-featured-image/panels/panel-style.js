@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { BorderControl, BoxShadowControl, IconRadioControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { allowRenderBoxShadow, handleBorderV2, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {
@@ -110,7 +110,7 @@ export const stylePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} img`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

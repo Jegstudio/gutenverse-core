@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl } from 'gutenverse-core/controls';
-import { handleBorderV2 } from 'gutenverse-core/styling';
+import { handleBorderResponsive } from 'gutenverse-core/styling';
 
 export const thumbnailPanel = ({ elementId }) => {
     return [
@@ -12,7 +12,7 @@ export const thumbnailPanel = ({ elementId }) => {
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

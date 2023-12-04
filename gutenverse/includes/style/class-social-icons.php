@@ -250,7 +250,7 @@ class Social_Icons extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-social-icon a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorder_v2'],
 					'device_control' => true,
@@ -276,7 +276,7 @@ class Social_Icons extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-social-icon:hover a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorderHover_v2'],
 					'device_control' => true,

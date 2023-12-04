@@ -149,7 +149,7 @@ class Logo_Slider extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imageBorder_v2'],
 					'device_control' => true,
@@ -162,7 +162,7 @@ class Logo_Slider extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imageBorderHover_v2'],
 					'device_control' => true,
@@ -497,7 +497,7 @@ class Logo_Slider extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['arrowBorder_v2'],
 					'device_control' => true,
@@ -523,7 +523,7 @@ class Logo_Slider extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['arrowBorderHover_v2'],
 					'device_control' => true,

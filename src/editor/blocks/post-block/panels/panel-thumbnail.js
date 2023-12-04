@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const thumbnailPanel = ({ elementId }) => {
@@ -82,7 +82,7 @@ export const thumbnailPanel = ({ elementId }) => {
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-thumb`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

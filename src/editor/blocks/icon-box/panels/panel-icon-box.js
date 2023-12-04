@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleDimension, handleBackground, handleBorderV2, allowRenderBoxShadow } from 'gutenverse-core/styling';
+import { handleDimension, handleBackground, handleBorderResponsive, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconBoxContainer = (props) => {
@@ -119,7 +119,7 @@ export const panelIconBoxContainer = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -145,7 +145,7 @@ export const panelIconBoxContainer = (props) => {
             style: [
                 {
                     selector: `.${elementId}:hover .guten-icon-box-wrapper`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

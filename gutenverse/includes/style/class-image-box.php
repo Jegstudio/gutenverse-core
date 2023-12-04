@@ -211,7 +211,7 @@ class Image_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorder_v2'],
 					'device_control' => true,

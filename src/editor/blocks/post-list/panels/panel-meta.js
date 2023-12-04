@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const metaPanel = (props) => {
     const {
@@ -215,7 +215,7 @@ export const metaPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -228,7 +228,7 @@ export const metaPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

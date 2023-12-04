@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderResponsive } from 'gutenverse-core/styling';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
@@ -35,7 +35,7 @@ export const iconBorderPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon a`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -48,7 +48,7 @@ export const iconBorderPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon:hover a`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

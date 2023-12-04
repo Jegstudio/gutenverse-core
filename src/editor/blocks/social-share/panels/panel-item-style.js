@@ -6,7 +6,7 @@ import {
     SwitchControl,
     TypographyControl
 } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography, handleBorderV2 } from 'gutenverse-core/styling';
+import { handleColor, handleUnitPoint, handleTypography, handleBorderResponsive } from 'gutenverse-core/styling';
 
 export const panelItemStyle = props => {
     const {
@@ -126,7 +126,7 @@ export const panelItemStyle = props => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -187,7 +187,7 @@ export const panelItemStyle = props => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

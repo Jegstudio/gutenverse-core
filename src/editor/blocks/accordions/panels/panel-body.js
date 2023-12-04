@@ -6,7 +6,7 @@ import {
     SwitchControl,
     TypographyControl
 } from 'gutenverse-core/controls';
-import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelBody = (props) => {
     const {
@@ -103,7 +103,7 @@ export const panelBody = (props) => {
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -140,7 +140,7 @@ export const panelBody = (props) => {
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-content`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

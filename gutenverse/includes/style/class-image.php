@@ -150,7 +150,7 @@ class Image extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} img",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imgBorder_v2'],
 					'device_control' => true,

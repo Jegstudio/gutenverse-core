@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBorderV2, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconStylePanel = (props) => {
     const {
@@ -60,7 +60,7 @@ export const iconStylePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -99,7 +99,7 @@ export const iconStylePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

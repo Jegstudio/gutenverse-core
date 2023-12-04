@@ -134,7 +134,7 @@ class Popup_Builder extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorder_v2'],
 					'device_control' => true,
@@ -276,7 +276,7 @@ class Popup_Builder extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['closeBorder_v2'],
 					'device_control' => true,
@@ -289,7 +289,7 @@ class Popup_Builder extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['closeBorderHover_v2'],
 					'device_control' => true,

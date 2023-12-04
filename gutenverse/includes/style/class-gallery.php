@@ -169,7 +169,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['filterTabBorder_v2'],
 					'device_control' => true,
@@ -182,7 +182,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .filter-controls .guten-gallery-control.active",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['filterTabBorderActive_v2'],
 					'device_control' => true,
@@ -306,7 +306,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap button.search-filter-trigger",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['filterSearchBorder_v2'],
 					'device_control' => true,
@@ -410,7 +410,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .guten-gallery-search-box",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['filterSearchFormBorder_v2'],
 					'device_control' => true,
@@ -466,7 +466,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .search-filters-wrap .filter-wrap ul.search-filter-controls",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['filterSearchDropdownBorder_v2'],
 					'device_control' => true,
@@ -544,7 +544,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorder_v2'],
 					'device_control' => true,
@@ -583,7 +583,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['itemBorder_v2'],
 					'device_control' => true,
@@ -643,7 +643,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['itemHoverBorder_v2'],
 					'device_control' => true,
@@ -756,7 +756,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['itemCardBorder_v2'],
 					'device_control' => true,
@@ -971,7 +971,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .load-more-items .guten-gallery-load-more",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['loadMoreBorder_v2'],
 					'device_control' => true,
@@ -984,7 +984,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .load-more-items .guten-gallery-load-more:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['loadMoreBorderHover_v2'],
 					'device_control' => true,
@@ -997,7 +997,7 @@ class Gallery extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['thumbnailBorder_v2'],
 					'device_control' => true,

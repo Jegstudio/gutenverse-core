@@ -6,7 +6,7 @@ import {
     TypographyControl,
     BorderControl
 } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography, handleBorderV2 } from 'gutenverse-core/styling';
+import { handleColor, handleUnitPoint, handleTypography, handleBorderResponsive } from 'gutenverse-core/styling';
 
 export const panelStyle = props => {
     const {
@@ -123,7 +123,7 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'border_v2',
+            id: 'borderResponsive',
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -131,7 +131,7 @@ export const panelStyle = props => {
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -186,7 +186,7 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'borderHover_v2',
+            id: 'borderHoverResponsive',
             show: switcher.socialHover === 'hover',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
@@ -194,7 +194,7 @@ export const panelStyle = props => {
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

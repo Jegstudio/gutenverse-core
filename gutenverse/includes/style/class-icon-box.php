@@ -253,7 +253,7 @@ class Icon_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorder_v2'],
 					'device_control' => true,
@@ -279,7 +279,7 @@ class Icon_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}:hover .guten-icon-box-wrapper",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorderHover_v2'],
 					'device_control' => true,
@@ -370,7 +370,7 @@ class Icon_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorder_v2'],
 					'device_control' => true,
@@ -396,7 +396,7 @@ class Icon_Box extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorderHover_v2'],
 					'device_control' => true,

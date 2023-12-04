@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleBorderV2 } from 'gutenverse-core/styling';
+import { handleBorderResponsive } from 'gutenverse-core/styling';
 import { BorderControl } from 'gutenverse-core/controls';
 
 export const avatarPanel = (props) => {
@@ -16,7 +16,7 @@ export const avatarPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .comment-author img.avatar`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

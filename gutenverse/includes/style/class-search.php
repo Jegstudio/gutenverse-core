@@ -136,7 +136,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['inputBorderNormal_v2'],
 					'device_control' => true,
@@ -175,7 +175,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['inputBorderHover_v2'],
 					'device_control' => true,

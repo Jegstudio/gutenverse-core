@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitle = (props) => {
     const {
@@ -134,7 +134,7 @@ export const panelTitle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-heading`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -171,7 +171,7 @@ export const panelTitle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-heading`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentContainerPanel = ({ elementId }) => {
@@ -116,7 +116,7 @@ export const contentContainerPanel = ({ elementId }) => {
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

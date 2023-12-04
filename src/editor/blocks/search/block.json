@@ -54,7 +54,7 @@
 		"border": {
 			"type": "object"
 		},
-		"border_v2": {
+		"borderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "border",
@@ -68,7 +68,7 @@
 		"borderHover": {
 			"type": "object"
 		},
-		"borderHover_v2": {
+		"borderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderHover",

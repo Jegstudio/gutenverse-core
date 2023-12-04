@@ -204,7 +204,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['arrowBorder_v2'],
 					'device_control' => true,
@@ -230,7 +230,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['arrowBorderHover_v2'],
 					'device_control' => true,
@@ -433,7 +433,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorder_v2'],
 					'device_control' => true,
@@ -459,7 +459,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['containerBorderHover_v2'],
 					'device_control' => true,
@@ -691,7 +691,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imageBorder_v2'],
 					'device_control' => true,

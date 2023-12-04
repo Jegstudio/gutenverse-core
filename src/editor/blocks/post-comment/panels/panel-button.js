@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { BackgroundControl, BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const buttonPanel = (props) => {
@@ -84,7 +84,7 @@ export const buttonPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -191,7 +191,7 @@ export const buttonPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

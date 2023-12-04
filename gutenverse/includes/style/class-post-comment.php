@@ -203,7 +203,7 @@ class Post_Comment extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['inputBorder_v2'],
 					'device_control' => true,
@@ -216,7 +216,7 @@ class Post_Comment extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .comment-author img.avatar",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['avatarBorder_v2'],
 					'device_control' => true,
@@ -269,7 +269,7 @@ class Post_Comment extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['borderButton_v2'],
 					'device_control' => true,
@@ -338,7 +338,7 @@ class Post_Comment extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-post-comment input[type=submit]:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['borderButtonHover_v2'],
 					'device_control' => true,

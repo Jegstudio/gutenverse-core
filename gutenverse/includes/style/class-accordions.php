@@ -60,7 +60,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['accordionBorder_v2'],
 					'device_control' => true,
@@ -73,7 +73,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['accordionBorderActive_v2'],
 					'device_control' => true,
@@ -268,7 +268,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-heading",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['titleBorder_v2'],
 					'device_control' => true,
@@ -281,7 +281,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-heading",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['titleBorderActive_v2'],
 					'device_control' => true,
@@ -370,7 +370,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-content",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['contentBorder_v2'],
 					'device_control' => true,
@@ -383,7 +383,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['contentBorderActive_v2'],
 					'device_control' => true,
@@ -439,7 +439,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item .accordion-icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorder_v2'],
 					'device_control' => true,
@@ -469,7 +469,7 @@ class Accordions extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconActiveBackground_v2'],
 					'device_control' => true,

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl, SizeControl, RangeControl, SwitchControl, BackgroundControl, ColorControl, DimensionControl, HeadingControl, BorderControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderV2, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const hamburgerStyle = (props) => {
     const {
@@ -181,7 +181,7 @@ export const hamburgerStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -221,7 +221,7 @@ export const hamburgerStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -376,7 +376,7 @@ export const hamburgerStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -416,7 +416,7 @@ export const hamburgerStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

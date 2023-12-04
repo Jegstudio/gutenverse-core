@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderResponsive } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const profileBorderPanel = (props) => {
@@ -35,7 +35,7 @@ export const profileBorderPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -61,7 +61,7 @@ export const profileBorderPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

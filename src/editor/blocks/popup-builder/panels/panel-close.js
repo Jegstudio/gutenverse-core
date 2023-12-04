@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const closePanel = (props) => {
     const {
@@ -275,7 +275,7 @@ export const closePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__closeSwitch}) => setSwitcher({...switcher, closeSwitch: __closeSwitch})
+            onChange: ({ __closeSwitch }) => setSwitcher({ ...switcher, closeSwitch: __closeSwitch })
         },
         {
             id: 'closeButtonColor',
@@ -313,7 +313,7 @@ export const closePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close`,
-                    render: (value) => handleBorderV2(value),
+                    render: (value) => handleBorderResponsive(value),
                 },
             ],
         },
@@ -366,7 +366,7 @@ export const closePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
-                    render: (value) => handleBorderV2(value),
+                    render: (value) => handleBorderResponsive(value),
                 },
             ],
         },

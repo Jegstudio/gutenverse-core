@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleColor, handleTypography, handleBorderV2, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
+import { handleDimension, handleColor, handleTypography, handleBorderResponsive, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const inputPanel = props => {
     const {
@@ -138,7 +138,7 @@ export const inputPanel = props => {
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -177,7 +177,7 @@ export const inputPanel = props => {
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

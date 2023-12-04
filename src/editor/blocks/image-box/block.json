@@ -198,7 +198,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"border_v2": {
+		"borderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "border",
@@ -215,7 +215,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"borderHover_v2": {
+		"borderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderHover",
@@ -325,5 +325,8 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": ["image", "box"]
+	"keywords": [
+		"image",
+		"box"
+	]
 }

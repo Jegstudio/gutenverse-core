@@ -320,7 +320,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['submenuIndicatorBorder_v2'],
 					'device_control' => true,
@@ -408,7 +408,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['submenuItemBorder_v2'],
 					'device_control' => true,
@@ -421,7 +421,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['submenuFirstItemBorder_v2'],
 					'device_control' => true,
@@ -434,7 +434,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['submenuLastItemBorder_v2'],
 					'device_control' => true,
@@ -460,7 +460,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['submenuPanelBorder_v2'],
 					'device_control' => true,
@@ -585,7 +585,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['hamburgerBorderNormal_v2'],
 					'device_control' => true,
@@ -615,7 +615,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['hamburgerBorderHover_v2'],
 					'device_control' => true,
@@ -697,7 +697,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['closeBorderNormal_v2'],
 					'device_control' => true,
@@ -727,7 +727,7 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-hamburger-menu:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['closeBorderHover_v2'],
 					'device_control' => true,

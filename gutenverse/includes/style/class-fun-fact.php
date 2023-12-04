@@ -130,7 +130,7 @@ class Fun_Fact extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner .icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorder_v2'],
 					'device_control' => true,
@@ -169,7 +169,7 @@ class Fun_Fact extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .fun-fact-inner:hover .icon",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['iconBorderHover_v2'],
 					'device_control' => true,

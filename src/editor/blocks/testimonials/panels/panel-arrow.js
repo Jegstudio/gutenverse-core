@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderV2, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const arrowPanel = (props) => {
@@ -246,7 +246,7 @@ export const arrowPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} div[class*='swiper-button-']`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -272,7 +272,7 @@ export const arrowPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

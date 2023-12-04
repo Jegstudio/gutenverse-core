@@ -150,7 +150,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['contentBorder_v2'],
 					'device_control' => true,
@@ -163,7 +163,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['contentHoverBorder_v2'],
 					'device_control' => true,
@@ -540,7 +540,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['metaBorder_v2'],
 					'device_control' => true,
@@ -553,7 +553,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists span",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['metaHoverBorder_v2'],
 					'device_control' => true,
@@ -687,7 +687,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['paginationBorder_v2'],
 					'device_control' => true,
@@ -700,7 +700,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['paginationHoverBorder_v2'],
 					'device_control' => true,

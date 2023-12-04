@@ -360,7 +360,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['profileBorder_v2'],
 					'device_control' => true,
@@ -386,7 +386,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['profileBorderHover_v2'],
 					'device_control' => true,
@@ -412,7 +412,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card img",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imageBorder_v2'],
 					'device_control' => true,
@@ -438,7 +438,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .profile-box .profile-card img:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['imageBorderHover_v2'],
 					'device_control' => true,
@@ -533,7 +533,7 @@ class Team extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover .profile-body:before",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['hoverContentBorder_v2'],
 					'device_control' => true,

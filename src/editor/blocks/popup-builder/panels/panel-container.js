@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleDimension } from 'gutenverse-core/styling';
 
 export const containerPanel = (props) => {
     const { elementId } = props;
@@ -63,7 +63,7 @@ export const containerPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-content`,
-                    render: (value) => handleBorderV2(value),
+                    render: (value) => handleBorderResponsive(value),
                 },
             ],
         },

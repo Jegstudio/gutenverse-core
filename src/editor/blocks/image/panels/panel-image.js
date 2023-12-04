@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BorderControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { isEmptyString } from 'gutenverse-core/helper';
-import { allowRenderBoxShadow, handleAlignReverse, handleBorderV2, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleAlignReverse, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const imagePanel = ({ elementId }) => {
@@ -166,7 +166,7 @@ export const imagePanel = ({ elementId }) => {
             style: [
                 {
                     selector: `.${elementId} img`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

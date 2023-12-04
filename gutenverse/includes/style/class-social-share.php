@@ -149,7 +149,7 @@ class Social_Share extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-share-item",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['borderType_v2'],
 					'device_control' => true,
@@ -214,7 +214,7 @@ class Social_Share extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['borderTypeHover_v2'],
 					'device_control' => true,

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { handleBackground, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 
 export const panelImage = ({ elementId, contentType }) => {
     return [
@@ -25,7 +25,7 @@ export const panelImage = ({ elementId, contentType }) => {
             style: [
                 {
                     selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
-                    render: value => handleBorderV2(value)
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
