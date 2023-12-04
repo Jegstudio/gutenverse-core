@@ -257,10 +257,12 @@ const ImageBoxBlock = compose(
         </BlockControls>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            <div className="image-box-header">
-                <ImageBoxFigure {...attributes} />
+            <div className="inner-container">
+                <div className="image-box-header">
+                    <ImageBoxFigure {...attributes} />
+                </div>
+                <ImageBoxBody {...props} />
             </div>
-            <ImageBoxBody {...props} />
         </div>
     </>;
 });

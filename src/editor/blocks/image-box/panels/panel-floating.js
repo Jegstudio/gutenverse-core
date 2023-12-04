@@ -19,7 +19,7 @@ export const panelFloating = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.style-floating .image-box-body .body-inner`,
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
                     render: value => `margin-top: ${value}px;`
                 }
             ]
@@ -34,7 +34,7 @@ export const panelFloating = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.style-floating .image-box-body`,
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body`,
                     render: value => `width: ${value}%;`
                 }
             ]
@@ -65,7 +65,7 @@ export const panelFloating = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.style-floating .image-box-body .body-inner`,
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
                     render: value => `height: ${value}px;`
                 }
             ]
@@ -81,7 +81,7 @@ export const panelFloating = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.style-floating:hover .image-box-body .body-inner`,
+                    selector: `.${elementId}.style-floating:hover .inner-container .image-box-body .body-inner`,
                     render: value => `height: ${value}px;`
                 }
             ]

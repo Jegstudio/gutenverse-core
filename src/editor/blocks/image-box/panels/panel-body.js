@@ -88,7 +88,7 @@ export const panelBody = props => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     render: value => `text-align: ${value};`
                 }
             ]
@@ -105,7 +105,7 @@ export const panelBody = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .border-bottom .animated`,
+                    selector: `.${elementId} .inner-container .border-bottom .animated`,
                     render: value => handleColor(value, 'background-color')
                 }
             ]

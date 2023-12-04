@@ -31,7 +31,7 @@ export const panelDescriptionStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner .body-description`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
                     render: value => handleDimension(value, 'margin')
                 }
             ],
@@ -42,7 +42,7 @@ export const panelDescriptionStyle = props => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner .body-description`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
@@ -69,7 +69,7 @@ export const panelDescriptionStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner .body-description`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -81,7 +81,7 @@ export const panelDescriptionStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}:hover .image-box-body .body-inner .body-description`,
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-inner .body-description`,
                     render: value => handleColor(value, 'color')
                 }
             ],
