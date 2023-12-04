@@ -59,7 +59,7 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div className="inner-container" >
+            <div className="inner-container">
                 <div className="image-box-header">
                     <WrapAHref {...props}>
                         <ImageBoxFigure {...attributes} />

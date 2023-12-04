@@ -25,7 +25,7 @@ const WrapAHref = ({ attributes, children }) => {
     }
 };
 
-const saveV1 = compose(
+const save = compose(
     withAnimationAdvanceScript('image-box')
 )((props) => {
     const {
@@ -94,4 +94,4 @@ const saveV1 = compose(
     );
 });
 
-export default saveV1;
+export default save;
