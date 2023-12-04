@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
-import { ImageBoxFigure } from '../../edit';
+import { ImageBoxFigure } from './edit';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -25,7 +25,7 @@ const WrapAHref = ({ attributes, children }) => {
     }
 };
 
-const save = compose(
+const saveV1 = compose(
     withAnimationAdvanceScript('image-box')
 )((props) => {
     const {
@@ -94,4 +94,4 @@ const save = compose(
     );
 });
 
-export default save;
+export default saveV1;
