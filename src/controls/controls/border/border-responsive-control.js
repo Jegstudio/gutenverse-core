@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 import { RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
 
-const BorderControl = (props) => {
+const BorderResponsiveControl = (props) => {
     const {
         label,
         allowDeviceControl,
@@ -22,7 +22,7 @@ const BorderControl = (props) => {
 
     const [active, setActive] = useState('all');
 
-    const id = useInstanceId(BorderControl, 'inspector-borders-control');
+    const id = useInstanceId(BorderResponsiveControl, 'inspector-borders-control');
 
     const clearBorder = <Tooltip text={__('Clear Border', '--gctd--')} key={'reset'}>
         <span className={'border-refresh'}>
@@ -35,7 +35,6 @@ const BorderControl = (props) => {
     </Tooltip>;
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
-        <ControlDevices />
         <ControlHeadingSimple
             id={`${id}-borders`}
             label={label}
@@ -171,6 +170,7 @@ const BorderControl = (props) => {
                 />
             </div>}
         </div>
+        <ControlDevices />
         <DimensionControl
             label={__('Border Radius', '--gctd--')}
             position={['top', 'right', 'bottom', 'left']}
@@ -185,11 +185,10 @@ const BorderControl = (props) => {
                 }
             }}
             value={value && value.radius}
-            allowDeviceControl={true}
             onValueChange={radius => onValueChange({ ...value, radius })}
             onStyleChange={radius => onStyleChange({ ...value, radius })}
         />
     </div>;
 };
 
-export default compose(withParentControl, withDeviceControl)(BorderControl);
+export default compose(withParentControl, withDeviceControl)(BorderResponsiveControl);

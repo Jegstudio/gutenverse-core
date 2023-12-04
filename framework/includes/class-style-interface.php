@@ -23,13 +23,6 @@ abstract class Style_Interface {
 	protected $attrs;
 
 	/**
-	 * Attribute Migration Data
-	 *
-	 * @var array
-	 */
-	protected $attrs_migrated;
-
-	/**
 	 * Element ID
 	 *
 	 * @var string
@@ -96,9 +89,6 @@ abstract class Style_Interface {
 	 * @return string.
 	 */
 	public function generate_style() {
-		// migrate data before generate style.
-		$this->migrated_attr();
-
 		// need to reset style.
 		$this->generate();
 		$this->process_features();
@@ -241,6 +231,10 @@ abstract class Style_Interface {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
+				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
+					continue;
+				}
+
 				if ( ! gutenverse_truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
@@ -1249,28 +1243,42 @@ abstract class Style_Interface {
 			);
 		}
 
-		if ( isset( $this->attrs['border_v2'] ) ) {
+		if ( isset( $this->attrs['border'] ) ) {
+			$this->handle_border( 'border', $selector['normal'] );
+		}
+
+		if ( isset( $this->attrs['borderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['normal'],
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['border_v2'],
+					'value'          => $this->attrs['borderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['borderHover_v2'] ) ) {
+		if ( isset( $this->attrs['borderHover'] ) ) {
+			$this->handle_border( 'borderHover', $selector['hover'] );
+		}
+
+		if ( isset( $this->attrs['borderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector['hover'],
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['borderHover_v2'],
+					'value'          => $this->attrs['borderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -1309,7 +1317,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string
 	 */
-	public function handle_border_v2( $data ) {
+	public function handle_border_responsive( $data ) {
 		$style = '';
 
 		foreach ( $data as $key => $value ) {
@@ -1631,65 +1639,6 @@ abstract class Style_Interface {
 		}
 
 		return $string;
-	}
-
-	/**
-	 * Migrate Border Attribute
-	 *
-	 * @param array $from Previous Data.
-	 *
-	 * @return array
-	 */
-	protected function migrated_border( $from ) {
-		$devices = $this->get_all_device();
-
-		if ( ! isset( $from ) ) {
-			return;
-		}
-
-		$new_value = array(
-			'Desktop' => $from,
-		);
-
-		if ( isset( $from['radius'] ) ) {
-			foreach ( $devices as $device ) {
-				if ( isset( $from['radius'][ $device ] ) ) {
-					if ( ! isset( $new_value[ $device ] ) ) {
-						$new_value[ $device ] = array();
-					}
-
-					$new_value[ $device ] = array_merge(
-						$new_value[ $device ],
-						array(
-							'radius' => $from['radius'][ $device ],
-						)
-					);
-				}
-			}
-		}
-
-		return $new_value;
-	}
-
-	/**
-	 * If the Migrated Attribute is empty, it will uses the old attribute value
-	 */
-	protected function migrated_attr() {
-		if ( isset( $this->attrs_migrated ) ) {
-			foreach ( $this->attrs_migrated as $key => $data ) {
-				if ( ! isset( $this->attrs[ $data['attr'] ] ) || isset( $this->attrs[ $key ] ) ) {
-					continue;
-				}
-
-				switch ( $data['type'] ) {
-					case 'border':
-						$this->attrs[ $key ] = $this->migrated_border( $this->attrs[ $data['attr'] ] );
-						break;
-					default:
-						break;
-				}
-			}
-		}
 	}
 
 	/**

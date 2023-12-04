@@ -6,6 +6,7 @@ export { default as AlertControl } from './controls/alert/alert-control';
 export { default as AnimationControl } from './controls/animation/animation-control';
 export { default as BackgroundControl } from './controls/background/background-control';
 export { default as BorderControl } from './controls/border/border-control';
+export { default as BorderResponsiveControl } from './controls/border/border-responsive-control';
 export { default as BoxShadowControl } from './controls/box-shadow/box-shadow-control';
 export { default as CheckboxControl } from './controls/checkbox/checkbox-control';
 export { default as ColorControl } from './controls/color/color-control';
