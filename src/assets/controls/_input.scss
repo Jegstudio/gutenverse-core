@@ -66,10 +66,11 @@
 
 .repeater-drag-handle {
   @include centering-element();
+  height: 28px;
   width: 28px;
-  width: 16px;
-  margin-right: 10px;
   cursor: grab;
+  margin-right:2px;
+  margin-left:-10px;
 }
 .repeater-remove,
 .repeater-duplicate,
@@ -1595,8 +1596,9 @@
         @include centering-element();
         width: 28px;
         width: 16px;
-        margin-right: 10px;
+        margin-right: 2px;
         cursor: grab;
+        margin-left:-10px;
       }
       .repeater-remove,
       .repeater-duplicate,
@@ -1618,8 +1620,9 @@
       }
       .repeater-duplicate{
         svg {
-          width: 12px;
+          width: 25px;
           height: 12px;
+          padding-left: 7px;
           color: #99a2a9;
         }
       }

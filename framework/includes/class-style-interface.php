@@ -1309,7 +1309,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string
 	 */
-	protected function handle_border_v2( $data ) {
+	public function handle_border_v2( $data ) {
 		$style = '';
 
 		foreach ( $data as $key => $value ) {
