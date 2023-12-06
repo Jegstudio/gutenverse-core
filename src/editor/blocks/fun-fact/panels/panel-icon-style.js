@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconStylePanel = (props) => {
     const {
@@ -8,6 +9,8 @@ export const iconStylePanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -52,14 +55,28 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorder_v2',
-            show: !switcher.iconStyle || switcher.iconStyle === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorder',
+            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderResponsive',
+            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -91,14 +108,28 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconBorderHover_v2',
-            show: switcher.iconStyle === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorderHover',
+            show: switcher.iconStyle === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderHoverResponsive',
+            show: switcher.iconStyle === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

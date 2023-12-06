@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentListPanel = (props) => {
@@ -11,6 +12,8 @@ export const contentListPanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -174,27 +177,55 @@ export const contentListPanel = (props) => {
             ]
         },
         {
-            id: 'contentBorder_v2',
-            show: !switcher.contentHover || switcher.contentHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'contentBorder',
+            show: (!switcher.contentHover || switcher.contentHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'contentBorderResponsive',
+            show: (!switcher.contentHover || switcher.contentHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post a`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
-            id: 'contentHoverBorder_v2',
-            show: switcher.contentHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'contentHoverBorder',
+            show: switcher.contentHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'contentHoverBorderResponsive',
+            show: switcher.contentHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post:hover a`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

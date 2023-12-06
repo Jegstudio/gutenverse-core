@@ -185,7 +185,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentBorder_v2": {
+		"contentBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "contentBorder",
@@ -197,7 +197,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentHoverBorder_v2": {
+		"contentHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "contentHoverBorder",
@@ -333,7 +333,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"metaBorder_v2": {
+		"metaBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "metaBorder",
@@ -345,7 +345,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"metaHoverBorder_v2": {
+		"metaHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "metaHoverBorder",
@@ -397,7 +397,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationBorder_v2": {
+		"paginationBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "paginationBorder",
@@ -409,7 +409,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationHoverBorder_v2": {
+		"paginationHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "paginationHoverBorder",

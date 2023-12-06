@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelAccordion = (props) => {
@@ -9,6 +10,8 @@ export const panelAccordion = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -54,27 +57,55 @@ export const panelAccordion = (props) => {
             onChange: ({ __accBorderHover }) => setSwitcher({ ...switcher, accBorder: __accBorderHover })
         },
         {
-            id: 'accordionBorder_v2',
-            show: !switcher.accBorder || switcher.accBorder === 'normal',
+            id: 'accordionBorder',
+            show: (!switcher.accBorder || switcher.accBorder === 'normal') && device === 'Desktop',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'accordionBorderResponsive',
+            show: (!switcher.accBorder || switcher.accBorder === 'normal') && device !== 'Desktop',
+            label: __('Border Type', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
-            id: 'accordionBorderActive_v2',
-            show: switcher.accBorder === 'active',
+            id: 'accordionBorderActive',
+            show: switcher.accBorder === 'active' && device === 'Desktop',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'accordionBorderActiveResponsive',
+            show: switcher.accBorder === 'active' && device !== 'Desktop',
+            label: __('Border Type', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

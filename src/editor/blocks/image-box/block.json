@@ -119,7 +119,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"containerBorder_v2": {
+		"containerBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "containerBorder",

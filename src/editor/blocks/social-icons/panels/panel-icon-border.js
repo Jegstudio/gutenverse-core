@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorderResponsive } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const iconBorderPanel = (props) => {
     const {
@@ -9,6 +10,8 @@ export const iconBorderPanel = (props) => {
         switcher,
         setSwitcher,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -27,27 +30,55 @@ export const iconBorderPanel = (props) => {
             onChange: ({ __iconBorderHover }) => setSwitcher({ ...switcher, iconBorder: __iconBorderHover })
         },
         {
-            id: 'iconBorder_v2',
-            show: !switcher.iconBorder || switcher.iconBorder === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorder',
+            show: (!switcher.iconBorder || switcher.iconBorder === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-social-icon a`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderResponsive',
+            show: (!switcher.iconBorder || switcher.iconBorder === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon a`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
-            id: 'iconBorderHover_v2',
-            show: switcher.iconBorder === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorderHover',
+            show: switcher.iconBorder === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-social-icon:hover a`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderHoverResponsive',
+            show: switcher.iconBorder === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-social-icon:hover a`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

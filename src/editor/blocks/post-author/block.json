@@ -94,7 +94,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"authorBorder_v2": {
+		"authorBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "authorBorder",

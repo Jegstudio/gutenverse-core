@@ -145,15 +145,22 @@ class Image extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imgBorder_v2'] ) ) {
+		if ( isset( $this->attrs['imgBorder'] ) ) {
+			$this->handle_border( 'imgBorder', ".{$this->element_id} img" );
+		}
+
+		if ( isset( $this->attrs['imgBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} img",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['imgBorder_v2'],
+					'value'          => $this->attrs['imgBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

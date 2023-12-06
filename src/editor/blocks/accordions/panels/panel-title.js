@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl } from 'gutenverse-core/controls';
+import { BorderResponsiveControl, SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitle = (props) => {
     const {
@@ -9,6 +10,8 @@ export const panelTitle = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
 
@@ -126,14 +129,28 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorder_v2',
-            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            id: 'titleBorder',
+            show: (!switcher.accTitle || switcher.accTitle === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'titleBorderResponsive',
+            show: (!switcher.accTitle || switcher.accTitle === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-heading`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -163,14 +180,28 @@ export const panelTitle = (props) => {
             ],
         },
         {
-            id: 'titleBorderActive_v2',
-            show: switcher.accTitle === 'active',
+            id: 'titleBorderActive',
+            show: switcher.accTitle === 'active' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'titleBorderActiveResponsive',
+            show: switcher.accTitle === 'active' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

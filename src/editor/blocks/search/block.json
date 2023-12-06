@@ -141,7 +141,7 @@
 		"inputBorderNormal": {
 			"type": "object"
 		},
-		"inputBorderNormal_v2": {
+		"inputBorderNormalResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "inputBorderNormal",
@@ -155,7 +155,7 @@
 		"inputBorderHover": {
 			"type": "object"
 		},
-		"inputBorderHover_v2": {
+		"inputBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "inputBorderHover",

@@ -1,14 +1,17 @@
 import { __ } from '@wordpress/i18n';
 
-import { BorderControl, BoxShadowControl, IconRadioControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, IconRadioControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { allowRenderBoxShadow, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const stylePanel = (props) => {
     const {
         elementId,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -103,13 +106,28 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'imageBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'imageBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} img`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'imageBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} img`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

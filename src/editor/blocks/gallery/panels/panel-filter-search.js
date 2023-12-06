@@ -1,12 +1,15 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterSearchPanel = (props) => {
     const {
         elementId
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -154,13 +157,28 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'filterSearchBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap .filter-wrap button.search-filter-trigger`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'filterSearchBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap button.search-filter-trigger`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -297,13 +315,28 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchFormBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'filterSearchFormBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'filterSearchFormBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -364,13 +397,28 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'filterSearchDropdownBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'filterSearchDropdownBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'filterSearchDropdownBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .search-filters-wrap .filter-wrap ul.search-filter-controls`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

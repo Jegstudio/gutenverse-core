@@ -67,7 +67,7 @@
       "default": {},
       "copyStyle": true
     },
-    "iconBorder_v2": {
+    "iconBorderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "iconBorder",
@@ -84,7 +84,7 @@
       "default": {},
       "copyStyle": true
     },
-    "iconBorderHover_v2": {
+    "iconBorderHoverResponsive": {
       "type": "object",
       "migrate": {
         "attr": "iconBorderHover",

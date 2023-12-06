@@ -206,15 +206,22 @@ class Image_Box extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .image-box-body .body-inner", $this->attrs['bodyBackground'] );
 		}
 
-		if ( isset( $this->attrs['containerBorder_v2'] ) ) {
+		if ( isset( $this->attrs['containerBorder'] ) ) {
+			$this->handle_border( 'containerBorder', ".{$this->element_id} .image-box-body .body-inner" );
+		}
+
+		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .image-box-body .body-inner",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['containerBorder_v2'],
+					'value'          => $this->attrs['containerBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

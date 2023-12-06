@@ -105,7 +105,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBorder_v2": {
+		"iconBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "iconBorder",
@@ -125,7 +125,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemBorder_v2": {
+		"itemBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "itemBorder",
@@ -157,7 +157,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"ItemHoverBorder_v2": {
+		"ItemHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "ItemHoverBorder",
@@ -205,7 +205,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemCardBorder_v2": {
+		"itemCardBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "itemCardBorder",
@@ -245,7 +245,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"thumbnailBorder_v2": {
+		"thumbnailBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "thumbnailBorder",
@@ -372,7 +372,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"loadMoreBorder_v2": {
+		"loadMoreBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "loadMoreBorder",
@@ -384,7 +384,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"loadMoreBorderHover_v2": {
+		"loadMoreBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "loadMoreBorderHover",
@@ -424,7 +424,7 @@
 			"tye": "object",
 			"copyStyle": true
 		},
-		"filterTabBorder_v2": {
+		"filterTabBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "filterTabBorder",
@@ -436,7 +436,7 @@
 			"tye": "object",
 			"copyStyle": true
 		},
-		"filterTabBorderActive_v2": {
+		"filterTabBorderActiveResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "filterTabBorderActive",
@@ -489,7 +489,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchBorder_v2": {
+		"filterSearchBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "filterSearchBorder",
@@ -533,7 +533,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchFormBorder_v2": {
+		"filterSearchFormBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "filterSearchFormBorder",
@@ -561,7 +561,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"filterSearchDropdownBorder_v2": {
+		"filterSearchDropdownBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "filterSearchDropdownBorder",

@@ -128,7 +128,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "profileBorderRadius_v2": {
+    "profileBorderRadiusResponsive": {
       "type": "object",
       "migrate": {
         "attr": "profileBorderRadius",
@@ -194,7 +194,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "profileBorder_v2": {
+    "profileBorderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "profileBorder",
@@ -210,7 +210,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "profileBorderHover_v2": {
+    "profileBorderHoverResponsive": {
       "type": "object",
       "migrate": {
         "attr": "profileBorderHover",
@@ -226,7 +226,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "imageBorder_v2": {
+    "imageBorderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "imageBorder",
@@ -242,7 +242,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "imageBorderHover_v2": {
+    "imageBorderHoverResponsive": {
       "type": "object",
       "migrate": {
         "attr": "imageBorderHover",
@@ -373,7 +373,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "hoverContentBorder_v2": {
+    "hoverContentBorderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "hoverContentBorder",

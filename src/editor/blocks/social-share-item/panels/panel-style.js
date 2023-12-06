@@ -4,9 +4,11 @@ import {
     SizeControl,
     SwitchControl,
     TypographyControl,
-    BorderControl
+    BorderControl,
+    BorderResponsiveControl
 } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography, handleBorderResponsive } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleColor, handleUnitPoint, handleTypography, handleBorderResponsive, handleBorder } from 'gutenverse-core/styling';
 
 export const panelStyle = props => {
     const {
@@ -15,6 +17,8 @@ export const panelStyle = props => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -123,14 +127,28 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'borderResponsive',
-            show: !switcher.socialHover || switcher.socialHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'border',
+            show: (!switcher.socialHover || switcher.socialHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'borderResponsive',
+            show: (!switcher.socialHover || switcher.socialHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -186,14 +204,28 @@ export const panelStyle = props => {
             ]
         },
         {
-            id: 'borderHoverResponsive',
-            show: switcher.socialHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'borderHover',
+            show: switcher.socialHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'borderHoverResponsive',
+            show: switcher.socialHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper #${elementId}.gutenverse-share-item:hover`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

@@ -179,7 +179,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"arrowBorder_v2": {
+		"arrowBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "arrowBorder",
@@ -195,7 +195,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"arrowBorderHover_v2": {
+		"arrowBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "arrowBorderHover",
@@ -231,7 +231,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"containerBorder_v2": {
+		"containerBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "containerBorder",
@@ -247,7 +247,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"containerBorderHover_v2": {
+		"containerBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "containerBorderHover",
@@ -323,7 +323,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"imageBorder_v2": {
+		"imageBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "imageBorder",

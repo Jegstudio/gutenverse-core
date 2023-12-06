@@ -55,7 +55,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"imageBorder_v2": {
+		"imageBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "imageBorder",

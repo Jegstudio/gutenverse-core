@@ -199,15 +199,22 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorder_v2'] ) ) {
+		if ( isset( $this->attrs['arrowBorder'] ) ) {
+			$this->handle_border( 'arrowBorder', ".{$this->element_id} div[class*='swiper-button-']" );
+		}
+
+		if ( isset( $this->attrs['arrowBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['arrowBorder_v2'],
+					'value'          => $this->attrs['arrowBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -225,15 +232,22 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorderHover_v2'] ) ) {
+		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
+			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']" );
+		}
+
+		if ( isset( $this->attrs['arrowBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['arrowBorderHover_v2'],
+					'value'          => $this->attrs['arrowBorderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -428,15 +442,22 @@ class Testimonials extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-testimonial-item .testimonial-box:hover", $this->attrs['containerBackgroundHover'] );
 		}
 
-		if ( isset( $this->attrs['containerBorder_v2'] ) ) {
+		if ( isset( $this->attrs['containerBorder'] ) ) {
+			$this->handle_border( 'containerBorder', ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box" );
+		}
+
+		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['containerBorder_v2'],
+					'value'          => $this->attrs['containerBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -454,15 +475,22 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['containerBorderHover_v2'] ) ) {
+		if ( isset( $this->attrs['containerBorderHover'] ) ) {
+			$this->handle_border( 'containerBorderHover', ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box:hover" );
+		}
+
+		if ( isset( $this->attrs['containerBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-testimonials.{$this->element_id} .swiper-container .guten-testimonial-item .testimonial-box:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['containerBorderHover_v2'],
+					'value'          => $this->attrs['containerBorderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -686,15 +714,22 @@ class Testimonials extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-testimonial-item .profile-image", $this->attrs['imageBackground'] );
 		}
 
-		if ( isset( $this->attrs['imageBorder_v2'] ) ) {
+		if ( isset( $this->attrs['imageBorder'] ) ) {
+			$this->handle_border( 'imageBorder', ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image" );
+		}
+
+		if ( isset( $this->attrs['imageBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['imageBorder_v2'],
+					'value'          => $this->attrs['imageBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

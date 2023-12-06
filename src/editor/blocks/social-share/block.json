@@ -52,7 +52,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderType_v2": {
+		"borderTypeResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderType",
@@ -80,7 +80,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderTypeHover_v2": {
+		"borderTypeHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderTypeHover",

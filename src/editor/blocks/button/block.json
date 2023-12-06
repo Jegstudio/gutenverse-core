@@ -68,7 +68,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"buttonBorder_v2": {
+		"buttonBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "buttonBorder",
@@ -84,7 +84,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"buttonBorderHover_v2": {
+		"buttonBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "buttonBorderHover",

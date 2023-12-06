@@ -145,28 +145,42 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-post:hover", $this->attrs['contentHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['contentBorder_v2'] ) ) {
+		if ( isset( $this->attrs['contentBorder'] ) ) {
+			$this->handle_border( 'contentBorder', ".{$this->element_id} .guten-post a" );
+		}
+
+		if ( isset( $this->attrs['contentBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['contentBorder_v2'],
+					'value'          => $this->attrs['contentBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['contentHoverBorder_v2'] ) ) {
+		if ( isset( $this->attrs['contentHoverBorder'] ) ) {
+			$this->handle_border( 'contentHoverBorder', ".{$this->element_id} .guten-post:hover a" );
+		}
+
+		if ( isset( $this->attrs['contentHoverBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['contentHoverBorder_v2'],
+					'value'          => $this->attrs['contentHoverBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -535,28 +549,42 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-post:hover a .meta-lists span", $this->attrs['metaHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['metaBorder_v2'] ) ) {
+		if ( isset( $this->attrs['metaBorder'] ) ) {
+			$this->handle_border( 'metaBorder', ".{$this->element_id} .guten-post a .meta-lists span" );
+		}
+
+		if ( isset( $this->attrs['metaBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post a .meta-lists span",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['metaBorder_v2'],
+					'value'          => $this->attrs['metaBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['metaHoverBorder_v2'] ) ) {
+		if ( isset( $this->attrs['metaHoverBorder'] ) ) {
+			$this->handle_border( 'metaHoverBorder', ".{$this->element_id} .guten-post:hover a .meta-lists span" );
+		}
+
+		if ( isset( $this->attrs['metaHoverBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-post:hover a .meta-lists span",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['metaHoverBorder_v2'],
+					'value'          => $this->attrs['metaHoverBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -682,28 +710,42 @@ class Post_List extends Style_Abstract {
 			$this->handle_background( ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover", $this->attrs['paginationHoverBackground'] );
 		}
 
-		if ( isset( $this->attrs['paginationBorder_v2'] ) ) {
+		if ( isset( $this->attrs['paginationBorder'] ) ) {
+			$this->handle_border( 'paginationBorder', ".{$this->element_id} .guten-block-pagination .guten-block-loadmore" );
+		}
+
+		if ( isset( $this->attrs['paginationBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['paginationBorder_v2'],
+					'value'          => $this->attrs['paginationBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['paginationHoverBorder_v2'] ) ) {
+		if ( isset( $this->attrs['paginationHoverBorder'] ) ) {
+			$this->handle_border( 'paginationHoverBorder', ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover" );
+		}
+
+		if ( isset( $this->attrs['paginationHoverBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-pagination .guten-block-loadmore:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['paginationHoverBorder_v2'],
+					'value'          => $this->attrs['paginationHoverBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

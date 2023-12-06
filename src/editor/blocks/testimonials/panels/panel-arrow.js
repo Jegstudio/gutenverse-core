@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const arrowPanel = (props) => {
@@ -9,6 +10,8 @@ export const arrowPanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -238,14 +241,28 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorder_v2',
-            show: !switcher.arrowHover || switcher.arrowHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'arrowBorder',
+            show: (!switcher.arrowHover || switcher.arrowHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'arrowBorderResponsive',
+            show: (!switcher.arrowHover || switcher.arrowHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} div[class*='swiper-button-']`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -264,14 +281,28 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowBorderHover_v2',
-            show: switcher.arrowHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'arrowBorderHover',
+            show: switcher.arrowHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'arrowBorderHoverResponsive',
+            show: switcher.arrowHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover div[class*='swiper-button-']`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

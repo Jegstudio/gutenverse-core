@@ -144,28 +144,42 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['imageBorder_v2'] ) ) {
+		if ( isset( $this->attrs['imageBorder'] ) ) {
+			$this->handle_border( 'imageBorder', ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image" );
+		}
+
+		if ( isset( $this->attrs['imageBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['imageBorder_v2'],
+					'value'          => $this->attrs['imageBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['imageBorderHover_v2'] ) ) {
+		if ( isset( $this->attrs['imageBorderHover'] ) ) {
+			$this->handle_border( 'imageBorderHover', ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image" );
+		}
+
+		if ( isset( $this->attrs['imageBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['imageBorderHover_v2'],
+					'value'          => $this->attrs['imageBorderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -492,15 +506,22 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorder_v2'] ) ) {
+		if ( isset( $this->attrs['arrowBorder'] ) ) {
+			$this->handle_border( 'arrowBorder', ".{$this->element_id} div[class*='swiper-button-']" );
+		}
+
+		if ( isset( $this->attrs['arrowBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['arrowBorder_v2'],
+					'value'          => $this->attrs['arrowBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -518,15 +539,22 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowBorderHover_v2'] ) ) {
+		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
+			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']" );
+		}
+
+		if ( isset( $this->attrs['arrowBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['arrowBorderHover_v2'],
+					'value'          => $this->attrs['arrowBorderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

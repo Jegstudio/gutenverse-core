@@ -1,10 +1,11 @@
 import { __ } from '@wordpress/i18n';
 
-import { allowRenderBoxShadow, allowRenderTextShadow, handleBorderResponsive, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, ColorControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, allowRenderTextShadow, handleBorder, handleBorderResponsive, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleTextShadow } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const stylePanel = (props) => {
     const {
@@ -14,6 +15,8 @@ export const stylePanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -215,15 +218,28 @@ export const stylePanel = (props) => {
             ],
         },
         {
-            id: 'authorBorder_v2',
-            show: authorAvatar,
-            label: __('Border Type', 'gutenverse'),
+            id: 'authorBorder',
+            show: authorAvatar && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} img`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'authorBorderResponsive',
+            show: authorAvatar && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar,
+                    allowRender: () => authorAvatar && device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

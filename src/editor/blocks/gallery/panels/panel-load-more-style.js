@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const loadMoreStylePanel = (props) => {
@@ -9,6 +10,8 @@ export const loadMoreStylePanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -183,27 +186,55 @@ export const loadMoreStylePanel = (props) => {
             ]
         },
         {
-            id: 'loadMoreBorder_v2',
-            show: !switcher.loadHover || switcher.loadHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'loadMoreBorder',
+            show: (!switcher.loadHover || switcher.loadHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'loadMoreBorderResponsive',
+            show: (!switcher.loadHover || switcher.loadHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
-            id: 'loadMoreBorderHover_v2',
-            show: switcher.loadHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'loadMoreBorderHover',
+            show: switcher.loadHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'loadMoreBorderHoverResponsive',
+            show: switcher.loadHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]

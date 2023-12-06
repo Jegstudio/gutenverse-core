@@ -1,11 +1,14 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentContainerPanel = ({ elementId }) => {
+    const device = getDeviceType();
+
     return [
         {
             id: 'contentAlign',
@@ -109,13 +112,28 @@ export const contentContainerPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'contentBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'contentBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'contentBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
