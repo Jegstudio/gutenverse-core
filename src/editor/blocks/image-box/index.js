@@ -1,7 +1,7 @@
 
 import edit from './edit';
 import save from './save';
-import saveV1 from './deprecated/v1/save';
+import saveV1 from './saveDeprecated';
 import metadata from './block.json';
 import { IconImageBoxSVG } from '../../../assets/icon/index';
 import example from './data/example';
