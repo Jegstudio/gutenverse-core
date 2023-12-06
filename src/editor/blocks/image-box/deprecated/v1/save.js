@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 
 import { classnames } from 'gutenverse-core/components';
-import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -86,10 +86,11 @@ const save = compose(
         'gutenverse-image-box',
         'guten-element',
         `style-${contentStyle}`,
+        advanceAnimationData
     );
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className}>
             <div className="image-box-header">
                 <WrapAHref {...props}>
                     <ImageBoxFigure {...attributes} />
