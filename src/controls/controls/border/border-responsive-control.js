@@ -4,7 +4,7 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
-import { ColorControl, ControlDevices, DimensionControl, NumberControl, SelectControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, NumberControl, SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
@@ -170,9 +170,9 @@ const BorderResponsiveControl = (props) => {
                 />
             </div>}
         </div>
-        <ControlDevices />
         <DimensionControl
             label={__('Border Radius', '--gctd--')}
+            showDeviceControlOnly={true}
             position={['top', 'right', 'bottom', 'left']}
             units={{
                 px: {

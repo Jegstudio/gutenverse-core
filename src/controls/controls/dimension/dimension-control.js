@@ -96,6 +96,7 @@ const DimensionControl = (props) => {
         units,
         value = {},
         allowDeviceControl,
+        showDeviceControlOnly,
         onValueChange,
         onStyleChange,
         position,
@@ -166,7 +167,7 @@ const DimensionControl = (props) => {
             description={description}
             proLabel={proLabel}
             id={`${id}-range`}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControlOnly}
         />
         <div className={'control-body'}>
             <DimensionInput

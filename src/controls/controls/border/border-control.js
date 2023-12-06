@@ -4,7 +4,7 @@ import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
-import { ColorControl, ControlDevices, DimensionControl, NumberControl, SelectControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, NumberControl, SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { RefreshCw } from 'react-feather';
 import { Tooltip } from '@wordpress/components';
@@ -13,6 +13,7 @@ const BorderControl = (props) => {
     const {
         label,
         allowDeviceControl,
+        showDeviceControl = true,
         value = {},
         onValueChange,
         onStyleChange,
@@ -35,12 +36,11 @@ const BorderControl = (props) => {
     </Tooltip>;
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
-        <ControlDevices />
         <ControlHeadingSimple
             id={`${id}-borders`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}
             proLabel={proLabel}
             outLabel={clearBorder}
         />
