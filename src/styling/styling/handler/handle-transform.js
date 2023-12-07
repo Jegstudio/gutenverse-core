@@ -142,7 +142,7 @@ export const handleTransform = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `translate(${_moveZ.point}${_moveZ.unit}) `,
+                    style: `translateZ(${_moveZ.point}${_moveZ.unit}) `,
                     device,
                     elementStyle: transformStyle
                 });
@@ -320,7 +320,7 @@ export const handleTransformHover = (values) => {
 
             if (_moveZ && _moveZ.point) {
                 responsiveAppender({
-                    style: `translate(${_moveZ.point}${_moveZ.unit}) `,
+                    style: `translateZ(${_moveZ.point}${_moveZ.unit}) `,
                     device,
                     elementStyle: transformStyle
                 });
