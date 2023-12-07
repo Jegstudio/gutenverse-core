@@ -1256,9 +1256,9 @@ abstract class Style_Interface {
 					},
 					'value'          => $this->attrs['borderResponsive'],
 					'device_control' => true,
-					'skip_device'    => array(
+					'skip_device'    => isset( $this->attrs['border'] ) ? array(
 						'Desktop',
-					),
+					) : null,
 				)
 			);
 		}
@@ -1276,9 +1276,9 @@ abstract class Style_Interface {
 					},
 					'value'          => $this->attrs['borderHoverResponsive'],
 					'device_control' => true,
-					'skip_device'    => array(
+					'skip_device'    => isset( $this->attrs['borderHover'] ) ? array(
 						'Desktop',
-					),
+					) : null,
 				)
 			);
 		}
