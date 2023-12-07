@@ -3,13 +3,13 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const withDeviceControl = (BlockControl) => {
     return (props) => {
-        const { allowDeviceControl = false, value = {}, protectedValue = false } = props;
+        const { allowDeviceControl = false, value = {} } = props;
         const deviceType = getDeviceType();
 
-        const panelProps = allowDeviceControl && !protectedValue ? {
+        const panelProps = allowDeviceControl? {
             ...props,
             onValueChange: (data) => {
-                const newData = data ? {
+                const newData = data !== undefined? {
                     ...value,
                     [deviceType]: data
                 } : {};
@@ -17,7 +17,7 @@ export const withDeviceControl = (BlockControl) => {
                 props.onValueChange(newData);
             },
             onStyleChange: (data) => {
-                const newData = data ? {
+                const newData = data !== undefined? {
                     ...value,
                     [deviceType]: data
                 } : {};
