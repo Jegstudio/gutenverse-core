@@ -72,10 +72,6 @@ abstract class Style_Abstract extends Style_Interface {
 					} elseif ( isset( $value['default'] ) ) {
 						$this->attrs[ $key ] = $value['default'];
 					}
-
-					if ( isset( $value['migrate'] ) ) {
-						$this->attrs_migrated[ $key ] = $value['migrate'];
-					}
 				}
 			}
 		}

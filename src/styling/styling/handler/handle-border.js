@@ -49,7 +49,7 @@ export const handleBorder = (value) => {
 };
 
 
-export const handleBorderV2 = (value) => {
+export const handleBorderResponsive = (value) => {
     let style = '';
     const keys = Object.keys(value);
     const sortedKeys = [
