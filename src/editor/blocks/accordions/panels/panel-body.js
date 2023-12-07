@@ -71,18 +71,6 @@ export const panelBody = (props) => {
             onChange: ({ __accBodyActive }) => setSwitcher({ ...switcher, accBody: __accBodyActive })
         },
         {
-            id: 'contentBackgroundColor',
-            show: !switcher.accBody || switcher.accBody === 'normal',
-            label: __('Background Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
-        },
-        {
             id: 'contentTextColor',
             show: !switcher.accBody || switcher.accBody === 'normal',
             label: __('Text Color', 'gutenverse'),
@@ -91,6 +79,18 @@ export const panelBody = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
                     render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'contentBackgroundColor',
+            show: !switcher.accBody || switcher.accBody === 'normal',
+            label: __('Background Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ],
         },

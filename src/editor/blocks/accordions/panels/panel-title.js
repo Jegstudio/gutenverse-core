@@ -102,18 +102,6 @@ export const panelTitle = (props) => {
             onChange: ({ __accTitleActive }) => setSwitcher({ ...switcher, accTitle: __accTitleActive })
         },
         {
-            id: 'titleBackgroundColor',
-            show: !switcher.accTitle || switcher.accTitle === 'normal',
-            label: __('Background Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-heading`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
-        },
-        {
             id: 'titleTextColor',
             show: !switcher.accTitle || switcher.accTitle === 'normal',
             label: __('Text Color', 'gutenverse'),
@@ -122,6 +110,18 @@ export const panelTitle = (props) => {
                 {
                     selector: `.${elementId} .accordion-item .accordion-text`,
                     render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'titleBackgroundColor',
+            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            label: __('Background Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ],
         },
