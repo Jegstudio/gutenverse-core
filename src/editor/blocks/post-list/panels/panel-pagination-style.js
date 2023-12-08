@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const paginationStylePanel = (props) => {
@@ -11,6 +12,8 @@ export const paginationStylePanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -212,28 +215,56 @@ export const paginationStylePanel = (props) => {
             ]
         },
         {
-            id: 'paginationBorder_v2',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'paginationBorder',
+            show: (!switcher.paginationHover || switcher.paginationHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-block-pagination .guten-block-loadmore`,
-                    render: value => handleBorderV2(value)
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
         {
-            id: 'paginationHoverBorder_v2',
-            show: switcher.paginationHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'paginationBorderResponsive',
+            show: (!switcher.paginationHover || switcher.paginationHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-block-pagination .guten-block-loadmore`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'paginationHoverBorder',
+            show: switcher.paginationHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-block-pagination:hover .guten-block-loadmore`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'paginationHoverBorderResponsive',
+            show: switcher.paginationHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-block-pagination:hover .guten-block-loadmore`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

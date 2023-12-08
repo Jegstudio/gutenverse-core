@@ -129,15 +129,22 @@ class Popup_Builder extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['containerBorder_v2'] ) ) {
+		if ( isset( $this->attrs['containerBorder'] ) ) {
+			$this->handle_border( 'containerBorder', ".{$this->element_id} .guten-popup .guten-popup-content" );
+		}
+
+		if ( isset( $this->attrs['containerBorderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-content",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['containerBorder_v2'],
+					'value'          => $this->attrs['containerBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -271,28 +278,42 @@ class Popup_Builder extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['closeBorder_v2'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
+		if ( isset( $this->attrs['closeBorder'] ) ) {
+			$this->handle_border( 'closeBorder', ".{$this->element_id} .guten-popup .guten-popup-close" );
+		}
+
+		if ( isset( $this->attrs['closeBorderResponsive'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['closeBorder_v2'],
+					'value'          => $this->attrs['closeBorderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['closeBorderHover_v2'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
+		if ( isset( $this->attrs['closeBorderHover'] ) ) {
+			$this->handle_border( 'closeBorderHover', ".{$this->element_id} .guten-popup .guten-popup-close:hover" );
+		}
+
+		if ( isset( $this->attrs['closeBorderHoverResponsive'] ) && isset( $this->attrs['showCloseButton'] ) && $this->attrs['showCloseButton'] ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-popup .guten-popup-close:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['closeBorderHover_v2'],
+					'value'          => $this->attrs['closeBorderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

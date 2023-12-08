@@ -23,7 +23,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "border_v2": {
+    "borderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "border",

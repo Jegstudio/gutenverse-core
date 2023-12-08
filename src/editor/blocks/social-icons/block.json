@@ -67,7 +67,7 @@
       "default": {},
       "copyStyle": true
     },
-    "iconBorder_v2": {
+    "iconBorderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "iconBorder",
@@ -84,7 +84,7 @@
       "default": {},
       "copyStyle": true
     },
-    "iconBorderHover_v2": {
+    "iconBorderHoverResponsive": {
       "type": "object",
       "migrate": {
         "attr": "iconBorderHover",
@@ -101,7 +101,7 @@
       "default": {},
       "copyStyle": true
     },
-    "border_v2": {
+    "borderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "border",
@@ -118,7 +118,7 @@
       "default": {},
       "copyStyle": true
     },
-    "borderHover_v2": {
+    "borderHoverResponsive": {
       "type": "object",
       "migrate": {
         "attr": "borderHover",

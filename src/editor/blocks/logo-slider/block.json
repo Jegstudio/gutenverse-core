@@ -59,7 +59,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"imageBorder_v2": {
+		"imageBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "imageBorder",
@@ -75,7 +75,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"imageBorderHover_v2": {
+		"imageBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "imageBorderHover",
@@ -217,7 +217,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"arrowBorder_v2": {
+		"arrowBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "arrowBorder",
@@ -233,7 +233,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"arrowBorderHover_v2": {
+		"arrowBorderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "arrowBorderHover",
@@ -260,7 +260,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"border_v2": {
+		"borderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "border",
@@ -277,7 +277,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"borderHover_v2": {
+		"borderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderHover",

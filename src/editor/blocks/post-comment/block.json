@@ -77,7 +77,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"inputBorder_v2": {
+		"inputBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "inputBorder",
@@ -113,7 +113,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderButton_v2": {
+		"borderButtonResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderButton",
@@ -137,7 +137,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderButtonHover_v2": {
+		"borderButtonHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderButtonHover",
@@ -165,7 +165,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"border_v2": {
+		"borderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "border",
@@ -181,7 +181,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderHover_v2": {
+		"borderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderHover",
@@ -260,7 +260,7 @@
 		"inputAreaBoxShadowHover": {
 			"type": "object",
 			"copyStyle": true
-        },
+		},
 		"inputTypography": {
 			"type": "object",
 			"copyStyle": true

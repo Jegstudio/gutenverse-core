@@ -1,11 +1,14 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, IconRadioControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelContentStyle = ({ elementId, switcher, setSwitcher }) => {
+    const device = getDeviceType();
+
     return [
         {
             id: 'alignText',
@@ -134,15 +137,29 @@ export const panelContentStyle = ({ elementId, switcher, setSwitcher }) => {
             ]
         },
         {
-            id: 'containerBorder_v2',
-            show: !switcher.containerStyle || switcher.containerStyle === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'containerBorder',
+            show: (!switcher.containerStyle || switcher.containerStyle === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'containerBorderResponsive',
+            show: (!switcher.containerStyle || switcher.containerStyle === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -160,15 +177,29 @@ export const panelContentStyle = ({ elementId, switcher, setSwitcher }) => {
             ]
         },
         {
-            id: 'containerBorderHover_v2',
-            show: switcher.containerStyle === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'containerBorderHover',
+            show: switcher.containerStyle === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'containerBorderHoverResponsive',
+            show: switcher.containerStyle === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-testimonials.${elementId} .swiper-container .guten-testimonial-item .testimonial-box:hover`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

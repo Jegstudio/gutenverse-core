@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl, BorderResponsiveControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const closePanel = (props) => {
     const {
@@ -9,6 +10,8 @@ export const closePanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -275,7 +278,7 @@ export const closePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__closeSwitch}) => setSwitcher({...switcher, closeSwitch: __closeSwitch})
+            onChange: ({ __closeSwitch }) => setSwitcher({ ...switcher, closeSwitch: __closeSwitch })
         },
         {
             id: 'closeButtonColor',
@@ -306,14 +309,28 @@ export const closePanel = (props) => {
         },
         {
             id: 'closeBorder',
+            show: device === 'Desktop' && showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            allowDeviceControl: true,
-            show: showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close`,
-                    render: (value) => handleBorderV2(value),
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'closeBorderResponsive',
+            show: device !== 'Desktop' && showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-popup .guten-popup-close`,
+                    allowRender: () => device !== 'Desktop',
+                    render: (value) => handleBorderResponsive(value),
                 },
             ],
         },
@@ -359,14 +376,28 @@ export const closePanel = (props) => {
         },
         {
             id: 'closeBorderHover',
+            show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            allowDeviceControl: true,
-            show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover'),
             style: [
                 {
                     selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
-                    render: (value) => handleBorderV2(value),
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'closeBorderHoverResponsive',
+            show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: (value) => handleBorderResponsive(value),
                 },
             ],
         },

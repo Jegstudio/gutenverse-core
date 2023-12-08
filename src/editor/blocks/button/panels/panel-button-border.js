@@ -1,7 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const buttonBorderPanel = (props) => {
     const {
@@ -9,6 +10,8 @@ export const buttonBorderPanel = (props) => {
         switcher,
         setSwitcher,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -27,28 +30,56 @@ export const buttonBorderPanel = (props) => {
             onChange: ({ __buttonBorderHover }) => setSwitcher({ ...switcher, buttonBorder: __buttonBorderHover })
         },
         {
-            id: 'buttonBorder_v2',
-            show: !switcher.buttonBorder || switcher.buttonBorder === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'buttonBorder',
+            show: (!switcher.buttonBorder || switcher.buttonBorder === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    render: value => handleBorderV2(value)
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
         {
-            id: 'buttonBorderHover_v2',
-            show: switcher.buttonBorder === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'buttonBorderResponsive',
+            show: (!switcher.buttonBorder || switcher.buttonBorder === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'buttonBorderHover',
+            show: switcher.buttonBorder === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'buttonBorderHoverResponsive',
+            show: switcher.buttonBorder === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
