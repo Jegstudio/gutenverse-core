@@ -38,27 +38,18 @@ export const handleCursorEffect = (style, props, id) => {
                 };
             }
             if(padding){
-                DeviceLoop(device => {
-                    const _dimension = deviceStyleValue(device, padding);
-                    if(_dimension && _dimension.dimension){
-                        responsiveAppender({
-                            style: `padding-top: ${_dimension?.dimension.top}${_dimension?.unit}; padding-right: ${_dimension?.dimension.right}${_dimension?.unit}; padding-bottom: ${_dimension?.dimension.bottom}${_dimension?.unit}; padding-left: ${_dimension?.dimension.left}${_dimension?.unit};`,
-                            device,
-                            elementStyle
-                        });
-                    }
+                normalAppender({
+                    style: `padding-top: ${padding?.dimension?.top}${padding?.unit}; padding-right: ${padding?.dimension?.right}${padding?.unit}; padding-bottom: ${padding?.dimension?.bottom}${padding?.unit}; padding-left: ${padding?.dimension?.left}${padding?.unit};`,
+                    elementStyle
                 });
             }
             if(textBorder){
-                DeviceLoop(device => {
-                    const _border = deviceStyleValue(device, textBorder);
-                    const newElementStyle = handleBorder(_border);
-                    elementStyle.adminStyle = {...elementStyle.adminStyle,
-                        Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
-                        Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
-                        Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
-                    };
-                });
+                const newElementStyle = handleBorder(textBorder);
+                elementStyle.adminStyle = {...elementStyle.adminStyle,
+                    Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
+                    Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
+                    Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
+                };
             }
             if(typography){
                 const newElementStyle = handleTypography(typography, props, id);
@@ -168,21 +159,11 @@ export const handleIconCursorEffect = (style) =>{
     return elementStyle;
 };
 export const handleImageCursorEffect = (style) =>{
-    const elementStyle = elementVar();
+    let elementStyle = elementVar();
 
     const {
         imageBorder,
     } = style;
-    if(imageBorder){
-        DeviceLoop(device => {
-            const _imageBorder = deviceStyleValue(device, imageBorder);
-            const newElementStyle = handleBorder(_imageBorder);
-            elementStyle.adminStyle = {...elementStyle.adminStyle,
-                Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
-                Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
-                Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
-            };
-        });
-    }
+    elementStyle = imageBorder? handleBorder(imageBorder): elementStyle;
     return elementStyle;
 };

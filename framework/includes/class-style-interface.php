@@ -610,14 +610,14 @@ abstract class Style_Interface {
 									return $this->handle_dimension( $value, 'padding' );
 								},
 								'value'          => $cursor_efect['padding'],
-								'device_control' => true,
+								'device_control' => false,
 							)
 						);
 					}
 
 					if ( isset( $cursor_efect['textBorder'] ) ) {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
-						$borders  = $cursor_efect['textBorder']['Desktop'];
+						$borders  = $cursor_efect['textBorder'];
 
 						uksort(
 							$borders,
@@ -765,7 +765,7 @@ abstract class Style_Interface {
 
 					if ( isset( $cursor_efect['imageBorder'] ) ) {
 						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-image";
-						$borders  = $cursor_efect['imageBorder']['Desktop'];
+						$borders  = $cursor_efect['imageBorder'];
 
 						uksort(
 							$borders,
