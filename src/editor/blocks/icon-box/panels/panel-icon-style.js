@@ -212,7 +212,7 @@ export const panelIconStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    allowRender: device !== 'Desktop',
+                    allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
             ]
