@@ -8,13 +8,6 @@ import { blurPanel } from './panel-blur';
 export const panelList = () => {
     return [
         {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
             title: __('Layouts', '--gctd--'),
             panelArray: layoutPanel,
             tabRole: TabSetting
@@ -22,6 +15,13 @@ export const panelList = () => {
         {
             title: __('Sticky', '--gctd--'),
             panelArray: stickyPanel,
+            pro: true,
+        },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
             pro: true,
         },
         {
