@@ -389,66 +389,66 @@ export const devices = ['Desktop', 'Tablet', 'Mobile'];
  * Attribute Migration functions
  */
 
-const migrateBorderAttr = (from) => {
-    const radius = from?.radius && {
-        ...from?.radius
-    };
-    const newValue = {
-        'Desktop': {...from}
-    };
+// const migrateBorderAttr = (from) => {
+//     const radius = from?.radius && {
+//         ...from?.radius
+//     };
+//     const newValue = {
+//         'Desktop': {...from}
+//     };
 
-    if (radius) {
-        devices.map(device => {
-            if (radius[device]) {
-                newValue[device] = {
-                    ...newValue[device],
-                    radius: radius[device]
-                };
-            }
-        });
-    }
+//     if (radius) {
+//         devices.map(device => {
+//             if (radius[device]) {
+//                 newValue[device] = {
+//                     ...newValue[device],
+//                     radius: radius[device]
+//                 };
+//             }
+//         });
+//     }
 
-    return newValue;
-};
+//     return newValue;
+// };
 
-export const migrateAttribute = (type, from) => {
-    switch (type) {
-        case 'border':
-            return migrateBorderAttr(from);
-        default:
-            return from;
-    }
-};
+// export const migrateAttribute = (type, from) => {
+//     switch (type) {
+//         case 'border':
+//             return migrateBorderAttr(from);
+//         default:
+//             return from;
+//     }
+// };
 
-const updateOldBorderAttr = (from) => {
-    let newValue = {};
+// const updateOldBorderAttr = (from) => {
+//     let newValue = {};
 
-    if (!isEmpty(from)) {
-        newValue = {
-            ...from['Desktop'],
-            radius: {}
-        };
+//     if (!isEmpty(from)) {
+//         newValue = {
+//             ...from['Desktop'],
+//             radius: {}
+//         };
 
-        devices.map(device => {
-            if (from[device]?.radius) {
-                newValue['radius'][device] = {
-                    ...from[device]?.radius
-                };
-            }
-        });
-    }
+//         devices.map(device => {
+//             if (from[device]?.radius) {
+//                 newValue['radius'][device] = {
+//                     ...from[device]?.radius
+//                 };
+//             }
+//         });
+//     }
 
-    return newValue;
-};
+//     return newValue;
+// };
 
-export const updateOldAttribute = (type, from) => {
-    switch (type) {
-        case 'border':
-            return updateOldBorderAttr(from);
-        default:
-            return from;
-    }
-};
+// export const updateOldAttribute = (type, from) => {
+//     switch (type) {
+//         case 'border':
+//             return updateOldBorderAttr(from);
+//         default:
+//             return from;
+//     }
+// };
 
 /**
  * End of attribute migration functions

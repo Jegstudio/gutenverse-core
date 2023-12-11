@@ -6,6 +6,7 @@ export { default as AlertControl } from './controls/alert/alert-control';
 export { default as AnimationControl } from './controls/animation/animation-control';
 export { default as BackgroundControl } from './controls/background/background-control';
 export { default as BorderControl } from './controls/border/border-control';
+export { default as BorderResponsiveControl } from './controls/border/border-responsive-control';
 export { default as BoxShadowControl } from './controls/box-shadow/box-shadow-control';
 export { default as CheckboxControl } from './controls/checkbox/checkbox-control';
 export { default as ColorControl } from './controls/color/color-control';
@@ -59,6 +60,7 @@ export { default as LockedProTextClip } from './controls/locked/locked-text-clip
 export { default as LockedTransform } from './controls/locked/locked-transform';
 export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
 export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
+export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/locked-form-multi-group-select';
 
 
 export { default as ControlDevices } from './controls/part/control-devices';
