@@ -25,7 +25,7 @@ abstract class Style_Interface {
 	/**
 	 * Element ID
 	 *
-	 * @var array
+	 * @var string
 	 */
 	protected $element_id;
 
@@ -68,6 +68,13 @@ abstract class Style_Interface {
 	 * @var array
 	 */
 	protected $font_families;
+
+	/**
+	 * Inline block status
+	 *
+	 * @var array
+	 */
+	protected $in_block = true;
 
 	/**
 	 * List of feature on blocks.
@@ -224,6 +231,10 @@ abstract class Style_Interface {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
+				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
+					continue;
+				}
+
 				if ( ! gutenverse_truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
@@ -406,7 +417,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	protected function inject_typography( $data ) {
+	public function inject_typography( $data ) {
 		$selector   = $data['selector'];
 		$typography = $data['value'];
 		$format     = $this->typography_format();
@@ -980,14 +991,14 @@ abstract class Style_Interface {
 						'property'       => function ( $value ) {
 							if ( 'custom' !== $value['size'] ) {
 								return "-webkit-mask-size: {$value['size']};";
-							} else {
+							} elseif ( isset( $value['scale'] ) ) {
 								return "-webkit-mask-size: {$value['scale']['point']}{$value['scale']['unit']};";
 							}
 						},
 						'value'          => $this->merge_device_options(
 							array(
 								'size'  => $mask['size'],
-								'scale' => $mask['scale'],
+								'scale' => isset( $mask['scale'] ) ? $mask['scale'] : null,
 							)
 						),
 						'device_control' => true,
@@ -1003,8 +1014,16 @@ abstract class Style_Interface {
 							if ( 'custom' !== $value['position'] && 'default' !== $value['position'] ) {
 								return "-webkit-mask-position: {$value['position']};";
 							} elseif ( 'custom' === $value['position'] ) {
-								$xposition = $value['xposition']['point'] ? "{$value['xposition']['point']}{$value['xposition']['unit']}" : 0;
-								$yposition = $value['yposition']['point'] ? "{$value['yposition']['point']}{$value['yposition']['unit']}" : 0;
+								$xposition = 0;
+								$yposition = 0;
+
+								if ( isset( $value['xposition'] ) && $value['xposition']['point'] ) {
+									$xposition = "{$value['xposition']['point']}{$value['xposition']['unit']}";
+								}
+
+								if ( isset( $value['yposition'] ) && $value['yposition']['point'] ) {
+									$yposition = "{$value['yposition']['point']}{$value['yposition']['unit']}";
+								}
 
 								return "-webkit-mask-position: {$xposition} {$yposition};";
 							}
@@ -1012,8 +1031,8 @@ abstract class Style_Interface {
 						'value'          => $this->merge_device_options(
 							array(
 								'position'  => $mask['position'],
-								'xposition' => $mask['xposition'],
-								'yposition' => $mask['yposition'],
+								'xposition' => isset( $mask['xposition'] ) ? $mask['xposition'] : null,
+								'yposition' => isset( $mask['yposition'] ) ? $mask['yposition'] : null,
 							)
 						),
 						'device_control' => true,
@@ -1072,11 +1091,10 @@ abstract class Style_Interface {
 					'selector'       => $selector,
 					'property'       => function ( $value ) {
 						$output  = '';
-						$display = 'display: inline-block;';
-
-						if ( ! empty( $value['hide'] ) ) {
+						if ( $this->in_block ) {
 							$display = 'display: inline-block;';
-							$output  = '';
+						} else {
+							$display = 'display: inline-flex;';
 						}
 
 						if ( isset( $value ) && isset( $value['type'] ) ) {
@@ -1279,7 +1297,7 @@ abstract class Style_Interface {
 	 * @param string $selector selector.
 	 * @param array  $background Value of Color.
 	 */
-	protected function handle_background( $selector, $background ) {
+	public function handle_background( $selector, $background ) {
 		if ( ! isset( $background['type'] ) ) {
 			return;
 		}
@@ -1587,8 +1605,40 @@ abstract class Style_Interface {
 			$this->handle_border( 'border', $selector['normal'] );
 		}
 
+		if ( isset( $this->attrs['borderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['normal'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderResponsive'],
+					'device_control' => true,
+					'skip_device'    => isset( $this->attrs['border'] ) ? array(
+						'Desktop',
+					) : null,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['borderHover'] ) ) {
 			$this->handle_border( 'borderHover', $selector['hover'] );
+		}
+
+		if ( isset( $this->attrs['borderHoverResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => $selector['hover'],
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['borderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => isset( $this->attrs['borderHover'] ) ? array(
+						'Desktop',
+					) : null,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['boxShadow'] ) ) {
@@ -1616,6 +1666,37 @@ abstract class Style_Interface {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Handle Border V2
+	 *
+	 * @param array $data .
+	 *
+	 * @return string
+	 */
+	public function handle_border_responsive( $data ) {
+		$style = '';
+
+		foreach ( $data as $key => $value ) {
+			if ( 'radius' === $key ) {
+				$style .= $this->handle_border_radius( $value );
+			} elseif ( ! empty( $value ) && ! empty( $value['type'] ) ) {
+				$position = 'all' === $key ? '' : "{$key}-";
+
+				$style .= "border-{$position}style: {$value['type']};";
+
+				if ( ! gutenverse_truly_empty( $value['width'] ) ) {
+					$style .= "border-{$position}width: {$value['width']}px;";
+				}
+
+				if ( ! empty( $value['color'] ) ) {
+					$style .= $this->handle_color( $value['color'], "border-{$position}color" );
+				}
+			}
+		}
+
+		return $style;
 	}
 
 	/**
@@ -1879,7 +1960,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string|null
 	 */
-	protected function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
+	public function handle_dimension( $attribute, $prefix, $multi = true, $min = 0 ) {
 		$positions = array( 'top', 'right', 'bottom', 'left' );
 		$styles    = array();
 		$string    = '';

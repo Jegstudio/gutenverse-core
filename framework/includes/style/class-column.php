@@ -35,8 +35,8 @@ class Column extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'background'    => array(
-					'normal' => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
-					'hover'  => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover",
+					'normal' => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer",
+					'hover'  => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper:hover, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer",
 				),
 				'border'        => array(
 					'normal' => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
@@ -62,7 +62,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-section > .guten-container > .{$this->element_id}.guten-column > .sticky-wrapper > .guten-column-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( 'default' === $value ) {
 							return null;
 						}
@@ -79,7 +79,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-section > .guten-container > .{$this->element_id}.guten-column > .sticky-wrapper > .guten-column-wrapper",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						if ( 'default' === $value ) {
 							return null;
 						}
@@ -96,7 +96,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "order: {$value};";
 					},
 					'value'          => $this->attrs['order'],
@@ -109,7 +109,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .wp-block-gutenverse-heading",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyHeadingColor'],
@@ -122,7 +122,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyTextColor'],
@@ -135,7 +135,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} a",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyLinkColor'],
@@ -148,7 +148,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} a:hover",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['typographyLinkHoverColor'],
@@ -161,7 +161,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
 					'value'          => $this->attrs['typographyTextAlign'],
@@ -182,7 +182,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacity'],
@@ -195,7 +195,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover > .sticky-wrapper > .guten-column-wrapper:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
 					'value'          => $this->attrs['opacityHover'],
@@ -208,7 +208,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blur'],
@@ -221,7 +221,7 @@ class Column extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blurHover'],

@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
+import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;
@@ -22,11 +23,21 @@ const renderStyleCustomDeps = (props) => {
     }
 };
 
+/**
+ * Note :
+ *  Force Refresh style bakalan tertrigger kalau:
+ *      1. Kalau dari luar element, setAttribute dengan client element ini dengan attribute refreshStyleId
+ *      2. Kalua dari element ini sendiri, bisa dengan refreshStyle();
+ *      3. refreshSignal bakal merefresh semua block dalam page.
+ *
+ * @param {*} panelList.
+ * @returns
+ */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
-        const { clientId, attributes, setAttributes } = props;
+        const { clientId, name, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
-        const { elementId } = attributes;
+        const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
         const gutenverseSelector = select('gutenverse/style');
         const [adminStyles, setAdminStyle] = useState({});
@@ -41,6 +52,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
+        const { attributes: blockAttributes } = getBlockType(name);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -182,6 +194,31 @@ export const withCustomStyle = panelList => BlockElement => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
 
+                    // Sync migrated attributes
+                    // if (!isEmpty(blockAttributes[id]?.migrate)) {
+                    //     const {
+                    //         attr,
+                    //         type
+                    //     } = blockAttributes[id].migrate;
+
+                    //     // First time migrate
+                    //     if (!isEmpty(panelProps[attr]) && isEmpty(panelProps[id])) {
+                    //         const newAttrValue = migrateAttribute(type, panelProps[attr]);
+                    //         setAttributes({
+                    //             [id]: newAttrValue
+                    //         });
+                    //     }
+
+                    //     // On update, also update the old attribute
+                    //     // This is done to prevent missing value when user switch back to older version
+                    //     if (!isEmpty(panelProps[id])) {
+                    //         const updateOldAttr = updateOldAttribute(type, panelProps[id]);
+                    //         setAttributes({
+                    //             [attr]: updateOldAttr
+                    //         });
+                    //     }
+                    // }
+
                     if (!isEmpty(style)) {
                         style.map((item, index) => setControlStyle({
                             ...panelProps,
@@ -191,18 +228,14 @@ export const withCustomStyle = panelList => BlockElement => {
                             allowDeviceControl
                         }));
                     }
-
                     !!onChange && onChange(panelProps);
-
                     !isEmpty(options) && options.map(option => {
                         const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-
                         if (!isEmpty(repeaterStyle)) {
-                            panelProps[id].map((value, valueIndex) => {
+                            panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex);
-
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, {props:value});
                                     return {
                                         ...item,
                                         selector: theSelector
@@ -284,6 +317,7 @@ export const withCustomStyle = panelList => BlockElement => {
             }
         }, [
             elementId,
+            refreshStyleId,
             refreshId,
             confirmSignal,
             deviceType,

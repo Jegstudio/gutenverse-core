@@ -14,6 +14,10 @@ import IconDimensionX from './icon/icon-dimension-x.svg';
 import IconDimensionY from './icon/icon-dimension-y.svg';
 import IconDimensionZ from './icon/icon-dimension-z.svg';
 
+/**  */
+import GradientIconCopy from './icon/gradient-icon-copy.svg';
+import GradientIconPaste from './icon/gradient-icon-paste.svg';
+
 /* Control Icons */
 import IconDuplicate from './icon/icon-duplicate.svg';
 import IconTypography from './icon/icon-typography.svg';
@@ -61,7 +65,16 @@ export const LogoGutenverseSquareSVG = ({fill = 'none', height='128', width='128
             <path d="m94.3806 90.2811h-45.2312l-7.5361 13.0589h45.2263z"/>
         </g>
     </svg>;
-}
+};
+
+export const GradientIconCopySVG = (props) => {
+    return <GradientIconCopy { ...props } />;
+};
+
+export const GradientIconPasteSVG = (props) => {
+    return <GradientIconPaste { ...props } />;
+};
+
 export const LogoCircleColor16SVG = (props) => {
     return <LogoCircleColor16 { ...props } />;
 };
@@ -355,5 +368,13 @@ export const IconConditionsBlockSVG = () => {
 export const IconHamburgerSVG = ({size = 16}) => {
     return <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width={size} height={size} viewBox="0 0 50 50">
         <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 Z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 Z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 Z"></path>
+    </svg>;
+};
+export const IconDragSVG = ({size = 16}) => {
+    return <svg width={size} height={size} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="5" cy="11" r="1" fill="#BDBEBF"/>
+        <circle cx="5" cy="6" r="1" fill="#BDBEBF"/>
+        <circle cx="11" cy="11" r="1" fill="#BDBEBF"/>
+        <circle cx="11" cy="6" r="1" fill="#BDBEBF"/>
     </svg>;
 };

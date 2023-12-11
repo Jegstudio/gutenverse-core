@@ -5,12 +5,11 @@ import { useMemo, useCallback } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { dateI18n } from '@wordpress/date';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { filteredAttributes, isAlignStickyColumn, isFSE, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
+import { filteredAttributes, isAlignStickyColumn, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
 import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import identity from 'lodash/identity';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
-import isInteger from 'lodash/isInteger';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import pickBy from 'lodash/pickBy';
@@ -215,55 +214,6 @@ export function useGlobalStylesConfig() {
     };
 }
 
-export const swiperSettings = (attributes) => {
-    const deviceType = getDeviceType();
-    const {
-        initialSlide,
-        spacing,
-        itemShowed,
-        loop,
-        showNav,
-        showArrow,
-        zoom,
-        zoomRatio,
-        autoplay,
-        autoplayTimeout
-    } = attributes;
-
-    const slidesNumber = () => {
-        switch (deviceType) {
-            case 'Mobile':
-                return 1;
-            case 'Tablet':
-                return 2;
-            default:
-                return 3;
-        }
-    };
-
-    return {
-        initialSlide: initialSlide ? initialSlide : 0,
-        loop: loop ? loop : false,
-        autoplay: autoplay ? {
-            delay: parseInt(autoplayTimeout)
-        } : false,
-        navigation: showArrow ? {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        } : false,
-        pagination: showNav ? {
-            el: '.swiper-pagination',
-            type: 'bullets',
-            clickable: true
-        } : false,
-        zoom: zoom ? {
-            maxRatio: zoomRatio ? zoomRatio : 2,
-        } : false,
-        spaceBetween: spacing && spacing[deviceType] ? parseInt(spacing[deviceType]) : isInteger(spacing) ? spacing : 10,
-        slidesPerView: itemShowed && itemShowed[deviceType] ? parseInt(itemShowed[deviceType]) : isInteger(itemShowed) ? itemShowed : slidesNumber(),
-    };
-};
-
 export const renderColor = (color) => {
     if (!isEmpty(color)) {
         return 'rgba(' + color.r + ',' + color.g + ',' + color.b + ',' + color.a + ')';
@@ -391,7 +341,6 @@ export const setControlStyle = ({
         render
     } = style;
 
-
     if (allowRender(value) && (!isNaN(value) || !isEmpty(value))) {
         const elementStyle = hasChild ? render(value, id) : elementVar();
 
@@ -433,3 +382,74 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
         ...metadata
     });
 };
+
+export const devices = ['Desktop', 'Tablet', 'Mobile'];
+
+/**
+ * Attribute Migration functions
+ */
+
+// const migrateBorderAttr = (from) => {
+//     const radius = from?.radius && {
+//         ...from?.radius
+//     };
+//     const newValue = {
+//         'Desktop': {...from}
+//     };
+
+//     if (radius) {
+//         devices.map(device => {
+//             if (radius[device]) {
+//                 newValue[device] = {
+//                     ...newValue[device],
+//                     radius: radius[device]
+//                 };
+//             }
+//         });
+//     }
+
+//     return newValue;
+// };
+
+// export const migrateAttribute = (type, from) => {
+//     switch (type) {
+//         case 'border':
+//             return migrateBorderAttr(from);
+//         default:
+//             return from;
+//     }
+// };
+
+// const updateOldBorderAttr = (from) => {
+//     let newValue = {};
+
+//     if (!isEmpty(from)) {
+//         newValue = {
+//             ...from['Desktop'],
+//             radius: {}
+//         };
+
+//         devices.map(device => {
+//             if (from[device]?.radius) {
+//                 newValue['radius'][device] = {
+//                     ...from[device]?.radius
+//                 };
+//             }
+//         });
+//     }
+
+//     return newValue;
+// };
+
+// export const updateOldAttribute = (type, from) => {
+//     switch (type) {
+//         case 'border':
+//             return updateOldBorderAttr(from);
+//         default:
+//             return from;
+//     }
+// };
+
+/**
+ * End of attribute migration functions
+ */

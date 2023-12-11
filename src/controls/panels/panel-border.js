@@ -1,16 +1,17 @@
 import { __ } from '@wordpress/i18n';
-import { handleBorder } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const borderPanel = (props) => {
     const {
         elementId,
-        _boxShadowId,
         switcher,
         setSwitcher,
-        selector
+        selector,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -26,11 +27,11 @@ export const borderPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__borderHover}) => setSwitcher({...switcher, border: __borderHover})
+            onChange: ({ __borderHover }) => setSwitcher({ ...switcher, border: __borderHover })
         },
         {
             id: 'border',
-            show: !switcher.border || switcher.border === 'normal',
+            show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
             style: [
@@ -42,20 +43,47 @@ export const borderPanel = (props) => {
             ]
         },
         {
+            id: 'borderResponsive',
+            show: (!switcher.border || switcher.border === 'normal') && device !== 'Desktop',
+            label: __('Border Type', '--gctd--'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: selector ? selector : `.${elementId}`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
             id: 'borderHover',
-            show: switcher.border === 'hover',
+            show: switcher.border === 'hover' && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
             style: [
                 {
-                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+                    selector: selector ? selector : `.${elementId}`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
             ]
         },
         {
-            id: _boxShadowId ? _boxShadowId : 'boxShadow',
+            id: 'borderHoverResponsive',
+            show: switcher.border === 'hover' && device !== 'Desktop',
+            label: __('Border Type', '--gctd--'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'boxShadow',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,

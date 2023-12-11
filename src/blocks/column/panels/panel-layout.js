@@ -141,6 +141,17 @@ export const layoutPanel = (props) => {
                             return `justify-content: ${value};`;
                         }
                     }
+                },
+                {
+                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks`,
+                    allowRender: value => allowRender(value),
+                    render: value => {
+                        if (value === 'default') {
+                            return null;
+                        } else {
+                            return 'width: 100%;';
+                        }
+                    }
                 }
             ]
         },

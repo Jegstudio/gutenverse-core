@@ -32,8 +32,9 @@ const BlockController = (props) => {
             const newValue = {
                 [id]: value
             };
-
-            !proLabel && setAttributes(newValue);
+            if(!proLabel){
+                setAttributes(newValue);
+            }
 
             onChange ? onChange({
                 ...panelProps,

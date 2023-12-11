@@ -6,21 +6,21 @@ export const withDeviceControl = (BlockControl) => {
         const { allowDeviceControl = false, value = {} } = props;
         const deviceType = getDeviceType();
 
-        const panelProps = allowDeviceControl ? {
+        const panelProps = allowDeviceControl? {
             ...props,
             onValueChange: (data) => {
-                const newData = {
+                const newData = data !== undefined? {
                     ...value,
                     [deviceType]: data
-                };
+                } : {};
 
                 props.onValueChange(newData);
             },
             onStyleChange: (data) => {
-                const newData = {
+                const newData = data !== undefined? {
                     ...value,
                     [deviceType]: data
-                };
+                } : {};
 
                 props.onStyleChange(newData);
             },

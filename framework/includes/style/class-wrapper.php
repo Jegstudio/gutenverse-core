@@ -35,8 +35,8 @@ class Wrapper extends Style_Abstract {
 		$this->set_feature(
 			array(
 				'background'    => array(
-					'normal' => ".{$this->element_id}",
-					'hover'  => ".{$this->element_id}:hover",
+					'normal' => ".{$this->element_id}:not(.background-animated), .{$this->element_id}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer",
+					'hover'  => ".{$this->element_id}:not(.background-animated):hover, .{$this->element_id}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer",
 				),
 				'border'        => array(
 					'normal' => ".{$this->element_id}",
@@ -60,7 +60,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "display: {$value};";
 					},
 					'value'          => $this->attrs['displayType'],
@@ -72,7 +72,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'width', true );
 						},
 						'value'          => $this->attrs['displayWidth'],
@@ -85,7 +85,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							return $this->handle_unit_point( $value, 'height' );
 						},
 						'value'          => $this->attrs['displayHeight'],
@@ -98,7 +98,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'default' === $value ) {
 								return null;
 							} else {
@@ -115,7 +115,7 @@ class Wrapper extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
-						'property'       => function( $value ) {
+						'property'       => function ( $value ) {
 							if ( 'default' === $value ) {
 								return null;
 							} else {
@@ -129,11 +129,45 @@ class Wrapper extends Style_Abstract {
 			}
 		}
 
+		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
+			$this->handle_background( ".{$this->element_id} > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
+		}
+
+		if ( isset( $this->attrs['backgroundOverlayHover'] ) ) {
+			$this->handle_background( ".{$this->element_id}:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
+		}
+
+		if ( isset( $this->attrs['opacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > .guten-background-overlay",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['opacity'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['opacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover > .guten-background-overlay",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['opacityHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['displayOverflow'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "overflow: {$value};";
 					},
 					'value'          => $this->attrs['displayOverflow'],
@@ -146,7 +180,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => $selector,
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "position: {$value};";
 					},
 					'value'          => $this->attrs['positionType'],
@@ -211,7 +245,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-element.{$this->element_id}:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blur'],
@@ -224,7 +258,7 @@ class Wrapper extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".guten-element.{$this->element_id}:hover:before",
-					'property'       => function( $value ) {
+					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
 					'value'          => $this->attrs['blurHover'],

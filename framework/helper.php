@@ -476,33 +476,29 @@ if ( ! function_exists( 'gutenverse_template_part_content' ) ) {
 	 * @return string
 	 */
 	function gutenverse_template_part_content( $attributes, &$template_part_id, &$area ) {
-		$content = '';
+		$content = null;
+		$theme   = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
 
-		if (
-		isset( $attributes['slug'] ) &&
-		isset( $attributes['theme'] ) &&
-		wp_get_theme()->get_stylesheet() === $attributes['theme']
-		) {
-			$template_part_id    = $attributes['theme'] . '//' . $attributes['slug'];
-			$template_part_query = new \WP_Query(
+		if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
+			$template_part_id    = $theme . '//' . $attributes['slug'];
+			$template_part_query = new WP_Query(
 				array(
-					'post_type'      => 'wp_template_part',
-					'post_status'    => 'publish',
-					'post_name__in'  => array( $attributes['slug'] ),
-					'tax_query'      => array( //phpcs:ignore
+					'post_type'           => 'wp_template_part',
+					'post_status'         => 'publish',
+					'post_name__in'       => array( $attributes['slug'] ),
+					'tax_query'           => array(
 						array(
 							'taxonomy' => 'wp_theme',
-							'field'    => 'slug',
-							'terms'    => $attributes['theme'],
+							'field'    => 'name',
+							'terms'    => $theme,
 						),
 					),
-					'posts_per_page' => 1,
-					'no_found_rows'  => true,
+					'posts_per_page'      => 1,
+					'no_found_rows'       => true,
+					'lazy_load_term_meta' => false, // Do not lazy load term meta, as template parts only have one term.
 				)
 			);
-
-			$template_part_post = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
-
+			$template_part_post  = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
 			if ( $template_part_post ) {
 				// A published post might already exist if this template part was customized elsewhere
 				// or if it's part of a customized template.
@@ -523,39 +519,16 @@ if ( ! function_exists( 'gutenverse_template_part_content' ) ) {
 				 */
 				do_action( 'render_block_core_template_part_post', $template_part_id, $attributes, $template_part_post, $content );
 			} else {
+				$template_part_file_path = '';
 				// Else, if the template part was provided by the active theme,
 				// render the corresponding file content.
-				$parent_theme_folders        = get_block_theme_folders( get_template() );
-				$child_theme_folders         = get_block_theme_folders( get_stylesheet() );
-				$child_theme_part_file_path  = get_theme_file_path( '/' . $child_theme_folders['wp_template_part'] . '/' . $attributes['slug'] . '.html' );
-				$parent_theme_part_file_path = get_theme_file_path( '/' . $parent_theme_folders['wp_template_part'] . '/' . $attributes['slug'] . '.html' );
-				$template_part_file_path     = 0 === validate_file( $attributes['slug'] ) && file_exists( $child_theme_part_file_path ) ? $child_theme_part_file_path : $parent_theme_part_file_path;
-				$gutenverse_file_path        = $template_part_file_path;
+				if ( 0 === validate_file( $attributes['slug'] ) ) {
+					$block_template = get_block_file_template( $template_part_id, 'wp_template_part' );
 
-				if ( ! gutenverse_child_template( 'parts', $attributes['slug'] ) ) {
-					$gutenverse_file_path = apply_filters( 'gutenverse_template_path', $template_part_file_path, get_template(), $attributes['slug'] );
-				}
-
-				if ( is_child_theme() ) {
-					// need to find if file exist on child themes.
-					$child_path = get_stylesheet_directory() . '/' . $child_theme_folders['wp_template_part'] . '/' . $attributes['slug'] . '.html';
-
-					if ( ! file_exists( $child_path ) ) {
-						$template_part_file_path = $gutenverse_file_path;
+					$content = $block_template->content;
+					if ( isset( $block_template->area ) ) {
+						$area = $block_template->area;
 					}
-				} else {
-					// directly overwrite item.
-					$template_part_file_path = $gutenverse_file_path;
-				}
-
-				if ( 0 === validate_file( $attributes['slug'] ) && file_exists( $template_part_file_path ) ) {
-					require_once ABSPATH . 'wp-admin/includes/file.php';
-					WP_Filesystem();
-					global $wp_filesystem;
-					$content = $wp_filesystem->get_contents( $template_part_file_path );
-					$content = is_string( $content ) && '' !== $content
-						? _inject_theme_attribute_in_block_template_content( $content )
-						: '';
 				}
 
 				if ( '' !== $content && null !== $content ) {

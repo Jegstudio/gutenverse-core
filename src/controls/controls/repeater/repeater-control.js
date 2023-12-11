@@ -1,39 +1,173 @@
 import { useEffect, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
-import { ControlHeadingSimple } from 'gutenverse-core/controls';
+import { ControlHeadingSimple, PanelTutorial } from 'gutenverse-core/controls';
 import { Button } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { X } from 'react-feather';
+import { RotateCcw, X } from 'react-feather';
 import classnames from 'classnames';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
-import { IconDuplicateSVG } from 'gutenverse-core/icons';
-import { ReactSortable } from 'react-sortablejs';
-import { isEqual } from 'lodash';
+import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
+import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
 
-const DragDropList = ({ list, setList, children }) => {
-    return <ReactSortable
-        list={list}
-        setList={setList}
-        animation="100"
-        easing="ease-out"
-        handle=".repeater-header"
-    >
-        {children}
-    </ReactSortable>;
+const DragHandle = SortableHandle(() =>
+    <div className={'repeater-drag-handle'}>
+        <IconDragSVG />
+    </div>);
+
+const SortableItem = SortableElement(props => {
+    const {
+        titleFormat,
+        items,
+        options,
+        idx: index,
+        onValueChange,
+        onStyleChange,
+        removeIndex,
+        duplicateIndex,
+        openLast,
+        setOpenLast,
+        addStyle,
+        removeStyle,
+        throttleSave,
+        isDuplicate = true,
+        isRemove = true,
+        isReset,
+        resetStatus,
+        id,
+        resetMethod,
+        refreshStyle,
+        booleanSwitcher = false,
+    } = props;
+    const toggleOpen = () => {
+        if (openLast === null || openLast !== index) {
+            setOpenLast(index);
+        } else {
+            setOpenLast(null);
+        }
+    };
+
+    const onUpdateIndexValue = (val) => {
+        const newValue = items.map((item, idx) => index === idx ? val : item);
+        onValueChange(newValue);
+    };
+
+    const onUpdateIndexStyle = (val) => {
+        const newValue = items.map((item, idx) => index === idx ? val : item);
+        onStyleChange(newValue);
+    };
+
+    const handleDuplicateIndex = e => {
+        e.stopPropagation();
+        duplicateIndex(index);
+    };
+    const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
+    const title = processTitle(titleFormat, items[index]);
+    return <div className={itemClass}>
+        <div className={'repeater-header'} onClick={() => toggleOpen()}>
+            <DragHandle />
+            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
+            {
+                isRemove && <div className={'repeater-remove'} onClick={() => removeIndex(index)}>
+                    <X />
+                </div>
+            }
+            {
+                isDuplicate && <div className={'repeater-duplicate'} onClick={e => handleDuplicateIndex(e)}>
+                    <IconDuplicateSVG />
+                </div>
+            }
+            {
+                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index,items,onStyleChange,onValueChange,refreshStyle) } >
+                    <RotateCcw size={12} />
+                </div>
+            }
+        </div>
+
+        {index === openLast && <div className={'repeater-body'}>
+            {options.map(item => {
+                let showControl = true;
+                if (booleanSwitcher) {
+                    showControl = item.show;
+                } else {
+                    showControl = item.show !== undefined ? item.show(items[index]) : true;
+                }
+                return showControl && <RepeaterComponent
+                    index={index}
+                    component={item.component}
+                    key={`${id}-${item.id}`}
+                    id={item._key === undefined ? `${id}-${index}` : item._key}
+                    value={items[index]}
+                    itemProps={item}
+                    onValueChange={val => onUpdateIndexValue(val)}
+                    onStyleChange={val => onUpdateIndexStyle(val)}
+                    addStyle={addStyle}
+                    removeStyle={removeStyle}
+                    throttleSave={throttleSave}
+                />;
+            })}
+        </div>}
+    </div>;
+});
+
+const SortableList = SortableContainer(props => {
+    const { items, id} = props;
+    return (
+        <ul>
+            {items.map((item, index) => {
+                return <SortableItem
+                    key={item._key === undefined ? `${id}-${index}` : item._key}
+                    index={index}
+                    idx={index}
+                    value={item}
+                    item={item}
+                    items={items}
+                    {...props}
+                />;
+            })}
+        </ul>
+    );
+});
+
+const SortableComponent = (props) => {
+    const { items, onValueChange, refreshDrag, refreshStyle, isDragable } = props;
+
+    const onSortEnd = (props) => {
+        const { oldIndex, newIndex } = props;
+        onValueChange(arrayMoveImmutable(items, oldIndex, newIndex));
+        refreshDrag && refreshStyle();
+    };
+    const shouldCancelSortStart = coach => {
+        return targetHasProp(coach.target, (el) => {
+            return ['button'].includes(el.tagName.toLowerCase());
+        });
+    };
+    return <SortableList {...props} onSortEnd={onSortEnd} useDragHandle={true} disabled={!isDragable} shouldCancelStart={shouldCancelSortStart} />;
+};
+
+export const targetHasProp = (
+    target,
+    hasProp,
+) => {
+    while (target) {
+        if (hasProp(target)) {
+            return true;
+        }
+        target = target.parentElement;
+    }
+    return false;
 };
 
 const RepeaterComponent = (props) => {
     const { component: Component, index: repeaterIndex, itemProps, value = {}, id: rootId, onValueChange, addStyle, removeStyle, throttleSave } = props;
     const { id, allowDeviceControl, style, onChange } = itemProps;
-
     const onRepeaterComponentChange = (val) => {
         const newVal = {
             ...value,
             [id]: val,
         };
-
         onValueChange(newVal);
 
         onChange ? onChange({
@@ -45,16 +179,14 @@ const RepeaterComponent = (props) => {
         if (style) {
             const theStyle = style.map(item => {
                 const { selector } = item;
-                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex);
-
+                let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(repeaterIndex, { props: props.value });
                 return {
                     ...item,
                     selector: theSelector
                 };
             });
-
             throttleSave({
-                id: rootId,
+                id: `${rootId}-${id}`,
                 value,
                 style: theStyle,
                 allowDeviceControl,
@@ -81,78 +213,6 @@ const processTitle = (format, values) => {
     }
 };
 
-const RepeaterItem = ({
-    titleFormat,
-    values,
-    options,
-    index,
-    onValueChange,
-    onStyleChange,
-    onRemove,
-    onDuplicate,
-    initialOpen = true,
-    addStyle,
-    removeStyle,
-    throttleSave,
-    id
-}) => {
-    const [open, setOpen] = useState(initialOpen);
-
-    const toggleOpen = () => {
-        setOpen(state => !state);
-    };
-
-    const onUpdateIndexValue = (val) => {
-        const newValue = values.map((item, idx) => index === idx ? val : item);
-        onValueChange(newValue);
-    };
-
-    const onUpdateIndexStyle = (val) => {
-        const newValue = values.map((item, idx) => index === idx ? val : item);
-        onStyleChange(newValue);
-    };
-
-    const duplicateIndex = e => {
-        e.stopPropagation();
-        onDuplicate();
-    };
-
-    const itemClass = classnames('repeater-item', open ? 'open' : 'close');
-    const title = processTitle(titleFormat, values[index]);
-
-    return <div className={itemClass}>
-        <div className={'repeater-header'} onClick={() => toggleOpen()}>
-            <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
-            <div className={'repeater-remove'} onClick={() => onRemove()}>
-                <X />
-            </div>
-            <div className={'repeater-duplicate'} onClick={e => duplicateIndex(e)}>
-                <IconDuplicateSVG />
-            </div>
-        </div>
-
-        {open && <div className={'repeater-body'}>
-            {options.map(item => {
-                const showControl = item.show !== undefined ? item.show(values[index]) : true;
-
-                return showControl && <RepeaterComponent
-                    index={index}
-                    component={item.component}
-                    key={`${id}-${item.id}`}
-                    id={`${id}-${item.id}`}
-                    value={values[index]}
-                    itemProps={item}
-                    onValueChange={val => onUpdateIndexValue(val)}
-                    onStyleChange={val => onUpdateIndexStyle(val)}
-                    addStyle={addStyle}
-                    removeStyle={removeStyle}
-                    throttleSave={throttleSave}
-                />;
-            })}
-        </div>}
-    </div>;
-};
-
 const RepeaterControl = ({
     label,
     allowDeviceControl,
@@ -165,7 +225,17 @@ const RepeaterControl = ({
     description = '',
     throttleSave,
     values,
-    id: rootId
+    id: rootId,
+    refreshDrag = true,
+    isDuplicate = true,
+    isAddNew = true,
+    isRemove = true,
+    isDragable = true,
+    isReset = false,
+    resetStatus = false,
+    resetMethod,
+    infoMessage,
+    booleanSwitcher
 }) => {
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
@@ -192,7 +262,10 @@ const RepeaterControl = ({
 
         const newValue = [
             ...value,
-            repeaterDefault
+            {
+                ...repeaterDefault,
+                _key: cryptoRandomString({ length: 6, type: 'alphanumeric' })
+            }
         ];
 
         onValueChange(newValue);
@@ -233,42 +306,48 @@ const RepeaterControl = ({
         />
         <div className={'control-body'}>
             <div className={'repeater-wrapper'}>
-                {value.length === 0 ? <div className="repeater-empty" onClick={addNewItem}>
+                {
+                    !isAddNew && value.length === 0 && <PanelTutorial
+                        title={infoMessage.title}
+                        list={infoMessage.list}
+                    />
+                }
+                {value.length === 0 ? isAddNew && <div className="repeater-empty" onClick={addNewItem}>
                     {__('Click Add Item to Add List', '--gctd--')}
                 </div> : <>
-                    <DragDropList list={value} setList={values => {
-                        if (!isEqual(value, values)) {
-                            onValueChange(values);
-                            refreshStyle();
-                        }
-                    }}>
-                        {value.map((item, index) => {
-                            return (
-                                <RepeaterItem
-                                    key={item._key === undefined ? `${id}-${index}` : item._key}
-                                    id={`${rootId}-style-${index}`}
-                                    index={index}
-                                    values={value}
-                                    options={options}
-                                    onValueChange={onValueChange}
-                                    onStyleChange={onStyleChange}
-                                    titleFormat={titleFormat}
-                                    onRemove={() => removeIndex(index)}
-                                    onDuplicate={() => duplicateIndex(index)}
-                                    initialOpen={index === openLast}
-                                    addStyle={addStyle}
-                                    removeStyle={removeStyle}
-                                    throttleSave={throttleSave}
-                                />
-                            );
-                        })}
-                    </DragDropList>
+                    <SortableComponent
+                        id={id}
+                        items={value}
+                        rootId={rootId}
+                        options={options}
+                        onValueChange={onValueChange}
+                        onStyleChange={onStyleChange}
+                        titleFormat={titleFormat}
+                        removeIndex={removeIndex}
+                        duplicateIndex={duplicateIndex}
+                        isDuplicate={isDuplicate}
+                        isRemove={isRemove}
+                        isReset={isReset}
+                        resetStatus={resetStatus}
+                        openLast={openLast}
+                        setOpenLast={setOpenLast}
+                        addStyle={addStyle}
+                        removeStyle={removeStyle}
+                        resetMethod={resetMethod}
+                        throttleSave={throttleSave}
+                        booleanSwitcher={booleanSwitcher}
+                        refreshStyle={refreshStyle}
+                        refreshDrag={refreshDrag}
+                        isDragable={isDragable}
+                    />
                 </>}
-                <div className={'repeater-add-wrapper'}>
-                    <Button isPrimary={true} onClick={addNewItem}>
-                        {__('Add Item', '--gctd--')}
-                    </Button>
-                </div>
+                {
+                    isAddNew && <div className={'repeater-add-wrapper'}>
+                        <Button isPrimary={true} onClick={addNewItem}>
+                            {__('Add Item', '--gctd--')}
+                        </Button>
+                    </div>
+                }
             </div>
         </div>
     </div>;

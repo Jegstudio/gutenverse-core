@@ -6,6 +6,7 @@ export { default as AlertControl } from './controls/alert/alert-control';
 export { default as AnimationControl } from './controls/animation/animation-control';
 export { default as BackgroundControl } from './controls/background/background-control';
 export { default as BorderControl } from './controls/border/border-control';
+export { default as BorderResponsiveControl } from './controls/border/border-responsive-control';
 export { default as BoxShadowControl } from './controls/box-shadow/box-shadow-control';
 export { default as CheckboxControl } from './controls/checkbox/checkbox-control';
 export { default as ColorControl } from './controls/color/color-control';
@@ -57,6 +58,11 @@ export { default as LockedProStickyControl } from './controls/locked/locked-stic
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
 export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
 export { default as LockedProCursorEffectControl } from './controls/locked/locked-cursor-effect-control';
+export { default as LockedTransform } from './controls/locked/locked-transform';
+export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
+export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
+export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/locked-form-multi-group-select';
+
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -67,6 +73,7 @@ export { default as ProLock } from './controls/pro-lock';
 export { default as PanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
+export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
 export { cursorEffectPanel } from './panels/panel-cursor-effect';
@@ -86,3 +93,4 @@ export { sliderPanel } from './panels/panel-slider';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
+

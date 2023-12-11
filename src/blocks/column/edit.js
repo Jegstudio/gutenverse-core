@@ -2,11 +2,11 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
-import { isSticky } from 'gutenverse-core/helper';
+import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -529,8 +529,12 @@ const ColumnWrapper = (props) => {
     } = props;
 
     const {
+        elementId,
         width,
+        backgroundAnimated = {}
     } = attributes;
+
+    const dataId = elementId ? elementId.split('-')[1] : '';
 
     const wvalue = width[deviceType] ? width[deviceType] : width['Desktop'];
 
@@ -617,6 +621,7 @@ const ColumnWrapper = (props) => {
                 </div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
+                        {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                         <InnerBlocks />
                     </div>
                 </div>
@@ -777,6 +782,7 @@ const ColumnBlockControl = (props) => {
 const ColumnBlock = compose(
     withCursorEffect,
     withCustomStyle(panelList),
+    withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar()
 )((props) => {
@@ -813,7 +819,7 @@ const ColumnBlock = compose(
         width,
         sticky = {},
         stickyPosition,
-        cursorEffect,
+        backgroundAnimated = {},
     } = attributes;
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -951,6 +957,7 @@ const ColumnBlock = compose(
                 'column-filled': hasChildBlocks,
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
                 'is-hovered': isHovered,
+                'background-animated': isAnimationActive(backgroundAnimated),
             }
         ),
         ref: columnRef,
