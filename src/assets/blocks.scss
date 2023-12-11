@@ -1,6 +1,9 @@
 @import "gutenverse-core/src/assets/mixin";
 @import "gutenverse-core/src/assets/wp-fix";
 
+// Swiper JS
+@import "./lib/swiper";
+
 // Element
 @import "../editor/blocks/heading/styles/editor";
 @import "../editor/blocks/button/styles/editor";
