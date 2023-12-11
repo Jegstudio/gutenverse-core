@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -160,6 +160,7 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
+    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
     withAnimationBackground(),
@@ -180,7 +181,7 @@ const SectionBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
     } = props;
 
     const {
@@ -191,6 +192,7 @@ const SectionBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
+        cursorEffect
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -261,7 +263,7 @@ const SectionBlock = compose(
             clientId={clientId}
         />
         <SectionInspection {...props} />
-        <div className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''}`} ref={sectionWrapper} data-id={dataId}>
+        <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
