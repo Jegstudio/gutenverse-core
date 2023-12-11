@@ -1,7 +1,8 @@
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { ColorControl, IconControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const panelIconStyle = (props) => {
     const {
@@ -9,6 +10,8 @@ export const panelIconStyle = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -130,15 +133,29 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorder_v2',
-            show: !switcher.accIcon || switcher.accIcon === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorder',
+            show: (!switcher.accIcon || switcher.accIcon === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderResponsive',
+            show: (!switcher.accIcon || switcher.accIcon === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-icon`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -205,15 +222,29 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconActiveBorder_v2',
-            show: switcher.accIcon === 'active',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconActiveBorder',
+            show: switcher.accIcon === 'active' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconActiveBorderResponsive',
+            show: switcher.accIcon === 'active' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-icon`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

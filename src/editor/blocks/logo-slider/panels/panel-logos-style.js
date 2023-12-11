@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const logosStylePanel = (props) => {
@@ -15,7 +15,7 @@ export const logosStylePanel = (props) => {
         imageFit,
     } = props;
 
-    const deviceType = getDeviceType();
+    const device = getDeviceType();
 
     return [
         {
@@ -33,13 +33,13 @@ export const logosStylePanel = (props) => {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
                     allowRender: value => value,
                     render: () => {
-                        return `height: ${imageHeight[deviceType]}px;`;
+                        return `height: ${imageHeight[device]}px;`;
                     }
                 },
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
                     allowRender: value => value,
-                    render: () => `object-fit: ${imageFit[deviceType]};`
+                    render: () => `object-fit: ${imageFit[device]};`
                 }
             ]
         },
@@ -224,15 +224,29 @@ export const logosStylePanel = (props) => {
             ]
         },
         {
-            id: 'imageBorder_v2',
-            show: !switcher.imageHover || switcher.imageHover === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'imageBorder',
+            show: (!switcher.imageHover || switcher.imageHover === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'imageBorderResponsive',
+            show: (!switcher.imageHover || switcher.imageHover === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -265,15 +279,29 @@ export const logosStylePanel = (props) => {
             ],
         },
         {
-            id: 'imageBorderHover_v2',
-            show: switcher.imageHover === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'imageBorderHover',
+            show: switcher.imageHover === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'imageBorderHoverResponsive',
+            show: switcher.imageHover === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

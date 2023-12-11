@@ -185,15 +185,22 @@ class Post_Author extends Style_Abstract {
 				);
 			}
 
-			if ( isset( $this->attrs['authorBorder_v2'] ) ) {
+			if ( isset( $this->attrs['authorBorder'] ) ) {
+				$this->handle_border( 'authorBorder', ".{$this->element_id} img" );
+			}
+
+			if ( isset( $this->attrs['authorBorderResponsive'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} img",
 						'property'       => function ( $value ) {
-							return $this->handle_border_v2( $value );
+							return $this->handle_border_responsive( $value );
 						},
-						'value'          => $this->attrs['authorBorder_v2'],
+						'value'          => $this->attrs['authorBorderResponsive'],
 						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
 					)
 				);
 			}

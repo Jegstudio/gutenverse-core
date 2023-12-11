@@ -1,9 +1,12 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const thumbnailPanel = ({ elementId }) => {
+    const device = getDeviceType();
+
     return [
         {
             id: 'thumbnailWidth',
@@ -75,14 +78,29 @@ export const thumbnailPanel = ({ elementId }) => {
             ]
         },
         {
-            id: 'thumbnailBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'thumbnailBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'thumbnailBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-thumb`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

@@ -1,12 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import {
     BorderControl,
+    BorderResponsiveControl,
     ColorControl,
     DimensionControl,
     SwitchControl,
     TypographyControl
 } from 'gutenverse-core/controls';
-import { handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelBody = (props) => {
     const {
@@ -14,6 +16,8 @@ export const panelBody = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -71,18 +75,6 @@ export const panelBody = (props) => {
             onChange: ({ __accBodyActive }) => setSwitcher({ ...switcher, accBody: __accBodyActive })
         },
         {
-            id: 'contentBackgroundColor',
-            show: !switcher.accBody || switcher.accBody === 'normal',
-            label: __('Background Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
-        },
-        {
             id: 'contentTextColor',
             show: !switcher.accBody || switcher.accBody === 'normal',
             label: __('Text Color', 'gutenverse'),
@@ -95,15 +87,41 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorder_v2',
+            id: 'contentBackgroundColor',
             show: !switcher.accBody || switcher.accBody === 'normal',
+            label: __('Background Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ],
+        },
+        {
+            id: 'contentBorder',
+            show: (!switcher.accBody || switcher.accBody === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'contentBorderResponsive',
+            show: (!switcher.accBody || switcher.accBody === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -132,15 +150,29 @@ export const panelBody = (props) => {
             ],
         },
         {
-            id: 'contentBorderActive_v2',
-            show: switcher.accBody === 'active',
+            id: 'contentBorderActive',
+            show: switcher.accBody === 'active' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'contentBorderActiveResponsive',
+            show: switcher.accBody === 'active' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-content`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

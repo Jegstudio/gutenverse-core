@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBorderV2 } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const profileBorderPanel = (props) => {
@@ -9,6 +10,8 @@ export const profileBorderPanel = (props) => {
         switcher,
         setSwitcher,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -27,15 +30,29 @@ export const profileBorderPanel = (props) => {
             onChange: ({ __profileBorderHover }) => setSwitcher({ ...switcher, profileBorder: __profileBorderHover })
         },
         {
-            id: 'profileBorder_v2',
-            show: !switcher.profileBorder || switcher.profileBorder === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'profileBorder',
+            show: (!switcher.profileBorder || switcher.profileBorder === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .profile-box .profile-card`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'profileBorderResponsive',
+            show: (!switcher.profileBorder || switcher.profileBorder === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -53,15 +70,29 @@ export const profileBorderPanel = (props) => {
             ]
         },
         {
-            id: 'profileBorderHover_v2',
-            show: switcher.profileBorder === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'profileBorderHover',
+            show: switcher.profileBorder === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .profile-box .profile-card:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'profileBorderHoverResponsive',
+            show: switcher.profileBorder === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .profile-box .profile-card:hover`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

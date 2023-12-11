@@ -129,15 +129,22 @@ class Social_Share_Item extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['border_v2'] ) ) {
+		if ( isset( $this->attrs['border'] ) ) {
+			$this->handle_border( 'border', "#{$this->element_id}.gutenverse-share-item" );
+		}
+
+		if ( isset( $this->attrs['borderResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['border_v2'],
+					'value'          => $this->attrs['borderResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}
@@ -194,15 +201,22 @@ class Social_Share_Item extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['borderHover_v2'] ) ) {
+		if ( isset( $this->attrs['borderHover'] ) ) {
+			$this->handle_border( 'borderHover', "#{$this->element_id}.gutenverse-share-item:hover" );
+		}
+
+		if ( isset( $this->attrs['borderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id}.gutenverse-share-item:hover",
 					'property'       => function ( $value ) {
-						return $this->handle_border_v2( $value );
+						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['borderHover_v2'],
+					'value'          => $this->attrs['borderHoverResponsive'],
 					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
 				)
 			);
 		}

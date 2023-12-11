@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterTabPanel = (props) => {
@@ -9,6 +10,8 @@ export const filterTabPanel = (props) => {
         switcher,
         setSwitcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -149,28 +152,56 @@ export const filterTabPanel = (props) => {
             ]
         },
         {
-            id: 'filterTabBorder_v2',
-            show: !switcher.filterTab || switcher.filterTab === 'general',
-            label: __('Border Type', 'gutenverse'),
+            id: 'filterTabBorder',
+            show: (!switcher.filterTab || switcher.filterTab === 'general') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    render: value => handleBorderV2(value)
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
         {
-            id: 'filterTabBorderActive_v2',
-            show: switcher.filterTab === 'active',
-            label: __('Border Type', 'gutenverse'),
+            id: 'filterTabBorderResponsive',
+            show: (!switcher.filterTab || switcher.filterTab === 'general') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'filterTabBorderActive',
+            show: switcher.filterTab === 'active' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'filterTabBorderActiveResponsive',
+            show: switcher.filterTab === 'active' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

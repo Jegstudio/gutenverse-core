@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleColor, handleTypography, handleBorderV2, allowRenderBoxShadow, handleBoxShadow } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleDimension, handleColor, handleTypography, handleBorderResponsive, allowRenderBoxShadow, handleBoxShadow, handleBorder } from 'gutenverse-core/styling';
 
 export const inputPanel = props => {
     const {
@@ -8,6 +9,8 @@ export const inputPanel = props => {
         setSwitcher,
         switcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -130,15 +133,29 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderNormal_v2',
-            show: !switcher.inputState || switcher.inputState === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'inputBorderNormal',
+            show: (!switcher.inputState || switcher.inputState === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'inputBorderNormalResponsive',
+            show: (!switcher.inputState || switcher.inputState === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -169,15 +186,29 @@ export const inputPanel = props => {
             ]
         },
         {
-            id: 'inputBorderHover_v2',
-            show: switcher.inputState === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'inputBorderHover',
+            show: switcher.inputState === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'inputBorderHoverResponsive',
+            show: switcher.inputState === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

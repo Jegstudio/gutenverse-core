@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleBorderV2, elementVar, normalAppender, allowRenderBoxShadow } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleColor, handleDimension, handleBorderResponsive, elementVar, normalAppender, allowRenderBoxShadow, handleBorder } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelIconStyle = (props) => {
@@ -10,6 +11,8 @@ export const panelIconStyle = (props) => {
         setSwitcher,
         iconStyleMode
     } = props;
+
+    const device = getDeviceType();
 
     /**
      * This is custom to prevent older saved values causing errors because BackgroundControl is used instead of GradientControl
@@ -148,15 +151,29 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorder_v2',
-            show: !switcher.icon || switcher.icon === 'normal',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorder',
+            show: (!switcher.icon || switcher.icon === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderResponsive',
+            show: (!switcher.icon || switcher.icon === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -174,15 +191,29 @@ export const panelIconStyle = (props) => {
             ]
         },
         {
-            id: 'iconBorderHover_v2',
-            show: switcher.icon === 'hover',
-            label: __('Border Type', 'gutenverse'),
+            id: 'iconBorderHover',
+            show: switcher.icon === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderHoverResponsive',
+            show: switcher.icon === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

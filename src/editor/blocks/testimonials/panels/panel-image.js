@@ -1,8 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 
 export const panelImage = ({ elementId, contentType }) => {
+    const device = getDeviceType();
+
     return [
         {
             id: 'imageBackground',
@@ -18,14 +21,29 @@ export const panelImage = ({ elementId, contentType }) => {
             ]
         },
         {
-            id: 'imageBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'imageBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'imageBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

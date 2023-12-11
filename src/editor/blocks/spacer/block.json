@@ -23,7 +23,7 @@
       "type": "object",
       "copyStyle": true
     },
-    "border_v2": {
+    "borderResponsive": {
       "type": "object",
       "migrate": {
         "attr": "border",
@@ -92,6 +92,18 @@
     "backgroundHover": {
       "type": "object",
       "default": {},
+      "copyStyle": true
+    },
+    "hideDesktop": {
+      "type": "boolean",
+      "copyStyle": true
+    },
+    "hideTablet": {
+      "type": "boolean",
+      "copyStyle": true
+    },
+    "hideMobile": {
+      "type": "boolean",
       "copyStyle": true
     }
   },

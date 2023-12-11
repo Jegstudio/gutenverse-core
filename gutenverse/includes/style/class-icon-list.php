@@ -82,7 +82,7 @@ class Icon_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:last-child)",
 					'property'       => function ( $value ) {
-						return "margin-right: {$value}px;";
+						return "margin-right: calc({$value}px/2);";
 					},
 					'value'          => $this->attrs['spaceBetween'],
 					'device_control' => true,
@@ -92,7 +92,7 @@ class Icon_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.inline-icon-list div.guten-icon-list-item:not(div:first-of-type) > a",
 					'property'       => function ( $value ) {
-						return "margin-left: {$value}px;";
+						return "margin-left: calc({$value}px/2);";
 					},
 					'value'          => $this->attrs['spaceBetween'],
 					'device_control' => true,

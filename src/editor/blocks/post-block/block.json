@@ -218,7 +218,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"postItemBorder_v2": {
+		"postItemBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "postItemBorder",
@@ -254,7 +254,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"thumbnailBorder_v2": {
+		"thumbnailBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "thumbnailBorder",
@@ -302,7 +302,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentBorder_v2": {
+		"contentBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "contentBorder",
@@ -338,7 +338,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"categoryBorder_v2": {
+		"categoryBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "categoryBorder",
@@ -422,7 +422,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreBorder_v2": {
+		"readmoreBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "readmoreBorder",
@@ -434,7 +434,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreHoverBorder_v2": {
+		"readmoreHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "readmoreHoverBorder",
@@ -546,7 +546,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationBorder_v2": {
+		"paginationBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "paginationBorder",
@@ -558,7 +558,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationHoverBorder_v2": {
+		"paginationHoverBorderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "paginationHoverBorder",
@@ -588,7 +588,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"border_v2": {
+		"borderResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "border",
@@ -604,7 +604,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"borderHover_v2": {
+		"borderHoverResponsive": {
 			"type": "object",
 			"migrate": {
 				"attr": "borderHover",

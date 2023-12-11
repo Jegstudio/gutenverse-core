@@ -1,12 +1,15 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderV2, handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const SubmenuPanelStyle = (props) => {
     const {
         elementId,
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -33,14 +36,29 @@ export const SubmenuPanelStyle = (props) => {
             ]
         },
         {
-            id: 'submenuPanelBorder_v2',
-            label: __('Border Type', 'gutenverse'),
+            id: 'submenuPanelBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'submenuPanelBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
-                    render: value => handleBorderV2(value)
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorderV2, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
-import { BorderControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const inputPanel = (props) => {
     const {
@@ -8,6 +9,8 @@ export const inputPanel = (props) => {
         setSwitcher,
         switcher
     } = props;
+
+    const device = getDeviceType();
 
     return [
         {
@@ -23,14 +26,29 @@ export const inputPanel = (props) => {
             ],
         },
         {
-            id: 'inputBorder_v2',
-            label: __('Input Border', 'gutenverse'),
+            id: 'inputBorder',
+            show: device === 'Desktop',
+            label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'inputBorderResponsive',
+            show: device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
-                    render: value => handleBorderV2(value)
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
