@@ -111,6 +111,7 @@ export const panelList = () => {
             panelArray: (props) => advancePanel({
                 ...props,
                 styleId: 'wrapper-advance',
+                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} .guten-inner-wrap`,
             }),
             tabRole: TabSetting
         }
