@@ -206,7 +206,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['blur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:before",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -219,7 +219,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['blurHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover:before",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover:before",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
