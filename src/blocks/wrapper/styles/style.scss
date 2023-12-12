@@ -6,15 +6,16 @@
         position: absolute;
         left: 0;
         top: 0;
-        transition: all 0.6s;
+        transition: all .6s;
+        border-radius: inherit;
     }
 }
 
+.guten-inner-wrap {
+    position: relative;
+}
+
 div.guten-wrap-helper.guten-element {
-    margin-left: inherit !important;
-    margin-right: inherit !important;
-    max-width: 100% !important;
-    box-sizing: border-box;
 
     &.inline, &.inline-block {
         width: auto !important;    
@@ -22,5 +23,9 @@ div.guten-wrap-helper.guten-element {
 
     .block-editor-inner-blocks {
         width: auto;
+    }
+
+    .guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout .section-wrapper {
+        width: 100%;
     }
 }

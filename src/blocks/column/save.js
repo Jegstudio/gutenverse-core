@@ -4,9 +4,10 @@ import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
 
 const save = compose(
+    withCursorEffectScript,
     withAnimationAdvanceScript('column'),
 )((props) => {
     const {
@@ -23,6 +24,7 @@ const save = compose(
         topSticky,
         bottomSticky,
         sectionVerticalAlign,
+        cursorEffect,
         backgroundAnimated = {},
     } = attributes;
 
@@ -31,6 +33,10 @@ const save = compose(
     const stickyClass = {
         ['guten-sticky']: isCanSticky,
         [`sticky-${stickyPosition}`]: isCanSticky,
+    };
+
+    const cursorEffectClass = {
+        ['guten-cursor-effect']: cursorEffect?.show
     };
 
     const animationClass = useAnimationFrontend(attributes);
@@ -43,6 +49,7 @@ const save = compose(
         animationClass,
         displayClass,
         stickyClass,
+        cursorEffectClass,
         {
             'background-animated': isAnimationActive(backgroundAnimated),
         }

@@ -306,6 +306,9 @@
       "type": "object",
       "copyStyle": true
     },
+    "cursorEffect": {
+      "type": "object"
+    },
     "transform": {
       "type": "object",
       "copyStyle": true

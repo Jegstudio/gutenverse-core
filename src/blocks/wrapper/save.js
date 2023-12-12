@@ -4,20 +4,26 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
 
 const save = compose(
-    withAnimationAdvanceScript('wrapper')
+    withAnimationAdvanceScript('wrapper'),
+    withCursorEffectScript
 )(({ attributes }) => {
     const {
         elementId,
         displayType,
+        cursorEffect,
         backgroundAnimated = {},
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
+
+    const cursorEffectClass = {
+        ['guten-cursor-effect']: cursorEffect?.show
+    };
 
     const blockProps = useBlockProps.save({
         className: classnames(
@@ -27,6 +33,7 @@ const save = compose(
             elementId,
             animationClass,
             displayType,
+            cursorEffectClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
             }
@@ -48,7 +55,7 @@ const save = compose(
                     }
                 </div>}
             <div className="guten-background-overlay" />
-            <div className="guten-inner-wrap" data-id={elementId?.split('-')[1]}>
+            <div className="guten-inner-wrap" data-id={dataId}>
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <InnerBlocks.Content />
             </div>
