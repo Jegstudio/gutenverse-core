@@ -95,6 +95,9 @@
 			"type": "float",
 			"copyStyle": true
 		},
+		"cursorEffect": {
+			"type": "object"
+		  },
 		"blur": {
 			"type": "object",
 			"copyStyle": true

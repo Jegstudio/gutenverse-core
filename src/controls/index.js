@@ -57,6 +57,7 @@ export { default as LockedProBackgroundControl } from './controls/locked/locked-
 export { default as LockedProStickyControl } from './controls/locked/locked-sticky-control';
 export { default as LockedProDividerControl } from './controls/locked/locked-divider-control';
 export { default as LockedProTextClip } from './controls/locked/locked-text-clip';
+export { default as LockedProCursorEffectControl } from './controls/locked/locked-cursor-effect-control';
 export { default as LockedTransform } from './controls/locked/locked-transform';
 export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
 export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
@@ -75,6 +76,7 @@ export { default as PanelController } from './controls/panel/panel-controller';
 export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
+export { cursorEffectPanel } from './panels/panel-cursor-effect';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { textClipPanel } from './panels/panel-text-clip';

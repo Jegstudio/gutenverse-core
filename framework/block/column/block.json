@@ -200,6 +200,9 @@
       "default": {},
       "copyStyle": true
     },
+    "cursorEffect": {
+      "type": "object"
+    },
     "hideDesktop": {
       "type": "boolean",
       "copyStyle": true
