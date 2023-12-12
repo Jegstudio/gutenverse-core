@@ -196,31 +196,6 @@ export const withCustomStyle = panelList => BlockElement => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
 
-                    // Sync migrated attributes
-                    // if (!isEmpty(blockAttributes[id]?.migrate)) {
-                    //     const {
-                    //         attr,
-                    //         type
-                    //     } = blockAttributes[id].migrate;
-
-                    //     // First time migrate
-                    //     if (!isEmpty(panelProps[attr]) && isEmpty(panelProps[id])) {
-                    //         const newAttrValue = migrateAttribute(type, panelProps[attr]);
-                    //         setAttributes({
-                    //             [id]: newAttrValue
-                    //         });
-                    //     }
-
-                    //     // On update, also update the old attribute
-                    //     // This is done to prevent missing value when user switch back to older version
-                    //     if (!isEmpty(panelProps[id])) {
-                    //         const updateOldAttr = updateOldAttribute(type, panelProps[id]);
-                    //         setAttributes({
-                    //             [attr]: updateOldAttr
-                    //         });
-                    //     }
-                    // }
-
                     if (!isEmpty(style)) {
                         style.map((item, index) => setControlStyle({
                             ...panelProps,
