@@ -2,7 +2,7 @@ import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, backgroundEffectPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
@@ -34,6 +34,13 @@ export const panelList = () => {
             title: __('Cursor Effect', '--gctd--'),
             initialOpen: false,
             panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
             tabRole: TabSetting,
             pro: true,
         },

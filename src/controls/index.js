@@ -78,6 +78,7 @@ export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
 export { cursorEffectPanel } from './panels/panel-cursor-effect';
+export { backgroundEffectPanel } from './panels/panel-background-effect';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { textClipPanel } from './panels/panel-text-clip';
