@@ -53,7 +53,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
         const { attributes: blockAttributes } = getBlockType(name);
-        const [ additionalStyle, setAdditionalStyle ] = useState(null);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -165,7 +164,6 @@ export const withCustomStyle = panelList => BlockElement => {
             switcher,
             setSwitcher,
             setAttributes,
-            ...setAdditionalStyle,
             refreshStyle,
             ...attributes,
             ...additionalAttribute
@@ -299,7 +297,6 @@ export const withCustomStyle = panelList => BlockElement => {
             confirmSignal,
             deviceType,
             additionalAttribute,
-            additionalStyle,
             ...renderStyleCustomDeps(props),
         ]);
 
@@ -326,7 +323,7 @@ export const withCustomStyle = panelList => BlockElement => {
                 {elementId !== undefined && renderGoogleFont()}
                 {elementId !== undefined && renderCustomFont()}
             </Helmet>
-            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)} {additionalStyle}</style>}
+            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
             <BlockElement
                 {...props}
                 addStyle={addStyle}
@@ -338,7 +335,6 @@ export const withCustomStyle = panelList => BlockElement => {
                 elementRef={elementRef}
                 refreshStyle={refreshStyle}
                 setAdditionalAttribute={setAdditionalAttribute}
-                setAdditionalStyle={setAdditionalStyle}
             />
         </>;
     };
