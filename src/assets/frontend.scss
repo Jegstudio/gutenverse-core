@@ -3,7 +3,8 @@
 @import "wp-fix";
 @import "choices.js/public/assets/styles/choices.min";
 
-/* reserved line for script, don't delete */
+// Default CSS Preset
+@import "./default-preset.scss";
 
 // Blocks
 @import "blocks";
