@@ -229,6 +229,7 @@ export const handleTransformHover = (values) => {
 
     const elementStyle = elementVar();
     const {
+        perspectiveHover,
         rotateZHover,
         rotateXHover,
         rotateYHover,
@@ -243,6 +244,20 @@ export const handleTransformHover = (values) => {
     } = values;
 
     const transformStyle = elementVar();
+
+    if (perspectiveHover) {
+        DeviceLoop(device => {
+            const _perspective = deviceStyleValue(device, perspectiveHover);
+
+            if (_perspective && _perspective.point) {
+                responsiveAppender({
+                    style: `perspective(${_perspective.point}${_perspective.unit}) `,
+                    device,
+                    elementStyle: transformStyle
+                });
+            }
+        });
+    }
 
     if (rotateZHover) {
         DeviceLoop(device => {
