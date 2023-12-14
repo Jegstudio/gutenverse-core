@@ -9,3 +9,5 @@ export { withVideoBackground } from './with-video-background';
 export { withDeviceControl } from './with-device-control';
 export { withParentControl } from './with-parent-control';
 export { withCursorEffectScript } from './with-cursor-effect-script';
+export { withMouseMoveEffect } from './with-mouse-move-effect';
+export { withMouseMoveEffectScript } from './with-mouse-move-effect-script';
