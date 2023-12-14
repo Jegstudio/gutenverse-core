@@ -7,8 +7,8 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
 
 const save = compose(
-    withCursorEffectScript,
     withAnimationAdvanceScript('column'),
+    withCursorEffectScript,
 )((props) => {
     const {
         attributes,

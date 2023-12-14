@@ -160,13 +160,13 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
-    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
     withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withCursorEffect,
 )((props) => {
     const {
         getBlockRootClientId,

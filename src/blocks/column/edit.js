@@ -780,11 +780,11 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
-    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationBackground(),
     withAnimationSticky(),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withCursorEffect,
 )((props) => {
     const {
         getBlock,

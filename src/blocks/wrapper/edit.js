@@ -45,11 +45,11 @@ const WrapperPlaceholder = ({ blockProps, clientId }) => {
 };
 
 const FlexibleWrapper = compose(
-    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationBackground(),
     withCopyElementToolbar(),
     withAnimationAdvance('wrapper'),
+    withCursorEffect,
 )((props) => {
     const {
         getBlockOrder
