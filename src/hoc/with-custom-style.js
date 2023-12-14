@@ -52,7 +52,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
-        const { attributes: blockAttributes } = getBlockType(name);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
