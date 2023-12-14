@@ -11,12 +11,16 @@
     }
 }
 
-.guten-inner-wrap {
+.guten-inner-wrap{
     position: relative;
     align-content: flex-start;
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
+    
+    .section-wrapper {
+        width: 100%;
+    }
 }
 
 div.guten-wrap-helper.guten-element {
