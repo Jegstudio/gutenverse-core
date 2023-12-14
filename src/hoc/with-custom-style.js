@@ -35,7 +35,7 @@ const renderStyleCustomDeps = (props) => {
  */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
-        const { clientId, name, attributes, setAttributes } = props;
+        const { clientId, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
@@ -210,7 +210,7 @@ export const withCustomStyle = panelList => BlockElement => {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, {props:value});
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
                                     return {
                                         ...item,
                                         selector: theSelector

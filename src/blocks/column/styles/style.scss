@@ -5,6 +5,8 @@
   align-items: stretch;
   position: relative;
   box-sizing: border-box;
+  word-break: normal;
+  word-wrap: normal;
 
   &.pinned {
     position: sticky !important;

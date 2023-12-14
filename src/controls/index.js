@@ -62,7 +62,7 @@ export { default as LockedTransform } from './controls/locked/locked-transform';
 export { default as LockedChildStyleControl } from './controls/locked/locked-child-style-control';
 export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
 export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/locked-form-multi-group-select';
-
+export { default as LockedMouseMoveEffectControl } from './controls/locked/locked-mouse-move-effect-control';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -77,6 +77,7 @@ export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
 export { cursorEffectPanel } from './panels/panel-cursor-effect';
+export { mouseMoveEffectPanel } from './panels/panel-mouse-move-effect';
 export { advancePanel } from './panels/panel-advance';
 export { advanceAnimationPanel } from './panels/panel-advance-animation';
 export { textClipPanel } from './panels/panel-text-clip';

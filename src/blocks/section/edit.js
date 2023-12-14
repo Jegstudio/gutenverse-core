@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -165,7 +165,8 @@ const SectionBlock = compose(
     withAnimationAdvance('section'),
     withAnimationBackground(),
     withAnimationSticky(),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlockRootClientId,
