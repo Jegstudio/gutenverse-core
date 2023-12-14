@@ -6,7 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
-import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;
@@ -35,7 +34,7 @@ const renderStyleCustomDeps = (props) => {
  */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
-        const { clientId, name, attributes, setAttributes } = props;
+        const { clientId, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
@@ -52,7 +51,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
-        const { attributes: blockAttributes } = getBlockType(name);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -210,7 +208,7 @@ export const withCustomStyle = panelList => BlockElement => {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, {props:value});
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
                                     return {
                                         ...item,
                                         selector: theSelector
