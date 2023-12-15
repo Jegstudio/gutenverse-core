@@ -3,7 +3,7 @@ import { panelIcon } from './panel-icon';
 import { panelTitle } from './panel-title';
 import { panelAccordion } from './panel-accordion';
 import { panelBody } from './panel-body';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { panelIconStyle } from './panel-icon-style';
 
@@ -87,6 +87,16 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: transformPanel,
             pro: true
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'column'
+            }),
+            pro: true,
         },
         {
             title: __('Spacing', 'gutenverse'),

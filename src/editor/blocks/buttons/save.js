@@ -1,15 +1,20 @@
 
 import { classnames } from 'gutenverse-core/components';
+import { compose } from '@wordpress/compose';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withAnimationAdvanceScript('buttons'),
+)(({ attributes }) => {
     const {
         elementId,
         orientation,
     } = attributes;
 
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -23,10 +28,10 @@ const save = ({ attributes }) => {
     );
 
     return (
-        <div {...useBlockProps.save({ className })}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <InnerBlocks.Content />
         </div>
     );
-};
+});
 
 export default save;

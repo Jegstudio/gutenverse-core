@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -26,6 +26,7 @@ const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
     withCustomStyle(panelList),
+    withAnimationAdvance('button'),
     withCopyElementToolbar()
 )((props) => {
     const {

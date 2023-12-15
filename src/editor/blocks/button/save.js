@@ -1,10 +1,14 @@
 
 import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withAnimationAdvanceScript('buttons'),
+)(({ attributes }) => {
     const {
         elementId,
         content,
@@ -19,6 +23,7 @@ const save = ({ attributes }) => {
         role,
     } = attributes;
 
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -45,7 +50,7 @@ const save = ({ attributes }) => {
     };
 
     return (
-        <div {...useBlockProps.save({ className })}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <ButtonElement>
                 {showIcon && iconPosition === 'before' && <i className={`fa-lg ${icon}`} />}
                 <span>
@@ -55,6 +60,6 @@ const save = ({ attributes }) => {
             </ButtonElement>
         </div>
     );
-};
+});
 
 export default save;
