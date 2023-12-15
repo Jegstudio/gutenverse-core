@@ -26,8 +26,8 @@ export const panelList = () => {
             panelArray: (props) => buttonBackgroundPanel({
                 ...props,
                 styleId: 'button-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -43,8 +43,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'element-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -96,7 +96,7 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Advanced Animation', '--gctd--'),
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({

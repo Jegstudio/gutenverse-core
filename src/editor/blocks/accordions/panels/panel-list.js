@@ -44,8 +44,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'accordions-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ]
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
             }),
             tabRole: TabStyle
         },
@@ -72,7 +72,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
-                selector : `.guten-accordions.${props.elementId}`
+                selector: `.guten-accordions.${props.elementId}`
             }),
             tabRole: TabSetting
         },
@@ -89,7 +89,7 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Advanced Animation', '--gctd--'),
+            title: __('Advanced Animation', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => advanceAnimationPanel({
