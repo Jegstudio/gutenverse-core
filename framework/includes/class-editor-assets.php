@@ -40,6 +40,8 @@ class Editor_Assets {
 
 		wp_enqueue_script( 'gutenverse-core-event' );
 
+		wp_enqueue_script( 'gutenverse-stripe-background' );
+
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 
 		wp_localize_script(

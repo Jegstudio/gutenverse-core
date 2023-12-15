@@ -3,7 +3,7 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript} from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { isAnimationActive, isSticky, rgbToHex } from 'gutenverse-core/helper';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -39,6 +39,7 @@ const save = compose(
         stickyDuration,
         topSticky,
         bottomSticky,
+        background,
         backgroundAnimated = {},
         cursorEffect,
     } = attributes;
@@ -46,6 +47,7 @@ const save = compose(
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const { type: backgroundType, animateColor1, animateColor2, animateColor3, animateColor4 } = background;
 
     const className = classnames(
         'guten-element',
@@ -83,9 +85,29 @@ const save = compose(
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
     const dataId = elementId?.split('-')[1];
 
+    const getCanvasColor = () => {
+        let normalizeAnimateColor1 = '#a960ee';
+        let normalizeAnimateColor2 = '#ff333d';
+        let normalizeAnimateColor3 = '#90e0ff';
+        let normalizeAnimateColor4 = '#ffcb57';
+
+        if (undefined !== animateColor1 && '' !== animateColor1) normalizeAnimateColor1 = rgbToHex(animateColor1);
+        if (undefined !== animateColor2 && '' !== animateColor2) normalizeAnimateColor2 = rgbToHex(animateColor2);
+        if (undefined !== animateColor3 && '' !== animateColor3) normalizeAnimateColor3 = rgbToHex(animateColor3);
+        if (undefined !== animateColor4 && '' !== animateColor4) normalizeAnimateColor4 = rgbToHex(animateColor4);
+
+        return [
+            normalizeAnimateColor1,
+            normalizeAnimateColor2,
+            normalizeAnimateColor3,
+            normalizeAnimateColor4
+        ];
+    };
+
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
+            {backgroundType !== undefined && backgroundType === 'animate' && <canvas className={'guten-stripe-gradient'} data-color={JSON.stringify(getCanvasColor())} />}
+            <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
                         {_isSticky &&

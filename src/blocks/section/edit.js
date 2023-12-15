@@ -22,11 +22,12 @@ import { withAnimationSticky } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
+import { isSticky, isAnimationActive, rgbToHex } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
-import { isEmptyValue } from 'gutenverse-core/editor-helper';
+import { getDeviceType, isEmptyValue } from 'gutenverse-core/editor-helper';
+import { Gradient } from 'gutenverse-core-frontend';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -193,9 +194,11 @@ const SectionBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
+        background,
         cursorEffect
     } = attributes;
 
+    const { type: backgroundType, animateColor1, animateColor2, animateColor3, animateColor4 } = background;
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
     const { inherit_layout: inheritLayout } = templatePage || {};
@@ -203,10 +206,12 @@ const SectionBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const innerBlocks = getBlocks(clientId);
+    const deviceType = getDeviceType();
     const innerBlocksLength = innerBlocks.length;
     const sectionWrapper = useRef();
     const sectionRef = useRef();
     const containerRef = useRef();
+    const canvasRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -249,6 +254,34 @@ const SectionBlock = compose(
         }
     }, [isSelected]);
 
+    useEffect(() => {
+        if (backgroundType !== undefined && backgroundType === 'animate') {
+            const { current } = canvasRef;
+
+            if (current !== undefined) {
+                let normalizeAnimateColor1 = '#a960ee';
+                let normalizeAnimateColor2 = '#ff333d';
+                let normalizeAnimateColor3 = '#90e0ff';
+                let normalizeAnimateColor4 = '#ffcb57';
+
+                if (undefined !== animateColor1 && '' !== animateColor1) normalizeAnimateColor1 = rgbToHex(animateColor1);
+                if (undefined !== animateColor2 && '' !== animateColor2) normalizeAnimateColor2 = rgbToHex(animateColor2);
+                if (undefined !== animateColor3 && '' !== animateColor3) normalizeAnimateColor3 = rgbToHex(animateColor3);
+                if (undefined !== animateColor4 && '' !== animateColor4) normalizeAnimateColor4 = rgbToHex(animateColor4);
+
+                new Gradient({
+                    canvas: current,
+                    colors: [
+                        normalizeAnimateColor1,
+                        normalizeAnimateColor2,
+                        normalizeAnimateColor3,
+                        normalizeAnimateColor4
+                    ]
+                });
+            }
+        }
+    }, [canvasRef, deviceType, backgroundType, animateColor1, animateColor2, animateColor3, animateColor4]);
+
     const componentProps = {
         ...props,
         wrapper: 'guten-container',
@@ -265,6 +298,7 @@ const SectionBlock = compose(
         />
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
+            {backgroundType !== undefined && backgroundType === 'animate' && <canvas className={'guten-stripe-gradient'} ref={canvasRef} />}
             <section {...blockProps}>
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />

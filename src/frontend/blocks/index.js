@@ -2,10 +2,12 @@ import { u } from '../index';
 import { ReplaceCSS } from './replace-css';
 import GutenverseElements from './elements';
 import GutenverseVideo from './video';
+import GutenStripeGradient from './stripe-gradient';
 
 const gutenClasses = {
     ['element']: GutenverseElements,
     ['video-background']: GutenverseVideo,
+    ['stripe-gradient']: GutenStripeGradient,
 };
 
 Object.keys(gutenClasses).map((index) => {

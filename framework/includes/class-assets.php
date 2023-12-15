@@ -164,6 +164,14 @@ class Assets {
 		);
 
 		wp_register_script(
+			'gutenverse-stripe-background',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/stripebackground.js',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
+
+		wp_register_script(
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
 			array(),
