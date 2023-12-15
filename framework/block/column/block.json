@@ -200,6 +200,11 @@
       "default": {},
       "copyStyle": true
     },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {},
+      "copyStyle": true
+    },
     "cursorEffect": {
       "type": "object"
     },
