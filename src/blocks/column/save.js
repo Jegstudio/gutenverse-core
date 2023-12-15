@@ -2,7 +2,7 @@ import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
 
@@ -39,6 +39,7 @@ const save = compose(
         ['guten-cursor-effect']: cursorEffect?.show
     };
 
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -57,11 +58,12 @@ const save = compose(
 
     const blockProps = useBlockProps.save({
         className: wrapperClasses,
+        ...advanceAnimationData,
         ...(
             isCanSticky
                 ? {'data-id': elementId?.split('-')[1]}
                 : {}
-        )
+        ),
     });
 
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
