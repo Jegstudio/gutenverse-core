@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, textClipPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, textClipPanel, transformPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -22,7 +22,7 @@ export const panelList = () => {
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
-                const {elementId} = props;
+                const { elementId } = props;
                 return textClipPanel({
                     ...props,
                     textClipSelector: `.editor-styles-wrapper .${elementId} .text-content .letter, .editor-styles-wrapper .${elementId} .text-content`,
@@ -38,8 +38,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'animated-text-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
             }),
             tabRole: TabStyle
         },
@@ -78,6 +78,13 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: transformPanel,
             pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Spacing', 'gutenverse'),

@@ -9,6 +9,10 @@
     "elementId": {
       "type": "string"
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
     "icon": {
       "type": "string",
       "default": "fab fa-wordpress"

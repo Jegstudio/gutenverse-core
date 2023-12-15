@@ -3,8 +3,12 @@ import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
     } = attributes;
@@ -25,6 +29,6 @@ const save = ({ attributes }) => {
             {/* Block content */}
         </div>
     );
-};
+});
 
 export default save;

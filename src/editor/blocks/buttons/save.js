@@ -4,10 +4,11 @@ import { compose } from '@wordpress/compose';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),
+    withMouseMoveEffectScript
 )(({ attributes }) => {
     const {
         elementId,

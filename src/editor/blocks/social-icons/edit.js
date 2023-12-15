@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 
 import {
     useInnerBlocksProps, useBlockProps,
@@ -17,7 +17,8 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 const SocialIcons = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('social-icons'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,

@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import {
     useInnerBlocksProps, useBlockProps,
 } from '@wordpress/block-editor';
@@ -17,7 +17,8 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 const IconListBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('icon-list'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

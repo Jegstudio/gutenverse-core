@@ -1,6 +1,6 @@
 
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import {
     useInnerBlocksProps,
     useBlockProps
@@ -16,7 +16,8 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const SocialShare = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,

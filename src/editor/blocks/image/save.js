@@ -3,13 +3,14 @@ import { compose } from '@wordpress/compose';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { ImageBoxFigure } from './edit';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
-    withAnimationAdvanceScript('image')
+    withAnimationAdvanceScript('image'),
+    withMouseMoveEffectScript
 )((props) => {
     const {
         attributes

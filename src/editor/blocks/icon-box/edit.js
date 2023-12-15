@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -28,7 +28,8 @@ const NEW_TAB_REL = 'noreferrer noopener';
 const IconBoxBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('icon-box'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlocks,

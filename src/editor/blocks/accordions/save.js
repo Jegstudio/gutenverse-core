@@ -1,13 +1,14 @@
 
 import { InnerBlocks } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
 
 export const save = compose(
     withAnimationAdvanceScript('accordions'),
+    withMouseMoveEffectScript
 )(({ attributes }) => {
     const {
         elementId,

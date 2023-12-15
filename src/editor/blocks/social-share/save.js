@@ -1,10 +1,14 @@
 
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
+import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { compose } from '@wordpress/compose';
 
-const SaveSocialShare = ({ attributes }) => {
+const SaveSocialShare = compose(
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
         orientation,
@@ -27,6 +31,6 @@ const SaveSocialShare = ({ attributes }) => {
     return <div {...useBlockProps.save({ className })}>
         <InnerBlocks.Content/>
     </div>;
-};
+});
 
 export default SaveSocialShare;

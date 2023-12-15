@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"contentType": {
 			"type": "int",
 			"default": 1

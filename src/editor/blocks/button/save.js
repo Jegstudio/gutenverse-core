@@ -3,11 +3,12 @@ import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),
+    withMouseMoveEffectScript
 )(({ attributes }) => {
     const {
         elementId,

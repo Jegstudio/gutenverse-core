@@ -1,6 +1,6 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
@@ -18,7 +18,8 @@ import { displayShortcut } from '@wordpress/keycodes';
 const Accordions = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('accordions'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )(props => {
     const {
         getBlocks

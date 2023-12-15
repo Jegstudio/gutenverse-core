@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -15,7 +15,8 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 const StarRatingBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('star-rating'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

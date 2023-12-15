@@ -12,7 +12,7 @@ import { compose } from '@wordpress/compose';
 import { useSelect, subscribe } from '@wordpress/data';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -55,7 +55,8 @@ const HeadingInspection = (props) => {
 const HeadingBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('heading'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,

@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 import { getSaveElement } from '@wordpress/blocks';
 import { PanelController } from 'gutenverse-core/controls';
@@ -21,7 +21,8 @@ import { useSelect } from '@wordpress/data';
 const TeamBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('team'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlocks

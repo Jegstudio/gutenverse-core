@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"orientation": {
 			"type": "string",
 			"default": "horizontal",
@@ -24,9 +28,9 @@
 			"copyStyle": true
 		},
 		"advanceAnimation": {
-		  "type": "object",
-		  "default": {},
-		  "copyStyle": true
+			"type": "object",
+			"default": {},
+			"copyStyle": true
 		},
 		"hideDesktop": {
 			"type": "boolean",

@@ -2,7 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import {
     RichText,
@@ -165,7 +165,8 @@ const TabHeading = ({
 
 const Tabs = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )(props => {
     const {
         insertBlock,

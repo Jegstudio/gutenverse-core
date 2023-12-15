@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
@@ -14,7 +14,8 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const PopupBuilder = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

@@ -6,8 +6,12 @@ import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
         logos,
@@ -52,6 +56,6 @@ const save = ({ attributes }) => {
             </div>
         </div>
     );
-};
+});
 
 export default save;

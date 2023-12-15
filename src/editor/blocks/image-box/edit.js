@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import {
     BlockControls,
     MediaUpload,
@@ -175,7 +175,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId }) => {
 const ImageBoxBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('image-box'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,
