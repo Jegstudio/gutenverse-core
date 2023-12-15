@@ -35,7 +35,7 @@ const WizardContainer = ({ setStage }) => {
         icon: true && status.icon
     });
 
-    const { form, popup, icon } = status;
+    const { form, icon } = status;
     const [flag, setFlag] = useState('choose');
     const [progress, setProgress] = useState({
         step: -1,

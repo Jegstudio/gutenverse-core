@@ -81,7 +81,7 @@ const SearchBlock = compose(
                 }
             </div>
         </div>
-    </>
+    </>;
 });
 
 export default SearchBlock;

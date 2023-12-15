@@ -156,8 +156,8 @@ const HeadingBlock = compose(
                             spanId: u(child).attr('id')
                         };
                     }
-                })
-                return newChild
+                });
+                return newChild;
             });
             return newElement.nodes;
         } else {
@@ -189,7 +189,7 @@ const HeadingBlock = compose(
                 let part1 = element.slice(1, index);
                 const uniqeidChild = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
                 const uniqeidSpan = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-                const child = `<span id=${uniqeidSpan}>` + element.replace(`<${part1}>`, `<${part1} id=${uniqeidChild}>`) + '</span>'
+                const child = `<span id=${uniqeidSpan}>` + element.replace(`<${part1}>`, `<${part1} id=${uniqeidChild}>`) + '</span>';
                 return child;
             } else {
                 return element;
