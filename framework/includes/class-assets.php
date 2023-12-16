@@ -164,8 +164,8 @@ class Assets {
 		);
 
 		wp_register_script(
-			'gutenverse-stripe-background',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/stripebackground.js',
+			'gutenverse-fluid-background',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/js/fluidbackground.js',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true

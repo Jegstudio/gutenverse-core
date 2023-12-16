@@ -33,6 +33,7 @@ const ColorControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : '',
         alpha = true,
+        variable = true,
         onValueChange,
         onStyleChange,
         description = '',
@@ -168,13 +169,13 @@ const ColorControl = (props) => {
 
     const ColorContent = <div className={'control-color-wrapper'}>
         <div className={'control-color-header'}>
-            <Tooltip text={__('Color Variable', '--gctd--')}>
+            {variable && <Tooltip text={__('Color Variable', '--gctd--')}>
                 <div className={classnames('control-variable', {
                     active: value.type === 'variable' && value.type
                 })} onClick={() => toggleVariableOpen()} ref={variableRef}>
                     <Globe size={14} />
                 </div>
-            </Tooltip>
+            </Tooltip>}
             <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
                 <div style={{ backgroundColor: renderColor(updating ? localColor : getColorValue(value)) }} />
             </div>

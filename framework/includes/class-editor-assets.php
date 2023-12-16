@@ -38,9 +38,9 @@ class Editor_Assets {
 
 		wp_enqueue_style( 'gutenverse-frontend-style' );
 
-		wp_enqueue_script( 'gutenverse-core-event' );
+		wp_enqueue_script( 'gutenverse-fluid-background' );
 
-		wp_enqueue_script( 'gutenverse-stripe-background' );
+		wp_enqueue_script( 'gutenverse-core-event' );
 
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 

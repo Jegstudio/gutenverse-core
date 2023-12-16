@@ -6,6 +6,7 @@ import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/h
 import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
+import { FluidCanvasSave } from 'gutenverse-core/components';
 
 const save = compose(
     withAnimationAdvanceScript('wrapper'),
@@ -46,6 +47,7 @@ const save = compose(
 
     return (
         <div {...blockProps}>
+            <FluidCanvasSave attributes={attributes} />
             {(_isBgAnimated) &&
                 <div className="guten-data">
                     {_isBgAnimated &&

@@ -66,7 +66,8 @@ const coreExternals = [
 }), {});
 
 const coreFrontendExternals = {
-	'gutenverse-core-frontend': 'gutenverseCoreFrontend'
+	'gutenverse-core-frontend': 'gutenverseCoreFrontend',
+	'gutenverse-fluid-background': 'gutenverseFluidBackground'
 };
 
 const externals = {

@@ -14,12 +14,20 @@ const corefrontend = {
                 type: "window",
             },
         },
+        fluidbackground: {
+            import: path.resolve(process.cwd(), "src/frontend/fluid-background/index.js"),
+            library: {
+                name: "gutenverseFluidBackground",
+                type: "window",
+            },
+        },
     },
     stats,
     output,
     resolve: {
         alias: {
             "gutenverse-core-frontend": path.resolve(process.cwd(), "src/frontend"),
+            "gutenverse-fluid-background": path.resolve(process.cwd(), "src/frontend/fluid-background"),
         },
     },
     module: {
@@ -33,12 +41,22 @@ const corefrontend = {
                 onStart: {
                     delete: [
                         "./framework/assets/js/corefrontend.js*",
+                        "./framework/assets/js/fluidbackground.js*",
+                        "./framework/assets/js/chunk-fluid.js*",
                     ]
                 },
                 onEnd: {
                     copy: [
                         {
                             source: process.env.NODE_ENV === 'development' ? "./build/corefrontend.js*" : "./build/corefrontend.js",
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/fluidbackground.js*" : "./build/fluidbackground.js",
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/chunk-fluid.js*" : "./build/chunk-fluid.js",
                             destination: "./framework/assets/js/",
                         },
                     ],
