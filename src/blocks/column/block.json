@@ -200,6 +200,10 @@
       "default": {},
       "copyStyle": true
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
     "advanceAnimation": {
       "type": "object",
       "default": {},
