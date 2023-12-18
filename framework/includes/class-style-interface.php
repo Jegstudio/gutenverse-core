@@ -1543,7 +1543,7 @@ abstract class Style_Interface {
 	 *
 	 * @return array
 	 */
-	protected function merge_device_options( $options ) {
+	public function merge_device_options( $options ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
