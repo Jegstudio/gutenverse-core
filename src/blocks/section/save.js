@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript} from 'gutenverse-core/hoc';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript} from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -16,7 +16,8 @@ const save = compose(
     withAnimationAdvanceScript('section'),
     withVideoBackground,
     withCursorEffectScript,
-    withMouseMoveEffectScript
+    withMouseMoveEffectScript,
+    withBackgroundEffectScript,
 )((props) => {
     const {
         attributes,
@@ -42,6 +43,7 @@ const save = compose(
         bottomSticky,
         backgroundAnimated = {},
         cursorEffect,
+        backgroundEffect = {},
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -80,6 +82,7 @@ const save = compose(
 
     const _isSticky = isSticky(sticky);
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
+    const _isBgEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
     const _isTopDividerAnimated = !isEmptyValue(topDividerAnimated) && topDividerAnimated.type !== 'none';
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
     const dataId = elementId?.split('-')[1];
@@ -119,6 +122,7 @@ const save = compose(
                     </div>
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                {_isBgEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}

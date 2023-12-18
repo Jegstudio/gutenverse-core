@@ -10,5 +10,6 @@ export { withDeviceControl } from './with-device-control';
 export { withParentControl } from './with-parent-control';
 export { withCursorEffectScript } from './with-cursor-effect-script';
 export { withBackgroundEffect } from './with-background-effect';
+export { withBackgroundEffectScript } from './with-background-effect-script';
 export { withMouseMoveEffect } from './with-mouse-move-effect';
 export { withMouseMoveEffectScript } from './with-mouse-move-effect-script';

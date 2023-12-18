@@ -227,7 +227,7 @@ const SectionBlock = compose(
                 [`overflow-${overflow}`]: overflow && overflow !== 'none',
                 ['guten-sticky']: isSticky(sticky),
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
-                [`background-effect-${backgroundEffect?.type}`]: isBackgroundEffect,
+                'guten-background-effect-active': isBackgroundEffect,
             }
         ),
         ref: sectionRef
