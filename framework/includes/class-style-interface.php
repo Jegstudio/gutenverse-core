@@ -1587,6 +1587,30 @@ abstract class Style_Interface {
 
 		return $styles;
 	}
+	/**
+	 * Multi style values not checking zero
+	 *
+	 * @param array $props .
+	 *
+	 * @return boolean
+	 */
+	public function multi_style_values_all_value( $props ) {
+		$devices = array( 'Desktop', 'Tablet', 'Mobile' );
+		$styles  = array();
+
+		foreach ( $props as $prop ) {
+			foreach ( $devices as $device ) {
+				if ( empty( $styles[ $device ] ) ) {
+					$styles[ $device ] = '';
+				}				
+				if ( isset( $prop['value'][ $device ] ) ) {
+					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+				}
+			}
+		}
+
+		return $styles;
+	}
 
 	/**
 	 * Handle Border Feature
