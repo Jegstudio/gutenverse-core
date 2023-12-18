@@ -1,7 +1,7 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Droplet, Image, Video } from 'react-feather';
+import { Droplet, Image, Video, PenTool } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -119,6 +119,11 @@ const BackgroundControl = (props) => {
             label: __('Video', '--gctd--'),
             value: 'video',
             icon: <Video size={20} />,
+        },
+        {
+            label: __('Fluid Background', '--gctd--'),
+            value: 'fluid',
+            icon: <PenTool size={20} />,
         },
     ];
 
@@ -431,8 +436,8 @@ const BackgroundControl = (props) => {
                 deviceValues={fixed}
                 allowDeviceControl={true}
                 usePreviousDevice={true}
-                onValueChange={fixed => onValueChange({...value, fixed})}
-                onStyleChange={fixed => onStyleChange({...value, fixed})}
+                onValueChange={fixed => onValueChange({ ...value, fixed })}
+                onStyleChange={fixed => onStyleChange({ ...value, fixed })}
             />
         </>}
 
@@ -480,6 +485,41 @@ const BackgroundControl = (props) => {
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
                 onStyleChange={videoImage => onStyleChange({ ...value, videoImage })}
                 allowDeviceControl={true}
+            />
+        </>}
+
+        {value.type !== undefined && value.type === 'fluid' && <>
+            <ColorControl
+                label={__('Animation Color 1', '--gctd--')}
+                value={value.animateColor1}
+                onValueChange={animateColor1 => onValueChange({ ...value, animateColor1 })}
+                onStyleChange={animateColor1 => onStyleChange({ ...value, animateColor1 })}
+                alpha={false}
+                variable={false}
+            />
+            <ColorControl
+                label={__('Animation Color 2', '--gctd--')}
+                value={value.animateColor2}
+                onValueChange={animateColor2 => onValueChange({ ...value, animateColor2 })}
+                onStyleChange={animateColor2 => onStyleChange({ ...value, animateColor2 })}
+                alpha={false}
+                variable={false}
+            />
+            <ColorControl
+                label={__('Animation Color 3', '--gctd--')}
+                value={value.animateColor3}
+                onValueChange={animateColor3 => onValueChange({ ...value, animateColor3 })}
+                onStyleChange={animateColor3 => onStyleChange({ ...value, animateColor3 })}
+                alpha={false}
+                variable={false}
+            />
+            <ColorControl
+                label={__('Animation Color 4', '--gctd--')}
+                value={value.animateColor4}
+                onValueChange={animateColor4 => onValueChange({ ...value, animateColor4 })}
+                onStyleChange={animateColor4 => onStyleChange({ ...value, animateColor4 })}
+                alpha={false}
+                variable={false}
             />
         </>}
     </div>;
