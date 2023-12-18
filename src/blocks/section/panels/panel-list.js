@@ -51,7 +51,7 @@ export const panelList = () => {
                 ...props,
                 blockType: 'section',
                 styleId: 'section-background',
-                normalOptions: ['default', 'gradient', 'video'],
+                normalOptions: ['default', 'gradient', 'video', 'fluid'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer`,
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
@@ -91,7 +91,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Masking', 'gutenverse'),
+            title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle

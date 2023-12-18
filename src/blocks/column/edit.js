@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
@@ -17,6 +17,7 @@ import { createBlock } from '@wordpress/blocks';
 import { IconToolbarColumnAddSVG, IconToolbarColumnDeleteSVG } from 'gutenverse-core/icons';
 import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
+import { FluidCanvas } from 'gutenverse-core/components';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -431,6 +432,7 @@ const ColumnPlaceholder = (props) => {
                 onResize={ resize }
                 onResizeStop={ resizeStop }
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
@@ -611,6 +613,7 @@ const ColumnWrapper = (props) => {
                 onResize={ resize }
                 onResizeStop={ resizeStop }
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'guten-inserter insert-top'}>
                     <Inserter
@@ -782,9 +785,11 @@ const ColumnBlockControl = (props) => {
 const ColumnBlock = compose(
     withCursorEffect,
     withCustomStyle(panelList),
+    withAnimationAdvance('column'),
     withAnimationBackground(),
     withAnimationSticky(),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlock,
