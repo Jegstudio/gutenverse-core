@@ -7,7 +7,7 @@ const { corefrontend } = require('./scripts/core-frontend');
 module.exports = [
     blocks,
     dashboard,
-    corefrontend,
     components,
     core,
+    corefrontend,
 ];

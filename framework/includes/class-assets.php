@@ -164,14 +164,6 @@ class Assets {
 		);
 
 		wp_register_script(
-			'gutenverse-fluid-background',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/fluidbackground.js',
-			array(),
-			GUTENVERSE_FRAMEWORK_VERSION,
-			true
-		);
-
-		wp_register_script(
 			'gutenverse-frontend-event',
 			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
 			array(),

@@ -2,13 +2,8 @@ const path = require("path");
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
-const { externals, coreFrontendExternals } = require("../externals");
+const { externals } = require("../externals");
 const DependencyExtractionWebpackPlugin = require("@wordpress/dependency-extraction-webpack-plugin");
-
-console.log({
-    ...externals,
-    ...coreFrontendExternals
-});
 
 const core = {
     mode: "development",
@@ -24,10 +19,7 @@ const core = {
     },
     stats,
     output,
-    externals: {
-        ...externals,
-        ...coreFrontendExternals
-    },
+    externals,
     resolve: {
         alias: {
             "gutenverse-core": path.resolve(process.cwd(), "src/"),
