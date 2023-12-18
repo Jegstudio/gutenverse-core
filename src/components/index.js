@@ -9,6 +9,8 @@ export { default as EscListener } from './esc-listener/esc-listener';
 export { default as DrawerWrapper } from './drawer/drawer-wrapper';
 export * from './drawer/drawer-wrapper';
 export { default as AlertModal } from './alert/alert-modal';
+export { FluidCanvasEdit as FluidCanvas } from './fluid-canvas/fluid-canvas';
+export { FluidCanvasSave as FluidCanvasSave } from './fluid-canvas/fluid-canvas';
 
 /* Skeleton */
 export { default as Skeleton } from './skeleton/skeleton';

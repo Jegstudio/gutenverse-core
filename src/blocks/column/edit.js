@@ -17,6 +17,7 @@ import { createBlock } from '@wordpress/blocks';
 import { IconToolbarColumnAddSVG, IconToolbarColumnDeleteSVG } from 'gutenverse-core/icons';
 import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
+import { FluidCanvas } from 'gutenverse-core/components';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -431,6 +432,7 @@ const ColumnPlaceholder = (props) => {
                 onResize={ resize }
                 onResizeStop={ resizeStop }
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
@@ -611,6 +613,7 @@ const ColumnWrapper = (props) => {
                 onResize={ resize }
                 onResizeStop={ resizeStop }
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'guten-inserter insert-top'}>
                     <Inserter

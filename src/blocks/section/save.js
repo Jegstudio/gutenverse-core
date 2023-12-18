@@ -10,6 +10,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
+import { FluidCanvasSave } from 'gutenverse-core/components';
 
 const save = compose(
     withAnimationAdvanceScript('section'),
@@ -85,6 +86,7 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
+            <FluidCanvasSave attributes={attributes} />
             <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
