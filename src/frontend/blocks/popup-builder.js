@@ -125,7 +125,22 @@ class GutenversePopupElement {
                     });
 
                 break;
+            case 'hover':
+                anchor = this.element.data('anchor');
+                maxClick = this.element.data('max-click');
 
+                anchor = anchor ? anchor : '';
+                maxClick = maxClick ? parseInt(maxClick) : undefined;
+
+                u(document)
+                    .find(`*[href="#${anchor}"]`)
+                    .on('mouseover', () => {
+                        if (!maxClick || countClick < maxClick) {
+                            this._showPopup();
+                            countClick += 1;
+                        }
+                    });
+                break;
             case 'exit':
                 u(document.body).on('mouseleave', (e) => {
                     if (0 > e.clientY && !alreadyLoaded()) {
