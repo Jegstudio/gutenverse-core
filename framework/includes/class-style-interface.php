@@ -1571,7 +1571,7 @@ abstract class Style_Interface {
 	 *
 	 * @return array
 	 */
-	protected function merge_device_options( $options ) {
+	public function merge_device_options( $options ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
@@ -1588,7 +1588,24 @@ abstract class Style_Interface {
 		return $results;
 	}
 
+	/**
+	 * Merge option.
+	 *
+	 * @param array $options Value tobe merged.
+	 *
+	 * @return array
+	 */
+	public function merge_options( $options ) {
+		$results = array();
 
+		foreach ( $options as $key => $option ) {
+			if ( isset( $option ) ) {
+				$results[ $key ] = $option;
+			}
+		}
+
+		return $results;
+	}
 
 	/**
 	 * Multi style values

@@ -91,8 +91,8 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <FluidCanvasSave attributes={attributes} />
-            <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
+            <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
+                <FluidCanvasSave attributes={attributes} />
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
                         {_isSticky &&

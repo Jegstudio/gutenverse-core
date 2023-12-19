@@ -1,10 +1,11 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Droplet, Image, Video, PenTool } from 'react-feather';
+import { Droplet, Image, Video, Wind } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;
@@ -123,7 +124,7 @@ const BackgroundControl = (props) => {
         {
             label: __('Fluid Background', '--gctd--'),
             value: 'fluid',
-            icon: <PenTool size={20} />,
+            icon: <Wind size={20} />,
         },
     ];
 
@@ -488,40 +489,11 @@ const BackgroundControl = (props) => {
             />
         </>}
 
-        {value.type !== undefined && value.type === 'fluid' && <>
-            <ColorControl
-                label={__('Animation Color 1', '--gctd--')}
-                value={value.animateColor1}
-                onValueChange={animateColor1 => onValueChange({ ...value, animateColor1 })}
-                onStyleChange={animateColor1 => onStyleChange({ ...value, animateColor1 })}
-                alpha={false}
-                variable={false}
-            />
-            <ColorControl
-                label={__('Animation Color 2', '--gctd--')}
-                value={value.animateColor2}
-                onValueChange={animateColor2 => onValueChange({ ...value, animateColor2 })}
-                onStyleChange={animateColor2 => onStyleChange({ ...value, animateColor2 })}
-                alpha={false}
-                variable={false}
-            />
-            <ColorControl
-                label={__('Animation Color 3', '--gctd--')}
-                value={value.animateColor3}
-                onValueChange={animateColor3 => onValueChange({ ...value, animateColor3 })}
-                onStyleChange={animateColor3 => onStyleChange({ ...value, animateColor3 })}
-                alpha={false}
-                variable={false}
-            />
-            <ColorControl
-                label={__('Animation Color 4', '--gctd--')}
-                value={value.animateColor4}
-                onValueChange={animateColor4 => onValueChange({ ...value, animateColor4 })}
-                onStyleChange={animateColor4 => onStyleChange({ ...value, animateColor4 })}
-                alpha={false}
-                variable={false}
-            />
-        </>}
+        {value.type !== undefined && value.type === 'fluid' && applyFilters(
+            'gutenverse.fluid.canvas.option',
+            <LockedFluidBackground />,
+            parameter
+        )}
     </div>;
 };
 

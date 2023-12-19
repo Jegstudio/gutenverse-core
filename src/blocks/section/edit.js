@@ -270,9 +270,9 @@ const SectionBlock = compose(
         />
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
-            <FluidCanvas attributes={attributes} />
             <section {...blockProps}>
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                <FluidCanvas attributes={attributes} />
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
                 <div className="guten-background-overlay" />
