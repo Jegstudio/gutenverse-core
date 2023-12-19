@@ -279,7 +279,6 @@ const onResize = (props, off) => {
     // Need to force column to fit with previous total width.
     if (deviceType === 'Desktop' && calcCurentModPercent + calcTargetModPercent > totalWidth) {
         calcTargetModPercent = calcTargetModPercent - 0.1;
-        console.log(calcTargetModPercent + calcCurentModPercent);
     }
 
     curentWidth[deviceType] = calcCurentModPercent;
@@ -652,14 +651,14 @@ const ColumnWrapper = (props) => {
                         onClose();
                         setOpenTool(false);
                     }}
-                        onMouseEnter={() => {
-                            onOpen();
-                        }}
-                        onMouseLeave={() => {
-                            if (!openTool) {
-                                onClose();
-                            }
-                        }}
+                    onMouseEnter={() => {
+                        onOpen();
+                    }}
+                    onMouseLeave={() => {
+                        if (!openTool) {
+                            onClose();
+                        }
+                    }}
                     >
                         <div>
                             <input

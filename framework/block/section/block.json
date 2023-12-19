@@ -313,6 +313,9 @@
     "cursorEffect": {
       "type": "object"
     },
+    "backgroundEffect": {
+      "type": "object"
+    },
     "transform": {
       "type": "object",
       "copyStyle": true
