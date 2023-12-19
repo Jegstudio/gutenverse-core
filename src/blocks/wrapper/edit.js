@@ -1,17 +1,20 @@
 import { compose } from '@wordpress/compose';
 import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
-import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useCallback } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
+import { ToolbarGroup } from '@wordpress/components';
+import { URLToolbar } from 'gutenverse-core/toolbars';
 
+const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps }) => {
     const {
         elementId,
@@ -64,19 +67,42 @@ const FlexibleWrapper = compose(
     const {
         clientId,
         attributes,
-        setElementRef
+        setElementRef,
+        isSelected,
+        setAttributes
     } = props;
 
     const {
         elementId,
         displayType,
         backgroundAnimated = {},
+        url,
+        rel,
+        linkTarget
     } = attributes;
 
     const wrapperRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
 
+    const onToggleOpenInNewTab = useCallback(
+        (value) => {
+            const newLinkTarget = value ? '_blank' : undefined;
+
+            let updatedRel = rel;
+            if (newLinkTarget && !rel) {
+                updatedRel = NEW_TAB_REL;
+            } else if (!newLinkTarget && rel === NEW_TAB_REL) {
+                updatedRel = undefined;
+            }
+
+            setAttributes({
+                linkTarget: newLinkTarget,
+                rel: updatedRel,
+            });
+        },
+        [rel, setAttributes]
+    );
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -102,6 +128,18 @@ const FlexibleWrapper = compose(
 
     return <>
         <PanelController panelList={panelList} {...props} />
+        <BlockControls>
+            <ToolbarGroup>
+                <URLToolbar
+                    url={url}
+                    setAttributes={setAttributes}
+                    isSelected={isSelected}
+                    opensInNewTab={linkTarget === '_blank'}
+                    anchorRef={blockProps.ref}
+                    onToggleOpenInNewTab={onToggleOpenInNewTab}
+                />
+            </ToolbarGroup>
+        </BlockControls>
         <Component blockProps={blockProps} attributes={attributes} clientId={clientId} />
     </>;
 });
