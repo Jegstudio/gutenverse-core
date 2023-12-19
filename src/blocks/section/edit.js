@@ -28,6 +28,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -210,7 +211,7 @@ const SectionBlock = compose(
     const sectionWrapper = useRef();
     const sectionRef = useRef();
     const containerRef = useRef();
-    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && isEmpty(backgroundEffect);
 
     const blockProps = useBlockProps({
         className: classnames(

@@ -11,6 +11,7 @@ import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
 import { FluidCanvasSave } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('section'),
@@ -49,7 +50,7 @@ const save = compose(
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && isEmpty(backgroundEffect);
 
     const className = classnames(
         'guten-element',
