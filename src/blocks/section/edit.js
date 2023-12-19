@@ -212,7 +212,6 @@ const SectionBlock = compose(
     const sectionRef = useRef();
     const containerRef = useRef();
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && isEmpty(backgroundEffect);
-
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',

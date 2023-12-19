@@ -50,7 +50,7 @@ const save = compose(
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && isEmpty(backgroundEffect);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const className = classnames(
         'guten-element',
@@ -85,7 +85,6 @@ const save = compose(
 
     const _isSticky = isSticky(sticky);
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
-    const _isBgEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
     const _isTopDividerAnimated = !isEmptyValue(topDividerAnimated) && topDividerAnimated.type !== 'none';
     const _isBottomDividerAnimated = !isEmptyValue(bottomDividerAnimated) && bottomDividerAnimated.type !== 'none';
     const dataId = elementId?.split('-')[1];
@@ -125,7 +124,7 @@ const save = compose(
                     </div>
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                {_isBgEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}
