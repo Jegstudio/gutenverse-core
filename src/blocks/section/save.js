@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript} from 'gutenverse-core/hoc';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -86,8 +86,8 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <FluidCanvasSave attributes={attributes} />
-            <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
+            <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
+                <FluidCanvasSave attributes={attributes} />
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
                         {_isSticky &&
