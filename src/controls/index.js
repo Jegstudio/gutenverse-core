@@ -64,6 +64,7 @@ export { default as LockedChildStyleControl } from './controls/locked/locked-chi
 export { default as LockedAdvanceTabsPanel } from './controls/locked/locked-advance-tabs';
 export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/locked-form-multi-group-select';
 export { default as LockedMouseMoveEffectControl } from './controls/locked/locked-mouse-move-effect-control';
+export { default as LockedAdvanceButtonControl } from './controls/locked/locked-advance-button';
 export { default as LockedFluidBackground } from './controls/locked/locked-fluid-background';
 
 export { default as ControlDevices } from './controls/part/control-devices';

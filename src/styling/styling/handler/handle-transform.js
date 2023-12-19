@@ -7,6 +7,7 @@ export const handleTransform = (values) => {
     const elementStyle = elementVar();
     const {
         duration,
+        delay,
         ease,
         perspective,
         transformOrigin,
@@ -28,6 +29,29 @@ export const handleTransform = (values) => {
         style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
         elementStyle
     });
+    if(duration){
+        DeviceLoop(device => {
+            const _duration = deviceStyleValue(device, duration);
+            const duration_ = ! isEmpty(_duration) ? _duration : '0.4';
+            responsiveAppender({
+                style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+                device,
+                elementStyle
+            });
+        })
+    }
+    if(delay){
+        DeviceLoop(device => {
+            const _delay = deviceStyleValue(device, delay);
+            if(_delay){
+                responsiveAppender({
+                    style: `transition-delay: ${_delay}s;`,
+                    device,
+                    elementStyle
+                });
+            }
+        })
+    }
 
     if (ease) {
         normalAppender({
