@@ -227,7 +227,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	public function inject_style( $data, $test = null ) {
+	public function inject_style( $data) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 
 			$devices = $this->get_all_device();
@@ -235,7 +235,6 @@ abstract class Style_Interface {
 				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
 					continue;
 				}
-				var_dump( $test );
 
 				if ( ! gutenverse_truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
 					$value    = $data['value'][ $device ];
@@ -959,13 +958,11 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
-							var_dump( $value );
 							return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
 						},
 						'value'          => $background_effect['backgroundEffectSize'],
 						'device_control' => true,
-					),
-					'testing'
+					)
 				);
 			}
 		}
