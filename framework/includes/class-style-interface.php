@@ -227,8 +227,9 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	public function inject_style( $data ) {
+	public function inject_style( $data) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
+
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
 				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
@@ -580,6 +581,9 @@ abstract class Style_Interface {
 					break;
 				case 'cursor-effect':
 					$this->feature_cursor_effect( $selector );
+					break;
+				case 'background-effect':
+					$this->feature_background_effect( $selector );
 					break;
 			}
 		}
@@ -936,6 +940,30 @@ abstract class Style_Interface {
 						);
 					}
 					break;
+			}
+		}
+	}
+
+	/**
+	 * Handle Feature Background Effect.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_background_effect( $selector ) {
+		if ( isset( $this->attrs['backgroundEffect'] ) ) {
+			$background_effect = $this->attrs['backgroundEffect'];
+			$selector          = ".{$this->element_id} .guten-background-effect .inner-background-container";
+			if ( isset( $background_effect['backgroundEffectSize'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+						},
+						'value'          => $background_effect['backgroundEffectSize'],
+						'device_control' => true,
+					)
+				);
 			}
 		}
 	}

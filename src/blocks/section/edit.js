@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -167,6 +167,7 @@ const SectionBlock = compose(
     withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar(),
+    withBackgroundEffect,
     withMouseMoveEffect
 )((props) => {
     const {
@@ -194,7 +195,8 @@ const SectionBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
-        cursorEffect
+        cursorEffect,
+        backgroundEffect,
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -208,6 +210,7 @@ const SectionBlock = compose(
     const sectionWrapper = useRef();
     const sectionRef = useRef();
     const containerRef = useRef();
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -224,6 +227,7 @@ const SectionBlock = compose(
                 [`overflow-${overflow}`]: overflow && overflow !== 'none',
                 ['guten-sticky']: isSticky(sticky),
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
+                'guten-background-effect-active': isBackgroundEffect,
             }
         ),
         ref: sectionRef
@@ -267,6 +271,7 @@ const SectionBlock = compose(
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
+                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 <FluidCanvas attributes={attributes} />
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <SectionVideoContainer {...props} />
