@@ -49,6 +49,7 @@ const save = compose(
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none');
 
     const className = classnames(
         'guten-element',
@@ -64,6 +65,7 @@ const save = compose(
             ['guten-sticky']: isSticky(sticky),
             [`sticky-${stickyPosition}`]: isSticky(sticky),
             ['guten-cursor-effect']: cursorEffect?.show,
+            'guten-background-effect-active': isBackgroundEffect,
         }
     );
 

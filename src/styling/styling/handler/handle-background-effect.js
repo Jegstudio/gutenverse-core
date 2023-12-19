@@ -1,15 +1,17 @@
+import { getDevice } from 'gutenverse-core/helper';
 import { elementVar, normalAppender } from '../styling-utility';
 
 export const handleBackgroundEffect = (style) => {
     let elementStyle = elementVar();
+    const device = getDevice();
 
     const {
-        backgroundEffectSize = {point: 100, unit: 'px'},
+        backgroundEffectSize,
     } = style;
 
     if(backgroundEffectSize){
         normalAppender({
-            style: `width: ${backgroundEffectSize.point}${backgroundEffectSize.unit}; height: ${backgroundEffectSize.point}${backgroundEffectSize.unit};`,
+            style: `width: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit}; height: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit};`,
             elementStyle
         });
     }
