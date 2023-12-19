@@ -30,7 +30,6 @@ class Post_Terms extends Block_Abstract {
 		$taxonomy   = esc_html( $this->attributes['taxonomy'] );
 		$separator  = esc_html( $this->attributes['separator'] );
 		$link_to    = $this->attributes['linkTo'];
-		$post_id    = $post_id ? $post_id : get_the_ID();
 
 		if ( ! empty( $post_id ) ) {
 			$term_list = get_the_terms( $post_id, $taxonomy );
@@ -79,8 +78,8 @@ class Post_Terms extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
+		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 		$element_id      = $this->attributes['elementId'];
-		$post_id         = esc_html( $this->context['postId'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';

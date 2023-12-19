@@ -61,7 +61,7 @@ class Post_Featured_Image extends Block_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$post_id = esc_html( $this->context['postId'] );
+		$post_id = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
 
 		return $this->render_content( $post_id );
 	}
