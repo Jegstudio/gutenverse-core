@@ -1,7 +1,7 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Droplet, Image, Video, PenTool } from 'react-feather';
+import { Droplet, Image, Video, Wind } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -124,7 +124,7 @@ const BackgroundControl = (props) => {
         {
             label: __('Fluid Background', '--gctd--'),
             value: 'fluid',
-            icon: <PenTool size={20} />,
+            icon: <Wind size={20} />,
         },
     ];
 
