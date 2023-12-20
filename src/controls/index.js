@@ -80,6 +80,7 @@ export { default as PanelController } from './controls/panel/panel-controller';
 export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
+export { pointerEventPanel } from './panels/panel-pointer-event';
 export { cursorEffectPanel } from './panels/panel-cursor-effect';
 export { backgroundEffectPanel } from './panels/panel-background-effect';
 export { mouseMoveEffectPanel } from './panels/panel-mouse-move-effect';

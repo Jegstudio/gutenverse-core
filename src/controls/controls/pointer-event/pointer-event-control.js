@@ -11,8 +11,7 @@ const pointerEventControl = (props) =>{
         onStyleChange,
     } = props;
 
-    // const { pointer } = value;
-    const id = useInstanceId(pointerEventControl, 'inspector-mask-control');
+    const id = useInstanceId(pointerEventControl, 'inspector-pointer-control');
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-pointer'}>
         <SelectControl
@@ -24,7 +23,7 @@ const pointerEventControl = (props) =>{
             options={[
                 {
                     label: __('Default', '--gctd--'),
-                    value: 'default'
+                    value: 'auto'
                 },
                 {
                     label: __('None', '--gctd--'),

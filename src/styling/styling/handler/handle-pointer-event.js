@@ -1,9 +1,23 @@
-import { elementVar } from '../styling-utility';
+import { DeviceLoop, deviceStyleValue, elementVar, responsiveAppender } from '../styling-utility';
 
-export const handlePointerEvevnt = (props) => {
+export const handlePointerEvent = (props) => {
     const elementStyle = elementVar();
 
-    console.log(props);
+    const { pointer } = props;
+
+    if (pointer) {
+        DeviceLoop( device => {
+            const _pointer = deviceStyleValue(device, pointer);
+
+            if ( _pointer ) {
+                responsiveAppender({
+                    style: `pointer-events: ${_pointer} !important;`,
+                    device,
+                    elementStyle
+                });
+            }
+        });
+    }
 
     return elementStyle;
 };

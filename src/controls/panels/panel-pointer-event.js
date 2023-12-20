@@ -1,7 +1,7 @@
 import { PointerControl } from 'gutenverse-core/controls';
-import { handleMask } from 'gutenverse-core/styling';
+import { handlePointerEvent } from 'gutenverse-core/styling';
 
-export const maskPanel = (props) => {
+export const pointerEventPanel = (props) => {
     const {
         elementId,
         selector
@@ -9,14 +9,14 @@ export const maskPanel = (props) => {
 
     return [
         {
-            id: 'mask',
+            id: 'pointer',
             allowDeviceControl: true,
             component: PointerControl,
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
                     hasChild: true,
-                    render: value => handleMask(value)
+                    render: value => handlePointerEvent(value)
                 }
             ]
         },
