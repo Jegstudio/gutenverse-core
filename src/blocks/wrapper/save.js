@@ -2,7 +2,7 @@
 import classnames from 'classnames';
 import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
-import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
@@ -25,6 +25,7 @@ const save = compose(
 
     const animationClass = useAnimationFrontend(attributes);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
+    const displayClass = useDisplayFrontend(attributes);
 
     const cursorEffectClass = {
         ['guten-cursor-effect']: cursorEffect?.show
@@ -38,6 +39,7 @@ const save = compose(
             elementId,
             animationClass,
             displayType,
+            displayClass,
             cursorEffectClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
