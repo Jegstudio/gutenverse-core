@@ -385,6 +385,25 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
 
 export const devices = ['Desktop', 'Tablet', 'Mobile'];
 
+export const getRgbaValue = (colorId) =>{
+    const color = `var(--wp--preset--color--${colorId})`;
+    const tempElement = document.createElement('div');
+    document.body.appendChild(tempElement);
+
+    tempElement.style.color = color;
+    const computedColor = window.getComputedStyle(tempElement).getPropertyValue('color');
+    const rgbValues = computedColor.match(/\d+/g);
+    const rgbaObject = {
+        r: Number(rgbValues[0]),
+        g: Number(rgbValues[1]),
+        b: Number(rgbValues[2]),
+        a:1
+    };
+
+    document.body.removeChild(tempElement);
+    return rgbaObject;
+};
+
 /**
  * Attribute Migration functions
  */

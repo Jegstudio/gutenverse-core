@@ -4,13 +4,14 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceScript, withCursorEffectScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 
 const save = compose(
     withAnimationAdvanceScript('wrapper'),
-    withCursorEffectScript
+    withCursorEffectScript,
+    withMouseMoveEffectScript
 )(({ attributes }) => {
     const {
         elementId,
