@@ -21,6 +21,7 @@ export { default as ImageSizeControl } from './controls/image-size/image-size-co
 export { default as ImageFilterControl } from './controls/image-filter/image-filter-control';
 export { default as ImageRadioControl } from './controls/image-radio/image-radio-control';
 export { default as NumberControl } from './controls/number/number-control';
+export { default as PointerControl } from './controls/pointer-event/pointer-event-control';
 export { default as RangeControl } from './controls/range/range-control';
 export { default as RangeColumnControl } from './controls/range-column/range-column-control';
 export { default as RepeaterControl } from './controls/repeater/repeater-control';
