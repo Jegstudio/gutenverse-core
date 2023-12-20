@@ -1,10 +1,11 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Droplet, Image, Video } from 'react-feather';
+import { Droplet, Image, Video, Wind } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;
@@ -119,6 +120,11 @@ const BackgroundControl = (props) => {
             label: __('Video', '--gctd--'),
             value: 'video',
             icon: <Video size={20} />,
+        },
+        {
+            label: __('Fluid Background', '--gctd--'),
+            value: 'fluid',
+            icon: <Wind size={20} />,
         },
     ];
 
@@ -431,8 +437,8 @@ const BackgroundControl = (props) => {
                 deviceValues={fixed}
                 allowDeviceControl={true}
                 usePreviousDevice={true}
-                onValueChange={fixed => onValueChange({...value, fixed})}
-                onStyleChange={fixed => onStyleChange({...value, fixed})}
+                onValueChange={fixed => onValueChange({ ...value, fixed })}
+                onStyleChange={fixed => onStyleChange({ ...value, fixed })}
             />
         </>}
 
@@ -482,6 +488,12 @@ const BackgroundControl = (props) => {
                 allowDeviceControl={true}
             />
         </>}
+
+        {value.type !== undefined && value.type === 'fluid' && applyFilters(
+            'gutenverse.fluid.canvas.option',
+            <LockedFluidBackground />,
+            parameter
+        )}
     </div>;
 };
 

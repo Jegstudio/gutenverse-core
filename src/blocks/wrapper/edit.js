@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
@@ -10,6 +10,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
+import { FluidCanvas } from 'gutenverse-core/components';
 
 const WrapperContainer = ({ attributes, blockProps }) => {
     const {
@@ -21,6 +22,7 @@ const WrapperContainer = ({ attributes, blockProps }) => {
 
     return (
         <div {...blockProps}>
+            <FluidCanvas attributes={attributes} />
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
@@ -30,9 +32,10 @@ const WrapperContainer = ({ attributes, blockProps }) => {
     );
 };
 
-const WrapperPlaceholder = ({ blockProps, clientId }) => {
+const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
     return (
         <div {...blockProps}>
+            <FluidCanvas attributes={attributes} />
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 <InnerBlocks
@@ -50,6 +53,7 @@ const FlexibleWrapper = compose(
     withAnimationBackground(),
     withCopyElementToolbar(),
     withAnimationAdvance('wrapper'),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlockOrder

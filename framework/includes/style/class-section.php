@@ -40,12 +40,13 @@ class Section extends Style_Abstract {
 					'normal' => ".{$this->element_id}:not(.background-animated), .{$this->element_id}.background-animated > .guten-background-animated .animated-layer",
 					'hover'  => ".{$this->element_id}:not(.background-animated):hover, .{$this->element_id}.background-animated:hover > .guten-background-animated .animated-layer",
 				),
-				'border'        => null,
-				'animation'     => null,
-				'advance'       => null,
-				'positioning'   => ".section-wrapper[data-id=\"{$element_id}\"]",
-				'mask'          => null,
-				'cursor-effect' => null,
+				'border'            => null,
+				'animation'         => null,
+				'advance'           => null,
+				'positioning'       => ".section-wrapper[data-id=\"{$element_id}\"]",
+				'mask'              => null,
+				'cursor-effect'     => null,
+				'background-effect' => null,
 			)
 		);
 	}

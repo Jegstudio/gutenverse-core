@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
@@ -17,6 +17,7 @@ import { createBlock } from '@wordpress/blocks';
 import { IconToolbarColumnAddSVG, IconToolbarColumnDeleteSVG } from 'gutenverse-core/icons';
 import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
+import { FluidCanvas } from 'gutenverse-core/components';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -174,14 +175,15 @@ const onResizeStart = (props, p) => {
         setTargetId,
         setParentId,
         editorDom,
-        setOpenTool
+        setOpenTool,
+        setTotalWidth
     } = props;
 
     const parentClientId = getBlockParents(clientId, true)[0];
     const deviceType = getDeviceType();
     const parentBlock = getBlock(parentClientId);
     if (deviceType === 'Desktop') {
-        parentBlock.innerBlocks.map( ( { clientId } ) => {
+        parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
             toolTip.classList.add('dragging');
         });
@@ -195,17 +197,20 @@ const onResizeStart = (props, p) => {
         targetId = getPreviousBlockClientId(clientId);
     }
 
-    const targetBlock = getBlock( targetId );
+    const targetBlock = getBlock(targetId);
 
     const parentElement = editorDom.querySelector(`.wp-block[data-block="${parentClientId}"] .guten-container`);
     const domParentWidth = parentElement?.offsetWidth;
+    const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
 
-    setCurentBlockWidth(attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop']);
+    setCurentBlockWidth(currentWidth);
     setParentBlockWidth(domParentWidth);
     if (deviceType === 'Desktop') {
-        setTargetBlock(targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop']);
+        const targetWidth = targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop'];
+        setTargetBlock(targetWidth);
         setTargetId(targetId);
         setParentId(parentClientId);
+        setTotalWidth(targetWidth + currentWidth);
     } else {
         setOpenTool(true);
     }
@@ -220,7 +225,8 @@ const onResize = (props, off) => {
         parentBlockWidth,
         curentBlockWidth,
         targetId,
-        setNewWidth
+        setNewWidth,
+        totalWidth
     } = props;
 
     const minWidth = {
@@ -239,9 +245,9 @@ const onResize = (props, off) => {
     const targetBlockPx = (targetBlock / 100) * parentBlockWidth;
     const curentBlockPx = (curentBlockWidth / 100) * parentBlockWidth;
     const curentModPx = curentBlockPx + off;
-    const curentModPercent = ((((curentModPx / parentBlockWidth) * 100) * 100 ) / 100).toFixed(1);
+    const curentModPercent = ((((curentModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
     const targetModPx = targetBlockPx - off;
-    const targetModPercent = ((((targetModPx / parentBlockWidth) * 100) * 100 ) / 100).toFixed(1);
+    const targetModPercent = ((((targetModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
     const bothModPercent = parseFloat((parseFloat(curentModPercent) + parseFloat(targetModPercent))).toFixed(1);
 
     let calcCurentModPercent = curentModPercent;
@@ -269,6 +275,11 @@ const onResize = (props, off) => {
 
     calcCurentModPercent = parseFloat(calcCurentModPercent);
     calcTargetModPercent = parseFloat(calcTargetModPercent);
+
+    // Need to force column to fit with previous total width.
+    if (deviceType === 'Desktop' && calcCurentModPercent + calcTargetModPercent > totalWidth) {
+        calcTargetModPercent = calcTargetModPercent - 0.1;
+    }
 
     curentWidth[deviceType] = calcCurentModPercent;
 
@@ -309,7 +320,7 @@ const onResizeStop = (props) => {
     const deviceType = getDeviceType();
     const parentBlock = getBlock(parentId);
     if (parentBlock) {
-        parentBlock.innerBlocks.map( ( { clientId } ) => {
+        parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
             toolTip.classList.remove('dragging');
         });
@@ -396,7 +407,7 @@ const ColumnPlaceholder = (props) => {
 
     const onOpen = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map( ( { clientId } ) => {
+            parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
@@ -405,7 +416,7 @@ const ColumnPlaceholder = (props) => {
 
     const onClose = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map( ( { clientId } ) => {
+            parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
@@ -417,7 +428,7 @@ const ColumnPlaceholder = (props) => {
             <ResizableBox
                 enable={{
                     top: false,
-                    right: ('last' !== position || ( 'Tablet' === deviceType || 'Mobile' === deviceType )) && 'only' !== position ? true : false,
+                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
                     bottom: false,
                     left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType ? true : false,
                     topRight: false,
@@ -427,10 +438,11 @@ const ColumnPlaceholder = (props) => {
                 }}
                 showHandle={eSelect || isHovered}
                 className="guten-column-resizeable"
-                onResizeStart={ resizeStart }
-                onResize={ resize }
-                onResizeStop={ resizeStop }
+                onResizeStart={resizeStart}
+                onResize={resize}
+                onResizeStop={resizeStop}
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
@@ -442,34 +454,31 @@ const ColumnPlaceholder = (props) => {
                 </div>
                 <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
-                        onMouseEnter={()=>{
+                        onMouseEnter={() => {
                             onOpen();
                         }}
-                        onMouseLeave={()=>{
+                        onMouseLeave={() => {
                             onClose();
                         }}
                     >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() =>{
+                    <div className={'column-popup'} onFocus={() => {
                         onOpen();
                         setOpenTool(true);
-                    }} onBlur={() =>{
+                    }} onBlur={() => {
                         onClose();
                         setOpenTool(false);
-                    }}
-                    onMouseEnter={()=>{
+                    }} onMouseEnter={() => {
                         onOpen();
-                    }}
-                    onMouseLeave={()=>{
+                    }} onMouseLeave={() => {
                         if (!openTool) {
                             onClose();
                         }
-                    }}
-                    >
+                    }}>
                         <div>
                             <input
                                 type="number"
                                 className="column-next"
-                                style={{width: valueLength+'ch'}}
+                                style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
                                 onChange={(event) => {
                                     const newWidth = parseFloat(event.target.value);
@@ -576,7 +585,7 @@ const ColumnWrapper = (props) => {
 
     const onOpen = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map( ( { clientId } ) => {
+            parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
@@ -585,7 +594,7 @@ const ColumnWrapper = (props) => {
 
     const onClose = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map( ( { clientId } ) => {
+            parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
@@ -597,7 +606,7 @@ const ColumnWrapper = (props) => {
             <ResizableBox
                 enable={{
                     top: false,
-                    right: ('last' !== position || ( 'Tablet' === deviceType || 'Mobile' === deviceType )) && 'only' !== position ? true : false,
+                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
                     bottom: false,
                     left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType ? true : false,
                     topRight: false,
@@ -607,10 +616,11 @@ const ColumnWrapper = (props) => {
                 }}
                 showHandle={eSelect || isHovered}
                 className="guten-column-resizeable"
-                onResizeStart={ resizeStart }
-                onResize={ resize }
-                onResizeStop={ resizeStop }
+                onResizeStart={resizeStart}
+                onResize={resize}
+                onResizeStop={resizeStop}
             >
+                <FluidCanvas attributes={attributes} />
                 <div className="guten-background-overlay"></div>
                 <div className={'guten-inserter insert-top'}>
                     <Inserter
@@ -627,24 +637,24 @@ const ColumnWrapper = (props) => {
                 </div>
                 <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
-                        onMouseEnter={()=>{
+                        onMouseEnter={() => {
                             onOpen();
                         }}
-                        onMouseLeave={()=>{
+                        onMouseLeave={() => {
                             onClose();
                         }}
                     >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() =>{
+                    <div className={'column-popup'} onFocus={() => {
                         onOpen();
                         setOpenTool(true);
-                    }} onBlur={() =>{
+                    }} onBlur={() => {
                         onClose();
                         setOpenTool(false);
                     }}
-                    onMouseEnter={()=>{
+                    onMouseEnter={() => {
                         onOpen();
                     }}
-                    onMouseLeave={()=>{
+                    onMouseLeave={() => {
                         if (!openTool) {
                             onClose();
                         }
@@ -654,7 +664,7 @@ const ColumnWrapper = (props) => {
                             <input
                                 type="number"
                                 className="column-next"
-                                style={{width: valueLength+'ch'}}
+                                style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
                                 onChange={(event) => {
                                     const newWidth = parseFloat(event.target.value);
@@ -738,7 +748,7 @@ const ColumnAdd = (props) => {
     );
 
     const addNewColumn = () => {
-        const width = roundToDown(100 / ( blockCount + 1 ), 1);
+        const width = roundToDown(100 / (blockCount + 1), 1);
         const newChild = createBlock('gutenverse/column', {
             width: {
                 Desktop: width
@@ -782,9 +792,11 @@ const ColumnBlockControl = (props) => {
 const ColumnBlock = compose(
     withCursorEffect,
     withCustomStyle(panelList),
+    withAnimationAdvance('column'),
     withAnimationBackground(),
     withAnimationSticky(),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlock,
@@ -833,7 +845,7 @@ const ColumnBlock = compose(
     const adjacentCount = getBlocks(rootClientId).length;
     const gutenverseSelector = select('gutenverse/style');
     const adjacentBlock = getBlocks(rootClientId);
-    const [ prevAdjacentCount, setPrevAdjacentCount ] = useState(false);
+    const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
 
     const updateBlockWidth = (clientId, eachWidth) => {
         const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
@@ -878,67 +890,67 @@ const ColumnBlock = compose(
         return total;
     };
 
-    useEffect( () => {
+    useEffect(() => {
         const eachWidth = roundToDown(100 / adjacentCount, 1);
-        if ( ! prevAdjacentCount ) {
+        if (!prevAdjacentCount) {
             if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
                 setAttributes({ width: { ...width, [deviceType]: eachWidth } });
             }
-            setPrevAdjacentCount( getBlocks(rootClientId).length );
-        } else if ( prevAdjacentCount  && (prevAdjacentCount !== adjacentCount) ) {
+            setPrevAdjacentCount(getBlocks(rootClientId).length);
+        } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
             const innerBlocks = getBlocks(rootClientId);
-            setPrevAdjacentCount( adjacentCount );
+            setPrevAdjacentCount(adjacentCount);
             innerBlocks.map(item => {
                 updateBlockWidth(item.clientId, eachWidth);
             });
         }
-    }, [ adjacentCount ] );
+    }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
     const horizontal = setDeviceClasses(horizontalAlign, 'horizontal');
-    const [ targetBlock, setTargetBlock ] = useState( '' );
-    const [ parentBlockWidth, setParentBlockWidth ] = useState( '' );
-    const [ curentBlockWidth, setCurentBlockWidth ] = useState( '' );
-    const [ targetId, setTargetId ] = useState( '' );
-    const [ parentId, setParentId ] = useState( '' );
-    const [ isHovered, setIsHovered ] = useState(false);
-    const [ newWidth, setNewWidth ] = useState(false);
-    const [ openTool, setOpenTool ] = useState(false);
-    const [ editorDom, setEditorDom ] = useState( null );
+    const [targetBlock, setTargetBlock] = useState('');
+    const [parentBlockWidth, setParentBlockWidth] = useState('');
+    const [curentBlockWidth, setCurentBlockWidth] = useState('');
+    const [targetId, setTargetId] = useState('');
+    const [parentId, setParentId] = useState('');
+    const [isHovered, setIsHovered] = useState(false);
+    const [newWidth, setNewWidth] = useState(false);
+    const [openTool, setOpenTool] = useState(false);
+    const [editorDom, setEditorDom] = useState(null);
+    const [totalWidth, setTotalWidth] = useState(0);
 
-
-    useEffect( () => {
+    useEffect(() => {
         if (isFSE()) {
-            setTimeout( () => {
-                const iframeEl = document.querySelector( 'iframe[name="editor-canvas"]' );
-                if ( iframeEl ) {
+            setTimeout(() => {
+                const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                if (iframeEl) {
                     if (iframeEl.contentDocument.body.innerHTML === '') {
-                        setTimeout( () => {
-                            const iframeEl = document.querySelector( 'iframe[name="editor-canvas"]' );
-                            if ( iframeEl ) {
-                                setEditorDom( iframeEl.contentDocument.body );
+                        setTimeout(() => {
+                            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                            if (iframeEl) {
+                                setEditorDom(iframeEl.contentDocument.body);
                             }
-                        }, 200 );
+                        }, 200);
                     } else {
-                        setEditorDom( iframeEl.contentDocument.body );
+                        setEditorDom(iframeEl.contentDocument.body);
                     }
                 } else {
-                    setEditorDom( document.querySelector( '.editor-styles-wrapper' ) );
+                    setEditorDom(document.querySelector('.editor-styles-wrapper'));
                 }
-            }, 200 );
+            }, 200);
         } else {
-            const iframeEl = document.querySelector( 'iframe[name="editor-canvas"]' );
-            if ( iframeEl ) {
-                setEditorDom( iframeEl.contentDocument.body );
+            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+            if (iframeEl) {
+                setEditorDom(iframeEl.contentDocument.body);
             } else {
-                setEditorDom( document.querySelector( '.editor-styles-wrapper' ) );
+                setEditorDom(document.querySelector('.editor-styles-wrapper'));
             }
         }
-    }, [ deviceType ] );
+    }, [deviceType]);
 
     const HoverIcon = <>
         <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7"/>
+            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
         </svg></>;
 
     const blockProps = useBlockProps({
@@ -1010,13 +1022,15 @@ const ColumnBlock = compose(
         openTool,
         setOpenTool,
         editorDom,
-        HoverIcon
+        HoverIcon,
+        setTotalWidth,
+        totalWidth
     };
 
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
-        <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock}  clientId={clientId} />
+        <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
         <ColumnInspection {...props} />
         <Component {...theProps} />
     </>;

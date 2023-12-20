@@ -1,6 +1,7 @@
-.editor-styles-wrapper div.guten-wrap-helper.guten-element {
-    margin-left: inherit !important;
-    margin-right: inherit !important;
+.wp-block.guten-element.guten-wrap-helper {
+    margin-left: inherit;
+    margin-right: inherit;
+
     max-width: 100% !important;
     box-sizing: border-box;
 
@@ -12,12 +13,12 @@
         width: 100%;
     }
 }
-.guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout{
+
+.guten-inner-wrap .block-editor-inner-blocks .block-editor-block-list__layout {
     align-content: flex-start;
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
-    
     .block-list-appender {
         width: 100%;
     }

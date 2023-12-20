@@ -7,6 +7,7 @@ export const handleTransform = (values) => {
     const elementStyle = elementVar();
     const {
         duration,
+        delay,
         ease,
         perspective,
         transformOrigin,
@@ -28,6 +29,29 @@ export const handleTransform = (values) => {
         style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
         elementStyle
     });
+    if(duration){
+        DeviceLoop(device => {
+            const _duration = deviceStyleValue(device, duration);
+            const duration_ = ! isEmpty(_duration) ? _duration : '0.4';
+            responsiveAppender({
+                style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+                device,
+                elementStyle
+            });
+        })
+    }
+    if(delay){
+        DeviceLoop(device => {
+            const _delay = deviceStyleValue(device, delay);
+            if(_delay){
+                responsiveAppender({
+                    style: `transition-delay: ${_delay}s;`,
+                    device,
+                    elementStyle
+                });
+            }
+        })
+    }
 
     if (ease) {
         normalAppender({
@@ -229,6 +253,7 @@ export const handleTransformHover = (values) => {
 
     const elementStyle = elementVar();
     const {
+        perspectiveHover,
         rotateZHover,
         rotateXHover,
         rotateYHover,
@@ -243,6 +268,20 @@ export const handleTransformHover = (values) => {
     } = values;
 
     const transformStyle = elementVar();
+
+    if (perspectiveHover) {
+        DeviceLoop(device => {
+            const _perspective = deviceStyleValue(device, perspectiveHover);
+
+            if (_perspective && _perspective.point) {
+                responsiveAppender({
+                    style: `perspective(${_perspective.point}${_perspective.unit}) `,
+                    device,
+                    elementStyle: transformStyle
+                });
+            }
+        });
+    }
 
     if (rotateZHover) {
         DeviceLoop(device => {
