@@ -46,7 +46,7 @@ const save = compose(
         ...advanceAnimationData
     });
     const contentWrapper = () => {
-        if(linkTarget && url && rel){
+        if(url){
             return <a href={url} target={linkTarget} rel={rel}>
                 {(_isBgAnimated) &&
                 <div className="guten-data">
