@@ -17,9 +17,9 @@ const save = compose(
         elementId,
         displayType,
         cursorEffect,
-        linkTarget,
-        rel,
         url,
+        rel,
+        linkTarget,
         backgroundAnimated = {},
     } = attributes;
 
@@ -43,53 +43,30 @@ const save = compose(
             cursorEffectClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
+                'with-url' :  url
             }
         ),
         ...advanceAnimationData
     });
-    const contentWrapper = () => {
-        if(url){
-            return <a href={url} target={linkTarget} rel={rel}>
-                {(_isBgAnimated) &&
-                <div className="guten-data">
-                    {_isBgAnimated &&
-                        <div data-var={`bgAnimatedData${dataId}`} data-value={JSON.stringify({
-                            ...backgroundAnimated
-                        })} />
-                    }
-                </div>}
-                <FluidCanvasSave attributes={attributes} />
-                <div className="guten-background-overlay" />
-                <div className="guten-inner-wrap" data-id={dataId}>
-                    {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                    <InnerBlocks.Content />
-                </div>
-            </a>;
-        }else{
-            return <>
-                {(_isBgAnimated) &&
-                <div className="guten-data">
-                    {_isBgAnimated &&
-                        <div data-var={`bgAnimatedData${dataId}`} data-value={JSON.stringify({
-                            ...backgroundAnimated
-                        })} />
-                    }
-                </div>}
-                <FluidCanvasSave attributes={attributes} />
-                <div className="guten-background-overlay" />
-                <div className="guten-inner-wrap" data-id={dataId}>
-                    {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                    <InnerBlocks.Content />
-                </div>
-            </>;
-        }
-    };
 
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
     return (
-        <div {...blockProps}>
-            {contentWrapper()}
+        <div {...blockProps} onClick={url && `window.open('${url}', '${linkTarget}');`}>
+            {(_isBgAnimated) &&
+                <div className="guten-data">
+                    {_isBgAnimated &&
+                        <div data-var={`bgAnimatedData${dataId}`} data-value={JSON.stringify({
+                            ...backgroundAnimated
+                        })} />
+                    }
+                </div>}
+            <FluidCanvasSave attributes={attributes} />
+            <div className="guten-background-overlay" />
+            <div className="guten-inner-wrap" data-id={dataId}>
+                {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                <InnerBlocks.Content />
+            </div>
         </div>
     );
 });

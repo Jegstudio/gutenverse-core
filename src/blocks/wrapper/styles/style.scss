@@ -23,7 +23,7 @@
     }
 }
 
-div.guten-wrap-helper.guten-element {
+div.guten-wrap-helper.guten-element{
 
     &.inline, &.inline-block {
         width: auto !important;    
@@ -32,4 +32,7 @@ div.guten-wrap-helper.guten-element {
     .block-editor-inner-blocks {
         width: auto;
     }
+}
+.with-url{
+    cursor: pointer;
 }
