@@ -7,7 +7,7 @@ import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { useEffect, useCallback } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
@@ -83,6 +83,7 @@ const FlexibleWrapper = compose(
     } = attributes;
 
     const wrapperRef = useRef();
+    const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
 
@@ -112,6 +113,7 @@ const FlexibleWrapper = compose(
             elementId,
             animationClass,
             displayType,
+            displayClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
             }
