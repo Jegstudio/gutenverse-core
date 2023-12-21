@@ -187,6 +187,7 @@ const SectionBlock = compose(
         isSelected,
         setElementRef,
     } = props;
+    console.log(props);
 
     const {
         elementId,

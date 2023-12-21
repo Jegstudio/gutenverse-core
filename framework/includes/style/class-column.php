@@ -45,6 +45,7 @@ class Column extends Style_Abstract {
 				'animation'     => ".{$this->element_id}",
 				'advance'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper",
 				'mask'          => null,
+				'pointer'       => null,
 				'cursor-effect' => null,
 			)
 		);

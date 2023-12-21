@@ -324,6 +324,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "pointer": {
+      "type": "object",
+      "copyStyle": true
+    },
     "blur": {
       "type": "object",
       "copyStyle": true
