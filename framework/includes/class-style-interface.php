@@ -955,15 +955,18 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id} .guten-background-effect .inner-background-container";
-			if ( isset( $background_effect['backgroundEffectSize'] ) ) {
+			$selector          = ".{$this->element_id} .guten-background-effect";
+			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
-							return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+							if ( $value ) {
+								$overflow = 'hidden';
+							}
+							return "overflow: {$overflow};";
 						},
-						'value'          => $background_effect['backgroundEffectSize'],
+						'value'          => $background_effect['hiddenOverflow'],
 						'device_control' => true,
 					)
 				);
