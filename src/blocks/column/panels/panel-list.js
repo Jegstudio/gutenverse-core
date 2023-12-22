@@ -27,7 +27,10 @@ export const panelList = () => {
         {
             title: __('Background Effect', '--gctd--'),
             initialOpen: false,
-            panelArray: backgroundEffectPanel,
+            panelArray: (props) =>  backgroundEffectPanel({
+                ...props,
+                selector: `.${props.elementId}> .guten-column-resizeable> .sticky-wrapper> .guten-column-wrapper > .guten-background-effect`
+            }),
             tabRole: TabSetting,
             pro: true,
         },
