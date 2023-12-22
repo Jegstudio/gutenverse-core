@@ -205,15 +205,15 @@ const Tabs = compose(
         if (tabs === undefined) {
             const newTabs = [
                 {
-                    tabId: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
+                    tabId: 'tab-' + cryptoRandomString({ length: 6, type: 'alphanumeric' }),
                     text: 'Tab 1'
                 },
                 {
-                    tabId: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
+                    tabId: 'tab-' + cryptoRandomString({ length: 6, type: 'alphanumeric' }),
                     text: 'Tab 2'
                 },
                 {
-                    tabId: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
+                    tabId: 'tab-' + cryptoRandomString({ length: 6, type: 'alphanumeric' }),
                     text: 'Tab 3'
                 },
             ];
