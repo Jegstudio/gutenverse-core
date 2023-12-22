@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -13,21 +13,25 @@ import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import { ToolbarGroup } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
+import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps }) => {
     const {
         elementId,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
+        backgroundEffect
     } = attributes;
 
     const dataId = elementId ? elementId.split('-')[1] : '';
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     return (
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
+                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <InnerBlocks />
             </div>
@@ -56,7 +60,8 @@ const FlexibleWrapper = compose(
     withAnimationBackground(),
     withCopyElementToolbar(),
     withAnimationAdvance('wrapper'),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withBackgroundEffect
 )((props) => {
     const {
         getBlockOrder
@@ -77,6 +82,7 @@ const FlexibleWrapper = compose(
         elementId,
         displayType,
         backgroundAnimated = {},
+        backgroundEffect,
         url,
         rel,
         linkTarget
@@ -86,6 +92,7 @@ const FlexibleWrapper = compose(
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const onToggleOpenInNewTab = useCallback(
         (value) => {
@@ -116,6 +123,7 @@ const FlexibleWrapper = compose(
             displayClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
+                'guten-background-effect-active': isBackgroundEffect,
             }
         ),
         ref: wrapperRef

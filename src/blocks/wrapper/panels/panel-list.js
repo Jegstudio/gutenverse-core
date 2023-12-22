@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundEffectPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -8,13 +8,6 @@ import { positionPanel } from './panel-position';
 
 export const panelList = () => {
     return [
-        {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
         {
             title: __('Wrapper Display', '--gctd--'),
             initialOpen: false,
@@ -40,6 +33,20 @@ export const panelList = () => {
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer`
             }),
             tabRole: TabStyle
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Background Overlay', '--gctd--'),

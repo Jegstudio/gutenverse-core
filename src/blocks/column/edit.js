@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
@@ -18,6 +18,7 @@ import { IconToolbarColumnAddSVG, IconToolbarColumnDeleteSVG } from 'gutenverse-
 import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -540,7 +541,8 @@ const ColumnWrapper = (props) => {
     const {
         elementId,
         width,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
+        backgroundEffect
     } = attributes;
 
     const dataId = elementId ? elementId.split('-')[1] : '';
@@ -550,6 +552,7 @@ const ColumnWrapper = (props) => {
     const blocks = getBlocks(clientId);
     const size = getBlocks(clientId).length;
     const clientColumnId = size > 1 ? blocks[0].clientId : clientId;
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const wrapperClass = classnames(
         'guten-column-wrapper',
@@ -631,6 +634,7 @@ const ColumnWrapper = (props) => {
                 </div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
+                        {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                         {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                         <InnerBlocks />
                     </div>
@@ -796,7 +800,8 @@ const ColumnBlock = compose(
     withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withBackgroundEffect
 )((props) => {
     const {
         getBlock,
@@ -832,6 +837,7 @@ const ColumnBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
+        backgroundEffect
     } = attributes;
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -846,6 +852,7 @@ const ColumnBlock = compose(
     const gutenverseSelector = select('gutenverse/style');
     const adjacentBlock = getBlocks(rootClientId);
     const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const updateBlockWidth = (clientId, eachWidth) => {
         const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
@@ -970,6 +977,7 @@ const ColumnBlock = compose(
                 [`sticky-${stickyPosition}`]: isSticky(sticky),
                 'is-hovered': isHovered,
                 'background-animated': isAnimationActive(backgroundAnimated),
+                'guten-background-effect-active': isBackgroundEffect,
             }
         ),
         ref: columnRef,

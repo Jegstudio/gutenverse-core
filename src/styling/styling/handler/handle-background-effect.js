@@ -1,4 +1,5 @@
 import { elementVar, normalAppender } from '../styling-utility';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const handleBackgroundEffect = (style) => {
     let elementStyle = elementVar();
@@ -6,9 +7,25 @@ export const handleBackgroundEffect = (style) => {
     const {
         hiddenOverflow,
     } = style;
-    if(hiddenOverflow){
+    if ( hiddenOverflow ) {
         normalAppender({
             style: `overflow: ${hiddenOverflow ? 'hidden' : 'visible'};`,
+            elementStyle
+        });
+    }
+    return elementStyle;
+};
+
+export const handleInnerBackgroundEffect = (style) => {
+    let elementStyle = elementVar();
+
+    const {
+        boxShadow
+    } = style;
+    if ( boxShadow ) {
+        const style = handleBoxShadow(boxShadow);
+        normalAppender({
+            style: style,
             elementStyle
         });
     }

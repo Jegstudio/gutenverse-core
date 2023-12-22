@@ -952,7 +952,7 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id} .guten-background-effect";
+			$selector          = ".{$this->element_id}> .guten-background-effect";
 			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(

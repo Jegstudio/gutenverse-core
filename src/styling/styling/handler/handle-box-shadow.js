@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getColor } from 'gutenverse-core/styling';
 
 export const handleBoxShadow = (value) => {
-    const { color, horizontal= 0, vertical = 0, blur = 0, spread, position } = value;
+    const { color = {}, horizontal= 0, vertical = 0, blur = 0, spread, position } = value;
     const shadowColor = getColor(color);
 
     //check in case there is empty string as value (e.g. '')
