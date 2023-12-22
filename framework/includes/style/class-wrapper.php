@@ -45,6 +45,7 @@ class Wrapper extends Style_Abstract {
 				'animation'     => ".{$this->element_id}",
 				'advance'       => ".{$this->element_id}",
 				'mask'          => null,
+				'pointer'       => null,
 				'cursor-effect' => null,
 			)
 		);

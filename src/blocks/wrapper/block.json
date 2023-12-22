@@ -13,6 +13,18 @@
 		  "type": "object",
 		  "copyStyle": true
 		},
+		"hideDesktop": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
+		"hideTablet": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
+		"hideMobile": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
 		"displayType": {
 			"type": "string",
 			"copyStyle": true
@@ -152,6 +164,10 @@
 			"copyStyle": true
 		},
 		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"pointer": {
 			"type": "object",
 			"copyStyle": true
 		},

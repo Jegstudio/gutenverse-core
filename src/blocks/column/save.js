@@ -8,8 +8,8 @@ import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffect
 import { FluidCanvasSave } from 'gutenverse-core/components';
 
 const save = compose(
-    withCursorEffectScript,
     withAnimationAdvanceScript('column'),
+    withCursorEffectScript,
     withMouseMoveEffectScript
 )((props) => {
     const {

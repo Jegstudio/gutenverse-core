@@ -235,7 +235,11 @@
     "mask": {
       "type": "object",
       "copyStyle": true
-    }
+    },
+    "pointer": {
+			"type": "object",
+			"copyStyle": true
+		}
   },
   "supports": {
     "anchor": true,

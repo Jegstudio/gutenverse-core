@@ -227,7 +227,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	public function inject_style( $data) {
+	public function inject_style( $data ) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 
 			$devices = $this->get_all_device();
@@ -578,6 +578,9 @@ abstract class Style_Interface {
 					break;
 				case 'mask':
 					$this->feature_mask( $selector );
+					break;
+				case 'pointer':
+					$this->feature_pointer_event( $selector );
 					break;
 				case 'cursor-effect':
 					$this->feature_cursor_effect( $selector );
@@ -952,15 +955,18 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id} .guten-background-effect .inner-background-container";
-			if ( isset( $background_effect['backgroundEffectSize'] ) ) {
+			$selector          = ".{$this->element_id} .guten-background-effect";
+			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
-							return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+							if ( $value ) {
+								$overflow = 'hidden';
+							}
+							return "overflow: {$overflow};";
 						},
-						'value'          => $background_effect['backgroundEffectSize'],
+						'value'          => $background_effect['hiddenOverflow'],
 						'device_control' => true,
 					)
 				);
@@ -1080,6 +1086,30 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		}
+	}
+
+	/**
+	 * Handle Feature Pointer Events.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_pointer_event( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+		if ( isset( $this->attrs['pointer'] ) ) {
+			$pointer = $this->attrs['pointer'];
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						return "pointer-events: {$value} !important;";
+					},
+					'value'          => $pointer['pointer'],
+					'device_control' => true,
+				)
+			);
 		}
 	}
 
@@ -1647,7 +1677,7 @@ abstract class Style_Interface {
 			foreach ( $devices as $device ) {
 				if ( empty( $styles[ $device ] ) ) {
 					$styles[ $device ] = '';
-				}				
+				}
 				if ( isset( $prop['value'][ $device ] ) ) {
 					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
 				}

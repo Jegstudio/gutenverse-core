@@ -1,19 +1,52 @@
-import { getDevice } from 'gutenverse-core/helper';
 import { elementVar, normalAppender } from '../styling-utility';
 
 export const handleBackgroundEffect = (style) => {
     let elementStyle = elementVar();
-    const device = getDevice();
 
     const {
-        backgroundEffectSize,
+        hiddenOverflow,
     } = style;
-
-    if(backgroundEffectSize){
+    if(hiddenOverflow){
         normalAppender({
-            style: `width: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit}; height: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit};`,
+            style: `overflow: ${hiddenOverflow ? 'hidden' : 'visible'};`,
             elementStyle
         });
     }
     return elementStyle;
 };
+
+// export const handleOrientationBackgroundEffect = (style) => {
+//     let elementStyle = elementVar();
+
+//     const {
+//         leftOrientation,
+//         topOrientation,
+//     } = style;
+//     if(topOrientation){
+//         DeviceLoop(device => {
+//             const _top = deviceStyleValue(device, topOrientation);
+
+//             if (_top) {
+//                 responsiveAppender({
+//                     style: `${};`,
+//                     device,
+//                     elementStyle: elementStyle
+//                 });
+//             }
+//         });
+//     }
+//     if(leftOrientation){
+//         DeviceLoop(device => {
+//             const _left = deviceStyleValue(device, leftOrientation);
+
+//             if (_left) {
+//                 responsiveAppender({
+//                     style: `${}`,
+//                     device,
+//                     elementStyle: elementStyle
+//                 });
+//             }
+//         });
+//     }
+//     return elementStyle;
+// };
