@@ -2,7 +2,7 @@ import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
 import { dividerPanel } from './panel-divider';
-import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, mouseMoveEffectPanel, backgroundEffectPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel, pointerEventPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
@@ -38,13 +38,20 @@ export const panelList = () => {
             pro: true,
         },
         {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'section',
                 styleId: 'section-background',
-                normalOptions: ['default', 'gradient', 'video'],
+                normalOptions: ['default', 'gradient', 'video', 'fluid'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer`,
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
@@ -84,9 +91,18 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Masking', 'gutenverse'),
+            title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => pointerEventPanel({
+                ...props,
+                selector: `.section-${props.elementId}`
+            }),
             tabRole: TabStyle
         },
         {

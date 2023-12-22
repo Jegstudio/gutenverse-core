@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript} from 'gutenverse-core/hoc';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript} from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -10,12 +10,15 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
+import { FluidCanvasSave } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('section'),
     withVideoBackground,
     withCursorEffectScript,
-    withMouseMoveEffectScript
+    withMouseMoveEffectScript,
+    withBackgroundEffectScript,
 )((props) => {
     const {
         attributes,
@@ -41,11 +44,13 @@ const save = compose(
         bottomSticky,
         backgroundAnimated = {},
         cursorEffect,
+        backgroundEffect = {},
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const className = classnames(
         'guten-element',
@@ -61,6 +66,7 @@ const save = compose(
             ['guten-sticky']: isSticky(sticky),
             [`sticky-${stickyPosition}`]: isSticky(sticky),
             ['guten-cursor-effect']: cursorEffect?.show,
+            'guten-background-effect-active': isBackgroundEffect,
         }
     );
 
@@ -85,7 +91,8 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <section { ...useBlockProps.save({ className, ...advanceAnimationData })}>
+            <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
+                <FluidCanvasSave attributes={attributes} />
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
                     <div className="guten-data">
                         {_isSticky &&
@@ -117,6 +124,7 @@ const save = compose(
                     </div>
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
                 <div className="guten-background-overlay"></div>
                 {topDivider && <SectionDividerTop {...props} />}

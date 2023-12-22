@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, pointerEventPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -16,7 +16,7 @@ export const panelList = () => {
             pro: true,
         },
         {
-            title: __('Display', '--gctd--'),
+            title: __('Wrapper Display', '--gctd--'),
             initialOpen: false,
             panelArray: displayPanel,
             tabRole: TabSetting
@@ -34,7 +34,7 @@ export const panelList = () => {
                 ...props,
                 blockType: 'wrapper',
                 styleId: 'wrapper-background',
-                normalOptions: ['default', 'gradient', 'video'],
+                normalOptions: ['default', 'gradient', 'video', 'fluid'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`,
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer`
@@ -68,9 +68,15 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Masking', 'gutenverse'),
+            title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
             tabRole: TabStyle
         },
         {
@@ -83,9 +89,22 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
             title: __('Transform', '--gctd--'),
             initialOpen: false,
             panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
             tabRole: TabSetting,
             pro: true,
         },

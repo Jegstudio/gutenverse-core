@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
+import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;

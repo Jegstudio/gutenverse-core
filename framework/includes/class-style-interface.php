@@ -229,6 +229,7 @@ abstract class Style_Interface {
 	 */
 	public function inject_style( $data ) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
+
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
 				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
@@ -578,8 +579,14 @@ abstract class Style_Interface {
 				case 'mask':
 					$this->feature_mask( $selector );
 					break;
+				case 'pointer':
+					$this->feature_pointer_event( $selector );
+					break;
 				case 'cursor-effect':
 					$this->feature_cursor_effect( $selector );
+					break;
+				case 'background-effect':
+					$this->feature_background_effect( $selector );
 					break;
 			}
 		}
@@ -941,6 +948,33 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Handle Feature Background Effect.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_background_effect( $selector ) {
+		if ( isset( $this->attrs['backgroundEffect'] ) ) {
+			$background_effect = $this->attrs['backgroundEffect'];
+			$selector          = ".{$this->element_id} .guten-background-effect";
+			if ( isset( $background_effect['hiddenOverflow'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( $value ) {
+								$overflow = 'hidden';
+							}
+							return "overflow: {$overflow};";
+						},
+						'value'          => $background_effect['hiddenOverflow'],
+						'device_control' => true,
+					)
+				);
+			}
+		}
+	}
+
+	/**
 	 * Handle Feature Mask.
 	 *
 	 * @param string $selector Selector.
@@ -1052,6 +1086,30 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		}
+	}
+
+	/**
+	 * Handle Feature Pointer Events.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_pointer_event( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+		if ( isset( $this->attrs['pointer'] ) ) {
+			$pointer = $this->attrs['pointer'];
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						return "pointer-events: {$value} !important;";
+					},
+					'value'          => $pointer['pointer'],
+					'device_control' => true,
+				)
+			);
 		}
 	}
 
@@ -1543,7 +1601,7 @@ abstract class Style_Interface {
 	 *
 	 * @return array
 	 */
-	protected function merge_device_options( $options ) {
+	public function merge_device_options( $options ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
@@ -1560,7 +1618,24 @@ abstract class Style_Interface {
 		return $results;
 	}
 
+	/**
+	 * Merge option.
+	 *
+	 * @param array $options Value tobe merged.
+	 *
+	 * @return array
+	 */
+	public function merge_options( $options ) {
+		$results = array();
 
+		foreach ( $options as $key => $option ) {
+			if ( isset( $option ) ) {
+				$results[ $key ] = $option;
+			}
+		}
+
+		return $results;
+	}
 
 	/**
 	 * Multi style values
@@ -1580,6 +1655,30 @@ abstract class Style_Interface {
 				}
 
 				if ( ! empty( $prop['value'][ $device ] ) ) {
+					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+				}
+			}
+		}
+
+		return $styles;
+	}
+	/**
+	 * Multi style values not checking zero
+	 *
+	 * @param array $props .
+	 *
+	 * @return boolean
+	 */
+	public function multi_style_values_all_value( $props ) {
+		$devices = array( 'Desktop', 'Tablet', 'Mobile' );
+		$styles  = array();
+
+		foreach ( $props as $prop ) {
+			foreach ( $devices as $device ) {
+				if ( empty( $styles[ $device ] ) ) {
+					$styles[ $device ] = '';
+				}
+				if ( isset( $prop['value'][ $device ] ) ) {
 					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
 				}
 			}

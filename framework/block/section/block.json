@@ -313,11 +313,18 @@
     "cursorEffect": {
       "type": "object"
     },
+    "backgroundEffect": {
+      "type": "object"
+    },
     "transform": {
       "type": "object",
       "copyStyle": true
     },
     "mask": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "pointer": {
       "type": "object",
       "copyStyle": true
     },

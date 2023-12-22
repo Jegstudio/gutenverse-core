@@ -1867,6 +1867,13 @@
       }
     }
 
+    /** pointer event **/
+    &pointer {
+      >* {
+        display: block;
+      }
+    }
+
     /** background **/
     &background {
       >* {
