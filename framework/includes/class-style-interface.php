@@ -240,6 +240,11 @@ abstract class Style_Interface {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
+
+					if ( empty( $property ) ) {
+						continue;
+					}
+
 					if ( ! isset( $this->generated[ $device ][ $selector ] ) ) {
 						$this->generated[ $device ][ $selector ] = array();
 					}
