@@ -37,6 +37,11 @@ export const altPanel = (props) => {
             label: __('Custom Caption', 'gutenverse'),
             component: TextControl,
         },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            component: TextControl,
+        },
     ];
 };
 

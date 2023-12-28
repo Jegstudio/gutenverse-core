@@ -137,6 +137,7 @@ const ImageBlock = compose(
         captionType,
         captionOriginal,
         captionCustom,
+        ariaLabel
     } = attributes;
 
     const defaultSrc = imagePlaceholder;
@@ -192,10 +193,15 @@ const ImageBlock = compose(
         }
     };
 
+    const urlAriaLabel = () => {
+        if( ariaLabel ){
+            return <a className="guten-image-wrapper" aria-label={ariaLabel} href={url} target={linkTarget} rel={rel} ><ImageBoxFigure {...attributes} /></a>;
+        }else{
+            return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
+        }
+    };
     const blockElement = <div {...blockProps}>
-        {!isEmpty(imgSrc) ? (
-            <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>
-        ) : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
+        {!isEmpty(imgSrc) ? urlAriaLabel() : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
         {caption()}
     </div>;
 

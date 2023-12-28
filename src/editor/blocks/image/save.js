@@ -24,6 +24,7 @@ const save = compose(
         captionType,
         captionOriginal,
         captionCustom,
+        ariaLabel,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -53,7 +54,7 @@ const save = compose(
     };
 
     return <div {...blockProps}>
-        <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}>
+        <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel} aria-label={ariaLabel}>
             <ImageBoxFigure {...attributes}/>
         </a>
         {caption()}
