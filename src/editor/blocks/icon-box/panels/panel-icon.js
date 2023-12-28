@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
@@ -85,6 +85,12 @@ export const panelIcon = (props) => {
             show: iconType && iconType === 'image',
             label: __('Icon Type', 'gutenverse'),
             component: ImageControl,
+        },
+        {
+            id: 'lazyLoad',
+            show: iconType && iconType === 'image',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
         },
         {
             id: 'imageAlt',
