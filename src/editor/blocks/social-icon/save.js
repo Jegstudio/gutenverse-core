@@ -41,10 +41,12 @@ const save = compose(
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
         <a id={elementId} href={url} target={ linkTarget } rel={ rel }>
             <i className={icon}/>
-            <RichText.Content
-                value={text}
-                tagName="span"
-            />
+            {
+                text && <RichText.Content
+                    value={text}
+                    tagName="span"
+                />
+            }
         </a>
     </div>;
 });
