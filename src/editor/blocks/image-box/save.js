@@ -14,10 +14,11 @@ const WrapAHref = ({ attributes, children }) => {
         linkTarget,
         rel,
         buttonClass = '',
+        ariaLabel
     } = attributes;
 
     if (url !== undefined && url !== '') {
-        return <a className={buttonClass} href={url} target={linkTarget} rel={rel}>
+        return <a className={buttonClass} href={url} target={linkTarget} aria-label={ariaLabel} rel={rel}>
             {children}
         </a>;
     } else {
@@ -67,30 +68,36 @@ const save = compose(
                     </WrapAHref>
                 </div>
                 <div className="image-box-body">
-                    <div className="body-inner">
-                        <TitleTag className={classnames(
-                            'body-title',
-                            `icon-position-${titleIconPosition}`
-                        )}>
-                            <WrapAHref {...props}>
-                                {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
-                                <RichText.Content
-                                    value={title}
-                                    tagName="span"
+                    {
+                        <div className="body-inner">
+                            {
+                                title && <TitleTag className={classnames(
+                                    'body-title',
+                                    `icon-position-${titleIconPosition}`
+                                )}>
+                                    <WrapAHref {...props}>
+                                        {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
+                                        <RichText.Content
+                                            value={title}
+                                            tagName="span"
+                                        />
+                                        {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
+                                    </WrapAHref>
+                                </TitleTag>
+                            }
+                            {
+                                description && <RichText.Content
+                                    className="body-description"
+                                    value={description}
+                                    tagName="p"
                                 />
-                                {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
-                            </WrapAHref>
-                        </TitleTag>
-                        <RichText.Content
-                            className="body-description"
-                            value={description}
-                            tagName="p"
-                        />
-                        <InnerBlocks.Content />
-                        {hoverBottom && <div className={'border-bottom'}>
-                            <div className={`animated ${hoverBottomDirection}`}></div>
-                        </div>}
-                    </div>
+                            }
+                            <InnerBlocks.Content />
+                            {hoverBottom && <div className={'border-bottom'}>
+                                <div className={`animated ${hoverBottomDirection}`}></div>
+                            </div>}
+                        </div>
+                    }
                 </div>
             </div>
         </div>

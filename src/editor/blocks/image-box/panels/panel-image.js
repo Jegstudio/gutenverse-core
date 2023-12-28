@@ -15,8 +15,18 @@ export const panelImage = () => {
             component: ImageSizeControl
         },
         {
+            id: 'lazyLoad',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
             id: 'imageAlt',
             label: __('Image Alt', 'gutenverse'),
+            component: TextControl,
+        },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
             component: TextControl,
         },
         {

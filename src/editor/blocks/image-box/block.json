@@ -332,6 +332,14 @@
 		"imagePosition": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"lazyLoad": {
+			"type" : "boolean",
+			"copyStyle": true
+		},
+		"ariaLabel": {
+			"type" : "string",
+			"copyStyle": true
 		}
 	},
 	"supports": {
