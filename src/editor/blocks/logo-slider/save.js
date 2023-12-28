@@ -8,6 +8,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
+import { logoHoverLazyLoad, logoNormalLazyLoad } from './edit';
 
 const save = compose(
     withMouseMoveEffectScript
@@ -34,7 +35,6 @@ const save = compose(
             [`arrow-${arrowPosition}`]: arrowPosition
         }
     );
-
     return (
         <div {...useBlockProps.save({ className })}>
             <div className="client-list">
@@ -43,8 +43,8 @@ const save = compose(
                         {logos.map((logo, index) => {
                             return <div className="swiper-slide image-list" key={index}>
                                 <div className="content-image">
-                                    <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />
-                                    <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />
+                                    {logoNormalLazyLoad(logo)}
+                                    {logoHoverLazyLoad(logo)}
                                 </div>
                             </div>;
                         })}

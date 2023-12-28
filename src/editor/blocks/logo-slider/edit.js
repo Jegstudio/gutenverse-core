@@ -14,6 +14,20 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { Swiper, swiperSettings } from '../../components/swiper';
 
+export const logoNormalLazyLoad = (logo) => {
+    if(logo.lazyLoad){
+        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
+    }else{
+        return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />;
+    }
+};
+export const logoHoverLazyLoad = (logo) => {
+    if(logo.lazyLoad){
+        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
+    }else{
+        return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />;
+    }
+};
 const LogoSlider = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
@@ -72,8 +86,8 @@ const LogoSlider = compose(
                     {logos.map((logo, index) => {
                         return <div className="image-list" key={index}>
                             <div className="content-image">
-                                {logo && <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />}
-                                {logo && <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />}
+                                {logo && logoNormalLazyLoad(logo)}
+                                {logo && logoHoverLazyLoad(logo)}
                             </div>
                         </div>;
                     })}
