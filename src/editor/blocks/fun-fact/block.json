@@ -305,6 +305,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"lazyLoad":{
+			"type": "boolean",
+			"copyStyle": true
 		}
 	},
 	"supports": {
