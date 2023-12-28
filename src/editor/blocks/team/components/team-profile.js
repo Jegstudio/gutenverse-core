@@ -4,6 +4,7 @@ import { getImageSrc } from 'gutenverse-core/editor-helper';
 const TeamProfile = ({
     profileType,
     src,
+    lazy,
     addPopup,
     overlayType,
     overlayPosition,
@@ -19,12 +20,18 @@ const TeamProfile = ({
     onClick = () => {}
 }) => {
 
+    const lazyLoad = () => {
+        if(lazy){
+            return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
+        } else return <img src={getImageSrc(src)} alt={name}/>;
+    };
+
     const contentType = () => {
         switch(profileType) {
             case 'overlay':
                 return (
                     <div className={`profile-card card-overlay ${overlayType}`}>
-                        <img src={getImageSrc(src)} alt={name}/>
+                        {lazyLoad()}
                         <div className={`profile-body ${overlayPosition}`}>
                             <NameTag className={`profile-title ${addPopup ? 'popup' : ''}`} onClick={onClick}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
@@ -39,7 +46,7 @@ const TeamProfile = ({
                 return (
                     <div className={'profile-card card-hover'}>
                         <div className={`profile-header ${addPopup ? 'popup' : ''}`} onClick={onClick}>
-                            <img src={getImageSrc(src)} alt={name}/>
+                            {lazyLoad()}
                         </div>
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
@@ -58,7 +65,7 @@ const TeamProfile = ({
                 return (
                     <div className={'profile-card card-default'}>
                         <div className={`profile-header ${addPopup ? 'popup' : ''}`} onClick={onClick}>
-                            <img src={getImageSrc(src)} alt={name}/>
+                            {lazyLoad()}
                         </div>
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>

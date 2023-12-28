@@ -17,6 +17,11 @@ export const teamPanel = (props) => {
             component: ImageControl
         },
         {
+            id: 'lazy',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
             id: 'nameTag',
             label: __('Name HTML tag', 'gutenverse'),
             component: SelectControl,
