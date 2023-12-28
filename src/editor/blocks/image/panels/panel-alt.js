@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const altPanel = (props) => {
     const {
@@ -7,6 +7,11 @@ export const altPanel = (props) => {
     } = props;
 
     return [
+        {
+            id: 'lazyLoad',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
         {
             id: 'altType',
             label: __('Alt Type', 'gutenverse'),

@@ -14,7 +14,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Alt', 'gutenverse'),
+            title: __('Image Setting', 'gutenverse'),
             initialOpen: false,
             panelArray: altPanel,
             tabRole: TabSetting
