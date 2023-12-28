@@ -37,10 +37,17 @@ const GalleryItem = (attributes) => {
 
         return arr.map((item, key) => item === 2 ? <li key={key}><i className="fas fa-star"></i></li> : <li key={key}><i className="fas fa-star-half"></i></li>);
     };
+    const imageCondition = () => {
+        if(galleryItem.lazyLoad){
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>;
+        }
+    };
 
     return layout === 'overlay' ? <div className="grid-item">
         <div className="thumbnail-wrap">
-            <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>
+            {imageCondition()}
             <div className={`caption-wrap style-overlay overlay-overlay ${hoverClass()}`} onClick={zoomOptions === 'item' && onZoom}>
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>
@@ -75,7 +82,7 @@ const GalleryItem = (attributes) => {
         </div>
     </div> : <div className="grid-item">
         <div className="thumbnail-wrap">
-            <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>
+            {imageCondition()}
             <div className={`caption-wrap search-hover-bg style-overlay ${hoverClass()}`}>
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>

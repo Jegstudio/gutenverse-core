@@ -48,7 +48,6 @@ const GalleryBlock = compose(
         filterSearchIconPosition,
         filterSearchFormText,
     } = attributes;
-
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [showPopup, setShowPop] = useState(false);

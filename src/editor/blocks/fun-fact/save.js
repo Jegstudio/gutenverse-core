@@ -67,7 +67,7 @@ const save = compose(
                 {headerContent()}
                 <div className="content">
                     <div className="number-wrapper">
-                        <span className="prefix">{`${prefix} `}</span>
+                        <span className="prefix">{`${prefix}`}</span>
                         <span className="number loaded" data-number={number} data-duration={duration}></span>
                         <span className="suffix">{suffix}</span>
                         {showSupper && <sup className="super">{supper}</sup>}
