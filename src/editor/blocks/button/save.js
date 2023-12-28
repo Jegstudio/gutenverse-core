@@ -22,6 +22,7 @@ const save = compose(
         icon,
         iconPosition,
         role,
+        ariaLabel
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -46,7 +47,7 @@ const save = compose(
 
     const ButtonElement = ({ children }) => {
         return role === 'link' ?
-            <a className={buttonClass} href={url} target={linkTarget} rel={rel}>{children}</a> :
+            <a className={buttonClass} href={url} target={linkTarget} aria-label={ariaLabel} rel={rel}>{children}</a> :
             <button className={buttonClass} type="submit">{children}</button>;
     };
 

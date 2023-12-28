@@ -50,6 +50,7 @@ const ButtonBlock = compose(
         linkTarget,
         iconPosition = 'before',
         role,
+        ariaLabel
     } = attributes;
     const {
         getBlockRootClientId,
@@ -212,7 +213,7 @@ const ButtonBlock = compose(
         </BlockControls>
         <div  {...blockProps}>
             {role === 'link' ?
-                <a {...buttonProps} onClick={() => textRef.current.focus()}>{buttonText}</a> :
+                <a {...buttonProps} onClick={() => textRef.current.focus()} aria-label={ariaLabel}>{buttonText}</a> :
                 <button {...buttonProps} type="submit" onSubmit={() => textRef.current.focus()}>{buttonText}</button>
             }
         </div>

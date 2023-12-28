@@ -266,6 +266,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"ariaLabel" : {
+			"type": "string",
+			"copyStyle": true
 		}
 	},
 	"supports": {
