@@ -28,8 +28,6 @@ const save = compose(
         bottomSticky,
         sectionVerticalAlign,
         cursorEffect,
-        backgroundOverlay,
-        backgroundOverlayHover,
         backgroundAnimated = {},
     } = attributes;
 
@@ -92,20 +90,13 @@ const save = compose(
                         })} />
                     }
                 </div>}
-            {
-                (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
-            }
-            {
-                isCanSticky ? <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
-                    <div className="guten-column-wrapper">
-                        {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                        <InnerBlocks.Content />
-                    </div>
-                </div> : <div className="guten-column-wrapper">
+            <div className="guten-background-overlay"></div>
+            <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
+                <div className="guten-column-wrapper">
                     {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                     <InnerBlocks.Content />
                 </div>
-            }
+            </div>
         </div>
     );
 });

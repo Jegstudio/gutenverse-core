@@ -7,6 +7,7 @@ import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvasSave } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('wrapper'),
@@ -18,8 +19,9 @@ const save = compose(
         displayType,
         cursorEffect,
         url,
-        rel,
         linkTarget,
+        backgroundOverlay,
+        backgroundOverlayHover,
         backgroundAnimated = {},
     } = attributes;
 
@@ -62,7 +64,9 @@ const save = compose(
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />
-            <div className="guten-background-overlay" />
+            {
+                (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
+            }
             <div className="guten-inner-wrap" data-id={dataId}>
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <InnerBlocks.Content />

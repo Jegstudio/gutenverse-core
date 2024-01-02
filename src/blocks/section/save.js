@@ -45,8 +45,9 @@ const save = compose(
         backgroundAnimated = {},
         cursorEffect,
         backgroundEffect = {},
+        backgroundOverlay,
+        backgroundOverlayHover,
     } = attributes;
-
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -126,9 +127,11 @@ const save = compose(
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
-                <div className="guten-background-overlay"></div>
-                {topDivider && <SectionDividerTop {...props} />}
-                {bottomDivider && <SectionDividerBottom {...props} />}
+                {
+                    (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
+                }
+                {!isEmpty(topDivider) && <SectionDividerTop {...props} />}
+                {!isEmpty(bottomDivider) && <SectionDividerBottom {...props} />}
                 {_isTopDividerAnimated && <SectionDividerAnimatedTopSave {...props} />}
                 {_isBottomDividerAnimated && <SectionDividerAnimatedBottomSave {...props} />}
                 <div className={containerClass}>
