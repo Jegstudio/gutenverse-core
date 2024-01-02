@@ -36,17 +36,16 @@ const save = compose(
         socialType,
         animationClass,
         displayClass,
+        advanceAnimationData
     );
 
-    return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+    return <div className={className} >
         <a id={elementId} href={url} target={ linkTarget } rel={ rel }>
             <i className={icon}/>
-            {
-                text && <RichText.Content
-                    value={text}
-                    tagName="span"
-                />
-            }
+            <RichText.Content
+                value={text}
+                tagName="span"
+            />
         </a>
     </div>;
 });
