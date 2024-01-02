@@ -6,7 +6,6 @@ import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/h
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { FluidCanvasSave } from 'gutenverse-core/components';
-import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('column'),
