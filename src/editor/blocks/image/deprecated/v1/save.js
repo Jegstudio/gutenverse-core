@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { ImageBoxFigure } from './edit';
+import { ImageBoxFigure } from '../../edit';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -53,16 +53,10 @@ const save = compose(
         }
     };
 
-    const imageWrapper = url ?
-        (<a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel} aria-label={ariaLabel}>
-            <ImageBoxFigure {...attributes}/>
-        </a>) :
-        <div className="guten-image-wrapper">
-            <ImageBoxFigure {...attributes}/>
-        </div>;
-
     return <div {...blockProps}>
-        {imageWrapper}
+        <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel} aria-label={ariaLabel}>
+            <ImageBoxFigure {...attributes}/>
+        </a>
         {caption()}
     </div>;
 });
