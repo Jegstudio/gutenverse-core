@@ -1,5 +1,5 @@
 
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -11,7 +11,6 @@ const SaveSocialShare = compose(
 )(({ attributes }) => {
     const {
         elementId,
-        orientation = 'horizontal',
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -21,13 +20,13 @@ const SaveSocialShare = compose(
         'guten-element',
         'guten-social-share',
         elementId,
-        orientation,
         animationClass,
         displayClass,
+        'guten-social-share',
     );
 
 
-    return <div {...useBlockProps.save({ className })}>
+    return <div className={className}>
         <InnerBlocks.Content/>
     </div>;
 });
