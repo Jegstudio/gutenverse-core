@@ -37,7 +37,7 @@ class Social_Share_Line extends Block_Abstract {
 		$content = $this->render_content();
 
 		return "<div class='gutenverse-share-line gutenverse-share-item' id='{$this->attributes['elementId']}'>
-			<a href='#'>
+			<a href='#' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
 		</div>";
@@ -54,7 +54,7 @@ class Social_Share_Line extends Block_Abstract {
 		$content          = $this->render_content();
 
 		return "<div class='gutenverse-share-line gutenverse-share-item' id='{$this->attributes['elementId']}'>
-			<a target='_blank' href='{$share_url}'>
+			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
 		</div>";

@@ -30,6 +30,10 @@
       "type": "string",
       "default": "h3"
     },
+    "lazy": {
+      "type": "boolean",
+      "default": false
+    },
     "name": {
       "type": "string",
       "default": "John Doe"

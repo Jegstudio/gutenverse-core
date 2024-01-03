@@ -5,6 +5,7 @@ const ContentItem = (data) => {
     const {
         src,
         name,
+        lazy,
         description,
         comment,
         rating,
@@ -33,7 +34,7 @@ const ContentItem = (data) => {
                 return <div className="testimonial-slider hover-from-left">
                     <div className="comment-bio">
                         <div className="profile-image">
-                            <img src={getImageSrc(src)} alt={name} />
+                            {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                         </div>
                         <ul className="rating-stars">{starRating}</ul>
                         <span className="profile-info">
@@ -54,7 +55,9 @@ const ContentItem = (data) => {
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">
-                            <div className="profile-image"><img src={getImageSrc(src)} alt={name} /></div>
+                            <div className="profile-image">
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
+                            </div>
                             <span className="profile-info">
                                 <strong className="profile-name">{name}</strong>
                                 <p className="profile-des">{description}</p>
@@ -70,7 +73,9 @@ const ContentItem = (data) => {
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">
-                            <div className="profile-image"><img src={getImageSrc(src)} alt={name} /></div>
+                            <div className="profile-image">
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
+                            </div>
                         </div>
                     </div>
                     <ul className="rating-stars">{starRating}</ul>
@@ -86,7 +91,9 @@ const ContentItem = (data) => {
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">
-                            <div className="profile-image"><img src={getImageSrc(src)} alt={name} /></div>
+                            <div className="profile-image">
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
+                            </div>
                             <ul className="rating-stars">{starRating}</ul>
                             <span className="profile-info">
                                 <strong className="profile-name">{name}</strong>
