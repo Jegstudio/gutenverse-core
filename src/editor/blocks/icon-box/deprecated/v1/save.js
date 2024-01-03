@@ -49,7 +49,6 @@ const save = compose(
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
-        lazyLoad,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -65,13 +64,6 @@ const save = compose(
         'guten-icon-box',
         `icon-position-${iconPosition}`
     );
-    const imageLazyLoad = () => {
-        if(lazyLoad){
-            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy"/>;
-        }else{
-            return <img src={getImageSrc(image)} alt={imageAltText}/>;
-        }
-    };
 
     const iconContent = () => {
         switch (iconType) {
@@ -87,7 +79,7 @@ const save = compose(
                 return <div className="icon-box icon-box-header">
                     <div className={`icon style-${iconStyleMode}`}>
                         <WrapAHref {...props}>
-                            {imageLazyLoad()}
+                            <img src={getImageSrc(image)} alt={imageAltText}/>;
                         </WrapAHref>
                     </div>
                 </div>;
@@ -95,9 +87,10 @@ const save = compose(
                 return null;
         }
     };
+    const blockProps = useBlockProps.save({ className, ...advanceAnimationData });
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
+        <div {...blockProps} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconContent()}
                 <div className="icon-box icon-box-body">
