@@ -28,6 +28,7 @@ const save = compose(
         sectionVerticalAlign,
         cursorEffect,
         backgroundAnimated = {},
+        anchor,
     } = attributes;
 
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
@@ -46,6 +47,7 @@ const save = compose(
     const displayClass = useDisplayFrontend(attributes);
 
     const wrapperClasses = classnames(
+        'wp-block-gutenverse-column',
         'guten-element',
         'guten-column',
         elementId,
@@ -55,7 +57,8 @@ const save = compose(
         cursorEffectClass,
         {
             'background-animated': isAnimationActive(backgroundAnimated),
-        }
+        },
+        advanceAnimationData
     );
 
     const blockProps = useBlockProps.save({
@@ -70,7 +73,7 @@ const save = compose(
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
     return (
-        <div {...blockProps}>
+        <div {...blockProps} id={anchor}>
             <FluidCanvasSave attributes={attributes} />
             {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">

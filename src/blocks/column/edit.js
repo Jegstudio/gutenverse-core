@@ -67,7 +67,7 @@ const toolResize = (props) => {
         Tablet: 10,
         Mobile: 15,
     };
-
+    
     const {
         width,
         elementId

@@ -16,7 +16,6 @@ const save = compose(
     const {
         attributes,
     } = props;
-
     const {
         elementId,
         sticky = {},
@@ -32,7 +31,6 @@ const save = compose(
         backgroundOverlayHover,
         backgroundAnimated = {},
     } = attributes;
-
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
 
     const stickyClass = {
