@@ -28,8 +28,7 @@ const save = compose(
         bottomSticky,
         sectionVerticalAlign,
         cursorEffect,
-        backgroundAnimated = {},
-        anchor,
+        backgroundAnimated = {}
     } = attributes;
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
     const dataId = elementId?.split('-')[1];
