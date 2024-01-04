@@ -6,6 +6,7 @@ import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/h
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { FluidCanvasSave } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('column'),
@@ -31,7 +32,7 @@ const save = compose(
         anchor,
     } = attributes;
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
-
+    const dataId = elementId?.split('-')[1];
     const stickyClass = {
         ['guten-sticky']: isCanSticky,
         [`sticky-${stickyPosition}`]: isCanSticky,
@@ -41,11 +42,12 @@ const save = compose(
         ['guten-cursor-effect']: cursorEffect?.show
     };
 
-    const advanceAnimationData = useAnimationAdvanceData(attributes);
+    let advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
     const wrapperClasses = classnames(
+        'wp-block-gutenverse-column',
         'guten-element',
         'guten-column',
         elementId,
@@ -62,15 +64,20 @@ const save = compose(
         className: wrapperClasses,
         ...advanceAnimationData,
         ...(
-            isCanSticky
+            (isCanSticky && isEmpty(advanceAnimationData))
                 ? { 'data-id': elementId?.split('-')[1] }
                 : {}
         ),
     });
+    if(isCanSticky && isEmpty(advanceAnimationData)){
+        advanceAnimationData = {
+            ['data-id'] : dataId
+        }
+    }
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
-    const dataId = elementId?.split('-')[1];
+    console.log(advanceAnimationData, blockProps)
     return (
-        <div {...blockProps}>
+        <div className={wrapperClasses}  {...advanceAnimationData}>
             <FluidCanvasSave attributes={attributes} />
             {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">
@@ -90,7 +97,7 @@ const save = compose(
                     }
                 </div>}
             <div className="guten-background-overlay"></div>
-            <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
+            <div className={'sticky-wrapper'} data-id={dataId}>
                 <div className="guten-column-wrapper">
                     {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                     <InnerBlocks.Content />
