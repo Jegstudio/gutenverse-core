@@ -30,7 +30,6 @@ const save = compose(
         backgroundAnimated = {},
         anchor,
     } = attributes;
-
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
 
     const stickyClass = {
@@ -58,22 +57,19 @@ const save = compose(
         {
             'background-animated': isAnimationActive(backgroundAnimated),
         },
-        advanceAnimationData
     );
 
-    const blockProps = useBlockProps.save({
-        className: wrapperClasses,
-        ...advanceAnimationData,
-        ...(
-            isCanSticky
-                ? { 'data-id': elementId?.split('-')[1] }
-                : {}
-        ),
-    });
+    let additionalProps = {};
+    if(isCanSticky){
+        additionalProps = {
+            ...additionalProps,
+            ['data-id'] : elementId?.split('-')[1]
+        }
+    }
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
     return (
-        <div {...blockProps} id={anchor}>
+        <div className={wrapperClasses} {...additionalProps} {...advanceAnimationData} id={anchor}>
             <FluidCanvasSave attributes={attributes} />
             {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">
