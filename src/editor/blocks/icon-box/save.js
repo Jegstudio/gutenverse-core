@@ -95,7 +95,6 @@ const save = compose(
                 return null;
         }
     };
-
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
