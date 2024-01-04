@@ -69,15 +69,14 @@ const save = compose(
                 : {}
         ),
     });
-    if(isCanSticky && isEmpty(advanceAnimationData)){
-        advanceAnimationData = {
-            ['data-id'] : dataId
-        }
-    }
+    // if(isCanSticky && isEmpty(advanceAnimationData)){
+    //     advanceAnimationData = {
+    //         ['data-id'] : dataId
+    //     }
+    // }
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
-    console.log(advanceAnimationData, blockProps)
     return (
-        <div className={wrapperClasses}  {...advanceAnimationData}>
+        <div {...blockProps}>
             <FluidCanvasSave attributes={attributes} />
             {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">
