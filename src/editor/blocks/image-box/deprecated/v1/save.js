@@ -96,11 +96,10 @@ const save = compose(
         'gutenverse-image-box',
         'guten-element',
         `style-${contentStyle}`,
-        advanceAnimationData
     );
 
     return (
-        <div className={className}>
+        <div className={className} {...advanceAnimationData}>
             <div className="image-box-header">
                 <WrapAHref {...props}>
                     <ImageBoxFigure {...attributes} />

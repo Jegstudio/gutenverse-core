@@ -35,11 +35,10 @@ const save = compose(
         elementId,
         socialType,
         animationClass,
-        displayClass,
-        advanceAnimationData
+        displayClass
     );
 
-    return <div className={className} >
+    return <div className={className} {...advanceAnimationData}>
         <a id={elementId} href={url} target={ linkTarget } rel={ rel }>
             <i className={icon}/>
             <RichText.Content

@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
-import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
@@ -95,7 +95,6 @@ const save = compose(
                 return null;
         }
     };
-
     return (
         <div className={className} {...advanceAnimationData} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
