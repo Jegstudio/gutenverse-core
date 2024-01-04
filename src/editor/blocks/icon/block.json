@@ -21,6 +21,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "ariaLabel": {
+      "type": "string",
+      "copyStyle": true
+    },
     "iconColorOne": {
       "type": "object",
       "copyStyle": true

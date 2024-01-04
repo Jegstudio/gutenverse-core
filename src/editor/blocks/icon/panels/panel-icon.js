@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight, AlignCenter } from 'gutenverse-core/components';
-import { DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
 import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadius, iconShape, removeStyle }) => {
@@ -194,6 +194,11 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     render: value => handleDimension(value, 'border-radius', false)
                 }
             ],
+        },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            component: TextControl
         }
     ];
 };

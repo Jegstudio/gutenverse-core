@@ -19,6 +19,7 @@ const save = compose(
         elementId,
         icon,
         url,
+        ariaLabel,
         linkTarget,
         rel,
         iconShape,
@@ -44,7 +45,7 @@ const save = compose(
     );
 
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-        {!isEmpty(url) ? <a className={wrapperClass} href={url} target={ linkTarget } rel={ rel }>
+        {!isEmpty(url) ? <a className={wrapperClass} href={url} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
             <i className={`${icon}`}/>
         </a> : <span className={wrapperClass}>
             <i className={`${icon}`}/>

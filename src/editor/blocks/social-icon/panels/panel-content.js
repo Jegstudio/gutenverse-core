@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, DimensionControl, IconControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleDimension, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
@@ -95,5 +95,10 @@ export const contentPanel = (props) => {
                 }
             ],
         },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            component: TextControl
+        }
     ];
 };
