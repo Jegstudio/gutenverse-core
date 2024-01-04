@@ -46,7 +46,6 @@ const save = compose(
     const displayClass = useDisplayFrontend(attributes);
 
     const wrapperClasses = classnames(
-        'wp-block-gutenverse-column',
         'guten-element',
         'guten-column',
         elementId,
@@ -59,17 +58,19 @@ const save = compose(
         },
     );
 
-    let additionalProps = {};
-    if(isCanSticky){
-        additionalProps = {
-            ...additionalProps,
-            ['data-id'] : elementId?.split('-')[1]
-        }
-    }
+    const blockProps = useBlockProps.save({
+        className: wrapperClasses,
+        ...advanceAnimationData,
+        ...(
+            isCanSticky
+                ? { 'data-id': elementId?.split('-')[1] }
+                : {}
+        ),
+    });
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
     return (
-        <div className={wrapperClasses} {...additionalProps} {...advanceAnimationData} id={anchor}>
+        <div {...blockProps}>
             <FluidCanvasSave attributes={attributes} />
             {(isCanSticky || _isBgAnimated) &&
                 <div className="guten-data">
