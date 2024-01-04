@@ -11,7 +11,6 @@ import { IconColumnSVG } from 'gutenverse-core/icons';
 const { name, attributes } = metadata;
 export { metadata, name };
 
-console.log(metadata);
 export const settings = {
     icon: <IconColumnSVG />,
     usesContext: ['gutenverse/sectionVerticalAlign'],
