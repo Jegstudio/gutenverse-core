@@ -35,7 +35,7 @@ const renderStyleCustomDeps = (props) => {
  */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
-        const { clientId, name, attributes, setAttributes } = props;
+        const { clientId, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
@@ -52,7 +52,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
-        const { attributes: blockAttributes } = getBlockType(name);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -194,31 +193,6 @@ export const withCustomStyle = panelList => BlockElement => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
 
-                    // Sync migrated attributes
-                    // if (!isEmpty(blockAttributes[id]?.migrate)) {
-                    //     const {
-                    //         attr,
-                    //         type
-                    //     } = blockAttributes[id].migrate;
-
-                    //     // First time migrate
-                    //     if (!isEmpty(panelProps[attr]) && isEmpty(panelProps[id])) {
-                    //         const newAttrValue = migrateAttribute(type, panelProps[attr]);
-                    //         setAttributes({
-                    //             [id]: newAttrValue
-                    //         });
-                    //     }
-
-                    //     // On update, also update the old attribute
-                    //     // This is done to prevent missing value when user switch back to older version
-                    //     if (!isEmpty(panelProps[id])) {
-                    //         const updateOldAttr = updateOldAttribute(type, panelProps[id]);
-                    //         setAttributes({
-                    //             [attr]: updateOldAttr
-                    //         });
-                    //     }
-                    // }
-
                     if (!isEmpty(style)) {
                         style.map((item, index) => setControlStyle({
                             ...panelProps,
@@ -235,7 +209,7 @@ export const withCustomStyle = panelList => BlockElement => {
                             panelProps[id] && panelProps[id].map((value, valueIndex) => {
                                 const theStyle = repeaterStyle.map(item => {
                                     const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, {props:value});
+                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
                                     return {
                                         ...item,
                                         selector: theSelector

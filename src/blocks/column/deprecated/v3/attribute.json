@@ -1,0 +1,7 @@
+{
+    "anchor": {
+        "type" : "string",
+        "source" : "html",
+        "selector" : ".guten-column"
+    }
+}

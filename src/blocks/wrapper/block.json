@@ -9,6 +9,22 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+		  "type": "object",
+		  "copyStyle": true
+		},
+		"hideDesktop": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
+		"hideTablet": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
+		"hideMobile": {
+		  "type": "boolean",
+		  "copyStyle": true
+		},
 		"displayType": {
 			"type": "string",
 			"copyStyle": true
@@ -95,6 +111,9 @@
 			"type": "float",
 			"copyStyle": true
 		},
+		"cursorEffect": {
+			"type": "object"
+		  },
 		"blur": {
 			"type": "object",
 			"copyStyle": true
@@ -148,6 +167,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"pointer": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"advanceAnimation": {
 			"type": "object",
 			"default": {},
@@ -168,6 +191,21 @@
 		"backgroundAnimated": {
 			"type": "object",
 			"default": {}
+		},
+		"url": {
+			"type": "string"
+		},
+		"linkTarget": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "target"
+		},
+		"rel": {
+			"type": "string",
+			"source": "attribute",
+			"selector": "a",
+			"attribute": "rel"
 		}
 	},
 	"supports": {

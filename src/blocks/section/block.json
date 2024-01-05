@@ -71,6 +71,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
     "width": {
       "type": "object",
       "default": {
@@ -306,11 +310,21 @@
       "type": "object",
       "copyStyle": true
     },
+    "cursorEffect": {
+      "type": "object"
+    },
+    "backgroundEffect": {
+      "type": "object"
+    },
     "transform": {
       "type": "object",
       "copyStyle": true
     },
     "mask": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "pointer": {
       "type": "object",
       "copyStyle": true
     },

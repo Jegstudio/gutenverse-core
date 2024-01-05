@@ -5,6 +5,8 @@
   align-items: stretch;
   position: relative;
   box-sizing: border-box;
+  word-break: normal;
+  word-wrap: normal;
 
   &.pinned {
     position: sticky !important;
@@ -24,34 +26,36 @@
     display: flex;
     align-content: stretch;
     align-items: stretch;
+  }
 
-    & > .guten-column-wrapper {
+  & > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper,
+  & > .sticky-wrapper > .guten-column-wrapper,
+  & > .guten-column-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    & > [class*="wp-block-"]:not(.guten-element),
+    & > :not(.guten-element) {
       position: relative;
+    }
+
+    &:before {
+      content: "";
       width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      align-content: flex-start;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: inherit;
+    }
 
-      & > [class*="wp-block-"]:not(.guten-element),
-      & > :not(.guten-element) {
-        position: relative;
-      }
-
-      &:before {
-        content: "";
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: inherit;
-      }
-
-      & > .guten-element:not(.guten-column),
-      & > .section-wrapper {
-        width: 100%;
-      }
+    & > .guten-element:not(.guten-column),
+    & > .section-wrapper {
+      width: 100%;
     }
   }
 

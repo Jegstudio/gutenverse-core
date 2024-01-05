@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { layoutPanel } from './panel-layout';
-import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, backgroundAnimatedPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, pointerEventPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -18,14 +18,21 @@ export const panelList = () => {
             pro: true,
         },
         {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'column',
                 styleId: 'column-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient', 'fluid'],
+                hoverOptions: ['default', 'gradient'],
                 normalSelector: `.editor-styles-wrapper .is-root-container .${props.elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer`,
                 hoverSelector: `.editor-styles-wrapper .is-root-container .${props.elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer`
             }),
@@ -37,8 +44,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
                 styleId: 'column-background-overlay',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
                 normalSelector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:before`,
                 hoverSelector: `.editor-styles-wrapper .is-root-container .${props.elementId}:hover > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:before`
             }),
@@ -61,10 +68,23 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Masking', 'gutenverse'),
+            title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Typography', '--gctd--'),
@@ -94,6 +114,16 @@ export const panelList = () => {
             title: __('Background Animation', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'column'
+            }),
             pro: true,
         },
         {

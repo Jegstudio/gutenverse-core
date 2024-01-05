@@ -200,6 +200,18 @@
       "default": {},
       "copyStyle": true
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "advanceAnimation": {
+      "type": "object",
+      "default": {},
+      "copyStyle": true
+    },
+    "cursorEffect": {
+      "type": "object"
+    },
     "hideDesktop": {
       "type": "boolean",
       "copyStyle": true
@@ -223,7 +235,11 @@
     "mask": {
       "type": "object",
       "copyStyle": true
-    }
+    },
+    "pointer": {
+			"type": "object",
+			"copyStyle": true
+		}
   },
   "supports": {
     "anchor": true,

@@ -229,6 +229,7 @@ abstract class Style_Interface {
 	 */
 	public function inject_style( $data ) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
+
 			$devices = $this->get_all_device();
 			foreach ( $devices as $device ) {
 				if ( isset( $data['skip_device'] ) && in_array( $device, $data['skip_device'], true ) ) {
@@ -239,6 +240,11 @@ abstract class Style_Interface {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
+
+					if ( empty( $property ) ) {
+						continue;
+					}
+
 					if ( ! isset( $this->generated[ $device ][ $selector ] ) ) {
 						$this->generated[ $device ][ $selector ] = array();
 					}
@@ -578,6 +584,397 @@ abstract class Style_Interface {
 				case 'mask':
 					$this->feature_mask( $selector );
 					break;
+				case 'pointer':
+					$this->feature_pointer_event( $selector );
+					break;
+				case 'cursor-effect':
+					$this->feature_cursor_effect( $selector );
+					break;
+				case 'background-effect':
+					$this->feature_background_effect( $selector );
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Handle Feature Cursor.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_cursor_effect( $selector ) {
+		if ( isset( $this->attrs['cursorEffect'] ) ) {
+			$cursor_efect = $this->attrs['cursorEffect'];
+
+			switch ( $cursor_efect['type'] ) {
+				case 'text':
+					if ( isset( $cursor_efect['textColor'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return $this->handle_color( $value, 'color' );
+								},
+								'value'          => $cursor_efect['textColor'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['background'] ) ) {
+						$this->handle_background( ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content", $cursor_efect['background'] );
+					}
+
+					if ( isset( $cursor_efect['padding'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return $this->handle_dimension( $value, 'padding' );
+								},
+								'value'          => $cursor_efect['padding'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['textBorder'] ) ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
+						$borders  = $cursor_efect['textBorder'];
+
+						uksort(
+							$borders,
+							function ( $a, $b ) {
+								if ( 'all' === $a ) {
+									return -1;
+								}
+
+								if ( 'all' === $b ) {
+									return 1;
+								}
+
+								return strcmp( $a, $b );
+							}
+						);
+
+						foreach ( $borders as $pos => $value ) {
+							if ( 'radius' === $pos ) {
+								$this->inject_style(
+									array(
+										'selector'       => "$selector",
+										'property'       => function ( $value ) {
+											return $this->handle_border_radius( $value );
+										},
+										'value'          => $value,
+										'device_control' => true,
+									)
+								);
+							} elseif ( ! empty( $value ) && ! empty( $value['type'] ) ) {
+								$position = 'all' === $pos ? '' : "{$pos}-";
+
+								$this->inject_style(
+									array(
+										'selector'       => "$selector",
+										'property'       => function ( $value ) {
+											return "border-{$value['position']}style: {$value['value']};";
+										},
+										'value'          => array(
+											'position' => $position,
+											'value'    => $value['type'],
+										),
+										'device_control' => false,
+									)
+								);
+
+								if ( ! gutenverse_truly_empty( $value['width'] ) ) {
+									$this->inject_style(
+										array(
+											'selector' => "$selector",
+											'property' => function ( $value ) {
+												return "border-{$value['position']}width: {$value['value']}px;";
+											},
+											'value'    => array(
+												'position' => $position,
+												'value'    => $value['width'],
+											),
+											'device_control' => false,
+										)
+									);
+								}
+
+								if ( ! empty( $value['color'] ) ) {
+									$this->inject_style(
+										array(
+											'selector' => "$selector",
+											'property' => function ( $value ) {
+												return $this->handle_color( $value['value'], "border-{$value['position']}color" );
+											},
+											'value'    => array(
+												'position' => $position,
+												'value'    => $value['color'],
+											),
+											'device_control' => false,
+										)
+									);
+								}
+							}
+						}
+					}
+
+					if ( isset( $cursor_efect['typography'] ) ) {
+						$this->inject_typography(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {},
+								'value'          => $cursor_efect['typography'],
+								'device_control' => false,
+							)
+						);
+					}
+					break;
+
+				case 'icon':
+					if ( isset( $cursor_efect['iconColor'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return $this->handle_color( $value, 'color' );
+								},
+								'value'          => $cursor_efect['iconColor'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['iconSize'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['iconSize'],
+								'device_control' => false,
+							)
+						);
+
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon",
+								'property'       => function ( $value ) {
+									return "font-size: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['iconSize'],
+								'device_control' => false,
+							)
+						);
+					}
+					break;
+
+				case 'image':
+					if ( isset( $cursor_efect['imageSize'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['imageSize'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['imageBorder'] ) ) {
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-image";
+						$borders  = $cursor_efect['imageBorder'];
+
+						uksort(
+							$borders,
+							function ( $a, $b ) {
+								if ( 'all' === $a ) {
+									return -1;
+								}
+
+								if ( 'all' === $b ) {
+									return 1;
+								}
+
+								return strcmp( $a, $b );
+							}
+						);
+
+						foreach ( $borders as $pos => $value ) {
+							if ( 'radius' === $pos ) {
+								$this->inject_style(
+									array(
+										'selector'       => "$selector",
+										'property'       => function ( $value ) {
+											return $this->handle_border_radius( $value );
+										},
+										'value'          => $value,
+										'device_control' => true,
+									)
+								);
+							} elseif ( ! empty( $value ) && ! empty( $value['type'] ) ) {
+								$position = 'all' === $pos ? '' : "{$pos}-";
+
+								$this->inject_style(
+									array(
+										'selector'       => "$selector",
+										'property'       => function ( $value ) {
+											return "border-{$value['position']}style: {$value['value']};";
+										},
+										'value'          => array(
+											'position' => $position,
+											'value'    => $value['type'],
+										),
+										'device_control' => false,
+									)
+								);
+
+								if ( ! gutenverse_truly_empty( $value['width'] ) ) {
+									$this->inject_style(
+										array(
+											'selector' => "$selector",
+											'property' => function ( $value ) {
+												return "border-{$value['position']}width: {$value['value']}px;";
+											},
+											'value'    => array(
+												'position' => $position,
+												'value'    => $value['width'],
+											),
+											'device_control' => false,
+										)
+									);
+								}
+
+								if ( ! empty( $value['color'] ) ) {
+									$this->inject_style(
+										array(
+											'selector' => "$selector",
+											'property' => function ( $value ) {
+												return $this->handle_color( $value['value'], "border-{$value['position']}color" );
+											},
+											'value'    => array(
+												'position' => $position,
+												'value'    => $value['color'],
+											),
+											'device_control' => false,
+										)
+									);
+								}
+							}
+						}
+					}
+
+					break;
+				default:
+					if ( isset( $cursor_efect['primaryColor'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									$color = $this->get_color( $value );
+									return "border: 4px solid {$color};";
+								},
+								'value'          => $cursor_efect['primaryColor'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['primarySize'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['primarySize'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['secondaryColor'] ) ) {
+						if ( 'style2' === $cursor_efect['defaultStyle'] ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor::before",
+									'property'       => function ( $value ) {
+										return $this->handle_color( $value, 'background-color' );
+									},
+									'value'          => $cursor_efect['secondaryColor'],
+									'device_control' => false,
+								)
+							);
+
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor::after",
+									'property'       => function ( $value ) {
+										return $this->handle_color( $value, 'background-color' );
+									},
+									'value'          => $cursor_efect['secondaryColor'],
+									'device_control' => false,
+								)
+							);
+						} else {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor",
+									'property'       => function ( $value ) {
+										return $this->handle_color( $value, 'background-color' );
+									},
+									'value'          => $cursor_efect['secondaryColor'],
+									'device_control' => false,
+								)
+							);
+						}
+					}
+
+					if ( isset( $cursor_efect['secondarySize'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['secondarySize'],
+								'device_control' => false,
+							)
+						);
+					}
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Handle Feature Background Effect.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_background_effect( $selector ) {
+		if ( isset( $this->attrs['backgroundEffect'] ) ) {
+			$background_effect = $this->attrs['backgroundEffect'];
+			$selector          = ".{$this->element_id} .guten-background-effect";
+			if ( isset( $background_effect['hiddenOverflow'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							if ( $value ) {
+								$overflow = 'hidden';
+							}
+							return "overflow: {$overflow};";
+						},
+						'value'          => $background_effect['hiddenOverflow'],
+						'device_control' => true,
+					)
+				);
 			}
 		}
 	}
@@ -694,6 +1091,30 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		}
+	}
+
+	/**
+	 * Handle Feature Pointer Events.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_pointer_event( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+		if ( isset( $this->attrs['pointer'] ) ) {
+			$pointer = $this->attrs['pointer'];
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						return "pointer-events: {$value} !important;";
+					},
+					'value'          => $pointer['pointer'],
+					'device_control' => true,
+				)
+			);
 		}
 	}
 
@@ -1185,7 +1606,7 @@ abstract class Style_Interface {
 	 *
 	 * @return array
 	 */
-	protected function merge_device_options( $options ) {
+	public function merge_device_options( $options ) {
 		$results = array();
 		$devices = $this->get_all_device();
 
@@ -1202,7 +1623,24 @@ abstract class Style_Interface {
 		return $results;
 	}
 
+	/**
+	 * Merge option.
+	 *
+	 * @param array $options Value tobe merged.
+	 *
+	 * @return array
+	 */
+	public function merge_options( $options ) {
+		$results = array();
 
+		foreach ( $options as $key => $option ) {
+			if ( isset( $option ) ) {
+				$results[ $key ] = $option;
+			}
+		}
+
+		return $results;
+	}
 
 	/**
 	 * Multi style values
@@ -1222,6 +1660,30 @@ abstract class Style_Interface {
 				}
 
 				if ( ! empty( $prop['value'][ $device ] ) ) {
+					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+				}
+			}
+		}
+
+		return $styles;
+	}
+	/**
+	 * Multi style values not checking zero
+	 *
+	 * @param array $props .
+	 *
+	 * @return boolean
+	 */
+	public function multi_style_values_all_value( $props ) {
+		$devices = array( 'Desktop', 'Tablet', 'Mobile' );
+		$styles  = array();
+
+		foreach ( $props as $prop ) {
+			foreach ( $devices as $device ) {
+				if ( empty( $styles[ $device ] ) ) {
+					$styles[ $device ] = '';
+				}
+				if ( isset( $prop['value'][ $device ] ) ) {
 					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
 				}
 			}
