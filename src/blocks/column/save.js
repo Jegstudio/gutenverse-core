@@ -99,8 +99,8 @@ const save = compose(
                         {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                         <InnerBlocks.Content />
                     </div>
-                </div> : <div className="guten-column-wrapper">
-                    {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                </div> : <div className="guten-column-wrapper" data-id={elementId?.split('-')[1]}>
+                    {_isBgAnimated && <div className={'guten-background-animated'} data-id={elementId?.split('-')[1]}><div className={`animated-layer animated-${dataId}`}></div></div>}
                     <InnerBlocks.Content />
                 </div>
             }
