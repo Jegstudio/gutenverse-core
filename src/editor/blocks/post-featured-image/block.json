@@ -51,6 +51,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageLazy": {
+			"type": "boolean",
+			"copyStyle": true
+		},
 		"imageBorder": {
 			"type": "object",
 			"copyStyle": true
@@ -63,6 +67,7 @@
 			},
 			"copyStyle": true
 		},
+		
 		"imageBoxShadow": {
 			"type": "object",
 			"copyStyle": true

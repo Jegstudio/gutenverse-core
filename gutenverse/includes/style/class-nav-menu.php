@@ -479,9 +479,6 @@ class Nav_Menu extends Style_Abstract {
 					},
 					'value'          => $this->attrs['submenuPanelPadding'],
 					'device_control' => true,
-					'skip_device'    => array(
-						'Desktop',
-					),
 				)
 			);
 		}

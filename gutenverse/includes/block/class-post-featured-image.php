@@ -37,8 +37,14 @@ class Post_Featured_Image extends Block_Abstract {
 
 		if ( ! empty( $post_featured ) ) {
 			$content = '<img src="' . $post_featured . '"/>';
+			if ( $this->attributes['imageLazy'] ) {
+				$content = '<img src="' . $post_featured . '" loading="lazy" />';
+			}
 		} elseif ( ! empty( $placeholder_img ) ) {
 			$content = '<img src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '"/>';
+			if ( $this->attributes['imageLazy'] ) {
+				$content = '<img src="' . esc_url( GUTENVERSE_URL . '/assets/img/img-placeholder.jpg' ) . '" loading="lazy"/>';
+			}
 		}
 
 		if ( ! empty( $post_link ) && ! empty( $post_url ) ) {
