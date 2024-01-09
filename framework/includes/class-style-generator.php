@@ -13,6 +13,7 @@ use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
 use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
+use WP_Query;
 
 /**
  * Class Style Generator
@@ -171,13 +172,50 @@ class Style_Generator {
 	 * Generate style for template.
 	 */
 	public function template_style_generator() {
-		global $_wp_current_template_content;
-		$style = null;
+		global $_wp_current_template_content, $_wp_current_template_id;
+		$style                = null;
+		$template             = explode( '//', $_wp_current_template_id );
+		$updated_on           = false;
+		$is_modified_template = false;
+
+		$query = new WP_Query(
+			array(
+				'post_type' => array(
+					'wp_template',
+					'wp_template_part',
+				),
+				'name'      => $template[1],
+			)
+		);
+
+		foreach ( $query->posts as $post ) {
+			$terms                 = get_the_terms( $post->ID, 'wp_theme' );
+			$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
+			foreach ( $terms as $term ) {
+				if ( $term->slug === $template['0'] ) {
+					$updated_on = $post->post_modified;
+					if ( $template_updated_time !== $updated_on ) {
+						$is_modified_template = true;
+					}
+					update_post_meta( $post->ID, 'template_modified_time', $updated_on );
+					break;
+				}
+			}
+
+			if ( $updated_on ) {
+				break;
+			}
+		}
+		var_dump( $updated_on );
 
 		if ( ! empty( $_wp_current_template_content ) ) {
-			$blocks = $this->parse_blocks( $_wp_current_template_content );
-			$blocks = $this->flatten_blocks( $blocks );
-			$this->loop_blocks( $blocks, $style );
+			$blocks      = $this->parse_blocks( $_wp_current_template_content );
+			$blocks      = $this->flatten_blocks( $blocks );
+			$is_modified = $this->loop_blocks( $blocks, $style );
+		}
+		var_dump( $is_modified );
+		if ( $is_modified || $is_modified_template ) {
+			// code css file here
 		}
 
 		if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
@@ -210,36 +248,61 @@ class Style_Generator {
 	 * @param string $style Style string.
 	 */
 	public function loop_blocks( $blocks, &$style ) {
+		$is_modified = false;
 		foreach ( $blocks as $block ) {
-			$this->generate_block_style( $block, $style );
-
 			if ( 'core/template-part' === $block['blockName'] ) {
-				$parts = $this->get_template_part_content( $block['attrs'] );
-				$parts = parse_blocks( $parts );
-				$parts = $this->flatten_blocks( $parts );
-				$this->loop_blocks( $parts, $style );
+				$parts         = $this->get_template_part_content( $block['attrs'] );
+				$parts         = parse_blocks( $parts );
+				$parts         = $this->flatten_blocks( $parts );
+				$post_data     = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_template_part' );
+				$modified_date = get_post_meta( $post_data->ID, 'template_part_modified_time', true );
+				if ( $post_data ) {
+					if ( $post_data->post_modified !== $modified_date ) {
+						$is_modified = true;
+						update_post_meta( $post_data->ID, 'template_part_modified_time', $post_data->post_modified );
+					}
+				}
+				$is_modified_loop = $this->loop_blocks( $parts, $style );
+				if ( $is_modified_loop ) {
+					$is_modified = $is_modified_loop;
+				}
 				$this->inject_template_part( $block );
 			}
 
 			if ( 'core/pattern' === $block['blockName'] ) {
-				$parts = $this->get_pattern_content( $block['attrs'] );
-				$parts = parse_blocks( $parts );
-				$parts = $this->flatten_blocks( $parts );
-				$this->loop_blocks( $parts, $style );
+				$parts     = $this->get_pattern_content( $block['attrs'] );
+				$parts     = parse_blocks( $parts );
+				$parts     = $this->flatten_blocks( $parts );
+				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_block' );
+				if ( $post_data ) {
+					$modified_date = get_post_meta( $post_data->ID, 'pattern_modified_time', true );
+					if ( $post_data->post_modified !== $modified_date ) {
+						$is_modified = true;
+						update_post_meta( $post_data->ID, 'pattern_modified_time', $post_data->post_modified );
+					}
+				}
+				$is_modified_loop = $this->loop_blocks( $parts, $style );
+				if ( $is_modified_loop ) {
+					$is_modified = $is_modified_loop;
+				}
 			}
 
 			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
 				$reusables = get_post( $block['attrs']['ref'] );
 
 				if ( $reusables ) {
-					$reusables = $this->parse_blocks( $reusables->post_content );
-					$reusables = $this->flatten_blocks( $reusables );
-					$this->loop_blocks( $reusables, $style );
+					$reusables        = $this->parse_blocks( $reusables->post_content );
+					$reusables        = $this->flatten_blocks( $reusables );
+					$is_modified_loop = $this->loop_blocks( $reusables, $style );
+					if ( $is_modified_loop ) {
+						$is_modified = $is_modified_loop;
+					}
 				}
 			}
-
+			$this->generate_block_style( $block, $style );
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
 		}
+		return $is_modified;
 	}
 
 	/**
@@ -304,7 +367,6 @@ class Style_Generator {
 			$block   = WP_Block_Patterns_Registry::get_instance()->get_registered( $attributes['slug'] );
 			$content = isset( $block ) ? $block['content'] : $content;
 		}
-
 		return $content;
 	}
 

@@ -464,7 +464,38 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 		);
 	}
 }
-
+if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
+	/**
+	 * Gutenverse Template Part Data.
+	 * @param array  $attributes Attributes .
+	 * @return Object
+	 */
+	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ){
+		$theme   = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
+		$data = null;
+		if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
+			$template_part_query = new WP_Query(
+				array(
+					'post_type'           => $post_type,
+					'post_status'         => 'publish',
+					'post_name__in'       => array( $attributes['slug'] ),
+					'tax_query'           => array(
+						array(
+							'taxonomy' => 'wp_theme',
+							'field'    => 'name',
+							'terms'    => $theme,
+						),
+					),
+					'posts_per_page'      => 1,
+					'no_found_rows'       => true,
+					'lazy_load_term_meta' => false, // Do not lazy load term meta, as template parts only have one term.
+				)
+			);
+			$data  = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
+		}
+		return $data;
+	}
+}
 if ( ! function_exists( 'gutenverse_template_part_content' ) ) {
 	/**
 	 * Gutenverse Template Part Content.

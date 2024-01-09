@@ -68,11 +68,6 @@ const save = compose(
                 : {}
         ),
     });
-    // if(isCanSticky && isEmpty(advanceAnimationData)){
-    //     advanceAnimationData = {
-    //         ['data-id'] : dataId
-    //     }
-    // }
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     return (
         <div {...blockProps}>
