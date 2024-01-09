@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"url": {
 			"type": "string"
 		},
@@ -83,6 +87,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"imageBorderRadius": {
 			"type": "object",
 			"copyStyle": true
@@ -128,6 +136,10 @@
 			"copyStyle": true
 		},
 		"containerPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"containerMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -319,6 +331,14 @@
 		},
 		"imagePosition": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"lazyLoad": {
+			"type" : "boolean",
+			"copyStyle": true
+		},
+		"ariaLabel": {
+			"type" : "string",
 			"copyStyle": true
 		}
 	},

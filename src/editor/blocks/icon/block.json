@@ -9,12 +9,20 @@
     "elementId": {
       "type": "string"
     },
+    "mouseMoveEffect": {
+      "type": "object",
+      "copyStyle": true
+    },
     "icon": {
       "type": "string",
       "default": "fab fa-wordpress"
     },
     "iconAlign": {
       "type": "object",
+      "copyStyle": true
+    },
+    "ariaLabel": {
+      "type": "string",
       "copyStyle": true
     },
     "iconColorOne": {

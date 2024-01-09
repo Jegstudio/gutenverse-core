@@ -21,7 +21,8 @@ const save = compose(
         text,
         url,
         linkTarget,
-        rel
+        rel,
+        ariaLabel
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -39,12 +40,14 @@ const save = compose(
     );
 
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-        <a id={elementId} href={url} target={ linkTarget } rel={ rel }>
+        <a id={elementId} href={url} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
             <i className={icon}/>
-            <RichText.Content
-                value={text}
-                tagName="span"
-            />
+            {
+                text && <RichText.Content
+                    value={text}
+                    tagName="span"
+                />
+            }
         </a>
     </div>;
 });

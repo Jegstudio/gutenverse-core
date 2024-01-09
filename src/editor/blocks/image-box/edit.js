@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import {
     BlockControls,
     MediaUpload,
@@ -29,33 +29,42 @@ import { isEmpty } from 'lodash';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 export const ImageBoxFigure = attributes => {
-    const { image, imageAlt } = attributes;
+    const { image, imageAlt, lazyLoad } = attributes;
     const { media = {}, size } = image || {};
     const { imageId, sizes = {} } = media || {};
 
     const imageAltText = imageAlt || null;
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+        }
+    };
     if (isEmpty(sizes)) {
-        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        return imageLazyLoad();
     }
 
     let imageSrc = sizes[size];
 
     if (isEmpty(imageSrc)) {
         if (isEmpty(sizes['full'])) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+            return imageLazyLoad();
         }
 
         imageSrc = sizes['full'];
     }
 
     if (imageId && imageSrc) {
-        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        }
     }
-
-    return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+    return imageLazyLoad();
 };
 
 const ImageBoxPicker = (props) => {
@@ -175,7 +184,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId }) => {
 const ImageBoxBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('image-box'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,
@@ -257,10 +267,12 @@ const ImageBoxBlock = compose(
         </BlockControls>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            <div className="image-box-header">
-                <ImageBoxFigure {...attributes} />
+            <div className="inner-container">
+                <div className="image-box-header">
+                    <ImageBoxFigure {...attributes} />
+                </div>
+                <ImageBoxBody {...props} />
             </div>
-            <ImageBoxBody {...props} />
         </div>
     </>;
 });

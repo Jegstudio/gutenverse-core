@@ -11,6 +11,33 @@ export const panelImageStyle = props => {
 
     return [
         {
+            id: 'imageMargin',
+            label: __('Image Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
+        },
+        {
             id: 'imagePadding',
             label: __('Image Padding', 'gutenverse'),
             component: DimensionControl,
@@ -32,7 +59,7 @@ export const panelImageStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header img`,
                     render: value => handleDimension(value, 'padding')
                 }
             ],
@@ -54,7 +81,7 @@ export const panelImageStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-header`,
+                    selector: `.${elementId} .inner-container .image-box-header img`,
                     render: value => handleDimension(value, 'border-radius', false)
                 }
             ],
@@ -65,7 +92,7 @@ export const panelImageStyle = props => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-header`,
+                    selector: `.${elementId} .inner-container .image-box-header`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }
@@ -92,7 +119,7 @@ export const panelImageStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header img`,
                     render: value => handleUnitPoint(value, 'height')
                 }
             ]
@@ -125,7 +152,7 @@ export const panelImageStyle = props => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header img`,
                     render: value => `object-fit: ${value}`
                 }
             ]
@@ -155,7 +182,7 @@ export const panelImageStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header img`,
                     render: value => `opacity: ${value}%;`
                 }
             ],
@@ -171,7 +198,7 @@ export const panelImageStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover .image-box-header img`,
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
                     render: value => `opacity: ${value}%;`
                 }
             ],
@@ -187,7 +214,7 @@ export const panelImageStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover .image-box-header img`,
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
                     render: value => `-webkit-transform: scale(${value}); 
                     -o-transform: scale(${value}); 
                     -moz-transform: scale(${value}); 

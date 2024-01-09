@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"orientation": {
 			"type": "string",
 			"default": "horizontal",
@@ -19,6 +23,11 @@
 			"copyStyle": true
 		},
 		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"advanceAnimation": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true

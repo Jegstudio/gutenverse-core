@@ -19,7 +19,7 @@ export const panelBodyStyle = props => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -32,7 +32,7 @@ export const panelBodyStyle = props => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -46,7 +46,7 @@ export const panelBodyStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -78,8 +78,39 @@ export const panelBodyStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'containerMargin',
+            label: __('Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
+                    render: value => handleDimension(value, 'margin')
                 }
             ]
         },
@@ -89,7 +120,7 @@ export const panelBodyStyle = props => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-inner`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }

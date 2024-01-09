@@ -2,7 +2,7 @@
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import * as divider from './data/divider-style';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -39,7 +39,8 @@ const DividerContent = (props) => {
 };
 
 const save = compose(
-    withAnimationAdvanceScript('divider')
+    withAnimationAdvanceScript('divider'),
+    withMouseMoveEffectScript
 )((props) => {
     const {
         attributes,

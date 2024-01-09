@@ -5,8 +5,12 @@ import ContentItem from './components/content-item';
 import { swiperData } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
         testimonialData,
@@ -60,6 +64,6 @@ const save = ({ attributes }) => {
             </div>
         </div>
     );
-};
+});
 
 export default save;

@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"logos": {
 			"type": "array",
 			"default": [

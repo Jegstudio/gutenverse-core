@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
@@ -25,7 +25,8 @@ const WrapAHref = ({ attributes, children }) => {
 };
 
 const save = compose(
-    withAnimationAdvanceScript('icon-box')
+    withAnimationAdvanceScript('icon-box'),
+    withMouseMoveEffectScript
 )((props) => {
     const {
         attributes
@@ -48,6 +49,7 @@ const save = compose(
         badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
+        lazyLoad
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -64,6 +66,13 @@ const save = compose(
         `icon-position-${iconPosition}`
     );
 
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(image)} alt={imageAltText}/>;
+        }
+    };
     const iconContent = () => {
         switch (iconType) {
             case 'icon':
@@ -78,7 +87,7 @@ const save = compose(
                 return <div className="icon-box icon-box-header">
                     <div className={`icon style-${iconStyleMode}`}>
                         <WrapAHref {...props}>
-                            <img src={getImageSrc(image)} alt={imageAltText} />
+                            {imageLazyLoad()}
                         </WrapAHref>
                     </div>
                 </div>;
@@ -86,26 +95,31 @@ const save = compose(
                 return null;
         }
     };
-
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 {iconContent()}
-                <div className="icon-box icon-box-body">
-                    <WrapAHref {...props}>
-                        <RichText.Content
-                            className={'title'}
-                            value={title}
-                            tagName={titleTag}
-                        />
-                    </WrapAHref>
-                    <RichText.Content
-                        className="icon-box-description"
-                        value={description}
-                        tagName="p"
-                    />
-                    <InnerBlocks.Content />
-                </div>
+                {
+                    (title || description) && <div className="icon-box icon-box-body">
+                        <WrapAHref {...props}>
+                            {
+                                title && title !== '' && <RichText.Content
+                                    className={'title'}
+                                    value={title}
+                                    tagName={titleTag}
+                                />
+                            }
+                        </WrapAHref>
+                        {
+                            description && description !== '' && <RichText.Content
+                                className="icon-box-description"
+                                value={description}
+                                tagName="p"
+                            />
+                        }
+                        <InnerBlocks.Content />
+                    </div>
+                }
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <span className="badge-text">{badge}</span>
                 </div>}

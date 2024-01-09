@@ -1,10 +1,15 @@
 
 import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
-import { useAnimationFrontend } from 'gutenverse-core/hooks';
+import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const save = ({ attributes }) => {
+const save = compose(
+    withAnimationAdvanceScript('buttons'),
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
         content,
@@ -17,8 +22,10 @@ const save = ({ attributes }) => {
         icon,
         iconPosition,
         role,
+        ariaLabel
     } = attributes;
 
+    const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
@@ -40,12 +47,12 @@ const save = ({ attributes }) => {
 
     const ButtonElement = ({ children }) => {
         return role === 'link' ?
-            <a className={buttonClass} href={url} target={linkTarget} rel={rel}>{children}</a> :
+            <a className={buttonClass} href={url} target={linkTarget} aria-label={ariaLabel} rel={rel}>{children}</a> :
             <button className={buttonClass} type="submit">{children}</button>;
     };
 
     return (
-        <div {...useBlockProps.save({ className })}>
+        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <ButtonElement>
                 {showIcon && iconPosition === 'before' && <i className={`fa-lg ${icon}`} />}
                 <span>
@@ -55,6 +62,6 @@ const save = ({ attributes }) => {
             </ButtonElement>
         </div>
     );
-};
+});
 
 export default save;

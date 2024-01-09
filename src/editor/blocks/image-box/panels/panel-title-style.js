@@ -31,7 +31,7 @@ export const panelTitleStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title`,
                     render: value => handleDimension(value, 'margin')
                 }
             ],
@@ -42,7 +42,7 @@ export const panelTitleStyle = props => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
@@ -58,7 +58,7 @@ export const panelTitleStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title i`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title i`,
                     render: value => `font-size: ${value}px;`
                 }
             ],
@@ -73,11 +73,11 @@ export const panelTitleStyle = props => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title.icon-position-before i`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title.icon-position-before i`,
                     render: value => `margin-right: ${value}px;`
                 },
                 {
-                    selector: `.${elementId} .image-box-body .body-title.icon-position-after i`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title.icon-position-after i`,
                     render: value => `margin-left: ${value}px;`
                 }
             ],
@@ -103,7 +103,7 @@ export const panelTitleStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title, .${elementId} .image-box-body .body-title a`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title, .${elementId} .image-box-body .body-title a`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -115,7 +115,7 @@ export const panelTitleStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .image-box-body .body-title i`,
+                    selector: `.${elementId} .inner-container .image-box-body .body-title i`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -127,7 +127,7 @@ export const panelTitleStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}:hover .image-box-body .body-title, .${elementId}:hover .image-box-body .body-title a`,
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-title, .${elementId}:hover .image-box-body .body-title a`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -139,7 +139,7 @@ export const panelTitleStyle = props => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}:hover .image-box-body .body-title i`,
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-title i`,
                     render: value => handleColor(value, 'color')
                 }
             ],

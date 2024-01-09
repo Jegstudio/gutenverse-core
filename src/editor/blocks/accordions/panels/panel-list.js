@@ -3,7 +3,7 @@ import { panelIcon } from './panel-icon';
 import { panelTitle } from './panel-title';
 import { panelAccordion } from './panel-accordion';
 import { panelBody } from './panel-body';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { panelIconStyle } from './panel-icon-style';
 
@@ -44,8 +44,8 @@ export const panelList = () => {
             panelArray: (props) => backgroundPanel({
                 ...props,
                 styleId: 'accordions-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ]
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
             }),
             tabRole: TabStyle
         },
@@ -72,7 +72,7 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: (props) => positioningPanel({
                 ...props,
-                selector : `.guten-accordions.${props.elementId}`
+                selector: `.guten-accordions.${props.elementId}`
             }),
             tabRole: TabSetting
         },
@@ -87,6 +87,23 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: transformPanel,
             pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'column'
+            }),
+            pro: true,
         },
         {
             title: __('Spacing', 'gutenverse'),

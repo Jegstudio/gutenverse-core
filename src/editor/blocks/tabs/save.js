@@ -3,8 +3,12 @@ import { classnames } from 'gutenverse-core/components';
 import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
-const SaveTabs = ({ attributes }) => {
+const save = compose(
+    withMouseMoveEffectScript
+)(({ attributes }) => {
     const {
         elementId,
         tabs,
@@ -62,6 +66,6 @@ const SaveTabs = ({ attributes }) => {
             <InnerBlocks.Content />
         </div>
     </div>;
-};
+});
 
-export default SaveTabs;
+export default save;

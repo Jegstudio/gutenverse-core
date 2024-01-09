@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -26,7 +26,9 @@ const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withAnimationAdvance('button'),
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,
@@ -48,6 +50,7 @@ const ButtonBlock = compose(
         linkTarget,
         iconPosition = 'before',
         role,
+        ariaLabel
     } = attributes;
     const {
         getBlockRootClientId,
@@ -210,7 +213,7 @@ const ButtonBlock = compose(
         </BlockControls>
         <div  {...blockProps}>
             {role === 'link' ?
-                <a {...buttonProps} onClick={() => textRef.current.focus()}>{buttonText}</a> :
+                <a {...buttonProps} onClick={() => textRef.current.focus()} aria-label={ariaLabel}>{buttonText}</a> :
                 <button {...buttonProps} type="submit" onSubmit={() => textRef.current.focus()}>{buttonText}</button>
             }
         </div>

@@ -32,7 +32,7 @@ export const panelWrapper = props => {
             ],
             style: [
                 {
-                    selector: `.${elementId}`,
+                    selector: `.${elementId} .inner-container`,
                     render: value => `flex-direction: ${value}`
                 }
             ]

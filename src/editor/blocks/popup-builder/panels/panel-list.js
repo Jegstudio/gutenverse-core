@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { animationPanel, maskPanel, transformPanel } from 'gutenverse-core/controls';
+import { animationPanel, maskPanel, mouseMoveEffectPanel, transformPanel } from 'gutenverse-core/controls';
 import { popupPanel } from './panel-popup';
 import { overlayPanel } from './panel-overlay';
 import { closePanel } from './panel-close';
@@ -45,6 +45,13 @@ export const panelList = () => {
                 hoverSelector: `.${props.elementId} .guten-popup-content:hover`,
             }),
             pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Masking', 'gutenverse'),

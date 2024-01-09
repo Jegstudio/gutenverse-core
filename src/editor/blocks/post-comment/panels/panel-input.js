@@ -32,7 +32,7 @@ export const inputPanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -46,7 +46,7 @@ export const inputPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .comment-form form input:not([type=submit]), .${elementId} .comment-form form textarea`,
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }

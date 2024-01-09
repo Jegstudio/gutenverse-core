@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"iconOpen": {
 			"type": "string",
 			"default": "fas fa-minus",
@@ -179,6 +183,11 @@
 			"copyStyle": true
 		},
 		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"advanceAnimation": {
 			"type": "object",
 			"default": {},
 			"copyStyle": true

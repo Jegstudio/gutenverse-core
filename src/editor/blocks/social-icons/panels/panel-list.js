@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { contentPanel } from './panel-content';
 import { contentColor } from './panel-color';
 import { contentSpace } from './panel-space';
-import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { iconBorderPanel } from './panel-icon-border';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -87,6 +87,13 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: transformPanel,
             pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Advanced Animation', 'gutenverse'),

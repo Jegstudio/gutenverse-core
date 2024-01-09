@@ -7,11 +7,12 @@ import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend, useDisplayFrontend, useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
-    withAnimationAdvanceScript('heading')
+    withAnimationAdvanceScript('heading'),
+    withMouseMoveEffectScript
 )((props) => {
     const {
         attributes

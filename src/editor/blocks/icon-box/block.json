@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"url": {
 			"type": "string"
 		},
@@ -428,6 +432,10 @@
 		},
 		"mask": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"lazyLoad": {
+			"type" : "boolean",
 			"copyStyle": true
 		}
 	},

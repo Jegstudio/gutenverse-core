@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"role": {
 			"type": "string",
 			"default": "link"
@@ -178,6 +182,11 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"advanceAnimation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"hideDesktop": {
 			"type": "boolean",
 			"copyStyle": true
@@ -256,6 +265,10 @@
 		},
 		"mask": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"ariaLabel" : {
+			"type": "string",
 			"copyStyle": true
 		}
 	},

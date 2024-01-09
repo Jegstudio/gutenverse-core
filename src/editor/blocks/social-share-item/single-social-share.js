@@ -58,7 +58,7 @@ const SingleSocialShare = (props) => {
 
 const EmptySocialShare = () => {
     return <div className="gutenverse-share gutenverse-share-item">
-        <a href="#">
+        <a href="#" aria-label="#">
             <div className="gutenverse-share-icon">
                 <i className="fas fa-share-alt-square"></i>
             </div><div className="gutenverse-share-text">{__('Loading Share Button...', 'gutenverse')}</div>

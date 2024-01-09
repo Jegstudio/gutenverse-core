@@ -10,6 +10,7 @@ const save = ({ attributes }) => {
         icon,
         hideIcon,
         rel,
+        ariaLabel,
         url,
         linkTarget,
         text,
@@ -28,7 +29,7 @@ const save = ({ attributes }) => {
 
     return (
         <div {...useBlockProps.save({ className })}>
-            <a id={elementId} href={url} target={ linkTarget } rel={ rel }>
+            <a id={elementId} href={url} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
                 {!hideIcon && <i className={icon} />}
                 <RichText.Content
                     className={`list-text ${hideIcon ? 'no-icon' : ''}`}

@@ -9,6 +9,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"iconType": {
 			"type": "string",
 			"default": "icon"
@@ -300,6 +304,10 @@
 		},
 		"mask": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"lazyLoad":{
+			"type": "boolean",
 			"copyStyle": true
 		}
 	},

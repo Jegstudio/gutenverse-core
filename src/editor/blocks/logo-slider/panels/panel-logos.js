@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ImageControl, RepeaterControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ImageControl, RepeaterControl, TextControl } from 'gutenverse-core/controls';
 
 export const logosPanel = () => {
     return [
@@ -24,6 +24,11 @@ export const logosPanel = () => {
                     label: __('Hover Logo', 'gutenverse'),
                     component: ImageControl,
                 },
+                {
+                    id: 'lazyLoad',
+                    label: __('Set Lazy Load', 'gutenverse'),
+                    component: CheckboxControl
+                }
             ],
         },
     ];

@@ -19,6 +19,11 @@ export const galleryPanel = () => {
                     component: ImageControl,
                 },
                 {
+                    id: 'lazyLoad',
+                    label: __('Set Lazy Load', 'gutenverse'),
+                    component: CheckboxControl,
+                },
+                {
                     id: 'title',
                     label: __('Title', 'gutenverse'),
                     component: TextControl,

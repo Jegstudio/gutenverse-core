@@ -46,9 +46,9 @@ export const contentPanel = (props) => {
                     allowRender: value => value,
                     render : value => {
                         if(value === 'horizontal'){
-                            return 'display: block;'
+                            return 'display: block;';
                         }else if(value === 'vertical'){
-                            return 'display: flex;'
+                            return 'display: flex;';
                         }
                     }
                 },
@@ -57,9 +57,9 @@ export const contentPanel = (props) => {
                     allowRender: value => value,
                     render : value => {
                         if(value === 'horizontal-center'){
-                            return 'justify-content: center;'
+                            return 'justify-content: center;';
                         }else if(value === 'horizontal-right'){
-                            return 'justify-content: end;'
+                            return 'justify-content: end;';
                         }
                     }
                 }

@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -28,7 +28,8 @@ const NEW_TAB_REL = 'noreferrer noopener';
 const IconBoxBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('icon-box'),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlocks,
@@ -71,6 +72,7 @@ const IconBoxBlock = compose(
         badgePosition,
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
+        lazyLoad,
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -91,7 +93,13 @@ const IconBoxBlock = compose(
         ),
         ref: iconBoxRef
     });
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(image)} alt={imageAltText}/>;
+        }
+    };
     const iconContent = () => {
         switch (iconType) {
             case 'icon':
@@ -103,7 +111,7 @@ const IconBoxBlock = compose(
             case 'image':
                 return <div className="icon-box icon-box-header">
                     <div className={`icon style-${iconStyleMode}`}>
-                        <img src={getImageSrc(image)} alt={imageAltText} />
+                        {imageLazyLoad()}
                     </div>
                 </div>;
             default:

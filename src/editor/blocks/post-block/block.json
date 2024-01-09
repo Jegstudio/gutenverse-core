@@ -10,6 +10,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"inheritQuery": {
 			"type": "boolean",
 			"default": true
