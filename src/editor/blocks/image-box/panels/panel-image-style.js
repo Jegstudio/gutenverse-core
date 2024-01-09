@@ -81,7 +81,7 @@ export const panelImageStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header`,
                     render: value => handleDimension(value, 'border-radius', false)
                 }
             ],
