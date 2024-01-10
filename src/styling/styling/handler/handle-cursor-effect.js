@@ -16,7 +16,8 @@ export const handleCursorEffect = (style, props, id) => {
         padding,
         iconColor,
         iconSize,
-        imageSize,
+        imageHeight,
+        imageWidth,
         textBorder,
         typography,
     } = style;
@@ -76,9 +77,15 @@ export const handleCursorEffect = (style, props, id) => {
             }
             break;
         case 'image':
-            if(imageSize?.point){
+            if(imageHeight?.point){
                 normalAppender({
-                    style: `width: ${imageSize.point}${imageSize.unit};height: ${imageSize.point}${imageSize.unit};`,
+                    style: `height: ${imageHeight.point}${imageHeight.unit};`,
+                    elementStyle
+                });
+            }
+            if(imageWidth?.point){
+                normalAppender({
+                    style: `width: ${imageWidth.point}${imageWidth.unit};`,
                     elementStyle
                 });
             }
