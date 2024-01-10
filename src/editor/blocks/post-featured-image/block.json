@@ -53,6 +53,7 @@
 		},
 		"imageLazy": {
 			"type": "boolean",
+			"default": false,
 			"copyStyle": true
 		},
 		"imageBorder": {
