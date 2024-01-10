@@ -173,74 +173,136 @@ class Style_Generator {
 	 */
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
-		$style                = null;
-		$template             = explode( '//', $_wp_current_template_id );
-		$updated_on           = false;
-		$is_modified_template = false;
-
-		$query = new WP_Query(
-			array(
-				'post_type' => array(
-					'wp_template',
-					'wp_template_part',
-				),
-				'name'      => $template[1],
-			)
-		);
-
-		foreach ( $query->posts as $post ) {
-			$terms                 = get_the_terms( $post->ID, 'wp_theme' );
-			$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
-			foreach ( $terms as $term ) {
-				if ( $term->slug === $template['0'] ) {
-					$updated_on = $post->post_modified;
-					if ( $template_updated_time !== $updated_on ) {
-						$is_modified_template = true;
+		if ( $_wp_current_template_id ) {
+			$style                = null;
+			$template             = explode( '//', $_wp_current_template_id );
+			$updated_on           = false;
+			$is_modified_template = false;
+			$is_modified          = false;
+			$query                = new WP_Query(
+				array(
+					'post_type' => array(
+						'wp_template',
+						'wp_template_part',
+					),
+					'name'      => $template[1],
+				)
+			);
+			foreach ( $query->posts as $post ) {
+				$terms                 = get_the_terms( $post->ID, 'wp_theme' );
+				$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
+				foreach ( $terms as $term ) {
+					if ( $term->slug === $template['0'] ) {
+						$updated_on = $post->post_modified;
+						if ( $template_updated_time !== $updated_on ) {
+							$is_modified_template = true;
+						}
+						update_post_meta( $post->ID, 'template_modified_time', $updated_on );
+						break;
 					}
-					update_post_meta( $post->ID, 'template_modified_time', $updated_on );
+				}
+				if ( $updated_on ) {
 					break;
 				}
 			}
 
-			if ( $updated_on ) {
-				break;
+			if ( ! empty( $_wp_current_template_content ) ) {
+				$blocks      = $this->parse_blocks( $_wp_current_template_content );
+				$blocks      = $this->flatten_blocks( $blocks );
+				$is_modified = $this->check_modified( $blocks );
 			}
-		}
-		var_dump( $updated_on );
-
-		if ( ! empty( $_wp_current_template_content ) ) {
-			$blocks      = $this->parse_blocks( $_wp_current_template_content );
-			$blocks      = $this->flatten_blocks( $blocks );
-			$is_modified = $this->loop_blocks( $blocks, $style );
-		}
-		var_dump( $is_modified );
-		if ( $is_modified || $is_modified_template ) {
-			// code css file here
-		}
-
-		if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-			gutenverse_core_print_header_style( 'gutenverse-template-generator', $style );
+			$upload_dir  = wp_upload_dir();
+			$upload_path = $upload_dir['basedir'];
+			$local_file  = $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css';
+			if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
+				$this->loop_blocks( $blocks, $style );
+				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+					gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
+				}
+			}
+			gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
 		}
 	}
-
 	/**
 	 * Content Style Generator.
 	 */
 	public function content_style_generator() {
 		global $post;
-		$style = null;
-
+		$style                = null;
+		$content_updated_time = get_post_meta( $post->ID, 'content_modified_time', true );
+		$is_modified_post     = false;
+		$is_modified          = false;
+		if ( $post->post_modified !== $content_updated_time ) {
+			$is_modified_post = true;
+			update_post_meta( $post->ID, 'content_modified_time', $post->post_modified );
+		}
 		if ( has_blocks( $post ) && isset( $post->post_content ) ) {
-			$blocks = $this->parse_blocks( $post->post_content );
-			$blocks = $this->flatten_blocks( $blocks );
+			$blocks      = $this->parse_blocks( $post->post_content );
+			$blocks      = $this->flatten_blocks( $blocks );
+			$is_modified = $this->check_modified( $blocks );
+		}
+		if ( $is_modified || $is_modified_post ) {
 			$this->loop_blocks( $blocks, $style );
+			if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+				gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
+			}
 		}
-
-		if ( $style ) {
-			gutenverse_core_print_header_style( 'gutenverse-content-generator', $style );
-		}
+		gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
 	}
 
+	/**
+	 * Check Modified.
+	 *
+	 * @param array $blocks Array of blocks.
+	 */
+	public function check_modified( $blocks ) {
+		$is_modified = false;
+		foreach ( $blocks as $block ) {
+			if ( 'core/template-part' === $block['blockName'] ) {
+				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_template_part' );
+				$parts     = null;
+				if ( $post_data ) {
+					$parts         = $post_data->post_content;
+					$parts         = parse_blocks( $parts );
+					$parts         = $this->flatten_blocks( $parts );
+					$modified_date = get_post_meta( $post_data->ID, 'template_part_modified_time', true );
+					if ( $post_data->post_modified !== $modified_date ) {
+						$is_modified = true;
+						update_post_meta( $post_data->ID, 'template_part_modified_time', $post_data->post_modified );
+					}
+					if ( ! $is_modified ) {
+						$is_modified_loop = $this->check_modified( $parts );
+						if ( $is_modified_loop ) {
+							$is_modified = $is_modified_loop;
+						}
+					}
+				}
+			}
+
+			if ( 'core/pattern' === $block['blockName'] ) {
+				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_block' );
+				$parts     = null;
+				if ( $post_data ) {
+					$parts         = $post_data->post_content;
+					$parts         = parse_blocks( $parts );
+					$parts         = $this->flatten_blocks( $parts );
+					$modified_date = get_post_meta( $post_data->ID, 'pattern_modified_time', true );
+					if ( $post_data->post_modified !== $modified_date ) {
+						$is_modified = true;
+						update_post_meta( $post_data->ID, 'pattern_modified_time', $post_data->post_modified );
+					}
+					if ( ! $is_modified ) {
+						$is_modified_loop = $this->check_modified( $parts );
+						if ( $is_modified_loop ) {
+							$is_modified = $is_modified_loop;
+						}
+					}
+				}
+			}
+			do_action_ref_array( 'gutenverse_check_modified', array( $block, $this ) );
+		}
+		return $is_modified;
+	}
 	/**
 	 * Loop Block.
 	 *
@@ -248,61 +310,34 @@ class Style_Generator {
 	 * @param string $style Style string.
 	 */
 	public function loop_blocks( $blocks, &$style ) {
-		$is_modified = false;
 		foreach ( $blocks as $block ) {
+			$this->generate_block_style( $block, $style );
 			if ( 'core/template-part' === $block['blockName'] ) {
-				$parts         = $this->get_template_part_content( $block['attrs'] );
-				$parts         = parse_blocks( $parts );
-				$parts         = $this->flatten_blocks( $parts );
-				$post_data     = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_template_part' );
-				$modified_date = get_post_meta( $post_data->ID, 'template_part_modified_time', true );
-				if ( $post_data ) {
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'template_part_modified_time', $post_data->post_modified );
-					}
-				}
-				$is_modified_loop = $this->loop_blocks( $parts, $style );
-				if ( $is_modified_loop ) {
-					$is_modified = $is_modified_loop;
-				}
+				$parts = $this->get_template_part_content( $block['attrs'] );
+				$parts = parse_blocks( $parts );
+				$parts = $this->flatten_blocks( $parts );
+				$this->loop_blocks( $parts, $style );
 				$this->inject_template_part( $block );
 			}
 
 			if ( 'core/pattern' === $block['blockName'] ) {
-				$parts     = $this->get_pattern_content( $block['attrs'] );
-				$parts     = parse_blocks( $parts );
-				$parts     = $this->flatten_blocks( $parts );
-				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_block' );
-				if ( $post_data ) {
-					$modified_date = get_post_meta( $post_data->ID, 'pattern_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'pattern_modified_time', $post_data->post_modified );
-					}
-				}
-				$is_modified_loop = $this->loop_blocks( $parts, $style );
-				if ( $is_modified_loop ) {
-					$is_modified = $is_modified_loop;
-				}
+				$parts = $this->get_pattern_content( $block['attrs'] );
+				$parts = parse_blocks( $parts );
+				$parts = $this->flatten_blocks( $parts );
+				$this->loop_blocks( $parts, $style );
 			}
 
 			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
 				$reusables = get_post( $block['attrs']['ref'] );
 
 				if ( $reusables ) {
-					$reusables        = $this->parse_blocks( $reusables->post_content );
-					$reusables        = $this->flatten_blocks( $reusables );
-					$is_modified_loop = $this->loop_blocks( $reusables, $style );
-					if ( $is_modified_loop ) {
-						$is_modified = $is_modified_loop;
-					}
+					$reusables = $this->parse_blocks( $reusables->post_content );
+					$reusables = $this->flatten_blocks( $reusables );
+					$this->loop_blocks( $reusables, $style );
 				}
 			}
-			$this->generate_block_style( $block, $style );
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
 		}
-		return $is_modified;
 	}
 
 	/**

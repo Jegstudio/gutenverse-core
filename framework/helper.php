@@ -417,7 +417,50 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 	}
 }
 
-
+if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
+	/**
+	 * Print Header Style
+	 *
+	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
+	 *
+	 * @param string $name Name of style.
+	 * @param string $content Content of css.
+	 */
+	function gutenverse_core_make_css_style( $name, $content ) {
+		// error_log( print_r( $content, true ) );
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/css';
+		if ( ! $wp_filesystem->is_dir( $custom_dir ) ) {
+			wp_mkdir_p( $custom_dir );
+		}
+		$local_file = $custom_dir . '/' . $name . '.css';
+		$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
+	}
+}
+if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
+	/**
+	 * Inject Css file to header
+	 *
+	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
+	 *
+	 * @param string $name Name of style.
+	 */
+	function gutenverse_core_inject_css_file_to_header( $name ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['baseurl'];
+		$file_url    = $upload_path . '/gutenverse/css/' . $name . '.css';
+		wp_enqueue_style(
+			$name . '-css-file',
+			$file_url,
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+	}
+}
 if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 	/**
 	 * Print Header Style
@@ -467,12 +510,13 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
 	/**
 	 * Gutenverse Template Part Data.
-	 * @param array  $attributes Attributes .
+	 *
+	 * @param array $attributes Attributes .
 	 * @return Object
 	 */
-	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ){
-		$theme   = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
-		$data = null;
+	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ) {
+		$theme = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
+		$data  = null;
 		if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
 			$template_part_query = new WP_Query(
 				array(
@@ -491,7 +535,7 @@ if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
 					'lazy_load_term_meta' => false, // Do not lazy load term meta, as template parts only have one term.
 				)
 			);
-			$data  = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
+			$data                = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
 		}
 		return $data;
 	}
