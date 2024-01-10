@@ -196,8 +196,8 @@ class Style_Generator {
 						$updated_on = $post->post_modified;
 						if ( $template_updated_time !== $updated_on ) {
 							$is_modified_template = true;
+							update_post_meta( $post->ID, 'template_modified_time', $updated_on );
 						}
-						update_post_meta( $post->ID, 'template_modified_time', $updated_on );
 						break;
 					}
 				}
