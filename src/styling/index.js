@@ -14,7 +14,7 @@ export { handleTextShadow, allowRenderTextShadow } from './styling/handler/handl
 export { handleTextClip } from './styling/handler/handle-text-clip';
 export { handleTransform, handleTransformHover } from './styling/handler/handle-transform';
 export { handleMask } from './styling/handler/handle-mask';
-export { handleCursorEffect, handleInnerCursorEffect, handleImageCursorEffect, handleIconCursorEffect } from './styling/handler/handle-cursor-effect';
+export { handleCursorEffect, handleInnerCursorEffect, handleImageCursorEffect, handleIconCursorEffect, handleParentCursorEffect } from './styling/handler/handle-cursor-effect';
 export { handleBackgroundEffect } from './styling/handler/handle-background-effect';
 export { handlePointerEvent } from './styling/handler/handle-pointer-event';
 
