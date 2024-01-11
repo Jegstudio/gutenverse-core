@@ -2,6 +2,7 @@ import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { CardPro } from 'gutenverse-core/components';
+import { IconCrownSVG } from 'gutenverse-core/icons';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
@@ -14,18 +15,31 @@ const PanelTabPro = ({ activeTab }) => {
                 {window['GutenverseConfig'] &&
                     <>
                         <div className="guten-pro-themes-wrapper">
-                            <CardPro/>
+                            <div className="guten-card-pro-wrapper guten-pro-themes-full" style={{ backgroundImage: `url(${window['GutenverseConfig'].imgDir + '/pro/banner-global/bg-tab-pro.png'})` }}>
+                                <div className="guten-card-pro-image-wrapper">
+                                    <img className="guten-card-pro-mockup-library" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/mockup-library.png'} />
+                                    <img className="guten-card-pro-3d-cube" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/3d-cube.png'} />
+                                    <img className="guten-card-pro-icon-lottie" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/icon-element-lottie.png'} />
+                                    <img className="guten-card-pro-icon-nav" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/icon-element-nav.png'} />
+                                </div>
+                                <div className="guten-card-pro-content-wrapper">
+                                    <div className="guten-card-pro-title">
+                                        Unlock Extra Features with
+                                        <span> Gutenverse PRO!</span>
+                                        <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/blink-2.png'} alt="Guten Card Pro Blink" />
+                                    </div>
+                                    <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/arrow-blue.png'} alt="Guten Card Pro Arrow" />
+                                    <a href="#" className="guten-card-pro-button">Upgrade To PRO <IconCrownSVG transform='translate(0,3)'/></a>
+                                </div>
+                            </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">
                                 <div className="guten-pro-advance-animation-title">
                                     <p>Advanced <br/> Animation</p>
                                 </div>
-                                <div className="guten-pro-advance-animation-image">
-                                    <img className="guten-pro-advance-animation-grid" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/pattern-grid.png'} />
-                                    <img className="guten-pro-advance-animation-arrow" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/arrow-white.png'} />
-                                    <img className="guten-pro-advance-animation-mockup" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/mockup_animation.png'} />
-                                </div>
+                                <img className="guten-pro-advance-animation-object" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/animations-object.png'} />
+                                <img className="guten-pro-advance-animation-rotate" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/graphic-rotate.png'} />
                             </div>
-                            <div className="guten-pro-total-themes guten-pro-themes-half">
+                            {/* <div className="guten-pro-total-themes guten-pro-themes-half">
                                 <h5 className="guten-pro-total-themes-number">650+</h5>
                                 <p className="guten-pro-total-themes-title">Themes, Layouts,</p>
                                 <p className="guten-pro-total-themes-title"> and Sections.</p>
@@ -64,11 +78,11 @@ const PanelTabPro = ({ activeTab }) => {
                                 <p className="guten-pro-background-title">Background <br/> Animated</p>
                             </div>
                             <a className="detail-button " href={serverUrl} target="_blank" rel="noreferrer">{__('View Details', '--gctd--')}</a>
-                            <a className="pro-button " href={proUrl} target="_blank" rel="noreferrer">{__('Upgrade Pro', '--gctd--')}</a>
+                            <a className="pro-button " href={proUrl} target="_blank" rel="noreferrer">{__('Upgrade Pro', '--gctd--')}</a> */}
                         </div>
                     </>
                 }
-            </div>
+            </div >
         ),
         null
     );
