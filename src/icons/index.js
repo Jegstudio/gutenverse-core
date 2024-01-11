@@ -353,7 +353,7 @@ export const IconCircleExclamationSVG = () => {
 
 export const IconCrownSVG = ({fill='white', size = 16, transform = 'translate(0,3)'}) => {
     return <svg width={size} height={size} viewBox="0 0 15 15" fill={fill} transform={transform} xmlns="http://www.w3.org/2000/svg">
-    <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={fill}/>
+        <path d="M3.25 9.5L2 2.625L5.4375 5.75L7.625 2L9.8125 5.75L13.25 2.625L12 9.5H3.25ZM12 11.375C12 11.75 11.75 12 11.375 12H3.875C3.5 12 3.25 11.75 3.25 11.375V10.75H12V11.375Z" fill={fill}/>
     </svg>;
 };
 export const IconKeySVG = ({fill='white'}) => {
