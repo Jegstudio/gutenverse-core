@@ -40,8 +40,8 @@ class Style_Generator {
 	 */
 	public function __construct() {
 		add_action( 'wp_head', array( $this, 'global_style_generator' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'template_style_generator' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'content_style_generator' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 9999 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 9999 );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
 	}

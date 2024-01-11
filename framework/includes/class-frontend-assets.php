@@ -25,7 +25,6 @@ class Frontend_Assets {
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ), 99 );
 		add_filter( 'gutenverse_global_css', array( $this, 'global_variable_css' ) );
-		
 	}
 
 	/**
