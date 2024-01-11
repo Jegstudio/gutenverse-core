@@ -68,7 +68,7 @@ const toolResize = (props) => {
         Tablet: 10,
         Mobile: 15,
     };
-
+    
     const {
         width,
         elementId
@@ -794,14 +794,14 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
-    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationAdvance('column'),
     withAnimationBackground(),
     withAnimationSticky(),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withBackgroundEffect
+    withBackgroundEffect,
+    withCursorEffect,
 )((props) => {
     const {
         getBlock,

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { layoutPanel } from './panel-layout';
-import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, backgroundEffectPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, pointerEventPanel, backgroundEffectPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -81,6 +81,12 @@ export const panelList = () => {
             title: __('Masking', '--gctd--'),
             initialOpen: false,
             panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
             tabRole: TabStyle
         },
         {

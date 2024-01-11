@@ -170,6 +170,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"pointer": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"advanceAnimation": {
 			"type": "object",
 			"default": {},

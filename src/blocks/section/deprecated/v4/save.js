@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript} from 'gutenverse-core/hoc';
-import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
+import { SectionDividerBottom, SectionDividerTop } from '../../components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
@@ -9,7 +9,7 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
-import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from './components/section-divider-animated';
+import { SectionDividerAnimatedBottomSave, SectionDividerAnimatedTopSave } from '../../components/section-divider-animated';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 
@@ -45,8 +45,6 @@ const save = compose(
         backgroundAnimated = {},
         cursorEffect,
         backgroundEffect = {},
-        backgroundOverlay,
-        backgroundOverlayHover,
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -127,11 +125,9 @@ const save = compose(
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
-                {
-                    (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
-                }
-                {!isEmpty(topDivider) && <SectionDividerTop {...props} />}
-                {!isEmpty(bottomDivider) && <SectionDividerBottom {...props} />}
+                <div className="guten-background-overlay"></div>
+                {topDivider && <SectionDividerTop {...props} />}
+                {bottomDivider && <SectionDividerBottom {...props} />}
                 {_isTopDividerAnimated && <SectionDividerAnimatedTopSave {...props} />}
                 {_isBottomDividerAnimated && <SectionDividerAnimatedBottomSave {...props} />}
                 <div className={containerClass}>

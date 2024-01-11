@@ -7,7 +7,6 @@ import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvasSave } from 'gutenverse-core/components';
-import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('wrapper'),
@@ -20,16 +19,12 @@ const save = compose(
         cursorEffect,
         url,
         linkTarget,
-        backgroundOverlay,
-        backgroundOverlayHover,
         backgroundAnimated = {},
-        backgroundEffect
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const cursorEffectClass = {
         ['guten-cursor-effect']: cursorEffect?.show
@@ -47,16 +42,30 @@ const save = compose(
             cursorEffectClass,
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
-                'with-url' :  url,
-                'guten-background-effect-active': isBackgroundEffect
+                'with-url' :  url
             }
         ),
         ...advanceAnimationData
     });
+
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
+    const className = classnames(
+        'guten-element',
+        'guten-wrap-helper',
+        'no-margin',
+        elementId,
+        animationClass,
+        displayType,
+        displayClass,
+        cursorEffectClass,
+        {
+            'background-animated': isAnimationActive(backgroundAnimated),
+            'with-url' :  url
+        },
+    );
     return (
-        <div {...blockProps} onClick={url && `window.open('${url}', '${linkTarget}');`}>
+        <div className={className} {...advanceAnimationData} onClick={url && `window.open('${url}', '${linkTarget}');`}>
             {(_isBgAnimated) &&
                 <div className="guten-data">
                     {_isBgAnimated &&
@@ -66,11 +75,8 @@ const save = compose(
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />
-            {
-                (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
-            }
+            <div className="guten-background-overlay" />
             <div className="guten-inner-wrap" data-id={dataId}>
-                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <InnerBlocks.Content />
             </div>

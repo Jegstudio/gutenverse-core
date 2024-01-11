@@ -28,7 +28,7 @@ class Theme_Helper {
 
 		// Filter.
 		add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), null, 3 );
-		add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 3 );
+		add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 5 );
 
 		// Action.
 		add_action( 'wp', array( $this, 'home_template' ), 99 );
@@ -191,7 +191,7 @@ class Theme_Helper {
 		 * @param string                 $id             Template unique identifier (example: theme_slug//template_slug).
 		 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
 		 */
-		$block_template = apply_filters( 'pre_get_block_file_template', null, $id, $template_type );
+		$block_template = apply_filters( 'pre_get_block_file_template', null, $id, $template_type, $count = 0, $old_slug = '' );
 		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
@@ -204,13 +204,17 @@ class Theme_Helper {
 		list( $theme, $slug ) = $parts;
 
 		$template_file = $this->get_block_template_file( $template_type, $slug );
-
 		if ( null === $template_file ) {
-			return null; // Instead of apply filters, null is returned to prevent looping.
+			/** This filter is documented in wp-includes/block-template-utils.php */
+			if ( $count < 5 ) {
+				if ( $slug === $old_slug || '' === $slug ) {
+					++$count;
+				}
+				return apply_filters( 'get_block_file_template', null, $id, $template_type, $count, $slug );
+			}
+		} elseif ( null !== $template_file ) {
+			$block_template = _build_block_template_result_from_file( $template_file, $template_type );
 		}
-
-		$block_template = _build_block_template_result_from_file( $template_file, $template_type );
-
 		return $block_template;
 	}
 

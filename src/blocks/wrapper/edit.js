@@ -55,13 +55,13 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 };
 
 const FlexibleWrapper = compose(
-    withCursorEffect,
     withCustomStyle(panelList),
     withAnimationBackground(),
     withCopyElementToolbar(),
     withAnimationAdvance('wrapper'),
     withMouseMoveEffect,
-    withBackgroundEffect
+    withBackgroundEffect,
+    withCursorEffect,
 )((props) => {
     const {
         getBlockOrder
