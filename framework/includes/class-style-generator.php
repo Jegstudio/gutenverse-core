@@ -220,7 +220,9 @@ class Style_Generator {
 					gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
 				}
 			}
-			gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
+			if ( file_exists( $local_file ) ) {
+				gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
+			}
 		}
 	}
 	/**
@@ -241,13 +243,18 @@ class Style_Generator {
 			$blocks      = $this->flatten_blocks( $blocks );
 			$is_modified = $this->check_modified( $blocks );
 		}
-		if ( $is_modified || $is_modified_post ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$local_file  = $upload_path . '/gutenverse/css/gutenverse-content-generator-' . $post->ID . '.css';
+		if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
 			$this->loop_blocks( $blocks, $style );
 			if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
 				gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
 			}
 		}
-		gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
+		if ( file_exists( $local_file ) ) {
+			gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
+		}
 	}
 
 	/**
