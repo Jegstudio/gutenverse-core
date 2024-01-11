@@ -40,8 +40,8 @@ class Style_Generator {
 	 */
 	public function __construct() {
 		add_action( 'wp_head', array( $this, 'global_style_generator' ) );
-		add_action( 'wp_head', array( $this, 'template_style_generator' ) );
-		add_action( 'wp_head', array( $this, 'content_style_generator' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'template_style_generator' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'content_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
 	}
@@ -58,7 +58,9 @@ class Style_Generator {
 				if ( isset( $widget['content'] ) ) {
 					$blocks = $this->parse_blocks( $widget['content'] );
 					$blocks = $this->flatten_blocks( $blocks );
-					$this->loop_blocks( $blocks, $style );
+					if ( $blocks ) {
+						$this->loop_blocks( $blocks, $style );
+					}
 				}
 			}
 
@@ -207,15 +209,17 @@ class Style_Generator {
 			}
 
 			if ( ! empty( $_wp_current_template_content ) ) {
-				$blocks      = $this->parse_blocks( $_wp_current_template_content );
-				$blocks      = $this->flatten_blocks( $blocks );
+				$blocks = $this->parse_blocks( $_wp_current_template_content );
+				$blocks = $this->flatten_blocks( $blocks );
 				$is_modified = $this->check_modified( $blocks );
 			}
 			$upload_dir  = wp_upload_dir();
 			$upload_path = $upload_dir['basedir'];
 			$local_file  = $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css';
 			if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
-				$this->loop_blocks( $blocks, $style );
+				if ( $blocks ) {
+					$this->loop_blocks( $blocks, $style );
+				}
 				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
 					gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
 				}
@@ -230,30 +234,32 @@ class Style_Generator {
 	 */
 	public function content_style_generator() {
 		global $post;
-		$style                = null;
-		$content_updated_time = get_post_meta( $post->ID, 'content_modified_time', true );
-		$is_modified_post     = false;
-		$is_modified          = false;
-		if ( $post->post_modified !== $content_updated_time ) {
-			$is_modified_post = true;
-			update_post_meta( $post->ID, 'content_modified_time', $post->post_modified );
-		}
-		if ( has_blocks( $post ) && isset( $post->post_content ) ) {
-			$blocks      = $this->parse_blocks( $post->post_content );
-			$blocks      = $this->flatten_blocks( $blocks );
-			$is_modified = $this->check_modified( $blocks );
-		}
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['basedir'];
-		$local_file  = $upload_path . '/gutenverse/css/gutenverse-content-generator-' . $post->ID . '.css';
-		if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
-			$this->loop_blocks( $blocks, $style );
-			if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-				gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
+		$style            = null;
+		$is_modified_post = false;
+		$is_modified      = false;
+		if ( $post ) {
+			$content_updated_time = get_post_meta( $post->ID, 'content_modified_time', true );
+			if ( $post->post_modified !== $content_updated_time ) {
+				$is_modified_post = true;
+				update_post_meta( $post->ID, 'content_modified_time', $post->post_modified );
 			}
-		}
-		if ( file_exists( $local_file ) ) {
-			gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
+			if ( has_blocks( $post ) && isset( $post->post_content ) ) {
+				$blocks      = $this->parse_blocks( $post->post_content );
+				$blocks      = $this->flatten_blocks( $blocks );
+				$is_modified = $this->check_modified( $blocks );
+				$upload_dir  = wp_upload_dir();
+				$upload_path = $upload_dir['basedir'];
+				$local_file  = $upload_path . '/gutenverse/css/gutenverse-content-generator-' . $post->ID . '.css';
+				if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
+					$this->loop_blocks( $blocks, $style );
+					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+						gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
+					}
+				}
+				if ( file_exists( $local_file ) ) {
+					gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
+				}
+			}
 		}
 	}
 
@@ -306,6 +312,24 @@ class Style_Generator {
 					}
 				}
 			}
+			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
+				$post_data = get_post( $block['attrs']['ref'] );
+				if ( $post_data ) {
+					$modified_date = get_post_meta( $post_data, 'block_modified_time', true );
+					if ( $post_data->post_modified !== $modified_date ) {
+						$is_modified = true;
+						update_post_meta( $post_data->ID, 'block_modified_time', $post_data->post_modified );
+					}
+					if ( ! $is_modified ) {
+						$reusables        = $this->parse_blocks( $post_data->post_content );
+						$reusables        = $this->flatten_blocks( $reusables );
+						$is_modified_loop = $this->check_modified( $reusables );
+						if ( $is_modified_loop ) {
+							$is_modified = $is_modified_loop;
+						}
+					}
+				}
+			}
 			do_action_ref_array( 'gutenverse_check_modified', array( $block, $this ) );
 		}
 		return $is_modified;
@@ -323,7 +347,9 @@ class Style_Generator {
 				$parts = $this->get_template_part_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
 				$parts = $this->flatten_blocks( $parts );
-				$this->loop_blocks( $parts, $style );
+				if ( $parts ) {
+					$this->loop_blocks( $parts, $style );
+				}
 				$this->inject_template_part( $block );
 			}
 
@@ -331,7 +357,9 @@ class Style_Generator {
 				$parts = $this->get_pattern_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
 				$parts = $this->flatten_blocks( $parts );
-				$this->loop_blocks( $parts, $style );
+				if ( $parts ) {
+					$this->loop_blocks( $parts, $style );
+				}
 			}
 
 			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
@@ -340,7 +368,9 @@ class Style_Generator {
 				if ( $reusables ) {
 					$reusables = $this->parse_blocks( $reusables->post_content );
 					$reusables = $this->flatten_blocks( $reusables );
-					$this->loop_blocks( $reusables, $style );
+					if ( $reusables ) {
+						$this->loop_blocks( $reusables, $style );
+					}
 				}
 			}
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
