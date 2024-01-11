@@ -10,13 +10,9 @@ import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('column'),
-<<<<<<< HEAD
     withMouseMoveEffectScript,
-    withBackgroundEffectScript
-=======
+    withBackgroundEffectScript,
     withCursorEffectScript,
-    withMouseMoveEffectScript
->>>>>>> main
 )((props) => {
     const {
         attributes,
