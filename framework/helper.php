@@ -427,7 +427,6 @@ if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 	 * @param string $content Content of css.
 	 */
 	function gutenverse_core_make_css_style( $name, $content ) {
-		// error_log( print_r( $content, true ) );
 		global $wp_filesystem;
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
@@ -438,7 +437,11 @@ if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 			wp_mkdir_p( $custom_dir );
 		}
 		$local_file = $custom_dir . '/' . $name . '.css';
-		$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
+		if ( $wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE ) ) {
+			error_log( 'File created successfully.' );
+		} else {
+			error_log( 'Error writing to file.' );
+		}
 	}
 }
 if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
