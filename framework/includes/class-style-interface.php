@@ -606,6 +606,19 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['cursorEffect'] ) ) {
 			$cursor_efect = $this->attrs['cursorEffect'];
 
+			if ( isset( $cursor_efect['ZIndex'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect",
+						'property'       => function ( $value ) {
+							return "z-index: {$value}";
+						},
+						'value'          => $cursor_efect['ZIndex'],
+						'device_control' => false,
+					)
+				);
+			}
+
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
 					if ( isset( $cursor_efect['textColor'] ) ) {
@@ -773,14 +786,27 @@ abstract class Style_Interface {
 					break;
 
 				case 'image':
-					if ( isset( $cursor_efect['imageSize'] ) ) {
+					if ( isset( $cursor_efect['imageHeight'] ) ) {
 						$this->inject_style(
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return "height: {$value['point']}{$value['unit']};";
 								},
-								'value'          => $cursor_efect['imageSize'],
+								'value'          => $cursor_efect['imageHeight'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['imageWidth'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['imageWidth'],
 								'device_control' => false,
 							)
 						);
