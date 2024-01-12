@@ -87,8 +87,14 @@ class Style_Generator {
 		if ( 0 === count( $this->font_families ) ) {
 			if ( is_page() || is_single() ) {
 				$this->font_families = get_post_meta( $post->ID, 'font-families-post-' . $post->ID, true );
+				if ( ! $this->font_families ) {
+					$this->font_families = array();
+				}
 			} else {
 				$this->font_families = get_option( 'font-families-template-' . $_wp_current_template_id );
+				if ( ! $this->font_families ) {
+					$this->font_families = array();
+				}
 			}
 		} elseif ( is_page() || is_single() ) {
 			update_post_meta( $post->ID, 'font-families-post-' . $post->ID, $this->font_families );
@@ -98,19 +104,19 @@ class Style_Generator {
 		if ( 0 === count( $this->font_variables ) ) {
 			if ( is_page() || is_single() ) {
 				$this->font_variables = get_post_meta( $post->ID, 'font-variables-post-' . $post->ID, true );
+				if ( ! $this->font_variables ) {
+					$this->font_variables = array();
+				}
 			} else {
 				$this->font_variables = get_option( 'font-variables-template-' . $_wp_current_template_id );
+				if ( ! $this->font_variables ) {
+					$this->font_variables = array();
+				}
 			}
 		} elseif ( is_page() || is_single() ) {
 			update_post_meta( $post->ID, 'font-variables-post-' . $post->ID, $this->font_variables );
 		} else {
 			update_option( 'font-variables-template' . $_wp_current_template_id, $this->font_variables );
-		}
-		if ( ! isset( $this->fonts_families ) ) {
-			$this->font_families = array();
-		}
-		if ( ! isset( $this->fonts_variables ) ) {
-			$this->font_variables = array();
 		}
 		$this->load_global_fonts();
 		gutenverse_header_font( $this->font_families, $this->font_variables );
