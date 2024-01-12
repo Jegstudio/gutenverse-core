@@ -276,6 +276,7 @@
             letter-spacing: 0em;
             text-align: center;
             margin-top: 15px ;
+            cursor: pointer;
             svg{
                 margin-left: 5px;
             }
@@ -387,84 +388,341 @@
         width: 90%;
         margin: 5px;
         margin-top: 15px;
+        margin-bottom: 0px;
     }
 }
-    .guten-pro-total-themes{
-        border-radius: 5px;
-        background: linear-gradient(219.43deg, #65FBF2 -24.04%, #448BFF 48.12%, #2074FF 80.56%, #0851CA 102.33%);
-        position: relative;
-        padding: 0px 3px;
-        .guten-pro-total-themes-number{
-            color: white;
+.guten-pro-total-themes{
+    border-radius: 5px;
+    background: linear-gradient(219.43deg, #65FBF2 -24.04%, #448BFF 48.12%, #2074FF 80.56%, #0851CA 102.33%);
+    position: relative;
+    padding: 0px 3px;
+    .guten-pro-total-themes-number{
+        color: white;
+        font-family: Roboto;
+        font-size: 28px;
+        font-weight: 800;
+        line-height: 18px;
+        letter-spacing: -0.02em;
+        text-align: left;
+        margin-top: 13px;
+        margin-left: 16px;
+        margin-bottom: 8px;
+    }
+    .guten-pro-total-themes-title{
+        color: white;
+        font-family: Roboto;
+        font-size: 10px;    
+        font-style: normal;
+        font-weight: 400;
+        width: fit-content;
+        margin-left: 16px;
+    }
+    .guten-pro-total-themes-image{
+        position: absolute;
+        bottom: 0px;
+        width: 80%;
+        right: 0;
+    }
+}
+.guten-pro-element-pro-banner{
+    margin-top: 5px;
+    border-radius: 5px;
+    background: linear-gradient(259.57deg, #4569FF -3.12%, #4C82FD 36.41%, #3CAAF8 67.31%, #20BCFF 101.21%, #0AEBFF 131.63%);
+    position: relative;
+    height: 135px;
+    overflow: hidden;
+    .guten-pro-element-pro-title{
+        padding-left: 16px;
+        h2{
+            padding-top: 8px;
+            color: var(--White, #FFF);
             font-family: Roboto;
-            font-size: 28px;
-            font-weight: 800;
-            line-height: 18px;
-            letter-spacing: -0.02em;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0em;
+            margin-bottom: 20px;
+        }
+        p{
+            color: rgba(255, 255, 255,0.5);
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0em;
             text-align: left;
-            margin-top: 13px;
-            margin-left: 16px;
-            margin-bottom: 8px;
-        }
-        .guten-pro-total-themes-title{
-            color: white;
-            font-family: Roboto;
-            font-size: 10px;    
-            font-style: normal;
-            font-weight: 400;
-            width: fit-content;
-            margin-left: 16px;
-        }
-        .guten-pro-total-themes-image{
-            position: absolute;
-            bottom: 0px;
             width: 80%;
+            span{
+                color: white;
+                font-family: Roboto;
+            }
+        }
+    }
+    .guten-pro-element-pro-background{
+        position: absolute;
+        top: 0;
+    }
+    .guten-pro-element-pro-object{
+        position: absolute;
+        top: -30px;
+        right: -60px;
+        width: 60%;
+    }
+}
+.guten-pro-text-clip-banner{  
+    border-radius: 5px;
+    background: linear-gradient(344.01deg, #6AFFB3 -10.36%, #15ADF7 71.42%);
+    position: relative;
+    overflow: hidden;
+    .guten-pro-text-clip-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        padding-left: 16px;
+        padding-top: 13px;
+        margin-bottom: 5px;
+    }
+    .guten-pro-text-clip-gradient{
+        margin-left: 16px;
+        width: 87%;
+    }
+    .guten-pro-text-clip-image{
+        position: absolute;
+        bottom: -5px;
+        width: 60%;
+        right: 0;
+        z-index: 2;
+    }
+}
+.guten-pro-transform-banner{  
+    border-radius: 5px;
+    background: linear-gradient(327.68deg, #FFDB7E -6.68%, #FF823D 32.79%, #FD505D 95.21%);
+    position: relative;
+    overflow: hidden;
+    .guten-pro-transform-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-left: 16px;
+        padding-top: 13px;
+        margin-bottom: 5px;
+    }
+    .guten-pro-transform-image-wrapper{
+        display: flex;
+        justify-content: center;
+        .guten-pro-transform-arrow{
+            position: absolute;
+            width: 35%;
+        }
+        .guten-pro-transform-image{
+            width: 80%;
+        }
+        .right{
             right: 0;
+            bottom: 15px;
+        }
+        .left{
+            left: 0;
+            rotate: 180deg;
         }
     }
-    .guten-pro-element-pro-banner{
-        margin-top: 5px;
-        border-radius: 5px;
-        background: linear-gradient(259.57deg, #4569FF -3.12%, #4C82FD 36.41%, #3CAAF8 67.31%, #20BCFF 101.21%, #0AEBFF 131.63%);
+}
+.guten-pro-shape-divider-banner{  
+    border-radius: 5px;
+    background: linear-gradient(4.4deg, #C80EEC 13.99%, #872FC0 105.82%);
+    position: relative;
+    .guten-pro-shape-divider-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-left: 16px;
+        padding-top: 13px;
+    }
+    .guten-pro-shape-divider-blink{
+        position: absolute;
+        width: 25%;
+        z-index: 2;
+        right: 10px;
+        bottom: 40px;
+    }
+    .guten-pro-shape-divider-wave{
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+.guten-pro-form-banner{  
+    border-radius: 5px;
+    background: linear-gradient(342.14deg, #6AFFB3 -36.26%, #15ADF7 82.5%);
+    position: relative;
+    .guten-pro-form-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-left: 16px;
+        padding-top: 13px;
+    }
+    .guten-pro-form-image{
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+    }
+}
+.guten-pro-copy-paste-banner{  
+    border-radius: 5px;
+    background: linear-gradient(327.68deg, #FFDB7E -6.68%, #FF823D 32.79%, #FD505D 95.21%);
+    position: relative;
+    .guten-pro-copy-paste-title p{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: left;
+        padding-left: 16px;
+        padding-top: 13px;
+    }
+    .guten-pro-copy-paste-image{
+        position: absolute;
+        bottom: 15px;
+        z-index: 1;
+        width: 70%;
+        left: 18px;
+    }
+    .guten-pro-copy-paste-arrow{
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        width: 20%;
+    }
+}
+.guten-pro-highlight-text-banner{  
+    border-radius: 5px;
+    background: linear-gradient(227.76deg, #6AFFB3 -7.99%, #15ADF7 84.78%);
+    position: relative;
+    overflow: hidden;
+    .guten-pro-highlight-text-example{
+        font-family: Roboto;
+        font-size: 18px;
+        font-style: italic;
+        font-weight: 700;
+        line-height: 18px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: rgba($color: white, $alpha: 0.6);
+        margin-top: 15px;
+        margin-bottom: 20px;
+        span{
+            color: rgba($color: white, $alpha: 1.0);
+        }
+    }
+    .guten-pro-highlight-text-title{
+        color: var(--White, #FFF);
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 17px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+    .guten-pro-highlight-text-crystal{
+        position: absolute;
+        top: 5px;
+        width: 15%;
+        right: 5px;
+    }
+    .guten-pro-highlight-text-blur{
+        position: absolute;
+        left: -35px;
+        top: 35px;
+        width: 60%;
+    }
+}
+.guten-pro-bottom-banner{
+    margin-top: 5px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #DDFDFF 0%, #FFFFFF 100%);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0px 24px 48px -12px rgba(16, 24, 40, 0.18);
+    .guten-pro-bottom-title {
         position: relative;
-        height: 135px;
-        overflow: hidden;
-        .guten-pro-element-pro-title{
-            padding-left: 16px;
-            h2{
-                padding-top: 8px;
-                color: var(--White, #FFF);
-                font-family: Roboto;
-                font-size: 16px;
-                font-weight: 500;
-                letter-spacing: 0em;
-                margin-bottom: 20px;
-            }
-            p{
-                color: rgba(255, 255, 255,0.5);
-                font-family: Roboto;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: 0em;
-                text-align: left;
-                width: 80%;
-                span{
-                    color: white;
-                    font-family: Roboto;
-                }
+        margin-top: 20px;
+        h2{
+            color: black;
+            font-family: Roboto;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 19px;
+            letter-spacing: 0em;
+            text-align: center;
+            margin-bottom: 10px;
+            span{
+                background: linear-gradient(90deg, #F045FF 56.71%, #4569FF 71.4%, #68E4F4 86.59%);
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
             }
         }
-        .guten-pro-element-pro-background{
+        .guten-pro-bottom-blink{
             position: absolute;
-            top: 0;
-        }
-        .guten-pro-element-pro-object{
-            position: absolute;
-            top: -30px;
-            right: -60px;
-            width: 60%;
+            width: 5%;
+            right: 50px;
+            top: -5px;
+            z-index: 2;
         }
     }
+    p{
+        color: rgba(1, 22, 39, 0.5);
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+    .guten-pro-bottom-background{
+        position: absolute;
+        z-index: 1;
+        top: 0;
+    }
+    .guten-pro-bottom-button-wrapper{
+        margin: 20px 0px 10px 0px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        z-index: 2;
+        .guten-pro-bottom-button{
+            background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 14px;
+            letter-spacing: 0em;
+            text-align: center;
+            color: white;
+            width: 220px;
+            height: 34px;
+            padding: 10px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+}
 // .guten-pro-popup-builder{
 //     border-radius: 5px;
 //     background: linear-gradient(180deg, #D6E3FF 0%, #C6D9FF 129.24%);

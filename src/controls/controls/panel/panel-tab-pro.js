@@ -6,7 +6,7 @@ import { IconCrownSVG } from 'gutenverse-core/icons';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        serverUrl, proUrl
+        serverUrl, upgradeProUrl
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
@@ -29,19 +29,19 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/blink-2.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <a href="#" className="guten-card-pro-button">Upgrade To PRO <IconCrownSVG transform='translate(0,3)'/></a>
+                                    <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button">Upgrade To PRO <IconCrownSVG transform="translate(0,3)" /></a>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">
                                 <div className="guten-pro-advance-animation-title">
-                                    <p>Advanced <br/> Animation</p>
+                                    <p>Advanced <br /> Animation</p>
                                 </div>
                                 <img className="guten-pro-advance-animation-object" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/animations-object.png'} />
                                 <img className="guten-pro-advance-animation-rotate" src={window['GutenverseConfig'].imgDir + '/pro/advance-animation/graphic-rotate.png'} />
                             </div>
                             <div className="guten-pro-background-animated-banner guten-pro-themes-half">
                                 <div className="guten-pro-background-animated-title">
-                                    <p>Background <br/> Animated</p>
+                                    <p>Background <br /> Animated</p>
                                 </div>
                                 <img className="guten-pro-background-animated-blink" src={window['GutenverseConfig'].imgDir + '/pro/background-animated/blink-3.png'} />
                                 <img className="guten-pro-background-animated-circle" src={window['GutenverseConfig'].imgDir + '/pro/background-animated/circle-bg.png'} />
@@ -73,40 +73,60 @@ const PanelTabPro = ({ activeTab }) => {
                                 <img className="guten-pro-element-pro-background" src={window['GutenverseConfig'].imgDir + '/pro/element/dotted-overlay.png'} />
                                 <img className="guten-pro-element-pro-object" src={window['GutenverseConfig'].imgDir + '/pro/element/cube-gutenverse-2.png'} />
                             </div>
-                             {/* <div className="guten-pro-popup-builder guten-pro-themes-half">
-                                 <div className="guten-pro-popup-builder-row ">
-                                     <p className="guten-pro-popup-builder-title">Pop Up <br/>Builder</p>
-                                     <img className="guten-pro-popup-builder-arrow" src={window['GutenverseConfig'].imgDir + '/pro/popup-builder/arrow-dark.png'} />
-                                 </div>
-                                 <img className="guten-pro-popup-builder-mockup" src={window['GutenverseConfig'].imgDir + '/pro/popup-builder/mockup-popup.png'} />
-                             </div>
-
-                             <div className="guten-pro-form guten-pro-themes-half">
-                                 <p className="guten-pro-form-title">Advanced <br/> Form</p>
-                                 <img className="guten-pro-form-mockup" src={window['GutenverseConfig'].imgDir + '/pro/advanced-form/form-mockup.png'} />
-                             </div>
-                             <div className="guten-pro-premium-theme guten-pro-themes-half">
-                                 <img className="guten-pro-premium-image" src={window['GutenverseConfig'].imgDir + '/pro/premium-themes/overlay-premium-themes.png'} />
-                                 <h5 className="guten-pro-premium-number">25+</h5>
-                                 <p className="guten-pro-premium-title">Premium <br/>Themes</p>
-                             </div>
-                             <div className="guten-pro-element-pro guten-pro-themes-full">
-                                 <img className="guten-pro-element-pro-image" src={window['GutenverseConfig'].imgDir + '/pro/element-pro/overlay-gutenverse.png'} />
-                                 <p className="guten-pro-element-pro-title">Element PRO</p>
-                                 <p className="guten-pro-element-pro-description">We have element PRO like <b>Condition Filter, Lottie, Mega Menu</b> and other elements which will be released soon.</p>
-                             </div>
-
-                             <div className="guten-pro-shape-divider guten-pro-themes-half">
-                                 <p className="guten-pro-shape-divider-title">Shape Divider <br/> Animated</p>
-                                 <img className="guten-pro-shape-divider-icon" src={window['GutenverseConfig'].imgDir + '/pro/shape-divider-animated/icon-animation.png'} />
-                                 <img className="guten-pro-shape-divider-image" src={window['GutenverseConfig'].imgDir + '/pro/shape-divider-animated/graphic-shape-divider.png'} />
-                             </div>
-                             <div className="guten-pro-background guten-pro-themes-half">
-                                 <img className="guten-pro-background-image" src={window['GutenverseConfig'].imgDir + '/pro/background-animated/bg-background-animated.png'} />
-                                 <p className="guten-pro-background-title">Background <br/> Animated</p>
-                             </div>
-                             <a className="detail-button " href={serverUrl} target="_blank" rel="noreferrer">{__('View Details', '--gctd--')}</a>
-                             <a className="pro-button " href={proUrl} target="_blank" rel="noreferrer">{__('Upgrade Pro', '--gctd--')}</a>  */}
+                            <div className="guten-pro-text-clip-banner guten-pro-themes-half">
+                                <div className="guten-pro-text-clip-title">
+                                    <p>Text Clip</p>
+                                </div>
+                                <img className="guten-pro-text-clip-gradient" src={window['GutenverseConfig'].imgDir + '/pro/text-clip/text-gradient.png'} />
+                                <img className="guten-pro-text-clip-image" src={window['GutenverseConfig'].imgDir + '/pro/text-clip/text-clip-image.png'} />
+                            </div>
+                            <div className="guten-pro-transform-banner guten-pro-themes-half">
+                                <div className="guten-pro-transform-title">
+                                    <p>Transform</p>
+                                </div>
+                                <div className="guten-pro-transform-image-wrapper">
+                                    <img className="guten-pro-transform-arrow right" src={window['GutenverseConfig'].imgDir + '/pro/transform/arrow-4.png'} />
+                                    <img className="guten-pro-transform-image" src={window['GutenverseConfig'].imgDir + '/pro/transform/graphic-transform.png'} />
+                                    <img className="guten-pro-transform-arrow left" src={window['GutenverseConfig'].imgDir + '/pro/transform/arrow-4.png'} />
+                                </div>
+                            </div>
+                            <div className="guten-pro-shape-divider-banner guten-pro-themes-half">
+                                <div className="guten-pro-shape-divider-title">
+                                    <p>Shape Divider <br /> Animated</p>
+                                </div>
+                                <img className="guten-pro-shape-divider-blink" src={window['GutenverseConfig'].imgDir + '/pro/shape-divider/blink-4.png'} />
+                                <img className="guten-pro-shape-divider-wave" src={window['GutenverseConfig'].imgDir + '/pro/shape-divider/shape.png'} />
+                            </div>
+                            <div className="guten-pro-form-banner guten-pro-themes-half">
+                                <div className="guten-pro-form-title">
+                                    <p>Advanced <br /> Form</p>
+                                </div>
+                                <img className="guten-pro-form-image" src={window['GutenverseConfig'].imgDir + '/pro/form/graphic-form.png'} />
+                            </div>
+                            <div className="guten-pro-copy-paste-banner guten-pro-themes-half">
+                                <div className="guten-pro-copy-paste-title">
+                                    <p>Copy Paste <br /> Style</p>
+                                </div>
+                                <img className="guten-pro-copy-paste-image" src={window['GutenverseConfig'].imgDir + '/pro/copy-paste/graphic-copas.png'} />
+                                <img className="guten-pro-copy-paste-arrow" src={window['GutenverseConfig'].imgDir + '/pro/copy-paste/arrow-small.png'} />
+                            </div>
+                            <div className="guten-pro-highlight-text-banner guten-pro-themes-half">
+                                <h2 className="guten-pro-highlight-text-example"><span>Highlight </span> important details.</h2>
+                                <p className="guten-pro-highlight-text-title" >Highlight Text</p>
+                                <img className="guten-pro-highlight-text-crystal" src={window['GutenverseConfig'].imgDir + '/pro/highlight-text/graphic-gem.png'} />
+                                <img className="guten-pro-highlight-text-blur" src={window['GutenverseConfig'].imgDir + '/pro/highlight-text/gem-blur.png'} />
+                            </div>
+                            <div className="guten-pro-bottom-banner guten-pro-themes-full">
+                                <div className="guten-pro-bottom-title">
+                                    <img className="guten-pro-bottom-blink" src={window['GutenverseConfig'].imgDir + '/pro/CTA/blink-cta.png'} />
+                                    <h2>Powerful <span> Features</span></h2>
+                                </div>
+                                <p>Unlock the endless possibilities of the WordPress Editor with Gutenverse PRO.</p>
+                                <img className="guten-pro-bottom-background" src={window['GutenverseConfig'].imgDir + '/pro/CTA/bg-cta.png'} />
+                                <div className="guten-pro-bottom-button-wrapper">
+                                    <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">Upgrade To PRO</a>
+                                </div>
+                            </div>
                         </div>
                     </>
                 }
