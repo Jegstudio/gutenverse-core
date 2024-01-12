@@ -102,6 +102,14 @@ const WizardContainer = ({ setStage }) => {
                 doUpgrade(index + 1);
             });
         } else {
+            apiFetch({
+                path: 'gutenverse-client/v1/upgrade',
+                method: 'POST',
+                data: {
+                    step: 'complete',
+                },
+            });
+
             setProgress({
                 step: totalStep,
                 totalStep: totalStep,
