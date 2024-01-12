@@ -960,11 +960,10 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id}> .guten-background-effect";
 			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
 						'property'       => function ( $value ) {
 							if ( $value ) {
 								$overflow = 'hidden';
@@ -973,6 +972,25 @@ abstract class Style_Interface {
 						},
 						'value'          => $background_effect['hiddenOverflow'],
 						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $background_effect['boxShadow'] ) ) {
+				$box_shadow = $background_effect['boxShadow'];
+				if ( '' === $box_shadow['color'] ) {
+					$box_shadow['color'] = array(
+						'type' => 'variable',
+						'id'   => 'primary',
+					);
+				}
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector . "> .inner-background-container .{$this->element_id}-effect" : ".{$this->element_id}> .guten-background-effect> .inner-background-container .{$this->element_id}-effect",
+						'property'       => function ( $value ) {
+							return $this->handle_box_shadow( $value );
+						},
+						'value'          => $box_shadow,
+						'device_control' => false,
 					)
 				);
 			}

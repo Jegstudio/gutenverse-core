@@ -68,7 +68,7 @@ const toolResize = (props) => {
         Tablet: 10,
         Mobile: 15,
     };
-    
+
     const {
         width,
         elementId
@@ -185,7 +185,7 @@ const onResizeStart = (props, p) => {
     const parentBlock = getBlock(parentClientId);
     if (deviceType === 'Desktop') {
         parentBlock.innerBlocks.map(({ clientId }) => {
-            const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+            const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
             toolTip.classList.add('dragging');
         });
     }
@@ -322,7 +322,7 @@ const onResizeStop = (props) => {
     const parentBlock = getBlock(parentId);
     if (parentBlock) {
         parentBlock.innerBlocks.map(({ clientId }) => {
-            const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+            const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
             toolTip.classList.remove('dragging');
         });
     }
@@ -409,7 +409,7 @@ const ColumnPlaceholder = (props) => {
     const onOpen = () => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
-                const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+                const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
         }
@@ -418,7 +418,7 @@ const ColumnPlaceholder = (props) => {
     const onClose = () => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
-                const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+                const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
         }
@@ -589,7 +589,7 @@ const ColumnWrapper = (props) => {
     const onOpen = () => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
-                const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+                const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
         }
@@ -598,7 +598,7 @@ const ColumnWrapper = (props) => {
     const onClose = () => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
-                const toolTip = editorDom.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
+                const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
         }
