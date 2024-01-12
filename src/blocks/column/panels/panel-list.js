@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { layoutPanel } from './panel-layout';
-import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, pointerEventPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, pointerEventPanel, backgroundEffectPanel } from 'gutenverse-core/controls';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -21,6 +21,16 @@ export const panelList = () => {
             title: __('Cursor Effect', '--gctd--'),
             initialOpen: false,
             panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) =>  backgroundEffectPanel({
+                ...props,
+                selector: `.${props.elementId}> .guten-column-resizeable> .sticky-wrapper> .guten-column-wrapper > .guten-background-effect`
+            }),
             tabRole: TabSetting,
             pro: true,
         },

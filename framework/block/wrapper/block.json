@@ -113,7 +113,10 @@
 		},
 		"cursorEffect": {
 			"type": "object"
-		  },
+		},
+		"backgroundEffect": {
+			"type": "object"
+		},
 		"blur": {
 			"type": "object",
 			"copyStyle": true

@@ -1,4 +1,4 @@
-import { DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from '../styling-utility';
+import { elementVar, normalAppender } from '../styling-utility';
 import { handleBackground } from './handle-background';
 import { handleBorder } from './handle-border';
 import { getColor } from './handle-color';
@@ -16,7 +16,8 @@ export const handleCursorEffect = (style, props, id) => {
         padding,
         iconColor,
         iconSize,
-        imageSize,
+        imageHeight,
+        imageWidth,
         textBorder,
         typography,
     } = style;
@@ -76,9 +77,15 @@ export const handleCursorEffect = (style, props, id) => {
             }
             break;
         case 'image':
-            if(imageSize?.point){
+            if(imageHeight?.point){
                 normalAppender({
-                    style: `width: ${imageSize.point}${imageSize.unit};height: ${imageSize.point}${imageSize.unit};`,
+                    style: `height: ${imageHeight.point}${imageHeight.unit};`,
+                    elementStyle
+                });
+            }
+            if(imageWidth?.point){
+                normalAppender({
+                    style: `width: ${imageWidth.point}${imageWidth.unit};`,
                     elementStyle
                 });
             }
@@ -165,5 +172,19 @@ export const handleImageCursorEffect = (style) =>{
         imageBorder,
     } = style;
     elementStyle = imageBorder? handleBorder(imageBorder): elementStyle;
+    return elementStyle;
+};
+export const handleParentCursorEffect = (style) => {
+    let elementStyle = elementVar();
+
+    const {
+        ZIndex
+    } = style;
+    if (ZIndex) {
+        normalAppender({
+            style: `z-index:${ZIndex};`,
+            elementStyle
+        });
+    }
     return elementStyle;
 };
