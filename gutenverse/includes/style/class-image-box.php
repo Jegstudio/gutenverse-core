@@ -136,7 +136,7 @@ class Image_Box extends Style_Abstract {
 		if ( isset( $this->attrs['imageBorderRadius'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .inner-container .image-box-header img",
+					'selector'       => ".{$this->element_id} .inner-container .image-box-header",
 					'property'       => function ( $value ) {
 						return $this->handle_border_radius( $value );
 					},

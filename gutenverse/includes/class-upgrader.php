@@ -22,10 +22,12 @@ class Upgrader {
 	 * Class constructor.
 	 */
 	public function __construct() {
+		add_action( 'admin_notices', array( $this, 'page_upgrade_notice' ) );
 		add_action( 'admin_notices', array( $this, 'page_content_notice' ) );
 		add_action( 'init', array( $this, 'set_upgrader_page_content' ), 99 );
 		add_action( 'init', array( $this, 'set_upgrader_plugin_split' ), 99 );
 		add_action( 'wp_ajax_gutenverse_upgrader_page_content_close', array( $this, 'upgrader_page_content_close' ) );
+		add_action( 'wp_ajax_gutenverse_upgrader_page_upgrade_close', array( $this, 'upgrader_page_upgrade_close' ) );
 		add_action( 'gutenverse_plugin_upgrade', array( $this, 'upgrade_like' ), 20 );
 	}
 
@@ -108,6 +110,13 @@ class Upgrader {
 	}
 
 	/**
+	 * Change option page upgrade to true.
+	 */
+	public function upgrader_page_upgrade_close() {
+		update_option( $this->get_plugin_upgrade_option_name(), true );
+	}
+
+	/**
 	 * Get Page Content Upgrader Option Name.
 	 *
 	 * @return string.
@@ -123,6 +132,15 @@ class Upgrader {
 	 */
 	public function get_plugin_split_option_name() {
 		return 'gutenverse_upgrader_plugin_split';
+	}
+
+	/**
+	 * Ge Upgrader Option Name.
+	 *
+	 * @return string.
+	 */
+	public function get_plugin_upgrade_option_name() {
+		return 'gutenverse_upgrader_complete';
 	}
 
 	/**
@@ -212,6 +230,7 @@ class Upgrader {
 						esc_html( $theme->name )
 					);
 					?>
+					</p>
 					<div class="gutenverse-upgrade-action">
 						<?php
 						if ( 'themes.php' !== $pagenow ) {
@@ -229,6 +248,52 @@ class Upgrader {
 					$('.gutenverse-upgrade-notice.page-content-upgrade .close-notification').on('click', function() {
 						$.post( ajaxurl, {
 							action: 'gutenverse_upgrader_page_content_close'
+						} );
+
+						$('.gutenverse-upgrade-notice.page-content-upgrade').fadeOut();
+					});
+				})(jQuery);
+			</script>
+			<?php
+		}
+	}
+
+	/**
+	 * Admin Notice for page upgrade.
+	 */
+	public function page_upgrade_notice() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		$done = get_option( $this->get_plugin_upgrade_option_name() );
+		$flag = get_option( $this->get_plugin_split_option_name() );
+
+		if ( $flag && ! $done ) {
+			$this->enqueue_script();
+			?>
+			<div class="notice gutenverse-upgrade-notice page-content-upgrade">
+				<div class="notice-logo">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10 0C4.47754 0 0 4.47915 0 10C0 15.5241 4.47754 20 10 20C15.5225 20 20 15.5241 20 10C20 4.47915 15.5225 0 10 0ZM10 4.43548C10.9353 4.43548 11.6935 5.19371 11.6935 6.12903C11.6935 7.06435 10.9353 7.82258 10 7.82258C9.06468 7.82258 8.30645 7.06435 8.30645 6.12903C8.30645 5.19371 9.06468 4.43548 10 4.43548ZM12.2581 14.6774C12.2581 14.9446 12.0414 15.1613 11.7742 15.1613H8.22581C7.95859 15.1613 7.74194 14.9446 7.74194 14.6774V13.7097C7.74194 13.4425 7.95859 13.2258 8.22581 13.2258H8.70968V10.6452H8.22581C7.95859 10.6452 7.74194 10.4285 7.74194 10.1613V9.19355C7.74194 8.92633 7.95859 8.70968 8.22581 8.70968H10.8065C11.0737 8.70968 11.2903 8.92633 11.2903 9.19355V13.2258H11.7742C12.0414 13.2258 12.2581 13.4425 12.2581 13.7097V14.6774Z" fill="#FFC908"/>
+					</svg>
+				</div>
+				<div class="notice-content">
+					<h2><?php esc_html_e( 'Upgrading Gutenverse!', 'gutenverse' ); ?></h2>
+					<p><?php echo esc_html__( 'We have made some changes on v2.0.0:', 'gutenverse' ); ?></p>
+					<p><?php echo sprintf( '1. We separate %s from our main plugin to make Gutenverse lightweight and work faster. You need to reinstall the form plugin.', '<strong>Gutenverse Form</strong>' ); ?></p>
+					<p><?php echo esc_html__( '2. Load Fonticon Locally, you can download font icon and serve it from your server instead of cloud on menu Gutenverse Settings', 'gutenverse' ); ?></p>
+					<div class="gutenverse-upgrade-action">
+						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ) ); ?>"><?php esc_html_e( 'Upgrade Now!', 'gutenverse' ); ?></a>
+						<a class='close-notification' href="#"><?php esc_html_e( 'Close notification', 'gutenverse' ); ?></a>
+					</div>
+				</div>
+			</div>
+			<script>
+				(function($) {
+					$('.gutenverse-upgrade-notice.page-content-upgrade .close-notification').on('click', function() {
+						$.post( ajaxurl, {
+							action: 'gutenverse_upgrader_page_upgrade_close'
 						} );
 
 						$('.gutenverse-upgrade-notice.page-content-upgrade').fadeOut();
