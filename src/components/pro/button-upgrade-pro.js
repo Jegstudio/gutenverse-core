@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -39,6 +39,7 @@ const ButtonUpgradePro = ({
             rel="noreferrer"
             style={customStyles}>
             {text}
+            <IconCrownBannerSVG/>
         </a>, {location,isBanner});
     return <TheButton />;
 };
