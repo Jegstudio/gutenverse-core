@@ -44,17 +44,115 @@
         }
     }
 
+    .gutenverse-200 {
+        .inner-content {
+            padding: 30px;
+
+            .top-content {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                border-radius: 15px;
+                background: #F2F2F2;
+                padding: 18px;
+
+                .badge {
+                    border-radius: 6px;
+                    background: linear-gradient(34deg, #F045FF 1%, #4569FF 63.85%, #68E4F4 128.88%);
+                    color: white;
+                    padding: 5px 10px;
+                }
+
+                p {
+                    margin: 0;
+                    color: #3C434A;
+                    font-family: Roboto;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 29px;
+                }
+            }
+
+            h4 {
+                display: flex;
+                align-items: center;
+                color: #011627;
+                font-family: Roboto;
+                font-size: 24px;
+                font-style: normal;
+                font-weight: 600;
+                gap: 15px;
+                line-height: 25.5px;
+                text-transform: capitalize;
+            }
+
+            p {
+                color: #3C434A;
+                font-family: Roboto;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 30px;
+            }
+
+            .detail-ecosystem {
+                display: flex;
+                border-radius: 20px;
+                background: linear-gradient(262deg, #65FBF2 -3.53%, #448BFF 66.97%, #0851CA 105.41%);
+                overflow: hidden;
+            }
+
+            .detail-adanim {
+                display: flex;
+                border-radius: 20px;
+                background: linear-gradient(258deg, #FFDB7E -2.27%, #FF823D 43.66%, #FD505D 95.18%);
+                overflow: hidden;
+                padding: 40px;
+
+                h5 {
+                    color: var(--White, #FFF);
+                    font-family: Roboto;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 25.5px;
+                    margin: 0;    
+                }
+                
+                p {
+                    color: rgba(255, 255, 255, 0.60);
+                    font-family: Roboto;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 24px;
+                    margin: 12px 0 0;
+                }
+
+                img {
+                    margin: 0;
+                    width: 70%;
+                }
+            }
+        }
+    }
+
     .upgrade-notice-head {
-        height: 250px;
+        height: 200px;
 
         >div {
             background-color: #05131f;
             background-position: center;
+            background-size: cover;
             height: 100%;
             margin: 0 auto;
             max-width: 1000px;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             &::before {
                 background-position: center;
@@ -71,12 +169,7 @@
             color: white;
             font-size: 32px;
             font-weight: 600;
-            left: 50%;
             line-height: 140%;
-            position: absolute;
-            text-align: center;
-            top: 50%;
-            transform: translate(-50%, -50%);
         }
     }
 
