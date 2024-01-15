@@ -47,7 +47,7 @@ const UpdateNotice = ({location}) => {
 
     return (
         <DashboardContent>
-            <div id="gutenverse-upgrade-notice">
+            <div id="gutenverse-upgrade-notice" className={`${name.toLowerCase() + '-' + version.split('.').join('')}`}>
                 <div className="tabs">
                     {Object.keys(pluginVersions).length > 1 &&
                         Object.keys(pluginVersions).map((key) => {
@@ -69,7 +69,11 @@ const UpdateNotice = ({location}) => {
                 </div>
                 <div className="upgrade-notice-head">
                     <div>
-                        <div className="upgrade-notice-title">{sprintf(__('%s Version %s', '--gctd--'), name, version)}</div>
+                        <h3 className="upgrade-notice-title">
+                            {sprintf(__('%s', '--gctd--'), name)}
+                            &nbsp;
+                            <span>{sprintf(__('Version %s', '--gctd--'), version)}</span>
+                        </h3>
                     </div>
                 </div>
                 <div className="upgrade-notice-body">

@@ -10,3 +10,26 @@
 #gutenverse-dashboard .upgrade-notice-head > div {
     background-image: url('../img/upgrade-notice-hero.webp');
 }
+
+#gutenverse-dashboard .gutenverse-200 .upgrade-notice-head > div {
+    background-image: url('../img/upgrade-notice-2.0.0-new-bg.png');
+    border-radius: 20px;
+}
+
+#gutenverse-dashboard .gutenverse-200 .upgrade-notice-head > div > .upgrade-notice-title {
+    color: #011627;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.64px;
+}
+
+#gutenverse-dashboard .gutenverse-200 .upgrade-notice-head > div > .upgrade-notice-title > span {
+    background: -webkit-linear-gradient(45deg, #F045FF, #4569FF, #68E4F4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

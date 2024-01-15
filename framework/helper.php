@@ -456,11 +456,12 @@ if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
 		$upload_dir  = wp_upload_dir();
 		$upload_path = $upload_dir['baseurl'];
 		$file_url    = $upload_path . '/gutenverse/css/' . $name . '.css';
+		$time_stamp  = gmdate( 'Y.m.d.h.i.s' );
 		wp_enqueue_style(
 			$name . '-css-file',
 			$file_url,
 			array(),
-			GUTENVERSE_FRAMEWORK_VERSION
+			$time_stamp
 		);
 	}
 }
