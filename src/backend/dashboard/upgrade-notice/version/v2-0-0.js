@@ -130,7 +130,7 @@ const V200 = () => {
                         <h5>{__('Advance Template Library', 'gutenverse')}</h5>
                         <p>{__('Template library is an excellent choice for creating a visually stunning website. There are trendy and high-quality designs that cater to various niches, including agency, writer, creator, and marketer niches. Browse through over a hundred designs to find the ideal design for everyone.', 'gutenverse')}</p>
                     </div>
-                    <img src={assetURL + '/img/upgrade-notice-2.0.0-adanim.png'}></img>
+                    <img className="library" src={assetURL + '/img/upgrade-notice-2.0.0-library.png'}></img>
                 </div>
                 <div className="features-3-col">
                     <div>
@@ -154,6 +154,38 @@ const V200 = () => {
                     <div>
                         <h5>{__('Advanced Form', 'gutenverse')}</h5>
                         <p>{__('Use advance form blocks to gather information from visitors. With this block, you can create contact form, multi step form, conditional form, booking form, newsletter signup and other types of form. You can design the form you want and customize it to perfectly fit your page.', 'gutenverse')}</p>
+                    </div>
+                </div>
+
+                <div className="features-highlight green">
+                    <div>
+                        <h5>{__('Cursor Effect', 'gutenverse')}</h5>
+                        <p>{__('Create a more dynamic and interactive experience for your visitors by using a cursor effect. Customize it with any style, text, or image. Without a single line of coding, simply adjust the cursor as needed.', 'gutenverse')}</p>
+                    </div>
+                    <img className="library" src={assetURL + '/img/upgrade-notice-2.0.0-cursor-effect.png'}></img>
+                </div>
+                <div className="features-detail reverse">
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-shape-divider.png'}></img>
+                    <div>
+                        <h5>{__('Shape Divider Animated', 'gutenverse')}</h5>
+                        <p>{__('Create an engaging and responsive design with Gutenverse\'s highly responsive shape divider animated for your website. You can add our exclusive and lightweight feature at the top and bottom sections of your website. Simply control the element to suit your needs.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-3-col">
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-bganim.png'}></img>
+                        <h5>{__('Background Animated', 'gutenverse')}</h5>
+                        <p>{__('Enhance your design and impress visitors with background animations.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-sticky.png'}></img>
+                        <h5>{__('Sticky', 'gutenverse')}</h5>
+                        <p>{__('Stick an element in any position on the page viewport as visitors scroll.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-filter.png'}></img>
+                        <h5>{__('Confition Filters', 'gutenverse')}</h5>
+                        <p>{__('Choose which elements or content should be displayed on the page.', 'gutenverse')}</p>
                     </div>
                 </div>
                 <h4>
