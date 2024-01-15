@@ -10,6 +10,7 @@ import semver from 'semver';
 import { Loader } from 'react-feather';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { LogoIconGutenverseSVG } from 'gutenverse-core/icons';
+import { BannerPro } from 'gutenverse-core/components';
 
 const PluginItem = ({
     plugin,
@@ -234,6 +235,13 @@ const Ecosystem = props => {
             <h2>{__('Gutenverse Ecosystem', '--gctd--')}</h2>
         </DashboardHeader>
         <DashboardBody>
+            <BannerPro
+                title={<>{__('Make Your ', '--gctd--')}<span>{__(' Workflow More Efficient ', '--gctd--')}</span><br/>{__(' by Using Gutenverse PRO!', '--gctd--')}</>}
+                customStyles={{margin: '0 0 40px'}}
+                container = "ecosystem"
+                leftBannerImg = "ecosystem/graphic-ecosystem-left.png"
+                rightBannerImg = "ecosystem/graphic-ecosystem-right.png"
+                backgroundGradient = "ecosystem/bg-ecosystem.png"/>
             <div className="ecosystem-wrapper">
                 <PluginsData {...pluginsData} />
             </div>
