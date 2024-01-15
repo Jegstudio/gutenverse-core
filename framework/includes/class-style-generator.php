@@ -232,8 +232,8 @@ class Style_Generator {
 					$current_slug = implode( '-', explode( '/', $template['0'] ) );
 					// End of designer server problem
 					if ( $term->slug === $current_slug ) {
-						$updated_on = $post->post_modified;
 						if ( $template_updated_time !== $updated_on ) {
+							$updated_on = $post->post_modified;
 							$is_modified_template = true;
 							update_post_meta( $post->ID, 'template_modified_time', $updated_on );
 							break;
