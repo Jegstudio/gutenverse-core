@@ -103,15 +103,28 @@
                 overflow: hidden;
             }
 
-            .detail-adanim {
+            .features-highlight {
                 display: flex;
                 border-radius: 20px;
-                background: linear-gradient(258deg, #FFDB7E -2.27%, #FF823D 43.66%, #FD505D 95.18%);
                 overflow: hidden;
-                padding: 40px;
+                min-height: 286px;
+                box-sizing: border-box;
+
+                & > div {
+                    padding: 40px;
+                }
+
+                &.orange {
+                    background: linear-gradient(258deg, #FFDB7E -2.27%, #FF823D 43.66%, #FD505D 95.18%);
+                }
+
+                &.blue {
+                    border: 1px solid rgba(223, 223, 223, 0.00);
+                    background: linear-gradient(262deg, #65FBF2 -3.53%, #448BFF 66.97%, #0851CA 105.41%);
+                }
 
                 h5 {
-                    color: var(--White, #FFF);
+                    color: white;
                     font-family: Roboto;
                     font-size: 20px;
                     font-style: normal;
@@ -132,7 +145,111 @@
 
                 img {
                     margin: 0;
-                    width: 70%;
+                    width: 60%;
+                }
+            }
+
+            .features-3-col {
+                display: flex;
+                gap: 30px;
+
+                & > div {
+                    width: 33%;
+
+                    & > img {
+                        border-radius: 20px;
+                    }
+
+                    .img-text {
+                        margin-top: 30px;
+                        height: 258px;
+                        box-sizing: border-box;
+                        padding: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 20px;
+                        background: linear-gradient(250deg, #6AFFB3 -9.9%, #15ADF7 98.05%), linear-gradient(228deg, #6B52FF -3.52%, #CFA6FF 86.94%);
+
+                        p {
+                            color: rgba(255, 255, 255, 0.60);
+                            font-family: Inter;
+                            font-size: 30px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 40px;
+                            margin: 0;
+                            text-align: center;
+
+                            strong {
+                                color: #FFF;
+                                font-weight: 700;
+                            }
+                        }
+                    }
+
+                    h5 {
+                        color: #011627;
+                        font-family: Roboto;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 25px;
+                        margin: 20px 0 0;
+                    }
+
+                    p {
+                        color: #3C434A;
+                        font-family: Roboto;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 24px;
+                        margin: 10px 0 0;
+                    }
+                }
+            }
+
+            .features-detail {
+                display: flex;
+                border-radius: 20px;
+                overflow: hidden;
+                margin: 30px 0;
+                gap: 70px;
+
+                &.reverse {
+                    flex-direction: row-reverse;
+                }
+
+                & > div {
+                    padding: 50px 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                h5 {
+                    font-family: Roboto;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 25.5px;
+                    margin: 0;    
+                }
+                
+                p {
+                    color: #3C434A;
+                    font-family: Roboto;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 24px;
+                    margin: 12px 0 0;
+                }
+
+                img {
+                    border-radius: 20px;
+                    margin: 0;
+                    width: 50%;
                 }
             }
         }
