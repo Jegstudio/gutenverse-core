@@ -1,5 +1,5 @@
 
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const V200 = () => {
     const { gutenverseAssetURL: assetURL } = window['GutenverseDashboard'];
@@ -61,12 +61,100 @@ const V200 = () => {
                     {__('Unlocking PRO Features!', 'gutenverse')}
                 </h4>
                 <p>{__('Your patience has paid off! We are thrilled to introduce our awaited PRO features, which provides advanced options, blocks, a comprehensive template library, and much more. Let\'s delve into some of the remarkable PRO features.', 'gutenverse')}</p>
-                <div className="detail-adanim">
+                <div className="features-highlight orange">
                     <div>
                         <h5>{__('Advance Animation Effect', 'gutenverse')}</h5>
                         <p>{__('These dynamic elements not only enhance its visual appeal but also provide an engaging way to capture your visitors\' attention. The list of animation effects, including movement, scaling, rotation, skewing, and opacity.', 'gutenverse')}</p>
                     </div>
                     <img src={assetURL + '/img/upgrade-notice-2.0.0-adanim.png'}></img>
+                </div>
+                <div className="features-3-col">
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-background-effect.png'}></img>
+                        <h5>{__('Background Effect', 'gutenverse')}</h5>
+                        <p>{__('Add a glow effect to make your website more eye-catching.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-mouse-effect.png'}></img>
+                        <h5>{__('Mouse Move Effect', 'gutenverse')}</h5>
+                        <p>{__('Make an effect on the pointed object whenever the cursor moves.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-fluid-background.png'}></img>
+                        <h5>{__('Fluid Background', 'gutenverse')}</h5>
+                        <p>{__('Give a hint of uniqueness to your website with fluid background.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-detail">
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-pro-elements.png'}></img>
+                    <div>
+                        <h5>{__('PRO Elements', 'gutenverse')}</h5>
+                        <p>{__('A wide range of elements are provided to empower you to make your website stand out. There are Lottie, Text Marque, Advance Tabs, Advance Button, Mega Menu, Stapper Navigation Button, Image Radio, Payment, and more that you can explore.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-highlight orange">
+                    <div>
+                        <h5>{__('Text Clip', 'gutenverse')}</h5>
+                        <p>{__('Transform your text into a visually appealing element by applying the text clip feature. Add gradients and images directly to your text, allowing for a stunning and dynamic display that gives a unique touch to your design. ', 'gutenverse')}</p>
+                    </div>
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-textclip.png'}></img>
+                </div>
+                <div className="features-3-col">
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-transform.png'}></img>
+                        <h5>{__('Transform', 'gutenverse')}</h5>
+                        <p>{__('Easily rotate, scale, or skew elements on your website as you like.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-custom-font.png'}></img>
+                        <h5>{__('Custom Font', 'gutenverse')}</h5>
+                        <p>{__('Go beyond with custom font to express your unique style.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <div className="img-text">
+                            <p>{__('Highlight important details effortlessly and effectively.', 'gutenverse')}</p>
+                        </div>
+                        <h5>{__('Highlight Text', 'gutenverse')}</h5>
+                        <p>{__('Highlighting text with solid colors, gradients, or fill the background.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-detail reverse">
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-popup.png'}></img>
+                    <div>
+                        <h5>{__('Advanced Pop Up Builder', 'gutenverse')}</h5>
+                        <p>{__('Create attractive and informative popups effortlessly by adjusting triggers, position, and width to suit your design. The powerful and user-friendly feature enhances efficiency, allowing you to decide whether you want your popup displayed across your entire website.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-highlight blue">
+                    <div>
+                        <h5>{__('Advance Template Library', 'gutenverse')}</h5>
+                        <p>{__('Template library is an excellent choice for creating a visually stunning website. There are trendy and high-quality designs that cater to various niches, including agency, writer, creator, and marketer niches. Browse through over a hundred designs to find the ideal design for everyone.', 'gutenverse')}</p>
+                    </div>
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-adanim.png'}></img>
+                </div>
+                <div className="features-3-col">
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-lottie.png'}></img>
+                        <h5>{__('Lottie', 'gutenverse')}</h5>
+                        <p>{__('Add a Lottie file to your website and display it anywhere you want.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-megamenu.png'}></img>
+                        <h5>{__('Mega Menu', 'gutenverse')}</h5>
+                        <p>{__('Display multiple levels of navigation in a drop-down format to navigate.', 'gutenverse')}</p>
+                    </div>
+                    <div>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-marquee.png'}></img>
+                        <h5>{__('Text & Image Marquee', 'gutenverse')}</h5>
+                        <p>{__('Make your website stand out with scrolling text and image marquee.', 'gutenverse')}</p>
+                    </div>
+                </div>
+                <div className="features-detail">
+                    <img src={assetURL + '/img/upgrade-notice-2.0.0-form.png'}></img>
+                    <div>
+                        <h5>{__('Advanced Form', 'gutenverse')}</h5>
+                        <p>{__('Use advance form blocks to gather information from visitors. With this block, you can create contact form, multi step form, conditional form, booking form, newsletter signup and other types of form. You can design the form you want and customize it to perfectly fit your page.', 'gutenverse')}</p>
+                    </div>
                 </div>
                 <h4>
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
