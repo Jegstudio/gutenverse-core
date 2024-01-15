@@ -36,7 +36,7 @@ const PopupPro = ({
                 </div>
                 <div className="content">
                     <h3 className="details">{description}</h3>
-                    <ButtonUpgradePro isBanner={true}/>
+                    <ButtonUpgradePro isBanner={true} customStyles={{height: '16px', padding: '12px 25px 12px 30px'}}/>
                 </div>
             </div>
         </div>

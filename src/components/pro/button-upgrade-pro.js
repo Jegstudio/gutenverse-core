@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -20,7 +20,7 @@ const ButtonUpgradePro = ({
     isBanner = false,
 }) => {
 
-    const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -31,16 +31,29 @@ const ButtonUpgradePro = ({
         },
         isBanner && 'button-upgrade-pro-banner'
     );
-    const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) &&
-        <a
-            href={link ? link : upgradeProUrl}
-            className={buttonClasses}
-            target="_blank"
-            rel="noreferrer"
-            style={customStyles}>
-            {text}
-            <IconCrownBannerSVG/>
-        </a>, {location,isBanner});
+    const TheButton = applyFilters('gutenverse.button.pro.library', () => {
+        if (isEmpty(window?.gprodata)) {
+            return <a
+                href={link ? link : upgradeProUrl}
+                className={buttonClasses}
+                target="_blank"
+                rel="noreferrer"
+                style={customStyles}>
+                {text}
+                <IconCrownBannerSVG/>
+            </a>;
+        } else if (license === ''){
+            return <a
+                href={link ? link : upgradeProUrl}
+                className={buttonClasses}
+                target="_blank"
+                rel="noreferrer"
+                style={customStyles}>
+                {__('Activate License', '--gctd--')}
+                <IconKeySVG/>
+            </a>;
+        }
+    }, {location,isBanner});
     return <TheButton />;
 };
 
