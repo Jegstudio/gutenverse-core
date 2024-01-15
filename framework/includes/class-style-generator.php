@@ -83,8 +83,42 @@ class Style_Generator {
 	 * Embeed Font on Header.
 	 */
 	public function embeed_font_generator() {
+		global $_wp_current_template_id, $post;
+		if ( 0 === count( $this->font_families ) ) {
+			if ( is_page() || is_single() ) {
+				$this->font_families = get_post_meta( $post->ID, 'font-families-post-' . $post->ID, true );
+				if ( ! $this->font_families ) {
+					$this->font_families = array();
+				}
+			} else {
+				$this->font_families = get_option( 'font-families-template-' . $_wp_current_template_id );
+				if ( ! $this->font_families ) {
+					$this->font_families = array();
+				}
+			}
+		} elseif ( is_page() || is_single() ) {
+			update_post_meta( $post->ID, 'font-families-post-' . $post->ID, $this->font_families );
+		} else {
+			update_option( 'font-families-template' . $_wp_current_template_id, $this->font_families );
+		}
+		if ( 0 === count( $this->font_variables ) ) {
+			if ( is_page() || is_single() ) {
+				$this->font_variables = get_post_meta( $post->ID, 'font-variables-post-' . $post->ID, true );
+				if ( ! $this->font_variables ) {
+					$this->font_variables = array();
+				}
+			} else {
+				$this->font_variables = get_option( 'font-variables-template-' . $_wp_current_template_id );
+				if ( ! $this->font_variables ) {
+					$this->font_variables = array();
+				}
+			}
+		} elseif ( is_page() || is_single() ) {
+			update_post_meta( $post->ID, 'font-variables-post-' . $post->ID, $this->font_variables );
+		} else {
+			update_option( 'font-variables-template' . $_wp_current_template_id, $this->font_variables );
+		}
 		$this->load_global_fonts();
-
 		gutenverse_header_font( $this->font_families, $this->font_variables );
 	}
 
@@ -209,8 +243,8 @@ class Style_Generator {
 			}
 
 			if ( ! empty( $_wp_current_template_content ) ) {
-				$blocks = $this->parse_blocks( $_wp_current_template_content );
-				$blocks = $this->flatten_blocks( $blocks );
+				$blocks      = $this->parse_blocks( $_wp_current_template_content );
+				$blocks      = $this->flatten_blocks( $blocks );
 				$is_modified = $this->check_modified( $blocks );
 			}
 			$upload_dir  = wp_upload_dir();
