@@ -606,6 +606,19 @@ abstract class Style_Interface {
 		if ( isset( $this->attrs['cursorEffect'] ) ) {
 			$cursor_efect = $this->attrs['cursorEffect'];
 
+			if ( isset( $cursor_efect['ZIndex'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect",
+						'property'       => function ( $value ) {
+							return "z-index: {$value}";
+						},
+						'value'          => $cursor_efect['ZIndex'],
+						'device_control' => false,
+					)
+				);
+			}
+
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
 					if ( isset( $cursor_efect['textColor'] ) ) {
@@ -773,14 +786,27 @@ abstract class Style_Interface {
 					break;
 
 				case 'image':
-					if ( isset( $cursor_efect['imageSize'] ) ) {
+					if ( isset( $cursor_efect['imageHeight'] ) ) {
 						$this->inject_style(
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return "height: {$value['point']}{$value['unit']};";
 								},
-								'value'          => $cursor_efect['imageSize'],
+								'value'          => $cursor_efect['imageHeight'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['imageWidth'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['imageWidth'],
 								'device_control' => false,
 							)
 						);
@@ -960,11 +986,10 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id} .guten-background-effect";
 			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
 						'property'       => function ( $value ) {
 							if ( $value ) {
 								$overflow = 'hidden';
@@ -973,6 +998,25 @@ abstract class Style_Interface {
 						},
 						'value'          => $background_effect['hiddenOverflow'],
 						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $background_effect['boxShadow'] ) ) {
+				$box_shadow = $background_effect['boxShadow'];
+				if ( '' === $box_shadow['color'] ) {
+					$box_shadow['color'] = array(
+						'type' => 'variable',
+						'id'   => 'primary',
+					);
+				}
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector . "> .inner-background-container .{$this->element_id}-effect" : ".{$this->element_id}> .guten-background-effect> .inner-background-container .{$this->element_id}-effect",
+						'property'       => function ( $value ) {
+							return $this->handle_box_shadow( $value );
+						},
+						'value'          => $box_shadow,
+						'device_control' => false,
 					)
 				);
 			}

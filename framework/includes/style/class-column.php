@@ -34,19 +34,20 @@ class Column extends Style_Abstract {
 
 		$this->set_feature(
 			array(
-				'background'    => array(
+				'background'        => array(
 					'normal' => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer, .{$this->element_id}:not(.background-animated) > .guten-column-wrapper, .{$this->element_id}.background-animated > .guten-column-wrapper > .guten-background-animated .animated-layer",
 					'hover'  => ".{$this->element_id}:not(.background-animated) > .sticky-wrapper > .guten-column-wrapper:hover, .{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer, .{$this->element_id}:not(.background-animated) > .guten-column-wrapper:hover, .{$this->element_id}.background-animated > .guten-column-wrapper:hover > .guten-background-animated .animated-layer",
 				),
-				'border'        => array(
+				'border'            => array(
 					'normal' => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id} > .guten-column-wrapper",
 					'hover'  => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover, .{$this->element_id} > .guten-column-wrapper:hover",
 				),
-				'animation'     => ".{$this->element_id}",
-				'advance'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id} > .guten-column-wrapper",
-				'mask'          => null,
-				'pointer'       => null,
-				'cursor-effect' => null,
+				'animation'         => ".{$this->element_id}",
+				'advance'           => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id} > .guten-column-wrapper",
+				'mask'              => null,
+				'pointer'           => null,
+				'cursor-effect'     => null,
+				'background-effect' => ".{$this->element_id}> .guten-column-wrapper> .guten-background-effect",
 			)
 		);
 	}
