@@ -191,6 +191,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    img{
+        height: auto;
+        max-width: 100%;
+    }
 }
 .guten-pro-themes-wrapper{
     .guten-pro-themes-full{
