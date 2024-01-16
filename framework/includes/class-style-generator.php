@@ -212,6 +212,8 @@ class Style_Generator {
 		if ( $_wp_current_template_id ) {
 			$style                = null;
 			$template             = explode( '//', $_wp_current_template_id );
+			$upload_dir           = wp_upload_dir();
+			$upload_path          = $upload_dir['basedir'];
 			$updated_on           = false;
 			$is_modified_template = false;
 			$is_modified          = false;
@@ -224,45 +226,61 @@ class Style_Generator {
 					'name'      => $template[1],
 				)
 			);
-			foreach ( $query->posts as $post ) {
-				$terms                 = get_the_terms( $post->ID, 'wp_theme' );
-				$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
-				foreach ( $terms as $term ) {
-					// Note: for designer server. Need to find the problem with the designer server.
-					$current_slug = implode( '-', explode( '/', $template['0'] ) );
-					// End of designer server problem.
-					if ( $term->slug === $current_slug ) {
-						if ( $template_updated_time !== $updated_on ) {
-							$updated_on           = $post->post_modified;
-							$is_modified_template = true;
-							update_post_meta( $post->ID, 'template_modified_time', $updated_on );
-							break;
-						}
-					}
-				}
-				if ( $updated_on ) {
-					break;
-				}
-			}
-
 			if ( ! empty( $_wp_current_template_content ) ) {
 				$blocks      = $this->parse_blocks( $_wp_current_template_content );
 				$blocks      = $this->flatten_blocks( $blocks );
 				$is_modified = $this->check_modified( $blocks );
 			}
-			$upload_dir  = wp_upload_dir();
-			$upload_path = $upload_dir['basedir'];
-			$local_file  = $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css';
-			if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
-				if ( $blocks ) {
-					$this->loop_blocks( $blocks, $style );
+
+			if ( 0 !== count( $query->posts ) ) {
+				foreach ( $query->posts as $post ) {
+					$terms                 = get_the_terms( $post->ID, 'wp_theme' );
+					$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
+					foreach ( $terms as $term ) {
+						// Note: for designer server. Need to find the problem with the designer server
+						$current_slug = implode( '-', explode( '/', $template['0'] ) );
+						// End of designer server problem
+						if ( $term->slug === $current_slug ) {
+							if ( $template_updated_time !== $updated_on ) {
+								$updated_on           = $post->post_modified;
+								$is_modified_template = true;
+								update_post_meta( $post->ID, 'template_modified_time', $updated_on );
+								break;
+							}
+						}
+					}
+					if ( $updated_on ) {
+						break;
+					}
 				}
-				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
+				$local_file = $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css';
+				if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
+					if ( $blocks ) {
+						$this->loop_blocks( $blocks, $style );
+					}
+					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+						gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
+					}
 				}
-			}
-			if ( file_exists( $local_file ) ) {
-				gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
+				if ( file_exists( $local_file ) ) {
+					gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
+				}
+			} else {
+				$local_file = $upload_path . '/gutenverse/css/gutenverse-default-template-generator-' . $template[1] . '.css';
+				if ( file_exists( $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css' ) ) {
+					wp_delete_file( $local_file );
+				}
+				if ( ! file_exists( $local_file ) ) {
+					if ( $blocks ) {
+						$this->loop_blocks( $blocks, $style );
+					}
+					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+						gutenverse_core_make_css_style( 'gutenverse-default-template-generator-' . $template[1], $style );
+					}
+				}
+				if ( file_exists( $local_file ) ) {
+					gutenverse_core_inject_css_file_to_header( 'gutenverse-default-template-generator-' . $template[1] );
+				}
 			}
 		}
 	}
