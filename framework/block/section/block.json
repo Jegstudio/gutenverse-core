@@ -119,6 +119,10 @@
       "default": "none",
       "copyStyle": true
     },
+    "clipMargin": {
+      "type": "object",
+      "copyStyle": true 
+    },
     "childTotal": {
       "type": "int"
     },

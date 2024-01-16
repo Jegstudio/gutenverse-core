@@ -232,6 +232,10 @@ section.guten-section {
     overflow: hidden;
   }
 
+  &.overflow-clip {
+    overflow: clip;
+  }
+
   @media (min-width: 781px) {
     &.guten-section-height-full {
       height: 100vh;
