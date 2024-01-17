@@ -51,7 +51,6 @@
             .top-content {
                 display: flex;
                 align-items: center;
-                gap: 12px;
                 border-radius: 15px;
                 background: #F2F2F2;
                 padding: 18px;
@@ -61,16 +60,31 @@
                     background: linear-gradient(34deg, #F045FF 1%, #4569FF 63.85%, #68E4F4 128.88%);
                     color: white;
                     padding: 5px 10px;
+                    font-family: Roboto;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: 140%;
+                }
+
+                h5 {
+                    color: #011627;
+                    font-family: Roboto;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 140%;
+                    margin: 0 0 0 12px;
                 }
 
                 p {
-                    margin: 0;
                     color: #3C434A;
                     font-family: Roboto;
                     font-size: 16px;
                     font-style: normal;
                     font-weight: 400;
                     line-height: 29px;
+                    margin: 0 0 0 15px;
                 }
             }
 
