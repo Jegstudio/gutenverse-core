@@ -1,5 +1,5 @@
 
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 
 const V200 = () => {
     const { gutenverseAssetURL: assetURL } = window['GutenverseDashboard'];
@@ -9,7 +9,7 @@ const V200 = () => {
             <div className="inner-content">
                 <div className="top-content">
                     <div className="badge">{__('New', 'gutenverse')}</div>
-                    <p><strong>{__('What\'s New?', 'gutenverse')}</strong></p>
+                    <h5><strong>{__('What\'s New?', 'gutenverse')}</strong></h5>
                     <p>{__('This is a big update, focusing on performance, ecosystem, and adding more premium features.', 'gutenverse')}</p>
                 </div>
                 <h4>
