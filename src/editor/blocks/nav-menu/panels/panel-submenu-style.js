@@ -113,7 +113,7 @@ export const SubmenuItemStyle = (props) => {
         },
         {
             id: 'submenuSpacing',
-            label: __('Submenu Spacing', 'gutenverse'),
+            label: __('Submenu Padding', 'gutenverse'),
             component: DimensionControl,
             allowDeviceControl: true,
             position: ['top', 'right', 'bottom', 'left'],
@@ -131,6 +131,29 @@ export const SubmenuItemStyle = (props) => {
                 {
                     selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
                     render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'submenuMargin',
+            label: __('Submenu Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a`,
+                    render: value => handleDimension(value, 'margin')
                 }
             ]
         },
