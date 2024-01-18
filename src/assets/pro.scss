@@ -56,11 +56,21 @@
 }
 
 .button-upgrade-pro-banner {
-    background: rgba(255, 255, 255, 0.20);
+    display: flex;
+    transition: all .5s ease;
+    padding: 8px 15px 8px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border-radius: 5px;
+    background: linear-gradient(92deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%), rgba(255, 255, 255, 0.20);
 }
 
 .button-upgrade-pro-banner:hover {
-    background: rgba(255, 255, 255, 0.40);
+    transform: scale(0.94);
+    svg {
+        opacity: 0.75;
+    }
 }
 
 
@@ -68,39 +78,47 @@
     border-radius: 5px;
     padding: 32px;
     position: relative;
-    background: linear-gradient(180deg, #7A7DFF -16.83%, #696CE4 26.77%, #4E52D1 66.05%, #3D40BE 114.42%);
+    // background: linear-gradient(180deg, #7A7DFF -16.83%, #696CE4 26.77%, #4E52D1 66.05%, #3D40BE 114.42%);
     ;
 
     .title {
-        font-family: Poppins;
-        font-size: 28px;
+        font-family: Roboto;
+        font-size: 32px;
         font-weight: 500;
-        line-height: 32px;
+        line-height: 36px;
         margin: 0px auto;
-        color: white;
+        color: rgb(0, 0, 0);
         padding: 0;
         width: 50%;
         z-index: 1;
         position: relative;
         text-align: center;
+        letter-spacing: -0.32px;
 
+        span {
+            background: linear-gradient(92deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%), rgba(255, 255, 255, 0.20);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     }
 
     .subtitle {
-        color: #FFD232;
+        color: rgba(1, 22, 39, 0.50);
         font-size: 14px;
         font-family: "Roboto", sans-serif;
         font-style: normal;
         font-weight: 400;
-        margin-bottom: 5px;
+        margin-bottom: 8px;
         text-align: center;
         padding: 0;
         z-index: 1;
         position: relative;
     }
 
-    .banner-image {
+    .banner-image-background {
         position: absolute;
+        border-radius: inherit;
         right: 0;
         top: 0;
         height: 100%;
@@ -108,10 +126,79 @@
         object-fit: cover;
     }
 
+    .banner-image-left {
+        position: absolute;
+        border-radius: inherit;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+    }
+
+    .banner-image-right {
+        position: absolute;
+        border-radius: inherit;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: auto;
+        object-fit: cover;
+    }
+
+    .banner-image-arrow {
+        position: absolute;
+        border-radius: inherit;
+        right: 37.5%;
+        top: 53%;
+        width: 57px;
+        height: 57px;
+        flex-shrink: 0;
+    }
+
+    .banner-image-blink {
+        position: absolute;
+        border-radius: inherit;
+        right: 32.3%;
+        top: 17%;
+        height: 15px;
+        width: 15px;
+    }
+
+    .banner-image-arrow.themeList {
+        right: 37.5%;
+        top: 53%;
+    }
+
+    .banner-image-blink.themeList {
+        right: 32.3%;
+        top: 17%;
+    }
+
+    .banner-image-arrow.ecosystem {
+        right: 37.5%;
+        top: 53%;
+    }
+
+    .banner-image-blink.ecosystem {
+        right: 26.3%;
+        top: 14.5%;
+    }
+
+    .banner-image-arrow.library {
+        right: 38%;
+        top: 59%;
+    }
+
+    .banner-image-blink.library {
+        right: 30.6%;
+        top: 23.8%;
+    }
+
     .buttons {
         display: flex;
         gap: 8px;
-        padding-top: 10px;
+        padding-top: 20px;
         margin: 0px auto;
         z-index: 1;
         position: relative;

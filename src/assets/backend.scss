@@ -302,7 +302,7 @@
             flex-wrap: wrap;
             height: auto;
             justify-content: center;
-            padding: 46px 50px 36px;
+            padding: 41px 50px 44px;
             position: absolute;
             width: 460px;
             transform: translate(-50%, -50%);
@@ -312,14 +312,67 @@
             .close {
                 cursor: pointer;
                 position: absolute;
-                top: 16px;
-                right: 16px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                top: 13px;
+                right: 13px;
+                width: 15px;
+                height: 15px;
+                color: rgba(255, 255, 255, 0.70);;
             }
 
-            .grid {
+            .popup-image-background {
                 position: absolute;
-                bottom: 0;
+                border-radius: inherit;
                 left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .popup-image-cube{
+                position: absolute;
+                height: auto;
+                left: 226px;
+                top: -2px;
+                width: 220px;
+            }
+
+            .popup-image-element1{
+                position: absolute;
+                width: 45px;
+                height: 45px;
+                top: 12px;
+                left: 42px;
+            }
+
+            .popup-image-element2{
+                height: 45px;
+                position: absolute;
+                right: 55px;
+                top: 42.5px;
+                width: 45px;
+            }
+
+            .popup-image-element3{
+                height: 50px;
+                position: absolute;
+                left: 48px;
+                top: 132.5px;
+                width: 50px;
+            }
+
+            .popup-image-mockup{
+                width: 70%;
+                margin-bottom: 29px;
+                padding-right: 23px;
+                z-index: 0;
+            }
+
+            .popup-image-arrow {
+                display: none;
             }
 
             .content {
@@ -329,19 +382,22 @@
                 justify-content: center;
             }
 
-            .graphic {
-                height: 180px;
-            }
-
             .details {
                 color: #011627;
                 text-align: center;
-                font-family: "Roboto", sans-serif;
+                font-family: Roboto;
                 font-size: 22px;
                 font-style: normal;
-                font-weight: 500;
-                line-height: 28.6px;
+                font-weight: 600;
+                line-height: 130%;
                 margin: 0 auto 20px;
+
+                span {
+                    background: linear-gradient(92deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%), rgba(255, 255, 255, 0.20);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -20,7 +20,7 @@ const ButtonUpgradePro = ({
     isBanner = false,
 }) => {
 
-    const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -31,15 +31,38 @@ const ButtonUpgradePro = ({
         },
         isBanner && 'button-upgrade-pro-banner'
     );
-    const TheButton = applyFilters('gutenverse.button.pro.library', () => isEmpty(window?.gprodata) &&
-        <a
-            href={link ? link : upgradeProUrl}
-            className={buttonClasses}
-            target="_blank"
-            rel="noreferrer"
-            style={customStyles}>
-            {text}
-        </a>, {location,isBanner});
+
+    const button = <a
+        href={link ? link : upgradeProUrl}
+        className={buttonClasses}
+        target="_blank"
+        rel="noreferrer"
+        style={customStyles}>
+        {__('Activate License', '--gctd--')}
+        <IconKeySVG/>
+    </a>;
+
+    const TheButton = applyFilters('gutenverse.button.pro.library', () => {
+        if (isEmpty(window?.gprodata)) {
+            return <a
+                href={link ? link : upgradeProUrl}
+                className={buttonClasses}
+                target="_blank"
+                rel="noreferrer"
+                style={customStyles}>
+                {text}
+                <IconCrownBannerSVG/>
+            </a>;
+        } else if (license === ''){
+            if ( location !== 'dashboard-navigation' ) return button;
+        } else {
+            if ( location !== 'dashboard-navigation' ){
+                return applyFilters('gutenverse.button.pro.banner',
+                    button,
+                    isBanner);
+            }
+        }
+    }, {location,isBanner});
     return <TheButton />;
 };
 
