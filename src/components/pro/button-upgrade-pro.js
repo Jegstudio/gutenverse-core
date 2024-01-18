@@ -31,6 +31,17 @@ const ButtonUpgradePro = ({
         },
         isBanner && 'button-upgrade-pro-banner'
     );
+
+    const button = <a
+        href={link ? link : upgradeProUrl}
+        className={buttonClasses}
+        target="_blank"
+        rel="noreferrer"
+        style={customStyles}>
+        {__('Activate License', '--gctd--')}
+        <IconKeySVG/>
+    </a>;
+
     const TheButton = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
             return <a
@@ -43,15 +54,13 @@ const ButtonUpgradePro = ({
                 <IconCrownBannerSVG/>
             </a>;
         } else if (license === ''){
-            return <a
-                href={link ? link : upgradeProUrl}
-                className={buttonClasses}
-                target="_blank"
-                rel="noreferrer"
-                style={customStyles}>
-                {__('Activate License', '--gctd--')}
-                <IconKeySVG/>
-            </a>;
+            if ( location !== 'dashboard-navigation' ) return button;
+        } else {
+            if ( location !== 'dashboard-navigation' ){
+                return applyFilters('gutenverse.button.pro.banner',
+                    button,
+                    isBanner);
+            }
         }
     }, {location,isBanner});
     return <TheButton />;
