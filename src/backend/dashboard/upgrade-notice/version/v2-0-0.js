@@ -61,10 +61,13 @@ const V200 = () => {
                     {__('Unlocking PRO Features!', 'gutenverse')}
                 </h4>
                 <p>{__('Your patience has paid off! We are thrilled to introduce our awaited PRO features, which provides advanced options, blocks, a comprehensive template library, and much more. Let\'s delve into some of the remarkable PRO features.', 'gutenverse')}</p>
-                <div className="features-highlight orange">
+                <div className="features-highlight orange feature-1">
                     <div>
                         <h5>{__('Advance Animation Effect', 'gutenverse')}</h5>
-                        <p>{__('These dynamic elements not only enhance its visual appeal but also provide an engaging way to capture your visitors\' attention. The list of animation effects, including movement, scaling, rotation, skewing, and opacity.', 'gutenverse')}</p>
+                        <p>
+                            {__('These dynamic elements not only enhance its visual appeal but also provide an engaging way to capture your visitors\' attention. The list of animation effects, including ', 'gutenverse')}
+                            <strong>{__('movement, scaling, rotation, skewing, and opacity.', 'gutenverse')}</strong>
+                        </p>
                     </div>
                     <img src={assetURL + '/img/upgrade-notice-2.0.0-adanim.png'}></img>
                 </div>
@@ -92,10 +95,14 @@ const V200 = () => {
                         <p>{__('A wide range of elements are provided to empower you to make your website stand out. There are Lottie, Text Marque, Advance Tabs, Advance Button, Mega Menu, Stapper Navigation Button, Image Radio, Payment, and more that you can explore.', 'gutenverse')}</p>
                     </div>
                 </div>
-                <div className="features-highlight orange">
+                <div className="features-highlight orange feature-2">
                     <div>
                         <h5>{__('Text Clip', 'gutenverse')}</h5>
-                        <p>{__('Transform your text into a visually appealing element by applying the text clip feature. Add gradients and images directly to your text, allowing for a stunning and dynamic display that gives a unique touch to your design. ', 'gutenverse')}</p>
+                        <p>
+                            {__('Transform your text into a visually appealing element by applying the text clip feature.  ', 'gutenverse')}
+                            <strong>{__('Add gradients and images  ', 'gutenverse')}</strong>
+                            {__('directly to your text, allowing for a stunning and dynamic display that gives a unique touch to your design. ', 'gutenverse')}
+                        </p>
                     </div>
                     <img src={assetURL + '/img/upgrade-notice-2.0.0-textclip.png'}></img>
                 </div>
@@ -125,10 +132,14 @@ const V200 = () => {
                         <p>{__('Create attractive and informative popups effortlessly by adjusting triggers, position, and width to suit your design. The powerful and user-friendly feature enhances efficiency, allowing you to decide whether you want your popup displayed across your entire website.', 'gutenverse')}</p>
                     </div>
                 </div>
-                <div className="features-highlight blue">
+                <div className="features-highlight blue feature-3">
                     <div>
                         <h5>{__('Advance Template Library', 'gutenverse')}</h5>
-                        <p>{__('Template library is an excellent choice for creating a visually stunning website. There are trendy and high-quality designs that cater to various niches, including agency, writer, creator, and marketer niches. Browse through over a hundred designs to find the ideal design for everyone.', 'gutenverse')}</p>
+                        <p>
+                            {__('Template library is an excellent choice for creating a visually stunning website. There are ', 'gutenverse')}
+                            <strong>{__('trendy and high-quality designs ', 'gutenverse')}</strong>
+                            {__('that cater to various niches, including agency, writer, creator, and marketer niches. Browse through over a hundred designs to find the ideal design for everyone.', 'gutenverse')}
+                        </p>
                     </div>
                     <img className="library" src={assetURL + '/img/upgrade-notice-2.0.0-library.png'}></img>
                 </div>
@@ -157,10 +168,14 @@ const V200 = () => {
                     </div>
                 </div>
 
-                <div className="features-highlight green">
+                <div className="features-highlight green feature-4">
                     <div>
                         <h5>{__('Cursor Effect', 'gutenverse')}</h5>
-                        <p>{__('Create a more dynamic and interactive experience for your visitors by using a cursor effect. Customize it with any style, text, or image. Without a single line of coding, simply adjust the cursor as needed.', 'gutenverse')}</p>
+                        <p>
+                            {__('Create a more dynamic and ', 'gutenverse')}
+                            <strong>{__('interactive experience ', 'gutenverse')}</strong>
+                            {__('for your visitors by using a cursor effect. Customize it with any style, text, or image. Without a single line of coding, simply adjust the cursor as needed.', 'gutenverse')}
+                        </p>
                     </div>
                     <img className="library" src={assetURL + '/img/upgrade-notice-2.0.0-cursor-effect.png'}></img>
                 </div>
