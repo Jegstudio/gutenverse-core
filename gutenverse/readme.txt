@@ -187,7 +187,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
-= 2.0.0 - 2023-xx-xx =
+= 2.0.0 - 2024-03-10 =
 ##### New
 * **Archive Title Block**, Add new block
 * **Copy Style**, Add new ability to copy styles between blocks

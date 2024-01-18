@@ -510,6 +510,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": false
+		},
 		"paginationPadding": {
 			"type": "object",
 			"copyStyle": true
