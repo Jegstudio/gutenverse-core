@@ -3,6 +3,7 @@ import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { Link } from 'gutenverse-core/router';
 
 /**
  * Styling can be imported from the scss file in 'gutenverse-core/src/assets/pro.scss'.
@@ -31,34 +32,62 @@ const ButtonUpgradePro = ({
         },
         isBanner && 'button-upgrade-pro-banner'
     );
+    const {
+        homeSlug,
+    } = window['GutenverseDashboard'];
 
-    const button = <a
-        href={link ? link : upgradeProUrl}
-        className={buttonClasses}
-        target="_blank"
-        rel="noreferrer"
-        style={customStyles}>
-        {__('Activate License', '--gctd--')}
-        <IconKeySVG/>
-    </a>;
-
-    const TheButton = applyFilters('gutenverse.button.pro.library', () => {
-        if (isEmpty(window?.gprodata)) {
-            return <a
+    const button = (text, icon, navigation, noPro) => {
+        return noPro ?
+            (<a
                 href={link ? link : upgradeProUrl}
                 className={buttonClasses}
                 target="_blank"
                 rel="noreferrer"
                 style={customStyles}>
-                {text}
-                <IconCrownBannerSVG/>
-            </a>;
+                {navigation ? <>
+                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    {text}
+                </> :
+                    <>
+                        {text}
+                        {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    </>}
+            </a>) :
+            (<Link
+                index = "license"
+                to = {{
+                    pathname: '/wp-admin/admin.php',
+                    search: `?page=${homeSlug}&path=license`,
+                }}
+                className={buttonClasses}
+                style={customStyles}
+            >
+                {navigation ? <>
+                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    {text}
+                </> :
+                    <>
+                        {text}
+                        {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    </>}
+            </Link>);
+    };
+
+    const TheButton = applyFilters('gutenverse.button.pro.library', () => {
+        if (isEmpty(window?.gprodata)) {
+            if ( location !== 'dashboard-navigation' ){
+                return button(text, 'crown', false, true);
+            } else return button(text, 'crown', true, true);
         } else if (license === ''){
-            if ( location !== 'dashboard-navigation' ) return button;
+            if ( location !== 'dashboard-navigation' ){
+                return applyFilters('gutenverse.button.pro.banner',
+                    button(__('Activate License', '--gctd--'), 'key', false, false),
+                    isBanner);
+            }
         } else {
             if ( location !== 'dashboard-navigation' ){
                 return applyFilters('gutenverse.button.pro.banner',
-                    button,
+                    button(__('Reactivate License', '--gctd--'), 'key', false, false),
                     isBanner);
             }
         }
