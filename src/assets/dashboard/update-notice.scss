@@ -46,7 +46,7 @@
 
     .gutenverse-200 {
         .inner-content {
-            padding: 30px;
+            padding: 0 30px;
 
             .top-content {
                 display: flex;
@@ -54,6 +54,7 @@
                 border-radius: 15px;
                 background: #F2F2F2;
                 padding: 18px;
+                margin-top: 35px;
 
                 .badge {
                     border-radius: 6px;
@@ -99,6 +100,7 @@
                 gap: 15px;
                 line-height: 25.5px;
                 text-transform: capitalize;
+                margin: 60px 0 0 0;
             }
 
             p {
@@ -108,6 +110,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: 30px;
+                margin: 16px 0 0 0;
             }
 
             .detail-ecosystem {
@@ -115,6 +118,7 @@
                 border-radius: 20px;
                 background: linear-gradient(262deg, #65FBF2 -3.53%, #448BFF 66.97%, #0851CA 105.41%);
                 overflow: hidden;
+                margin: 30px 0 0 0;
             }
 
             .features-highlight {
@@ -123,6 +127,7 @@
                 overflow: hidden;
                 min-height: 286px;
                 box-sizing: border-box;
+                margin: 30px 0 0 0;
 
                 & > div {
                     padding: 40px;
@@ -158,6 +163,10 @@
                     font-weight: 400;
                     line-height: 24px;
                     margin: 12px 0 0;
+
+                    strong {
+                        color: white;
+                    }
                 }
 
                 img {
@@ -167,6 +176,30 @@
 
                     &.library {
                          width: 50%;
+                    }
+                }
+
+                &.feature-1 {
+                    img {
+                        width: 66%;
+                    }
+                }
+
+                &.feature-2 {
+                    img {
+                        width: 62%;
+                    }
+                }
+
+                &.feature-3 {
+                    img {
+                        width: 55%;
+                    }
+                }
+
+                &.feature-4 {
+                    img {
+                        width: 65%;
                     }
                 }
             }
