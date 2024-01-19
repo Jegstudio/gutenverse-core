@@ -138,7 +138,6 @@ class Init {
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
 		add_action( 'activated_plugin', array( $this, 'redirect_to_dashboard' ), 99 );
 		add_action( 'customize_register', '__return_true' );
-		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
 
 		// filters.
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
@@ -384,49 +383,5 @@ class Init {
 		</div>
 		<?php
 	}
-	/**
-	 * Delete Generated CSS when Switching Theme
-	 */
-	public function delete_generated_css_when_switching_theme() {
-		global $wp_filesystem;
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['basedir'];
-		$path        = $upload_path . '/gutenverse/css';
-		$this->delete_all_files_in_directory( $path );
-	}
-	/**
-	 * Delete All Files in Directory
-	 *
-	 * @param string $dir directory path.
-	 */
-	public function delete_all_files_in_directory( $dir ) {
-		// Check if the directory exists and is a directory.
-		if ( ! is_dir( $dir ) ) {
-			return false;
-		}
-
-		// Open the directory.
-		$handle = opendir( $dir );
-		// Loop through the directory entries.
-		while ( false !== ( $entry = readdir( $handle ) ) ) {
-			// Skip the special entries '.' and '..'.
-			if ( '.' === $entry || '..' === $entry ) {
-				continue;
-			}
-
-			// Construct the file path.
-			$file_path = $dir . DIRECTORY_SEPARATOR . $entry;
-
-			// Check if the entry is a file and not a directory.
-			if ( is_file( $file_path ) ) {
-				// Delete the file.
-				unlink( $file_path );
-			}
-		}
-
-		// Close the directory handle.
-		closedir( $handle );
-	}
+	
 }

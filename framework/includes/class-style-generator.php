@@ -44,6 +44,7 @@ class Style_Generator {
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 9999 );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
+		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
 	}
 
 	/**
@@ -544,5 +545,50 @@ class Style_Generator {
 		global $wp_version;
 
 		return ( version_compare( $wp_version, '5', '>=' ) ) ? parse_blocks( $content ) : parse_blocks( $content );
+	}
+	/**
+	 * Delete Generated CSS when Switching Theme
+	 */
+	public function delete_generated_css_when_switching_theme() {
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$path        = $upload_path . '/gutenverse/css';
+		$this->delete_all_files_in_directory( $path );
+	}
+	/**
+	 * Delete All Files in Directory
+	 *
+	 * @param string $dir directory path.
+	 */
+	public function delete_all_files_in_directory( $dir ) {
+		// Check if the directory exists and is a directory.
+		if ( ! is_dir( $dir ) ) {
+			return false;
+		}
+
+		// Open the directory.
+		$handle = opendir( $dir );
+		// Loop through the directory entries.
+		while ( false !== ( $entry = readdir( $handle ) ) ) {
+			// Skip the special entries '.' and '..'.
+			if ( '.' === $entry || '..' === $entry ) {
+				continue;
+			}
+
+			// Construct the file path.
+			$file_path = $dir . DIRECTORY_SEPARATOR . $entry;
+
+			// Check if the entry is a file and not a directory.
+			if ( is_file( $file_path ) ) {
+				// Delete the file.
+				unlink( $file_path );
+			}
+		}
+
+		// Close the directory handle.
+		closedir( $handle );
 	}
 }
