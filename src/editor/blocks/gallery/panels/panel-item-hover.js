@@ -27,7 +27,7 @@ export const itemHoverPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter1',
             component: HeadingControl,
         },
         {
@@ -129,7 +129,7 @@ export const itemHoverPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuTitleSplitter',
             component: HeadingControl,
             label: __('Title Typography')
         },
@@ -168,7 +168,7 @@ export const itemHoverPanel = (props) => {
             ],
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuContentSplitter',
             component: HeadingControl,
             label: __('Content Typography')
         },

@@ -13,7 +13,7 @@ export const filterSearchPanel = (props) => {
 
     return [
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter1',
             first: true,
             component: HeadingControl,
             label: __('Control Tab')
@@ -255,7 +255,7 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter2',
             component: HeadingControl,
             label: __('Form')
         },
@@ -354,7 +354,7 @@ export const filterSearchPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter3',
             component: HeadingControl,
             label: __('Dropdown')
         },
