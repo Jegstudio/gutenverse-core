@@ -10,7 +10,7 @@ const LockedBackgroundEffectControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Background Effects', '--gctd--' )}
             description={__( 'Add fancy background effect to your element', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/background-effect.mp4'}
             isOpen={isOpen}
         />
     </div>;

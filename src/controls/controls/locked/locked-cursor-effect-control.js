@@ -10,7 +10,7 @@ const LockedCursorEffectControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Cursor Effects', '--gctd--' )}
             description={__( 'Add fancy cursor effect to your element', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/cursor-effect.mp4'}
             isOpen={isOpen}
         />
     </div>;
