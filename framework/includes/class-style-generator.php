@@ -316,7 +316,7 @@ class Style_Generator {
 				$blocks      = $this->parse_blocks( $post->post_content );
 				$blocks      = $this->flatten_blocks( $blocks );
 				$is_modified = $this->check_modified( $blocks );
-				$local_file  = gutenverse_core_css_path( 'gutenverse-content-generator-' . $post->ID . '.css' );
+				$local_file  = gutenverse_css_path( 'gutenverse-content-generator-' . $post->ID . '.css' );
 				if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
 					$this->loop_blocks( $blocks, $style );
 					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
@@ -564,7 +564,7 @@ class Style_Generator {
 		global $wp_filesystem;
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
-		$path = gutenverse_core_css_path();
+		$path = gutenverse_css_path();
 		$this->delete_all_files_in_directory( $path );
 	}
 	/**
