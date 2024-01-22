@@ -417,6 +417,48 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_css_path' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_css_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/css';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
+if ( ! function_exists( 'gutenverse_css_url' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_css_url( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['baseurl'];
+		$custom_dir  = $upload_path . '/gutenverse/css';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
 if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 	/**
 	 * Print Header Style
@@ -430,13 +472,11 @@ if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 		global $wp_filesystem;
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['basedir'];
-		$custom_dir  = $upload_path . '/gutenverse/css';
+		$custom_dir = gutenverse_css_path();
 		if ( ! $wp_filesystem->is_dir( $custom_dir ) ) {
 			wp_mkdir_p( $custom_dir );
 		}
-		$local_file = $custom_dir . '/' . $name . '.css';
+		$local_file = gutenverse_css_path( $name . '.css' );
 		if ( $wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE ) ) {
 			error_log( 'File created successfully.' );
 		} else {
@@ -453,10 +493,8 @@ if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
 	 * @param string $name Name of style.
 	 */
 	function gutenverse_core_inject_css_file_to_header( $name ) {
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['baseurl'];
-		$file_url    = $upload_path . '/gutenverse/css/' . $name . '.css';
-		$time_stamp  = gmdate( 'Y.m.d.h.i.s' );
+		$file_url   = gutenverse_css_url( $name . '.css' );
+		$time_stamp = gmdate( 'Ymdhis' );
 		wp_enqueue_style(
 			$name . '-css-file',
 			$file_url,

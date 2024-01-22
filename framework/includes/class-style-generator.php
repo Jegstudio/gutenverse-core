@@ -81,9 +81,9 @@ class Style_Generator {
 	}
 
 	/**
-	 * Embeed Font on Header.
+	 * Popuplate Font Families.
 	 */
-	public function embeed_font_generator() {
+	public function populate_font_families() {
 		global $_wp_current_template_id, $post;
 		if ( 0 === count( $this->font_families ) ) {
 			if ( is_page() || is_single() ) {
@@ -102,6 +102,13 @@ class Style_Generator {
 		} else {
 			update_option( 'font-families-template' . $_wp_current_template_id, $this->font_families );
 		}
+	}
+
+	/**
+	 * Popuplate Font Families.
+	 */
+	public function populate_font_variable() {
+		global $_wp_current_template_id, $post;
 		if ( 0 === count( $this->font_variables ) ) {
 			if ( is_page() || is_single() ) {
 				$this->font_variables = get_post_meta( $post->ID, 'font-variables-post-' . $post->ID, true );
@@ -119,6 +126,14 @@ class Style_Generator {
 		} else {
 			update_option( 'font-variables-template' . $_wp_current_template_id, $this->font_variables );
 		}
+	}
+
+	/**
+	 * Embeed Font on Header.
+	 */
+	public function embeed_font_generator() {
+		$this->populate_font_families();
+		$this->populate_font_variable();
 		$this->load_global_fonts();
 		gutenverse_header_font( $this->font_families, $this->font_variables );
 	}
@@ -213,8 +228,6 @@ class Style_Generator {
 		if ( $_wp_current_template_id ) {
 			$style                = null;
 			$template             = explode( '//', $_wp_current_template_id );
-			$upload_dir           = wp_upload_dir();
-			$upload_path          = $upload_dir['basedir'];
 			$updated_on           = false;
 			$is_modified_template = false;
 			$is_modified          = false;
@@ -242,7 +255,7 @@ class Style_Generator {
 						$current_slug = implode( '-', explode( '/', $template['0'] ) );
 						// End of designer server problem
 						if ( $term->slug === $current_slug ) {
-							$updated_on           = $post->post_modified;
+							$updated_on = $post->post_modified;
 							if ( $template_updated_time !== $updated_on ) {
 								$is_modified_template = true;
 								update_post_meta( $post->ID, 'template_modified_time', $updated_on );
@@ -254,7 +267,7 @@ class Style_Generator {
 						break;
 					}
 				}
-				$local_file = $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css';
+				$local_file = gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' );
 				if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
 					if ( $blocks ) {
 						$this->loop_blocks( $blocks, $style );
@@ -267,8 +280,8 @@ class Style_Generator {
 					gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
 				}
 			} else {
-				$local_file = $upload_path . '/gutenverse/css/gutenverse-default-template-generator-' . $template[1] . '.css';
-				if ( file_exists( $upload_path . '/gutenverse/css/gutenverse-template-generator-' . $template[1] . '.css' ) ) {
+				$local_file = gutenverse_css_path( 'gutenverse-default-template-generator-' . $template[1] . '.css' );
+				if ( file_exists( gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' ) ) ) {
 					wp_delete_file( $local_file );
 				}
 				if ( ! file_exists( $local_file ) ) {
@@ -303,9 +316,7 @@ class Style_Generator {
 				$blocks      = $this->parse_blocks( $post->post_content );
 				$blocks      = $this->flatten_blocks( $blocks );
 				$is_modified = $this->check_modified( $blocks );
-				$upload_dir  = wp_upload_dir();
-				$upload_path = $upload_dir['basedir'];
-				$local_file  = $upload_path . '/gutenverse/css/gutenverse-content-generator-' . $post->ID . '.css';
+				$local_file  = gutenverse_core_css_path( 'gutenverse-content-generator-' . $post->ID . '.css' );
 				if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
 					$this->loop_blocks( $blocks, $style );
 					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
@@ -553,9 +564,7 @@ class Style_Generator {
 		global $wp_filesystem;
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
-		$upload_dir  = wp_upload_dir();
-		$upload_path = $upload_dir['basedir'];
-		$path        = $upload_path . '/gutenverse/css';
+		$path = gutenverse_core_css_path();
 		$this->delete_all_files_in_directory( $path );
 	}
 	/**
