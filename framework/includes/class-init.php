@@ -143,7 +143,6 @@ class Init {
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
 		add_filter( 'upload_mimes', array( $this, 'add_fonts_to_allowed_mimes' ) );
 		add_filter( 'wp_check_filetype_and_ext', array( $this, 'update_mime_types' ), 10, 3 );
-		// add_filter( 'wp_lazy_loading_enabled', '__return_false' );
 		/**
 		 * These functions used to be called inside init hook.
 		 * But because framework called using init hook.
@@ -384,4 +383,5 @@ class Init {
 		</div>
 		<?php
 	}
+	
 }
