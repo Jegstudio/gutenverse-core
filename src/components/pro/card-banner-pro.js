@@ -16,7 +16,7 @@ const CardBannerPro = ({
         <img className="banner-image-background" src={`${imgDir}/card-banner/${backgroundImg}`} />
         {!isEmpty(title) && <h3 className="title">{title}</h3>}
         {!isEmpty(description) && <p className="description">{description}</p>}
-        <ButtonUpgradePro thin={true} smallText={true} isBanner={true} customStyles={{position: 'relative', background: 'black', padding: '6px 6px 6px 9px'}}/>
+        <ButtonUpgradePro location="form-builder" thin={true} smallText={true} isBanner={true} customStyles={{position: 'relative', background: 'black', padding: '6px 6px 6px 9px'}}/>
         <img className="banner-image-mockup" src={`${imgDir}/card-banner/mockup-form.png`} />
     </div>;
     // Remove banner when script PRO is loaded.
