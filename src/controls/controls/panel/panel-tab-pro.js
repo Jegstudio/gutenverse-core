@@ -1,13 +1,23 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { CardPro } from 'gutenverse-core/components';
 import { IconCrownSVG } from 'gutenverse-core/icons';
+import isEmpty from 'lodash/isEmpty';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        serverUrl, upgradeProUrl
+        upgradeProUrl
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const ButtonProFirst = applyFilters(
+        'gutenverse.pro-text-button', 
+        () => isEmpty(window?.gprodata) &&
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /> </span></a>, 
+        {location, buttonType : 'first'});
+    const ButtonProSecond = applyFilters(
+        'gutenverse.pro-text-button', 
+        () => isEmpty(window?.gprodata) &&
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /></a>, 
+        {location, buttonType : 'second'});
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
         (
@@ -29,7 +39,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/blink-2.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button">Upgrade To PRO <IconCrownSVG transform="translate(0,3)" /></a>
+                                    <ButtonProFirst/>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">
@@ -124,7 +134,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 <p>Unlock the endless possibilities of the WordPress Editor with Gutenverse PRO.</p>
                                 <img className="guten-pro-bottom-background" src={window['GutenverseConfig'].imgDir + '/pro/CTA/bg-cta.png'} />
                                 <div className="guten-pro-bottom-button-wrapper">
-                                    <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">Upgrade To PRO</a>
+                                    <ButtonProSecond/>
                                 </div>
                             </div>
                         </div>

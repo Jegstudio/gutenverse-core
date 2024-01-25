@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
