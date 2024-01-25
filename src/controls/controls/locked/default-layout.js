@@ -1,7 +1,7 @@
 import { IconCrownSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
-
+import isEmpty from 'lodash/isEmpty';
 
 const DefaultLayout = ({
     title,
