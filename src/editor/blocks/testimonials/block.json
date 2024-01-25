@@ -21,6 +21,10 @@
 			"type": "string",
 			"copyStyle": true
 		},
+		"starPosition": {
+			"type": "string",
+			"copyStyle": true
+		},
 		"spacing": {
 			"type": "object",
 			"default": {},
