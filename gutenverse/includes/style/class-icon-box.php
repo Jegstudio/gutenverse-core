@@ -172,7 +172,7 @@ class Icon_Box extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon i",
 						'property'       => function ( $value ) {
-							return "font-size: {$value}px";
+							return "font-size: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSize'],
 						'device_control' => true,
@@ -190,7 +190,7 @@ class Icon_Box extends Style_Abstract {
 							return "width: {$value}px;";
 						},
 						'value'          => $this->attrs['imageWidth'],
-						'device_control' => false,
+						'device_control' => true,
 					)
 				);
 			}
@@ -200,7 +200,20 @@ class Icon_Box extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
-							return "height: {$value}px";
+							return "height: {$value}px;";
+						},
+						'value'          => $this->attrs['imageHeight'],
+						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageFit'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon img",
+						'property'       => function ( $value ) {
+							return "object-fit: {$value};";
 						},
 						'value'          => $this->attrs['imageHeight'],
 						'device_control' => false,
