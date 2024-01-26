@@ -54,20 +54,12 @@ export const panelContent = ({ showQuote, contentType }) => {
             show: contentType !== 1 && contentType !== 2,
             options: [
                 {
-                    label: __('After Image', 'gutenverse'),
-                    value: 'after-image'
+                    label: __('Above Image', 'gutenverse'),
+                    value: 'above-image'
                 },
                 {
-                    label: __('Before Image', 'gutenverse'),
-                    value: 'before-image'
-                },
-                {
-                    label: __('After Content', 'gutenverse'),
-                    value: 'after-content'
-                },
-                {
-                    label: __('Before Content', 'gutenverse'),
-                    value: 'before-content'
+                    label: __('Below Image', 'gutenverse'),
+                    value: 'below-image'
                 },
             ]
         },
@@ -79,11 +71,11 @@ export const panelContent = ({ showQuote, contentType }) => {
             options: [
                 {
                     label: __('As Header', 'gutenverse'),
-                    value: 'before-image'
+                    value: 'above-image'
                 },
                 {
                     label: __('As Footer', 'gutenverse'),
-                    value: 'after-image'
+                    value: 'below-image'
                 },
             ]
         },

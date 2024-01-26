@@ -53,7 +53,7 @@ const ContentItem = (data) => {
                 </div>;
             case 2:
                 return <>
-                    {(starPosition === undefined || starPosition === 'before-image') && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
+                    {(starPosition === undefined || starPosition === 'above-image') && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">
@@ -68,14 +68,13 @@ const ContentItem = (data) => {
                         {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
                     </div>
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
-                    {starPosition !== undefined && starPosition !== 'before-image' && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
+                    {starPosition !== undefined && starPosition === 'below-image' && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
                 </>;
             case 3:
                 return <>
                     {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
-                    {starPosition !== undefined && starPosition === 'before-image' && <ul className="rating-stars">{starRating}</ul>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
-                    {starPosition !== undefined && starPosition === 'before-image' && <ul className="rating-stars">{starRating}</ul>}
+                    {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                     <div className="comment-bio">
                         <div className="bio-details">
                             <div className="profile-image">
@@ -83,9 +82,8 @@ const ContentItem = (data) => {
                             </div>
                         </div>
                     </div>
-                    {(starPosition === undefined || starPosition === 'after-image') && <ul className="rating-stars">{starRating}</ul>}
+                    {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
-                    {starPosition !== undefined && starPosition === 'before-image' && <ul className="rating-stars">{starRating}</ul>}
                     <span className="profile-info">
                         <strong className="profile-name">{name}</strong>
                         <p className="profile-des">{description}</p>
@@ -97,11 +95,11 @@ const ContentItem = (data) => {
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
                         <div className="bio-details">
-                            {starPosition !== undefined && starPosition === 'before-image' && <ul className="rating-stars">{starRating}</ul>}
+                            {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                             <div className="profile-image">
                                 {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                             </div>
-                            {(starPosition === undefined || starPosition === 'after-image') && <ul className="rating-stars">{starRating}</ul>}
+                            {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                             <span className="profile-info">
                                 <strong className="profile-name">{name}</strong>
                                 <p className="profile-des">{description}</p>
