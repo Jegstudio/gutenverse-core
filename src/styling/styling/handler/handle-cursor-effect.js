@@ -170,8 +170,15 @@ export const handleImageCursorEffect = (style) =>{
 
     const {
         imageBorder,
+        imageFit,
     } = style;
     elementStyle = imageBorder? handleBorder(imageBorder): elementStyle;
+    if(imageFit){
+        normalAppender({
+            style: `object-fit: ${imageFit};`,
+            elementStyle
+        });
+    }
     return elementStyle;
 };
 export const handleParentCursorEffect = (style) => {
