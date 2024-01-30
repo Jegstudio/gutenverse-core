@@ -51,6 +51,10 @@ export const panelGeneral = (props) => {
                     value: 'right',
                     label: 'Right'
                 },
+                {
+                    value: 'bottom',
+                    label: 'Bottom'
+                },
             ]
         },
         {
@@ -72,6 +76,10 @@ export const panelGeneral = (props) => {
                     value: 'right',
                     label: 'Right'
                 },
+                {
+                    value: 'bottom',
+                    label: 'Bottom'
+                }
             ],
             style: [
                 {
@@ -86,7 +94,7 @@ export const panelGeneral = (props) => {
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'top'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top') || (value && value[deviceType] === 'bottom')),
                     render: () => 'display: block !important; flex-direction: unset !important; align-items: unset !important;'
                 },
                 {
@@ -101,7 +109,7 @@ export const panelGeneral = (props) => {
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'top'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top') || (value && value[deviceType] === 'bottom')),
                     render: () => 'margin-left: unset !important; margin-right: unset !important;'
                 },
             ]
