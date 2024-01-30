@@ -39,7 +39,8 @@ const TestimonialsBlock = compose(
         contentPosition,
         showRating,
         iconRatingHalf,
-        iconRatingFull
+        iconRatingFull,
+        starPosition,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -88,6 +89,7 @@ const TestimonialsBlock = compose(
                             showRating={showRating}
                             iconRatingFull={iconRatingFull}
                             iconRatingHalf={iconRatingHalf}
+                            starPosition={starPosition}
                         />
                     </div>)}
                 </WPSwiper>

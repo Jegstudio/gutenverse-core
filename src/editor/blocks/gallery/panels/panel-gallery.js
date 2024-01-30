@@ -70,6 +70,12 @@ export const galleryPanel = () => {
                     component: TextControl,
                 },
                 {
+                    id: 'printLabelCategory',
+                    show: value => value.showCategory,
+                    label: __('Show Label Category', 'gutenverse'),
+                    component: CheckboxControl,
+                },
+                {
                     id: 'disableLightbox',
                     label: __('Disable Lightbox', 'gutenverse'),
                     component: CheckboxControl
