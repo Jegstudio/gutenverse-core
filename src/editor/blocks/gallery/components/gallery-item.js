@@ -74,7 +74,7 @@ const GalleryItem = (attributes) => {
                             <span>{galleryItem.ratingNumber}</span>
                         </div>}
                     </div>
-                    {galleryItem.showCategory && <div className="caption-category">
+                    {(galleryItem.showCategory && galleryItem.printLabelCategory) && <div className="caption-category">
                         <span>{galleryItem.category}</span>
                     </div>}
                 </>}
