@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -21,7 +21,7 @@ const ButtonUpgradePro = ({
     isBanner = false,
 }) => {
 
-    const { upgradeProUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl, adminUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {
@@ -32,32 +32,17 @@ const ButtonUpgradePro = ({
         },
         isBanner && 'button-upgrade-pro-banner'
     );
-    const {
-        homeSlug,
-    } = window['GutenverseDashboard'];
+    const proLink =  link ? link : upgradeProUrl;
+    const dashboardLink = adminUrl + 'admin.php?page=gutenverse&path=license';
 
     const button = (text, icon, navigation, noPro) => {
-        return noPro ?
-            (<a
-                href={link ? link : upgradeProUrl}
-                className={buttonClasses}
-                target="_blank"
-                rel="noreferrer"
-                style={customStyles}>
-                {navigation ? <>
-                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
-                    {text}
-                </> :
-                    <>
-                        {text}
-                        {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
-                    </>}
-            </a>) :
-            (<Link
+        const isRoute = (location === 'themeList' || location === 'ecosystem' ) && !noPro;
+        return isRoute ?
+            ((<Link
                 index = "license"
                 to = {{
                     pathname: '/wp-admin/admin.php',
-                    search: `?page=${homeSlug}&path=license`,
+                    search: '?page=gutenverse&path=license',
                 }}
                 className={buttonClasses}
                 style={customStyles}
@@ -70,7 +55,22 @@ const ButtonUpgradePro = ({
                         {text}
                         {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
                     </>}
-            </Link>);
+            </Link>)) :
+            (<a
+                href={noPro ? proLink : dashboardLink}
+                className={buttonClasses}
+                target="_blank"
+                rel="noreferrer"
+                style={customStyles}>
+                {navigation ? <>
+                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    {text}
+                </> :
+                    <>
+                        {text}
+                        {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    </>}
+            </a>);
     };
 
     const TheButton = applyFilters('gutenverse.button.pro.library', () => {

@@ -9,7 +9,7 @@ const LockedFluidBackground = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Fluid Background', '--gctd--' )}
             description={__( 'Add a stunning fluid background to your site. Upgrade to Pro to customize the fluid background to fit your website\'s style.', '--gctd--' )}
-            img={'/scroll-sticky.mp4'}
+            img={'/fluid-background-animation.mp4'}
             isOpen={isOpen}
         />
     </div>;
