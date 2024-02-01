@@ -27,7 +27,7 @@ export const itemCardPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter1',
             component: HeadingControl,
         },
         {
@@ -114,7 +114,7 @@ export const itemCardPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter2',
             component: HeadingControl,
             label: __('Title Typography')
         },
@@ -153,7 +153,7 @@ export const itemCardPanel = (props) => {
             ],
         },
         {
-            id: 'submenuSplitter',
+            id: 'submenuSplitter3',
             component: HeadingControl,
             label: __('Content Typography')
         },

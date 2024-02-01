@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderResponsiveControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemStylePanel = (props) => {
     const {
@@ -162,5 +162,48 @@ export const itemStylePanel = (props) => {
                 }
             ]
         },
+        {
+            id: 'itemMenuBorderNormal',
+            show: switcher.itemState === undefined || switcher.itemState === 'normal',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
+                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'itemMenuBorderHover',
+            show: switcher.itemState === 'hover',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
+                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'itemMenuBorderActive',
+            show: switcher.itemState === 'active',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+
     ];
 };
