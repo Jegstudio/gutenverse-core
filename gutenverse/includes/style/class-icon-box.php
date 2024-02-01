@@ -189,8 +189,11 @@ class Icon_Box extends Style_Abstract {
 						'property'       => function ( $value ) {
 							return "width: {$value}px;";
 						},
-						'value'          => $this->attrs['imageWidth'],
+						'value'          => $this->attrs['imageWidthResponsive'],
 						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
 					)
 				);
 			}
@@ -202,8 +205,11 @@ class Icon_Box extends Style_Abstract {
 						'property'       => function ( $value ) {
 							return "height: {$value}px;";
 						},
-						'value'          => $this->attrs['imageHeight'],
+						'value'          => $this->attrs['imageHeightResponsive'],
 						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
 					)
 				);
 			}
