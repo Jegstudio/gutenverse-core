@@ -134,9 +134,9 @@ export const panelIcon = (props) => {
             ]
         },
         {
-            id: 'imageWidth',
-            show: iconType && iconType === 'image',
-            label: __('Image Width', 'gutenverse'),
+            id: 'imageWidthResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
+            label: __('Image Width N', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
             min: 1,
@@ -145,24 +145,58 @@ export const panelIcon = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
+                    render: value => `width: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageHeightResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
+            label: __('Image Height N', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
+                    render: value => `height: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageWidth',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
+            label: __('Image Width', 'gutenverse'),
+            showDeviceControl: true,
+            component: RangeControl,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
                     render: value => `width: ${value}px;`
                 }
             ]
         },
         {
             id: 'imageHeight',
-            show: iconType && iconType === 'image',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
             label: __('Image Height', 'gutenverse'),
+            showDeviceControl: true,
             component: RangeControl,
-            allowDeviceControl: true,
             min: 1,
             max: 400,
             step: 1,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
                     render: value => `height: ${value}px;`
                 }
             ]

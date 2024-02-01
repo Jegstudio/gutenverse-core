@@ -182,7 +182,7 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconType'] ) && 'image' === $this->attrs['iconType'] ) {
-			if ( isset( $this->attrs['imageWidth'] ) ) {
+			if ( isset( $this->attrs['imageWidthResponsive'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
@@ -195,7 +195,7 @@ class Icon_Box extends Style_Abstract {
 				);
 			}
 
-			if ( isset( $this->attrs['imageHeight'] ) ) {
+			if ( isset( $this->attrs['imageHeightResponsive'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
@@ -204,6 +204,32 @@ class Icon_Box extends Style_Abstract {
 						},
 						'value'          => $this->attrs['imageHeight'],
 						'device_control' => true,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageWidth'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "width: {$value}px;";
+						},
+						'value'          => $this->attrs['imageWidth'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageHeight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "height: {$value}px";
+						},
+						'value'          => $this->attrs['imageHeight'],
+						'device_control' => false,
 					)
 				);
 			}
