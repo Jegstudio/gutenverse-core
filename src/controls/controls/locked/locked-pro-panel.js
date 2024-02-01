@@ -2,7 +2,7 @@ import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 
 const LockedProPanel = () => {
-    const id = useInstanceId(LockedProNoticeControl, 'inspector-locked-pro-notice-control');
+    const id = useInstanceId(LockedProPanel, 'inspector-locked-pro-notice-control');
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked gutenverse-control-locked-layout'}>
         <h2 className="title" style={{ fontSize: '15px' }}>
             {__('Pro License not yet active', 'gutenverse-pro')}
