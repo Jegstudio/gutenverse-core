@@ -22,8 +22,6 @@ const ContentItem = (data) => {
 
     const overrideQuote = quoteOverride ? 'quote-override' : '';
 
-
-    console.log(starPosition);
     const content = () => {
         const commentContent = <div className="comment-content"><p>{comment}</p></div>;
         const starRating = showRating && <>
