@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownSVG, IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -63,7 +63,7 @@ const ButtonUpgradePro = ({
                 rel="noreferrer"
                 style={customStyles}>
                 {navigation ? <>
-                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                    {icon === 'crown' ? <IconCrownSVG/> : <IconKeySVG/>}
                     {text}
                 </> :
                     <>
