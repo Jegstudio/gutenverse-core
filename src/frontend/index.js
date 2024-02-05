@@ -22,6 +22,3 @@ export { default as GutenverseVideo } from './blocks/video';
 
 // dependency Expose
 export { default as Choices } from 'choices.js';
-export { default as ControlArrayText } from '../backend/forms/array-text';
-export { default as ControlSelect } from '../backend/forms/select';
-export { default as ControlTextarea } from '../backend/forms/textarea';
