@@ -14,6 +14,7 @@ const RangeControl = ({
     liveUpdate,
     disabled = false,
     allowDeviceControl,
+    showDeviceControl = false,
     onStart = () => {},
     onEnd = () => {},
     onValueChange,
@@ -30,7 +31,7 @@ const RangeControl = ({
             id={`${id}-range`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}
         />
         <div className={'control-body'}>
             <div className={'control-slider-range'}>
