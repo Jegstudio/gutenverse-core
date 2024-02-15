@@ -1,7 +1,7 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 
 const PanelTabPro = ({ activeTab }) => {
@@ -11,12 +11,12 @@ const PanelTabPro = ({ activeTab }) => {
     const ButtonProFirst = applyFilters(
         'gutenverse.pro-text-button', 
         () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /> </span></a>, 
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /> </span></a>, 
         {location, buttonType : 'first'});
     const ButtonProSecond = applyFilters(
         'gutenverse.pro-text-button', 
         () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /></a>, 
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>, 
         {location, buttonType : 'second'});
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
