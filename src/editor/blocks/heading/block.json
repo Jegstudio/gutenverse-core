@@ -164,6 +164,9 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"anchor": {
+		  "type": "string"
 		}
 	},
 	"supports": {
