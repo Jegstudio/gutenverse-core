@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 export const handleMask = (props) => {
     const elementStyle = elementVar();
     const { shape } = props;
-    const { imgDir } = window['GutenverseConfig'];
+    const { iconDir } = window['GutenverseConfig'];
 
     if ('' !== shape) {
         const { size, scale, position, xposition = {}, yposition = {}, repeat } = props;
@@ -12,13 +12,13 @@ export const handleMask = (props) => {
 
         switch (shape) {
             case 'circle':
-                svgImage = imgDir + '/mask/circe.svg';
+                svgImage = iconDir + '/mask-circe.svg';
                 break;
             case 'triangle':
-                svgImage = imgDir + '/mask/triangle.svg';
+                svgImage = iconDir + '/mask-triangle.svg';
                 break;
             case 'blob':
-                svgImage = imgDir + '/mask/blob.svg';
+                svgImage = iconDir + '/mask-blob.svg';
                 break;
             case 'custom':
                 const { svg } = props;
