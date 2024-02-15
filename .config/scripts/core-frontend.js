@@ -41,6 +41,14 @@ const corefrontend = {
                             source: process.env.NODE_ENV === 'development' ? "./build/corefrontend.js*" : "./build/corefrontend.js",
                             destination: "./framework/assets/js/",
                         },
+                        {
+                            source: path.resolve(process.cwd(), "node_modules/react-player/dist/ReactPlayer.standalone.js"),
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: path.resolve(process.cwd(), "../node_modules/react-player/dist/ReactPlayer.standalone.js"),
+                            destination: "./framework/assets/js/",
+                        }
                     ],
                 },
             },

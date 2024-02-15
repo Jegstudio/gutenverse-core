@@ -204,11 +204,12 @@ class Assets {
 	 * @return array
 	 */
 	public function gutenverse_frontend_config() {
-		$config                    = array();
-		$config['wpjson_url']      = get_rest_url();
-		$config['wpjson_nonce']    = wp_create_nonce( 'wp_rest' );
-		$config['wpjson_endpoint'] = admin_url( 'admin-ajax.php?action=rest-nonce' );
-		$config['video_script']    = GUTENVERSE_FRAMEWORK_URL . '/assets/frontend/react-player/ReactPlayer.standalone.js?ver=' . GUTENVERSE_FRAMEWORK_VERSION;
+		$config                      = array();
+		$config['wpjson_url']        = get_rest_url();
+		$config['wpjson_nonce']      = wp_create_nonce( 'wp_rest' );
+		$config['wpjson_endpoint']   = admin_url( 'admin-ajax.php?action=rest-nonce' );
+		$config['framework_asset']   = GUTENVERSE_FRAMEWORK_URL . '/assets/';
+		$config['framework_version'] = GUTENVERSE_FRAMEWORK_VERSION;
 
 		return $config;
 	}

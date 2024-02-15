@@ -10,7 +10,7 @@ const LockedMouseMoveEffectControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Cursor Effects', '--gctd--' )}
             description={__( 'Add 3D move effect to your element when you move your mouse effect', '--gctd--' )}
-            img={'/advance-animation.mp4'}
+            img={'/mouse-effect.mp4'}
             isOpen={isOpen}
         />
     </div>;

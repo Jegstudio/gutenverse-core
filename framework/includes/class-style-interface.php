@@ -786,6 +786,18 @@ abstract class Style_Interface {
 					break;
 
 				case 'image':
+					if ( isset( $cursor_efect['imageFit'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-image",
+								'property'       => function ( $value ) {
+									return "object-fit: {$value};";
+								},
+								'value'          => $cursor_efect['imageFit'],
+								'device_control' => false,
+							)
+						);
+					}
 					if ( isset( $cursor_efect['imageHeight'] ) ) {
 						$this->inject_style(
 							array(

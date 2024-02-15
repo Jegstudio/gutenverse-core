@@ -67,6 +67,7 @@ export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/lo
 export { default as LockedMouseMoveEffectControl } from './controls/locked/locked-mouse-move-effect-control';
 export { default as LockedAdvanceButtonControl } from './controls/locked/locked-advance-button';
 export { default as LockedFluidBackground } from './controls/locked/locked-fluid-background';
+export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';

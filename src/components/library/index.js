@@ -6,6 +6,7 @@ import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import { signal } from 'gutenverse-core/editor-helper';
+import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 
 const initLibraryState = {
@@ -112,6 +113,7 @@ const Library = () => {
     }, [open]);
 
     return <>
+        <EscListener execute={() => setOpen(false)} />
         <LibraryModal
             open={open}
             setOpen={setOpen}
