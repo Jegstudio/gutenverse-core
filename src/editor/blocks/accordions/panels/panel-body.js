@@ -125,18 +125,7 @@ export const panelBody = (props) => {
                 }
             ]
         },
-        {
-            id: 'contentBackgroundColorActive',
-            show: switcher.accBody === 'active',
-            label: __('Background Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item.active .accordion-content`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
-        },
+        
         {
             id: 'contentTextColorActive',
             show: switcher.accBody === 'active',
@@ -146,6 +135,18 @@ export const panelBody = (props) => {
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-content`,
                     render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'contentBackgroundColorActive',
+            show: switcher.accBody === 'active',
+            label: __('Background Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-content`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ],
         },

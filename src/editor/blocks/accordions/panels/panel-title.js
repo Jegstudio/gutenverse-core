@@ -156,18 +156,6 @@ export const panelTitle = (props) => {
             ]
         },
         {
-            id: 'titleBackgroundActiveColor',
-            show: switcher.accTitle === 'active',
-            label: __('Background Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
-        },
-        {
             id: 'titleActiveColor',
             show: switcher.accTitle === 'active',
             label: __('Text Color', 'gutenverse'),
@@ -176,6 +164,18 @@ export const panelTitle = (props) => {
                 {
                     selector: `.${elementId} .accordion-item.active .accordion-text`,
                     render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'titleBackgroundActiveColor',
+            show: switcher.accTitle === 'active',
+            label: __('Background Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ],
         },

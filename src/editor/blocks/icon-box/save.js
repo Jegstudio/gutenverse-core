@@ -98,7 +98,7 @@ const save = compose(
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
-                {iconContent()}
+                { iconPosition !== 'bottom' && iconContent()}
                 {
                     (title || description) && <div className="icon-box icon-box-body">
                         <WrapAHref {...props}>
@@ -120,6 +120,7 @@ const save = compose(
                         <InnerBlocks.Content />
                     </div>
                 }
+                { iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <span className="badge-text">{badge}</span>
                 </div>}
