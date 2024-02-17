@@ -5,7 +5,7 @@ import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { buttonBackgroundPanel } from './panel-button-background';
 import { buttonBorderPanel } from './panel-button-border';
-
+import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -19,6 +19,13 @@ export const panelList = () => {
             panelArray: stylePanel,
             initialOpen: false,
             tabRole: TabStyle
+        },
+        {
+            title: __('Dynamic Content', 'gutenverse'),
+            panelArray: dynamicContentPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Button Background', 'gutenverse'),

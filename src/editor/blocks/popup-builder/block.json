@@ -193,16 +193,16 @@
 			"default": "load"
 		},
 		"openWaitTime": {
-			"type": "int"
+			"type": "integer"
 		},
 		"openScrollDistance": {
-			"type": "int"
+			"type": "integer"
 		},
 		"openAnchor": {
 			"type": "string"
 		},
 		"openMaxClick": {
-			"type": "int"
+			"type": "integer"
 		},
 		"transform": {
 			"type": "object",
