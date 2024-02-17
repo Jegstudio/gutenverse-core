@@ -1337,6 +1337,7 @@ class Api {
 				'name__like' => $search,
 				'include'    => $include,
 				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
 			)
 		);
 
