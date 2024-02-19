@@ -509,9 +509,9 @@ const ThemeListPage = (props) => {
                     title={<>{__('Explore ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' For Your Multipurpose Business', '--gctd--')}</>}
                     customStyles={{margin: '0 0 40px'}}
                     container = "themeList"
-                    leftBannerImg = "theme-list/graphic-theme-left.png"
-                    rightBannerImg = "theme-list/graphic-theme-right.png"
-                    backgroundGradient = "theme-list/bg-gradient-2.png"/>
+                    leftBannerImg = "theme-list-graphic-theme-left.png"
+                    rightBannerImg = "theme-list-graphic-theme-right.png"
+                    backgroundGradient = "theme-list-bg-gradient-2.png"/>
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>

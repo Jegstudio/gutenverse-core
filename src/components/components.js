@@ -3,6 +3,7 @@ import GlobalStyle from './global-style';
 import domReady from '@wordpress/dom-ready';
 import GutenverseLibrary from './library';
 import elementChange from 'element-change';
+import { applyFilters } from '@wordpress/hooks';
 
 /* Other Editor Components */
 import './hook';
@@ -17,20 +18,28 @@ elementChange('#site-editor', () => {
     // const globalStyle = document.getElementById('global-style-options');
 
     if (library === null) {
-        render(
+        const content = applyFilters(
+            'gutenverse.site.editor.content',
             <>
                 <GlobalStyle />
                 <GutenverseLibrary />
-            </>
-            , document.getElementById('gutenverse-root'));
+            </>,
+            null
+        );
+
+        render(content, document.getElementById('gutenverse-root'));
     }
 });
 
 domReady(() => {
-    render(
+    const content = applyFilters(
+        'gutenverse.site.editor.content',
         <>
             <GlobalStyle />
             <GutenverseLibrary />
-        </>
-        , document.getElementById('gutenverse-root'));
+        </>,
+        null
+    );
+
+    render(content, document.getElementById('gutenverse-root'));
 });
