@@ -19,7 +19,7 @@ export const filterSearchPanel = (props) => {
             label: __('Search Control')
         },
         {
-            id: 'SearchControlWidth',
+            id: 'searchControlWidth',
             label: __('Width', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
