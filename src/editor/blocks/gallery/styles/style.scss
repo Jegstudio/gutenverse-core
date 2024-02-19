@@ -110,7 +110,7 @@
     .search-filters-wrap {
         height: 55px;
         border-radius: 5px;
-        max-width: 600px;
+        width: 50%;
         margin: 15px auto 50px;
         @include displayflex();
         @include flexwrap();

@@ -13,6 +13,32 @@ export const filterSearchPanel = (props) => {
 
     return [
         {
+            id: 'submenuSplitter0',
+            first: true,
+            component: HeadingControl,
+            label: __('Search Control')
+        },
+        {
+            id: 'SearchControlWidth',
+            label: __('Width', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                ['%']: {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap`,
+                    render: value => handleUnitPoint(value, 'width')
+                }
+            ]
+        },
+        {
             id: 'submenuSplitter1',
             first: true,
             component: HeadingControl,
