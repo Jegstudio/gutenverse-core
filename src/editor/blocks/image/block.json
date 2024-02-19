@@ -21,7 +21,7 @@
       "copyStyle": true
     },
     "ratio": {
-      "type": "int",
+      "type": "integer",
       "default": 0
     },
     "altType": {

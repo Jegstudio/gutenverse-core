@@ -23,6 +23,10 @@
 		"url": {
 			"type": "string"
 		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
+		},
 		"linkTarget": {
 			"type": "string",
 			"source": "attribute",
@@ -267,7 +271,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"ariaLabel" : {
+		"ariaLabel": {
 			"type": "string",
 			"copyStyle": true
 		}
@@ -275,9 +279,5 @@
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"button",
-		"url",
-		"action"
-	]
+	"keywords": ["button", "url", "action"]
 }
