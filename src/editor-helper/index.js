@@ -414,4 +414,4 @@ export const getEditSiteHeader = () => {
             resolve(header);
         }, 1000);
     });
-}
+};
