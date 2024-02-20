@@ -20,6 +20,10 @@
 		"content": {
 			"type": "string"
 		},
+		"dynamicContent": {
+			"type": "object",
+			"default": {}
+		},
 		"url": {
 			"type": "string"
 		},
