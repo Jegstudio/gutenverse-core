@@ -2,22 +2,16 @@ import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
 import { BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useState,useEffect } from '@wordpress/element';
 
 import { cryptoRandomString } from 'gutenverse-core/components';
 
-var UNIQUE_ID = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-
 export const HighlightButton = ({ isActive, onChange, value }) => {
-    const selectedBlock = useSelect( ( select ) => {
-        return select( 'core/block-editor' ).getSelectedBlock();
-    }, [] );
 
-    const [test, setTest] = useState(true);
+    /** select block with RichText to display new format */
 
-    useEffect(()=>{
-        console.log(selectedBlock);
-    },[test]);
+    // const selectedBlock = useSelect( ( select ) => {
+    //     return select( 'core/block-editor' ).getSelectedBlock();
+    // }, []);
 
     // if ( selectedBlock && selectedBlock.name !== 'core/paragraph' ) {
     //     return null;
@@ -30,11 +24,13 @@ export const HighlightButton = ({ isActive, onChange, value }) => {
                     icon="editor-code"
                     title="Text Highlight"
                     onClick={() => {
-                        setTest(!test);
-                        UNIQUE_ID = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                        const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
                         onChange(
                             toggleFormat(value, {
                                 type: 'highlight-format/text-highlight',
+                                attributes: {
+                                    class: uniqueId,
+                                },
                             })
                         );
                     }}
@@ -48,6 +44,6 @@ export const HighlightButton = ({ isActive, onChange, value }) => {
 registerFormatType('highlight-format/text-highlight', {
     title: 'Text Highlight',
     tagName: 'span',
+    className: 'guten-text-highlght',
     edit: HighlightButton,
-    className: `${UNIQUE_ID}`,
 });
