@@ -1,5 +1,7 @@
 
 import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { __ } from '@wordpress/i18n';
+import { RichText } from '@wordpress/block-editor';
 
 const TeamProfile = ({
     profileType,
@@ -17,6 +19,7 @@ const TeamProfile = ({
     hoverBottom,
     hoverBottomDirection,
     socialComponent,
+    setAttributes,
     onClick = () => {}
 }) => {
 
@@ -35,7 +38,14 @@ const TeamProfile = ({
                         <div className={`profile-body ${overlayPosition}`}>
                             <NameTag className={`profile-title ${addPopup ? 'popup' : ''}`} onClick={onClick}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <p className={'profile-desc'}>{description}</p>}
+                            {showDesc && <RichText
+                                className="profile-desc"
+                                tagName="p"
+                                aria-label={__('Team Description', 'gutenverse')}
+                                // placeholder={__('Image Box Description', 'gutenverse')}
+                                value={description}
+                                onChange={value => setAttributes({ description: value })}
+                            />}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}
@@ -51,7 +61,14 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <p className={'profile-desc'}>{description}</p>}
+                            {showDesc && <RichText
+                                className="profile-desc"
+                                tagName="p"
+                                aria-label={__('Team Description', 'gutenverse')}
+                                // placeholder={__('Image Box Description', 'gutenverse')}
+                                value={description}
+                                onChange={value => setAttributes({ description: value })}
+                            />}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}
@@ -70,7 +87,14 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <p className={'profile-desc'}>{description}</p>}
+                            {showDesc && <RichText
+                                className="profile-desc"
+                                tagName="p"
+                                aria-label={__('Team Description', 'gutenverse')}
+                                // placeholder={__('Image Box Description', 'gutenverse')}
+                                value={description}
+                                onChange={value => setAttributes({ description: value })}
+                            />}
                         </div>
                         {showSocial && <div className={'profile-footer'}>
                             <div className="socials-wrapper">
