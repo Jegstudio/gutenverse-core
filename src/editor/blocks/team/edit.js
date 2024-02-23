@@ -90,7 +90,7 @@ const TeamBlock = compose(
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
-            <TeamProfile {...attributes} setAttributes={setAttributes} socialComponent={socialComponent} />
+            <TeamProfile {...attributes} frontEnd={false} setAttributes={setAttributes} socialComponent={socialComponent} />
         </div>
     </>;
 });

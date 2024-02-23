@@ -20,6 +20,7 @@ const TeamProfile = ({
     hoverBottomDirection,
     socialComponent,
     setAttributes,
+    frontEnd,
     onClick = () => {}
 }) => {
 
@@ -38,14 +39,18 @@ const TeamProfile = ({
                         <div className={`profile-body ${overlayPosition}`}>
                             <NameTag className={`profile-title ${addPopup ? 'popup' : ''}`} onClick={onClick}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <RichText
+                            {showDesc && frontEnd ?(<RichText.Content
+                                className="profile-desc"
+                                value={description}
+                                tagName="p"
+                            />) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
                                 // placeholder={__('Image Box Description', 'gutenverse')}
                                 value={description}
                                 onChange={value => setAttributes({ description: value })}
-                            />}
+                            />)}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}

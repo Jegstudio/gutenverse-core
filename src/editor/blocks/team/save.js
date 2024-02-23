@@ -45,7 +45,7 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <TeamProfile {...attributes} setAttributes={setAttributes} socialComponent={socialComponent}/>
+            <TeamProfile {...attributes} frontEnd={true} setAttributes={setAttributes} socialComponent={socialComponent}/>
             {addPopup && <div className="profile-popup"
                 data-name={name}
                 data-job={job}
