@@ -29,6 +29,7 @@ const TeamProfile = ({
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
+    console.log(frontEnd);
 
     const contentType = () => {
         switch(profileType) {
@@ -66,14 +67,18 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <RichText
+                            {showDesc && frontEnd ?(<RichText.Content
+                                className="profile-desc"
+                                value={description}
+                                tagName="p"
+                            />) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
                                 // placeholder={__('Image Box Description', 'gutenverse')}
                                 value={description}
                                 onChange={value => setAttributes({ description: value })}
-                            />}
+                            />)}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}
@@ -92,14 +97,18 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && <RichText
+                            {showDesc && frontEnd ?(<RichText.Content
+                                className="profile-desc"
+                                value={description}
+                                tagName="p"
+                            />) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
                                 // placeholder={__('Image Box Description', 'gutenverse')}
                                 value={description}
                                 onChange={value => setAttributes({ description: value })}
-                            />}
+                            />)}
                         </div>
                         {showSocial && <div className={'profile-footer'}>
                             <div className="socials-wrapper">
