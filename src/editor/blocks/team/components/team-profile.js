@@ -40,11 +40,7 @@ const TeamProfile = ({
                         <div className={`profile-body ${overlayPosition}`}>
                             <NameTag className={`profile-title ${addPopup ? 'popup' : ''}`} onClick={onClick}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<RichText.Content
-                                className="profile-desc"
-                                value={description}
-                                tagName="p"
-                            />) : (<RichText
+                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
@@ -67,11 +63,7 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<RichText.Content
-                                className="profile-desc"
-                                value={description}
-                                tagName="p"
-                            />) : (<RichText
+                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
@@ -97,11 +89,7 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<RichText.Content
-                                className="profile-desc"
-                                value={description}
-                                tagName="p"
-                            />) : (<RichText
+                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
                                 className="profile-desc"
                                 tagName="p"
                                 aria-label={__('Team Description', 'gutenverse')}
