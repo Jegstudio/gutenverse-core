@@ -1,7 +1,7 @@
 import { registerFormatType, toggleFormat } from '@wordpress/rich-text';
 import { BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { useSelect } from '@wordpress/data';
+// import { useSelect } from '@wordpress/data';
 
 import { cryptoRandomString } from 'gutenverse-core/components';
 
