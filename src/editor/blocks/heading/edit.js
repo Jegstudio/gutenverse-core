@@ -10,6 +10,7 @@ import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor'
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { useSelect, subscribe } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 /* Gutenverse dependencies */
 import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
@@ -24,6 +25,14 @@ const HeadingBlockControl = ({ attributes, setAttributes }) => {
     const {
         type,
     } = attributes;
+
+    const blockName = 'gutenverse/heading';
+
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        { isActive: true },
+        blockName
+    );
 
     return <BlockControls>
         <ToolbarGroup>
