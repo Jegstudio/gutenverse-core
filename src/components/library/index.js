@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core/requests';
-import { signal } from 'gutenverse-core/editor-helper';
+import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 
@@ -58,13 +58,6 @@ const Library = () => {
         };
     });
 
-    setTimeout(() => {
-        let injectLocation = document.getElementsByClassName('edit-post-header-toolbar')[0];
-        injectLocation = injectLocation ? injectLocation : document.getElementsByClassName('edit-site-header_start')[0];
-        injectLocation = injectLocation ? injectLocation : document.getElementsByClassName('edit-site-header-edit-mode__start')[0];
-        setInjectLocation(injectLocation);
-    }, 1000);
-
     const libraryButton = (
         <div className="gutenverse-top-button">
             <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
@@ -85,6 +78,12 @@ const Library = () => {
             </div>
         </div>
     );
+
+    useEffect(() => {
+        getEditSiteHeader().then(result => {
+            setInjectLocation(result);
+        });
+    }, []);
 
     // Init store.
     useEffect(() => {

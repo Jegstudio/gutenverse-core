@@ -140,12 +140,12 @@ const TypographyControl = (props) => {
     </div>;
 
     const onTypographyChange = data => {
-        const { id, type, ...value } = data;
+        const { id, type, ...value } = data; // eslint-disable-line no-unused-vars
         onValueChange(value);
     };
 
     const onTypographyStyleChange = data => {
-        const { id, type, ...value } = data;
+        const { id, type, ...value } = data; // eslint-disable-line no-unused-vars
         onStyleChange(value);
     };
 
