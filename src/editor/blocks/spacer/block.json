@@ -112,6 +112,10 @@
     },
     "anchor": {
       "type": "string"
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

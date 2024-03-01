@@ -309,6 +309,10 @@
 		"lazyLoad":{
 			"type": "boolean",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {
