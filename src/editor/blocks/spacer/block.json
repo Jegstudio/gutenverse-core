@@ -112,7 +112,11 @@
     },
     "anchor": {
       "type": "string"
-    }
+    },
+    "transform": {
+			"type": "object",
+			"copyStyle": true
+		}
   },
   "supports": {
     "anchor": true,
