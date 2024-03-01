@@ -5,6 +5,7 @@ import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/h
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
+import { applyFilters } from '@wordpress/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('buttons'),
@@ -46,9 +47,23 @@ const save = compose(
     );
 
     const ButtonElement = ({ children }) => {
+        const href = applyFilters(
+            'gutenverse.dynamic.generate-url',
+            url,
+            'dynamicUrl',
+            attributes
+        );
+
+        const title = applyFilters(
+            'gutenverse.dynamic.generate-content',
+            children,
+            'dynamicContent',
+            attributes
+        );
+
         return role === 'link' ?
-            <a className={buttonClass} href={url} target={linkTarget} aria-label={ariaLabel} rel={rel}>{children}</a> :
-            <button className={buttonClass} type="submit">{children}</button>;
+            <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>{title}</a> :
+            <button className={buttonClass} type="submit">{title}</button>;
     };
 
     return (

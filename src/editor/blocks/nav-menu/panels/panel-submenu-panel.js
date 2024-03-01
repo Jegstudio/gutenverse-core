@@ -36,6 +36,29 @@ export const SubmenuPanelStyle = (props) => {
             ]
         },
         {
+            id: 'submenuPanelMargin',
+            label: __('Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
             id: 'submenuPanelBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),

@@ -172,7 +172,7 @@ class Icon_Box extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon i",
 						'property'       => function ( $value ) {
-							return "font-size: {$value}px";
+							return "font-size: {$value}px;";
 						},
 						'value'          => $this->attrs['iconSize'],
 						'device_control' => true,
@@ -182,6 +182,38 @@ class Icon_Box extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['iconType'] ) && 'image' === $this->attrs['iconType'] ) {
+			if ( isset( $this->attrs['imageWidthResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "width: {$value}px;";
+						},
+						'value'          => $this->attrs['imageWidthResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageHeightResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
+						'property'       => function ( $value ) {
+							return "height: {$value}px;";
+						},
+						'value'          => $this->attrs['imageHeightResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
+
 			if ( isset( $this->attrs['imageWidth'] ) ) {
 				$this->inject_style(
 					array(
@@ -201,6 +233,19 @@ class Icon_Box extends Style_Abstract {
 						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon",
 						'property'       => function ( $value ) {
 							return "height: {$value}px";
+						},
+						'value'          => $this->attrs['imageHeight'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['imageFit'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .guten-icon-box-wrapper .icon-box .icon img",
+						'property'       => function ( $value ) {
+							return "object-fit: {$value};";
 						},
 						'value'          => $this->attrs['imageHeight'],
 						'device_control' => false,

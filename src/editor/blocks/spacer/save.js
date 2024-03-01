@@ -15,6 +15,7 @@ const SaveSpacer = compose(
 
     const {
         elementId,
+        anchor,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -29,7 +30,7 @@ const SaveSpacer = compose(
         displayClass
     );
 
-    return <div className={className} { ...advanceAnimationData }/>;
+    return <div className={className} { ...advanceAnimationData } id={anchor}/>;
 });
 
 export default SaveSpacer;

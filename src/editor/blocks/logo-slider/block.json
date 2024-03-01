@@ -106,7 +106,7 @@
 			"default": false
 		},
 		"autoplayTimeout": {
-			"type": "int",
+			"type": "integer",
 			"default": 2400
 		},
 		"loop": {

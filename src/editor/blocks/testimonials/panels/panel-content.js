@@ -48,6 +48,38 @@ export const panelContent = ({ showQuote, contentType }) => {
             ]
         },
         {
+            id: 'starPosition',
+            label: __('Star Position', 'gutenverse'),
+            component: SelectControl,
+            show: contentType !== 1 && contentType !== 2,
+            options: [
+                {
+                    label: __('Above Image', 'gutenverse'),
+                    value: 'above-image'
+                },
+                {
+                    label: __('Below Image', 'gutenverse'),
+                    value: 'below-image'
+                },
+            ]
+        },
+        {
+            id: 'starPosition',
+            label: __('Star Position', 'gutenverse'),
+            component: SelectControl,
+            show: contentType === 2,
+            options: [
+                {
+                    label: __('As Header', 'gutenverse'),
+                    value: 'above-image'
+                },
+                {
+                    label: __('As Footer', 'gutenverse'),
+                    value: 'below-image'
+                },
+            ]
+        },
+        {
             id: 'showQuote',
             label: __('Show Quote', 'gutenverse'),
             component: CheckboxControl,

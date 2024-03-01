@@ -23,7 +23,8 @@ const save = compose(
         contentPosition,
         showRating,
         iconRatingHalf,
-        iconRatingFull
+        iconRatingFull,
+        starPosition
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -54,6 +55,7 @@ const save = compose(
                                 showRating={showRating}
                                 iconRatingFull={iconRatingFull}
                                 iconRatingHalf={iconRatingHalf}
+                                starPosition={starPosition}
                             />
                         </div>)}
                     </div>
