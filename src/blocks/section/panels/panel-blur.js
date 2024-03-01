@@ -40,7 +40,7 @@ export const blurPanel = (props) => {
         allowDeviceControl: true,
         style: [
             {
-                selector: `section.guten-section.${elementId}:before`,
+                selector: `section.guten-section.${elementId}`,
                 render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
             }
         ]
@@ -55,7 +55,7 @@ export const blurPanel = (props) => {
         allowDeviceControl: true,
         style: [
             {
-                selector: `section.guten-section.${elementId}:hover:before`,
+                selector: `section.guten-section.${elementId}:hover`,
                 render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
             }
         ]

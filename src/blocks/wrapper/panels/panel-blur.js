@@ -40,7 +40,7 @@ export const blurPanel = (props) => {
         allowDeviceControl: true,
         style: [
             {
-                selector: `.${elementId}:before`,
+                selector: `.${elementId}`,
                 render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
             }
         ]
@@ -55,7 +55,7 @@ export const blurPanel = (props) => {
         allowDeviceControl: true,
         style: [
             {
-                selector: `.${elementId}:hover:before`,
+                selector: `.${elementId}:hover`,
                 render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
             }
         ]
