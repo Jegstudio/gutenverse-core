@@ -18,7 +18,7 @@
         "default": "top"
     },
     "stickyDuration": {
-        "type": "int",
+        "type": "integer",
         "default": 0.25
     },
     "topSticky": {
@@ -40,7 +40,7 @@
         }
     },
     "stickyIndex": {
-        "type": "int",
+        "type": "integer",
         "default": 99
     },
     "stickyBackground": {

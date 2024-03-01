@@ -39,7 +39,7 @@
       "copyStyle": true
     },
     "stickyDuration": {
-      "type": "int",
+      "type": "integer",
       "default": 0.25,
       "copyStyle": true
     },
@@ -64,7 +64,7 @@
       "copyStyle": true
     },
     "stickyIndex": {
-      "type": "int",
+      "type": "integer",
       "default": 99,
       "copyStyle": true
     },
@@ -242,7 +242,10 @@
     "pointer": {
 			"type": "object",
 			"copyStyle": true
-		}
+		},
+    "anchor": {
+      "type": "string"
+    }
   },
   "supports": {
     "anchor": true,

@@ -34,7 +34,7 @@
       "copyStyle": true
     },
     "stickyDuration": {
-      "type": "int",
+      "type": "integer",
       "default": 0.25,
       "copyStyle": true
     },
@@ -59,7 +59,7 @@
       "copyStyle": true
     },
     "stickyIndex": {
-      "type": "int",
+      "type": "integer",
       "default": 99,
       "copyStyle": true
     },
@@ -124,7 +124,7 @@
       "copyStyle": true 
     },
     "childTotal": {
-      "type": "int"
+      "type": "integer"
     },
     "background": {
       "type": "object",

@@ -837,7 +837,9 @@
     }
 
     /** Font **/
+    &dynamic,
     &font {
+      .post-option,
       .font-option {
         padding: 7px 15px;
         cursor: pointer;
@@ -1164,8 +1166,11 @@
           padding: 10px;
 
           h4 {
-            margin-top: 5px;
-            margin-bottom: 0;
+            margin-bottom: 4px;
+            margin-top: 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
           }
         }
 
@@ -1273,6 +1278,7 @@
     }
 
     /** Typography & Box Shadow **/
+    &dynamic,
     &typography,
     &box-shadow,
     &text-shadow,
@@ -1291,6 +1297,7 @@
         }
       }
 
+      .dynamic-control-icon,
       .typography-icon,
       .box-shadow-icon,
       .text-shadow-icon,
