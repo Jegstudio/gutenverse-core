@@ -50,6 +50,18 @@ const core = {
                             source: "./build/core.asset.php",
                             destination: "./framework/lib/dependencies/",
                         },
+                        {
+                            source: process.env.NODE_ENV === 'development' ? "./build/reactPlayer*.js*" : "./build/reactPlayer*.js",
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: path.resolve(process.cwd(), "node_modules/react-player/api/*"),
+                            destination: "./framework/assets/js/",
+                        },
+                        {
+                            source: path.resolve(process.cwd(), "../node_modules/react-player/api/*"),
+                            destination: "./framework/assets/js/",
+                        }
                     ],
                 },
             },

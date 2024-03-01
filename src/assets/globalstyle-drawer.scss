@@ -140,6 +140,13 @@
 
   .color-variable-wrapper,
   .font-variable-wrapper {
+    h4 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 20px 0 20px;
+    }
+
     .empty-variable {
       border: 1px dashed #b2b2b2;
       padding: 20px;

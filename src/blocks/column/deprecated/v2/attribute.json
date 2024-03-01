@@ -28,7 +28,7 @@
         }
     },
     "stickyIndex": {
-        "type": "int",
+        "type": "integer",
         "default": 99
     },
     "stickyBackground": {

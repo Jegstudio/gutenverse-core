@@ -4,9 +4,9 @@ class GutenverseVideo extends Default {
     /* public */
     init() {
         const elements = this._elements;
-        const { video_script: path } = window.GutenverseFrontendConfig;
+        const { framework_asset: path, framework_version } = window.GutenverseFrontendConfig;
         if (elements.length > 0) {
-            load(path, (err) => {
+            load(path + 'js/ReactPlayer.standalone.js?ver=' + framework_version, (err) => {
                 if (!err) {
                     elements.map(element => {
                         this._renderVideo(element);
@@ -24,16 +24,18 @@ class GutenverseVideo extends Default {
 
     _calculateSize(element) {
         const wrapper = u(element).find('.guten-video-bg-wrapper');
-        const inner = u(element).find('.guten-video-bg-wrapper > div');
-        const wrapperSize = u(wrapper).size();
+        if (wrapper.length) {
+            const inner = u(element).find('.guten-video-bg-wrapper > div');
+            const wrapperSize = u(wrapper).size();
 
-        const height = Math.floor(wrapperSize.width * 0.56);
-        const width = Math.floor(wrapperSize.height / 0.56);
+            const height = Math.floor(wrapperSize.width * 0.56);
+            const width = Math.floor(wrapperSize.height / 0.56);
 
-        if (height > wrapperSize.height) {
-            inner.attr('style', `width: ${wrapperSize.width}px; height: ${height}px`);
-        } else {
-            inner.attr('style', `width: ${width}px; height: ${wrapperSize.height}px`);
+            if (height > wrapperSize.height) {
+                inner.attr('style', `width: ${wrapperSize.width}px; height: ${height}px`);
+            } else {
+                inner.attr('style', `width: ${width}px; height: ${wrapperSize.height}px`);
+            }
         }
     }
 

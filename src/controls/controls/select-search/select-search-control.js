@@ -20,7 +20,8 @@ const SelectSearchControl = (props) => {
         description = '',
         noOptionsText,
         cacheOptions = true,
-        defaultOptions = true
+        defaultOptions = true,
+        components
     } = props;
 
     const noOptionsMessage = () => noOptionsText ? noOptionsText : __('Type to start searching...', '--gctd--');
@@ -71,6 +72,7 @@ const SelectSearchControl = (props) => {
                     value={value}
                     cacheOptions={cacheOptions}
                     defaultOptions={defaultOptions}
+                    components={components}
                     onChange={onChange}
                     loadOptions={input => onSearch(input, values)} />
             </div>

@@ -139,9 +139,9 @@ const SectionContentWrapper = (props) => {
                 title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                 customStyles={{ paddingTop: '30px' }}
                 container = "library"
-                leftBannerImg = "library/graphic-library-left.png"
-                rightBannerImg = "library/graphic-library-right.png"
-                backgroundGradient = "library/bg-library.png"/>
+                leftBannerImg = "library-graphic-library-left.png"
+                rightBannerImg = "library-graphic-library-right.png"
+                backgroundGradient = "library-bg-library.png"/>
             <SectionContentData
                 current={content.current}
                 data={content.data}
