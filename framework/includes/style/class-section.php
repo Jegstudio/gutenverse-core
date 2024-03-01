@@ -399,7 +399,7 @@ class Section extends Style_Abstract {
 		if ( isset( $this->attrs['blur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "section.guten-element.{$this->element_id}:before",
+					'selector'       => "section.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -412,7 +412,7 @@ class Section extends Style_Abstract {
 		if ( isset( $this->attrs['blurHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "section.guten-element.{$this->element_id}:hover:before",
+					'selector'       => "section.guten-element.{$this->element_id}:hover",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
