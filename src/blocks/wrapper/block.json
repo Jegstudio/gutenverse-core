@@ -209,6 +209,10 @@
 			"source": "attribute",
 			"selector": "a",
 			"attribute": "rel"
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

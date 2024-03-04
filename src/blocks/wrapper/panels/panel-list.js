@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundEffectPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, pointerEventPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundEffectPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, conditionPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, pointerEventPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -142,6 +142,12 @@ export const panelList = () => {
                 styleId: 'wrapper-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

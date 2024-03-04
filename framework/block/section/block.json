@@ -339,7 +339,11 @@
     "blurHover": {
       "type": "object",
       "copyStyle": true
-    }
+    },
+    "condition": {
+			"type": "object",
+			"default": {}
+		}
   },
   "keywords": [
     "container",
