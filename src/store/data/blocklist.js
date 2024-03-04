@@ -7,7 +7,7 @@ const PRO_STATE_DEFAULT = [
         name: 'gutenverse/conditions',
         title: 'Condition Filter',
         category: 'gutenverse-structure',
-        icon: <IconConditionsBlockSVG/>,
+        icon: <IconConditionsBlockSVG />,
         pro: true,
         locked: true,
     },
@@ -36,12 +36,7 @@ const getList = (state = []) => {
     const { blockList } = state;
     const lockedList = [];
 
-    const lockedBlocks = applyFilters(
-        'gutenverse.blocklist.locked',
-        [
-            ...PRO_STATE_DEFAULT
-        ]
-    );
+    const lockedBlocks = applyFilters('gutenverse.blocklist.locked', []);
 
     lockedBlocks.map(lockedBlock => {
         let exist = false;
