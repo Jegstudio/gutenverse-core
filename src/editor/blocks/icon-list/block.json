@@ -19,7 +19,7 @@
 			"copyStyle": true
 		},
 		"spaceBetween": {
-			"type": "integer",
+			"type": "object",
 			"copyStyle": true
 		},
 		"alignList": {
