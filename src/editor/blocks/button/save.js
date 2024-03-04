@@ -54,9 +54,16 @@ const save = compose(
             attributes
         );
 
+        const title = applyFilters(
+            'gutenverse.dynamic.generate-content',
+            children,
+            'dynamicContent',
+            attributes
+        );
+
         return role === 'link' ?
-            <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>{children}</a> :
-            <button className={buttonClass} type="submit">{children}</button>;
+            <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>{title}</a> :
+            <button className={buttonClass} type="submit">{title}</button>;
     };
 
     return (

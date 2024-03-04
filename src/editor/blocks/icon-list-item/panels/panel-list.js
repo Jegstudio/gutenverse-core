@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { TabStyle, advancePanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { TabStyle, advancePanel, conditionPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelGeneral } from './panel-general';
 import { panelIcon } from './panel-icon';
 
@@ -37,6 +37,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'icon-list-item-advance',
             })
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

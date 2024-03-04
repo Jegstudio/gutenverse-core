@@ -20,6 +20,10 @@
 		"content": {
 			"type": "string"
 		},
+		"dynamicContent": {
+			"type": "object",
+			"default": {}
+		},
 		"url": {
 			"type": "string"
 		},
@@ -274,6 +278,10 @@
 		"ariaLabel": {
 			"type": "string",
 			"copyStyle": true
+		},
+        "condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {
