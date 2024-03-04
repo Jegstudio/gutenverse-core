@@ -255,7 +255,6 @@ abstract class Style_Interface {
 		} elseif ( isset( $data['value'] ) && isset( $data['property'] ) ) {
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
-
 				$this->generated['Desktop'][ $selector ][] = $property;
 		}
 	}
@@ -1716,11 +1715,18 @@ abstract class Style_Interface {
 				}
 
 				if ( ! empty( $prop['value'][ $device ] ) ) {
-					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+					if ( is_array( $prop['value'][ $device ] ) ) {
+						if ( gutenverse_truly_empty( $prop['value'][ $device ]['point'] ) || gutenverse_truly_empty( $prop['value'][ $device ]['unit'] ) ) {
+							continue;
+						} else {
+							$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+						}
+					} else {
+						$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+					}
 				}
 			}
 		}
-
 		return $styles;
 	}
 	/**
