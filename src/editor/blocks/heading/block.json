@@ -165,6 +165,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		},
 		"anchor": {
 		  "type": "string"
 		}
@@ -174,9 +178,5 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": [
-		"heading",
-		"text",
-		"title"
-	]
+	"keywords": ["heading", "text", "title"]
 }
