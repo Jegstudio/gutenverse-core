@@ -73,8 +73,8 @@ const IconBoxBlock = compose(
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
         lazyLoad,
+        hoverWithParent
     } = attributes;
-
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -123,6 +123,8 @@ const IconBoxBlock = compose(
         {},
         {
             allowedBlocks: ['gutenverse/button'],
+            template: [ ['gutenverse/button', { hoverWithParent: hoverWithParent, parentSelector : `.${elementId}:hover .guten-icon-box-wrapper` }]],
+            templateLock: false
         }
     );
 

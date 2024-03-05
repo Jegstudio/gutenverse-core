@@ -9,6 +9,8 @@ export const buttonBorderPanel = (props) => {
         elementId,
         switcher,
         setSwitcher,
+        hoverWithParent,
+        parentSelector
     } = props;
 
     const device = getDeviceType();
@@ -65,6 +67,13 @@ export const buttonBorderPanel = (props) => {
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                     hasChild: true,
+                    allowRender: () => !hoverWithParent,
+                    render: value => handleBorder(value)
+                },
+                {
+                    selector: parentSelector + `.${elementId}.guten-button-wrapper .guten-button`,
+                    hasChild: true,
+                    allowRender: () => hoverWithParent,
                     render: value => handleBorder(value)
                 }
             ]
@@ -104,7 +113,12 @@ export const buttonBorderPanel = (props) => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
+                    allowRender: (value) => allowRenderBoxShadow(value) && !hoverWithParent,
+                    render: value => handleBoxShadow(value)
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
+                    allowRender: (value) => allowRenderBoxShadow(value) && hoverWithParent,
                     render: value => handleBoxShadow(value)
                 }
             ]
