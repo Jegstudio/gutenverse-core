@@ -23,13 +23,34 @@ const TeamProfile = ({
     frontEnd,
     onClick = () => {}
 }) => {
-
     const lazyLoad = () => {
         if(lazy){
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
-    console.log(frontEnd);
+    const contentDesc = () => {
+        if(showDesc){
+            if(frontEnd){
+                return <RichText.Content
+                    className={'profile-desc'}
+                    tagName={'p'}
+                    aria-label={__('Team Description', 'gutenverse')}
+                    // placeholder={__('Image Box Description', 'gutenverse')}
+                    value={description}
+                />;
+            }else{
+                return <RichText
+                    className={'profile-desc'}
+                    tagName={'p'}
+                    aria-label={__('Team Description', 'gutenverse')}
+                    // placeholder={__('Image Box Description', 'gutenverse')}
+                    value={description}
+                    identifier={'description'}
+                    onChange={value => setAttributes({ description: value })}
+                />;
+            }
+        }
+    };
 
     const contentType = () => {
         switch(profileType) {
@@ -40,14 +61,7 @@ const TeamProfile = ({
                         <div className={`profile-body ${overlayPosition}`}>
                             <NameTag className={`profile-title ${addPopup ? 'popup' : ''}`} onClick={onClick}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
-                                className="profile-desc"
-                                tagName="p"
-                                aria-label={__('Team Description', 'gutenverse')}
-                                // placeholder={__('Image Box Description', 'gutenverse')}
-                                value={description}
-                                onChange={value => setAttributes({ description: value })}
-                            />)}
+                            {contentDesc()}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}
@@ -63,14 +77,7 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
-                                className="profile-desc"
-                                tagName="p"
-                                aria-label={__('Team Description', 'gutenverse')}
-                                // placeholder={__('Image Box Description', 'gutenverse')}
-                                value={description}
-                                onChange={value => setAttributes({ description: value })}
-                            />)}
+                            {contentDesc()}
                             {showSocial && <div className="socials-wrapper">
                                 {socialComponent}
                             </div>}
@@ -89,14 +96,7 @@ const TeamProfile = ({
                         <div className={'profile-body'}>
                             <NameTag className={'profile-title'}>{name}</NameTag>
                             <p className={'profile-sub'}>{job}</p>
-                            {showDesc && frontEnd ?(<p className={'profile-desc'}>{description}</p>) : (<RichText
-                                className="profile-desc"
-                                tagName="p"
-                                aria-label={__('Team Description', 'gutenverse')}
-                                // placeholder={__('Image Box Description', 'gutenverse')}
-                                value={description}
-                                onChange={value => setAttributes({ description: value })}
-                            />)}
+                            {contentDesc()}
                         </div>
                         {showSocial && <div className={'profile-footer'}>
                             <div className="socials-wrapper">

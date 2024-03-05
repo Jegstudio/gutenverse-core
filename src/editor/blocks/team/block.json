@@ -48,6 +48,8 @@
     },
     "description": {
       "type": "string",
+      "source": "html",
+      "selector" : ".profile-desc",
       "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget dignissim quam. Nam posuere velit vitae ultricies commodo."
     },
     "phone": {
