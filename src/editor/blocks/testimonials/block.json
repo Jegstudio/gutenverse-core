@@ -74,6 +74,28 @@
 			"type": "string",
 			"default": "fas fa-star-half"
 		},
+		"testimonialDataRichText": {
+			"type": "array",
+			"source": "query",
+			"selector": ".testimonial-content",
+			"query": {
+				"name": {
+					"type": "string",
+					"source": "html",
+					"selector": ".profile-name"
+				},
+				"description": {
+					"type": "string",
+					"source": "html",
+					"selector": ".profile-des"
+				},
+				"comment": {
+					"type": "string",
+					"source": "html",
+					"selector": ".profile-comment"
+				}
+			}
+		},
 		"testimonialData": {
 			"type": "array",
 			"default": [
