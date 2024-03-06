@@ -39,7 +39,7 @@ abstract class Block_Abstract {
 	/**
 	 * Manager.
 	 *
-	 * @var string
+	 * @var Object
 	 */
 	protected $manager;
 
