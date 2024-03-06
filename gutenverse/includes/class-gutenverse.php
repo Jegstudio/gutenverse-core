@@ -196,19 +196,33 @@ class Gutenverse {
 					</svg>
 				</div>
 				<div class="notice-content">
-					<h2><?php echo sprintf( esc_html__( 'Update %s Plugin!', 'gutenverse' ), $plugin_name ); ?></h2>
-					<p><?php echo sprintf( esc_html__( 'We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. ', 'gutenverse' ), $plugin_name ); ?></p>					
+					<h2>
+						<?php
+						echo sprintf(
+							esc_html__( 'Update %s Plugin!', 'gutenverse' ),
+							esc_html( $plugin_name )
+						);
+						?>
+					</h2>
 					<p>
-					<?php
-					echo sprintf(
-						'%s <strong>%s %s</strong> %s',
-						esc_html__( 'We currently disabled gutenverse plugin.', 'gutenverse' ),
-						esc_html__( 'Please update', 'gutenverse' ),
-						esc_html( $plugin_name ),
-						esc_html__( 'to prevent your site from crashed.', 'gutenverse' )
-					);
-					?>
-						</p>
+						<?php
+						echo sprintf(
+							esc_html__( 'We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. ', 'gutenverse' ),
+							esc_html( $plugin_name )
+						);
+						?>
+					</p>				
+					<p>
+						<?php
+						echo sprintf(
+							'%s <strong>%s %s</strong> %s',
+							esc_html__( 'We currently disabled gutenverse plugin.', 'gutenverse' ),
+							esc_html__( 'Please update', 'gutenverse' ),
+							esc_html( $plugin_name ),
+							esc_html__( 'to prevent your site from crashed.', 'gutenverse' )
+						);
+						?>
+					</p>
 					<div class="gutenverse-upgrade-action">
 						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><?php esc_html_e( 'Update Gutenverse Form Plugin', 'gutenverse' ); ?></a>						
 					</div>
