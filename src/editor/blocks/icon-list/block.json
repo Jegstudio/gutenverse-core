@@ -39,7 +39,7 @@
 			"copyStyle": true
 		},
 		"iconSize": {
-			"type": "integer",
+			"type": "object",
 			"copyStyle": true
 		},
 		"textColor": {
@@ -51,7 +51,7 @@
 			"copyStyle": true
 		},
 		"textIndent": {
-			"type": "integer",
+			"type": "object",
 			"copyStyle": true
 		},
 		"textTypography": {
