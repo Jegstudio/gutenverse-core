@@ -669,7 +669,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$attr['paged'] = 1;
 			$attr['class'] = isset( $this->id ) ? $this->id : null;
 
-			return htmlspecialchars( json_encode( $attr ), ENT_QUOTES, 'UTF-8' );
+			return htmlspecialchars( wp_json_encode( $attr ), ENT_QUOTES, 'UTF-8' );
 		}
 	}
 
@@ -681,9 +681,9 @@ abstract class Post_Abstract extends Block_Abstract {
 	 * @return string
 	 */
 	protected function render_pagination( $next = false, $total = 1 ) {
-		$output           = '';
-		$icon             = esc_attr( $this->attributes['paginationIcon'] );
-		$icon_position    = esc_attr( $this->attributes['paginationIconPosition'] );
+		$output        = '';
+		$icon          = esc_attr( $this->attributes['paginationIcon'] );
+		$icon_position = esc_attr( $this->attributes['paginationIconPosition'] );
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';

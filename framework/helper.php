@@ -554,6 +554,8 @@ if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
 	 * Gutenverse Template Part Data.
 	 *
 	 * @param array $attributes Attributes .
+	 * @param array $post_type Post Type .
+	 *
 	 * @return Object
 	 */
 	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ) {
