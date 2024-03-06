@@ -45,13 +45,13 @@ const RangeControl = ({
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        setLocalValue(e.target.value);
+                        onStyleChange(parseFloat(e.target.value));
+                        setLocalValue(parseFloat(e.target.value));
                         setUpdating(true);
-                        liveUpdate ? onValueChange(e.target.value) : null;
+                        liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
                     }}
                     onMouseUp={(e) => {
-                        onValueChange(e.target.value);
+                        onValueChange(parseFloat(e.target.value));
                         setUpdating(false);
                         onEnd();
                     }}
@@ -69,8 +69,8 @@ const RangeControl = ({
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        onStyleChange(parseInt(e.target.value));
-                        onValueChange(parseInt(e.target.value));
+                        onStyleChange(parseFloat(e.target.value));
+                        onValueChange(parseFloat(e.target.value));
                     }}
                 />
             </div>
