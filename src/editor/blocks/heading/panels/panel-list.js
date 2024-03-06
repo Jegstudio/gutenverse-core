@@ -8,6 +8,7 @@ import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioning
 import { contentPanel } from './panel-content';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -21,6 +22,13 @@ export const panelList = () => {
             panelArray: stylePanel,
             initialOpen: false,
             tabRole: TabStyle
+        },
+        {
+            title: __('Dynamic Content', 'gutenverse'),
+            panelArray: dynamicContentPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Text Clip', 'gutenverse'),

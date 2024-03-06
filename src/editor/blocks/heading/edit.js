@@ -24,6 +24,7 @@ import HeadingTypeToolbar from './components/heading-type-toolbar';
 const HeadingBlockControl = ({ attributes, setAttributes }) => {
     const {
         type,
+        elementId
     } = attributes;
 
     const blockName = 'gutenverse/heading';
@@ -31,7 +32,8 @@ const HeadingBlockControl = ({ attributes, setAttributes }) => {
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
         { isActive: true },
-        blockName
+        blockName,
+        elementId,
     );
 
     return <BlockControls>
