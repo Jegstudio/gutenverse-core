@@ -69,8 +69,8 @@ const RangeControl = ({
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        onValueChange(e.target.value);
+                        onStyleChange(parseInt(e.target.value));
+                        onValueChange(parseInt(e.target.value));
                     }}
                 />
             </div>
