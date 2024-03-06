@@ -83,7 +83,7 @@ const Library = () => {
         getEditSiteHeader().then(result => {
             setInjectLocation(result);
         });
-    }, []);
+    });
 
     // Init store.
     useEffect(() => {
