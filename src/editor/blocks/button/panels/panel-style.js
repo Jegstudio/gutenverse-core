@@ -11,7 +11,6 @@ export const stylePanel = (props) => {
         parentSelector
     } = props;
 
-    console.log(props);
     return [
         {
             id: '__styleHover',
@@ -64,7 +63,7 @@ export const stylePanel = (props) => {
                     render: value => handleColor(value, 'color')
                 },
                 {
-                    selector: parentSelector + ' span',
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span`,
                     allowRender : () => hoverWithParent,
                     render: value => handleColor(value, 'color')
                 },
@@ -82,7 +81,7 @@ export const stylePanel = (props) => {
                     render: value => handleColor(value, 'color')
                 },
                 {
-                    selector: parentSelector + ' i',
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i`,
                     allowRender : () => hoverWithParent,
                     render: value => handleColor(value, 'color')
                 },

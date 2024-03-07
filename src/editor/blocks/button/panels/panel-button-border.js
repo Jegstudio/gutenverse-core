@@ -71,7 +71,7 @@ export const buttonBorderPanel = (props) => {
                     render: value => handleBorder(value)
                 },
                 {
-                    selector: parentSelector + `.${elementId}.guten-button-wrapper .guten-button`,
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
                     hasChild: true,
                     allowRender: () => hoverWithParent,
                     render: value => handleBorder(value)
@@ -87,8 +87,14 @@ export const buttonBorderPanel = (props) => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    allowRender: () => device !== 'Desktop',
+                    allowRender: () => device !== 'Desktop' && !hoverWithParent,
                     render: value => handleBorderResponsive(value)
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
+                    hasChild: true,
+                    allowRender: () => device !== 'Desktop' && hoverWithParent,
+                    render: value => handleBorder(value)
                 }
             ]
         },

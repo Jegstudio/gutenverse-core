@@ -122,12 +122,12 @@ const IconBoxBlock = compose(
     const innerBlockProps = useInnerBlocksProps(
         {},
         {
-            allowedBlocks: ['gutenverse/button'],
-            template: [ ['gutenverse/button', { hoverWithParent: hoverWithParent, parentSelector : `.${elementId}:hover .guten-icon-box-wrapper` }]],
-            templateLock: false
+            allowedBlocks: ['gutenverse/button']
         }
     );
-
+    useEffect(()=>{
+        setAttributes({parentSelector :  `.${elementId}:hover .guten-icon-box-wrapper`});
+    },[hoverWithParent]);
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;

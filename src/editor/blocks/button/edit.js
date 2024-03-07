@@ -36,9 +36,15 @@ const ButtonBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
-        clientId
+        clientId,
+        context: { hoverWithParent, parentSelector },
+        refreshStyle
     } = props;
-
+    useEffect(()=>{
+        const newHoverStatus = hoverWithParent;
+        setAttributes({hoverWithParent : newHoverStatus, parentSelector : parentSelector});
+        refreshStyle();
+    },[hoverWithParent]);
     const {
         elementId,
         content,
@@ -51,9 +57,8 @@ const ButtonBlock = compose(
         linkTarget,
         iconPosition = 'before',
         role,
-        ariaLabel
+        ariaLabel,
     } = attributes;
-
     const {
         getBlockRootClientId,
         getBlock,
