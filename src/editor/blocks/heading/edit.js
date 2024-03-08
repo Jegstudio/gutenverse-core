@@ -81,7 +81,6 @@ const HeadingBlock = compose(
         content,
         dynamicContent,
         dynamicUrl,
-        textChilds
     } = attributes;
     const [headingContent, setHeadingContent] = useState(content);
     const {
@@ -133,8 +132,6 @@ const HeadingBlock = compose(
         }
     }, [headingContent]);
 
-    console.log(textChilds);
-
     const tagName = 'h' + type;
     const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -154,6 +151,8 @@ const HeadingBlock = compose(
         if (headingRef?.current) {
             const newElement = u(headingRef?.current).children().map(child => {
                 const newChild = u(child).children().map(grandChild => {
+                    const benar = u(grandChild).nodes[0].parentElement.classList.contains('guten-dynamic-data');
+                    // console.log(benar, u(grandChild).nodes[0].parentElement.classList);
                     if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
                         return {
                             color: {},
@@ -186,6 +185,11 @@ const HeadingBlock = compose(
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
+
+    const getTheAttributes = [];
+    useEffect(()=>{
+        getTheAttributes.push(attributes);
+    },[]);
 
     useEffect(() => {
         const newDiv = document.createElement('div');
@@ -237,6 +241,13 @@ const HeadingBlock = compose(
                 'dynamicContent',
                 attributes
             );
+
+            const dynamicData = applyFilters(
+                'gutenverse_dynamic_content',
+                title,
+                getTheAttributes
+            );
+            console.log(title);
 
             const anchorElement = document.createElement('a');
             if (href !== '#') {
