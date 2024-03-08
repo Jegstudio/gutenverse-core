@@ -9,7 +9,7 @@ export const dynamicContentPanel = (props) => {
         }],
         {
             ...props,
-            blockType: 'button'
+            blockType: 'heading'
         }
     );
 };

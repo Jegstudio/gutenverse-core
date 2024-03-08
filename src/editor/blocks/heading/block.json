@@ -19,6 +19,14 @@
 			"selector": "h1,h2,h3,h4,h5,h6",
 			"default": ""
 		},
+		"dynamicContent": {
+			"type": "object",
+			"default": {}
+		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
+		},
 		"type": {
 			"type": "number",
 			"default": 2

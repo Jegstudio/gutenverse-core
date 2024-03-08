@@ -79,6 +79,9 @@ const HeadingBlock = compose(
         elementId,
         type,
         content,
+        dynamicContent,
+        dynamicUrl,
+        textChilds
     } = attributes;
     const [headingContent, setHeadingContent] = useState(content);
     const {
@@ -129,6 +132,8 @@ const HeadingBlock = compose(
             setAttributes({ textChilds: newChild });
         }
     }, [headingContent]);
+
+    console.log(textChilds);
 
     const tagName = 'h' + type;
     const headingRef = useRef();
@@ -181,6 +186,78 @@ const HeadingBlock = compose(
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
+
+    useEffect(() => {
+        const newDiv = document.createElement('div');
+        newDiv.innerHTML = content;
+        const contentArray = [];
+        newDiv.childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                contentArray.push(node.textContent);
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                contentArray.push(node.outerHTML);
+            }
+        });
+        let selectedItem = null;
+        let selectedItemIndex = -1;
+
+        contentArray.forEach((item, index) => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(item, 'text/html');
+            const selectElement = doc.querySelector('span.guten-dynamic-data');
+
+            if (selectElement) {
+                selectedItem = selectElement;
+                selectedItemIndex = index;
+            }
+        });
+        /** For a list of element has it */
+        // const selectedItems = [];
+        // for (const item of contentArray) {
+        //     const parser = new DOMParser();
+        //     const doc = parser.parseFromString(item, 'text/html');
+        //     const selectElement = doc.querySelectorAll('.select');
+
+        //     if (selectElement.length > 0) {
+        //         selectedItems.push(selectElement);
+        //     }
+        // }
+
+        if ( selectedItem ) {
+            const href = applyFilters(
+                'gutenverse.dynamic.generate-url',
+                '#',
+                'dynamicUrl',
+                attributes
+            );
+
+            const title = applyFilters(
+                'gutenverse.dynamic.generate-content',
+                content,
+                'dynamicContent',
+                attributes
+            );
+
+            const anchorElement = document.createElement('a');
+            if (href !== '#') {
+                anchorElement.setAttribute('href', href);
+                if (title !== content) {
+                    anchorElement.innerHTML = title;
+                } else anchorElement.innerHTML = selectedItem.innerHTML;
+                selectedItem.innerHTML = '';
+                selectedItem.appendChild(anchorElement);
+            }else if (title !== content){
+                selectedItem.innerHTML = '';
+                selectedItem.innerHTML = title;
+            }
+        }
+
+        if (selectedItemIndex !== -1) {
+            contentArray[selectedItemIndex] = selectedItem.outerHTML;
+        }
+        setAttributes({ content: contentArray.join('') });
+
+    },[dynamicContent, dynamicUrl]);
 
     const handleOnChange = (value) => {
         const newDiv = document.createElement('div');
