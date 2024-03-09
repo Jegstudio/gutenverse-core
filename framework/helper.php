@@ -691,7 +691,7 @@ if ( ! function_exists( 'gutenverse_variable_font_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_font_name( $id, $child ) {
-		return "--gutenverse-font-${child}-${id}";
+		return "--gutenverse-font-{$child}-{$id}";
 	}
 }
 
@@ -704,7 +704,7 @@ if ( ! function_exists( 'gutenverse_variable_color_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_color_name( $id ) {
-		return "--wp--preset--color--${id}";
+		return "--wp--preset--color--{$id}";
 	}
 }
 
