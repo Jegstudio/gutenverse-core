@@ -104,3 +104,4 @@ export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
 export { conditionPanel } from './panels/panel-condition';
+export { dynamicDataPanel } from './panels/panel-dynamic-data';
