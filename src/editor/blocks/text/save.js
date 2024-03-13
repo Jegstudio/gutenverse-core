@@ -11,7 +11,7 @@ import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
 const save = compose(
-    withAnimationAdvanceScript('text-editor'),
+    withAnimationAdvanceScript('text'),
     withMouseMoveEffectScript
 )((props) => {
     const {
@@ -20,7 +20,6 @@ const save = compose(
 
     const {
         elementId,
-        dropcap,
         paragraph
     } = attributes;
 
@@ -30,26 +29,19 @@ const save = compose(
 
     const className = classnames(
         'guten-element',
-        'gutenverse-text-editor',
+        'gutenverse-text',
         elementId,
         animationClass,
         displayClass,
-        {
-            'dropcap': dropcap
-        },
     );
-
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div className="text-content-inner">
-                <RichText.Content
-                    className={'gutenverse-text-paragraph'}
-                    tagName={'p'}
-                    aria-label={__('Text Paragraph', 'gutenverse')}
-                    placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
-                    value={paragraph}
-                />
-            </div>
+            <RichText.Content
+                className={'gutenverse-text-paragraph'}
+                tagName={'p'}
+                aria-label={__('Text Paragraph', 'gutenverse')}
+                value={paragraph}
+            />
         </div>
     );
 });

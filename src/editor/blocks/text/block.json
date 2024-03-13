@@ -17,46 +17,6 @@
       "type": "string",
       "copyStyle": true
     },
-    "dropcap": {
-      "type": "boolean",
-      "default": false
-    },
-    "dropcapTypography": {
-      "type": "boolean",
-      "copyStyle": true
-    },
-    "dropcapColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBgColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapMargin": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapPadding": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderType": {
-      "type": "string",
-      "copyStyle": true
-    },
-    "dropcapBorderColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderWidth": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderRadius": {
-      "type": "object",
-      "copyStyle": true
-    },
     "columns": {
       "type": "object",
       "default": {

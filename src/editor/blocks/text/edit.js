@@ -15,7 +15,7 @@ import { dispatch, useSelect } from '@wordpress/data';
 
 const TextBlock = compose(
     withCustomStyle(panelList),
-    withAnimationAdvance('text-editor'),
+    withAnimationAdvance('text'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
@@ -43,7 +43,7 @@ const TextBlock = compose(
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
-            'gutenverse-text-editor',
+            'gutenverse-text',
             'no-margin',
             elementId,
             animationClass,
@@ -81,7 +81,7 @@ const TextBlock = compose(
                 placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
                 value={paragraph}
                 onChange={value => setAttributes({ paragraph: value })}
-                onSplit={(value,isOriginal) => onSplit(value, isOriginal, clientId)}
+                onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
                 onReplace= {onReplace}
             />
         </div>
