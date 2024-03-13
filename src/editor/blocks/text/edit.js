@@ -36,7 +36,7 @@ const TextBlock = compose(
         (select) => select('core/block-editor'),
         []
     );
-
+    const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const {insertBlock, replaceBlock} = dispatch('core/block-editor');
@@ -61,7 +61,8 @@ const TextBlock = compose(
             replaceBlock(clientId,newBlock);
         }else{
             const testBlock = getBlocks();
-            insertBlock(newBlock, testBlock.length + 1, clientId);
+            const currentBlockIndex = testBlock.findIndex((el,index) => el.clientId !== oldBlock[index].clientId);
+            insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
     const onReplace = (value) => {
@@ -80,7 +81,7 @@ const TextBlock = compose(
                 placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
                 value={paragraph}
                 onChange={value => setAttributes({ paragraph: value })}
-                onSplit={onSplit}
+                onSplit={(value,isOriginal) => onSplit(value, isOriginal, clientId)}
                 onReplace= {onReplace}
             />
         </div>
