@@ -4,8 +4,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useInnerBlocksProps } from '@wordpress/block-editor';
-import { useRef, useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -27,7 +25,6 @@ const TextBlock = compose(
         setAttributes,
         clientId
     } = props;
-    console.log(props);
     const {
         elementId,
         dropcap,
@@ -57,28 +54,17 @@ const TextBlock = compose(
         ),
     });
     const onSplit = (value, isOriginal) => {
-        console.log(value);
         const newBlock = createBlock( 'gutenverse/text', {
             paragraph: value,
         } );
-        console.log(newBlock)
-        // insertBlock(newBlock, undefined);
         if(isOriginal){
             replaceBlock(clientId,newBlock);
         }else{
             const testBlock = getBlocks();
-            insertBlock(newBlock, testBlock.length + 1);
+            insertBlock(newBlock, testBlock.length + 1, clientId);
         }
     };
     const onReplace = (value) => {
-        // const testBlock = getBlocks();
-        // console.log(testBlock);
-        // const newBlock = createBlock( 'gutenverse/text', {
-        //     paragraph: value,
-        // } );
-        // console.log("replace");
-        // console.log(newBlock);
-        // replaceBlock(clientId,[...testBlock,newBlock]);
     }
     return <>
         <PanelController
@@ -95,7 +81,7 @@ const TextBlock = compose(
                 value={paragraph}
                 onChange={value => setAttributes({ paragraph: value })}
                 onSplit={onSplit}
-                onReplace= {onReplace }
+                onReplace= {onReplace}
             />
         </div>
     </>;
