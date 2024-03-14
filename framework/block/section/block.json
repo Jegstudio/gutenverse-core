@@ -141,7 +141,7 @@
       "copyStyle": true
     },
     "opacity": {
-      "type": "number",
+      "type": "string",
       "copyStyle": true
     },
     "backgroundOverlayHover": {
@@ -153,7 +153,7 @@
       "default": {}
     },
     "opacityHover": {
-      "type": "number",
+      "type": "string",
       "copyStyle": true
     },
     "border": {
