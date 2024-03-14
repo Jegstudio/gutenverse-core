@@ -25,11 +25,11 @@
       "type": "string"
     },
     "rating": {
-      "type": "integer",
+      "type": "number",
       "default": 7
     },
     "total": {
-      "type": "integer",
+      "type": "number",
       "default": 10
     },
     "titleColor": {

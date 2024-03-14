@@ -100,7 +100,7 @@
       "copyStyle": true
     },
     "opacity": {
-      "type": "float",
+      "type": "string",
       "copyStyle": true
     },
     "imageFit": {
