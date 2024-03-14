@@ -12,6 +12,7 @@ import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
+import { HighlightButton } from 'gutenverse-core/toolbars';
 
 const TextBlock = compose(
     withCustomStyle(panelList),
@@ -27,7 +28,6 @@ const TextBlock = compose(
     } = props;
     const {
         elementId,
-        dropcap,
         paragraph
     } = attributes;
     const {
@@ -48,9 +48,6 @@ const TextBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'dropcap': dropcap
-            },
         ),
     });
     const onSplit = (value, isOriginal) => {
@@ -73,6 +70,7 @@ const TextBlock = compose(
             panelList={panelList}
             panelProps={panelProps}
         />
+        <HighlightButton {...props}/>
         <div  {...blockProps}>
             <RichText
                 className={'gutenverse-text-paragraph'}

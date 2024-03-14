@@ -18,7 +18,7 @@
       "default": false
     },
     "dropcapTypography": {
-      "type": "boolean",
+      "type": "object",
       "copyStyle": true
     },
     "dropcapColor": {
