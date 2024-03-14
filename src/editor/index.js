@@ -26,6 +26,38 @@ addFilter(
                 pro: true,
                 locked: true,
             },
+            {
+                name: 'gutenverse/advance-button',
+                title: 'Advance Button',
+                category: 'gutenverse-element',
+                icon: <IconMegaMenuSVG />,
+                pro: true,
+                locked: true,
+            },
+            {
+                name: 'gutenverse-pro/advance-tabs',
+                title: 'Advance Tabs',
+                category: 'gutenverse-element',
+                icon: <IconMegaMenuSVG />,
+                pro: true,
+                locked: true,
+            },
+            {
+                name: 'gutenverse/text-marque',
+                title: 'Text Marque',
+                category: 'gutenverse-element',
+                icon: <IconMegaMenuSVG />,
+                pro: true,
+                locked: true,
+            },
+            {
+                name: 'gutenverse/image-marque',
+                title: 'Image Marque',
+                category: 'gutenverse-element',
+                icon: <IconMegaMenuSVG />,
+                pro: true,
+                locked: true,
+            },
             ...list,
         ];
     }
