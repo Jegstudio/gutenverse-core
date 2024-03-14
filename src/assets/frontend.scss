@@ -35,6 +35,10 @@
         box-sizing: border-box;
         transition: background-color 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s, color 0.3s, height 0.3s;
     }
+
+    img{
+        max-width: 100%;
+    }
 }
 
 // Hide block that has animation until animation is loaded
