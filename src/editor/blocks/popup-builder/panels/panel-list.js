@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { animationPanel, maskPanel, mouseMoveEffectPanel, transformPanel } from 'gutenverse-core/controls';
+import { animationPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, transformPanel } from 'gutenverse-core/controls';
 import { popupPanel } from './panel-popup';
 import { overlayPanel } from './panel-overlay';
 import { closePanel } from './panel-close';
@@ -61,6 +61,12 @@ export const panelList = () => {
                 selector: `.${props.elementId} .guten-popup-content`,
             }),
             tabRole: TabStyle
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

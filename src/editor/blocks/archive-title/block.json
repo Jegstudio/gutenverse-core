@@ -4,7 +4,7 @@
 	"class_callback": "\\Gutenverse\\Block\\Archive_Title",
 	"title": "Archive Title",
 	"description": "Show the title of an archive.",
-	"category": "gutenverse-element",
+	"category": "gutenverse-post",
 	"allowCopyStyle": true,
 	"attributes": {
 		"elementId": {
@@ -177,6 +177,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+        "condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"usesContext": [

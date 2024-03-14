@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { avatarPanel } from './panel-avatar';
 import { buttonPanel } from './panel-button';
 import { inputPanel } from './panel-input';
@@ -112,6 +112,12 @@ export const panelList = () => {
                 styleId: 'post-comment-advance',
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

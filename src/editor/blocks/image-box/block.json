@@ -340,6 +340,10 @@
 		"ariaLabel": {
 			"type" : "string",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {
