@@ -554,6 +554,8 @@ if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
 	 * Gutenverse Template Part Data.
 	 *
 	 * @param array $attributes Attributes .
+	 * @param array $post_type Post Type .
+	 *
 	 * @return Object
 	 */
 	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ) {
@@ -689,7 +691,7 @@ if ( ! function_exists( 'gutenverse_variable_font_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_font_name( $id, $child ) {
-		return "--gutenverse-font-${child}-${id}";
+		return "--gutenverse-font-{$child}-{$id}";
 	}
 }
 
@@ -702,7 +704,7 @@ if ( ! function_exists( 'gutenverse_variable_color_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_color_name( $id ) {
-		return "--wp--preset--color--${id}";
+		return "--wp--preset--color--{$id}";
 	}
 }
 

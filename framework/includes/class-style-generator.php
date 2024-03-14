@@ -251,9 +251,9 @@ class Style_Generator {
 					$terms                 = get_the_terms( $post->ID, 'wp_theme' );
 					$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
 					foreach ( $terms as $term ) {
-						// Note: for designer server. Need to find the problem with the designer server
+						// Note: for designer server. Need to find the problem with the designer server.
 						$current_slug = implode( '-', explode( '/', $template['0'] ) );
-						// End of designer server problem
+						// End of designer server problem.
 						if ( $term->slug === $current_slug ) {
 							$updated_on = $post->post_modified;
 							if ( $template_updated_time !== $updated_on ) {
