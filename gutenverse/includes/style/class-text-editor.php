@@ -122,7 +122,7 @@ class Text_Editor extends Style_Abstract {
 		if ( isset( $this->attrs['dropcapBorderType'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+					'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 					'property'       => function ( $value ) {
 						return "border-style: {$value};";
 					},
@@ -136,7 +136,7 @@ class Text_Editor extends Style_Abstract {
 			if ( isset( $this->attrs['dropcapTypography'] ) ) {
 				$this->inject_typography(
 					array(
-						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 						'property'       => function ( $value ) {},
 						'value'          => $this->attrs['dropcapTypography'],
 						'device_control' => false,
@@ -147,7 +147,7 @@ class Text_Editor extends Style_Abstract {
 			if ( isset( $this->attrs['dropcapColor'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'color' );
 						},
@@ -160,7 +160,7 @@ class Text_Editor extends Style_Abstract {
 			if ( isset( $this->attrs['dropcapBgColor'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 						'property'       => function ( $value ) {
 							return $this->handle_color( $value, 'background-color' );
 						},
@@ -173,7 +173,7 @@ class Text_Editor extends Style_Abstract {
 			if ( isset( $this->attrs['dropcapMargin'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 						'property'       => function ( $value ) {
 							return $this->handle_dimension( $value, 'margin' );
 						},
@@ -186,7 +186,7 @@ class Text_Editor extends Style_Abstract {
 			if ( isset( $this->attrs['dropcapPadding'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+						'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 						'property'       => function ( $value ) {
 							return $this->handle_dimension( $value, 'padding' );
 						},
@@ -200,7 +200,7 @@ class Text_Editor extends Style_Abstract {
 				if ( isset( $this->attrs['dropcapBorderColor'] ) ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'border-color' );
 							},
@@ -213,7 +213,7 @@ class Text_Editor extends Style_Abstract {
 				if ( isset( $this->attrs['dropcapBorderWidth'] ) ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 							'property'       => function ( $value ) {
 								return $this->handle_dimension( $value, 'border-width', false );
 							},
@@ -226,7 +226,7 @@ class Text_Editor extends Style_Abstract {
 				if ( isset( $this->attrs['dropcapBorderRadius'] ) ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter",
+							'selector'       => ".gutenverse-text-editor.{$this->element_id}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.{$this->element_id}.dropcap > div > div > p:first-child:first-letter",
 							'property'       => function ( $value ) {
 								return $this->handle_border_radius( $value );
 							},

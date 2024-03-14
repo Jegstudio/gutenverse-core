@@ -7,7 +7,9 @@ export const buttonBackgroundPanel = (props) => {
         normalOptions,
         hoverOptions,
         switcher,
-        setSwitcher
+        setSwitcher,
+        hoverWithParent,
+        parentSelector
     } = props;
 
     return [
@@ -50,8 +52,15 @@ export const buttonBackgroundPanel = (props) => {
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                     hasChild: true,
+                    allowRender: () => !hoverWithParent,
                     render: value => handleBackground(value)
-                }
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
+                    hasChild: true,
+                    allowRender: () => hoverWithParent,
+                    render: value => handleBackground(value)
+                },
             ]
         }
     ];

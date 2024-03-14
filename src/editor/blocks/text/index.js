@@ -2,17 +2,16 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
-import { IconButtonSVG } from '../../../assets/icon/index';
 import example from './data/example';
+import { IconTextEditorSVG } from '../../../assets/icon/index';
 
 const { name } = metadata;
 
 export { metadata, name };
 
 export const settings = {
-    icon: <IconButtonSVG />,
-    example,
+    icon: <IconTextEditorSVG />,
+    // example,
     edit,
     save,
-    usesContext: ['hoverWithParent', 'parentSelector'],
 };

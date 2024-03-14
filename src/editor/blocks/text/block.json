@@ -1,8 +1,8 @@
 {
   "apiVersion": 2,
-  "name": "gutenverse/text-editor",
-  "title": "Text Editor",
-  "description": "A place to create a text content.",
+  "name": "gutenverse/text",
+  "title": "Text Block",
+  "description": "Paragraph Block Gutenverse ",
   "category": "gutenverse-element",
   "allowCopyStyle": true,
   "attributes": {
@@ -13,44 +13,8 @@
       "type": "object",
       "copyStyle": true
     },
-    "dropcap": {
-      "type": "boolean",
-      "default": false
-    },
-    "dropcapTypography": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBgColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapMargin": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapPadding": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderType": {
+    "paragraph": {
       "type": "string",
-      "copyStyle": true
-    },
-    "dropcapBorderColor": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderWidth": {
-      "type": "object",
-      "copyStyle": true
-    },
-    "dropcapBorderRadius": {
-      "type": "object",
       "copyStyle": true
     },
     "columns": {

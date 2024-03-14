@@ -6,7 +6,9 @@ export const stylePanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        hoverWithParent,
+        parentSelector
     } = props;
 
     return [
@@ -57,8 +59,14 @@ export const stylePanel = (props) => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
+                    allowRender : () => !hoverWithParent,
                     render: value => handleColor(value, 'color')
-                }
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span`,
+                    allowRender : () => hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
             ]
         },
         {
@@ -69,8 +77,14 @@ export const stylePanel = (props) => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
+                    allowRender : () => !hoverWithParent,
                     render: value => handleColor(value, 'color')
-                }
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender : () => hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
             ]
         },
         {
