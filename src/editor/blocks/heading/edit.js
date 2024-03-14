@@ -16,11 +16,18 @@ import { PanelController } from 'gutenverse-core/controls';
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
-const HeadingBlockControl = ({ attributes, setAttributes }) => {
+const HeadingBlockControl = (props) => {
+    const{
+        attributes,
+        setAttributes
+    } = props
     const {
         type,
     } = attributes;
+
+    HighLightToolbar (props, 'gutenverse/heading', );
 
     return <BlockControls>
         <ToolbarGroup>
@@ -54,7 +61,7 @@ const HeadingBlock = compose(
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText
+    withHighLightText('content')
 )(props => {
     const {
         attributes,

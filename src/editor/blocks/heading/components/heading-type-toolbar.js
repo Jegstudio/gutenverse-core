@@ -6,6 +6,7 @@ import {Dropdown, Toolbar, ToolbarButton, ToolbarGroup} from '@wordpress/compone
 import {__, sprintf} from '@wordpress/i18n';
 import { DOWN } from '@wordpress/keycodes';
 import { Path, SVG } from '@wordpress/components';
+import { HighlightButton } from 'gutenverse-core/toolbars';
 
 const HEADING_LEVELS = [ 1, 2, 3, 4, 5, 6 ];
 
