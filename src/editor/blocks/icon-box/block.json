@@ -94,13 +94,13 @@
 			"copyStyle": true
 		},
 		"imageWidth": {
-			"type": "string",
-			"default": "150",
+			"type": "number",
+			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeight": {
-			"type": "string",
-			"default": "150",
+			"type": "number",
+			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeightResponsive": {
