@@ -13,6 +13,84 @@ export const filterSearchPanel = (props) => {
 
     return [
         {
+            id: 'submenuSplitter0',
+            first: true,
+            component: HeadingControl,
+            label: __('Search Control')
+        },
+        {
+            id: 'searchControlWidth',
+            label: __('Search Control Width', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                ['%']: {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap`,
+                    render: value => handleUnitPoint(value, 'width')
+                }
+            ]
+        },
+        {
+            id: 'fitlerSearchControlWidth',
+            label: __('Filter Width', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 500,
+                    step: 1
+                },
+                ['%']: {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap .filter-wrap`,
+                    render: value => handleUnitPoint(value, 'flex-basis')
+                }
+            ]
+        },
+        {
+            id: 'fitlerSearchFormWidth',
+            label: __('Search Input Width', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 500,
+                    step: 1
+                },
+                ['%']: {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
+                    render: value => handleUnitPoint(value, 'flex-basis')
+                }
+            ]
+        },
+        {
             id: 'submenuSplitter1',
             first: true,
             component: HeadingControl,
@@ -106,32 +184,7 @@ export const filterSearchPanel = (props) => {
                 }
             ]
         },
-        {
-            id: 'fitlerSearchControlWidth',
-            label: __('Width', 'gutenverse'),
-            component: SizeControl,
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 500,
-                    step: 1
-                },
-                ['%']: {
-                    text: '%',
-                    min: 0,
-                    max: 100,
-                    step: 1
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .search-filters-wrap .filter-wrap`,
-                    render: value => handleUnitPoint(value, 'flex-basis')
-                }
-            ]
-        },
+        
         {
             id: 'filterSearchTextBackground',
             label: __('Background', 'gutenverse'),
@@ -288,32 +341,7 @@ export const filterSearchPanel = (props) => {
                 }
             ]
         },
-        {
-            id: 'fitlerSearchFormWidth',
-            label: __('Width', 'gutenverse'),
-            component: SizeControl,
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 500,
-                    step: 1
-                },
-                ['%']: {
-                    text: '%',
-                    min: 0,
-                    max: 100,
-                    step: 1
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .search-filters-wrap .guten-gallery-search-box`,
-                    render: value => handleUnitPoint(value, 'flex-basis')
-                }
-            ]
-        },
+        
         {
             id: 'filterSearchFormBorder',
             show: device === 'Desktop',

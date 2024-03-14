@@ -230,6 +230,19 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['searchControlWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-filters-wrap",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['searchControlWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['filterSearchTypography'] ) ) {
 			$this->inject_typography(
 				array(

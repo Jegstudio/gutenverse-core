@@ -16,7 +16,6 @@
       justify-content: center;
       &:hover .content-image .hover-image {
         opacity: 1;
-        @include transition(false, false, opacity 0.25s ease-in-out 0s);
       }
     }
     .content-image {
@@ -33,16 +32,17 @@
         position: absolute;
         left: 0px;
         top: 50%;
-        @include transform(false, translateY(-50%));
-        opacity: 0;
         height: auto;
         width: 100%;
+        opacity: 0;
+        @include transform(false, translateY(-50%));
+        @include transition(false, false, opacity 0.25s ease-in-out 0s);
       }
     }
-    .content-image:hover .main-image {
-      opacity: 0;
-      visibility: hidden;
-      @include transition(false, false, all 0.25s ease);
-    }
+    // .content-image:hover .main-image {
+    //   opacity: 0;
+    //   visibility: hidden;
+    //   @include transition(false, false, all 0.25s ease);
+    // }
   }
 }
