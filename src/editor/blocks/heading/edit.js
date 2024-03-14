@@ -151,8 +151,7 @@ const HeadingBlock = compose(
         if (headingRef?.current) {
             const newElement = u(headingRef?.current).children().map(child => {
                 const newChild = u(child).children().map(grandChild => {
-                    const benar = u(grandChild).nodes[0].parentElement.classList.contains('guten-dynamic-data');
-                    // console.log(benar, u(grandChild).nodes[0].parentElement.classList);
+                    const isDynamic = u(grandChild).nodes[0].parentElement.classList.contains('guten-dynamic-data');
                     if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
                         return {
                             color: {},
@@ -242,12 +241,12 @@ const HeadingBlock = compose(
                 attributes
             );
 
-            const dynamicData = applyFilters(
-                'gutenverse_dynamic_content',
-                title,
-                getTheAttributes
-            );
-            console.log(title);
+            // const dynamicData = applyFilters(
+            //     'gutenverse_dynamic_content',
+            //     title,
+            //     getTheAttributes
+            // );
+            // console.log(title);
 
             const anchorElement = document.createElement('a');
             if (href !== '#') {
