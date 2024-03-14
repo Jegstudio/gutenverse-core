@@ -1902,7 +1902,9 @@
       >* {
         display: block;
       }
-
+      .control-title{
+        display: flex;
+      }
       .gradient-type {
         display: flex;
         justify-content: space-between;

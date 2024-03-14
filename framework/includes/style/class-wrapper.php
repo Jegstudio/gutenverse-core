@@ -34,19 +34,19 @@ class Wrapper extends Style_Abstract {
 
 		$this->set_feature(
 			array(
-				'background'    => array(
+				'background'        => array(
 					'normal' => ".{$this->element_id}:not(.background-animated), .{$this->element_id}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer",
 					'hover'  => ".{$this->element_id}:not(.background-animated):hover, .{$this->element_id}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer",
 				),
-				'border'        => array(
+				'border'            => array(
 					'normal' => ".{$this->element_id}",
 					'hover'  => ".{$this->element_id}:hover",
 				),
-				'animation'     => ".{$this->element_id}",
-				'advance'       => ".{$this->element_id}",
-				'mask'          => null,
-				'pointer'       => null,
-				'cursor-effect' => null,
+				'animation'         => ".{$this->element_id}",
+				'advance'           => ".{$this->element_id}",
+				'mask'              => null,
+				'pointer'           => null,
+				'cursor-effect'     => null,
 				'background-effect' => ".{$this->element_id}> .guten-inner-wrap> .guten-background-effect",
 			)
 		);
@@ -246,7 +246,7 @@ class Wrapper extends Style_Abstract {
 		if ( isset( $this->attrs['blur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-element.{$this->element_id}:before",
+					'selector'       => ".guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -259,7 +259,7 @@ class Wrapper extends Style_Abstract {
 		if ( isset( $this->attrs['blurHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".guten-element.{$this->element_id}:hover:before",
+					'selector'       => ".guten-element.{$this->element_id}:hover",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
