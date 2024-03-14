@@ -79,8 +79,7 @@ const HeadingBlock = compose(
         elementId,
         type,
         content,
-        dynamicContent,
-        dynamicUrl,
+        dynamicDataList,
     } = attributes;
     const [headingContent, setHeadingContent] = useState(content);
     const {
@@ -89,6 +88,8 @@ const HeadingBlock = compose(
         (select) => select('core/block-editor'),
         []
     );
+
+    // console.log('1', dynamicDataList);
     const getContent = (clientId) => {
         const block = getBlockAttributes(clientId);
         let content = '';
@@ -130,6 +131,19 @@ const HeadingBlock = compose(
             });
             setAttributes({ textChilds: newChild });
         }
+
+        const dynamicDataLists = getDynamicDataList(headingContent);
+        let list = attributes.dynamicDataList;
+        if (attributes.content) {
+            const newList = dynamicDataLists.map(element => {
+                const indexExist = list.findIndex(item => element.id === item.id);
+                if (indexExist !== -1) {
+                    element.test = 'test';
+                }
+                return element;
+            });
+            setAttributes({dynamicDataList: newList});
+        }
     }, [headingContent]);
 
     const tagName = 'h' + type;
@@ -151,7 +165,6 @@ const HeadingBlock = compose(
         if (headingRef?.current) {
             const newElement = u(headingRef?.current).children().map(child => {
                 const newChild = u(child).children().map(grandChild => {
-                    const isDynamic = u(grandChild).nodes[0].parentElement.classList.contains('guten-dynamic-data');
                     if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
                         return {
                             color: {},
@@ -173,6 +186,23 @@ const HeadingBlock = compose(
                     }
                 });
                 return newChild;
+            });
+            return newElement.nodes;
+        } else {
+            return [];
+        }
+    };
+    const getDynamicDataList = () => {
+        if (headingRef?.current) {
+            console.log(u(headingRef?.current).children());
+            const newElement = u(headingRef?.current).children().map(child => {
+                const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
+                if( isDynamic ){
+                    return {
+                        value: child,
+                        id: u(child).attr('id')
+                    };
+                }
             });
             return newElement.nodes;
         } else {
@@ -226,8 +256,6 @@ const HeadingBlock = compose(
             }
         }
 
-        console.log(selectedItems);
-
         if ( selectedItem ) {
             const href = applyFilters(
                 'gutenverse.dynamic.generate-url',
@@ -269,7 +297,7 @@ const HeadingBlock = compose(
         }
         setAttributes({ content: contentArray.join('') });
 
-    },[dynamicContent, dynamicUrl]);
+    },[content]);
 
     const handleOnChange = (value) => {
         const newDiv = document.createElement('div');
