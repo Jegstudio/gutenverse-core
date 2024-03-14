@@ -95,11 +95,11 @@ const GalleryItem = (attributes) => {
                     </div>
                     <div className="caption-button">
                         <div className="item-buttons">
-                            <div className="gallery-link zoom">
+                            {zoomOptions !== 'disable' && <div className="gallery-link zoom">
                                 <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
                                 </span>
-                            </div>
+                            </div>}
                             {!galleryItem.disableLink && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link">
                                 <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>
