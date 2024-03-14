@@ -294,11 +294,11 @@
 			"copyStyle": true
 		},
 		"opacity": {
-			"type": "number",
+			"type": "string",
 			"copyStyle": true
 		},
 		"hoverOpacity": {
-			"type": "number",
+			"type": "string",
 			"copyStyle": true
 		},
 		"margin": {
