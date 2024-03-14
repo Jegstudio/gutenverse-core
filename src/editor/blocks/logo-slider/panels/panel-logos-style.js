@@ -190,7 +190,7 @@ export const logosStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -218,7 +218,7 @@ export const logosStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]
@@ -285,7 +285,7 @@ export const logosStylePanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -299,7 +299,7 @@ export const logosStylePanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -312,7 +312,7 @@ export const logosStylePanel = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }
@@ -328,7 +328,7 @@ export const logosStylePanel = (props) => {
             step: 0.1,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image:hover .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     render: value => `opacity: ${value};`
                 },
             ],
