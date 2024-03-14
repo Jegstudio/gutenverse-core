@@ -215,16 +215,18 @@ const HeadingBlock = compose(
             }
         });
         /** For a list of element has it */
-        // const selectedItems = [];
-        // for (const item of contentArray) {
-        //     const parser = new DOMParser();
-        //     const doc = parser.parseFromString(item, 'text/html');
-        //     const selectElement = doc.querySelectorAll('.select');
+        const selectedItems = [];
+        for (const item of contentArray) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(item, 'text/html');
+            const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
 
-        //     if (selectElement.length > 0) {
-        //         selectedItems.push(selectElement);
-        //     }
-        // }
+            if (selectElements.length > 0) {
+                selectedItems.push(selectElements);
+            }
+        }
+
+        console.log(selectedItems);
 
         if ( selectedItem ) {
             const href = applyFilters(

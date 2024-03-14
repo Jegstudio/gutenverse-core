@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel, dynamicDataPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
@@ -26,13 +26,6 @@ export const panelList = () => {
         {
             title: __('Dynamic Content', 'gutenverse'),
             panelArray: dynamicContentPanel,
-            initialOpen: false,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Dynamic Data', 'gutenverse'),
-            panelArray: dynamicDataPanel,
             initialOpen: false,
             tabRole: TabSetting,
             pro: true,
