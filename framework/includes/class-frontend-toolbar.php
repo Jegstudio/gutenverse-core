@@ -119,7 +119,7 @@ class Frontend_Toolbar {
 			$user  = wp_get_current_user();
 			$roles = (array) $user->roles;
 
-			if ( in_array( 'administrator', $roles ) || in_array( 'editor', $roles ) ) {
+			if ( in_array( 'administrator', $roles, true ) || in_array( 'editor', $roles, true ) ) {
 
 				$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
 

@@ -410,6 +410,8 @@ export const getEditSiteHeader = () => {
             let header = document.getElementsByClassName('edit-post-header-toolbar')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header_start')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__start')[0];
+            header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__center')[0];
+            header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__end')[0];
 
             resolve(header);
         }, 1000);

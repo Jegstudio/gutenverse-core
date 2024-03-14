@@ -100,7 +100,7 @@
 			"copyStyle": true
 		},
 		"opacity": {
-			"type": "float",
+			"type": "string",
 			"copyStyle": true
 		},
 		"backgroundOverlayHover": {
@@ -108,7 +108,7 @@
 			"copyStyle": true
 		},
 		"opacityHover": {
-			"type": "float",
+			"type": "string",
 			"copyStyle": true
 		},
 		"cursorEffect": {
@@ -209,6 +209,10 @@
 			"source": "attribute",
 			"selector": "a",
 			"attribute": "rel"
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

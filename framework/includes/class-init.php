@@ -383,5 +383,4 @@ class Init {
 		</div>
 		<?php
 	}
-	
 }
