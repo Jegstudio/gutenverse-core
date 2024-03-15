@@ -35,14 +35,12 @@ const save = compose(
         displayClass,
     );
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <RichText.Content
-                className={'gutenverse-text-paragraph'}
-                tagName={'p'}
-                aria-label={__('Text Paragraph', 'gutenverse')}
-                value={paragraph}
-            />
-        </div>
+        <RichText.Content
+            tagName={'p'}
+            aria-label={__('Text Paragraph', 'gutenverse')}
+            value={paragraph}
+            {...useBlockProps.save({ className, ...advanceAnimationData })}
+        />
     );
 });
 

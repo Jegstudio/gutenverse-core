@@ -29,7 +29,7 @@ class Text extends Style_Abstract {
 	 *
 	 * @var array
 	 */
-	protected $name = 'text-editor';
+	protected $name = 'text';
 
 
 	/**
@@ -56,6 +56,7 @@ class Text extends Style_Abstract {
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
+		error_log(print_r($this->attrs,true));
 		if ( isset( $this->attrs['columns'] ) ) {
 			$this->inject_style(
 				array(
