@@ -1,8 +1,9 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconCrownSVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
+import { ButtonUpgradePro } from 'gutenverse-core/components';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
@@ -16,7 +17,7 @@ const PanelTabPro = ({ activeTab }) => {
     const ButtonProSecond = applyFilters(
         'gutenverse.pro-text-button', 
         () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /></a>, 
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>, 
         {location, buttonType : 'second'});
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
@@ -39,7 +40,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/blink-2.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <ButtonProFirst/>
+                                    <ButtonUpgradePro isBanner={true} location = "card-pro"/>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">
