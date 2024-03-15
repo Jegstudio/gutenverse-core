@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -12,18 +12,32 @@ import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
-import { HighlightButton } from 'gutenverse-core/toolbars';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
+import { useEffect, useRef } from '@wordpress/element';
 
+const TextBlockControl = (props) => {
+    const{
+        attributes,
+        setAttributes
+    } = props
+    const {
+        type,
+    } = attributes;
+
+    HighLightToolbar (props, 'gutenverse/text' );
+};
 const TextBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('text'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withHighLightText('paragraph')
 )((props) => {
     const { panelProps} = props;
     const {
         attributes,
-        setAttributes,
+        setElementRef,
+        handleOnChange,
         clientId
     } = props;
     const {
@@ -36,6 +50,10 @@ const TextBlock = compose(
         (select) => select('core/block-editor'),
         []
     );
+    useEffect(() => {
+        console.log(attributes);
+    },[attributes])
+    const textRef = useRef();
     const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -49,6 +67,7 @@ const TextBlock = compose(
             animationClass,
             displayClass,
         ),
+        ref: textRef
     });
     const onSplit = (value, isOriginal) => {
         const newBlock = createBlock( 'gutenverse/text', {
@@ -64,25 +83,28 @@ const TextBlock = compose(
     };
     const onReplace = (value) => {
     }
+    useEffect(() => {
+        if (textRef.current) {
+            setElementRef(textRef.current);
+        }
+    }, [textRef]);
     return <>
         <PanelController
             {...props}
             panelList={panelList}
             panelProps={panelProps}
         />
-        <HighlightButton {...props}/>
-        <div  {...blockProps}>
-            <RichText
-                className={'gutenverse-text-paragraph'}
-                tagName={'p'}
-                aria-label={__('Text Paragraph', 'gutenverse')}
-                placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
-                value={paragraph}
-                onChange={value => setAttributes({ paragraph: value })}
-                onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
-                onReplace= {onReplace}
-            />
-        </div>
+        <TextBlockControl {...props}/>
+        <RichText
+            {...blockProps}
+            tagName={'p'}
+            aria-label={__('Text Paragraph', 'gutenverse')}
+            placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
+            value={paragraph}
+            onChange={handleOnChange}
+            onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
+            onReplace= {onReplace}
+        />
     </>;
 });
 
