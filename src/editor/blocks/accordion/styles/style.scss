@@ -12,6 +12,11 @@
     display: block;
   }
 
+  .accordion-body {
+    transition: height 0s;
+    transition-timing-function: cubic-bezier(0,-0.13,0,1.04);
+  }
+
   &.active {
     .accordion-icon-open {
       display: block;
