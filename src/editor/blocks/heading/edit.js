@@ -89,7 +89,6 @@ const HeadingBlock = compose(
         []
     );
 
-    // console.log('1', dynamicDataList);
     const getContent = (clientId) => {
         const block = getBlockAttributes(clientId);
         let content = '';
