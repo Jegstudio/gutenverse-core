@@ -138,7 +138,9 @@ const HeadingBlock = compose(
             const newList = dynamicDataLists.map(element => {
                 const indexExist = list.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
-                    element.test = 'test';
+                    element._key = list[indexExist]?._key;
+                    element.dynamicContent = list[indexExist]?.dynamicContent;
+                    element.dynamicUrl = list[indexExist]?.dynamicUrl;
                 }
                 return element;
             });
@@ -194,7 +196,6 @@ const HeadingBlock = compose(
     };
     const getDynamicDataList = () => {
         if (headingRef?.current) {
-            console.log(u(headingRef?.current).children());
             const newElement = u(headingRef?.current).children().map(child => {
                 const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
                 if( isDynamic ){
@@ -231,73 +232,56 @@ const HeadingBlock = compose(
                 contentArray.push(node.outerHTML);
             }
         });
-        let selectedItem = null;
-        let selectedItemIndex = -1;
-
-        contentArray.forEach((item, index) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(item, 'text/html');
-            const selectElement = doc.querySelector('span.guten-dynamic-data');
-
-            if (selectElement) {
-                selectedItem = selectElement;
-                selectedItemIndex = index;
-            }
-        });
-        /** For a list of element has it */
         const selectedItems = [];
-        for (const item of contentArray) {
+        for (const [index, item] of contentArray.entries()) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(item, 'text/html');
             const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
+            const pushData = {
+                key : index,
+                element: selectElements
+            };
 
             if (selectElements.length > 0) {
-                selectedItems.push(selectElements);
+                selectedItems.push(pushData);
             }
         }
 
-        if ( selectedItem ) {
-            const href = applyFilters(
-                'gutenverse.dynamic.generate-url',
-                '#',
-                'dynamicUrl',
-                attributes
-            );
+        if ( selectedItems.length > 0 && dynamicDataList.length > 0) {
 
-            const title = applyFilters(
-                'gutenverse.dynamic.generate-content',
-                content,
-                'dynamicContent',
-                attributes
-            );
+            selectedItems.map((item, index)=>{
+                const href = applyFilters(
+                    'gutenverse.dynamic.generate-url',
+                    '#',
+                    'dynamicUrl',
+                    dynamicDataList[index]
+                );
 
-            // const dynamicData = applyFilters(
-            //     'gutenverse_dynamic_content',
-            //     title,
-            //     getTheAttributes
-            // );
-            // console.log(title);
+                const title = applyFilters(
+                    'gutenverse.dynamic.generate-content',
+                    content,
+                    'dynamicContent',
+                    dynamicDataList[index]
+                );
 
-            const anchorElement = document.createElement('a');
-            if (href !== '#') {
-                anchorElement.setAttribute('href', href);
-                if (title !== content) {
-                    anchorElement.innerHTML = title;
-                } else anchorElement.innerHTML = selectedItem.innerHTML;
-                selectedItem.innerHTML = '';
-                selectedItem.appendChild(anchorElement);
-            }else if (title !== content){
-                selectedItem.innerHTML = '';
-                selectedItem.innerHTML = title;
-            }
+                if (href !== '#') {
+                    const anchorElement = document.createElement('a');
+                    item.element[0].setAttribute('dynamic-data-url', href);
+                    if (title !== content) {
+                        anchorElement.innerHTML = item.element[0].outerHTML;
+                    } else anchorElement.innerHTML = item.element[0].innerHTML;
+                    item.element[0].innerHTML = '';
+                    item.element[0].appendChild(anchorElement);
+                }
+                if (title !== content){
+                    item.element[0].setAttribute('dynamic-data-content', title);
+                }
+                contentArray[item.key] = item.element[0].outerHTML;
+            });
+            setAttributes({ content: contentArray.join('') });
         }
 
-        if (selectedItemIndex !== -1) {
-            contentArray[selectedItemIndex] = selectedItem.outerHTML;
-        }
-        setAttributes({ content: contentArray.join('') });
-
-    },[content]);
+    },[headingContent]);
 
     const handleOnChange = (value) => {
         const newDiv = document.createElement('div');
