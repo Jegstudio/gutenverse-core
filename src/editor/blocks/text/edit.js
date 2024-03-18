@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withDinamicContent, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -14,31 +14,38 @@ import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { HighLightToolbar } from 'gutenverse-core/toolbars';
 import { useEffect, useRef } from '@wordpress/element';
+import { applyFilters } from '@wordpress/hooks';
 
 const TextBlockControl = (props) => {
     const{
-        attributes,
-        setAttributes
-    } = props
+        attributes
+    } = props;
     const {
-        type,
+        elementId
     } = attributes;
-
-    HighLightToolbar (props, 'gutenverse/text' );
+    const blockName = 'gutenverse/text';
+    HighLightToolbar (props);
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        { isActive: true },
+        blockName,
+        elementId,
+    );
 };
 const TextBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('text'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText('paragraph')
+    withHighLightText('paragraph'),
+    withDinamicContent('paragraph')
 )((props) => {
     const { panelProps} = props;
     const {
         attributes,
         setElementRef,
-        handleOnChange,
-        clientId
+        clientId,
+        setAttributes
     } = props;
     const {
         elementId,
@@ -50,9 +57,6 @@ const TextBlock = compose(
         (select) => select('core/block-editor'),
         []
     );
-    useEffect(() => {
-        console.log(attributes);
-    },[attributes])
     const textRef = useRef();
     const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
@@ -81,6 +85,7 @@ const TextBlock = compose(
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
+    //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
     }
     useEffect(() => {
@@ -101,7 +106,7 @@ const TextBlock = compose(
             aria-label={__('Text Paragraph', 'gutenverse')}
             placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
             value={paragraph}
-            onChange={handleOnChange}
+            onChange={value => setAttributes({ paragraph: value })}
             onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
             onReplace= {onReplace}
         />

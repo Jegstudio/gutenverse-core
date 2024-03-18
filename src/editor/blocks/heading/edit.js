@@ -7,7 +7,6 @@ import { __ } from '@wordpress/i18n';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { useSelect, subscribe } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
 /* Gutenverse dependencies */
@@ -24,7 +23,7 @@ const HeadingBlockControl = (props) => {
     const{
         attributes,
         setAttributes
-    } = props
+    } = props;
     const {
         type,
         elementId
@@ -38,7 +37,7 @@ const HeadingBlockControl = (props) => {
         blockName,
         elementId,
     );
-    HighLightToolbar (props, 'gutenverse/heading', );
+    HighLightToolbar (props);
 
     return <BlockControls>
         <ToolbarGroup>

@@ -17,8 +17,13 @@
 			"type": "array",
 			"default": []
 		},
+    "dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
     "paragraph": {
       "type": "string",
+      "default": "",
       "copyStyle": true
     },
     "columns": {

@@ -11,7 +11,7 @@ export { metadata, name };
 
 export const settings = {
     icon: <IconTextEditorSVG />,
-    // example,
+    example,
     edit,
     save,
 };
