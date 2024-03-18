@@ -50,9 +50,9 @@ const TextEditorBlock = compose(
     });
 
     const innerBlocksProps = useInnerBlocksProps({
-        template: [['core/paragraph']]
+        template: [['gutenverse/text']]
     }, {
-        allowedBlocks: ['core/paragraph'],
+        allowedBlocks: ['gutenverse/text','core/paragraph'],
     });
 
     useEffect(() => {

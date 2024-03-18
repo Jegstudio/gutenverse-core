@@ -1,27 +1,29 @@
 /* External dependencies */
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { classnames } from 'gutenverse-core/components';
-import { u } from 'gutenverse-core-frontend';
-import { cryptoRandomString } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { useSelect, subscribe } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withHighLightText, withDinamicContent } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
-const HeadingBlockControl = ({ attributes, setAttributes }) => {
+const HeadingBlockControl = (props) => {
+    const{
+        attributes,
+        setAttributes
+    } = props;
     const {
         type,
         elementId
@@ -35,6 +37,7 @@ const HeadingBlockControl = ({ attributes, setAttributes }) => {
         blockName,
         elementId,
     );
+    HighLightToolbar (props);
 
     return <BlockControls>
         <ToolbarGroup>
@@ -67,86 +70,35 @@ const HeadingBlock = compose(
     withCustomStyle(panelList),
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withHighLightText('content'),
+    withDinamicContent('content'),
 )(props => {
     const {
         attributes,
         setAttributes,
         setElementRef,
-        clientId,
     } = props;
     const {
         elementId,
         type,
         content,
-        dynamicDataList,
     } = attributes;
-    const [headingContent, setHeadingContent] = useState(content);
-    const {
-        getBlockAttributes
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
 
-    const getContent = (clientId) => {
-        const block = getBlockAttributes(clientId);
-        let content = '';
-        if (block) {
-            content = block.content;
-        }
-        return content;
-    };
-    useEffect(() => {
-        const unsubscribe = subscribe(() => {
-            const theContent = getContent(clientId);
-            if (headingContent !== theContent) {
-                setHeadingContent(theContent);
-            }
-        });
-        return () => unsubscribe();
-    }, []);
-    useEffect(() => {
-        const child = getListOfChildTag(headingContent);
-        let childs = attributes.textChilds;
-        if (attributes.content) {
-            const newChild = child.map(element => {
-                const indexExist = childs.findIndex(item => element.id === item.id);
-                if (indexExist !== -1) {
-                    element.color = childs[indexExist].color;
-                    element.colorHover = childs[indexExist].colorHover;
-                    element.typography = childs[indexExist].typography;
-                    element.typographyHover = childs[indexExist].typographyHover;
-                    element.textClip = childs[indexExist].textClip;
-                    element.textClipHover = childs[indexExist].textClipHover;
-                    element.background = childs[indexExist].background;
-                    element.backgroundHover = childs[indexExist].backgroundHover;
-                    element.padding = childs[indexExist].padding;
-                    element.paddingHover = childs[indexExist].paddingHover;
-                    element.margin = childs[indexExist].margin;
-                    element.marginHover = childs[indexExist].marginHover;
-                }
-                return element;
-            });
-            setAttributes({ textChilds: newChild });
-        }
-
-        const dynamicDataLists = getDynamicDataList(headingContent);
-        let list = attributes.dynamicDataList;
-        if (attributes.content) {
-            const newList = dynamicDataLists.map(element => {
-                const indexExist = list.findIndex(item => element.id === item.id);
-                if (indexExist !== -1) {
-                    element._key = list[indexExist]?._key;
-                    element.dynamicContent = list[indexExist]?.dynamicContent;
-                    element.dynamicUrl = list[indexExist]?.dynamicUrl;
-                }
-                return element;
-            });
-            setAttributes({dynamicDataList: newList});
-        }
-    }, [headingContent]);
-
+    // const dynamicDataLists = getDynamicDataList(headingContent);
+    //     let list = attributes.dynamicDataList;
+    //     if (attributes.content) {
+    //         const newList = dynamicDataLists.map(element => {
+    //             const indexExist = list.findIndex(item => element.id === item.id);
+    //             if (indexExist !== -1) {
+    //                 element._key = list[indexExist]?._key;
+    //                 element.dynamicContent = list[indexExist]?.dynamicContent;
+    //                 element.dynamicUrl = list[indexExist]?.dynamicUrl;
+    //             }
+    //             return element;
+    //         });
+    //         setAttributes({dynamicDataList: newList});
+    //     }
     const tagName = 'h' + type;
     const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -161,154 +113,90 @@ const HeadingBlock = compose(
         ),
         ref: headingRef
     });
+    // const getDynamicDataList = () => {
+    //     if (headingRef?.current) {
+    //         const newElement = u(headingRef?.current).children().map(child => {
+    //             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
+    //             if( isDynamic ){
+    //                 return {
+    //                     value: child,
+    //                     id: u(child).attr('id')
+    //                 };
+    //             }
+    //         });
+    //         return newElement.nodes;
+    //     } else {
+    //         return [];
+    //     }
+    // };
 
-    const getListOfChildTag = () => {
-        if (headingRef?.current) {
-            const newElement = u(headingRef?.current).children().map(child => {
-                const newChild = u(child).children().map(grandChild => {
-                    if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
-                        return {
-                            color: {},
-                            colorHover: {},
-                            typography: {},
-                            typographyHover: {},
-                            textClip:{},
-                            textClipHover:{},
-                            background: {},
-                            backgroundHover: {},
-                            padding:{},
-                            paddingHover:{},
-                            margin:{},
-                            marginHover:{},
-                            value: child,
-                            id: u(grandChild).attr('id'),
-                            spanId: u(child).attr('id')
-                        };
-                    }
-                });
-                return newChild;
-            });
-            return newElement.nodes;
-        } else {
-            return [];
-        }
-    };
-    const getDynamicDataList = () => {
-        if (headingRef?.current) {
-            const newElement = u(headingRef?.current).children().map(child => {
-                const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
-                if( isDynamic ){
-                    return {
-                        value: child,
-                        id: u(child).attr('id')
-                    };
-                }
-            });
-            return newElement.nodes;
-        } else {
-            return [];
-        }
-    };
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
 
-    const getTheAttributes = [];
-    useEffect(()=>{
-        getTheAttributes.push(attributes);
-    },[]);
+    // useEffect(() => {
+    //     const newDiv = document.createElement('div');
+    //     newDiv.innerHTML = content;
+    //     const contentArray = [];
+    //     newDiv.childNodes.forEach(node => {
+    //         if (node.nodeType === Node.TEXT_NODE) {
+    //             contentArray.push(node.textContent);
+    //         } else if (node.nodeType === Node.ELEMENT_NODE) {
+    //             contentArray.push(node.outerHTML);
+    //         }
+    //     });
+    //     const selectedItems = [];
+    //     for (const [index, item] of contentArray.entries()) {
+    //         const parser = new DOMParser();
+    //         const doc = parser.parseFromString(item, 'text/html');
+    //         const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
+    //         const pushData = {
+    //             key : index,
+    //             element: selectElements
+    //         };
 
-    useEffect(() => {
-        const newDiv = document.createElement('div');
-        newDiv.innerHTML = content;
-        const contentArray = [];
-        newDiv.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                contentArray.push(node.textContent);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                contentArray.push(node.outerHTML);
-            }
-        });
-        const selectedItems = [];
-        for (const [index, item] of contentArray.entries()) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(item, 'text/html');
-            const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
-            const pushData = {
-                key : index,
-                element: selectElements
-            };
+    //         if (selectElements.length > 0) {
+    //             selectedItems.push(pushData);
+    //         }
+    //     }
 
-            if (selectElements.length > 0) {
-                selectedItems.push(pushData);
-            }
-        }
+    //     if ( selectedItems.length > 0 && dynamicDataList.length > 0) {
 
-        if ( selectedItems.length > 0 && dynamicDataList.length > 0) {
+    //         selectedItems.map((item, index)=>{
+    //             const href = applyFilters(
+    //                 'gutenverse.dynamic.generate-url',
+    //                 '#',
+    //                 'dynamicUrl',
+    //                 dynamicDataList[index]
+    //             );
 
-            selectedItems.map((item, index)=>{
-                const href = applyFilters(
-                    'gutenverse.dynamic.generate-url',
-                    '#',
-                    'dynamicUrl',
-                    dynamicDataList[index]
-                );
+    //             const title = applyFilters(
+    //                 'gutenverse.dynamic.generate-content',
+    //                 content,
+    //                 'dynamicContent',
+    //                 dynamicDataList[index]
+    //             );
 
-                const title = applyFilters(
-                    'gutenverse.dynamic.generate-content',
-                    content,
-                    'dynamicContent',
-                    dynamicDataList[index]
-                );
+    //             if (href !== '#') {
+    //                 const anchorElement = document.createElement('a');
+    //                 item.element[0].setAttribute('dynamic-data-url', href);
+    //                 if (title !== content) {
+    //                     anchorElement.innerHTML = item.element[0].outerHTML;
+    //                 } else anchorElement.innerHTML = item.element[0].innerHTML;
+    //                 item.element[0].innerHTML = '';
+    //                 item.element[0].appendChild(anchorElement);
+    //             }
+    //             if (title !== content){
+    //                 item.element[0].setAttribute('dynamic-data-content', title);
+    //             }
+    //             contentArray[item.key] = item.element[0].outerHTML;
+    //         });
+    //         setAttributes({ content: contentArray.join('') });
+    //     }
 
-                if (href !== '#') {
-                    const anchorElement = document.createElement('a');
-                    item.element[0].setAttribute('dynamic-data-url', href);
-                    if (title !== content) {
-                        anchorElement.innerHTML = item.element[0].outerHTML;
-                    } else anchorElement.innerHTML = item.element[0].innerHTML;
-                    item.element[0].innerHTML = '';
-                    item.element[0].appendChild(anchorElement);
-                }
-                if (title !== content){
-                    item.element[0].setAttribute('dynamic-data-content', title);
-                }
-                contentArray[item.key] = item.element[0].outerHTML;
-            });
-            setAttributes({ content: contentArray.join('') });
-        }
-
-    },[headingContent]);
-
-    const handleOnChange = (value) => {
-        const newDiv = document.createElement('div');
-        newDiv.innerHTML = value;
-        const contentArray = [];
-        newDiv.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                contentArray.push(node.textContent);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                contentArray.push(node.outerHTML);
-            }
-        });
-        const newValue = contentArray.map(element => {
-            const regex = /id="([^"]+)"/;
-            const match = element.match(regex);
-            let index = element.indexOf('>');
-            if (!match && index !== -1) {
-                let part1 = element.slice(1, index);
-                const uniqeidChild = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-                const uniqeidSpan = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-                const child = `<span id=${uniqeidSpan}>` + element.replace(`<${part1}>`, `<${part1} id=${uniqeidChild}>`) + '</span>';
-                return child;
-            } else {
-                return element;
-            }
-        });
-        return setAttributes({ content: newValue.join('') });
-    };
+    // },[headingContent]);
 
     return <>
         <HeadingInspection {...props} />
@@ -318,7 +206,7 @@ const HeadingBlock = compose(
             identifier="content"
             tagName={tagName}
             value={content}
-            onChange={handleOnChange}
+            onChange={value => setAttributes({ content: value })}
             placeholder={__('Write heading…')}
             multiline={false}
             {...blockProps}

@@ -451,6 +451,15 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"hoverWithParent":{
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"parentSelector":{
+			"type":"string",
+			"copyStyle": true
 		}
 	},
 	"supports": {
