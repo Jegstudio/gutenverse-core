@@ -4,29 +4,29 @@ import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { useSelect, select } from '@wordpress/data';
 import { speak } from '@wordpress/a11y';
 import { __, sprintf } from '@wordpress/i18n';
-
 import { cryptoRandomString } from 'gutenverse-core/components';
 
-export const HighLightToolbar = (props, blockName) => {
+export const HighLightToolbar = (props) => {
     /** select block with RichText to display new format */
-
+    const arrBlockName = ['gutenverse/heading','gutenverse/text'];
     const selectedBlock = useSelect( ( select ) => {
         return select( 'core/block-editor' ).getSelectedBlock();
     }, []);
     const formatTypes = select( 'core/rich-text' ).getFormatTypes();
     const hasDynamicData = formatTypes.some(object => object.name === 'highlight-format/text-highlight');
-    if ( selectedBlock && selectedBlock.name !== blockName ) {
-        if (hasDynamicData) {
+    if(selectedBlock){
+        const blockRule = arrBlockName.includes(selectedBlock.name);
+        if( hasDynamicData && !blockRule ){
             unregisterFormatType('highlight-format/text-highlight');
-        }
-    }else {
-        if ( !hasDynamicData ){
-            registerFormatType('highlight-format/text-highlight', {
-                title: 'Text Highlight',
-                tagName: 'span',
-                className: 'guten-text-highlight',
-                edit: HighlightButton,
-            });
+        }else{
+            if(!hasDynamicData){
+                registerFormatType('highlight-format/text-highlight', {
+                    title: 'Text Highlight',
+                    tagName: 'span',
+                    className: 'guten-text-highlight',
+                    edit: HighlightButton,
+                });
+            }
         }
     }
     return <HighlightButton {...props}/>;
