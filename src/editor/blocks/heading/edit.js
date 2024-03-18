@@ -73,84 +73,18 @@ const HeadingBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect,
     withHighLightText('content'),
-    withDinamicContent,
+    withDinamicContent('content'),
 )(props => {
     const {
         attributes,
-        setElementRef,
         setAttributes,
-        handleOnChange
+        setElementRef,
     } = props;
     const {
         elementId,
         type,
         content,
-        dynamicDataList,
     } = attributes;
-    // const [headingContent, setHeadingContent] = useState(content);
-    const {
-        getBlockAttributes
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
-
-    // console.log('1', dynamicDataList);
-    // const getContent = (clientId) => {
-    //     const block = getBlockAttributes(clientId);
-    //     let content = '';
-    //     if (block) {
-    //         content = block.content;
-    //     }
-    //     return content;
-    // };
-    // useEffect(() => {
-    //     const unsubscribe = subscribe(() => {
-    //         const theContent = getContent(clientId);
-    //         if (headingContent !== theContent) {
-    //             setHeadingContent(theContent);
-    //         }
-    //     });
-    //     return () => unsubscribe();
-    // }, []);
-    // useEffect(() => {
-    //     const child = getListOfChildTag(headingContent);
-    //     let childs = attributes.textChilds;
-    //     if (attributes.content) {
-    //         const newChild = child.map(element => {
-    //             const indexExist = childs.findIndex(item => element.id === item.id);
-    //             if (indexExist !== -1) {
-    //                 element.color = childs[indexExist].color;
-    //                 element.colorHover = childs[indexExist].colorHover;
-    //                 element.typography = childs[indexExist].typography;
-    //                 element.typographyHover = childs[indexExist].typographyHover;
-    //                 element.textClip = childs[indexExist].textClip;
-    //                 element.textClipHover = childs[indexExist].textClipHover;
-    //                 element.background = childs[indexExist].background;
-    //                 element.backgroundHover = childs[indexExist].backgroundHover;
-    //                 element.padding = childs[indexExist].padding;
-    //                 element.paddingHover = childs[indexExist].paddingHover;
-    //                 element.margin = childs[indexExist].margin;
-    //                 element.marginHover = childs[indexExist].marginHover;
-    //             }
-    //             return element;
-    //         });
-    //         setAttributes({ textChilds: newChild });
-    //     }
-
-    //     const dynamicDataLists = getDynamicDataList(headingContent);
-    //     let list = attributes.dynamicDataList;
-    //     if (attributes.content) {
-    //         const newList = dynamicDataLists.map(element => {
-    //             const indexExist = list.findIndex(item => element.id === item.id);
-    //             if (indexExist !== -1) {
-    //                 element.test = 'test';
-    //             }
-    //             return element;
-    //         });
-    //         setAttributes({dynamicDataList: newList});
-    //     }
-    // }, [headingContent]);
 
     const tagName = 'h' + type;
     const headingRef = useRef();
@@ -166,146 +100,11 @@ const HeadingBlock = compose(
         ),
         ref: headingRef
     });
-
-    // const getListOfChildTag = () => {
-    //     if (headingRef?.current) {
-    //         const newElement = u(headingRef?.current).children().map(child => {
-    //             const newChild = u(child).children().map(grandChild => {
-    //                 if( u(grandChild).nodes[0].localName === 'strong' || u(grandChild).nodes[0].localName === 'em'){
-    //                     return {
-    //                         color: {},
-    //                         colorHover: {},
-    //                         typography: {},
-    //                         typographyHover: {},
-    //                         textClip:{},
-    //                         textClipHover:{},
-    //                         background: {},
-    //                         backgroundHover: {},
-    //                         padding:{},
-    //                         paddingHover:{},
-    //                         margin:{},
-    //                         marginHover:{},
-    //                         value: child,
-    //                         id: u(grandChild).attr('id'),
-    //                         spanId: u(child).attr('id')
-    //                     };
-    //                 }
-    //             });
-    //             return newChild;
-    //         });
-    //         return newElement.nodes;
-    //     } else {
-    //         return [];
-    //     }
-    // };
-    // const getDynamicDataList = () => {
-    //     if (headingRef?.current) {
-    //         console.log(u(headingRef?.current).children());
-    //         const newElement = u(headingRef?.current).children().map(child => {
-    //             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
-    //             if( isDynamic ){
-    //                 return {
-    //                     value: child,
-    //                     id: u(child).attr('id')
-    //                 };
-    //             }
-    //         });
-    //         return newElement.nodes;
-    //     } else {
-    //         return [];
-    //     }
-    // };
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
-
-    const getTheAttributes = [];
-    useEffect(()=>{
-        getTheAttributes.push(attributes);
-    },[]);
-
-    useEffect(() => {
-        const newDiv = document.createElement('div');
-        newDiv.innerHTML = content;
-        const contentArray = [];
-        newDiv.childNodes.forEach(node => {
-            if (node.nodeType === Node.TEXT_NODE) {
-                contentArray.push(node.textContent);
-            } else if (node.nodeType === Node.ELEMENT_NODE) {
-                contentArray.push(node.outerHTML);
-            }
-        });
-        let selectedItem = null;
-        let selectedItemIndex = -1;
-
-        contentArray.forEach((item, index) => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(item, 'text/html');
-            const selectElement = doc.querySelector('span.guten-dynamic-data');
-
-            if (selectElement) {
-                selectedItem = selectElement;
-                selectedItemIndex = index;
-            }
-        });
-        /** For a list of element has it */
-        const selectedItems = [];
-        for (const item of contentArray) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(item, 'text/html');
-            const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
-
-            if (selectElements.length > 0) {
-                selectedItems.push(selectElements);
-            }
-        }
-
-        if ( selectedItem ) {
-            const href = applyFilters(
-                'gutenverse.dynamic.generate-url',
-                '#',
-                'dynamicUrl',
-                attributes
-            );
-
-            const title = applyFilters(
-                'gutenverse.dynamic.generate-content',
-                content,
-                'dynamicContent',
-                attributes
-            );
-
-            // const dynamicData = applyFilters(
-            //     'gutenverse_dynamic_content',
-            //     title,
-            //     getTheAttributes
-            // );
-            // console.log(title);
-
-            const anchorElement = document.createElement('a');
-            if (href !== '#') {
-                anchorElement.setAttribute('href', href);
-                if (title !== content) {
-                    anchorElement.innerHTML = title;
-                } else anchorElement.innerHTML = selectedItem.innerHTML;
-                selectedItem.innerHTML = '';
-                selectedItem.appendChild(anchorElement);
-            }else if (title !== content){
-                selectedItem.innerHTML = '';
-                selectedItem.innerHTML = title;
-            }
-        }
-
-        if (selectedItemIndex !== -1) {
-            contentArray[selectedItemIndex] = selectedItem.outerHTML;
-        }
-        setAttributes({ content: contentArray.join('') });
-
-    },[content]);
-
-
     return <>
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
@@ -314,7 +113,7 @@ const HeadingBlock = compose(
             identifier="content"
             tagName={tagName}
             value={content}
-            onChange={handleOnChange}
+            onChange={value => setAttributes({ content: value })}
             placeholder={__('Write heading…')}
             multiline={false}
             {...blockProps}
