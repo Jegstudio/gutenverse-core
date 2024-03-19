@@ -1,9 +1,9 @@
-import { applyFilters } from '@wordpress/hooks';
 import { LockedDynamicContentControl } from 'gutenverse-core/controls';
+import { applyFilters } from '@wordpress/hooks';
 
-export const dynamicDataPanel = (props) => {
+export const dynamicContentPanel = (props) => {
     return applyFilters(
-        'gutenverse.dynamic-data-control',
+        'gutenverse.dynamic-content-options',
         [{
             component: LockedDynamicContentControl,
         }],
