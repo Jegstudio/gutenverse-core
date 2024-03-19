@@ -26,16 +26,13 @@ const HeadingBlockControl = (props) => {
     } = props;
     const {
         type,
-        elementId
     } = attributes;
 
     const blockName = 'gutenverse/heading';
-
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
         { isActive: true },
         blockName,
-        elementId,
     );
     HighLightToolbar (props);
 
@@ -85,20 +82,6 @@ const HeadingBlock = compose(
         content,
     } = attributes;
 
-    // const dynamicDataLists = getDynamicDataList(headingContent);
-    //     let list = attributes.dynamicDataList;
-    //     if (attributes.content) {
-    //         const newList = dynamicDataLists.map(element => {
-    //             const indexExist = list.findIndex(item => element.id === item.id);
-    //             if (indexExist !== -1) {
-    //                 element._key = list[indexExist]?._key;
-    //                 element.dynamicContent = list[indexExist]?.dynamicContent;
-    //                 element.dynamicUrl = list[indexExist]?.dynamicUrl;
-    //             }
-    //             return element;
-    //         });
-    //         setAttributes({dynamicDataList: newList});
-    //     }
     const tagName = 'h' + type;
     const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -113,90 +96,12 @@ const HeadingBlock = compose(
         ),
         ref: headingRef
     });
-    // const getDynamicDataList = () => {
-    //     if (headingRef?.current) {
-    //         const newElement = u(headingRef?.current).children().map(child => {
-    //             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
-    //             if( isDynamic ){
-    //                 return {
-    //                     value: child,
-    //                     id: u(child).attr('id')
-    //                 };
-    //             }
-    //         });
-    //         return newElement.nodes;
-    //     } else {
-    //         return [];
-    //     }
-    // };
 
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
-
-    // useEffect(() => {
-    //     const newDiv = document.createElement('div');
-    //     newDiv.innerHTML = content;
-    //     const contentArray = [];
-    //     newDiv.childNodes.forEach(node => {
-    //         if (node.nodeType === Node.TEXT_NODE) {
-    //             contentArray.push(node.textContent);
-    //         } else if (node.nodeType === Node.ELEMENT_NODE) {
-    //             contentArray.push(node.outerHTML);
-    //         }
-    //     });
-    //     const selectedItems = [];
-    //     for (const [index, item] of contentArray.entries()) {
-    //         const parser = new DOMParser();
-    //         const doc = parser.parseFromString(item, 'text/html');
-    //         const selectElements = doc.querySelectorAll('span.guten-dynamic-data');
-    //         const pushData = {
-    //             key : index,
-    //             element: selectElements
-    //         };
-
-    //         if (selectElements.length > 0) {
-    //             selectedItems.push(pushData);
-    //         }
-    //     }
-
-    //     if ( selectedItems.length > 0 && dynamicDataList.length > 0) {
-
-    //         selectedItems.map((item, index)=>{
-    //             const href = applyFilters(
-    //                 'gutenverse.dynamic.generate-url',
-    //                 '#',
-    //                 'dynamicUrl',
-    //                 dynamicDataList[index]
-    //             );
-
-    //             const title = applyFilters(
-    //                 'gutenverse.dynamic.generate-content',
-    //                 content,
-    //                 'dynamicContent',
-    //                 dynamicDataList[index]
-    //             );
-
-    //             if (href !== '#') {
-    //                 const anchorElement = document.createElement('a');
-    //                 item.element[0].setAttribute('dynamic-data-url', href);
-    //                 if (title !== content) {
-    //                     anchorElement.innerHTML = item.element[0].outerHTML;
-    //                 } else anchorElement.innerHTML = item.element[0].innerHTML;
-    //                 item.element[0].innerHTML = '';
-    //                 item.element[0].appendChild(anchorElement);
-    //             }
-    //             if (title !== content){
-    //                 item.element[0].setAttribute('dynamic-data-content', title);
-    //             }
-    //             contentArray[item.key] = item.element[0].outerHTML;
-    //         });
-    //         setAttributes({ content: contentArray.join('') });
-    //     }
-
-    // },[headingContent]);
 
     return <>
         <HeadingInspection {...props} />
