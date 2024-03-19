@@ -36,7 +36,7 @@ export const HighlightButton = (props) => {
         isActive,
         value,
         onChange
-    } = props
+    } = props;
     return (
         <BlockControls>
             <ToolbarGroup>
