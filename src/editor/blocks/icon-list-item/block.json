@@ -12,6 +12,10 @@
 		"elementId": {
 			"type": "string"
 		},
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
 		"url": {
 			"type": "string",
 			"source": "attribute",
