@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
-import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -19,20 +19,12 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-const IconListItemBlockControl = (props) => {
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        { isActive: true }
-    );
-};
 const IconListItemBlock = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar(),
-    withDinamicContent('text'),
+    withCopyElementToolbar()
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
@@ -67,7 +59,6 @@ const IconListItemBlock = compose(
         ),
         ref: iconListItemRef
     });
-
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -92,7 +83,6 @@ const IconListItemBlock = compose(
             setElementRef(iconListItemRef.current);
         }
     }, [iconListItemRef]);
-
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -105,7 +95,6 @@ const IconListItemBlock = compose(
             value={icon}
             onChange={value => setAttributes({ icon: value })}
         />, gutenverseRoot)}
-        <IconListItemBlockControl {...props}/>
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar

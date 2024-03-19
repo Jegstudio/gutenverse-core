@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { withCustomStyle, withDinamicContent, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
-import { useBlockProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { useBlockProps, BlockControls } from '@wordpress/block-editor';
+import { classnames, ToolbarGroup } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -16,20 +16,13 @@ import { HighLightToolbar } from 'gutenverse-core/toolbars';
 import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
+
 const TextBlockControl = (props) => {
-    const{
-        attributes
-    } = props;
-    const {
-        elementId
-    } = attributes;
-    const blockName = 'gutenverse/text';
     HighLightToolbar (props);
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
-        { isActive: true },
-        blockName,
-        elementId,
+        '',
+        { isActive: true }
     );
 };
 const TextBlock = compose(
