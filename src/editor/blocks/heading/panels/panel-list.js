@@ -24,7 +24,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Dynamic Content', 'gutenverse'),
+            title: __('Dynamic Data', 'gutenverse'),
             panelArray: dynamicContentPanel,
             initialOpen: false,
             tabRole: TabSetting,

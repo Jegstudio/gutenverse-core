@@ -26,16 +26,13 @@ const HeadingBlockControl = (props) => {
     } = props;
     const {
         type,
-        elementId
     } = attributes;
 
     const blockName = 'gutenverse/heading';
-
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
         { isActive: true },
         blockName,
-        elementId,
     );
     HighLightToolbar (props);
 
@@ -99,11 +96,13 @@ const HeadingBlock = compose(
         ),
         ref: headingRef
     });
+
     useEffect(() => {
         if (headingRef.current) {
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
+
     return <>
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
