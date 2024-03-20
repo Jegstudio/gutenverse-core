@@ -41,7 +41,7 @@ export const HighlightButton = (props) => {
                     onClick={() => {
                         const hasElement = value.formats.some((val,key) => {
                             const num = Number(key);
-                            if(!isNaN(num) && num >= value.start && num <= value.end - 1){
+                            if(!isNaN(num) && num >= value.start && num <= value.end - 1 && val.some(obj => obj.type === 'highlight-format/text-highlight' )){
                                 return num;
                             }
                         });
