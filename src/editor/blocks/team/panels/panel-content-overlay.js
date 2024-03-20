@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
+import { BackgroundControl } from 'gutenverse-core/controls';
+import { handleBackground } from 'gutenverse-core/styling';
 
 export const overlayPanel = (props) => {
     const {
@@ -10,12 +10,15 @@ export const overlayPanel = (props) => {
     return [
         {
             id: 'hoverBgColor',
-            label: __('Overlay Background Color', 'gutenverse'),
-            component: ColorControl,
+            label: __('Overlay Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: [ 'default', 'gradient' ],
+            allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}.guten-team .profile-box .profile-card.card-overlay:before`,
-                    render: value => handleColor(value, 'background')
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },

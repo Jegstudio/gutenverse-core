@@ -94,13 +94,13 @@
 			"copyStyle": true
 		},
 		"imageWidth": {
-			"type": "string",
-			"default": "150",
+			"type": "number",
+			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeight": {
-			"type": "string",
-			"default": "150",
+			"type": "number",
+			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeightResponsive": {
@@ -451,6 +451,15 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"hoverWithParent":{
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"parentSelector":{
+			"type":"string",
+			"copyStyle": true
 		}
 	},
 	"supports": {

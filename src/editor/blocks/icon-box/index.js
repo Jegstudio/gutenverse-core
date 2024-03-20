@@ -16,6 +16,10 @@ export const settings = {
     example: example,
     edit,
     save,
+    providesContext: {
+        'hoverWithParent': 'hoverWithParent',
+        'parentSelector' : 'parentSelector'
+    },
     deprecated: [
         {
             attributes,

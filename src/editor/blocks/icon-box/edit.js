@@ -73,8 +73,8 @@ const IconBoxBlock = compose(
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
         lazyLoad,
+        hoverWithParent
     } = attributes;
-
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -122,10 +122,12 @@ const IconBoxBlock = compose(
     const innerBlockProps = useInnerBlocksProps(
         {},
         {
-            allowedBlocks: ['gutenverse/button'],
+            allowedBlocks: ['gutenverse/button']
         }
     );
-
+    useEffect(()=>{
+        setAttributes({parentSelector :  `.${elementId}:hover .guten-icon-box-wrapper`});
+    },[hoverWithParent]);
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;

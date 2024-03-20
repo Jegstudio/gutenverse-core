@@ -14,4 +14,5 @@ export const settings = {
     example,
     edit,
     save,
+    usesContext: ['hoverWithParent', 'parentSelector'],
 };

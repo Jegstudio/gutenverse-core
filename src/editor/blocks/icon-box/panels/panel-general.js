@@ -22,6 +22,11 @@ export const panelGeneral = (props) => {
             component: CheckboxControl,
         },
         {
+            id: 'hoverWithParent',
+            label: __('Button Hover With Card', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
             id: 'watermarkShow',
             label: __('Enable Hover Watermark?', 'gutenverse'),
             component: CheckboxControl,
