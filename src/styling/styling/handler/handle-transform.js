@@ -230,9 +230,8 @@ export const handleTransform = (values) => {
         });
     }
 
-    if (opacity) {
-        const opacity_ = ! isEmpty(opacity) ? opacity: '1';
-
+    if (opacity || opacity === 0) {
+        const opacity_ = ! isEmpty(opacity) || opacity === 0 ? opacity: '1';
         normalAppender({
             style: `opacity: ${opacity_};`,
             elementStyle
@@ -423,9 +422,8 @@ export const handleTransformHover = (values) => {
         });
     }
 
-    if (opacityHover) {
-        const opacity_ = ! isEmpty(opacityHover) ? opacityHover: '1';
-
+    if (opacityHover || opacityHover === 0) {
+        const opacity_ = ! isEmpty(opacityHover) || opacityHover === 0 ? opacityHover: '1';
         normalAppender({
             style: `opacity: ${opacity_};`,
             elementStyle

@@ -2,7 +2,7 @@ import { handleBackground } from 'gutenverse-core/styling';
 import { BackgroundControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 
-export const backgroundOverlayPanel = (props) => {
+export const    backgroundOverlayPanel = (props) => {
     const {
         elementId,
         normalOptions,
@@ -54,7 +54,9 @@ export const backgroundOverlayPanel = (props) => {
             style: [
                 {
                     selector: normalSelector ? normalSelector : `.${elementId} > .guten-background-overlay`,
-                    render: value => `opacity: ${value};`
+                    render: value => {
+                        return `opacity: ${value};`;
+                    }
                 },
             ],
         },
