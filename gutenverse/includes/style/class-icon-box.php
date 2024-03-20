@@ -424,14 +424,32 @@ class Icon_Box extends Style_Abstract {
 			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.style-gradient", $this->attrs['iconBackgroundHover'] );
 		}
 
-		if ( isset( $this->attrs['iconBorder'] ) ) {
+		if ( isset( $this->attrs['iconBorder'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
+		if ( isset( $this->attrs['iconBorder'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon img" );
+		}
 
-		if ( isset( $this->attrs['iconBorderResponsive'] ) ) {
+		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon img",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -457,14 +475,32 @@ class Icon_Box extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBorderHover'] ) ) {
+		if ( isset( $this->attrs['iconBorderHover'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
 		}
+		if ( isset( $this->attrs['iconBorderHover'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .icon-box.icon-box-header .icon img" );
+		}
 
-		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) ) {
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover .icon-box.icon-box-header .icon",
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconBorderHoverResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon img",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},

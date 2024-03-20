@@ -498,5 +498,17 @@ class Image_Box extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['hoverBottomHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .border-bottom, .{$this->element_id} .border-bottom .animated",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['hoverBottomHeight'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

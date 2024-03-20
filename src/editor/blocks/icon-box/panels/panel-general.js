@@ -24,7 +24,6 @@ export const panelGeneral = (props) => {
         {
             id: 'hoverWithParent',
             label: __('Button Hover With Card', 'gutenverse'),
-            description: __('Make button hover style activated when mouse hovering in icon box wrapper. ONLY WORK ON NEW GENERATED BUTTON'),
             component: CheckboxControl,
         },
         {

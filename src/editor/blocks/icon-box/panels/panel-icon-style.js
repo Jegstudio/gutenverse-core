@@ -9,7 +9,8 @@ export const panelIconStyle = (props) => {
         elementId,
         switcher,
         setSwitcher,
-        iconStyleMode
+        iconStyleMode,
+        iconType
     } = props;
 
     const device = getDeviceType();
@@ -157,8 +158,15 @@ export const panelIconStyle = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
+                    selector: `.${elementId} .icon-box.icon-box-header .icon `,
                     hasChild: true,
+                    allowRender: () => iconType === 'icon',
+                    render: value => handleBorder(value)
+                },
+                {
+                    selector: `.${elementId} .icon-box.icon-box-header .icon img`,
+                    hasChild: true,
+                    allowRender: () => iconType === 'image',
                     render: value => handleBorder(value)
                 }
             ]
@@ -172,7 +180,12 @@ export const panelIconStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    allowRender: () => device !== 'Desktop',
+                    allowRender: () => device !== 'Desktop' && iconType === 'icon',
+                    render: value => handleBorderResponsive(value)
+                },
+                {
+                    selector: `.${elementId} .icon-box.icon-box-header .icon img`,
+                    allowRender: () => device !== 'Desktop' && iconType === 'image',
                     render: value => handleBorderResponsive(value)
                 }
             ]
@@ -199,6 +212,13 @@ export const panelIconStyle = (props) => {
                 {
                     selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
                     hasChild: true,
+                    allowRender: () => iconType === 'icon',
+                    render: value => handleBorder(value)
+                },
+                {
+                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon img`,
+                    hasChild: true,
+                    allowRender: () => iconType === 'image',
                     render: value => handleBorder(value)
                 }
             ]
@@ -212,7 +232,12 @@ export const panelIconStyle = (props) => {
             style: [
                 {
                     selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    allowRender: () => device !== 'Desktop',
+                    allowRender: () => device !== 'Desktop' && iconType === 'icon',
+                    render: value => handleBorderResponsive(value)
+                },
+                {
+                    selector: `.${elementId} .icon-box.icon-box-header .icon img`,
+                    allowRender: () => device !== 'Desktop' && iconType === 'image',
                     render: value => handleBorderResponsive(value)
                 }
             ]

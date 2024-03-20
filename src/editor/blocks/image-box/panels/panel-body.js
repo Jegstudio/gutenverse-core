@@ -1,8 +1,8 @@
 
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, ColorControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
+import { CheckboxControl, ColorControl, IconControl, IconRadioControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const panelBody = props => {
     const {
@@ -126,6 +126,33 @@ export const panelBody = props => {
                 },
             ]
         },
+        {
+            id: 'hoverBottomHeight',
+            show: hoverBottom,
+            label: __('Hover Border Bottom Height', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 1000,
+                    step: 1
+                },
+                em: {
+                    text: 'em',
+                    min: 0.1,
+                    max: 10,
+                    step: 0.1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .border-bottom, .${elementId} .border-bottom .animated `,
+                    render: value => handleUnitPoint(value, 'height')
+                }
+            ]
+        }
 
     ];
 };
