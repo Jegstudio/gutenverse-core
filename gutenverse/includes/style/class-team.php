@@ -488,16 +488,7 @@ class Team extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background' );
-					},
-					'value'          => $this->attrs['hoverBgColor'],
-					'device_control' => false,
-				)
-			);
+			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before", $this->attrs['hoverBgColor'] );
 		}
 
 		if ( isset( $this->attrs['hoverPadding'] ) ) {
