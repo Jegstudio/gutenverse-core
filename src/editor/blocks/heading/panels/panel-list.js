@@ -2,13 +2,12 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel, dynamicContentPanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
-import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -25,7 +24,12 @@ export const panelList = () => {
         },
         {
             title: __('Dynamic Data', 'gutenverse'),
-            panelArray: dynamicContentPanel,
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text'
+                });
+            },
             initialOpen: false,
             tabRole: TabSetting,
             pro: true,
