@@ -41,6 +41,7 @@ const FunFactBlock = compose(
         iconType,
         image,
         imageAlt,
+        lazyLoad,
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -69,7 +70,11 @@ const FunFactBlock = compose(
             case 'icon':
                 return <div className="icon"><i className={icon}></i></div>;
             case 'image':
-                return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} /></div>;
+                if(lazyLoad){
+                    return <div className="icon"><img loading={lazyLoad ? 'lazy' : 'eager'} src={getImageSrc(image)} alt={imageAltText} /></div>;
+                }else{
+                    return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} /></div>;
+                }
             default:
                 return null;
         }

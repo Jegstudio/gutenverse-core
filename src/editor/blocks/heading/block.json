@@ -164,6 +164,13 @@
 			"type": "object",
 			"default": {},
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		},
+		"anchor": {
+		  "type": "string"
 		}
 	},
 	"supports": {
@@ -171,9 +178,5 @@
 		"reusable": false,
 		"html": false
 	},
-	"keywords": [
-		"heading",
-		"text",
-		"title"
-	]
+	"keywords": ["heading", "text", "title"]
 }

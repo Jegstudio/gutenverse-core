@@ -32,6 +32,7 @@ const save = compose(
         hoverBottomDirection,
         image,
         imageAlt,
+        lazyLoad
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -54,7 +55,11 @@ const save = compose(
             case 'icon':
                 return <div className="icon"><i className={icon}></i></div>;
             case 'image':
-                return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} /></div>;
+                if(lazyLoad){
+                    return <div className="icon"><img loading={lazyLoad ? 'lazy' : 'eager'} src={getImageSrc(image)} alt={imageAltText} /></div>;
+                }else{
+                    return <div className="icon"><img src={getImageSrc(image)} alt={imageAltText} /></div>;
+                }
             default:
                 return null;
         }
@@ -66,7 +71,7 @@ const save = compose(
                 {headerContent()}
                 <div className="content">
                     <div className="number-wrapper">
-                        <span className="prefix">{`${prefix} `}</span>
+                        <span className="prefix">{`${prefix}`}</span>
                         <span className="number loaded" data-number={number} data-duration={duration}></span>
                         <span className="suffix">{suffix}</span>
                         {showSupper && <sup className="super">{supper}</sup>}

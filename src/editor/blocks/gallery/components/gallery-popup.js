@@ -47,7 +47,6 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
 
         setFullscreen(false);
     };
-
     return <div className="gutenverse-popup-gallery" ref={popupRef}>
         <div className="gallery-header">
             <div className="left-header">
@@ -73,7 +72,7 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
                     ref={sliderRef}>
                     {images.map((image, index) => <div className="image-list" key={index}>
                         <div className="content-image swiper-zoom-container">
-                            {image && <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title}/>}
+                            {image && <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} loading={image.lazyLoad ? 'lazy' : 'eager'}/>}
                         </div>
                     </div>)}
                 </WPSwiper>

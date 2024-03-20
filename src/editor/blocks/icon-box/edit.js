@@ -72,6 +72,7 @@ const IconBoxBlock = compose(
         badgePosition,
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
+        lazyLoad,
     } = attributes;
 
     const imageAltText = imageAlt || null;
@@ -92,7 +93,13 @@ const IconBoxBlock = compose(
         ),
         ref: iconBoxRef
     });
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(image)} alt={imageAltText}/>;
+        }
+    };
     const iconContent = () => {
         switch (iconType) {
             case 'icon':
@@ -104,7 +111,7 @@ const IconBoxBlock = compose(
             case 'image':
                 return <div className="icon-box icon-box-header">
                     <div className={`icon style-${iconStyleMode}`}>
-                        <img src={getImageSrc(image)} alt={imageAltText} />
+                        {imageLazyLoad()}
                     </div>
                 </div>;
             default:
@@ -187,7 +194,7 @@ const IconBoxBlock = compose(
         )}
         <div  {...blockProps}>
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
-                {iconContent()}
+                { iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
                     <RichText
                         className="title"
@@ -209,6 +216,7 @@ const IconBoxBlock = compose(
                     />
                     <div {...innerBlockProps} />
                 </div>
+                { iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <RichText
                         className="badge-text"

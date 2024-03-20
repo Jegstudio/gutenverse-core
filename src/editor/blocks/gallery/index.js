@@ -5,10 +5,9 @@ import metadata from './block.json';
 import { IconGallerySVG } from '../../../assets/icon/index';
 import example from './data/example';
 
-const { name } = metadata;
+const { name} = metadata;
 
 export { metadata, name };
-
 export const settings = {
     icon: <IconGallerySVG />,
     example: example,

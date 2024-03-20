@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
@@ -9,7 +9,7 @@ export const panelIcon = (props) => {
         removeStyle,
         iconSize,
         imageWidth,
-        imageHeight
+        imageHeight,
     } = props;
 
     const deviceType = getDeviceType();
@@ -87,15 +87,91 @@ export const panelIcon = (props) => {
             component: ImageControl,
         },
         {
+            id: 'lazyLoad',
+            show: iconType && iconType === 'image',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
+        {
             id: 'imageAlt',
             show: iconType && iconType === 'image',
             label: __('Image Alt', 'gutenverse'),
             component: TextControl,
         },
         {
-            id: 'imageWidth',
+            id: 'imageFit',
             show: iconType && iconType === 'image',
+            label: __('Image Fit Content', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    value: 'fill',
+                    label: 'Default'
+                },
+                {
+                    value: 'contain',
+                    label: 'Contain'
+                },
+                {
+                    value: 'cover',
+                    label: 'Cover'
+                },
+                {
+                    value: 'none',
+                    label: 'None'
+                },
+                {
+                    value: 'scale-down',
+                    label: 'Scale Down'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon img`,
+                    allowRender: () => iconType && iconType === 'image',
+                    render: value => `object-fit: ${value};`
+                }
+            ]
+        },
+        {
+            id: 'imageWidthResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
             label: __('Image Width', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
+                    render: value => `width: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageHeightResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
+            label: __('Image Height', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
+                    render: value => `height: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageWidth',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
+            label: __('Image Width', 'gutenverse'),
+            showDeviceControl: true,
             component: RangeControl,
             min: 1,
             max: 400,
@@ -103,15 +179,16 @@ export const panelIcon = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
                     render: value => `width: ${value}px;`
                 }
             ]
         },
         {
             id: 'imageHeight',
-            show: iconType && iconType === 'image',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
             label: __('Image Height', 'gutenverse'),
+            showDeviceControl: true,
             component: RangeControl,
             min: 1,
             max: 400,
@@ -119,7 +196,7 @@ export const panelIcon = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
                     render: value => `height: ${value}px;`
                 }
             ]

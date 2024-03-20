@@ -1,7 +1,7 @@
 import { render, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { IconPluginCheckSVG, IconPluginFormSVG, IconPluginFontSVG } from '../../assets/icon/index';
-import { classnames } from 'classnames';
+import classnames from 'classnames';
 import apiFetch from '@wordpress/api-fetch';
 
 const WizardItem = ({ part, selected, toggleSelected, icon, title, subtitle }) => {
@@ -102,6 +102,14 @@ const WizardContainer = ({ setStage }) => {
                 doUpgrade(index + 1);
             });
         } else {
+            apiFetch({
+                path: 'gutenverse-client/v1/upgrade',
+                method: 'POST',
+                data: {
+                    step: 'complete',
+                },
+            });
+
             setProgress({
                 step: totalStep,
                 totalStep: totalStep,

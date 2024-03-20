@@ -261,7 +261,11 @@
         "mask": {
             "type": "object",
             "copyStyle": true
-        }
+        },
+        "condition": {
+			"type": "object",
+			"default": {}
+		}
     },
     "supports": {
         "className": false

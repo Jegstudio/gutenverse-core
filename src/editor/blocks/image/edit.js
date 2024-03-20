@@ -22,7 +22,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 export const ImageBoxFigure = attributes => {
-    const { imgSrc, altType, altOriginal, altCustom } = attributes;
+    const { imgSrc, altType, altOriginal, altCustom, lazyLoad } = attributes;
     const { media = {}, size } = imgSrc || {};
     const { imageId, sizes = {} } = media || {};
 
@@ -36,28 +36,38 @@ export const ImageBoxFigure = attributes => {
             imageAltText = altCustom;
             break;
     }
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        }
+    };
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
 
     if (isEmpty(sizes)) {
-        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        return imageLazyLoad();
     }
 
     let imageSrc = sizes[size];
 
     if (isEmpty(imageSrc)) {
         if (isEmpty(sizes['full'])) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+            return imageLazyLoad();
         }
 
         imageSrc = sizes['full'];
     }
 
     if (imageId && imageSrc) {
-        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy"/>;
+        }else{
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        }
     }
 
-    return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+    return imageLazyLoad();
 };
 
 const ImagePicker = (props) => {
@@ -127,6 +137,7 @@ const ImageBlock = compose(
         captionType,
         captionOriginal,
         captionCustom,
+        ariaLabel
     } = attributes;
 
     const defaultSrc = imagePlaceholder;
@@ -182,10 +193,15 @@ const ImageBlock = compose(
         }
     };
 
+    const urlAriaLabel = () => {
+        if( ariaLabel ){
+            return <a className="guten-image-wrapper" aria-label={ariaLabel} href={url} target={linkTarget} rel={rel} ><ImageBoxFigure {...attributes} /></a>;
+        }else{
+            return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
+        }
+    };
     const blockElement = <div {...blockProps}>
-        {!isEmpty(imgSrc) ? (
-            <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>
-        ) : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
+        {!isEmpty(imgSrc) ? urlAriaLabel() : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
         {caption()}
     </div>;
 

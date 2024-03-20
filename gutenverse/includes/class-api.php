@@ -126,6 +126,9 @@ class Api {
 			case 'icon':
 				$result = Init::instance()->assets->download_font_icon();
 				break;
+			default:
+				( new Upgrader() )->upgrader_page_upgrade_close();
+				break;
 		}
 
 		return $result;

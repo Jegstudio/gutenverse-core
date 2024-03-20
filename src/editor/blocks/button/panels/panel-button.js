@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
 import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const buttonPanel = (props) => {
@@ -10,6 +10,7 @@ export const buttonPanel = (props) => {
         showIcon,
         iconPosition,
         iconSpacing,
+        role,
     } = props;
 
     return [
@@ -56,6 +57,12 @@ export const buttonPanel = (props) => {
                     value: 'submit'
                 },
             ]
+        },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            show: role === 'link',
+            component: TextControl,
         },
         {
             id: 'buttonType',

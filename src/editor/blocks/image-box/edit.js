@@ -29,33 +29,42 @@ import { isEmpty } from 'lodash';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 export const ImageBoxFigure = attributes => {
-    const { image, imageAlt } = attributes;
+    const { image, imageAlt, lazyLoad } = attributes;
     const { media = {}, size } = image || {};
     const { imageId, sizes = {} } = media || {};
 
     const imageAltText = imageAlt || null;
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+        }
+    };
     if (isEmpty(sizes)) {
-        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        return imageLazyLoad();
     }
 
     let imageSrc = sizes[size];
 
     if (isEmpty(imageSrc)) {
         if (isEmpty(sizes['full'])) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+            return imageLazyLoad();
         }
 
         imageSrc = sizes['full'];
     }
 
     if (imageId && imageSrc) {
-        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        }
     }
-
-    return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+    return imageLazyLoad();
 };
 
 const ImageBoxPicker = (props) => {

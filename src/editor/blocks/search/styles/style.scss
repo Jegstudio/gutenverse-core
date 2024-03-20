@@ -2,10 +2,11 @@
     display: flex;
     flex-wrap: wrap;
 
-    .guten-search-button-wrapper{
-        flex-grow: 1;
+    .gutenverse-search.gutenverse-search-input {
+        border-width: 1px;
     }
-    .guten-button-wrapper{
-        flex-grow: 1;
+    .guten-search-button-wrapper, .guten-button-wrapper{
+        display: inline-flex!important;
+        flex-grow: unset !important;
     }
 }

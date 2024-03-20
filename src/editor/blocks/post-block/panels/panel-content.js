@@ -335,5 +335,10 @@ export const contentPanel = (props) => {
                 }
             ]
         },
+        {
+            id: 'lazyLoad',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
     ];
 };

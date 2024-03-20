@@ -81,7 +81,7 @@ export const panelImageStyle = props => {
             },
             style: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    selector: `.${elementId} .inner-container .image-box-header`,
                     render: value => handleDimension(value, 'border-radius', false)
                 }
             ],
@@ -176,14 +176,19 @@ export const panelImageStyle = props => {
             show: !__imageHover || __imageHover === 'normal',
             label: __('Image Opacity', 'gutenverse'),
             component: RangeControl,
-            min: 0,
-            max: 100,
-            step: 1,
+            min: 0.1,
+            max: 1,
+            step: 0.1,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .inner-container .image-box-header img`,
-                    render: value => `opacity: ${value}%;`
+                    render: value => {
+                        if(  1 < value && 100 >= value  ){
+                            value = value/100;
+                        }
+                        return `opacity: ${value};`;
+                    }
                 }
             ],
         },
@@ -192,14 +197,19 @@ export const panelImageStyle = props => {
             show: __imageHover === 'hover',
             label: __('Image Hover Opacity', 'gutenverse'),
             component: RangeControl,
-            min: 0,
-            max: 100,
-            step: 1,
+            min: 0.1,
+            max: 1,
+            step: 0.1,
             allowDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId}:hover .inner-container .image-box-header img`,
-                    render: value => `opacity: ${value}%;`
+                    render: value => {
+                        if( 1 < value && 100 >= value  ){
+                            value = value/100;
+                        }
+                        return `opacity: ${value};`;
+                    }
                 }
             ],
         },

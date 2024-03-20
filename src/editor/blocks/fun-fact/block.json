@@ -84,7 +84,7 @@
 			"type": "string"
 		},
 		"imageSize": {
-			"type": "int",
+			"type": "integer",
 			"default": 150
 		},
 		"prefix": {
@@ -140,7 +140,7 @@
 			"copyStyle": true
 		},
 		"duration": {
-			"type": "int",
+			"type": "integer",
 			"default": 3500
 		},
 		"numberColor": {
@@ -305,6 +305,14 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"lazyLoad":{
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

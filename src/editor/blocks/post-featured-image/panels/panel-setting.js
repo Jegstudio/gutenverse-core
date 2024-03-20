@@ -14,5 +14,10 @@ export const settingPanel = () => {
             description: __('Show Placeholder Image when post doesn\'t have featured image', 'gutenverse'),
             component: CheckboxControl,
         },
+        {
+            id: 'imageLazy',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
+        },
     ];
 };

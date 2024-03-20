@@ -133,6 +133,10 @@
 			"type": "string",
 			"default": "top"
 		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": false
+		},
 		"paginationMode": {
 			"type": "string",
 			"default": "disable"
@@ -539,6 +543,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

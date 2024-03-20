@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { spacerPanel } from './panel-spacer';
-import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel, maskPanel, backgroundPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, responsivePanel, borderPanel, positioningPanel, maskPanel, backgroundPanel, pointerEventPanel, conditionPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -24,6 +24,12 @@ export const panelList = () => {
             title: __('Masking', 'gutenverse'),
             initialOpen: false,
             panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
             tabRole: TabStyle
         },
         {
@@ -78,6 +84,12 @@ export const panelList = () => {
                 hoverSelector: `.${props.elementId}:hover,.${props.elementId}.guten-spacer.is-selected:hover`,
             }),
             tabRole: TabStyle
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

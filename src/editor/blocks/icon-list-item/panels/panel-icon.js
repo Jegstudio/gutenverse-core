@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl } from 'gutenverse-core/controls';
+import { RangeControl, TextControl } from 'gutenverse-core/controls';
 
 export const panelIcon = (props) => {
     const {
@@ -22,6 +22,11 @@ export const panelIcon = (props) => {
                 }
             ]
         },
+        {
+            id: 'ariaLabel',
+            label: __('Aria Label', 'gutenverse'),
+            component: TextControl
+        }
     ];
 };
 

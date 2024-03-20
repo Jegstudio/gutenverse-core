@@ -37,10 +37,17 @@ const GalleryItem = (attributes) => {
 
         return arr.map((item, key) => item === 2 ? <li key={key}><i className="fas fa-star"></i></li> : <li key={key}><i className="fas fa-star-half"></i></li>);
     };
+    const imageCondition = () => {
+        if(galleryItem.lazyLoad){
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>;
+        }
+    };
 
     return layout === 'overlay' ? <div className="grid-item">
         <div className="thumbnail-wrap">
-            <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>
+            {imageCondition()}
             <div className={`caption-wrap style-overlay overlay-overlay ${hoverClass()}`} onClick={zoomOptions === 'item' && onZoom}>
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>
@@ -67,7 +74,7 @@ const GalleryItem = (attributes) => {
                             <span>{galleryItem.ratingNumber}</span>
                         </div>}
                     </div>
-                    {galleryItem.showCategory && <div className="caption-category">
+                    {(galleryItem.showCategory && galleryItem.printLabelCategory) && <div className="caption-category">
                         <span>{galleryItem.category}</span>
                     </div>}
                 </>}
@@ -75,7 +82,7 @@ const GalleryItem = (attributes) => {
         </div>
     </div> : <div className="grid-item">
         <div className="thumbnail-wrap">
-            <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>
+            {imageCondition()}
             <div className={`caption-wrap search-hover-bg style-overlay ${hoverClass()}`}>
                 {!galleryItem.disableLightbox && <>
                     <div className="item-hover-bg"></div>
@@ -88,11 +95,11 @@ const GalleryItem = (attributes) => {
                     </div>
                     <div className="caption-button">
                         <div className="item-buttons">
-                            <div className="gallery-link zoom">
+                            {zoomOptions !== 'disable' && <div className="gallery-link zoom">
                                 <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
                                 </span>
-                            </div>
+                            </div>}
                             {!galleryItem.disableLink && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link">
                                 <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>

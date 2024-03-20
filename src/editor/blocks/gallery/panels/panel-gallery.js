@@ -19,6 +19,11 @@ export const galleryPanel = () => {
                     component: ImageControl,
                 },
                 {
+                    id: 'lazyLoad',
+                    label: __('Set Lazy Load', 'gutenverse'),
+                    component: CheckboxControl,
+                },
+                {
                     id: 'title',
                     label: __('Title', 'gutenverse'),
                     component: TextControl,
@@ -63,6 +68,12 @@ export const galleryPanel = () => {
                     show: value => value.showCategory,
                     label: __('Category', 'gutenverse'),
                     component: TextControl,
+                },
+                {
+                    id: 'printLabelCategory',
+                    show: value => value.showCategory,
+                    label: __('Show Label Category', 'gutenverse'),
+                    component: CheckboxControl,
                 },
                 {
                     id: 'disableLightbox',

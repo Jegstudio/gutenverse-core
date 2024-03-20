@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
 export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
     return [
@@ -51,6 +51,12 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
             show: iconType === 'image',
             label: __('Image Alt', 'gutenverse'),
             component: TextControl,
+        },
+        {
+            id: 'lazyLoad',
+            show: iconType === 'image',
+            label: __('Set Lazy Load', 'gutenverse'),
+            component: CheckboxControl,
         },
         {
             id: 'imageSize',

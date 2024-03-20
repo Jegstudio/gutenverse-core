@@ -10,33 +10,42 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { isEmpty } from 'lodash';
 
 const ImageBoxFigure = attributes => {
-    const { image, imageAlt } = attributes;
+    const { image, imageAlt, lazyLoad } = attributes;
     const { media = {}, size } = image || {};
     const { imageId, sizes = {} } = media || {};
 
     const imageAltText = imageAlt || null;
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
-
+    const imageLazyLoad = () => {
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+        }
+    };
     if (isEmpty(sizes)) {
-        return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+        return imageLazyLoad();
     }
 
     let imageSrc = sizes[size];
 
     if (isEmpty(imageSrc)) {
         if (isEmpty(sizes['full'])) {
-            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+            return imageLazyLoad();
         }
 
         imageSrc = sizes['full'];
     }
 
     if (imageId && imageSrc) {
-        return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        if(lazyLoad){
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
+        }else{
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
+        }
     }
-
-    return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
+    return imageLazyLoad();
 };
 
 const WrapAHref = ({ attributes, children }) => {
@@ -45,10 +54,11 @@ const WrapAHref = ({ attributes, children }) => {
         linkTarget,
         rel,
         buttonClass = '',
+        ariaLabel,
     } = attributes;
 
     if (url !== undefined && url !== '') {
-        return <a className={buttonClass} href={url} target={linkTarget} rel={rel}>
+        return <a className={buttonClass} href={url} target={linkTarget} rel={rel} aria-label={ariaLabel}>
             {children}
         </a>;
     } else {
@@ -86,11 +96,10 @@ const save = compose(
         'gutenverse-image-box',
         'guten-element',
         `style-${contentStyle}`,
-        advanceAnimationData
     );
 
     return (
-        <div className={className}>
+        <div className={className} {...advanceAnimationData}>
             <div className="image-box-header">
                 <WrapAHref {...props}>
                     <ImageBoxFigure {...attributes} />

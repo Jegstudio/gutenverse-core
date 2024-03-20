@@ -30,6 +30,10 @@
       "selector": "a",
       "attribute": "rel"
     },
+    "ariaLabel": {
+      "type": "string",
+      "copyStyle": true
+    },
     "icon": {
       "type": "string",
       "source": "attribute",
@@ -132,6 +136,10 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

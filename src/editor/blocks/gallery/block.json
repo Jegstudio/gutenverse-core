@@ -14,7 +14,7 @@
 			"copyStyle": true
 		},
 		"showed": {
-			"type": "int",
+			"type": "integer",
 			"default": 6
 		},
 		"zoomOptions": {
@@ -68,7 +68,7 @@
 			"copyStyle": true
 		},
 		"animationDuration": {
-			"type": "int",
+			"type": "integer",
 			"default": 500,
 			"copyStyle": true
 		},
@@ -76,16 +76,20 @@
 			"type": "array",
 			"default": [
 				{
-					"id": "Two"
+					"id": "Two",
+					"lazyLoad": false
 				},
 				{
-					"id": "Three"
+					"id": "Three",
+					"lazyLoad": false
 				},
 				{
-					"id": "Four"
+					"id": "Four",
+					"lazyLoad": false
 				},
 				{
-					"id": "Five"
+					"id": "Five",
+					"lazyLoad": false
 				}
 			]
 		},
@@ -310,7 +314,7 @@
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "int"
+			"type": "integer"
 		},
 		"enableLoadText": {
 			"type": "string",
@@ -397,35 +401,35 @@
 			"copyStyle": true
 		},
 		"filterTabPadding": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabMargin": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabTypography": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabTextColor": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabTextColorActive": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBackground": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBackgroundActive": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBorder": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBorderResponsive": {
@@ -437,7 +441,7 @@
 			"copyStyle": true
 		},
 		"filterTabBorderActive": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBorderActiveResponsive": {
@@ -449,11 +453,15 @@
 			"copyStyle": true
 		},
 		"filterTabBoxShadow": {
-			"tye": "object",
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterTabBoxShadowActive": {
-			"tye": "object",
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchControlWidth": {
+			"type": "object",
 			"copyStyle": true
 		},
 		"filterSearchTypography": {
@@ -691,6 +699,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

@@ -71,7 +71,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineWidth'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "width: {$value}%;";
 					},
@@ -84,7 +84,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineHeight'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "border-top-width: {$value}px;";
 					},
@@ -97,7 +97,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineStyle'] ) && isset( $this->attrs['showLine'] ) && 'none' !== $this->attrs['showLine'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return "border-top-style: {$value};";
 					},
@@ -110,7 +110,7 @@ class Advanced_Heading extends Style_Abstract {
 		if ( isset( $this->attrs['lineColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .heading-line",
+					'selector'       => ".{$this->element_id}.guten-advanced-heading .heading-line",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'border-color' );
 					},

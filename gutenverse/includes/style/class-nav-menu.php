@@ -199,6 +199,46 @@ class Nav_Menu extends Style_Abstract {
 			$this->handle_background( "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a", $this->attrs['itemTextNormalBg'] );
 		}
 
+		if ( isset( $this->attrs['itemMenuBorderNormal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderNormal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['itemMenuBorderHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['itemMenuBorderActive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderActive'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['itemTextHoverColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -358,6 +398,18 @@ class Nav_Menu extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['submenuMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li  a",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['submenuMargin'],
+					'device_control' => true,
+				)
+			);
+		}
 
 		if ( isset( $this->attrs['submenuTextNormalColor'] ) ) {
 			$this->inject_style(
@@ -479,9 +531,18 @@ class Nav_Menu extends Style_Abstract {
 					},
 					'value'          => $this->attrs['submenuPanelPadding'],
 					'device_control' => true,
-					'skip_device'    => array(
-						'Desktop',
-					),
+				)
+			);
+		}
+		if ( isset( $this->attrs['submenuPanelMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-element .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['submenuPanelMargin'],
+					'device_control' => true,
 				)
 			);
 		}

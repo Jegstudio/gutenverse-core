@@ -486,6 +486,30 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "itemMenuBorderActive" :{
+      "type": "object",
+      "copyStyle": true
+    },
+    "itemMenuBorderHover" :{
+      "type": "object",
+      "copyStyle": true
+    },
+    "itemMenuBorderNormal" :{
+      "type": "object",
+      "copyStyle": true
+    },
+    "submenuMargin": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "submenuPanelMargin":{
+      "type": "object",
+      "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

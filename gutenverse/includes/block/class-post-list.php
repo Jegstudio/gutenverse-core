@@ -38,6 +38,12 @@ class Post_List extends Post_Abstract {
 			$content = str_replace( 'href', 'href="javascript:void(0);" data-href', $content );
 		}
 
+		if ( $this->attributes['lazyLoad'] ) {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="lazy" $1>', $content );
+		} else {
+			$content = preg_replace( '/<img(.*?)>/', '<img loading="eager" $1>', $content );
+		}
+
 		return $this->render_wrapper(
 			'postlist',
 			$content,

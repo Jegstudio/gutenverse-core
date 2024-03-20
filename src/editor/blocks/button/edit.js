@@ -21,6 +21,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { link } from 'gutenverse-core/components';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -50,7 +51,9 @@ const ButtonBlock = compose(
         linkTarget,
         iconPosition = 'before',
         role,
+        ariaLabel
     } = attributes;
+
     const {
         getBlockRootClientId,
         getBlock,
@@ -172,6 +175,17 @@ const ButtonBlock = compose(
         {showIcon && iconPosition === 'after' && <i className={`fa-lg ${icon}`} onClick={() => setOpenIconLibrary(true)} />}
     </>;
 
+    const ButtonURLToolbar = () => {
+        return allowLink && role === 'link' && <URLToolbar
+            url={url}
+            setAttributes={setAttributes}
+            isSelected={isSelected}
+            opensInNewTab={linkTarget === '_blank'}
+            onToggleOpenInNewTab={onToggleOpenInNewTab}
+            anchorRef={blockProps.ref}
+        />;
+    };
+
     return <>
         <PanelController panelList={panelList} {...props} />
         {openIconLibrary && createPortal(
@@ -184,14 +198,7 @@ const ButtonBlock = compose(
         )}
         <BlockControls>
             <ToolbarGroup>
-                {allowLink && role === 'link' && <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}
@@ -212,7 +219,7 @@ const ButtonBlock = compose(
         </BlockControls>
         <div  {...blockProps}>
             {role === 'link' ?
-                <a {...buttonProps} onClick={() => textRef.current.focus()}>{buttonText}</a> :
+                <a {...buttonProps} onClick={() => textRef.current.focus()} aria-label={ariaLabel}>{buttonText}</a> :
                 <button {...buttonProps} type="submit" onSubmit={() => textRef.current.focus()}>{buttonText}</button>
             }
         </div>

@@ -21,6 +21,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "ariaLabel": {
+      "type": "string",
+      "copyStyle": true
+    },
     "iconColorOne": {
       "type": "object",
       "copyStyle": true
@@ -199,6 +203,10 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "keywords": [

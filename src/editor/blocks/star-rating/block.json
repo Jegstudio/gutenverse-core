@@ -25,11 +25,11 @@
       "type": "string"
     },
     "rating": {
-      "type": "int",
+      "type": "number",
       "default": 7
     },
     "total": {
-      "type": "int",
+      "type": "number",
       "default": 10
     },
     "titleColor": {
@@ -177,6 +177,10 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

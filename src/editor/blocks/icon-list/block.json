@@ -19,7 +19,7 @@
 			"copyStyle": true
 		},
 		"spaceBetween": {
-			"type": "int",
+			"type": "object",
 			"copyStyle": true
 		},
 		"alignList": {
@@ -39,7 +39,7 @@
 			"copyStyle": true
 		},
 		"iconSize": {
-			"type": "int",
+			"type": "object",
 			"copyStyle": true
 		},
 		"textColor": {
@@ -51,7 +51,7 @@
 			"copyStyle": true
 		},
 		"textIndent": {
-			"type": "int",
+			"type": "object",
 			"copyStyle": true
 		},
 		"textTypography": {
@@ -195,6 +195,10 @@
 		"isDivider": {
 			"type": "boolean",
 			"default": false
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

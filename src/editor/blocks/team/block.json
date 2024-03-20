@@ -30,6 +30,10 @@
       "type": "string",
       "default": "h3"
     },
+    "lazy": {
+      "type": "boolean",
+      "default": false
+    },
     "name": {
       "type": "string",
       "default": "John Doe"
@@ -401,6 +405,10 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {},

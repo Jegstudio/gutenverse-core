@@ -26,11 +26,11 @@
       "default": "fas fa-arrow-right"
     },
     "percentage": {
-      "type": "int",
+      "type": "integer",
       "default": 75
     },
     "duration": {
-      "type": "int",
+      "type": "integer",
       "default": 3500
     },
     "colorMode": {
@@ -225,6 +225,10 @@
     "mask": {
       "type": "object",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

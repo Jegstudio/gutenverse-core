@@ -11,7 +11,7 @@ const SaveSocialShare = compose(
 )(({ attributes }) => {
     const {
         elementId,
-        orientation,
+        orientation = 'horizontal',
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -24,7 +24,6 @@ const SaveSocialShare = compose(
         orientation,
         animationClass,
         displayClass,
-        'guten-social-share',
     );
 
 
