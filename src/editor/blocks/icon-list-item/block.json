@@ -18,6 +18,10 @@
 			"selector": "a",
 			"attribute": "href"
 		},
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
 		"linkTarget": {
 			"type": "string",
 			"source": "attribute",

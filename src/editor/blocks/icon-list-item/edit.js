@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -19,12 +19,14 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconListItemBlock = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withDinamicContent('text'),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
@@ -83,6 +85,10 @@ const IconListItemBlock = compose(
             setElementRef(iconListItemRef.current);
         }
     }, [iconListItemRef]);
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        { isActive: true }
+    );
     return <>
         <InspectorControls>
             <SelectParent {...props}>

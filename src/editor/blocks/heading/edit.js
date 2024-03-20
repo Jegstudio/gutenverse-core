@@ -5,7 +5,7 @@ import { classnames } from 'gutenverse-core/components';
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { ToolbarGroup } from '@wordpress/components';
+import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -33,7 +33,7 @@ const HeadingBlockControl = (props) => {
         '',
         { isActive: true }
     );
-    HighLightToolbar (props);
+    HighLightToolbar(props);
 
     return <BlockControls>
         <ToolbarGroup>
@@ -43,6 +43,7 @@ const HeadingBlockControl = (props) => {
                     setAttributes({ type: newType })
                 }
             />
+            {/* <HighlightButton {...props}/> */}
         </ToolbarGroup>
     </BlockControls>;
 };
