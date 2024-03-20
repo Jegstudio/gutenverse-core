@@ -21,7 +21,7 @@
       "copyStyle": true
     },
     "ratio": {
-      "type": "int",
+      "type": "integer",
       "default": 0
     },
     "altType": {
@@ -100,7 +100,7 @@
       "copyStyle": true
     },
     "opacity": {
-      "type": "float",
+      "type": "string",
       "copyStyle": true
     },
     "imageFit": {
@@ -236,6 +236,10 @@
     "ariaLabel": {
       "type" : "string",
       "copyStyle": true
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "keywords": [

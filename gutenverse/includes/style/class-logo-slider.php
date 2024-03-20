@@ -121,7 +121,7 @@ class Logo_Slider extends Style_Abstract {
 		if ( isset( $this->attrs['imageHoverPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -134,7 +134,7 @@ class Logo_Slider extends Style_Abstract {
 		if ( isset( $this->attrs['imageHoverMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -165,13 +165,13 @@ class Logo_Slider extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['imageBorderHover'] ) ) {
-			$this->handle_border( 'imageBorderHover', ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image" );
+			$this->handle_border( 'imageBorderHover', ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image" );
 		}
 
 		if ( isset( $this->attrs['imageBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -200,7 +200,7 @@ class Logo_Slider extends Style_Abstract {
 		if ( isset( $this->attrs['imageBoxShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},

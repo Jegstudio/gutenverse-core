@@ -199,7 +199,7 @@ const V200 = () => {
                     </div>
                     <div>
                         <img src={assetURL + '/img/upgrade-notice-2.0.0-filter.png'}></img>
-                        <h5>{__('Confition Filters', 'gutenverse')}</h5>
+                        <h5>{__('Condition Filters', 'gutenverse')}</h5>
                         <p>{__('Choose which elements or content should be displayed on the page.', 'gutenverse')}</p>
                     </div>
                 </div>

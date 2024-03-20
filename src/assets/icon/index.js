@@ -67,6 +67,12 @@ import IconArchiveTitle from './icon-archive-title.svg';
 import IconMegaMenu from './icon-mega-menu.svg';
 import IconLottie from './icon-lottie.svg';
 
+import IconTextMarque from './icon-text-marque.svg';
+import IconAdvanceTabs from './icon-advanced-tabs.svg';
+import IconAdvanceButton from './icon-advanced-button.svg';
+import IconImageMarquee from './icon-image-marquee.svg';
+
+
 export const IconMegaMenuSVG = () => {
     return <IconMegaMenu />;
 };
@@ -301,4 +307,20 @@ export const IconSearchSVG = () => {
 
 export const IconPopupBuilderSVG = () => {
     return <IconPopupBuilder />;
+};
+
+export const IconTextMarqueSVG = () => {
+    return <IconTextMarque />;
+};
+
+export const IconImageMarqueeSVG = () => {
+    return <IconImageMarquee />;
+};
+
+export const IconAdvanceTabsSVG = () => {
+    return <IconAdvanceTabs />;
+};
+
+export const IconAdvanceButtonSVG = () => {
+    return <IconAdvanceButton />;
 };

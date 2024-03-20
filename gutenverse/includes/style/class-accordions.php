@@ -298,7 +298,7 @@ class Accordions extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['titleBorderActive'] ) ) {
-			$this->handle_border( 'titleBorderActive', ".{$this->element_id} .accordion-item .accordion-heading" );
+			$this->handle_border( 'titleBorderActive', ".{$this->element_id} .accordion-item.active .accordion-heading" );
 		}
 
 		if ( isset( $this->attrs['titleBorderActiveResponsive'] ) ) {

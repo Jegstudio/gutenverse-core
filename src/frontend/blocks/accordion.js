@@ -33,7 +33,7 @@ class GutenverseAccordion extends Default {
                     targets: bodyItem.first(),
                     height: bodySize.height,
                     duration: 500,
-                    easing: 'easeInOutQuad',
+                    easing: 'easeOutCubic',
                 }).finished.finally(() => {
                     bodyItem.addClass('expanded');
                     bodyItem.attr('style', '');
@@ -43,7 +43,7 @@ class GutenverseAccordion extends Default {
                     targets: bodyItem.first(),
                     height: '0',
                     duration: 500,
-                    easing: 'easeInOutQuad',
+                    easing: 'easeOutCubic',
                 }).finished.finally(() => {
                     bodyItem.attr('style', '');
                 });

@@ -7,6 +7,7 @@ import {
     animationPanel,
     backgroundPanel,
     borderPanel,
+    conditionPanel,
     maskPanel,
     mouseMoveEffectPanel,
     positioningPanel,
@@ -106,6 +107,12 @@ export const panelList = () => {
                 styleId: 'social-share-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

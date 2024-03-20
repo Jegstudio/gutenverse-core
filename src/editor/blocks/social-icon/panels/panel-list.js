@@ -1,7 +1,7 @@
 import { contentPanel } from './panel-content';
 import { __ } from '@wordpress/i18n';
 import { contentColor } from './panel-color';
-import { animationPanel, borderPanel, maskPanel, responsivePanel } from 'gutenverse-core/controls';
+import { animationPanel, borderPanel, conditionPanel, maskPanel, responsivePanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -58,6 +58,12 @@ export const panelList = () => {
                 ...props,
                 blockType: 'social-icon'
             }),
+            pro: true
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
             pro: true
         },
     ];

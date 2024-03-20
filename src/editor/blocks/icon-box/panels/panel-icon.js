@@ -9,7 +9,7 @@ export const panelIcon = (props) => {
         removeStyle,
         iconSize,
         imageWidth,
-        imageHeight
+        imageHeight,
     } = props;
 
     const deviceType = getDeviceType();
@@ -53,13 +53,13 @@ export const panelIcon = (props) => {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
                     allowRender: value => value === 'image',
                     render: () => {
-                        return `width: ${imageWidth[deviceType]}px;`;
+                        return `width: ${imageWidth}px;`;
                     }
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
                     allowRender: value => value === 'image',
-                    render: () => `height: ${imageHeight[deviceType]}px;`
+                    render: () => `height: ${imageHeight}px;`
                 }
             ]
         },
@@ -134,8 +134,8 @@ export const panelIcon = (props) => {
             ]
         },
         {
-            id: 'imageWidth',
-            show: iconType && iconType === 'image',
+            id: 'imageWidthResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
             label: __('Image Width', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
@@ -145,14 +145,14 @@ export const panelIcon = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
                     render: value => `width: ${value}px;`
                 }
             ]
         },
         {
-            id: 'imageHeight',
-            show: iconType && iconType === 'image',
+            id: 'imageHeightResponsive',
+            show: iconType && iconType === 'image' && deviceType !== 'Desktop',
             label: __('Image Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
@@ -162,7 +162,41 @@ export const panelIcon = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image',
+                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
+                    render: value => `height: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageWidth',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
+            label: __('Image Width', 'gutenverse'),
+            showDeviceControl: true,
+            component: RangeControl,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
+                    render: value => `width: ${value}px;`
+                }
+            ]
+        },
+        {
+            id: 'imageHeight',
+            show: iconType && iconType === 'image' && deviceType === 'Desktop',
+            label: __('Image Height', 'gutenverse'),
+            showDeviceControl: true,
+            component: RangeControl,
+            min: 1,
+            max: 400,
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
                     render: value => `height: ${value}px;`
                 }
             ]

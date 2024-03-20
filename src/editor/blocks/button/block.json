@@ -20,8 +20,16 @@
 		"content": {
 			"type": "string"
 		},
+		"dynamicContent": {
+			"type": "object",
+			"default": {}
+		},
 		"url": {
 			"type": "string"
+		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
 		},
 		"linkTarget": {
 			"type": "string",
@@ -267,17 +275,17 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"ariaLabel" : {
+		"ariaLabel": {
 			"type": "string",
 			"copyStyle": true
+		},
+        "condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {
 		"className": false
 	},
-	"keywords": [
-		"button",
-		"url",
-		"action"
-	]
+	"keywords": ["button", "url", "action"]
 }

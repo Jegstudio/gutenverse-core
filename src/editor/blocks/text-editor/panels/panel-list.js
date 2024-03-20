@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { panelContent } from './panel-content';
 import { panelDropcap } from './panel-dropcap';
-import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel, maskPanel, mouseMoveEffectPanel } from 'gutenverse-core/controls';
+import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel, maskPanel, mouseMoveEffectPanel, conditionPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -97,6 +97,12 @@ export const panelList = () => {
                 styleId: 'text-editor-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

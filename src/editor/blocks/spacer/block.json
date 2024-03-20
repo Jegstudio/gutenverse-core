@@ -109,6 +109,13 @@
     "hideMobile": {
       "type": "boolean",
       "copyStyle": true
+    },
+    "anchor": {
+      "type": "string"
+    },
+    "condition": {
+        "type": "object",
+        "default": {}
     }
   },
   "supports": {

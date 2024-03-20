@@ -14,7 +14,7 @@
 			"copyStyle": true
 		},
 		"showed": {
-			"type": "int",
+			"type": "integer",
 			"default": 6
 		},
 		"zoomOptions": {
@@ -68,7 +68,7 @@
 			"copyStyle": true
 		},
 		"animationDuration": {
-			"type": "int",
+			"type": "integer",
 			"default": 500,
 			"copyStyle": true
 		},
@@ -314,7 +314,7 @@
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "int"
+			"type": "integer"
 		},
 		"enableLoadText": {
 			"type": "string",
@@ -457,6 +457,10 @@
 			"copyStyle": true
 		},
 		"filterTabBoxShadowActive": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchControlWidth": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -695,6 +699,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

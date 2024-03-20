@@ -14,7 +14,7 @@
 			"copyStyle": true
 		},
 		"contentType": {
-			"type": "int",
+			"type": "integer",
 			"default": 1
 		},
 		"contentPosition": {
@@ -39,7 +39,7 @@
 			"default": false
 		},
 		"autoplayTimeout": {
-			"type": "int",
+			"type": "integer",
 			"default": 2400
 		},
 		"loop": {
@@ -506,6 +506,10 @@
 		"ratingMargin": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

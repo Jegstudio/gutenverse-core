@@ -183,6 +183,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"usesContext": [

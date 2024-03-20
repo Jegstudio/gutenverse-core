@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { buttonPanel } from './panel-button';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { buttonBackgroundPanel } from './panel-button-background';
 import { buttonBorderPanel } from './panel-button-border';
-
+import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -19,6 +19,13 @@ export const panelList = () => {
             panelArray: stylePanel,
             initialOpen: false,
             tabRole: TabStyle
+        },
+        {
+            title: __('Dynamic Content', 'gutenverse'),
+            panelArray: dynamicContentPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Button Background', 'gutenverse'),
@@ -123,6 +130,12 @@ export const panelList = () => {
                 styleId: 'element-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

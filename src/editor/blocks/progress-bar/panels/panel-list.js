@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { percentPanel } from './panel-percentage';
 import { progressPanel } from './panel-progress';
@@ -126,6 +126,12 @@ export const panelList = () => {
                 styleId: 'progress-bar-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };
