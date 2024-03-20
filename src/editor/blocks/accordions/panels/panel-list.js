@@ -3,7 +3,7 @@ import { panelIcon } from './panel-icon';
 import { panelTitle } from './panel-title';
 import { panelAccordion } from './panel-accordion';
 import { panelBody } from './panel-body';
-import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { panelIconStyle } from './panel-icon-style';
 
@@ -113,6 +113,12 @@ export const panelList = () => {
                 styleId: 'accordion-advance',
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

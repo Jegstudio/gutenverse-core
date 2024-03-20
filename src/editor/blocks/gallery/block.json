@@ -460,6 +460,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"searchControlWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"filterSearchTypography": {
 			"type": "object",
 			"copyStyle": true
@@ -695,6 +699,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

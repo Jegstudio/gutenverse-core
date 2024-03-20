@@ -22,6 +22,10 @@
 		"first": {
 			"type": "boolean",
 			"default": false
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"variations": [],

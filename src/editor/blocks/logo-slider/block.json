@@ -294,11 +294,11 @@
 			"copyStyle": true
 		},
 		"opacity": {
-			"type": "float",
+			"type": "string",
 			"copyStyle": true
 		},
 		"hoverOpacity": {
-			"type": "float",
+			"type": "string",
 			"copyStyle": true
 		},
 		"margin": {
@@ -369,6 +369,10 @@
 		"mask": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {
