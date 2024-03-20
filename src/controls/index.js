@@ -21,6 +21,7 @@ export { default as ImageSizeControl } from './controls/image-size/image-size-co
 export { default as ImageFilterControl } from './controls/image-filter/image-filter-control';
 export { default as ImageRadioControl } from './controls/image-radio/image-radio-control';
 export { default as NumberControl } from './controls/number/number-control';
+export { default as PointerControl } from './controls/pointer-event/pointer-event-control';
 export { default as RangeControl } from './controls/range/range-control';
 export { default as RangeColumnControl } from './controls/range-column/range-column-control';
 export { default as RepeaterControl } from './controls/repeater/repeater-control';
@@ -66,6 +67,9 @@ export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/lo
 export { default as LockedMouseMoveEffectControl } from './controls/locked/locked-mouse-move-effect-control';
 export { default as LockedAdvanceButtonControl } from './controls/locked/locked-advance-button';
 export { default as LockedFluidBackground } from './controls/locked/locked-fluid-background';
+export { default as LockedConditionControl } from './controls/locked/locked-condition-control';
+export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
+export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -79,6 +83,7 @@ export { default as PanelController } from './controls/panel/panel-controller';
 export { childStylePanel } from './panels/panel-child-style';
 export { transformPanel } from './panels/panel-transform';
 export { maskPanel } from './panels/panel-mask';
+export { pointerEventPanel } from './panels/panel-pointer-event';
 export { cursorEffectPanel } from './panels/panel-cursor-effect';
 export { backgroundEffectPanel } from './panels/panel-background-effect';
 export { mouseMoveEffectPanel } from './panels/panel-mouse-move-effect';
@@ -98,4 +103,4 @@ export { sliderPanel } from './panels/panel-slider';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
-
+export { conditionPanel } from './panels/panel-condition';

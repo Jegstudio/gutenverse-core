@@ -36,7 +36,7 @@ class Section extends Style_Abstract {
 
 		$this->set_feature(
 			array(
-				'background'    => array(
+				'background'        => array(
 					'normal' => ".{$this->element_id}:not(.background-animated), .{$this->element_id}.background-animated > .guten-background-animated .animated-layer",
 					'hover'  => ".{$this->element_id}:not(.background-animated):hover, .{$this->element_id}.background-animated:hover > .guten-background-animated .animated-layer",
 				),
@@ -45,6 +45,7 @@ class Section extends Style_Abstract {
 				'advance'           => null,
 				'positioning'       => ".section-wrapper[data-id=\"{$element_id}\"]",
 				'mask'              => null,
+				'pointer'           => ".section-wrapper[data-id=\"{$element_id}\"]",
 				'cursor-effect'     => null,
 				'background-effect' => null,
 			)
@@ -398,7 +399,7 @@ class Section extends Style_Abstract {
 		if ( isset( $this->attrs['blur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "section.guten-element.{$this->element_id}:before",
+					'selector'       => "section.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -411,7 +412,7 @@ class Section extends Style_Abstract {
 		if ( isset( $this->attrs['blurHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "section.guten-element.{$this->element_id}:hover:before",
+					'selector'       => "section.guten-element.{$this->element_id}:hover",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},

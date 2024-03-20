@@ -14,6 +14,7 @@ const RangeControl = ({
     liveUpdate,
     disabled = false,
     allowDeviceControl,
+    showDeviceControl = false,
     onStart = () => {},
     onEnd = () => {},
     onValueChange,
@@ -30,7 +31,7 @@ const RangeControl = ({
             id={`${id}-range`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}
         />
         <div className={'control-body'}>
             <div className={'control-slider-range'}>
@@ -45,13 +46,13 @@ const RangeControl = ({
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        setLocalValue(e.target.value);
+                        onStyleChange(parseFloat(e.target.value));
+                        setLocalValue(parseFloat(e.target.value));
                         setUpdating(true);
-                        liveUpdate ? onValueChange(e.target.value) : null;
+                        liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
                     }}
                     onMouseUp={(e) => {
-                        onValueChange(e.target.value);
+                        onValueChange(parseFloat(e.target.value));
                         setUpdating(false);
                         onEnd();
                     }}
@@ -69,8 +70,8 @@ const RangeControl = ({
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        onValueChange(e.target.value);
+                        onStyleChange(parseFloat(e.target.value));
+                        onValueChange(parseFloat(e.target.value));
                     }}
                 />
             </div>

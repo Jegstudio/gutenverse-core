@@ -1,17 +1,31 @@
-import { getDevice } from 'gutenverse-core/helper';
 import { elementVar, normalAppender } from '../styling-utility';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const handleBackgroundEffect = (style) => {
     let elementStyle = elementVar();
-    const device = getDevice();
 
     const {
-        backgroundEffectSize,
+        hiddenOverflow,
     } = style;
-
-    if(backgroundEffectSize){
+    if ( hiddenOverflow ) {
         normalAppender({
-            style: `width: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit}; height: ${backgroundEffectSize[device]?.point}${backgroundEffectSize[device]?.unit};`,
+            style: `overflow: ${hiddenOverflow ? 'hidden' : 'visible'};`,
+            elementStyle
+        });
+    }
+    return elementStyle;
+};
+
+export const handleInnerBackgroundEffect = (style) => {
+    let elementStyle = elementVar();
+
+    const {
+        boxShadow
+    } = style;
+    if ( boxShadow ) {
+        const style = handleBoxShadow(boxShadow);
+        normalAppender({
+            style: style,
             elementStyle
         });
     }

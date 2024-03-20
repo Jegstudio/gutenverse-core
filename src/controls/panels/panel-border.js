@@ -63,7 +63,7 @@ export const borderPanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: selector ? selector : `.${elementId}`,
+                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }

@@ -417,7 +417,92 @@ if ( ! function_exists( 'gutenverse_pro_installed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_css_path' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_css_path( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['basedir'];
+		$custom_dir  = $upload_path . '/gutenverse/css';
 
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
+if ( ! function_exists( 'gutenverse_css_url' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @param string $file File name.
+	 *
+	 * @return string
+	 */
+	function gutenverse_css_url( $file = '' ) {
+		$upload_dir  = wp_upload_dir();
+		$upload_path = $upload_dir['baseurl'];
+		$custom_dir  = $upload_path . '/gutenverse/css';
+
+		if ( '' === $file ) {
+			return $custom_dir . $file;
+		} else {
+			return $custom_dir . '/' . $file;
+		}
+	}
+}
+
+if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
+	/**
+	 * Print Header Style
+	 *
+	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
+	 *
+	 * @param string $name Name of style.
+	 * @param string $content Content of css.
+	 */
+	function gutenverse_core_make_css_style( $name, $content ) {
+		global $wp_filesystem;
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		WP_Filesystem();
+		$custom_dir = gutenverse_css_path();
+		if ( ! $wp_filesystem->is_dir( $custom_dir ) ) {
+			wp_mkdir_p( $custom_dir );
+		}
+		$local_file = gutenverse_css_path( $name . '.css' );
+		if ( $wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE ) ) {
+			error_log( 'File created successfully.' );
+		} else {
+			error_log( 'Error writing to file.' );
+		}
+	}
+}
+if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
+	/**
+	 * Inject Css file to header
+	 *
+	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
+	 *
+	 * @param string $name Name of style.
+	 */
+	function gutenverse_core_inject_css_file_to_header( $name ) {
+		$file_url   = gutenverse_css_url( $name . '.css' );
+		$time_stamp = gmdate( 'Ymdhis' );
+		wp_enqueue_style(
+			$name . '-css-file',
+			$file_url,
+			array(),
+			$time_stamp
+		);
+	}
+}
 if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 	/**
 	 * Print Header Style
@@ -464,7 +549,41 @@ if ( ! function_exists( 'gutenverse_get_menu' ) ) {
 		);
 	}
 }
-
+if ( ! function_exists( 'gutenverse_get_template_part_pattern_data' ) ) {
+	/**
+	 * Gutenverse Template Part Data.
+	 *
+	 * @param array $attributes Attributes .
+	 * @param array $post_type Post Type .
+	 *
+	 * @return Object
+	 */
+	function gutenverse_get_template_part_pattern_post_data( $attributes, $post_type ) {
+		$theme = isset( $attributes['theme'] ) ? $attributes['theme'] : get_stylesheet();
+		$data  = null;
+		if ( isset( $attributes['slug'] ) && get_stylesheet() === $theme ) {
+			$template_part_query = new WP_Query(
+				array(
+					'post_type'           => $post_type,
+					'post_status'         => 'publish',
+					'post_name__in'       => array( $attributes['slug'] ),
+					'tax_query'           => array(
+						array(
+							'taxonomy' => 'wp_theme',
+							'field'    => 'name',
+							'terms'    => $theme,
+						),
+					),
+					'posts_per_page'      => 1,
+					'no_found_rows'       => true,
+					'lazy_load_term_meta' => false, // Do not lazy load term meta, as template parts only have one term.
+				)
+			);
+			$data                = $template_part_query->have_posts() ? $template_part_query->next_post() : null;
+		}
+		return $data;
+	}
+}
 if ( ! function_exists( 'gutenverse_template_part_content' ) ) {
 	/**
 	 * Gutenverse Template Part Content.
@@ -572,7 +691,7 @@ if ( ! function_exists( 'gutenverse_variable_font_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_font_name( $id, $child ) {
-		return "--gutenverse-font-${child}-${id}";
+		return "--gutenverse-font-{$child}-{$id}";
 	}
 }
 
@@ -585,7 +704,7 @@ if ( ! function_exists( 'gutenverse_variable_color_name' ) ) {
 	 * @return string
 	 */
 	function gutenverse_variable_color_name( $id ) {
-		return "--wp--preset--color--${id}";
+		return "--wp--preset--color--{$id}";
 	}
 }
 

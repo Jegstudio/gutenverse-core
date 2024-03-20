@@ -506,8 +506,12 @@ const ThemeListPage = (props) => {
             </DashboardHeader>
             <DashboardBody>
                 <BannerPro
-                    title={__('Explore Our Premium Themes For Your Business', '--gctd--')}
-                    customStyles={{margin: '0 0 30px'}} />
+                    title={<>{__('Explore ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' For Your Multipurpose Business', '--gctd--')}</>}
+                    customStyles={{margin: '0 0 40px'}}
+                    container = "themeList"
+                    leftBannerImg = "theme-list-graphic-theme-left.png"
+                    rightBannerImg = "theme-list-graphic-theme-right.png"
+                    backgroundGradient = "theme-list-bg-gradient-2.png"/>
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>

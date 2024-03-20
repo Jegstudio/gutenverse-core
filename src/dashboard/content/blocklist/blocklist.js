@@ -89,7 +89,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
             <PopupPro
                 active={popupActive}
                 setActive={setPopupActive}
-                description={'Upgrade Gutenverse PRO version to unlock these premium blocks ✌'}
+                description = {<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br/>{__(' unlock these premium blocks', '--gctd--')}</>}
             />
             <DashboardHeader>
                 <div className="header-control">

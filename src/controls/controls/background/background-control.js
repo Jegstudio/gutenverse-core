@@ -491,7 +491,7 @@ const BackgroundControl = (props) => {
 
         {value.type !== undefined && value.type === 'fluid' && applyFilters(
             'gutenverse.fluid.canvas.option',
-            <LockedFluidBackground />,
+            <LockedFluidBackground isOpen={value.type === 'fluid'}/>,
             parameter
         )}
     </div>;

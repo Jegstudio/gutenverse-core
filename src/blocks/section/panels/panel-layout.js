@@ -11,6 +11,7 @@ export const layoutPanel = (props) => {
         layout,
         height,
         heightControl,
+        overflow,
     } = props;
 
     const layoutControls = Object.keys(sectionLayoutControls).map(key => {
@@ -247,6 +248,7 @@ export const layoutPanel = (props) => {
         {
             id: 'overflow',
             label: __('Overflow', '--gctd--'),
+            description: overflow === 'clip'? __('"overflow:clip" May not work on safari', '--gctd--') : false,
             component: SelectControl,
             options: [
                 {
@@ -261,7 +263,34 @@ export const layoutPanel = (props) => {
                     label: __('Auto', '--gctd--'),
                     value: 'auto'
                 },
+                {
+                    label: __('Clip', '--gctd--'),
+                    value: 'clip'
+                },
             ],
+        },
+        {
+            id: 'clipMargin',
+            label: __('Overflow Clip Margin', '--gctd--'),
+            show: overflow === 'clip',
+            component: SizeControl,
+            description: __('The "clip margin" sets the boundaries where the overflow is hidden.', '--gctd--'),
+            units: {
+                px: {
+                    text: 'px',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                }
+            },
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `section.guten-section.${elementId}`,
+                    allowRender: () => overflow === 'clip',
+                    render: value => `overflow-clip-margin: ${value['point']}px;`
+                }
+            ]
         },
     ];
 };

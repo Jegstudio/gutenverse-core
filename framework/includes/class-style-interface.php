@@ -227,7 +227,7 @@ abstract class Style_Interface {
 	 *
 	 * @param array $data Control.
 	 */
-	public function inject_style( $data) {
+	public function inject_style( $data ) {
 		if ( $data['device_control'] && ! $this->is_variable( $data['value'] ) && is_array( $data['value'] ) ) {
 
 			$devices = $this->get_all_device();
@@ -240,6 +240,11 @@ abstract class Style_Interface {
 					$value    = $data['value'][ $device ];
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
+
+					if ( empty( $property ) ) {
+						continue;
+					}
+
 					if ( ! isset( $this->generated[ $device ][ $selector ] ) ) {
 						$this->generated[ $device ][ $selector ] = array();
 					}
@@ -250,7 +255,6 @@ abstract class Style_Interface {
 		} elseif ( isset( $data['value'] ) && isset( $data['property'] ) ) {
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
-
 				$this->generated['Desktop'][ $selector ][] = $property;
 		}
 	}
@@ -579,6 +583,9 @@ abstract class Style_Interface {
 				case 'mask':
 					$this->feature_mask( $selector );
 					break;
+				case 'pointer':
+					$this->feature_pointer_event( $selector );
+					break;
 				case 'cursor-effect':
 					$this->feature_cursor_effect( $selector );
 					break;
@@ -597,6 +604,19 @@ abstract class Style_Interface {
 	protected function feature_cursor_effect( $selector ) {
 		if ( isset( $this->attrs['cursorEffect'] ) ) {
 			$cursor_efect = $this->attrs['cursorEffect'];
+
+			if ( isset( $cursor_efect['ZIndex'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect",
+						'property'       => function ( $value ) {
+							return "z-index: {$value}";
+						},
+						'value'          => $cursor_efect['ZIndex'],
+						'device_control' => false,
+					)
+				);
+			}
 
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
@@ -765,14 +785,39 @@ abstract class Style_Interface {
 					break;
 
 				case 'image':
-					if ( isset( $cursor_efect['imageSize'] ) ) {
+					if ( isset( $cursor_efect['imageFit'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-image",
+								'property'       => function ( $value ) {
+									return "object-fit: {$value};";
+								},
+								'value'          => $cursor_efect['imageFit'],
+								'device_control' => false,
+							)
+						);
+					}
+					if ( isset( $cursor_efect['imageHeight'] ) ) {
 						$this->inject_style(
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return "height: {$value['point']}{$value['unit']};";
 								},
-								'value'          => $cursor_efect['imageSize'],
+								'value'          => $cursor_efect['imageHeight'],
+								'device_control' => false,
+							)
+						);
+					}
+
+					if ( isset( $cursor_efect['imageWidth'] ) ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return "width: {$value['point']}{$value['unit']};";
+								},
+								'value'          => $cursor_efect['imageWidth'],
 								'device_control' => false,
 							)
 						);
@@ -952,16 +997,37 @@ abstract class Style_Interface {
 	protected function feature_background_effect( $selector ) {
 		if ( isset( $this->attrs['backgroundEffect'] ) ) {
 			$background_effect = $this->attrs['backgroundEffect'];
-			$selector          = ".{$this->element_id} .guten-background-effect .inner-background-container";
-			if ( isset( $background_effect['backgroundEffectSize'] ) ) {
+			if ( isset( $background_effect['hiddenOverflow'] ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
 						'property'       => function ( $value ) {
-							return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+							if ( $value ) {
+								$overflow = 'hidden';
+							}
+							return "overflow: {$overflow};";
 						},
-						'value'          => $background_effect['backgroundEffectSize'],
+						'value'          => $background_effect['hiddenOverflow'],
 						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $background_effect['boxShadow'] ) ) {
+				$box_shadow = $background_effect['boxShadow'];
+				if ( '' === $box_shadow['color'] ) {
+					$box_shadow['color'] = array(
+						'type' => 'variable',
+						'id'   => 'primary',
+					);
+				}
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector . "> .inner-background-container .{$this->element_id}-effect" : ".{$this->element_id}> .guten-background-effect> .inner-background-container .{$this->element_id}-effect",
+						'property'       => function ( $value ) {
+							return $this->handle_box_shadow( $value );
+						},
+						'value'          => $box_shadow,
+						'device_control' => false,
 					)
 				);
 			}
@@ -1080,6 +1146,30 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		}
+	}
+
+	/**
+	 * Handle Feature Pointer Events.
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_pointer_event( $selector ) {
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+		if ( isset( $this->attrs['pointer'] ) ) {
+			$pointer = $this->attrs['pointer'];
+			$this->inject_style(
+				array(
+					'selector'       => $selector,
+					'property'       => function ( $value ) {
+						return "pointer-events: {$value} !important;";
+					},
+					'value'          => $pointer['pointer'],
+					'device_control' => true,
+				)
+			);
 		}
 	}
 
@@ -1625,11 +1715,18 @@ abstract class Style_Interface {
 				}
 
 				if ( ! empty( $prop['value'][ $device ] ) ) {
-					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+					if ( is_array( $prop['value'][ $device ] ) ) {
+						if ( gutenverse_truly_empty( $prop['value'][ $device ]['point'] ) || gutenverse_truly_empty( $prop['value'][ $device ]['unit'] ) ) {
+							continue;
+						} else {
+							$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+						}
+					} else {
+						$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
+					}
 				}
 			}
 		}
-
 		return $styles;
 	}
 	/**
@@ -1647,7 +1744,7 @@ abstract class Style_Interface {
 			foreach ( $devices as $device ) {
 				if ( empty( $styles[ $device ] ) ) {
 					$styles[ $device ] = '';
-				}				
+				}
 				if ( isset( $prop['value'][ $device ] ) ) {
 					$styles[ $device ] .= call_user_func( $prop['style'], $prop['value'][ $device ] );
 				}

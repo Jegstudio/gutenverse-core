@@ -4,18 +4,19 @@ import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { FluidCanvasSave } from 'gutenverse-core/components';
+import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
-    withCursorEffectScript,
     withAnimationAdvanceScript('column'),
-    withMouseMoveEffectScript
+    withMouseMoveEffectScript,
+    withBackgroundEffectScript,
+    withCursorEffectScript,
 )((props) => {
     const {
         attributes,
     } = props;
-
     const {
         elementId,
         sticky = {},
@@ -27,10 +28,14 @@ const save = compose(
         bottomSticky,
         sectionVerticalAlign,
         cursorEffect,
+        backgroundOverlay,
+        backgroundOverlayHover,
         backgroundAnimated = {},
+        backgroundEffect = {},
+        anchor
     } = attributes;
-
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
+    const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const stickyClass = {
         ['guten-sticky']: isCanSticky,
@@ -55,11 +60,13 @@ const save = compose(
         cursorEffectClass,
         {
             'background-animated': isAnimationActive(backgroundAnimated),
+            'guten-background-effect-active': isBackgroundEffect,
         }
     );
 
     const blockProps = useBlockProps.save({
         className: wrapperClasses,
+        id: anchor,
         ...advanceAnimationData,
         ...(
             isCanSticky
@@ -67,7 +74,6 @@ const save = compose(
                 : {}
         ),
     });
-
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
 
@@ -91,13 +97,22 @@ const save = compose(
                         })} />
                     }
                 </div>}
-            <div className="guten-background-overlay"></div>
-            <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
-                <div className="guten-column-wrapper">
-                    {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+            {
+                (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
+            }
+            {
+                isCanSticky ? <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
+                    <div className="guten-column-wrapper">
+                        {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                        {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                        <InnerBlocks.Content />
+                    </div>
+                </div> : <div className="guten-column-wrapper" data-id={elementId?.split('-')[1]}>
+                    {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                    {_isBgAnimated && <div className={'guten-background-animated'} data-id={elementId?.split('-')[1]}><div className={`animated-layer animated-${dataId}`}></div></div>}
                     <InnerBlocks.Content />
                 </div>
-            </div>
+            }
         </div>
     );
 });

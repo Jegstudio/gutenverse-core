@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundAnimatedPanel, backgroundEffectPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, conditionPanel, cursorEffectPanel, maskPanel, mouseMoveEffectPanel, pointerEventPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -9,14 +9,7 @@ import { positionPanel } from './panel-position';
 export const panelList = () => {
     return [
         {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Display', '--gctd--'),
+            title: __('Wrapper Display', '--gctd--'),
             initialOpen: false,
             panelArray: displayPanel,
             tabRole: TabSetting
@@ -40,6 +33,23 @@ export const panelList = () => {
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer`
             }),
             tabRole: TabStyle
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundEffectPanel({
+                ...props,
+                selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
+            }),
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Background Overlay', '--gctd--'),
@@ -74,12 +84,24 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
+            tabRole: TabStyle
+        },
+        {
             title: __('Animation Effects', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => animationPanel({
                 ...props,
                 styleId: 'wrapper'
             }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
             tabRole: TabSetting
         },
         {
@@ -120,6 +142,12 @@ export const panelList = () => {
                 styleId: 'wrapper-advance',
             }),
             tabRole: TabSetting
-        }
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };

@@ -34,7 +34,7 @@
       "copyStyle": true
     },
     "stickyDuration": {
-      "type": "int",
+      "type": "integer",
       "default": 0.25,
       "copyStyle": true
     },
@@ -59,7 +59,7 @@
       "copyStyle": true
     },
     "stickyIndex": {
-      "type": "int",
+      "type": "integer",
       "default": 99,
       "copyStyle": true
     },
@@ -119,8 +119,12 @@
       "default": "none",
       "copyStyle": true
     },
+    "clipMargin": {
+      "type": "object",
+      "copyStyle": true 
+    },
     "childTotal": {
-      "type": "int"
+      "type": "integer"
     },
     "background": {
       "type": "object",
@@ -137,7 +141,7 @@
       "copyStyle": true
     },
     "opacity": {
-      "type": "float",
+      "type": "string",
       "copyStyle": true
     },
     "backgroundOverlayHover": {
@@ -149,7 +153,7 @@
       "default": {}
     },
     "opacityHover": {
-      "type": "float",
+      "type": "string",
       "copyStyle": true
     },
     "border": {
@@ -324,6 +328,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "pointer": {
+      "type": "object",
+      "copyStyle": true
+    },
     "blur": {
       "type": "object",
       "copyStyle": true
@@ -331,7 +339,11 @@
     "blurHover": {
       "type": "object",
       "copyStyle": true
-    }
+    },
+    "condition": {
+			"type": "object",
+			"default": {}
+		}
   },
   "keywords": [
     "container",
