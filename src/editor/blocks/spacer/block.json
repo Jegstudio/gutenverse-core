@@ -113,6 +113,10 @@
     "anchor": {
       "type": "string"
     },
+    "transform": {
+			"type": "object",
+			"copyStyle": true
+		},
     "condition": {
         "type": "object",
         "default": {}

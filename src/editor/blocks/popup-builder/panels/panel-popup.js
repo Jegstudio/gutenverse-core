@@ -189,6 +189,12 @@ export const popupPanel = (props) => {
                     description: __('When a user clicks on an anchor link, a pop-up can appear on the screen to display additional content or provide a specific call to action. ', 'gutenverse')
                 },
                 {
+                    label: __('On Anchor Hover', 'gutenverse'),
+                    value: 'anchorHover',
+                    pro: true,
+                    description: __('When a user hover on an anchor link, a pop-up can appear on the screen to display additional content or provide a specific call to action. ', 'gutenverse')
+                },
+                {
                     label: __('On Scroll', 'gutenverse'),
                     value: 'scroll',
                     pro: true,

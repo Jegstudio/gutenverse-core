@@ -94,23 +94,23 @@
 			"copyStyle": true
 		},
 		"imageWidth": {
-			"type": "integer",
+			"type": "number",
 			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeight": {
-			"type": "integer",
+			"type": "number",
 			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeightResponsive": {
 			"type" : "object",
-			"default" : {"Desktop" : 150, "Tablet" : 150, "Mobile" : 150},
+			"default" : {"Desktop" : "150", "Tablet" : "150", "Mobile" : "150"},
 			"copyStyle": true
 		},
 		"imageWidthResponsive": {
 			"type" : "object",
-			"default" : {"Desktop" : 150, "Tablet" : 150, "Mobile" : 150},
+			"default" : {"Desktop" : "150", "Tablet" : "150", "Mobile" : "150"},
 			"copyStyle": true
 		},
 		"image": {

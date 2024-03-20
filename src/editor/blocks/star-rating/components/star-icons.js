@@ -1,6 +1,8 @@
 
 
 const StarIcons = ({starIcon, rating, total}) => {
+    rating = parseFloat(rating);
+    total = parseFloat(total);
     const faIcon = (active = false) => {
         switch (starIcon) {
             case 'rounded':
@@ -23,7 +25,6 @@ const StarIcons = ({starIcon, rating, total}) => {
 
     for ( let i=0; i<total; i++ ) {
         const fa = i < rating ? faIcon(true) : faIcon();
-
         icons.push(<i className={fa}></i>);
     }
 
