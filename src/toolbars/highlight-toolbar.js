@@ -1,35 +1,24 @@
-import { registerFormatType, toggleFormat, unregisterFormatType, removeFormat, getActiveFormat, applyFormat } from '@wordpress/rich-text';
-import { BlockControls } from '@wordpress/block-editor';
+import { registerFormatType, toggleFormat, removeFormat, getActiveFormat, unregisterFormatType } from '@wordpress/rich-text';
+import { BlockControls, RichTextToolbarButton,  } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { useSelect, select } from '@wordpress/data';
 import { speak } from '@wordpress/a11y';
 import { __, sprintf } from '@wordpress/i18n';
 import { cryptoRandomString } from 'gutenverse-core/components';
+import { withSelect } from '@wordpress/data';
 
 export const HighLightToolbar = (props) => {
     /** select block with RichText to display new format */
-    const arrBlockName = ['gutenverse/heading','gutenverse/text'];
-    const selectedBlock = useSelect( ( select ) => {
-        return select( 'core/block-editor' ).getSelectedBlock();
-    }, []);
     const formatTypes = select( 'core/rich-text' ).getFormatTypes();
-    const hasDynamicData = formatTypes.some(object => object.name === 'highlight-format/text-highlight');
-    if(selectedBlock){
-        const blockRule = arrBlockName.includes(selectedBlock.name);
-        if( hasDynamicData && !blockRule ){
-            unregisterFormatType('highlight-format/text-highlight');
-        }else{
-            if(!hasDynamicData){
-                registerFormatType('highlight-format/text-highlight', {
-                    title: 'Text Highlight',
-                    tagName: 'span',
-                    className: 'guten-text-highlight',
-                    edit: HighlightButton,
-                });
-            }
-        }
+    const hasFormatType = formatTypes.some(object => object.name === 'highlight-format/text-highlight');
+    if(!hasFormatType){
+        registerFormatType('highlight-format/text-highlight', {
+            title: 'Text Highlight',
+            tagName: 'span',
+            className: 'guten-text-highlight',
+            edit: HighlightButton
+        });
     }
-    return <HighlightButton {...props}/>;
 }
 export const HighlightButton = (props) => {
     const {
@@ -37,6 +26,12 @@ export const HighlightButton = (props) => {
         value,
         onChange
     } = props;
+    const selectedBlock = select('core/block-editor').getSelectedBlock();
+    let allowedBlocks = ['gutenverse/text', 'gutenverse/heading'];
+    // Check if the selected block is allowed.
+    if (!selectedBlock || !allowedBlocks.includes(selectedBlock.name)) {
+        return null;
+    }
     return (
         <BlockControls>
             <ToolbarGroup>
