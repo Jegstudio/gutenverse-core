@@ -194,7 +194,6 @@ const Tabs = compose(
         tabs,
         orientation,
     } = attributes;
-
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const deviceType = getDeviceType();

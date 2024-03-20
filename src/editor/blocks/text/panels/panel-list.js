@@ -1,9 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { panelContent } from './panel-content';
-import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel, maskPanel, mouseMoveEffectPanel, conditionPanel, childStylePanel } from 'gutenverse-core/controls';
+import { animationPanel, responsivePanel, backgroundPanel, borderPanel, advancePanel, positioningPanel, transformPanel, maskPanel, mouseMoveEffectPanel, conditionPanel, childStylePanel, dynamicContentPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
-import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -21,8 +20,13 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Dynamic Content', 'gutenverse'),
-            panelArray: dynamicContentPanel,
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text'
+                });
+            },
             initialOpen: false,
             tabRole: TabSetting,
             pro: true,

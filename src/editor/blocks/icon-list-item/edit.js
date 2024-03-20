@@ -59,7 +59,6 @@ const IconListItemBlock = compose(
         ),
         ref: iconListItemRef
     });
-
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -84,7 +83,6 @@ const IconListItemBlock = compose(
             setElementRef(iconListItemRef.current);
         }
     }, [iconListItemRef]);
-
     return <>
         <InspectorControls>
             <SelectParent {...props}>

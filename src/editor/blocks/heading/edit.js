@@ -28,11 +28,10 @@ const HeadingBlockControl = (props) => {
         type,
     } = attributes;
 
-    const blockName = 'gutenverse/heading';
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
-        { isActive: true },
-        blockName,
+        '',
+        { isActive: true }
     );
     HighLightToolbar (props);
 
