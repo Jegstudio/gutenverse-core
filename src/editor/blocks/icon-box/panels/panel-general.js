@@ -11,7 +11,6 @@ export const panelGeneral = (props) => {
         watermarkShow,
         badgeShow,
     } = props;
-
     const deviceType = getDeviceType();
 
     return [
