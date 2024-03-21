@@ -1,5 +1,5 @@
 
-import { classnames, RichText } from 'gutenverse-core/components';
+import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
@@ -14,7 +14,6 @@ const save = compose(
     const {
         attributes
     } = props;
-
     const {
         elementId,
         titleTag: TitleTag,
@@ -25,11 +24,9 @@ const save = compose(
         showSub,
         showLine,
     } = attributes;
-
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-    console.log(advanceAnimationData);
     const className = classnames(
         'guten-element',
         'guten-advanced-heading',
@@ -37,30 +34,21 @@ const save = compose(
         animationClass,
         displayClass,
     );
-
-    const richTextContent = (data, tag, classes) => {
-        return <RichText.Content
-            tagName={tag}
-            value={data}
-            multiline={false}
-            className={classes}
-        />;
-    };
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className} {...advanceAnimationData}>
             {showLine === 'top' && <div className="heading-line top"></div>}
-            {showSub === 'top' && richTextContent(subText, SubTag, 'heading-subtitle')}
+            {showSub === 'top' && <SubTag className="heading-subtitle">{subText}</SubTag>}
             {showSub === 'top' && showLine === 'between' && <div className="heading-line between"></div>}
             <div className={`heading-section ${['top', 'bottom', 'between'].includes(showLine) ? 'outside-line' : ''}`}>
                 {showLine === 'before' && <div className="heading-line before"></div>}
                 <TitleTag className="heading-title">
-                    {richTextContent(text, 'span', 'heading-title')}
-                    {richTextContent(focusText, 'span', 'heading-focus')}
+                    {text}
+                    <span className="heading-focus">{focusText}</span>
                 </TitleTag>
                 {showLine === 'after' && <div className="heading-line after"></div>}
             </div>
             {showSub === 'bottom' && showLine === 'between' && <div className="heading-line between"></div>}
-            {showSub === 'bottom' && richTextContent(subText, SubTag, 'heading-subtitle')}
+            {showSub === 'bottom' && <SubTag className="heading-subtitle">{subText}</SubTag>}
             {showLine === 'bottom' && <div className="heading-line bottom"></div>}
         </div>
     );
