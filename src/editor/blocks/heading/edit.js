@@ -43,7 +43,6 @@ const HeadingBlockControl = (props) => {
                     setAttributes({ type: newType })
                 }
             />
-            {/* <HighlightButton {...props}/> */}
         </ToolbarGroup>
     </BlockControls>;
 };

@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
@@ -11,7 +11,8 @@ import { Check, X } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
-import { PanelTutorial } from 'gutenverse-core/controls';
+import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
+import { applyFilters } from '@wordpress/hooks';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -26,7 +27,8 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 
 const Accordion = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
+    withDinamicContent('title')
 )(props => {
     const {
         getBlocks,
@@ -130,6 +132,11 @@ const Accordion = compose(
         });
     }, []);
 
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        '',
+        { isActive: true }
+    );
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -159,6 +166,7 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
+        <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div className={'accordion-heading'} onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
