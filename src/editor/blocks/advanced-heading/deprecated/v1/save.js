@@ -14,7 +14,6 @@ const save = compose(
     const {
         attributes
     } = props;
-
     const {
         elementId,
         titleTag: TitleTag,
@@ -25,11 +24,9 @@ const save = compose(
         showSub,
         showLine,
     } = attributes;
-
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-
     const className = classnames(
         'guten-element',
         'guten-advanced-heading',
@@ -37,9 +34,8 @@ const save = compose(
         animationClass,
         displayClass,
     );
-
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
+        <div className={className} {...advanceAnimationData}>
             {showLine === 'top' && <div className="heading-line top"></div>}
             {showSub === 'top' && <SubTag className="heading-subtitle">{subText}</SubTag>}
             {showSub === 'top' && showLine === 'between' && <div className="heading-line between"></div>}
