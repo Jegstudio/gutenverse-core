@@ -7,12 +7,15 @@ import { applyFilters } from '@wordpress/hooks';
 import { PanelSequence } from 'gutenverse-core/controls';
 import { Tooltip } from '@wordpress/components';
 import PanelTabPro from './panel-tab-pro';
+import { u } from 'gutenverse-core/components';
+import { dispatch, select } from '@wordpress/data';
 
 const PanelController = ({ ...props }) => {
     const {
         panelProps,
         panelList,
-        elementRef
+        elementRef,
+        panelState,
     } = props;
 
     const [activeTab, setActiveTab] = useState(null);
@@ -21,6 +24,28 @@ const PanelController = ({ ...props }) => {
     useEffect(() => {
         setOpenTab(0);
     }, [activeTab]);
+
+    useEffect(() => {
+        const { panel = null, section = 0 } = panelState;
+
+        if (null !== panel && 0 !== section) {
+            const sidebarOpen = select('core/edit-post').getActiveGeneralSidebarName();
+            if ('edit-post/block' !== sidebarOpen) {
+                dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
+            }
+
+            setActiveTab(panel);
+            setTimeout(() => {
+                setOpenTab(section);
+                setTimeout(() => {
+                    const opened = u('.gutenverse-panel.is-opened');
+                    if (opened.length) {
+                        u('.gutenverse-panel.is-opened').scroll();
+                    }
+                }, 100);
+            }, 100);
+        }
+    }, [panelState]);
 
     const onRefChange = useCallback(node => {
         if (node !== null && tabPanel.length > 1) {
@@ -87,7 +112,7 @@ const PanelController = ({ ...props }) => {
                             </Tooltip>;
                         })}
                     </div>
-                    <PanelTabPro activeTab={activeTab}/>
+                    <PanelTabPro activeTab={activeTab} />
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
                         const { tabRole } = panel;
