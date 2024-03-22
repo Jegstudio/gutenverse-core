@@ -168,7 +168,7 @@ export const IconLibrary = ({
                 <div className={'icon-library-search'}>
                     <div className={'input'}>
                         <IconSearchSVG />
-                        <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter} />
+                        <input type={'text'} placeholder={__('Search Icon', '--gctd--')} onChange={changeFilter} autoFocus={true}/>
                     </div>
                 </div>
                 <div className={'icon-library-result'}>
