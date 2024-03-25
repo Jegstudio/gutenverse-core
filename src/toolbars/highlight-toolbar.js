@@ -1,11 +1,10 @@
 import { registerFormatType, toggleFormat, removeFormat, getActiveFormat, unregisterFormatType } from '@wordpress/rich-text';
-import { BlockControls, RichTextToolbarButton,  } from '@wordpress/block-editor';
+import { BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { useSelect, select } from '@wordpress/data';
+import { select } from '@wordpress/data';
 import { speak } from '@wordpress/a11y';
 import { __, sprintf } from '@wordpress/i18n';
 import { cryptoRandomString } from 'gutenverse-core/components';
-import { withSelect } from '@wordpress/data';
 
 export const HighLightToolbar = (props) => {
     /** select block with RichText to display new format */
