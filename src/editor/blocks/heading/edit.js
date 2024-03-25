@@ -67,7 +67,7 @@ const HeadingBlock = compose(
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText('content'),
+    withHighLightText('content', {panel : 'style', section : 2}),
     withDinamicContent('content'),
 )(props => {
     const {

@@ -30,7 +30,7 @@ const TextBlock = compose(
     withAnimationAdvance('text'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText('paragraph'),
+    withHighLightText('paragraph', {panel : 'style', section : 1}),
     withDinamicContent('paragraph')
 )((props) => {
     const { panelProps} = props;
