@@ -160,6 +160,9 @@
 			"type": "array",
 			"default": []
 		},
+		"openChild":{
+			"type":"string"
+		},
 		"mask": {
 			"type": "object",
 			"copyStyle": true

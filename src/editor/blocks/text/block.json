@@ -17,6 +17,9 @@
 			"type": "array",
 			"default": []
 		},
+    "openChild":{
+      "type": "string"
+    },
     "dynamicDataList": {
 			"type": "array",
 			"default": []

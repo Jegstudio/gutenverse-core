@@ -49,10 +49,9 @@ const HeadingBlockControl = (props) => {
 
 const HeadingInspection = (props) => {
     const { panelProps, isSelected } = props;
-
     const defaultPanelProps = {
         ...panelProps,
-        ...props.attributes
+        ...props.attributes,
     };
     return <PanelController
         panelList={panelList}
