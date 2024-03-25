@@ -310,7 +310,6 @@ export const withCustomStyle = panelList => BlockElement => {
                 }, 1);
             }
         }, [elementRef]);
-
         return <>
             {hasIcon && (
                 <Helmet head={headElement}>

@@ -213,34 +213,39 @@ const processTitle = (format, values) => {
     }
 };
 
-const RepeaterControl = ({
-    label,
-    allowDeviceControl,
-    repeaterDefault = {},
-    value = [],
-    onValueChange,
-    onStyleChange,
-    options,
-    titleFormat,
-    description = '',
-    throttleSave,
-    values,
-    id: rootId,
-    refreshDrag = true,
-    isDuplicate = true,
-    isAddNew = true,
-    isRemove = true,
-    isDragable = true,
-    isReset = false,
-    resetStatus = false,
-    resetMethod,
-    infoMessage,
-    booleanSwitcher
-}) => {
+const RepeaterControl = (props) => {
+    const {
+        label,
+        allowDeviceControl,
+        repeaterDefault = {},
+        value = [],
+        onValueChange,
+        onStyleChange,
+        options,
+        titleFormat,
+        description = '',
+        throttleSave,
+        values,
+        id: rootId,
+        refreshDrag = true,
+        isDuplicate = true,
+        isAddNew = true,
+        isRemove = true,
+        isDragable = true,
+        isReset = false,
+        resetStatus = false,
+        resetMethod,
+        infoMessage,
+        booleanSwitcher,
+        openChild = ''
+    } = props;
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
-
+    useEffect(() => {
+        let indexOpenChild = value.findIndex(el => el.id === openChild);
+        setOpenLast(indexOpenChild);
+    },[openChild, value])
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {

@@ -1,4 +1,4 @@
-import { registerFormatType, toggleFormat, removeFormat, getActiveFormat, unregisterFormatType } from '@wordpress/rich-text';
+import { registerFormatType, toggleFormat, removeFormat, getActiveFormat } from '@wordpress/rich-text';
 import { BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { select } from '@wordpress/data';
