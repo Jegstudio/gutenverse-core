@@ -165,6 +165,12 @@ const IconBoxBlock = compose(
         });
     }, [url, rel, linkTarget, separateButtonLink]);
 
+    useEffect(() => {
+        getBlocks(clientId).map(block => {
+            updateBlockAttributes(block.clientId, { hoverWithParent });
+        });
+    },[hoverWithParent]);
+
     return <>
         <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
         <BlockControls>

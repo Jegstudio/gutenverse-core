@@ -48,6 +48,7 @@
                 margin-bottom: 13px;
                 color: var(--guten-txt-color);
                 transition: all .4s ease;
+                overflow: hidden;
                 
                 &.style-gradient {
                     background-image: linear-gradient(180deg,var(--guten-bg-color) 0,var(--guten-base-color) 100%);

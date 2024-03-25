@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, ImageControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
+import { CheckboxControl, ColorControl, ImageControl, RangeControl, SelectControl, SizeControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
+import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const teamPanel = (props) => {
     const {
@@ -114,6 +114,45 @@ export const teamPanel = (props) => {
                     label: 'Bottom'
                 }
             ],
+        },
+        {
+            id: 'overlayProfilePosition',
+            label: __('Overlay Content Position', '--gctd--'),
+            show: profileType === 'overlay',
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 58,
+                    max: 1440,
+                    step: 1
+                },
+                vh: {
+                    text: 'vh',
+                    min: 5,
+                    max: 100,
+                    step: 1
+                },
+                vw: {
+                    text: 'vw',
+                    min: 5,
+                    max: 100,
+                    step: 1
+                },
+                '%': {
+                    text: '%',
+                    min: 0,
+                    max: 100,
+                    step: 1
+                }
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-overlay:hover .profile-body `,
+                    render: value => handleUnitPoint(value, 'margin-bottom')
+                }
+            ]
         },
         {
             id: 'name',

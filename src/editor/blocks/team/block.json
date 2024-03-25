@@ -18,10 +18,15 @@
       "default": "default"
     },
     "overlayType": {
-      "type": "string"
+      "type": "string",
+      "default": "default"
     },
     "overlayPosition": {
-      "type": "string"
+      "type": "string",
+      "default": "center"
+    },
+    "overlayProfilePosition":{
+      "type": "object"
     },
     "src": {
       "type": "object"
