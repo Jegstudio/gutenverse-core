@@ -55,6 +55,14 @@
         width: 100%;
     }
 
+    .theme-list {
+        .search-box {
+            input[type="text"] {
+                border: none;
+            }
+        }
+    }
+
     .content-header,
     .content-body {
         width: 100%;
