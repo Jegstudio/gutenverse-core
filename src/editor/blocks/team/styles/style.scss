@@ -70,11 +70,25 @@
                     &:hover {
                         &:before {
                             transform: scale(.9);
+                            top: 0;
+                            opacity: 1;
+                            visibility: visible;
+                        }
+                        .profile-body {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(-50%);
+    
+                            &.bottom {
+                                bottom: 5% !important;
+                                top: unset !important;
+                                transform: translateY(0%);
+                            }
                         }
                     }
                 }
 
-                &:hover {
+                &.default:hover {
                     &:before {
                         top: 0;
                         opacity: 1;
@@ -87,6 +101,8 @@
                         transform: translateY(-50%);
 
                         &.bottom {
+                            bottom: 0 !important;
+                            top: unset !important;
                             transform: translateY(0%);
                         }
                     }

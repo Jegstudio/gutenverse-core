@@ -579,5 +579,17 @@ class Team extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['overlayProfilePosition'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:hover .profile-body",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'margin-bottom' );
+					},
+					'value'          => $this->attrs['overlayProfilePosition'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

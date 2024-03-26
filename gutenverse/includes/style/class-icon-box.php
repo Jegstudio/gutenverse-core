@@ -428,7 +428,7 @@ class Icon_Box extends Style_Abstract {
 			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
 		if ( isset( $this->attrs['iconBorder'] ) && 'image' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon img" );
+			$this->handle_border( 'iconBorder', ".{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
 
 		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
@@ -449,7 +449,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBorderResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon img",
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -479,7 +479,7 @@ class Icon_Box extends Style_Abstract {
 			$this->handle_border( 'iconBorderHover', ".{$this->element_id}:hover .icon-box.icon-box-header .icon" );
 		}
 		if ( isset( $this->attrs['iconBorderHover'] ) && 'image' === $this->attrs['iconType'] ) {
-			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .icon-box.icon-box-header .icon img" );
+			$this->handle_border( 'iconBorderHover', ".{$this->element_id} .icon-box.icon-box-header .icon" );
 		}
 
 		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'icon' === $this->attrs['iconType'] ) {
@@ -500,7 +500,7 @@ class Icon_Box extends Style_Abstract {
 		if ( isset( $this->attrs['iconBorderHoverResponsive'] ) && 'image' === $this->attrs['iconType'] ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon img",
+					'selector'       => ".{$this->element_id} .icon-box.icon-box-header .icon",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
