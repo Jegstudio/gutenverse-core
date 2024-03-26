@@ -11,6 +11,7 @@ import cryptoRandomString from 'crypto-random-string';
 import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
+import u from 'umbrellajs';
 
 const DragHandle = SortableHandle(() =>
     <div className={'repeater-drag-handle'}>
@@ -48,7 +49,6 @@ const SortableItem = SortableElement(props => {
             setOpenLast(null);
         }
     };
-
     const onUpdateIndexValue = (val) => {
         const newValue = items.map((item, idx) => index === idx ? val : item);
         onValueChange(newValue);
@@ -63,10 +63,28 @@ const SortableItem = SortableElement(props => {
         e.stopPropagation();
         duplicateIndex(index);
     };
+    const isHaveUniqueId = () => {
+        if(items[index].spanId){
+            return items[index].spanId;
+        }
+    };
+    const handleEnter = () => {
+        const wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).addClass('hover-child-style');
+        });
+    }
+    const handleLeave = () => {
+        const wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).removeClass('hover-child-style');
+        });
+    }
+
     const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
-        <div className={'repeater-header'} onClick={() => toggleOpen()}>
+        <div className={`repeater-header ${isHaveUniqueId()}`} onClick={() => toggleOpen()} onMouseEnter={() => handleEnter()} onMouseLeave={() => handleLeave()} >
             <DragHandle />
             <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
             {
