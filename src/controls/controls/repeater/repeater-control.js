@@ -73,13 +73,13 @@ const SortableItem = SortableElement(props => {
         wrapper.nodes.map(el => {
             u(el).addClass('hover-child-style');
         });
-    }
+    };
     const handleLeave = () => {
         const wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
         wrapper.nodes.map(el => {
             u(el).removeClass('hover-child-style');
         });
-    }
+    };
 
     const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
