@@ -26,7 +26,7 @@ export const HighlightButton = (props) => {
         onChange
     } = props;
     const selectedBlock = select('core/block-editor').getSelectedBlock();
-    let allowedBlocks = ['gutenverse/text', 'gutenverse/heading', 'gutenverse/team'];
+    let allowedBlocks = ['gutenverse/text', 'gutenverse/heading', 'gutenverse/team','gutenverse/image-box', 'gutenverse/icon-list-item'];
     // Check if the selected block is allowed.
     if (!selectedBlock || !allowedBlocks.includes(selectedBlock.name)) {
         return null;

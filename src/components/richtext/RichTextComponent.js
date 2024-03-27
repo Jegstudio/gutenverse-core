@@ -18,17 +18,16 @@ const RichTextComponent = (props) => {
         panelPosition,
         multiline,
         placeholder,
-        elementRef,
         isOnSplit = false,
         ariaLabel,
         onChange,
         ref,
-        classNames,
+        classNames = '',
         isBlockProps = false,
         textChilds
     } = props;
     const content = attributes[contentAttribute];
-    const [currentContent, setCurrentContent] = useState();
+    const [currentContent, setCurrentContent] = useState(content);
     const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
     const {
         getBlockAttributes
@@ -86,37 +85,33 @@ const RichTextComponent = (props) => {
     }, [currentContent]);
 
     const getListOfChildTag = (content) => {
-        if (elementRef) {
-            const fakeContent = document.createElement(tagName);
-            fakeContent.innerHTML = content;
-            const newElement = u(fakeContent).children().map(child => {
-                const newChild = u(child).children().map(grandChild => {
-                    if( u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')){
-                        return {
-                            color: {},
-                            colorHover: {},
-                            typography: {},
-                            typographyHover: {},
-                            textClip:{},
-                            textClipHover:{},
-                            background: {},
-                            backgroundHover: {},
-                            padding:{},
-                            paddingHover:{},
-                            margin:{},
-                            marginHover:{},
-                            value: child,
-                            id: u(grandChild).attr('id'),
-                            spanId: u(child).attr('id')
-                        };
-                    }
-                });
-                return newChild;
+        const fakeContent = document.createElement(tagName);
+        fakeContent.innerHTML = content;
+        const newElement = u(fakeContent).children().map(child => {
+            const newChild = u(child).children().map(grandChild => {
+                if( u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')){
+                    return {
+                        color: {},
+                        colorHover: {},
+                        typography: {},
+                        typographyHover: {},
+                        textClip:{},
+                        textClipHover:{},
+                        background: {},
+                        backgroundHover: {},
+                        padding:{},
+                        paddingHover:{},
+                        margin:{},
+                        marginHover:{},
+                        value: child,
+                        id: u(grandChild).attr('id'),
+                        spanId: u(child).attr('id')
+                    };
+                }
             });
-            return newElement.nodes;
-        } else {
-            return [];
-        }
+            return newChild;
+        });
+        return newElement.nodes;
     };
     useEffect(() => {
         const newDiv = document.createElement('div');

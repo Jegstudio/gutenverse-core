@@ -263,7 +263,7 @@ const RepeaterControl = (props) => {
     useEffect(() => {
         let indexOpenChild = value.findIndex(el => el.id === openChild);
         setOpenLast(indexOpenChild);
-    },[openChild, value])
+    },[openChild]);
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
