@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { withCustomStyle, withDinamicContent, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { classnames, ToolbarGroup } from 'gutenverse-core/components';
+import { classnames, RichTextComponent, ToolbarGroup } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -38,11 +38,12 @@ const TextBlock = compose(
         attributes,
         setElementRef,
         clientId,
-        setAttributes
+        setAttributes,
+        setPanelState,
+        elementRef
     } = props;
     const {
         elementId,
-        paragraph
     } = attributes;
     const {
         getBlocks
@@ -93,13 +94,22 @@ const TextBlock = compose(
             panelProps={panelProps}
         />
         <TextBlockControl {...props}/>
-        <RichText
-            {...blockProps}
+        <RichTextComponent
+            isBlockProps = {true}
+            blockProps={blockProps}
             tagName={'p'}
+            onChange={value => setAttributes({ paragraph: value })}
             aria-label={__('Text Paragraph', 'gutenverse')}
             placeholder={__('Text Paragraph Placeholder', 'gutenverse')}
-            value={paragraph}
-            onChange={value => setAttributes({ paragraph: value })}
+            multiline={false}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            clientId={clientId}
+            elementRef={elementRef}
+            panelPosition={{panel : 'style', section : 2}}
+            contentAttribute={'paragraph'}
+            setPanelState={setPanelState}
+            isOnSplit={true}
             onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
             onReplace= {onReplace}
         />

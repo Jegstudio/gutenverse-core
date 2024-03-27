@@ -1,6 +1,6 @@
 /* External dependencies */
 import { useEffect, useRef } from '@wordpress/element';
-import { classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
@@ -66,18 +66,19 @@ const HeadingBlock = compose(
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText('content', {panel : 'style', section : 2}),
     withDinamicContent('content'),
 )(props => {
     const {
         attributes,
         setAttributes,
         setElementRef,
+        clientId,
+        elementRef,
+        setPanelState
     } = props;
     const {
         elementId,
         type,
-        content,
     } = attributes;
 
     const tagName = 'h' + type;
@@ -104,15 +105,23 @@ const HeadingBlock = compose(
     return <>
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
-        <RichText
+        <RichTextComponent
+            isBlockProps = {true}
+            blockProps={blockProps}
             ref={headingRef}
-            identifier="content"
             tagName={tagName}
-            value={content}
-            onChange={value => setAttributes({ content: value })}
+            onChange={value => {
+                setAttributes({ content: value })}}
             placeholder={__('Write heading…')}
+            ariaLabel={__('Heading Paragraph')}
             multiline={false}
-            {...blockProps}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            clientId={clientId}
+            elementRef={elementRef}
+            panelPosition={{panel : 'style', section : 2}}
+            contentAttribute={'content'}
+            setPanelState={setPanelState}
         />
     </>;
 });
