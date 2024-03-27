@@ -112,6 +112,7 @@ const TextBlock = compose(
             isOnSplit={true}
             onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
             onReplace= {onReplace}
+            textChilds={'textChilds'}
         />
     </>;
 });

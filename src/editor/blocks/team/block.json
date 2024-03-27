@@ -41,15 +41,19 @@
     },
     "name": {
       "type": "string",
-      "source": "html",
-      "selector" : ".profile-title",
       "default": "John Doe"
+    },
+    "nameChilds":{
+      "type" : "array",
+      "default" : []
     },
     "job": {
       "type": "string",
-      "source": "html",
-      "selector" : ".profile-sub",
       "default": "Designer"
+    },
+    "jobChilds":{
+      "type" : "array",
+      "default" : []
     },
     "showDesc": {
       "type": "boolean",
@@ -57,9 +61,11 @@
     },
     "description": {
       "type": "string",
-      "source": "html",
-      "selector" : ".profile-desc",
       "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget dignissim quam. Nam posuere velit vitae ultricies commodo."
+    },
+    "descriptionChilds":{
+      "type" : "array",
+      "default" : []
     },
     "phone": {
       "type": "string",

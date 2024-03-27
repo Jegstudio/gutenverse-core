@@ -114,8 +114,7 @@ const HeadingBlock = compose(
             blockProps={blockProps}
             ref={headingRef}
             tagName={tagName}
-            onChange={value => {
-                setAttributes({ content: value })}}
+            onChange={value => setAttributes({ content: value })}
             placeholder={__('Write heading…')}
             ariaLabel={__('Heading Paragraph')}
             multiline={false}
@@ -126,6 +125,7 @@ const HeadingBlock = compose(
             panelPosition={{panel : 'style', section : 2}}
             contentAttribute={'content'}
             setPanelState={setPanelState}
+            textChilds={'textChilds'}
         />
     </>;
 });

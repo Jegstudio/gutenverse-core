@@ -24,30 +24,19 @@ const TeamBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
-    // const {
-    //     getBlocks
-    // } = useSelect(
-    //     (select) => select('core/block-editor'),
-    //     []
-    // );
-
-    // const [showPop, setShowPop] = useState(false);
     const {
-        // clientId,
         attributes,
-        setAttributes,
         setElementRef
     } = props;
-
     const {
         elementId,
-        // addPopup,
     } = attributes;
-
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const teamRef = useRef();
-
+    const nameRef = useRef();
+    const descRef = useRef();
+    const jobRef = useRef();
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -60,12 +49,6 @@ const TeamBlock = compose(
         ref: teamRef
     });
 
-    // const openPopup = () => {
-    //     if (addPopup) {
-    //         setShowPop(true);
-    //     }
-    // };
-
     const innerBlocksProps = useInnerBlocksProps({}, {
         template: [['gutenverse/social-icons']],
         allowedBlocks: ['gutenverse/social-icons'],
@@ -74,12 +57,6 @@ const TeamBlock = compose(
     });
 
     const socialComponent = <div {...innerBlocksProps} />;
-
-    // const socialsRef = getBlocks(clientId).map(socials => {
-    //     const { name, attributes, innerBlocks } = socials;
-
-    //     return getSaveElement(name, attributes, innerBlocks);
-    // });
 
     useEffect(() => {
         if (teamRef.current) {
@@ -90,7 +67,14 @@ const TeamBlock = compose(
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
-            <TeamProfile {...attributes} frontEnd={false} setAttributes={setAttributes} socialComponent={socialComponent} />
+            <TeamProfile
+                frontEnd={false}
+                socialComponent={socialComponent}
+                descRef={descRef}
+                jobRef={jobRef}
+                nameRef={nameRef}
+                {...props}
+            />
         </div>
     </>;
 });

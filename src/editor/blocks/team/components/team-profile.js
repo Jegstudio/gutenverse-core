@@ -2,34 +2,44 @@
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { __ } from '@wordpress/i18n';
 import { RichText } from '@wordpress/block-editor';
+import { RichTextComponent } from 'gutenverse-core/components';
 
-const TeamProfile = ({
-    profileType,
-    src,
-    lazy,
-    addPopup,
-    overlayType,
-    overlayPosition,
-    name,
-    job,
-    description,
-    showDesc,
-    showSocial,
-    nameTag: NameTag,
-    hoverBottom,
-    hoverBottomDirection,
-    socialComponent,
-    setAttributes,
-    frontEnd,
-    // onClick = () => {}
-}) => {
+const TeamProfile = (props) => {
+    const {
+        socialComponent,
+        attributes,
+        setAttributes,
+        setPanelState,
+        frontEnd,
+        clientId,
+        nameRef,
+        jobRef,
+        descRef
+    } = props;
+    console.log(props)
+    const {
+        profileType,
+        src,
+        lazy,
+        addPopup,
+        overlayType,
+        overlayPosition,
+        name,
+        job,
+        description,
+        showDesc,
+        showSocial,
+        nameTag: NameTag,
+        hoverBottom,
+        hoverBottomDirection,
+    } = attributes;
     const lazyLoad = () => {
         if(lazy){
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
     const contentDesc = (classnames, ariaLabel, identifier, data, tag ) => {
-        if(showDesc){
+        if(showDesc && identifier === 'description'){
             if(frontEnd){
                 return <RichText.Content
                     className={classnames}
@@ -38,14 +48,63 @@ const TeamProfile = ({
                     value={data}
                 />;
             }else{
-                return <RichText
+                return(
+                    <RichTextComponent
+                        ref={descRef}
+                        classNames={classnames}
+                        tagName={tag}
+                        onChange={value => setAttributes({ [identifier]: value })}
+                        aria-label={ariaLabel}
+                        placeholder={ariaLabel}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        elementRef={descRef.current}
+                        panelPosition={{panel : 'style', section : 2}}
+                        contentAttribute={identifier}
+                        setPanelState={setPanelState}
+                        textChilds={identifier + 'Childs'}
+                    />
+                );
+            }
+        }else if(!showDesc && identifier !== 'description'){
+            if(frontEnd){
+                return <RichText.Content
                     className={classnames}
                     tagName={tag}
                     aria-label={ariaLabel}
                     value={data}
-                    identifier={identifier}
-                    onChange={value => setAttributes({ [identifier]: value })}
                 />;
+            }else{
+                let ref = null;
+                let elementRef = null;
+                if(identifier === 'name'){
+                    ref = nameRef;
+                    elementRef = nameRef.current;
+                }else if(identifier === 'job'){
+                    ref = jobRef;
+                    elementRef = jobRef.current;
+                }
+                return(
+                    <RichTextComponent
+                        ref={ref}
+                        classNames={classnames}
+                        tagName={tag}
+                        onChange={value => setAttributes({ [identifier]: value })}
+                        aria-label={ariaLabel}
+                        placeholder={ariaLabel}
+                        multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        elementRef={elementRef}
+                        panelPosition={{panel : 'style', section : 2}}
+                        contentAttribute={identifier}
+                        setPanelState={setPanelState}
+                        textChilds={identifier + 'Childs'}
+                    />
+                );
             }
         }
     };

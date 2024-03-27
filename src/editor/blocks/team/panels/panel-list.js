@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, childStylePanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { teamPanel } from './panel-team';
 import { namePanel } from './panel-name';
 import { jobPanel } from './panel-job';
@@ -15,6 +15,16 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['nameChilds','jobChilds','descriptionChilds']
+            }),
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
         {
             title: __('Team Details', 'gutenverse'),
             panelArray: teamPanel,
@@ -138,6 +148,7 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
+        
         {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,
