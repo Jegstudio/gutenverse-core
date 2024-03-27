@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
 import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -34,7 +34,10 @@ const IconListItemBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        clientId,
+        elementRef,
+        setPanelState
     } = props;
 
     const {
@@ -123,15 +126,21 @@ const IconListItemBlock = compose(
         <li  {...blockProps}>
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
-                <RichText
+                <RichTextComponent
+                    ref = {iconListItemRef}
                     className={`list-text ${hideIcon ? 'no-icon' : ''}`}
-                    tagName="span"
+                    tagName={'span'}
                     aria-label={__('List text')}
                     placeholder={__('Add text…')}
-                    value={text}
                     onChange={(value) => setAttributes({ text: value })}
-                    withoutInteractiveFormatting
-                    identifier="text"
+                    multiline={false}
+                    setAttributes={setAttributes}
+                    attributes={attributes}
+                    clientId={clientId}
+                    panelPosition={{panel : 'style', section : 1}}
+                    contentAttribute={'text'}
+                    setPanelState={setPanelState}
+                    textChilds={'textChilds'}
                 />
             </a>
         </li>

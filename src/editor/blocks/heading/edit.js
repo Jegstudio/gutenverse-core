@@ -121,7 +121,6 @@ const HeadingBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            elementRef={elementRef}
             panelPosition={{panel : 'style', section : 2}}
             contentAttribute={'content'}
             setPanelState={setPanelState}

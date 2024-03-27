@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { TabSetting, TabStyle, advancePanel, conditionPanel, dynamicContentPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { TabSetting, TabStyle, advancePanel, childStylePanel, conditionPanel, dynamicContentPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelGeneral } from './panel-general';
 import { panelIcon } from './panel-icon';
 
@@ -17,6 +17,7 @@ export const panelList = () => {
             tabRole: TabSetting,
             pro: true,
         },
+
         {
             title: __('Icon', 'gutenverse'),
             panelArray: panelIcon
@@ -41,6 +42,15 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['textChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
         },
         {
             title: __('Spacing', 'gutenverse'),

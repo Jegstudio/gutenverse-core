@@ -56,6 +56,10 @@
 			"selector": "span",
 			"default": "List item"
 		},
+		"textChilds":{
+			"type":"array",
+			"default":[]
+		},
 		"margin": {
 			"type": "object",
 			"copyStyle": true

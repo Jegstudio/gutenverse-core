@@ -60,7 +60,6 @@ const TeamProfile = (props) => {
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        elementRef={elementRef}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
@@ -95,7 +94,6 @@ const TeamProfile = (props) => {
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        elementRef={elementRef}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}

@@ -35,9 +35,17 @@
 			"type": "string",
 			"default": "Image Box Heading"
 		},
+		"titleChilds":{
+			"type" : "array",
+			"default" : []
+		  },
 		"description": {
 			"type": "string",
 			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.​"
+		},
+		"descriptionChilds":{
+			"type" : "array",
+			"default" : []
 		},
 		"image": {
 			"type": "object"

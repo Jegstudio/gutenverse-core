@@ -9,7 +9,7 @@ import {
     useBlockProps,
     useInnerBlocksProps
 } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -101,7 +101,7 @@ const ImageBoxPicker = (props) => {
     );
 };
 
-const ImageBoxBody = ({ setAttributes, attributes, clientId }) => {
+const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, elementRef, setPanelState }) => {
     const {
         getBlocks
     } = useSelect(
@@ -154,24 +154,38 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId }) => {
                 `icon-position-${titleIconPosition}`
             )}>
                 {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
-                <RichText
+                <RichTextComponent
+                    ref={titleRef}
                     tagName={'span'}
                     aria-label={__('Image Box Title', 'gutenverse')}
                     placeholder={__('Image Box Title', 'gutenverse')}
-                    value={title}
                     onChange={value => setAttributes({ title: value })}
-                    withoutInteractiveFormatting
+                    multiline={false}
+                    setAttributes={setAttributes}
+                    attributes={attributes}
+                    clientId={clientId}
+                    panelPosition={{panel : 'style', section : 1}}
+                    contentAttribute={'title'}
+                    setPanelState={setPanelState}
+                    textChilds={'titleChilds'}
                 />
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
-            <RichText
+            <RichTextComponent
+                ref={descRef}
                 className={'body-description'}
-                tagName="p"
+                tagName={'p'}
                 aria-label={__('Image Box Description', 'gutenverse')}
                 placeholder={__('Image Box Description', 'gutenverse')}
-                value={description}
                 onChange={value => setAttributes({ description: value })}
-                withoutInteractiveFormatting
+                multiline={false}
+                setAttributes={setAttributes}
+                attributes={attributes}
+                clientId={clientId}
+                panelPosition={{panel : 'style', section : 1}}
+                contentAttribute={'description'}
+                setPanelState={setPanelState}
+                textChilds={'descriptionChilds'}
             />
             <div {...innerBlockProps} />
             {hoverBottom && <div className={'border-bottom'}>
@@ -203,6 +217,8 @@ const ImageBoxBlock = compose(
     } = attributes;
 
     const imageBoxRef = useRef();
+    const descRef = useRef();
+    const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -271,7 +287,7 @@ const ImageBoxBlock = compose(
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} />
+                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef}/>
             </div>
         </div>
     </>;
