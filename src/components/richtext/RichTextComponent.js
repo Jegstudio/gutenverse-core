@@ -15,10 +15,10 @@ const RichTextComponent = (props) => {
         setPanelState,
         contentAttribute,
         tagName,
-        elementRef,
         panelPosition,
         multiline,
         placeholder,
+        elementRef,
         isOnSplit = false,
         ariaLabel,
         onChange,
@@ -78,16 +78,18 @@ const RichTextComponent = (props) => {
                 }
                 return element;
             });
-            setAttributes({ textChilds: newChild });
+            setAttributes({ [textChilds]: newChild });
         }
         if(lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length){
             setPanelState({...panelPosition, randKey : Math.random() });
         }
     }, [currentContent]);
 
-    const getListOfChildTag = () => {
+    const getListOfChildTag = (content) => {
         if (elementRef) {
-            const newElement = u(elementRef).children().map(child => {
+            const fakeContent = document.createElement(tagName);
+            fakeContent.innerHTML = content;
+            const newElement = u(fakeContent).children().map(child => {
                 const newChild = u(child).children().map(grandChild => {
                     if( u(grandChild).nodes[0].localName === 'span' && u(grandChild).hasClass('guten-text-highlight')){
                         return {
