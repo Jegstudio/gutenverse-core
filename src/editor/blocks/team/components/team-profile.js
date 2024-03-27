@@ -14,9 +14,9 @@ const TeamProfile = (props) => {
         clientId,
         nameRef,
         jobRef,
-        descRef
+        descRef,
+        elementRef
     } = props;
-    console.log(props)
     const {
         profileType,
         src,
@@ -60,8 +60,8 @@ const TeamProfile = (props) => {
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        elementRef={descRef.current}
-                        panelPosition={{panel : 'style', section : 2}}
+                        elementRef={elementRef}
+                        panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
@@ -78,13 +78,10 @@ const TeamProfile = (props) => {
                 />;
             }else{
                 let ref = null;
-                let elementRef = null;
                 if(identifier === 'name'){
                     ref = nameRef;
-                    elementRef = nameRef.current;
                 }else if(identifier === 'job'){
                     ref = jobRef;
-                    elementRef = jobRef.current;
                 }
                 return(
                     <RichTextComponent
@@ -99,7 +96,7 @@ const TeamProfile = (props) => {
                         attributes={attributes}
                         clientId={clientId}
                         elementRef={elementRef}
-                        panelPosition={{panel : 'style', section : 2}}
+                        panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}

@@ -16,16 +16,6 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 export const panelList = () => {
     return [
         {
-            title: __('Highlight Style', 'gutenverse'),
-            panelArray: (props) => childStylePanel({
-                ...props,
-                arrOfTextChilds : ['nameChilds','jobChilds','descriptionChilds']
-            }),
-            initialOpen: false,
-            tabRole: TabStyle,
-            pro: true
-        },
-        {
             title: __('Team Details', 'gutenverse'),
             panelArray: teamPanel,
             tabRole: TabSetting
@@ -35,6 +25,15 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: contentPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['nameChilds','jobChilds','descriptionChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
         },
         {
             title: __('Image', 'gutenverse'),
