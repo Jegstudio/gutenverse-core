@@ -22,7 +22,8 @@ import { HighLightToolbar } from 'gutenverse-core/toolbars';
 const HeadingBlockControl = (props) => {
     const{
         attributes,
-        setAttributes
+        setAttributes,
+        setPanelState,
     } = props;
     const {
         type,
@@ -30,8 +31,11 @@ const HeadingBlockControl = (props) => {
 
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
+        setPanelState,
+        {
+            panel: 'setting',
+            section: 1,
+        }
     );
     HighLightToolbar (props);
 
