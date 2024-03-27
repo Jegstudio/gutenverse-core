@@ -22,6 +22,9 @@ const RichTextComponent = (props) => {
         isOnSplit = false,
         ariaLabel,
         onChange,
+        ref,
+        classNames,
+        isBlockProps = false
     } = props;
     const content = attributes[contentAttribute];
     const [currentContent, setCurrentContent] = useState();
@@ -167,20 +170,39 @@ const RichTextComponent = (props) => {
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
     }
+    const handleOnChange = (value) => {
+        onChange(value);
+    }
+    const contentOfRichText = () => {
+        if(isBlockProps){
+            return <RichText
+                {...blockProps}
+                identifier={contentAttribute}
+                tagName={tagName}
+                value={content}
+                placeholder={placeholder}
+                multiline={multiline}
+                aria-label={ariaLabel}
+                onSplit={ isOnSplit  && onSplit}
+                onReplace={ isOnSplit && onReplace}
+                onChange={value => handleOnChange(value)}
+            />
+        }else{
+            return <RichText
+                identifier={contentAttribute}
+                tagName={tagName}
+                value={content}
+                placeholder={placeholder}
+                multiline={multiline}
+                aria-label={ariaLabel}
+                className={classNames}
+                ref={ref}
+                onChange={value => handleOnChange(value)}
+            />
+        }
+    }
     return (
-        <RichText
-            {...blockProps}
-            identifier="content"
-            tagName={tagName}
-            value={content}
-            placeholder={placeholder}
-            multiline={multiline}
-            aria-label={ariaLabel}
-            onSplit={ isOnSplit  && onSplit}
-            onReplace={ isOnSplit && onReplace}
-            // className={classNames}
-            onChange={onChange}
-        />
+        contentOfRichText()
     )
 }
 export default RichTextComponent;

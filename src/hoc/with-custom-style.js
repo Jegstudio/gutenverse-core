@@ -47,6 +47,7 @@ export const withCustomStyle = panelList => BlockElement => {
         const [hasIcon, setHasIcon] = useState(false);
         const [confirmSignal, setConfirmSignal] = useState(false);
         const [elementRef, setElementRef] = useState(null);
+        const [richTextRef, setRichTextRef] = useState(null);
         const [headElement, setHeadElement] = useState(null);
         const [refreshId, setRefreshId] = useState(null);
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
@@ -331,6 +332,8 @@ export const withCustomStyle = panelList => BlockElement => {
                 deviceType={deviceType}
                 setElementRef={setElementRef}
                 elementRef={elementRef}
+                setRichTextRef = {setRichTextRef}
+                richTextRef = {richTextRef}
                 refreshStyle={refreshStyle}
                 setAdditionalAttribute={setAdditionalAttribute}
             />
