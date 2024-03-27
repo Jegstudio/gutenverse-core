@@ -24,11 +24,12 @@ const RichTextComponent = (props) => {
         onChange,
         ref,
         classNames,
-        isBlockProps = false
+        isBlockProps = false,
+        textChilds
     } = props;
     const content = attributes[contentAttribute];
     const [currentContent, setCurrentContent] = useState();
-    const [lastChildLength, setLastChildLength] = useState(attributes?.textChilds.length);
+    const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
     const {
         getBlockAttributes
     } = useSelect(
@@ -36,8 +37,8 @@ const RichTextComponent = (props) => {
         []
     );
     useEffect(() => {
-        setLastChildLength(attributes?.textChilds.length);
-    },[attributes?.textChilds])
+        setLastChildLength(attributes[textChilds].length);
+    },[attributes[textChilds]])
     const getContent = (clientId) => {
         const block = getBlockAttributes(clientId);
         let content = '';
@@ -57,7 +58,7 @@ const RichTextComponent = (props) => {
     }, []);
     useEffect(() => {
         const child = getListOfChildTag(currentContent);
-        let childs = attributes?.textChilds;
+        let childs = attributes[textChilds];
         if (attributes[contentAttribute]) {
             const newChild = child.map(element => {
                 const indexExist = childs.findIndex(item => element.id === item.id);
@@ -79,7 +80,7 @@ const RichTextComponent = (props) => {
             });
             setAttributes({ textChilds: newChild });
         }
-        if(lastChildLength !== attributes?.textChilds.length && lastChildLength < attributes?.textChilds.length){
+        if(lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length){
             setPanelState({...panelPosition, randKey : Math.random() });
         }
     }, [currentContent]);
