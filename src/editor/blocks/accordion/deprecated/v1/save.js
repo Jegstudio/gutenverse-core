@@ -1,13 +1,21 @@
 
 import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { AccordionIcon } from './edit';
 
+const AccordionIcon = ({ iconOpen, iconClosed }) => {
+    return <div className={'accordion-icon'}>
+        <span className={'accordion-icon-open'}>
+            <i className={iconOpen} />
+        </span>
+        <span className={'accordion-icon-closed'}>
+            <i className={iconClosed} />
+        </span>
+    </div>;
+};
 export const save = (props) => {
     const {
-        attributes,
+        attributes
     } = props;
-
     const {
         title,
         first,
@@ -15,17 +23,14 @@ export const save = (props) => {
         iconOpen,
         iconClosed,
         titleTag,
-        elementId
     } = attributes;
 
     const accordionStyle = classnames(
         'accordion-item',
-        elementId,
         {
             active: first
         }
     );
-
     return <div className={accordionStyle}>
         <div className={'accordion-heading'}>
             {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}

@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel, transformPanel, maskPanel, mouseMoveEffectPanel, conditionPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, responsivePanel, positioningPanel, textClipPanel, advanceAnimationPanel, transformPanel, maskPanel, mouseMoveEffectPanel, conditionPanel, childStylePanel } from 'gutenverse-core/controls';
 import { focusTitlePanel } from './panel-focus-title';
 import { linePanel } from './panel-line';
 import { mainTitlePanel } from './panel-main-title';
@@ -18,6 +18,15 @@ export const panelList = () => {
             title: __('Line', 'gutenverse'),
             panelArray: linePanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['textChilds','focusTextChilds','subTextChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
         },
         {
             title: __('Main Title', 'gutenverse'),

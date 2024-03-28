@@ -173,7 +173,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
             </TitleTag>
             <RichTextComponent
                 ref={descRef}
-                className={'body-description'}
+                classNames={'body-description'}
                 tagName={'p'}
                 aria-label={__('Image Box Description', 'gutenverse')}
                 placeholder={__('Image Box Description', 'gutenverse')}

@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
 import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import { classnames, RichText } from 'gutenverse-core/components';
+import { classnames, RichText, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -20,7 +20,9 @@ const AdvancedHeadingBlock = compose(
     const {
         attributes,
         setElementRef,
-        setAttributes
+        setAttributes,
+        clientId,
+        setPanelState
     } = props;
 
     const {
@@ -34,6 +36,9 @@ const AdvancedHeadingBlock = compose(
         showLine,
     } = attributes;
     const advHeadingRef = useRef();
+    const focusTextRef = useRef();
+    const textRef = useRef();
+    const subTextRef = useRef()
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -55,14 +60,29 @@ const AdvancedHeadingBlock = compose(
     }, [advHeadingRef]);
 
     const richTextContent = (data, tag, classes, identifier ) => {
-        return <RichText
-            identifier={identifier}
+        let ref = null;
+        if(identifier === 'subText'){
+            ref = subTextRef;
+        }else if(identifier === 'text'){
+            ref = textRef;
+        }else if(identifier === 'focusText'){
+            ref = focusTextRef;
+        }
+        return <RichTextComponent
+            ref={ref}
+            classNames={classes}
             tagName={tag}
-            value={data}
+            aria-label={__('Advanced Heading', 'gutenverse')}
+            placeholder={__('Write Heading...', 'gutenverse')}
             onChange={value => setAttributes({ [identifier]: value })}
-            placeholder={__('Write heading…')}
             multiline={false}
-            className={classes}
+            setAttributes={setAttributes}
+            attributes={attributes}
+            clientId={clientId}
+            panelPosition={{panel : 'style', section : 1}}
+            contentAttribute={identifier}
+            setPanelState={setPanelState}
+            textChilds={identifier + 'Childs'}
         />;
     };
     return <>

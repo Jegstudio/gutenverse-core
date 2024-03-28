@@ -39,7 +39,7 @@ const TeamProfile = (props) => {
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
     const contentDesc = (classnames, ariaLabel, identifier, data, tag ) => {
-        if(showDesc && identifier === 'description'){
+        if(showDesc){
             if(frontEnd){
                 return <RichText.Content
                     className={classnames}
@@ -48,9 +48,17 @@ const TeamProfile = (props) => {
                     value={data}
                 />;
             }else{
+                let ref = null;
+                if(identifier === 'name'){
+                    ref = nameRef;
+                }else if(identifier === 'job'){
+                    ref = jobRef;
+                }else if(identifier === 'description'){
+                    ref = descRef;
+                }
                 return(
                     <RichTextComponent
-                        ref={descRef}
+                        ref={ref}
                         classNames={classnames}
                         tagName={tag}
                         onChange={value => setAttributes({ [identifier]: value })}

@@ -128,7 +128,7 @@ const IconListItemBlock = compose(
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
                     ref = {iconListItemRef}
-                    className={`list-text ${hideIcon ? 'no-icon' : ''}`}
+                    classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}
                     aria-label={__('List text')}
                     placeholder={__('Add text…')}
