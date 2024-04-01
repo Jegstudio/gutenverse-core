@@ -31,7 +31,7 @@ const TextBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect,
     withHighLightText('paragraph', {panel : 'style', section : 1}),
-    withDinamicContent('paragraph')
+    // withDinamicContent('paragraph')
 )((props) => {
     const { panelProps} = props;
     const {
@@ -79,6 +79,14 @@ const TextBlock = compose(
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        setPanelState,
+        {
+            panel: 'setting',
+            section: 0,
+        }
+    );
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
     }

@@ -70,7 +70,7 @@ const HeadingBlock = compose(
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withDinamicContent('content'),
+    // withDinamicContent('content'),
 )(props => {
     const {
         attributes,
