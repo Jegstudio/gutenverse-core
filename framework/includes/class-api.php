@@ -664,8 +664,8 @@ class Api {
 				$pages[] = array(
 					'id'         => $page->index,
 					'title'      => $page->title,
-					'coverImage' => $page->coverImage[0], //phpcs:ignore
-					'fullImage'  => $page->fullImage[0], //phpcs:ignore
+					'coverImage' => $page->coverImage[0],
+					'fullImage'  => $page->fullImage[0],
 				);
 			}
 
@@ -1441,7 +1441,7 @@ class Api {
 			array(
 				'post_type'   => 'attachment',
 				'post_status' => 'inherit',
-				'meta_query'  => array( //phpcs:ignore
+				'meta_query'  => array(
 					array(
 						'key'     => '_import_source',
 						'value'   => $url,

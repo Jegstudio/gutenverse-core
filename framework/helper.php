@@ -16,7 +16,7 @@ if ( ! function_exists( 'jlog' ) ) {
 		$arg_list = func_get_args();
 		for ( $i = 0; $i < $numargs; $i++ ) {
 			echo '<pre>';
-			print_r( $arg_list[ $i ] ); //phpcs:ignore
+			print_r( $arg_list[ $i ] );
 			echo '</pre>';
 		}
 	}
@@ -52,7 +52,7 @@ if ( ! function_exists( 'gutenverse_encode_url' ) ) {
 	function gutenverse_encode_url( $post_id ) {
 		$url = get_permalink( $post_id );
 
-		return urlencode( $url ); //phpcs:ignore
+		return urlencode( $url );
 	}
 }
 
@@ -390,7 +390,7 @@ if ( ! function_exists( 'gutenverse_is_previewer' ) ) {
 	 * If current page is previewer
 	 */
 	function gutenverse_is_previewer() {
-		return isset( $_GET['preview'] ); //phpcs:ignore
+		return isset( $_GET['preview'] );
 	}
 }
 

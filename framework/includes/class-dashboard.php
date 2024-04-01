@@ -56,15 +56,15 @@ class Dashboard {
 	public function redirect_dashboard() {
 		global $pagenow;
 
-		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) { //phpcs:ignore
-			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) ); //phpcs:ignore
+		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) {
+			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) );
 
 			switch ( $old_page ) {
 				case 'gutenverse-settings':
 					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse&path=settings' ) );
 					exit;
 				case 'gutenverse-upgrade-notice':
-					$version = isset( $_GET['version'] ) ? '&version=' . wp_sanitize_redirect( wp_unslash( $_GET['version'] ) ) : null; //phpcs:ignore
+					$version = isset( $_GET['version'] ) ? '&version=' . wp_sanitize_redirect( wp_unslash( $_GET['version'] ) ) : null;
 					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse&path=update-notice' . $version ) );
 					exit;
 				default:

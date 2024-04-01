@@ -28,7 +28,7 @@ class Import_Template {
 	 * Installation notice.
 	 */
 	public function after_install_notice() {
-		if ( ! isset( $_REQUEST['install-template'] ) ) { //phpcs:ignore
+		if ( ! isset( $_REQUEST['install-template'] ) ) {
 			return;
 		}
 

@@ -237,7 +237,7 @@ class Theme_Helper {
 			'post_type'      => $template_type,
 			'posts_per_page' => -1,
 			'no_found_rows'  => true,
-			'tax_query'      => array( //phpcs:ignore
+			'tax_query'      => array(
 				array(
 					'taxonomy' => 'wp_theme',
 					'field'    => 'name',
