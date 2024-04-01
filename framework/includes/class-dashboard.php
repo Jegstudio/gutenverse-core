@@ -154,7 +154,7 @@ class Dashboard {
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1';
 		$config['url']              = home_url();
-		$config['fseUrl']           = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
+		$config['fseUrl']           = gutenverse_compatible_check() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
 		$config['subscribed']       = Meta_Option::instance()->get_option( 'subscribed' );
 		$config['assetURL']         = GUTENVERSE_FRAMEWORK_URL . '/assets/';
 		$config['rating']           = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
