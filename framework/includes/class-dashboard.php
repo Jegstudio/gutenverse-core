@@ -170,7 +170,7 @@ class Dashboard {
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['adminUrl']         = admin_url();
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
-		$config['requireProUpdate'] = \Initialize_Gutenverse_Framework::instance()->need_update_pro();
+		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}

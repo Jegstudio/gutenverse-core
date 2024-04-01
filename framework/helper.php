@@ -7,11 +7,11 @@
  * @package gutenverse-framework
  */
 
-if ( ! function_exists( 'jlog' ) ) {
+if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log
 	 */
-	function jlog() {
+	function gutenverse_jlog() {
 		$numargs  = func_num_args();
 		$arg_list = func_get_args();
 		for ( $i = 0; $i < $numargs; $i++ ) {
@@ -523,11 +523,11 @@ if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 	}
 }
 
-if ( ! function_exists( 'is_gutenverse_compatible' ) ) {
+if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
 	 * Check if gutenverse is compatible.
 	 */
-	function is_gutenverse_compatible() {
+	function gutenverse_compatible_check() {
 		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], '5.9', '>=' );
 	}
 }
