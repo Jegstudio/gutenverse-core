@@ -516,7 +516,7 @@ if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 		?>
 		<style id="<?php echo esc_attr( $name ); ?>"> 
 			<?php
-				echo wp_specialchars_decode( trim( $content ) ); // phpcs:ignore
+				echo esc_html( wp_specialchars_decode( trim( $content ) ) );
 			?>
 		</style>
 		<?php
