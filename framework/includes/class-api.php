@@ -1415,12 +1415,6 @@ class Api {
 		$contents = $request->get_param( 'contents' );
 		$array    = array();
 
-		/**
-		 * Temporarily increase time limit for import.
-		 * Default 30s is not enough for importing long content.
-		 */
-		set_time_limit( 300 );
-
 		foreach ( $images as $image ) {
 			$data = $this->check_image_exist( $image );
 			if ( ! $data ) {

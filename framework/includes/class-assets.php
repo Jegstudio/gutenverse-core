@@ -82,11 +82,6 @@ class Assets {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 			WP_Filesystem();
 
-			/**
-			 * Temporarily increase time limit for import.
-			 */
-			set_time_limit( 300 );
-
 			$upload_dir = wp_upload_dir()['basedir'];
 			$folder     = $upload_dir . '/gutenverse';
 			$path       = realpath( $folder );
