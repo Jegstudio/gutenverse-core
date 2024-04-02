@@ -5,6 +5,7 @@ import { select } from '@wordpress/data';
 import { speak } from '@wordpress/a11y';
 import { __, sprintf } from '@wordpress/i18n';
 import { cryptoRandomString } from 'gutenverse-core/components';
+import { IconHighlightSVG } from 'gutenverse-core/icons';
 
 export const HighLightToolbar = (props) => {
     /** select block with RichText to display new format */
@@ -44,7 +45,7 @@ export const HighlightButton = (props) => {
         <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton
-                    icon="editor-code"
+                    icon= {<IconHighlightSVG/>}
                     title="Text Highlight"
                     onClick={() => {
                         const hasElement = value.formats.some((val,key) => {
