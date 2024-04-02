@@ -28,7 +28,7 @@ class Import_Template {
 	 * Installation notice.
 	 */
 	public function after_install_notice() {
-		if ( ! isset( $_REQUEST['install-template'] ) ) { //phpcs:ignore
+		if ( ! isset( $_REQUEST['install-template'] ) ) {
 			return;
 		}
 
@@ -65,7 +65,7 @@ class Import_Template {
 			return;
 		}
 
-		if ( 'gutenverse' === $_REQUEST['install-template'] && isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( wp_unslash( $_REQUEST['_wpnonce'] ), 'install-template_gutenverse' ) ) { //phpcs:ignore
+		if ( 'gutenverse' === $_REQUEST['install-template'] && isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'install-template_gutenverse' ) ) {
 			$theme_dir   = get_template_directory();
 			$parts       = scandir( $theme_dir . '/gutenverse-templates/parts/' );
 			$source      = $theme_dir . '/gutenverse-templates/parts/';
