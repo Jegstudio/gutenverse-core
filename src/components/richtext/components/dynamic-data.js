@@ -7,7 +7,6 @@ export const dynamicData = (props) => {
     const {
         attributes,
         setAttributes,
-        ref,
         contentAttribute,
         tagName
     } = props;
@@ -17,10 +16,10 @@ export const dynamicData = (props) => {
     } = attributes;
     const content = attributes[contentAttribute];
     const [dynamicText, setDynamicText] = useState([]);
+    const [dynamicUrl, setDynamicUrl] = useState([]);
 
     useEffect(()=>{
         const dynamicList = getDynamicDataList();
-        console.log(dynamicList);
         const currentList = dynamicDataList;
         if (dynamicList.length > 0) {
             const newList = dynamicList.map(element => {
@@ -35,13 +34,12 @@ export const dynamicData = (props) => {
             });
             setAttributes({dynamicDataList: newList});
         } else setAttributes({dynamicDataList: []});
-    },[content, dynamicText]);
+    },[content, dynamicText, dynamicUrl]);
 
     const getDynamicDataList = () => {
         let newElement = {};
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-        console.log(u(fakeContent));
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
             if( isDynamic ){
@@ -71,7 +69,6 @@ export const dynamicData = (props) => {
             const arrElement = [];
             const fakeContent = document.createElement(tagName);
             fakeContent.innerHTML = content;
-            console.log(fakeContent)
             const dynamics = u(fakeContent).find('.guten-dynamic-data');
             dynamics.nodes.map(el => {
                 arrElement.push({
@@ -84,26 +81,6 @@ export const dynamicData = (props) => {
             });
             newElement.nodes = arrElement;
         }
-        // if(u(fakeContent).nodes[0].classList.contains('block-editor-rich-text__editable')){
-            
-        // }else{
-        //     const arrElement = [];
-        //     const fakeContent = document.createElement(tagName);
-        //     fakeContent.innerHTML = content;
-        //     newElement = u(fakeContent).find('.block-editor-rich-text__editable').map(child => {
-        //         const dynamics = u(child).find('.guten-dynamic-data');
-        //         dynamics.nodes.map(el => {
-        //             arrElement.push({
-        //                 dynamicContent: {},
-        //                 dynamicUrl: {},
-        //                 _key: {},
-        //                 value: el,
-        //                 id: u(el).attr('id')
-        //             });
-        //         });
-        //     });
-        //     newElement.nodes = arrElement;
-        // }
         return newElement.nodes;
     };
 
@@ -202,6 +179,10 @@ export const dynamicData = (props) => {
                     dynamicDataList[index],
                     id,
                 );
+                const dynamicUrlcontent = applyFilters(
+                    'gutenverse.dynamic.fetch-url',
+                    dynamicDataList[index].dynamicUrl
+                );
 
                 const title = applyFilters(
                     'gutenverse.dynamic.generate-content',
@@ -214,6 +195,7 @@ export const dynamicData = (props) => {
                     'gutenverse.dynamic.fetch-text',
                     dynamicDataList[index].dynamicContent
                 );
+
                 if (title !== content){
                     dynamicTextContent
                         .then(result => {
@@ -233,7 +215,19 @@ export const dynamicData = (props) => {
                 if (href !== '#') {
                     const anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id}`);
-                    // anchorElement.setAttribute('href', href);
+                    dynamicUrlcontent
+                        .then(result => {
+                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
+                                setDynamicUrl(prevState => {
+                                    const newState = [...prevState];
+                                    newState[index] = result;
+                                    return newState;
+                                });
+                            }
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                    anchorElement.setAttribute('href', dynamicUrl[index]);
                     if (title !== content) {
                         //if dynamic data element is inside other element format
                         if (dynamicDataList[index].parent){
@@ -267,6 +261,7 @@ export const dynamicData = (props) => {
                         } else anchorElement.innerHTML = item.element[0].outerHTML;
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
+                    console.log(contentArray);
                 }else if (title !== content){
 
                     //if dynamic data element is inside other element format
