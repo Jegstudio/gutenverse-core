@@ -256,7 +256,7 @@ class Gutenverse {
 	 */
 	public function register_framework() {
 		require_once GUTENVERSE_DIR . 'lib/framework/init.php';
-		$init = \Initialize_Gutenverse_Framework::instance();
+		$init = \Gutenverse_Initialize_Framework::instance();
 
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -277,7 +277,7 @@ class Gutenverse {
 				if ( version_compare( $form['Version'], '1.0.0', '<' ) && is_plugin_active( $plugin ) ) {
 					add_action(
 						'admin_notices',
-						function() use ( $instance, $plugin ) {
+						function () use ( $instance, $plugin ) {
 							$instance->plugin_update_notice( $plugin );
 						}
 					);
@@ -301,7 +301,7 @@ class Gutenverse {
 	 */
 	public function can_load_framework() {
 		require_once GUTENVERSE_DIR . 'lib/framework/init.php';
-		$init = \Initialize_Gutenverse_Framework::instance();
+		$init = \Gutenverse_Initialize_Framework::instance();
 
 		return $init->can_load_version( GUTENVERSE );
 	}
