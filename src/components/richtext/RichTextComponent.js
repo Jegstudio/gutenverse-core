@@ -1,8 +1,8 @@
 import { RichText } from '@wordpress/block-editor';
 import { useSelect, dispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
-import { dynamicData } from './components/dynamic-data';
-import { highlight } from './components/highlight';
+import { dynamicData } from './module/dynamic-data';
+import { highlight } from './module/highlight';
 
 const RichTextComponent = (props) => {
     const {

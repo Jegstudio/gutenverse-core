@@ -7,7 +7,6 @@ export const dynamicData = (props) => {
     const {
         attributes,
         setAttributes,
-        ref,
         contentAttribute,
         tagName
     } = props;
@@ -20,7 +19,6 @@ export const dynamicData = (props) => {
 
     useEffect(()=>{
         const dynamicList = getDynamicDataList();
-        console.log(dynamicList);
         const currentList = dynamicDataList;
         if (dynamicList.length > 0) {
             const newList = dynamicList.map(element => {
@@ -41,7 +39,6 @@ export const dynamicData = (props) => {
         let newElement = {};
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-        console.log(u(fakeContent));
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
             if( isDynamic ){
@@ -71,7 +68,6 @@ export const dynamicData = (props) => {
             const arrElement = [];
             const fakeContent = document.createElement(tagName);
             fakeContent.innerHTML = content;
-            console.log(fakeContent)
             const dynamics = u(fakeContent).find('.guten-dynamic-data');
             dynamics.nodes.map(el => {
                 arrElement.push({
@@ -84,26 +80,6 @@ export const dynamicData = (props) => {
             });
             newElement.nodes = arrElement;
         }
-        // if(u(fakeContent).nodes[0].classList.contains('block-editor-rich-text__editable')){
-            
-        // }else{
-        //     const arrElement = [];
-        //     const fakeContent = document.createElement(tagName);
-        //     fakeContent.innerHTML = content;
-        //     newElement = u(fakeContent).find('.block-editor-rich-text__editable').map(child => {
-        //         const dynamics = u(child).find('.guten-dynamic-data');
-        //         dynamics.nodes.map(el => {
-        //             arrElement.push({
-        //                 dynamicContent: {},
-        //                 dynamicUrl: {},
-        //                 _key: {},
-        //                 value: el,
-        //                 id: u(el).attr('id')
-        //             });
-        //         });
-        //     });
-        //     newElement.nodes = arrElement;
-        // }
         return newElement.nodes;
     };
 
