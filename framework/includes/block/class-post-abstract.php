@@ -479,7 +479,7 @@ abstract class Post_Abstract extends Block_Abstract {
 		}
 
 		if ( isset( $attr['videoOnly'] ) && true === $attr['videoOnly'] ) {
-			$args['tax_query'] = array( //phpcs:ignore
+			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'post_format',
 					'field'    => 'slug',

@@ -56,15 +56,15 @@ class Dashboard {
 	public function redirect_dashboard() {
 		global $pagenow;
 
-		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) { //phpcs:ignore
-			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) ); //phpcs:ignore
+		if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) ) {
+			$old_page = wp_sanitize_redirect( wp_unslash( $_GET['page'] ) );
 
 			switch ( $old_page ) {
 				case 'gutenverse-settings':
 					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse&path=settings' ) );
 					exit;
 				case 'gutenverse-upgrade-notice':
-					$version = isset( $_GET['version'] ) ? '&version=' . wp_sanitize_redirect( wp_unslash( $_GET['version'] ) ) : null; //phpcs:ignore
+					$version = isset( $_GET['version'] ) ? '&version=' . wp_sanitize_redirect( wp_unslash( $_GET['version'] ) ) : null;
 					wp_safe_redirect( admin_url( 'admin.php?page=gutenverse&path=update-notice' . $version ) );
 					exit;
 				default:
@@ -154,7 +154,7 @@ class Dashboard {
 		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
 		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1';
 		$config['url']              = home_url();
-		$config['fseUrl']           = is_gutenverse_compatible() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
+		$config['fseUrl']           = gutenverse_compatible_check() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
 		$config['subscribed']       = Meta_Option::instance()->get_option( 'subscribed' );
 		$config['assetURL']         = GUTENVERSE_FRAMEWORK_URL . '/assets/';
 		$config['rating']           = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
@@ -170,7 +170,7 @@ class Dashboard {
 		$config['themesUrl']        = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['adminUrl']         = admin_url();
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
-		$config['requireProUpdate'] = \Initialize_Gutenverse_Framework::instance()->need_update_pro();
+		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}

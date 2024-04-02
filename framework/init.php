@@ -7,13 +7,13 @@
  * @package gutenverse-framework
  */
 
-if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
+if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 	/**
-	 * Class Initialize_Gutenverse_Framework
+	 * Class Gutenverse_Initialize_Framework
 	 *
 	 * @package gutenverse
 	 */
-	class Initialize_Gutenverse_Framework {
+	class Gutenverse_Initialize_Framework {
 		/**
 		 * Instance of Gutenverse.
 		 *
@@ -45,7 +45,7 @@ if ( ! class_exists( 'Initialize_Gutenverse_Framework' ) ) {
 		/**
 		 * Singleton Class
 		 *
-		 * @return Initialize_Gutenverse_Framework
+		 * @return Gutenverse_Initialize_Framework
 		 */
 		public static function instance() {
 			if ( null === static::$instance ) {

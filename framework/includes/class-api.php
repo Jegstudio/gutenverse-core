@@ -664,8 +664,8 @@ class Api {
 				$pages[] = array(
 					'id'         => $page->index,
 					'title'      => $page->title,
-					'coverImage' => $page->coverImage[0], //phpcs:ignore
-					'fullImage'  => $page->fullImage[0], //phpcs:ignore
+					'coverImage' => $page->coverImage[0],
+					'fullImage'  => $page->fullImage[0],
 				);
 			}
 
@@ -1415,12 +1415,6 @@ class Api {
 		$contents = $request->get_param( 'contents' );
 		$array    = array();
 
-		/**
-		 * Temporarily increase time limit for import.
-		 * Default 30s is not enough for importing long content.
-		 */
-		set_time_limit( 300 );
-
 		foreach ( $images as $image ) {
 			$data = $this->check_image_exist( $image );
 			if ( ! $data ) {
@@ -1447,7 +1441,7 @@ class Api {
 			array(
 				'post_type'   => 'attachment',
 				'post_status' => 'inherit',
-				'meta_query'  => array( //phpcs:ignore
+				'meta_query'  => array(
 					array(
 						'key'     => '_import_source',
 						'value'   => $url,
