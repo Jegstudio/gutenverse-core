@@ -8,7 +8,8 @@ export const dynamicData = (props) => {
         attributes,
         setAttributes,
         ref,
-        contentAttribute
+        contentAttribute,
+        tagName
     } = props;
 
     const {
@@ -18,83 +19,91 @@ export const dynamicData = (props) => {
     const [dynamicText, setDynamicText] = useState([]);
 
     useEffect(()=>{
-        if (ref) {
-            const dynamicList = getDynamicDataList();
-            const currentList = dynamicDataList;
-            if (dynamicList.length > 0) {
-                const newList = dynamicList.map(element => {
-                    const indexExist = currentList.findIndex(item => element.id === item.id);
-                    if (indexExist !== -1) {
-                        element._key = currentList[indexExist]?._key;
-                        element.dynamicContent = currentList[indexExist]?.dynamicContent;
-                        element.dynamicUrl = currentList[indexExist]?.dynamicUrl;
-                        currentList[indexExist]?.parent ? element.parent = currentList[indexExist]?.parent : {};
-                    }
-                    return element;
-                });
-                setAttributes({dynamicDataList: newList});
-            } else setAttributes({dynamicDataList: []});
-        }
-    },[content, ref, dynamicText]);
+        const dynamicList = getDynamicDataList();
+        console.log(dynamicList);
+        const currentList = dynamicDataList;
+        if (dynamicList.length > 0) {
+            const newList = dynamicList.map(element => {
+                const indexExist = currentList.findIndex(item => element.id === item.id);
+                if (indexExist !== -1) {
+                    element._key = currentList[indexExist]?._key;
+                    element.dynamicContent = currentList[indexExist]?.dynamicContent;
+                    element.dynamicUrl = currentList[indexExist]?.dynamicUrl;
+                    currentList[indexExist]?.parent ? element.parent = currentList[indexExist]?.parent : {};
+                }
+                return element;
+            });
+            setAttributes({dynamicDataList: newList});
+        } else setAttributes({dynamicDataList: []});
+    },[content, dynamicText]);
 
     const getDynamicDataList = () => {
         let newElement = {};
-        if(u(ref).nodes[0].classList.contains('block-editor-rich-text__editable')){
-            newElement = u(ref).children().map(child => {
-                const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
-                if( isDynamic ){
+        const fakeContent = document.createElement(tagName);
+        fakeContent.innerHTML = content;
+        console.log(u(fakeContent));
+        newElement = u(fakeContent).children().map(child => {
+            const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
+            if( isDynamic ){
+                return {
+                    dynamicContent: {},
+                    dynamicUrl: {},
+                    _key: {},
+                    value: child,
+                    id: u(child).attr('id')
+                };
+            } else {
+                const dynamics = u(child).find('.guten-dynamic-data');
+                const nested = dynamics.nodes.map(el => {
                     return {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
-                        value: child,
-                        id: u(child).attr('id')
+                        parent: child,
+                        value: el,
+                        id: u(el).attr('id')
                     };
-                } else {
-                    const dynamics = u(child).find('.guten-dynamic-data');
-                    const nested = dynamics.nodes.map(el => {
-                        return {
-                            dynamicContent: {},
-                            dynamicUrl: {},
-                            _key: {},
-                            parent: child,
-                            value: el,
-                            id: u(el).attr('id')
-                        };
-                    });
-                    return nested;
-                }
-            });
-            if( newElement.nodes.length === 0 ){
-                const arrElement = [];
-                const dynamics = u(ref).find('.guten-dynamic-data');
-                dynamics.nodes.map(el => {
-                    arrElement.push({
-                        dynamicContent: {},
-                        dynamicUrl: {},
-                        _key: {},
-                        value: el,
-                        id: u(el).attr('id')
-                    });
                 });
-                newElement.nodes = arrElement;
+                return nested;
             }
-        }else{
+        });
+        if( newElement.nodes.length === 0 ){
             const arrElement = [];
-            newElement = u(ref).find('.block-editor-rich-text__editable').map(child => {
-                const dynamics = u(child).find('.guten-dynamic-data');
-                dynamics.nodes.map(el => {
-                    arrElement.push({
-                        dynamicContent: {},
-                        dynamicUrl: {},
-                        _key: {},
-                        value: el,
-                        id: u(el).attr('id')
-                    });
+            const fakeContent = document.createElement(tagName);
+            fakeContent.innerHTML = content;
+            console.log(fakeContent)
+            const dynamics = u(fakeContent).find('.guten-dynamic-data');
+            dynamics.nodes.map(el => {
+                arrElement.push({
+                    dynamicContent: {},
+                    dynamicUrl: {},
+                    _key: {},
+                    value: el,
+                    id: u(el).attr('id')
                 });
             });
             newElement.nodes = arrElement;
         }
+        // if(u(fakeContent).nodes[0].classList.contains('block-editor-rich-text__editable')){
+            
+        // }else{
+        //     const arrElement = [];
+        //     const fakeContent = document.createElement(tagName);
+        //     fakeContent.innerHTML = content;
+        //     newElement = u(fakeContent).find('.block-editor-rich-text__editable').map(child => {
+        //         const dynamics = u(child).find('.guten-dynamic-data');
+        //         dynamics.nodes.map(el => {
+        //             arrElement.push({
+        //                 dynamicContent: {},
+        //                 dynamicUrl: {},
+        //                 _key: {},
+        //                 value: el,
+        //                 id: u(el).attr('id')
+        //             });
+        //         });
+        //     });
+        //     newElement.nodes = arrElement;
+        // }
         return newElement.nodes;
     };
 

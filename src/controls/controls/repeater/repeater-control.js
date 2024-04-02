@@ -73,22 +73,26 @@ const SortableItem = SortableElement(props => {
         wrapper.nodes.map(el => {
             u(el).addClass('hover-child-style');
         });
-        const iframe = u('.edit-site-visual-editor__editor-canvas').nodes[0].contentWindow.document;
-        wrapper = u(iframe).find(`#${items[index].spanId}`);
-        wrapper.nodes.map(el => {
-            u(el).addClass('hover-child-style');
-        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas');
+        if(iframe.length > 0){
+            wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
+            wrapper.nodes.map(el => {
+                u(el).addClass('hover-child-style');
+            });
+        }
     };
     const handleLeave = () => {
         let wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
         wrapper.nodes.map(el => {
             u(el).removeClass('hover-child-style');
         });
-        const iframe = u('.edit-site-visual-editor__editor-canvas').nodes[0].contentWindow.document;
-        wrapper = u(iframe).find(`#${items[index].spanId}`);
-        wrapper.nodes.map(el => {
-            u(el).removeClass('hover-child-style');
-        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas');
+        if(iframe.length > 0){
+            wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
+            wrapper.nodes.map(el => {
+                u(el).removeClass('hover-child-style');
+            });
+        }
     };
 
     const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
