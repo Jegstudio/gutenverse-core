@@ -10,7 +10,7 @@ const LockedConditionControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Block Show / Hide Condition', '--gctd--' )}
             description={__( 'Define condition if you want to set your block shown / hidden', '--gctd--' )}
-            img={'/highlight-text.mp4'}
+            img={'/condition-filter-animation.mp4'}
             isOpen={isOpen}
         />
     </div>;
