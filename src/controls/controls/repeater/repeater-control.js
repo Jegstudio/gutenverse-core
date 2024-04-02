@@ -69,13 +69,23 @@ const SortableItem = SortableElement(props => {
         }
     };
     const handleEnter = () => {
-        const wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        let wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).addClass('hover-child-style');
+        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas').nodes[0].contentWindow.document;
+        wrapper = u(iframe).find(`#${items[index].spanId}`);
         wrapper.nodes.map(el => {
             u(el).addClass('hover-child-style');
         });
     };
     const handleLeave = () => {
-        const wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        let wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).removeClass('hover-child-style');
+        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas').nodes[0].contentWindow.document;
+        wrapper = u(iframe).find(`#${items[index].spanId}`);
         wrapper.nodes.map(el => {
             u(el).removeClass('hover-child-style');
         });
