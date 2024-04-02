@@ -5,6 +5,7 @@ import { useSelect, subscribe, dispatch } from '@wordpress/data';
 import u from 'umbrellajs';
 import { cryptoRandomString } from 'gutenverse-core/components';
 import { createBlock } from '@wordpress/blocks';
+import { dynamicData } from './components/dynamic-data';
 
 const RichTextComponent = (props) => {
     const {
@@ -145,6 +146,9 @@ const RichTextComponent = (props) => {
         });
         return setAttributes({ [contentAttribute]: newValue.join('') });
     },[content]);
+
+    dynamicData(props);
+
     const {
         getBlocks
     } = useSelect(
@@ -167,10 +171,10 @@ const RichTextComponent = (props) => {
     };
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
-    }
+    };
     const handleOnChange = (value) => {
         onChange(value);
-    }
+    };
     const contentOfRichText = () => {
         if(isBlockProps){
             return <RichText
@@ -184,7 +188,7 @@ const RichTextComponent = (props) => {
                 onSplit={ isOnSplit  && onSplit}
                 onReplace={ isOnSplit && onReplace}
                 onChange={value => handleOnChange(value)}
-            />
+            />;
         }else{
             return <RichText
                 identifier={contentAttribute}
@@ -196,11 +200,11 @@ const RichTextComponent = (props) => {
                 className={classNames}
                 ref={ref}
                 onChange={value => handleOnChange(value)}
-            />
+            />;
         }
-    }
+    };
     return (
         contentOfRichText()
-    )
-}
+    );
+};
 export default RichTextComponent;
