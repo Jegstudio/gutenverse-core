@@ -84,36 +84,48 @@ export const dynamicData = (props) => {
         return newElement.nodes;
     };
 
-    const descendantTags = new Set();
-    function checkDescendants(element) {
-        for (let node of element.childNodes) {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-                const tagName = node.tagName.toLowerCase();
-                const attributes = Array.from(node.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
-                const tagWithAttributes = `<${tagName}${attributes ? ' ' + attributes : ''}></${tagName}>`;
-                if (!descendantTags.has(tagWithAttributes)) {
-                    descendantTags.add(tagWithAttributes);
+    function getDescendantTags(element) {
+        const descendantTags = new Set();
+
+        function checkDescendants(element) {
+            for (let node of element.childNodes) {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = node.tagName.toLowerCase();
+                    const attributes = Array.from(node.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
+                    const tagWithAttributes = `<${tagName}${attributes ? ' ' + attributes : ''}></${tagName}>`;
+                    if (!descendantTags.has(tagWithAttributes)) {
+                        descendantTags.add(tagWithAttributes);
+                    }
+                    checkDescendants(node);
                 }
-                checkDescendants(node);
             }
         }
+
+        checkDescendants(element);
+        return descendantTags;
     }
 
-    const ancestorTags = new Set();
-    function checkAncestor(element) {
-        if (!element || isEmpty(element)) return;
-        const tagName = element.tagName.toLowerCase();
-        const attributes = Array.from(element.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
-        const tagWithAttributes = `<${tagName}${attributes ? ' ' + attributes : ''}></${tagName}>`;
-        if (!ancestorTags.has(tagWithAttributes)) {
-            ancestorTags.add(tagWithAttributes);
-        }
+    function getAncestorTags(element) {
+        const ancestorTags = new Set();
 
-        for (let node of element.childNodes) {
-            if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('guten-dynamic-data')) {
-                checkAncestor(node);
+        function checkAncestor(element) {
+            if (!element || isEmpty(element)) return;
+            const tagName = element.tagName.toLowerCase();
+            const attributes = Array.from(element.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
+            const tagWithAttributes = `<${tagName}${attributes ? ' ' + attributes : ''}></${tagName}>`;
+            if (!ancestorTags.has(tagWithAttributes)) {
+                ancestorTags.add(tagWithAttributes);
+            }
+
+            for (let node of element.childNodes) {
+                if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('guten-dynamic-data')) {
+                    checkAncestor(node);
+                }
             }
         }
+
+        checkAncestor(element);
+        return ancestorTags;
     }
 
     function mergeTags(elementsArray, text) {
@@ -232,14 +244,14 @@ export const dynamicData = (props) => {
                         //if dynamic data element is inside other element format
                         if (dynamicDataList[index].parent){
                             let parent = dynamicDataList[index].parent;
-                            checkAncestor(parent);
+                            const ancestorTags = getAncestorTags(parent);
                             const elementWithAttr = item.element[0];
                             elementWithAttr.setAttribute('dynamic-data-content', title);
                             elementWithAttr.setAttribute('dynamic-data-url', href);
                             const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
                             var htmlElement1 = parseElement(tagsMerged);
                             if (dynamicText[index] !== undefined) {
-                                checkDescendants(htmlElement1);
+                                const descendantTags = getDescendantTags(htmlElement1);
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                                 htmlElement1.innerHTML = tagsMerged;
                             }
@@ -248,7 +260,7 @@ export const dynamicData = (props) => {
                             item.element[0].setAttribute('dynamic-data-content', title);
                             item.element[0].setAttribute('dynamic-data-url', href);
                             if (dynamicText[index] !== undefined) {
-                                checkDescendants(item.element[0]);
+                                const descendantTags = getDescendantTags(item.element[0]);
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                                 item.element[0].innerHTML = tagsMerged;
                             }
@@ -261,19 +273,18 @@ export const dynamicData = (props) => {
                         } else anchorElement.innerHTML = item.element[0].outerHTML;
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
-                    console.log(contentArray);
                 }else if (title !== content){
 
                     //if dynamic data element is inside other element format
                     if (dynamicDataList[index].parent){
                         let parent = dynamicDataList[index].parent;
-                        checkAncestor(parent);
+                        const ancestorTags = getAncestorTags(parent);
                         const elementWithAttr = item.element[0];
                         elementWithAttr.setAttribute('dynamic-data-content', title);
                         const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
                         var htmlElement = parseElement(tagsMerged);
                         if (dynamicText[index] !== undefined) {
-                            checkDescendants(htmlElement);
+                            const descendantTags = getDescendantTags(htmlElement);
                             const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                             htmlElement.innerHTML = tagsMerged;
                         }
@@ -281,7 +292,7 @@ export const dynamicData = (props) => {
                     } else { //if dynamic data element is the wrapper of other element format
                         item.element[0].setAttribute('dynamic-data-content', title);
                         if (dynamicText[index] !== undefined) {
-                            checkDescendants(item.element[0]);
+                            const descendantTags = getDescendantTags(item.element[0]);
                             const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                             item.element[0].innerHTML = tagsMerged;
                         }
@@ -292,5 +303,5 @@ export const dynamicData = (props) => {
             setAttributes({ [contentAttribute] : contentArray.join('') });
         }
 
-    },[dynamicDataList, dynamicText]);
+    },[dynamicDataList, dynamicText, dynamicUrl]);
 };
