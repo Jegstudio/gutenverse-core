@@ -38,7 +38,17 @@
                 position: relative;
                 overflow: hidden;
                 display: inline-block;
-                
+
+                .profile-body {
+                    opacity: 0;
+                    transform: translateY(-50%);
+
+                    &.bottom {
+                        bottom: -5% !important;
+                        top: unset !important;
+                        transform: translateY(0%);
+                    }
+                }
                 img {
                     width: 100%;
                     height: auto;
