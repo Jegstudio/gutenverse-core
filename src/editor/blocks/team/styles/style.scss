@@ -1,12 +1,12 @@
 .guten-team {
     position: relative;
-    
+    overflow: hidden;
     .profile-box {
         text-align: center;
 
         .profile-card {
             background-color: var(--guten-bg-color);
-
+            
             .popup {
                 cursor: pointer;
             }

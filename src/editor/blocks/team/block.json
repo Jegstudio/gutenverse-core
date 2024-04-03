@@ -325,6 +325,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "hoverBottomHeight": {
+      "type": "object",
+      "copyStyle": true
+    },
     "hoverBottomDirection": {
       "type": "string",
       "default": "left",

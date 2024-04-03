@@ -25,7 +25,6 @@ const TeamProfile = ({
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
-    console.log(overlayType)
     const contentType = () => {
         switch(profileType) {
             case 'overlay':
