@@ -500,6 +500,14 @@ class Team extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['imageBackground'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img", $this->attrs['imageBackground'] );
+		}
+
+		if ( isset( $this->attrs['imageBackgroundHover'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img:hover", $this->attrs['imageBackgroundHover'] );
+		}
+
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
 			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before", $this->attrs['hoverBgColor'] );
 		}
