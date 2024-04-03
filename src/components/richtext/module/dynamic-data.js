@@ -47,7 +47,7 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
-                    value: child.outerHTML,
+                    value: child,
                     id: u(child).attr('id')
                 };
             } else {
@@ -57,7 +57,7 @@ export const dynamicData = (props) => {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
-                        parent: child.outerHTML,
+                        parent: child,
                         value: findDynamics.nodes[0],
                         id: u(findDynamics.nodes).attr('id')
                     };
@@ -225,7 +225,7 @@ export const dynamicData = (props) => {
                 if (href !== '#') {
                     const anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id}`);
-                    anchorElement.setAttribute('dynamic-data-url', href);
+                    item.element[0].setAttribute('dynamic-data-url', href);
                     dynamicUrlcontent
                         .then(result => {
                             if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
@@ -253,6 +253,7 @@ export const dynamicData = (props) => {
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                                 htmlElement1.innerHTML = tagsMerged;
                             }
+                            htmlElement1.setAttribute('dynamic-data-url', href);
                             anchorElement.innerHTML = htmlElement1.innerHTML;
                         } else { //if dynamic data element is the wrapper of other element format
                             item.element[0].setAttribute('dynamic-data-content', title);
@@ -266,6 +267,7 @@ export const dynamicData = (props) => {
                     } else {
                         if ( linkExist ) {
                             var htmlElement2 = parseElement(contentArray[item.key]);
+                            htmlElement2.setAttribute('dynamic-data-url', href);
                             anchorElement.innerHTML = htmlElement2.innerHTML;
                         } else {
                             anchorElement.innerHTML = item.element[0].outerHTML;
