@@ -225,6 +225,7 @@ export const dynamicData = (props) => {
                 if (href !== '#') {
                     const anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id}`);
+                    anchorElement.setAttribute('dynamic-data-url', href);
                     dynamicUrlcontent
                         .then(result => {
                             if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
@@ -245,7 +246,6 @@ export const dynamicData = (props) => {
                             const ancestorTags = getAncestorTags(parent);
                             const elementWithAttr = item.element[0];
                             elementWithAttr.setAttribute('dynamic-data-content', title);
-                            elementWithAttr.setAttribute('dynamic-data-url', href);
                             const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
                             var htmlElement1 = parseElement(tagsMerged);
                             if (dynamicText[index] !== undefined) {
@@ -256,7 +256,6 @@ export const dynamicData = (props) => {
                             anchorElement.innerHTML = htmlElement1.innerHTML;
                         } else { //if dynamic data element is the wrapper of other element format
                             item.element[0].setAttribute('dynamic-data-content', title);
-                            item.element[0].setAttribute('dynamic-data-url', href);
                             if (dynamicText[index] !== undefined) {
                                 const descendantTags = getDescendantTags(item.element[0]);
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
@@ -268,7 +267,9 @@ export const dynamicData = (props) => {
                         if ( linkExist ) {
                             var htmlElement2 = parseElement(contentArray[item.key]);
                             anchorElement.innerHTML = htmlElement2.innerHTML;
-                        } else anchorElement.innerHTML = item.element[0].outerHTML;
+                        } else {
+                            anchorElement.innerHTML = item.element[0].outerHTML;
+                        }
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
                 }else if (title !== content){
