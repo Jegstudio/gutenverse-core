@@ -4,6 +4,7 @@ import { cryptoRandomString } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import { useSelect, subscribe, dispatch } from '@wordpress/data';
+
 export const highlight = (props) => {
     const {
         attributes,
@@ -15,15 +16,18 @@ export const highlight = (props) => {
         panelPosition,
         textChilds
     } = props;
+
     const content = attributes[contentAttribute];
     const [currentContent, setCurrentContent] = useState(content);
     const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
+
     const {
         getBlockAttributes
     } = useSelect(
         (select) => select('core/block-editor'),
         []
     );
+
     useEffect(() => {
         setLastChildLength(attributes[textChilds].length);
     },[attributes[textChilds]])
@@ -35,6 +39,7 @@ export const highlight = (props) => {
         }
         return content;
     };
+
     useEffect(() => {
         const unsubscribe = subscribe(() => {
             const theContent = getContent(clientId);
@@ -44,6 +49,7 @@ export const highlight = (props) => {
         });
         return () => unsubscribe();
     }, []);
+
     useEffect(() => {
         const child = getListOfChildTag(currentContent);
         let childs = attributes[textChilds];
@@ -102,6 +108,7 @@ export const highlight = (props) => {
         });
         return newElement.nodes;
     };
+
     useEffect(() => {
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -134,4 +141,4 @@ export const highlight = (props) => {
         });
         return setAttributes({ [contentAttribute]: newValue.join('') });
     },[content]);
-}
+};

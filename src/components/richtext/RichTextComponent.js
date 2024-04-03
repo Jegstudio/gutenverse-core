@@ -23,6 +23,7 @@ const RichTextComponent = (props) => {
 
     dynamicData(props);
     highlight(props);
+
     const content = attributes[contentAttribute];
     const {
         getBlocks
@@ -30,8 +31,10 @@ const RichTextComponent = (props) => {
         (select) => select('core/block-editor'),
         []
     );
+
     const {insertBlock, replaceBlock} = dispatch('core/block-editor');
     const oldBlock = getBlocks();
+
     const onSplit = (value, isOriginal) => {
         const newBlock = createBlock( 'gutenverse/text', {
             paragraph: value,
@@ -44,12 +47,15 @@ const RichTextComponent = (props) => {
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
+
     //don't delete this, it will get error when deleted;
     const onReplace = (value) => {
     };
+
     const handleOnChange = (value) => {
         onChange(value);
     };
+
     const contentOfRichText = () => {
         if(isBlockProps){
             return <RichText
@@ -78,8 +84,10 @@ const RichTextComponent = (props) => {
             />;
         }
     };
+
     return (
         contentOfRichText()
     );
+
 };
 export default RichTextComponent;
