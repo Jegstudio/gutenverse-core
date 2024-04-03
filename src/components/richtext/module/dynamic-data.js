@@ -19,27 +19,27 @@ export const dynamicData = (props) => {
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
     useEffect(()=>{
-        const dynamicList = getDynamicDataList();
+        const fakeContent = document.createElement(tagName);
+        fakeContent.innerHTML = content;
+        console.log('fakeContent == ', fakeContent);
+
+        const dynamicList = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
         if (dynamicList.length > 0) {
             const newList = dynamicList.map(element => {
                 const indexExist = currentList.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
-                    element._key = currentList[indexExist]?._key;
-                    element.dynamicContent = currentList[indexExist]?.dynamicContent;
-                    element.dynamicUrl = currentList[indexExist]?.dynamicUrl;
-                    currentList[indexExist]?.parent ? element.parent = currentList[indexExist]?.parent : {};
+                    Object.assign(element, currentList[indexExist]);
                 }
                 return element;
             });
+            console.log(newList);
             setAttributes({dynamicDataList: newList});
         } else setAttributes({dynamicDataList: []});
     },[content, dynamicText, dynamicUrl]);
 
-    const getDynamicDataList = () => {
+    const getDynamicDataList = (fakeContent) => {
         let newElement = {};
-        const fakeContent = document.createElement(tagName);
-        fakeContent.innerHTML = content;
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
             if( isDynamic ){
@@ -47,27 +47,25 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
-                    value: child,
+                    value: child.outerHTML,
                     id: u(child).attr('id')
                 };
             } else {
-                const dynamics = u(child).find('.guten-dynamic-data');
-                const nested = dynamics.nodes.map(el => {
+                const findDynamics = u(child).find('.guten-dynamic-data');
+                if (findDynamics.nodes.length > 0) {
                     return {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
-                        parent: child,
-                        value: el,
-                        id: u(el).attr('id')
+                        parent: child.outerHTML,
+                        value: findDynamics.nodes[0],
+                        id: u(findDynamics.nodes).attr('id')
                     };
-                });
-                return nested;
+                }
             }
         });
         if( newElement.nodes.length === 0 ){
             const arrElement = [];
-            const fakeContent = document.createElement(tagName);
             fakeContent.innerHTML = content;
             const dynamics = u(fakeContent).find('.guten-dynamic-data');
             dynamics.nodes.map(el => {
@@ -278,10 +276,12 @@ export const dynamicData = (props) => {
                     //if dynamic data element is inside other element format
                     if (dynamicDataList[index].parent){
                         let parent = dynamicDataList[index].parent;
+                        console.log('parent', parent);
                         const ancestorTags = getAncestorTags(parent);
                         const elementWithAttr = item.element[0];
                         elementWithAttr.setAttribute('dynamic-data-content', title);
                         const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
+                        console.log(tagsMerged);
                         var htmlElement = parseElement(tagsMerged);
                         if (dynamicText[index] !== undefined) {
                             const descendantTags = getDescendantTags(htmlElement);
