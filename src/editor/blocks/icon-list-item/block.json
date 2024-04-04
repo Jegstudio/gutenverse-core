@@ -22,6 +22,9 @@
 			"type": "array",
 			"default": []
 		},
+		"openDynamic": {
+			"type": "string"
+		},
 		"linkTarget": {
 			"type": "string",
 			"source": "attribute",

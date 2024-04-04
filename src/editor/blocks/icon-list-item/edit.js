@@ -137,10 +137,12 @@ const IconListItemBlock = compose(
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
+                    panelDynamic={{panel : 'setting', section : 0}}
                     panelPosition={{panel : 'style', section : 1}}
                     contentAttribute={'text'}
                     setPanelState={setPanelState}
                     textChilds={'textChilds'}
+                    dynamicList={'dynamicDataList'}
                 />
             </a>
         </li>

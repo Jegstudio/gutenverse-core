@@ -178,10 +178,12 @@ const Accordion = compose(
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
+                    panelDynamic={{panel : 'setting', section : 0}}
                     panelPosition={{panel : 'style', section : 0}}
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
+                    dynamicList={'dynamicDataList'}
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>

@@ -51,6 +51,21 @@
 			"type": "array",
 			"default": []
 		},
+		"titleDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"descriptionDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"badgeDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
 		"badgeShow": {
 			"type": "boolean",
 			"default": false,

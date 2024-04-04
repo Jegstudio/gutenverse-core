@@ -33,6 +33,14 @@
 			"type": "string",
 			"default": "fas fa-plus"
 		},
+
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
 		"iconPosition": {
 			"type": "string",
 			"default": "left"

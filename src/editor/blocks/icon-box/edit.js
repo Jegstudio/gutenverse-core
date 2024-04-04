@@ -219,10 +219,12 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'title'}
                         setPanelState={setPanelState}
                         textChilds={'titleChilds'}
+                        dynamicList={'titleDynamicList'}
                     />
                     <RichTextComponent
                         ref={descRef}
@@ -235,10 +237,12 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'description'}
                         setPanelState={setPanelState}
                         textChilds={'descriptionChilds'}
+                        dynamicList={'descriptionDynamicList'}
                     />
                     <div {...innerBlockProps} />
                 </div>
@@ -255,10 +259,12 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'badge'}
                         setPanelState={setPanelState}
                         textChilds={'badgeChilds'}
+                        dynamicList={'badgeDynamicList'}
                     />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">

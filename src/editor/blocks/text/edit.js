@@ -113,6 +113,7 @@ const TextBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
+            panelDynamic={{panel : 'setting', section : 0}}
             panelPosition={{panel : 'style', section : 2}}
             contentAttribute={'paragraph'}
             setPanelState={setPanelState}
@@ -120,6 +121,7 @@ const TextBlock = compose(
             onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
             onReplace= {onReplace}
             textChilds={'textChilds'}
+            dynamicList={'dynamicDataList'}
         />
     </>;
 });

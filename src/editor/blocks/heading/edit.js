@@ -4,8 +4,8 @@ import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { BlockControls, useBlockProps } from '@wordpress/block-editor';
+import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
 
@@ -23,7 +23,6 @@ const HeadingBlockControl = (props) => {
     const{
         attributes,
         setAttributes,
-        setPanelState,
     } = props;
     const {
         type,
@@ -31,11 +30,6 @@ const HeadingBlockControl = (props) => {
 
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
-        setPanelState,
-        {
-            panel: 'setting',
-            section: 1,
-        }
     );
     HighLightToolbar(props);
 
@@ -77,7 +71,6 @@ const HeadingBlock = compose(
         setAttributes,
         setElementRef,
         clientId,
-        elementRef,
         setPanelState
     } = props;
     const {
@@ -122,9 +115,11 @@ const HeadingBlock = compose(
             attributes={attributes}
             clientId={clientId}
             panelPosition={{panel : 'style', section : 2}}
+            panelDynamic={{panel: 'setting', section: 1}}
             contentAttribute={'content'}
             setPanelState={setPanelState}
             textChilds={'textChilds'}
+            dynamicList={'dynamicDataList'}
         />
     </>;
 });

@@ -25,6 +25,21 @@
             "type": "string",
             "default": "span"
         },
+		"textDynamicList": {
+			"type": "array",
+			"default": []
+		},
+        "focusTextDynamicList": {
+			"type": "array",
+			"default": []
+		},
+        "subTextDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
         "text": {
             "type": "string",
             "default": "Heading "

@@ -24,6 +24,9 @@
 			"type": "array",
 			"default": []
 		},
+		"openDynamic": {
+			"type": "string"
+		},
     "paragraph": {
       "type": "string",
       "default": "",

@@ -79,10 +79,12 @@ const AdvancedHeadingBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
+            panelDynamic={{panel : 'setting', section : 1}}
             panelPosition={{panel : 'style', section : 1}}
             contentAttribute={identifier}
             setPanelState={setPanelState}
             textChilds={identifier + 'Childs'}
+            dynamicList={identifier + 'DynamicList'}
         />;
     };
     return <>
