@@ -19,17 +19,17 @@ export const dynamicData = (props) => {
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
-    function findNewData(arr1, arr2) {
-        const newData = [];
+    // function findNewData(arr1, arr2) {
+    //     const newData = [];
 
-        arr1.forEach(item => {
-            if (!arr2.some(elem => elem.key === item.key)) {
-                newData.push(item);
-            }
-        });
+    //     arr1.forEach(item => {
+    //         if (!arr2.some(elem => elem.key === item.key)) {
+    //             newData.push(item);
+    //         }
+    //     });
 
-        return newData;
-    }
+    //     return newData;
+    // }
 
     useEffect(()=>{
         const fakeContent = document.createElement(tagName);
@@ -38,14 +38,11 @@ export const dynamicData = (props) => {
         const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
 
+        console.log(dynamicLists, currentList);
+
         if (dynamicLists.length > currentList.length) {
             setPanelState(panelDynamic);
-            const newData = findNewData(dynamicList, currentList);
-            console.log(newData);
-
-            if (!isEmpty(newData)) {
-                setAttributes({openDynamic: newData.id});
-            }
+            // const newData = findNewData(dynamicList, currentList);
         }
 
         if (dynamicLists.length > 0) {
@@ -255,6 +252,10 @@ export const dynamicData = (props) => {
             selectedItems.map((item, index)=>{
                 const id = item.element[0].id;
                 const linkExist = document.querySelector(`.link-${id}`);
+
+                if (selectedItems.length - 1 === index) {
+                    setAttributes({openDynamic: id});
+                }
 
                 const href = applyFilters(
                     'gutenverse.dynamic.generate-url',
