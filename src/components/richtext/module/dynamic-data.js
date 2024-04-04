@@ -8,46 +8,82 @@ export const dynamicData = (props) => {
         attributes,
         setAttributes,
         contentAttribute,
-        tagName
+        tagName,
+        setPanelState,
+        panelDynamic,
+        dynamicList
     } = props;
 
-    const {
-        dynamicDataList
-    } = attributes;
+    const dynamicDataList = attributes[dynamicList];
     const content = attributes[contentAttribute];
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
+    function findNewData(arr1, arr2) {
+        const newData = [];
+
+        arr1.forEach(item => {
+            if (!arr2.some(elem => elem.key === item.key)) {
+                newData.push(item);
+            }
+        });
+
+        return newData;
+    }
+
     useEffect(()=>{
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-        console.log('fakeContent == ', fakeContent);
 
-        const dynamicList = getDynamicDataList(fakeContent);
+        const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
-        if (dynamicList.length > 0) {
-            const newList = dynamicList.map(element => {
+
+        if (dynamicLists.length > currentList.length) {
+            setPanelState(panelDynamic);
+            const newData = findNewData(dynamicList, currentList);
+            console.log(newData);
+
+            if (!isEmpty(newData)) {
+                setAttributes({openDynamic: newData.id});
+            }
+        }
+
+        if (dynamicLists.length > 0) {
+            const newList = dynamicLists.map(element => {
                 const indexExist = currentList.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
-                    Object.assign(element, currentList[indexExist]);
+                    const {
+                        _key,
+                        dynamicContent,
+                        dynamicUrl,
+                        parent,
+                        setAsLink
+                    } = currentList[indexExist] ?? {};
+
+                    element._key = _key;
+                    element.dynamicContent = dynamicContent;
+                    element.dynamicUrl = dynamicUrl;
+                    element.parent = parent;
+                    element.setAsLink = setAsLink;
                 }
                 return element;
             });
-            console.log(newList);
-            setAttributes({dynamicDataList: newList});
-        } else setAttributes({dynamicDataList: []});
-    },[content, dynamicText, dynamicUrl]);
+            setAttributes({[dynamicList]: newList});
+        } else setAttributes({[dynamicList]: []});
+    },[content]);
 
     const getDynamicDataList = (fakeContent) => {
         let newElement = {};
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
+
             if( isDynamic ){
                 return {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
-                    value: child,
+                    setAsLink: false,
+                    value: child.outerHTML,
                     id: u(child).attr('id')
                 };
             } else {
@@ -57,8 +93,9 @@ export const dynamicData = (props) => {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
-                        parent: child,
-                        value: findDynamics.nodes[0],
+                        setAsLink: false,
+                        parent: child.outerHTML,
+                        value: findDynamics.nodes[0].outerHTML,
                         id: u(findDynamics.nodes).attr('id')
                     };
                 }
@@ -73,7 +110,8 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
-                    value: el,
+                    setAsLink: false,
+                    value: el.outerHTML,
                     id: u(el).attr('id')
                 });
             });
@@ -105,9 +143,8 @@ export const dynamicData = (props) => {
 
     function getAncestorTags(element) {
         const ancestorTags = new Set();
-
         function checkAncestor(element) {
-            if (!element || isEmpty(element)) return;
+            if (!element) return;
             const tagName = element.tagName.toLowerCase();
             const attributes = Array.from(element.attributes).map(attr => `${attr.name}="${attr.value}"`).join(' ');
             const tagWithAttributes = `<${tagName}${attributes ? ' ' + attributes : ''}></${tagName}>`;
@@ -161,7 +198,10 @@ export const dynamicData = (props) => {
                 contentArray.push(node.outerHTML);
             }
         });
-        const selectedItems = [];
+
+        const selectedLink = [];
+        let selectedItems = [];
+
         for (const [index, item] of contentArray.entries()) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(item, 'text/html');
@@ -174,9 +214,43 @@ export const dynamicData = (props) => {
             if (selectElements.length > 0) {
                 selectedItems.push(pushData);
             }
+
+            const selectLink = doc.querySelectorAll('a.dynamic-link');
+            const pushLink = {
+                key : index,
+                element: selectLink
+            };
+
+            if (selectLink.length > 0) {
+                selectedLink.push(pushLink);
+            }
+        }
+
+        //to remove tag <a> if dynamic content does not exist
+        if( selectedLink.length > 0 ) {
+            selectedLink.map((link) => {
+                const dynamicExist =  link.element[0].querySelector('span.guten-dynamic-data');
+                if (dynamicExist === null) {
+                    selectedItems = selectedItems.filter(item => item.key !== link.key);
+                    contentArray[link.key] = link.element[0].innerHTML;
+                }
+            });
         }
 
         if ( selectedItems.length > 0 && dynamicDataList.length === selectedItems.length) {
+            const newestList = dynamicDataList.map((list)=> {
+                if (typeof list.value !== 'string') return {...list};
+                const newValue = parseElement(list.value);
+                let newParent;
+                if (list.parent){
+                    newParent = parseElement(list.parent);
+                }
+                return {
+                    ...list,
+                    value: newValue,
+                    parent: newParent
+                };
+            });
 
             selectedItems.map((item, index)=>{
                 const id = item.element[0].id;
@@ -224,7 +298,7 @@ export const dynamicData = (props) => {
 
                 if (href !== '#') {
                     const anchorElement = document.createElement('a');
-                    anchorElement.setAttribute('class', `link-${id}`);
+                    anchorElement.setAttribute('class', `link-${id} dynamic-link`);
                     item.element[0].setAttribute('dynamic-data-url', href);
                     dynamicUrlcontent
                         .then(result => {
@@ -241,20 +315,20 @@ export const dynamicData = (props) => {
                     anchorElement.setAttribute('href', dynamicUrl[index]);
                     if (title !== content) {
                         //if dynamic data element is inside other element format
-                        if (dynamicDataList[index].parent){
-                            let parent = dynamicDataList[index].parent;
+                        if (newestList[index].parent){
+                            let parent = newestList[index].parent;
                             const ancestorTags = getAncestorTags(parent);
                             const elementWithAttr = item.element[0];
                             elementWithAttr.setAttribute('dynamic-data-content', title);
                             const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
-                            var htmlElement1 = parseElement(tagsMerged);
+                            const htmlElement = parseElement(tagsMerged);
                             if (dynamicText[index] !== undefined) {
-                                const descendantTags = getDescendantTags(htmlElement1);
+                                const descendantTags = getDescendantTags(htmlElement);
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
-                                htmlElement1.innerHTML = tagsMerged;
+                                htmlElement.innerHTML = tagsMerged;
                             }
-                            htmlElement1.setAttribute('dynamic-data-url', href);
-                            anchorElement.innerHTML = htmlElement1.innerHTML;
+                            htmlElement.setAttribute('dynamic-data-url', href);
+                            anchorElement.innerHTML = htmlElement.innerHTML;
                         } else { //if dynamic data element is the wrapper of other element format
                             item.element[0].setAttribute('dynamic-data-content', title);
                             if (dynamicText[index] !== undefined) {
@@ -266,26 +340,30 @@ export const dynamicData = (props) => {
                         }
                     } else {
                         if ( linkExist ) {
-                            var htmlElement2 = parseElement(contentArray[item.key]);
-                            htmlElement2.setAttribute('dynamic-data-url', href);
-                            anchorElement.innerHTML = htmlElement2.innerHTML;
+                            const htmlElement = parseElement(contentArray[item.key]);
+                            htmlElement.setAttribute('dynamic-data-url', href);
+                            anchorElement.innerHTML = htmlElement.innerHTML;
                         } else {
-                            anchorElement.innerHTML = item.element[0].outerHTML;
+                            if (newestList[index].parent) {
+                                let parent = newestList[index].parent;
+                                const ancestorTags = getAncestorTags(parent);
+                                const tagsMerged = mergeTags(Array.from(ancestorTags), item.element[0].outerHTML);
+                                const htmlElement = parseElement(tagsMerged);
+                                anchorElement.innerHTML = htmlElement.outerHTML;
+                            } else anchorElement.innerHTML = item.element[0].outerHTML;
                         }
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
                 }else if (title !== content){
 
                     //if dynamic data element is inside other element format
-                    if (dynamicDataList[index].parent){
-                        let parent = dynamicDataList[index].parent;
-                        console.log('parent', parent);
+                    if (newestList[index].parent){
+                        let parent = newestList[index].parent;
                         const ancestorTags = getAncestorTags(parent);
                         const elementWithAttr = item.element[0];
                         elementWithAttr.setAttribute('dynamic-data-content', title);
                         const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
-                        console.log(tagsMerged);
-                        var htmlElement = parseElement(tagsMerged);
+                        const htmlElement = parseElement(tagsMerged);
                         if (dynamicText[index] !== undefined) {
                             const descendantTags = getDescendantTags(htmlElement);
                             const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
@@ -303,8 +381,8 @@ export const dynamicData = (props) => {
                     }
                 }
             });
-            setAttributes({ [contentAttribute] : contentArray.join('') });
         }
+        setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[dynamicDataList, dynamicText, dynamicUrl]);
+    },[content, dynamicDataList, dynamicText, dynamicUrl]);
 };

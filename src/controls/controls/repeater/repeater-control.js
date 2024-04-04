@@ -40,7 +40,7 @@ const SortableItem = SortableElement(props => {
         id,
         resetMethod,
         refreshStyle,
-        booleanSwitcher = false,
+        booleanSwitcher = false
     } = props;
     const toggleOpen = () => {
         if (openLast === null || openLast !== index) {
