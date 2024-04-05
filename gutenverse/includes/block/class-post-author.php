@@ -26,11 +26,11 @@ class Post_Author extends Block_Abstract {
 	 */
 	public function render_content( $post_id ) {
 		$type        = esc_html( $this->attributes['authorType'] );
-		$html_tag    = esc_html( $this->attributes['htmlTag'] );
+		$html_tag    = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
 		$avatar      = ! empty( $this->attributes['authorAvatar'] ) ? $this->attributes['authorAvatar'] : false;
 		$author_link = ! empty( $this->attributes['authorLink'] ) ? $this->attributes['authorLink'] : false;
 		$link_target = ! empty( $this->attributes['authorLinkTarget'] ) ? '_blank' : '_self';
-		$link_rel    = ! empty( $this->attributes['authorLinkRel'] ) ? esc_html( $this->attributes['authorLinkRel'] ) : 'noreferrer';
+		$link_rel    = ! empty( $this->attributes['authorLinkRel'] ) ? esc_attr( $this->attributes['authorLinkRel'] ) : 'noreferrer';
 		$content     = '';
 
 		if ( ! empty( $post_id ) ) {

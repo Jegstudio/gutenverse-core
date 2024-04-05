@@ -367,7 +367,7 @@ class Post_Block extends Post_Abstract {
 	 */
 	public function build_column( $results ) {
 		$block    = '';
-		$html_tag = esc_attr( $this->attributes['htmlTag'] );
+		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
 		$type     = esc_attr( $this->attributes['postblockType'] );
 
 		foreach ( $results as $post ) {

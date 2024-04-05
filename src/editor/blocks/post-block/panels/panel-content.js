@@ -117,10 +117,6 @@ export const contentPanel = (props) => {
                     label: __('P'),
                     value: 'p'
                 },
-                {
-                    label: __('SPAN'),
-                    value: 'span'
-                },
             ],
         },
         {

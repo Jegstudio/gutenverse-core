@@ -53,8 +53,8 @@ export const settingPanel = () => {
                     value: 'h6'
                 },
                 {
-                    label: __('SPAN'),
-                    value: 'span'
+                    label: __('P'),
+                    value: 'p'
                 },
             ],
         },
