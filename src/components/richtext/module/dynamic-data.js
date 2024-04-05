@@ -31,6 +31,7 @@ export const dynamicData = (props) => {
         return newData;
     }
 
+    // set up the dynamic data
     useEffect(()=>{
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
@@ -38,6 +39,7 @@ export const dynamicData = (props) => {
         const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
 
+        // find the lastest dynamic added and open it in the panel
         if (dynamicLists.length > currentList.length && currentList.length > 0) {
 
             const newData = findNewData(dynamicLists, currentList);
@@ -49,6 +51,7 @@ export const dynamicData = (props) => {
             setPanelState(panelDynamic);
         }
 
+        //set the attributes if new data added
         if (dynamicLists.length > 0) {
             const newList = dynamicLists.map(element => {
                 const indexExist = currentList.findIndex(item => element.id === item.id);
@@ -73,6 +76,7 @@ export const dynamicData = (props) => {
         } else setAttributes({[dynamicList]: []});
     },[content]);
 
+    // function to get dynamic data
     const getDynamicDataList = (fakeContent) => {
         let newElement = {};
         newElement = u(fakeContent).children().map(child => {
@@ -121,6 +125,8 @@ export const dynamicData = (props) => {
         return newElement.nodes;
     };
 
+    // get all the descendant tag inside the dynamic data element <span class='guten-dynamic-data'>
+    // and put all the tag inside a set
     function getDescendantTags(element) {
         const descendantTags = new Set();
 
@@ -142,6 +148,8 @@ export const dynamicData = (props) => {
         return descendantTags;
     }
 
+    // get all the ancestor tag of the dynamic data element <span class='guten-dynamic-data'>
+    // and putting it inside a set
     function getAncestorTags(element) {
         const ancestorTags = new Set();
         function checkAncestor(element) {
@@ -164,6 +172,8 @@ export const dynamicData = (props) => {
         return ancestorTags;
     }
 
+    // function to merge set of tags
+    // parameter 'text' will always be the last descendant
     function mergeTags(elementsArray, text) {
         let temp = null;
         if (elementsArray.length === 0) return text;
@@ -181,6 +191,8 @@ export const dynamicData = (props) => {
         const mergedElements = temp.replace('</', text + '</');
         return mergedElements;
     }
+
+    // function to parse string into a HTML element
     function parseElement(elementString){
         var parser = new DOMParser();
         var htmlElement = parser.parseFromString(elementString, 'text/html').body.firstChild;
@@ -188,7 +200,10 @@ export const dynamicData = (props) => {
         return htmlElement;
     }
 
+    // this is where all the fun is!
+    // change the text and href dynamically and set up the content
     useEffect(() => {
+        // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
         const contentArray = [];
@@ -203,6 +218,7 @@ export const dynamicData = (props) => {
         const selectedLink = [];
         let selectedItems = [];
 
+        // select the nodes associated with dynamic data
         for (const [index, item] of contentArray.entries()) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(item, 'text/html');
@@ -231,14 +247,27 @@ export const dynamicData = (props) => {
         if( selectedLink.length > 0 ) {
             selectedLink.map((link) => {
                 const dynamicExist =  link.element[0].querySelector('span.guten-dynamic-data');
+                // remove the <a> tag when it doeasn't have the dynamic <span>, also remove it from the selected items
                 if (dynamicExist === null) {
                     selectedItems = selectedItems.filter(item => item.key !== link.key);
                     contentArray[link.key] = link.element[0].innerHTML;
+                } else {
+                    const getDynamicData = dynamicDataList.find(item => item.id === u(dynamicExist).nodes[0].id);
+                    const index = dynamicDataList.findIndex(item => item.id === u(dynamicExist).nodes[0].id);
+                    // if it has the dynamic <span> but the set as link is disabled, also removes the <a> tag and remove the dynamicUrl from the data
+                    if (!getDynamicData.setAsLink) {
+                        const element = parseElement(link.element[0].innerHTML);
+                        element.removeAttribute('dynamic-data-url');
+                        contentArray[link.key] = element.outerHTML;
+                        getDynamicData.dynamicUrl = {};
+                        dynamicDataList[index] = getDynamicData;
+                    }
                 }
             });
         }
 
         if ( selectedItems.length > 0 && dynamicDataList.length === selectedItems.length) {
+            // for some reason, data list doesnt save data as HTML element so the element is saved as string and nedded to be parsed again into HTML element. its confusing
             const newestList = dynamicDataList.map((list)=> {
                 if (typeof list.value !== 'string') return {...list};
                 const newValue = parseElement(list.value);
@@ -253,10 +282,12 @@ export const dynamicData = (props) => {
                 };
             });
 
+            // the loop that is the core function of the features
             selectedItems.map((item, index)=>{
                 const id = item.element[0].id;
                 const linkExist = document.querySelector(`.link-${id}`);
 
+                // filter for dynamically set the content and link both in editor ang frontend
                 const href = applyFilters(
                     'gutenverse.dynamic.generate-url',
                     '#',
@@ -281,6 +312,7 @@ export const dynamicData = (props) => {
                     dynamicDataList[index].dynamicContent
                 );
 
+                // get dynamic content text
                 if (title !== content){
                     dynamicTextContent
                         .then(result => {
@@ -297,10 +329,12 @@ export const dynamicData = (props) => {
                         });
                 }
 
+                // when url is set
                 if (href !== '#') {
                     const anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id} dynamic-link`);
                     item.element[0].setAttribute('dynamic-data-url', href);
+                    //get dynamic content url
                     dynamicUrlcontent
                         .then(result => {
                             if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
@@ -355,6 +389,7 @@ export const dynamicData = (props) => {
                         }
                     }
                     contentArray[item.key] = anchorElement.outerHTML;
+                // when content is set
                 }else if (title !== content){
 
                     //if dynamic data element is inside other element format
