@@ -200,6 +200,26 @@ export const dynamicData = (props) => {
         return htmlElement;
     }
 
+    // remove <a.dynamic-link> from the element
+    function removeDynamicLink(element) {
+        const clonedElement = element.cloneNode(true);
+        const getAllTAgs = getAncestorTags(clonedElement);
+        let selectedTag;
+        let innerHtml;
+        getAllTAgs.forEach((tag) => {
+            const parsed = parseElement(tag);
+            if (u(parsed).hasClass('dynamic-link')) {
+                selectedTag = tag;
+                innerHtml = element.innerText;
+            }
+        });
+        if (!selectedTag) return element;
+        getAllTAgs.delete(selectedTag);
+        selectedTag = mergeTags(Array.from(getAllTAgs), innerHtml);
+        selectedTag = parseElement(selectedTag);
+        return selectedTag;
+    }
+
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
     useEffect(() => {
@@ -250,7 +270,8 @@ export const dynamicData = (props) => {
                 // remove the <a> tag when it doeasn't have the dynamic <span>, also remove it from the selected items
                 if (dynamicExist === null) {
                     selectedItems = selectedItems.filter(item => item.key !== link.key);
-                    contentArray[link.key] = link.element[0].innerHTML;
+                    const elementWithNoLink = removeDynamicLink(parseElement(contentArray[link.key]));
+                    contentArray[link.key] = elementWithNoLink.outerHTML;
                 } else {
                     const getDynamicData = dynamicDataList.find(item => item.id === u(dynamicExist).nodes[0].id);
                     const index = dynamicDataList.findIndex(item => item.id === u(dynamicExist).nodes[0].id);
@@ -331,7 +352,7 @@ export const dynamicData = (props) => {
 
                 // when url is set
                 if (href !== '#') {
-                    const anchorElement = document.createElement('a');
+                    let anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id} dynamic-link`);
                     item.element[0].setAttribute('dynamic-data-url', href);
                     //get dynamic content url
@@ -347,23 +368,28 @@ export const dynamicData = (props) => {
                         }).catch(error => {
                             console.log(error);
                         });
-                    anchorElement.setAttribute('href', dynamicUrl[index]);
+                    if (dynamicUrl[index] || dynamicUrl[index] !== undefined) {
+                        anchorElement.setAttribute('href', dynamicUrl[index]);
+                    }
                     if (title !== content) {
                         //if dynamic data element is inside other element format
                         if (newestList[index].parent){
+
                             let parent = newestList[index].parent;
-                            const ancestorTags = getAncestorTags(parent);
+
                             const elementWithAttr = item.element[0];
                             elementWithAttr.setAttribute('dynamic-data-content', title);
-                            const tagsMerged = mergeTags(Array.from(ancestorTags), elementWithAttr.outerHTML);
-                            const htmlElement = parseElement(tagsMerged);
+                            anchorElement.innerHTML = elementWithAttr.outerHTML;
+                            const ancestorTags = getAncestorTags(parent);
+
+                            const newTagMerged = mergeTags(Array.from(ancestorTags), anchorElement.outerHTML);
+                            const newHtmlElement = parseElement(newTagMerged);
                             if (dynamicText[index] !== undefined) {
-                                const descendantTags = getDescendantTags(htmlElement);
-                                const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
-                                htmlElement.innerHTML = tagsMerged;
+                                const newDescendantTags = getDescendantTags(newHtmlElement);
+                                const newTagMerged = mergeTags(Array.from(newDescendantTags), dynamicText[index]);
+                                newHtmlElement.innerElement = newTagMerged;
                             }
-                            htmlElement.setAttribute('dynamic-data-url', href);
-                            anchorElement.innerHTML = htmlElement.innerHTML;
+                            anchorElement = newHtmlElement;
                         } else { //if dynamic data element is the wrapper of other element format
                             item.element[0].setAttribute('dynamic-data-content', title);
                             if (dynamicText[index] !== undefined) {
