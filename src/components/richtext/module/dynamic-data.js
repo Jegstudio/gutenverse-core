@@ -41,13 +41,10 @@ export const dynamicData = (props) => {
 
         // find the lastest dynamic added and open it in the panel
         if (dynamicLists.length > currentList.length && currentList.length > 0) {
-
             const newData = findNewData(dynamicLists, currentList);
-
             if (!isEmpty(newData)) {
                 setAttributes({openDynamic: newData[0].id});
             }
-
             setPanelState(panelDynamic);
         }
 
@@ -72,6 +69,7 @@ export const dynamicData = (props) => {
                 }
                 return element;
             });
+
             setAttributes({[dynamicList]: newList});
         } else setAttributes({[dynamicList]: []});
     },[content]);
@@ -354,7 +352,6 @@ export const dynamicData = (props) => {
                 if (href !== '#') {
                     let anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id} dynamic-link`);
-                    item.element[0].setAttribute('dynamic-data-url', href);
                     //get dynamic content url
                     dynamicUrlcontent
                         .then(result => {
@@ -370,29 +367,28 @@ export const dynamicData = (props) => {
                         });
                     if (dynamicUrl[index] || dynamicUrl[index] !== undefined) {
                         anchorElement.setAttribute('href', dynamicUrl[index]);
+                        item.element[0].setAttribute('dynamic-data-url', href);
                     }
                     if (title !== content) {
                         //if dynamic data element is inside other element format
                         if (newestList[index].parent){
 
                             let parent = newestList[index].parent;
-
-                            const elementWithAttr = item.element[0];
-                            elementWithAttr.setAttribute('dynamic-data-content', title);
-                            anchorElement.innerHTML = elementWithAttr.outerHTML;
+                            if (dynamicText[index] !== undefined) item.element[0].setAttribute('dynamic-data-content', title);
+                            anchorElement.innerHTML = item.element[0].outerHTML;
                             const ancestorTags = getAncestorTags(parent);
 
-                            const newTagMerged = mergeTags(Array.from(ancestorTags), anchorElement.outerHTML);
-                            const newHtmlElement = parseElement(newTagMerged);
+                            const tagsMerged = mergeTags(Array.from(ancestorTags), anchorElement.outerHTML);
+                            const htmlElement = parseElement(tagsMerged);
                             if (dynamicText[index] !== undefined) {
-                                const newDescendantTags = getDescendantTags(newHtmlElement);
-                                const newTagMerged = mergeTags(Array.from(newDescendantTags), dynamicText[index]);
-                                newHtmlElement.innerElement = newTagMerged;
+                                const newDescendantTags = getDescendantTags(htmlElement);
+                                const newTagsMerged = mergeTags(Array.from(newDescendantTags), dynamicText[index]);
+                                htmlElement.innerHTML = newTagsMerged;
                             }
-                            anchorElement = newHtmlElement;
+                            anchorElement = htmlElement;
                         } else { //if dynamic data element is the wrapper of other element format
-                            item.element[0].setAttribute('dynamic-data-content', title);
                             if (dynamicText[index] !== undefined) {
+                                item.element[0].setAttribute('dynamic-data-content', title);
                                 const descendantTags = getDescendantTags(item.element[0]);
                                 const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                                 item.element[0].innerHTML = tagsMerged;
@@ -402,7 +398,7 @@ export const dynamicData = (props) => {
                     } else {
                         if ( linkExist ) {
                             const htmlElement = parseElement(contentArray[item.key]);
-                            htmlElement.setAttribute('dynamic-data-url', href);
+                            if (dynamicUrl[index] || dynamicUrl[index] !== undefined) htmlElement.setAttribute('dynamic-data-url', href);
                             anchorElement.innerHTML = htmlElement.innerHTML;
                         } else {
                             if (newestList[index].parent) {
