@@ -7,6 +7,7 @@ import LogoFullColor from './logo/logo-full-color.svg';
 import LogoFullWhite from './logo/logo-full-white.svg';
 import LogoWhite24 from './logo/logo-white-24.svg';
 import LogoWhite from './logo/logo-white.svg';
+import LogoIconNoTextGutenverse from './logo/logoicon-gutenverse-notext.svg';
 import LogoIconGutenverse from './logo/logoicon-gutenverse.svg';
 
 /* Dimension Icons */
@@ -105,6 +106,10 @@ export const LogoFullColorSVG = (props) => {
 
 export const LogoFullWhiteSVG = (props) => {
     return <LogoFullWhite { ...props } />;
+};
+
+export const LogoFullWhiteNoTextSVG = (props) => {
+    return <LogoIconNoTextGutenverse { ...props } />;
 };
 
 export const LogoWhite24SVG = (props) => {
