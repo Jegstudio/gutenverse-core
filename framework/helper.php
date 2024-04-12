@@ -7,18 +7,28 @@
  * @package gutenverse-framework
  */
 
-if ( ! function_exists( 'jlog' ) ) {
+if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log
 	 */
-	function jlog() {
+	function gutenverse_jlog() {
 		$numargs  = func_num_args();
 		$arg_list = func_get_args();
 		for ( $i = 0; $i < $numargs; $i++ ) {
 			echo '<pre>';
-			print_r( $arg_list[ $i ] ); //phpcs:ignore
+			print_r( $arg_list[ $i ] );
 			echo '</pre>';
 		}
+	}
+}
+if ( ! function_exists( 'rlog' ) ) {
+	/**
+	 * Print Log
+	 *
+	 * @param mixed $attr .
+	 */
+	function rlog( $attr ) {
+		error_log( print_r( $attr, true ) );
 	}
 }
 
@@ -52,7 +62,7 @@ if ( ! function_exists( 'gutenverse_encode_url' ) ) {
 	function gutenverse_encode_url( $post_id ) {
 		$url = get_permalink( $post_id );
 
-		return urlencode( $url ); //phpcs:ignore
+		return urlencode( $url );
 	}
 }
 
@@ -390,7 +400,7 @@ if ( ! function_exists( 'gutenverse_is_previewer' ) ) {
 	 * If current page is previewer
 	 */
 	function gutenverse_is_previewer() {
-		return isset( $_GET['preview'] ); //phpcs:ignore
+		return isset( $_GET['preview'] );
 	}
 }
 
@@ -516,18 +526,18 @@ if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 		?>
 		<style id="<?php echo esc_attr( $name ); ?>"> 
 			<?php
-				echo wp_specialchars_decode( trim( $content ) ); // phpcs:ignore
+				echo esc_html( wp_specialchars_decode( trim( $content ) ) );
 			?>
 		</style>
 		<?php
 	}
 }
 
-if ( ! function_exists( 'is_gutenverse_compatible' ) ) {
+if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
 	 * Check if gutenverse is compatible.
 	 */
-	function is_gutenverse_compatible() {
+	function gutenverse_compatible_check() {
 		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], '5.9', '>=' );
 	}
 }
