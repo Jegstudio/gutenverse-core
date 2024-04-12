@@ -1,26 +1,19 @@
 import { compose } from '@wordpress/compose';
-import { useRef } from '@wordpress/element';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
+import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { PanelController, IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useState } from '@wordpress/element';
 import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
-import { useCallback } from '@wordpress/element';
 import { displayShortcut } from '@wordpress/keycodes';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
-import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
-import { link } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -58,6 +51,9 @@ const ButtonBlock = compose(
         iconPosition = 'before',
         role,
         ariaLabel,
+        dynamicContent,
+        dynamicUrl,
+        isDynamic,
     } = attributes;
     const {
         getBlockRootClientId,
@@ -78,6 +74,8 @@ const ButtonBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [allowLink, setAllowLink] = useState(true);
+    const [dynamicText, setDynamicText] = useState();
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -188,7 +186,48 @@ const ButtonBlock = compose(
             opensInNewTab={linkTarget === '_blank'}
             onToggleOpenInNewTab={onToggleOpenInNewTab}
             anchorRef={blockProps.ref}
+            isDynamic={isDynamic}
         />;
+    };
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+        dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        if (dynamicHref !== undefined && allowLink){
+            setAttributes({ url: dynamicHref});
+        } else setAttributes({ url: undefined});
+
+        const dynamicTextContent = applyFilters(
+            'gutenverse.dynamic.fetch-text',
+            dynamicContent
+        );
+        dynamicTextContent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText) {
+                    setDynamicText(result);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        if (dynamicText !== undefined) {
+            setAttributes({content: dynamicText});
+        }
+    },[dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
+
+    const panelState = {
+        panel: 'setting',
+        section: 1,
     };
 
     return <>
@@ -203,7 +242,7 @@ const ButtonBlock = compose(
         )}
         <BlockControls>
             <ToolbarGroup>
-                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props)}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, panelState)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}

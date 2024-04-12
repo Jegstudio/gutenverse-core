@@ -51,14 +51,16 @@ const save = compose(
             'gutenverse.dynamic.generate-url',
             url,
             'dynamicUrl',
-            attributes
+            attributes,
+            elementId
         );
 
         const title = applyFilters(
             'gutenverse.dynamic.generate-content',
             children,
             'dynamicContent',
-            attributes
+            attributes,
+            elementId
         );
 
         return role === 'link' ?
