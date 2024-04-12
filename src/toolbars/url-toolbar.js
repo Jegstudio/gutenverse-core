@@ -12,6 +12,7 @@ export const URLToolbar = ({
     opensInNewTab,
     onToggleOpenInNewTab,
     anchorRef,
+    isDynamic = false,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const urlIsSet = !!url;
@@ -39,12 +40,23 @@ export const URLToolbar = ({
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
-                value={{ url, opensInNewTab }}
+                value={{ url, opensInNewTab, isDynamic }}
+                settings={[
+                    {
+                        id: 'opensInNewTab',
+                        title: 'Open in new tab',
+                    },
+                    {
+                        id: 'isDynamic',
+                        title: 'Use dynamic link'
+                    }
+                ]}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
+                    isDynamic: newIsDynamic,
                 }) => {
-                    setAttributes({ url: newURL });
+                    setAttributes({ url: newURL, isDynamic: newIsDynamic });
 
                     if (opensInNewTab !== newOpensInNewTab) {
                         onToggleOpenInNewTab(newOpensInNewTab);
