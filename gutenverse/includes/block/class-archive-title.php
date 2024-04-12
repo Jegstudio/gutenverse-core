@@ -27,10 +27,10 @@ class Archive_Title extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $archive_title, $category_url ) {
-		$html_tag     = esc_html( $this->attributes['htmlTag'] );
+		$html_tag     = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h2' ) );
 		$archive_link = ! empty( $this->attributes['archiveLink'] ) ? $this->attributes['archiveLink'] : false;
 		$link_target  = ! empty( $this->attributes['archiveLinkTarget'] ) ? '_blank' : '_self';
-		$link_rel     = ! empty( $this->attributes['archiveLinkRel'] ) ? esc_html( $this->attributes['archiveLinkRel'] ) : 'noreferrer';
+		$link_rel     = ! empty( $this->attributes['archiveLinkRel'] ) ? esc_attr( $this->attributes['archiveLinkRel'] ) : 'noreferrer';
 		if ( $archive_link ) {
 			$archive_title = "<a href='{$category_url}' target='{$link_target}' rel='{$link_rel}'>{$archive_title}</a>";
 		}

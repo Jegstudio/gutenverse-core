@@ -25,7 +25,7 @@ class Post_Title extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$html_tag    = esc_html( $this->attributes['htmlTag'] );
+		$html_tag    = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h2' ) );
 		$post_link   = ! empty( $this->attributes['postLink'] ) ? $this->attributes['postLink'] : false;
 		$link_target = ! empty( $this->attributes['postLinkTarget'] ) ? '_blank' : '_self';
 		$link_rel    = ! empty( $this->attributes['postLinkRel'] ) ? esc_html( $this->attributes['postLinkRel'] ) : 'noreferrer';

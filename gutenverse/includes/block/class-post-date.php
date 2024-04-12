@@ -28,7 +28,7 @@ class Post_Date extends Block_Abstract {
 		$type          = esc_html( $this->attributes['dateType'] );
 		$format        = esc_html( $this->attributes['dateFormat'] );
 		$custom_format = esc_html( $this->attributes['customFormat'] );
-		$html_tag      = esc_html( $this->attributes['htmlTag'] );
+		$html_tag      = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
 		$link_to       = esc_html( $this->attributes['linkTo'] );
 
 		if ( ! empty( $post_id ) ) {
@@ -52,7 +52,7 @@ class Post_Date extends Block_Abstract {
 						$date     = "<a href='{$post_url}'>{$date}</a>";
 						break;
 					case 'custom':
-						$custom_url = ! empty( $this->attributes['customURL'] ) ? esc_html( $this->attributes['customURL'] ) : '';
+						$custom_url = ! empty( $this->attributes['customURL'] ) ? esc_url( $this->attributes['customURL'] ) : '';
 						$date       = ! empty( $custom_url ) ? "<a href='{$custom_url}'>{$date}</a>" : $date;
 						break;
 					default:
