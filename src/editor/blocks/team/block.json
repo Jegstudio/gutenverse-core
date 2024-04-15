@@ -316,6 +316,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "hoverMargin": {
+      "type" : "object",
+      "copyStyle": true
+    },
     "hoverBottom": {
       "type": "boolean",
       "default": false,
