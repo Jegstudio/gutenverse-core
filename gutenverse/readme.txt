@@ -114,6 +114,12 @@ Explore our collection of pre-built templates:
 - **Section:** Mix and match imported sections with your current page or template content.
 - **Favorites:** Save your frequently used layouts or sections as favorites for easy access.
 
+== 3RD PARTY DETAILS ==
+
+- Gutenverse Newsletter
+In our Gutenverse Dashboard, we offer a form for subscribing to our newsletter. By subscribing, we will sent you recent updates about Gutenverse. The only information required and sent is the email address you manually input into the designated box. This data is securely sent to our server at <a href="https://gutenverse.com/" target="_blank" rel="">gutenverse.com</a>. Rest assured, no information is transmitted automatically without your explicit consent.
+
+If you'd like more details about Gutenverse, you can check out the terms and conditions <a href="https://gutenverse.com/terms-and-conditions/" target="_blank" rel="">Here!</a>.
 
 == COMMUNITY ==
 

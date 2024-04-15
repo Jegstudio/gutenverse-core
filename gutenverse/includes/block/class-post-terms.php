@@ -26,7 +26,7 @@ class Post_Terms extends Block_Abstract {
 	 */
 	public function render_content( $post_id ) {
 		$element_id = esc_html( $this->attributes['elementId'] );
-		$html_tag   = esc_html( $this->attributes['htmlTag'] );
+		$html_tag   = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
 		$taxonomy   = esc_html( $this->attributes['taxonomy'] );
 		$separator  = esc_html( $this->attributes['separator'] );
 		$link_to    = $this->attributes['linkTo'];
