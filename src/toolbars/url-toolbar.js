@@ -1,5 +1,5 @@
 import { useState } from '@wordpress/element';
-import { KeyboardShortcuts, Popover, ToolbarButton } from '@wordpress/components';
+import { KeyboardShortcuts, Popover, ToolbarButton, CheckboxControl } from '@wordpress/components';
 import { __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 import { link, linkOff } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
@@ -12,9 +12,10 @@ export const URLToolbar = ({
     opensInNewTab,
     onToggleOpenInNewTab,
     anchorRef,
-    isDynamic = false,
+    usingDynamic,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const urlIsSet = !!url;
     const urlIsSetandSelected = urlIsSet && isSelected;
 
@@ -32,6 +33,12 @@ export const URLToolbar = ({
         setIsURLPickerOpen(false);
     };
 
+    const popOverStyle = {
+        marginTop: '10px',
+        padding: '10px',
+        width: '300px'
+    };
+
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
             position="bottom center"
@@ -40,29 +47,27 @@ export const URLToolbar = ({
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
-                value={{ url, opensInNewTab, isDynamic }}
-                settings={[
-                    {
-                        id: 'opensInNewTab',
-                        title: 'Open in new tab',
-                    },
-                    {
-                        id: 'isDynamic',
-                        title: 'Use dynamic link'
-                    }
-                ]}
+                value={{ url, opensInNewTab }}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
-                    isDynamic: newIsDynamic,
                 }) => {
-                    setAttributes({ url: newURL, isDynamic: newIsDynamic });
+                    setAttributes({ url: newURL });
 
                     if (opensInNewTab !== newOpensInNewTab) {
                         onToggleOpenInNewTab(newOpensInNewTab);
                     }
                 }}
             />
+            {usingDynamic && <div style={popOverStyle}>
+                <CheckboxControl
+                    label="Use Dynamic Link"
+                    checked={isChecked}
+                    onChange={() => {setIsChecked(prev => !prev);}}
+                />
+                <button onClick={()=>{setIsURLPickerOpen(false);}}>Cancel</button>
+                <button onClick={()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false);}}>Apply</button>
+            </div>}
         </Popover>
     );
 
