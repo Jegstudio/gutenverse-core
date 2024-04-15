@@ -186,7 +186,7 @@ const ButtonBlock = compose(
             opensInNewTab={linkTarget === '_blank'}
             onToggleOpenInNewTab={onToggleOpenInNewTab}
             anchorRef={blockProps.ref}
-            isDynamic={isDynamic}
+            usingDynamic={true}
         />;
     };
 
@@ -199,13 +199,13 @@ const ButtonBlock = compose(
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
-                }
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
                 console.log(error);
             });
         if (dynamicHref !== undefined && allowLink){
-            setAttributes({ url: dynamicHref});
-        } else setAttributes({ url: undefined});
+            setAttributes({ url: dynamicHref, isDynamic: true});
+        } else {setAttributes({ url: undefined, isDynamic: false});}
 
         const dynamicTextContent = applyFilters(
             'gutenverse.dynamic.fetch-text',
