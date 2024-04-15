@@ -19,6 +19,7 @@ import IconDimensionZ from './icon/icon-dimension-z.svg';
 import GradientIconCopy from './icon/gradient-icon-copy.svg';
 import GradientIconPaste from './icon/gradient-icon-paste.svg';
 import GradientHighlight from './icon/gradient-icon-highlight.svg';
+import GradientDinamic from './icon/gradient-icon-dynamic-content.svg';
 
 /* Control Icons */
 import IconDuplicate from './icon/icon-duplicate.svg';
@@ -391,6 +392,11 @@ export const IconDragSVG = ({size = 16}) => {
         <circle cx="11" cy="6" r="1" fill="#BDBEBF"/>
     </svg>;
 };
+
 export const IconHighlightSVG = () => {
     return <GradientHighlight/>;
+};
+
+export const IconDinamicSVG = () => {
+    return <GradientDinamic/>;
 };
