@@ -212,9 +212,9 @@ const ButtonBlock = compose(
             }).catch(error => {
                 console.log(error);
             });
-        if (dynamicHref !== undefined && allowLink){
+        if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined, isDynamic: false});}
+        } else {setAttributes({ url: undefined });}
 
         const dynamicTextContent = applyFilters(
             'gutenverse.dynamic.fetch-text',
