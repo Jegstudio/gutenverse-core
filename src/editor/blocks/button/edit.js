@@ -31,7 +31,8 @@ const ButtonBlock = compose(
         setElementRef,
         clientId,
         context: { hoverWithParent, parentSelector },
-        refreshStyle
+        refreshStyle,
+        setPanelState,
     } = props;
     useEffect(()=>{
         const newHoverStatus = hoverWithParent;
@@ -53,7 +54,6 @@ const ButtonBlock = compose(
         ariaLabel,
         dynamicContent,
         dynamicUrl,
-        isDynamic,
     } = attributes;
     const {
         getBlockRootClientId,
@@ -163,6 +163,12 @@ const ButtonBlock = compose(
         }
     }, [buttonRef]);
 
+
+    const panelState = {
+        panel: 'setting',
+        section: 1,
+    };
+
     const buttonText = <>
         {showIcon && iconPosition === 'before' && <i className={`fa-lg ${icon}`} onClick={() => setOpenIconLibrary(true)} />}
         <RichText
@@ -187,6 +193,8 @@ const ButtonBlock = compose(
             onToggleOpenInNewTab={onToggleOpenInNewTab}
             anchorRef={blockProps.ref}
             usingDynamic={true}
+            setPanelState={setPanelState}
+            panelState={panelState}
         />;
     };
 
@@ -224,11 +232,6 @@ const ButtonBlock = compose(
             setAttributes({content: dynamicText});
         }
     },[dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
-
-    const panelState = {
-        panel: 'setting',
-        section: 1,
-    };
 
     return <>
         <PanelController panelList={panelList} {...props} />
