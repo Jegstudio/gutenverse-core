@@ -16,14 +16,14 @@ const NumberControl = (props) => {
         onValueChange,
         onStyleChange,
         description = '',
-        proLabel
+        proLabel,
     } = props;
 
     const id = useInstanceId(NumberControl, 'inspector-number-control');
 
     const onChange = value => {
-        onValueChange(value);
-        onStyleChange(value);
+        onValueChange(parseFloat(value));
+        onStyleChange(parseFloat(value));
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-number'}>
