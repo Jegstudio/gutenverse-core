@@ -13,6 +13,9 @@ export const URLToolbar = ({
     onToggleOpenInNewTab,
     anchorRef,
     usingDynamic,
+    setPanelState,
+    panelState,
+    isDynamic = false,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
@@ -33,12 +36,6 @@ export const URLToolbar = ({
         setIsURLPickerOpen(false);
     };
 
-    const popOverStyle = {
-        marginTop: '10px',
-        padding: '10px',
-        width: '300px'
-    };
-
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
             position="bottom center"
@@ -47,26 +44,44 @@ export const URLToolbar = ({
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
-                value={{ url, opensInNewTab }}
+                value={{ url, opensInNewTab, isDynamic }}
+                settings={urlIsSetandSelected ? [
+                    {
+                        id: 'opensInNewTab',
+                        title: 'Open in new tab',
+                    },
+                    {
+                        id: 'isDynamic',
+                        title: 'Use dynamic link'
+                    }
+                ] : [
+                    {
+                        id: 'opensInNewTab',
+                        title: 'Open in new tab',
+                    }
+                ]}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
+                    isDynamic: newIsDynamic,
                 }) => {
-                    setAttributes({ url: newURL });
+                    setAttributes({ url: newURL, isDynamic: newIsDynamic });
 
                     if (opensInNewTab !== newOpensInNewTab) {
                         onToggleOpenInNewTab(newOpensInNewTab);
                     }
                 }}
             />
-            {usingDynamic && <div style={popOverStyle}>
+            {usingDynamic && !urlIsSetandSelected && <div className="gutenverse-dynamic-pop-over-container">
                 <CheckboxControl
                     label="Use Dynamic Link"
                     checked={isChecked}
                     onChange={() => {setIsChecked(prev => !prev);}}
                 />
-                <button onClick={()=>{setIsURLPickerOpen(false);}}>Cancel</button>
-                <button onClick={()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false);}}>Apply</button>
+                <div className="button-container">
+                    <button className="gutenverse-pop-over-button-cancel" onClick={()=>{setIsURLPickerOpen(false);}}>Cancel</button>
+                    <button className={`gutenverse-pop-over-button-apply ${isChecked ? 'checked' : ''}`} onClick={isChecked ? ()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false); setPanelState(panelState);} : {}}>Apply</button>
+                </div>
             </div>}
         </Popover>
     );

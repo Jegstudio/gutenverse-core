@@ -40,7 +40,7 @@ export const dynamicData = (props) => {
         const currentList = dynamicDataList;
 
         // find the lastest dynamic added and open it in the panel
-        if (dynamicLists.length > currentList.length && currentList.length > 0) {
+        if (dynamicLists.length > currentList.length) {
             const newData = findNewData(dynamicLists, currentList);
             if (!isEmpty(newData)) {
                 setAttributes({openDynamic: newData[0].id});
