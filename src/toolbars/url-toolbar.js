@@ -16,7 +16,7 @@ export const URLToolbar = ({
     usingDynamic,
     setPanelState,
     panelState,
-    isDynamic = false,
+    isDynamic,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
