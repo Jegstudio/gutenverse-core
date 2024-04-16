@@ -15,6 +15,7 @@ import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -203,7 +204,7 @@ const ButtonBlock = compose(
             'gutenverse.dynamic.fetch-url',
             dynamicUrl
         );
-        dynamicUrlcontent
+        !isEmpty(dynamicUrlcontent) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
@@ -219,7 +220,7 @@ const ButtonBlock = compose(
             'gutenverse.dynamic.fetch-text',
             dynamicContent
         );
-        dynamicTextContent
+        !isEmpty(dynamicTextContent) && dynamicTextContent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
