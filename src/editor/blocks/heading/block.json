@@ -19,6 +19,13 @@
 			"selector": "h1,h2,h3,h4,h5,h6",
 			"default": ""
 		},
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
 		"type": {
 			"type": "number",
 			"default": 2
@@ -155,6 +162,9 @@
 		"textChilds": {
 			"type": "array",
 			"default": []
+		},
+		"openChild":{
+			"type":"string"
 		},
 		"mask": {
 			"type": "object",

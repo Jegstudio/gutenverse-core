@@ -18,6 +18,13 @@
 			"selector": "a",
 			"attribute": "href"
 		},
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
 		"linkTarget": {
 			"type": "string",
 			"source": "attribute",
@@ -51,6 +58,10 @@
 			"source": "html",
 			"selector": "span",
 			"default": "List item"
+		},
+		"textChilds":{
+			"type":"array",
+			"default":[]
 		},
 		"margin": {
 			"type": "object",

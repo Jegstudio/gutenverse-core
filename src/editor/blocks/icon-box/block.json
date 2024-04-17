@@ -35,6 +35,10 @@
 			"type": "string",
 			"default": "Icon Box"
 		},
+		"titleChilds":{
+			"type": "array",
+			"default": []
+		},
 		"titleTag": {
 			"type": "string",
 			"default": "h2"
@@ -42,6 +46,25 @@
 		"description": {
 			"type": "string",
 			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+		},
+		"descriptionChilds":{
+			"type": "array",
+			"default": []
+		},
+		"titleDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"descriptionDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"badgeDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
 		},
 		"badgeShow": {
 			"type": "boolean",
@@ -52,6 +75,10 @@
 			"type": "string",
 			"default": "BADGE",
 			"copyStyle": true
+		},
+		"badgeChilds":{
+			"type": "array",
+			"default": []
 		},
 		"badgePosition": {
 			"type": "string",

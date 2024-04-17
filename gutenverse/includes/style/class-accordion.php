@@ -32,6 +32,14 @@ class Accordion extends Style_Abstract {
 	protected $name = 'accordion';
 
 	/**
+	 * Constructor
+	 *
+	 * @param array $attrs Attribute.
+	 */
+	public function __construct( $attrs ) {
+		parent::__construct( $attrs );
+	}
+	/**
 	 * Generate style base on attribute.
 	 */
 	public function generate() {

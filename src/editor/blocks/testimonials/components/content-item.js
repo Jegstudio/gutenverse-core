@@ -1,8 +1,10 @@
 
+
+import { RichText } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 
 const ContentItem = (data) => {
-    const {
+    let {
         src,
         name,
         lazy,
@@ -18,12 +20,36 @@ const ContentItem = (data) => {
         iconRatingFull,
         iconRatingHalf,
         starPosition,
+        frontEnd,
+        setAttributes,
+        index,
+        testimonialData
     } = data;
 
     const overrideQuote = quoteOverride ? 'quote-override' : '';
 
+    const contentRichText = (value, tag, className, identifier, index) => {
+        if(frontEnd){
+            return <RichText.Content
+                className={className}
+                tagName={tag}
+                value={value}
+            />;
+        }else{
+            return <RichText
+                className={className}
+                tagName={tag}
+                value={value}
+                onChange={value => {
+                    const testimoniData = [...testimonialData];
+                    testimoniData[index][identifier]= value;
+                    setAttributes({ testimonialData : testimoniData});
+                }}
+            />;
+        }
+    };
     const content = () => {
-        const commentContent = <div className="comment-content"><p>{comment}</p></div>;
+        const commentContent = <div className="comment-content">{contentRichText(comment, 'p', 'profile-comment','comment', index )}</div>;
         const starRating = showRating && <>
             {Array.from({ length: rating }, (i) => <li key={i}><i className={iconRatingFull}></i></li>)}
             {parseFloat(rating) !== Math.floor(rating) ? <li><i className={iconRatingHalf}></i></li> : null}
@@ -31,26 +57,26 @@ const ContentItem = (data) => {
 
         switch (contentType) {
             case 1:
-                return <div className="testimonial-slider hover-from-left">
+                return <div className="testimonial-slider hover-from-left testimonial-content" >
                     <div className="comment-bio">
                         <div className="profile-image">
                             {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                         </div>
                         <ul className="rating-stars">{starRating}</ul>
                         <span className="profile-info">
-                            <strong className="profile-name">{name}</strong>
-                            <p className="profile-des">{description}</p>
+                            {contentRichText(name, 'strong', 'profile-name','name', index )}
+                            {contentRichText(description, 'p', 'profile-des','description', index )}
                         </span>
                     </div>
                     <div className="comment-content">
                         {showQuote && <div className={`${overrideQuote} icon-content`}>
                             <i aria-hidden="true" className={`${iconQuote}`}></i>
                         </div>}
-                        <p>{comment}</p>
+                        {contentRichText(comment, 'p', 'profile-comment','comment', index )}
                     </div>
                 </div>;
             case 2:
-                return <>
+                return <div className="testimonial-content" >
                     {(starPosition === undefined || starPosition === 'above-image') && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
@@ -59,17 +85,17 @@ const ContentItem = (data) => {
                                 {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                             </div>
                             <span className="profile-info">
-                                <strong className="profile-name">{name}</strong>
-                                <p className="profile-des">{description}</p>
+                                {contentRichText(name, 'strong', 'profile-name','name', index )}
+                                {contentRichText(description, 'p', 'profile-des','description', index )}
                             </span>
                         </div>
                         {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
                     </div>
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
                     {starPosition !== undefined && starPosition === 'below-image' && <div className="comment-header"><ul className="rating-stars">{starRating}</ul></div>}
-                </>;
+                </div>;
             case 3:
-                return <>
+                return <div className="testimonial-content" >
                     {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
@@ -83,12 +109,12 @@ const ContentItem = (data) => {
                     {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
                     <span className="profile-info">
-                        <strong className="profile-name">{name}</strong>
-                        <p className="profile-des">{description}</p>
+                        {contentRichText(name, 'strong', 'profile-name','name', index )}
+                        {contentRichText(description, 'p', 'profile-des','description', index )}
                     </span>
-                </>;
+                </div>;
             case 4:
-                return <>
+                return <div className="testimonial-content" >
                     {showQuote && <div className={`${overrideQuote} icon-content`}><i aria-hidden="true" className={`${iconQuote}`}></i></div>}
                     {contentPosition !== undefined && contentPosition === 'above-image' && commentContent}
                     <div className="comment-bio">
@@ -99,13 +125,13 @@ const ContentItem = (data) => {
                             </div>
                             {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                             <span className="profile-info">
-                                <strong className="profile-name">{name}</strong>
-                                <p className="profile-des">{description}</p>
+                                {contentRichText(name, 'strong', 'profile-name','name', index )}
+                                {contentRichText(description, 'p', 'profile-des','description', index )}
                             </span>
                         </div>
                     </div>
                     {(contentPosition === undefined || contentPosition === 'below-image') && commentContent}
-                </>;
+                </div>;
         }
     };
 

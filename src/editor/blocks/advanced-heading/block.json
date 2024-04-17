@@ -25,17 +25,44 @@
             "type": "string",
             "default": "span"
         },
+		"textDynamicList": {
+			"type": "array",
+			"default": []
+		},
+        "focusTextDynamicList": {
+			"type": "array",
+			"default": []
+		},
+        "subTextDynamicList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
+		},
         "text": {
             "type": "string",
             "default": "Heading "
+        },
+        "textChilds":{
+            "type":"array",
+            "default":[]
         },
         "focusText": {
             "type": "string",
             "default": "Focused"
         },
+        "focusTextChilds":{
+            "type": "array",
+            "default":[]
+        },
         "subText": {
             "type": "string",
             "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+        },
+        "subTextChilds":{
+            "type": "array",
+            "default":[]
         },
         "showSub": {
             "type": "string",

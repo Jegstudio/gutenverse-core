@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -19,12 +19,13 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconListItemBlock = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
@@ -32,7 +33,10 @@ const IconListItemBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        clientId,
+        elementRef,
+        setPanelState
     } = props;
 
     const {
@@ -59,7 +63,6 @@ const IconListItemBlock = compose(
         ),
         ref: iconListItemRef
     });
-
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -84,7 +87,10 @@ const IconListItemBlock = compose(
             setElementRef(iconListItemRef.current);
         }
     }, [iconListItemRef]);
-
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        { isActive: true }
+    );
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -119,15 +125,23 @@ const IconListItemBlock = compose(
         <li  {...blockProps}>
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
-                <RichText
-                    className={`list-text ${hideIcon ? 'no-icon' : ''}`}
-                    tagName="span"
+                <RichTextComponent
+                    ref = {iconListItemRef}
+                    classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
+                    tagName={'span'}
                     aria-label={__('List text')}
                     placeholder={__('Add text…')}
-                    value={text}
                     onChange={(value) => setAttributes({ text: value })}
-                    withoutInteractiveFormatting
-                    identifier="text"
+                    multiline={false}
+                    setAttributes={setAttributes}
+                    attributes={attributes}
+                    clientId={clientId}
+                    panelDynamic={{panel : 'setting', section : 0}}
+                    panelPosition={{panel : 'style', section : 1}}
+                    contentAttribute={'text'}
+                    setPanelState={setPanelState}
+                    textChilds={'textChilds'}
+                    dynamicList={'dynamicDataList'}
                 />
             </a>
         </li>

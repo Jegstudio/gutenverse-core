@@ -29,7 +29,6 @@ const save = compose(
 
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
-
     const className = classnames(
         'guten-element',
         'guten-testimonials',
@@ -39,7 +38,6 @@ const save = compose(
         `style-${contentType}`,
         'quote-override',
     );
-
     return (
         <div {...useBlockProps.save({ className })}>
             <div className="testimonials-list">
@@ -56,6 +54,8 @@ const save = compose(
                                 iconRatingFull={iconRatingFull}
                                 iconRatingHalf={iconRatingHalf}
                                 starPosition={starPosition}
+                                frontEnd={true}
+                                index={index}
                             />
                         </div>)}
                     </div>
