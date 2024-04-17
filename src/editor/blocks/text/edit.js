@@ -1,14 +1,13 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withDinamicContent, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
-import { useBlockProps, BlockControls } from '@wordpress/block-editor';
-import { classnames, RichTextComponent, ToolbarGroup } from 'gutenverse-core/components';
+import { withCustomStyle, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { useBlockProps } from '@wordpress/block-editor';
+import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
@@ -31,7 +30,6 @@ const TextBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect,
     withHighLightText('paragraph', {panel : 'style', section : 1}),
-    // withDinamicContent('paragraph')
 )((props) => {
     const { panelProps} = props;
     const {

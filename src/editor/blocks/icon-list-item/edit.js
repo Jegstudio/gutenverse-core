@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
-import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -26,7 +26,6 @@ const NEW_TAB_REL = 'noreferrer noopener';
 const IconListItemBlock = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withDinamicContent('text'),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
