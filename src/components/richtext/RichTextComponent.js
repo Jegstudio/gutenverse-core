@@ -19,10 +19,16 @@ const RichTextComponent = (props) => {
         ref,
         classNames = '',
         isBlockProps = false,
+        isUseDinamic = false,
+        isUseHighlight = false,
     } = props;
 
-    dynamicData(props);
-    highlight(props);
+    if(isUseDinamic){
+        dynamicData(props);
+    }
+    if(isUseHighlight){
+        highlight(props);
+    }
 
     const content = attributes[contentAttribute];
     const {
