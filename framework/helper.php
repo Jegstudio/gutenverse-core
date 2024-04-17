@@ -21,13 +21,13 @@ if ( ! function_exists( 'gutenverse_jlog' ) ) {
 		}
 	}
 }
-if ( ! function_exists( 'rlog' ) ) {
+if ( ! function_exists( 'gutenverse_rlog' ) ) {
 	/**
 	 * Print Log
 	 *
 	 * @param mixed $attr .
 	 */
-	function rlog( $attr ) {
+	function gutenverse_rlog( $attr ) {
 		error_log( print_r( $attr, true ) );
 	}
 }

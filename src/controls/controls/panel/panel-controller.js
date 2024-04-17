@@ -15,12 +15,10 @@ const PanelController = ({ ...props }) => {
         panelProps,
         panelList,
         elementRef,
-        panelState,
+        panelState
     } = props;
-
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
-
     useEffect(() => {
         setOpenTab(0);
     }, [activeTab]);

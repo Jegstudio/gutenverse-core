@@ -10,7 +10,7 @@ const LockedDynamicContentControl = ({isOpen}) => {
         <DefaultLayout
             title={__( 'Block Dynamic Content', '--gctd--' )}
             description={__( 'Some variable need to be dynamic, such as Link to page or post, Title, Meta', '--gctd--' )}
-            img={'/mouse-effect.mp4'}
+            img={'/dynamic-content-animation.mp4'}
             isOpen={isOpen}
         />
     </div>;
