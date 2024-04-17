@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withHighLightText, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle,  withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -29,7 +29,6 @@ const TextBlock = compose(
     withAnimationAdvance('text'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    withHighLightText('paragraph', {panel : 'style', section : 1}),
 )((props) => {
     const { panelProps} = props;
     const {
@@ -120,6 +119,8 @@ const TextBlock = compose(
             onReplace= {onReplace}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
+            isUseDinamic={true}
+            isUseHighlight={true}
         />
     </>;
 });

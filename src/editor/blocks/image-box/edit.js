@@ -14,7 +14,7 @@ import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
@@ -146,7 +146,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
             updateBlockAttributes(block.clientId, { url, rel, linkTarget });
         });
     }, [url, rel, linkTarget, separateButtonLink]);
-
     return <div className="image-box-body">
         <div className="body-inner">
             <TitleTag className={classnames(
@@ -169,6 +168,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
+                    isUseDinamic={false}
+                    isUseHighlight={true}
                 />
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
@@ -188,6 +189,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 contentAttribute={'description'}
                 setPanelState={setPanelState}
                 textChilds={'descriptionChilds'}
+                isUseDinamic={false}
+                isUseHighlight={true}
             />
             <div {...innerBlockProps} />
             {hoverBottom && <div className={'border-bottom'}>
@@ -217,7 +220,7 @@ const ImageBoxBlock = compose(
         linkTarget,
         contentStyle,
     } = attributes;
-
+    HighLightToolbar(props);
     const imageBoxRef = useRef();
     const descRef = useRef();
     const titleRef = useRef();

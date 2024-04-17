@@ -73,6 +73,8 @@ const TeamProfile = (props) => {
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                 );
             }
@@ -108,6 +110,8 @@ const TeamProfile = (props) => {
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                 );
             }

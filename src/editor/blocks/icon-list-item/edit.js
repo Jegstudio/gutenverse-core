@@ -10,7 +10,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useEffect } from '@wordpress/element';
@@ -91,6 +91,7 @@ const IconListItemBlock = compose(
         'gutenverse.pro.dynamic.toolbar',
         { isActive: true }
     );
+    HighLightToolbar(props);
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -142,6 +143,8 @@ const IconListItemBlock = compose(
                     setPanelState={setPanelState}
                     textChilds={'textChilds'}
                     dynamicList={'dynamicDataList'}
+                    isUseDinamic={true}
+                    isUseHighlight={true}
                 />
             </a>
         </li>

@@ -119,6 +119,8 @@ const HeadingBlock = compose(
             setPanelState={setPanelState}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
+            isUseDinamic={true}
+            isUseHighlight={true}
         />
     </>;
 });

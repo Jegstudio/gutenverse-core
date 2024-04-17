@@ -12,6 +12,7 @@ import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
 import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -133,6 +134,9 @@ const Accordion = compose(
         '',
         { isActive: true }
     );
+    
+    HighLightToolbar(props);
+
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -183,6 +187,8 @@ const Accordion = compose(
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
                     dynamicList={'dynamicDataList'}
+                    isUseDinamic={true}
+                    isUseHighlight={true}
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>

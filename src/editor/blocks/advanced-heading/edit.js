@@ -10,6 +10,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
 const AdvancedHeadingBlock = compose(
     withCustomStyle(panelList),
@@ -59,6 +60,8 @@ const AdvancedHeadingBlock = compose(
         }
     }, [advHeadingRef]);
 
+    HighLightToolbar(props);
+
     const richTextContent = (data, tag, classes, identifier ) => {
         let ref = null;
         if(identifier === 'subText'){
@@ -85,6 +88,8 @@ const AdvancedHeadingBlock = compose(
             setPanelState={setPanelState}
             textChilds={identifier + 'Childs'}
             dynamicList={identifier + 'DynamicList'}
+            isUseDinamic={false}
+            isUseHighlight={true}
         />;
     };
     return <>

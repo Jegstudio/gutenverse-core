@@ -16,7 +16,9 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 // import { useSelect } from '@wordpress/data';
+
 
 const TeamBlock = compose(
     withCustomStyle(panelList),
@@ -63,7 +65,7 @@ const TeamBlock = compose(
             setElementRef(teamRef.current);
         }
     }, [teamRef]);
-
+    HighLightToolbar(props);
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>

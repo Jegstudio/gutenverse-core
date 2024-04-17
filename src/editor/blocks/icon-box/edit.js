@@ -14,7 +14,7 @@ import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -175,6 +175,8 @@ const IconBoxBlock = compose(
         });
     },[hoverWithParent]);
 
+    HighLightToolbar(props);
+
     return <>
         <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
         <BlockControls>
@@ -225,6 +227,8 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         textChilds={'titleChilds'}
                         dynamicList={'titleDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                     <RichTextComponent
                         ref={descRef}
@@ -243,6 +247,8 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         textChilds={'descriptionChilds'}
                         dynamicList={'descriptionDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                     <div {...innerBlockProps} />
                 </div>
@@ -265,6 +271,8 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         textChilds={'badgeChilds'}
                         dynamicList={'badgeDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">
