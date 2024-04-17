@@ -38,8 +38,6 @@ const TeamProfile = (props) => {
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
-<<<<<<< HEAD
-=======
     const contentDesc = (classnames, ariaLabel, identifier, data, tag ) => {
         if(showDesc){
             if(frontEnd){
@@ -116,7 +114,6 @@ const TeamProfile = (props) => {
         }
     };
 
->>>>>>> main
     const contentType = () => {
         switch(profileType) {
             case 'overlay':
