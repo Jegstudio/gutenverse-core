@@ -4,6 +4,7 @@ import { __experimentalLinkControl as LinkControl } from '@wordpress/block-edito
 import { link, linkOff } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
+import { applyFilters } from '@wordpress/hooks';
 
 export const URLToolbar = ({
     isSelected,
@@ -15,7 +16,7 @@ export const URLToolbar = ({
     usingDynamic,
     setPanelState,
     panelState,
-    isDynamic = false,
+    isDynamic,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
@@ -36,6 +37,8 @@ export const URLToolbar = ({
         setIsURLPickerOpen(false);
     };
 
+    const isPro = applyFilters('gutenverse.toolbar.url-toolbar');
+
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
             position="bottom center"
@@ -45,7 +48,7 @@ export const URLToolbar = ({
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
                 value={{ url, opensInNewTab, isDynamic }}
-                settings={urlIsSetandSelected ? [
+                settings={(urlIsSetandSelected && isPro) ? [
                     {
                         id: 'opensInNewTab',
                         title: 'Open in new tab',
@@ -72,7 +75,7 @@ export const URLToolbar = ({
                     }
                 }}
             />
-            {usingDynamic && !urlIsSetandSelected && <div className="gutenverse-dynamic-pop-over-container">
+            {usingDynamic && !urlIsSetandSelected && isPro &&<div className="gutenverse-dynamic-pop-over-container">
                 <CheckboxControl
                     label="Use Dynamic Link"
                     checked={isChecked}
