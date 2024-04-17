@@ -815,7 +815,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['ratingColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars li, .{$this->element_id}.style-2 ul.rating-stars li, .{$this->element_id}.style-3 ul.rating-stars li, .{$this->element_id}.style-4 ul.rating-stars li",
+					'selector'       => ".{$this->element_id}.style-1 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-2 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-3 .guten-testimonial-item ul.rating-stars li, .{$this->element_id}.style-4 .guten-testimonial-item ul.rating-stars li",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
