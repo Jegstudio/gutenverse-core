@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { getDeviceType, isEmptyValue } from 'gutenverse-core/editor-helper';
 import { handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 
-export const iconPanel = ({ elementId }) => {
+export const iconPanel = (props) => {
     const device = getDeviceType();
-
+    const { elementId, selectionIconPadding } = props;
     return [
         {
             id: 'iconBg',
@@ -48,10 +48,94 @@ export const iconPanel = ({ elementId }) => {
             ]
         },
         {
+            id: 'selectionIconPadding',
+            label: __('Select Setting Icon Padding', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    value: 'all',
+                    label: __('All in One')
+                },
+                {
+                    value: 'custom',
+                    label: __('Custom')
+                },
+            ],
+        },
+        {
+            id: 'zoomIconPadding',
+            label: __('Zoom Icon Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            show: selectionIconPadding === 'custom',
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.zoom span,
+                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.zoom span`,
+                    allowRender: () => selectionIconPadding === 'custom',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'linkIconPadding',
+            label: __('Link Icon Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            show: selectionIconPadding === 'custom',
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.link span,
+                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.link span`,
+                    allowRender: () => selectionIconPadding === 'custom',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
             id: 'iconPadding',
             label: __('Icon Padding', 'gutenverse'),
             component: DimensionControl,
             allowDeviceControl: true,
+            show: selectionIconPadding === 'all',
             position: ['top', 'right', 'bottom', 'left'],
             units: {
                 px: {
@@ -75,6 +159,7 @@ export const iconPanel = ({ elementId }) => {
                 {
                     selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
                     .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
+                    allowRender: () => selectionIconPadding === 'all',
                     render: value => handleDimension(value, 'padding')
                 }
             ]

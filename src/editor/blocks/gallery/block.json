@@ -105,6 +105,19 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"zoomIconPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"linkIconPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"selectionIconPadding":{
+			"type": "string",
+			"copyStyle": true,
+			"default": "all"
+		},
 		"iconPadding": {
 			"type": "object",
 			"copyStyle": true

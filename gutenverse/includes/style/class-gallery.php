@@ -574,17 +574,47 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconPadding'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['iconPadding'],
-					'device_control' => false,
-				)
-			);
+		if ( isset( $this->attrs['selectionIconPadding'] ) ) {
+			if ( 'all' === $this->attrs['selectionIconPadding'] ) {
+
+				if ( isset( $this->attrs['iconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['iconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			} elseif ( 'custom' === $this->attrs['selectionIconPadding'] ) {
+				if ( isset( $this->attrs['zoomIconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.zoom span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.zoom span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['zoomIconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+				if ( isset( $this->attrs['linkIconPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.link span, .{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.link span",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['linkIconPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
 		}
 
 		if ( isset( $this->attrs['iconBorder'] ) ) {
