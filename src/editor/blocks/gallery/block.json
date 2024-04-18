@@ -274,7 +274,68 @@
 			},
 			"copyStyle": true
 		},
+		"selectionPriceRatingPadding":{
+			"type": "string",
+			"copyStyle": true,
+			"default": "all"
+		},
 		"priceRatingPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"priceMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePosition": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPosition": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePositioningLeft":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePositioningRight":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePositioningTop":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"pricePositioningBottom":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPositioningLeft":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPositioningRight":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPositioningTop":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"ratingPositioningBottom":{
 			"type": "object",
 			"copyStyle": true
 		},
