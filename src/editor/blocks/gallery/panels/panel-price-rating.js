@@ -1,11 +1,13 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, HeadingControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, HeadingControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const priceRatingPanel = (props) => {
     const {
         elementId,
-        selectionPriceRatingPadding
+        selectionPriceRatingPadding,
+        setSwitcher,
+        switcher
     } = props;
 
     return [
@@ -47,11 +49,26 @@ export const priceRatingPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price, .${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
                     allowRender : () => selectionPriceRatingPadding === 'all',
                     render: value => handleDimension(value, 'padding')
                 }
             ]
+        },
+        {
+            id: '__priceRating',
+            component: SwitchControl,
+            options: [
+                {
+                    value: 'price',
+                    label: 'Price'
+                },
+                {
+                    value: 'rating',
+                    label: 'Rating'
+                }
+            ],
+            onChange: ({ __priceRating }) => setSwitcher({ ...switcher, priceRating: __priceRating })
         },
         {
             id: 'pricePadding',
@@ -59,7 +76,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
-            show: selectionPriceRatingPadding === 'custom',
+            show: selectionPriceRatingPadding === 'custom' && (!switcher.priceRating || switcher.priceRating === 'price') ,
             units: {
                 px: {
                     text: 'px',
@@ -88,7 +105,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
-            show: selectionPriceRatingPadding === 'custom',
+            show: selectionPriceRatingPadding === 'custom' && switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -117,6 +134,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -144,6 +162,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
+            show: switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -170,6 +189,7 @@ export const priceRatingPanel = (props) => {
             label: __('Price Left Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -209,9 +229,10 @@ export const priceRatingPanel = (props) => {
         },
         {
             id: 'pricePositioningRight',
-            label: __('Right Orientation', '--gctd--'),
+            label: __('Price Right Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -251,9 +272,10 @@ export const priceRatingPanel = (props) => {
         },
         {
             id: 'pricePositioningTop',
-            label: __('Top Orientation', '--gctd--'),
+            label: __('Price Top Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -296,6 +318,7 @@ export const priceRatingPanel = (props) => {
             label: __('Price Bottom Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -338,6 +361,7 @@ export const priceRatingPanel = (props) => {
             label: __('Rating Left Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -380,6 +404,7 @@ export const priceRatingPanel = (props) => {
             label: __('Rating Right Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -422,6 +447,7 @@ export const priceRatingPanel = (props) => {
             label: __('Rating Top Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -464,6 +490,7 @@ export const priceRatingPanel = (props) => {
             label: __('Rating Bottom Orientation', '--gctd--'),
             component: SizeControl,
             allowDeviceControl: true,
+            show: switcher.priceRating === 'rating',
             units: {
                 px: {
                     text: 'px',
@@ -502,14 +529,10 @@ export const priceRatingPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter',
-            component: HeadingControl,
-            label: __('Price')
-        },
-        {
             id: 'priceColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
@@ -521,6 +544,7 @@ export const priceRatingPanel = (props) => {
             id: 'priceTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            show: (!switcher.priceRating || switcher.priceRating === 'price'),
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
@@ -530,14 +554,10 @@ export const priceRatingPanel = (props) => {
             ],
         },
         {
-            id: 'submenuSplitter',
-            component: HeadingControl,
-            label: __('Rating')
-        },
-        {
             id: 'ratingColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
+            show: switcher.priceRating === 'rating',
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
@@ -549,6 +569,7 @@ export const priceRatingPanel = (props) => {
             id: 'ratingStarColor',
             label: __('Star Color', 'gutenverse'),
             component: ColorControl,
+            show: switcher.priceRating === 'rating',
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating li`,
@@ -560,6 +581,7 @@ export const priceRatingPanel = (props) => {
             id: 'ratingTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            show: switcher.priceRating === 'rating',
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,

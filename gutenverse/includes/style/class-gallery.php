@@ -1132,19 +1132,6 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['priceRatingPadding'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['priceRatingPadding'],
-					'device_control' => true,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['priceColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -1265,6 +1252,168 @@ class Gallery extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+		}
+
+		if ( isset( $this->attrs['selectionPriceRatingPadding'] ) ) {
+			if ( 'all' === $this->attrs['selectionPriceRatingPadding'] ) {
+				if ( isset( $this->attrs['priceRatingPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating, .{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['priceRatingPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			} elseif ( 'custom' === $this->attrs['selectionPriceRatingPadding'] ) {
+				if ( isset( $this->attrs['pricePadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['pricePadding'],
+							'device_control' => true,
+						)
+					);
+				}
+				if ( isset( $this->attrs['ratingPadding'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+							'property'       => function ( $value ) {
+								return $this->handle_dimension( $value, 'padding' );
+							},
+							'value'          => $this->attrs['ratingPadding'],
+							'device_control' => true,
+						)
+					);
+				}
+			}
+			if ( isset( $this->attrs['priceMargin'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_dimension( $value, 'margin' );
+						},
+						'value'          => $this->attrs['priceMargin'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingMargin'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_dimension( $value, 'margin' );
+						},
+						'value'          => $this->attrs['ratingMargin'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningLeft'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'left' );
+						},
+						'value'          => $this->attrs['pricePositioningLeft'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningRight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'right' );
+						},
+						'value'          => $this->attrs['pricePositioningRight'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningTop'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'top' );
+						},
+						'value'          => $this->attrs['pricePositioningTop'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['pricePositioningBottom'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'bottom' );
+						},
+						'value'          => $this->attrs['pricePositioningBottom'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningLeft'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'left' );
+						},
+						'value'          => $this->attrs['ratingPositioningLeft'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningRight'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'right' );
+						},
+						'value'          => $this->attrs['ratingPositioningRight'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningTop'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'top' );
+						},
+						'value'          => $this->attrs['ratingPositioningTop'],
+						'device_control' => true,
+					)
+				);
+			}
+			if ( isset( $this->attrs['ratingPositioningBottom'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating",
+						'property'       => function ( $value ) {
+							return $this->handle_unit_point( $value, 'bottom' );
+						},
+						'value'          => $this->attrs['ratingPositioningBottom'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 }
