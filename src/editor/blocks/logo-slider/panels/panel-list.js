@@ -6,6 +6,7 @@ import { logosPanel } from './panel-logos';
 import { logosStylePanel } from './panel-logos-style';
 import { sliderPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { logosWrapperPanel } from './panel-logos-wrapper';
 
 export const panelList = () => {
     return [
@@ -24,6 +25,12 @@ export const panelList = () => {
             title: __('Logo Style', 'gutenverse'),
             initialOpen: false,
             panelArray: logosStylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Logo Wrapper Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: logosWrapperPanel,
             tabRole: TabStyle
         },
         {
