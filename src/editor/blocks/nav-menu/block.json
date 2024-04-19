@@ -54,6 +54,9 @@
     },
     "mobileLogoWidth": {
       "type": "object",
+      "default" : {
+        "Desktop": "120"
+      },
       "copyStyle": true
     },
     "mobileLogoHeight": {

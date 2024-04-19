@@ -14,7 +14,12 @@
 		"title": {
 			"type": "string",
 			"source": "html",
-			"selector": ".accordion-heading .accordion-text"
+			"selector": ".accordion-heading .accordion-text",
+			"default": ""
+		},
+		"titleChilds":{
+			"type": "array",
+			"default": []
 		},
 		"first": {
 			"type": "boolean",
@@ -27,6 +32,14 @@
 		"iconClosed": {
 			"type": "string",
 			"default": "fas fa-plus"
+		},
+
+		"dynamicDataList": {
+			"type": "array",
+			"default": []
+		},
+		"openDynamic": {
+			"type": "string"
 		},
 		"iconPosition": {
 			"type": "string",
@@ -43,7 +56,8 @@
 	},
 	"supports": {
 		"className": false,
-		"html": false
+		"html": false,
+		"innerBlocks": true
 	},
 	"keywords": [
 		"tabs",

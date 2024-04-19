@@ -122,7 +122,11 @@ const save = compose(
                 }
                 { iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
-                    <span className="badge-text">{badge}</span>
+                    <RichText.Content
+                        className={'badge-text'}
+                        value={badge}
+                        tagName={'span'}
+                    />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">
                     <i className={watermarkIcon}></i>

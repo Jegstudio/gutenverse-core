@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
 import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -14,7 +14,7 @@ import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -49,6 +49,7 @@ const IconBoxBlock = compose(
         setAttributes,
         setElementRef,
         deviceType,
+        setPanelState
     } = props;
 
     const {
@@ -80,6 +81,9 @@ const IconBoxBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const iconBoxRef = useRef();
+    const titleRef = useRef();
+    const descRef = useRef();
+    const badgeRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -171,6 +175,8 @@ const IconBoxBlock = compose(
         });
     },[hoverWithParent]);
 
+    HighLightToolbar(props);
+
     return <>
         <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
         <BlockControls>
@@ -204,36 +210,69 @@ const IconBoxBlock = compose(
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
                 { iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
-                    <RichText
-                        className="title"
-                        identifier="title"
+                    <RichTextComponent
+                        ref={titleRef}
+                        classNames={'title'}
                         tagName={titleTag}
-                        value={title}
-                        onChange={(value) => setAttributes({ title: value })}
-                        placeholder={__('Write title…')}
+                        aria-label={__('Icon Box Title', 'gutenverse')}
+                        placeholder={__('Write title...', 'gutenverse')}
+                        onChange={value => setAttributes({ title: value })}
                         multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelPosition={{panel : 'style', section : 1}}
+                        contentAttribute={'title'}
+                        setPanelState={setPanelState}
+                        textChilds={'titleChilds'}
+                        dynamicList={'titleDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
-                    <RichText
-                        className="icon-box-description"
-                        identifier="description"
+                    <RichTextComponent
+                        ref={descRef}
+                        classNames={'icon-box-description'}
                         tagName={'p'}
-                        value={description}
-                        onChange={(value) => setAttributes({ description: value })}
-                        placeholder={__('Write description…')}
+                        aria-label={__('Icon Box Description', 'gutenverse')}
+                        placeholder={__('Write description...', 'gutenverse')}
+                        onChange={value => setAttributes({ description: value })}
                         multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelPosition={{panel : 'style', section : 1}}
+                        contentAttribute={'description'}
+                        setPanelState={setPanelState}
+                        textChilds={'descriptionChilds'}
+                        dynamicList={'descriptionDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                     <div {...innerBlockProps} />
                 </div>
                 { iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
-                    <RichText
-                        className="badge-text"
-                        identifier="badge"
+                    <RichTextComponent
+                        ref={badgeRef}
+                        classNames={'badge-text'}
                         tagName={'span'}
-                        value={badge}
-                        onChange={(value) => setAttributes({ badge: value })}
-                        placeholder={__('Badge name…')}
+                        aria-label={__('Icon Box Badge', 'gutenverse')}
+                        placeholder={__('Badge name...', 'gutenverse')}
+                        onChange={value => setAttributes({ badge: value })}
                         multiline={false}
+                        setAttributes={setAttributes}
+                        attributes={attributes}
+                        clientId={clientId}
+                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelPosition={{panel : 'style', section : 1}}
+                        contentAttribute={'badge'}
+                        setPanelState={setPanelState}
+                        textChilds={'badgeChilds'}
+                        dynamicList={'badgeDynamicList'}
+                        isUseDinamic={false}
+                        isUseHighlight={true}
                     />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">

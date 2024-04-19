@@ -2,7 +2,7 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel, dynamicContentPanel } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { contentPanel } from './panel-content';
@@ -23,6 +23,18 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text'
+                });
+            },
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Text Clip', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
@@ -39,7 +51,10 @@ export const panelList = () => {
         },
         {
             title: __('Highlight Style', 'gutenverse'),
-            panelArray: childStylePanel,
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['textChilds']
+            }),
             initialOpen: false,
             tabRole: TabStyle,
             pro: true

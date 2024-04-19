@@ -44,10 +44,10 @@ export const panelRatingStyle = ({ elementId }) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}.style-1 ul.rating-stars li, 
-                                .${elementId}.style-2 ul.rating-stars li, 
-                                .${elementId}.style-3 ul.rating-stars li, 
-                                .${elementId}.style-4 ul.rating-stars li`,
+                    selector: `.${elementId}.style-1 .guten-testimonial-item ul.rating-stars li, 
+                                .${elementId}.style-2 .guten-testimonial-item ul.rating-stars li, 
+                                .${elementId}.style-3 .guten-testimonial-item ul.rating-stars li, 
+                                .${elementId}.style-4 .guten-testimonial-item ul.rating-stars li`,
                     render: value => handleColor(value, 'color')
                 }
             ]

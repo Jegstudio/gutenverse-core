@@ -25,7 +25,7 @@ class Post_Excerpt extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$html_tag = esc_html( $this->attributes['htmlTag'] );
+		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
 
 		if ( ! empty( $post_id ) ) {
 			$post_excerpt = get_the_excerpt( $post_id );

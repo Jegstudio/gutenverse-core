@@ -31,6 +31,10 @@
 			"type": "object",
 			"default": {}
 		},
+		"isDynamic": {
+			"type" : "boolean",
+			"default": false
+		},
 		"linkTarget": {
 			"type": "string",
 			"source": "attribute",

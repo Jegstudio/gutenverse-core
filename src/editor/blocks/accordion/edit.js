@@ -4,14 +4,15 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
-import { classnames } from 'gutenverse-core/components';
-import { RichText } from '@wordpress/block-editor';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { Check, X } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
-import { PanelTutorial } from 'gutenverse-core/controls';
+import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
+import { applyFilters } from '@wordpress/hooks';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -26,7 +27,7 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 
 const Accordion = compose(
     withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withCopyElementToolbar(),
 )(props => {
     const {
         getBlocks,
@@ -36,7 +37,6 @@ const Accordion = compose(
         (select) => select('core/block-editor'),
         []
     );
-
     const {
         updateBlockAttributes
     } = dispatch('core/block-editor');
@@ -46,11 +46,11 @@ const Accordion = compose(
         setAttributes,
         clientId,
         addStyle,
-        setElementRef
+        setElementRef,
+        setPanelState
     } = props;
-
+    
     const {
-        title,
         iconPosition,
         iconOpen,
         iconClosed,
@@ -60,7 +60,7 @@ const Accordion = compose(
     } = attributes;
 
     const accordionRef = useRef();
-
+    const titleRef = useRef();
     const onOpening = () => {
         const rootId = getBlockRootClientId(clientId);
         const childs = getBlocks(rootId);
@@ -121,14 +121,21 @@ const Accordion = compose(
             iconPosition,
             titleTag,
         } = attributes;
-
         setAttributes({
             iconOpen,
             iconClosed,
             iconPosition,
-            titleTag,
+            titleTag
         });
     }, []);
+
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        '',
+        { isActive: true }
+    );
+    
+    HighLightToolbar(props);
 
     return <>
         <InspectorControls>
@@ -159,17 +166,29 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
+        <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div className={'accordion-heading'} onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
-                <RichText
-                    className={'accordion-text'}
+                <RichTextComponent
+                    ref={titleRef}
+                    classNames={'accordion-text'}
                     tagName={titleTag}
                     aria-label={__('Accordion Title', 'gutenverse')}
                     placeholder={__('Accordion Title', 'gutenverse')}
-                    value={title}
                     onChange={value => setAttributes({ title: value })}
-                    withoutInteractiveFormatting
+                    multiline={false}
+                    setAttributes={setAttributes}
+                    attributes={attributes}
+                    clientId={clientId}
+                    panelDynamic={{panel : 'setting', section : 0}}
+                    panelPosition={{panel : 'style', section : 0}}
+                    contentAttribute={'title'}
+                    setPanelState={setPanelState}
+                    textChilds={'titleChilds'}
+                    dynamicList={'dynamicDataList'}
+                    isUseDinamic={true}
+                    isUseHighlight={true}
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>

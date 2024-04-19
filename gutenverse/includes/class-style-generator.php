@@ -55,6 +55,7 @@ use Gutenverse\Style\Text_Editor;
 use Gutenverse\Style\Video;
 use Gutenverse\Style\Popup_Builder;
 use Gutenverse\Style\Search;
+use Gutenverse\Style\Text;
 
 /**
  * Class Style Generator
@@ -216,6 +217,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/text-editor':
 				$instance = new Text_Editor( $attrs );
+				break;
+			case 'gutenverse/text':
+				$instance = new Text( $attrs );
 				break;
 			case 'gutenverse/team':
 				$instance = new Team( $attrs );

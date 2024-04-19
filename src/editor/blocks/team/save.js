@@ -14,7 +14,8 @@ const save = compose(
     withMouseMoveEffectScript
 )((props) => {
     const {
-        attributes
+        attributes,
+        setAttributes,
     } = props;
 
     const {
@@ -44,7 +45,10 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <TeamProfile {...attributes} socialComponent={socialComponent}/>
+            <TeamProfile 
+                {...props}
+                frontEnd={true}
+                socialComponent={socialComponent}/>
             {addPopup && <div className="profile-popup"
                 data-name={name}
                 data-job={job}

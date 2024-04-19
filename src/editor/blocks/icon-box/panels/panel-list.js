@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, childStylePanel, conditionPanel, dynamicContentPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { panelBadgeStyle } from './panel-badge-style';
 import { panelContentStyle } from './panel-content-style';
@@ -24,10 +24,33 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text',
+                    multiText : true,
+                    textArray : ['titleDynamicList','descriptionDynamicList','badgeDynamicList']
+                });
+            },
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Container Style', 'gutenverse'),
             initialOpen: false,
             panelArray: panelIconBoxContainer,
             tabRole: TabStyle
+        },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['titleChilds','descriptionChilds','badgeChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
         },
         {
             title: __('Icon Style', 'gutenverse'),

@@ -15,10 +15,12 @@ export const save = (props) => {
         iconOpen,
         iconClosed,
         titleTag,
+        elementId
     } = attributes;
 
     const accordionStyle = classnames(
         'accordion-item',
+        elementId,
         {
             active: first
         }

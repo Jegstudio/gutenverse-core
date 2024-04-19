@@ -9,7 +9,7 @@ export const panelIcon = (props) => {
         removeStyle,
         iconSize,
         imageWidth,
-        imageHeight,
+        imageHeight
     } = props;
     const deviceType = getDeviceType();
 

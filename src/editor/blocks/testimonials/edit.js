@@ -22,13 +22,12 @@ const TestimonialsBlock = compose(
     const {
         selectBlock
     } = dispatch('core/block-editor');
-
     const {
         clientId,
         attributes,
-        setElementRef
+        setElementRef,
+        setAttributes
     } = props;
-
     const {
         elementId,
         testimonialData,
@@ -40,13 +39,11 @@ const TestimonialsBlock = compose(
         showRating,
         iconRatingHalf,
         iconRatingFull,
-        starPosition,
+        starPosition
     } = attributes;
-
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const testimonialRef = useRef();
-
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -60,17 +57,14 @@ const TestimonialsBlock = compose(
         ),
         ref: testimonialRef
     });
-
     const focusBlock = () => {
         selectBlock(clientId);
     };
-
     useEffect(() => {
         if (testimonialRef.current) {
             setElementRef(testimonialRef.current);
         }
     }, [testimonialRef]);
-
     return <>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
@@ -90,6 +84,10 @@ const TestimonialsBlock = compose(
                             iconRatingFull={iconRatingFull}
                             iconRatingHalf={iconRatingHalf}
                             starPosition={starPosition}
+                            frontEnd={false}
+                            setAttributes={setAttributes}
+                            index={index}
+                            testimonialData={testimonialData}
                         />
                     </div>)}
                 </WPSwiper>
