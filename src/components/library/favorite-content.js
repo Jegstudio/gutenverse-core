@@ -4,7 +4,7 @@ import { withSelect, dispatch } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import { filterCategories, filterSection, getDistincAuthor, filterLayout } from './library-helper';
 import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core/icons';
-import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
+import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
 import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
@@ -17,6 +17,7 @@ const FavoriteContent = props => {
     const [content, setContent] = useState({});
     const [singleId, setSingleId] = useState(null);
     const [license, setLicense] = useState(false);
+    const [status, setStatus] = useState('');
     const [categories, setCategories] = useState({});
     const [slug, setSlug] = useState(null);
     const scrollerRef = useRef();
@@ -29,6 +30,7 @@ const FavoriteContent = props => {
         dispatch('gutenverse/library').setCategories('');
         dispatch('gutenverse/library').setAuthor('');
         dispatch('gutenverse/library').setLicense('');
+        dispatch( 'gutenverse/library' ).setStatus('');
         dispatch('gutenverse/library').setPaging(1);
     }, []);
 
@@ -59,6 +61,7 @@ const FavoriteContent = props => {
             const categories = filterCategories(layoutData, layoutCategories, {
                 license: license.value,
                 like: true,
+                status: status?.value,
             }, 'layout');
             setCategories(categories);
         } else {
@@ -66,6 +69,7 @@ const FavoriteContent = props => {
             const categories = filterCategories(sectionData, sectionCategories, {
                 license: license.value,
                 like: true,
+                status: status?.value,
             }, 'section');
             setCategories(categories);
         }
@@ -174,6 +178,10 @@ const FavoriteContent = props => {
                     <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                     <SelectLicense license={license} setLicense={setLicense} />
                 </>
+                {<>
+                    <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
+                    <SelectStatus status={status} setStatus={setStatus} />
+                </>}
                 {authors.length > 1 && <>
                     <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                     <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
