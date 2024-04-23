@@ -334,6 +334,7 @@ class Api {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
 		$dev          = '--dev_mode--';
+		$this->update_library_data();
 
 		if ( 'true' === $dev ) {
 			$this->update_library_data();

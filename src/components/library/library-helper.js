@@ -261,7 +261,7 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
 
         return {
             id,
@@ -275,7 +275,8 @@ export const filterTheme = (themeData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author
+            author,
+            status
         };
     });
 

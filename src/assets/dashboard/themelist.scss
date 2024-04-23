@@ -183,6 +183,20 @@
             img {
                 width: 100%;
             }
+
+            .draft-label {
+                color: red;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 24px;
+                font-family: Roboto, sans-serif;
+                position: absolute;
+                left: 10px;
+                top: 5px;
+                border: 3px solid red;
+                border-radius: 5px;
+                padding: 0 5px 0 5px;
+            }
         }
 
         .theme-title,

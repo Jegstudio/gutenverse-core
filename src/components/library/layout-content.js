@@ -129,7 +129,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} />
             </>}
-            {<>
+            {'true' === '--dev_mode--' && <>
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
             </>}
