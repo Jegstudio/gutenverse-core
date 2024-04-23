@@ -10,6 +10,7 @@ const layoutFilter = (layoutData, filter) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, pro, status } = data;
         const { name: authorName } = layoutAuthor;
+        const dev = '--dev_mode--';
 
         if (like) {
             if (false === layoutLike) {
@@ -31,12 +32,10 @@ const layoutFilter = (layoutData, filter) => {
             }
         }
 
-        if ( postStatus ) {
-            if ( postStatus !== status || status === null ) {
+        if ( postStatus || 'true' === dev  ) {
+            if ( postStatus !== status ) {
                 return false;
             }
-        } else {
-            if ( status === null ) return false;
         }
 
         if (categories) {

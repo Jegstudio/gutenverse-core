@@ -333,11 +333,11 @@ class Api {
 	public function fetch_library_data() {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
-		// add_filter(
-		// 	'update_library_data',
-		// 	array( $this, 'update_library_data' )
-		// );
-		$this->update_library_data();
+		$dev          = '--dev_mode--';
+
+		if ( 'true' === $dev ) {
+			$this->update_library_data();
+		}
 
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
@@ -1560,8 +1560,6 @@ class Api {
 			$body = $this->inject_plugin_detail( $data );
 			$body = wp_json_encode( $body );
 		}
-
-		gutenverse_rlog( $response );
 
 		// GET request - write it to the supplied filename.
 		require_once ABSPATH . 'wp-admin/includes/file.php';
