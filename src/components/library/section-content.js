@@ -117,6 +117,7 @@ const SectionContentWrapper = (props) => {
     const changePaging = (page) => {
         dispatch( 'gutenverse/library' ).setPaging(page);
     };
+    const dev = '--dev_mode--' === 'true';
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
@@ -124,7 +125,7 @@ const SectionContentWrapper = (props) => {
                 <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
             </>
-            {'true' === '--dev_mode--' && <>
+            {dev && <>
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
             </>}

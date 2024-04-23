@@ -135,6 +135,7 @@ const FavoriteContent = props => {
             state: flag
         });
     };
+    const dev = '--dev_mode--' === 'true';
 
     return <>
         {pluginInstallMode && <PluginInstallMode
@@ -178,7 +179,7 @@ const FavoriteContent = props => {
                     <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                     <SelectLicense license={license} setLicense={setLicense} />
                 </>
-                {'true' === '--dev_mode--' && <>
+                {dev && <>
                     <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                     <SelectStatus status={status} setStatus={setStatus} />
                 </>}

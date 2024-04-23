@@ -116,6 +116,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
         }, 'layout');
         setCategories(categories);
     }, [license, keyword, author]);
+    const dev = '--dev_mode--' === 'true';
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}  >
@@ -129,7 +130,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} />
             </>}
-            {'true' === '--dev_mode--' && <>
+            {dev && <>
                 <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
                 <SelectStatus status={status} setStatus={setStatus} />
             </>}
