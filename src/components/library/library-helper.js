@@ -32,9 +32,11 @@ const layoutFilter = (layoutData, filter) => {
             }
         }
 
-        if ( postStatus || 'true' === dev  ) {
-            if ( postStatus !== status ) {
-                return false;
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
             }
         }
 
@@ -176,6 +178,7 @@ const sectionFilter = (sectionData, filter) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
         const { pro, status } = data;
         const { name: authorName } = sectionAuthor;
+        const dev = '--dev_mode--';
 
         if (like) {
             if (false === sectionLike) {
@@ -191,12 +194,12 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if ( postStatus ) {
-            if ( postStatus !== status || status === null ) {
-                return false;
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
             }
-        } else {
-            if ( status === null ) return false;
         }
 
         if (categories) {
@@ -227,6 +230,7 @@ const themeFilter = (themeData, filter) => {
     themeData = themeData.filter((layout) => {
         const { data } = layout;
         const { name, pro, status } = data;
+        const dev = '--dev_mode--';
 
         if (keyword) {
             if (!name.toLowerCase().includes(keyword.toLowerCase())) {
@@ -242,12 +246,12 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
-        if ( postStatus ) {
-            if ( postStatus !== status || status === null ) {
-                return false;
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
             }
-        } else {
-            if ( status === null ) return false;
         }
 
         return true;
