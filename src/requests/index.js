@@ -444,10 +444,10 @@ export const modifyGlobalVariable = params => {
     });
 };
 
-export const fetchLibraryData = () => {
+export const fetchLibraryData = (dev) => {
     return new Promise((resolve, reject) => {
         apiFetch({
-            path: 'gutenverse-client/v1/library/data',
+            path: `gutenverse-client/v1/library/data?dev=${dev}`,
             method: 'GET'
         }).then(response => {
             resolve(response);

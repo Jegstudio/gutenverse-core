@@ -328,14 +328,18 @@ class Api {
 	/**
 	 * Fetch Data
 	 *
+	 * @param object $request .
+	 *
 	 * @return WP_Rest
 	 */
-	public function fetch_library_data() {
+	public function fetch_library_data( $request ) {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
-		$dev          = '--dev_mode--';
 
-		if ( 'true' === $dev ) {
+		$dev_param = $request->get_param( 'dev' );
+		gutenverse_rlog( $dev_param );
+
+		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
 		}
 
