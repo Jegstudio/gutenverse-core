@@ -333,13 +333,12 @@ class Api {
 	public function fetch_library_data() {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
+		$this->update_library_data();
 
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
 			Meta_Option::instance()->set_option( 'fetch_library_time', $next_fetch );
-			$this->update_library_data();
 		}
-
 		return $this->library_data();
 	}
 
@@ -424,7 +423,6 @@ class Api {
 
 			$data[ $key ] = $content;
 		}
-
 		return $data;
 	}
 
@@ -507,7 +505,6 @@ class Api {
 	 */
 	public function inject_layout_like( $data ) {
 		$liked = Meta_Option::instance()->get_option( 'liked_layout' );
-
 		foreach ( $data as $key => $item ) {
 			$data[ $key ]['like'] = ! empty( $liked ) ? in_array( $item['data']['slug'], $liked, true ) : false;
 		}
@@ -709,27 +706,59 @@ class Api {
 	 * Update Data.
 	 */
 	public function update_library_data() {
-		if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
+		/* masukkan ke if Kalo udah selesai **/
 			$endpoints = array(
-				'layout/data',
-				'layout/categories',
-				'theme/data',
-				'theme/categories',
-				'section/data',
-				'section/categories',
-				'plugin/ecosystem',
+				array(
+					'version'  => 'v3',
+					'endpoint' => 'layout/data',
+					'filename' => 'layout/data',
+				),
+				array(
+					'version'  => 'v4',
+					'endpoint' => 'library/layout/categories',
+					'filename' => 'layout/categories',
+				),
+				array(
+					'version'  => 'v3',
+					'endpoint' => 'theme/data',
+					'filename' => 'theme/data',
+				),
+				array(
+					'version'  => 'v4',
+					'endpoint' => 'library/theme/categories',
+					'filename' => 'theme/categories',
+				),
+				array(
+					'version'  => 'v3',
+					'endpoint' => 'section/data',
+					'filename' => 'section/data',
+				),
+				array(
+					'version'  => 'v3',
+					'endpoint' => 'section/categories',
+					'filename' => 'section/categories',
+				),
+				array(
+					'version'  => 'v3',
+					'endpoint' => 'plugin/ecosystem',
+					'filename' => 'plugin/ecosystem',
+				),
 			);
 
-			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/v3/';
+			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/';
 			$basedir   = wp_upload_dir()['basedir'];
 			$directory = $basedir . '/gutenverse/data/';
 			wp_mkdir_p( $directory );
 
 			foreach ( $endpoints as $endpoint ) {
-				$filename = str_replace( '/', '-', $endpoint ) . '.json';
-				$this->fetch_file( $apipath . $endpoint, $directory . $filename, $endpoint );
+				$filename = str_replace( '/', '-', $endpoint['filename'] ) . '.json';
+				$this->fetch_file( $apipath . $endpoint['version'] . '/' . $endpoint['endpoint'], $directory . $filename, $endpoint );
 			}
-		}
+			/* masukkan ke if Kalo udah selesai **/
+
+			if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
+
+			}
 	}
 
 	/**
@@ -1532,11 +1561,11 @@ class Api {
 			add_query_arg(
 				array(
 					'framework_version' => GUTENVERSE_FRAMEWORK_VERSION,
+					'sslverify'         => false,
 				),
 				$url
 			)
 		);
-
 		if ( is_wp_error( $response ) ) {
 			return false;
 		}
@@ -1549,7 +1578,6 @@ class Api {
 		}
 
 		$body = wp_remote_retrieve_body( $response );
-
 		if ( 'plugin/ecosystem' === $endpoint ) {
 			$data = json_decode( $body );
 			$body = $this->inject_plugin_detail( $data );

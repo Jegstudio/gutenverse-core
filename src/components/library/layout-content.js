@@ -219,7 +219,7 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
                     key={category.id}
                     onClick={() => {
                         dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
-                        categoryListClicked && categoryListClicked(category.id, category.name);
+                        // categoryListClicked && categoryListClicked(category.id, category.name);
                     }}
                 >
                     <i className="checkblock" />

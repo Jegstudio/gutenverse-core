@@ -5,18 +5,17 @@ import { dispatch } from '@wordpress/data';
 
 const removeEmptyInArray = (arr) => {
     if(!isEmpty(arr)){
-        return arr.filter(el => el != '');
+        return arr.filter(el => el != '' && el != undefined && !Array.isArray(el));
     }
     return arr;
 }
 const layoutFilter = (layoutData, filter) => {
-    const { keyword, license, categories, author, like } = filter;
-    let newLayoutData = layoutData;
-    newLayoutData = newLayoutData.filter((layout) => {
+    let { keyword, license, categories, author, like } = filter;
+    categories = removeEmptyInArray(categories);
+    layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, pro } = data;
         const { name: authorName } = layoutAuthor;
-
         if (like) {
             if (false === layoutLike) {
                 return false;
@@ -36,15 +35,8 @@ const layoutFilter = (layoutData, filter) => {
                 return false;
             }
         }
-
-        if ( !isEmpty(categories) ) {
-            let categoryFlag = true;
-            layoutCategories.map((category) => {
-                if (categories.includes(category.id.toString())) {
-                    categoryFlag = categoryFlag && false;
-                }
-            });
-            if (categoryFlag) return false;
+        if (!isEmpty(categories) && !layoutCategories.some(category => categories.includes(category.id.toString()))) {
+            return false;
         }
 
         if (author) {
@@ -55,8 +47,7 @@ const layoutFilter = (layoutData, filter) => {
 
         return true;
     });
-
-    return newLayoutData;
+    return layoutData;
 };
 
 const dataPaging = (data, paging, perPage) => {
@@ -100,7 +91,6 @@ export const filterLayout = (layoutData, filter, perPage) => {
             author
         };
     });
-
     return dataPaging(data, paging, perPage);
 };
 
@@ -136,9 +126,14 @@ export const filterCategories = (data, categories, filter, type) => {
     } else {
         result = sectionFilter(data, filter);
     }
-
     let theCategories = categories.map((category) => {
         category.count = categoryCount(result, category.id);
+        if(category.childs){
+            category.childs = category.childs.map(child => {
+                child.count = categoryCount(result, parseInt(child.id));
+                return child;
+            });
+        }
         return category;
     });
 

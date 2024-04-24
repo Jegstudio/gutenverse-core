@@ -17,7 +17,8 @@ const FavoriteContent = props => {
     const [content, setContent] = useState({});
     const [singleId, setSingleId] = useState(null);
     const [license, setLicense] = useState(false);
-    const [categories, setCategories] = useState({});
+    const [layoutCategories, setLayoutCategories] = useState([]);
+    const [sectionCategories, setSectionCategories] = useState([]);
     const [slug, setSlug] = useState(null);
     const scrollerRef = useRef();
     const [currentItem, setCurrentItem] = useState(null);
@@ -52,28 +53,23 @@ const FavoriteContent = props => {
     };
 
     const updateCategoryList = () => {
-        setCategories({});
-
-        if ('layout' === layoutContentData.library) {
-            const { layoutData, layoutCategories } = library;
-            const categories = filterCategories(layoutData, layoutCategories, {
-                license: license.value,
-                like: true,
-            }, 'layout');
-            setCategories(categories);
-        } else {
-            const { sectionData, sectionCategories } = library;
-            const categories = filterCategories(sectionData, sectionCategories, {
-                license: license.value,
-                like: true,
-            }, 'section');
-            setCategories(categories);
-        }
+        const { layoutData, layoutCategories } = library;
+        let categories = filterCategories(layoutData, layoutCategories, {
+            license: license.value,
+            like: true,
+        }, 'layout');
+        setLayoutCategories(categories);
+        const { sectionData, sectionCategories } = library;
+        categories = filterCategories(sectionData, sectionCategories, {
+            license: license.value,
+            like: true,
+        }, 'section');
+        setSectionCategories(categories);
     };
 
-    const categoryListClicked = (id) => {
-        dispatch('gutenverse/library').setCategories(id);
-    };
+    // const categoryListClicked = (id) => {
+    //     dispatch('gutenverse/library').setCategories(id);
+    // };
 
     useEffect(() => {
         if (license !== false) {
@@ -83,7 +79,7 @@ const FavoriteContent = props => {
 
     useEffect(() => {
         updateCategoryList();
-    }, [layoutContentData.library, license, library]);
+    }, [license, library]);
 
     useEffect(() => {
         scrollerRef.current.scrollTop = 0;
@@ -91,7 +87,6 @@ const FavoriteContent = props => {
 
     useEffect(() => {
         const { layoutData, sectionData } = library;
-        console.log(layoutData, sectionData);
 
         if ('layout' === layoutContentData.library) {
             const result = filterLayout(layoutData, {
@@ -132,7 +127,6 @@ const FavoriteContent = props => {
             state: flag
         });
     };
-
     return <>
         {pluginInstallMode && <PluginInstallMode
             name={currentItem.title}
@@ -184,23 +178,22 @@ const FavoriteContent = props => {
                         <h2 className="gutenverse-library-side-heading">
                             {__('Categories', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'category'} data={layoutContentData} type={'layout'} />
+                        <RenderCategories categories={layoutCategories} slug={'category'} data={layoutContentData} type={'layout'} />
                         <h2 className="gutenverse-library-side-heading">
                             {__('Style', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'style'} data={layoutContentData} type={'layout'}/>
+                        <RenderCategories categories={layoutCategories} slug={'style'} data={layoutContentData} type={'layout'}/>
                         <h2 className="gutenverse-library-side-heading">
                             {__('Color', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'color'} data={layoutContentData} type={'layout'} />
+                        <RenderCategories categories={layoutCategories} slug={'color'} data={layoutContentData} type={'layout'}/>
                     </> : <>
                         <h2 className="gutenverse-library-side-heading">
                             {__('Categories', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData} type={'section'}/>
+                        <RenderCategories categories={sectionCategories} data={layoutContentData} type={'section'} />
                     </>
                 }
-                
             </div>
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
