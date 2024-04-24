@@ -11,6 +11,8 @@ import { customStyles } from './style';
 import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core/icons';
 import Paging from './paging';
 import BannerPro from '../pro/banner-pro';
+import isEmpty from 'lodash/isEmpty';
+
 
 const LayoutContent = (props) => {
     const [slug, setSlug] = useState(null);
@@ -51,7 +53,7 @@ const LayoutContent = (props) => {
 
 const LayoutContentList = ({ libraryData, modalData, content, setContent, setSingleId, setSlug, burger }) => {
     const data = modalData.layoutContentData;
-    const [categories, setCategories] = useState({});
+    const [categories, setCategories] = useState([]);
     const [license, setLicense] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();
@@ -134,7 +136,15 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} data={data} />
+            <RenderCategories categories={categories} slug={'category'} data={data} type={'layout'} />
+            <h2 className="gutenverse-library-side-heading">
+                {__('Style', '--gctd--')}
+            </h2>
+            <RenderCategories categories={categories} slug={'style'} data={data} type={'layout'}/>
+            <h2 className="gutenverse-library-side-heading">
+                {__('Color', '--gctd--')}
+            </h2>
+            <RenderCategories categories={categories} slug={'color'} data={data} type={'layout'} />
         </div>
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
@@ -197,23 +207,44 @@ export const SelectAuthor = ({ authors, author, setAuthor }) => {
     </div>;
 };
 
-export const RenderCategories = ({ categories, data, showCount = true, categoryListClicked = false }) => {
-    return <ul className="gutenverse-sidebar-list">
-        {Object.keys(categories).map(id => {
-            const category = categories[id];
-            return <li
-                className={category.id === data.categories ? 'active' : ''}
-                key={category.id}
-                onClick={() => {
-                    dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
-                    categoryListClicked && categoryListClicked(category.id, category.name);
-                }}
-            >
-                <i className="checkblock" />
-                <span dangerouslySetInnerHTML={{ __html: theTitle(category, showCount) }} />
-            </li>;
-        })}
-    </ul>;
+export const RenderCategories = ({ categories, data, showCount = true, categoryListClicked = false, slug, type }) => {
+    if( !isEmpty(categories) && 'layout' === type ){
+        const categoriesIndex = categories.findIndex(el => el.slug === slug );
+        const childCategories = categories[categoriesIndex].childs;
+        return <ul className="gutenverse-sidebar-list">
+            {Object.keys(childCategories).map(id => {
+                const category = childCategories[id];
+                return <li
+                    className={data.categories.includes(category.id) ? 'active' : ''}
+                    key={category.id}
+                    onClick={() => {
+                        dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
+                        categoryListClicked && categoryListClicked(category.id, category.name);
+                    }}
+                >
+                    <i className="checkblock" />
+                    <span dangerouslySetInnerHTML={{ __html: theTitle(category, showCount) }} />
+                </li>;
+            })}
+        </ul>;
+    }else if( !isEmpty(categories) && 'section' === type){
+        return <ul className="gutenverse-sidebar-list">
+            {Object.keys(categories).map(id => {
+                const category = categories[id];
+                return <li
+                    className={data.categories.includes(category.id) ? 'active' : ''}
+                    key={category.id}
+                    onClick={() => {
+                        dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
+                        categoryListClicked && categoryListClicked(category.id, category.name);
+                    }}
+                >
+                    <i className="checkblock" />
+                    <span dangerouslySetInnerHTML={{ __html: theTitle(category, showCount) }} />
+                </li>;
+            })}
+        </ul>;
+    }
 };
 
 const theTitle = (category, showCount) => {
@@ -292,7 +323,6 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
 
 export default withSelect(select => {
     const { getLibraryData, getModalData } = select('gutenverse/library');
-
     return {
         modalData: getModalData(),
         libraryData: getLibraryData()

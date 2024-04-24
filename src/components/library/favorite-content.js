@@ -91,6 +91,7 @@ const FavoriteContent = props => {
 
     useEffect(() => {
         const { layoutData, sectionData } = library;
+        console.log(layoutData, sectionData);
 
         if ('layout' === layoutContentData.library) {
             const result = filterLayout(layoutData, {
@@ -178,10 +179,28 @@ const FavoriteContent = props => {
                     <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                     <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
                 </>}
-                <h2 className="gutenverse-library-side-heading">
-                    {__('Categories', '--gctd--')}
-                </h2>
-                <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData} />
+                {
+                    'layout' === layoutContentData.library ? <>
+                        <h2 className="gutenverse-library-side-heading">
+                            {__('Categories', '--gctd--')}
+                        </h2>
+                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'category'} data={layoutContentData} type={'layout'} />
+                        <h2 className="gutenverse-library-side-heading">
+                            {__('Style', '--gctd--')}
+                        </h2>
+                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'style'} data={layoutContentData} type={'layout'}/>
+                        <h2 className="gutenverse-library-side-heading">
+                            {__('Color', '--gctd--')}
+                        </h2>
+                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} slug={'color'} data={layoutContentData} type={'layout'} />
+                    </> : <>
+                        <h2 className="gutenverse-library-side-heading">
+                            {__('Categories', '--gctd--')}
+                        </h2>
+                        <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={layoutContentData} type={'section'}/>
+                    </>
+                }
+                
             </div>
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro

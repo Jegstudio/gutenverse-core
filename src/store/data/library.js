@@ -234,11 +234,17 @@ export const modalReducer = (state = {}, action) => {
                 }
             };
         case 'SET_CATEGORIES':
+            let filters = state.layoutContentData.categories;
+            if( !filters.includes(action.categories) ){
+                filters.push(action.categories);
+            }else{
+                filters = filters.filter(el => el !== action.categories);
+            }
             return {
                 ...state,
                 layoutContentData: {
                     ...state.layoutContentData,
-                    categories: action.categories
+                    categories: filters
                 }
             };
         case 'SET_AUTHOR':

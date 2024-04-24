@@ -3,10 +3,16 @@ import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch } from '@wordpress/data';
 
+const removeEmptyInArray = (arr) => {
+    if(!isEmpty(arr)){
+        return arr.filter(el => el != '');
+    }
+    return arr;
+}
 const layoutFilter = (layoutData, filter) => {
     const { keyword, license, categories, author, like } = filter;
-
-    layoutData = layoutData.filter((layout) => {
+    let newLayoutData = layoutData;
+    newLayoutData = newLayoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, pro } = data;
         const { name: authorName } = layoutAuthor;
@@ -31,10 +37,10 @@ const layoutFilter = (layoutData, filter) => {
             }
         }
 
-        if (categories) {
+        if ( !isEmpty(categories) ) {
             let categoryFlag = true;
             layoutCategories.map((category) => {
-                if (category.id === categories) {
+                if (categories.includes(category.id.toString())) {
                     categoryFlag = categoryFlag && false;
                 }
             });
@@ -50,7 +56,7 @@ const layoutFilter = (layoutData, filter) => {
         return true;
     });
 
-    return layoutData;
+    return newLayoutData;
 };
 
 const dataPaging = (data, paging, perPage) => {
@@ -125,7 +131,6 @@ export const mapId = (data) => {
 
 export const filterCategories = (data, categories, filter, type) => {
     let result;
-
     if ('layout' === type) {
         result = layoutFilter(data, filter);
     } else {
@@ -138,11 +143,6 @@ export const filterCategories = (data, categories, filter, type) => {
     });
 
     return [
-        {
-            id: '',
-            name: 'All',
-            count: result.length,
-        },
         ...theCategories,
     ].sort((a, b) => {
         return b.count - a.count;
@@ -163,13 +163,12 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    const { license, categories, author, like } = filter;
-
+    let { license, categories, author, like } = filter;
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
         const { pro } = data;
         const { name: authorName } = sectionAuthor;
-
+        categories = removeEmptyInArray(categories);
         if (like) {
             if (false === sectionLike) {
                 return false;
@@ -184,10 +183,10 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if (categories) {
+        if ( !isEmpty(categories) ) {
             let categoryFlag = true;
             sectionCategories.map((category) => {
-                if (category.id === categories) {
+                if (categories.includes(category.id)) {
                     categoryFlag = categoryFlag && false;
                 }
             });

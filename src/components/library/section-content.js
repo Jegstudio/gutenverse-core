@@ -129,7 +129,7 @@ const SectionContentWrapper = (props) => {
             <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} />
+            <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
         </div>
 
 
