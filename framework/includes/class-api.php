@@ -337,7 +337,6 @@ class Api {
 		$now          = time();
 
 		$dev_param = $request->get_param( 'dev' );
-		gutenverse_rlog( $dev_param );
 
 		if ( 'true' === $dev_param ) {
 			$this->update_library_data();
