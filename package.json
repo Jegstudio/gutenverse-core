@@ -7,7 +7,7 @@
     "start": "npm run start --prefix gutenverse-core & npm run start:js & npm run start:css",
     "dev": "npm run dev --prefix gutenverse-core && npm run start:dev && npm run build:css",
     "build": "npm run build --prefix gutenverse-core && npm run build:js && npm run build:css",
-    "development": "gulp clean && npm run development --prefix gutenverse-core && npm run dev && gulp release && gulp use-dev-mode && npm run pot && gulp zip",
+    "development": "gulp clean && npm run development --prefix gutenverse-core && npm run dev && gulp release && npm run pot && gulp zip",
     "production": "gulp clean && npm run production --prefix gutenverse-core && npm run build && gulp release && npm run pot && gulp zip",
     "start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
     "start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",

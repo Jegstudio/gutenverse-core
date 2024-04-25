@@ -108,13 +108,6 @@ gulp.task('replace-text-domain', function () {
         .pipe(gulp.dest('./release/gutenverse/lib/framework/'));
 });
 
-gulp.task('use-dev-mode', function () {
-    return gulp
-        .src(['./release/gutenverse/lib/framework/**/*.js', './release/gutenverse/lib/framework/**/*.php'])
-        .pipe(replace('--dev_mode--', 'true'))
-        .pipe(gulp.dest('./release/gutenverse/lib/framework/'));
-});
-
 gulp.task('release', gulp.series(
     'copy-plugin-folder',
     'copy-framework',
