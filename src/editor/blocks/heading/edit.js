@@ -10,7 +10,7 @@ import { compose } from '@wordpress/compose';
 import { applyFilters } from '@wordpress/hooks';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withHighLightText, withDinamicContent } from 'gutenverse-core/hoc';
+import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -64,7 +64,6 @@ const HeadingBlock = compose(
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
-    // withDinamicContent('content'),
 )(props => {
     const {
         attributes,
