@@ -328,11 +328,19 @@ class Api {
 	/**
 	 * Fetch Data
 	 *
+	 * @param object $request .
+	 *
 	 * @return WP_Rest
 	 */
-	public function fetch_library_data() {
+	public function fetch_library_data( $request ) {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
+
+		$dev_param = $request->get_param( 'dev' );
+
+		if ( 'true' === $dev_param ) {
+			$this->update_library_data();
+		}
 
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
@@ -664,8 +672,8 @@ class Api {
 				$pages[] = array(
 					'id'         => $page->index,
 					'title'      => $page->title,
-					'coverImage' => $page->coverImage[0], //phpcs:ignore
-					'fullImage'  => $page->fullImage[0], //phpcs:ignore
+					'coverImage' => $page->coverImage[0],
+					'fullImage'  => $page->fullImage[0],
 				);
 			}
 
@@ -1337,6 +1345,7 @@ class Api {
 				'name__like' => $search,
 				'include'    => $include,
 				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
 			)
 		);
 
@@ -1414,12 +1423,6 @@ class Api {
 		$contents = $request->get_param( 'contents' );
 		$array    = array();
 
-		/**
-		 * Temporarily increase time limit for import.
-		 * Default 30s is not enough for importing long content.
-		 */
-		set_time_limit( 300 );
-
 		foreach ( $images as $image ) {
 			$data = $this->check_image_exist( $image );
 			if ( ! $data ) {
@@ -1446,7 +1449,7 @@ class Api {
 			array(
 				'post_type'   => 'attachment',
 				'post_status' => 'inherit',
-				'meta_query'  => array( //phpcs:ignore
+				'meta_query'  => array(
 					array(
 						'key'     => '_import_source',
 						'value'   => $url,

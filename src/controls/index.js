@@ -67,7 +67,9 @@ export { default as LockedFormMultiGroupSelectPanel } from './controls/locked/lo
 export { default as LockedMouseMoveEffectControl } from './controls/locked/locked-mouse-move-effect-control';
 export { default as LockedAdvanceButtonControl } from './controls/locked/locked-advance-button';
 export { default as LockedFluidBackground } from './controls/locked/locked-fluid-background';
+export { default as LockedConditionControl } from './controls/locked/locked-condition-control';
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
+export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -101,4 +103,5 @@ export { sliderPanel } from './panels/panel-slider';
 export { IDPanel } from './panels/panel-element-id';
 export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
-
+export { conditionPanel } from './panels/panel-condition';
+export { dynamicContentPanel } from './panels/panel-dynamic-content';

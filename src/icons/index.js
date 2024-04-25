@@ -7,6 +7,7 @@ import LogoFullColor from './logo/logo-full-color.svg';
 import LogoFullWhite from './logo/logo-full-white.svg';
 import LogoWhite24 from './logo/logo-white-24.svg';
 import LogoWhite from './logo/logo-white.svg';
+import LogoIconNoTextGutenverse from './logo/logoicon-gutenverse-notext.svg';
 import LogoIconGutenverse from './logo/logoicon-gutenverse.svg';
 
 /* Dimension Icons */
@@ -17,6 +18,8 @@ import IconDimensionZ from './icon/icon-dimension-z.svg';
 /**  */
 import GradientIconCopy from './icon/gradient-icon-copy.svg';
 import GradientIconPaste from './icon/gradient-icon-paste.svg';
+import GradientHighlight from './icon/gradient-icon-highlight.svg';
+import GradientDinamic from './icon/gradient-icon-dynamic-content.svg';
 
 /* Control Icons */
 import IconDuplicate from './icon/icon-duplicate.svg';
@@ -105,6 +108,10 @@ export const LogoFullColorSVG = (props) => {
 
 export const LogoFullWhiteSVG = (props) => {
     return <LogoFullWhite { ...props } />;
+};
+
+export const LogoFullWhiteNoTextSVG = (props) => {
+    return <LogoIconNoTextGutenverse { ...props } />;
 };
 
 export const LogoWhite24SVG = (props) => {
@@ -384,4 +391,12 @@ export const IconDragSVG = ({size = 16}) => {
         <circle cx="11" cy="11" r="1" fill="#BDBEBF"/>
         <circle cx="11" cy="6" r="1" fill="#BDBEBF"/>
     </svg>;
+};
+
+export const IconHighlightSVG = () => {
+    return <GradientHighlight/>;
+};
+
+export const IconDinamicSVG = () => {
+    return <GradientDinamic/>;
 };

@@ -1,9 +1,10 @@
 import { useState } from '@wordpress/element';
-import { KeyboardShortcuts, Popover, ToolbarButton } from '@wordpress/components';
+import { KeyboardShortcuts, Popover, ToolbarButton, CheckboxControl } from '@wordpress/components';
 import { __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 import { link, linkOff } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
+import { applyFilters } from '@wordpress/hooks';
 
 export const URLToolbar = ({
     isSelected,
@@ -12,8 +13,13 @@ export const URLToolbar = ({
     opensInNewTab,
     onToggleOpenInNewTab,
     anchorRef,
+    usingDynamic,
+    setPanelState,
+    panelState,
+    isDynamic,
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
+    const [isChecked, setIsChecked] = useState(false);
     const urlIsSet = !!url;
     const urlIsSetandSelected = urlIsSet && isSelected;
 
@@ -31,6 +37,8 @@ export const URLToolbar = ({
         setIsURLPickerOpen(false);
     };
 
+    const isPro = applyFilters('gutenverse.toolbar.url-toolbar');
+
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
             position="bottom center"
@@ -39,18 +47,45 @@ export const URLToolbar = ({
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
-                value={{ url, opensInNewTab }}
+                value={{ url, opensInNewTab, isDynamic }}
+                settings={(urlIsSetandSelected && isPro) ? [
+                    {
+                        id: 'opensInNewTab',
+                        title: 'Open in new tab',
+                    },
+                    {
+                        id: 'isDynamic',
+                        title: 'Use dynamic link'
+                    }
+                ] : [
+                    {
+                        id: 'opensInNewTab',
+                        title: 'Open in new tab',
+                    }
+                ]}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
+                    isDynamic: newIsDynamic,
                 }) => {
-                    setAttributes({ url: newURL });
+                    setAttributes({ url: newURL, isDynamic: newIsDynamic });
 
                     if (opensInNewTab !== newOpensInNewTab) {
                         onToggleOpenInNewTab(newOpensInNewTab);
                     }
                 }}
             />
+            {usingDynamic && !urlIsSetandSelected && isPro &&<div className="gutenverse-dynamic-pop-over-container">
+                <CheckboxControl
+                    label="Use Dynamic Link"
+                    checked={isChecked}
+                    onChange={() => {setIsChecked(prev => !prev);}}
+                />
+                <div className="button-container">
+                    <button className="gutenverse-pop-over-button-cancel" onClick={()=>{setIsURLPickerOpen(false);}}>Cancel</button>
+                    <button className={`gutenverse-pop-over-button-apply ${isChecked ? 'checked' : ''}`} onClick={isChecked ? ()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false); setPanelState(panelState);} : {}}>Apply</button>
+                </div>
+            </div>}
         </Popover>
     );
 

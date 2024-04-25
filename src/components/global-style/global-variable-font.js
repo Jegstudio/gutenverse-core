@@ -190,9 +190,9 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             ]}
                         />
                         <SelectControl
-                            label={__('Style', '--gctd--')}
-                            value={value.font.style}
-                            onValueChange={style => onTypographyChange({ ...value.font, style })}
+                            label={__('Decoration', '--gctd--')}
+                            value={value.font.decoration}
+                            onValueChange={decoration => onTypographyChange({ ...value.font, decoration })}
                             onStyleChange={() => { }}
                             options={[
                                 {
@@ -200,16 +200,20 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Normal', '--gctd--'),
-                                    value: 'normal'
+                                    label: __('Underline', '--gctd--'),
+                                    value: 'underline'
                                 },
                                 {
-                                    label: __('Italic', '--gctd--'),
-                                    value: 'italic'
+                                    label: __('Overline', '--gctd--'),
+                                    value: 'overline'
                                 },
                                 {
-                                    label: __('Oblique', '--gctd--'),
-                                    value: 'oblique'
+                                    label: __('Line Through', '--gctd--'),
+                                    value: 'line-through'
+                                },
+                                {
+                                    label: __('None', '--gctd--'),
+                                    value: 'none'
                                 },
                             ]}
                         />
@@ -268,9 +272,9 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             ]}
                         />
                         <SelectControl
-                            label={__('Decoration', '--gctd--')}
-                            value={value.font.decoration}
-                            onValueChange={decoration => onTypographyChange({ ...value.font, decoration })}
+                            label={__('Style', '--gctd--')}
+                            value={value.font.style}
+                            onValueChange={style => onTypographyChange({ ...value.font, style })}
                             onStyleChange={() => { }}
                             options={[
                                 {
@@ -278,20 +282,16 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                                     value: 'default'
                                 },
                                 {
-                                    label: __('Underline', '--gctd--'),
-                                    value: 'underline'
+                                    label: __('Normal', '--gctd--'),
+                                    value: 'normal'
                                 },
                                 {
-                                    label: __('Overline', '--gctd--'),
-                                    value: 'overline'
+                                    label: __('Italic', '--gctd--'),
+                                    value: 'italic'
                                 },
                                 {
-                                    label: __('Line Through', '--gctd--'),
-                                    value: 'line-through'
-                                },
-                                {
-                                    label: __('None', '--gctd--'),
-                                    value: 'none'
+                                    label: __('Oblique', '--gctd--'),
+                                    value: 'oblique'
                                 },
                             ]}
                         />

@@ -4,12 +4,13 @@ import semver from 'semver';
 import { dispatch } from '@wordpress/data';
 
 const layoutFilter = (layoutData, filter) => {
-    const { keyword, license, categories, author, like } = filter;
+    const { keyword, license, categories, author, like, status : postStatus } = filter;
 
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
-        const { name, pro } = data;
+        const { name, pro, status } = data;
         const { name: authorName } = layoutAuthor;
+        const dev = '--dev_mode--';
 
         if (like) {
             if (false === layoutLike) {
@@ -28,6 +29,14 @@ const layoutFilter = (layoutData, filter) => {
 
             if (proState !== license) {
                 return false;
+            }
+        }
+
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
             }
         }
 
@@ -163,12 +172,13 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    const { license, categories, author, like } = filter;
+    const { license, categories, author, like, status : postStatus } = filter;
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
-        const { pro } = data;
+        const { pro, status } = data;
         const { name: authorName } = sectionAuthor;
+        const dev = '--dev_mode--';
 
         if (like) {
             if (false === sectionLike) {
@@ -181,6 +191,14 @@ const sectionFilter = (sectionData, filter) => {
 
             if (proState !== license) {
                 return false;
+            }
+        }
+
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
             }
         }
 
@@ -207,11 +225,12 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license } = filter;
+    const { keyword, license, status : postStatus } = filter;
 
     themeData = themeData.filter((layout) => {
         const { data } = layout;
-        const { name, pro } = data;
+        const { name, pro, status } = data;
+        const dev = '--dev_mode--';
 
         if (keyword) {
             if (!name.toLowerCase().includes(keyword.toLowerCase())) {
@@ -227,6 +246,14 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
+        if ( 'true' === dev ) {
+            if ( postStatus ) {
+                if ( postStatus !== status ) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     });
 
@@ -238,7 +265,7 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements } = data;
+        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
 
         return {
             id,
@@ -252,7 +279,8 @@ export const filterTheme = (themeData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author
+            author,
+            status
         };
     });
 

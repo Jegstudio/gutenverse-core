@@ -26,13 +26,13 @@ const PopupPro = ({
             <EscListener execute={() => setActive(false)} />
             <div className="popup-pro">
                 <div className="popup-content" ref={popupRef}>
-                    <img className="image popup-image-background" src={`${imgDir}/banner/pop-up/bg-popup-banner.png`} />
-                    <img className="image popup-image-mockup" src={`${imgDir}/banner/pop-up/mockup-pro.png`} />
-                    <img className="image popup-image-cube" src={`${imgDir}/banner/pop-up/3d-cube-2.png`} />
-                    <img className="image popup-image-element1" src={`${imgDir}/banner/pop-up/icon-element.png`} />
-                    <img className="image popup-image-element2" src={`${imgDir}/banner/pop-up/icon-element-2.png`} />
-                    <img className="image popup-image-element3" src={`${imgDir}/banner/pop-up/icon-element-3.png`} />
-                    <img className="image popup-image-arrow" src={`${imgDir}/banner/arrow-blue.png`} />
+                    <img className="image popup-image-background" src={`${imgDir}/pop-up-bg-popup-banner.png`} />
+                    <img className="image popup-image-mockup" src={`${imgDir}/pop-up-mockup-pro.png`} />
+                    <img className="image popup-image-cube" src={`${imgDir}/pop-up-3d-cube-2.png`} />
+                    <img className="image popup-image-element1" src={`${imgDir}/pop-up-icon-element.png`} />
+                    <img className="image popup-image-element2" src={`${imgDir}/pop-up-icon-element-2.png`} />
+                    <img className="image popup-image-element3" src={`${imgDir}/pop-up-icon-element-3.png`} />
+                    <img className="image popup-image-arrow" src={`${imgDir}/banner-arrow-blue.png`} />
                     <div className="close" onClick={() => setActive(false)}>
                         <IconCloseSVG size={20} />
                     </div>

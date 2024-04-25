@@ -79,7 +79,7 @@ const Settings = (props) => {
         <PopupPro
             active={popupActive}
             setActive={setPopupActive}
-            description={'Upgrade Gutenverse PRO version to unlock these premium features ✌'}
+            description={'Upgrade Gutenverse PRO version to unlock these premium features'}
         />
         <DashboardHeader>
             <h2>{__('General Settings', '--gctd--')}</h2>

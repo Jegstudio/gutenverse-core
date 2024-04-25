@@ -7,6 +7,10 @@
  * @package gutenverse-framework
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( defined( 'GUTENVERSE_FRAMEWORK_VERSION' ) ) {
 	return;
 }

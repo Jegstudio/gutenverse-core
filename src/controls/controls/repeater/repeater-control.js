@@ -11,6 +11,7 @@ import cryptoRandomString from 'crypto-random-string';
 import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
+import u from 'umbrellajs';
 
 const DragHandle = SortableHandle(() =>
     <div className={'repeater-drag-handle'}>
@@ -39,7 +40,7 @@ const SortableItem = SortableElement(props => {
         id,
         resetMethod,
         refreshStyle,
-        booleanSwitcher = false,
+        booleanSwitcher = false
     } = props;
     const toggleOpen = () => {
         if (openLast === null || openLast !== index) {
@@ -48,7 +49,6 @@ const SortableItem = SortableElement(props => {
             setOpenLast(null);
         }
     };
-
     const onUpdateIndexValue = (val) => {
         const newValue = items.map((item, idx) => index === idx ? val : item);
         onValueChange(newValue);
@@ -63,10 +63,42 @@ const SortableItem = SortableElement(props => {
         e.stopPropagation();
         duplicateIndex(index);
     };
+    const isHaveUniqueId = () => {
+        if(items[index].spanId){
+            return items[index].spanId;
+        }
+    };
+    const handleEnter = () => {
+        let wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).addClass('hover-child-style');
+        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas');
+        if(iframe.length > 0){
+            wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
+            wrapper.nodes.map(el => {
+                u(el).addClass('hover-child-style');
+            });
+        }
+    };
+    const handleLeave = () => {
+        let wrapper = u(`.${items[index].spanId}, #${items[index].spanId}`);
+        wrapper.nodes.map(el => {
+            u(el).removeClass('hover-child-style');
+        });
+        const iframe = u('.edit-site-visual-editor__editor-canvas');
+        if(iframe.length > 0){
+            wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
+            wrapper.nodes.map(el => {
+                u(el).removeClass('hover-child-style');
+            });
+        }
+    };
+
     const itemClass = classnames('repeater-item', index === openLast ? 'open' : 'close');
     const title = processTitle(titleFormat, items[index]);
     return <div className={itemClass}>
-        <div className={'repeater-header'} onClick={() => toggleOpen()}>
+        <div className={`repeater-header ${isHaveUniqueId()}`} onClick={() => toggleOpen()} onMouseEnter={() => handleEnter()} onMouseLeave={() => handleLeave()} >
             <DragHandle />
             <div className={'repeater-title'} dangerouslySetInnerHTML={{ __html: title }} />
             {
@@ -213,34 +245,39 @@ const processTitle = (format, values) => {
     }
 };
 
-const RepeaterControl = ({
-    label,
-    allowDeviceControl,
-    repeaterDefault = {},
-    value = [],
-    onValueChange,
-    onStyleChange,
-    options,
-    titleFormat,
-    description = '',
-    throttleSave,
-    values,
-    id: rootId,
-    refreshDrag = true,
-    isDuplicate = true,
-    isAddNew = true,
-    isRemove = true,
-    isDragable = true,
-    isReset = false,
-    resetStatus = false,
-    resetMethod,
-    infoMessage,
-    booleanSwitcher
-}) => {
+const RepeaterControl = (props) => {
+    const {
+        label,
+        allowDeviceControl,
+        repeaterDefault = {},
+        value = [],
+        onValueChange,
+        onStyleChange,
+        options,
+        titleFormat,
+        description = '',
+        throttleSave,
+        values,
+        id: rootId,
+        refreshDrag = true,
+        isDuplicate = true,
+        isAddNew = true,
+        isRemove = true,
+        isDragable = true,
+        isReset = false,
+        resetStatus = false,
+        resetMethod,
+        infoMessage,
+        booleanSwitcher,
+        openChild = ''
+    } = props;
     const { addStyle, removeStyle, refreshStyle } = values;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
-
+    useEffect(() => {
+        let indexOpenChild = value.findIndex(el => el.id === openChild);
+        setOpenLast(indexOpenChild);
+    },[openChild]);
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {

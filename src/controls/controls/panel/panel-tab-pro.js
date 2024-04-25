@@ -1,8 +1,9 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconCrownSVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
+import { ButtonUpgradePro } from 'gutenverse-core/components';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
@@ -39,7 +40,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/blink-2.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/pro/banner-global/arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <ButtonProFirst/>
+                                    <ButtonUpgradePro isBanner={true} location = "card-pro"/>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">

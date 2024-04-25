@@ -69,12 +69,13 @@
   height: 28px;
   width: 28px;
   cursor: grab;
-  margin-right:2px;
-  margin-left:-10px;
+  margin-right: 2px;
+  margin-left: -10px;
 }
+
 .repeater-remove,
 .repeater-duplicate,
-.repeater-clear{
+.repeater-clear {
   @include centering-element();
   width: 28px;
   height: 28px;
@@ -89,16 +90,19 @@
     color: #99a2a9;
   }
 }
-.repeater-remove{
+
+.repeater-remove {
   margin-right: 10px;
 }
-.repeater-duplicate{
+
+.repeater-duplicate {
   svg {
     width: 12px;
     height: 12px;
     color: #99a2a9;
   }
 }
+
 .gutenverse-control-wrapper {
 
   font-size: 13px;
@@ -837,7 +841,10 @@
     }
 
     /** Font **/
+    &dynamic,
     &font {
+
+      .post-option,
       .font-option {
         padding: 7px 15px;
         cursor: pointer;
@@ -1164,8 +1171,11 @@
           padding: 10px;
 
           h4 {
-            margin-top: 5px;
-            margin-bottom: 0;
+            margin-bottom: 4px;
+            margin-top: 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0px;
           }
         }
 
@@ -1273,6 +1283,7 @@
     }
 
     /** Typography & Box Shadow **/
+    &dynamic,
     &typography,
     &box-shadow,
     &text-shadow,
@@ -1284,13 +1295,15 @@
         &>div {
           width: 45%;
         }
-        .gutenverse-control-wrapper{
-          .control-title{
+
+        .gutenverse-control-wrapper {
+          .control-title {
             height: 64px;
           }
         }
       }
 
+      .dynamic-control-icon,
       .typography-icon,
       .box-shadow-icon,
       .text-shadow-icon,
@@ -1598,8 +1611,9 @@
         width: 16px;
         margin-right: 2px;
         cursor: grab;
-        margin-left:-10px;
+        margin-left: -10px;
       }
+
       .repeater-remove,
       .repeater-duplicate,
       .repeater-clear,
@@ -1618,7 +1632,8 @@
           color: #99a2a9;
         }
       }
-      .repeater-duplicate{
+
+      .repeater-duplicate {
         svg {
           width: 25px;
           height: 12px;
@@ -1626,6 +1641,7 @@
           color: #99a2a9;
         }
       }
+
       .repeater-empty {
         border: 1px dashed #c1c1c1;
         padding: 20px;
@@ -1874,12 +1890,21 @@
       }
     }
 
+    /** condition **/
+    &condition {
+      >* {
+        display: block;
+      }
+    }
+
     /** background **/
     &background {
       >* {
         display: block;
       }
-
+      .control-title{
+        display: flex;
+      }
       .gradient-type {
         display: flex;
         justify-content: space-between;

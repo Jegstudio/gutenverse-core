@@ -20,11 +20,11 @@ const BannerPro = ({
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && (
             <>
-                <img className="banner-image-background" src={`${imgDir}/banner/${backgroundGradient}`} />
-                <img className="banner-image-left" src={`${imgDir}/banner/${leftBannerImg}`} />
-                <img className="banner-image-right" src={`${imgDir}/banner/${rightBannerImg}`} />
-                <img className={`banner-image-arrow ${container}`} src={`${imgDir}/banner/arrow-blue.png`} />
-                <img className={`banner-image-blink ${container}`} src={`${imgDir}/banner/graphic-blink.png`} />
+                <img className="banner-image-background" src={`${imgDir}/${backgroundGradient}`} />
+                <img className="banner-image-left" src={`${imgDir}/${leftBannerImg}`} />
+                <img className="banner-image-right" src={`${imgDir}/${rightBannerImg}`} />
+                <img className={`banner-image-arrow ${container}`} src={`${imgDir}/banner-arrow-blue.png`} />
+                <img className={`banner-image-blink ${container}`} src={`${imgDir}/banner-graphic-blink.png`} />
             </>
         )}
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}

@@ -286,7 +286,7 @@ class Init {
 	 */
 	public function notice_install_plugin() {
 		// skip if compatible.
-		if ( is_gutenverse_compatible() ) {
+		if ( gutenverse_compatible_check() ) {
 			return;
 		}
 
@@ -383,5 +383,4 @@ class Init {
 		</div>
 		<?php
 	}
-	
 }

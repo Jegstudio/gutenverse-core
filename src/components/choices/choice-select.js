@@ -266,9 +266,16 @@ const ChoiceInnerSingle = ({ selected, clearSelected, placeholder }) => {
 
 const ChoiceMultiInner = props => {
     const { selected, setSelected, setOpen, setSearch, searchKeyword, placeholder } = props;
+    const [ placeholderContent, setPlaceholderContent ] = useState(placeholder);
     const innerRef = useRef();
     const inputRef = useRef();
-
+    useEffect(() => {
+        if(selected.length > 0){
+            setPlaceholderContent('');
+        }else{
+            setPlaceholderContent(placeholder);
+        }
+    },[selected]);
     const choiceInnerClicked = () => {
         setOpen(true);
         inputRef.current.focus();
@@ -295,7 +302,7 @@ const ChoiceMultiInner = props => {
                 </div>;
             })}
         </div>
-        <input type="text" className="choices__input" ref={inputRef} onChange={searchOption} placeholder={placeholder} value={searchKeyword} />
+        <input type="text" className="choices__input" ref={inputRef} onChange={searchOption} placeholder={placeholderContent} value={searchKeyword} />
     </div >;
 };
 

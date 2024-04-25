@@ -1,11 +1,11 @@
 import { useEffect, useState, createPortal } from '@wordpress/element';
 import { Loader } from 'react-feather';
-import { LogoFullWhiteSVG, IconBlocksSVG, IconLayoutsSVG, IconLoveSVG } from 'gutenverse-core/icons';
+import { LogoFullWhiteNoTextSVG, IconBlocksSVG, IconLayoutsSVG, IconLoveSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
 import { dispatch } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core/requests';
-import { signal } from 'gutenverse-core/editor-helper';
+import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
 
@@ -58,13 +58,6 @@ const Library = () => {
         };
     });
 
-    setTimeout(() => {
-        let injectLocation = document.getElementsByClassName('edit-post-header-toolbar')[0];
-        injectLocation = injectLocation ? injectLocation : document.getElementsByClassName('edit-site-header_start')[0];
-        injectLocation = injectLocation ? injectLocation : document.getElementsByClassName('edit-site-header-edit-mode__start')[0];
-        setInjectLocation(injectLocation);
-    }, 1000);
-
     const libraryButton = (
         <div className="gutenverse-top-button">
             <div className="gutenverse-library-button" id={'gutenverse-library-button'} onClick={() => {
@@ -76,20 +69,28 @@ const Library = () => {
                         <Loader size={20} />
                     </div>
                 </div>}
-                <div style={{ marginRight: '2px', display: 'flex' }}>
-                    <LogoFullWhiteSVG />
+                <div style={{ marginRight: '7px', display: 'flex' }}>
+                    <LogoFullWhiteNoTextSVG />
                 </div>
                 <span>
-                    {__('Library', '--gctd--')}
+                    {loading && open ? __('Populating Library . . .', '--gctd--') : __('Gutenverse Library', '--gctd--')}
                 </span>
             </div>
         </div>
     );
 
+    useEffect(() => {
+        getEditSiteHeader().then(result => {
+            setInjectLocation(result);
+        });
+    });
+
     // Init store.
     useEffect(() => {
+        const dev = 'true' == '--dev_mode--';
         if (open) {
-            fetchLibraryData().then(result => {
+            const fetchData = async (dev) => {
+                const result = await fetchLibraryData(dev);
                 dispatch('gutenverse/library').initialLibraryData({
                     'layoutData': result['layout-data'],
                     'layoutCategories': result['layout-categories'],
@@ -97,14 +98,22 @@ const Library = () => {
                     'themeCategories': result['theme-categories'],
                     'sectionData': result['section-data'],
                     'sectionCategories': result['section-categories'],
-                    'pluginEcosystem': result['plugin-ecosystem']
+                    'pluginEcosystem': result['plugin-ecosystem'],
                 });
                 setLoading(false);
-            });
+            };
+
+            if (dev) {
+                fetchData(true);
+            } else {
+                fetchData(false);
+            }
+
             const { plugins } = window['GutenverseConfig'];
             dispatch('gutenverse/library').initialPluginData({
                 'installedPlugin': plugins,
             });
+
             dispatch('gutenverse/library').initialModalData({
                 'libraryData': initLibraryState,
                 'layoutContentData': initLayoutState

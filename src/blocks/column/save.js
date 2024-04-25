@@ -32,6 +32,7 @@ const save = compose(
         backgroundOverlayHover,
         backgroundAnimated = {},
         backgroundEffect = {},
+        anchor
     } = attributes;
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
@@ -65,6 +66,7 @@ const save = compose(
 
     const blockProps = useBlockProps.save({
         className: wrapperClasses,
+        id: anchor,
         ...advanceAnimationData,
         ...(
             isCanSticky
@@ -74,6 +76,7 @@ const save = compose(
     });
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
+
     return (
         <div {...blockProps}>
             <FluidCanvasSave attributes={attributes} />

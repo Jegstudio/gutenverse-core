@@ -14,23 +14,24 @@ const RangeControl = ({
     liveUpdate,
     disabled = false,
     allowDeviceControl,
+    showDeviceControl = false,
     onStart = () => {},
     onEnd = () => {},
     onValueChange,
     onStyleChange,
     description = '',
+    isParseFloat = false,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
 
     const [localValue, setLocalValue] = useState(value);
     const [updating, setUpdating] = useState(false);
-
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
             id={`${id}-range`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}
         />
         <div className={'control-body'}>
             <div className={'control-slider-range'}>
@@ -45,13 +46,24 @@ const RangeControl = ({
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        setLocalValue(e.target.value);
+                        if(isParseFloat){
+                            onStyleChange(parseFloat(e.target.value));
+                            setLocalValue(parseFloat(e.target.value));
+                            liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
+                        }else{
+                            onStyleChange(e.target.value);
+                            setLocalValue(e.target.value);
+                            liveUpdate ? onValueChange(e.target.value) : null;
+                        }
                         setUpdating(true);
-                        liveUpdate ? onValueChange(e.target.value) : null;
                     }}
                     onMouseUp={(e) => {
-                        onValueChange(e.target.value);
+                        if(isParseFloat){
+                            onValueChange(parseFloat(e.target.value));
+                        }else{
+                            onValueChange(e.target.value);
+
+                        }
                         setUpdating(false);
                         onEnd();
                     }}
@@ -69,8 +81,13 @@ const RangeControl = ({
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        onStyleChange(e.target.value);
-                        onValueChange(e.target.value);
+                        if(isParseFloat){
+                            onStyleChange(parseFloat(e.target.value));
+                            onValueChange(parseFloat(e.target.value));
+                        }else{
+                            onStyleChange(e.target.value);
+                            onValueChange(e.target.value);
+                        }
                     }}
                 />
             </div>
