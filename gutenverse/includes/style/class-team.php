@@ -69,6 +69,19 @@ class Team extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['hoverBottomHeight'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .border-bottom, .{$this->element_id} .border-bottom .animated",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'height' );
+					},
+					'value'          => $this->attrs['hoverBottomHeight'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['alignment'] ) ) {
 			$this->inject_style(
 				array(
@@ -485,6 +498,14 @@ class Team extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+
+		if ( isset( $this->attrs['imageBackground'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img", $this->attrs['imageBackground'] );
+		}
+
+		if ( isset( $this->attrs['imageBackgroundHover'] ) ){
+			$this->handle_background( ".{$this->element_id} .profile-box .profile-card img:hover", $this->attrs['imageBackgroundHover'] );
 		}
 
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {

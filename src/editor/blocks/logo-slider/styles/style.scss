@@ -27,6 +27,7 @@
         height: auto;
         width: 100%;
         box-sizing: border-box;
+        @include transition(false, false, opacity 0.25s ease-in-out 0s);
       }
       .hover-image {
         position: absolute;
@@ -37,6 +38,11 @@
         opacity: 0;
         @include transform(false, translateY(-50%));
         @include transition(false, false, opacity 0.25s ease-in-out 0s);
+      }
+    }
+    .swiper-slide:hover{
+      .main-image{
+        opacity: 0;
       }
     }
     // .content-image:hover .main-image {

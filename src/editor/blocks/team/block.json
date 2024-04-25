@@ -254,6 +254,14 @@
       "type": "object",
       "copyStyle": true
     },
+    "imageBackground": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "imageBackgroundHover": {
+      "type": "object",
+      "copyStyle": true
+    },
     "imageBorder": {
       "type": "object",
       "copyStyle": true
@@ -341,6 +349,10 @@
       "copyStyle": true
     },
     "hoverBottomColor": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "hoverBottomHeight": {
       "type": "object",
       "copyStyle": true
     },

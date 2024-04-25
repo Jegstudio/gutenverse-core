@@ -31,7 +31,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBorder',
-            show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
+            show: (!switcher.imageBorder || switcher.imageBorder === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
             style: [
@@ -44,7 +44,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBorderResponsive',
-            show: (!switcher.border || switcher.border === 'normal') && device !== 'Desktop',
+            show: (!switcher.imageBorder || switcher.imageBorder === 'normal') && device !== 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -58,7 +58,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBoxShadow',
-            show: !switcher.border || switcher.border === 'normal',
+            show: !switcher.imageBorder || switcher.imageBorder === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -71,7 +71,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBorderHover',
-            show: switcher.border === 'hover' && device === 'Desktop',
+            show: switcher.imageBorder === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
             style: [
@@ -84,7 +84,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBorderHoverResponsive',
-            show: switcher.border === 'hover' && device !== 'Desktop',
+            show: switcher.imageBorder === 'hover' && device !== 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -98,7 +98,7 @@ export const imageBorderPanel = (props) => {
         },
         {
             id: 'imageBoxShadowHover',
-            show: switcher.border === 'hover',
+            show: switcher.imageBorder === 'hover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
             style: [

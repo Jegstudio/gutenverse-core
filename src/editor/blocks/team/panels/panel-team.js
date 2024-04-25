@@ -194,6 +194,33 @@ export const teamPanel = (props) => {
             ]
         },
         {
+            id: 'hoverBottomHeight',
+            show: hoverBottom,
+            label: __('Hover Border Bottom Height', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 1000,
+                    step: 1
+                },
+                em: {
+                    text: 'em',
+                    min: 0.1,
+                    max: 10,
+                    step: 0.1
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .border-bottom, .${elementId} .border-bottom .animated `,
+                    render: value => handleUnitPoint(value, 'height')
+                }
+            ]
+        },
+        {
             id: 'hoverBottomDirection',
             show: hoverBottom && ['default', 'hover'].includes(profileType),
             label: __('Hover Direction', 'gutenverse'),

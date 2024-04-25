@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
@@ -12,6 +12,7 @@ import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
 import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
+import { HighLightToolbar } from 'gutenverse-core/toolbars';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -27,7 +28,6 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 const Accordion = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withDinamicContent('title')
 )(props => {
     const {
         getBlocks,
@@ -134,6 +134,9 @@ const Accordion = compose(
         '',
         { isActive: true }
     );
+    
+    HighLightToolbar(props);
+
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -184,6 +187,8 @@ const Accordion = compose(
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
                     dynamicList={'dynamicDataList'}
+                    isUseDinamic={true}
+                    isUseHighlight={true}
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>

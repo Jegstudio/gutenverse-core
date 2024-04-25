@@ -12,6 +12,7 @@ import { imageBorderPanel } from './panel-image-border';
 import { overlayPanel } from './panel-content-overlay';
 import { hoverPanel } from './panel-content-hover';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { imageBackgroundPanel } from './panel-image-background';
 
 export const panelList = () => {
     return [
@@ -110,6 +111,12 @@ export const panelList = () => {
                 ...props,
                 styleId: 'team-image-border',
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Image Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: imageBackgroundPanel,
             tabRole: TabStyle
         },
         {

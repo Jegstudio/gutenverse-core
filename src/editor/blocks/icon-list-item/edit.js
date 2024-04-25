@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState } from '@wordpress/element';
-import { withCustomStyle, withDinamicContent } from 'gutenverse-core/hoc';
+import { withCustomStyle } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -10,7 +10,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
-import { URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useEffect } from '@wordpress/element';
@@ -26,7 +26,6 @@ const NEW_TAB_REL = 'noreferrer noopener';
 const IconListItemBlock = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withDinamicContent('text'),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
@@ -92,6 +91,7 @@ const IconListItemBlock = compose(
         'gutenverse.pro.dynamic.toolbar',
         { isActive: true }
     );
+    HighLightToolbar(props);
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -143,6 +143,8 @@ const IconListItemBlock = compose(
                     setPanelState={setPanelState}
                     textChilds={'textChilds'}
                     dynamicList={'dynamicDataList'}
+                    isUseDinamic={true}
+                    isUseHighlight={true}
                 />
             </a>
         </li>
