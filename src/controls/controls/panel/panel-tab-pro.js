@@ -12,7 +12,7 @@ const PanelTabPro = ({ activeTab }) => {
     const ButtonProFirst = applyFilters(
         'gutenverse.pro-text-button', 
         () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownSVG transform="translate(0,3)" /> </span></a>, 
+        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /> </span></a>, 
         {location, buttonType : 'first'});
     const ButtonProSecond = applyFilters(
         'gutenverse.pro-text-button', 
