@@ -1,7 +1,7 @@
 {
   "apiVersion": 2,
-  "name": "gutenverse/text",
-  "title": "Text",
+  "name": "gutenverse/text-paragraph",
+  "title": "Text Paragraph",
   "description": "Paragraph Block Gutenverse ",
   "category": "gutenverse-element",
   "allowCopyStyle": true,
@@ -182,6 +182,7 @@
   },
   "keywords": [
     "text",
+    "text-paragraph",
     "editor",
     "textarea"
   ]
