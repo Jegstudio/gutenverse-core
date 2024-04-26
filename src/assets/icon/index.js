@@ -29,6 +29,7 @@ import Icon from './icon.svg';
 import IconTabsItem from './icon-tabs-item.svg';
 import IconListItem from './icon-list-item.svg';
 import IconPopupBuilder from './icon-pop-up-builder.svg';
+import IconTextParagraph from './icon-text-paragraph.svg';
 
 /** Social */
 import IconShareEmail from './icon-share-email.svg';
@@ -324,3 +325,7 @@ export const IconAdvanceTabsSVG = () => {
 export const IconAdvanceButtonSVG = () => {
     return <IconAdvanceButton />;
 };
+
+export const IconTextParagraphSVG = () => {
+    return <IconTextParagraph />;
+}
