@@ -26,6 +26,7 @@ export const settingPanel = ({elementId, grid}) => {
             id: 'showed',
             label: __('Total Item to Show', 'gutenverse'),
             component: RangeControl,
+            isParseFloat: true,
             min: 1,
             max: 50,
             step: 1,
