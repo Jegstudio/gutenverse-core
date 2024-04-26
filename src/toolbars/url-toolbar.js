@@ -5,6 +5,7 @@ import { link, linkOff } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { displayShortcut, rawShortcut } from '@wordpress/keycodes';
 import { applyFilters } from '@wordpress/hooks';
+import { IconDinamicSVG } from 'gutenverse-core/icons';
 
 export const URLToolbar = ({
     isSelected,
@@ -76,14 +77,18 @@ export const URLToolbar = ({
                 }}
             />
             {usingDynamic && !urlIsSetandSelected && isPro &&<div className="gutenverse-dynamic-pop-over-container">
-                <CheckboxControl
-                    label="Use Dynamic Link"
-                    checked={isChecked}
-                    onChange={() => {setIsChecked(prev => !prev);}}
-                />
+                <div>
+                    <CheckboxControl
+                        label={__('Use Dynamic Link', '--gctd--')}
+                        checked={isChecked}
+                        onChange={() => {setIsChecked(prev => !prev);}}
+                    />
+                    <IconDinamicSVG />
+                </div>
+
                 <div className="button-container">
-                    <button className="gutenverse-pop-over-button-cancel" onClick={()=>{setIsURLPickerOpen(false);}}>Cancel</button>
-                    <button className={`gutenverse-pop-over-button-apply ${isChecked ? 'checked' : ''}`} onClick={isChecked ? ()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false); setPanelState(panelState);} : {}}>Apply</button>
+                    <button className="gutenverse-pop-over-button-cancel" onClick={()=>{setIsURLPickerOpen(false); setIsChecked(false);}}>{__('Cancel', '--gctd--')}</button>
+                    <button className={`gutenverse-pop-over-button-apply ${isChecked ? 'checked' : ''}`} onClick={isChecked ? ()=>{setAttributes({isDynamic: true}); setIsURLPickerOpen(false); setPanelState(panelState);} : {}}>{__('Apply', '--gctd--')}</button>
                 </div>
             </div>}
         </Popover>

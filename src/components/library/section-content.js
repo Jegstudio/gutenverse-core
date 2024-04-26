@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
-import { RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
+import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
 import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
 import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
@@ -40,6 +40,7 @@ const SectionContentWrapper = (props) => {
 
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
+    const [status, setStatus] = useState('');
     const [content, setContent] = useState({});
     const [scroller, setScroller] = useState(null);
     const [categoryCache, setCategoryCache] = useState('');
@@ -103,6 +104,7 @@ const SectionContentWrapper = (props) => {
         const categories = filterCategories(sectionData, sectionCategories, {
             license: license?.value,
             author: author?.value,
+            status: status?.value,
         }, 'section');
         setCategories(categories);
     }, [license, author]);
@@ -115,6 +117,7 @@ const SectionContentWrapper = (props) => {
     const changePaging = (page) => {
         dispatch( 'gutenverse/library' ).setPaging(page);
     };
+    const dev = '--dev_mode--' === 'true';
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
@@ -122,6 +125,10 @@ const SectionContentWrapper = (props) => {
                 <h2 className="gutenverse-library-side-heading" style={{ marginTop: 0 }}> {__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} dispatchData={dispatchData} />
             </>
+            {dev && <>
+                <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
+                <SelectStatus status={status} setStatus={setStatus} />
+            </>}
             {authors.length > 1 && <>
                 <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />

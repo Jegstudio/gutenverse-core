@@ -87,8 +87,10 @@ const Library = () => {
 
     // Init store.
     useEffect(() => {
+        const dev = 'true' == '--dev_mode--';
         if (open) {
-            fetchLibraryData().then(result => {
+            const fetchData = async (dev) => {
+                const result = await fetchLibraryData(dev);
                 dispatch('gutenverse/library').initialLibraryData({
                     'layoutData': result['layout-data'],
                     'layoutCategories': result['layout-categories'],
@@ -96,14 +98,22 @@ const Library = () => {
                     'themeCategories': result['theme-categories'],
                     'sectionData': result['section-data'],
                     'sectionCategories': result['section-categories'],
-                    'pluginEcosystem': result['plugin-ecosystem']
+                    'pluginEcosystem': result['plugin-ecosystem'],
                 });
                 setLoading(false);
-            });
+            };
+
+            if (dev) {
+                fetchData(true);
+            } else {
+                fetchData(false);
+            }
+
             const { plugins } = window['GutenverseConfig'];
             dispatch('gutenverse/library').initialPluginData({
                 'installedPlugin': plugins,
             });
+
             dispatch('gutenverse/library').initialModalData({
                 'libraryData': initLibraryState,
                 'layoutContentData': initLayoutState

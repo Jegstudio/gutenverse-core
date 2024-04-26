@@ -55,6 +55,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const data = modalData.layoutContentData;
     const [categories, setCategories] = useState([]);
     const [license, setLicense] = useState('');
+    const [status, setStatus] = useState('');
     const [scroller, setScroller] = useState(null);
     const scrollerRef = useRef();
     const { keyword } = data;
@@ -112,10 +113,12 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
         const categories = filterCategories(layoutData, layoutCategories, {
             license: license?.value,
             author: author?.value,
+            status: status?.value,
             keyword,
         }, 'layout');
         setCategories(categories);
     }, [license, keyword, author]);
+    const dev = '--dev_mode--' === 'true';
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}  >
@@ -128,6 +131,10 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             {<>
                 <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                 <SelectLicense license={license} setLicense={setLicense} />
+            </>}
+            {dev && <>
+                <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
+                <SelectStatus status={status} setStatus={setStatus} />
             </>}
             {authors.length > 1 && <>
                 <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
@@ -181,6 +188,25 @@ export const SelectLicense = ({ license, setLicense }) => {
                 { value: '', label: __('All', '--gctd--') },
                 { value: 'pro', label: __('Pro', '--gctd--') },
                 { value: 'free', label: __('Free', '--gctd--') },
+            ]}
+        />
+    </div>;
+};
+
+export const SelectStatus = ({ status, setStatus }) => {
+    return <div className="gutenverse-library-select">
+        <Select
+            styles={customStyles}
+            isMulti={false}
+            value={status}
+            onChange={status => {
+                setStatus(status);
+                dispatch( 'gutenverse/library' ).setStatus(status.value);
+            }}
+            options={[
+                { value: '', label: __('All', '--gctd--') },
+                { value: 'publish', label: __('Publish', '--gctd--') },
+                { value: 'draft', label: __('Draft', '--gctd--') },
             ]}
         />
     </div>;
