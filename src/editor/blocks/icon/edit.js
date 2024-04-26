@@ -13,7 +13,7 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { displayShortcut } from '@wordpress/keycodes';
 import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor16SVG } from 'gutenverse-core/icons';
+import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -110,7 +110,7 @@ const IconBlock = compose(
                 />
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor16SVG/>}
+                    icon={<LogoCircleColor24SVG/>}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}

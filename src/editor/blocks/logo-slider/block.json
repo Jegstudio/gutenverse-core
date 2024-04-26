@@ -373,6 +373,22 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"logoWrapperMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"logoWrapperPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"logoBackgroundNormal":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"logoBackgroundHover":{
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {

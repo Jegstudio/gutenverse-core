@@ -17,6 +17,9 @@
       &:hover .content-image .hover-image {
         opacity: 1;
       }
+      &:hover .content-image .main-image{
+        opacity: 0;
+      }
     }
     .content-image {
       position: relative;
@@ -39,11 +42,7 @@
         @include transform(false, translateY(-50%));
         @include transition(false, false, opacity 0.25s ease-in-out 0s);
       }
-    }
-    .swiper-slide:hover{
-      .main-image{
-        opacity: 0;
-      }
+
     }
     // .content-image:hover .main-image {
     //   opacity: 0;
