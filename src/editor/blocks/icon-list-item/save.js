@@ -3,6 +3,7 @@ import { classnames } from 'gutenverse-core/components';
 import { RichText, useBlockProps } from '@wordpress/block-editor';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const save = ({ attributes }) => {
     const {
@@ -27,9 +28,17 @@ const save = ({ attributes }) => {
         displayClass,
     );
 
+    const href = applyFilters(
+        'gutenverse.dynamic.generate-url',
+        url,
+        'dynamicUrl',
+        attributes,
+        elementId
+    );
+
     return (
         <div {...useBlockProps.save({ className })}>
-            <a id={elementId} href={url} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
+            <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
                 {!hideIcon && <i className={icon} />}
                 <RichText.Content
                     className={`list-text ${hideIcon ? 'no-icon' : ''}`}

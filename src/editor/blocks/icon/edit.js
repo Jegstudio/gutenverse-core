@@ -20,6 +20,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -33,7 +34,8 @@ const IconBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        setPanelState
     } = props;
 
     const {
@@ -44,12 +46,14 @@ const IconBlock = compose(
         url,
         rel,
         linkTarget,
+        dynamicUrl,
     } = attributes;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const iconRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -90,24 +94,55 @@ const IconBlock = compose(
         [rel, setAttributes]
     );
 
+    const panelState = {
+        panel: 'setting',
+        section: 2,
+    };
+
     useEffect(() => {
         if (iconRef.current) {
             setElementRef(iconRef.current);
         }
     }, [iconRef]);
 
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        dynamicUrlcontent && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.log(error);
+            });
+        if (dynamicHref !== undefined){
+            setAttributes({ url: dynamicHref, isDynamic: true});
+        } else {setAttributes({ url: undefined });}
+    },[dynamicUrl, dynamicHref]);
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                    />,
+                    props,
+                    panelState
+                )}
                 <ToolbarButton
                     name="icon"
                     icon={<LogoCircleColor16SVG/>}

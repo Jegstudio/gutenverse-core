@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
 import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
-import { BlockControls, RichText, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
+import { BlockControls, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
@@ -22,6 +22,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -55,11 +56,10 @@ const IconBoxBlock = compose(
     const {
         elementId,
         url,
+        dynamicUrl,
         rel,
         linkTarget,
-        title,
         titleTag,
-        description,
         image,
         imageAlt,
         icon,
@@ -69,7 +69,6 @@ const IconBoxBlock = compose(
         watermarkIcon,
         watermarkShow,
         badgeShow,
-        badge,
         badgePosition,
         iconBoxOverlayDirection = 'left',
         separateButtonLink,
@@ -84,6 +83,7 @@ const IconBoxBlock = compose(
     const titleRef = useRef();
     const descRef = useRef();
     const badgeRef = useRef();
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -175,20 +175,52 @@ const IconBoxBlock = compose(
         });
     },[hoverWithParent]);
 
+    const panelState = {
+        panel: 'setting',
+        section: 2,
+    };
+
     HighLightToolbar(props);
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        dynamicUrlcontent && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.log(error);
+            });
+        if (dynamicHref !== undefined){
+            setAttributes({ url: dynamicHref, isDynamic: true});
+        } else {setAttributes({ url: undefined });}
+    },[dynamicUrl, dynamicHref]);
 
     return <>
         <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                        title="Global Link"
+                    />,
+                    props,
+                    panelState
+                )}
                 <ToolbarButton
                     name="icon"
                     icon={<LogoCircleColor24SVG/>}

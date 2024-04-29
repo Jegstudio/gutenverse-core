@@ -16,6 +16,14 @@
 		"url": {
 			"type": "string"
 		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
+		},
+		"isDynamic": {
+			"type" : "boolean",
+			"default": false
+		},
 		"separateButtonLink": {
 			"type": "boolean"
 		},

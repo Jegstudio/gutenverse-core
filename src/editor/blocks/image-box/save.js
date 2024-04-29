@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const WrapAHref = ({ attributes, children }) => {
     const {
@@ -14,11 +15,19 @@ const WrapAHref = ({ attributes, children }) => {
         linkTarget,
         rel,
         buttonClass = '',
-        ariaLabel
+        ariaLabel,
+        elementId,
     } = attributes;
 
     if (url !== undefined && url !== '') {
-        return <a className={buttonClass} href={url} target={linkTarget} aria-label={ariaLabel} rel={rel}>
+        const href = applyFilters(
+            'gutenverse.dynamic.generate-url',
+            url,
+            'dynamicUrl',
+            attributes,
+            elementId
+        );
+        return <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>
             {children}
         </a>;
     } else {

@@ -204,7 +204,13 @@ const ButtonBlock = compose(
             'gutenverse.dynamic.fetch-url',
             dynamicUrl
         );
-        !isEmpty(dynamicUrlcontent) && dynamicUrlcontent
+
+        const dynamicTextContent = applyFilters(
+            'gutenverse.dynamic.fetch-text',
+            dynamicContent
+        );
+
+        dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
@@ -216,11 +222,7 @@ const ButtonBlock = compose(
             setAttributes({ url: dynamicHref, isDynamic: true});
         } else {setAttributes({ url: undefined });}
 
-        const dynamicTextContent = applyFilters(
-            'gutenverse.dynamic.fetch-text',
-            dynamicContent
-        );
-        !isEmpty(dynamicTextContent) && dynamicTextContent
+        dynamicTextContent && dynamicTextContent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);

@@ -2,9 +2,17 @@ import { __ } from '@wordpress/i18n';
 import { TabSetting, TabStyle, advancePanel, childStylePanel, conditionPanel, dynamicContentPanel, maskPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { panelGeneral } from './panel-general';
 import { panelIcon } from './panel-icon';
+import { itemDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Dynamic Item Url', 'gutenverse'),
+            panelArray: itemDynamicPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Dynamic Data', 'gutenverse'),
             panelArray: (props) => {

@@ -18,6 +18,14 @@
 			"selector": "a",
 			"attribute": "href"
 		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
+		},
+		"isDynamic": {
+			"type" : "boolean",
+			"default": false
+		},
 		"dynamicDataList": {
 			"type": "array",
 			"default": []

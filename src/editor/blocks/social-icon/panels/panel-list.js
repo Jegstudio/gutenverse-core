@@ -4,6 +4,7 @@ import { contentColor } from './panel-color';
 import { animationPanel, borderPanel, conditionPanel, maskPanel, responsivePanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { itemDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -12,6 +13,13 @@ export const panelList = () => {
             panelArray: contentPanel,
             initialOpen: true,
             tabRole: TabSetting
+        },
+        {
+            title: __('Dynamic Item Url', 'gutenverse'),
+            panelArray: itemDynamicPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Color', 'gutenverse'),

@@ -5,7 +5,6 @@ import {
     BlockControls,
     MediaUpload,
     MediaUploadCheck,
-    RichText,
     useBlockProps,
     useInnerBlocksProps
 } from '@wordpress/block-editor';
@@ -18,13 +17,14 @@ import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -115,9 +115,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
     const {
         titleTag: TitleTag,
-        title,
         titleIconPosition,
-        description,
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
@@ -163,7 +161,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 3}}
+                    panelDynamic={{panel : 'setting', section : 4}}
                     panelPosition={{panel : 'style', section : 1}}
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
@@ -184,7 +182,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 setAttributes={setAttributes}
                 attributes={attributes}
                 clientId={clientId}
-                panelDynamic={{panel : 'setting', section : 3}}
+                panelDynamic={{panel : 'setting', section : 4}}
                 panelPosition={{panel : 'style', section : 1}}
                 contentAttribute={'description'}
                 setPanelState={setPanelState}
@@ -210,7 +208,8 @@ const ImageBoxBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        setPanelState
     } = props;
 
     const {
@@ -219,6 +218,7 @@ const ImageBoxBlock = compose(
         rel,
         linkTarget,
         contentStyle,
+        dynamicUrl,
     } = attributes;
     HighLightToolbar(props);
     const imageBoxRef = useRef();
@@ -226,6 +226,7 @@ const ImageBoxBlock = compose(
     const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -265,17 +266,50 @@ const ImageBoxBlock = compose(
         }
     }, [imageBoxRef]);
 
+    const panelState = {
+        panel: 'setting',
+        section: 3,
+    };
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        dynamicUrlcontent && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.log(error);
+            });
+        if (dynamicHref !== undefined){
+            setAttributes({ url: dynamicHref, isDynamic: true});
+        } else {setAttributes({ url: undefined });}
+    },[dynamicUrl, dynamicHref]);
+
+
     return <>
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                        title="Item Link"
+                    />,
+                    props,
+                    panelState
+                )}
                 <ImageBoxPicker {...props}>
                     {({ open }) => <ToolbarButton
                         name="pick"
