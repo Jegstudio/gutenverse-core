@@ -131,22 +131,24 @@ export const mapId = (data) => {
 };
 
 export const filterCategories = (data, categories, filter, type) => {
-    let result;
+    let result, theCategories;
     if ('layout' === type) {
         result = layoutFilter(data, filter);
     } else {
         result = sectionFilter(data, filter);
     }
-    let theCategories = categories.map((category) => {
-        category.count = categoryCount(result, category.id);
-        if(category.childs){
-            category.childs = category.childs.map(child => {
-                child.count = categoryCount(result, parseInt(child.id));
-                return child;
-            });
-        }
-        return category;
-    });
+    if(categories){
+        theCategories = categories.map((category) => {
+            category.count = categoryCount(result, category.id);
+            if(category.childs){
+                category.childs = category.childs.map(child => {
+                    child.count = categoryCount(result, parseInt(child.id));
+                    return child;
+                });
+            }
+            return category;
+        });
+    }
 
     return [
         ...theCategories,
