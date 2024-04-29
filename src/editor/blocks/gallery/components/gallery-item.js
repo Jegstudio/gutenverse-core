@@ -55,12 +55,12 @@ const GalleryItem = (attributes) => {
                         <h5 className="item-title">{galleryItem.title}</h5>
                         <div className="item-content">{galleryItem.content}</div>
                         <div className="item-buttons">
-                            {zoomOptions !== 'disable' && <div className="gallery-link zoom">
+                            {(zoomOptions !== 'disable' && zoomIcon) && <div className="gallery-link zoom">
                                 <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
                                 </span>
                             </div>}
-                            {!galleryItem.disableLink && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link" onClick={e => e.preventDefault()}>
+                            {(!galleryItem.disableLink && linkIcon) && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link" onClick={e => e.preventDefault()}>
                                 <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>
                                 </span>
@@ -95,12 +95,12 @@ const GalleryItem = (attributes) => {
                     </div>
                     <div className="caption-button">
                         <div className="item-buttons">
-                            {zoomOptions !== 'disable' && <div className="gallery-link zoom">
+                            {(zoomOptions !== 'disable' && zoomIcon ) && <div className="gallery-link zoom">
                                 <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
                                 </span>
                             </div>}
-                            {!galleryItem.disableLink && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link">
+                            {(!galleryItem.disableLink && linkIcon ) && <a href={galleryItem.link ? galleryItem.link : ''} className="gallery-link link">
                                 <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>
                                 </span>

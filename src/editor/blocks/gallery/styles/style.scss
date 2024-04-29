@@ -67,6 +67,7 @@
 
 .guten-gallery {
     overflow-wrap: break-word;
+    width: 100%;
 
     &.guten-element-hide .gallery-item-wrap {
         visibility: hidden!important;
@@ -415,6 +416,7 @@
                         top: 0;
                         left: 0;
                         width: 100%;
+                        height: 100%;
                         @include displayflex();
                         -webkit-box-pack: justify;
                         -ms-flex-pack: justify;
@@ -425,6 +427,16 @@
                         font-size: 18px;
                         font-weight: 700;
                         line-height: normal;
+                        .item-rating{
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                        }
+                        .item-price{
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                        }
                         .item-rating li {
                             display: inline-block;
                             list-style: none;

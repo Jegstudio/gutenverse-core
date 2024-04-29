@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const logosStylePanel = (props) => {
@@ -220,6 +220,34 @@ export const logosStylePanel = (props) => {
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
                     render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'logoBackgroundNormal',
+            show: !switcher.imageHover || switcher.imageHover === 'normal',
+            label: __('Logo Background Normal', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
+        },
+        {
+            id: 'logoBackgroundHover',
+            show: switcher.imageHover === 'hover',
+            label: __('Logo Background Hover', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },

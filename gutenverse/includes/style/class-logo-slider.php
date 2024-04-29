@@ -235,6 +235,37 @@ class Logo_Slider extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['logoWrapperMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['logoWrapperMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['logoWrapperPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['logoWrapperPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['logoBackgroundHover'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image", $this->attrs['logoBackgroundHover'] );
+		}
+		if ( isset( $this->attrs['logoBackgroundNormal'] ) ) {
+			$this->handle_background( ".{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image", $this->attrs['logoBackgroundNormal'] );
+		}
 	}
 
 	/**

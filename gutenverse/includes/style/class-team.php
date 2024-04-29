@@ -524,6 +524,18 @@ class Team extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['hoverMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-hover:hover .profile-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['hoverMargin'],
+					'device_control' => true,
+				)
+			);
+		}
 
 		if ( isset( $this->attrs['nameSpace'] ) ) {
 			$this->inject_style(

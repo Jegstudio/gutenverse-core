@@ -44,6 +44,37 @@ export const hoverPanel = (props) => {
             ]
         },
         {
+            id: 'hoverMargin',
+            label: __('Hover Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover:hover .profile-body`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
             id: 'hoverContentBgColor',
             component: BackgroundControl,
             allowDeviceControl: true,
