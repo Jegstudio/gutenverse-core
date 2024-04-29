@@ -18,6 +18,7 @@ export const URLToolbar = ({
     setPanelState,
     panelState,
     isDynamic,
+    title = 'Link',
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
@@ -77,13 +78,13 @@ export const URLToolbar = ({
                 }}
             />
             {usingDynamic && !urlIsSetandSelected && isPro &&<div className="gutenverse-dynamic-pop-over-container">
-                <div>
+                <div className="checkbox-dynamic-container">
                     <CheckboxControl
                         label={__('Use Dynamic Link', '--gctd--')}
                         checked={isChecked}
                         onChange={() => {setIsChecked(prev => !prev);}}
                     />
-                    <IconDinamicSVG />
+                    <IconDinamicSVG className="gutenverse-dynamic-icon-toolbar" />
                 </div>
 
                 <div className="button-container">
@@ -100,7 +101,7 @@ export const URLToolbar = ({
                 <ToolbarButton
                     name="link"
                     icon={link}
-                    title={__('Link', '--gctd--')}
+                    title={title}
                     shortcut={displayShortcut.primary('k')}
                     onClick={openLinkControl}
                 />

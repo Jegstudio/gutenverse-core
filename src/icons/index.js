@@ -397,6 +397,6 @@ export const IconHighlightSVG = () => {
     return <GradientHighlight/>;
 };
 
-export const IconDinamicSVG = () => {
-    return <GradientDinamic/>;
+export const IconDinamicSVG = (props) => {
+    return <GradientDinamic {...props} />;
 };
