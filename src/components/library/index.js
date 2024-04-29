@@ -31,7 +31,7 @@ const initLibraryState = {
 };
 
 const initLayoutState = {
-    categories: '',
+    categories: [],
     license: '',
     keyword: '',
     author: '',
