@@ -166,7 +166,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
-                    isUseDinamic={false}
+                    dynamicList={'titleDynamicList'}
+                    isUseDinamic={true}
                     isUseHighlight={true}
                 />
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
@@ -187,7 +188,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 contentAttribute={'description'}
                 setPanelState={setPanelState}
                 textChilds={'descriptionChilds'}
-                isUseDinamic={false}
+                dynamicList={'descriptionDynamicList'}
+                isUseDinamic={true}
                 isUseHighlight={true}
             />
             <div {...innerBlockProps} />
@@ -227,6 +229,9 @@ const ImageBoxBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+    );
 
     const blockProps = useBlockProps({
         className: classnames(

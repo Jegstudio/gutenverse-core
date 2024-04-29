@@ -38,7 +38,7 @@ export const panelList = () => {
                     ...props,
                     blockType: 'text',
                     multiText : true,
-                    textArray : ['titleDynamicList','descriptionDynamicList','badgeDynamicList']
+                    arrOfTextChilds : ['titleDynamicList', 'descriptionDynamicList', 'badgeDynamicList']
                 });
             },
             initialOpen: false,

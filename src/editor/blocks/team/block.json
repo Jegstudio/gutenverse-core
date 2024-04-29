@@ -31,10 +31,6 @@
     "src": {
       "type": "object"
     },
-    "dynamicDataList": {
-			"type": "array",
-			"default": []
-		},
 		"openDynamic": {
 			"type": "string"
 		},
@@ -54,6 +50,10 @@
       "type" : "array",
       "default" : []
     },
+    "nameDynamicList": {
+			"type": "array",
+			"default": []
+		},
     "job": {
       "type": "string",
       "default": "Designer"
@@ -62,6 +62,10 @@
       "type" : "array",
       "default" : []
     },
+    "jobDynamicList": {
+			"type": "array",
+			"default": []
+		},
     "showDesc": {
       "type": "boolean",
       "default": false
@@ -74,6 +78,10 @@
       "type" : "array",
       "default" : []
     },
+    "descriptionDynamicList": {
+			"type": "array",
+			"default": []
+		},
     "phone": {
       "type": "string",
       "default": "+12 345 678 90"

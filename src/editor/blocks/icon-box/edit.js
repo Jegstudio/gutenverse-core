@@ -180,6 +180,11 @@ const IconBoxBlock = compose(
         section: 2,
     };
 
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        '',
+        { isActive: true }
+    );
     HighLightToolbar(props);
 
     useEffect(() => {
@@ -253,13 +258,13 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelDynamic={{panel : 'setting', section : 3}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'title'}
                         setPanelState={setPanelState}
                         textChilds={'titleChilds'}
                         dynamicList={'titleDynamicList'}
-                        isUseDinamic={false}
+                        isUseDinamic={true}
                         isUseHighlight={true}
                     />
                     <RichTextComponent
@@ -273,13 +278,13 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelDynamic={{panel : 'setting', section : 3}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'description'}
                         setPanelState={setPanelState}
                         textChilds={'descriptionChilds'}
                         dynamicList={'descriptionDynamicList'}
-                        isUseDinamic={false}
+                        isUseDinamic={true}
                         isUseHighlight={true}
                     />
                     <div {...innerBlockProps} />
@@ -303,7 +308,7 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         textChilds={'badgeChilds'}
                         dynamicList={'badgeDynamicList'}
-                        isUseDinamic={false}
+                        isUseDinamic={true}
                         isUseHighlight={true}
                     />
                 </div>}
