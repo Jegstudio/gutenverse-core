@@ -218,7 +218,7 @@ class Style_Generator {
 			case 'gutenverse/text-editor':
 				$instance = new Text_Editor( $attrs );
 				break;
-			case 'gutenverse/text':
+			case 'gutenverse/text-paragraph':
 				$instance = new Text( $attrs );
 				break;
 			case 'gutenverse/team':

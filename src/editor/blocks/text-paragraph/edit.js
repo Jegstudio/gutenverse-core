@@ -26,7 +26,7 @@ const TextBlockControl = (props) => {
 };
 const TextBlock = compose(
     withCustomStyle(panelList),
-    withAnimationAdvance('text'),
+    withAnimationAdvance('text-paragraph'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
 )((props) => {
@@ -65,7 +65,7 @@ const TextBlock = compose(
         ref: textRef
     });
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock( 'gutenverse/text', {
+        const newBlock = createBlock( 'gutenverse/text-paragraph', {
             paragraph: value,
         } );
         if(isOriginal){

@@ -57,7 +57,8 @@ export const progressPanel = () => {
             component: RangeControl,
             min: 0,
             max: 100,
-            step: 1
+            step: 1,
+            isParseFloat : true
         },
         {
             id: 'duration',
@@ -65,7 +66,8 @@ export const progressPanel = () => {
             component: RangeControl,
             min: 100,
             max: 10000,
-            step: 1
+            step: 1,
+            isParseFloat : true
         },
     ];
 };

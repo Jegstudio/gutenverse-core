@@ -11,7 +11,7 @@ import { RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
 const save = compose(
-    withAnimationAdvanceScript('text'),
+    withAnimationAdvanceScript('text-paragraph'),
     withMouseMoveEffectScript
 )((props) => {
     const {
