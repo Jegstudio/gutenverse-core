@@ -843,7 +843,7 @@ class Testimonials extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} ul.rating-stars li i",
 					'property'       => function ( $value ) {
-						return "font-size: {$value};";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['ratingIconSize'],
 					'device_control' => true,
