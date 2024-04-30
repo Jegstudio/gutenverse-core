@@ -87,6 +87,14 @@
 			"type": "integer",
 			"default": 150
 		},
+		"imageSizeResponsive":{
+			"type": "object",
+			"migrate": {
+				"attr": "imageSizeResponsive",
+				"type": "size"
+			},
+			"copyStyle": true
+		},
 		"prefix": {
 			"type": "string",
 			"default": "$"
