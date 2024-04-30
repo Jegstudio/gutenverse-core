@@ -777,6 +777,10 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"iconWrapperMargin":{
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
