@@ -76,7 +76,6 @@ const AdvancedHeadingBlock = compose(
             classNames={classes}
             tagName={tag}
             aria-label={__('Advanced Heading', 'gutenverse')}
-            placeholder={__('Write Heading...', 'gutenverse')}
             onChange={value => setAttributes({ [identifier]: value })}
             multiline={false}
             setAttributes={setAttributes}
