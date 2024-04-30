@@ -220,7 +220,7 @@ const ButtonBlock = compose(
             });
         if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined });}
+        } else {setAttributes({ url: url });}
 
         dynamicTextContent && dynamicTextContent
             .then(result => {

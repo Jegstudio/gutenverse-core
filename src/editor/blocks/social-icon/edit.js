@@ -117,7 +117,7 @@ const SocialIcon = compose(
             });
         if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined });}
+        } else {setAttributes({ url: url });}
     },[dynamicUrl, dynamicHref]);
 
     return <>

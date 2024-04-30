@@ -66,6 +66,14 @@
 			"type": "array",
 			"default": []
 		},
+		"dynamicAttributes": {
+			"type": "array",
+			"default": ["titleDynamicList", "descriptionDynamicList"]
+		},
+		"hasGlobalLink": {
+			"type": "boolean",
+			"default": false
+		},
 		"image": {
 			"type": "object"
 		},

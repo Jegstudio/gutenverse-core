@@ -84,6 +84,11 @@ const IconBoxBlock = compose(
     const descRef = useRef();
     const badgeRef = useRef();
     const [dynamicHref, setDynamicHref] = useState();
+    const isGlobalLinkSet = url !== undefined && url !== '';
+
+    if (isGlobalLinkSet){
+        setAttributes({hasGlobalLink: isGlobalLinkSet});
+    } else setAttributes({hasGlobalLink: false});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -182,8 +187,6 @@ const IconBoxBlock = compose(
 
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
     );
     HighLightToolbar(props);
 
@@ -203,7 +206,7 @@ const IconBoxBlock = compose(
             });
         if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined });}
+        } else {setAttributes({ url: url });}
     },[dynamicUrl, dynamicHref]);
 
     return <>
@@ -266,6 +269,7 @@ const IconBoxBlock = compose(
                         dynamicList={'titleDynamicList'}
                         isUseDinamic={true}
                         isUseHighlight={true}
+                        parentHasLink={isGlobalLinkSet}
                     />
                     <RichTextComponent
                         ref={descRef}
@@ -286,6 +290,7 @@ const IconBoxBlock = compose(
                         dynamicList={'descriptionDynamicList'}
                         isUseDinamic={true}
                         isUseHighlight={true}
+                        parentHasLink={isGlobalLinkSet}
                     />
                     <div {...innerBlockProps} />
                 </div>
@@ -302,7 +307,7 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 2}}
+                        panelDynamic={{panel : 'setting', section : 3}}
                         panelPosition={{panel : 'style', section : 1}}
                         contentAttribute={'badge'}
                         setPanelState={setPanelState}
@@ -310,6 +315,7 @@ const IconBoxBlock = compose(
                         dynamicList={'badgeDynamicList'}
                         isUseDinamic={true}
                         isUseHighlight={true}
+                        parentHasLink={isGlobalLinkSet}
                     />
                 </div>}
                 {watermarkShow && <div className="hover-watermark">

@@ -50,6 +50,11 @@ const IconListItemBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
+    const isGlobalLinkSet = url !== undefined && url !== '';
+
+    if (isGlobalLinkSet){
+        setAttributes({hasGlobalLink: isGlobalLinkSet});
+    } else setAttributes({hasGlobalLink: false});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -112,7 +117,7 @@ const IconListItemBlock = compose(
             });
         if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined });}
+        } else {setAttributes({ url: url });}
     },[dynamicUrl, dynamicHref]);
 
     return <>
@@ -176,6 +181,7 @@ const IconListItemBlock = compose(
                     dynamicList={'dynamicDataList'}
                     isUseDinamic={true}
                     isUseHighlight={true}
+                    parentHasLink={isGlobalLinkSet}
                 />
             </a>
         </li>

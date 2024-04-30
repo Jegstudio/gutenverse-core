@@ -17,7 +17,7 @@ const WrapAHref = ({ attributes, children }) => {
         elementId,
     } = attributes;
 
-    if (url !== undefined && url !== '') {
+    if (url !== undefined && url !== '' ) {
         const href = applyFilters(
             'gutenverse.dynamic.generate-url',
             url,

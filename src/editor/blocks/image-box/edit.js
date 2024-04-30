@@ -125,6 +125,12 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
         separateButtonLink
     } = attributes;
 
+    const isGlobalLinkSet = url !== undefined && url !== '';
+
+    if (isGlobalLinkSet){
+        setAttributes({hasGlobalLink: isGlobalLinkSet});
+    } else setAttributes({hasGlobalLink: false});
+
     const blockProps = useBlockProps({
         className: classnames(
             'button-wrapper',
@@ -169,6 +175,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     dynamicList={'titleDynamicList'}
                     isUseDinamic={true}
                     isUseHighlight={true}
+                    parentHasLink={isGlobalLinkSet}
                 />
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
@@ -191,6 +198,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 dynamicList={'descriptionDynamicList'}
                 isUseDinamic={true}
                 isUseHighlight={true}
+                parentHasLink={isGlobalLinkSet}
             />
             <div {...innerBlockProps} />
             {hoverBottom && <div className={'border-bottom'}>
@@ -292,7 +300,7 @@ const ImageBoxBlock = compose(
             });
         if (dynamicHref !== undefined){
             setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: undefined });}
+        } else {setAttributes({ url: url });}
     },[dynamicUrl, dynamicHref]);
 
 

@@ -71,6 +71,14 @@
 			"type": "array",
 			"default": []
 		},
+		"dynamicAttributes": {
+			"type": "array",
+			"default": ["titleDynamicList", "descriptionDynamicList", "badgeDynamicList"]
+		},
+		"hasGlobalLink": {
+			"type": "boolean",
+			"default": false
+		},
 		"openDynamic": {
 			"type": "string"
 		},

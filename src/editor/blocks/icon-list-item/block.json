@@ -26,6 +26,10 @@
 			"type" : "boolean",
 			"default": false
 		},
+		"hasGlobalLink": {
+			"type": "boolean",
+			"default": false
+		},
 		"dynamicDataList": {
 			"type": "array",
 			"default": []

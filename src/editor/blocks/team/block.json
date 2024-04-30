@@ -82,6 +82,10 @@
 			"type": "array",
 			"default": []
 		},
+    "dynamicAttributes": {
+			"type": "array",
+			"default": ["nameDynamicList", "jobDynamicList", "descriptionDynamicList"]
+		},
     "phone": {
       "type": "string",
       "default": "+12 345 678 90"
