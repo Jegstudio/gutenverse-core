@@ -12,6 +12,7 @@ export const dynamicData = (props) => {
         setPanelState,
         panelDynamic,
         dynamicList,
+        parentHasLink,
     } = props;
 
     const dynamicDataList = attributes[dynamicList];
@@ -265,7 +266,7 @@ export const dynamicData = (props) => {
         if( selectedLink.length > 0 ) {
             selectedLink.map((link) => {
                 const dynamicExist =  link.element[0].querySelector('span.guten-dynamic-data');
-                // remove the <a> tag when it doeasn't have the dynamic <span>, also remove it from the selected items
+                // remove the <a> tag when it doesn't have the dynamic <span>, also remove it from the selected items
                 if (dynamicExist === null) {
                     selectedItems = selectedItems.filter(item => item.key !== link.key);
                     const elementWithNoLink = removeDynamicLink(parseElement(contentArray[link.key]));
@@ -273,8 +274,8 @@ export const dynamicData = (props) => {
                 } else {
                     const getDynamicData = dynamicDataList.find(item => item.id === u(dynamicExist).nodes[0].id);
                     const index = dynamicDataList.findIndex(item => item.id === u(dynamicExist).nodes[0].id);
-                    // if it has the dynamic <span> but the set as link is disabled, also removes the <a> tag and remove the dynamicUrl from the data
-                    if (!getDynamicData.setAsLink) {
+                    // if it has the dynamic <span> but the set as link is disabled or the parent already have link, also removes the <a> tag and remove the dynamicUrl from the data
+                    if (!getDynamicData.setAsLink || parentHasLink) {
                         const element = parseElement(link.element[0].innerHTML);
                         element.removeAttribute('dynamic-data-url');
                         contentArray[link.key] = element.outerHTML;
@@ -442,5 +443,5 @@ export const dynamicData = (props) => {
         }
         setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList, dynamicText, dynamicUrl]);
+    },[content, dynamicDataList, dynamicText, dynamicUrl, parentHasLink]);
 };
