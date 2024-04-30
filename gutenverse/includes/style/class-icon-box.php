@@ -247,7 +247,7 @@ class Icon_Box extends Style_Abstract {
 						'property'       => function ( $value ) {
 							return "object-fit: {$value};";
 						},
-						'value'          => $this->attrs['imageHeight'],
+						'value'          => $this->attrs['imageFit'],
 						'device_control' => false,
 					)
 				);
