@@ -12,6 +12,7 @@ export const dynamicData = (props) => {
         setPanelState,
         panelDynamic,
         dynamicList,
+        parentHasLink,
     } = props;
 
     const dynamicDataList = attributes[dynamicList];
