@@ -742,8 +742,8 @@ class Api {
 					'filename' => 'section/data',
 				),
 				array(
-					'version'  => 'v3',
-					'endpoint' => 'section/categories',
+					'version'  => 'v4',
+					'endpoint' => 'library/section/categories',
 					'filename' => 'section/categories',
 				),
 				array(

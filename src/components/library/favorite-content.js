@@ -199,9 +199,13 @@ const FavoriteContent = props => {
                         <RenderCategories categories={layoutCategories} slug={'color'} data={layoutContentData} type={'layout'}/>
                     </> : <>
                         <h2 className="gutenverse-library-side-heading">
+                            {__('Style', '--gctd--')}
+                        </h2>
+                        <RenderCategories categories={sectionCategories} slug={'style'} data={layoutContentData} type={'section'} />
+                        <h2 className="gutenverse-library-side-heading">
                             {__('Categories', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={sectionCategories} data={layoutContentData} type={'section'} />
+                        <RenderCategories categories={sectionCategories} slug={'category'} data={layoutContentData} type={'section'} />
                     </>
                 }
             </div>

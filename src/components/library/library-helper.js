@@ -202,14 +202,8 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if (!isEmpty(categories)) {
-            let categoryFlag = true;
-            sectionCategories.map((category) => {
-                if (categories.includes(category.id)) {
-                    categoryFlag = categoryFlag && false;
-                }
-            });
-            if (categoryFlag) return false;
+        if (!isEmpty(categories) && !sectionCategories.some(category => categories.includes(category.id.toString()))) {
+            return false;
         }
 
         if (author) {
