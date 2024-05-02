@@ -21,6 +21,9 @@
     .section-wrapper {
         width: 100%;
     }
+    > * {
+        width: inherit;
+    }
 }
 
 div.guten-wrap-helper.guten-element{
