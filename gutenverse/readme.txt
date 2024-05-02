@@ -193,7 +193,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
-= 2.0.0 - 2024-03-10 =
+= 2.0.0 - 2024-05-22 =
 ##### New
 * **Archive Title Block**, Add new block
 * **Copy Style**, Add new ability to copy styles between blocks
@@ -228,6 +228,29 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Galery**, Fixed Galery FrontEnd Zoom
 * **Section**, Fix issue with Shape Divider bottom Bring to Front option
 * **Post Block**, Fix issue with autoload scroll and fix some predefined styles
+
+= 1.9.2 - 2024-05-02 =
+##### Bug Fixes
+* **Security**, Fix security issue. credit: Dmitrii Ignatyev, CleanTalk Inc.
+
+= 1.9.1 - 2024-04-05 =
+##### Bug Fixes
+* **Security**, Fix security issue. credit: Dmitrii Ignatyev, CleanTalk Inc.
+
+= 1.9.0 - 2024-01-16 =
+##### Bug Fixes
+* **Plugin Conflict**, Fix Infinite Loop When using Plugin The Event Scheduler, Woocommerce, and Gutenverse when accessing Woocommerce Products Admin Page
+* **Form Entries**, Fix error "Uncaught Error: Call to a member function get() on null" when opening Form Entries when no Form registered. 
+* **Form Entries - MultiSelect **, Fix bug multiselect when there is multiple multiselect, entries in backend merge both value.
+* **Form Input - Select **, Fix bug front end select options auto sort.
+
+= 1.8.9 - 2023-11-15 =
+##### Bug Fixes
+* **Widgets**, Allow gutenverse to run on Widgets.
+* **Form Date Input**, Fix error on mobile.
+* **Form Multiselect Input**, Fix error cannot send value multiselect.
+* **Form Multiselect Input**, Fix order option in frontend.
+* **Form Multiselect Input**, Add selected option to input area.
 
 = 1.8.8 - 2023-08-15 =
 ##### Bug Fixes
