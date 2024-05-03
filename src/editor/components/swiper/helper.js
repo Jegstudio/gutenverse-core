@@ -47,6 +47,8 @@ export const swiperSettings = (attributes) => {
         } : false,
         spaceBetween: spacing && spacing[deviceType] ? parseInt(spacing[deviceType]) : isInteger(spacing) ? spacing : 10,
         slidesPerView: itemShowed && itemShowed[deviceType] ? parseInt(itemShowed[deviceType]) : isInteger(itemShowed) ? itemShowed : slidesNumber(),
+        loopAddBlankSlides : loop ? loop : false,
+        slidesPerGroupSkip : 0
     };
 };
 
@@ -93,5 +95,7 @@ export const swiperNativeSettings = (attributes) => {
         zoom: zoom ? {
             maxRatio: zoomRatio ? zoomRatio : 2,
         } : false,
+        loopAddBlankSlides : loop ? loop : false,
+        slidesPerGroupSkip : 0
     };
 };
