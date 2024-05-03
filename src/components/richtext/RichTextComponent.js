@@ -42,7 +42,7 @@ const RichTextComponent = (props) => {
     const oldBlock = getBlocks();
 
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock( 'gutenverse/text', {
+        const newBlock = createBlock( 'gutenverse/text-paragraph', {
             paragraph: value,
         } );
         if(isOriginal){

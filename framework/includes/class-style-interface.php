@@ -222,6 +222,27 @@ abstract class Style_Interface {
 		return null;
 	}
 
+
+	/**
+	 * Sanitize value
+	 *
+	 * @param mixed $value .
+	 *
+	 * @return string|mixed
+	 */
+	public function sanitize_value( &$value = '' ) {
+		if ( is_array( $value ) ) {
+			foreach ( $value as $key => $child ) {
+				$value[ $key ] = $this->sanitize_value( $child );
+			}
+
+			return $value;
+		}
+
+		return sanitize_text_field( $value );
+	}
+
+
 	/**
 	 * Inject Control Style
 	 *
@@ -237,7 +258,7 @@ abstract class Style_Interface {
 				}
 
 				if ( ! gutenverse_truly_empty( $data['value'][ $device ] ) || ( isset( $data['ignore_empty'] ) && $data['ignore_empty'] ) ) {
-					$value    = $data['value'][ $device ];
+					$value    = $this->sanitize_value( $data['value'][ $device ] );
 					$selector = $data['selector'];
 					$property = call_user_func( $data['property'], $value, $device );
 
@@ -253,8 +274,10 @@ abstract class Style_Interface {
 				}
 			}
 		} elseif ( isset( $data['value'] ) && isset( $data['property'] ) ) {
+				$value    = $this->sanitize_value( $data['value'] );
 				$property = call_user_func( $data['property'], $data['value'] );
 				$selector = $data['selector'];
+
 				$this->generated['Desktop'][ $selector ][] = $property;
 		}
 	}

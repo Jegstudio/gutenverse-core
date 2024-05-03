@@ -28,7 +28,7 @@ export const HighlightButton = (props) => {
     } = props;
     const selectedBlock = select('core/block-editor').getSelectedBlock();
     let allowedBlocks = [
-        'gutenverse/text',
+        'gutenverse/text-paragraph',
         'gutenverse/heading',
         'gutenverse/team',
         'gutenverse/image-box',
