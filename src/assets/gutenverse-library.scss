@@ -211,10 +211,13 @@ $border: #eaeaea;
                     display: block;
                 }
             }
-
+            .my-masonry-grid_column{
+                display: flex;
+                flex-direction: column;
+            }
             .library-item {
                 padding: 8px;
-                margin: 8px;
+                margin: 10px;
                 background: #fff;
                 border-radius: 3px;
                 border: 1px solid #f0f0f3;

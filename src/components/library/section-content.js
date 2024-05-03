@@ -134,9 +134,13 @@ const SectionContentWrapper = (props) => {
                 <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} dispatchData={dispatchData} />
             </>}
             <h2 className="gutenverse-library-side-heading">
+                {__('Style', '--gctd--')}
+            </h2>
+            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
         </div>
 
 
