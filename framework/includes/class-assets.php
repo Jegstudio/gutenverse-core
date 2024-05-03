@@ -205,6 +205,7 @@ class Assets {
 		$config['wpjson_endpoint']   = admin_url( 'admin-ajax.php?action=rest-nonce' );
 		$config['framework_asset']   = GUTENVERSE_FRAMEWORK_URL . '/assets/';
 		$config['framework_version'] = GUTENVERSE_FRAMEWORK_VERSION;
+		$config['image_placeholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
 
 		return $config;
 	}
