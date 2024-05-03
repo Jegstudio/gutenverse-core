@@ -215,7 +215,8 @@ export const popupPanel = (props) => {
             show: openTrigger === 'load',
             min: 0,
             max: 5000,
-            step: 1
+            step: 1,
+            isParseFloat: true
         }],
         props
     );

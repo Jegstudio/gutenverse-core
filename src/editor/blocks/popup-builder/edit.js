@@ -21,7 +21,6 @@ const PopupBuilder = compose(
         attributes,
         setElementRef
     } = props;
-
     const {
         elementId,
         position,

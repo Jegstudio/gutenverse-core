@@ -40,3 +40,9 @@ Object.keys(gutenClasses).map((index) => {
         new ClassItem(selected);
     }
 });
+
+const elementPlaceholder = u('[data-image-placeholder]');
+const { image_placeholder } = window['GutenverseFrontendConfig'];
+elementPlaceholder.nodes.map(element => {
+    u(element).attr('src', image_placeholder);
+});
