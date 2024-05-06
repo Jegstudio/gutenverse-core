@@ -17,7 +17,6 @@
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
-    width: inherit;
     .section-wrapper {
         width: 100%;
     }
@@ -38,4 +37,9 @@ div.guten-wrap-helper.guten-element{
 }
 .with-url{
     cursor: pointer;
+}
+@media only screen and (max-width: 425px)  {
+    .guten-inner-wrap{
+        width: inherit;
+    }
 }
