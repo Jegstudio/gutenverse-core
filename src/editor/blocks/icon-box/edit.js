@@ -86,9 +86,9 @@ const IconBoxBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
 
-    if (isGlobalLinkSet){
-        setAttributes({hasGlobalLink: isGlobalLinkSet});
-    } else setAttributes({hasGlobalLink: false});
+    if (isGlobalLinkSet) {
+        setAttributes({ hasGlobalLink: isGlobalLinkSet });
+    } else setAttributes({ hasGlobalLink: false });
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -103,10 +103,10 @@ const IconBoxBlock = compose(
         ref: iconBoxRef
     });
     const imageLazyLoad = () => {
-        if(lazyLoad){
-            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy"/>;
-        }else{
-            return <img src={getImageSrc(image)} alt={imageAltText}/>;
+        if (lazyLoad) {
+            return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy" />;
+        } else {
+            return <img src={getImageSrc(image)} alt={imageAltText} />;
         }
     };
     const iconContent = () => {
@@ -134,9 +134,9 @@ const IconBoxBlock = compose(
             allowedBlocks: ['gutenverse/button']
         }
     );
-    useEffect(()=>{
-        setAttributes({parentSelector :  `.${elementId}:hover .guten-icon-box-wrapper`});
-    },[hoverWithParent]);
+    useEffect(() => {
+        setAttributes({ parentSelector: `.${elementId}:hover .guten-icon-box-wrapper` });
+    }, [hoverWithParent]);
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -162,11 +162,11 @@ const IconBoxBlock = compose(
         }
     }, [iconBoxRef]);
 
-    useEffect(()=>{
+    useEffect(() => {
         setAttributes({
             deviceType: deviceType,
         });
-    },[deviceType]);
+    }, [deviceType]);
 
     useEffect(() => {
         !separateButtonLink && getBlocks(clientId).map(block => {
@@ -178,7 +178,7 @@ const IconBoxBlock = compose(
         getBlocks(clientId).map(block => {
             updateBlockAttributes(block.clientId, { hoverWithParent });
         });
-    },[hoverWithParent]);
+    }, [hoverWithParent]);
 
     const panelState = {
         panel: 'setting',
@@ -198,19 +198,19 @@ const IconBoxBlock = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
-    },[dynamicUrl, dynamicHref]);
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
 
     return <>
-        <PanelController panelList={panelList} {...props}  deviceType = {deviceType} />
+        <PanelController panelList={panelList} {...props} deviceType={deviceType} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -231,7 +231,7 @@ const IconBoxBlock = compose(
                 )}
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}
@@ -248,7 +248,7 @@ const IconBoxBlock = compose(
         )}
         <div  {...blockProps}>
             <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
-                { iconPosition !== 'bottom' && iconContent()}
+                {iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
                     <RichTextComponent
                         ref={titleRef}
@@ -261,8 +261,8 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 3}}
-                        panelPosition={{panel : 'style', section : 1}}
+                        panelDynamic={{ panel: 'setting', section: 3 }}
+                        panelPosition={{ panel: 'style', section: 1 }}
                         contentAttribute={'title'}
                         setPanelState={setPanelState}
                         textChilds={'titleChilds'}
@@ -282,8 +282,8 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 3}}
-                        panelPosition={{panel : 'style', section : 1}}
+                        panelDynamic={{ panel: 'setting', section: 3 }}
+                        panelPosition={{ panel: 'style', section: 1 }}
                         contentAttribute={'description'}
                         setPanelState={setPanelState}
                         textChilds={'descriptionChilds'}
@@ -294,7 +294,7 @@ const IconBoxBlock = compose(
                     />
                     <div {...innerBlockProps} />
                 </div>
-                { iconPosition === 'bottom' && iconContent()}
+                {iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <RichTextComponent
                         ref={badgeRef}
@@ -307,8 +307,8 @@ const IconBoxBlock = compose(
                         setAttributes={setAttributes}
                         attributes={attributes}
                         clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 3}}
-                        panelPosition={{panel : 'style', section : 1}}
+                        panelDynamic={{ panel: 'setting', section: 3 }}
+                        panelPosition={{ panel: 'style', section: 1 }}
                         contentAttribute={'badge'}
                         setPanelState={setPanelState}
                         textChilds={'badgeChilds'}

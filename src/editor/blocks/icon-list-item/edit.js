@@ -52,9 +52,9 @@ const IconListItemBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
 
-    if (isGlobalLinkSet){
-        setAttributes({hasGlobalLink: isGlobalLinkSet});
-    } else setAttributes({hasGlobalLink: false});
+    if (isGlobalLinkSet) {
+        setAttributes({ hasGlobalLink: isGlobalLinkSet });
+    } else setAttributes({ hasGlobalLink: false });
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -109,16 +109,16 @@ const IconListItemBlock = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
-    },[dynamicUrl, dynamicHref]);
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
 
     return <>
         <InspectorControls>
@@ -152,7 +152,7 @@ const IconListItemBlock = compose(
                 )}
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}
@@ -163,7 +163,7 @@ const IconListItemBlock = compose(
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
-                    ref = {iconListItemRef}
+                    ref={iconListItemRef}
                     classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}
                     aria-label={__('List text')}
@@ -173,8 +173,8 @@ const IconListItemBlock = compose(
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 1}}
-                    panelPosition={{panel : 'style', section : 1}}
+                    panelDynamic={{ panel: 'setting', section: 1 }}
+                    panelPosition={{ panel: 'style', section: 1 }}
                     contentAttribute={'text'}
                     setPanelState={setPanelState}
                     textChilds={'textChilds'}

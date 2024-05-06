@@ -38,9 +38,9 @@ export const ImageBoxFigure = attributes => {
             break;
     }
     const imageLazyLoad = () => {
-        if(lazyLoad){
+        if (lazyLoad) {
             return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
-        }else{
+        } else {
             return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
         }
     };
@@ -61,9 +61,9 @@ export const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if(lazyLoad){
-            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy"/>;
-        }else{
+        if (lazyLoad) {
+            return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
+        } else {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
         }
     }
@@ -198,9 +198,9 @@ const ImageBlock = compose(
     };
 
     const urlAriaLabel = () => {
-        if( ariaLabel ){
+        if (ariaLabel) {
             return <a className="guten-image-wrapper" aria-label={ariaLabel} href={url} target={linkTarget} rel={rel} ><ImageBoxFigure {...attributes} /></a>;
-        }else{
+        } else {
             return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
         }
     };
@@ -228,16 +228,16 @@ const ImageBlock = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
-    },[dynamicUrl, dynamicHref]);
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
 
     return <>
         <PanelController panelList={panelList} {...props} />

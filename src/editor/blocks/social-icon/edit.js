@@ -109,16 +109,16 @@ const SocialIcon = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
-    },[dynamicUrl, dynamicHref]);
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
 
     return <>
         <InspectorControls>
@@ -152,7 +152,7 @@ const SocialIcon = compose(
                 )}
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}

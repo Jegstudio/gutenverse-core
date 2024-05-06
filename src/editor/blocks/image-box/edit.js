@@ -37,10 +37,10 @@ export const ImageBoxFigure = attributes => {
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
     const imageLazyLoad = () => {
-        if(lazyLoad){
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
-        }else{
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+        if (lazyLoad) {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        } else {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
         }
     };
     if (isEmpty(sizes)) {
@@ -58,9 +58,9 @@ export const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if(lazyLoad){
+        if (lazyLoad) {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
-        }else{
+        } else {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
         }
     }
@@ -127,9 +127,9 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
     const isGlobalLinkSet = url !== undefined && url !== '';
 
-    if (isGlobalLinkSet){
-        setAttributes({hasGlobalLink: isGlobalLinkSet});
-    } else setAttributes({hasGlobalLink: false});
+    if (isGlobalLinkSet) {
+        setAttributes({ hasGlobalLink: isGlobalLinkSet });
+    } else setAttributes({ hasGlobalLink: false });
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -167,8 +167,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 4}}
-                    panelPosition={{panel : 'style', section : 1}}
+                    panelDynamic={{ panel: 'setting', section: 4 }}
+                    panelPosition={{ panel: 'style', section: 1 }}
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
@@ -190,8 +190,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 setAttributes={setAttributes}
                 attributes={attributes}
                 clientId={clientId}
-                panelDynamic={{panel : 'setting', section : 4}}
-                panelPosition={{panel : 'style', section : 1}}
+                panelDynamic={{ panel: 'setting', section: 4 }}
+                panelPosition={{ panel: 'style', section: 1 }}
                 contentAttribute={'description'}
                 setPanelState={setPanelState}
                 textChilds={'descriptionChilds'}
@@ -292,16 +292,16 @@ const ImageBoxBlock = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
-    },[dynamicUrl, dynamicHref]);
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
 
 
     return <>
@@ -339,7 +339,7 @@ const ImageBoxBlock = compose(
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef}/>
+                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef} />
             </div>
         </div>
     </>;

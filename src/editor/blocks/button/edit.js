@@ -35,11 +35,11 @@ const ButtonBlock = compose(
         refreshStyle,
         setPanelState,
     } = props;
-    useEffect(()=>{
+    useEffect(() => {
         const newHoverStatus = hoverWithParent;
-        setAttributes({hoverWithParent : newHoverStatus, parentSelector : parentSelector});
+        setAttributes({ hoverWithParent: newHoverStatus, parentSelector: parentSelector });
         refreshStyle();
-    },[hoverWithParent]);
+    }, [hoverWithParent]);
     const {
         elementId,
         content,
@@ -212,19 +212,19 @@ const ButtonBlock = compose(
 
         dynamicUrlcontent && dynamicUrlcontent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicHref) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
             }).catch(error => {
-                console.log(error);
+                console.error(error);
             });
-        if (dynamicHref !== undefined){
-            setAttributes({ url: dynamicHref, isDynamic: true});
-        } else {setAttributes({ url: url });}
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
 
         dynamicTextContent && dynamicTextContent
             .then(result => {
-                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText) {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
                 }
             })
@@ -232,9 +232,9 @@ const ButtonBlock = compose(
                 console.error(error);
             });
         if (dynamicText !== undefined) {
-            setAttributes({content: dynamicText});
+            setAttributes({ content: dynamicText });
         }
-    },[dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
+    }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
         <PanelController panelList={panelList} {...props} />
