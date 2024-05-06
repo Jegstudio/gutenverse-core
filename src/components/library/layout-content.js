@@ -236,8 +236,8 @@ export const SelectAuthor = ({ authors, author, setAuthor }) => {
 export const RenderCategories = ({ categories, data, showCount = true, categoryListClicked = false, slug, type }) => {
     if( !isEmpty(categories) ){
         const categoriesIndex = categories.findIndex(el => el.slug === slug );
-        const childCategories = categories[categoriesIndex].childs;
-        return <ul className="gutenverse-sidebar-list">
+        const childCategories = categories[categoriesIndex]?.childs;
+        return categoriesIndex >= 0 && <ul className="gutenverse-sidebar-list">
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
