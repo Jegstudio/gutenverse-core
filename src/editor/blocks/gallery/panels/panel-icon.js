@@ -8,6 +8,37 @@ export const iconPanel = (props) => {
     const { elementId, selectionIconPadding } = props;
     return [
         {
+            id: 'iconWrapperMargin',
+            label: __('Wrapper Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .item-buttons`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
             id: 'iconBg',
             label: __('Icon Background', 'gutenverse'),
             component: ColorControl,

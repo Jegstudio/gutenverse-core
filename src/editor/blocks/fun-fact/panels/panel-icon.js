@@ -1,7 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconControl, ImageControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
+    const device = getDeviceType();
     return [
         {
             id: 'iconType',
@@ -60,16 +62,36 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
         },
         {
             id: 'imageSize',
-            show: iconType === 'image',
+            show: iconType === 'image' && device === 'Desktop',
             label: __('Image Size', 'gutenverse'),
             component: RangeControl,
             min: 1,
             max: 1000,
             step: 1,
+            isParseFloat: true,
+            showDeviceControl: true,
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon img`,
                     allowRender: () => iconType === 'image',
+                    render: value => `width: ${value}px; height: ${value}px; object-fit: cover;`
+                }
+            ]
+        },
+        {
+            id: 'imageSizeResponsive',
+            show: iconType === 'image' && device !== 'Desktop',
+            label: __('Image Size', 'gutenverse'),
+            component: RangeControl,
+            min: 1,
+            max: 1000,
+            step: 1,
+            isParseFloat: true,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon img`,
+                    allowRender: () => iconType === 'image' && device !== 'Desktop',
                     render: value => `width: ${value}px; height: ${value}px; object-fit: cover;`
                 }
             ]

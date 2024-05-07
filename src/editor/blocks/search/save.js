@@ -25,7 +25,7 @@ const save = compose(
     const className = classnames(
         'guten-element',
         elementId,
-        'guten-icon',
+        'guten-search',
         animationClass,
         displayClass,
     );
@@ -34,7 +34,6 @@ const save = compose(
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <form
                 className="gutenverse-search-form"
-                action={window.location.origin}
             >
                 <input type="search"
                     placeholder={inputPlaceholder}

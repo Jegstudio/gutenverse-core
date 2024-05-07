@@ -56,7 +56,6 @@ class Divider extends Style_Abstract {
 	 */
 	public function generate() {
 		if ( isset( $this->attrs['width'] ) ) {
-			
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id} .guten-divider-wrapper",

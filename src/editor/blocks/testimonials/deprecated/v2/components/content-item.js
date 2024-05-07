@@ -1,6 +1,7 @@
 
 
 import { RichText } from '@wordpress/block-editor';
+import { getImageSrc } from 'gutenverse-core/editor-helper';
 
 const ContentItem = (data) => {
     let {
@@ -59,7 +60,7 @@ const ContentItem = (data) => {
                 return <div className="testimonial-slider hover-from-left testimonial-content" >
                     <div className="comment-bio">
                         <div className="profile-image">
-                            {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } /> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
+                            {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                         </div>
                         <ul className="rating-stars">{starRating}</ul>
                         <span className="profile-info">
@@ -81,7 +82,7 @@ const ContentItem = (data) => {
                     <div className="comment-bio">
                         <div className="bio-details">
                             <div className="profile-image">
-                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' } />}
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                             </div>
                             <span className="profile-info">
                                 {contentRichText(name, 'strong', 'profile-name','name', index )}
@@ -101,7 +102,7 @@ const ContentItem = (data) => {
                     <div className="comment-bio">
                         <div className="bio-details">
                             <div className="profile-image">
-                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                             </div>
                         </div>
                     </div>
@@ -120,7 +121,7 @@ const ContentItem = (data) => {
                         <div className="bio-details">
                             {starPosition !== undefined && starPosition === 'above-image' && <ul className="rating-stars">{starRating}</ul>}
                             <div className="profile-image">
-                                {lazy ? <img loading="lazy" src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/> : <img src={src} alt={name} data-image-placeholder={ !src && 'gutenverse-image-placeholder' }/>}
+                                {lazy ? <img loading="lazy" src={getImageSrc(src)} alt={name} /> : <img src={getImageSrc(src)} alt={name} />}
                             </div>
                             {(starPosition === undefined || starPosition === 'below-image') && <ul className="rating-stars">{starRating}</ul>}
                             <span className="profile-info">

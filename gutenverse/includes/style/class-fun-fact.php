@@ -97,6 +97,21 @@ class Fun_Fact extends Style_Abstract {
 					)
 				);
 			}
+			if ( isset( $this->attrs['imageSizeResponsive'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .fun-fact-inner .icon img",
+						'property'       => function ( $value ) {
+							return "width: {$value}px; height: {$value}px; object-fit: cover;";
+						},
+						'value'          => $this->attrs['imageSizeResponsive'],
+						'device_control' => true,
+						'skip_device'    => array(
+							'Desktop',
+						),
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['iconColor'] ) ) {
