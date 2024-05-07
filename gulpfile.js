@@ -11,7 +11,6 @@ const postcss = require('gulp-postcss');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass')(require('sass'));
 const del = require('del');
-const replace = require('gulp-string-replace');
 
 const postCSSOptions = [
     autoprefixer(),
@@ -66,20 +65,6 @@ const watchProcess = (basePath = '.') => {
     gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['editor', 'frontend', 'backend']));
 };
 
-gulp.task('use-dev-mode-js', function () {
-    return gulp
-        .src('./framework/assets/js/**/*.js')
-        .pipe(replace('--dev_mode--', 'true'))
-        .pipe(gulp.dest('./framework/assets/js/'));
-});
-
-gulp.task('use-dev-mode-php', function () {
-    return gulp
-        .src('./framework/**/*.php')
-        .pipe(replace('--dev_mode--', 'true'))
-        .pipe(gulp.dest('./framework/'));
-});
-
 gulp.task('clean', function () {
     return del([
         './build/**',
@@ -87,7 +72,7 @@ gulp.task('clean', function () {
         './framework/assets/css/**',
         './framework/languages/**',
         './framework/lib/dependencies/**'
-    ], {force:true});
+    ], {force:true})
 });
 
 gulp.task(
