@@ -72,7 +72,7 @@ gulp.task('clean', function () {
         './framework/assets/css/**',
         './framework/languages/**',
         './framework/lib/dependencies/**'
-    ], {force:true})
+    ], {force:true});
 });
 
 gulp.task(

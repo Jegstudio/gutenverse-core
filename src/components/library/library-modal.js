@@ -66,7 +66,6 @@ const LibraryModal = props => {
                                         dispatch( 'gutenverse/library' ).setCategories('');
                                         dispatch( 'gutenverse/library' ).setAuthor('');
                                         dispatch( 'gutenverse/library' ).setLicense('');
-                                        dispatch( 'gutenverse/library' ).setStatus('');
                                         dispatch( 'gutenverse/library' ).setPaging(1);
                                     }}
                                 >

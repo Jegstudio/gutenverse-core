@@ -8,7 +8,7 @@ const removeEmptyInArray = (arr) => {
         return arr.filter(el => el != '' && el != undefined && !Array.isArray(el));
     }
     return arr;
-}
+};
 const layoutFilter = (layoutData, filter) => {
     let { keyword, license, categories, author, like } = filter;
     categories = removeEmptyInArray(categories);
