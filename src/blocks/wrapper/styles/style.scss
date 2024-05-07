@@ -1,4 +1,6 @@
 .guten-wrap-helper {
+    display: flex;
+
     &:before {
         content: "";
         width: 100%;
@@ -17,6 +19,7 @@
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
+    flex-grow: 1;
     .section-wrapper {
         width: 100%;
     }
