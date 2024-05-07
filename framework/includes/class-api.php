@@ -1287,6 +1287,7 @@ class Api {
 				font-style: {$custom_data['font_style']};
 				font-weight: {$custom_data['font_weight']};
 				src: url('{$url}');
+				font-display: swap;
 				}
 		";
 	}
