@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenvers
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('image'),
@@ -53,8 +54,16 @@ const save = compose(
         }
     };
 
+    const href = applyFilters(
+        'gutenverse.dynamic.generate-url',
+        url,
+        'dynamicUrl',
+        attributes,
+        elementId
+    );
+
     const imageWrapper = url ?
-        (<a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel} aria-label={ariaLabel}>
+        (<a className="guten-image-wrapper" href={href} target={linkTarget} rel={rel} aria-label={ariaLabel}>
             <ImageBoxFigure {...attributes}/>
         </a>) :
         <div className="guten-image-wrapper">

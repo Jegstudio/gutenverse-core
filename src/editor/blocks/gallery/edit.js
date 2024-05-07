@@ -56,6 +56,7 @@ const GalleryBlock = compose(
     const [currentFilter, setCurrentFilter] = useState('All');
     const [showedItems, setShowedItems] = useState(showed);
     const [shuffleInstance, setShuffleInstance] = useState();
+    const [imageLoaded, setImageLoaded] = useState(false);
     const galleryRef = useRef();
     const sizerRef = useRef();
 
@@ -98,20 +99,34 @@ const GalleryBlock = compose(
     };
 
     const initShuffleJS = () => {
-        setTimeout(() => {
-            const shuffle = new Shuffle(galleryRef.current, {
-                itemSelector: `.${elementId} .gallery-item-wrap`,
-                sizer: `.${elementId} .gallery-sizer-element`,
-                speed: 500
-            });
-
-            setShuffleInstance(shuffle);
-        }, 100);
+        if(imageLoaded){
+            setTimeout(() => {
+                const shuffle = new Shuffle(galleryRef.current, {
+                    itemSelector: `.${elementId} .gallery-item-wrap`,
+                    sizer: `.${elementId} .gallery-sizer-element`,
+                    speed: 500
+                });
+                setShuffleInstance(shuffle);
+            }, 100);
+        }
     };
 
-    useEffect(() => elementId && galleryRef.current && initShuffleJS(), [attributes, deviceType]);
+    useEffect(()=>{
+        const images = u(`.${elementId} .thumbnail-wrap img`);
+        const proms=images.nodes.map(im=>new Promise(res=>
+            im.onload=()=>res([im.width,im.height])
+        ));
 
-    useEffect(() => shuffleInstance && shuffleInstance.update(), [shuffleInstance]);
+        Promise.all(proms).then(data=>{
+            setImageLoaded(true);
+        });
+    }, []);
+
+    useEffect(() => elementId && galleryRef.current && initShuffleJS(), [attributes, deviceType,imageLoaded]);
+
+    useEffect(() => {
+        shuffleInstance && shuffleInstance.update();
+    }, [shuffleInstance]);
 
     useEffect(() => setShowedItems(showed), [showed]);
 

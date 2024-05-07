@@ -19,7 +19,8 @@ export const panelList = () => {
             panelArray: (props) => {
                 return dynamicContentPanel({
                     ...props,
-                    blockType: 'text'
+                    blockType: 'text',
+                    arrOfTextChilds : ['textDynamicList','focusTextDynamicList','subTextDynamicList']
                 });
             },
             initialOpen: false,

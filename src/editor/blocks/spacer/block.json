@@ -31,6 +31,10 @@
       },
       "copyStyle": true
     },
+    "boxShadow" :{
+      "type": "object",
+      "copyStyle":true
+    },
     "margin": {
       "type": "object",
       "copyStyle": true

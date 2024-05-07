@@ -535,6 +535,19 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['iconWrapperMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .item-buttons",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['iconWrapperMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconBg'] ) ) {
 			$this->inject_style(
 				array(

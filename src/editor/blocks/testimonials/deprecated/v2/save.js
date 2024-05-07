@@ -1,20 +1,11 @@
 
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
 import ContentItem from './components/content-item';
 import { swiperData } from 'gutenverse-core/helper';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
-
-const getImageSrc = ( src ) => {
-    if( src && src.image ){
-        return src.image;
-    }else{
-        return '';
-    }
-};
 
 const save = compose(
     withMouseMoveEffectScript
@@ -47,7 +38,7 @@ const save = compose(
         'quote-override',
     );
     return (
-        <div {...useBlockProps.save({ className })}>
+        <div className={className}>
             <div className="testimonials-list">
                 <div id={elementId} className="swiper-container" {...swiperData(attributes)}>
                     <div className="swiper-wrapper">
@@ -64,7 +55,6 @@ const save = compose(
                                 starPosition={starPosition}
                                 frontEnd={true}
                                 index={index}
-                                src={getImageSrc(data.src)}
                             />
                         </div>)}
                     </div>

@@ -16,6 +16,14 @@
 		"url": {
 			"type": "string"
 		},
+		"dynamicUrl": {
+			"type": "object",
+			"default": {}
+		},
+		"isDynamic": {
+			"type" : "boolean",
+			"default": false
+		},
 		"separateButtonLink": {
 			"type": "boolean"
 		},
@@ -62,6 +70,14 @@
 		"badgeDynamicList": {
 			"type": "array",
 			"default": []
+		},
+		"dynamicAttributes": {
+			"type": "array",
+			"default": ["titleDynamicList", "descriptionDynamicList", "badgeDynamicList"]
+		},
+		"hasGlobalLink": {
+			"type": "boolean",
+			"default": false
 		},
 		"openDynamic": {
 			"type": "string"

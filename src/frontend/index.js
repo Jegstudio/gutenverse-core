@@ -12,6 +12,7 @@ import GutenverseAnimatedText from './blocks/animated-text';
 import GutenversePostblock from './blocks/postblock';
 import GutenversePostlist from './blocks/postlist';
 import GutenversePopupBuilder from './blocks/popup-builder';
+import GutenverseSearch from './blocks/search';
 
 const gutenClasses = {
     ['tabs']: GutenverseTabs,
@@ -28,6 +29,7 @@ const gutenClasses = {
     ['post-block']: GutenversePostblock,
     ['post-list']: GutenversePostlist,
     ['popup-builder']: GutenversePopupBuilder,
+    ['search'] : GutenverseSearch,
 };
 
 Object.keys(gutenClasses).map((index) => {
@@ -37,4 +39,10 @@ Object.keys(gutenClasses).map((index) => {
     if (selected) {
         new ClassItem(selected);
     }
+});
+
+const elementPlaceholder = u('[data-image-placeholder]');
+const { image_placeholder } = window['GutenverseFrontendConfig'];
+elementPlaceholder.nodes.map(element => {
+    u(element).attr('src', image_placeholder);
 });

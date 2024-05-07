@@ -5,7 +5,6 @@ import {
     BlockControls,
     MediaUpload,
     MediaUploadCheck,
-    RichText,
     useBlockProps,
     useInnerBlocksProps
 } from '@wordpress/block-editor';
@@ -18,13 +17,14 @@ import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
+import { applyFilters } from '@wordpress/hooks';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -37,10 +37,10 @@ export const ImageBoxFigure = attributes => {
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
     const imageLazyLoad = () => {
-        if(lazyLoad){
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
-        }else{
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+        if (lazyLoad) {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        } else {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
         }
     };
     if (isEmpty(sizes)) {
@@ -58,9 +58,9 @@ export const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if(lazyLoad){
+        if (lazyLoad) {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
-        }else{
+        } else {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
         }
     }
@@ -115,9 +115,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
     const {
         titleTag: TitleTag,
-        title,
         titleIconPosition,
-        description,
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
@@ -126,6 +124,12 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
         linkTarget,
         separateButtonLink
     } = attributes;
+
+    const isGlobalLinkSet = url !== undefined && url !== '';
+
+    if (isGlobalLinkSet) {
+        setAttributes({ hasGlobalLink: isGlobalLinkSet });
+    } else setAttributes({ hasGlobalLink: false });
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -163,13 +167,15 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 3}}
-                    panelPosition={{panel : 'style', section : 1}}
+                    panelDynamic={{ panel: 'setting', section: 4 }}
+                    panelPosition={{ panel: 'style', section: 1 }}
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
-                    isUseDinamic={false}
+                    dynamicList={'titleDynamicList'}
+                    isUseDinamic={true}
                     isUseHighlight={true}
+                    parentHasLink={isGlobalLinkSet}
                 />
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
@@ -184,13 +190,15 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 setAttributes={setAttributes}
                 attributes={attributes}
                 clientId={clientId}
-                panelDynamic={{panel : 'setting', section : 3}}
-                panelPosition={{panel : 'style', section : 1}}
+                panelDynamic={{ panel: 'setting', section: 4 }}
+                panelPosition={{ panel: 'style', section: 1 }}
                 contentAttribute={'description'}
                 setPanelState={setPanelState}
                 textChilds={'descriptionChilds'}
-                isUseDinamic={false}
+                dynamicList={'descriptionDynamicList'}
+                isUseDinamic={true}
                 isUseHighlight={true}
+                parentHasLink={isGlobalLinkSet}
             />
             <div {...innerBlockProps} />
             {hoverBottom && <div className={'border-bottom'}>
@@ -210,7 +218,8 @@ const ImageBoxBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        setPanelState
     } = props;
 
     const {
@@ -219,6 +228,7 @@ const ImageBoxBlock = compose(
         rel,
         linkTarget,
         contentStyle,
+        dynamicUrl,
     } = attributes;
     HighLightToolbar(props);
     const imageBoxRef = useRef();
@@ -226,6 +236,10 @@ const ImageBoxBlock = compose(
     const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [dynamicHref, setDynamicHref] = useState();
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+    );
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -265,17 +279,50 @@ const ImageBoxBlock = compose(
         }
     }, [imageBoxRef]);
 
+    const panelState = {
+        panel: 'setting',
+        section: 3,
+    };
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        dynamicUrlcontent && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.error(error);
+            });
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
+
+
     return <>
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                        title="Item Link"
+                    />,
+                    props,
+                    panelState
+                )}
                 <ImageBoxPicker {...props}>
                     {({ open }) => <ToolbarButton
                         name="pick"
@@ -292,7 +339,7 @@ const ImageBoxBlock = compose(
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef}/>
+                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef} />
             </div>
         </div>
     </>;

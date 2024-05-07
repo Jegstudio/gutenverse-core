@@ -11,6 +11,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { HighLightToolbar } from 'gutenverse-core/toolbars';
+import { applyFilters } from '@wordpress/hooks';
 
 const AdvancedHeadingBlock = compose(
     withCustomStyle(panelList),
@@ -60,6 +61,11 @@ const AdvancedHeadingBlock = compose(
         }
     }, [advHeadingRef]);
 
+    applyFilters(
+        'gutenverse.pro.dynamic.toolbar',
+        '',
+        { isActive: true }
+    );
     HighLightToolbar(props);
 
     const richTextContent = (data, tag, classes, identifier ) => {
@@ -76,7 +82,6 @@ const AdvancedHeadingBlock = compose(
             classNames={classes}
             tagName={tag}
             aria-label={__('Advanced Heading', 'gutenverse')}
-            placeholder={__('Write Heading...', 'gutenverse')}
             onChange={value => setAttributes({ [identifier]: value })}
             multiline={false}
             setAttributes={setAttributes}
@@ -88,7 +93,7 @@ const AdvancedHeadingBlock = compose(
             setPanelState={setPanelState}
             textChilds={identifier + 'Childs'}
             dynamicList={identifier + 'DynamicList'}
-            isUseDinamic={false}
+            isUseDinamic={true}
             isUseHighlight={true}
         />;
     };

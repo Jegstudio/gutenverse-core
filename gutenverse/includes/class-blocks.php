@@ -55,6 +55,7 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/button/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/buttons/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/icon-box/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/gallery/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon-list/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/icon-list-item/block.json' );

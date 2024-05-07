@@ -13,7 +13,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
-
+import { getImageSrc } from 'gutenverse-core/editor-helper';
 const TestimonialsBlock = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
@@ -88,6 +88,7 @@ const TestimonialsBlock = compose(
                             setAttributes={setAttributes}
                             index={index}
                             testimonialData={testimonialData}
+                            src={getImageSrc(data.src)}
                         />
                     </div>)}
                 </WPSwiper>

@@ -10,6 +10,7 @@ import { panelFloating } from './panel-floating';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { panelWrapper } from './panel-wrapper';
+import { imageDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -32,11 +33,19 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Dynamic Image Data', 'gutenverse'),
+            panelArray: imageDynamicPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Dynamic Data', 'gutenverse'),
             panelArray: (props) => {
                 return dynamicContentPanel({
                     ...props,
-                    blockType: 'text'
+                    blockType: 'text',
+                    arrOfTextChilds : ['titleDynamicList', 'descriptionDynamicList']
                 });
             },
             initialOpen: false,

@@ -73,7 +73,8 @@ const TeamProfile = (props) => {
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
-                        isUseDinamic={false}
+                        dynamicList={identifier + 'DynamicList'}
+                        isUseDinamic={true}
                         isUseHighlight={true}
                     />
                 );
@@ -110,7 +111,8 @@ const TeamProfile = (props) => {
                         contentAttribute={identifier}
                         setPanelState={setPanelState}
                         textChilds={identifier + 'Childs'}
-                        isUseDinamic={false}
+                        dynamicList={identifier + 'DynamicList'}
+                        isUseDinamic={true}
                         isUseHighlight={true}
                     />
                 );
