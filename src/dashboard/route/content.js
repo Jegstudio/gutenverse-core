@@ -28,11 +28,8 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     } = window['GutenverseSettings'];
     const [settingValues, setSettingValues] = useState(settingsData);
     const [saving, setSaving] = useState(false);
-
     useEffect(() => {
-        const dev = 'true' == '--dev_mode--';
-        const fetchData = async (dev) => {
-            const result = await fetchLibraryData(dev);
+        fetchLibraryData().then(result => {
             initialLibraryData({
                 'layoutData': result['layout-data'],
                 'layoutCategories': result['layout-categories'],
@@ -42,13 +39,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
                 'sectionCategories': result['section-categories'],
                 'pluginEcosystem': result['plugin-ecosystem'],
             });
-        };
-
-        if (dev) {
-            fetchData(true);
-        } else {
-            fetchData(false);
-        }
+        });
 
         const { plugins } = window['GutenverseDashboard'];
         initialPluginData({
