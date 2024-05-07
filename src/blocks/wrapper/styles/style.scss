@@ -17,9 +17,12 @@
     align-items: flex-start;
     display: flex !important;
     flex-wrap: wrap;
-    
+    width: inherit;
     .section-wrapper {
         width: 100%;
+    }
+    > * {
+        width: inherit;
     }
 }
 

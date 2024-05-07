@@ -225,7 +225,6 @@ class Style_Generator {
 	 */
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
-		
 		if ( $_wp_current_template_id ) {
 			$style                = null;
 			$template             = explode( '//', $_wp_current_template_id );
@@ -270,8 +269,10 @@ class Style_Generator {
 				}
 				$local_file = gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' );
 				if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
-					if ( $blocks ) {
-						$this->loop_blocks( $blocks, $style );
+					if ( ! empty( $_wp_current_template_content ) ) {
+						if ( $blocks ) {
+							$this->loop_blocks( $blocks, $style );
+						}
 					}
 					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
 						gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
@@ -286,8 +287,10 @@ class Style_Generator {
 					wp_delete_file( $local_file );
 				}
 				if ( ! file_exists( $local_file ) ) {
-					if ( $blocks ) {
-						$this->loop_blocks( $blocks, $style );
+					if ( ! empty( $_wp_current_template_content ) ) {
+						if ( $blocks ) {
+							$this->loop_blocks( $blocks, $style );
+						}
 					}
 					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
 						gutenverse_core_make_css_style( 'gutenverse-default-template-generator-' . $template[1], $style );

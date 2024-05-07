@@ -234,10 +234,10 @@ export const SelectAuthor = ({ authors, author, setAuthor }) => {
 };
 
 export const RenderCategories = ({ categories, data, showCount = true, categoryListClicked = false, slug, type }) => {
-    if( !isEmpty(categories) && 'layout' === type ){
+    if( !isEmpty(categories) ){
         const categoriesIndex = categories.findIndex(el => el.slug === slug );
-        const childCategories = categories[categoriesIndex].childs;
-        return <ul className="gutenverse-sidebar-list">
+        const childCategories = categories[categoriesIndex]?.childs;
+        return categoriesIndex >= 0 && <ul className="gutenverse-sidebar-list">
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
@@ -246,23 +246,6 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
                     onClick={() => {
                         dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
                         // categoryListClicked && categoryListClicked(category.id, category.name);
-                    }}
-                >
-                    <i className="checkblock" />
-                    <span dangerouslySetInnerHTML={{ __html: theTitle(category, showCount) }} />
-                </li>;
-            })}
-        </ul>;
-    }else if( !isEmpty(categories) && 'section' === type){
-        return <ul className="gutenverse-sidebar-list">
-            {Object.keys(categories).map(id => {
-                const category = categories[id];
-                return <li
-                    className={data.categories.includes(category.id) ? 'active' : ''}
-                    key={category.id}
-                    onClick={() => {
-                        dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
-                        categoryListClicked && categoryListClicked(category.id, category.name);
                     }}
                 >
                     <i className="checkblock" />
