@@ -10,15 +10,12 @@ const removeEmptyInArray = (arr) => {
     return arr;
 }
 const layoutFilter = (layoutData, filter) => {
-    let { keyword, license, categories, author, like, status : postStatus } = filter;
+    let { keyword, license, categories, author, like } = filter;
     categories = removeEmptyInArray(categories);
-
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
-        const { name, pro, status } = data;
+        const { name, pro } = data;
         const { name: authorName } = layoutAuthor;
-        const dev = '--dev_mode--';
-
         if (like) {
             if (false === layoutLike) {
                 return false;
@@ -40,14 +37,6 @@ const layoutFilter = (layoutData, filter) => {
         }
         if (!isEmpty(categories) && !layoutCategories.some(category => categories.includes(category.id.toString()))) {
             return false;
-        }
-
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
-                    return false;
-                }
-            }
         }
 
         if (author) {
@@ -171,15 +160,13 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    let { license, categories, author, like, status : postStatus } = filter;
+    let { license, categories, author, like } = filter;
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
-        const { pro, status } = data;
+        const { pro } = data;
         const { name: authorName } = sectionAuthor;
         categories = removeEmptyInArray(categories);
-        const dev = '--dev_mode--';
-
         if (like) {
             if (false === sectionLike) {
                 return false;
@@ -191,14 +178,6 @@ const sectionFilter = (sectionData, filter) => {
 
             if (proState !== license) {
                 return false;
-            }
-        }
-
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
-                    return false;
-                }
             }
         }
 
@@ -219,12 +198,11 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license, status : postStatus } = filter;
+    const { keyword, license } = filter;
 
     themeData = themeData.filter((layout) => {
         const { data } = layout;
-        const { name, pro, status } = data;
-        const dev = '--dev_mode--';
+        const { name, pro } = data;
 
         if (keyword) {
             if (!name.toLowerCase().includes(keyword.toLowerCase())) {
@@ -240,14 +218,6 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
-                    return false;
-                }
-            }
-        }
-
         return true;
     });
 
@@ -259,7 +229,7 @@ export const filterTheme = (themeData, filter, perPage) => {
 
     const data = themeFilter(themeData, filter).map((layout) => {
         const { id, name, data, author, customAPI, customArgs } = layout;
-        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements, status } = data;
+        const { pro, slug, cover, host, demo, compatible_version: compatibleVersion, requirements } = data;
 
         return {
             id,
@@ -273,8 +243,7 @@ export const filterTheme = (themeData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author,
-            status
+            author
         };
     });
 
