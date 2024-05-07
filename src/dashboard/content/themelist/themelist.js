@@ -43,7 +43,7 @@ const ThemeItem = (props) => {
         setCurrentItem,
         setPluginInstallMode,
     } = props;
-    const { host, slug, demo, customAPI, customArgs, author, pro, status: postStatus } = theme;
+    const { host, slug, demo, customAPI, customArgs, author, pro } = theme;
     const [status, setStatus] = useState(false);
     const { createInfoNotice } = useDispatch(noticesStore);
     const [requirementStatus, setRequirementStatus] = useState(false);
@@ -217,12 +217,9 @@ const ThemeItem = (props) => {
         }
     };
 
-    const dev = '--dev_mode--';
-    const devMode = 'true' === dev  ? true : ('draft' === postStatus ? false : true);
-    return devMode && (
+    return (
         <div key={id} className={classnames('theme-data', { active: active })}>
             <div className="theme-thumbnail">
-                {postStatus === 'draft' && <div className="draft-label">{__('DRAFT', '--gctd--')}</div>}
                 <a href={demo} target="_blank" rel="noreferrer">
                     <img src={theme['cover'][0]} />
                 </a>
