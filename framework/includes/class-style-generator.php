@@ -225,7 +225,6 @@ class Style_Generator {
 	 */
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
-		gutenverse_rlog($_wp_current_template_content);
 		if ( $_wp_current_template_id ) {
 			$style                = null;
 			$template             = explode( '//', $_wp_current_template_id );
