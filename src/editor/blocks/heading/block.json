@@ -178,9 +178,6 @@
 		"condition": {
 			"type": "object",
 			"default": {}
-		},
-		"anchor": {
-		  "type": "string"
 		}
 	},
 	"supports": {

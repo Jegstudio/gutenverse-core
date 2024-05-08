@@ -22,7 +22,6 @@ const save = compose(
         elementId,
         content,
         type,
-        anchor,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
