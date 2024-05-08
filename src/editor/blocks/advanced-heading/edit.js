@@ -10,8 +10,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
-import { HighLightToolbar } from 'gutenverse-core/toolbars';
-import { applyFilters } from '@wordpress/hooks';
+import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 const AdvancedHeadingBlock = compose(
     withCustomStyle(panelList),
@@ -61,11 +60,7 @@ const AdvancedHeadingBlock = compose(
         }
     }, [advHeadingRef]);
 
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
-    );
+    FilterDynamic(props);
     HighLightToolbar(props);
 
     const richTextContent = (data, tag, classes, identifier ) => {

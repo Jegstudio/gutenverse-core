@@ -10,7 +10,7 @@ import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
-import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -91,10 +91,8 @@ const IconListItemBlock = compose(
             setElementRef(iconListItemRef.current);
         }
     }, [iconListItemRef]);
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        { isActive: true }
-    );
+
+    FilterDynamic(props);
     HighLightToolbar(props);
 
     const panelState = {

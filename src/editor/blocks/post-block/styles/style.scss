@@ -88,8 +88,11 @@
         -webkit-box-pack: justify;
         -ms-flex-pack: justify;
         justify-content: space-between;
-        margin-top: 1.5rem;
         position: relative;
+
+        > * {
+            margin-top: 1.5rem;
+        }
         
         .guten-meta-comment {
             position: absolute;
