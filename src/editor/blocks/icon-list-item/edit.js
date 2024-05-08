@@ -18,6 +18,7 @@ import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -107,7 +108,7 @@ const IconListItemBlock = compose(
             dynamicUrl
         );
 
-        dynamicUrlcontent && dynamicUrlcontent
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
