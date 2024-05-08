@@ -155,9 +155,7 @@ class GutenverseGallery extends Default {
         const proms=images.nodes.map(im=>new Promise(res=>
             im.onload=()=>res([im.width,im.height])
         ));
-
-        Promise.all(proms).then(data=>{
-
+        window.onload = function () {
             const shuffle = new Shuffle(thisElement.find('.gallery-items').first(), {
                 itemSelector: '.gallery-item-wrap',
                 sizer: '.gallery-sizer-element',
@@ -196,7 +194,8 @@ class GutenverseGallery extends Default {
 
                 total >= max && thisElement.find('.load-more-items').remove();
             });
-        });
+        }
+        
 
         thisElement.find('#guten-gallery-search-box').on('submit', e => e.preventDefault());
 
