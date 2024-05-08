@@ -308,6 +308,18 @@
                 }
             }
         }
+        
+        img {
+            &.bordered {
+                padding: 1px;
+                background: linear-gradient(0deg, #dfdfdf33, #dfdfdf);
+                background-clip: padding-box;
+
+                &.reversed {
+                    background: linear-gradient(0deg, #dfdfdf, #dfdfdf33);
+                }
+            }
+        }
     }
 
     .upgrade-notice-head {
