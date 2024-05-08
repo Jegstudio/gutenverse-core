@@ -44,5 +44,8 @@ Object.keys(gutenClasses).map((index) => {
 const elementPlaceholder = u('[data-image-placeholder]');
 const { image_placeholder } = window['GutenverseFrontendConfig'];
 elementPlaceholder.nodes.map(element => {
-    u(element).attr('src', image_placeholder);
+    const data = u(element).data('image-placeholder');
+    if('gutenverse-image-placeholder' === data){
+        u(element).attr('src', image_placeholder);
+    }
 });
