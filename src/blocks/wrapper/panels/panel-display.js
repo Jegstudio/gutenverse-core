@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleUnitPoint } from 'gutenverse-core/styling';
+import { handleUnitPoint, DeviceLoop } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -8,8 +8,7 @@ export const displayPanel = (props) => {
     const {
         elementId,
         selector,
-        displayType,
-        innerWrapWidth
+        displayType
     } = props;
 
     const deviceType = getDeviceType();
@@ -152,56 +151,11 @@ export const displayPanel = (props) => {
                     label: 'Full-Width',
                     value: '100%'
                 },
-                {
-                    label: 'Custom',
-                    value: 'custom'
-                },
             ],
             style: [
                 {
                     selector: `.${elementId}.guten-element .guten-inner-wrap`,
-                    render: value => {
-                        if (value === 'custom') {
-                            return `width: ${value}`;
-                        }
-                    }
-                }
-            ]
-        },
-        {
-            id: 'innerWrapCustomWidth',
-            label: __('Custom Width', '--gctd--'),
-            show: innerWrapWidth === 'custom',
-            component: SizeControl,
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 1000,
-                    step: 1,
-                    unit: 'px',
-                },
-                ['%']: {
-                    text: '%',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: '%',
-                },
-                vh: {
-                    text: 'vh',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: 'vh',
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .guten-inner-wrap`,
-                    allowRender: () => innerWrapWidth === 'custom',
-                    render: value => handleUnitPoint(value, 'width')
+                    render: value => `width: ${value}`
                 }
             ]
         },

@@ -335,7 +335,7 @@ export const dynamicData = (props) => {
 
                 // get dynamic content text
                 if (title !== content){
-                    dynamicTextContent
+                    ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicContent) && dynamicTextContent
                         .then(result => {
                             if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
                                 setDynamicText(prevState => {
@@ -355,7 +355,7 @@ export const dynamicData = (props) => {
                     let anchorElement = document.createElement('a');
                     anchorElement.setAttribute('class', `link-${id} dynamic-link`);
                     //get dynamic content url
-                    dynamicUrlcontent
+                    ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicUrl) && dynamicUrlcontent
                         .then(result => {
                             if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicUrl[index]) {
                                 setDynamicUrl(prevState => {
