@@ -714,7 +714,7 @@ class Api {
 	 * Update Data.
 	 */
 	public function update_library_data() {
-		/* masukkan ke if Kalo udah selesai **/
+		if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
 			$endpoints = array(
 				array(
 					'version'  => 'v3',
@@ -762,11 +762,7 @@ class Api {
 				$filename = str_replace( '/', '-', $endpoint['filename'] ) . '.json';
 				$this->fetch_file( $apipath . $endpoint['version'] . '/' . $endpoint['endpoint'], $directory . $filename, $endpoint );
 			}
-			/* masukkan ke if Kalo udah selesai **/
-
-			if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
-
-			}
+		}
 	}
 
 	/**
