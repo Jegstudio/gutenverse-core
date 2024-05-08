@@ -8,7 +8,8 @@ export const displayPanel = (props) => {
     const {
         elementId,
         selector,
-        displayType
+        displayType,
+        innerWrapWidth
     } = props;
 
     const deviceType = getDeviceType();
@@ -130,6 +131,77 @@ export const displayPanel = (props) => {
                     selector: customSelector,
                     allowRender: () => displayType && ['block', 'flex', 'inline-block', 'grid'].includes(displayType),
                     render: value => handleUnitPoint(value, 'height')
+                }
+            ]
+        },
+        {
+            id: 'innerWrapWidth',
+            label: __('Inner Wrap Width', '--gctd--'),
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: 'Default',
+                    value: 'auto'
+                },
+                {
+                    label: 'Inherit',
+                    value: 'inherit'
+                },
+                {
+                    label: 'Full-Width',
+                    value: '100%'
+                },
+                {
+                    label: 'Custom',
+                    value: 'custom'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .guten-inner-wrap`,
+                    render: value => {
+                        if (value === 'custom') {
+                            return `width: ${value}`;
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            id: 'innerWrapCustomWidth',
+            label: __('Custom Width', '--gctd--'),
+            show: innerWrapWidth === 'custom',
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .guten-inner-wrap`,
+                    allowRender: () => innerWrapWidth === 'custom',
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
