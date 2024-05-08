@@ -36,7 +36,10 @@ const save = compose(
         displayClass,
     );
 
-    const blockProps = useBlockProps.save({ className, ...advanceAnimationData })
+    const blockProps = useBlockProps.save({
+        className: className,
+        ...advanceAnimationData
+    });
 
     return (
         <TagName {...blockProps}>

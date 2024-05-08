@@ -38,7 +38,7 @@ const save = compose(
     );
 
     return (
-        <TagName {...useBlockProps.save({ className, id: anchor, ...advanceAnimationData })}>
+        <TagName {...useBlockProps.save({ className, ...advanceAnimationData })}>
             <RichText.Content value={content} />
         </TagName>
     );
