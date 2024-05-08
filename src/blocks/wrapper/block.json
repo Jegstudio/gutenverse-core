@@ -217,10 +217,6 @@
 		"innerWrapWidth":{
 			"type": "object",
 			"copyStyle": true
-		},
-		"innerWrapCustomWidth":{
-			"type": "object",
-			"copyStyle": true
 		}
 	},
 	"supports": {
