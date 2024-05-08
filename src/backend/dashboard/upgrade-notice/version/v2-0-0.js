@@ -113,13 +113,19 @@ const V200 = () => {
                         <p>{__('Easily rotate, scale, or skew elements on your website as you like.', 'gutenverse')}</p>
                     </div>
                     <div>
-                        <img src={assetURL + '/img/upgrade-notice-2.0.0-custom-font.png'}></img>
+                        <img className="bordered reversed" src={assetURL + '/img/upgrade-notice-2.0.0-custom-font.png'}></img>
                         <h5>{__('Custom Font', 'gutenverse')}</h5>
                         <p>{__('Go beyond with custom font to express your unique style.', 'gutenverse')}</p>
                     </div>
                     <div>
                         <div className="img-text">
-                            <p>{__('Highlight important details effortlessly and effectively.', 'gutenverse')}</p>
+                            <p>
+                                <strong>{__('Highlight', 'gutenverse')}</strong>
+                                {__(' important details ', 'gutenverse')}
+                                <strong>{__('effortlessly', 'gutenverse')}</strong>
+                                {__(' and ', 'gutenverse')}
+                                <strong>{__('effectively.', 'gutenverse')}</strong>
+                            </p>
                         </div>
                         <h5>{__('Highlight Text', 'gutenverse')}</h5>
                         <p>{__('Highlighting text with solid colors, gradients, or fill the background.', 'gutenverse')}</p>
@@ -161,7 +167,7 @@ const V200 = () => {
                     </div>
                 </div>
                 <div className="features-detail">
-                    <img src={assetURL + '/img/upgrade-notice-2.0.0-form.png'}></img>
+                    <img className="bordered" src={assetURL + '/img/upgrade-notice-2.0.0-form.png'}></img>
                     <div>
                         <h5>{__('Advanced Form', 'gutenverse')}</h5>
                         <p>{__('Use advance form blocks to gather information from visitors. With this block, you can create contact form, multi step form, conditional form, booking form, newsletter signup and other types of form. You can design the form you want and customize it to perfectly fit your page.', 'gutenverse')}</p>
@@ -180,7 +186,7 @@ const V200 = () => {
                     <img className="library" src={assetURL + '/img/upgrade-notice-2.0.0-cursor-effect.png'}></img>
                 </div>
                 <div className="features-detail reverse">
-                    <img src={assetURL + '/img/upgrade-notice-2.0.0-shape-divider.png'}></img>
+                    <img className="bordered" src={assetURL + '/img/upgrade-notice-2.0.0-shape-divider.png'}></img>
                     <div>
                         <h5>{__('Shape Divider Animated', 'gutenverse')}</h5>
                         <p>{__('Create an engaging and responsive design with Gutenverse\'s highly responsive shape divider animated for your website. You can add our exclusive and lightweight feature at the top and bottom sections of your website. Simply control the element to suit your needs.', 'gutenverse')}</p>
@@ -188,19 +194,19 @@ const V200 = () => {
                 </div>
                 <div className="features-3-col">
                     <div>
-                        <img src={assetURL + '/img/upgrade-notice-2.0.0-bganim.png'}></img>
+                        <img className="bordered" src={assetURL + '/img/upgrade-notice-2.0.0-bganim.png'}></img>
                         <h5>{__('Background Animated', 'gutenverse')}</h5>
                         <p>{__('Enhance your design and impress visitors with background animations.', 'gutenverse')}</p>
                     </div>
                     <div>
-                        <img src={assetURL + '/img/upgrade-notice-2.0.0-sticky.png'}></img>
+                        <img className="bordered reversed" src={assetURL + '/img/upgrade-notice-2.0.0-sticky.png'}></img>
                         <h5>{__('Sticky', 'gutenverse')}</h5>
                         <p>{__('Stick an element in any position on the page viewport as visitors scroll.', 'gutenverse')}</p>
                     </div>
                     <div>
-                        <img src={assetURL + '/img/upgrade-notice-2.0.0-filter.png'}></img>
-                        <h5>{__('Condition Filters', 'gutenverse')}</h5>
-                        <p>{__('Choose which elements or content should be displayed on the page.', 'gutenverse')}</p>
+                        <img src={assetURL + '/img/upgrade-notice-2.0.0-dynamic.png'}></img>
+                        <h5>{__('Dynamic Content', 'gutenverse')}</h5>
+                        <p>{__('Make your content dynamic, so you don\'t have to change it everytime.', 'gutenverse')}</p>
                     </div>
                 </div>
                 <h4>
