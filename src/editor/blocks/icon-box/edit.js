@@ -197,7 +197,7 @@ const IconBoxBlock = compose(
             dynamicUrl
         );
 
-        dynamicUrlcontent && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        ( dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);

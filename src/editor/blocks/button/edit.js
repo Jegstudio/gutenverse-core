@@ -210,7 +210,7 @@ const ButtonBlock = compose(
             dynamicContent
         );
 
-        dynamicUrlcontent && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        ( dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
@@ -222,7 +222,7 @@ const ButtonBlock = compose(
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
 
-        dynamicTextContent && !isEmpty(dynamicContent) && dynamicTextContent
+        ( dynamicTextContent.then === 'function' ) && !isEmpty(dynamicContent) && dynamicTextContent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
