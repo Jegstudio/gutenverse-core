@@ -137,12 +137,12 @@
 			"copyStyle": true
 		},
 		"imageWidth": {
-			"type": "int",
+			"type": "integer",
 			"default": 150,
 			"copyStyle": true
 		},
 		"imageHeight": {
-			"type": "int",
+			"type": "integer",
 			"default": 150,
 			"copyStyle": true
 		},
