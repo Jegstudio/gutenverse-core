@@ -34,19 +34,17 @@ class Post_Content extends Block_Abstract {
 		$content = ! empty( $post->post_content ) ? $post->post_content : '';
 		$blocks  = parse_blocks( $content );
 		$content = '';
-
 		// removed because some HTML tags styling became broken.
 		remove_filter( 'the_content', 'wpautop' );
 
 		if ( ! empty( $blocks ) ) {
 			foreach ( $blocks as $block ) {
 				// prevent loop if there is another post content block inside.
-				if ( 'core/post-content' !== $block['blockName'] && 'gutenverse/post-content' !== $block['blockName'] ) {
+				if ( 'core/post-content' !== $block['blockName'] && 'gutenverse/post-content' !== $block['blockName'] && isset( $block['blockName'] ) ) {
 					$content .= apply_filters( 'the_content', render_block( $block ) );
 				}
 			}
 		}
-
 		return $content;
 	}
 
