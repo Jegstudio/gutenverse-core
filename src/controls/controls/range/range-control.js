@@ -20,7 +20,7 @@ const RangeControl = ({
     onValueChange,
     onStyleChange,
     description = '',
-    isParseFloat = false,
+    isParseFloat = true,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
 
