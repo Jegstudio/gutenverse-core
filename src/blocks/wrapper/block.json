@@ -216,7 +216,10 @@
 		},
 		"innerWrapWidth":{
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {
+				"Desktop": "100%"
+			}
 		}
 	},
 	"supports": {
