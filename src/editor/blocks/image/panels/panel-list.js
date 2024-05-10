@@ -5,6 +5,7 @@ import { altPanel } from './panel-alt';
 import { captionPanel } from './panel-caption';
 import { imagePanel } from './panel-image';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { imageDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -24,6 +25,13 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: captionPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Dynamic Image Data', 'gutenverse'),
+            panelArray: imageDynamicPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Border', 'gutenverse'),

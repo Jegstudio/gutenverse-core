@@ -182,6 +182,19 @@ class Nav_Menu extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['itemMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li > a, #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['itemMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['itemTextNormalColor'] ) ) {
 			$this->inject_style(
 				array(

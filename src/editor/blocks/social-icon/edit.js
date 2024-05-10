@@ -24,6 +24,8 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -37,7 +39,8 @@ const SocialIcon = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef
+        setElementRef,
+        setPanelState,
     } = props;
 
     const {
@@ -46,13 +49,15 @@ const SocialIcon = compose(
         text,
         url,
         linkTarget,
-        rel
+        rel,
+        dynamicUrl,
     } = attributes;
 
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const socialType = getSocialType(icon);
     const socialIconRef = useRef();
+    const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -92,6 +97,30 @@ const SocialIcon = compose(
         }
     }, [socialIconRef]);
 
+    const panelState = {
+        panel: 'setting',
+        section: 1,
+    };
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.error(error);
+            });
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
+
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -106,17 +135,25 @@ const SocialIcon = compose(
         />, gutenverseRoot)}
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                        title="Item Link"
+                    />,
+                    props,
+                    panelState
+                )}
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}

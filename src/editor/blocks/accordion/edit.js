@@ -134,7 +134,7 @@ const Accordion = compose(
         '',
         { isActive: true }
     );
-    
+
     HighLightToolbar(props);
 
     return <>

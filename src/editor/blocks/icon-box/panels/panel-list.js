@@ -9,6 +9,7 @@ import { panelIconBoxContainer } from './panel-icon-box';
 import { panelIconStyle } from './panel-icon-style';
 import { panelOverlay } from './panel-overlay';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { globalDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -24,13 +25,20 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Dynamic Global Url', 'gutenverse'),
+            panelArray: globalDynamicPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Dynamic Data', 'gutenverse'),
             panelArray: (props) => {
                 return dynamicContentPanel({
                     ...props,
                     blockType: 'text',
                     multiText : true,
-                    textArray : ['titleDynamicList','descriptionDynamicList','badgeDynamicList']
+                    arrOfTextChilds : ['titleDynamicList', 'descriptionDynamicList', 'badgeDynamicList']
                 });
             },
             initialOpen: false,
