@@ -20,9 +20,9 @@ export const handleBackground = (background) => {
         } = background;
 
         if (color) {
-            const result = handleColor(color, 'background');
+            const result = handleColor(color, 'background-color');
             normalAppender({
-                style: result,
+                style: `${result} background-image: none;`,
                 elementStyle
             });
         }

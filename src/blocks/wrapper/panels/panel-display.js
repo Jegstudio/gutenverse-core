@@ -140,17 +140,17 @@ export const displayPanel = (props) => {
             allowDeviceControl: true,
             options: [
                 {
-                    label: 'Default',
+                    label: 'Full-Width',
+                    value: '100%'
+                },
+                {
+                    label: 'Auto',
                     value: 'auto'
                 },
                 {
                     label: 'Inherit',
                     value: 'inherit'
-                },
-                {
-                    label: 'Full-Width',
-                    value: '100%'
-                },
+                }
             ],
             style: [
                 {

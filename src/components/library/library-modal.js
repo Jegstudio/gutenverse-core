@@ -84,6 +84,7 @@ const LibraryModal = props => {
                 </div>
                 <div className={'gutenverse-library-body'}>
                     <LibraryContent
+                        modalData={modalData}
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
                         burger={burger}
@@ -96,8 +97,7 @@ const LibraryModal = props => {
 
 const LibraryContent = (props) => {
     let template = null;
-    const { active} = props;
-
+    const { active } = props;
     switch (active) {
         case 'favorite':
             template = <FavoriteContent {...props}  />;
