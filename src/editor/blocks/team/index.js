@@ -17,7 +17,23 @@ export const settings = {
     save,
     deprecated: [
         {
-            attributes,
+            attributes: {
+                ...attributes,
+                overlayType: {
+                    type: 'string',
+                    deprecated: true,
+                },
+            },
+            migrate: (attributes) => {
+                const { overlayType } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    overlayType: overlayType,
+                };
+                return [
+                    newAttributes
+                ];
+            },
             save: saveV1
         }
     ]
