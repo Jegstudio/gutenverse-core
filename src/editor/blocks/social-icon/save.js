@@ -7,6 +7,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
+import { applyFilters } from '@wordpress/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('social-icon'),
@@ -39,8 +40,16 @@ const save = compose(
         displayClass,
     );
 
+    const href = applyFilters(
+        'gutenverse.dynamic.generate-url',
+        url,
+        'dynamicUrl',
+        attributes,
+        elementId
+    );
+
     return <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-        <a id={elementId} href={url} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
+        <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>
             <i className={icon}/>
             {
                 text && <RichText.Content

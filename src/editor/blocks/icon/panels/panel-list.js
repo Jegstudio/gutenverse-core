@@ -4,6 +4,7 @@ import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { contentColor } from './panel-color';
 import { iconPanel } from './panel-icon';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
@@ -57,6 +58,13 @@ export const panelList = () => {
             title: __('Mouse Move Effect', 'gutenverse'),
             initialOpen: false,
             panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: dynamicContentPanel,
+            initialOpen: false,
             tabRole: TabSetting,
             pro: true,
         },

@@ -25,7 +25,7 @@ export const itemStylePanel = (props) => {
         },
         {
             id: 'itemSpacing',
-            label: __('Item Spacing', 'gutenverse'),
+            label: __('Item Padding', 'gutenverse'),
             allowDeviceControl: true,
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
@@ -44,6 +44,30 @@ export const itemStylePanel = (props) => {
                     selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
                     .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                     render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'itemMargin',
+            label: __('Item Margin', 'gutenverse'),
+            allowDeviceControl: true,
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
+                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    render: value => handleDimension(value, 'margin')
                 }
             ]
         },

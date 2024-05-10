@@ -37,6 +37,10 @@
 			"type": "array",
 			"default": []
 		},
+        "dynamicAttributes": {
+			"type": "array",
+			"default": ["textDynamicList", "focusTextDynamicList", "subTextDynamicList"]
+		},
 		"openDynamic": {
 			"type": "string"
 		},

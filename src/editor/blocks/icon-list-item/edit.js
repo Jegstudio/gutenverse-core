@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
-import { useCallback, useState } from '@wordpress/element';
+import { useCallback, useState, useEffect, useRef } from '@wordpress/element';
 import { withCustomStyle } from 'gutenverse-core/hoc';
-import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
@@ -13,13 +13,12 @@ import { IconLibrary } from 'gutenverse-core/controls';
 import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
-import { useEffect } from '@wordpress/element';
-import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
+import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -35,7 +34,6 @@ const IconListItemBlock = compose(
         isSelected,
         setElementRef,
         clientId,
-        elementRef,
         setPanelState
     } = props;
 
@@ -45,13 +43,19 @@ const IconListItemBlock = compose(
         rel,
         url,
         linkTarget,
-        text,
         hideIcon,
+        dynamicUrl,
     } = attributes;
 
     const iconListItemRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [dynamicHref, setDynamicHref] = useState();
+    const isGlobalLinkSet = url !== undefined && url !== '';
+
+    if (isGlobalLinkSet) {
+        setAttributes({ hasGlobalLink: isGlobalLinkSet });
+    } else setAttributes({ hasGlobalLink: false });
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -92,6 +96,31 @@ const IconListItemBlock = compose(
         { isActive: true }
     );
     HighLightToolbar(props);
+
+    const panelState = {
+        panel: 'setting',
+        section: 0,
+    };
+
+    useEffect(() => {
+        const dynamicUrlcontent = applyFilters(
+            'gutenverse.dynamic.fetch-url',
+            dynamicUrl
+        );
+
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+            .then(result => {
+                if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
+                    setDynamicHref(result);
+                } else if (result !== dynamicHref) setDynamicHref(undefined);
+            }).catch(error => {
+                console.error(error);
+            });
+        if (dynamicHref !== undefined) {
+            setAttributes({ url: dynamicHref, isDynamic: true });
+        } else { setAttributes({ url: url }); }
+    }, [dynamicUrl, dynamicHref]);
+
     return <>
         <InspectorControls>
             <SelectParent {...props}>
@@ -106,17 +135,25 @@ const IconListItemBlock = compose(
         />, gutenverseRoot)}
         <BlockControls>
             <ToolbarGroup>
-                <URLToolbar
-                    url={url}
-                    setAttributes={setAttributes}
-                    isSelected={isSelected}
-                    opensInNewTab={linkTarget === '_blank'}
-                    onToggleOpenInNewTab={onToggleOpenInNewTab}
-                    anchorRef={blockProps.ref}
-                />
+                {applyFilters('gutenverse.button.url-toolbar',
+                    <URLToolbar
+                        url={url}
+                        setAttributes={setAttributes}
+                        isSelected={isSelected}
+                        opensInNewTab={linkTarget === '_blank'}
+                        onToggleOpenInNewTab={onToggleOpenInNewTab}
+                        anchorRef={blockProps.ref}
+                        usingDynamic={true}
+                        setPanelState={setPanelState}
+                        panelState={panelState}
+                        title="Item Link"
+                    />,
+                    props,
+                    panelState
+                )}
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}
@@ -127,7 +164,7 @@ const IconListItemBlock = compose(
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
-                    ref = {iconListItemRef}
+                    ref={iconListItemRef}
                     classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}
                     aria-label={__('List text')}
@@ -137,14 +174,15 @@ const IconListItemBlock = compose(
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 0}}
-                    panelPosition={{panel : 'style', section : 1}}
+                    panelDynamic={{ panel: 'setting', section: 1 }}
+                    panelPosition={{ panel: 'style', section: 1 }}
                     contentAttribute={'text'}
                     setPanelState={setPanelState}
                     textChilds={'textChilds'}
                     dynamicList={'dynamicDataList'}
                     isUseDinamic={true}
                     isUseHighlight={true}
+                    parentHasLink={isGlobalLinkSet}
                 />
             </a>
         </li>

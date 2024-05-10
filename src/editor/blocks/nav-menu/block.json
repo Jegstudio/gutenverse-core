@@ -104,6 +104,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "itemMargin": {
+      "type": "object",
+      "copyStyle": true
+    },
     "itemTextNormalColor": {
       "type": "object",
       "copyStyle": true
