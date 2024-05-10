@@ -57,7 +57,7 @@ abstract class Block_Abstract {
 		$this->set_content( $content );
 		$this->set_context( $fulldata );
 
-		if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		if ( defined( 'REST_REQUEST' ) && REST_REQUEST || gutenverse_is_block_editor() ) {
 			return $this->render_gutenberg();
 		} else {
 			return $this->render_frontend();

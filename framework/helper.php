@@ -31,7 +31,16 @@ if ( ! function_exists( 'gutenverse_rlog' ) ) {
 		error_log( print_r( $attr, true ) );
 	}
 }
-
+if ( ! function_exists( 'gutenverse_is_block_editor' ) ) {
+	/**
+	 * Check Current Page is Block Editor
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_is_block_editor() {
+		return function_exists( 'get_current_screen' ) && get_current_screen()->is_block_editor;
+	}
+}
 if ( ! function_exists( 'gutenverse_secure_permalink' ) ) {
 	/**
 	 * Get Secure Permalink
