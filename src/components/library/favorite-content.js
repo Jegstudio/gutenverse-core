@@ -1,7 +1,7 @@
 
 import { sprintf, __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
 import { filterCategories, filterSection, getDistincAuthor, filterLayout } from './library-helper';
 import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core/icons';
 import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
@@ -27,6 +27,10 @@ const FavoriteContent = props => {
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
 
+    useLayoutEffect(() => {
+        layoutContentData.categories = [];
+    },[]);
+    
     useEffect(() => {
         dispatch('gutenverse/library').setCategories('');
         dispatch('gutenverse/library').setAuthor('');

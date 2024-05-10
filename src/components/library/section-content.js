@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
 import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
@@ -37,7 +37,6 @@ const SectionContent = (props) => {
 const SectionContentWrapper = (props) => {
     const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger } = props;
     const { layoutContentData: data } = modalData;
-
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
     const [status, setStatus] = useState('');
@@ -52,6 +51,10 @@ const SectionContentWrapper = (props) => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
 
+    useLayoutEffect(() => {
+        data.categories = [];
+    }, []);
+    
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
