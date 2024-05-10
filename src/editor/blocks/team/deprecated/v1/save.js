@@ -1,23 +1,32 @@
 import { compose } from '@wordpress/compose';
+
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
-import ProgressContent from './components/progress-content';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
+import TeamProfile from './team-profile';
+import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
-    withAnimationAdvanceScript('progress-bar'),
+    withAnimationAdvanceScript('team'),
     withMouseMoveEffectScript
 )((props) => {
     const {
-        attributes
+        attributes,
+        setAttributes,
     } = props;
 
     const {
         elementId,
-        style,
+        addPopup,
+        name,
+        job,
+        src,
+        description,
+        phone,
+        email,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -26,26 +35,28 @@ const save = compose(
 
     const className = classnames(
         'guten-element',
-        'guten-progress-bar',
+        'guten-team',
         elementId,
         animationClass,
-        displayClass
+        displayClass,
     );
 
-    const wrapperClass = classnames(
-        'progress-group',
-        {
-            [`${style}`]: style && style !== 'default'
-        },
-    );
+    const socialComponent = <InnerBlocks.Content/>;
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div className={wrapperClass}>
-                <div className="progress-skill-bar">
-                    <ProgressContent {...props} />
-                </div>
-            </div>
+            <TeamProfile 
+                {...props}
+                frontEnd={true}
+                socialComponent={socialComponent}/>
+            {addPopup && <div className="profile-popup"
+                data-name={name}
+                data-job={job}
+                data-img={getImageSrc(src)}
+                data-desc={description}
+                data-phone={phone}
+                data-email={email}
+            ></div>}
         </div>
     );
 });

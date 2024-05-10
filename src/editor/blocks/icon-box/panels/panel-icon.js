@@ -141,6 +141,7 @@ export const panelIcon = (props) => {
             min: 1,
             max: 400,
             step: 1,
+            isParseFloat: true,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
@@ -158,6 +159,7 @@ export const panelIcon = (props) => {
             min: 1,
             max: 400,
             step: 1,
+            isParseFloat: true,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
@@ -175,6 +177,7 @@ export const panelIcon = (props) => {
             min: 1,
             max: 400,
             step: 1,
+            isParseFloat: true,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
@@ -192,6 +195,7 @@ export const panelIcon = (props) => {
             min: 1,
             max: 400,
             step: 1,
+            isParseFloat: true,
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
