@@ -14,7 +14,7 @@ import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -186,9 +186,7 @@ const IconBoxBlock = compose(
         section: 2,
     };
 
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-    );
+    FilterDynamic(props);
     HighLightToolbar(props);
 
     useEffect(() => {

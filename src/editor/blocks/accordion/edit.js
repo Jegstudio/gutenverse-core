@@ -12,7 +12,7 @@ import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
 import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
-import { HighLightToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -129,12 +129,7 @@ const Accordion = compose(
         });
     }, []);
 
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
-    );
-
+    FilterDynamic(props);
     HighLightToolbar(props);
 
     return <>

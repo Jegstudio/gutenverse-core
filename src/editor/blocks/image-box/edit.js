@@ -13,7 +13,7 @@ import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
-import { HighLightToolbar, URLToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
@@ -230,6 +230,8 @@ const ImageBoxBlock = compose(
         contentStyle,
         dynamicUrl,
     } = attributes;
+
+    FilterDynamic(props);
     HighLightToolbar(props);
     const imageBoxRef = useRef();
     const descRef = useRef();

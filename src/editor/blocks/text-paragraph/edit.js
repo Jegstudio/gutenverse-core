@@ -11,18 +11,14 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
-import { HighLightToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 
 
 const TextBlockControl = (props) => {
     HighLightToolbar (props);
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
-    );
+    FilterDynamic(props);
 };
 const TextBlock = compose(
     withCustomStyle(panelList),

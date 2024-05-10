@@ -16,8 +16,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { HighLightToolbar } from 'gutenverse-core/toolbars';
-import { applyFilters } from '@wordpress/hooks';
+import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 // import { useSelect } from '@wordpress/data';
 
 
@@ -67,11 +66,7 @@ const TeamBlock = compose(
         }
     }, [teamRef]);
     HighLightToolbar(props);
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-        '',
-        { isActive: true }
-    );
+    FilterDynamic(props);
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>

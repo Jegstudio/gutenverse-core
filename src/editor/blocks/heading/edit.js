@@ -17,7 +17,7 @@ import { PanelController } from 'gutenverse-core/controls';
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
-import { HighLightToolbar } from 'gutenverse-core/toolbars';
+import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 const HeadingBlockControl = (props) => {
     const{
@@ -28,9 +28,7 @@ const HeadingBlockControl = (props) => {
         type,
     } = attributes;
 
-    applyFilters(
-        'gutenverse.pro.dynamic.toolbar',
-    );
+    FilterDynamic(props);
     HighLightToolbar(props);
 
     return <BlockControls>

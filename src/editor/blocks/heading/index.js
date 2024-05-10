@@ -8,10 +8,11 @@ import { IconHeadingSVG } from '../../../assets/icon/index';
 import edit from './edit';
 import save from './save';
 import saveV1 from './deprecated/v1/save';
+import attrV1 from './deprecated/v1/attributes.json';
 import metadata from './block.json';
 import example from './data/example';
 
-const { name, attributes } = metadata;
+const { name } = metadata;
 
 export { metadata, name };
 
@@ -22,7 +23,7 @@ export const settings = {
     save,
     deprecated: [
         {
-            attributes,
+            attributes: attrV1,
             save: saveV1
         }
     ]
