@@ -38,7 +38,6 @@ const TeamProfile = (props) => {
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
     const contentDesc = (classnames, identifier, data, tag ) => {
-        console.log(classnames, identifier, data, tag);
         if(showDesc){
             if(frontEnd){
                 return <RichText.Content

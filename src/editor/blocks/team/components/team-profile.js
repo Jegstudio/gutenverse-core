@@ -63,7 +63,6 @@ const TeamProfile = (props) => {
                         tagName={tag}
                         onChange={value => setAttributes({ [identifier]: value })}
                         aria-label={ariaLabel}
-                        placeholder={ariaLabel}
                         multiline={false}
                         setAttributes={setAttributes}
                         attributes={attributes}
@@ -101,7 +100,6 @@ const TeamProfile = (props) => {
                         tagName={tag}
                         onChange={value => setAttributes({ [identifier]: value })}
                         aria-label={ariaLabel}
-                        placeholder={ariaLabel}
                         multiline={false}
                         setAttributes={setAttributes}
                         attributes={attributes}

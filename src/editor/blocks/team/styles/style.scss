@@ -41,9 +41,11 @@
 
                 .profile-body {
                     opacity: 0;
+                    margin-bottom: 55%;
                     transform: translateY(-50%);
 
                     &.bottom {
+                        margin-bottom: 0px;
                         bottom: -5% !important;
                         top: unset !important;
                         transform: translateY(0%);
@@ -111,6 +113,7 @@
                         transform: translateY(-50%);
 
                         &.bottom {
+                            margin-bottom: 0px;
                             bottom: 0 !important;
                             top: unset !important;
                             transform: translateY(0%);
