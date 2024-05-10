@@ -91,6 +91,20 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['readmoreEnabled']) || isset( $this->attrs['commentEnabled'] ) ) {
+			gutenverse_jlog( 'masuk' );
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-block-container .guten-postblock-content .guten-post-meta-bottom",
+					'property'       => function ( $value ) {
+						return "margin-top: {$value}rem;";
+					},
+					'value'          => 1.5,
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['postItemBackground'] ) ) {
 			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-post", $this->attrs['postItemBackground'] );
 		}

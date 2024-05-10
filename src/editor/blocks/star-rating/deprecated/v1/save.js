@@ -1,14 +1,13 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
-import ProgressContent from './components/progress-content';
+import StarIcons from './components/star-icons';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
-    withAnimationAdvanceScript('progress-bar'),
+    withAnimationAdvanceScript('star-rating'),
     withMouseMoveEffectScript
 )((props) => {
     const {
@@ -17,7 +16,7 @@ const save = compose(
 
     const {
         elementId,
-        style,
+        title,
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -26,25 +25,17 @@ const save = compose(
 
     const className = classnames(
         'guten-element',
-        'guten-progress-bar',
+        'guten-star-rating',
         elementId,
         animationClass,
-        displayClass
-    );
-
-    const wrapperClass = classnames(
-        'progress-group',
-        {
-            [`${style}`]: style && style !== 'default'
-        },
+        displayClass,
     );
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div className={wrapperClass}>
-                <div className="progress-skill-bar">
-                    <ProgressContent {...props} />
-                </div>
+        <div className={className} {...advanceAnimationData}>
+            <div className="rating-wrapper">
+                <span className="rating-title">{title}</span>
+                <StarIcons {...attributes}/>
             </div>
         </div>
     );
