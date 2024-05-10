@@ -239,6 +239,25 @@ const ImageBlock = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
+    const ImageToolbar = () => {
+        return applyFilters('gutenverse.button.url-toolbar',
+            <URLToolbar
+                url={url}
+                setAttributes={setAttributes}
+                isSelected={isSelected}
+                opensInNewTab={linkTarget === '_blank'}
+                onToggleOpenInNewTab={onToggleOpenInNewTab}
+                anchorRef={blockProps.ref}
+                usingDynamic={true}
+                setPanelState={setPanelState}
+                panelState={panelState}
+                title="Item Link"
+            />,
+            props,
+            panelState
+        );
+    };
+
     return <>
         <PanelController panelList={panelList} {...props} />
         {imgSrc && <BlockControls>
@@ -251,22 +270,7 @@ const ImageBlock = compose(
                         onClick={open}
                     />}
                 </ImagePicker>
-                {applyFilters('gutenverse.button.url-toolbar',
-                    <URLToolbar
-                        url={url}
-                        setAttributes={setAttributes}
-                        isSelected={isSelected}
-                        opensInNewTab={linkTarget === '_blank'}
-                        onToggleOpenInNewTab={onToggleOpenInNewTab}
-                        anchorRef={blockProps.ref}
-                        usingDynamic={true}
-                        setPanelState={setPanelState}
-                        panelState={panelState}
-                        title="Item Link"
-                    />,
-                    props,
-                    panelState
-                )}
+                <ImageToolbar />
             </ToolbarGroup>
         </BlockControls>}
         {rootBlock && rootBlock.name === 'gutenverse/client-logo' ? <div id={elementId}>{blockElement}</div> : blockElement}
