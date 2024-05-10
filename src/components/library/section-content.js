@@ -85,8 +85,9 @@ const SectionContentWrapper = (props) => {
         setContent(prevState => {
             const { data: oldData, total, current } = prevState;
 
-            const theData = oldData.map(item => {
-                return result[item.id];
+            const theData = oldData.map((item) => {
+                const matchData = sectionData.find(data => data.id === item.id);
+                return {...result[item.id], name: matchData.name.split('&#')[0]};
             });
 
             return {
@@ -271,7 +272,7 @@ const SectionContentItem = props => {
                 </div>
             </div>}
             <div className="library-item-holder" style={{
-                paddingBottom: `${item.cover[2] / item.cover[1] * 100}%`
+                paddingBottom: `${item?.cover[2] / item?.cover[1] * 100}%`
             }}>
                 <img src={image} />
                 <div className="library-item-detail">
@@ -298,7 +299,7 @@ const SectionContentItem = props => {
         <div className="library-item-bottom">
             <div className="library-item-wrapper">
                 <div className="library-item-left">
-                    {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
+                    {item.name && <span className="by">{__(`${item.name}`, '--gctd--')}</span>}
                 </div>
                 <div className="library-item-right">
                     {requirementStatus?.length > 0 && <div className="section-requirement">

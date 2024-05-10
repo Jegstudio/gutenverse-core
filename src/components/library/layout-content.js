@@ -306,17 +306,18 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
             </div>
         </div>
         <div className="library-item-holder" style={{
-            paddingBottom: `${item.cover[2] / item.cover[1] * 100}%`
+            paddingBottom: `${item?.cover[2] / item?.cover[1] * 100}%`
         }} onClick={() => showSingleLayout(item.id, item.slug)}>
+            {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
             <img src={item.cover[0]} />
         </div>
         <div className="library-item-detail">
             <div className="library-item-wrapper">
                 <h2 onClick={() => showSingleLayout(item.id)}>
-                    {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
+                    {/* {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>} */}
                     {item.title}
                 </h2>
-                {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
+                {/* {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>} */}
             </div>
             {item.like ?
                 <div className="library-like active" onClick={() => likeLayout(item.slug, false)}>

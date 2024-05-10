@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { getPluginRequirementStatus } from './library-helper';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core/icons';
+import { IconDownloadSVG, IconDownload2SVG, IconCrownBannerSVG, IconKeySVG  } from 'gutenverse-core/icons';
 import { importImage, importSingleLayoutContent } from 'gutenverse-core/requests';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
@@ -77,7 +77,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             </div >;
         } else {
             return <div className="layout-button import-page" onClick={importContent}>
-                <IconDownloadSVG /><span>{__('Import this page', '--gctd--')}</span>
+                <span>{__('Import this page', '--gctd--')}</span><IconDownload2SVG />
             </div >;
         }
 
@@ -87,8 +87,8 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
         const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
-            <IconVerifiedSVG />
-            {__('Upgrade to Pro', '--gctd--')}
+            {__('Upgrade to PRO', '--gctd--')}
+            <IconCrownBannerSVG />
         </a>;
     };
 

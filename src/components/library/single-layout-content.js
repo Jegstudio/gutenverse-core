@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 import classnames from 'classnames';
 import { getInstalledThemes } from 'gutenverse-core/requests';
 import { getPluginRequirementStatus, likeLayout } from './library-helper';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
 import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
 import ImportLayout from './import-layout';
 import { Loader } from 'react-feather';
@@ -133,12 +133,12 @@ const SingleLayoutContent = (props) => {
                     <div className="layout-action">
                         <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} />
                         {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
-                            {__('View Demo', '--gctd--')}
+                            {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
                         </a>}
                     </div>
                 </div>
                 <div className="single-wrapper">
-                    <h2>{singleData.isPro && <div className="single-pro">PRO</div>} {singleData.title}</h2>
+                    <h2>{singleData.title} {singleData.isPro && <div className="single-pro">PRO</div>}</h2>
                     <div className="single-layout-meta">
                         {singleData.author && <span className="single-layout-author">
                             {__('by ', '--gctd--')}

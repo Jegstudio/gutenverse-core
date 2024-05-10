@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
 import { withSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconDownloadSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
@@ -70,8 +70,8 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
         return (
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={() => { window.open(upgradeProUrl); }}>
-                    <IconVerifiedSVG />
                     <span>{__('Upgrade to Pro', '--gctd--')}</span>
+                    <IconCrownBannerSVG />
                 </div>
             </div>
         );
