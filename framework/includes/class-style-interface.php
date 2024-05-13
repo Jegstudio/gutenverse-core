@@ -1606,10 +1606,11 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
+
 							$bg_attachment = '';
 
-							if ( is_bool( $value ) ) {
-								$fixed = $value ? 'fixed' : 'scroll';
+							if ( is_bool( $value ) || '1' === $value ) {
+								$fixed = ( $value || '1' === $value ) ? 'fixed' : 'scroll';
 								$bg_attachment = "background-attachment: {$fixed};";
 							}
 
