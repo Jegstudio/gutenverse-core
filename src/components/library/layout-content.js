@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
 import { sprintf, __ } from '@wordpress/i18n';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
@@ -20,6 +20,7 @@ const LayoutContent = (props) => {
     const [content, setContent] = useState([]);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
     const [singleData, setSingleData] = useState(null);
+    
     return <>
         {pluginInstallMode && <PluginInstallMode
             name={singleData.title}
@@ -60,6 +61,11 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const { keyword } = data;
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
+
+    useLayoutEffect(() => {
+        data.categories = [];
+    },[]);
+    
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);

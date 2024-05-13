@@ -213,6 +213,13 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"innerWrapWidth":{
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"Desktop": "100%"
+			}
 		}
 	},
 	"supports": {

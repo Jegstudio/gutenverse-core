@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { handleUnitPoint } from 'gutenverse-core/styling';
+import { handleUnitPoint, DeviceLoop } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -130,6 +130,32 @@ export const displayPanel = (props) => {
                     selector: customSelector,
                     allowRender: () => displayType && ['block', 'flex', 'inline-block', 'grid'].includes(displayType),
                     render: value => handleUnitPoint(value, 'height')
+                }
+            ]
+        },
+        {
+            id: 'innerWrapWidth',
+            label: __('Inner Wrap Width', '--gctd--'),
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: 'Full-Width',
+                    value: '100%'
+                },
+                {
+                    label: 'Auto',
+                    value: 'auto'
+                },
+                {
+                    label: 'Inherit',
+                    value: 'inherit'
+                }
+            ],
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .guten-inner-wrap`,
+                    render: value => `width: ${value}`
                 }
             ]
         },

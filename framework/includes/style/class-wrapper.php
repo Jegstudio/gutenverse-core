@@ -268,5 +268,17 @@ class Wrapper extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['innerWrapWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-inner-wrap",
+					'property'       => function ( $value ) {
+						return "width: $value;";
+					},
+					'value'          => $this->attrs['innerWrapWidth'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }
