@@ -151,6 +151,19 @@ class Button extends Style_Abstract {
 				)
 			);
 		}
+		
+		if ( ( $this->attrs['content'] === '' ) && ! isset( $this->attrs['typography'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button span",
+					'property'       => function ( $value ) {
+						return 'height: 15px; ';
+					},
+					'value'          => '',
+					'device_control' => false,
+				)
+			);
+		}
 
 		if ( isset( $this->attrs['color'] ) ) {
 			$this->inject_style(
