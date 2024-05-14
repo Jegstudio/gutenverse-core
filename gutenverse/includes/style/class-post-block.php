@@ -91,8 +91,7 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['readmoreEnabled']) || isset( $this->attrs['commentEnabled'] ) ) {
-			gutenverse_jlog( 'masuk' );
+		if ( isset( $this->attrs['readmoreEnabled'] ) || isset( $this->attrs['commentEnabled'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-block-container .guten-postblock-content .guten-post-meta-bottom",
