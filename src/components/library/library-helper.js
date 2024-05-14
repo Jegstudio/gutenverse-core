@@ -2,6 +2,9 @@ import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core/reque
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch } from '@wordpress/data';
+import { IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { __ } from '@wordpress/i18n';
+import { Loader } from 'react-feather';
 
 const removeEmptyInArray = (arr) => {
     if(!isEmpty(arr)){
@@ -155,6 +158,23 @@ export const filterCategories = (data, categories, filter, type) => {
     ].sort((a, b) => {
         return b.count - a.count;
     });
+};
+
+export const ExportNotice = (props) => {
+    return <div className="library-export-notice">
+        <div className="library-export-notice-container">
+            <IconInfoYellowSVG />
+            <span>{__('Currently undergoing the export process.', '--gctd--')}</span>
+            <div className="importing-notice">
+                <div className="notice-inner">
+                    <div className="rotating">
+                        <Loader size={18} />
+                    </div>
+                    <span>{props.message}</span>
+                </div>
+            </div>
+        </div>
+    </div>;
 };
 
 const categoryCount = (layouts, categoryId) => {

@@ -6,6 +6,7 @@ import LayoutContent from './layout-content';
 import SectionContent from './section-content';
 import FavoriteContent from './favorite-content';
 import { useState } from '@wordpress/element';
+import { ExportNotice } from './library-helper';
 
 const LibraryModal = props => {
     const {
@@ -22,6 +23,7 @@ const LibraryModal = props => {
     const [style, setStyle] = useState({
         display : ''
     });
+    const [exporting, setExporting] = useState({show: false, message: ''});
     const handleBurger = () => {
         setBurger(!burger);
         if(burger){
@@ -82,12 +84,14 @@ const LibraryModal = props => {
                         </div>
                     </div>
                 </div>
+                {exporting.show && <ExportNotice message={exporting.message} /> }
                 <div className={'gutenverse-library-body'}>
                     <LibraryContent
                         modalData={modalData}
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
                         burger={burger}
+                        setExporting={setExporting}
                     />
                 </div>
             </div>

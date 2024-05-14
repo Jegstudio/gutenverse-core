@@ -1,4 +1,3 @@
-import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import ButtonUpgradePro from './button-upgrade-pro';
 import isEmpty from 'lodash/isEmpty';

@@ -8,7 +8,7 @@ import SearchBar from './search-bar';
 import Select from 'react-select';
 import { Loader } from 'react-feather';
 import { customStyles } from './style';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG } from 'gutenverse-core/icons';
 import Paging from './paging';
 import BannerPro from '../pro/banner-pro';
 import isEmpty from 'lodash/isEmpty';
@@ -36,6 +36,7 @@ const LayoutContent = (props) => {
             backText={__('Back to Layouts', '--gctd--')}
             closeImporter={props.closeImporter}
             setSingleData={setSingleData}
+            setExporting={props.setExporting}
             singleData={singleData}
             pluginInstallMode={pluginInstallMode}
             setPluginInstallMode={setPluginInstallMode}
@@ -274,10 +275,13 @@ export const LayoutContentData = ({ data, current, total, setSingleId, setSlug, 
     //changePaging is sipatch page
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
-            <div className="empty-svg">
-                <IconEmptySVG />
+            <div className="empty-wrapper">
+                <div className="empty-svg">
+                    <IconEmpty2SVG />
+                </div>
+                <h3>{__('No Result Found', '--gctd--')}</h3>
+                <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
-            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
             <LayoutItems data={data} setSingleId={setSingleId} setSlug={setSlug} scroller={scroller} />
             <Paging current={current} total={total} scroller={scroller} />

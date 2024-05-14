@@ -30,7 +30,7 @@ const FavoriteContent = props => {
     useLayoutEffect(() => {
         layoutContentData.categories = [];
     },[]);
-    
+
     useEffect(() => {
         dispatch('gutenverse/library').setCategories('');
         dispatch('gutenverse/library').setAuthor('');

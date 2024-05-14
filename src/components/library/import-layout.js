@@ -3,13 +3,13 @@ import { __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { getPluginRequirementStatus } from './library-helper';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconDownload2SVG, IconCrownBannerSVG, IconKeySVG  } from 'gutenverse-core/icons';
+import { IconDownload2SVG, IconCrownBannerSVG } from 'gutenverse-core/icons';
 import { importImage, importSingleLayoutContent } from 'gutenverse-core/requests';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import { Loader } from 'react-feather';
 
-const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode }) => {
+const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting }) => {
     const { isPro, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
     const pluginRequirement = getPluginRequirementStatus({
         plugins: plugins.installedPlugin,
@@ -29,6 +29,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const importContent = () => {
+        setExporting({show: true, message: 'Fetching Data...'});
         dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockLayoutImport({
             layout: slug,
@@ -49,12 +50,15 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
 
         importSingleLayoutContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
+            setExporting({show: true, message: 'Importing Assets...'});
             dispatch( 'gutenverse/library' ).setLayoutProgress(__('Importing Assets', '--gctd--'));
             return importImage(data);
         }).then(result => {
+            setExporting({show: true, message: 'Deploying Content...'});
             dispatch( 'gutenverse/library' ).setLayoutProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
+            setExporting({show: false, message: 'Done!'});
             setTimeout(() => {
                 closeImporter();
                 dispatch( 'gutenverse/library' ).setLockLayoutImport({
@@ -63,6 +67,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 });
             }, 200);
         }).catch((e) => {
+            setExporting({show: false, message: 'Failed!'});
             console.log(e);
             alert('Import Failed, please try again');
         });

@@ -7,7 +7,7 @@ import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
 import BannerPro from '../pro/banner-pro';
 import { Loader } from 'react-feather';
@@ -35,7 +35,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setExporting } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
@@ -54,7 +54,7 @@ const SectionContentWrapper = (props) => {
     useLayoutEffect(() => {
         data.categories = [];
     }, []);
-    
+
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
@@ -167,21 +167,25 @@ const SectionContentWrapper = (props) => {
                 scroller={scroller}
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
+                setExporting={setExporting}
             />
         </div>
     </>;
 };
 
 export const SectionContentData = props => {
-    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode } = props;
+    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setExporting } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
-            <div className="empty-svg">
-                <IconEmptySVG />
+            <div className="empty-wrapper">
+                <div className="empty-svg">
+                    <IconEmpty2SVG />
+                </div>
+                <h3>{__('No Result Found', '--gctd--')}</h3>
+                <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
-            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
-            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} />
+            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
     } else {
@@ -190,7 +194,7 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, data, closeImporter } = props;
+    const { categoryCache, data, closeImporter, setExporting } = props;
     let breakpointColumnsObj = {
         default: 3,
         1100: 3,
@@ -218,6 +222,7 @@ const SectionItems = props => {
             closeImporter={closeImporter}
             setCurrentItem={props.setCurrentItem}
             setPluginInstallMode={props.setPluginInstallMode}
+            setExporting={setExporting}
         />)}
     </Masonry>;
 };
@@ -234,8 +239,9 @@ const SectionContentItem = props => {
     const plugins =  getPluginData();
     const library =  getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting } = props;
     const [image, setImage] = useState('');
+    const [showOverlay, setShowOverlay] = useState(false);
     const { section: sectionId } = library;
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
@@ -279,10 +285,12 @@ const SectionContentItem = props => {
             }}>
                 <img src={image} />
                 <div className="library-item-detail">
-                    {requirementStatus?.length === 0 ? <div className="library-item-overlay">
+                    {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay? 'show-overlay' : ''}`}>
                         <ImportSectionButton
                             data={item}
                             closeImporter={closeImporter}
+                            setShowOverlay={setShowOverlay}
+                            setExporting={setExporting}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>

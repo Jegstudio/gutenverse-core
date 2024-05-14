@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from '@wordpress/element';
 import classnames from 'classnames';
 import { getInstalledThemes } from 'gutenverse-core/requests';
 import { getPluginRequirementStatus, likeLayout } from './library-helper';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
 import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
 import ImportLayout from './import-layout';
 import { Loader } from 'react-feather';
@@ -21,7 +21,8 @@ const SingleLayoutContent = (props) => {
         closeImporter,
         setSingleData,
         singleData,
-        setPluginInstallMode
+        setPluginInstallMode,
+        setExporting,
     } = props;
 
     const [active, setActive] = useState(0);
@@ -131,7 +132,7 @@ const SingleLayoutContent = (props) => {
                         </div> : <img src={imageCover} key={imageCover} />}
                     </div>
                     <div className="layout-action">
-                        <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} />
+                        <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
                         {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
                             {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
                         </a>}
@@ -186,9 +187,10 @@ const SingleLayoutContent = (props) => {
                 <div>
                     <div className="empty-wrapper">
                         <div className="empty-svg">
-                            <IconEmptySVG />
+                            <IconEmpty2SVG />
                         </div>
-                        <h3>{__('Empty Result', '--gctd--')}</h3>
+                        <h3>{__('No Result Found', '--gctd--')}</h3>
+                        <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
                     </div>
                     <div className="back-button" onClick={() => setSingleId(null)}>
                         <span>
