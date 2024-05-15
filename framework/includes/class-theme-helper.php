@@ -51,7 +51,7 @@ class Theme_Helper {
 	}
 
 	public function change_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
-		return $stylesheet_dir . '/gutenverse-files';
+		return apply_filters( 'gutenverse-stylesheet-directory', $stylesheet_dir . '/gutenverse-files') ;
 	}
 
 	public function change_template_directory( $template_dir, $template, $theme_root ) {
@@ -60,8 +60,6 @@ class Theme_Helper {
 
 	public function remove_filter_change_directory( $query_result, $query, $template_type ) {
 		add_filter( 'stylesheet_directory', array( $this, 'redefault_stylesheet_directory' ), null, 3 );
-		// remove_filter( 'stylesheet_directory', 'change_stylesheet_directory',2 );
-		// gutenverse_rlog( get_stylesheet_directory() );
 		return $query_result;
 	}
 
