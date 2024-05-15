@@ -68,7 +68,8 @@ export const settingPanel = ({postType}) => {
             component: RangeControl,
             min: 1,
             max: 30,
-            step: 1
+            step: 1,
+            isParseFloat: false
         },
         {
             id: 'postOffset',

@@ -48,6 +48,7 @@ export const paginationPanel = (props) => {
             min: 1,
             max: 30,
             step: 1,
+            isParseFloat: false
         },
         {
             id: 'paginationScrollLimit',
