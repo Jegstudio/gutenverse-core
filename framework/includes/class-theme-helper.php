@@ -44,29 +44,67 @@ class Theme_Helper {
 		add_action( 'wp', array( $this, 'register_block_core_template_part' ) );
 	}
 
+	/**
+	 * Change Stylesheet and template directory
+	 *
+	 * @param WP_Block_Template[] $query_result Array of found block templates.
+	 * @param array               $query .
+	 * @param string              $template_type wp_template or wp_template_part.
+	 */
 	public function change_stylesheet_and_template_directory( $query_result, $query, $template_type ) {
 		add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ), null, 3 );
-		// add_filter( 'template_directory', array( $this, 'change_template_directory' ), null, 3 );
+		add_filter( 'template_directory', array( $this, 'change_template_directory' ), null, 3 );
 		return null;
 	}
 
+	/**
+	 * Change StyleSheet Directory
+	 *
+	 * @param string $stylesheet_dir Absolute path to the active theme.
+	 * @param string $stylesheet     Directory name of the active theme.
+	 * @param string $theme_root     Absolute path to themes directory.
+	 */
 	public function change_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
 		$new_dir = $stylesheet_dir . '/gutenverse-files';
-		return apply_filters( 'gutenverse-stylesheet-directory', $new_dir, $stylesheet, $theme_root);
+		return apply_filters( 'gutenverse-stylesheet-directory', $new_dir, $stylesheet, $theme_root );
 	}
 
+	/**
+	 * Change Template Directory
+	 *
+	 * @param string $template_dir Absolute path to the active theme.
+	 * @param string $template     Directory name of the active theme.
+	 * @param string $theme_root     Absolute path to themes directory.
+	 */
 	public function change_template_directory( $template_dir, $template, $theme_root ) {
-		return $template_dir . '/gutenverse-files';
+		$new_dir = $template_dir . '/gutenverse-files';
+		return apply_filters( 'gutenverse-template-directory', $new_dir, $template, $theme_root );
 	}
 
+	/**
+	 * Remove Filter change directory
+	 *
+	 * @param WP_Block_Template[] $query_result Array of found block templates.
+	 * @param array               $query .
+	 * @param string              $template_type wp_template or wp_template_part.
+	 */
 	public function remove_filter_change_directory( $query_result, $query, $template_type ) {
-		add_filter( 'stylesheet_directory', array( $this, 'redefault_stylesheet_directory' ), null, 3 );
+		add_filter( 'stylesheet_directory', array( $this, 'redefault_directory' ), null, 3 );
+		add_filter( 'template_directory', array( $this, 'redefault_directory' ), null, 3 );
 		return $query_result;
 	}
 
-	public function redefault_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
+	/**
+	 * Redefault Directory
+	 *
+	 * @param string $stylesheet_dir Absolute path to the active theme.
+	 * @param string $stylesheet     Directory name of the active theme.
+	 * @param string $theme_root     Absolute path to themes directory.
+	 */
+	public function redefault_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
 		return "$theme_root/$stylesheet";
 	}
+
 	/**
 	 * Home Template.
 	 */
