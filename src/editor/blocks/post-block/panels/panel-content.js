@@ -160,6 +160,7 @@ export const contentPanel = (props) => {
             min: 0,
             max: 200,
             step: 1,
+            isParseFloat: false,
         },
         {
             id: 'excerptMore',
