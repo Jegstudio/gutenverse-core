@@ -174,6 +174,37 @@ body {
   }
 }
 .gutenverse-control-wrapper{
+  .gutenverse-button-available-pro {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 16px 64px 14px 0;
+    padding: 10px 16px;
+    border-radius: 5px;
+    box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
+    background-image: linear-gradient(93deg, #f045ff -14%, #4569ff 51%, #68e4f4 106%), linear-gradient(to right, #3f3bf7, #68e4f4), linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    font-family: Roboto;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    font-size: 12px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(0.94);
+      opacity: 0.6 !important;
+      background: unset;
+      background-image: linear-gradient(94deg, #f045ff -14%, #4569ff 51%, #68e4f4 106%), linear-gradient(to right, #3f3bf7, #68e4f4), linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    }
+  }
+
   .no-license-control-body{
     display: block;
     .no-license-image-wrapper{

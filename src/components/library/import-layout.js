@@ -48,29 +48,41 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             }
         );
 
-        importSingleLayoutContent(params, customAPI).then(result => {
-            const data = JSON.parse(result);
-            setExporting({show: true, message: 'Importing Assets...'});
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Importing Assets', '--gctd--'));
-            return importImage(data);
-        }).then(result => {
-            setExporting({show: true, message: 'Deploying Content...'});
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Deploying Content', '--gctd--'));
-            return insertBlocksTemplate(result);
-        }).finally(() => {
-            setExporting({show: false, message: 'Done!'});
-            setTimeout(() => {
-                closeImporter();
-                dispatch( 'gutenverse/library' ).setLockLayoutImport({
-                    layout: null,
-                    title: null
+        importSingleLayoutContent(params, customAPI)
+            .then(result => {
+                const data = JSON.parse(result);
+                setExporting({show: true, message: 'Importing Assets...'});
+                dispatch('gutenverse/library').setLayoutProgress(__('Importing Assets', '--gctd--'));
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(importImage(data));
+                    }, 500); // 1 second delay
                 });
-            }, 200);
-        }).catch((e) => {
-            setExporting({show: false, message: 'Failed!'});
-            console.log(e);
-            alert('Import Failed, please try again');
-        });
+            })
+            .then(result => {
+                setExporting({show: true, message: 'Deploying Content...'});
+                dispatch('gutenverse/library').setLayoutProgress(__('Deploying Content', '--gctd--'));
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(insertBlocksTemplate(result));
+                    }, 500); // 1 second delay
+                });
+            })
+            .finally(() => {
+                setExporting({show: false, message: 'Done!'});
+                setTimeout(() => {
+                    dispatch('gutenverse/library').setLockLayoutImport({
+                        layout: null,
+                        title: null
+                    });
+                    closeImporter();
+                }, 200);
+            })
+            .catch((e) => {
+                setExporting({show: false, message: 'Failed!'});
+                console.log(e);
+                alert('Import Failed, please try again');
+            });
     };
 
     const ImportButton = () => {

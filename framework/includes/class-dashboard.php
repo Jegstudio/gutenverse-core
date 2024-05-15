@@ -401,7 +401,7 @@ class Dashboard {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Upgrade to PRO', '--gctd--' ),
-				'<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '</span>',
+				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 				'manage_options',
 				'admin.php?page=gutenverse&path=upgrade-pro',
 				null,

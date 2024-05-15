@@ -201,7 +201,7 @@ $border: #eaeaea;
 
         .library-items-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(224px, 1fr));
 
             .library-like {
                 cursor: pointer;
@@ -219,9 +219,21 @@ $border: #eaeaea;
                 padding: 8px;
                 margin: 10px;
                 background: #fff;
-                border-radius: 3px;
+                border-radius: 5px;
                 border: 1px solid #f0f0f3;
                 position: relative;
+
+                .library-item-content {
+                    background-color: #e3e4e6;
+                    border-radius: inherit;
+                }
+
+                .library-item-divider {
+                    height: 1px;
+                    background-color: #e3e4e6;
+                    width: calc(100% + 16px);
+                    margin-left: -8px;
+                }
 
                 .library-item-loader {
                     display: flex;
@@ -236,7 +248,7 @@ $border: #eaeaea;
                 }
 
                 .library-item-holder {
-                    border-radius: 3px;
+                    border-radius: 5px;
                     overflow: hidden;
                     cursor: pointer;
                     position: relative;
@@ -264,7 +276,7 @@ $border: #eaeaea;
                     }
 
                     img {
-                        border-radius: 3px;
+                        border-radius: 5px 0 0;
                         width: 100%;
                         display: block;
                         position: absolute;
@@ -276,14 +288,22 @@ $border: #eaeaea;
                     font-family: "Heebo", sans-serif;
                     font-size: 12px;
                     align-items: center;
-                    padding: 20px 10px 10px;
+                    padding: 10px 10px 2px;
                     justify-content: space-between;
 
                     h2 {
                         margin: 0;
-                        font-size: 17px;
                         cursor: pointer;
                         display: flex;
+                        font-family: Heebo;
+                        font-size: 12px !important;
+                        font-weight: 500;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #011627;
                     }
 
                     span.by {
@@ -305,6 +325,20 @@ $border: #eaeaea;
                         color: #797979;
                         font-size: 13px;
                         font-family: "Heebo", sans-serif;
+                    }
+
+                    .library-item-left {
+                        span {
+                            font-family: Heebo;
+                            font-size: 12px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: normal;
+                            letter-spacing: normal;
+                            text-align: left;
+                            color: #99a2a9;
+                        }
                     }
 
                     .library-item-right {
@@ -980,24 +1014,46 @@ $border: #eaeaea;
             overflow: hidden;
 
             h3 {
+                font-family: Roboto;
+                font-size: 14px;
+                font-weight: 500;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.46;
+                letter-spacing: normal;
+                text-align: left;
                 color: #fff;
-                font-weight: normal;
-                font-size: 15px;
-                margin-top: 5px;
-                margin-bottom: 16px;
+                margin-top: 0 !important;
+                margin-bottom: 10px !important;
             }
 
             p {
-                font-size: 13px;
-                color: #dddddd;
                 position: relative;
                 z-index: 2;
+                max-width: 70%;
+                font-family: Roboto;
+                font-size: 12px;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.4;
+                letter-spacing: normal;
+                text-align: left;
+                color: #fff;
             }
 
             a {
-                color: #ffc700;
                 padding-top: 10px;
                 display: block;
+                font-family: Roboto;
+                font-size: 10px;
+                font-weight: 500;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: #ffc700;
             }
 
             svg {

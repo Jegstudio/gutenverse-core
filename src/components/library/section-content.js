@@ -273,6 +273,9 @@ const SectionContentItem = props => {
         setPluginInstallMode(true);
     };
 
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
+    const minHeight = paddingBottom === 0 ? 44 : 0;
+
     return <div className={classname}>
         <div className="library-item-content">
             {sectionId === item.id && <div className="library-item-loader">
@@ -281,7 +284,7 @@ const SectionContentItem = props => {
                 </div>
             </div>}
             <div className="library-item-holder" style={{
-                paddingBottom: `${item?.cover[2] / item?.cover[1] * 100}%`
+                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`
             }}>
                 <img src={image} />
                 <div className="library-item-detail">
@@ -307,6 +310,7 @@ const SectionContentItem = props => {
                 </div>
             </div>
         </div>
+        <div className="library-item-divider" />
         <div className="library-item-bottom">
             <div className="library-item-wrapper">
                 <div className="library-item-left">

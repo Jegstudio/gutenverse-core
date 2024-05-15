@@ -273,10 +273,10 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
             return null;
         } else {
             return <div className="single-install-themes">
-                <h3>{__('Install', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
-                <p>{__('Get all layout by installed themes instead. Please first backup your current templates if you have any changes.', '--gctd--')}</p>
+                <h3>{__('Install', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')} {!singleData.isPro ? __('For Free', '--gctd--') : ''}</h3>
+                <p>{__('Check out and install our fully supported Full Site Editing (FSE) themes.', '--gctd--')}</p>
                 <a href={`${themeListUrl}&keyword=${singleData.slug}&action=install`} target={'_blank'} rel="noreferrer">
-                    {__('Install & Activate Themes', '--gctd--')} →
+                    {__('Install Themes', '--gctd--')} →
                 </a>
                 <IconCircleExclamationSVG />
             </div>;

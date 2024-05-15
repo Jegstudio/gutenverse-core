@@ -49,14 +49,15 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
             return insertBlocksTemplate(result);
         }).finally(() => {
             setTimeout(() => {
-                closeImporter();
                 setShowOverlay(false);
                 setExporting({show: false, message: 'Done!'});
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
             }, 200);
-        }).catch(() => {
+            closeImporter();
+        }).catch((e) => {
             setShowOverlay(false);
             setExporting({show: false, message: 'Failed!'});
+            console.log(e);
             alert('Import Failed, please try again');
         });
     };

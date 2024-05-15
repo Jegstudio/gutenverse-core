@@ -309,6 +309,8 @@ const LayoutItems = ({ data, setSingleId, setSlug }) => {
 };
 
 const LayoutSingleItem = ({ item, showSingleLayout }) => {
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
+    const minHeight = paddingBottom === 0 ? '44px' : 'unset';
     return <div className="library-item" key={item.id}>
         <div className="library-item-loader">
             <div className="rotating">
@@ -316,11 +318,12 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
             </div>
         </div>
         <div className="library-item-holder" style={{
-            paddingBottom: `${item?.cover[2] / item?.cover[1] * 100}%`
+            paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}
         }} onClick={() => showSingleLayout(item.id, item.slug)}>
             {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
             <img src={item.cover[0]} />
         </div>
+        <div className="library-item-divider" />
         <div className="library-item-detail">
             <div className="library-item-wrapper">
                 <h2 onClick={() => showSingleLayout(item.id)}>
