@@ -51,7 +51,8 @@ class Theme_Helper {
 	}
 
 	public function change_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
-		return apply_filters( 'gutenverse-stylesheet-directory', $stylesheet_dir . '/gutenverse-files') ;
+		$new_dir = $stylesheet_dir . '/gutenverse-files';
+		return apply_filters( 'gutenverse-stylesheet-directory', $new_dir, $stylesheet, $theme_root);
 	}
 
 	public function change_template_directory( $template_dir, $template, $theme_root ) {
