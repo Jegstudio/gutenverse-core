@@ -1097,7 +1097,7 @@ if ( ! function_exists( 'gutenverse_upgrade_pro' ) ) {
 		if ( ! empty( $referral ) ) {
 			return GUTENVERSE_FRAMEWORK_REFERRAL_URL . '/' . $referral;
 		} else {
-			return GUTENVERSE_PRO_URL;
+			return GUTENVERSE_UPGRADE_URL;
 		}
 	}
 }
