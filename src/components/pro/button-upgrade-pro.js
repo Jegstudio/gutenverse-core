@@ -62,14 +62,10 @@ const ButtonUpgradePro = ({
                 target="_blank"
                 rel="noreferrer"
                 style={customStyles}>
-                {navigation ? <>
-                    {icon === 'crown' ? <IconCrownSVG/> : <IconKeySVG/>}
+                <>
                     {text}
-                </> :
-                    <>
-                        {text}
-                        {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
-                    </>}
+                    {icon === 'crown' ? <IconCrownBannerSVG/> : <IconKeySVG/>}
+                </>
             </a>);
     };
 

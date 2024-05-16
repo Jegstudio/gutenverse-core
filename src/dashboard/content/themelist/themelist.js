@@ -223,6 +223,7 @@ const ThemeItem = (props) => {
         <div key={id} className={classnames('theme-data', { active: active })}>
             <div className="theme-thumbnail">
                 {postStatus === 'draft' && <div className="draft-label">{__('DRAFT', '--gctd--')}</div>}
+                {pro && <div className="pro-flag">PRO</div>}
                 <a href={demo} target="_blank" rel="noreferrer">
                     <img src={theme['cover'][0]} />
                 </a>
@@ -230,7 +231,6 @@ const ThemeItem = (props) => {
             </div>
             <div className="theme-desc">
                 <h3 className="theme-title">
-                    {pro && <div className="pro-flag">PRO</div>}
                     <a href={demo} target="_blank" rel="noreferrer">
                         {`${theme['title']}`}
                     </a>
@@ -250,9 +250,9 @@ const ThemeItem = (props) => {
                         </div>
                     </div>}
                 </h3>
-                {author && <span className="theme-author">
+                {/* {author && <span className="theme-author">
                     {__('by', '--gctd--')} {author.name}
-                </span>}
+                </span>} */}
                 <div className="theme-buttons">
                     {applyFilters(
                         'gutenverse.library.themelist.import',
