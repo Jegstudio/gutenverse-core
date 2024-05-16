@@ -65,8 +65,12 @@ class Theme_Helper {
 	 * @param string $theme_root     Absolute path to themes directory.
 	 */
 	public function change_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
-		$new_dir = $stylesheet_dir . '/gutenverse-files';
-		return apply_filters( 'gutenverse-stylesheet-directory', $new_dir, $stylesheet, $theme_root );
+		$check_stylesheet = get_stylesheet();
+		$check_template   = get_template();
+		if( $check_stylesheet === $check_template ){
+			return apply_filters( 'gutenverse-stylesheet-directory', $stylesheet_dir, $stylesheet, $theme_root );
+		}
+		return $stylesheet_dir;
 	}
 
 	/**
@@ -77,8 +81,7 @@ class Theme_Helper {
 	 * @param string $theme_root     Absolute path to themes directory.
 	 */
 	public function change_template_directory( $template_dir, $template, $theme_root ) {
-		$new_dir = $template_dir . '/gutenverse-files';
-		return apply_filters( 'gutenverse-template-directory', $new_dir, $template, $theme_root );
+		return apply_filters( 'gutenverse-template-directory', $template_dir, $template, $theme_root );
 	}
 
 	/**
