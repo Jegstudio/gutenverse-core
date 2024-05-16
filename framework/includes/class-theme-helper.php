@@ -30,8 +30,9 @@ class Theme_Helper {
 		// add_filter( 'pre_get_block_templates', array( $this, 'get_block_template' ), null, 3 );
 		// add_filter( 'get_block_file_template', array( $this, 'get_block_file_template' ), null, 5 );
 
-		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null, 3 );
-		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null, 3 );
+		add_filter( 'pre_get_block_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
+		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null );
+		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null );
 
 		// Action.
 		add_action( 'wp', array( $this, 'home_template' ), 99 );
@@ -48,64 +49,47 @@ class Theme_Helper {
 	 * Change Stylesheet and template directory
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
-	 * @param array               $query .
-	 * @param string              $template_type wp_template or wp_template_part.
 	 */
-	public function change_stylesheet_and_template_directory( $query_result, $query, $template_type ) {
-		add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ), null, 3 );
-		add_filter( 'template_directory', array( $this, 'change_template_directory' ), null, 3 );
-		return null;
+	public function change_stylesheet_and_template_directory( $query_result ) {
+		add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
+		add_filter( 'template_directory', array( $this, 'change_template_directory' ) );
+		return $query_result;
 	}
 
 	/**
 	 * Change StyleSheet Directory
 	 *
 	 * @param string $stylesheet_dir Absolute path to the active theme.
-	 * @param string $stylesheet     Directory name of the active theme.
-	 * @param string $theme_root     Absolute path to themes directory.
 	 */
-	public function change_stylesheet_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
+	public function change_stylesheet_directory( $stylesheet_dir ) {
 		$check_stylesheet = get_stylesheet();
 		$check_template   = get_template();
-		if( $check_stylesheet === $check_template ){
-			return apply_filters( 'gutenverse-stylesheet-directory', $stylesheet_dir, $stylesheet, $theme_root );
+
+		if ( $check_stylesheet === $check_template ) {
+			return apply_filters( 'gutenverse_stylesheet_directory', $stylesheet_dir );
+		} else {
+			return $stylesheet_dir;
 		}
-		return $stylesheet_dir;
 	}
 
 	/**
 	 * Change Template Directory
 	 *
 	 * @param string $template_dir Absolute path to the active theme.
-	 * @param string $template     Directory name of the active theme.
-	 * @param string $theme_root     Absolute path to themes directory.
 	 */
-	public function change_template_directory( $template_dir, $template, $theme_root ) {
-		return apply_filters( 'gutenverse-template-directory', $template_dir, $template, $theme_root );
+	public function change_template_directory( $template_dir ) {
+		return apply_filters( 'gutenverse_template_directory', $template_dir );
 	}
 
 	/**
 	 * Remove Filter change directory
 	 *
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
-	 * @param array               $query .
-	 * @param string              $template_type wp_template or wp_template_part.
 	 */
-	public function remove_filter_change_directory( $query_result, $query, $template_type ) {
-		add_filter( 'stylesheet_directory', array( $this, 'redefault_directory' ), null, 3 );
-		add_filter( 'template_directory', array( $this, 'redefault_directory' ), null, 3 );
+	public function remove_filter_change_directory( $query_result ) {
+		remove_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
+		remove_filter( 'template_directory', array( $this, 'change_template_directory' ) );
 		return $query_result;
-	}
-
-	/**
-	 * Redefault Directory
-	 *
-	 * @param string $stylesheet_dir Absolute path to the active theme.
-	 * @param string $stylesheet     Directory name of the active theme.
-	 * @param string $theme_root     Absolute path to themes directory.
-	 */
-	public function redefault_directory( $stylesheet_dir, $stylesheet, $theme_root ) {
-		return "$theme_root/$stylesheet";
 	}
 
 	/**
