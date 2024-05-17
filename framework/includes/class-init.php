@@ -174,6 +174,9 @@ class Init {
 		$this->global_variable  = new Global_Variable();
 		$this->upgrader         = new Upgrader();
 		$this->meta_option      = Meta_Option::instance();
+
+		// Deprecated Function.
+		new Deprecated();
 	}
 
 	/**

@@ -48,8 +48,9 @@ class Theme_Helper {
 	 * @param WP_Block_Template[] $query_result Array of found block templates.
 	 */
 	public function change_stylesheet_and_template_directory( $query_result ) {
-		add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
-		add_filter( 'template_directory', array( $this, 'change_template_directory' ) );
+		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
+			add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
+		}
 		return $query_result;
 	}
 
@@ -64,18 +65,9 @@ class Theme_Helper {
 
 		if ( $check_stylesheet === $check_template ) {
 			return apply_filters( 'gutenverse_stylesheet_directory', $stylesheet_dir );
-		} else {
-			return $stylesheet_dir;
 		}
-	}
 
-	/**
-	 * Change Template Directory
-	 *
-	 * @param string $template_dir Absolute path to the active theme.
-	 */
-	public function change_template_directory( $template_dir ) {
-		return apply_filters( 'gutenverse_template_directory', $template_dir );
+		return $stylesheet_dir;
 	}
 
 	/**
@@ -85,7 +77,6 @@ class Theme_Helper {
 	 */
 	public function remove_filter_change_directory( $query_result ) {
 		remove_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
-		remove_filter( 'template_directory', array( $this, 'change_template_directory' ) );
 		return $query_result;
 	}
 
