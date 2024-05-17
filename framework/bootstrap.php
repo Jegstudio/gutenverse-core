@@ -30,8 +30,8 @@ defined( 'GUTENVERSE_FRAMEWORK_DEMO_PRO_URL' ) || define( 'GUTENVERSE_FRAMEWORK_
 defined( 'GUTENVERSE_FRAMEWORK_THEMES_URL' ) || define( 'GUTENVERSE_FRAMEWORK_THEMES_URL', GUTENVERSE_FRAMEWORK_SERVER_URL . 'themes' );
 
 // Pro Path.
-defined( 'GUTENVERSE_PRO_URL' ) || define( 'GUTENVERSE_PRO_URL', 'https://pro.gutenverse.com/' );
-defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', GUTENVERSE_PRO_URL . 'invite' );
+defined( 'GUTENVERSE_UPGRADE_URL' ) || define( 'GUTENVERSE_UPGRADE_URL', 'https://pro.gutenverse.com/' );
+defined( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL' ) || define( 'GUTENVERSE_FRAMEWORK_REFERRAL_URL', GUTENVERSE_UPGRADE_URL . 'invite' );
 
 
 require_once 'autoload.php';
