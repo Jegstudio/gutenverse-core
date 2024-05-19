@@ -84,7 +84,6 @@ const SectionContentWrapper = (props) => {
         const authors = getDistincAuthor(sectionData);
         const { data: newData } = filterSection(sectionData, data);
         const result = mapId(newData);
-
         setContent(prevState => {
             const { data: oldData, total, current } = prevState;
 
@@ -189,7 +188,8 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, data, closeImporter } = props;
+    const { categoryCache, closeImporter } = props;
+    let { data } = props;
     let breakpointColumnsObj = {
         default: 3,
         1100: 3,
@@ -205,14 +205,15 @@ const SectionItems = props => {
             500: 1
         };
     }
-
+    data = data.filter(el => el !== undefined);
+    
     return <Masonry
         breakpointCols={breakpointColumnsObj}
         className="library-items-wrapper section"
         columnClassName="my-masonry-grid_column"
     >
-        {data.map(item => <SectionContentItem
-            key={item.id}
+        {data && data.map(item => <SectionContentItem
+            key={item?.id}
             item={item}
             closeImporter={closeImporter}
             setCurrentItem={props.setCurrentItem}
