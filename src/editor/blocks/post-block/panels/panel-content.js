@@ -177,12 +177,6 @@ export const contentPanel = (props) => {
             id: 'readmoreIcon',
             show: readmoreEnabled,
             component: IconControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-block-container .guten-post .guten-postblock-content .guten-post-meta-bottom`,
-                    render:  () => 'margin-top: 1.5rem;'
-                }
-            ]
         },
         {
             id: 'readmoreIconPosition',
@@ -213,12 +207,6 @@ export const contentPanel = (props) => {
             id: 'commentIcon',
             show: commentEnabled,
             component: IconControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-block-container .guten-post .guten-postblock-content .guten-post-meta-bottom`,
-                    render:  () => 'margin-top: 1.5rem;'
-                }
-            ]
         },
         {
             id: 'commentIconPosition',
