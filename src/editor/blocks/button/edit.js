@@ -35,11 +35,13 @@ const ButtonBlock = compose(
         refreshStyle,
         setPanelState,
     } = props;
+
     useEffect(() => {
         const newHoverStatus = hoverWithParent;
         setAttributes({ hoverWithParent: newHoverStatus, parentSelector: parentSelector });
         refreshStyle();
     }, [hoverWithParent]);
+
     const {
         elementId,
         content,

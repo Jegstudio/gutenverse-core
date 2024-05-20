@@ -295,6 +295,10 @@
 		"parentSelector":{
 			"type":"string",
 			"copyStyle": true
+		},
+		"iconLineHeight": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {

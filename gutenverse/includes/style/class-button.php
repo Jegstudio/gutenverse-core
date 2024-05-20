@@ -151,18 +151,20 @@ class Button extends Style_Abstract {
 				)
 			);
 		}
-		
-		if ( ( $this->attrs['content'] === '' ) && ! isset( $this->attrs['typography'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button span",
-					'property'       => function ( $value ) {
-						return 'height: 15px; ';
-					},
-					'value'          => '',
-					'device_control' => false,
-				)
-			);
+
+		if ( isset( $this->attrs['content'] ) && ! isset( $this->attrs['typography'] ) ) {
+			if ( '' === $this->attrs['content'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button span",
+						'property'       => function ( $value ) {
+							return 'height: 15px; ';
+						},
+						'value'          => '',
+						'device_control' => false,
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['color'] ) ) {
@@ -361,6 +363,20 @@ class Button extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+		if ( isset( $this->attrs['iconLineHeight'] ) ) {
+			if ( $this->attrs['iconLineHeight'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button i",
+						'property'       => function ( $value ) {
+							return 'line-height: normal';
+						},
+						'value'          => $this->attrs['iconLineHeight'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 	}
 }

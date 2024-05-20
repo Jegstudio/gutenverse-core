@@ -254,5 +254,17 @@ export const buttonPanel = (props) => {
                 }
             ]
         },
+        {
+            id: 'iconLineHeight',
+            label: __('Remove Icon Line Height', 'gutenverse'),
+            component: CheckboxControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender: value => value,
+                    render: () => 'line-height: normal',
+                }
+            ]
+        },
     ];
 };
