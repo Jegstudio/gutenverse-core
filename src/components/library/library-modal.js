@@ -63,7 +63,7 @@ const LibraryModal = props => {
                                     className={`gutenverse-library-type ${active}`}
                                     onClick={() =>{
                                         dispatch( 'gutenverse/library' ).setActiveLiblary(type.id);
-                                        dispatch( 'gutenverse/library' ).setCategories('');
+                                        dispatch( 'gutenverse/library' ).setCategories([]);
                                         dispatch( 'gutenverse/library' ).setAuthor('');
                                         dispatch( 'gutenverse/library' ).setLicense('');
                                         dispatch( 'gutenverse/library' ).setStatus('');

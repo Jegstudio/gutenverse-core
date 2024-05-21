@@ -32,7 +32,7 @@ const FavoriteContent = props => {
     },[]);
     
     useEffect(() => {
-        dispatch('gutenverse/library').setCategories('');
+        dispatch('gutenverse/library').setCategories([]);
         dispatch('gutenverse/library').setAuthor('');
         dispatch('gutenverse/library').setLicense('');
         dispatch( 'gutenverse/library' ).setStatus('');
@@ -164,13 +164,13 @@ const FavoriteContent = props => {
                 <ul className="gutenverse-sidebar-list">
                     <li className={layoutContentData.library === 'layout' ? 'active' : ''} onClick={() => {
                         setLibrary('layout');
-                        dispatch( 'gutenverse/library' ).setCategories('');
+                        dispatch( 'gutenverse/library' ).setCategories([]);
                     }}>
                         <IconLayoutsSVG /><span>{__('Layout', '--gctd--')}</span>
                     </li>
                     <li className={layoutContentData.library === 'section' ? 'active' : ''} onClick={() => {
                         setLibrary('section');
-                        dispatch( 'gutenverse/library' ).setCategories('');
+                        dispatch( 'gutenverse/library' ).setCategories([]);
                     }}>
                         <IconBlocksSVG /><span>{__('Section', '--gctd--')}</span>
                     </li>
