@@ -72,7 +72,7 @@ export const dynamicData = (props) => {
             });
 
             setAttributes({[dynamicList]: newList});
-        } else setAttributes({[dynamicList]: []});
+        };
     },[content]);
 
     // function to get dynamic data
