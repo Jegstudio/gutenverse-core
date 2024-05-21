@@ -124,7 +124,7 @@
         width: calc(25% - 32px);
 
         &.fetching {
-            min-height: 200px;
+            min-height: 338px;
             overflow: hidden;
 
             &:after {
@@ -387,13 +387,13 @@
         }
     }
 
-    @media only screen and (max-width: 1900px) {
+    @media only screen and (max-width: 1280px) {
         .theme-data {
             width: calc(33.33333% - 32px);
         }
     }
 
-    @media only screen and (max-width: 1360px) {
+    @media only screen and (max-width: 1024px) {
         .theme-data {
             width: calc(50% - 32px);
         }
