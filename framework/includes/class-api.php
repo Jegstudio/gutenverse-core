@@ -758,9 +758,11 @@ class Api {
 			$directory = $basedir . '/gutenverse/data/';
 			wp_mkdir_p( $directory );
 
-			foreach ( $endpoints as $endpoint ) {
-				$filename = str_replace( '/', '-', $endpoint['filename'] ) . '.json';
-				$this->fetch_file( $apipath . $endpoint['version'] . '/' . $endpoint['endpoint'], $directory . $filename, $endpoint );
+			foreach ( $endpoints as $data ) {
+				$filename = str_replace( '/', '-', $data['filename'] ) . '.json';
+				$filepath = $directory . $filename;
+				$url      = $apipath . $data['version'] . '/' . $data['endpoint'];
+				$this->fetch_file( $url, $filepath, $data['endpoint'] );
 			}
 		}
 	}
