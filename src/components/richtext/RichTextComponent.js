@@ -26,9 +26,9 @@ const RichTextComponent = (props) => {
     if(isUseDinamic){
         dynamicData(props);
     }
-    if(isUseHighlight){
-        highlight(props);
-    }
+    // if(isUseHighlight){
+    //     highlight(props);
+    // }
 
     const content = attributes[contentAttribute];
     const {

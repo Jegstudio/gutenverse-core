@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -19,9 +19,6 @@ export const dynamicData = (props) => {
     const content = attributes[contentAttribute];
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
-    const prevDynamicText = useRef(dynamicText);
-
-    const test = isEmpty(dynamicText) ? 'constant' : dynamicText;
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -461,5 +458,5 @@ export const dynamicData = (props) => {
         }
         setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList, dynamicText]);
+    },[content, dynamicDataList]);
 };
