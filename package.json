@@ -9,7 +9,7 @@
     "start": "npm run start:js & npm run start:css",
     "dev": "npm run start:dev && npm run build:css",
     "build": "npm run build:js && npm run build:css",
-    "development": "gulp clean && npm run dev && gulp use-dev-mode-js && gulp use-dev-mode-php",
+    "development": "gulp clean && npm run dev",
     "production": "gulp clean && npm run build",
     "start:js": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js --watch",
     "start:dev": "cross-env NODE_ENV=development webpack --config .config/webpack.config.dev.js",

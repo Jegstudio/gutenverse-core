@@ -94,12 +94,6 @@ export const modalAction = {
             license
         };
     },
-    setStatus: (status) => {
-        return {
-            type: 'SET_STATUS',
-            status
-        };
-    },
     setCategories: (categories) => {
         return {
             type: 'SET_CATEGORIES',
@@ -237,14 +231,6 @@ export const modalReducer = (state = {}, action) => {
                 layoutContentData: {
                     ...state.layoutContentData,
                     license: action.license
-                }
-            };
-        case 'SET_STATUS':
-            return {
-                ...state,
-                layoutContentData: {
-                    ...state.layoutContentData,
-                    status: action.status
                 }
             };
         case 'SET_CATEGORIES':

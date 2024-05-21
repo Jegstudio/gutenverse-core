@@ -87,7 +87,6 @@ const Library = () => {
 
     // Init store.
     useEffect(() => {
-        const dev = 'true' == '--dev_mode--';
         if (open) {
             const fetchData = async (dev) => {
                 const result = await fetchLibraryData(dev);
@@ -102,12 +101,6 @@ const Library = () => {
                 });
                 setLoading(false);
             };
-
-            if (dev) {
-                fetchData(true);
-            } else {
-                fetchData(false);
-            }
 
             const { plugins } = window['GutenverseConfig'];
             dispatch('gutenverse/library').initialPluginData({

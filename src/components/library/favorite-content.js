@@ -4,7 +4,7 @@ import { withSelect, dispatch } from '@wordpress/data';
 import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
 import { filterCategories, filterSection, getDistincAuthor, filterLayout } from './library-helper';
 import { IconBlocksSVG, IconLayoutsSVG } from 'gutenverse-core/icons';
-import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
+import { LayoutContentData, RenderCategories, SelectAuthor, SelectLicense } from './layout-content';
 import { SectionContentData } from './section-content';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
@@ -19,7 +19,6 @@ const FavoriteContent = props => {
     const [license, setLicense] = useState(false);
     const [layoutCategories, setLayoutCategories] = useState([]);
     const [sectionCategories, setSectionCategories] = useState([]);
-    const [status, setStatus] = useState('');
     const [slug, setSlug] = useState(null);
     const scrollerRef = useRef();
     const [currentItem, setCurrentItem] = useState(null);
@@ -30,12 +29,11 @@ const FavoriteContent = props => {
     useLayoutEffect(() => {
         layoutContentData.categories = [];
     },[]);
-    
+
     useEffect(() => {
         dispatch('gutenverse/library').setCategories([]);
         dispatch('gutenverse/library').setAuthor('');
         dispatch('gutenverse/library').setLicense('');
-        dispatch( 'gutenverse/library' ).setStatus('');
         dispatch('gutenverse/library').setPaging(1);
     }, []);
 
@@ -63,14 +61,12 @@ const FavoriteContent = props => {
         let categories = filterCategories(layoutData, layoutCategories, {
             license: license.value,
             like: true,
-            status: status?.value,
         }, 'layout');
         setLayoutCategories(categories);
         const { sectionData, sectionCategories } = library;
         categories = filterCategories(sectionData, sectionCategories, {
             license: license.value,
             like: true,
-            status: status?.value,
         }, 'section');
         setSectionCategories(categories);
     };
@@ -135,7 +131,6 @@ const FavoriteContent = props => {
             state: flag
         });
     };
-    const dev = '--dev_mode--' === 'true';
 
     return <>
         {pluginInstallMode && <PluginInstallMode
@@ -179,10 +174,6 @@ const FavoriteContent = props => {
                     <h2 className="gutenverse-library-side-heading">{__('Licenses', '--gctd--')}</h2>
                     <SelectLicense license={license} setLicense={setLicense} />
                 </>
-                {dev && <>
-                    <h2 className="gutenverse-library-side-heading">{__('Status', '--gctd--')}</h2>
-                    <SelectStatus status={status} setStatus={setStatus} />
-                </>}
                 {authors.length > 1 && <>
                     <h2 className="gutenverse-library-side-heading">{__('Author', '--gctd--')}</h2>
                     <SelectAuthor authors={authors} author={author} setAuthor={setAuthor} />
