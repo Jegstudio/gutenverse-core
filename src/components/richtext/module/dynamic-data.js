@@ -33,50 +33,42 @@ export const dynamicData = (props) => {
     }
 
     // set up the dynamic data
-    useEffect(()=>{
+    useEffect(() => {
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-
         const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
+        const newData = findNewData(dynamicLists, currentList);
 
-        // find the lastest dynamic added and open it in the panel
-        if (dynamicLists.length > currentList.length) {
-            const newData = findNewData(dynamicLists, currentList);
-            if (!isEmpty(newData)) {
-                setAttributes({openDynamic: newData[0].id});
-            }
+        // Check if new data has been added and open the latest dynamic list in the panel
+        if (dynamicLists.length > currentList.length && !isEmpty(newData)) {
+            setAttributes({ openDynamic: newData[0].id });
             setPanelState(panelDynamic);
         }
 
-        //set the attributes if new data added
-        if (dynamicLists.length > 0) {
-            const newList = dynamicLists.map(element => {
-                const indexExist = currentList.findIndex(item => element.id === item.id);
-                if (indexExist !== -1) {
-                    const {
-                        _key,
-                        dynamicContent,
-                        dynamicUrl,
-                        parent,
-                        setAsLink
-                    } = currentList[indexExist] ?? {};
-
-                    element._key = _key;
-                    element.dynamicContent = dynamicContent;
-                    element.dynamicUrl = dynamicUrl;
-                    element.parent = parent;
-                    element.setAsLink = setAsLink;
+        // Update attributes if dynamic lists are not empty and new data has been added
+        if (dynamicLists.length > 0 && !isEmpty(newData)) {
+            const updatedList = dynamicLists.map(element => {
+                const existingItem = currentList.find(item => element.id === item.id);
+                if (existingItem) {
+                    // Destructure existingItem properties and assign them to element
+                    Object.assign(element, {
+                        _key: existingItem._key,
+                        dynamicContent: existingItem.dynamicContent,
+                        dynamicUrl: existingItem.dynamicUrl,
+                        parent: existingItem.parent,
+                        setAsLink: existingItem.setAsLink
+                    });
                 }
                 return element;
             });
 
-            setAttributes({[dynamicList]: newList});
-        } else setAttributes({[dynamicList]: []});
-    },[content]);
+            setAttributes({ [dynamicList]: updatedList });
+        }
+    }, [content]);
 
     // function to get dynamic data
-    const getDynamicDataList = (fakeContent) => {
+    function getDynamicDataList(fakeContent) {
         let newElement = {};
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
@@ -122,7 +114,7 @@ export const dynamicData = (props) => {
             newElement.nodes = arrElement;
         }
         return newElement.nodes;
-    };
+    }
 
     // get all the descendant tag inside the dynamic data element <span class='guten-dynamic-data'>
     // and put all the tag inside a set
