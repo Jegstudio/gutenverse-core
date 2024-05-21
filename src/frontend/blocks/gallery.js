@@ -26,7 +26,6 @@ class GutenverseGallery extends Default {
     /* private */
     _onSearch(value, shuffle) {
         const searchValue = value.toLowerCase();
-
         const isValid = (item) => {
             const element = u(item);
             const controlText = element.data('control');
@@ -155,6 +154,7 @@ class GutenverseGallery extends Default {
         const proms=images.nodes.map(im=>new Promise(res=>
             im.onload=()=>res([im.width,im.height])
         ));
+        const onSearch = this._onSearch;
         window.onload = function () {
             const shuffle = new Shuffle(thisElement.find('.gallery-items').first(), {
                 itemSelector: '.gallery-item-wrap',
@@ -162,14 +162,13 @@ class GutenverseGallery extends Default {
                 speed: 500
             });
 
-            thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => this._onSearch(e.target.value, shuffle));
-
+            thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(e.target.value, shuffle));
             thisElement.find('.guten-gallery-control').on('click', e => {
                 const filter = u(e.target).data('filter');
                 thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
                 u(e.target).addClass('active');
                 u(e.target).siblings().removeClass('active');
-                this._onSearch(filter ? filter : '', shuffle);
+                onSearch(filter ? filter : '', shuffle);
             });
 
             thisElement.find('.guten-gallery-load-more').on('click', (e) => {
