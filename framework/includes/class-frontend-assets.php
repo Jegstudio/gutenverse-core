@@ -165,6 +165,7 @@ class Frontend_Assets {
 		$settings_data          = get_option( 'gutenverse-settings' );
 		$config                 = array();
 		$config['postId']       = get_the_ID();
+		$config['homeUrl']      = home_url();
 		$config['query']        = $this->get_template_query();
 		$config['settingsData'] = ! empty( $settings_data ) ? array(
 			'editor_settings' => isset( $settings_data['editor_settings'] ) ? $settings_data['editor_settings'] : null,

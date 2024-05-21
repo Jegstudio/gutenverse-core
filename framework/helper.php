@@ -334,7 +334,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$family = $font['value'];
 			$type   = $font['type'];
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
-			if ( 'google' === $type && ( in_array( $id, $font_variables, true ) || null === $id ) ) {
+			if ( 'google' === $type ) {
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
 				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
