@@ -19,8 +19,8 @@ export const dynamicData = (props) => {
     const content = attributes[contentAttribute];
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
+    const prevDynamicText = useRef(dynamicText);
 
-    console.log(dynamicText);
     const test = isEmpty(dynamicText) ? 'constant' : dynamicText;
 
     function findNewData(arr1, arr2) {
@@ -232,11 +232,6 @@ export const dynamicData = (props) => {
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
     useEffect(() => {
-        const prevDynamicText = useRef(dynamicText);
-        if (prevDynamicText.current === dynamicText && !isEmpty(prevDynamicText.current)) {
-            // Skip the effect on the initial render
-            return;
-        }
 
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
@@ -352,18 +347,24 @@ export const dynamicData = (props) => {
                 // get dynamic content text
                 if (title !== content){
                     ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicContent) && dynamicTextContent
-                        .then(result => {
-                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
-                                setDynamicText(prevState => {
-                                    const newState = [...prevState];
-                                    newState[index] = result;
-                                    return newState;
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+                            .then(result => {
+                                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
+                                    setDynamicText(prevState => {
+                                        console.log('masuk', result, prevState);
+                                        const newState = [...prevState];
+                                        newState[index] = result;
+                                        return newState;
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    // if (prevDynamicText.current === dynamicText) {
+                    //     // Skip the effect on the initial render
+                        
+                    //     return;
+                    // } else prevDynamicText.current = dynamicText;
                 }
 
                 // when url is set
