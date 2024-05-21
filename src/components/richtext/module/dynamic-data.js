@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -20,6 +20,9 @@ export const dynamicData = (props) => {
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
+    console.log(dynamicText);
+    const test = isEmpty(dynamicText) ? 'constant' : dynamicText;
+
     function findNewData(arr1, arr2) {
         const newData = [];
 
@@ -30,6 +33,20 @@ export const dynamicData = (props) => {
         });
 
         return newData;
+    }
+
+    function compareList(arr1, arr2) {
+        if (arr1.length !== arr2.length) return false;
+
+        const map1 = new Map(arr1.map(obj => [obj.id, obj]));
+        const map2 = new Map(arr2.map(obj => [obj.id, obj]));
+
+        if (map1.size !== map2.size) return false;
+
+        for (let id of map1.keys()) {
+            if (!map2.has(id)) return false;
+        }
+        return true;
     }
 
     // set up the dynamic data
@@ -47,7 +64,7 @@ export const dynamicData = (props) => {
         }
 
         // Update attributes if dynamic lists are not empty and new data has been added
-        if (dynamicLists.length > 0 && !isEmpty(newData)) {
+        if (dynamicLists.length > 0) {
             const updatedList = dynamicLists.map(element => {
                 const existingItem = currentList.find(item => element.id === item.id);
                 if (existingItem) {
@@ -62,8 +79,9 @@ export const dynamicData = (props) => {
                 }
                 return element;
             });
-
-            setAttributes({ [dynamicList]: updatedList });
+            if (!compareList(updatedList, currentList)) {
+                setAttributes({ [dynamicList]: updatedList });
+            }
         }
     }, [content]);
 
@@ -214,6 +232,12 @@ export const dynamicData = (props) => {
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
     useEffect(() => {
+        const prevDynamicText = useRef(dynamicText);
+        if (prevDynamicText.current === dynamicText && !isEmpty(prevDynamicText.current)) {
+            // Skip the effect on the initial render
+            return;
+        }
+
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -436,5 +460,5 @@ export const dynamicData = (props) => {
         }
         setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList, dynamicText, dynamicUrl, parentHasLink]);
+    },[content, dynamicDataList, dynamicText]);
 };
