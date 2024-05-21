@@ -18,6 +18,7 @@ const LibraryModal = props => {
 
     const closeImporter = () => {
         setVisibility(false);
+        dispatch( 'gutenverse/library' ).setCategories([]);
     };
     const [style, setStyle] = useState({
         display : ''
