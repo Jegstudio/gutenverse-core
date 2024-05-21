@@ -39,11 +39,11 @@ class Style_Generator {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		add_action( 'wp_head', array( $this, 'global_style_generator' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ) );
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 9999 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 9999 );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
-		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ) );
 		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
 	}
 
@@ -76,7 +76,8 @@ class Style_Generator {
 		$variable = apply_filters( 'gutenverse_global_css', '' );
 
 		if ( ! empty( trim( $variable ) ) ) {
-			gutenverse_core_print_header_style( 'gutenverse-global-css', $variable );
+			wp_add_inline_style( 'gutenverse-frontend', $variable );
+			// gutenverse_core_print_header_style( 'gutenverse-global-css', $variable );
 		}
 	}
 
