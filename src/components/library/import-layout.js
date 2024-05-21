@@ -63,7 +63,6 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 });
             }, 200);
         }).catch((e) => {
-            console.log(e);
             alert('Import Failed, please try again');
         });
     };

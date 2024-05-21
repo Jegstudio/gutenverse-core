@@ -335,7 +335,6 @@ class Api {
 	public function fetch_library_data( $request ) {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
-		$this->update_library_data();
 
 		$dev_param = $request->get_param( 'dev' );
 
