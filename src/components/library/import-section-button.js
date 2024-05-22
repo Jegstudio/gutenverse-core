@@ -47,7 +47,6 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
             setTimeout(() => {
                 closeImporter();
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
-                dispatch( 'gutenverse/library' ).setCategories([]);
             }, 200);
         }).catch(() => {
             alert('Import Failed, please try again');

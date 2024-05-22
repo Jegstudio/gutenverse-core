@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
 import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
-import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
+import { filterCategories, filterSection, likeSection, getPluginRequirementStatus } from './library-helper';
 import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
@@ -50,10 +50,6 @@ const SectionContentWrapper = (props) => {
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
-
-    useLayoutEffect(() => {
-        data.categories = [];
-    }, []);
     
     useEffect(() => {
         if (data.paging === 1) {
@@ -78,28 +74,6 @@ const SectionContentWrapper = (props) => {
             };
         });
     }, [data]);
-
-    useEffect(() => {
-        const { sectionData } = library;
-        const authors = getDistincAuthor(sectionData);
-        const { data: newData } = filterSection(sectionData, data);
-        const result = mapId(newData);
-        setContent(prevState => {
-            const { data: oldData, total, current } = prevState;
-
-            const theData = oldData.map(item => {
-                return result[item.id];
-            });
-
-            return {
-                data: theData,
-                total,
-                current
-            };
-        });
-
-        setAuthors(authors);
-    }, [library]);
 
     useEffect(() => {
         const { sectionData, sectionCategories } = library;

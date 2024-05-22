@@ -122,7 +122,6 @@ export const getDistincAuthor = data => {
 
 export const mapId = (data) => {
     const result = {};
-
     data.map((item) => {
         result[item.id] = item;
     });
