@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 
-const V180 = () => {
+export const ContentV180 = () => {
     const { gutenverseAssetURL: assetURL } = window['GutenverseDashboard'];
 
     return (
@@ -30,5 +30,3 @@ const V180 = () => {
         </>
     );
 };
-
-export default V180;

@@ -59,12 +59,22 @@ gulp.task('wizard', function () {
         .pipe(gulp.dest('gutenverse/assets/css/'));
 });
 
-gulp.task('build-process', gulp.parallel('blocks', 'frontend', 'wizard'));
+gulp.task('update-notice', function () {
+    return gulp
+        .src([path.resolve(__dirname, './src/assets/update-notice.scss')])
+        .pipe(sass({ includePaths: ['node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(concat('update-notice.css'))
+        .pipe(postcss(postCSSOptions))
+        .pipe(gulp.dest('gutenverse/assets/css/'));
+});
+
+gulp.task('build-process', gulp.parallel('blocks', 'frontend', 'wizard', 'update-notice'));
 
 gulp.task('build', gulp.series('build-process'));
 
 const watchProcess = (basePath = '.') => {
-    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend', 'wizard']));
+    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend', 'wizard', 'update-notice']));
 };
 
 gulp.task(
