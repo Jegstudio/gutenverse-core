@@ -11,7 +11,7 @@ class GutenverseSearch extends Default {
     /* private */
     __addActionToForm(element){
         const form = u(element).find('.gutenverse-search-form');
-        form.attr('action', window.location.origin);
+        form.attr('action', window?.GutenverseData?.homeUrl);
     }
 }
 export default GutenverseSearch;
