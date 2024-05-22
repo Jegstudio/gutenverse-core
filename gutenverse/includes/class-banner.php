@@ -181,6 +181,9 @@ class Banner {
 				})(jQuery);
 			</script>
 			<style>
+				#wpbody-content .wrap{
+					max-width: 100%;
+				}
 				.gutenverse-banner {
 					position: relative;
 					display: flex;
