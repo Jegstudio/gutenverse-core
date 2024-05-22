@@ -357,10 +357,9 @@
             font-size: 0.875rem;
             line-height: 1.5;
             border-radius: 3px;
-            @include transition(false, false, .25s ease);
             color: var(--guten-txt-color);
             align-items: center;
-
+            transition: all .25s ease, color 0s;
             span {
                 display: block;
             }
