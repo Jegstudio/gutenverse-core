@@ -32,51 +32,58 @@ export const dynamicData = (props) => {
         return newData;
     }
 
+    function compareList(arr1, arr2) {
+        if (arr1.length !== arr2.length) return false;
+
+        const map1 = new Map(arr1.map(obj => [obj.id, obj]));
+        const map2 = new Map(arr2.map(obj => [obj.id, obj]));
+
+        if (map1.size !== map2.size) return false;
+
+        for (let id of map1.keys()) {
+            if (!map2.has(id)) return false;
+        }
+        return true;
+    }
+
     // set up the dynamic data
-    useEffect(()=>{
+    useEffect(() => {
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-
         const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
+        const newData = findNewData(dynamicLists, currentList);
 
-        // find the lastest dynamic added and open it in the panel
-        if (dynamicLists.length > currentList.length) {
-            const newData = findNewData(dynamicLists, currentList);
-            if (!isEmpty(newData)) {
-                setAttributes({openDynamic: newData[0].id});
-            }
+        // Check if new data has been added and open the latest dynamic list in the panel
+        if (dynamicLists.length > currentList.length && !isEmpty(newData)) {
+            setAttributes({ openDynamic: newData[0].id });
             setPanelState(panelDynamic);
         }
 
-        //set the attributes if new data added
+        // Update attributes if dynamic lists are not empty and new data has been added
         if (dynamicLists.length > 0) {
-            const newList = dynamicLists.map(element => {
-                const indexExist = currentList.findIndex(item => element.id === item.id);
-                if (indexExist !== -1) {
-                    const {
-                        _key,
-                        dynamicContent,
-                        dynamicUrl,
-                        parent,
-                        setAsLink
-                    } = currentList[indexExist] ?? {};
-
-                    element._key = _key;
-                    element.dynamicContent = dynamicContent;
-                    element.dynamicUrl = dynamicUrl;
-                    element.parent = parent;
-                    element.setAsLink = setAsLink;
+            const updatedList = dynamicLists.map(element => {
+                const existingItem = currentList.find(item => element.id === item.id);
+                if (existingItem) {
+                    // Destructure existingItem properties and assign them to element
+                    Object.assign(element, {
+                        _key: existingItem._key,
+                        dynamicContent: existingItem.dynamicContent,
+                        dynamicUrl: existingItem.dynamicUrl,
+                        parent: existingItem.parent,
+                        setAsLink: existingItem.setAsLink
+                    });
                 }
                 return element;
             });
-
-            setAttributes({[dynamicList]: newList});
-        };
-    },[content]);
+            if (!compareList(updatedList, currentList)) {
+                setAttributes({ [dynamicList]: updatedList });
+            }
+        }
+    }, [content]);
 
     // function to get dynamic data
-    const getDynamicDataList = (fakeContent) => {
+    function getDynamicDataList(fakeContent) {
         let newElement = {};
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
@@ -122,7 +129,7 @@ export const dynamicData = (props) => {
             newElement.nodes = arrElement;
         }
         return newElement.nodes;
-    };
+    }
 
     // get all the descendant tag inside the dynamic data element <span class='guten-dynamic-data'>
     // and put all the tag inside a set
@@ -222,6 +229,7 @@ export const dynamicData = (props) => {
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
     useEffect(() => {
+
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -336,18 +344,24 @@ export const dynamicData = (props) => {
                 // get dynamic content text
                 if (title !== content){
                     ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicContent) && dynamicTextContent
-                        .then(result => {
-                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
-                                setDynamicText(prevState => {
-                                    const newState = [...prevState];
-                                    newState[index] = result;
-                                    return newState;
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
+                            .then(result => {
+                                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
+                                    setDynamicText(prevState => {
+                                        console.log('masuk', result, prevState);
+                                        const newState = [...prevState];
+                                        newState[index] = result;
+                                        return newState;
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    // if (prevDynamicText.current === dynamicText) {
+                    //     // Skip the effect on the initial render
+                        
+                    //     return;
+                    // } else prevDynamicText.current = dynamicText;
                 }
 
                 // when url is set
@@ -444,5 +458,5 @@ export const dynamicData = (props) => {
         }
         setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList, dynamicText, dynamicUrl, parentHasLink]);
+    },[content, dynamicDataList]);
 };
