@@ -105,6 +105,7 @@ export const imagePanel = ({ elementId }) => {
             min: 0.1,
             max: 1,
             step: 0.1,
+            isParseFloat: false,
             style: [
                 {
                     selector: `.${elementId} img`,
