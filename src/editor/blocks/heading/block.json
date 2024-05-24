@@ -26,6 +26,14 @@
 		"openDynamic": {
 			"type": "string"
 		},
+		"dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
 		"type": {
 			"type": "number",
 			"default": 2

@@ -26,6 +26,14 @@
 			"type" : "boolean",
 			"default": false
 		},
+		"dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
 		"hasGlobalLink": {
 			"type": "boolean",
 			"default": false

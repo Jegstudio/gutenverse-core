@@ -44,6 +44,14 @@
 		"openDynamic": {
 			"type": "string"
 		},
+        "dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
         "text": {
             "type": "string",
             "default": "Heading "

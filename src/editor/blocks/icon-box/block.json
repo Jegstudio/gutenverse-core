@@ -82,6 +82,14 @@
 		"openDynamic": {
 			"type": "string"
 		},
+		"dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
 		"badgeShow": {
 			"type": "boolean",
 			"default": false,
