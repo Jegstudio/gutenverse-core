@@ -138,7 +138,6 @@ class Init {
 		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
-		add_action( 'activated_plugin', array( $this, 'set_transient_to_redirect_when_activated' ), 99 );
 		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'customize_register', '__return_true' );
 
