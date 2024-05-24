@@ -18,8 +18,8 @@ export const dynamicData = (props) => {
 
     const dynamicDataList = attributes[dynamicList];
     const content = attributes[contentAttribute];
-    const textContent = attributes.dynamicText;
-    const urlContent = attributes.dynamicUrl;
+    const textContent = attributes.dynamicTextContent;
+    const urlContent = attributes.dynamicUrlContent;
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
@@ -359,7 +359,7 @@ export const dynamicData = (props) => {
                                     const newState = [...prevState];
                                     newState[index] = result;
                                     if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText)) {
-                                        setAttributes({dynamicText: newState});
+                                        setAttributes({dynamicTextContent: newState});
                                     }
                                     return newState;
                                 });
@@ -382,7 +382,7 @@ export const dynamicData = (props) => {
                                     const newState = [...prevState];
                                     newState[index] = result;
                                     if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl)) {
-                                        setAttributes({dynamicUrl: newState});
+                                        setAttributes({dynamicUrlContent: newState});
                                     }
                                     return newState;
                                 });
