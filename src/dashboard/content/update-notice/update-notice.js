@@ -4,7 +4,7 @@ import { Link } from 'gutenverse-core/router';
 import { applyFilters } from '@wordpress/hooks';
 import { DashboardContent } from '../../components';
 
-const UpdateNotice = ({location}) => {
+const UpdateNotice = ({ location }) => {
     const { pluginVersions } = window['GutenverseDashboard'];
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
@@ -34,7 +34,17 @@ const UpdateNotice = ({location}) => {
 
     const [loaded, setLoaded] = useState(3);
 
-    let routePage = applyFilters('gutenverse.dashboard.notice.content', <></>, plugin, version);
+    let noticeHeader = applyFilters('gutenverse.dashboard.notice.header', (
+        <div>
+            <h3 className="upgrade-notice-title">
+                {sprintf(__('%s', '--gctd--'), name)}
+                &nbsp;
+                <span>{sprintf(__('Version %s', '--gctd--'), version)}</span>
+            </h3>
+        </div>
+    ), plugin, version);
+
+    let noticeContent = applyFilters('gutenverse.dashboard.notice.content', <></>, plugin, version);
 
     const increaseLoaded = () => setLoaded(loaded + 3);
     const versionIndex = versions.findIndex((ver) => ver === version);
@@ -68,16 +78,10 @@ const UpdateNotice = ({location}) => {
                         })}
                 </div>
                 <div className="upgrade-notice-head">
-                    <div>
-                        <h3 className="upgrade-notice-title">
-                            {sprintf(__('%s', '--gctd--'), name)}
-                            &nbsp;
-                            <span>{sprintf(__('Version %s', '--gctd--'), version)}</span>
-                        </h3>
-                    </div>
+                    {noticeHeader}
                 </div>
                 <div className="upgrade-notice-body">
-                    <div>{routePage}</div>
+                    <div>{noticeContent}</div>
                 </div>
                 <div className="upgrade-notice-footer">
                     <div>

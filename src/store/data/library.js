@@ -254,6 +254,9 @@ export const modalReducer = (state = {}, action) => {
             }else{
                 filters = filters.filter(el => el !== action.categories);
             }
+            if( Array.isArray(action.categories) && action.categories.length === 0 ){
+                filters = action.categories;
+            }
             return {
                 ...state,
                 layoutContentData: {

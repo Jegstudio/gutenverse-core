@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
 import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
-import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
+import { filterCategories, filterSection, likeSection, getPluginRequirementStatus } from './library-helper';
 import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
@@ -50,11 +50,7 @@ const SectionContentWrapper = (props) => {
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
-
-    useLayoutEffect(() => {
-        data.categories = [];
-    }, []);
-
+    
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
@@ -78,30 +74,6 @@ const SectionContentWrapper = (props) => {
             };
         });
     }, [data]);
-
-    useEffect(() => {
-        const { sectionData } = library;
-        const authors = getDistincAuthor(sectionData);
-        const { data: newData } = filterSection(sectionData, data);
-        const result = mapId(newData);
-
-        setContent(prevState => {
-            const { data: oldData, total, current } = prevState;
-
-            const theData = oldData.map((item) => {
-                const matchData = sectionData.find(data => data.id === item.id);
-                return {...result[item.id], name: matchData.name.split('&#')[0]};
-            });
-
-            return {
-                data: theData,
-                total,
-                current
-            };
-        });
-
-        setAuthors(authors);
-    }, [library]);
 
     useEffect(() => {
         const { sectionData, sectionCategories } = library;
@@ -194,7 +166,8 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, data, closeImporter, setExporting } = props;
+    const { categoryCache, closeImporter, setExporting } = props;
+    let { data } = props;
     let breakpointColumnsObj = {
         default: 3,
         1100: 3,
@@ -210,14 +183,15 @@ const SectionItems = props => {
             500: 1
         };
     }
-
+    data = data.filter(el => el !== undefined);
+    
     return <Masonry
         breakpointCols={breakpointColumnsObj}
         className="library-items-wrapper section"
         columnClassName="my-masonry-grid_column"
     >
-        {data.map(item => <SectionContentItem
-            key={item.id}
+        {data && data.map(item => <SectionContentItem
+            key={item?.id}
             item={item}
             closeImporter={closeImporter}
             setCurrentItem={props.setCurrentItem}

@@ -335,7 +335,6 @@ class Api {
 	public function fetch_library_data( $request ) {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
-		$this->update_library_data();
 
 		$dev_param = $request->get_param( 'dev' );
 
@@ -758,9 +757,11 @@ class Api {
 			$directory = $basedir . '/gutenverse/data/';
 			wp_mkdir_p( $directory );
 
-			foreach ( $endpoints as $endpoint ) {
-				$filename = str_replace( '/', '-', $endpoint['filename'] ) . '.json';
-				$this->fetch_file( $apipath . $endpoint['version'] . '/' . $endpoint['endpoint'], $directory . $filename, $endpoint );
+			foreach ( $endpoints as $data ) {
+				$filename = str_replace( '/', '-', $data['filename'] ) . '.json';
+				$filepath = $directory . $filename;
+				$url      = $apipath . $data['version'] . '/' . $data['endpoint'];
+				$this->fetch_file( $url, $filepath, $data['endpoint'] );
 			}
 		}
 	}

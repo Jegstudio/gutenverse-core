@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useState, useRef} from '@wordpress/element';
 import { sprintf, __ } from '@wordpress/i18n';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
 import { withSelect, dispatch } from '@wordpress/data';
-import { filterLayout, getDistincAuthor, mapId, filterCategories, likeLayout } from './library-helper';
+import { filterLayout, filterCategories, likeLayout } from './library-helper';
 import SearchBar from './search-bar';
 import Select from 'react-select';
 import { Loader } from 'react-feather';
@@ -63,10 +63,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const { keyword } = data;
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
-
-    useLayoutEffect(() => {
-        data.categories = [];
-    },[]);
     
     useEffect(() => {
         setScroller(scrollerRef);
@@ -91,29 +87,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
             };
         });
     }, [data]);
-
-    useEffect(() => {
-        const { layoutData } = libraryData;
-        const authors = getDistincAuthor(layoutData);
-        const { data: newData } = filterLayout(layoutData, data);
-        const result = mapId(newData);
-
-        setContent(prevState => {
-            const { data: oldData, total, current } = prevState;
-
-            const theData = oldData.map(item => {
-                return result[item.id];
-            });
-
-            return {
-                data: theData,
-                total,
-                current
-            };
-        });
-
-        setAuthors(authors);
-    }, [libraryData]);
 
     useEffect(() => {
         const { layoutData, layoutCategories } = libraryData;
@@ -251,8 +224,7 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
                     className={data.categories.includes(category.id) ? 'active' : ''}
                     key={category.id}
                     onClick={() => {
-                        dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
-                        // categoryListClicked && categoryListClicked(category.id, category.name);
+                        dispatch( 'gutenverse/library' ).setCategories(category.id);
                     }}
                 >
                     <i className="checkblock" />
