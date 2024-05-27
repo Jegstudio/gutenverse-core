@@ -1,7 +1,22 @@
 
 import { __ } from '@wordpress/i18n';
 
-const V200 = () => {
+export const HeaderV200 = () => {
+    const { gutenverseAssetURL: assetURL } = window['GutenverseDashboard'];
+
+    return (
+        <div className="custom-notice-header">
+            <img src={`${assetURL}/img/upgrade-notice-2.0.0-new-bg.png`}/>
+            <h3 className="upgrade-notice-title">
+                {__('Gutenverse', 'gutenverse')}
+                &nbsp;
+                <span>{__('Version 2.0.0', 'gutenverse')}</span>
+            </h3>
+        </div>
+    );
+};
+
+export const ContentV200 = () => {
     const { gutenverseAssetURL: assetURL } = window['GutenverseDashboard'];
 
     return (
@@ -238,4 +253,3 @@ const V200 = () => {
     );
 };
 
-export default V200;
