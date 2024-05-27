@@ -226,7 +226,7 @@ class Logo_Slider extends Style_Abstract {
 		if ( isset( $this->attrs['hoverOpacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image:hover .hover-image",
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .image-list:hover .content-image .hover-image",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},

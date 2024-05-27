@@ -356,7 +356,7 @@ export const logosStylePanel = (props) => {
             step: 0.1,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container image-list:hover .content-image .hover-image`,
                     render: value => `opacity: ${value};`
                 },
             ],
