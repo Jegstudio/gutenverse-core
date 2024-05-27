@@ -255,24 +255,24 @@ $border: #eaeaea;
 
                     .pro-flag {
                         color: #fff;
-                        font-size: 10px;
+                        font-size: 7px;
                         width: fit-content;
                         cursor: pointer;
                         z-index: 99;
                         position: absolute;
-                        top: 10px;
-                        right: 10px;
+                        top: 6px;
+                        right: 6px;
                         font-family: 'Inter', sans-serif;
                         line-height: normal;
+                        letter-spacing: 2%;
                         display: flex;
                         flex-direction: row;
                         justify-content: center;
-                        right: 5px;
                         align-items: center;
                         gap: 1px;
                         padding: 3px 4px 4px;
                         border-radius: 3px;
-                        background-image: linear-gradient(215deg, #ff808b 76%, #f93a50 -14%);
+                        background-image: linear-gradient(215deg, #ff808b 40%, #f93a50 100%);
                     }
 
                     img {
@@ -962,7 +962,7 @@ $border: #eaeaea;
                 gap: 1px;
                 padding: 3px 5px 4px;
                 border-radius: 3px;
-                background-image: linear-gradient(217deg, #ff808b 75%, #f93a50 -12%);
+                background-image: linear-gradient(217deg, #ff808b 40%, #f93a50 100%);
             }
         }
 
