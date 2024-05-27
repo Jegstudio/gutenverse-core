@@ -48,6 +48,13 @@ class Dashboard {
 			GUTENVERSE_VERSION,
 			true
 		);
+
+		wp_enqueue_style(
+			'gutenverse-dashboard',
+			GUTENVERSE_URL . '/assets/css/update-notice.css',
+			array(),
+			GUTENVERSE_VERSION
+		);
 	}
 
 	/**
