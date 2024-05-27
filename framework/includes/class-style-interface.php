@@ -1084,21 +1084,22 @@ abstract class Style_Interface {
 						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/blob.svg';
 						break;
 					case 'custom':
-						$svg       = $mask['svg'];
-						$image     = $svg['image'];
-						$svg_image = $image;
+						$svg       = isset( $mask['svg'] ) ? $mask['svg'] : null;
+						$svg_image = isset( $svg['image'] ) ? $svg['image'] : null;
 				}
 
-				$this->inject_style(
-					array(
-						'selector'       => $selector,
-						'property'       => function ( $value ) {
-							return "-webkit-mask-image: url($value); mask-image:url($value);";
-						},
-						'value'          => $svg_image,
-						'device_control' => true,
-					)
-				);
+				if ( ! empty( $svg_image ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => $selector,
+							'property'       => function ( $value ) {
+								return "-webkit-mask-image: url($value); mask-image:url($value);";
+							},
+							'value'          => $svg_image,
+							'device_control' => true,
+						)
+					);
+				}
 			}
 
 			if ( isset( $mask['size'] ) ) {
