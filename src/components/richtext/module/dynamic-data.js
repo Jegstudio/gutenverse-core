@@ -3,7 +3,6 @@ import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import _ from 'lodash';
-import throttle from 'lodash/throttle';
 
 export const dynamicData = (props) => {
     const {
@@ -239,6 +238,7 @@ export const dynamicData = (props) => {
 
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
+    let timeoutId;
     useEffect(() => {
 
         // take the content and put them in an array separated by childNodes
@@ -306,7 +306,6 @@ export const dynamicData = (props) => {
             });
         }
 
-        let textUpdated = false;
         if ( selectedItems.length > 0 && dynamicDataList.length === selectedItems.length) {
             // for some reason, data list doesnt save data as HTML element so the element is saved as string and nedded to be parsed again into HTML element. its confusing
             const newestList = dynamicDataList.map((list)=> {
@@ -444,7 +443,6 @@ export const dynamicData = (props) => {
                     contentArray[item.key] = anchorElement.outerHTML;
                 // when content is set
                 }else if (title !== content){
-                    console.log('masuk-1');
                     // if dynamic data element is inside other element format
                     if (newestList[index].parent){
                         let parent = newestList[index].parent;
@@ -460,11 +458,8 @@ export const dynamicData = (props) => {
                         }
                         contentArray[item.key] = htmlElement.outerHTML;
                     } else { //if dynamic data element is the wrapper of other element format
-                        console.log('disini-1');
                         item.element[0].setAttribute('dynamic-data-content', title);
                         if (dynamicText[index] !== undefined) {
-                            console.log('disini-2');
-                            textUpdated = true;
                             const descendantTags = getDescendantTags(item.element[0]);
                             const tagsMerged = mergeTags(Array.from(descendantTags), dynamicText[index]);
                             item.element[0].innerHTML = tagsMerged;
@@ -473,11 +468,25 @@ export const dynamicData = (props) => {
                     }
                 }
             });
-        }
-        console.log(content, '||',  contentArray.join(''));
-        if (content.localeCompare(contentArray.join('')) !== 0){
-            setAttributes({ [contentAttribute] : contentArray.join('') });
+            //use set time out to update attribute so that the dynamic content does not cause infinite loop
+            //when used more than once in the same template part
+            const throttledUpdateAttributes = function() {
+                console.log('test');
+                if (!timeoutId) {
+                    timeoutId = setTimeout(() => {
+                        timeoutId = null;
+                        if (content.localeCompare(contentArray.join('')) !== 0) {
+                            console.log(content, '||', contentArray.join(''));
+                            setAttributes({ [contentAttribute]: contentArray.join('') });
+                        }
+                    }, 200);
+                }
+            };
+            throttledUpdateAttributes();
         }
 
+        return () => {
+            clearTimeout(timeoutId);
+        };
     },[content, dynamicDataList, textContent, urlContent]);
 };
