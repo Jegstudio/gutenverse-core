@@ -49,7 +49,6 @@ export { default as MaskControl } from './controls/mask/mask-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
-export { default as LockedProNoticeControl } from './controls/locked/locked-pro-notice-control';
 export { default as LockedSwitchControl } from './controls/locked/locked-switch-control';
 export { default as LockedProAnimationControl } from './controls/locked/locked-animation-control';
 export { default as LockedTransformControl } from './controls/locked/locked-transform-control';
