@@ -249,10 +249,10 @@ export const modalReducer = (state = {}, action) => {
             };
         case 'SET_CATEGORIES':
             let filters = state.layoutContentData.categories;
-            if( !filters.includes(action.categories) ){
+            if( !filters.some(el => el.id === action.categories.id) ){
                 filters.push(action.categories);
             }else{
-                filters = filters.filter(el => el !== action.categories);
+                filters = filters.filter(el => el.id !== action.categories.id);
             }
             if( Array.isArray(action.categories) && action.categories.length === 0 ){
                 filters = action.categories;

@@ -220,10 +220,15 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
-                    className={data.categories.includes(category.id) ? 'active' : ''}
+                    className={data.categories.some( el => el.id === category.id) ? 'active' : ''}
                     key={category.id}
                     onClick={() => {
-                        dispatch( 'gutenverse/library' ).setCategories(category.id);
+                        let categoryFilter = {
+                            id : category.id,
+                            parent : categories[categoriesIndex]?.id
+                        }
+                        dispatch( 'gutenverse/library' ).setCategories(categoryFilter);
+                        dispatch( 'gutenverse/library' ).setPaging(1);
                     }}
                 >
                     <i className="checkblock" />
