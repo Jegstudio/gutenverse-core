@@ -163,8 +163,15 @@ class Gutenverse {
 			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 		}
+		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient') );
 	}
 
+	/**
+	 * Set Activation Transient
+	 */
+	public function set_activation_transient() {
+		set_transient( 'gutenverse_redirect', 1, 30 );
+	}
 	/**
 	 * Plugin Update Notice.
 	 *
