@@ -2,6 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash';
 
 export const dynamicData = (props) => {
     const {
@@ -17,6 +18,8 @@ export const dynamicData = (props) => {
 
     const dynamicDataList = attributes[dynamicList];
     const content = attributes[contentAttribute];
+    const textContent = attributes.dynamicTextContent;
+    const urlContent = attributes.dynamicUrlContent;
     const [dynamicText, setDynamicText] = useState([]);
     const [dynamicUrl, setDynamicUrl] = useState([]);
 
@@ -70,6 +73,7 @@ export const dynamicData = (props) => {
                         _key: existingItem._key,
                         dynamicContent: existingItem.dynamicContent,
                         dynamicUrl: existingItem.dynamicUrl,
+                        originalText: existingItem.originalText,
                         parent: existingItem.parent,
                         setAsLink: existingItem.setAsLink
                     });
@@ -79,8 +83,10 @@ export const dynamicData = (props) => {
             if (!compareList(updatedList, currentList)) {
                 setAttributes({ [dynamicList]: updatedList });
             }
+        } else if (!compareList(dynamicLists, currentList)) {
+            setAttributes({ [dynamicList]: [] });
         }
-    }, [content]);
+    }, [content, dynamicDataList]);
 
     // function to get dynamic data
     function getDynamicDataList(fakeContent) {
@@ -93,6 +99,7 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
+                    originalText: child.innerText,
                     setAsLink: false,
                     value: child.outerHTML,
                     id: u(child).attr('id')
@@ -104,6 +111,7 @@ export const dynamicData = (props) => {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
+                        originalText: findDynamics.nodes[0].innerText,
                         setAsLink: false,
                         parent: child.outerHTML,
                         value: findDynamics.nodes[0].outerHTML,
@@ -121,6 +129,7 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
+                    originalText: el.innerText,
                     setAsLink: false,
                     value: el.outerHTML,
                     id: u(el).attr('id')
@@ -344,24 +353,21 @@ export const dynamicData = (props) => {
                 // get dynamic content text
                 if (title !== content){
                     ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicDataList[index].dynamicContent) && dynamicTextContent
-                            .then(result => {
-                                if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
-                                    setDynamicText(prevState => {
-                                        console.log('masuk', result, prevState);
-                                        const newState = [...prevState];
-                                        newState[index] = result;
-                                        return newState;
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            });
-                    // if (prevDynamicText.current === dynamicText) {
-                    //     // Skip the effect on the initial render
-                        
-                    //     return;
-                    // } else prevDynamicText.current = dynamicText;
+                        .then(result => {
+                            if ((!Array.isArray(result) || result.length > 0 ) && result !== undefined && result !== dynamicText[index]) {
+                                setDynamicText(prevState => {
+                                    const newState = [...prevState];
+                                    newState[index] = result;
+                                    if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText)) {
+                                        setAttributes({dynamicTextContent: newState});
+                                    }
+                                    return newState;
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
                 }
 
                 // when url is set
@@ -375,6 +381,9 @@ export const dynamicData = (props) => {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
+                                    if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl)) {
+                                        setAttributes({dynamicUrlContent: newState});
+                                    }
                                     return newState;
                                 });
                             }
@@ -458,5 +467,5 @@ export const dynamicData = (props) => {
         }
         setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList]);
+    },[content, dynamicDataList, textContent, urlContent]);
 };
