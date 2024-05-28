@@ -24,6 +24,14 @@
 			"type" : "boolean",
 			"default": false
 		},
+		"dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
 		"separateButtonLink": {
 			"type": "boolean"
 		},

@@ -69,6 +69,14 @@
       "default": {},
       "copyStyle": true
     },
+    "dynamicTextContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
+		"dynamicUrlContent": {
+			"type": "array",
+			"copyStyle" : true
+		},
     "borderResponsive": {
       "type": "object",
       "migrate": {
