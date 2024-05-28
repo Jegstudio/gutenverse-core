@@ -20,8 +20,8 @@ export const dynamicData = (props) => {
     const content = attributes[contentAttribute];
     const textContent = attributes.dynamicTextContent;
     const urlContent = attributes.dynamicUrlContent;
-    const [dynamicText, setDynamicText] = useState(textContent);
-    const [dynamicUrl, setDynamicUrl] = useState(urlContent);
+    const [dynamicText, setDynamicText] = useState(textContent? textContent: []);
+    const [dynamicUrl, setDynamicUrl] = useState(urlContent? urlContent : []);
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -328,15 +328,13 @@ export const dynamicData = (props) => {
 
                 // filter for dynamically set the content and link both in editor ang frontend
                 let href = '#';
-                if (dynamicDataList[index].dynamicUrl.postdata){
-                    href = applyFilters(
-                        'gutenverse.dynamic.generate-url',
-                        '#',
-                        'dynamicUrl',
-                        dynamicDataList[index],
-                        id,
-                    );
-                }
+                href = applyFilters(
+                    'gutenverse.dynamic.generate-url',
+                    '#',
+                    'dynamicUrl',
+                    dynamicDataList[index],
+                    id,
+                );
                 const dynamicUrlcontent = applyFilters(
                     'gutenverse.dynamic.fetch-url',
                     dynamicDataList[index].dynamicUrl
