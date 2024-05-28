@@ -20,9 +20,8 @@ export const dynamicData = (props) => {
     const content = attributes[contentAttribute];
     const textContent = attributes.dynamicTextContent;
     const urlContent = attributes.dynamicUrlContent;
-    const [dynamicText, setDynamicText] = useState([]);
-    const [dynamicUrl, setDynamicUrl] = useState([]);
-    // console.log(JSON.stringify(dynamicDataList, null, 2));
+    const [dynamicText, setDynamicText] = useState(textContent);
+    const [dynamicUrl, setDynamicUrl] = useState(urlContent);
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -328,13 +327,16 @@ export const dynamicData = (props) => {
                 const linkExist = document.querySelector(`.link-${id}`);
 
                 // filter for dynamically set the content and link both in editor ang frontend
-                const href = applyFilters(
-                    'gutenverse.dynamic.generate-url',
-                    '#',
-                    'dynamicUrl',
-                    dynamicDataList[index],
-                    id,
-                );
+                let href = '#';
+                if (dynamicDataList[index].dynamicUrl.postdata){
+                    href = applyFilters(
+                        'gutenverse.dynamic.generate-url',
+                        '#',
+                        'dynamicUrl',
+                        dynamicDataList[index],
+                        id,
+                    );
+                }
                 const dynamicUrlcontent = applyFilters(
                     'gutenverse.dynamic.fetch-url',
                     dynamicDataList[index].dynamicUrl
@@ -471,12 +473,10 @@ export const dynamicData = (props) => {
             //use set time out to update attribute so that the dynamic content does not cause infinite loop
             //when used more than once in the same template part
             const throttledUpdateAttributes = function() {
-                console.log('test');
                 if (!timeoutId) {
                     timeoutId = setTimeout(() => {
                         timeoutId = null;
                         if (content.localeCompare(contentArray.join('')) !== 0) {
-                            console.log(content, '||', contentArray.join(''));
                             setAttributes({ [contentAttribute]: contentArray.join('') });
                         }
                     }, 200);
