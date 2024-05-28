@@ -62,7 +62,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const { keyword } = data;
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
-    
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
@@ -85,7 +84,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 current
             };
         });
-    }, [data]);
+    }, [data, libraryData]);
 
     useEffect(() => {
         const { layoutData, layoutCategories } = libraryData;
