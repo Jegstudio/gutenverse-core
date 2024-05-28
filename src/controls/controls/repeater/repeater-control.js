@@ -240,7 +240,7 @@ const RepeaterComponent = (props) => {
 };
 
 const processTitle = (format, values) => {
-    if( isEmpty( values.value ) ){
+    if( values.value && isEmpty( values.value ) ){
         values.value = u(`#${values.id}`).nodes[0];
         const iframe = u('.edit-site-visual-editor__editor-canvas');
         if(iframe.length > 0){
