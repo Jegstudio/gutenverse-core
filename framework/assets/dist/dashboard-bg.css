@@ -4,9 +4,9 @@
 }
 
 #gutenverse-dashboard .rating-panel {
-    background-image: url('../img/asset_bg_3.webp');
+    background-image: url('../img/dashboard-landing-bg.webp');
 }
 
-#gutenverse-dashboard .upgrade-notice-head > div {
+#gutenverse-dashboard .upgrade-notice-head>div {
     background-image: url('../img/upgrade-notice-hero.webp');
 }
