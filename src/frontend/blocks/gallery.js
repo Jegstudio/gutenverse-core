@@ -24,8 +24,10 @@ class GutenverseGallery extends Default {
     }
 
     /* private */
-    _onSearch(value, shuffle) {
-        const searchValue = value.toLowerCase();
+    _onSearch(shuffle, thisElement) {
+        const searchValue = thisElement.find('#guten-gallery-search-box-input').first().value.toLowerCase();
+        const filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
+        const filterValue = filterText === 'all' ? '' : filterText;
         const isValid = (item) => {
             const element = u(item);
             const controlText = element.data('control');
@@ -33,7 +35,7 @@ class GutenverseGallery extends Default {
             const contentText = element.find('.item-content').text();
             const categoryText = element.find('.caption-category span').text();
 
-            return (controlText.toLowerCase()).includes(searchValue) || (titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue);
+            return (controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue));
         };
 
         shuffle && shuffle.filter(item => isValid(item));
@@ -162,13 +164,13 @@ class GutenverseGallery extends Default {
                 speed: 500
             });
 
-            thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(e.target.value, shuffle));
+            thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch( shuffle, thisElement));
             thisElement.find('.guten-gallery-control').on('click', e => {
                 const filter = u(e.target).data('filter');
                 thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
                 u(e.target).addClass('active');
                 u(e.target).siblings().removeClass('active');
-                onSearch(filter ? filter : '', shuffle);
+                onSearch(shuffle, thisElement);
             });
 
             thisElement.find('.guten-gallery-load-more').on('click', (e) => {

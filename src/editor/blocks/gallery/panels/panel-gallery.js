@@ -6,11 +6,11 @@ export const galleryPanel = () => {
         {
             id: 'images',
             component: RepeaterControl,
-            titleFormat: '<strong><%= value.id%></strong>',
+            titleFormat: '<strong><%= value.title ? value.title : "Gallery Item" %></strong>',
             options: [
                 {
                     id: 'id',
-                    label: __('Control Name', 'gutenverse'),
+                    label: __('Filter Name', 'gutenverse'),
                     component: TextControl,
                 },
                 {

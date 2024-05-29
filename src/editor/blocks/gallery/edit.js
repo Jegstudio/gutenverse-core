@@ -85,17 +85,27 @@ const GalleryBlock = compose(
             const titleText = element.find('.item-title').text();
             const contentText = element.find('.item-content').text();
             const categoryText = element.find('.caption-category span').text();
-
-            return (controlText.toLowerCase()).includes(searchValue) || (titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue);
+            const filterName = currentFilter === 'All' ? '' : currentFilter.toLowerCase();
+            return (controlText.toLowerCase()).includes(filterName) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue));
         };
 
         shuffleInstance && shuffleInstance.filter(item => isValid(item));
     };
 
+    const onFilter = ( value ) => {
+        const searchValue = value.toLowerCase();
+        const isValidFilter = (item) => {
+            const element = u(item);
+            const controlText = element.data('control');
+            return (controlText.toLowerCase()).includes(searchValue);
+        };
+
+        shuffleInstance && shuffleInstance.filter(item => isValidFilter(item));
+    };
+
     const changeFilter = (filterName) => {
         setCurrentFilter(filterName);
-
-        filterName === 'All' ? onSearch('') : onSearch(filterName);
+        filterName === 'All' ? onFilter('') : onFilter(filterName);
     };
 
     const initShuffleJS = () => {

@@ -76,19 +76,23 @@
 			"type": "array",
 			"default": [
 				{
+					"id": "One",
+					"title": "One",
+					"lazyLoad": false
+				},
+				{
 					"id": "Two",
+					"title": "Two",
 					"lazyLoad": false
 				},
 				{
 					"id": "Three",
+					"title": "Three",
 					"lazyLoad": false
 				},
 				{
 					"id": "Four",
-					"lazyLoad": false
-				},
-				{
-					"id": "Five",
+					"title": "Four",
 					"lazyLoad": false
 				}
 			]
