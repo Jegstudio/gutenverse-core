@@ -131,15 +131,15 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                         <>
                             <div className="block-category">
                                 <div className="block-category-info">
-                                    <span>{category.title}</span>
-                                    <span>
+                                    <p>{category.title}</p>
+                                    <div className="button-able">
                                         <a className={checkAllCategory(category, false) ? 'active' : ''} onClick={() => disableCategory(category.slug)}>
                                             {__('Disable All', '--gctd--')}
                                         </a>
                                         <a className={checkAllCategory(category, true) ? 'active' : ''} onClick={() => enableCategory(category.slug)}>
                                             {__('Enable All', '--gctd--')}
                                         </a>
-                                    </span>
+                                    </div>
                                 </div>
                                 <div className="block-items">
                                     {blocks
