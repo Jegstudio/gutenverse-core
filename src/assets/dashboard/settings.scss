@@ -346,3 +346,38 @@
 body.gutenverse_page_gutenverse-settings .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
 }
+
+@media (max-width: 765px) {
+    #gutenverse-dashboard {
+        .content-wrapper {
+            .dashboard-content {
+                .content-body {
+                    .setting-tabs {
+                        flex-wrap: wrap;
+
+                        .settings-tab-header {
+                            flex: 1;
+
+                            .tab-items {
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 15px;
+                                margin-bottom: 20px;
+
+                                .tab-item {
+                                    width: calc(33.333333% - 10px);
+                                    box-sizing: border-box;
+                                    margin-bottom: 0;
+                                }
+                            }
+                        }
+
+                        .settings-tab-body {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
