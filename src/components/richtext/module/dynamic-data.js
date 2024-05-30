@@ -327,8 +327,7 @@ export const dynamicData = (props) => {
                 const linkExist = document.querySelector(`.link-${id}`);
 
                 // filter for dynamically set the content and link both in editor ang frontend
-                let href = '#';
-                href = applyFilters(
+                const href = applyFilters(
                     'gutenverse.dynamic.generate-url',
                     '#',
                     'dynamicUrl',
@@ -341,7 +340,8 @@ export const dynamicData = (props) => {
                 );
                 let title = content;
 
-                if (dynamicDataList[index].dynamicContent.postdata){
+                const dynamicContent = dynamicDataList[index].dynamicContent;
+                if (dynamicContent.postdata || dynamicContent.sitedata || dynamicContent.authordata || dynamicContent.termdata){
                     title = applyFilters(
                         'gutenverse.dynamic.generate-content',
                         content,
