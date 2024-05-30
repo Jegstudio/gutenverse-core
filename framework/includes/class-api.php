@@ -333,10 +333,17 @@ class Api {
 	 * @return WP_Rest
 	 */
 	public function fetch_library_data( $request ) {
-		$library_time    = Meta_Option::instance()->get_option( 'fetch_library_time' );
-		$now             = time();
-		$tracker         = Meta_Option::instance()->get_option( 'tracker' )[ GUTENVERSE ];
-		if ( '0.0.0' !== end( $tracker['version_history'] ) && version_compare( end( $tracker['version_history'] ), $tracker['current_version'] ) ) {
+		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
+		$now          = time();
+
+		require_once 'wp-load.php';
+
+		$upload_dir      = wp_upload_dir();
+		$upload_base_dir = $upload_dir['basedir'];
+
+		$directory_to_check = $upload_base_dir . '/data_ver.2.0.0';
+
+		if ( ! is_dir( $directory_to_check ) ) {
 			$this->update_library_data();
 		}
 
@@ -349,6 +356,7 @@ class Api {
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
 			Meta_Option::instance()->set_option( 'fetch_library_time', $next_fetch );
+			$this->update_library_data();
 		}
 		return $this->library_data();
 	}
@@ -758,7 +766,7 @@ class Api {
 
 			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/';
 			$basedir   = wp_upload_dir()['basedir'];
-			$directory = $basedir . '/gutenverse/data/';
+			$directory = $basedir . '/gutenverse/data_ver.2.0.0/';
 			wp_mkdir_p( $directory );
 
 			foreach ( $endpoints as $data ) {
@@ -799,8 +807,8 @@ class Api {
 		$directory = wp_upload_dir()['basedir'] . '/gutenverse/';
 		$json      = array();
 
-		if ( $wp_filesystem->exists( $directory . '/data/' . $name . '.json' ) ) {
-			$file = $wp_filesystem->get_contents( $directory . '/data/' . $name . '.json' );
+		if ( $wp_filesystem->exists( $directory . '/data_ver.2.0.0/' . $name . '.json' ) ) {
+			$file = $wp_filesystem->get_contents( $directory . '/data_ver.2.0.0/' . $name . '.json' );
 			$json = json_decode( $file, true );
 		} elseif ( $wp_filesystem->exists( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' ) ) {
 			$file = $wp_filesystem->get_contents( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' );
