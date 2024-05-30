@@ -25,8 +25,16 @@ class GutenverseGallery extends Default {
 
     /* private */
     _onSearch(shuffle, thisElement) {
-        const searchValue = thisElement.find('#guten-gallery-search-box-input').first().value.toLowerCase();
-        const filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
+        const searchElement = thisElement.find('#guten-gallery-search-box-input');
+        let searchValue = '';
+        let filterText = '';
+        if( searchElement.length > 0 ){
+            searchValue = searchElement.first().value.toLowerCase();
+            filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
+        }else{
+            const filterElement = thisElement.find('.guten-gallery-control.active');
+            filterText = filterElement.text().toLowerCase();
+        }
         const filterValue = filterText === 'all' ? '' : filterText;
         const isValid = (item) => {
             const element = u(item);

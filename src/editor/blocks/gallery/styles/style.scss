@@ -314,6 +314,9 @@
                             animation-name: zoomIn;
                         }
                     }
+                    .caption-button{
+                        z-index: 4;
+                    }
                 }
                 .video-wrap a {
                     font-size: 65px;
@@ -368,6 +371,7 @@
                     width: 100%;
                     height: auto;
                     text-align: center;
+                    z-index: 4;
                     @include transform(false, translate(-50%, -50%));
                     .item-buttons .gallery-link {
                         display: inline-block;
@@ -481,6 +485,7 @@
                         .item-caption-over {
                             width: 100%;
                             height: auto;
+                            z-index: 4;
                             .item-title {
                                 color: var(--guten-txt-alt-color);
                                 font-size: 20px;

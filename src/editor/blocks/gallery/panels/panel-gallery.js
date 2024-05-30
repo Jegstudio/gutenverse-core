@@ -7,6 +7,9 @@ export const galleryPanel = () => {
             id: 'images',
             component: RepeaterControl,
             titleFormat: '<strong><%= value.title ? value.title : "Gallery Item" %></strong>',
+            repeaterDefault: {
+                id: ''
+            },
             options: [
                 {
                     id: 'id',
