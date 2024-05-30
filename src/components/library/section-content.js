@@ -50,7 +50,7 @@ const SectionContentWrapper = (props) => {
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
-    
+
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
@@ -58,15 +58,9 @@ const SectionContentWrapper = (props) => {
 
         const { sectionData } = library;
         const result = filterSection(sectionData, data, 20);
-        const { data: newData, total, current } = result;
+        const { data: theData, total, current } = result;
 
-        setContent(prevState => {
-            const { data: oldData } = prevState;
-            const theData = data.paging === 1 ? newData : [
-                ...oldData,
-                ...newData
-            ];
-
+        setContent(() => {
             return {
                 data: theData,
                 total,
@@ -86,12 +80,12 @@ const SectionContentWrapper = (props) => {
     }, [license, author]);
 
     const categoryListClicked = (id, name) => {
-        dispatch( 'gutenverse/library' ).setPaging(1);
+        dispatch('gutenverse/library').setPaging(1);
         setCategoryCache(name);
     };
 
     const changePaging = (page) => {
-        dispatch( 'gutenverse/library' ).setPaging(page);
+        dispatch('gutenverse/library').setPaging(page);
     };
     const dev = '--dev_mode--' === 'true';
 
@@ -112,23 +106,23 @@ const SectionContentWrapper = (props) => {
             <h2 className="gutenverse-library-side-heading">
                 {__('Style', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
             <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
         </div>
 
 
         <div className="gutenverse-library-inner" ref={scrollerRef}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
+                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                 customStyles={{ paddingTop: '30px' }}
-                container = "library"
-                leftBannerImg = "library-graphic-library-left.png"
-                rightBannerImg = "library-graphic-library-right.png"
-                backgroundGradient = "library-bg-library.png"/>
+                container="library"
+                leftBannerImg="library-graphic-library-left.png"
+                rightBannerImg="library-graphic-library-right.png"
+                backgroundGradient="library-bg-library.png" />
             <SectionContentData
                 current={content.current}
                 data={content.data}
@@ -180,7 +174,7 @@ const SectionItems = props => {
         };
     }
     data = data.filter(el => el !== undefined);
-    
+
     return <Masonry
         breakpointCols={breakpointColumnsObj}
         className="library-items-wrapper section"
@@ -205,8 +199,8 @@ const SectionContentItem = props => {
         (select) => select('gutenverse/library'),
         []
     );
-    const plugins =  getPluginData();
-    const library =  getLibraryData();
+    const plugins = getPluginData();
+    const library = getLibraryData();
 
     const { item, closeImporter, setCurrentItem, setPluginInstallMode } = props;
     const [image, setImage] = useState('');
@@ -298,7 +292,7 @@ const SectionContentItem = props => {
                         <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
                             <IconHeartFullSVG size={14} />
                         </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
-                            <IconLoveSVG size={16}/>
+                            <IconLoveSVG size={16} />
                         </div>
                     }
                 </div>

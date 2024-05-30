@@ -69,15 +69,9 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     useEffect(() => {
         const { layoutData } = libraryData;
         const result = filterLayout(layoutData, data, 12);
-        const { data: newData, total, current } = result;
+        const { data: theData, total, current } = result;
 
-        setContent(prevState => {
-            const { data: oldData } = prevState;
-            const theData = data.paging === 1 ? newData : [
-                ...oldData,
-                ...newData
-            ];
-
+        setContent(() => {
             return {
                 data: theData,
                 total,
