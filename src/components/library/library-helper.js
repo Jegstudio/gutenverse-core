@@ -171,6 +171,20 @@ export const filterCategories = (data, categories, filter, type) => {
 };
 
 export const ExportNotice = (props) => {
+
+    const width = () => {
+        switch (props.progress) {
+            case '1/4' :
+                return 25;
+            case '2/4' :
+                return 50;
+            case '3/4' :
+                return 75;
+            case '4/4' :
+                return 100;
+        }
+    };
+    console.log(width());
     return <div className="library-export-notice">
         <div className="library-export-notice-container">
             <div className="importing-notice">
@@ -182,7 +196,7 @@ export const ExportNotice = (props) => {
                     <span>{props.progress}</span>
                 </div>
                 <div className="bar-progress-container">
-                    <div className="notice-bar-progress" />
+                    <div className={'notice-bar-progress ' + `${width()}-percent`} />
                 </div>
             </div>
         </div>

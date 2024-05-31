@@ -176,6 +176,7 @@ const SectionItems = props => {
         700: 2,
         500: 1
     };
+    const [selectItem, setSelectItem] = useState({});
 
     if ('Header' === categoryCache) {
         breakpointColumnsObj = {
@@ -200,6 +201,8 @@ const SectionItems = props => {
             setPluginInstallMode={props.setPluginInstallMode}
             setExporting={setExporting}
             exporting={exporting}
+            setSelectItem={setSelectItem}
+            selectItem={selectItem}
         />)}
     </Masonry>;
 };
@@ -216,7 +219,7 @@ const SectionContentItem = props => {
     const plugins =  getPluginData();
     const library =  getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting, exporting } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting, exporting, selectItem, setSelectItem } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
     const { section: sectionId } = library;
@@ -252,7 +255,6 @@ const SectionContentItem = props => {
 
     const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
     const minHeight = paddingBottom === 0 ? 44 : 0;
-    console.log('section', exporting);
 
     return <div className={classname}>
         <div className="library-item-content">
@@ -272,6 +274,7 @@ const SectionContentItem = props => {
                             closeImporter={closeImporter}
                             setShowOverlay={setShowOverlay}
                             setExporting={setExporting}
+                            setSelectItem={setSelectItem}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>
@@ -289,7 +292,8 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
-        {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
+        <ExportNotice message={exporting.message} progress={exporting.progress}/>
+        {/* {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">
                     <div className="library-item-left">
@@ -320,7 +324,7 @@ const SectionContentItem = props => {
                         }
                     </div>
                 </div>
-            </div>}
+            </div>} */}
     </div>;
 };
 

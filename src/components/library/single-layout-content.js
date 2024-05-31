@@ -107,8 +107,6 @@ const SingleLayoutContent = (props) => {
         'loading': singleData === null,
     });
 
-    console.log('layout', exporting);
-
     return <>
         <div className={singleClass}>
             {singleData === null ? <>

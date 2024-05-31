@@ -7,7 +7,7 @@ import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 
-const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting }) => {
+const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
 
     const insertBlocksTemplate = (data) => {
@@ -22,6 +22,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const importContent = (e) => {
+        setSelectItem(data);
         setShowOverlay(true);
         setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
         e.stopPropagation();

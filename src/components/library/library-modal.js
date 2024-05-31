@@ -100,7 +100,6 @@ const LibraryModal = props => {
 };
 
 const LibraryContent = (props) => {
-    console.log(props);
     let template = null;
     const { active } = props;
     switch (active) {
