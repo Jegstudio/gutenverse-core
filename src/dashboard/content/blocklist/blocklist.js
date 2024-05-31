@@ -89,7 +89,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
             <PopupPro
                 active={popupActive}
                 setActive={setPopupActive}
-                description = {<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br/>{__(' unlock these premium blocks', '--gctd--')}</>}
+                description={<>{__('Upgrade ', '--gctd--')}<span>{__(' Gutenverse PRO ', '--gctd--')}</span>{__(' version to ', '--gctd--')}<br />{__(' unlock these premium blocks', '--gctd--')}</>}
             />
             <DashboardHeader>
                 <div className="header-control">
@@ -146,6 +146,13 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                         .filter((block) => {
                                             return category?.slug === block?.category;
                                         })
+                                        .sort((first, second) => {
+                                            let firstPro = first?.pro ? 0 : 100;
+                                            let secondPro = second?.pro ? 0 : 100;
+                                            let stringCompare = first.title.localeCompare(second.title);
+
+                                            return firstPro - secondPro + stringCompare;
+                                        })
                                         .map((block) => {
                                             if (block?.parent) {
                                                 return null;
@@ -164,9 +171,8 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                                                         <div className="block-control" ref={controlRef}>
                                                             <ControlCheckboxPro />
                                                         </div>
-                                                    </div>
-                                                , {block, active_blocks, controlRef,ControlCheckbox, updateValue});
-                                                return <BlockPro/>;
+                                                    </div>, { block, active_blocks, controlRef, ControlCheckbox, updateValue });
+                                                return <BlockPro key={block.name} />;
                                             }
 
                                             return (
