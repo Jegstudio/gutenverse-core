@@ -77,8 +77,7 @@ const layoutFilter = (layoutData, filter) => {
 
 const dataPaging = (data, paging, perPage) => {
     if (perPage) {
-        let startIndex = perPage * (paging - 1);
-        let result = data.slice(startIndex, startIndex + perPage);
+        let result = data.slice(0, perPage * paging);
         let totalPage = Math.ceil(data.length / perPage);
 
         return {
