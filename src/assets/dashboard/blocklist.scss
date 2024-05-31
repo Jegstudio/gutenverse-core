@@ -171,35 +171,23 @@
                 align-items: center;
                 display: flex;
                 justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
                 margin-bottom: 30px;
 
-                >span {
-                    >a {
-                        cursor: pointer;
-                    }
-                }
-
-                >span:first-child {
-                    color: #011627;
-                    font-family: "Roboto", sans-serif;
-                    font-size: 18px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 21px;
-                }
-
-                >span:last-child {
+                .button-able {
+                    display: flex;
                     border-radius: 3px;
                     border: 1px solid var(--gutenverse-dashboard-border);
                     padding: 2px;
 
                     a {
+                        cursor: pointer;
                         color: #40505d;
                         font-family: "Roboto", sans-serif;
                         font-size: 14px;
                         font-style: normal;
                         font-weight: 400;
-                        line-height: 32px;
                         padding: 8px 16px;
 
                         &.active {
@@ -208,6 +196,15 @@
                             color: #ffffff;
                         }
                     }
+                }
+
+                > p {
+                    color: #011627;
+                    font-family: "Roboto", sans-serif;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 21px;
                 }
             }
         }
@@ -262,7 +259,7 @@
                     }
 
                     img {
-                        left: -146px;
+                        right: 0;
                         opacity: 0;
                         position: absolute;
                         top: 14px;

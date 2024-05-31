@@ -6,16 +6,19 @@ import { IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import { Loader } from 'react-feather';
 
-const removeEmptyInArray = (arr) => {
-    if(!isEmpty(arr)){
-        return arr.filter(el => el != '' && el != undefined && !Array.isArray(el));
-    }
-    return arr;
-}
 const layoutFilter = (layoutData, filter) => {
     let { keyword, license, categories, author, like, status : postStatus } = filter;
-    categories = removeEmptyInArray(categories);
+    let parents = {};
 
+    if(categories){
+        categories?.forEach(element => {
+            if( element.parent in parents ){
+                parents[element.parent].push(element.id);
+            }else{
+                parents[element.parent] = [element.id];
+            }
+        });
+    }
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, pro, status } = data;
@@ -41,8 +44,16 @@ const layoutFilter = (layoutData, filter) => {
                 return false;
             }
         }
-        if (!isEmpty(categories) && !layoutCategories.some(category => categories.includes(category.id.toString()))) {
-            return false;
+        if (!isEmpty(categories)) {
+            let isTrue = true;
+            Object.keys(parents).forEach(el => {
+                if(!layoutCategories.some(category => parents[el].includes(category.id.toString()))){
+                    isTrue = false;
+                }
+            });
+            if(!isTrue){
+                return false;
+            }
         }
 
         if ( 'true' === dev ) {
@@ -193,12 +204,22 @@ const categoryCount = (layouts, categoryId) => {
 
 const sectionFilter = (sectionData, filter) => {
     let { license, categories, author, like, status : postStatus } = filter;
+    let parents = {};
+
+    if(categories){
+        categories?.forEach(element => {
+            if( element.parent in parents ){
+                parents[element.parent].push(element.id);
+            }else{
+                parents[element.parent] = [element.id];
+            }
+        });
+    }
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
         const { pro, status } = data;
         const { name: authorName } = sectionAuthor;
-        categories = removeEmptyInArray(categories);
         const dev = '--dev_mode--';
 
         if (like) {
@@ -223,8 +244,16 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if (!isEmpty(categories) && !sectionCategories.some(category => categories.includes(category.id.toString()))) {
-            return false;
+        if (!isEmpty(categories)) {
+            let isTrue = true;
+            Object.keys(parents).forEach(el => {
+                if(!sectionCategories.some(category => parents[el].includes(category.id.toString()))){
+                    isTrue = false;
+                }
+            });
+            if(!isTrue){
+                return false;
+            }
         }
 
         if (author) {

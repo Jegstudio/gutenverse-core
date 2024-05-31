@@ -58,6 +58,7 @@
     .theme-list {
         .search-box {
             input[type="text"] {
+                min-height: 36px;
                 border: none;
             }
         }
@@ -81,7 +82,7 @@
             display: flex;
             font-size: 12px;
             height: 36px;
-            min-width: 400px;
+            min-width: 320px;
             width: 35%;
 
             input::placeholder {
@@ -549,4 +550,11 @@
 
 body.gutenverse_page_gutenverse-theme-list .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
+}
+
+@media only screen and (max-width: 765px) {
+    #gutenverse-dashboard .content-header .search-box {
+        width: 100%;
+        min-width: 0;
+    }
 }

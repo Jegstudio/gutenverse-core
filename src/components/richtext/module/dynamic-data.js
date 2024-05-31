@@ -20,8 +20,8 @@ export const dynamicData = (props) => {
     const content = attributes[contentAttribute];
     const textContent = attributes.dynamicTextContent;
     const urlContent = attributes.dynamicUrlContent;
-    const [dynamicText, setDynamicText] = useState([]);
-    const [dynamicUrl, setDynamicUrl] = useState([]);
+    const [dynamicText, setDynamicText] = useState(textContent? textContent: []);
+    const [dynamicUrl, setDynamicUrl] = useState(urlContent? urlContent : []);
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -237,6 +237,7 @@ export const dynamicData = (props) => {
 
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
+    let timeoutId;
     useEffect(() => {
 
         // take the content and put them in an array separated by childNodes
@@ -326,7 +327,8 @@ export const dynamicData = (props) => {
                 const linkExist = document.querySelector(`.link-${id}`);
 
                 // filter for dynamically set the content and link both in editor ang frontend
-                const href = applyFilters(
+                let href = '#';
+                href = applyFilters(
                     'gutenverse.dynamic.generate-url',
                     '#',
                     'dynamicUrl',
@@ -337,14 +339,17 @@ export const dynamicData = (props) => {
                     'gutenverse.dynamic.fetch-url',
                     dynamicDataList[index].dynamicUrl
                 );
+                let title = content;
 
-                const title = applyFilters(
-                    'gutenverse.dynamic.generate-content',
-                    content,
-                    'dynamicContent',
-                    dynamicDataList[index],
-                    id,
-                );
+                if (dynamicDataList[index].dynamicContent.postdata){
+                    title = applyFilters(
+                        'gutenverse.dynamic.generate-content',
+                        content,
+                        'dynamicContent',
+                        dynamicDataList[index],
+                        id,
+                    );
+                }
                 const dynamicTextContent = applyFilters(
                     'gutenverse.dynamic.fetch-text',
                     dynamicDataList[index].dynamicContent
@@ -358,7 +363,7 @@ export const dynamicData = (props) => {
                                 setDynamicText(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText)) {
+                                    if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
                                         setAttributes({dynamicTextContent: newState});
                                     }
                                     return newState;
@@ -381,7 +386,7 @@ export const dynamicData = (props) => {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
-                                    if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl)) {
+                                    if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
                                         setAttributes({dynamicUrlContent: newState});
                                     }
                                     return newState;
@@ -438,8 +443,7 @@ export const dynamicData = (props) => {
                     contentArray[item.key] = anchorElement.outerHTML;
                 // when content is set
                 }else if (title !== content){
-
-                    //if dynamic data element is inside other element format
+                    // if dynamic data element is inside other element format
                     if (newestList[index].parent){
                         let parent = newestList[index].parent;
                         const ancestorTags = getAncestorTags(parent);
@@ -464,8 +468,23 @@ export const dynamicData = (props) => {
                     }
                 }
             });
+            //use set time out to update attribute so that the dynamic content does not cause infinite loop
+            //when used more than once in the same template part
+            const throttledUpdateAttributes = function() {
+                if (!timeoutId) {
+                    timeoutId = setTimeout(() => {
+                        timeoutId = null;
+                        if (content.localeCompare(contentArray.join('')) !== 0) {
+                            setAttributes({ [contentAttribute]: contentArray.join('') });
+                        }
+                    }, 200);
+                }
+            };
+            throttledUpdateAttributes();
         }
-        setAttributes({ [contentAttribute] : contentArray.join('') });
 
+        return () => {
+            clearTimeout(timeoutId);
+        };
     },[content, dynamicDataList, textContent, urlContent]);
 };

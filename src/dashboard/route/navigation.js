@@ -153,8 +153,8 @@ const Navigation = ({ location }) => {
 
                     return null;
                 })}
+                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} />
             </div>
-            <ButtonUpgradePro location="dashboard-navigation" isBanner={true} />
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
     </>;

@@ -74,7 +74,7 @@ const SectionContentWrapper = (props) => {
                 current
             };
         });
-    }, [data]);
+    }, [data, library]);
 
     useEffect(() => {
         const { sectionData, sectionCategories } = library;
