@@ -23,7 +23,6 @@ const LibraryModal = props => {
     const [style, setStyle] = useState({
         display : ''
     });
-    const [exporting, setExporting] = useState({show: false, message: '', progress: '1/4'});
     const handleBurger = () => {
         setBurger(!burger);
         if(burger){
@@ -90,8 +89,6 @@ const LibraryModal = props => {
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
                         burger={burger}
-                        setExporting={setExporting}
-                        exporting={exporting}
                     />
                 </div>
             </div>

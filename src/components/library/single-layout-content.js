@@ -23,14 +23,13 @@ const SingleLayoutContent = (props) => {
         setSingleData,
         singleData,
         setPluginInstallMode,
-        setExporting,
-        exporting,
     } = props;
 
     const [active, setActive] = useState(0);
     const imageContent = useRef(null);
     const [imageCover, setImageCover] = useState(null);
     const [requirementStatus, setRequirementStatus] = useState(false);
+    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
     const { installedPlugin } = pluginData;
     const { layoutData } = libraryData;
 

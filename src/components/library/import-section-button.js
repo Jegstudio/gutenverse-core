@@ -22,9 +22,12 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const importContent = (e) => {
+        setExporting({show: true, message: 'Fetching Data...', progress: ''});
         setSelectItem(data);
         setShowOverlay(true);
-        setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
+        setTimeout(() => {
+            setExporting(prev => ({...prev, progress: '1/4'}));
+        }, 1000);
         e.stopPropagation();
         dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockSectionImport(slug);
@@ -41,25 +44,29 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
 
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
-            setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
+            setExporting(prev => ({...prev, message: 'Importing Assets...', progress: '2/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
             return importImage(data);
         }).then(result => {
-            setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
+            setExporting(prev => ({...prev, message: 'Deploying Content...', progress: '3/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
+            setExporting(prev => ({...prev, message: 'Done!', progress: '4/4'}));
             setTimeout(() => {
                 setShowOverlay(false);
-                setExporting({show: false, message: 'Done!', progress: '4/4'});
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
-            }, 200);
-            closeImporter();
+                closeImporter();
+                setExporting({show: false, message: 'Done!', progress: ''});
+            }, 300);
         }).catch((e) => {
-            setShowOverlay(false);
-            setExporting({show: false, message: 'Failed!', progress: '4/4'});
-            console.log(e);
-            alert('Import Failed, please try again');
+            setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
+            setTimeout(() => {
+                alert('Import Failed, please try again');
+                setShowOverlay(false);
+                setExporting({show: false, message: 'Failed!', progress: ''});
+                console.log(e);
+            }, 300);
         });
     };
 

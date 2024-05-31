@@ -174,16 +174,17 @@ export const ExportNotice = (props) => {
     const width = () => {
         switch (props.progress) {
             case '1/4' :
-                return 25;
+                return 'twenty-five';
             case '2/4' :
-                return 50;
+                return 'fifty';
             case '3/4' :
-                return 75;
+                return 'seventy-five';
             case '4/4' :
-                return 100;
+                return 'hundred';
+            default :
+                return 'zero';
         }
     };
-    console.log(width());
     return <div className="library-export-notice">
         <div className="library-export-notice-container">
             <div className="importing-notice">
@@ -406,9 +407,10 @@ export const likeLayout = (slug, flag) => {
 export const filterSection = (sectionData, filter, perPage) => {
     const { paging } = filter;
     const data = sectionFilter(sectionData, filter).map((section) => {
-        const { id, data, like, customAPI, customArgs, author } = section;
+        const { id, data, like, customAPI, customArgs, author, name: unfilteredName } = section;
         const { pro, slug, cover, compatible_version: compatibleVersion, requirements } = data;
-
+        let name = unfilteredName;
+        name = name.replace('PRO', '').replace('&#8211;', '').replace('Dark', '- Dark').replace('Free', '');
         return {
             id,
             pro: pro === '1',
@@ -419,7 +421,8 @@ export const filterSection = (sectionData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author
+            author,
+            name
         };
     });
 

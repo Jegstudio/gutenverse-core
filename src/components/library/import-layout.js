@@ -29,7 +29,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const importContent = () => {
-        setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
+        setExporting({show: true, message: 'Fetching Data...', progress: ''});
         dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockLayoutImport({
             layout: slug,
@@ -47,21 +47,24 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 active: activePage
             }
         );
+        setTimeout(() => {
+            setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
+        }, 300);
 
         importSingleLayoutContent(params, customAPI)
             .then(result => {
                 const data = JSON.parse(result);
-                setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
                 dispatch('gutenverse/library').setLayoutProgress(__('Importing Assets', '--gctd--'));
+                setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
                 return new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(importImage(data));
-                    }, 500); // 1 second delay
+                    }, 1000); // 1 second delay
                 });
             })
             .then(result => {
-                setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
                 dispatch('gutenverse/library').setLayoutProgress(__('Deploying Content', '--gctd--'));
+                setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
                 return new Promise((resolve) => {
                     setTimeout(() => {
                         resolve(insertBlocksTemplate(result));
@@ -69,19 +72,23 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 });
             })
             .finally(() => {
-                setExporting({show: false, message: 'Done!', progress: '4/4'});
+                setExporting({show: true, message: 'Done!', progress: '4/4'});
                 setTimeout(() => {
                     dispatch('gutenverse/library').setLockLayoutImport({
                         layout: null,
                         title: null
                     });
                     closeImporter();
-                }, 200);
+                    setExporting({show: false, message: 'Done!', progress: ''});
+                }, 300);
             })
             .catch((e) => {
-                setExporting({show: false, message: 'Failed!', progress: '4/4'});
-                console.log(e);
-                alert('Import Failed, please try again');
+                setExporting({show: true, message: 'Failed!', progress: '4/4'});
+                setTimeout(() => {
+                    console.log(e);
+                    alert('Import Failed, please try again');
+                    setExporting({show: false, message: 'Failed!', progress: ''});
+                }, 300);
             });
     };
 

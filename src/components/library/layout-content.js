@@ -20,7 +20,7 @@ const LayoutContent = (props) => {
     const [content, setContent] = useState([]);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
     const [singleData, setSingleData] = useState(null);
-    
+
     return <>
         {pluginInstallMode && <PluginInstallMode
             name={singleData.title}
@@ -36,8 +36,6 @@ const LayoutContent = (props) => {
             backText={__('Back to Layouts', '--gctd--')}
             closeImporter={props.closeImporter}
             setSingleData={setSingleData}
-            setExporting={props.setExporting}
-            exporting={props.exporting}
             singleData={singleData}
             pluginInstallMode={pluginInstallMode}
             setPluginInstallMode={setPluginInstallMode}

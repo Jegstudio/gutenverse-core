@@ -36,7 +36,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setExporting, exporting } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
@@ -47,6 +47,7 @@ const SectionContentWrapper = (props) => {
     const scrollerRef = useRef();
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
+    const savedScrollPosition = useRef(0);
 
     useEffect(() => {
         setScroller(scrollerRef);
@@ -71,6 +72,12 @@ const SectionContentWrapper = (props) => {
     }, [data, library]);
 
     useEffect(() => {
+        if (scrollerRef.current) {
+            scrollerRef.current.scrollTop = savedScrollPosition.current;
+        }
+    });
+
+    useEffect(() => {
         const { sectionData, sectionCategories } = library;
         const categories = filterCategories(sectionData, sectionCategories, {
             license: license?.value,
@@ -89,6 +96,11 @@ const SectionContentWrapper = (props) => {
         dispatch('gutenverse/library').setPaging(page);
     };
     const dev = '--dev_mode--' === 'true';
+    const handleScroll = () => {
+        if (scrollerRef.current) {
+            savedScrollPosition.current = scrollerRef.current.scrollTop;
+        }
+    };
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
@@ -115,7 +127,7 @@ const SectionContentWrapper = (props) => {
         </div>
 
 
-        <div className="gutenverse-library-inner" ref={scrollerRef}>
+        <div className="gutenverse-library-inner" ref={scrollerRef} onScroll={handleScroll}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
                 title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
@@ -134,15 +146,13 @@ const SectionContentWrapper = (props) => {
                 scroller={scroller}
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
-                setExporting={setExporting}
-                exporting={exporting}
             />
         </div>
     </>;
 };
 
 export const SectionContentData = props => {
-    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setExporting, exporting } = props;
+    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
             <div className="empty-wrapper">
@@ -153,7 +163,7 @@ export const SectionContentData = props => {
                 <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
         </div> : <>
-            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} exporting={exporting} />
+            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
     } else {
@@ -162,7 +172,7 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, closeImporter, setExporting, exporting } = props;
+    const { categoryCache, closeImporter } = props;
     let { data } = props;
     let breakpointColumnsObj = {
         default: 3,
@@ -193,8 +203,6 @@ const SectionItems = props => {
             closeImporter={closeImporter}
             setCurrentItem={props.setCurrentItem}
             setPluginInstallMode={props.setPluginInstallMode}
-            setExporting={setExporting}
-            exporting={exporting}
             setSelectItem={setSelectItem}
             selectItem={selectItem}
         />)}
@@ -213,9 +221,10 @@ const SectionContentItem = props => {
     const plugins = getPluginData();
     const library = getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting, exporting, selectItem, setSelectItem } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
+    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
     const { section: sectionId } = library;
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
@@ -286,8 +295,7 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
-        <ExportNotice message={exporting.message} progress={exporting.progress}/>
-        {/* {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
+        {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">
                     <div className="library-item-left">
@@ -318,7 +326,7 @@ const SectionContentItem = props => {
                         }
                     </div>
                 </div>
-            </div>} */}
+            </div>}
     </div>;
 };
 
