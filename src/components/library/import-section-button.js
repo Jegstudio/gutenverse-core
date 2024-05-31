@@ -23,7 +23,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
 
     const importContent = (e) => {
         setShowOverlay(true);
-        setExporting({show: true, message: 'Fetching Data...'});
+        setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
         e.stopPropagation();
         dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockSectionImport(slug);
@@ -40,23 +40,23 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
 
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
-            setExporting({show: true, message: 'Importing Assets...'});
+            setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
             return importImage(data);
         }).then(result => {
-            setExporting({show: true, message: 'Deploying Content...'});
+            setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
             setTimeout(() => {
                 setShowOverlay(false);
-                setExporting({show: false, message: 'Done!'});
+                setExporting({show: false, message: 'Done!', progress: '4/4'});
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
             }, 200);
             closeImporter();
         }).catch((e) => {
             setShowOverlay(false);
-            setExporting({show: false, message: 'Failed!'});
+            setExporting({show: false, message: 'Failed!', progress: '4/4'});
             console.log(e);
             alert('Import Failed, please try again');
         });

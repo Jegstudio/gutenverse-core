@@ -9,6 +9,7 @@ import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenve
 import ImportLayout from './import-layout';
 import { Loader } from 'react-feather';
 import semver from 'semver';
+import { ExportNotice } from './library-helper';
 
 const SingleLayoutContent = (props) => {
     const {
@@ -23,6 +24,7 @@ const SingleLayoutContent = (props) => {
         singleData,
         setPluginInstallMode,
         setExporting,
+        exporting,
     } = props;
 
     const [active, setActive] = useState(0);
@@ -105,6 +107,8 @@ const SingleLayoutContent = (props) => {
         'loading': singleData === null,
     });
 
+    console.log('layout', exporting);
+
     return <>
         <div className={singleClass}>
             {singleData === null ? <>
@@ -114,91 +118,95 @@ const SingleLayoutContent = (props) => {
                 <div className="single-wrapper">
                     <RightSkeleton />
                 </div>
-            </> : singleData.pages.length > 0 ? <>
-                <div className="single-previewer">
+            </> : singleData.pages.length > 0 ?
+                <>
                     <div className="back-button" onClick={() => setSingleId(null)}>
                         <IconArrowLeftSVG />
                         <span>
                             {backText}
                         </span>
                     </div>
-                    <div className={classnames('layout-content', {
-                        loading: imageCover === null
-                    })} ref={imageContent}>
-                        {imageCover === null ? <div className="layout-loader">
-                            <div className="rotating">
-                                <Loader size={20} />
+                    <div className="single-previewer-container">
+                        <div className="single-previewer">
+                            <div className={classnames('layout-content', {
+                                loading: imageCover === null
+                            })} ref={imageContent}>
+                                {imageCover === null ? <div className="layout-loader">
+                                    <div className="rotating">
+                                        <Loader size={20} />
+                                    </div>
+                                </div> : <img src={imageCover} key={imageCover} />}
                             </div>
-                        </div> : <img src={imageCover} key={imageCover} />}
-                    </div>
-                    <div className="layout-action">
-                        <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
-                        {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
-                            {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
-                        </a>}
-                    </div>
-                </div>
-                <div className="single-wrapper">
-                    <h2>{singleData.title} {singleData.isPro && <div className="single-pro">PRO</div>}</h2>
-                    <div className="single-layout-meta">
-                        {singleData.author && <span className="single-layout-author">
-                            {__('by ', '--gctd--')}
-                            <a href={singleData.author.url} target="_blank" rel="noreferrer" >
-                                {singleData.author.name}
-                            </a>
-                        </span>}
-                        {singleData.like ?
-                            <div className="single-like active" onClick={() => likeLayout(singleData.slug, false)}>
-                                <IconHeartFullSVG size={14} /> {__('Liked', '--gctd--')}
-                            </div> : <div className="single-like" onClick={() => likeLayout(singleData.slug, true)}>
-                                <IconLoveSVG size={16} /> {__('Like', '--gctd--')}
-                            </div>
-                        }
-                        <span>
-                            {singleData.isPro}
-                            {singleData.pages.length} {__('Layouts', '--gctd--')}
-                        </span>
-                    </div>
-
-                    {requirementStatus && <ThemeNotification
-                        requirementStatus={requirementStatus}
-                        library={libraryData}
-                        slug={slug}
-                        singleData={singleData}
-                        setActive={setActive}
-                        active={active}
-                        setPluginInstallMode={setPluginInstallMode}
-                    />}
-
-                    <div className="single-layout-list">
-                        {singleData.pages !== undefined && singleData.pages.map(page => {
-                            const singleClass = classnames('layout-single', {
-                                active: page.id === active
-                            });
-
-                            return <div className={singleClass} key={page.id} onClick={() => changeActive(page.id)}>
-                                <img src={page.coverImage} key={page.coverImage} />
-                                <span dangerouslySetInnerHTML={{ __html: page.title }} />
-                            </div>;
-                        })}
-                    </div>
-                </div>
-            </> : <div className="empty-content">
-                <div>
-                    <div className="empty-wrapper">
-                        <div className="empty-svg">
-                            <IconEmpty2SVG />
+                            {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress}/> : <div className="layout-action">
+                                <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
+                                {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
+                                    {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
+                                </a>}
+                            </div>}
                         </div>
-                        <h3>{__('No Result Found', '--gctd--')}</h3>
-                        <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
+                        <div className="single-wrapper">
+                            <h2>{singleData.title} {singleData.isPro && <div className="single-pro">PRO</div>}</h2>
+                            <div className="single-layout-meta">
+                                {singleData.author && <span className="single-layout-author">
+                                    {__('by ', '--gctd--')}
+                                    <a href={singleData.author.url} target="_blank" rel="noreferrer" >
+                                        {singleData.author.name}
+                                    </a>
+                                </span>}
+                                {singleData.like ?
+                                    <div className="single-like active" onClick={() => likeLayout(singleData.slug, false)}>
+                                        <IconHeartFullSVG size={14} /> {__('Liked', '--gctd--')}
+                                    </div> : <div className="single-like" onClick={() => likeLayout(singleData.slug, true)}>
+                                        <IconLoveSVG size={16} /> {__('Like', '--gctd--')}
+                                    </div>
+                                }
+                                <span>
+                                    {singleData.isPro}
+                                    {singleData.pages.length} {__('Layouts', '--gctd--')}
+                                </span>
+                            </div>
+
+                            {requirementStatus && <ThemeNotification
+                                requirementStatus={requirementStatus}
+                                library={libraryData}
+                                slug={slug}
+                                singleData={singleData}
+                                setActive={setActive}
+                                active={active}
+                                setPluginInstallMode={setPluginInstallMode}
+                            />}
+
+                            <div className="single-layout-list">
+                                {singleData.pages !== undefined && singleData.pages.map(page => {
+                                    const singleClass = classnames('layout-single', {
+                                        active: page.id === active
+                                    });
+
+                                    return <div className={singleClass} key={page.id} onClick={() => changeActive(page.id)}>
+                                        <img src={page.coverImage} key={page.coverImage} />
+                                        <span dangerouslySetInnerHTML={{ __html: page.title }} />
+                                    </div>;
+                                })}
+                            </div>
+                        </div>
                     </div>
-                    <div className="back-button" onClick={() => setSingleId(null)}>
-                        <span>
-                            {backText}
-                        </span>
+                </>
+                : <div className="empty-content">
+                    <div>
+                        <div className="empty-wrapper">
+                            <div className="empty-svg">
+                                <IconEmpty2SVG />
+                            </div>
+                            <h3>{__('No Result Found', '--gctd--')}</h3>
+                            <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
+                        </div>
+                        <div className="back-button" onClick={() => setSingleId(null)}>
+                            <span>
+                                {backText}
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </div>}
+                </div>}
         </div>
     </>;
 };

@@ -11,6 +11,7 @@ import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconInfoYellowSVG } from 
 import ImportSectionButton from './import-section-button';
 import BannerPro from '../pro/banner-pro';
 import { Loader } from 'react-feather';
+import { ExportNotice } from './library-helper';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
@@ -35,7 +36,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setExporting } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setExporting, exporting } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
@@ -50,7 +51,7 @@ const SectionContentWrapper = (props) => {
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
-    
+
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
@@ -140,13 +141,14 @@ const SectionContentWrapper = (props) => {
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
                 setExporting={setExporting}
+                exporting={exporting}
             />
         </div>
     </>;
 };
 
 export const SectionContentData = props => {
-    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setExporting } = props;
+    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setExporting, exporting } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
             <div className="empty-wrapper">
@@ -157,7 +159,7 @@ export const SectionContentData = props => {
                 <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
         </div> : <>
-            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
+            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} exporting={exporting} />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
     } else {
@@ -166,7 +168,7 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, closeImporter, setExporting } = props;
+    const { categoryCache, closeImporter, setExporting, exporting } = props;
     let { data } = props;
     let breakpointColumnsObj = {
         default: 3,
@@ -197,6 +199,7 @@ const SectionItems = props => {
             setCurrentItem={props.setCurrentItem}
             setPluginInstallMode={props.setPluginInstallMode}
             setExporting={setExporting}
+            exporting={exporting}
         />)}
     </Masonry>;
 };
@@ -213,7 +216,7 @@ const SectionContentItem = props => {
     const plugins =  getPluginData();
     const library =  getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, setExporting, exporting } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
     const { section: sectionId } = library;
@@ -249,6 +252,7 @@ const SectionContentItem = props => {
 
     const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
     const minHeight = paddingBottom === 0 ? 44 : 0;
+    console.log('section', exporting);
 
     return <div className={classname}>
         <div className="library-item-content">
@@ -285,37 +289,38 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
-        <div className="library-item-bottom">
-            <div className="library-item-wrapper">
-                <div className="library-item-left">
-                    {item.name && <span className="by">{__(`${item.name}`, '--gctd--')}</span>}
+        {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
+            <div className="library-item-bottom">
+                <div className="library-item-wrapper">
+                    <div className="library-item-left">
+                        {item.name && <span className="by">{__(`${item.name}`, '--gctd--')}</span>}
+                    </div>
+                    <div className="library-item-right">
+                        {requirementStatus?.length > 0 && <div className="section-requirement">
+                            <div className="section-requirement-detail">
+                                <p>{sprintf(
+                                    _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
+                                    requirementStatus.length
+                                )}</p>
+                                <a href="#" onClick={(e) => {
+                                    setToCurrentItem();
+                                    e.preventDefault();
+                                }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
+                            </div>
+                            <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
+                                <IconInfoYellowSVG />
+                            </div>
+                        </div>}
+                        {item.like ?
+                            <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
+                                <IconHeartFullSVG size={14} />
+                            </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
+                                <IconLoveSVG size={16}/>
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div className="library-item-right">
-                    {requirementStatus?.length > 0 && <div className="section-requirement">
-                        <div className="section-requirement-detail">
-                            <p>{sprintf(
-                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
-                                requirementStatus.length
-                            )}</p>
-                            <a href="#" onClick={(e) => {
-                                setToCurrentItem();
-                                e.preventDefault();
-                            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
-                        </div>
-                        <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
-                            <IconInfoYellowSVG />
-                        </div>
-                    </div>}
-                    {item.like ?
-                        <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
-                            <IconHeartFullSVG size={14} />
-                        </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
-                            <IconLoveSVG size={16}/>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
+            </div>}
     </div>;
 };
 

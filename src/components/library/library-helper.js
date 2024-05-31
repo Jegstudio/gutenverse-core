@@ -162,14 +162,16 @@ export const filterCategories = (data, categories, filter, type) => {
 export const ExportNotice = (props) => {
     return <div className="library-export-notice">
         <div className="library-export-notice-container">
-            <IconInfoYellowSVG />
-            <span>{__('Currently undergoing the export process.', '--gctd--')}</span>
             <div className="importing-notice">
                 <div className="notice-inner">
-                    <div className="rotating">
+                    {/* <div className="rotating">
                         <Loader size={18} />
-                    </div>
+                    </div> */}
                     <span>{props.message}</span>
+                    <span>{props.progress}</span>
+                </div>
+                <div className="bar-progress-container">
+                    <div className="notice-bar-progress" />
                 </div>
             </div>
         </div>

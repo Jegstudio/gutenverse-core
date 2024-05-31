@@ -29,7 +29,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const importContent = () => {
-        setExporting({show: true, message: 'Fetching Data...'});
+        setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
         dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockLayoutImport({
             layout: slug,
@@ -51,7 +51,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
         importSingleLayoutContent(params, customAPI)
             .then(result => {
                 const data = JSON.parse(result);
-                setExporting({show: true, message: 'Importing Assets...'});
+                setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
                 dispatch('gutenverse/library').setLayoutProgress(__('Importing Assets', '--gctd--'));
                 return new Promise((resolve) => {
                     setTimeout(() => {
@@ -60,7 +60,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 });
             })
             .then(result => {
-                setExporting({show: true, message: 'Deploying Content...'});
+                setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
                 dispatch('gutenverse/library').setLayoutProgress(__('Deploying Content', '--gctd--'));
                 return new Promise((resolve) => {
                     setTimeout(() => {
@@ -69,7 +69,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 });
             })
             .finally(() => {
-                setExporting({show: false, message: 'Done!'});
+                setExporting({show: false, message: 'Done!', progress: '4/4'});
                 setTimeout(() => {
                     dispatch('gutenverse/library').setLockLayoutImport({
                         layout: null,
@@ -79,7 +79,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 }, 200);
             })
             .catch((e) => {
-                setExporting({show: false, message: 'Failed!'});
+                setExporting({show: false, message: 'Failed!', progress: '4/4'});
                 console.log(e);
                 alert('Import Failed, please try again');
             });

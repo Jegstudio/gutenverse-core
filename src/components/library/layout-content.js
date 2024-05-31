@@ -37,6 +37,7 @@ const LayoutContent = (props) => {
             closeImporter={props.closeImporter}
             setSingleData={setSingleData}
             setExporting={props.setExporting}
+            exporting={props.exporting}
             singleData={singleData}
             pluginInstallMode={pluginInstallMode}
             setPluginInstallMode={setPluginInstallMode}
