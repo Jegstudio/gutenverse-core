@@ -230,7 +230,7 @@ const SectionContentItem = props => {
     const [name, setName] = useState('');
 
     useEffect(() => {
-        if (item.categories.length > 0) {
+        if (item.categories !== undefined && item.categories.length > 0) {
             const name = item.categories.map(category => category.name);
             setName(name.join(', '));
         } else {
