@@ -7,14 +7,14 @@ import { __ } from '@wordpress/i18n';
 import { Loader } from 'react-feather';
 
 const layoutFilter = (layoutData, filter) => {
-    let { keyword, license, categories, author, like, status : postStatus } = filter;
+    let { keyword, license, categories, author, like, status: postStatus } = filter;
     let parents = {};
 
-    if(categories){
+    if (categories) {
         categories?.forEach(element => {
-            if( element.parent in parents ){
+            if (element.parent in parents) {
                 parents[element.parent].push(element.id);
-            }else{
+            } else {
                 parents[element.parent] = [element.id];
             }
         });
@@ -47,18 +47,18 @@ const layoutFilter = (layoutData, filter) => {
         if (!isEmpty(categories)) {
             let isTrue = true;
             Object.keys(parents).forEach(el => {
-                if(!layoutCategories.some(category => parents[el].includes(category.id.toString()))){
+                if (!layoutCategories.some(category => parents[el].includes(category.id.toString()))) {
                     isTrue = false;
                 }
             });
-            if(!isTrue){
+            if (!isTrue) {
                 return false;
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
@@ -149,10 +149,10 @@ export const filterCategories = (data, categories, filter, type) => {
     } else {
         result = sectionFilter(data, filter);
     }
-    if(categories){
+    if (categories) {
         theCategories = categories.map((category) => {
             category.count = categoryCount(result, category.id);
-            if(category.childs){
+            if (category.childs) {
                 category.childs = category.childs.map(child => {
                     child.count = categoryCount(result, parseInt(child.id));
                     return child;
@@ -173,15 +173,15 @@ export const ExportNotice = (props) => {
 
     const width = () => {
         switch (props.progress) {
-            case '1/4' :
+            case '1/4':
                 return 'twenty-five';
-            case '2/4' :
+            case '2/4':
                 return 'fifty';
-            case '3/4' :
+            case '3/4':
                 return 'seventy-five';
-            case '4/4' :
+            case '4/4':
                 return 'hundred';
-            default :
+            default:
                 return 'zero';
         }
     };
@@ -217,14 +217,14 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    let { license, categories, author, like, status : postStatus } = filter;
+    let { license, categories, author, like, status: postStatus } = filter;
     let parents = {};
 
-    if(categories){
+    if (categories) {
         categories?.forEach(element => {
-            if( element.parent in parents ){
+            if (element.parent in parents) {
                 parents[element.parent].push(element.id);
-            }else{
+            } else {
                 parents[element.parent] = [element.id];
             }
         });
@@ -250,9 +250,9 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
@@ -261,11 +261,11 @@ const sectionFilter = (sectionData, filter) => {
         if (!isEmpty(categories)) {
             let isTrue = true;
             Object.keys(parents).forEach(el => {
-                if(!sectionCategories.some(category => parents[el].includes(category.id.toString()))){
+                if (!sectionCategories.some(category => parents[el].includes(category.id.toString()))) {
                     isTrue = false;
                 }
             });
-            if(!isTrue){
+            if (!isTrue) {
                 return false;
             }
         }
@@ -283,7 +283,7 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license, status : postStatus } = filter;
+    const { keyword, license, status: postStatus } = filter;
 
     themeData = themeData.filter((layout) => {
         const { data } = layout;
@@ -304,9 +304,9 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
@@ -394,7 +394,7 @@ export const getPluginRequirementStatus = ({ plugins, requirements, compatibleVe
 };
 
 export const likeLayout = (slug, flag) => {
-    dispatch( 'gutenverse/library' ).layoutLike({
+    dispatch('gutenverse/library').layoutLike({
         slug,
         flag
     });
@@ -407,13 +407,14 @@ export const likeLayout = (slug, flag) => {
 export const filterSection = (sectionData, filter, perPage) => {
     const { paging } = filter;
     const data = sectionFilter(sectionData, filter).map((section) => {
-        const { id, data, like, customAPI, customArgs, author, name: unfilteredName } = section;
+        const { id, data, like, customAPI, customArgs, author, name: unfilteredName, categories } = section;
         const { pro, slug, cover, compatible_version: compatibleVersion, requirements } = data;
         let name = unfilteredName;
         name = name.replace('PRO', '').replace('&#8211;', '').replace('Dark', '- Dark').replace('Free', '');
         return {
             id,
             pro: pro === '1',
+            categories,
             slug,
             cover,
             like,
@@ -430,7 +431,7 @@ export const filterSection = (sectionData, filter, perPage) => {
 };
 
 export const likeSection = (slug, flag) => {
-    dispatch( 'gutenverse/library' ).sectionLike({
+    dispatch('gutenverse/library').sectionLike({
         slug,
         flag
     });

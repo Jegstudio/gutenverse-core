@@ -210,7 +210,6 @@ const SectionItems = props => {
 };
 
 const SectionContentItem = props => {
-
     const {
         getLibraryData,
         getPluginData
@@ -224,10 +223,20 @@ const SectionContentItem = props => {
     const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
-    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
+    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
     const { section: sectionId } = library;
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (item.categories.length > 0) {
+            const name = item.categories.map(category => category.name);
+            setName(name.join(', '));
+        } else {
+            setName(item.name);
+        }
+    }, []);
 
     useEffect(() => {
         const { requirements, compatibleVersion } = item;
@@ -256,7 +265,7 @@ const SectionContentItem = props => {
         setPluginInstallMode(true);
     };
 
-    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100;
     const minHeight = paddingBottom === 0 ? 44 : 0;
 
     return <div className={classname}>
@@ -271,7 +280,7 @@ const SectionContentItem = props => {
             }}>
                 <img src={image} />
                 <div className="library-item-detail">
-                    {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay? 'show-overlay' : ''}`}>
+                    {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay ? 'show-overlay' : ''}`}>
                         <ImportSectionButton
                             data={item}
                             closeImporter={closeImporter}
@@ -295,11 +304,11 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
-        {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress}/> :
+        {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress} /> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">
                     <div className="library-item-left">
-                        {item.name && <span className="by">{__(`${item.name}`, '--gctd--')}</span>}
+                        <span className="by">{name}</span>
                     </div>
                     <div className="library-item-right">
                         {requirementStatus?.length > 0 && <div className="section-requirement">
@@ -321,7 +330,7 @@ const SectionContentItem = props => {
                             <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
                                 <IconHeartFullSVG size={14} />
                             </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
-                                <IconLoveSVG size={16}/>
+                                <IconLoveSVG size={16} />
                             </div>
                         }
                     </div>
