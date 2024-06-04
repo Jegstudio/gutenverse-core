@@ -1457,22 +1457,14 @@ class Api {
 	 * @param object $request images.
 	 */
 	public function import_images( $request ) {
-		$images   = $request->get_param( 'images' );
-		$contents = $request->get_param( 'contents' );
-		$array    = array();
+		$image = $request->get_param( 'imageUrl' );
 
-		foreach ( $images as $image ) {
-			$data = $this->check_image_exist( $image );
-			if ( ! $data ) {
-				$data = $this->handle_file( $image );
-			}
-			$array[] = $data;
+		$data = $this->check_image_exist( $image );
+		if ( ! $data ) {
+			$data = $this->handle_file( $image );
 		}
 
-		return array(
-			'images'   => $array,
-			'contents' => $contents,
-		);
+		return $data;
 	}
 
 	/**

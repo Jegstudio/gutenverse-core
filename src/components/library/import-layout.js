@@ -36,6 +36,8 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             title: title
         });
 
+        let fail = 0;
+
         const params = customAPI ? {
             slug,
             active: activePage,
@@ -51,6 +53,26 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
         }, 300);
 
+        const processImages = async ({ images, contents }) => {
+            let count = 0;
+            const imgs = [];
+            for (const img of images) {
+                count++;
+                setExporting(prev => ({ ...prev, message: `Importing Image Assets ${count} of ${images.length + 1}`, progress: '2/4' }));
+                const result = await importImage(img).catch(() => {
+                    imgs.push({id: 0, url: ''});
+                    fail++;
+                });
+                if (result) {
+                    imgs.push(result);
+                }
+            }
+            return {
+                images: imgs,
+                contents
+            };
+        };
+
         importSingleLayoutContent(params, customAPI)
             .then(result => {
                 const data = JSON.parse(result);
@@ -58,7 +80,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
                 return new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve(importImage(data));
+                        resolve(processImages(data));
                     }, 1000); // 1 second delay
                 });
             })
@@ -80,13 +102,16 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                     });
                     closeImporter();
                     setExporting({show: false, message: 'Done!', progress: ''});
+                    if (fail) {
+                        dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                    }
                 }, 300);
             })
             .catch((e) => {
                 setExporting({show: true, message: 'Failed!', progress: '4/4'});
                 setTimeout(() => {
                     console.log(e);
-                    alert('Import Failed, please try again');
+                    dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
                     setExporting({show: false, message: 'Failed!', progress: ''});
                 }, 300);
             });

@@ -8,6 +8,8 @@ import { fetchLibraryData } from 'gutenverse-core/requests';
 import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
+import { store as noticesStore } from '@wordpress/notices';
+import { useDispatch, withSelect } from '@wordpress/data';
 
 const initLibraryState = {
     active: 'layout',
@@ -39,15 +41,24 @@ const initLayoutState = {
     library: 'layout',
 };
 
-const Library = () => {
+const Library = ({ importer }) => {
     const [open, setOpen] = useState(false);
     const [visible, setVisibility] = useState(true);
     const [injectLocation, setInjectLocation] = useState(null);
     const [refresh, setRefresh] = useState(null); // eslint-disable-line no-unused-vars
     const [loading, setLoading] = useState(true);
+    const { createInfoNotice } = useDispatch(noticesStore);
+    const { importNotice } = importer;
 
     const refreshSignal = (key) => {
         setRefresh(key);
+    };
+
+    const showNotice = (string) => {
+        createInfoNotice(string, {
+            type: 'snackbar',
+            isDismissible: true,
+        });
     };
 
     useEffect(() => {
@@ -57,6 +68,15 @@ const Library = () => {
             binding && binding.detach();
         };
     });
+
+    useEffect(() => {
+        if (importNotice) {
+            showNotice(importNotice);
+            setTimeout(() => {
+                dispatch('gutenverse/library').setImportNotice(null);
+            }, 500);
+        }
+    }, [importNotice]);
 
     const libraryButton = (
         <div className="gutenverse-top-button">
@@ -135,4 +155,10 @@ const Library = () => {
     </>;
 };
 
-export default Library;
+export default withSelect(select => {
+    const { getImporterData } = select('gutenverse/library');
+
+    return {
+        importer: getImporterData(),
+    };
+})(Library);
