@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useState, useRef} from '@wordpress/element';
 import { sprintf, __ } from '@wordpress/i18n';
 import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
 import { withSelect, dispatch } from '@wordpress/data';
-import { filterLayout, getDistincAuthor, mapId, filterCategories, likeLayout } from './library-helper';
+import { filterLayout, filterCategories, likeLayout } from './library-helper';
 import SearchBar from './search-bar';
 import Select from 'react-select';
 import { Loader } from 'react-feather';
 import { customStyles } from './style';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG } from 'gutenverse-core/icons';
 import Paging from './paging';
 import BannerPro from '../pro/banner-pro';
 import isEmpty from 'lodash/isEmpty';
@@ -20,7 +20,7 @@ const LayoutContent = (props) => {
     const [content, setContent] = useState([]);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
     const [singleData, setSingleData] = useState(null);
-    
+
     return <>
         {pluginInstallMode && <PluginInstallMode
             name={singleData.title}
@@ -62,11 +62,6 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     const { keyword } = data;
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
-
-    useLayoutEffect(() => {
-        data.categories = [];
-    },[]);
-    
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
@@ -74,45 +69,16 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
     useEffect(() => {
         const { layoutData } = libraryData;
         const result = filterLayout(layoutData, data, 12);
-        const { data: newData, total, current } = result;
+        const { data: theData, total, current } = result;
 
-        setContent(prevState => {
-            const { data: oldData } = prevState;
-            const theData = data.paging === 1 ? newData : [
-                ...oldData,
-                ...newData
-            ];
-
+        setContent(() => {
             return {
                 data: theData,
                 total,
                 current
             };
         });
-    }, [data]);
-
-    useEffect(() => {
-        const { layoutData } = libraryData;
-        const authors = getDistincAuthor(layoutData);
-        const { data: newData } = filterLayout(layoutData, data);
-        const result = mapId(newData);
-
-        setContent(prevState => {
-            const { data: oldData, total, current } = prevState;
-
-            const theData = oldData.map(item => {
-                return result[item.id];
-            });
-
-            return {
-                data: theData,
-                total,
-                current
-            };
-        });
-
-        setAuthors(authors);
-    }, [libraryData]);
+    }, [data, libraryData]);
 
     useEffect(() => {
         const { layoutData, layoutCategories } = libraryData;
@@ -247,11 +213,15 @@ export const RenderCategories = ({ categories, data, showCount = true, categoryL
             {Object.keys(childCategories).map(id => {
                 const category = childCategories[id];
                 return <li
-                    className={data.categories.includes(category.id) ? 'active' : ''}
+                    className={data.categories.some( el => el.id === category.id) ? 'active' : ''}
                     key={category.id}
                     onClick={() => {
-                        dispatch( 'gutenverse/library' ).setCategories(category.id, category.name);
-                        // categoryListClicked && categoryListClicked(category.id, category.name);
+                        let categoryFilter = {
+                            id : category.id,
+                            parent : categories[categoriesIndex]?.id
+                        }
+                        dispatch( 'gutenverse/library' ).setCategories(categoryFilter);
+                        dispatch( 'gutenverse/library' ).setPaging(1);
                     }}
                 >
                     <i className="checkblock" />
@@ -274,10 +244,13 @@ export const LayoutContentData = ({ data, current, total, setSingleId, setSlug, 
     //changePaging is sipatch page
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
-            <div className="empty-svg">
-                <IconEmptySVG />
+            <div className="empty-wrapper">
+                <div className="empty-svg">
+                    <IconEmpty2SVG />
+                </div>
+                <h3>{__('No Result Found', '--gctd--')}</h3>
+                <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
-            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
             <LayoutItems data={data} setSingleId={setSingleId} setSlug={setSlug} scroller={scroller} />
             <Paging current={current} total={total} scroller={scroller} />
@@ -305,6 +278,8 @@ const LayoutItems = ({ data, setSingleId, setSlug }) => {
 };
 
 const LayoutSingleItem = ({ item, showSingleLayout }) => {
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100 ;
+    const minHeight = paddingBottom === 0 ? '44px' : 'unset';
     return <div className="library-item" key={item.id}>
         <div className="library-item-loader">
             <div className="rotating">
@@ -312,17 +287,19 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
             </div>
         </div>
         <div className="library-item-holder" style={{
-            paddingBottom: `${item.cover[2] / item.cover[1] * 100}%`
+            paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}
         }} onClick={() => showSingleLayout(item.id, item.slug)}>
+            {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
             <img src={item.cover[0]} />
         </div>
+        <div className="library-item-divider" />
         <div className="library-item-detail">
             <div className="library-item-wrapper">
                 <h2 onClick={() => showSingleLayout(item.id)}>
-                    {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
+                    {/* {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>} */}
                     {item.title}
                 </h2>
-                {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
+                {/* {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>} */}
             </div>
             {item.like ?
                 <div className="library-like active" onClick={() => likeLayout(item.slug, false)}>

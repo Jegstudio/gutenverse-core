@@ -19,14 +19,16 @@ export const modalSelector = {
             layoutProgress,
             lockLayoutImport,
             sectionProgress,
-            lockSectionImport
+            lockSectionImport,
+            importNotice
         } = modal;
 
         return {
             layoutProgress,
             lockLayoutImport,
             sectionProgress,
-            lockSectionImport
+            lockSectionImport,
+            importNotice
         };
     },
 };
@@ -148,6 +150,12 @@ export const modalAction = {
             text
         };
     },
+    setImportNotice: (text) => {
+        return {
+            type: 'SET_IMPORT_NOTICE',
+            text
+        };
+    },
 };
 
 export const libraryAction = {
@@ -249,10 +257,13 @@ export const modalReducer = (state = {}, action) => {
             };
         case 'SET_CATEGORIES':
             let filters = state.layoutContentData.categories;
-            if( !filters.includes(action.categories) ){
+            if( !filters.some(el => el.id === action.categories.id) ){
                 filters.push(action.categories);
             }else{
-                filters = filters.filter(el => el !== action.categories);
+                filters = filters.filter(el => el.id !== action.categories.id);
+            }
+            if( Array.isArray(action.categories) && action.categories.length === 0 ){
+                filters = action.categories;
             }
             return {
                 ...state,
@@ -304,6 +315,11 @@ export const modalReducer = (state = {}, action) => {
             return {
                 ...state,
                 sectionProgress: action.text
+            };
+        case 'SET_IMPORT_NOTICE':
+            return {
+                ...state,
+                importNotice: action.text
             };
         default:
             return state;

@@ -3,13 +3,13 @@ import { __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { getPluginRequirementStatus } from './library-helper';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core/icons';
+import { IconDownload2SVG, IconCrownBannerSVG } from 'gutenverse-core/icons';
 import { importImage, importSingleLayoutContent } from 'gutenverse-core/requests';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import { Loader } from 'react-feather';
 
-const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode }) => {
+const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting }) => {
     const { isPro, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
     const pluginRequirement = getPluginRequirementStatus({
         plugins: plugins.installedPlugin,
@@ -29,11 +29,14 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const importContent = () => {
+        setExporting({show: true, message: 'Fetching Data...', progress: ''});
         dispatch( 'gutenverse/library' ).setLayoutProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockLayoutImport({
             layout: slug,
             title: title
         });
+
+        let fail = 0;
 
         const params = customAPI ? {
             slug,
@@ -46,26 +49,72 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 active: activePage
             }
         );
+        setTimeout(() => {
+            setExporting({show: true, message: 'Fetching Data...', progress: '1/4'});
+        }, 300);
 
-        importSingleLayoutContent(params, customAPI).then(result => {
-            const data = JSON.parse(result);
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Importing Assets', '--gctd--'));
-            return importImage(data);
-        }).then(result => {
-            dispatch( 'gutenverse/library' ).setLayoutProgress(__('Deploying Content', '--gctd--'));
-            return insertBlocksTemplate(result);
-        }).finally(() => {
-            setTimeout(() => {
-                closeImporter();
-                dispatch( 'gutenverse/library' ).setLockLayoutImport({
-                    layout: null,
-                    title: null
+        const processImages = async ({ images, contents }) => {
+            let count = 0;
+            const imgs = [];
+            for (const img of images) {
+                count++;
+                setExporting(prev => ({ ...prev, message: `Importing Image Assets ${count} of ${images.length + 1}`, progress: '2/4' }));
+                const result = await importImage(img).catch(() => {
+                    imgs.push({id: 0, url: ''});
+                    fail++;
                 });
-            }, 200);
-        }).catch((e) => {
-            console.log(e);
-            alert('Import Failed, please try again');
-        });
+                if (result) {
+                    imgs.push(result);
+                }
+            }
+            return {
+                images: imgs,
+                contents
+            };
+        };
+
+        importSingleLayoutContent(params, customAPI)
+            .then(result => {
+                const data = JSON.parse(result);
+                dispatch('gutenverse/library').setLayoutProgress(__('Importing Assets', '--gctd--'));
+                setExporting({show: true, message: 'Importing Assets...', progress: '2/4'});
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(processImages(data));
+                    }, 1000); // 1 second delay
+                });
+            })
+            .then(result => {
+                dispatch('gutenverse/library').setLayoutProgress(__('Deploying Content', '--gctd--'));
+                setExporting({show: true, message: 'Deploying Content...', progress: '3/4'});
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(insertBlocksTemplate(result));
+                    }, 500); // 1 second delay
+                });
+            })
+            .finally(() => {
+                setExporting({show: true, message: 'Done!', progress: '4/4'});
+                setTimeout(() => {
+                    dispatch('gutenverse/library').setLockLayoutImport({
+                        layout: null,
+                        title: null
+                    });
+                    closeImporter();
+                    setExporting({show: false, message: 'Done!', progress: ''});
+                    if (fail) {
+                        dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                    }
+                }, 300);
+            })
+            .catch((e) => {
+                setExporting({show: true, message: 'Failed!', progress: '4/4'});
+                setTimeout(() => {
+                    console.log(e);
+                    dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
+                    setExporting({show: false, message: 'Failed!', progress: ''});
+                }, 300);
+            });
     };
 
     const ImportButton = () => {
@@ -77,7 +126,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             </div >;
         } else {
             return <div className="layout-button import-page" onClick={importContent}>
-                <IconDownloadSVG /><span>{__('Import this page', '--gctd--')}</span>
+                <span>{__('Import this page', '--gctd--')}</span><IconDownload2SVG />
             </div >;
         }
 
@@ -87,8 +136,8 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
         const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
         return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
-            <IconVerifiedSVG />
-            {__('Upgrade to Pro', '--gctd--')}
+            {__('Upgrade to PRO', '--gctd--')}
+            <IconCrownBannerSVG />
         </a>;
     };
 

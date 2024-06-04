@@ -31,6 +31,8 @@ class Api {
 	 */
 	const ENDPOINT = 'gutenverse-client/v1';
 
+	const DATA_FOLDER = 'data_ver2_0_0';
+
 	/**
 	 * Singleton page for Gutenverse Class
 	 *
@@ -335,7 +337,14 @@ class Api {
 	public function fetch_library_data( $request ) {
 		$library_time = Meta_Option::instance()->get_option( 'fetch_library_time' );
 		$now          = time();
-		$this->update_library_data();
+
+		$upload_dir       = wp_upload_dir();
+		$upload_base_path = $upload_dir['basedir'];
+
+		$directory_to_check = $upload_base_path . '/gutenverse/' . self::DATA_FOLDER;
+		if ( ! is_dir( $directory_to_check ) ) {
+			$this->update_library_data();
+		}
 
 		$dev_param = $request->get_param( 'dev' );
 
@@ -346,6 +355,7 @@ class Api {
 		if ( null === $library_time || $library_time < $now ) {
 			$next_fetch = $now + ( 24 * 60 * 60 );
 			Meta_Option::instance()->set_option( 'fetch_library_time', $next_fetch );
+			$this->update_library_data();
 		}
 		return $this->library_data();
 	}
@@ -755,12 +765,14 @@ class Api {
 
 			$apipath   = GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-server/';
 			$basedir   = wp_upload_dir()['basedir'];
-			$directory = $basedir . '/gutenverse/data/';
+			$directory = $basedir . '/gutenverse/' . self::DATA_FOLDER . '/';
 			wp_mkdir_p( $directory );
 
-			foreach ( $endpoints as $endpoint ) {
-				$filename = str_replace( '/', '-', $endpoint['filename'] ) . '.json';
-				$this->fetch_file( $apipath . $endpoint['version'] . '/' . $endpoint['endpoint'], $directory . $filename, $endpoint );
+			foreach ( $endpoints as $data ) {
+				$filename = str_replace( '/', '-', $data['filename'] ) . '.json';
+				$filepath = $directory . $filename;
+				$url      = $apipath . $data['version'] . '/' . $data['endpoint'];
+				$this->fetch_file( $url, $filepath, $data['endpoint'] );
 			}
 		}
 	}
@@ -794,8 +806,8 @@ class Api {
 		$directory = wp_upload_dir()['basedir'] . '/gutenverse/';
 		$json      = array();
 
-		if ( $wp_filesystem->exists( $directory . '/data/' . $name . '.json' ) ) {
-			$file = $wp_filesystem->get_contents( $directory . '/data/' . $name . '.json' );
+		if ( $wp_filesystem->exists( $directory . '/' . self::DATA_FOLDER . '/' . $name . '.json' ) ) {
+			$file = $wp_filesystem->get_contents( $directory . '/' . self::DATA_FOLDER . '/' . $name . '.json' );
 			$json = json_decode( $file, true );
 		} elseif ( $wp_filesystem->exists( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' ) ) {
 			$file = $wp_filesystem->get_contents( GUTENVERSE_FRAMEWORK_DIR . '/data/' . $name . '.json' );
@@ -1445,22 +1457,14 @@ class Api {
 	 * @param object $request images.
 	 */
 	public function import_images( $request ) {
-		$images   = $request->get_param( 'images' );
-		$contents = $request->get_param( 'contents' );
-		$array    = array();
+		$image = $request->get_param( 'imageUrl' );
 
-		foreach ( $images as $image ) {
-			$data = $this->check_image_exist( $image );
-			if ( ! $data ) {
-				$data = $this->handle_file( $image );
-			}
-			$array[] = $data;
+		$data = $this->check_image_exist( $image );
+		if ( ! $data ) {
+			$data = $this->handle_file( $image );
 		}
 
-		return array(
-			'images'   => $array,
-			'contents' => $contents,
-		);
+		return $data;
 	}
 
 	/**

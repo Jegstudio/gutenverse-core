@@ -335,17 +335,15 @@ export const importSingleSectionContent = (params, api = null) => {
 };
 
 export const importImage = params => {
-    const { images, contents } = params;
     return new Promise((resolve, reject) => {
-        if (isEmpty(images)) {
+        if (isEmpty(params)) {
             resolve(params);
         } else {
             apiFetch({
                 path: 'gutenverse-client/v1/import/images',
                 method: 'POST',
                 data: {
-                    images,
-                    contents
+                    imageUrl: params
                 }
             }).then(response => {
                 resolve(response);

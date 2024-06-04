@@ -58,6 +58,7 @@
     .theme-list {
         .search-box {
             input[type="text"] {
+                min-height: 36px;
                 border: none;
             }
         }
@@ -81,7 +82,7 @@
             display: flex;
             font-size: 12px;
             height: 36px;
-            min-width: 400px;
+            min-width: 320px;
             width: 35%;
 
             input::placeholder {
@@ -121,10 +122,10 @@
         border: 1px solid #e6e6ef;
         margin: 0 15px 30px;
         position: relative;
-        width: calc(25% - 32px);
+        width: calc(33.33333% - 32px);
 
         &.fetching {
-            min-height: 200px;
+            min-height: 338px;
             overflow: hidden;
 
             &:after {
@@ -156,21 +157,33 @@
         }
 
         .status {
-            background: #8181a5;
-            border-radius: 3px;
-            color: white;
-            font-size: 12px;
-            font-weight: 500;
             left: 50%;
-            padding: 5px 10px;
             position: absolute;
             text-transform: uppercase;
             top: 50%;
             transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 20px;
+            border-radius: 5px;
+            background-color: #8181a5;
+            font-family: Roboto;
+            font-size: 12px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: center;
+            color: #fff;
+
         }
 
         .theme-desc {
-            padding: 20px;
+            padding: 16px;
             position: relative;
         }
 
@@ -182,6 +195,7 @@
 
             img {
                 width: 100%;
+                border-radius: 5px;
             }
 
             .draft-label {
@@ -196,6 +210,20 @@
                 border: 3px solid red;
                 border-radius: 5px;
                 padding: 0 5px 0 5px;
+            }
+
+            .pro-flag {
+                display: flex;
+                position: absolute;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 1px;
+                padding: 3px 4px 4px;
+                border-radius: 3px;
+                right: 5.5px;
+                top: 5.5px;
+                background-image: linear-gradient(215deg, #ff808b 76%, #f93a50 -14%);
             }
         }
 
@@ -217,16 +245,6 @@
             display: inline-flex;
             flex-wrap: wrap;
             gap: 6px;
-
-            .pro-flag {
-                background: #ff808b;
-                border-radius: 4px;
-                color: white;
-                cursor: pointer;
-                font-size: 10px;
-                line-height: 2em;
-                padding: 0px 7px;
-            }
 
             .tooltip-wrapper {
                 align-items: center;
@@ -306,28 +324,49 @@
 
         .theme-buttons {
             display: flex;
-            margin-top: 15px;
+            margin-top: 8px;
             width: 100%;
 
             .theme-button:first-child {
                 margin-right: 10px;
             }
 
+            .theme-button, a {
+                font-family: Roboto;
+                font-size: 12px;
+                font-weight: 500;
+                text-align: center;
+                line-height: normal;
+            }
+            
             .theme-button {
-                align-items: center;
-                border-radius: 50px;
+                color: #fff;
+            }
+            
+            a {
+                color: #40505d;
+            }
+
+            .theme-button {
                 color: white;
                 cursor: pointer;
                 font-size: 12px;
                 font-weight: 400;
-                justify-content: center;
                 overflow: hidden;
-                padding: 8px 12px;
                 text-align: center;
                 text-decoration: none;
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 width: calc(50% - 5px);
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                padding: 9px 20px;
+                border-radius: 5px;
+                background-color: #3b57f7;
+                transition: transform 0.5s ease, opacity 0.5s ease;
 
                 @keyframes rotation {
                     from {
@@ -375,25 +414,37 @@
                 }
 
                 &.pro {
-                    background: #ff808b;
-                    color: white;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 6px;
+                    padding: 9px 16px;
+                    border-radius: 5px;
+                    box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
+                    background-image: linear-gradient(95deg, #f045ff -13%, #4569ff 51%, #68e4f4 106%), linear-gradient(to right, #3f3bf7, #68e4f4), linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
                 }
 
                 &.expire {
                     background-color: #eabb46;
                     color: white;
                 }
+
+                &:hover {
+                    transform: scale(0.94);
+                    opacity: 0.6 !important;
+                }
             }
         }
     }
 
-    @media only screen and (max-width: 1900px) {
+    @media only screen and (max-width: 1280px) {
         .theme-data {
             width: calc(33.33333% - 32px);
         }
     }
 
-    @media only screen and (max-width: 1360px) {
+    @media only screen and (max-width: 1024px) {
         .theme-data {
             width: calc(50% - 32px);
         }
@@ -499,4 +550,11 @@
 
 body.gutenverse_page_gutenverse-theme-list .notice:not(.gutenverse-notice):not(.theme-upgrade-notice) {
     display: none;
+}
+
+@media only screen and (max-width: 765px) {
+    #gutenverse-dashboard .content-header .search-box {
+        width: 100%;
+        min-width: 0;
+    }
 }

@@ -2,17 +2,23 @@ import { saveLayoutLikeState, saveSectionLikeState } from 'gutenverse-core/reque
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { dispatch } from '@wordpress/data';
+import { IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { __ } from '@wordpress/i18n';
+import { Loader } from 'react-feather';
 
-const removeEmptyInArray = (arr) => {
-    if(!isEmpty(arr)){
-        return arr.filter(el => el != '' && el != undefined && !Array.isArray(el));
-    }
-    return arr;
-}
 const layoutFilter = (layoutData, filter) => {
-    let { keyword, license, categories, author, like, status : postStatus } = filter;
-    categories = removeEmptyInArray(categories);
+    let { keyword, license, categories, author, like, status: postStatus } = filter;
+    let parents = {};
 
+    if (categories) {
+        categories?.forEach(element => {
+            if (element.parent in parents) {
+                parents[element.parent].push(element.id);
+            } else {
+                parents[element.parent] = [element.id];
+            }
+        });
+    }
     layoutData = layoutData.filter((layout) => {
         const { data, author: layoutAuthor, categories: layoutCategories, like: layoutLike } = layout;
         const { name, pro, status } = data;
@@ -38,13 +44,21 @@ const layoutFilter = (layoutData, filter) => {
                 return false;
             }
         }
-        if (!isEmpty(categories) && !layoutCategories.some(category => categories.includes(category.id.toString()))) {
-            return false;
+        if (!isEmpty(categories)) {
+            let isTrue = true;
+            Object.keys(parents).forEach(el => {
+                if (!layoutCategories.some(category => parents[el].includes(category.id.toString()))) {
+                    isTrue = false;
+                }
+            });
+            if (!isTrue) {
+                return false;
+            }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
@@ -63,8 +77,7 @@ const layoutFilter = (layoutData, filter) => {
 
 const dataPaging = (data, paging, perPage) => {
     if (perPage) {
-        let startIndex = perPage * (paging - 1);
-        let result = data.slice(startIndex, startIndex + perPage);
+        let result = data.slice(0, perPage * paging);
         let totalPage = Math.ceil(data.length / perPage);
 
         return {
@@ -122,7 +135,6 @@ export const getDistincAuthor = data => {
 
 export const mapId = (data) => {
     const result = {};
-
     data.map((item) => {
         result[item.id] = item;
     });
@@ -137,10 +149,10 @@ export const filterCategories = (data, categories, filter, type) => {
     } else {
         result = sectionFilter(data, filter);
     }
-    if(categories){
+    if (categories) {
         theCategories = categories.map((category) => {
             category.count = categoryCount(result, category.id);
-            if(category.childs){
+            if (category.childs) {
                 category.childs = category.childs.map(child => {
                     child.count = categoryCount(result, parseInt(child.id));
                     return child;
@@ -157,6 +169,40 @@ export const filterCategories = (data, categories, filter, type) => {
     });
 };
 
+export const ExportNotice = (props) => {
+
+    const width = () => {
+        switch (props.progress) {
+            case '1/4':
+                return 'twenty-five';
+            case '2/4':
+                return 'fifty';
+            case '3/4':
+                return 'seventy-five';
+            case '4/4':
+                return 'hundred';
+            default:
+                return 'zero';
+        }
+    };
+    return <div className="library-export-notice">
+        <div className="library-export-notice-container">
+            <div className="importing-notice">
+                <div className="notice-inner">
+                    {/* <div className="rotating">
+                        <Loader size={18} />
+                    </div> */}
+                    <span>{props.message}</span>
+                    <span>{props.progress}</span>
+                </div>
+                <div className="bar-progress-container">
+                    <div className={'notice-bar-progress ' + `${width()}-percent`} />
+                </div>
+            </div>
+        </div>
+    </div>;
+};
+
 const categoryCount = (layouts, categoryId) => {
     let count = 0;
 
@@ -171,13 +217,23 @@ const categoryCount = (layouts, categoryId) => {
 };
 
 const sectionFilter = (sectionData, filter) => {
-    let { license, categories, author, like, status : postStatus } = filter;
+    let { license, categories, author, like, status: postStatus } = filter;
+    let parents = {};
+
+    if (categories) {
+        categories?.forEach(element => {
+            if (element.parent in parents) {
+                parents[element.parent].push(element.id);
+            } else {
+                parents[element.parent] = [element.id];
+            }
+        });
+    }
 
     sectionData = sectionData.filter((section) => {
         const { data, author: sectionAuthor, categories: sectionCategories, like: sectionLike } = section;
         const { pro, status } = data;
         const { name: authorName } = sectionAuthor;
-        categories = removeEmptyInArray(categories);
         const dev = '--dev_mode--';
 
         if (like) {
@@ -194,16 +250,24 @@ const sectionFilter = (sectionData, filter) => {
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
         }
 
-        if (!isEmpty(categories) && !sectionCategories.some(category => categories.includes(category.id.toString()))) {
-            return false;
+        if (!isEmpty(categories)) {
+            let isTrue = true;
+            Object.keys(parents).forEach(el => {
+                if (!sectionCategories.some(category => parents[el].includes(category.id.toString()))) {
+                    isTrue = false;
+                }
+            });
+            if (!isTrue) {
+                return false;
+            }
         }
 
         if (author) {
@@ -219,7 +283,7 @@ const sectionFilter = (sectionData, filter) => {
 };
 
 const themeFilter = (themeData, filter) => {
-    const { keyword, license, status : postStatus } = filter;
+    const { keyword, license, status: postStatus } = filter;
 
     themeData = themeData.filter((layout) => {
         const { data } = layout;
@@ -240,9 +304,9 @@ const themeFilter = (themeData, filter) => {
             }
         }
 
-        if ( 'true' === dev ) {
-            if ( postStatus ) {
-                if ( postStatus !== status ) {
+        if ('true' === dev) {
+            if (postStatus) {
+                if (postStatus !== status) {
                     return false;
                 }
             }
@@ -330,7 +394,7 @@ export const getPluginRequirementStatus = ({ plugins, requirements, compatibleVe
 };
 
 export const likeLayout = (slug, flag) => {
-    dispatch( 'gutenverse/library' ).layoutLike({
+    dispatch('gutenverse/library').layoutLike({
         slug,
         flag
     });
@@ -343,12 +407,14 @@ export const likeLayout = (slug, flag) => {
 export const filterSection = (sectionData, filter, perPage) => {
     const { paging } = filter;
     const data = sectionFilter(sectionData, filter).map((section) => {
-        const { id, data, like, customAPI, customArgs, author } = section;
+        const { id, data, like, customAPI, customArgs, author, name: unfilteredName, categories } = section;
         const { pro, slug, cover, compatible_version: compatibleVersion, requirements } = data;
-
+        let name = unfilteredName;
+        name = name.replace('PRO', '').replace('&#8211;', '').replace('Dark', '- Dark').replace('Free', '');
         return {
             id,
             pro: pro === '1',
+            categories,
             slug,
             cover,
             like,
@@ -356,7 +422,8 @@ export const filterSection = (sectionData, filter, perPage) => {
             requirements,
             customAPI,
             customArgs,
-            author
+            author,
+            name
         };
     });
 
@@ -364,7 +431,7 @@ export const filterSection = (sectionData, filter, perPage) => {
 };
 
 export const likeSection = (slug, flag) => {
-    dispatch( 'gutenverse/library' ).sectionLike({
+    dispatch('gutenverse/library').sectionLike({
         slug,
         flag
     });

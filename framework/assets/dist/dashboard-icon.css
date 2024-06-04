@@ -22,11 +22,17 @@
     opacity: 0.8;
 }
 
+#wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item {
+    padding: 0 14px !important;
+}
+
 #wpadminbar #wp-admin-bar-gutenverse > .ab-item img,
 #wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item img {
     display: block;
     text-indent: 0;
     top: 7px;
+    margin-left: 7px !important;
+    margin-right: 0 !important;
     text-align: center;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

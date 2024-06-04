@@ -12,6 +12,8 @@ import { IconDragSVG, IconDuplicateSVG } from 'gutenverse-core/icons';
 import { SortableContainer, SortableElement, SortableHandle } from 'react-sortable-hoc';
 import { arrayMoveImmutable } from 'array-move';
 import u from 'umbrellajs';
+import isEmpty from 'lodash/isEmpty';
+
 
 const DragHandle = SortableHandle(() =>
     <div className={'repeater-drag-handle'}>
@@ -238,6 +240,13 @@ const RepeaterComponent = (props) => {
 };
 
 const processTitle = (format, values) => {
+    if( values.value && isEmpty( values.value ) ){
+        values.value = u(`#${values.id}`).nodes[0];
+        const iframe = u('.edit-site-visual-editor__editor-canvas');
+        if(iframe.length > 0){
+            values.value = u(iframe.nodes[0].contentWindow.document).find(`#${values.spanId}`).nodes[0];
+        }
+    }
     if (typeof format === 'function') {
         return format(values);
     } else {

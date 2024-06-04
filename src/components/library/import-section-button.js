@@ -2,13 +2,15 @@ import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
 import { withSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownloadSVG, IconVerifiedSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 
-const ImportSectionButton = ({ data, closeImporter, importer }) => {
+const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
+
+    let fail = 0;
 
     const insertBlocksTemplate = (data) => {
         return new Promise((resolve) => {
@@ -22,6 +24,12 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
     };
 
     const importContent = (e) => {
+        setExporting({show: true, message: 'Fetching Data...', progress: ''});
+        setSelectItem(data);
+        setShowOverlay(true);
+        setTimeout(() => {
+            setExporting(prev => ({...prev, progress: '1/4'}));
+        }, 1000);
         e.stopPropagation();
         dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', '--gctd--'));
         dispatch( 'gutenverse/library' ).setLockSectionImport(slug);
@@ -36,20 +44,54 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
             }
         );
 
+        const processImages = async ({ images, contents }) => {
+            let count = 0;
+            const imgs = [];
+            for (const img of images) {
+                count++;
+                setExporting(prev => ({ ...prev, message: `Importing Image Assets ${count} of ${images.length + 1}`, progress: '2/4' }));
+                const result = await importImage(img).catch(() => {
+                    imgs.push({id: 0, url: ''});
+                    fail++;
+                });
+                if (result) {
+                    imgs.push(result);
+                }
+            }
+            return {
+                images: imgs,
+                contents
+            };
+        };
+
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
+            setExporting(prev => ({...prev, message: 'Importing Assets...', progress: '2/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
-            return importImage(data);
+            return processImages(data);
         }).then(result => {
+            setExporting(prev => ({...prev, message: 'Deploying Content...', progress: '3/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
+            setExporting(prev => ({...prev, message: 'Done!', progress: '4/4'}));
             setTimeout(() => {
-                closeImporter();
+                setShowOverlay(false);
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
-            }, 200);
-        }).catch(() => {
-            alert('Import Failed, please try again');
+                closeImporter();
+                setExporting({show: false, message: 'Done!', progress: ''});
+                if (fail) {
+                    dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                }
+            }, 300);
+        }).catch((e) => {
+            setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
+            setTimeout(() => {
+                dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
+                setShowOverlay(false);
+                setExporting({show: false, message: 'Failed!', progress: ''});
+                console.log(e);
+            }, 300);
         });
     };
 
@@ -57,8 +99,8 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
         return (
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={importContent}>
-                    <IconDownloadSVG />
                     <span>{__('Import this section', '--gctd--')}</span>
+                    <IconDownload2SVG />
                 </div>
             </div>
         );
@@ -69,9 +111,9 @@ const ImportSectionButton = ({ data, closeImporter, importer }) => {
 
         return (
             <div className="section-button import-section">
-                <div className="section-button-inner" onClick={() => { window.open(upgradeProUrl); }}>
-                    <IconVerifiedSVG />
+                <div className="section-button-inner pro-button" onClick={() => { window.open(upgradeProUrl); }}>
                     <span>{__('Upgrade to Pro', '--gctd--')}</span>
+                    <IconCrownBannerSVG />
                 </div>
             </div>
         );

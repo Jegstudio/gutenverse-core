@@ -1,4 +1,4 @@
-import { IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -21,7 +21,7 @@ const DefaultLayout = ({
     };
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <div className="gutenverse-button" onClick={openLink}><IconCrownSVG /> {__('Available in Pro Version', '--gctd--')}</div>
+        () => isEmpty(window?.gprodata) && <div className="gutenverse-button-available-pro" onClick={openLink}> {__('Available in Pro Version', '--gctd--')} <IconCrownBannerSVG /> </div>
     );
     return <>
         <h2 className="title">{title}</h2>

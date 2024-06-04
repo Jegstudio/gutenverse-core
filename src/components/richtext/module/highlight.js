@@ -16,68 +16,35 @@ export const highlight = (props) => {
         panelPosition,
         textChilds
     } = props;
-
     const content = attributes[contentAttribute];
-    const [currentContent, setCurrentContent] = useState(content);
     const [lastChildLength, setLastChildLength] = useState(attributes[textChilds].length);
-
-    const {
-        getBlockAttributes
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
 
     useEffect(() => {
         setLastChildLength(attributes[textChilds].length);
-    },[attributes[textChilds]])
-    const getContent = (clientId) => {
-        const block = getBlockAttributes(clientId);
-        let content = '';
-        if (block) {
-            content = block[contentAttribute];
-        }
-        return content;
-    };
+    },[attributes[textChilds]]);
 
     useEffect(() => {
-        const unsubscribe = subscribe(() => {
-            const theContent = getContent(clientId);
-            if (currentContent !== theContent) {
-                setCurrentContent(theContent);
-            }
-        });
-        return () => unsubscribe();
-    }, []);
-
-    useEffect(() => {
-        const child = getListOfChildTag(currentContent);
+        const child = getListOfChildTag(content);
         let childs = attributes[textChilds];
         if (attributes[contentAttribute]) {
+            let anyChange = 0;
             const newChild = child.map(element => {
                 const indexExist = childs.findIndex(item => element.id === item.id);
                 if (indexExist !== -1) {
-                    element.color = childs[indexExist].color;
-                    element.colorHover = childs[indexExist].colorHover;
-                    element.typography = childs[indexExist].typography;
-                    element.typographyHover = childs[indexExist].typographyHover;
-                    element.textClip = childs[indexExist].textClip;
-                    element.textClipHover = childs[indexExist].textClipHover;
-                    element.background = childs[indexExist].background;
-                    element.backgroundHover = childs[indexExist].backgroundHover;
-                    element.padding = childs[indexExist].padding;
-                    element.paddingHover = childs[indexExist].paddingHover;
-                    element.margin = childs[indexExist].margin;
-                    element.marginHover = childs[indexExist].marginHover;
+                    return childs[indexExist];
+                }else{
+                    anyChange += 1;
+                    return element;
                 }
-                return element;
             });
-            setAttributes({ [textChilds]: newChild });
+            if( anyChange > 0 || newChild.length !== childs.length ){
+                setAttributes({ [textChilds]: newChild });
+            }
         }
         if(lastChildLength !== attributes[textChilds].length && lastChildLength < attributes[textChilds].length){
             setPanelState({...panelPosition, randKey : Math.random() });
         }
-    }, [currentContent]);
+    }, [content]);
 
     const getListOfChildTag = (content) => {
         const fakeContent = document.createElement(tagName);

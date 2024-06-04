@@ -136,7 +136,7 @@ class Init {
 		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
-		add_action( 'activated_plugin', array( $this, 'redirect_to_dashboard' ), 99 );
+		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'customize_register', '__return_true' );
 
 		// filters.
@@ -216,12 +216,17 @@ class Init {
 
 	/**
 	 * Redirect page after plugin is actived
-	 *
-	 * @param string $plugin .
 	 */
-	public function redirect_to_dashboard( $plugin ) {
-		if ( false !== strpos( $plugin, 'gutenverse' ) && wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) ) ) {
-			exit;
+	public function redirect_to_dashboard() {
+		if ( get_transient( 'gutenverse_redirect' ) ) {
+			global $pagenow;
+			if ( 'plugins.php' === $pagenow || 'plugin-install.php' === $pagenow ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=gutenverse' ) );
+				delete_transient( 'gutenverse_redirect' );
+				exit;
+			} else {
+				delete_transient( 'gutenverse_redirect' );
+			}
 		}
 	}
 

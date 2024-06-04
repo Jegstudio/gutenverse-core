@@ -1,16 +1,17 @@
-import { useEffect, useState, useRef, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useState, useRef } from '@wordpress/element';
 import PluginInstallMode from './plugin-install-mode';
 import { useSelect, dispatch, withSelect } from '@wordpress/data';
 import { RenderCategories, SelectAuthor, SelectLicense, SelectStatus } from './layout-content';
-import { filterCategories, filterSection, likeSection, mapId, getPluginRequirementStatus, getDistincAuthor } from './library-helper';
+import { filterCategories, filterSection, likeSection, getPluginRequirementStatus } from './library-helper';
 import Paging from './paging';
 import { __, _n, sprintf } from '@wordpress/i18n';
 import Masonry from 'react-masonry-css';
 import classnames from 'classnames';
-import { IconHeartFullSVG, IconLoveSVG, IconEmptySVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import ImportSectionButton from './import-section-button';
 import BannerPro from '../pro/banner-pro';
 import { Loader } from 'react-feather';
+import { ExportNotice } from './library-helper';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
@@ -46,15 +47,12 @@ const SectionContentWrapper = (props) => {
     const scrollerRef = useRef();
     const [authors, setAuthors] = useState([]);
     const [author, setAuthor] = useState(null);
+    const savedScrollPosition = useRef(0);
 
     useEffect(() => {
         setScroller(scrollerRef);
     }, [scrollerRef]);
 
-    useLayoutEffect(() => {
-        data.categories = [];
-    }, []);
-    
     useEffect(() => {
         if (data.paging === 1) {
             scrollerRef.current.scrollTop = 0;
@@ -62,44 +60,22 @@ const SectionContentWrapper = (props) => {
 
         const { sectionData } = library;
         const result = filterSection(sectionData, data, 20);
-        const { data: newData, total, current } = result;
+        const { data: theData, total, current } = result;
 
-        setContent(prevState => {
-            const { data: oldData } = prevState;
-            const theData = data.paging === 1 ? newData : [
-                ...oldData,
-                ...newData
-            ];
-
+        setContent(() => {
             return {
                 data: theData,
                 total,
                 current
             };
         });
-    }, [data]);
+    }, [data, library]);
 
     useEffect(() => {
-        const { sectionData } = library;
-        const authors = getDistincAuthor(sectionData);
-        const { data: newData } = filterSection(sectionData, data);
-        const result = mapId(newData);
-        setContent(prevState => {
-            const { data: oldData, total, current } = prevState;
-
-            const theData = oldData.map(item => {
-                return result[item.id];
-            });
-
-            return {
-                data: theData,
-                total,
-                current
-            };
-        });
-
-        setAuthors(authors);
-    }, [library]);
+        if (scrollerRef.current) {
+            scrollerRef.current.scrollTop = savedScrollPosition.current;
+        }
+    });
 
     useEffect(() => {
         const { sectionData, sectionCategories } = library;
@@ -112,14 +88,19 @@ const SectionContentWrapper = (props) => {
     }, [license, author]);
 
     const categoryListClicked = (id, name) => {
-        dispatch( 'gutenverse/library' ).setPaging(1);
+        dispatch('gutenverse/library').setPaging(1);
         setCategoryCache(name);
     };
 
     const changePaging = (page) => {
-        dispatch( 'gutenverse/library' ).setPaging(page);
+        dispatch('gutenverse/library').setPaging(page);
     };
     const dev = '--dev_mode--' === 'true';
+    const handleScroll = () => {
+        if (scrollerRef.current) {
+            savedScrollPosition.current = scrollerRef.current.scrollTop;
+        }
+    };
 
     return <>
         <div className={`gutenverse-library-sidebar ${!burger && 'hide-sidebar'}`}>
@@ -138,23 +119,23 @@ const SectionContentWrapper = (props) => {
             <h2 className="gutenverse-library-side-heading">
                 {__('Style', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <RenderCategories categories={categories} slug={'style'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
             <h2 className="gutenverse-library-side-heading">
                 {__('Categories', '--gctd--')}
             </h2>
-            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'}/>
+            <RenderCategories categories={categories} slug={'category'} categoryListClicked={categoryListClicked} data={data} type={'section'} />
         </div>
 
 
-        <div className="gutenverse-library-inner" ref={scrollerRef}>
+        <div className="gutenverse-library-inner" ref={scrollerRef} onScroll={handleScroll}>
             <BannerPro
                 subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
+                title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                 customStyles={{ paddingTop: '30px' }}
-                container = "library"
-                leftBannerImg = "library-graphic-library-left.png"
-                rightBannerImg = "library-graphic-library-right.png"
-                backgroundGradient = "library-bg-library.png"/>
+                container="library"
+                leftBannerImg="library-graphic-library-left.png"
+                rightBannerImg="library-graphic-library-right.png"
+                backgroundGradient="library-bg-library.png" />
             <SectionContentData
                 current={content.current}
                 data={content.data}
@@ -174,10 +155,13 @@ export const SectionContentData = props => {
     const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
-            <div className="empty-svg">
-                <IconEmptySVG />
+            <div className="empty-wrapper">
+                <div className="empty-svg">
+                    <IconEmpty2SVG />
+                </div>
+                <h3>{__('No Result Found', '--gctd--')}</h3>
+                <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
-            <h3>{__('Empty Result', '--gctd--')}</h3>
         </div> : <>
             <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
@@ -196,6 +180,7 @@ const SectionItems = props => {
         700: 2,
         500: 1
     };
+    const [selectItem, setSelectItem] = useState({});
 
     if ('Header' === categoryCache) {
         breakpointColumnsObj = {
@@ -206,7 +191,7 @@ const SectionItems = props => {
         };
     }
     data = data.filter(el => el !== undefined);
-    
+
     return <Masonry
         breakpointCols={breakpointColumnsObj}
         className="library-items-wrapper section"
@@ -218,12 +203,13 @@ const SectionItems = props => {
             closeImporter={closeImporter}
             setCurrentItem={props.setCurrentItem}
             setPluginInstallMode={props.setPluginInstallMode}
+            setSelectItem={setSelectItem}
+            selectItem={selectItem}
         />)}
     </Masonry>;
 };
 
 const SectionContentItem = props => {
-
     const {
         getLibraryData,
         getPluginData
@@ -231,14 +217,26 @@ const SectionContentItem = props => {
         (select) => select('gutenverse/library'),
         []
     );
-    const plugins =  getPluginData();
-    const library =  getLibraryData();
+    const plugins = getPluginData();
+    const library = getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem } = props;
     const [image, setImage] = useState('');
+    const [showOverlay, setShowOverlay] = useState(false);
+    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
     const { section: sectionId } = library;
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (item.categories !== undefined && item.categories.length > 0) {
+            const name = item.categories.map(category => category.name);
+            setName(name.join(', '));
+        } else {
+            setName(item.name);
+        }
+    }, []);
 
     useEffect(() => {
         const { requirements, compatibleVersion } = item;
@@ -267,6 +265,9 @@ const SectionContentItem = props => {
         setPluginInstallMode(true);
     };
 
+    const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100;
+    const minHeight = paddingBottom === 0 ? 44 : 0;
+
     return <div className={classname}>
         <div className="library-item-content">
             {sectionId === item.id && <div className="library-item-loader">
@@ -275,14 +276,17 @@ const SectionContentItem = props => {
                 </div>
             </div>}
             <div className="library-item-holder" style={{
-                paddingBottom: `${item.cover[2] / item.cover[1] * 100}%`
+                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`
             }}>
                 <img src={image} />
                 <div className="library-item-detail">
-                    {requirementStatus?.length === 0 ? <div className="library-item-overlay">
+                    {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay ? 'show-overlay' : ''}`}>
                         <ImportSectionButton
                             data={item}
                             closeImporter={closeImporter}
+                            setShowOverlay={setShowOverlay}
+                            setExporting={setExporting}
+                            setSelectItem={setSelectItem}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>
@@ -299,37 +303,39 @@ const SectionContentItem = props => {
                 </div>
             </div>
         </div>
-        <div className="library-item-bottom">
-            <div className="library-item-wrapper">
-                <div className="library-item-left">
-                    {item.author && <span className="by">{__('by', '--gctd--')} {item.author.name}</span>}
+        <div className="library-item-divider" />
+        {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress} /> :
+            <div className="library-item-bottom">
+                <div className="library-item-wrapper">
+                    <div className="library-item-left">
+                        <span className="by">{name}</span>
+                    </div>
+                    <div className="library-item-right">
+                        {requirementStatus?.length > 0 && <div className="section-requirement">
+                            <div className="section-requirement-detail">
+                                <p>{sprintf(
+                                    _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
+                                    requirementStatus.length
+                                )}</p>
+                                <a href="#" onClick={(e) => {
+                                    setToCurrentItem();
+                                    e.preventDefault();
+                                }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
+                            </div>
+                            <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
+                                <IconInfoYellowSVG />
+                            </div>
+                        </div>}
+                        {item.like ?
+                            <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
+                                <IconHeartFullSVG size={14} />
+                            </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
+                                <IconLoveSVG size={16} />
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div className="library-item-right">
-                    {requirementStatus?.length > 0 && <div className="section-requirement">
-                        <div className="section-requirement-detail">
-                            <p>{sprintf(
-                                _n('There is plugin need to be installed or updated for this section work correctly.', 'There are %s plugins need to be installed or updated for this section work correctly.', requirementStatus.length, '--gctd--'),
-                                requirementStatus.length
-                            )}</p>
-                            <a href="#" onClick={(e) => {
-                                setToCurrentItem();
-                                e.preventDefault();
-                            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
-                        </div>
-                        <div className="section-requirement-icon" onClick={() => setToCurrentItem()}>
-                            <IconInfoYellowSVG />
-                        </div>
-                    </div>}
-                    {item.like ?
-                        <div className="library-like active" onClick={() => likeSection(item.slug, false)}>
-                            <IconHeartFullSVG size={14} />
-                        </div> : <div className="library-like" onClick={() => likeSection(item.slug, true)}>
-                            <IconLoveSVG size={16}/>
-                        </div>
-                    }
-                </div>
-            </div>
-        </div>
+            </div>}
     </div>;
 };
 

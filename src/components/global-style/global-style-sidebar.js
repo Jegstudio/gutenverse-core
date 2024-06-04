@@ -37,7 +37,7 @@ const GlobalStyleSidebar = props => {
         </div>}
     >
         <PanelBody>
-            <CardPro /><br/>
+            <CardPro />
             <GlobalStyleContent {...{
                 stage,
                 setStage,

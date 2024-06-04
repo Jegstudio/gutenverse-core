@@ -2,7 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { createPortal } from '@wordpress/element';
 import { Link } from 'gutenverse-core/router';
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, LogoFullColor31SVG } from 'gutenverse-core/icons';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
@@ -64,7 +64,7 @@ const Navigation = ({ location }) => {
                 priority: 100
             },
             isEmpty(window?.gprodata) && {
-                name: <span><IconCrownSVG />{__('Upgrade to PRO', '--gctd--')}</span>,
+                name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
                 slug: homeSlug,
                 upgrade: true,
                 path: 'upgrade-pro',
@@ -153,8 +153,8 @@ const Navigation = ({ location }) => {
 
                     return null;
                 })}
+                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} />
             </div>
-            <ButtonUpgradePro location="dashboard-navigation" />
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
     </>;

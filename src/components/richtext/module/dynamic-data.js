@@ -2,6 +2,7 @@ import { useEffect, useState } from '@wordpress/element';
 import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash';
 
 export const dynamicData = (props) => {
     const {
@@ -17,8 +18,10 @@ export const dynamicData = (props) => {
 
     const dynamicDataList = attributes[dynamicList];
     const content = attributes[contentAttribute];
-    const [dynamicText, setDynamicText] = useState([]);
-    const [dynamicUrl, setDynamicUrl] = useState([]);
+    const textContent = attributes.dynamicTextContent;
+    const urlContent = attributes.dynamicUrlContent;
+    const [dynamicText, setDynamicText] = useState(textContent? textContent: []);
+    const [dynamicUrl, setDynamicUrl] = useState(urlContent? urlContent : []);
 
     function findNewData(arr1, arr2) {
         const newData = [];
@@ -32,51 +35,61 @@ export const dynamicData = (props) => {
         return newData;
     }
 
+    function compareList(arr1, arr2) {
+        if (arr1.length !== arr2.length) return false;
+
+        const map1 = new Map(arr1.map(obj => [obj.id, obj]));
+        const map2 = new Map(arr2.map(obj => [obj.id, obj]));
+
+        if (map1.size !== map2.size) return false;
+
+        for (let id of map1.keys()) {
+            if (!map2.has(id)) return false;
+        }
+        return true;
+    }
+
     // set up the dynamic data
-    useEffect(()=>{
+    useEffect(() => {
         const fakeContent = document.createElement(tagName);
         fakeContent.innerHTML = content;
-
         const dynamicLists = getDynamicDataList(fakeContent);
         const currentList = dynamicDataList;
+        const newData = findNewData(dynamicLists, currentList);
 
-        // find the lastest dynamic added and open it in the panel
-        if (dynamicLists.length > currentList.length) {
-            const newData = findNewData(dynamicLists, currentList);
-            if (!isEmpty(newData)) {
-                setAttributes({openDynamic: newData[0].id});
-            }
+        // Check if new data has been added and open the latest dynamic list in the panel
+        if (dynamicLists.length > currentList.length && !isEmpty(newData)) {
+            setAttributes({ openDynamic: newData[0].id });
             setPanelState(panelDynamic);
         }
 
-        //set the attributes if new data added
+        // Update attributes if dynamic lists are not empty and new data has been added
         if (dynamicLists.length > 0) {
-            const newList = dynamicLists.map(element => {
-                const indexExist = currentList.findIndex(item => element.id === item.id);
-                if (indexExist !== -1) {
-                    const {
-                        _key,
-                        dynamicContent,
-                        dynamicUrl,
-                        parent,
-                        setAsLink
-                    } = currentList[indexExist] ?? {};
-
-                    element._key = _key;
-                    element.dynamicContent = dynamicContent;
-                    element.dynamicUrl = dynamicUrl;
-                    element.parent = parent;
-                    element.setAsLink = setAsLink;
+            const updatedList = dynamicLists.map(element => {
+                const existingItem = currentList.find(item => element.id === item.id);
+                if (existingItem) {
+                    // Destructure existingItem properties and assign them to element
+                    Object.assign(element, {
+                        _key: existingItem._key,
+                        dynamicContent: existingItem.dynamicContent,
+                        dynamicUrl: existingItem.dynamicUrl,
+                        originalText: existingItem.originalText,
+                        parent: existingItem.parent,
+                        setAsLink: existingItem.setAsLink
+                    });
                 }
                 return element;
             });
-
-            setAttributes({[dynamicList]: newList});
-        } else setAttributes({[dynamicList]: []});
-    },[content]);
+            if (!compareList(updatedList, currentList)) {
+                setAttributes({ [dynamicList]: updatedList });
+            }
+        } else if (!compareList(dynamicLists, currentList)) {
+            setAttributes({ [dynamicList]: [] });
+        }
+    }, [content, dynamicDataList]);
 
     // function to get dynamic data
-    const getDynamicDataList = (fakeContent) => {
+    function getDynamicDataList(fakeContent) {
         let newElement = {};
         newElement = u(fakeContent).children().map(child => {
             const isDynamic = u(child).nodes[0].classList.contains('guten-dynamic-data');
@@ -86,6 +99,7 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
+                    originalText: child.innerText,
                     setAsLink: false,
                     value: child.outerHTML,
                     id: u(child).attr('id')
@@ -97,6 +111,7 @@ export const dynamicData = (props) => {
                         dynamicContent: {},
                         dynamicUrl: {},
                         _key: {},
+                        originalText: findDynamics.nodes[0].innerText,
                         setAsLink: false,
                         parent: child.outerHTML,
                         value: findDynamics.nodes[0].outerHTML,
@@ -114,6 +129,7 @@ export const dynamicData = (props) => {
                     dynamicContent: {},
                     dynamicUrl: {},
                     _key: {},
+                    originalText: el.innerText,
                     setAsLink: false,
                     value: el.outerHTML,
                     id: u(el).attr('id')
@@ -122,7 +138,7 @@ export const dynamicData = (props) => {
             newElement.nodes = arrElement;
         }
         return newElement.nodes;
-    };
+    }
 
     // get all the descendant tag inside the dynamic data element <span class='guten-dynamic-data'>
     // and put all the tag inside a set
@@ -221,7 +237,9 @@ export const dynamicData = (props) => {
 
     // this is where all the fun is!
     // change the text and href dynamically and set up the content
+    let timeoutId;
     useEffect(() => {
+
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -320,14 +338,18 @@ export const dynamicData = (props) => {
                     'gutenverse.dynamic.fetch-url',
                     dynamicDataList[index].dynamicUrl
                 );
+                let title = content;
 
-                const title = applyFilters(
-                    'gutenverse.dynamic.generate-content',
-                    content,
-                    'dynamicContent',
-                    dynamicDataList[index],
-                    id,
-                );
+                const dynamicContent = dynamicDataList[index].dynamicContent;
+                if (dynamicContent.postdata || dynamicContent.sitedata || dynamicContent.authordata || dynamicContent.termdata){
+                    title = applyFilters(
+                        'gutenverse.dynamic.generate-content',
+                        content,
+                        'dynamicContent',
+                        dynamicDataList[index],
+                        id,
+                    );
+                }
                 const dynamicTextContent = applyFilters(
                     'gutenverse.dynamic.fetch-text',
                     dynamicDataList[index].dynamicContent
@@ -341,6 +363,9 @@ export const dynamicData = (props) => {
                                 setDynamicText(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
+                                    if (!_.isEqual(textContent, newState) || !isEmpty(dynamicText) || dynamicText.length > 0) {
+                                        setAttributes({dynamicTextContent: newState});
+                                    }
                                     return newState;
                                 });
                             }
@@ -361,6 +386,9 @@ export const dynamicData = (props) => {
                                 setDynamicUrl(prevState => {
                                     const newState = [...prevState];
                                     newState[index] = result;
+                                    if (!_.isEqual(urlContent, newState) || !isEmpty(dynamicUrl) || dynamicUrl.length > 0) {
+                                        setAttributes({dynamicUrlContent: newState});
+                                    }
                                     return newState;
                                 });
                             }
@@ -415,8 +443,7 @@ export const dynamicData = (props) => {
                     contentArray[item.key] = anchorElement.outerHTML;
                 // when content is set
                 }else if (title !== content){
-
-                    //if dynamic data element is inside other element format
+                    // if dynamic data element is inside other element format
                     if (newestList[index].parent){
                         let parent = newestList[index].parent;
                         const ancestorTags = getAncestorTags(parent);
@@ -441,8 +468,23 @@ export const dynamicData = (props) => {
                     }
                 }
             });
+            //use set time out to update attribute so that the dynamic content does not cause infinite loop
+            //when used more than once in the same template part
+            const throttledUpdateAttributes = function() {
+                if (!timeoutId) {
+                    timeoutId = setTimeout(() => {
+                        timeoutId = null;
+                        if (content.localeCompare(contentArray.join('')) !== 0) {
+                            setAttributes({ [contentAttribute]: contentArray.join('') });
+                        }
+                    }, 200);
+                }
+            };
+            throttledUpdateAttributes();
         }
-        setAttributes({ [contentAttribute] : contentArray.join('') });
 
-    },[content, dynamicDataList, dynamicText, dynamicUrl, parentHasLink]);
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    },[content, dynamicDataList, textContent, urlContent]);
 };
