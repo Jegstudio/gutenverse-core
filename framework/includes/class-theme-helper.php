@@ -30,6 +30,7 @@ class Theme_Helper {
 		add_filter( 'pre_get_block_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
 		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null );
 		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null );
+		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
 
 		// Action.
 		add_action( 'wp', array( $this, 'home_template' ), 99 );
@@ -40,6 +41,41 @@ class Theme_Helper {
 		 * Now these functions will be called directly.
 		 */
 		add_action( 'wp', array( $this, 'register_block_core_template_part' ) );
+	}
+
+	/**
+	 * Add custom template.
+	 *
+	 * @param WP_Theme_JSON_Data $theme_json Class to access and update the underlying data.
+	 *
+	 * @return \WP_Theme_JSON_Data
+	 */
+	public function additional_custom_templates( $theme_json ) {
+		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
+			$wp_theme        = wp_get_theme();
+			$theme_json_file = $wp_theme->get_file_path( 'theme.json' );
+
+			if ( is_readable( $theme_json_file ) ) {
+				$theme_json_data = wp_json_file_decode( $theme_json_file, array( 'associative' => true ) );
+			} else {
+				$theme_json_data = array();
+			}
+
+			$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template' );
+
+			foreach ( $custom_templates as $custom ) {
+				$title = str_replace( '-', ' ', $custom['slug'] );
+
+				$theme_json_data['customTemplates'][] = array(
+					'name'  => $custom['slug'],
+					'title' => ucwords( $title ),
+				);
+			}
+
+			return new \WP_Theme_JSON_Data( $theme_json_data, 'theme' );
+		}
+
+		return $theme_json;
 	}
 
 	/**
