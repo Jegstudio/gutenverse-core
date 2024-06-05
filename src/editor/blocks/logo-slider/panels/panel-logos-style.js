@@ -354,9 +354,10 @@ export const logosStylePanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
+            isParseFloat: false,
             style: [
                 {
-                    selector: `.${elementId}.guten-client-logo .swiper-container image-list:hover .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .image-list:hover .content-image .hover-image`,
                     render: value => `opacity: ${value};`
                 },
             ],
