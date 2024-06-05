@@ -289,7 +289,7 @@ class Advanced_Heading extends Style_Abstract {
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
-					'value'          => $this->attrs['focusPadding'],
+					'value'          => $this->attrs['subPadding'],
 					'device_control' => true,
 				)
 			);
