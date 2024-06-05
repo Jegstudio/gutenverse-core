@@ -182,7 +182,7 @@ $border: #eaeaea;
     @media only screen and (max-width: 900px) {
         .gutenverse-library-sidebar {
             position: absolute;
-            z-index: 2;
+            z-index: 100;
         }
     }
 
@@ -443,6 +443,7 @@ $border: #eaeaea;
                     &:hover {
                         .library-item-overlay {
                             opacity: 1 !important;
+                            
                         }
                     }
 
@@ -459,6 +460,7 @@ $border: #eaeaea;
                     left: 0;
                     bottom: 0;
                     padding: 0 !important;
+                    z-index: 10;
                 }
 
                 .library-item-overlay {
