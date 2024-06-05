@@ -51,12 +51,15 @@ const NavMenuBlock = compose(
     const removeClick = () => {
         if (elementRef.current) {
             setTimeout(() => {
-                elementRef.current.querySelectorAll('.gutenverse-menu li').forEach(menu => {
-                    menu.querySelector('a').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
+                const refElement = elementRef.current.querySelectorAll('.gutenverse-menu li');
+                if (refElement) {
+                    refElement.forEach(menu => {
+                        menu.querySelector('a').addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
                     });
-                });
+                }
             }, 1);
         }
     };
@@ -105,8 +108,11 @@ const NavMenuBlock = compose(
 
     useEffect(() => {
         setTimeout(() => {
-            elementRef.current.classList.add('injected');
-            new GutenverseNavMenu([elementRef.current]);
+            const refElement = elementRef.current;
+            if (refElement) {
+                refElement.classList.add('injected');
+                new GutenverseNavMenu([elementRef.current]);
+            }
         }, 1000);
     }, [response, elementRef]);
 
