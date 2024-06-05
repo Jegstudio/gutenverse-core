@@ -226,6 +226,23 @@ $border: #eaeaea;
                 .library-item-content {
                     background-color: #e3e4e6;
                     border-radius: inherit;
+                    overflow: hidden;
+                    position: relative;
+                    &::before{
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        content: '';
+                        z-index: 1;
+                        position: absolute;
+                        background: linear-gradient(141deg, #fcfcfc62 0%, #c0c0c082 99%);
+                        transform: translateX(-100%);
+                        animation: loading-skeleton-keyframes-wave .75s linear .5s infinite;
+                    }
+                    img{
+                        z-index: 2;
+                    }
                 }
 
                 .library-item-divider {
@@ -768,6 +785,17 @@ $border: #eaeaea;
                 }
             }
         }
+    }
+}
+@keyframes loading-skeleton-keyframes-wave {
+    0% {
+        transform: translateX(-100%)
+    }
+    60% {
+        transform: translateX(100%)
+    }
+    100% {
+        transform: translateX(100%)
     }
 }
 
