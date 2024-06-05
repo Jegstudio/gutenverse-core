@@ -40,10 +40,12 @@ class Style_Generator {
 	 */
 	public function __construct() {
 		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ) );
-		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 9999 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 9999 );
+		// priority change to 10 and embed font after style generator with priority 11 
+		// to fix font not loaded in frontend for section that imported from libarry
+		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 10 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 10 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 11 );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
-		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ) );
 		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
 	}
 

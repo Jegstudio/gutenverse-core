@@ -4,7 +4,7 @@ import { dispatch, select, useSelect } from '@wordpress/data';
 import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
-import { Helmet } from 'gutenverse-core/components';
+import { Helmet, u } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
 import { getBlockType } from '@wordpress/blocks';
 
@@ -253,8 +253,8 @@ export const withCustomStyle = panelList => BlockElement => {
             } else {
                 const { getBlocks } = select('core/block-editor');
                 const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-
-                if (flag) {
+                const isSwapTemplateOpened = u('.editor-post-template__swap-template-modal');
+                if (flag && !isSwapTemplateOpened) {
                     createElementId();
                 } else {
                     registerElement(elementId);
