@@ -63,6 +63,16 @@ class Theme_Helper {
 
 			$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template' );
 
+			$theme_json_data['customTemplates'][] = array(
+				'name'  => 'template-basic',
+				'title' => 'Template Basic',
+			);
+
+			$theme_json_data['customTemplates'][] = array(
+				'name'  => 'blank-canvas',
+				'title' => 'Blank Canvas',
+			);
+
 			foreach ( $custom_templates as $custom ) {
 				$title = str_replace( '-', ' ', $custom['slug'] );
 
@@ -72,7 +82,11 @@ class Theme_Helper {
 				);
 			}
 
-			return new \WP_Theme_JSON_Data( $theme_json_data, 'theme' );
+			if ( class_exists( 'WP_Theme_JSON_Data_Gutenberg' ) ) {
+				return new \WP_Theme_JSON_Data_Gutenberg( $theme_json_data, 'theme' );
+			} else {
+				return new \WP_Theme_JSON_Data( $theme_json_data, 'theme' );
+			}
 		}
 
 		return $theme_json;
