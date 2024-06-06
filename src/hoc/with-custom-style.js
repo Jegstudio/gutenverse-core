@@ -248,19 +248,21 @@ export const withCustomStyle = panelList => BlockElement => {
          * and set controlValues for the first time.
          */
         useEffect(() => {
-            if (elementId === undefined) {
-                createElementId();
-            } else {
-                const { getBlocks } = select('core/block-editor');
-                const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-                const isSwapTemplateOpened = u('.editor-post-template__swap-template-modal');
-                if (flag && !isSwapTemplateOpened) {
+            if(elementRef){
+                if (elementId === undefined) {
                     createElementId();
                 } else {
-                    registerElement(elementId);
+                    const { getBlocks } = select('core/block-editor');
+                    const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
+                    const parent = u(elementRef).closest('html');
+                    if (flag && !parent.hasClass('block-editor-block-preview__content-iframe') ) {
+                        createElementId();
+                    } else {
+                        registerElement(elementId);
+                    }
                 }
             }
-        }, []);
+        }, [elementRef]);
 
         useEffect(() => {
             Object.keys(attributes).map(key => {
