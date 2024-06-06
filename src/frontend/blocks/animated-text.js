@@ -10,9 +10,9 @@ class GutenverseAnimatedText extends Default {
     }
 
     /* private */
-    _animationList(element, style, loop) {
+    _animationList(element, style, loop, wordsplit) {
         const textWrapper = ['jump', 'bend', 'drop', 'flip', 'pop'].includes(style) ? element.find('.text-content .letters') : element.find('.text-content');
-        textWrapper.html(textWrapper.text().replace(/\S/g, '<span class=\'letter\'>$&</span>'));
+        textWrapper.html(textWrapper.text().replace(wordsplit ? /\b\w+\b/g : /\S/g, '<span class=\'letter\'>$&</span>'));
 
         const letterWrapper = element.find('.text-content .letter');
         let animeInit = null;
@@ -171,8 +171,9 @@ class GutenverseAnimatedText extends Default {
         const thisElement = u(element);
         const style = thisElement.data('animation');
         const loop = thisElement.data('loop');
+        const wordsplit = thisElement.data('wordsplit');
 
-        this._animationList(thisElement, style, loop === 'true');
+        this._animationList(thisElement, style, loop === 'true', wordsplit === 'true');
     }
 }
 export default GutenverseAnimatedText;

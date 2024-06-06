@@ -15,6 +15,7 @@ const save = compose(
         text,
         titleTag: TitleTag,
         loop,
+        splitByWord
     } = attributes;
 
     const animationClass = useAnimationFrontend(attributes);
@@ -49,7 +50,7 @@ const save = compose(
     };
 
     return (
-        <div {...useBlockProps.save({ className })} data-animation={style} data-loop={loop}>
+        <div {...useBlockProps.save({ className })} data-animation={style} data-loop={loop} data-wordsplit={splitByWord}>
             {loadAnimatedText()}
         </div>
     );
