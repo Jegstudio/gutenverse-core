@@ -128,6 +128,10 @@ export const settingPanel = ({elementId}) => {
                 {
                     selector: `.${elementId}`,
                     render: value => `justify-content: ${value};`
+                },
+                {
+                    selector: `.${elementId} > *`,
+                    render: value => `text-align: ${value === 'flex-start' ? 'left' : value === 'flex-end' ? 'right' : 'center'};`
                 }
             ]
         },

@@ -65,6 +65,19 @@ class Animated_Text extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} > *",
+					'property'       => function ( $value ) {
+						return 'text-align: ' .
+						( 'flex-start' === $value ? 'left' :
+						( 'flex-end' === $value ? 'right' : 'center' ) ) .
+						';';
+					},
+					'value'          => $this->attrs['alignText'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['height'] ) ) {
