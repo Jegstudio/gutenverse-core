@@ -15,10 +15,6 @@
     opacity: 0.8;
 }
 
-#wpadminbar #wp-admin-bar-gutenverse > .ab-item {
-    padding: 0 14px;
-}
-
 #wpadminbar #wp-admin-bar-gutenverse > .ab-item img,
 #wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item img {
     display: block;
@@ -28,6 +24,14 @@
     text-align: center;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse > .ab-item img {
+    margin-left: 0px !important;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-pro a {
+    padding-left: 15px !important;
 }
 
 @media only screen and (max-width: 782px) {
