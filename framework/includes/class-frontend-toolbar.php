@@ -164,7 +164,7 @@ class Frontend_Toolbar {
 					$admin_bar->add_menu(
 						array(
 							'id'    => 'gutenverse-pro',
-							'title' => '<span>' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
+							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 							'href'  => gutenverse_upgrade_pro(),
 							'meta'  => array(
 								'target' => '_blank',
