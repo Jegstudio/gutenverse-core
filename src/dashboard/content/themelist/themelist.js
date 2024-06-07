@@ -213,7 +213,7 @@ const ThemeItem = (props) => {
         const { upgradeProUrl } = window['GutenverseDashboard'];
 
         return pro ? <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
-            {__('Upgrade to Pro', '--gctd--')}
+            {__('Upgrade to PRO', '--gctd--')}
         </div> : defaultButton();
     };
 
