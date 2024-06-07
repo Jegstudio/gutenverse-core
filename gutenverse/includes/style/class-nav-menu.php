@@ -238,11 +238,26 @@ class Nav_Menu extends Style_Abstract {
 				)
 			);
 		}
+
 		if ( isset( $this->attrs['itemMenuBorderActive'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
                     #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['itemMenuBorderActive'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemMenuBorderActive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                    #{$this->element_id} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},

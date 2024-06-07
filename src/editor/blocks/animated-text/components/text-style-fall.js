@@ -23,6 +23,7 @@ const TextStyleFall = (props) => {
                 translateY: [-100,0],
                 easing: 'easeOutExpo',
                 duration: 1400,
+                opacity: [0,1],
                 delay: (el, i) => 30 * i
             });
 

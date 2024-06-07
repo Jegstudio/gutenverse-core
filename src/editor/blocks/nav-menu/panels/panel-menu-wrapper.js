@@ -79,7 +79,7 @@ export const menuWrapperPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper > div`,
+                    selector: `.${elementId} .gutenverse-menu-wrapper`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]

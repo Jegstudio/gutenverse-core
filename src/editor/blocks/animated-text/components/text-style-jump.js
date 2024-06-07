@@ -23,6 +23,7 @@ const TextStyleJump = (props) => {
                 translateY: ['1.1em', 0],
                 translateZ: 0,
                 duration: 750,
+                opacity: [0,1],
                 delay: (el, i) => 50 * i
             });
 
