@@ -11,7 +11,11 @@ class GutenverseGallery extends Default {
                 const promiseShuffle = import(/* webpackChunkName: "chunk-shufflejs" */'shufflejs');
                 const promiseSwiper = import(/* webpackChunkName: "chunk-swiper" */'swiper');
                 const promiseSwiperModule = import(/* webpackChunkName: "chunk-swiper-modules" */'swiper/modules');
-                Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule])
+                const images = u('.thumbnail-wrap img');
+                const proms=images.nodes.map(im=>new Promise(res=>
+                    im.onload=()=>res([im.width,im.height])
+                ));
+                Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule, proms])
                     .then((result) => {
                         const { default: Shuffle } = result[0];
                         const { default: Swiper } = result[1];
@@ -140,79 +144,73 @@ class GutenverseGallery extends Default {
     _addEvents(element, Shuffle) {
         const thisElement = u(element);
         const filterPopup = thisElement.find('.search-filter-controls');
-        const images = thisElement.find('.thumbnail-wrap img');
-        const proms = images.nodes.map(im=>new Promise(res=>
-            im.onload=()=>res([im.width,im.height])
-        ));
         const elementClassNames = thisElement.nodes[0].className;
-        Promise.all(proms).then(data=>{
-            const shuffle = new Shuffle(thisElement.find('.gallery-items').first(), {
-                itemSelector: '.gallery-item-wrap',
-                sizer: '.gallery-sizer-element',
-                speed: 500
-            });
-            const onSearch = (shuffle, elementClassNames) => {
-                const thisElement = u(`.${elementClassNames.split(' ').join('.')}`);
-                const searchElement = thisElement.find('#guten-gallery-search-box-input');
-                let searchValue = '';
-                let filterText = '';
-                if( searchElement.length > 0 ){
-                    searchValue = searchElement.first().value.toLowerCase();
-                    filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
-                }else{
-                    const filterElement = thisElement.find('.guten-gallery-control.active');
-                    filterText = filterElement.text().toLowerCase();
-                }
-                const filterValue = filterText === 'all' ? '' : filterText;
-                const isValid = (item) => {
-                    const element = u(item);
-                    const controlText = element.data('control');
-                    const titleText = element.find('.item-title').text();
-                    const contentText = element.find('.item-content').text();
-                    const categoryText = element.find('.caption-category span').text();
-
-                    return (controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue));
-                };
-
-                shuffle && shuffle.filter(item => isValid(item));
-            }
-            thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch( shuffle, elementClassNames));
-            thisElement.find('.guten-gallery-control').on('click', e => {
-                const filter = u(e.target).data('filter');
-                thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
-                u(e.target).addClass('active');
-                u(e.target).siblings().removeClass('active');
-                onSearch(shuffle, elementClassNames);
-            });
-    
-            thisElement.find('.guten-gallery-load-more').on('click', (e) => {
-                e.preventDefault();
-                const gallery = thisElement.find('.gallery-items');
-                const loaded = parseInt(gallery.data('loaded'));
-                const more = parseInt(gallery.data('more'));
-                const max = parseInt(gallery.data('max'));
-                const total = loaded + more;
-                const items = gallery.find('.gallery-item-wrap');
-    
-                if (total - more <= max) {
-                    items.map((item, index) => {
-                        if (index >= loaded && index < total) {
-                            u(item).removeClass('item-hidden');
-                            shuffle.update();
-                        }
-                    });
-    
-                    gallery.data('loaded', total);
-                }
-    
-                total >= max && thisElement.find('.load-more-items').remove();
-            });
-    
-            thisElement.find('#guten-gallery-search-box').on('submit', e => e.preventDefault());
-    
-            thisElement.find('#search-filter-trigger').on('click', () => filterPopup.hasClass('open-controls') ? filterPopup.removeClass('open-controls') : filterPopup.addClass('open-controls'));
+        const shuffle = new Shuffle (thisElement.find('.gallery-items').first(), {
+            itemSelector: '.gallery-item-wrap',
+            sizer: '.gallery-sizer-element',
+            speed: 500
         });
-        
+        const onSearch = (shuffle, elementClassNames) => {
+            const thisElement = u(`.${elementClassNames.split(' ').join('.')}`);
+            const searchElement = thisElement.find('#guten-gallery-search-box-input');
+            let searchValue = '';
+            let filterText = '';
+            if( searchElement.length > 0 ){
+                searchValue = searchElement.first().value.toLowerCase();
+                filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
+            }else{
+                const filterElement = thisElement.find('.guten-gallery-control.active');
+                filterText = filterElement.text().toLowerCase();
+            }
+            const filterValue = filterText === 'all' ? '' : filterText;
+            const isValid = (item) => {
+                const element = u(item);
+                const controlText = element.data('control');
+                const titleText = element.find('.item-title').text();
+                const contentText = element.find('.item-content').text();
+                const categoryText = element.find('.caption-category span').text();
+
+                return (controlText.toLowerCase()).includes(filterValue) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue));
+            };
+
+            shuffle && shuffle.filter(item => isValid(item));
+        }
+        thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch( shuffle, elementClassNames));
+        thisElement.find('.guten-gallery-control').on('click', e => {
+            const filter = u(e.target).data('filter');
+            thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
+            u(e.target).addClass('active');
+            u(e.target).siblings().removeClass('active');
+            onSearch(shuffle, elementClassNames);
+        });
+
+        thisElement.find('.guten-gallery-load-more').on('click', (e) => {
+            e.preventDefault();
+            const gallery = thisElement.find('.gallery-items');
+            const loaded = parseInt(gallery.data('loaded'));
+            const more = parseInt(gallery.data('more'));
+            const max = parseInt(gallery.data('max'));
+            const total = loaded + more;
+            const items = gallery.find('.gallery-item-wrap');
+
+            if (total - more <= max) {
+                items.map((item, index) => {
+                    if (index >= loaded && index < total) {
+                        u(item).removeClass('item-hidden');
+                        shuffle.update();
+                    }
+                });
+
+                gallery.data('loaded', total);
+            }
+
+            total >= max && thisElement.find('.load-more-items').remove();
+        });
+
+        thisElement.find('#guten-gallery-search-box').on('submit', e => e.preventDefault());
+
+        thisElement.find('#search-filter-trigger').on('click', () => filterPopup.hasClass('open-controls') ? filterPopup.removeClass('open-controls') : filterPopup.addClass('open-controls'));
+    
     }
 }
 
