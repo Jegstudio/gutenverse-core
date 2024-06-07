@@ -151,7 +151,7 @@ class GutenverseGallery extends Default {
             speed: 500
         });
         const onSearch = (shuffle, elementClassNames) => {
-            const thisElement = u(`.${elementClassNames.split(' ').join('.')}`);
+            const thisElement = u(`.${elementClassNames.split(' ').slice(0,3).join('.')}`);
             const searchElement = thisElement.find('#guten-gallery-search-box-input');
             let searchValue = '';
             let filterText = '';
