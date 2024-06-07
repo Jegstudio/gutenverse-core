@@ -300,7 +300,7 @@ const PluginInstallThemeList = props => {
                     plugin={{
                         installed: true,
                         name: 'Gutenverse',
-                        slug: '--gctd--',
+                        slug: 'gutenverse',
                         version: compatibleVersion
                     }}
                     plugins={installedPlugin}
