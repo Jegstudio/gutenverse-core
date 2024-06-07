@@ -25,6 +25,7 @@ const TextStyleBend = (props) => {
                 translateZ: 0,
                 rotateZ: [180, 0],
                 duration: 750,
+                opacity: [0,1],
                 easing: 'easeOutExpo',
                 delay: (el, i) => 50 * i
             });

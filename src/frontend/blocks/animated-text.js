@@ -47,6 +47,7 @@ class GutenverseAnimatedText extends Default {
                         translateY: ['1.1em', 0],
                         translateZ: 0,
                         duration: 750,
+                        opacity: [0,1],
                         delay: (el, i) => 50 * i
                     });
                 break;
@@ -59,6 +60,7 @@ class GutenverseAnimatedText extends Default {
                         translateZ: 0,
                         rotateZ: [180, 0],
                         duration: 750,
+                        opacity: [0,1],
                         easing: 'easeOutExpo',
                         delay: (el, i) => 50 * i
                     });
@@ -143,6 +145,7 @@ class GutenverseAnimatedText extends Default {
                         translateY: [-100,0],
                         easing: 'easeOutExpo',
                         duration: 1400,
+                        opacity: [0,1],
                         delay: (el, i) => 30 * i
                     });
 
