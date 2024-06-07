@@ -276,7 +276,7 @@ const SectionContentItem = props => {
                 </div>
             </div>}
             <div className="library-item-holder" style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`
+                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: 'white', zIndex:'5'
             }}>
                 <img src={image} />
                 <div className="library-item-detail">

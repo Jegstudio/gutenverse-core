@@ -336,7 +336,7 @@ const TypographyControl = (props) => {
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
-                                    value: 'default'
+                                    value: 'inherit'
                                 },
                                 {
                                     label: __('Uppercase', '--gctd--'),
@@ -352,7 +352,7 @@ const TypographyControl = (props) => {
                                 },
                                 {
                                     label: __('Normal', '--gctd--'),
-                                    value: 'normal'
+                                    value: 'none'
                                 },
                             ]}
                         />
