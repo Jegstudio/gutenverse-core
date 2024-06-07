@@ -1,11 +1,12 @@
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect, dispatch, useDispatch } from '@wordpress/data';
 import classnames from 'classnames';
 import { LogoFullColorSVG, IconCloseSVG, IconHamburgerSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LayoutContent from './layout-content';
 import SectionContent from './section-content';
 import FavoriteContent from './favorite-content';
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
+import { store as noticesStore } from '@wordpress/notices';
 
 const LibraryModal = props => {
     const {
@@ -14,8 +15,12 @@ const LibraryModal = props => {
         setOpen,
         setVisibility,
         loading,
-        modalData
+        modalData,
+        importer
     } = props;
+
+    const { createInfoNotice } = useDispatch(noticesStore);
+    const { importNotice } = importer;
 
     const closeImporter = () => {
         setVisibility(false);
@@ -36,6 +41,21 @@ const LibraryModal = props => {
         }
 
     };
+    const showNotice = (string) => {
+        createInfoNotice(string, {
+            type: 'snackbar',
+            isDismissible: true,
+        });
+    };
+
+    useEffect(() => {
+        if (importNotice) {
+            showNotice(importNotice);
+            setTimeout(() => {
+                dispatch('gutenverse/library').setImportNotice(null);
+            }, 500);
+        }
+    }, [importNotice]);
     const [burger,setBurger] = useState(false);
     const importerClass = classnames('gutenverse-library-wrapper', {
         'visible': visible
@@ -115,9 +135,10 @@ const LibraryContent = (props) => {
 };
 
 export default withSelect(select => {
-    const { getModalData } = select('gutenverse/library');
+    const { getModalData, getImporterData } = select('gutenverse/library');
 
     return {
-        modalData: getModalData()
+        modalData: getModalData(),
+        importer: getImporterData()
     };
 })(LibraryModal);
