@@ -11,12 +11,8 @@
 
 #wp-admin-bar-gutenverse span img,
 #wp-admin-bar-gutenverse-pro span img {
-    margin-right: 6px!important;
+    margin-right: 6px;
     opacity: 0.8;
-}
-
-#wpadminbar #wp-admin-bar-gutenverse > .ab-item {
-    padding: 0 14px;
 }
 
 #wpadminbar #wp-admin-bar-gutenverse > .ab-item img,
@@ -24,10 +20,27 @@
     display: block;
     text-indent: 0;
     top: 7px;
-    margin-left: 7px !important;
+    margin-left: 7px;
     text-align: center;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-pro > .ab-item img {
+    margin-left: 0;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-pro .gutenverse-pro-right img {
+    margin-left: 7px;
+    margin-right: 1px;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse > .ab-item img {
+    margin-left: 0px;
+}
+
+#wpadminbar #wp-admin-bar-gutenverse-pro a {
+    padding-left: 10px;
 }
 
 @media only screen and (max-width: 782px) {

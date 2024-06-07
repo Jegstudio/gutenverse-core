@@ -182,7 +182,7 @@ $border: #eaeaea;
     @media only screen and (max-width: 900px) {
         .gutenverse-library-sidebar {
             position: absolute;
-            z-index: 2;
+            z-index: 100;
         }
     }
 
@@ -226,6 +226,23 @@ $border: #eaeaea;
                 .library-item-content {
                     background-color: #e3e4e6;
                     border-radius: inherit;
+                    overflow: hidden;
+                    position: relative;
+                    &::before{
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        content: '';
+                        z-index: 1;
+                        position: absolute;
+                        background: linear-gradient(141deg, #fcfcfc62 0%, #c0c0c082 99%);
+                        transform: translateX(-100%);
+                        animation: loading-skeleton-keyframes-wave .75s linear .5s infinite;
+                    }
+                    img{
+                        z-index: 2;
+                    }
                 }
 
                 .library-item-divider {
@@ -426,6 +443,7 @@ $border: #eaeaea;
                     &:hover {
                         .library-item-overlay {
                             opacity: 1 !important;
+                            
                         }
                     }
 
@@ -442,6 +460,7 @@ $border: #eaeaea;
                     left: 0;
                     bottom: 0;
                     padding: 0 !important;
+                    z-index: 10;
                 }
 
                 .library-item-overlay {
@@ -770,6 +789,17 @@ $border: #eaeaea;
         }
     }
 }
+@keyframes loading-skeleton-keyframes-wave {
+    0% {
+        transform: translateX(-100%)
+    }
+    60% {
+        transform: translateX(100%)
+    }
+    100% {
+        transform: translateX(100%)
+    }
+}
 
 @keyframes shine {
     0% {
@@ -900,12 +930,15 @@ $border: #eaeaea;
         .plugin-requirement-icon {
             padding: 22px 15px;
             background: #fff9e2;
+            display: flex;
+            align-items: center;
         }
 
         .plugin-requirement-content {
             border-left: 0;
             padding: 20px;
             font-size: 13px;
+            align-items: center;
 
             h3 {
                 margin: 0;
@@ -1304,7 +1337,9 @@ $border: #eaeaea;
                 background: #fff;
                 cursor: pointer;
                 border-radius: 5px;
-                height: 175px;
+                height: 180px;
+                overflow: hidden;
+                position: relative;
 
                 &.active {
                     box-shadow: 0px 0px 0px 1px rgb(9 61 192);
@@ -1312,8 +1347,7 @@ $border: #eaeaea;
 
                 img {
                     border-radius: inherit;
-                    width: 100%;
-                    height: 85%;
+                    width: 100%;                    
                 }
 
                 span {
@@ -1328,6 +1362,12 @@ $border: #eaeaea;
                     letter-spacing: normal;
                     text-align: center;
                     color: #40505d;
+                    position: absolute;
+                    bottom: 0;
+                    background: white;
+                    padding: 7px 0px;
+                    left: 0;
+                    right: 0;
                 }
             }
         }
@@ -1463,6 +1503,8 @@ $border: #eaeaea;
                 letter-spacing: normal;
                 text-align: center;
                 color: #3b57f7;
+                display: flex;
+                align-items: center;
 
                 .rotating {
                     margin-right: 10px;

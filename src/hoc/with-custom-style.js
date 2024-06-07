@@ -4,7 +4,7 @@ import { dispatch, select, useSelect } from '@wordpress/data';
 import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
-import { Helmet } from 'gutenverse-core/components';
+import { Helmet, u } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
 import { getBlockType } from '@wordpress/blocks';
 
@@ -248,19 +248,21 @@ export const withCustomStyle = panelList => BlockElement => {
          * and set controlValues for the first time.
          */
         useEffect(() => {
-            if (elementId === undefined) {
-                createElementId();
-            } else {
-                const { getBlocks } = select('core/block-editor');
-                const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-
-                if (flag) {
+            if(elementRef){
+                if (elementId === undefined) {
                     createElementId();
                 } else {
-                    registerElement(elementId);
+                    const { getBlocks } = select('core/block-editor');
+                    const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
+                    const parent = u(elementRef).closest('html');
+                    if (flag && !parent.hasClass('block-editor-block-preview__content-iframe') ) {
+                        createElementId();
+                    } else {
+                        registerElement(elementId);
+                    }
                 }
             }
-        }, []);
+        }, [elementRef]);
 
         useEffect(() => {
             Object.keys(attributes).map(key => {

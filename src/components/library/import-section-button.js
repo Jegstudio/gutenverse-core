@@ -10,6 +10,8 @@ import { parse } from '@wordpress/blocks';
 const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
 
+    let fail = 0;
+
     const insertBlocksTemplate = (data) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
@@ -42,11 +44,31 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
             }
         );
 
+        const processImages = async ({ images, contents }) => {
+            let count = 0;
+            const imgs = [];
+            for (const img of images) {
+                count++;
+                setExporting(prev => ({ ...prev, message: `Importing Image Assets ${count} of ${images.length + 1}`, progress: '2/4' }));
+                const result = await importImage(img).catch(() => {
+                    imgs.push({id: 0, url: ''});
+                    fail++;
+                });
+                if (result) {
+                    imgs.push(result);
+                }
+            }
+            return {
+                images: imgs,
+                contents
+            };
+        };
+
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
             setExporting(prev => ({...prev, message: 'Importing Assets...', progress: '2/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
-            return importImage(data);
+            return processImages(data);
         }).then(result => {
             setExporting(prev => ({...prev, message: 'Deploying Content...', progress: '3/4'}));
             dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
@@ -58,11 +80,14 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
                 dispatch( 'gutenverse/library' ).setLockSectionImport(null);
                 closeImporter();
                 setExporting({show: false, message: 'Done!', progress: ''});
+                if (fail) {
+                    dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                }
             }, 300);
         }).catch((e) => {
             setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
             setTimeout(() => {
-                alert('Import Failed, please try again');
+                dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
                 setShowOverlay(false);
                 setExporting({show: false, message: 'Failed!', progress: ''});
                 console.log(e);

@@ -19,14 +19,16 @@ export const modalSelector = {
             layoutProgress,
             lockLayoutImport,
             sectionProgress,
-            lockSectionImport
+            lockSectionImport,
+            importNotice
         } = modal;
 
         return {
             layoutProgress,
             lockLayoutImport,
             sectionProgress,
-            lockSectionImport
+            lockSectionImport,
+            importNotice
         };
     },
 };
@@ -145,6 +147,12 @@ export const modalAction = {
     setSectionProgress: (text) => {
         return {
             type: 'SET_SECTION_PROGRESS',
+            text
+        };
+    },
+    setImportNotice: (text) => {
+        return {
+            type: 'SET_IMPORT_NOTICE',
             text
         };
     },
@@ -307,6 +315,11 @@ export const modalReducer = (state = {}, action) => {
             return {
                 ...state,
                 sectionProgress: action.text
+            };
+        case 'SET_IMPORT_NOTICE':
+            return {
+                ...state,
+                importNotice: action.text
             };
         default:
             return state;
