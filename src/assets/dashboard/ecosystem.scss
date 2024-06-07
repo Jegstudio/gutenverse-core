@@ -49,7 +49,7 @@
         border-radius: 4px;
         box-shadow: 0 0 0 transparent;
         color: #40505d;
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-weight: 400;
         padding: 5px 15px;
         width: 100%;
@@ -78,7 +78,7 @@
 
             input::placeholder {
                 color: #99a2a9;
-                font-family: "Heebo", sans-serif;
+                font-family: "Heebo", serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
@@ -95,7 +95,7 @@
     }
 
     .content-body {
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         min-height: 720px;
 
         &>.ecosystem-wrapper {
@@ -494,7 +494,7 @@
         }
 
         .plugin-title {
-            font-family: "Plus Jakarta Sans", sans-serif;
+            font-family: "Plus Jakarta Sans", serif;
             font-style: normal;
             font-weight: 300;
             font-size: 16px;
@@ -521,7 +521,7 @@
 
         .plugin-version {
             color: #99A2A9;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 12px;
             font-style: normal;
             font-weight: 400;
@@ -531,7 +531,7 @@
 
         .plugin-description {
             color: #40505D;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
