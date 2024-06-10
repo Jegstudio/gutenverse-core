@@ -84,7 +84,7 @@
 #toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] span {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 #toplevel_page_gutenverse > .wp-submenu > li.current:last-child > a[href="?page=gutenverse&path=upgrade-pro"],

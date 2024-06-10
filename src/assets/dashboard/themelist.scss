@@ -237,7 +237,6 @@
 
         .theme-title,
         .theme-title a {
-            width: 63px;
             height: 24px;
             flex-grow: 0;
             padding: 4px 0;
@@ -256,8 +255,7 @@
         .theme-title {
             align-items: center;
             display: inline-flex;
-            flex-wrap: wrap;
-            gap: 6px;
+            gap: 4px;
             margin: 0;
             padding: 0;
 
@@ -416,6 +414,20 @@
                     background-color: white;
                     border: 1px solid #e6e6ef;
                     color: #40505d;
+
+                    &:hover {
+                        border: solid 1px #3b57f7;
+                        font-family: "Roboto", serif;
+                        font-size: 12px;
+                        font-weight: 500;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: #3b57f7;
+
+                    }
                 }
 
                 &.disabled {
@@ -443,11 +455,6 @@
                 &.expire {
                     background-color: #eabb46;
                     color: white;
-                }
-
-                &:hover {
-                    transform: scale(0.94);
-                    opacity: 0.6 !important;
                 }
             }
         }
