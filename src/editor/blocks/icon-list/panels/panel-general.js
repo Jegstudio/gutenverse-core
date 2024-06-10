@@ -97,7 +97,7 @@ export const panelGeneral = (props) => {
                 },
                 {
                     selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => `width : ${value.point}${value.unit};`
+                    render: value => `height : ${value.point}${value.unit};`
                 },
             ]
         },

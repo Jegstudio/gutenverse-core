@@ -328,7 +328,7 @@ class Icon_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
-								return "width : {$value['point']}{$value['unit']};";
+								return "height : {$value['point']}{$value['unit']};";
 							},
 							'value'          => $this->attrs['widthDivider'],
 							'device_control' => false,
