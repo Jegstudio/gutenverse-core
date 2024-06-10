@@ -812,8 +812,13 @@ $border: #eaeaea;
     100% {
       left: 100%;
     }
-  }
+}
 
+.components-snackbar {
+    background-color: red !important;
+    padding: 14px 16px;
+    border-radius: 5px;
+}
 .gutenverse-library-search-bar {
     position: relative;
 
