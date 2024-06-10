@@ -18,6 +18,10 @@
 @import "./dashboard/update-notice.scss";
 @import "./pro.scss";
 
+$primary: #3b57f7;
+$primary2: #006caa;
+$border: #eaeaea;
+
 .components-snackbar-list {
     bottom: 40px;
     padding-left: 16px;
@@ -189,28 +193,38 @@
 
                 .plugin-install-action {
                     .install-action {
-                        border-radius: 20px;
-                        border: 1px solid var(--gutenverse-dashboard-primary);
-                        color: var(--gutenverse-dashboard-primary);
+                        border: 1px solid $primary;
+                        padding: 10px 18px;
+                        border-radius: 5px;
                         cursor: pointer;
                         display: flex;
+                        font-family: Roboto;
                         font-size: 12px;
-                        padding: 8px 20px;
-
+                        font-weight: 500;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: #3b57f7;
+                        display: flex;
+                        align-items: center;
+        
                         .rotating {
                             margin-right: 10px;
                         }
-
+        
                         &.loading,
                         &:hover {
-                            background: var(--gutenverse-dashboard-primary);
-                            color: white;
+                            background: $primary;
+                            color: #fff;
                         }
-
+        
                         &.done {
-                            background: #047104;
-                            border-color: #116e11;
-                            color: white;
+                            color: #fff;
+                            background: #99a2a9;
+                            border-radius: 5px;
+                            border: solid 1px #99a2a9;
                             cursor: inherit;
                         }
                     }
