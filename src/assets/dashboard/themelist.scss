@@ -318,7 +318,11 @@
         &.active {
             .theme-button {
                 &.activate {
-                    background: #ff808b !important;
+                    background-color: #40505d !important;
+
+                    &:hover {
+                        background-color: #323e48;
+                    }
                 }
             }
 
@@ -404,15 +408,56 @@
 
                 &.activate {
                     background-color: #0caf21;
+
+                    &:hover {
+                        background-color: #0b991e;
+
+                        span {
+                            font-family: "Roboto", serif;
+                            font-size: 12px;
+                            font-weight: 500;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: normal;
+                            letter-spacing: normal;
+                            text-align: center;
+                            color: #fff;
+                        }
+                    }
                 }
 
                 &.install {
                     background-color: var(--gutenverse-dashboard-primary);
+
+                    &:hover {
+                        box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
+                        background-color: #2435ec;
+
+                        span {
+                            font-family: "Roboto", serif;
+                            font-size: 12px;
+                            font-weight: 600;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: normal;
+                            letter-spacing: normal;
+                            text-align: center;
+                            color: #fff;
+                        }
+                    }
                 }
 
                 &.demo {
                     background-color: white;
                     border: 1px solid #e6e6ef;
+                    font-family: "Roboto", serif;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: center;
                     color: #40505d;
 
                     &:hover {
