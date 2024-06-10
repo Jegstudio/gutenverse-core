@@ -122,7 +122,7 @@ const Library = () => {
     }, [open]);
 
     return <>
-        <EscListener execute={() => setOpen(false)} />
+        <EscListener execute={() => setVisibility(false)} />
         <LibraryModal
             open={open}
             setOpen={setOpen}

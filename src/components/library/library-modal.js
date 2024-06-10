@@ -6,7 +6,8 @@ import LayoutContent from './layout-content';
 import SectionContent from './section-content';
 import FavoriteContent from './favorite-content';
 import { useState, useEffect } from '@wordpress/element';
-import { store as noticesStore } from '@wordpress/notices';
+import { Snackbar } from '@wordpress/components';
+import { IconInfoGraySVG } from 'gutenverse-core/icons';
 
 const LibraryModal = props => {
     const {
@@ -19,7 +20,6 @@ const LibraryModal = props => {
         importer
     } = props;
 
-    const { createInfoNotice } = useDispatch(noticesStore);
     const { importNotice } = importer;
 
     const closeImporter = () => {
@@ -41,21 +41,39 @@ const LibraryModal = props => {
         }
 
     };
-    const showNotice = (string) => {
-        createInfoNotice(string, {
-            type: 'snackbar',
-            isDismissible: true,
-        });
+
+    const SnackbarNotice = ({ message }) => {
+        const [visible, setVisible] = useState(true);
+
+        useEffect(() => {
+            const timer = setTimeout(() => {
+                setVisible(false);
+                setTimeout(() => {
+                    dispatch('gutenverse/library').setImportNotice(null);
+                }, 300);
+            }, 10000);
+
+            return () => clearTimeout(timer);
+        }, []);
+
+        const handleDismiss = () => {
+            setVisible(false);
+        };
+
+        return (
+            <div
+                className={`gutenverse-library-notice ${!visible ? 'notice-hidden' : ''}`}
+                onClick={handleDismiss}
+            >
+                <Snackbar>
+                    <IconInfoGraySVG/>
+                    <span>{__('Import Failed!', '--gctd--')}</span>
+                    {message}
+                </Snackbar>
+            </div>
+        );
     };
 
-    useEffect(() => {
-        if (importNotice) {
-            showNotice(importNotice);
-            setTimeout(() => {
-                dispatch('gutenverse/library').setImportNotice(null);
-            }, 500);
-        }
-    }, [importNotice]);
     const [burger,setBurger] = useState(false);
     const importerClass = classnames('gutenverse-library-wrapper', {
         'visible': visible
@@ -113,6 +131,7 @@ const LibraryModal = props => {
                 </div>
             </div>
         </div>
+        {importNotice && <SnackbarNotice message={importNotice}/>}
     </> : false;
 };
 
