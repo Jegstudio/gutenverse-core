@@ -818,6 +818,15 @@ $border: #eaeaea;
     background-color: red !important;
     padding: 14px 16px;
     border-radius: 5px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.8);
 }
 .gutenverse-library-search-bar {
     position: relative;
@@ -1042,6 +1051,10 @@ $border: #eaeaea;
                 align-items: center;
     
                 .layout-button {
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -1052,7 +1065,7 @@ $border: #eaeaea;
                     box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
                     border: 1px solid #3b57f7;
                     background-color: #fff;
-                    font: 400 12px Roboto;
+                    font: 600 12px Roboto;
                     text-align: center;
                     color: #3b57f7;
     
