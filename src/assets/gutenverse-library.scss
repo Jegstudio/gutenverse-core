@@ -1702,3 +1702,74 @@ $border: #eaeaea;
     -o-animation: rotating 2s linear infinite;
     animation: rotating 2s linear infinite;
 }
+
+/* Import Notice Library */
+@keyframes libNoticeUp {
+    from {
+        transform: translateY(150%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes libNoticeDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(150%);
+    }
+}
+.gutenverse-library-notice {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    animation: libNoticeUp 0.3s ease-out;
+    z-index: 1000;
+    justify-content:center;
+    display:flex;
+
+    svg {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        color: #fff;
+    }
+
+    span {
+        margin-right: 4px;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .components-snackbar {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 22px;
+        padding: 14px 16px;
+        border-radius: 5px;
+        background-color: #ff151b;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .components-snackbar__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &.notice-hidden {
+        animation: libNoticeDown 0.3s ease-out forwards;
+    }
+}
