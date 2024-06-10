@@ -241,7 +241,7 @@ const Ecosystem = props => {
                 container = "ecosystem"
                 leftBannerImg = "ecosystem-graphic-ecosystem-left.png"
                 rightBannerImg = "ecosystem-graphic-ecosystem-right.png"
-                backgroundGradient = "ecosystem-bg-ecosystem.png"/>
+                backgroundGradient = "banner-dasboard-bg.png"/>
             <div className="ecosystem-wrapper">
                 <PluginsData {...pluginsData} />
             </div>

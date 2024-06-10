@@ -514,7 +514,7 @@ const ThemeListPage = (props) => {
                     container = "themeList"
                     leftBannerImg = "theme-list-graphic-theme-left.png"
                     rightBannerImg = "theme-list-graphic-theme-right.png"
-                    backgroundGradient = "theme-list-bg-gradient-2.png"/>
+                    backgroundGradient = "banner-dasboard-bg.png"/>
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>

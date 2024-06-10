@@ -300,6 +300,7 @@
     border-radius: 5px;
     background-size: cover;
     box-shadow: 0px 24px 48px -12px #1018282E;
+    overflow: hidden;
     .guten-card-pro-image-wrapper{
         position: relative;
         display: flex;
@@ -307,23 +308,26 @@
         justify-content: center;
         margin-bottom: 25px;
         .guten-card-pro-mockup-library{
-            width: 90%;
+            margin-top: 20px;
+            width: 70%;
+            margin-right: 10px;
         }
         .guten-card-pro-3d-cube{
             position: absolute;
-            right: 0;
+            right: -25px;
             width: 55%;
+            transform: rotate(-15deg);
         }
         .guten-card-pro-icon-lottie{
             position: absolute;
-            left: 5px;
+            left: 10px;
             bottom: -8px;
-            width: 18%;
+            width: 13%;
         }
         .guten-card-pro-icon-nav{
             position: absolute;
-            right: 0;
-            width: 20%;
+            right: 3px;
+            width: 13%;
             top: 12px;
         }
     } 
@@ -378,6 +382,7 @@
             right: 0;
             width: 20%;
             bottom: 30px;
+            transform: rotate(-33deg);
         }
         .button-upgrade-pro{
             margin-top: 14px
