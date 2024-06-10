@@ -203,18 +203,18 @@ const ThemeItem = (props) => {
         setPluginInstallMode(true);
     };
 
+    const defaultButton = () => {
+        return requirementStatus?.length > 0 ? <div className="manage-plugin theme-button" onClick={setToCurrentItem}>
+            {__('Manage Plugin', '--gctd--')}
+        </div> : loadButton(active, exist);
+    };
+
     const actionButton = () => {
         const { upgradeProUrl } = window['GutenverseDashboard'];
 
-        if (pro) {
-            return <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
-                {__('Upgrade to Pro', '--gctd--')}
-            </div>;
-        } else {
-            return requirementStatus?.length > 0 ? <div className="manage-plugin theme-button" onClick={setToCurrentItem}>
-                {__('Manage Plugin', '--gctd--')}
-            </div> : loadButton(active, exist);
-        }
+        return pro ? <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
+            {__('Upgrade to PRO', '--gctd--')}
+        </div> : defaultButton();
     };
 
     const dev = '--dev_mode--';
@@ -257,7 +257,7 @@ const ThemeItem = (props) => {
                     {applyFilters(
                         'gutenverse.library.themelist.import',
                         actionButton(),
-                        () => loadButton(active, exist),
+                        defaultButton,
                         pro
                     )}
                     <a href={demo} target="_blank" rel="noreferrer" className="demo theme-button">
@@ -300,7 +300,7 @@ const PluginInstallThemeList = props => {
                     plugin={{
                         installed: true,
                         name: 'Gutenverse',
-                        slug: '--gctd--',
+                        slug: 'gutenverse',
                         version: compatibleVersion
                     }}
                     plugins={installedPlugin}

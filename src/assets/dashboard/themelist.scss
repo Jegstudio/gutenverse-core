@@ -213,17 +213,25 @@
             }
 
             .pro-flag {
-                display: flex;
+                color: #fff;
+                font-size: 9px;
+                width: fit-content;
+                cursor: pointer;
+                z-index: 99;
                 position: absolute;
+                top: 6px;
+                right: 6px;
+                font-family: 'Inter', sans-serif;
+                line-height: normal;
+                letter-spacing: 2%;
+                display: flex;
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
                 gap: 1px;
                 padding: 3px 4px 4px;
                 border-radius: 3px;
-                right: 5.5px;
-                top: 5.5px;
-                background-image: linear-gradient(215deg, #ff808b 76%, #f93a50 -14%);
+                background-image: linear-gradient(215deg, #ff808b 40%, #f93a50 100%);
             }
         }
 
