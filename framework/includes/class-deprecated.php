@@ -39,7 +39,7 @@ class Deprecated {
 	 * @param string                 $id             Template unique identifier (example: theme_slug//template_slug).
 	 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
 	 */
-	public function get_block_file_template( $block_template, $id, $template_type ) {
+	public function get_block_file_template( $block_template, $id, $template_type, $count = 0, $old_slug = '' ) {
 		/**
 		 * Filters the block templates array before the query takes place.
 		 *
@@ -52,7 +52,7 @@ class Deprecated {
 		 * @param string                 $id             Template unique identifier (example: theme_slug//template_slug).
 		 * @param string                 $template_type  Template type: `'wp_template'` or '`wp_template_part'`.
 		 */
-		$block_template = apply_filters( 'pre_get_block_file_template', null, $id, $template_type, $count = 0, $old_slug = '' );
+		$block_template = apply_filters( 'pre_get_block_file_template', null, $id, $template_type );
 		if ( ! is_null( $block_template ) ) {
 			return $block_template;
 		}
