@@ -81,13 +81,13 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
                 closeImporter();
                 setExporting({show: false, message: 'Done!', progress: ''});
                 if (fail) {
-                    dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                    dispatch('gutenverse/library').setImportNotice(`${fail} image not imported.`);
                 }
             }, 300);
         }).catch((e) => {
             setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
             setTimeout(() => {
-                dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
+                dispatch('gutenverse/library').setImportNotice('Please Try Again.');
                 setShowOverlay(false);
                 setExporting({show: false, message: 'Failed!', progress: ''});
                 console.log(e);

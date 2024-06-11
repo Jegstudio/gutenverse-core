@@ -103,7 +103,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                     closeImporter();
                     setExporting({show: false, message: 'Done!', progress: ''});
                     if (fail) {
-                        dispatch('gutenverse/library').setImportNotice(`Failed to import ${fail} Image${fail > 1 ? 's' : ''}`);
+                        dispatch('gutenverse/library').setImportNotice(`${fail} image not imported.`);
                     }
                 }, 300);
             })
@@ -111,7 +111,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                 setExporting({show: true, message: 'Failed!', progress: '4/4'});
                 setTimeout(() => {
                     console.log(e);
-                    dispatch('gutenverse/library').setImportNotice('Import Failed, please try again');
+                    dispatch('gutenverse/library').setImportNotice('Please Try Again.');
                     setExporting({show: false, message: 'Failed!', progress: ''});
                 }, 300);
             });
