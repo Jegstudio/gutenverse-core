@@ -34,7 +34,7 @@
         text-transform: uppercase;
         padding: 4px 12px;
         background-color: #F2F4F7;
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-size: 12px;
         font-weight: 500;
         letter-spacing: 0.1em;
@@ -47,7 +47,7 @@
         padding: 20px;
 
         &>h3 {
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 16px;
             font-weight: 500;
             margin: 0;
@@ -57,7 +57,7 @@
         }
 
         &>p {
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 12px;
             font-weight: 400;
             margin: 16px 0 0;
@@ -101,7 +101,7 @@
 
                 h4 {
                     margin: 0;
-                    font-family: "Plus Jakarta Sans", sans-serif;
+                    font-family: "Plus Jakarta Sans", serif;
                     font-style: normal;
                     font-weight: 300;
                     font-size: 16px;
@@ -125,7 +125,7 @@
                     cursor: pointer;
                     text-align: center;
                     font-size: 7px;
-                    font-family: "Roboto", sans-serif;
+                    font-family: "Roboto", serif;
                     font-style: normal;
                     font-weight: 500;
                     line-height: normal;
@@ -142,7 +142,7 @@
                     display: flex;
                     align-items: center;
                     gap: 5px;
-                    font-family: "Roboto", sans-serif;
+                    font-family: "Roboto", serif;
                     font-size: 10px;
                     font-weight: 400;
                     line-height: 18px;
@@ -253,7 +253,7 @@
 
             h2 {
                 color: #011627;
-                font-family: "Roboto", sans-serif;
+                font-family: "Roboto", serif;
                 font-size: 20px;
                 font-weight: 600;
                 line-height: 23px;
@@ -262,7 +262,7 @@
 
             span {
                 color: #40505d;
-                font-family: "Roboto", sans-serif;
+                font-family: "Roboto", serif;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
@@ -288,7 +288,7 @@
 
     .feature-panel h2 {
         color: #011627;
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-size: 42px;
         font-style: normal;
         font-weight: 600;
@@ -299,7 +299,7 @@
     .subscribe-panel span,
     .feature-panel span {
         color: #40505d;
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -308,7 +308,7 @@
 
     .feature-panel a {
         color: var(--gutenverse-dashboard-primary);
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-style: normal;
         font-weight: 400;
@@ -350,7 +350,7 @@
             align-items: center;
             color: #FFFFFF;
             display: flex;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 13px;
             font-style: normal;
             font-weight: 500;
@@ -396,7 +396,7 @@
         input {
             background: none;
             border: none;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             font-size: 14px;
             font-style: normal;
             font-weight: 400;
@@ -431,7 +431,7 @@
         }
 
         .btn {
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
         }
     }
 
@@ -642,7 +642,7 @@
 
             h2,
             span {
-                font-family: "Roboto", sans-serif;
+                font-family: "Roboto", serif;
                 margin: 10px 0;
                 width: 100%;
             }
@@ -651,7 +651,7 @@
                 align-items: center;
                 color: var(--gutenverse-dashboard-primary);
                 display: flex;
-                font-family: "Roboto", sans-serif;
+                font-family: "Roboto", serif;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;

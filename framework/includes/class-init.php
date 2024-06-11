@@ -358,7 +358,7 @@ class Init {
 			}
 
 			.install-gutenverse-plugin-notice a.gutenverse-button {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", serif, sans-serif;
 				text-decoration: none;
 				cursor: pointer;
 				font-size: 12px;
