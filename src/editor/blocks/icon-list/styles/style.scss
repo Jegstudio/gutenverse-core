@@ -11,7 +11,6 @@
 
     .guten-icon-list-item {
         .list-text {
-            display: flex;
             &.no-icon {
                 padding-left: 0;
                 padding-right: 0;
@@ -20,8 +19,9 @@
     }
 
     a {
-        color: var(--guten-txt-color);
+        color: var(--guten-txt-color) !important;
         display: flex;
         align-items: center;
+        height: 100%;
     }
 }
