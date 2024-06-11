@@ -698,7 +698,7 @@ $border: #eaeaea;
     .library-export-notice {
         position: sticky;
         top: 20px;
-        height: 27px;
+        height: 37.5px;
         z-index: 999;
     
         .library-export-notice-container {
@@ -722,12 +722,12 @@ $border: #eaeaea;
                     display: flex;
                     gap: 5px;
                     align-items: center;
-                    padding: 6px 0 0;
+                    padding: 10px 10px 2px;
                     justify-content: space-between;
                     width: 100%;
     
                     span {
-                        font-family: Roboto, serif;
+                        font-family: "Roboto", serif;
                         font-size: 12px;
                         font-weight: normal;
                         font-stretch: normal;
