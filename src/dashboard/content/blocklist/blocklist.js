@@ -120,7 +120,7 @@ const BlockList = ({ saving, saveData, settingValues, updateValues, updateSettin
                             <span></span>
                             <div>
                                 <span>
-                                    this
+                                    {__('This', '--gctd--')}
                                     <img src={`${imgDir}/block-tooltip.webp`} />
                                 </span>
                                 {__(' will appear on your element that you have used in the WordPress editor if you disable an element.', '--gctd--')}

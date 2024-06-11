@@ -249,6 +249,7 @@
                         color: var(--gutenverse-dashboard-primary);
                         cursor: pointer;
                         position: relative;
+                        text-decoration: underline;
 
                         &:hover {
                             img {
@@ -265,7 +266,7 @@
                         top: 14px;
                         visibility: hidden;
                         width: 428px;
-                        left: -148px;
+                        left: -145px;
                     }
                 }
             }
