@@ -103,6 +103,10 @@ export const inputPanel = props => {
                     value: 'hover',
                     label: 'Hover'
                 },
+                {
+                    value: 'focus',
+                    label: 'Focus'
+                },
             ],
             onChange: ({ __itemState }) => setSwitcher({ ...switcher, inputState: __itemState })
         },
@@ -213,6 +217,67 @@ export const inputPanel = props => {
             ]
         },
         {
+            id: 'inputColorFocus',
+            show: switcher.inputState === 'focus',
+            label: __('Input Color Focus', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'inputBgColorFocus',
+            show: switcher.inputState === 'focus',
+            label: __('Input Background Color Focus', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
+        },
+        {
+            id: 'inputBorderFocus',
+            show: (switcher.inputState === 'focus') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                },
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+                    render: () => 'outline: none !important'
+                }
+            ]
+        },
+        {
+            id: 'inputBorderFocusResponsive',
+            show: (switcher.inputState === 'focus') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                },
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+                    render: () => 'outline: none !important'
+                }
+            ]
+        },
+        {
             id: 'inputAreaBoxShadow',
             show: !switcher.inputState || switcher.inputState === 'normal',
             label: __('Box Shadow', 'gutenverse'),
@@ -233,6 +298,19 @@ export const inputPanel = props => {
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
+        },
+        {
+            id: 'inputAreaBoxShadowFocus',
+            show: switcher.inputState === 'focus',
+            label: __('Focus Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }

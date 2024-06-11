@@ -83,6 +83,20 @@
 		"boxShadowHover": {
 			"type": "object"
 		},
+		"borderFocus": {
+			"type": "object"
+		},
+		"borderFocusResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadowFocus": {
+			"type": "object"
+		},
 		"margin": {
 			"type": "object"
 		},
@@ -167,10 +181,27 @@
 			},
 			"copyStyle": true
 		},
+		"inputColorFocus": {
+			"type": "object"
+		},
+		"inputBorderFocus": {
+			"type": "object"
+		},
+		"inputBorderFocusResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "inputBorderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"inputBgColorNormal": {
 			"type": "object"
 		},
 		"inputBgColorHover": {
+			"type": "object"
+		},
+		"inputBgColorFocus": {
 			"type": "object"
 		},
 		"transform": {
@@ -183,6 +214,9 @@
 			"type": "object"
 		},
 		"inputAreaBoxShadowHover": {
+			"type": "object"
+		},
+		"inputAreaBoxShadowFocus": {
 			"type": "object"
 		},
 		"alignContent": {
