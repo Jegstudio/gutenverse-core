@@ -43,7 +43,7 @@
             align-items: center;
         }
         h2{
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 16px;
             font-weight: 500;
             line-height: 19px;
@@ -52,7 +52,7 @@
             display: block  ;
         }
         h3{
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 14px;
             font-weight: 500;
             line-height: 20px;
@@ -201,7 +201,7 @@
                     }
 
                     h4 {
-                        font-family: "Plus Jakarta Sans", sans-serif;
+                        font-family: "Plus Jakarta Sans", serif;
                         font-style: normal;
                         font-weight: 600;
                         font-size: 20px;
@@ -211,7 +211,7 @@
                     }
 
                     p {
-                        font-family: "Roboto", sans-serif;
+                        font-family: "Roboto", serif;
                         font-style: normal;
                         font-weight: 400;
                         font-size: 14px;
@@ -290,7 +290,7 @@
     justify-content: space-between;
     align-items: center;
     h2{
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 18px;
         font-weight: 500;
         line-height: 21px;
@@ -314,7 +314,7 @@
 }
 .repeater-item .repeater-title {
     .custom-font-family{
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 16px;
         font-weight: 500;
         line-height: 19px;
@@ -326,7 +326,7 @@
         border: 1px solid #E3E4E6;
         background-color: white;
         padding: 5px 5px;
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 400;
         line-height: 16px;

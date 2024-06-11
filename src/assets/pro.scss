@@ -9,7 +9,7 @@
     padding: 10px 16px;
     text-align: center;
     text-decoration: none;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
@@ -48,20 +48,20 @@
 }
 
 .button-upgrade-pro:hover {
-    color: rgba(255, 255, 255, .6) !important;
+    color: rgba(255, 255, 255, .75) !important;
 
     svg {
-        opacity: 60%;
+        opacity: 75%;
     }
 }
 
 .button-upgrade-pro-banner {
     display: flex;
     transition: all .5s ease;
-    padding: 8px 15px 8px 20px;
+    padding: 10px 15px 10px 20px;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     border-radius: 5px;
     background: linear-gradient(92deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%), rgba(255, 255, 255, 0.20);
 }
@@ -83,7 +83,7 @@
     ;
 
     .title {
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 32px;
         font-weight: 500;
         line-height: 36px;
@@ -107,7 +107,7 @@
     .subtitle {
         color: rgba(1, 22, 39, 0.50);
         font-size: 14px;
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-style: normal;
         font-weight: 400;
         margin-bottom: 8px;
@@ -218,7 +218,7 @@
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             line-height: 18px;
             padding: 8px 16px;
         }
@@ -233,7 +233,7 @@
             cursor: pointer;
             font-size: 12px;
             font-weight: 500;
-            font-family: "Roboto", sans-serif;
+            font-family: "Roboto", serif;
             line-height: 18px;
             padding: 8px 16px;
             text-decoration: none;
@@ -253,7 +253,7 @@
         max-width: 100%;
     }
     .card-pro-title{
-        font-family: "Roboto", sans-serif;
+        font-family: "Roboto", serif;
         font-size: 18px;
         font-weight: 500;
         line-height: 20px;
@@ -300,6 +300,7 @@
     border-radius: 5px;
     background-size: cover;
     box-shadow: 0px 24px 48px -12px #1018282E;
+    overflow: hidden;
     .guten-card-pro-image-wrapper{
         position: relative;
         display: flex;
@@ -307,23 +308,26 @@
         justify-content: center;
         margin-bottom: 25px;
         .guten-card-pro-mockup-library{
-            width: 90%;
+            margin-top: 20px;
+            width: 70%;
+            margin-right: 10px;
         }
         .guten-card-pro-3d-cube{
             position: absolute;
-            right: 0;
+            right: -25px;
             width: 55%;
+            transform: rotate(-15deg);
         }
         .guten-card-pro-icon-lottie{
             position: absolute;
-            left: 5px;
+            left: 10px;
             bottom: -8px;
-            width: 18%;
+            width: 13%;
         }
         .guten-card-pro-icon-nav{
             position: absolute;
-            right: 0;
-            width: 20%;
+            right: 3px;
+            width: 13%;
             top: 12px;
         }
     } 
@@ -333,7 +337,7 @@
         justify-content: center;
         margin-bottom: 20px;
         .guten-card-pro-title{
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 20px;
             font-weight: 600;
             line-height: 20px;
@@ -362,7 +366,7 @@
             background: linear-gradient(91.52deg, #F045FF -12.88%, #4569FF 51.2%, #68E4F4 105.74%);
             border-radius: 8px;
             text-align: center;
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0em;
@@ -378,6 +382,7 @@
             right: 0;
             width: 20%;
             bottom: 30px;
+            transform: rotate(-33deg);
         }
         .button-upgrade-pro{
             margin-top: 14px
@@ -393,7 +398,7 @@
     height: 135px;
     .guten-pro-advance-animation-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 16px;
         font-weight: 500;
         line-height: 19px;
@@ -419,7 +424,7 @@
     position: relative;
     .guten-pro-background-animated-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -446,7 +451,7 @@
     position: relative;
     .guten-pro-popup-builder-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -473,7 +478,7 @@
     box-shadow: 0px 24px 48px -12px #1018283D;
     .guten-pro-custom-font-title p{
         color: black;
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         letter-spacing: 0em;
@@ -493,7 +498,7 @@
     padding: 0px 3px;
     .guten-pro-total-themes-number{
         color: white;
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 28px;
         font-weight: 800;
         line-height: 18px;
@@ -505,7 +510,7 @@
     }
     .guten-pro-total-themes-title{
         color: white;
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 10px;    
         font-style: normal;
         font-weight: 400;
@@ -531,7 +536,7 @@
         h2{
             padding-top: 8px;
             color: var(--White, #FFF);
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 16px;
             font-weight: 500;
             letter-spacing: 0em;
@@ -539,7 +544,7 @@
         }
         p{
             color: rgba(255, 255, 255,0.5);
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 12px;
             font-weight: 600;
             letter-spacing: 0em;
@@ -547,7 +552,7 @@
             width: 80%;
             span{
                 color: white;
-                font-family: Roboto;
+                font-family: "Roboto", serif;
             }
         }
     }
@@ -569,7 +574,7 @@
     overflow: hidden;
     .guten-pro-text-clip-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -597,7 +602,7 @@
     overflow: hidden;
     .guten-pro-transform-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -633,7 +638,7 @@
     position: relative;
     .guten-pro-shape-divider-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -661,7 +666,7 @@
     position: relative;
     .guten-pro-form-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -682,7 +687,7 @@
     position: relative;
     .guten-pro-copy-paste-title p{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -711,7 +716,7 @@
     position: relative;
     overflow: hidden;
     .guten-pro-highlight-text-example{
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 18px;
         font-style: italic;
         font-weight: 700;
@@ -727,7 +732,7 @@
     }
     .guten-pro-highlight-text-title{
         color: var(--White, #FFF);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 14px;
         font-weight: 500;
         line-height: 17px;
@@ -759,7 +764,7 @@
         margin-top: 20px;
         h2{
             color: black;
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 16px;
             font-weight: 500;
             line-height: 19px;
@@ -783,7 +788,7 @@
     }
     p{
         color: rgba(1, 22, 39, 0.5);
-        font-family: Roboto;
+        font-family: "Roboto", serif;
         font-size: 12px;
         font-weight: 400;
         line-height: 16px;
@@ -803,7 +808,7 @@
         z-index: 2;
         .guten-pro-bottom-button{
             background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
-            font-family: Roboto;
+            font-family: "Roboto", serif;
             font-size: 12px;
             font-weight: 500;
             line-height: 14px;

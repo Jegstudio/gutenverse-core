@@ -2,7 +2,7 @@ import { sprintf, _n, __ } from '@wordpress/i18n';
 import { useEffect, useState } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import axios from 'axios';
-import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
+import { IconCloseSVG, IconNotFoundSVG, IconInfoYellowSVG, IconCrownBannerSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import queryString from 'query-string';
 import isEmpty from 'lodash/isEmpty';
@@ -16,7 +16,7 @@ import { compose } from '@wordpress/compose';
 import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
-import { BannerPro } from 'gutenverse-core/components';
+import { BannerPro, ButtonUpgradePro } from 'gutenverse-core/components';
 
 const { installNonce, themeUrl } = window['GutenverseThemeList'];
 
@@ -210,11 +210,14 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        const { upgradeProUrl } = window['GutenverseDashboard'];
+        // const { upgradeProUrl } = window['GutenverseDashboard'];
 
-        return pro ? <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
-            {__('Upgrade to PRO', '--gctd--')}
-        </div> : defaultButton();
+        // return pro ? <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
+        //     {__('Upgrade to PRO', '--gctd--')}
+        //     <IconCrownBannerSVG />
+        // </div> : defaultButton();
+
+        return pro ? <ButtonUpgradePro isBanner={true} location="card-pro" customStyles={{marginRight: '10px'}}/> : defaultButton();
     };
 
     const dev = '--dev_mode--';
@@ -514,7 +517,7 @@ const ThemeListPage = (props) => {
                     container = "themeList"
                     leftBannerImg = "theme-list-graphic-theme-left.png"
                     rightBannerImg = "theme-list-graphic-theme-right.png"
-                    backgroundGradient = "theme-list-bg-gradient-2.png"/>
+                    backgroundGradient = "banner-dasboard-bg.png"/>
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>
