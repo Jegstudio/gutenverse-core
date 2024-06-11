@@ -31,7 +31,6 @@ const WizardContainer = ({ setStage }) => {
 
     const [selected, setSelected] = useState({
         form: true && status.form,
-        popup: true && status.popup,
         icon: true && status.icon
     });
 
@@ -90,8 +89,7 @@ const WizardContainer = ({ setStage }) => {
             totalStep: totalStep,
             text
         });
-
-        if (index < totalStep) {
+        if ( index < totalStep ) {
             apiFetch({
                 path: 'gutenverse-client/v1/upgrade',
                 method: 'POST',
