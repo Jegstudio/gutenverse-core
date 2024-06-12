@@ -282,12 +282,15 @@ const LayoutSingleItem = ({ item, showSingleLayout }) => {
     const minHeight = paddingBottom === 0 ? '44px' : 'unset';
     const [isLoaded, setIsLoaded] = useState(false);
     return <div className="library-item" key={item.id}>
-        <div className="library-item-holder" style={{
-            paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
-        }} onClick={() => showSingleLayout(item.id, item.slug)}>
-            {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
-            <img src={item.cover[0]} onLoad={() => setIsLoaded(true)}/>
+        <div className="library-item-content">
+            <div className="library-item-holder" style={{
+                paddingBottom: `${paddingBottom}%`, minHeight: {minHeight}, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
+            }} onClick={() => showSingleLayout(item.id, item.slug)}>
+                {item.pro && <div className="pro-flag" onClick={() => showSingleLayout(item.id)}>{__('PRO', '--gctd--')}</div>}
+                <img src={item.cover[0]} onLoad={() => setIsLoaded(true)}/>
+            </div>
         </div>
+        
         <div className="library-item-divider" />
         <div className="library-item-detail">
             <div className="library-item-wrapper">

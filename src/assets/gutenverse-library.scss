@@ -269,18 +269,6 @@ $border: #eaeaea;
                     overflow: hidden;
                     cursor: pointer;
                     position: relative;
-                    &::before{
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        content: '';
-                        z-index: 1;
-                        position: absolute;
-                        background: linear-gradient(141deg, #fcfcfc62 0%, #c0c0c082 99%);
-                        transform: translateX(-100%);
-                        animation: loading-skeleton-keyframes-wave .75s linear .5s infinite;
-                    }
 
                     .pro-flag {
                         color: #fff;
@@ -473,7 +461,7 @@ $border: #eaeaea;
                     left: 0;
                     bottom: 0;
                     padding: 0 !important;
-                    z-index: 10;
+                    z-index: 99;
                 }
 
                 .library-item-overlay {
