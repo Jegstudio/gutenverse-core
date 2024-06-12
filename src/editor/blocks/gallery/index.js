@@ -34,6 +34,17 @@ export const settings = {
                     deprecated: true,
                 },
             },
+            migrate: (attributes) => {
+                const { showed } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    showed: parseInt(showed),
+                };
+
+                return [
+                    newAttributes
+                ];
+            },
             save: saveV1
         }
     ]

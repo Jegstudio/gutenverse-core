@@ -15,7 +15,6 @@ const TeamProfile = (props) => {
         nameRef,
         jobRef,
         descRef,
-        elementRef
     } = props;
     const {
         profileType,

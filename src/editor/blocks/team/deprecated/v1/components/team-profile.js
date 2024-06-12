@@ -1,20 +1,12 @@
 
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { __ } from '@wordpress/i18n';
 import { RichText } from '@wordpress/block-editor';
-import { RichTextComponent } from 'gutenverse-core/components';
 
 const TeamProfile = (props) => {
     const {
         socialComponent,
         attributes,
-        setAttributes,
-        setPanelState,
         frontEnd,
-        clientId,
-        nameRef,
-        jobRef,
-        descRef
     } = props;
     const {
         profileType,
@@ -45,68 +37,14 @@ const TeamProfile = (props) => {
                     tagName={tag}
                     value={data}
                 />;
-            }else{
-                let ref = null;
-                if(identifier === 'name'){
-                    ref = nameRef;
-                }else if(identifier === 'job'){
-                    ref = jobRef;
-                }else if(identifier === 'description'){
-                    ref = descRef;
-                }
-                return(
-                    <RichTextComponent
-                        ref={ref}
-                        classNames={classnames}
-                        tagName={tag}
-                        onChange={value => setAttributes({ [identifier]: value })}
-                        multiline={false}
-                        setAttributes={setAttributes}
-                        attributes={attributes}
-                        clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 1}}
-                        panelPosition={{panel : 'style', section : 1}}
-                        contentAttribute={identifier}
-                        setPanelState={setPanelState}
-                        textChilds={identifier + 'Childs'}
-                        isUseDinamic={false}
-                        isUseHighlight={true}
-                    />
-                );
             }
-        }else if(!showDesc && identifier !== 'description'){
+        } else if(!showDesc && identifier !== 'description'){
             if(frontEnd){
                 return <RichText.Content
                     className={classnames}
                     tagName={tag}
                     value={data}
                 />;
-            }else{
-                let ref = null;
-                if(identifier === 'name'){
-                    ref = nameRef;
-                }else if(identifier === 'job'){
-                    ref = jobRef;
-                }
-                return(
-                    <RichTextComponent
-                        ref={ref}
-                        classNames={classnames}
-                        tagName={tag}
-                        onChange={value => setAttributes({ [identifier]: value })}
-                        multiline={false}
-                        setAttributes={setAttributes}
-                        attributes={attributes}
-                        clientId={clientId}
-                        panelDynamic={{panel : 'setting', section : 1}}
-                        panelPosition={{panel : 'style', section : 1}}
-                        contentAttribute={identifier}
-                        setPanelState={setPanelState}
-                        textChilds={identifier + 'Childs'}
-                        isUseDinamic={false}
-                        isUseHighlight={true}
-                    />
-                );
             }
         }
     };
@@ -115,9 +53,9 @@ const TeamProfile = (props) => {
         switch(profileType) {
             case 'overlay':
                 return (
-                    <div className={`profile-card card-overlay ${overlayType}`}>
+                    <div className={`profile-card card-overlay ${overlayType === undefined ? 'undefined' : overlayType}`}>
                         {lazyLoad()}
-                        <div className={`profile-body ${overlayPosition}`}>
+                        <div className={`profile-body ${overlayPosition === undefined ? 'undefined' : overlayPosition}`}>
                             {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,'name', name, NameTag )}
                             {contentDesc('profile-sub', 'job', job, 'p')}
                             {contentDesc('profile-desc', 'description', description, 'p')}

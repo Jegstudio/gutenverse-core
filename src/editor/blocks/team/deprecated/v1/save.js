@@ -15,7 +15,6 @@ const save = compose(
 )((props) => {
     const {
         attributes,
-        setAttributes,
     } = props;
 
     const {
@@ -45,7 +44,7 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <TeamProfile 
+            <TeamProfile
                 {...props}
                 frontEnd={true}
                 socialComponent={socialComponent}/>
