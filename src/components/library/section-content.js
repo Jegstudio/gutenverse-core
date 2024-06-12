@@ -228,6 +228,7 @@ const SectionContentItem = props => {
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
     const [name, setName] = useState('');
+    const [ isLoaded, setIsLoaded ] = useState(false);
 
     useEffect(() => {
         if (item.categories !== undefined && item.categories.length > 0) {
@@ -275,10 +276,10 @@ const SectionContentItem = props => {
                     <Loader size={20} />
                 </div>
             </div>}
-            <div className="library-item-holder" style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: 'white', zIndex:'5'
+            <div className="library-item-holder " style={{
+                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
             }}>
-                <img src={image} />
+                <img src={image} onLoad={() => setIsLoaded(true)}/>
                 <div className="library-item-detail">
                     {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay ? 'show-overlay' : ''}`}>
                         <ImportSectionButton
