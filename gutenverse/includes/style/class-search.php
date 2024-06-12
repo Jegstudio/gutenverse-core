@@ -197,6 +197,74 @@ class Search extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['inputColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['inputColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBgColorFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['inputBgColorFocus'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderFocus'] ) ) {
+			$this->handle_border( 'inputBorderFocus', ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus" );
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
+					'property'       => function() {
+						return 'outline: none !important;';
+					},
+					'value'          => '',
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['inputBorderFocusResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['inputBorderFocusResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
+					'property'       => function() {
+						return 'outline: none !important;';
+					},
+					'value'          => '',
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['inputWidth'] ) ) {
 			$this->inject_style(
 				array(
@@ -252,6 +320,18 @@ class Search extends Style_Abstract {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['inputAreaBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['inputAreaBoxShadowFocus'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus, .{$this->element_id} .guten-button-wrapper .guten-button:focus",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['inputAreaBoxShadowFocus'],
 					'device_control' => false,
 				)
 			);

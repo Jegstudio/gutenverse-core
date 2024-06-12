@@ -23,12 +23,17 @@ export const settings = {
                     type: 'string',
                     deprecated: true,
                 },
+                overlayPosition: {
+                    type: 'string',
+                    deprecated: true,
+                },
             },
             migrate: (attributes) => {
-                const { overlayType } = attributes;
+                const { overlayType, overlayPosition } = attributes;
                 const newAttributes = {
                     ...attributes,
-                    overlayType: overlayType,
+                    overlayType: overlayType === undefined ? 'default' : overlayType,
+                    overlayPosition: overlayPosition === undefined ? 'center' : overlayPosition,
                 };
                 return [
                     newAttributes
