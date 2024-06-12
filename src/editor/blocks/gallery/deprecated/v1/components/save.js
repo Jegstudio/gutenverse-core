@@ -1,6 +1,5 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
 import GalleryItem from './components/gallery-item';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
@@ -38,6 +37,7 @@ const save = compose(
         itemsPerLoad,
         zoomOptions,
     } = attributes;
+
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -62,7 +62,7 @@ const save = compose(
     };
 
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} data-grid={grid}>
+        <div className={className} {...advanceAnimationData} data-grid={grid}>
             <div className="gutenverse-popup-gallery hidden">
                 <div className="gallery-header">
                     <div className="left-header">
