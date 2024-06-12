@@ -225,7 +225,7 @@ $border: #eaeaea;
 
                 .library-item-content {
                     background-color: #e3e4e6;
-                    border-radius: inherit;
+                    border-radius: 5px 5px 0 0;
                     overflow: hidden;
                     position: relative;
                     &::before{
@@ -265,7 +265,7 @@ $border: #eaeaea;
                 }
 
                 .library-item-holder {
-                    border-radius: 5px;
+                    border-radius: 5px 5px 0 0;
                     overflow: hidden;
                     cursor: pointer;
                     position: relative;
