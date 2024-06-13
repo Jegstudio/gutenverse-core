@@ -39,7 +39,7 @@ class Style_Generator {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
 		// priority change to 10 and embed font after style generator with priority 11 
 		// to fix font not loaded in frontend for section that imported from libarry
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
