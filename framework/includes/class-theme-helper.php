@@ -31,6 +31,7 @@ class Theme_Helper {
 		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null );
 		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null );
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
+		add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
 
 		// Action.
 		add_action( 'wp', array( $this, 'home_template' ), 99 );
@@ -41,6 +42,65 @@ class Theme_Helper {
 		 * Now these functions will be called directly.
 		 */
 		add_action( 'wp', array( $this, 'register_block_core_template_part' ) );
+	}
+
+	/**
+	 * Get custom template.
+	 *
+	 * @param mixed  $block_template Template file path.
+	 * @param string $id Theme id.
+	 * @param string $template_type Template type.
+	 *
+	 * @return mxied
+	 */
+	public function get_block_template( $block_template, $id, $template_type ) {
+		$parts = explode( '//', $id, 2 );
+		if ( count( $parts ) < 2 ) {
+			/** This filter is documented in wp-includes/block-template-utils.php */
+			return apply_filters( 'get_block_file_template', null, $id, $template_type );
+		}
+		list( $theme, $slug ) = $parts;
+
+		$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template' );
+
+		foreach ( $custom_templates as $template ) {
+			if ( $template['slug'] === $slug ) {
+				$block_template = _build_block_template_result_from_file( $this->get_template_content( $template['path'], $slug, $theme, $template_type ), $template_type );
+			}
+		}
+
+		return $block_template;
+	}
+
+	/**
+	 * Get custom template file.
+	 *
+	 * @param string $file_path Template file path.
+	 * @param string $slug Template slug.
+	 * @param string $theme Theme id.
+	 * @param string $template_type Template type.
+	 *
+	 * @return mxied
+	 */
+	public function get_template_content( $file_path, $slug, $theme, $template_type ) {
+		if ( file_exists( $file_path ) ) {
+			$new_template_item = array(
+				'slug'  => $slug,
+				'path'  => $file_path,
+				'theme' => $theme,
+				'type'  => $template_type,
+			);
+
+			if ( 'wp_template_part' === $template_type ) {
+				return _add_block_template_part_area_info( $new_template_item );
+			}
+
+			if ( 'wp_template' === $template_type ) {
+				return _add_block_template_info( $new_template_item );
+			}
+
+			return $new_template_item;
+		}
 	}
 
 	/**
