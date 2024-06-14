@@ -48,11 +48,11 @@ export const contentStyle = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.horizontal > div:not(:first-child)`,
+                    selector: `.editor-styles-wrapper .${elementId}.horizontal > div:not(:first-of-type)`,
                     render: value => `margin-left: ${value}px;`
                 },
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.vertical > div:not(:first-child)`,
+                    selector: `.editor-styles-wrapper .${elementId}.vertical > div:not(:first-of-type)`,
                     render: value => `margin-top: ${value}px;`
                 }
             ]
