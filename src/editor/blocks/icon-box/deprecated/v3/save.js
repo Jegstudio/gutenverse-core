@@ -94,7 +94,7 @@ const save = compose(
                 </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode} type-image`}>
+                    <div className={`icon style-${iconStyleMode}`}>
                         <WrapAHref {...props}>
                             {imageLazyLoad()}
                         </WrapAHref>
