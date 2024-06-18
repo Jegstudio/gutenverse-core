@@ -27,7 +27,7 @@ export const handleTextClip = (background) => {
 
         if (image) {
             normalAppender({
-                style: `background-image: url(${image.image});`,
+                style: `background-image: url(${image.image}); width:fit-content;`,
                 elementStyle
             });
         }
