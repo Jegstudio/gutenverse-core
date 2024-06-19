@@ -23,7 +23,6 @@ const RangeControl = ({
     isParseFloat = false,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
-
     const [localValue, setLocalValue] = useState(value);
     const [updating, setUpdating] = useState(false);
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
