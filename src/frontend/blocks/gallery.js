@@ -3,35 +3,57 @@ import { Default, u } from 'gutenverse-core-frontend';
 class GutenverseGallery extends Default {
     /* public */
     init() {
-        const elements = this._elements;
-        const addSliderEffect = this._addSliderEffect;
-        const addEvents = this._addEvents;
+        const $this = this;
+
         window.onload = function () {
-            if (elements.length > 0) {
+            if ($this._elements.length > 0) {
                 const promiseShuffle = import(/* webpackChunkName: "chunk-shufflejs" */'shufflejs');
                 const promiseSwiper = import(/* webpackChunkName: "chunk-swiper" */'swiper');
                 const promiseSwiperModule = import(/* webpackChunkName: "chunk-swiper-modules" */'swiper/modules');
-                const images = u('.thumbnail-wrap img');
-                const proms=images.nodes.map(im=>new Promise(res=>
-                    im.onload=()=>res([im.width,im.height])
-                ));
-                Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule, proms])
+
+                Promise.all([promiseShuffle, promiseSwiper, promiseSwiperModule])
                     .then((result) => {
                         const { default: Shuffle } = result[0];
                         const { default: Swiper } = result[1];
                         const { Navigation, Pagination, Zoom } = result[2];
-    
+
                         Swiper.use([Navigation, Pagination, Zoom]);
-                        elements.map(element => {
-                            addSliderEffect(element, Swiper);
-                            addEvents(element, Shuffle);
-                        });
+
+                        $this._loadGallery({Shuffle, Swiper});
                     });
             }
-        }
+        };
     }
 
     /* private */
+
+    _loadGallery({Shuffle, Swiper}) {
+        const $this = this;
+        this._elements.map(element => {
+            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) => new Promise((resolve, reject) => {
+                let count = 0;
+                const checkIfComplete = setInterval(() => {
+                    if (img.complete && img.naturalHeight !== 0) {
+                        clearInterval(checkIfComplete);
+                        resolve(img);
+                    }
+
+                    if (count > 10) {
+                        clearInterval(checkIfComplete);
+                        reject(img);
+                    }
+
+                    count++;
+                }, 100);
+            }));
+
+            Promise.allSettled([...promiseImages])
+                .then(() => {
+                    $this._addSliderEffect(element, Swiper);
+                    $this._addEvents(element, Shuffle);
+                });
+        });
+    }
 
     _requestFullscreen(popup) {
         if (popup.requestFullscreen) {
@@ -145,20 +167,20 @@ class GutenverseGallery extends Default {
         const thisElement = u(element);
         const filterPopup = thisElement.find('.search-filter-controls');
         const elementClassNames = thisElement.nodes[0].className;
-        const shuffle = new Shuffle (thisElement.find('.gallery-items').first(), {
+        const shuffle = new Shuffle(thisElement.find('.gallery-items').first(), {
             itemSelector: '.gallery-item-wrap',
             sizer: '.gallery-sizer-element',
             speed: 500
         });
         const onSearch = (shuffle, elementClassNames) => {
-            const thisElement = u(`.${elementClassNames.split(' ').slice(0,3).join('.')}`);
+            const thisElement = u(`.${elementClassNames.split(' ').slice(0, 3).join('.')}`);
             const searchElement = thisElement.find('#guten-gallery-search-box-input');
             let searchValue = '';
             let filterText = '';
-            if( searchElement.length > 0 ){
+            if (searchElement.length > 0) {
                 searchValue = searchElement.first().value.toLowerCase();
                 filterText = thisElement.find('.search-filter-trigger span').text().toLowerCase();
-            }else{
+            } else {
                 const filterElement = thisElement.find('.guten-gallery-control.active');
                 filterText = filterElement.text().toLowerCase();
             }
@@ -175,7 +197,7 @@ class GutenverseGallery extends Default {
 
             shuffle && shuffle.filter(item => isValid(item));
         }
-        thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch( shuffle, elementClassNames));
+        thisElement.find('#guten-gallery-search-box-input').on('change keyup', e => onSearch(shuffle, elementClassNames));
         thisElement.find('.guten-gallery-control').on('click', e => {
             const filter = u(e.target).data('filter');
             thisElement.find('#search-filter-trigger span').text(filter ? filter : 'All');
@@ -210,7 +232,7 @@ class GutenverseGallery extends Default {
         thisElement.find('#guten-gallery-search-box').on('submit', e => e.preventDefault());
 
         thisElement.find('#search-filter-trigger').on('click', () => filterPopup.hasClass('open-controls') ? filterPopup.removeClass('open-controls') : filterPopup.addClass('open-controls'));
-    
+
     }
 }
 
