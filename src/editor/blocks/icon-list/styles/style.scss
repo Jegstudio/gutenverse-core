@@ -7,6 +7,9 @@
         display: flex;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+        .guten-icon-list-item{
+            display: flex;
+        }
     }
 
     .guten-icon-list-item {
@@ -22,6 +25,5 @@
         color: var(--guten-txt-color) !important;
         display: flex;
         align-items: center;
-        height: 100%;
     }
 }
