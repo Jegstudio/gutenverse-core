@@ -6,7 +6,7 @@ import { withAnimationAdvanceScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { imagePlaceholder } from 'gutenverse-core/config';
+import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { isEmpty } from 'lodash';
 
 const ImageBoxFigure = attributes => {
@@ -19,9 +19,9 @@ const ImageBoxFigure = attributes => {
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
     const imageLazyLoad = () => {
         if(lazyLoad){
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+            return <img className="gutenverse-image-box-empty"  src={oldImagePlaceholder} alt={imageAltText} loading="lazy" />;
         }else{
-            return <img className="gutenverse-image-box-empty"  src={imagePlaceholder} alt={imageAltText} />;
+            return <img className="gutenverse-image-box-empty"  src={oldImagePlaceholder} alt={imageAltText} />;
         }
     };
     if (isEmpty(sizes)) {
