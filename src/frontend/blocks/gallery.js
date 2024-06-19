@@ -30,20 +30,28 @@ class GutenverseGallery extends Default {
     _loadGallery({Shuffle, Swiper}) {
         const $this = this;
         this._elements.map(element => {
-            u(element).find('.gallery-item-wrap img').nodes.map((img) => {
-                new Promise((resolve) => {
-                    const checkIfComplete = setInterval(() => {
-                        if (img.complete && img.naturalHeight !== 0) {
-                            clearInterval(checkIfComplete);
-                            resolve(img);
-                        }
-                    }, 100);
-                }).then(() => {
-                    // Restart gallery every time image is finished
+            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) => new Promise((resolve, reject) => {
+                let count = 0;
+                const checkIfComplete = setInterval(() => {
+                    if (img.complete && img.naturalHeight !== 0) {
+                        clearInterval(checkIfComplete);
+                        resolve(img);
+                    }
+
+                    if (count > 10) {
+                        clearInterval(checkIfComplete);
+                        reject(img);
+                    }
+
+                    count++;
+                }, 100);
+            }));
+
+            Promise.allSettled([...promiseImages])
+                .then(() => {
                     $this._addSliderEffect(element, Swiper);
                     $this._addEvents(element, Shuffle);
                 });
-            });
         });
     }
 
