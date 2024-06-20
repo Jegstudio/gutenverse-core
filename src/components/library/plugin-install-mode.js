@@ -7,6 +7,7 @@ import { IconArrowLeftSVG, IconInfoYellowSVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import apiFetch from '@wordpress/api-fetch';
 import semver from 'semver';
+import ButtonUpgradePro from '../pro/button-upgrade-pro';
 
 const PluginInstallMode = (props) => {
     const { backString, plugins, data, setPluginInstallMode } = props;
@@ -199,6 +200,10 @@ export const PluginInstallItem = (props) => {
                 </div>;
             }
         }
+    }
+
+    if (slug === 'gutenverse-pro' && !installed) {
+        action = <ButtonUpgradePro isBanner={true} location="card-pro"/>;
     }
 
     return <div className="plugin-install-item">
