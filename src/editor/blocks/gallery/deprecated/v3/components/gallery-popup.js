@@ -72,7 +72,7 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
                     ref={sliderRef}>
                     {images.map((image, index) => <div className="image-list" key={index}>
                         <div className="content-image swiper-zoom-container">
-                            {image && <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title} loading={image.lazyLoad ? 'lazy' : 'eager'}/>}
+                            {image && <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} loading={image.lazyLoad ? 'lazy' : 'eager'}/>}
                         </div>
                     </div>)}
                 </WPSwiper>
