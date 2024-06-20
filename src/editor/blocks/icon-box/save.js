@@ -8,6 +8,31 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 
+const WrapAHref = ({ attributes, children }) => {
+    const {
+        url,
+        linkTarget,
+        rel,
+        buttonClass = '',
+        elementId,
+    } = attributes;
+
+    if (url !== undefined && url !== '') {
+        const href = applyFilters(
+            'gutenverse.dynamic.generate-url',
+            url,
+            'dynamicUrl',
+            attributes,
+            elementId
+        );
+        return <a className={buttonClass} href={href} target={linkTarget} rel={rel}>
+            {children}
+        </a>;
+    } else {
+        return children;
+    }
+};
+
 const save = compose(
     withAnimationAdvanceScript('icon-box'),
     withMouseMoveEffectScript
@@ -34,9 +59,7 @@ const save = compose(
         badgePosition,
         iconBoxOverlayDirection = 'left',
         lazyLoad,
-        url,
-        linkTarget,
-        rel
+        hasInnerBlocks
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -78,52 +101,46 @@ const save = compose(
                 return null;
         }
     };
+    const ContentBody = () => (
+        <div className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}>
+            {iconPosition !== 'bottom' && iconContent()}
+            {
+                (title || description) && <div className="icon-box icon-box-body">
+                    {
+                        title && title !== '' && <RichText.Content
+                            className={'title'}
+                            value={title}
+                            tagName={titleTag}
+                        />
+                    }
+                    {
+                        description && description !== '' && <RichText.Content
+                            className="icon-box-description"
+                            value={description}
+                            tagName="p"
+                        />
+                    }
+                    <InnerBlocks.Content />
+                </div>
+            }
+            {iconPosition === 'bottom' && iconContent()}
+            {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
+                <RichText.Content
+                    className={'badge-text'}
+                    value={badge}
+                    tagName={'span'}
+                />
+            </div>}
+            {watermarkShow && <div className="hover-watermark">
+                <i className={watermarkIcon}></i>
+            </div>}
+        </div>
+    );
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
-            <div
-                className={`guten-icon-box-wrapper hover-from-${iconBoxOverlayDirection}`}
-                data-url={url ? applyFilters(
-                    'gutenverse.dynamic.generate-url',
-                    url,
-                    'dynamicUrl',
-                    attributes,
-                    elementId
-                ) : ''}
-                data-link-target={linkTarget ? linkTarget : ''}
-                data-rel={rel ? rel : ''}
-            >
-                {iconPosition !== 'bottom' && iconContent()}
-                {
-                    (title || description) && <div className="icon-box icon-box-body">
-                        {
-                            title && title !== '' && <RichText.Content
-                                className={'title'}
-                                value={title}
-                                tagName={titleTag}
-                            />
-                        }
-                        {
-                            description && description !== '' && <RichText.Content
-                                className="icon-box-description"
-                                value={description}
-                                tagName="p"
-                            />
-                        }
-                        <InnerBlocks.Content />
-                    </div>
-                }
-                {iconPosition === 'bottom' && iconContent()}
-                {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
-                    <RichText.Content
-                        className={'badge-text'}
-                        value={badge}
-                        tagName={'span'}
-                    />
-                </div>}
-                {watermarkShow && <div className="hover-watermark">
-                    <i className={watermarkIcon}></i>
-                </div>}
-            </div>
+            {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
+                <ContentBody />
+            </WrapAHref>}
         </div>
     );
 });

@@ -25,7 +25,8 @@
 			"default": false
 		},
 		"separateButtonLink": {
-			"type": "boolean"
+			"type": "boolean",
+			"default": true
 		},
 		"linkTarget": {
 			"type": "string",
@@ -512,7 +513,11 @@
 		"parentSelector":{
 			"type":"string",
 			"copyStyle": true
-		}
+		},
+		"hasInnerBlocks": {
+            "type": "boolean",
+            "default": false
+        }
 	},
 	"supports": {
 		"className": false

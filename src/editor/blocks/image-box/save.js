@@ -9,6 +9,32 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 
+const WrapAHref = ({ attributes, children }) => {
+    const {
+        url,
+        linkTarget,
+        rel,
+        buttonClass = '',
+        ariaLabel,
+        elementId,
+    } = attributes;
+
+    if (url !== undefined && url !== '') {
+        const href = applyFilters(
+            'gutenverse.dynamic.generate-url',
+            url,
+            'dynamicUrl',
+            attributes,
+            elementId
+        );
+        return <a className={buttonClass} href={href} target={linkTarget} aria-label={ariaLabel} rel={rel}>
+            {children}
+        </a>;
+    } else {
+        return children;
+    }
+};
+
 const save = compose(
     withAnimationAdvanceScript('image-box'),
     withMouseMoveEffectScript
@@ -27,9 +53,7 @@ const save = compose(
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
-        url,
-        linkTarget,
-        rel
+        hasInnerBlocks
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -45,54 +69,49 @@ const save = compose(
         `style-${contentStyle}`,
     );
 
+    const ContentBody = () => (
+        <div className="inner-container">
+            <div className="image-box-header">
+                <ImageBoxFigure {...attributes} />
+            </div>
+            <div className="image-box-body">
+                {
+                    <div className="body-inner">
+                        {
+                            title && <TitleTag className={classnames(
+                                'body-title',
+                                `icon-position-${titleIconPosition}`
+                            )}>
+                                {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
+                                <RichText.Content
+                                    value={title}
+                                    tagName="span"
+                                />
+                                {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
+                            </TitleTag>
+                        }
+                        {
+                            description && <RichText.Content
+                                className="body-description"
+                                value={description}
+                                tagName="p"
+                            />
+                        }
+                        <InnerBlocks.Content />
+                        {hoverBottom && <div className={'border-bottom'}>
+                            <div className={`animated ${hoverBottomDirection}`}></div>
+                        </div>}
+                    </div>
+                }
+            </div>
+        </div>
+    );
+
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div
-                className="inner-container"
-                data-url={url ? applyFilters(
-                    'gutenverse.dynamic.generate-url',
-                    url,
-                    'dynamicUrl',
-                    attributes,
-                    elementId
-                ) : ''}
-                data-link-target={linkTarget ? linkTarget : ''}
-                data-rel={rel ? rel : ''}
-            >
-                <div className="image-box-header">
-                    <ImageBoxFigure {...attributes} />
-                </div>
-                <div className="image-box-body">
-                    {
-                        <div className="body-inner">
-                            {
-                                title && <TitleTag className={classnames(
-                                    'body-title',
-                                    `icon-position-${titleIconPosition}`
-                                )}>
-                                    {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
-                                    <RichText.Content
-                                        value={title}
-                                        tagName="span"
-                                    />
-                                    {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
-                                </TitleTag>
-                            }
-                            {
-                                description && <RichText.Content
-                                    className="body-description"
-                                    value={description}
-                                    tagName="p"
-                                />
-                            }
-                            <InnerBlocks.Content />
-                            {hoverBottom && <div className={'border-bottom'}>
-                                <div className={`animated ${hoverBottomDirection}`}></div>
-                            </div>}
-                        </div>
-                    }
-                </div>
-            </div>
+            {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
+                <ContentBody />
+            </WrapAHref>}
         </div>
     );
 });

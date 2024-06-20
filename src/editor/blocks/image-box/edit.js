@@ -127,6 +127,14 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
     const isGlobalLinkSet = url !== undefined && url !== '';
 
+    const hasInnerBlocks = useSelect(select => {
+        const block = select('core/block-editor').getBlock(clientId);
+        return block && block.innerBlocks.length > 0;
+    }, [clientId]);
+
+    setAttributes({ hasInnerBlocks });
+    setAttributes({separateButtonLink: hasInnerBlocks});
+
     if (isGlobalLinkSet) {
         setAttributes({ hasGlobalLink: isGlobalLinkSet });
     } else setAttributes({ hasGlobalLink: false });
