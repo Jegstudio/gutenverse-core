@@ -93,7 +93,7 @@ const save = compose(
                 </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode}`}>
+                    <div className={`icon style-${iconStyleMode} type-image`}>
                         {imageLazyLoad()}
                     </div>
                 </div>;
