@@ -17,7 +17,7 @@ const StarIcons = ({starIcon, rating, total}) => {
                 return active ? 'full fas fa-thumbs-up' : 'empty fas fa-thumbs-down';
             case 'default':
             default:
-                return active ? 'full fa fa-star' : 'empty fa fa-star-o';
+                return active ? 'full fa fa-star' : 'empty far fa-star';
         }
     };
 

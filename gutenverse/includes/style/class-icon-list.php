@@ -179,7 +179,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['verticalAlign'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} a",
+					'selector'       => ".{$this->element_id} li",
 					'property'       => function ( $value ) {
 						return "align-items: {$value}";
 					},

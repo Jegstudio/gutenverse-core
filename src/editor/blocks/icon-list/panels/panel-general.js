@@ -201,7 +201,7 @@ export const panelGeneral = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} a`,
+                    selector: `.${elementId} li`,
                     render: (value) => `align-items: ${value};`
                 },
             ],

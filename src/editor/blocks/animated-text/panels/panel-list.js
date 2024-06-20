@@ -18,7 +18,7 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Focus Title Text Clip', 'gutenverse'),
+            title: __('Text Clip', 'gutenverse'),
             initialOpen: false,
             panelAdvance: true,
             panelArray: (props) => {
