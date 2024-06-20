@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
 import GalleryItem from './components/gallery-item';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
-import { imagePlaceholder } from 'gutenverse-core/config';
+import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
@@ -54,9 +54,9 @@ const save = compose(
     );
     const imageCondition = (image) => {
         if(image.lazyLoad){
-            return <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} loading="lazy"/>;
+            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title} loading="lazy"/>;
         }else{
-            return <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title}/>;
+            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title}/>;
         }
     };
 

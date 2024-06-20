@@ -1,6 +1,6 @@
 import { useRef, useState } from '@wordpress/element';
 import WPSwiper from '../../../components/swiper/wp-swiper';
-import { imagePlaceholder } from 'gutenverse-core/config';
+import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { Maximize, Minimize, X, ZoomIn } from 'gutenverse-core/components';
 import { swiperSettings } from '../../../components/swiper/helper';
 
@@ -72,7 +72,7 @@ const GalleryPopup = ({ activeIndex, images, onClose }) => {
                     ref={sliderRef}>
                     {images.map((image, index) => <div className="image-list" key={index}>
                         <div className="content-image swiper-zoom-container">
-                            {image && <img className="main-image" src={image.src ? image.src.image : imagePlaceholder} alt={image.title} loading={image.lazyLoad ? 'lazy' : 'eager'}/>}
+                            {image && <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title} loading={image.lazyLoad ? 'lazy' : 'eager'}/>}
                         </div>
                     </div>)}
                 </WPSwiper>
