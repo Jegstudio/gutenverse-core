@@ -161,7 +161,7 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 */
 		public function can_load_version( $slug ) {
 			// Don't load framework if gutenverse installed on version less then 2.0.0.
-			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.0', '<=' ) ) {
+			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) ) {
 				return false;
 			}
 
@@ -193,7 +193,7 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 * @return bool
 		 */
 		public function check_compatibility() {
-			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.0', '<=' ) ) {
+			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) ) {
 				add_action( 'admin_notices', array( $this, 'gutenverse_compatibility_notice' ) );
 				add_action( 'wp_ajax_gutenverse_compatibility_notice_close', array( $this, 'compatibility_notice_close' ) );
 
