@@ -36,6 +36,10 @@ export const contentStyle = (props) => {
                     selector: `.editor-styles-wrapper .${elementId}, .editor-styles-wrapper .${elementId}.vertical > div`,
                     render: value => `justify-content: ${value};`
                 },
+                {
+                    selector: `.editor-styles-wrapper .${elementId}, .editor-styles-wrapper .${elementId}.vertical > div`,
+                    render: value => `align-items: ${value};`
+                },
             ]
         },
         {

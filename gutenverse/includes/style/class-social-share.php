@@ -66,6 +66,16 @@ class Social_Share extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}, .{$this->element_id}.vertical > div",
+					'property'       => function ( $value ) {
+						return "align-items: {$value};";
+					},
+					'value'          => $this->attrs['alignment'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['gap'] ) ) {
