@@ -1,6 +1,5 @@
 
 import { classnames } from 'gutenverse-core/components';
-import { useBlockProps } from '@wordpress/block-editor';
 import { swiperData } from 'gutenverse-core/helper';
 import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { isEmpty } from 'lodash';
@@ -40,23 +39,20 @@ const save = compose(
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
 
-    const blockProps = useBlockProps.save({
-        ...advanceAnimationData,
-        className: classnames(
-            'guten-element',
-            'guten-client-logo',
-            'grid-desktop-3',
-            elementId,
-            animationClass,
-            displayClass,
-            {
-                [`arrow-${arrowPosition}`]: arrowPosition
-            }
-        ),
-    });
+    const className = classnames(
+        'guten-element',
+        'guten-client-logo',
+        'grid-desktop-3',
+        elementId,
+        animationClass,
+        displayClass,
+        {
+            [`arrow-${arrowPosition}`]: arrowPosition
+        }
+    );
 
     return (
-        <div {...blockProps}>
+        <div className={className}>
             <div className="client-list">
                 <div id={elementId} className="swiper-container" {...swiperData(attributes)}>
                     <div className="swiper-wrapper">
