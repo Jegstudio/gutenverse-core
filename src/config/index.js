@@ -1,5 +1,6 @@
 const {
     imagePlaceholder,
+    oldImagePlaceholder,
     libraryApi,
     openedTemplate,
     globalSetting,
@@ -20,6 +21,7 @@ const {
 
 export {
     imagePlaceholder,
+    oldImagePlaceholder,
     libraryApi,
     openedTemplate,
     globalSetting,
