@@ -67,6 +67,24 @@ export const settings = {
                     type: 'int',
                     deprecated: true,
                 },
+                images: {
+                    type: "array",
+                    default: [
+                        {
+                            id: "Two"
+                        },
+                        {
+                            id: "Three"
+                        },
+                        {
+                            id: "Four"
+                        },
+                        {
+                            id: "Five"
+                        }
+                    ],
+                    deprecated: true,
+                }
             },
             save: saveV2,
         },

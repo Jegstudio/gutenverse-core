@@ -1,5 +1,4 @@
-
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { oldImagePlaceholder } from "gutenverse-core/config";
 
 const GalleryItem = (attributes) => {
     const {
@@ -22,6 +21,7 @@ const GalleryItem = (attributes) => {
                 return '';
         }
     };
+    const getImageSrc = src => src && src.image ? src.image : oldImagePlaceholder;
 
     const ratingItems = (rating) => {
         let arr = [];
@@ -39,9 +39,9 @@ const GalleryItem = (attributes) => {
     };
     const imageCondition = () => {
         if(galleryItem.lazyLoad){
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy"/>;
+            return <img src={getImageSrc(galleryItem.src)} loading="lazy"/>;
         }else{
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>;
+            return <img src={getImageSrc(galleryItem.src)}/>;
         }
     };
 

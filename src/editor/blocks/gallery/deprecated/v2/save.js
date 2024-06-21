@@ -54,9 +54,9 @@ const save = compose(
     );
     const imageCondition = (image) => {
         if(image.lazyLoad){
-            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title} loading="lazy"/>;
+            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} loading="lazy"/>;
         }else{
-            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder} alt={image.title}/>;
+            return <img className="main-image" src={image.src ? image.src.image : oldImagePlaceholder}/>;
         }
     };
 
