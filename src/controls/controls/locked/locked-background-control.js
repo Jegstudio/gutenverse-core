@@ -8,8 +8,8 @@ const LockedBackgroundControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-background gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Background Animated', '--gctd--' )}
-            description={__( 'Background animated is a website design feature that involves adding animations or movements to the background of a webpage.', '--gctd--' )}
+            title={__( 'Unlock Background Animated', '--gctd--' )}
+            description={__( 'Elevate your website design with dynamic backgrounds that bring animations and movements to life, ensuring an engaging and memorable user experience.', '--gctd--' )}
             img={'/background-animated.mp4'}
             isOpen={isOpen}
         />

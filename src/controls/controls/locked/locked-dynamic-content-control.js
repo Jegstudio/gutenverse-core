@@ -8,8 +8,8 @@ const LockedDynamicContentControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-dynamic-content gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Block Dynamic Content', '--gctd--' )}
-            description={__( 'Some variable need to be dynamic, such as Link to page or post, Title, Meta', '--gctd--' )}
+            title={__( 'Unlock Dynamic Content', '--gctd--' )}
+            description={__( 'Ensure key variables remain dynamic, including links to pages or posts, titles, and meta information.', '--gctd--' )}
             img={'/dynamic-content-animation.mp4'}
             isOpen={isOpen}
         />
