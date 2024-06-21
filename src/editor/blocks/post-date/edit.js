@@ -14,6 +14,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { getSettings } from '@wordpress/date';
 
 const PostDateBlock = compose(
     withCustomStyle(panelList),
@@ -103,7 +104,7 @@ const PostDateBlock = compose(
                 break;
             case 'default':
             default:
-                format = defaultDateFormat;
+                format = defaultDateFormat ? defaultDateFormat : getSettings()?.formats.date;
                 break;
         }
 

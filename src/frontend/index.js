@@ -13,8 +13,6 @@ import GutenversePostblock from './blocks/postblock';
 import GutenversePostlist from './blocks/postlist';
 import GutenversePopupBuilder from './blocks/popup-builder';
 import GutenverseSearch from './blocks/search';
-import GutenverseIconBox from './blocks/icon-box';
-import GutenverseImageBox from './blocks/image-box';
 
 const gutenClasses = {
     ['tabs']: GutenverseTabs,
@@ -32,8 +30,6 @@ const gutenClasses = {
     ['post-list']: GutenversePostlist,
     ['popup-builder']: GutenversePopupBuilder,
     ['search']: GutenverseSearch,
-    ['icon-box']: GutenverseIconBox,
-    ['image-box']: GutenverseImageBox
 };
 
 Object.keys(gutenClasses).map((index) => {

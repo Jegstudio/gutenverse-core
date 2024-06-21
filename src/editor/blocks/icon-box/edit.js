@@ -87,6 +87,14 @@ const IconBoxBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
 
+    const hasInnerBlocks = useSelect(select => {
+        const block = select('core/block-editor').getBlock(props.clientId);
+        return block && block.innerBlocks.length > 0;
+    }, [props.clientId]);
+
+    setAttributes({ hasInnerBlocks });
+    setAttributes({separateButtonLink: hasInnerBlocks});
+
     if (isGlobalLinkSet) {
         setAttributes({ hasGlobalLink: isGlobalLinkSet });
     } else setAttributes({ hasGlobalLink: false });
