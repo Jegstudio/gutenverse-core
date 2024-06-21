@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, IconRadioControl, SelectControl, AlertControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleAlign } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -15,10 +15,11 @@ export const panelGeneral = (props) => {
 
     return [
         {
-            id: 'separateButtonLink',
-            label: __('Different Link for Button', 'gutenverse'),
-            description: __('Use a different link for Icon Box\'s Button'),
-            component: CheckboxControl,
+            id: 'childNotice',
+            component: AlertControl,
+            children: <>
+                <span>{__('If you include a button within this block, the body link feature will be disabled. This is because you cannot have a link inside another link.')}</span>
+            </>
         },
         {
             id: 'hoverWithParent',

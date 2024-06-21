@@ -23,11 +23,63 @@ export const settings = {
     },
     deprecated: [
         {
-            attributes,
+            attributes: {
+                ...attributes,
+                imageWidth: {
+                    type: 'int',
+                    default: 150,
+                    copyStyle: true,
+                    deprecated: true,
+                },
+                imageHeight: {
+                    type: 'int',
+                    default: 150,
+                    copyStyle: true,
+                    deprecated: true,
+                },
+            },
+            migrate: (attributes) => {
+                const { imageWidth, imageHeight } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    imageHeight: parseInt(imageHeight),
+                    imageWidth: parseInt(imageWidth),
+                };
+
+                return [
+                    newAttributes
+                ];
+            },
             save: saveV1
         },
         {
-            attributes,
+            attributes: {
+                ...attributes,
+                imageWidth: {
+                    type: 'int',
+                    default: 150,
+                    copyStyle: true,
+                    deprecated: true,
+                },
+                imageHeight: {
+                    type: 'int',
+                    default: 150,
+                    copyStyle: true,
+                    deprecated: true,
+                },
+            },
+            migrate: (attributes) => {
+                const { imageWidth, imageHeight } = attributes;
+                const newAttributes = {
+                    ...attributes,
+                    imageHeight: parseInt(imageHeight),
+                    imageWidth: parseInt(imageWidth),
+                };
+
+                return [
+                    newAttributes
+                ];
+            },
             save: saveV2
         },
         {
