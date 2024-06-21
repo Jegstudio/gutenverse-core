@@ -1,7 +1,6 @@
 
-
+import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { RichText } from '@wordpress/block-editor';
-import { getImageSrc } from 'gutenverse-core/editor-helper';
 
 const ContentItem = (data) => {
     let {
@@ -27,6 +26,7 @@ const ContentItem = (data) => {
     } = data;
 
     const overrideQuote = quoteOverride ? 'quote-override' : '';
+    const getImageSrc = src => src && src.image ? src.image : oldImagePlaceholder;
 
     const contentRichText = (value, tag, className, identifier, index) => {
         if(frontEnd){

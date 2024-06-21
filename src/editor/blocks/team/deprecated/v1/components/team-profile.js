@@ -1,5 +1,5 @@
 
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { RichText } from '@wordpress/block-editor';
 
 const TeamProfile = (props) => {
@@ -29,6 +29,7 @@ const TeamProfile = (props) => {
             return <img loading="lazy" src={getImageSrc(src)} alt={name}/>;
         } else return <img src={getImageSrc(src)} alt={name}/>;
     };
+    const getImageSrc = src => src && src.image ? src.image : oldImagePlaceholder;
     const contentDesc = (classnames, identifier, data, tag ) => {
         if(showDesc){
             if(frontEnd){

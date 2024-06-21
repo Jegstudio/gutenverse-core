@@ -1,5 +1,5 @@
 
-import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { oldImagePlaceholder } from "gutenverse-core/config";
 
 const ContentItem = (data) => {
     const {
@@ -21,6 +21,7 @@ const ContentItem = (data) => {
     } = data;
 
     const overrideQuote = quoteOverride ? 'quote-override' : '';
+    const getImageSrc = src => src && src.image ? src.image : oldImagePlaceholder;
 
     const content = () => {
         const commentContent = <div className="comment-content"><p>{comment}</p></div>;
