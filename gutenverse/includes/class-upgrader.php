@@ -279,12 +279,12 @@ class Upgrader {
 					</svg>
 				</div>
 				<div class="notice-content">
-					<h2><?php esc_html_e( 'Upgrading Gutenverse!', 'gutenverse' ); ?></h2>
-					<p><?php echo esc_html__( 'We have made some changes on v2.0.0:', 'gutenverse' ); ?></p>
-					<p><?php echo sprintf( '1. We separate %s from our main plugin to make Gutenverse lightweight and work faster. You need to reinstall the form plugin.', '<strong>Gutenverse Form</strong>' ); ?></p>
-					<p><?php echo esc_html__( '2. Load Fonticon Locally, you can download font icon and serve it from your server instead of cloud on menu Gutenverse Settings', 'gutenverse' ); ?></p>
+					<h2><?php esc_html_e( 'New Gutenverse Setup!', 'gutenverse' ); ?></h2>
+					<p><?php echo esc_html__( 'We\'ve made some changes on v2.0.0:', 'gutenverse' ); ?></p>
+					<p><?php echo sprintf( '1. We\'ve separated the %s from our main plugin to speed up Gutenverse and offer more flexibility. If you were using the form before, please reinstall the plugin.', '<strong>Gutenverse Form</strong>' ); ?></p>
+					<p><?php echo esc_html__( '2. Fonticons are now loaded locally. You can find this option and download the font in the Gutenverse Settings menu.', 'gutenverse' ); ?></p>
 					<div class="gutenverse-upgrade-action">
-						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ) ); ?>"><?php esc_html_e( 'Upgrade Now!', 'gutenverse' ); ?></a>
+						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ) ); ?>"><?php esc_html_e( 'Setup Now!', 'gutenverse' ); ?></a>
 						<a class='close-notification' href="#"><?php esc_html_e( 'Close notification', 'gutenverse' ); ?></a>
 					</div>
 				</div>
