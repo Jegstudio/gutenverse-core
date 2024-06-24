@@ -172,6 +172,7 @@ const DefaultDashboard = () => {
                     <div className="plugin-list">
                         {Object.keys(pluginVersions).map(key => {
                             const pluginData = pluginVersions[key];
+                            const supportUrl = pluginData?.supportUrl ? pluginData.supportUrl : `https://wordpress.org/support/plugin/${key}/#new-topic-0`;
 
                             return <div key={key} className="plugin">
                                 <h4>{pluginData?.name.includes('Gutenverse') ? <>
@@ -179,7 +180,7 @@ const DefaultDashboard = () => {
                                     {pluginData?.name.split('Gutenverse').join('')}
                                 </> : pluginData?.name}</h4>
                                 <div className="actions">
-                                    <div className="rate">
+                                    {key !== 'gutenverse-pro' && <div className="rate">
                                         <a href={`https://wordpress.org/support/plugin/${key}/reviews/#new-post`} target="_blank" rel="noreferrer">
                                             <svg width="116" height="21" viewBox="0 0 116 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M0.542056 10.2991C0.542056 4.91042 4.91042 0.542056 10.2991 0.542056L105.701 0.542056C111.09 0.542056 115.458 4.91042 115.458 10.2991C115.458 15.6877 111.09 20.0561 105.701 20.0561H10.2991C4.91042 20.0561 0.542056 15.6877 0.542056 10.2991Z" fill="url(#paint0_linear_0_1)" fillOpacity="0.75" />
@@ -224,9 +225,9 @@ const DefaultDashboard = () => {
                                                 </defs>
                                             </svg>
                                         </a>
-                                    </div>
+                                    </div>}
                                     <div className="support">
-                                        <a href={`https://wordpress.org/support/plugin/${key}/#new-topic-0`} target="_blank" rel="noreferrer">
+                                        <a href={supportUrl} target="_blank" rel="noreferrer">
                                             <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M9.895 8.30265C10.37 7.21766 10.37 5.97266 9.895 4.89266L8.525 5.51266C8.825 6.20266 8.825 6.98766 8.53 7.68266L9.895 8.30265ZM7.71 2.70266C7.17141 2.46768 6.59012 2.34639 6.0025 2.34639C5.41488 2.34639 4.83359 2.46768 4.295 2.70266L4.915 4.06766C5.61 3.77266 6.395 3.77266 7.09 4.07266L7.71 2.70266ZM2.105 4.88766C1.87002 5.42712 1.74874 6.00923 1.74874 6.59766C1.74874 7.18608 1.87002 7.76819 2.105 8.30765L3.475 7.68266C3.175 6.99266 3.175 6.20266 3.475 5.50766L2.105 4.88766ZM4.295 10.4927C4.83362 10.728 5.41522 10.8491 6.00302 10.8482C6.59083 10.8474 7.17207 10.7246 7.71 10.4877L7.09 9.12265C6.74755 9.27063 6.37857 9.34739 6.00551 9.34825C5.63246 9.3491 5.26313 9.27405 4.92 9.12765L4.295 10.4927ZM6 1.59766C6.65661 1.59766 7.30679 1.72699 7.91342 1.97826C8.52004 2.22953 9.07124 2.59783 9.53553 3.06212C9.99983 3.52641 10.3681 4.07761 10.6194 4.68424C10.8707 5.29087 11 5.94105 11 6.59766C11 7.92374 10.4732 9.19551 9.53553 10.1332C8.59785 11.0709 7.32608 11.5977 6 11.5977C5.34339 11.5977 4.69321 11.4683 4.08658 11.2171C3.47995 10.9658 2.92876 10.5975 2.46447 10.1332C1.52678 9.19551 1 7.92374 1 6.59766C1 5.27157 1.52678 3.9998 2.46447 3.06212C3.40215 2.12444 4.67392 1.59766 6 1.59766ZM6 4.59766C5.46957 4.59766 4.96086 4.80837 4.58579 5.18344C4.21071 5.55851 4 6.06722 4 6.59766C4 7.12809 4.21071 7.6368 4.58579 8.01187C4.96086 8.38694 5.46957 8.59765 6 8.59765C6.53043 8.59765 7.03914 8.38694 7.41421 8.01187C7.78929 7.6368 8 7.12809 8 6.59766C8 6.06722 7.78929 5.55851 7.41421 5.18344C7.03914 4.80837 6.53043 4.59766 6 4.59766Z" fill="white" />
                                             </svg>
