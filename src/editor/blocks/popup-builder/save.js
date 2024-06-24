@@ -40,11 +40,11 @@ const save = compose(
             displayClass,
         ),
         'data-trigger': openTrigger,
-        'data-wait': openWaitTime,
+        'data-wait': isNaN(openWaitTime) ? undefined : openWaitTime,
         'data-hide': hideAfterClosed ? 'hide-' + elementId : undefined,
-        'data-scroll': openScrollDistance,
+        'data-scroll': isNaN(openScrollDistance) ? undefined : openScrollDistance,
         'data-anchor': openAnchor,
-        'data-max-click': openMaxClick,
+        'data-max-click': isNaN(openMaxClick) ? undefined : openMaxClick,
         'data-close-overlay': closePopupOverlay,
     });
 
