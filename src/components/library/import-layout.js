@@ -133,7 +133,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro isBanner={true} location="card-pro"/>;
+        return <ButtonUpgradePro isBanner={true} location="card-pro" customStyles={{ padding: '12px 20px' }}/>;
     };
 
     const renderButton = () => {
