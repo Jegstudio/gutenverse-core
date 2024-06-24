@@ -8,7 +8,7 @@ const LockedInputLogicControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-input-logic gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Input Logic', '--gctd--' )}
+            title={__( 'Unlock Input Logic', '--gctd--' )}
             description={__( 'Input Logic allows you to create a conditional display for certain input values.', '--gctd--' )}
             img={'/form-logic.mp4'}
             isOpen={isOpen}

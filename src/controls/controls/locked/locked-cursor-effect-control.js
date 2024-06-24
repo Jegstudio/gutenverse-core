@@ -8,8 +8,8 @@ const LockedCursorEffectControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-cursor-effect gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Cursor Effects', '--gctd--' )}
-            description={__( 'Add fancy cursor effect to your element', '--gctd--' )}
+            title={__( 'Unlock Cursor Effect', '--gctd--' )}
+            description={__( 'Transform your mouse cursor with a diverse array of stylish effects to tailor and elevate your user experience.', '--gctd--' )}
             img={'/cursor-effect.mp4'}
             isOpen={isOpen}
         />

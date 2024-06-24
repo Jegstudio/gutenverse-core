@@ -8,8 +8,8 @@ const LockedMouseMoveEffectControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-mouse-move-effect gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Cursor Effects', '--gctd--' )}
-            description={__( 'Add 3D move effect to your element when you move your mouse effect', '--gctd--' )}
+            title={__( 'Unlock Mouse Move Effect', '--gctd--' )}
+            description={__( 'An engaging 3D movement effect to your element that dynamically responds to your mouse movements.', '--gctd--' )}
             img={'/mouse-effect.mp4'}
             isOpen={isOpen}
         />

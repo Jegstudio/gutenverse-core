@@ -88,7 +88,7 @@ class Editor_Assets {
 		$config['themesUrl']           = GUTENVERSE_FRAMEWORK_THEMES_URL;
 		$config['upgradeProUrl']       = gutenverse_upgrade_pro();
 		$config['documentationUrl']    = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
-		$config['proDemoUrl']          = GUTENVERSE_FRAMEWORK_DEMO_PRO_URL;
+		$config['proDemoUrl']          = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['uploadPath']          = $upload_path['baseurl'];
 		$config['updateLicensePage']   = admin_url( 'admin.php?page=gutenverse&path=license' );
 
