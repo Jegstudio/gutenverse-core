@@ -3,11 +3,12 @@ import { __ } from '@wordpress/i18n';
 import { withSelect, dispatch } from '@wordpress/data';
 import { getPluginRequirementStatus } from './library-helper';
 import { applyFilters } from '@wordpress/hooks';
-import { IconDownload2SVG, IconCrownBannerSVG } from 'gutenverse-core/icons';
+import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { importImage, importSingleLayoutContent } from 'gutenverse-core/requests';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import { Loader } from 'react-feather';
+import ButtonUpgradePro from '../pro/button-upgrade-pro';
 
 const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting }) => {
     const { isPro, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
@@ -107,10 +108,9 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
                     }
                 }, 300);
             })
-            .catch((e) => {
+            .catch(() => {
                 setExporting({show: true, message: 'Failed!', progress: '4/4'});
                 setTimeout(() => {
-                    console.log(e);
                     dispatch('gutenverse/library').setImportNotice('Please Try Again.');
                     setExporting({show: false, message: 'Failed!', progress: ''});
                 }, 300);
@@ -133,12 +133,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const ProButton = () => {
-        const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
-        return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="layout-button go-pro">
-            {__('Upgrade to PRO', '--gctd--')}
-            <IconCrownBannerSVG />
-        </a>;
+        return <ButtonUpgradePro isBanner={true} location="card-pro"/>;
     };
 
     const renderButton = () => {

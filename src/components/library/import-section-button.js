@@ -2,10 +2,11 @@ import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
 import { withSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
-import { IconCrownBannerSVG, IconDownload2SVG } from 'gutenverse-core/icons';
+import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
+import ButtonUpgradePro from '../pro/button-upgrade-pro';
 
 const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
@@ -84,13 +85,12 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
                     dispatch('gutenverse/library').setImportNotice(`${fail} image not imported.`);
                 }
             }, 300);
-        }).catch((e) => {
+        }).catch(() => {
             setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
             setTimeout(() => {
                 dispatch('gutenverse/library').setImportNotice('Please Try Again.');
                 setShowOverlay(false);
                 setExporting({show: false, message: 'Failed!', progress: ''});
-                console.log(e);
             }, 300);
         });
     };
@@ -107,16 +107,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const ProButton = () => {
-        const { upgradeProUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
-        return (
-            <div className="section-button import-section">
-                <div className="section-button-inner pro-button" onClick={() => { window.open(upgradeProUrl); }}>
-                    <span>{__('Upgrade to Pro', '--gctd--')}</span>
-                    <IconCrownBannerSVG />
-                </div>
-            </div>
-        );
+        return <ButtonUpgradePro isBanner={true} location="card-pro"/>;
     };
 
     const renderButton = () => {
