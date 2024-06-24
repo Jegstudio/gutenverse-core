@@ -1,3 +1,4 @@
+.guten-image-box, 
 .gutenverse-image-box {
     @include transition(false, false, all .4s ease);
     display: flex;
@@ -22,6 +23,7 @@
                 height: auto;
                 margin: 0;
                 object-fit: cover;
+                border-radius: inherit;
             }
         }
         .image-box-body {
