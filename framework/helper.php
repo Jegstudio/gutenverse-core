@@ -325,7 +325,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	 *
 	 * @return void
 	 */
-	function gutenverse_header_font( $font_families, $font_variables ) {
+	function gutenverse_header_font( $font_families ) {
 		$families      = array();
 		$upload_path   = wp_upload_dir();
 		$upload_url    = $upload_path['baseurl'];
@@ -335,6 +335,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 			$type   = $font['type'];
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
 			if ( 'google' === $type ) {
+
 				$families[ $family ] = isset( $families[ $family ] ) ? $families[ $family ] : array();
 
 				if ( 'google' === $type && ! empty( $font['weight'] ) ) {
@@ -775,7 +776,7 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 				$thefont = $font['font'];
 				if ( $thefont ) {
 					gutenverse_normal_appender(
-						gutenverse_variable_font_name( $id, 'family' ) . ':' . $thefont['value'] . ';',
+						gutenverse_variable_font_name( $id, 'family' ) . ':"' . $thefont['value'] . '";',
 						$variable_style
 					);
 				}

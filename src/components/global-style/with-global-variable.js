@@ -117,7 +117,7 @@ const withGlobalVariable = GlobalStyle => {
 
                     if (font) {
                         normalAppender({
-                            style: `${variableFontName(id, 'family')} : ${font.value};`,
+                            style: `${variableFontName(id, 'family')} : "${font.value}";`,
                             elementStyle: variableStyle
                         });
                     }
