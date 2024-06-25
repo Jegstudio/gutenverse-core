@@ -10,6 +10,7 @@
 namespace Gutenverse;
 
 use Gutenverse\Framework\Api;
+use Gutenverse\Framework\Init;
 use Gutenverse\Framework\Meta_Option;
 
 /**
@@ -222,7 +223,7 @@ class Upgrader {
 					<h2><?php esc_html_e( 'Gutenverse Upgrade Notice!', 'gutenverse' ); ?></h2>
 					<p>
 					<?php
-					echo sprintf(
+					printf(
 						// translators: theme name.
 						esc_html__( 'We detect you are using %1$1s theme. There are some new exciting updates we want to announce. This update will required the latest version of %2$2s theme to work smoothly, so we recommend to update your %3$3s theme.', 'gutenverse' ),
 						esc_html( $theme->name ),
@@ -268,8 +269,10 @@ class Upgrader {
 
 		$done = get_option( $this->get_plugin_upgrade_option_name() );
 		$flag = get_option( $this->get_plugin_split_option_name() );
+		$font = Init::instance()->assets->is_font_icon_exists();
+		$form = is_plugin_active( 'gutenverse-form/gutenverse-form.php' );
 
-		if ( $flag && ! $done ) {
+		if ( $flag && ! $done && ( ! $font || ! $form ) ) {
 			$this->enqueue_script();
 			?>
 			<div class="notice gutenverse-upgrade-notice page-content-upgrade">
@@ -281,7 +284,7 @@ class Upgrader {
 				<div class="notice-content">
 					<h2><?php esc_html_e( 'New Gutenverse Setup!', 'gutenverse' ); ?></h2>
 					<p><?php echo esc_html__( 'We\'ve made some changes on v2.0.0:', 'gutenverse' ); ?></p>
-					<p><?php echo sprintf( '1. We\'ve separated the %s from our main plugin to speed up Gutenverse and offer more flexibility. If you were using the form before, please reinstall the plugin.', '<strong>Gutenverse Form</strong>' ); ?></p>
+					<p><?php printf( '1. We\'ve separated the %s from our main plugin to speed up Gutenverse and offer more flexibility. If you were using form before, please install & activate the form plugin.', '<strong>Gutenverse Form</strong>' ); ?></p>
 					<p><?php echo esc_html__( '2. Fonticons are now loaded locally. You can find this option and download the font in the Gutenverse Settings menu.', 'gutenverse' ); ?></p>
 					<div class="gutenverse-upgrade-action">
 						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'admin.php?action=gutenverse-upgrade-wizard' ) ); ?>"><?php esc_html_e( 'Setup Now!', 'gutenverse' ); ?></a>
