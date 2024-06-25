@@ -280,7 +280,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
-						return "width: {$value['point']}{$value['unit']};";
+						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['inputWidth'],
 					'device_control' => true,
