@@ -138,9 +138,8 @@ class Upgrade_Wizard {
 		$config              = array();
 		$config['dashboard'] = admin_url( 'admin.php?page=gutenverse' );
 		$config['status']    = array(
-			'form'  => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
-			'popup' => ! is_plugin_active( 'gutenverse-popup/gutenverse-popup.php' ),
-			'icon'  => ! Init::instance()->assets->is_font_icon_exists(),
+			'form' => ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ),
+			'icon' => ! Init::instance()->assets->is_font_icon_exists(),
 		);
 
 		return $config;

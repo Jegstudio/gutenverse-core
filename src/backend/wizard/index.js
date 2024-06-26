@@ -184,7 +184,7 @@ const WizardInstallLater = ({ setStage }) => {
     return <div className="wizard-wrapper">
         <div className="wizard-container">
             <div className="wizard-container-header">
-                <h1>{__('Upgrading Gutenverse', 'gutenverse')}</h1>
+                <h1>{__('New Gutenverse Setup', 'gutenverse')}</h1>
                 <p>{__('If you decide to do upgrade later, you can follow this step.', 'gutenverse')}</p>
             </div>
             <div className="wizard-container-body" style={{ margin: '70px 0px 90px' }}>
