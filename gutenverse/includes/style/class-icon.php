@@ -77,9 +77,7 @@ class Icon extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} i",
 					'property'       => function ( $value ) {
-						$point = $value['point'];
-						$unit = $value['unit'];
-						return "font-size: {$point}{$unit};";
+						return $this->handle_unit_point( $value, 'font-size' );
 					},
 					'value'          => $this->attrs['iconSize'],
 					'device_control' => true,

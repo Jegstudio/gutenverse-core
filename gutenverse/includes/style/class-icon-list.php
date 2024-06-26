@@ -296,7 +296,7 @@ class Icon_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
-								return "border-top-width : {$value['point']}{$value['unit']};";
+								return $this->handle_unit_point( $value, 'border-top-width' );
 							},
 							'value'          => $this->attrs['sizeDivider'],
 							'device_control' => false,
@@ -306,7 +306,7 @@ class Icon_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
-								return "border-left-width : {$value['point']}{$value['unit']};";
+								return $this->handle_unit_point( $value, 'border-left-width' );
 							},
 							'value'          => $this->attrs['sizeDivider'],
 							'device_control' => false,
@@ -318,7 +318,7 @@ class Icon_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
-								return "width : {$value['point']}{$value['unit']};";
+								return $this->handle_unit_point( $value, 'width' );
 							},
 							'value'          => $this->attrs['widthDivider'],
 							'device_control' => false,
@@ -328,7 +328,7 @@ class Icon_List extends Style_Abstract {
 						array(
 							'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
-								return "height : {$value['point']}{$value['unit']};";
+								return $this->handle_unit_point( $value, 'height' );
 							},
 							'value'          => $this->attrs['widthDivider'],
 							'device_control' => false,
