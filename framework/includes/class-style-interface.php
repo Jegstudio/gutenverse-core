@@ -787,7 +787,18 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'height' );
+								},
+								'value'          => $cursor_efect['iconSize'],
+								'device_control' => false,
+							)
+						);
+
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return $this->handle_unit_point( $value, 'width' );
 								},
 								'value'          => $cursor_efect['iconSize'],
 								'device_control' => false,
@@ -798,7 +809,7 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-icon",
 								'property'       => function ( $value ) {
-									return "font-size: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'font-size' );
 								},
 								'value'          => $cursor_efect['iconSize'],
 								'device_control' => false,
@@ -825,7 +836,7 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "height: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'height' );
 								},
 								'value'          => $cursor_efect['imageHeight'],
 								'device_control' => false,
@@ -838,7 +849,7 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'width' );
 								},
 								'value'          => $cursor_efect['imageWidth'],
 								'device_control' => false,
@@ -950,7 +961,18 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'width' );
+								},
+								'value'          => $cursor_efect['primarySize'],
+								'device_control' => false,
+							)
+						);
+
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+								'property'       => function ( $value ) {
+									return $this->handle_unit_point( $value, 'height' );
 								},
 								'value'          => $cursor_efect['primarySize'],
 								'device_control' => false,
@@ -1000,7 +1022,18 @@ abstract class Style_Interface {
 							array(
 								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor",
 								'property'       => function ( $value ) {
-									return "width: {$value['point']}{$value['unit']}; height: {$value['point']}{$value['unit']};";
+									return $this->handle_unit_point( $value, 'height' );
+								},
+								'value'          => $cursor_efect['secondarySize'],
+								'device_control' => false,
+							)
+						);
+
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .innerCursor",
+								'property'       => function ( $value ) {
+									return $this->handle_unit_point( $value, 'width' );
 								},
 								'value'          => $cursor_efect['secondarySize'],
 								'device_control' => false,
