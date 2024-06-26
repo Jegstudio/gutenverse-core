@@ -177,7 +177,7 @@ const ThemeItem = (props) => {
 
         if (active) {
             return (
-                <span className="activate theme-button" onClick={() => (location.href = themeUrl + `${slug}-dashboard`)}>
+                <span className="demo theme-button" onClick={() => (location.href = themeUrl + `${slug}-dashboard`)}>
                     {__('Templates', '--gctd--')}
                 </span>
             );
