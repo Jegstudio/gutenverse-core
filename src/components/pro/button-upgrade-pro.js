@@ -83,7 +83,7 @@ const ButtonUpgradePro = ({
         } else {
             if ( location !== 'dashboard-navigation' ){
                 return applyFilters('gutenverse.button.pro.banner',
-                    button(__('Reactivate License', '--gctd--'), 'key', false, false),
+                    button(__('Renew License', '--gctd--'), 'key', false, false),
                     isBanner);
             }
         }

@@ -318,11 +318,8 @@
         &.active {
             .theme-button {
                 &.activate {
-                    background-color: #40505d !important;
-
-                    &:hover {
-                        background-color: #323e48;
-                    }
+                    background-color: white !important;
+                    color: #40505d;
                 }
             }
 
@@ -368,7 +365,7 @@
                 color: white;
                 cursor: pointer;
                 font-size: 12px;
-                font-weight: 400;
+                font-weight: 500;
                 overflow: hidden;
                 text-align: center;
                 text-decoration: none;
@@ -406,27 +403,7 @@
                     background-color: #777777;
                 }
 
-                &.activate {
-                    background-color: #0caf21;
-
-                    &:hover {
-                        background-color: #0b991e;
-
-                        span {
-                            font-family: "Roboto", serif;
-                            font-size: 12px;
-                            font-weight: 500;
-                            font-stretch: normal;
-                            font-style: normal;
-                            line-height: normal;
-                            letter-spacing: normal;
-                            text-align: center;
-                            color: #fff;
-                        }
-                    }
-                }
-
-                &.install {
+                &.activate, &.install {
                     background-color: var(--gutenverse-dashboard-primary);
 
                     &:hover {
@@ -436,7 +413,7 @@
                         span {
                             font-family: "Roboto", serif;
                             font-size: 12px;
-                            font-weight: 600;
+                            font-weight: 500;
                             font-stretch: normal;
                             font-style: normal;
                             line-height: normal;
