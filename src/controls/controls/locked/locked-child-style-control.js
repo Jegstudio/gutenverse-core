@@ -8,8 +8,8 @@ const LockedChildStyleControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-child-style gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Style Your Child Element', '--gctd--' )}
-            description={__( 'Modify your child element by modify their color', '--gctd--' )}
+            title={__( 'Unlock Text Highlight', '--gctd--' )}
+            description={__( 'Elevate your text element with customizable options like color, style, text decoration, and more to make it stand out.', '--gctd--' )}
             img={'/highlight-text.mp4'}
             isOpen={isOpen}
         />

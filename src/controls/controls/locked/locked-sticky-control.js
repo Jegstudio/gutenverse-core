@@ -7,8 +7,8 @@ const LockedStickyControl = ({isOpen}) => {
     const id = useInstanceId(LockedStickyControl, 'inspector-locked-sticky-control');
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-sticky gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Sticky', '--gctd--' )}
-            description={__( 'Sticky elements remain fixed in position on a webpage while users interact with the rest of the page or application.', '--gctd--' )}
+            title={__( 'Unlock Sticky', '--gctd--' )}
+            description={__( 'Keep your elements firmly in place on your webpage as users seamlessly interact with the rest of the content.', '--gctd--' )}
             img={'/scroll-sticky.mp4'}
             isOpen={isOpen}
         />

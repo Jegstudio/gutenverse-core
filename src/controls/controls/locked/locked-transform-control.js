@@ -8,8 +8,8 @@ const LockedTransformControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-transform gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Transform Element', '--gctd--' )}
-            description={__( 'Modify your element, rotate, move, scale, change opacity on Normal and Hovered state', '--gctd--' )}
+            title={__( 'Unlock Transform Element', '--gctd--' )}
+            description={__( 'Transform your element with dynamic effects: rotate, move, scale, and adjust opacity seamlessly between normal and hovered states for a captivating user experience.', '--gctd--' )}
             img={'/transform.mp4'}
             isOpen={isOpen}
         />

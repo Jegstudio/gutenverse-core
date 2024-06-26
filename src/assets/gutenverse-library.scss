@@ -225,7 +225,7 @@ $border: #eaeaea;
 
                 .library-item-content {
                     background-color: #e3e4e6;
-                    border-radius: inherit;
+                    border-radius: 5px 5px 0 0;
                     overflow: hidden;
                     position: relative;
                     &::before{
@@ -265,7 +265,7 @@ $border: #eaeaea;
                 }
 
                 .library-item-holder {
-                    border-radius: 5px;
+                    border-radius: 5px 5px 0 0;
                     overflow: hidden;
                     cursor: pointer;
                     position: relative;
@@ -468,6 +468,13 @@ $border: #eaeaea;
                     background: rgba(28, 29, 33, 0.8);
                     opacity: 0;
                     transition: opacity 0.5s ease-in-out;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    a.button-upgrade-pro {
+                        padding: 8px 14px !important;
+                    }
                 }
 
                 .pro-flag {
@@ -699,7 +706,7 @@ $border: #eaeaea;
     .library-export-notice {
         position: sticky;
         top: 20px;
-        height: 27px;
+        height: 37.5px;
         z-index: 999;
     
         .library-export-notice-container {
@@ -723,12 +730,12 @@ $border: #eaeaea;
                     display: flex;
                     gap: 5px;
                     align-items: center;
-                    padding: 6px 0 0;
+                    padding: 10px 10px 2px;
                     justify-content: space-between;
                     width: 100%;
     
                     span {
-                        font-family: Roboto, serif;
+                        font-family: "Roboto", serif;
                         font-size: 12px;
                         font-weight: normal;
                         font-stretch: normal;
@@ -1061,7 +1068,7 @@ $border: #eaeaea;
                     align-items: center;
                     margin-left: 20px;
                     gap: 6px;
-                    padding: 12px 28px;
+                    padding: 12px 38px;
                     border-radius: 5px;
                     box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
                     border: 1px solid #3b57f7;

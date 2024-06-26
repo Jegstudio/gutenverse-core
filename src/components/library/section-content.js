@@ -267,7 +267,7 @@ const SectionContentItem = props => {
     };
 
     const paddingBottom = (item?.cover[2] / item?.cover[1] * 100 < 10) ? 0 : item?.cover[2] / item?.cover[1] * 100;
-    const minHeight = paddingBottom === 0 ? 44 : 0;
+    const minHeight = paddingBottom === 0 ? 50 : 0;
 
     return <div className={classname}>
         <div className="library-item-content">
@@ -305,6 +305,7 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
+        {/* <ExportNotice message="fetching" progress="1/4" /> */}
         {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress} /> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">

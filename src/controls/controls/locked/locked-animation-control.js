@@ -8,8 +8,8 @@ const LockedAnimationControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-animation gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Advance Animation', '--gctd--' )}
-            description={__( 'Advanced animation framework create visually captivating and interactive elements.', '--gctd--' )}
+            title={__( 'Unlock Advance Animation', '--gctd--' )}
+            description={__( 'Discover our advanced animation framework, designed to craft visually stunning and interactive elements that captivate and engage your audience.', '--gctd--' )}
             img={'/advance-animation.mp4'}
             isOpen={isOpen}
         />
