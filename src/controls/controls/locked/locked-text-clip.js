@@ -8,7 +8,7 @@ const LockedTextClip = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-text-clip gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Text Clip Overlay', '--gctd--' )}
+            title={__( 'Unlock Text Clip Overlay', '--gctd--' )}
             description={__( 'Create stuning website with text clip for both image background and CSS Gradient', '--gctd--' )}
             img={'/text-clip.mp4'}
             isOpen={isOpen}

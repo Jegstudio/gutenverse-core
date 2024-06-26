@@ -8,8 +8,8 @@ const LockedBackgroundEffectControl = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-background-effect gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Background Effects', '--gctd--' )}
-            description={__( 'Add fancy background effect to your element', '--gctd--' )}
+            title={__( 'Unlock Background Effects', '--gctd--' )}
+            description={__( 'Enhance your element\'s background with captivating special effects like a dynamic, attention-grabbing wavy backdrop designed to captivate your users.', '--gctd--' )}
             img={'/background-effect.mp4'}
             isOpen={isOpen}
         />

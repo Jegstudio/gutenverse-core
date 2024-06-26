@@ -8,7 +8,7 @@ const LockedFormMultiGroupSelectPanel = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-child-style gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Form Multi Select Group Settings And Style', '--gctd--' )}
+            title={__( 'Unlock Form Multi Select Group Settings And Style', '--gctd--' )}
             description={__( 'You are currently using free version. Upgrade now to unlock full potential of your website design', '--gctd--' )}
             img={'/advance-animation.mp4'}
             isOpen={isOpen}

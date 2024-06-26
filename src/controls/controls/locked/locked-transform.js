@@ -8,7 +8,7 @@ const LockedTransform = ({isOpen}) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-locked-transform gutenverse-control-locked-layout'}>
         <DefaultLayout
-            title={__( 'Transform Element', '--gctd--' )}
+            title={__( 'Unlock Transform Element', '--gctd--' )}
             description={__( 'Lets you rotate, scale, skew, or translate an element', '--gctd--' )}
             img={'/transform.mp4'}
             isOpen={isOpen}
