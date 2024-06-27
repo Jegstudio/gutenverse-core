@@ -19,6 +19,7 @@ const ButtonUpgradePro = ({
     link = null,
     location = '',
     isBanner = false,
+    licenseActiveButton = <></>
 }) => {
 
     const { upgradeProUrl, adminUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
@@ -74,19 +75,14 @@ const ButtonUpgradePro = ({
             if ( location !== 'dashboard-navigation' ){
                 return button(text, 'crown', false, true);
             } else return button(text, 'crown', true, true);
-        } else if (license === ''){
-            if ( location !== 'dashboard-navigation' ){
-                return applyFilters('gutenverse.button.pro.banner',
-                    button(__('Activate License', '--gctd--'), 'key', false, false),
-                    isBanner);
-            }
         } else {
             if ( location !== 'dashboard-navigation' ){
                 return applyFilters('gutenverse.button.pro.banner',
+                    button(__('Activate License', '--gctd--'), 'key', false, false),
                     button(__('Renew License', '--gctd--'), 'key', false, false),
-                    isBanner);
+                    licenseActiveButton);
             }
-        }
+        } 
     }, {location,isBanner});
     return <TheButton />;
 };

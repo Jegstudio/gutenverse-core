@@ -133,7 +133,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro isBanner={true} location="card-pro" customStyles={{ padding: '12px 20px' }}/>;
+        return <ButtonUpgradePro licenseActiveButton={ImportButton()} isBanner={true} location="card-pro" customStyles={{ padding: '12px 20px' }}/>;
     };
 
     const renderButton = () => {
@@ -145,12 +145,7 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
     };
 
     const theButton = () => {
-        let button = applyFilters(
-            'gutenverse.library.layout.import',
-            renderButton(),
-            <ImportButton />,
-            isPro
-        );
+        let button = renderButton();
 
         if (importer.lockLayoutImport?.layout) {
             if (slug !== importer.lockLayoutImport?.layout) {

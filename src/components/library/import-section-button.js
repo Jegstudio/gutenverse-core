@@ -107,7 +107,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro isBanner={true} location="card-pro"/>;
+        return <ButtonUpgradePro licenseActiveButton={ImportButton()} isBanner={true} location="card-pro"/>;
     };
 
     const renderButton = () => {
@@ -119,12 +119,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const theButton = () => {
-        let button = applyFilters(
-            'gutenverse.library.section.import',
-            renderButton(),
-            <ImportButton />,
-            isPro
-        );
+        let button = renderButton();
 
         if (importer.lockSectionImport) {
             if (slug != importer.lockSectionImport) {

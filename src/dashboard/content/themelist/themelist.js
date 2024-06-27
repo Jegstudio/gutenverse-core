@@ -210,14 +210,7 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        // const { upgradeProUrl } = window['GutenverseDashboard'];
-
-        // return pro ? <div className="theme-button pro" onClick={() => window.open(upgradeProUrl)}>
-        //     {__('Upgrade to PRO', '--gctd--')}
-        //     <IconCrownBannerSVG />
-        // </div> : defaultButton();
-
-        return pro ? <ButtonUpgradePro isBanner={true} location="card-pro" customStyles={{marginRight: '10px'}}/> : defaultButton();
+        return pro ? <ButtonUpgradePro licenseActiveButton={defaultButton()} isBanner={true} location="card-pro" customStyles={{marginRight: '10px'}}/> : defaultButton();
     };
 
     const dev = '--dev_mode--';
@@ -257,12 +250,7 @@ const ThemeItem = (props) => {
                     {__('by', '--gctd--')} {author.name}
                 </span>} */}
                 <div className="theme-buttons">
-                    {applyFilters(
-                        'gutenverse.library.themelist.import',
-                        actionButton(),
-                        defaultButton,
-                        pro
-                    )}
+                    {actionButton()}
                     <a href={demo} target="_blank" rel="noreferrer" className="demo theme-button">
                         {__('View Demo', '--gctd--')}
                     </a>
