@@ -28,7 +28,16 @@ export const settings = {
             save: saveV4
         },
         {
-            attributes,
+            attributes: {
+                ...attributes,
+                anchor : {
+                    type: 'string',
+                    source: "attribute",
+                    selector: ".wp-block-gutenverse-column",
+                    attribute: "id",
+                    default: undefined
+                }
+            },
             save: saveV3
         },
         {

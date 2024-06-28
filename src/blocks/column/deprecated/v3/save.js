@@ -28,7 +28,8 @@ const save = compose(
         bottomSticky,
         sectionVerticalAlign,
         cursorEffect,
-        backgroundAnimated = {}
+        backgroundAnimated = {},
+        anchor
     } = attributes;
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
     const dataId = elementId?.split('-')[1];
@@ -61,6 +62,7 @@ const save = compose(
 
     const blockProps = useBlockProps.save({
         className: wrapperClasses,
+        ...(anchor ? { id: anchor } : {}), //if colum v3 have anchor, add id. automatic anchor from WordPress is not exist in deprecated
         ...advanceAnimationData,
         ...(
             (isCanSticky && isEmpty(advanceAnimationData))
