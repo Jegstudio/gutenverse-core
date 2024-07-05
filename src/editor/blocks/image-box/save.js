@@ -53,7 +53,8 @@ const save = compose(
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
-        hasInnerBlocks
+        hasInnerBlocks,
+        includeButton
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -97,7 +98,7 @@ const save = compose(
                                 tagName="p"
                             />
                         }
-                        <InnerBlocks.Content />
+                        {includeButton && <InnerBlocks.Content />}
                         {hoverBottom && <div className={'border-bottom'}>
                             <div className={`animated ${hoverBottomDirection}`}></div>
                         </div>}
@@ -109,7 +110,7 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
+            {hasInnerBlocks && includeButton ? <ContentBody /> : <WrapAHref {...props}>
                 <ContentBody />
             </WrapAHref>}
         </div>
