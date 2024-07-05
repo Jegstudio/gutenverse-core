@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, AlertControl } from 'gutenverse-core/controls';
+import { SelectControl, AlertControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const panelWrapper = props => {
     const {
@@ -13,6 +13,11 @@ export const panelWrapper = props => {
             children: <>
                 <span>{__('If you include a button within this block, the body link feature will be disabled. This is because you cannot have a link inside another link.')}</span>
             </>
+        },
+        {
+            id: 'includeButton',
+            label: __('Add button on the image body', 'gutenverse'),
+            component: CheckboxControl
         },
         {
             id: 'imagePosition',

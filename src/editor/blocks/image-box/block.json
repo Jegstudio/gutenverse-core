@@ -13,6 +13,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"includeButton": {
+			"type" : "boolean",
+			"default": true
+		},
 		"url": {
 			"type": "string"
 		},

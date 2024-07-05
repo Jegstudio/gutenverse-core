@@ -122,7 +122,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
         url,
         rel,
         linkTarget,
-        separateButtonLink
+        separateButtonLink,
+        includeButton
     } = attributes;
 
     const isGlobalLinkSet = url !== undefined && url !== '';
@@ -208,7 +209,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 isUseHighlight={true}
                 parentHasLink={isGlobalLinkSet}
             />
-            <div {...innerBlockProps} />
+            {includeButton && <div {...innerBlockProps} />}
             {hoverBottom && <div className={'border-bottom'}>
                 <div className={`animated ${hoverBottomDirection}`}></div>
             </div>}
