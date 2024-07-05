@@ -16,7 +16,8 @@ export const panelWrapper = props => {
         },
         {
             id: 'includeButton',
-            label: __('Add button', 'gutenverse'),
+            label: __('Enable button', 'gutenverse'),
+            description: __('Add button on the image body, the body link feature will be disabled.'),
             component: CheckboxControl
         },
         {
