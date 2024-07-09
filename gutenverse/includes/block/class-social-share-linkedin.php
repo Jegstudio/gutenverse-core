@@ -36,7 +36,7 @@ class Social_Share_Linkedin extends Block_Abstract {
 	public function render_gutenberg() {
 		$content = $this->render_content();
 
-		return "<div class='gutenverse-share-linkedin gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-linkedin gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a href='#' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
@@ -53,7 +53,7 @@ class Social_Share_Linkedin extends Block_Abstract {
 		$share_url        = 'https://www.linkedin.com/shareArticle?url=' . $encoded_post_url . '&title=' . $title;
 		$content          = $this->render_content();
 
-		return "<div class='gutenverse-share-linkedin gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-linkedin gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>

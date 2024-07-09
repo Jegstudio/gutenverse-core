@@ -36,7 +36,7 @@ class Social_Share_Email extends Block_Abstract {
 	public function render_gutenberg() {
 		$content = $this->render_content();
 
-		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a href='#' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
@@ -53,7 +53,7 @@ class Social_Share_Email extends Block_Abstract {
 		$share_url        = 'mailto:?subject=' . $title . '&amp;body=' . $encoded_post_url;
 		$content          = $this->render_content();
 
-		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
