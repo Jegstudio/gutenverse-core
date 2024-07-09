@@ -70,10 +70,8 @@ abstract class Block_Abstract {
 	 * @return string
 	 */
 	protected function get_element_id() {
-		if ( isset( $this->attributes['elementId'] ) ) {
-			return esc_attr( $this->attributes['elementId'] );
-		}
-		return null;
+		$element_id = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		return esc_attr( $element_id );
 	}
 
 	/**
@@ -92,10 +90,9 @@ abstract class Block_Abstract {
 	 * @return mixed
 	 */
 	public function empty_content() {
-		$text = esc_attr( $this->attributes['noContentText'] );
-		$text = $text ? $text : '';
+		$text = isset( $this->attributes['noContentText'] ) ? $this->attributes['noContentText'] : '';
 
-		$no_content = '<div class="guten-empty">' . $text . '</div>';
+		$no_content = '<div class="guten-empty">' . esc_html( $text ) . '</div>';
 
 		return apply_filters( 'gutenverse_no_content', $no_content );
 	}
