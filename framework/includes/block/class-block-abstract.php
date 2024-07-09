@@ -70,7 +70,10 @@ abstract class Block_Abstract {
 	 * @return string
 	 */
 	protected function get_element_id() {
-		return esc_attr( $this->attributes['elementId'] );
+		if ( isset( $this->attributes['elementId'] ) ) {
+			return esc_attr( $this->attributes['elementId'] );
+		}
+		return null;
 	}
 
 	/**

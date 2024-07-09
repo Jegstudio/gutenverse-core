@@ -644,7 +644,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$id = 'id="' . $id . '"';
 		}
 
-		$classes = 'gutenverse guten-' . $element_name . $classes . ' ' . $this->attributes['elementId'];
+		$classes = 'gutenverse guten-' . $element_name . $classes . ' ' . $this->get_element_id();
 
 		return '<div ' . $id . ' class="' . $classes . '" ' . $data . '>' . $inner . '</div>';
 	}
