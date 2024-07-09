@@ -20,10 +20,12 @@ class Social_Share_Pinterest extends Block_Abstract {
 	/**
 	 * $attributes, $content
 	 *
+	 * @param string $text .
+	 *
 	 * @return string
 	 */
-	public function render_content() {
-		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$this->attributes['text']}</div>" : '';
+	public function render_content( $text ) {
+		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$text}</div>" : '';
 
 		return "<div class='gutenverse-share-icon'>
 				<i class='fab fa-pinterest'></i>
@@ -34,10 +36,11 @@ class Social_Share_Pinterest extends Block_Abstract {
 	 * Render view in editor
 	 */
 	public function render_gutenberg() {
-		$content = $this->render_content();
+		$text    = esc_html( $this->attributes['text'] );
+		$content = $this->render_content( $text );
 
 		return "<div class='gutenverse-share-pinterest gutenverse-share-item' id='{$this->get_element_id()}'>
-			<a href='#' aria-label='{$this->attributes['text']}'>
+			<a href='#' aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";
@@ -52,11 +55,12 @@ class Social_Share_Pinterest extends Block_Abstract {
 		$encoded_post_url = gutenverse_encode_url( $post_id );
 		$image            = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
 		$image_url        = $image ? $image[0] : '';
-		$share_url        = 'https://www.pinterest.com/pin/create/bookmarklet/?pinFave=1&url=' . $encoded_post_url . '&media=' . $image_url . '&description=' . $title;
-		$content          = $this->render_content();
+		$share_url        = esc_url( 'https://www.pinterest.com/pin/create/bookmarklet/?pinFave=1&url=' . $encoded_post_url . '&media=' . $image_url . '&description=' . $title );
+		$text             = esc_html( $this->attributes['text'] );
+		$content          = $this->render_content( $text );
 
 		return "<div class='gutenverse-share-pinterest gutenverse-share-item' id='{$this->get_element_id()}'>
-			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
+			<a target='_blank' href='{$share_url}' aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";

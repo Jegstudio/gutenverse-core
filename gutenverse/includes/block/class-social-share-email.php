@@ -20,9 +20,11 @@ class Social_Share_Email extends Block_Abstract {
 	/**
 	 * $attributes, $content
 	 *
+	 * @param string $text .
+	 *
 	 * @return string
 	 */
-	public function render_content() {
+	public function render_content( $text ) {
 		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$this->attributes['text']}</div>" : '';
 
 		return "<div class='gutenverse-share-icon'>
@@ -34,7 +36,8 @@ class Social_Share_Email extends Block_Abstract {
 	 * Render view in editor
 	 */
 	public function render_gutenberg() {
-		$content = $this->render_content();
+		$text    = esc_html( $this->attributes['text'] );
+		$content = $this->render_content( $text );
 
 		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a href='#' aria-label='{$this->attributes['text']}'>
