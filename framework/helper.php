@@ -71,7 +71,7 @@ if ( ! function_exists( 'gutenverse_encode_url' ) ) {
 	function gutenverse_encode_url( $post_id ) {
 		$url = get_permalink( $post_id );
 
-		return urlencode( $url );
+		return rawurlencode( $url );
 	}
 }
 
