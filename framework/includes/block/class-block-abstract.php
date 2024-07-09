@@ -65,6 +65,15 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Get element ID.
+	 *
+	 * @return string
+	 */
+	protected function get_element_id() {
+		return esc_attr( $this->attributes['elementId'] );
+	}
+
+	/**
 	 * Return empty content element
 	 *
 	 * @return mixed
