@@ -54,7 +54,7 @@ class Archive_Title extends Block_Abstract {
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 		$title           = 'Archive Title';
 		$category_url    = '#';
 		if ( is_category() ) {

@@ -81,7 +81,7 @@ class Post_Date extends Block_Abstract {
 		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-date guten-element">' . $this->render_content( $post_id ) . '</div>';
 	}

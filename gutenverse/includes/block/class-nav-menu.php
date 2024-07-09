@@ -37,7 +37,7 @@ class Nav_Menu extends Block_Abstract {
 		$menu_link         = $this->attributes['mobileMenuLink'];
 		$menu_url          = 'home' === $menu_link ? home_url() : $this->attributes['mobileMenuURL'];
 		$mobile_close_icon = $this->attributes['mobileCloseIcon'];
-		$custom_classes    = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes    = $this->get_custom_classes();
 		$display_classes   = $this->set_display_classes();
 		$animation_class   = $this->set_animation_classes();
 		$menu              = gutenverse_get_menu( $this->attributes['menuId'] );
