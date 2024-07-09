@@ -77,6 +77,16 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Get element ID.
+	 *
+	 * @return string
+	 */
+	protected function get_custom_classes() {
+		$custom_classes = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		return esc_attr( $custom_classes );
+	}
+
+	/**
 	 * Return empty content element
 	 *
 	 * @return mixed
@@ -148,7 +158,7 @@ abstract class Block_Abstract {
 			$display_classes .= 'hide-mobile ';
 		}
 
-		return $display_classes;
+		return esc_attr( $display_classes );
 	}
 
 	/**
@@ -189,7 +199,7 @@ abstract class Block_Abstract {
 			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Mobile']} ";
 		}
 
-		return $animation_classes;
+		return esc_attr( $animation_classes );
 	}
 
 	/**
