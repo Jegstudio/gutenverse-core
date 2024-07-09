@@ -25,7 +25,7 @@ class Nav_Menu extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $remove_link = false ) {
-		$element_id        = $this->attributes['elementId'];
+		$element_id        = $this->get_element_id();
 		$menu_breakpoint   = $this->attributes['breakpoint'];
 		$mobile_menu_icon  = $this->attributes['mobileIcon'];
 		$mobile_close_icon = $this->attributes['mobileCloseIcon'];

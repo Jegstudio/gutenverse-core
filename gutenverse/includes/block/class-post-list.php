@@ -49,7 +49,7 @@ class Post_List extends Post_Abstract {
 			$content,
 			$class,
 			array(
-				'id'       => $this->attributes['elementId'],
+				'id'       => $this->get_element_id(),
 				'settings' => $settings,
 			)
 		);
@@ -229,7 +229,7 @@ class Post_List extends Post_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$element_id      = $this->attributes['elementId'];
+		$element_id      = $this->get_element_id();
 		$layout          = $this->attributes['layout'];
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();

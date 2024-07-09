@@ -110,7 +110,7 @@ class Post_Author extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
-		$element_id      = $this->attributes['elementId'];
+		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';

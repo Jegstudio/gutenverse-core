@@ -36,7 +36,7 @@ class Social_Share_Wechat extends Block_Abstract {
 	public function render_gutenberg() {
 		$content = $this->render_content();
 
-		return "<div class='gutenverse-share-wechat gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-wechat gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a href='#' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
@@ -52,7 +52,7 @@ class Social_Share_Wechat extends Block_Abstract {
 		$share_url        = 'https://chart.googleapis.com/chart?chs=400x400&cht=qr&choe=UTF-8&chl=' . $encoded_post_url;
 		$content          = $this->render_content();
 
-		return "<div class='gutenverse-share-wechat gutenverse-share-item' id='{$this->attributes['elementId']}'>
+		return "<div class='gutenverse-share-wechat gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
 				{$content}
 			</a>
