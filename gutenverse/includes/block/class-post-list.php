@@ -198,7 +198,7 @@ class Post_List extends Post_Abstract {
 				$icon = $this->attributes['icon'];
 
 				if ( $icon ) {
-					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
+					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i></span>';
 				}
 			}
 
@@ -230,7 +230,7 @@ class Post_List extends Post_Abstract {
 	 */
 	public function render_frontend() {
 		$element_id      = $this->get_element_id();
-		$layout          = $this->attributes['layout'];
+		$layout          = esc_attr( $this->attributes['layout'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
