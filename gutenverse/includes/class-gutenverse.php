@@ -205,7 +205,8 @@ class Gutenverse {
 				<div class="notice-content">
 					<h2>
 						<?php
-						echo sprintf(
+						printf(
+							// translators: %s is plugin name.
 							esc_html__( 'Update %s Plugin!', 'gutenverse' ),
 							esc_html( $plugin_name )
 						);
@@ -213,7 +214,8 @@ class Gutenverse {
 					</h2>
 					<p>
 						<?php
-						echo sprintf(
+						printf(
+							// translators: %s is plugin name.
 							esc_html__( 'We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. ', 'gutenverse' ),
 							esc_html( $plugin_name )
 						);
@@ -221,7 +223,7 @@ class Gutenverse {
 					</p>				
 					<p>
 						<?php
-						echo sprintf(
+						printf(
 							'%s <strong>%s %s</strong> %s',
 							esc_html__( 'We currently disabled gutenverse plugin.', 'gutenverse' ),
 							esc_html__( 'Please update', 'gutenverse' ),

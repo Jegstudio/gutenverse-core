@@ -34,7 +34,7 @@ class Post_Excerpt extends Block_Abstract {
 
 				if ( isset( $this->attributes['showReadmore'] ) ) {
 					$post_url      = get_post_permalink( $post_id );
-					$readmore_text = $this->attributes['readmoreText'];
+					$readmore_text = esc_html( $this->attributes['readmoreText'] );
 					$post_excerpt  = $post_excerpt . "<a href='{$post_url}'>{$readmore_text}</a>";
 				}
 
@@ -42,7 +42,7 @@ class Post_Excerpt extends Block_Abstract {
 			}
 		}
 
-		$no_excerpt = $this->attributes['noContentText'];
+		$no_excerpt = esc_html( $this->attributes['noContentText'] );
 
 		return "<{$html_tag}>{$no_excerpt}</{$html_tag}>";
 	}
@@ -59,10 +59,10 @@ class Post_Excerpt extends Block_Abstract {
 	 */
 	public function render_frontend() {
 		$post_id         = ! empty( $this->context['postId'] ) ? esc_html( $this->context['postId'] ) : get_the_ID();
-		$element_id      = $this->attributes['elementId'];
+		$element_id      = $this->get_element_id();
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-excerpt guten-element">' . $this->render_content( $post_id ) . '</div>';
 	}

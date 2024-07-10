@@ -1,12 +1,14 @@
-=== Gutenverse - Gutenberg Blocks and Page Builder for Site Editor ===
+=== Gutenverse - Blocks and Page Builder for Site Editor ===
 
 Contributors: Jegstudio
-Tags: gutenberg, blocks, page builder, gallery, templates, layouts, sections, columns, animation, FSE
-Tested up to: 6.2
+Tags: gutenberg, blocks, page builder, gallery, templates
+Tested up to: 6.5
 Requires PHP: 7.0
 Stable tag: 2.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Powerful and lightweight blocks and page builder for WordPress Gutenberg Editor.
 
 == DESCRIPTION ==
 

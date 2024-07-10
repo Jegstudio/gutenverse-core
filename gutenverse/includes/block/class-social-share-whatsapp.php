@@ -20,10 +20,12 @@ class Social_Share_Whatsapp extends Block_Abstract {
 	/**
 	 * $attributes, $content
 	 *
+	 * @param string $text .
+	 *
 	 * @return string
 	 */
-	public function render_content() {
-		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$this->attributes['text']}</div>" : '';
+	public function render_content( $text ) {
+		$share_text = $this->attributes['showText'] ? "<div class='gutenverse-share-text'>{$text}</div>" : '';
 
 		return "<div class='gutenverse-share-icon'>
 				<i class='fab fa-whatsapp'></i>
@@ -34,10 +36,11 @@ class Social_Share_Whatsapp extends Block_Abstract {
 	 * Render view in editor
 	 */
 	public function render_gutenberg() {
-		$content = $this->render_content();
+		$text    = esc_html( $this->attributes['text'] );
+		$content = $this->render_content( $text );
 
-		return "<div class='gutenverse-share-whatsapp gutenverse-share-item' id='{$this->attributes['elementId']}'>
-			<a href='#' aria-label='{$this->attributes['text']}'>
+		return "<div class='gutenverse-share-whatsapp gutenverse-share-item' id='{$this->get_element_id()}'>
+			<a href='#' aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";
@@ -50,11 +53,12 @@ class Social_Share_Whatsapp extends Block_Abstract {
 		$post_id          = get_the_ID();
 		$encoded_post_url = gutenverse_encode_url( $post_id );
 		$title            = get_the_title( $post_id );
-		$share_url        = '//api.whatsapp.com/send?text=' . $title . '%0A' . $encoded_post_url;
-		$content          = $this->render_content();
+		$share_url        = esc_url( '//api.whatsapp.com/send?text=' . $title . '%0A' . $encoded_post_url );
+		$text             = esc_html( $this->attributes['text'] );
+		$content          = $this->render_content( $text );
 
-		return "<div class='gutenverse-share-whatsapp gutenverse-share-item' id='{$this->attributes['elementId']}'>
-			<a target='_blank' href='{$share_url}' aria-label='{$this->attributes['text']}'>
+		return "<div class='gutenverse-share-whatsapp gutenverse-share-item' id='{$this->get_element_id()}'>
+			<a target='_blank' href='{$share_url}' aria-label='{$text}'>
 				{$content}
 			</a>
 		</div>";

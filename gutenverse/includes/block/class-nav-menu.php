@@ -25,19 +25,19 @@ class Nav_Menu extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $remove_link = false ) {
-		$element_id        = $this->attributes['elementId'];
-		$menu_breakpoint   = $this->attributes['breakpoint'];
-		$mobile_menu_icon  = $this->attributes['mobileIcon'];
-		$mobile_close_icon = $this->attributes['mobileCloseIcon'];
+		$element_id        = $this->get_element_id();
+		$menu_breakpoint   = esc_attr( $this->attributes['breakpoint'] );
+		$mobile_menu_icon  = esc_attr( $this->attributes['mobileIcon'] );
+		$mobile_close_icon = esc_attr( $this->attributes['mobileCloseIcon'] );
 		$mobile_logo       = isset( $this->attributes['mobileMenuLogo'] ) ? $this->attributes['mobileMenuLogo'] : null;
 		$mobile_logo_image = $this->render_image( $mobile_logo );
 		$submenu_click     = $this->attributes['mobileSubmenuClick'] ? 'submenu-click-title' : 'submenu-click-icon';
 		$closeon_click     = $this->attributes['mobileCloseOnClick'];
-		$item_indicator    = $this->attributes['submenuItemIndicator'];
-		$menu_link         = $this->attributes['mobileMenuLink'];
-		$menu_url          = 'home' === $menu_link ? home_url() : $this->attributes['mobileMenuURL'];
-		$mobile_close_icon = $this->attributes['mobileCloseIcon'];
-		$custom_classes    = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$item_indicator    = esc_attr( $this->attributes['submenuItemIndicator'] );
+		$menu_link         = esc_attr( $this->attributes['mobileMenuLink'] );
+		$menu_url          = 'home' === $menu_link ? home_url() : esc_url( $this->attributes['mobileMenuURL'] );
+		$mobile_close_icon = esc_attr( $this->attributes['mobileCloseIcon'] );
+		$custom_classes    = $this->get_custom_classes();
 		$display_classes   = $this->set_display_classes();
 		$animation_class   = $this->set_animation_classes();
 		$menu              = gutenverse_get_menu( $this->attributes['menuId'] );

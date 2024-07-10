@@ -49,7 +49,7 @@ class Post_List extends Post_Abstract {
 			$content,
 			$class,
 			array(
-				'id'       => $this->attributes['elementId'],
+				'id'       => $this->get_element_id(),
 				'settings' => $settings,
 			)
 		);
@@ -140,13 +140,13 @@ class Post_List extends Post_Abstract {
 				$date      = esc_attr( $this->format_date( $post ) );
 
 				if ( $date_icon ) {
-					$meta_date = '<i aria-hidden="true" class="' . $date_icon . '"></i> &nbsp;' . $date;
+					$meta_date = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date;
 					if ( isset( $this->attributes['metaDateIconPosition'] ) ) {
 						$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
 						if ( 'before' === $icon_position ) {
-							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . $date_icon . '"></i> &nbsp;' . $date . '</div>';
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date . '</div>';
 						} else {
-							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $date . '&nbsp;<i aria-hidden="true" class="' . $date_icon . '"></i></div>';
+							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $date . '&nbsp;<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i></div>';
 						}
 					}
 				}
@@ -159,7 +159,7 @@ class Post_List extends Post_Abstract {
 				$category      = get_category( $this->get_primary_category( $post->ID ) );
 
 				if ( $category_icon && isset( $category->name ) ) {
-					$meta_category = '<i aria-hidden="true" class="' . $category_icon . '"></i> ' . $category->name;
+					$meta_category = '<i aria-hidden="true" class="' . esc_attr( $category_icon ) . '"></i> ' . $category->name;
 				}
 
 				$meta_category = '<span class="meta-category">' . $meta_category . '</span>';
@@ -198,7 +198,7 @@ class Post_List extends Post_Abstract {
 				$icon = $this->attributes['icon'];
 
 				if ( $icon ) {
-					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . $icon . '"></i></span>';
+					$thumbnail = '<span class="icon-list"><i aria-hidden="true" class="' . esc_attr( $icon ) . '"></i></span>';
 				}
 			}
 
@@ -229,11 +229,11 @@ class Post_List extends Post_Abstract {
 	 * Render view in frontend
 	 */
 	public function render_frontend() {
-		$element_id      = $this->attributes['elementId'];
-		$layout          = $this->attributes['layout'];
+		$element_id      = $this->get_element_id();
+		$layout          = esc_attr( $this->attributes['layout'] );
 		$display_classes = $this->set_display_classes();
 		$animation_class = $this->set_animation_classes();
-		$custom_classes  = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		$custom_classes  = $this->get_custom_classes();
 
 		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' layout-' . $layout . ' guten-post-list guten-element">' . $this->render_content() . '</div>';
 	}
