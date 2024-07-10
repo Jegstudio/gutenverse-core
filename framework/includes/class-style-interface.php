@@ -1058,6 +1058,7 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
 						'property'       => function ( $value ) {
+							$overflow = 'visible';
 							if ( $value ) {
 								$overflow = 'hidden';
 							}

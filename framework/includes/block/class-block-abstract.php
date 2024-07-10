@@ -65,15 +65,34 @@ abstract class Block_Abstract {
 	}
 
 	/**
+	 * Get element ID.
+	 *
+	 * @return string
+	 */
+	protected function get_element_id() {
+		$element_id = isset( $this->attributes['elementId'] ) ? $this->attributes['elementId'] : '';
+		return esc_attr( $element_id );
+	}
+
+	/**
+	 * Get element ID.
+	 *
+	 * @return string
+	 */
+	protected function get_custom_classes() {
+		$custom_classes = isset( $this->attributes['className'] ) ? $this->attributes['className'] : '';
+		return esc_attr( $custom_classes );
+	}
+
+	/**
 	 * Return empty content element
 	 *
 	 * @return mixed
 	 */
 	public function empty_content() {
-		$text = esc_attr( $this->attributes['noContentText'] );
-		$text = $text ? $text : '';
+		$text = isset( $this->attributes['noContentText'] ) ? $this->attributes['noContentText'] : '';
 
-		$no_content = '<div class="guten-empty">' . $text . '</div>';
+		$no_content = '<div class="guten-empty">' . esc_html( $text ) . '</div>';
 
 		return apply_filters( 'gutenverse_no_content', $no_content );
 	}
@@ -136,7 +155,7 @@ abstract class Block_Abstract {
 			$display_classes .= 'hide-mobile ';
 		}
 
-		return $display_classes;
+		return esc_attr( $display_classes );
 	}
 
 	/**
@@ -177,7 +196,7 @@ abstract class Block_Abstract {
 			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Mobile']} ";
 		}
 
-		return $animation_classes;
+		return esc_attr( $animation_classes );
 	}
 
 	/**

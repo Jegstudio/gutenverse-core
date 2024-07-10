@@ -600,7 +600,7 @@ class Style_Generator {
 			// Check if the entry is a file and not a directory.
 			if ( is_file( $file_path ) ) {
 				// Delete the file.
-				unlink( $file_path );
+				wp_delete_file( $file_path );
 			}
 		}
 
