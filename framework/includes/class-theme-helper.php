@@ -27,9 +27,9 @@ class Theme_Helper {
 		}
 
 		// Filter.
-		add_filter( 'pre_get_block_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
-		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null );
-		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null );
+		add_filter( 'pre_get_block_file_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
+		add_filter( 'get_block_file_template', array( $this, 'remove_filter_change_directory' ), null );
+
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
 		add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
 		add_filter( 'validate_current_theme', '__return_false' );
