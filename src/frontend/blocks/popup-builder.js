@@ -125,6 +125,16 @@ class GutenversePopupElement {
                         event.preventDefault();
                     });
 
+                u(document)
+                    .find(`#${anchor}`)
+                    .on('click', (event) => {
+                        if (!maxClick || countClick < maxClick) {
+                            this._showPopup();
+                            countClick += 1;
+                        }
+                        event.preventDefault();
+                    });
+
                 break;
             case 'hover':
                 anchor = this.element.data('anchor');
@@ -140,6 +150,16 @@ class GutenversePopupElement {
                             this._showPopup();
                             countClick += 1;
                         }
+                    });
+
+                u(document)
+                    .find(`#${anchor}`)
+                    .on('mouseover', (event) => {
+                        if (!maxClick || countClick < maxClick) {
+                            this._showPopup();
+                            countClick += 1;
+                        }
+                        event.preventDefault();
                     });
                 break;
             case 'exit':
