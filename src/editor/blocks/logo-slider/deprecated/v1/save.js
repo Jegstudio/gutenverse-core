@@ -18,7 +18,6 @@ const save = compose(
         showArrow,
         arrowPosition,
     } = attributes;
-    console.log('masuk');
     const getImageSrc = src => src && src.image ? src.image : oldImagePlaceholder;
 
     const logoNormalLazyLoad = (logo) => {

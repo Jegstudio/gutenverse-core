@@ -4,12 +4,6 @@ import { CheckboxControl, ImageSizeControl, SelectControl, TextControl } from 'g
 export const panelImage = () => {
     return [
         {
-            id: 'separateButtonLink',
-            label: __('Different Link for Button', 'gutenverse'),
-            description: __('Use a different link for Image Box\'s Button'),
-            component: CheckboxControl,
-        },
-        {
             id: 'image',
             label: __('Image', 'gutenverse'),
             component: ImageSizeControl

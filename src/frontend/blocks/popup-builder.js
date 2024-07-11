@@ -117,11 +117,12 @@ class GutenversePopupElement {
 
                 u(document)
                     .find(`*[href="#${anchor}"]`)
-                    .on('click', () => {
+                    .on('click', (event) => {
                         if (!maxClick || countClick < maxClick) {
                             this._showPopup();
                             countClick += 1;
                         }
+                        event.preventDefault();
                     });
 
                 break;
