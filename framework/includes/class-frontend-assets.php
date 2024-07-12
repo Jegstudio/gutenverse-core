@@ -35,12 +35,13 @@ class Frontend_Assets {
 	 * @return string
 	 */
 	public function global_variable_css( $result = '' ) {
-		// RENDER DEVICE WIDTH.
+		$csss = array();
 
+		// RENDER DEVICE WIDTH.
 		$tablet_breakpoint = gutenverse_breakpoint( 'Tablet' );
 		$mobile_breakpoint = gutenverse_breakpoint( 'Mobile' );
 
-		$result .= ':root {
+		$csss['breakpoint'] = ':root {
             --guten-screen-xs-max: ' . $mobile_breakpoint . 'px;
             --guten-screen-sm-min: ' . ( $mobile_breakpoint + 1 ) . 'px;
             --guten-screen-sm-max: ' . ( $tablet_breakpoint ) . 'px;
@@ -58,19 +59,20 @@ class Frontend_Assets {
 		}
 
 		if ( ! empty( $global_colors ) ) {
-			$result .= gutenverse_global_color_style_generator( $global_colors );
+			$csss['global_color'] = gutenverse_global_color_style_generator( $global_colors );
 		}
 
 		// RENDER GLOBAL FONTS.
 		$global_fonts = Init::instance()->global_variable->get_global_variable( 'font' );
 
 		if ( ! empty( $global_fonts ) ) {
-			$result .= gutenverse_global_font_style_generator( $global_fonts );
+			$csss['global_font'] = gutenverse_global_font_style_generator( $global_fonts );
 		}
 
-		$result = $this->section_inherit() . $result;
+		$csss['section_inherit'] = $this->section_inherit();
+		$csss['result']          = $result;
 
-		return $result;
+		return implode( ' ', $csss );
 	}
 
 	/**
