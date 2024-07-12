@@ -30,8 +30,13 @@ class Theme_Helper {
 		add_filter( 'pre_get_block_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
 		add_filter( 'pre_get_block_templates', array( $this, 'change_stylesheet_and_template_directory' ), null );
 		add_filter( 'get_block_templates', array( $this, 'remove_filter_change_directory' ), null );
+
+		add_filter( 'pre_get_block_file_template', array( $this, 'change_stylesheet_and_template_directory' ), null );
+		add_filter( 'get_block_file_template', array( $this, 'remove_filter_change_directory' ), null );
+
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'additional_custom_templates' ) );
 		add_filter( 'get_block_template', array( $this, 'get_block_template' ), null, 3 );
+		add_filter( 'validate_current_theme', '__return_false' );
 
 		// Action.
 		add_action( 'wp', array( $this, 'home_template' ), 99 );
@@ -61,7 +66,7 @@ class Theme_Helper {
 		}
 		list( $theme, $slug ) = $parts;
 
-		$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template' );
+		$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template', false );
 
 		foreach ( $custom_templates as $template ) {
 			if ( $template['slug'] === $slug ) {
@@ -160,6 +165,7 @@ class Theme_Helper {
 	public function change_stylesheet_and_template_directory( $query_result ) {
 		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
 			add_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
+			add_filter( 'template_directory', array( $this, 'change_stylesheet_directory' ) );
 		}
 		return $query_result;
 	}
@@ -174,7 +180,7 @@ class Theme_Helper {
 		$check_template   = get_template();
 
 		if ( $check_stylesheet === $check_template ) {
-			return apply_filters( 'gutenverse_stylesheet_directory', $stylesheet_dir );
+			$stylesheet_dir = apply_filters( 'gutenverse_stylesheet_directory', $stylesheet_dir );
 		}
 
 		return $stylesheet_dir;
@@ -187,6 +193,7 @@ class Theme_Helper {
 	 */
 	public function remove_filter_change_directory( $query_result ) {
 		remove_filter( 'stylesheet_directory', array( $this, 'change_stylesheet_directory' ) );
+		remove_filter( 'template_directory', array( $this, 'change_stylesheet_directory' ) );
 		return $query_result;
 	}
 

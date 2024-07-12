@@ -12,11 +12,10 @@ if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	 * Print Log
 	 */
 	function gutenverse_jlog() {
-		$numargs  = func_num_args();
-		$arg_list = func_get_args();
-		for ( $i = 0; $i < $numargs; $i++ ) {
+		$args = func_get_args();
+		foreach ( $args as $arg ) {
 			echo '<pre>';
-			print_r( $arg_list[ $i ] );
+			print_r( $arg );
 			echo '</pre>';
 		}
 	}
@@ -24,11 +23,12 @@ if ( ! function_exists( 'gutenverse_jlog' ) ) {
 if ( ! function_exists( 'gutenverse_rlog' ) ) {
 	/**
 	 * Print Log
-	 *
-	 * @param mixed $attr .
 	 */
-	function gutenverse_rlog( $attr ) {
-		error_log( print_r( $attr, true ) );
+	function gutenverse_rlog() {
+		$args = func_get_args();
+		foreach ( $args as $arg ) {
+			error_log( print_r( $arg, true ) );
+		}
 	}
 }
 if ( ! function_exists( 'gutenverse_is_block_editor' ) ) {
