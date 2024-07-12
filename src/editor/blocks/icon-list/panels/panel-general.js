@@ -8,6 +8,7 @@ export const panelGeneral = (props) => {
     const {
         elementId,
         isDivider,
+        displayInline
     } = props;
 
     return [
@@ -134,7 +135,7 @@ export const panelGeneral = (props) => {
                 {
                     selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child),
                     .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
-                    render: value => `padding-bottom: calc(${value}px/2);`
+                    render: value => `margin-bottom: calc(${value}px/2);`
                 },
                 {
                     selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child),
@@ -202,6 +203,12 @@ export const panelGeneral = (props) => {
             style: [
                 {
                     selector: `.${elementId} li`,
+                    allowRender: ()  => displayInline,
+                    render: (value) => `align-items: ${value};`
+                },
+                {
+                    selector: `.${elementId} li a`,
+                    allowRender: ()  => !displayInline,
                     render: (value) => `align-items: ${value};`
                 },
             ],
