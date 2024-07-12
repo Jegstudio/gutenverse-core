@@ -13,7 +13,6 @@ use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
 use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
-use WP_Query;
 
 /**
  * Class Style Generator
@@ -39,14 +38,11 @@ class Style_Generator {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
-		// priority change to 10 and embed font after style generator with priority 11 
-		// to fix font not loaded in frontend for section that imported from libarry
-		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 30 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 31 );
+		add_action( 'wp_head', array( $this, 'global_style_generator' ) );
+		add_action( 'wp_head', array( $this, 'template_style_generator' ) );
+		add_action( 'wp_head', array( $this, 'content_style_generator' ) );
 		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
-		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
+		add_action( 'wp_head', array( $this, 'embeed_font_generator' ) );
 	}
 
 	/**
@@ -61,9 +57,7 @@ class Style_Generator {
 				if ( isset( $widget['content'] ) ) {
 					$blocks = $this->parse_blocks( $widget['content'] );
 					$blocks = $this->flatten_blocks( $blocks );
-					if ( $blocks ) {
-						$this->loop_blocks( $blocks, $style );
-					}
+					$this->loop_blocks( $blocks, $style );
 				}
 			}
 
@@ -78,56 +72,7 @@ class Style_Generator {
 		$variable = apply_filters( 'gutenverse_global_css', '' );
 
 		if ( ! empty( trim( $variable ) ) ) {
-			wp_add_inline_style( 'gutenverse-frontend', $variable );
-			// gutenverse_core_print_header_style( 'gutenverse-global-css', $variable );
-		}
-	}
-
-	/**
-	 * Popuplate Font Families.
-	 */
-	public function populate_font_families() {
-		global $_wp_current_template_id, $post;
-		if ( 0 === count( $this->font_families ) ) {
-			if ( is_page() || is_single() ) {
-				$this->font_families = get_post_meta( $post->ID, 'font-families-post-' . $post->ID, true );
-				if ( ! $this->font_families ) {
-					$this->font_families = array();
-				}
-			} else {
-				$this->font_families = get_option( 'font-families-template-' . $_wp_current_template_id );
-				if ( ! $this->font_families ) {
-					$this->font_families = array();
-				}
-			}
-		} elseif ( is_page() || is_single() ) {
-			update_post_meta( $post->ID, 'font-families-post-' . $post->ID, $this->font_families );
-		} else {
-			update_option( 'font-families-template' . $_wp_current_template_id, $this->font_families );
-		}
-	}
-
-	/**
-	 * Popuplate Font Families.
-	 */
-	public function populate_font_variable() {
-		global $_wp_current_template_id, $post;
-		if ( 0 === count( $this->font_variables ) ) {
-			if ( is_page() || is_single() ) {
-				$this->font_variables = get_post_meta( $post->ID, 'font-variables-post-' . $post->ID, true );
-				if ( ! $this->font_variables ) {
-					$this->font_variables = array();
-				}
-			} else {
-				$this->font_variables = get_option( 'font-variables-template-' . $_wp_current_template_id );
-				if ( ! $this->font_variables ) {
-					$this->font_variables = array();
-				}
-			}
-		} elseif ( is_page() || is_single() ) {
-			update_post_meta( $post->ID, 'font-variables-post-' . $post->ID, $this->font_variables );
-		} else {
-			update_option( 'font-variables-template' . $_wp_current_template_id, $this->font_variables );
+			gutenverse_core_print_header_style( 'gutenverse-global-css', $variable );
 		}
 	}
 
@@ -135,9 +80,8 @@ class Style_Generator {
 	 * Embeed Font on Header.
 	 */
 	public function embeed_font_generator() {
-		$this->populate_font_families();
-		$this->populate_font_variable();
 		$this->load_global_fonts();
+		gutenverse_rlog("find this",$this->font_families);
 		gutenverse_header_font( $this->font_families, $this->font_variables );
 	}
 
@@ -188,7 +132,7 @@ class Style_Generator {
 	 * @return blocks.
 	 */
 	public function inject_theme_attribute_in_block_template_content( $template_content ) {
-		if ( gutenverse_compatible_checkeck() ) {
+		if ( is_gutenverse_compatible() ) {
 			// use Gutenberg or WP 5.9 & above version.
 			return _inject_theme_attribute_in_block_template_content( $template_content );
 		}
@@ -227,187 +171,38 @@ class Style_Generator {
 	 * Generate style for template.
 	 */
 	public function template_style_generator() {
-		global $_wp_current_template_content, $_wp_current_template_id;
-		if ( $_wp_current_template_id ) {
-			$style                = null;
-			$template             = explode( '//', $_wp_current_template_id );
-			$updated_on           = false;
-			$is_modified_template = false;
-			$is_modified          = false;
-			$query                = new WP_Query(
-				array(
-					'post_type' => array(
-						'wp_template',
-						'wp_template_part',
-					),
-					'name'      => $template[1],
-				)
-			);
-			if ( ! empty( $_wp_current_template_content ) ) {
-				$blocks      = $this->parse_blocks( $_wp_current_template_content );
-				$blocks      = $this->flatten_blocks( $blocks );
-				$is_modified = $this->check_modified( $blocks );
-			}
+		global $_wp_current_template_content;
+		$style = null;
 
-			if ( 0 !== count( $query->posts ) ) {
-				foreach ( $query->posts as $post ) {
-					$terms                 = get_the_terms( $post->ID, 'wp_theme' );
-					$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
-					foreach ( $terms as $term ) {
-						// Note: for designer server. Need to find the problem with the designer server.
-						$current_slug = implode( '-', explode( '/', $template['0'] ) );
-						// End of designer server problem.
-						if ( $term->slug === $current_slug ) {
-							$updated_on = $post->post_modified;
-							if ( $template_updated_time !== $updated_on ) {
-								$is_modified_template = true;
-								update_post_meta( $post->ID, 'template_modified_time', $updated_on );
-								break;
-							}
-						}
-					}
-					if ( $updated_on ) {
-						break;
-					}
-				}
-				$local_file = gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' );
-				if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
-					if ( ! empty( $_wp_current_template_content ) ) {
-						if ( $blocks ) {
-							$this->loop_blocks( $blocks, $style );
-						}
-					}
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
-				}
-			} else {
-				$local_file = gutenverse_css_path( 'gutenverse-default-template-generator-' . $template[1] . '.css' );
-				if ( file_exists( gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' ) ) ) {
-					wp_delete_file( $local_file );
-				}
-				if ( ! file_exists( $local_file ) ) {
-					if ( ! empty( $_wp_current_template_content ) ) {
-						if ( $blocks ) {
-							$this->loop_blocks( $blocks, $style );
-						}
-					}
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-default-template-generator-' . $template[1], $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-default-template-generator-' . $template[1] );
-				}
-			}
+		if ( ! empty( $_wp_current_template_content ) ) {
+			$blocks = $this->parse_blocks( $_wp_current_template_content );
+			$blocks = $this->flatten_blocks( $blocks );
+			$this->loop_blocks( $blocks, $style );
+		}
+
+		if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+			gutenverse_core_print_header_style( 'gutenverse-template-generator', $style );
 		}
 	}
+
 	/**
 	 * Content Style Generator.
 	 */
 	public function content_style_generator() {
 		global $post;
-		$style            = null;
-		$is_modified_post = false;
-		$is_modified      = false;
-		if ( $post ) {
-			$content_updated_time = get_post_meta( $post->ID, 'content_modified_time', true );
-			if ( $post->post_modified !== $content_updated_time ) {
-				$is_modified_post = true;
-				update_post_meta( $post->ID, 'content_modified_time', $post->post_modified );
-			}
-			if ( has_blocks( $post ) && isset( $post->post_content ) ) {
-				$blocks      = $this->parse_blocks( $post->post_content );
-				$blocks      = $this->flatten_blocks( $blocks );
-				$is_modified = $this->check_modified( $blocks );
-				$local_file  = gutenverse_css_path( 'gutenverse-content-generator-' . $post->ID . '.css' );
-				if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
-					$this->loop_blocks( $blocks, $style );
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
-				}
-			}
+		$style = null;
+
+		if ( has_blocks( $post ) && isset( $post->post_content ) ) {
+			$blocks = $this->parse_blocks( $post->post_content );
+			$blocks = $this->flatten_blocks( $blocks );
+			$this->loop_blocks( $blocks, $style );
+		}
+
+		if ( $style ) {
+			gutenverse_core_print_header_style( 'gutenverse-content-generator', $style );
 		}
 	}
 
-	/**
-	 * Check Modified.
-	 *
-	 * @param array $blocks Array of blocks.
-	 */
-	public function check_modified( $blocks ) {
-		$is_modified = false;
-		foreach ( $blocks as $block ) {
-			if ( 'core/template-part' === $block['blockName'] ) {
-				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_template_part' );
-				$parts     = null;
-				if ( $post_data ) {
-					$parts         = $post_data->post_content;
-					$parts         = parse_blocks( $parts );
-					$parts         = $this->flatten_blocks( $parts );
-					$modified_date = get_post_meta( $post_data->ID, 'template_part_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'template_part_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$is_modified_loop = $this->check_modified( $parts );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-
-			if ( 'core/pattern' === $block['blockName'] ) {
-				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_block' );
-				$parts     = null;
-				if ( $post_data ) {
-					$parts         = $post_data->post_content;
-					$parts         = parse_blocks( $parts );
-					$parts         = $this->flatten_blocks( $parts );
-					$modified_date = get_post_meta( $post_data->ID, 'pattern_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'pattern_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$is_modified_loop = $this->check_modified( $parts );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
-				$post_data = get_post( $block['attrs']['ref'] );
-				if ( $post_data ) {
-					$modified_date = get_post_meta( $post_data, 'block_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'block_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$reusables        = $this->parse_blocks( $post_data->post_content );
-						$reusables        = $this->flatten_blocks( $reusables );
-						$is_modified_loop = $this->check_modified( $reusables );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-			do_action_ref_array( 'gutenverse_check_modified', array( $block, $this ) );
-		}
-		return $is_modified;
-	}
 	/**
 	 * Loop Block.
 	 *
@@ -417,13 +212,12 @@ class Style_Generator {
 	public function loop_blocks( $blocks, &$style ) {
 		foreach ( $blocks as $block ) {
 			$this->generate_block_style( $block, $style );
+
 			if ( 'core/template-part' === $block['blockName'] ) {
 				$parts = $this->get_template_part_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
 				$parts = $this->flatten_blocks( $parts );
-				if ( $parts ) {
-					$this->loop_blocks( $parts, $style );
-				}
+				$this->loop_blocks( $parts, $style );
 				$this->inject_template_part( $block );
 			}
 
@@ -431,9 +225,7 @@ class Style_Generator {
 				$parts = $this->get_pattern_content( $block['attrs'] );
 				$parts = parse_blocks( $parts );
 				$parts = $this->flatten_blocks( $parts );
-				if ( $parts ) {
-					$this->loop_blocks( $parts, $style );
-				}
+				$this->loop_blocks( $parts, $style );
 			}
 
 			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
@@ -442,11 +234,10 @@ class Style_Generator {
 				if ( $reusables ) {
 					$reusables = $this->parse_blocks( $reusables->post_content );
 					$reusables = $this->flatten_blocks( $reusables );
-					if ( $reusables ) {
-						$this->loop_blocks( $reusables, $style );
-					}
+					$this->loop_blocks( $reusables, $style );
 				}
 			}
+
 			do_action_ref_array( 'gutenverse_loop_blocks', array( $block, &$style, $this ) );
 		}
 	}
@@ -478,6 +269,7 @@ class Style_Generator {
 		if ( ! is_null( $instance ) ) {
 			$style    .= $instance->generate_style();
 			$fonts     = $instance->get_fonts();
+			gutenverse_rlog($fonts);
 			$fonts_var = $instance->get_fonts_var();
 
 			if ( ! empty( $fonts ) ) {
@@ -513,6 +305,7 @@ class Style_Generator {
 			$block   = WP_Block_Patterns_Registry::get_instance()->get_registered( $attributes['slug'] );
 			$content = isset( $block ) ? $block['content'] : $content;
 		}
+
 		return $content;
 	}
 
@@ -563,48 +356,5 @@ class Style_Generator {
 		global $wp_version;
 
 		return ( version_compare( $wp_version, '5', '>=' ) ) ? parse_blocks( $content ) : parse_blocks( $content );
-	}
-	/**
-	 * Delete Generated CSS when Switching Theme
-	 */
-	public function delete_generated_css_when_switching_theme() {
-		global $wp_filesystem;
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
-		$path = gutenverse_css_path();
-		$this->delete_all_files_in_directory( $path );
-	}
-	/**
-	 * Delete All Files in Directory
-	 *
-	 * @param string $dir directory path.
-	 */
-	public function delete_all_files_in_directory( $dir ) {
-		// Check if the directory exists and is a directory.
-		if ( ! is_dir( $dir ) ) {
-			return false;
-		}
-
-		// Open the directory.
-		$handle = opendir( $dir );
-		// Loop through the directory entries.
-		while ( false !== ( $entry = readdir( $handle ) ) ) {
-			// Skip the special entries '.' and '..'.
-			if ( '.' === $entry || '..' === $entry ) {
-				continue;
-			}
-
-			// Construct the file path.
-			$file_path = $dir . DIRECTORY_SEPARATOR . $entry;
-
-			// Check if the entry is a file and not a directory.
-			if ( is_file( $file_path ) ) {
-				// Delete the file.
-				wp_delete_file( $file_path );
-			}
-		}
-
-		// Close the directory handle.
-		closedir( $handle );
 	}
 }
