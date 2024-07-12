@@ -316,5 +316,4 @@ class Theme_Helper {
 
 		return "<$html_tag $wrapper_attributes>" . str_replace( ']]>', ']]&gt;', $content ) . "</$html_tag>";
 	}
-
 }
