@@ -47,7 +47,6 @@ class Global_Variable {
 	 * Init constructor.
 	 */
 	public function __construct() {
-		$this->hook();
 		$current_theme = get_stylesheet();
 
 		$this->variable_option = 'gutenverse-global-variable';
