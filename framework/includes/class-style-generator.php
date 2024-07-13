@@ -40,7 +40,7 @@ class Style_Generator {
 	 */
 	public function __construct() {
 		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
-		// priority change to 10 and embed font after style generator with priority 11 
+		// priority change to 10 and embed font after style generator with priority 11
 		// to fix font not loaded in frontend for section that imported from libarry
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
 		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 30 );
@@ -84,59 +84,9 @@ class Style_Generator {
 	}
 
 	/**
-	 * Popuplate Font Families.
-	 */
-	public function populate_font_families() {
-		global $_wp_current_template_id, $post;
-		if ( 0 === count( $this->font_families ) ) {
-			if ( is_page() || is_single() ) {
-				$this->font_families = get_post_meta( $post->ID, 'font-families-post-' . $post->ID, true );
-				if ( ! $this->font_families ) {
-					$this->font_families = array();
-				}
-			} else {
-				$this->font_families = get_option( 'font-families-template-' . $_wp_current_template_id );
-				if ( ! $this->font_families ) {
-					$this->font_families = array();
-				}
-			}
-		} elseif ( is_page() || is_single() ) {
-			update_post_meta( $post->ID, 'font-families-post-' . $post->ID, $this->font_families );
-		} else {
-			update_option( 'font-families-template' . $_wp_current_template_id, $this->font_families );
-		}
-	}
-
-	/**
-	 * Popuplate Font Families.
-	 */
-	public function populate_font_variable() {
-		global $_wp_current_template_id, $post;
-		if ( 0 === count( $this->font_variables ) ) {
-			if ( is_page() || is_single() ) {
-				$this->font_variables = get_post_meta( $post->ID, 'font-variables-post-' . $post->ID, true );
-				if ( ! $this->font_variables ) {
-					$this->font_variables = array();
-				}
-			} else {
-				$this->font_variables = get_option( 'font-variables-template-' . $_wp_current_template_id );
-				if ( ! $this->font_variables ) {
-					$this->font_variables = array();
-				}
-			}
-		} elseif ( is_page() || is_single() ) {
-			update_post_meta( $post->ID, 'font-variables-post-' . $post->ID, $this->font_variables );
-		} else {
-			update_option( 'font-variables-template' . $_wp_current_template_id, $this->font_variables );
-		}
-	}
-
-	/**
 	 * Embeed Font on Header.
 	 */
 	public function embeed_font_generator() {
-		$this->populate_font_families();
-		$this->populate_font_variable();
 		$this->load_global_fonts();
 		gutenverse_header_font( $this->font_families, $this->font_variables );
 	}
@@ -188,7 +138,7 @@ class Style_Generator {
 	 * @return blocks.
 	 */
 	public function inject_theme_attribute_in_block_template_content( $template_content ) {
-		if ( gutenverse_compatible_checkeck() ) {
+		if ( gutenverse_compatible_check() ) {
 			// use Gutenberg or WP 5.9 & above version.
 			return _inject_theme_attribute_in_block_template_content( $template_content );
 		}
@@ -229,109 +179,37 @@ class Style_Generator {
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
 		if ( $_wp_current_template_id ) {
-			$style                = null;
-			$template             = explode( '//', $_wp_current_template_id );
-			$updated_on           = false;
-			$is_modified_template = false;
-			$is_modified          = false;
-			$query                = new WP_Query(
-				array(
-					'post_type' => array(
-						'wp_template',
-						'wp_template_part',
-					),
-					'name'      => $template[1],
-				)
-			);
+			$style    = null;
+			$template = explode( '//', $_wp_current_template_id );
 			if ( ! empty( $_wp_current_template_content ) ) {
-				$blocks      = $this->parse_blocks( $_wp_current_template_content );
-				$blocks      = $this->flatten_blocks( $blocks );
-				$is_modified = $this->check_modified( $blocks );
+				$blocks = $this->parse_blocks( $_wp_current_template_content );
+				$blocks = $this->flatten_blocks( $blocks );
 			}
-
-			if ( 0 !== count( $query->posts ) ) {
-				foreach ( $query->posts as $post ) {
-					$terms                 = get_the_terms( $post->ID, 'wp_theme' );
-					$template_updated_time = get_post_meta( $post->ID, 'template_modified_time', true );
-					foreach ( $terms as $term ) {
-						// Note: for designer server. Need to find the problem with the designer server.
-						$current_slug = implode( '-', explode( '/', $template['0'] ) );
-						// End of designer server problem.
-						if ( $term->slug === $current_slug ) {
-							$updated_on = $post->post_modified;
-							if ( $template_updated_time !== $updated_on ) {
-								$is_modified_template = true;
-								update_post_meta( $post->ID, 'template_modified_time', $updated_on );
-								break;
-							}
-						}
-					}
-					if ( $updated_on ) {
-						break;
-					}
+			if ( ! empty( $_wp_current_template_content ) ) {
+				if ( $blocks ) {
+					$this->loop_blocks( $blocks, $style );
 				}
-				$local_file = gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' );
-				if ( $is_modified || $is_modified_template || ! file_exists( $local_file ) ) {
-					if ( ! empty( $_wp_current_template_content ) ) {
-						if ( $blocks ) {
-							$this->loop_blocks( $blocks, $style );
-						}
-					}
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-template-generator-' . $template[1], $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-template-generator-' . $template[1] );
-				}
-			} else {
-				$local_file = gutenverse_css_path( 'gutenverse-default-template-generator-' . $template[1] . '.css' );
-				if ( file_exists( gutenverse_css_path( 'gutenverse-template-generator-' . $template[1] . '.css' ) ) ) {
-					wp_delete_file( $local_file );
-				}
-				if ( ! file_exists( $local_file ) ) {
-					if ( ! empty( $_wp_current_template_content ) ) {
-						if ( $blocks ) {
-							$this->loop_blocks( $blocks, $style );
-						}
-					}
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-default-template-generator-' . $template[1], $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-default-template-generator-' . $template[1] );
-				}
+			}
+			if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+				gutenverse_core_print_header_style( 'gutenverse-default-template-generator-' . $template[1], $style );
 			}
 		}
 	}
+
 	/**
 	 * Content Style Generator.
 	 */
 	public function content_style_generator() {
 		global $post;
-		$style            = null;
-		$is_modified_post = false;
-		$is_modified      = false;
+		$style = null;
 		if ( $post ) {
-			$content_updated_time = get_post_meta( $post->ID, 'content_modified_time', true );
-			if ( $post->post_modified !== $content_updated_time ) {
-				$is_modified_post = true;
-				update_post_meta( $post->ID, 'content_modified_time', $post->post_modified );
-			}
 			if ( has_blocks( $post ) && isset( $post->post_content ) ) {
-				$blocks      = $this->parse_blocks( $post->post_content );
-				$blocks      = $this->flatten_blocks( $blocks );
-				$is_modified = $this->check_modified( $blocks );
-				$local_file  = gutenverse_css_path( 'gutenverse-content-generator-' . $post->ID . '.css' );
-				if ( $is_modified || $is_modified_post || ! file_exists( $local_file ) ) {
-					$this->loop_blocks( $blocks, $style );
-					if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-						gutenverse_core_make_css_style( 'gutenverse-content-generator-' . $post->ID, $style );
-					}
-				}
-				if ( file_exists( $local_file ) ) {
-					gutenverse_core_inject_css_file_to_header( 'gutenverse-content-generator-' . $post->ID );
+				$blocks = $this->parse_blocks( $post->post_content );
+				$blocks = $this->flatten_blocks( $blocks );
+				$this->loop_blocks( $blocks, $style );
+
+				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+					gutenverse_core_print_header_style( 'gutenverse-content-generator-' . $post->ID, $style );
 				}
 			}
 		}

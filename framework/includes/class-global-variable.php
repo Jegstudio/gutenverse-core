@@ -47,12 +47,54 @@ class Global_Variable {
 	 * Init constructor.
 	 */
 	public function __construct() {
+		$this->hook();
 		$current_theme = get_stylesheet();
 
 		$this->variable_option = 'gutenverse-global-variable';
 		$this->font_option     = 'gutenverse-global-variable-font-' . $current_theme;
 		$this->color_option    = 'gutenverse-global-variable-color-' . $current_theme;
 		$this->google_option   = 'gutenverse-global-variable-google-' . $current_theme;
+	}
+
+	/**
+	 * Hook.
+	 */
+	public function hook() {
+		add_action( 'after_switch_theme', array( $this, 'set_initial_option' ) );
+	}
+
+	/**
+	 * Set Initial Option.
+	 */
+	public function set_initial_option() {
+		$options = array(
+			'googlefont' => null,
+			'fonts'      => null,
+			'colors'     => null,
+		);
+
+		$config = Init::instance()->editor_assets->gutenverse_config();
+		$fonts  = $config['globalVariable']['fonts'];
+
+		if ( $fonts ) {
+			$options['fonts'] = $fonts;
+
+			foreach ( $fonts as $key => $font ) {
+				$the_font                = $font['font'];
+				$options['googlefont'][] = array(
+					'label'   => $the_font['font']['label'],
+					'type'    => $the_font['font']['type'],
+					'value'   => $the_font['font']['value'],
+					'weight'  => $the_font['weight'],
+					'id'      => $font['id'],
+					'weights' => array( $the_font['weight'] ),
+				);
+			}
+		}
+
+		gutenverse_rlog( '==== INITIALIZE OPTION DATA =====' );
+
+		$this->set_global_variable( $options );
 	}
 
 	/**
