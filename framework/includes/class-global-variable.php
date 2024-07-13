@@ -92,8 +92,6 @@ class Global_Variable {
 			}
 		}
 
-		gutenverse_rlog( '==== INITIALIZE OPTION DATA =====' );
-
 		$this->set_global_variable( $options );
 	}
 
