@@ -66,16 +66,11 @@ class Style_Generator {
 	 * @param string $origin Origination of style.
 	 */
 	public function render_style( $name, $style, $origin ) {
-		$render_mechanism = $this->get_render_mechanism( $origin );
-
-		switch ( $render_mechanism ) {
-			case 'file':
-				Init::instance()->style_cache->generate_and_render( $name, $style, $origin );
-				break;
-			case 'direct':
-			default:
-				gutenverse_core_print_header_style( $name, $style );
+		if ( apply_filters( 'gutenverse_render_generated_style', false, $name, $style, $origin ) ) {
+			return;
 		}
+
+		wp_add_inline_style( 'gutenverse-frontend', $style );
 	}
 
 	/**
@@ -87,7 +82,7 @@ class Style_Generator {
 			$style      = null;
 			$style_name = 'gutenverse-widget';
 
-			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'widget' ) ) {
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'widget' ) ) {
 				return;
 			}
 
@@ -216,7 +211,7 @@ class Style_Generator {
 			$template   = explode( '//', $_wp_current_template_id );
 			$style_name = 'gutenverse-template-' . $template[1];
 
-			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'template' ) ) {
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'template' ) ) {
 				return;
 			}
 
@@ -243,7 +238,7 @@ class Style_Generator {
 		if ( $post ) {
 			$style      = null;
 			$style_name = 'gutenverse-content-' . $post->ID;
-			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'content' ) ) {
+			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'content' ) ) {
 				return;
 			}
 

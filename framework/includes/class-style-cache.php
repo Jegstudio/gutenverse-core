@@ -45,8 +45,9 @@ class Style_Cache {
 
 		// Filter.
 		add_filter( 'gutenverse_frontend_render_mechanism', array( $this, 'render_mechanism' ) );
-		add_filter( 'gutenverse_bypass_generate_css', array( $this, 'bypass_generate_css' ), null, 3 );
+		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
+		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
 	}
 
 	/**
@@ -95,11 +96,13 @@ class Style_Cache {
 		$filename  = $this->get_font_cache_filename();
 		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
 
-		if ( 'file' === $mechanism && $this->is_file_exist( $filename ) ) {
-			$fonts = $this->read_cache_file( $filename );
-			return json_decode( $fonts, true );
-		} else {
-			$this->create_cache_file( $filename, wp_json_encode( $fonts, true ) );
+		if ( 'file' === $mechanism ) {
+			if ( $this->is_file_exist( $filename ) ) {
+				$fonts = $this->read_cache_file( $filename );
+				return json_decode( $fonts, true );
+			} else {
+				$this->create_cache_file( $filename, wp_json_encode( $fonts, true ) );
+			}
 		}
 
 		return $fonts;
@@ -211,6 +214,27 @@ class Style_Cache {
 	public function get_file_name( $name ) {
 		$cache_id = $this->get_style_cache_id();
 		return $name . '-' . $cache_id . '.css';
+	}
+
+	/**
+	 * Render Generated Style.
+	 *
+	 * @param string $flag render flag.
+	 * @param string $name Name of file.
+	 * @param string $style Generated Style.
+	 * @param string $source Source of content.
+	 *
+	 * @return boolean
+	 */
+	public function render_style( $flag, $name, $style, $source ) {
+		$mechanism = apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+
+		if ( 'file' === $mechanism ) {
+			$this->generate_and_render( $name, $style, $source );
+			return true;
+		}
+
+		return $flag;
 	}
 
 	/**
