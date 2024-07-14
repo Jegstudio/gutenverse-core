@@ -1313,14 +1313,13 @@ class Api {
 	 * @param object $request .
 	 */
 	public function modify_global_variable( $request ) {
-		Init::instance()->global_variable->set_global_variable(
-			array(
-				'googlefont' => $request->get_param( 'googlefont' ),
-				'fonts'      => $request->get_param( 'fonts' ),
-				'colors'     => $request->get_param( 'colors' ),
-			)
+		$variable = array(
+			'googlefont' => $request->get_param( 'googlefont' ),
+			'fonts'      => $request->get_param( 'fonts' ),
+			'colors'     => $request->get_param( 'colors' ),
 		);
-
+		Init::instance()->global_variable->set_global_variable( $variable );
+		do_action( 'gutenverse_modify_global_variable', $variable );
 		return true;
 	}
 

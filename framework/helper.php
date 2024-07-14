@@ -321,7 +321,6 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	 * Header Font
 	 *
 	 * @param array $font_families Array of font family.
-	 * @param array $font_variables Array of font id that needed to be loaded.
 	 *
 	 * @return void
 	 */
@@ -479,7 +478,7 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
+if ( ! function_exists( 'gutenverse_core_create_css_file' ) ) {
 	/**
 	 * Print Header Style
 	 *
@@ -488,7 +487,7 @@ if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 	 * @param string $name Name of style.
 	 * @param string $content Content of css.
 	 */
-	function gutenverse_core_make_css_style( $name, $content ) {
+	function gutenverse_core_create_css_file( $name, $content ) {
 		global $wp_filesystem;
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		WP_Filesystem();
@@ -504,6 +503,7 @@ if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
 		}
 	}
 }
+
 if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
 	/**
 	 * Inject Css file to header
@@ -523,6 +523,7 @@ if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
 		);
 	}
 }
+
 if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
 	/**
 	 * Print Header Style

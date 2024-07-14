@@ -13,7 +13,6 @@ use WP_Block_Patterns_Registry;
 use Gutenverse\Framework\Style\Column;
 use Gutenverse\Framework\Style\Wrapper;
 use Gutenverse\Framework\Style\Section;
-use WP_Query;
 
 /**
  * Class Style Generator
@@ -37,16 +36,46 @@ class Style_Generator {
 
 	/**
 	 * Init constructor.
+	 * priority change to 10 and embed font after style generator with priority 11.
+	 * to fix font not loaded in frontend for section that imported from libary.
 	 */
 	public function __construct() {
 		add_action( 'gutenverse_include_frontend', array( $this, 'global_style_generator' ), 30 );
-		// priority change to 10 and embed font after style generator with priority 11
-		// to fix font not loaded in frontend for section that imported from libarry
 		add_action( 'gutenverse_include_frontend', array( $this, 'template_style_generator' ), 30 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 30 );
-		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 31 );
-		add_action( 'wp_head', array( $this, 'widget_style_generator' ) );
-		add_action( 'switch_theme', array( $this, 'delete_generated_css_when_switching_theme' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'content_style_generator' ), 31 );
+		add_action( 'gutenverse_include_frontend', array( $this, 'widget_style_generator' ) );
+		add_action( 'gutenverse_include_frontend', array( $this, 'embeed_font_generator' ), 50 );
+	}
+
+	/**
+	 * Get render mechanism.
+	 *
+	 * @return string
+	 */
+	public function get_render_mechanism() {
+		return apply_filters( 'gutenverse_frontend_render_mechanism', 'direct' );
+	}
+
+	/**
+	 * Render Style on Frontend.
+	 *
+	 * @todo: Jangan akses instance style cache secara langsung.
+	 *
+	 * @param string $name Name of Style.
+	 * @param string $style Style Content.
+	 * @param string $origin Origination of style.
+	 */
+	public function render_style( $name, $style, $origin ) {
+		$render_mechanism = $this->get_render_mechanism( $origin );
+
+		switch ( $render_mechanism ) {
+			case 'file':
+				Init::instance()->style_cache->generate_and_render( $name, $style, $origin );
+				break;
+			case 'direct':
+			default:
+				gutenverse_core_print_header_style( $name, $style );
+		}
 	}
 
 	/**
@@ -54,8 +83,13 @@ class Style_Generator {
 	 */
 	public function widget_style_generator() {
 		if ( current_theme_supports( 'widgets' ) ) {
-			$widgets = get_option( 'widget_block' );
-			$style   = null;
+			$widgets    = get_option( 'widget_block' );
+			$style      = null;
+			$style_name = 'gutenverse-widget';
+
+			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'widget' ) ) {
+				return;
+			}
 
 			foreach ( $widgets as $widget ) {
 				if ( isset( $widget['content'] ) ) {
@@ -67,7 +101,7 @@ class Style_Generator {
 				}
 			}
 
-			gutenverse_core_print_header_style( 'gutenverse-widget-css', $style );
+			$this->render_style( $style_name, $style, 'widget' );
 		}
 	}
 
@@ -79,7 +113,6 @@ class Style_Generator {
 
 		if ( ! empty( trim( $variable ) ) ) {
 			wp_add_inline_style( 'gutenverse-frontend', $variable );
-			// gutenverse_core_print_header_style( 'gutenverse-global-css', $variable );
 		}
 	}
 
@@ -87,8 +120,8 @@ class Style_Generator {
 	 * Embeed Font on Header.
 	 */
 	public function embeed_font_generator() {
-		$this->load_global_fonts();
-		gutenverse_header_font( $this->font_families, $this->font_variables );
+		$this->font_families = $this->load_global_fonts();
+		gutenverse_header_font( $this->font_families );
 	}
 
 	/**
@@ -179,19 +212,25 @@ class Style_Generator {
 	public function template_style_generator() {
 		global $_wp_current_template_content, $_wp_current_template_id;
 		if ( $_wp_current_template_id ) {
-			$style    = null;
-			$template = explode( '//', $_wp_current_template_id );
+			$style      = null;
+			$template   = explode( '//', $_wp_current_template_id );
+			$style_name = 'gutenverse-template-' . $template[1];
+
+			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'template' ) ) {
+				return;
+			}
+
 			if ( ! empty( $_wp_current_template_content ) ) {
 				$blocks = $this->parse_blocks( $_wp_current_template_content );
 				$blocks = $this->flatten_blocks( $blocks );
-			}
-			if ( ! empty( $_wp_current_template_content ) ) {
+
 				if ( $blocks ) {
 					$this->loop_blocks( $blocks, $style );
 				}
-			}
-			if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-				gutenverse_core_print_header_style( 'gutenverse-default-template-generator-' . $template[1], $style );
+
+				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
+					$this->render_style( $style_name, $style, 'template' );
+				}
 			}
 		}
 	}
@@ -201,91 +240,25 @@ class Style_Generator {
 	 */
 	public function content_style_generator() {
 		global $post;
-		$style = null;
 		if ( $post ) {
+			$style      = null;
+			$style_name = 'gutenverse-content-' . $post->ID;
+			if ( apply_filters( 'gutenverse_bypass_generate_css', false, $style_name, 'content' ) ) {
+				return;
+			}
+
 			if ( has_blocks( $post ) && isset( $post->post_content ) ) {
 				$blocks = $this->parse_blocks( $post->post_content );
 				$blocks = $this->flatten_blocks( $blocks );
 				$this->loop_blocks( $blocks, $style );
 
 				if ( ! empty( $style ) && ! empty( trim( $style ) ) ) {
-					gutenverse_core_print_header_style( 'gutenverse-content-generator-' . $post->ID, $style );
+					$this->render_style( $style_name, $style, 'content' );
 				}
 			}
 		}
 	}
 
-	/**
-	 * Check Modified.
-	 *
-	 * @param array $blocks Array of blocks.
-	 */
-	public function check_modified( $blocks ) {
-		$is_modified = false;
-		foreach ( $blocks as $block ) {
-			if ( 'core/template-part' === $block['blockName'] ) {
-				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_template_part' );
-				$parts     = null;
-				if ( $post_data ) {
-					$parts         = $post_data->post_content;
-					$parts         = parse_blocks( $parts );
-					$parts         = $this->flatten_blocks( $parts );
-					$modified_date = get_post_meta( $post_data->ID, 'template_part_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'template_part_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$is_modified_loop = $this->check_modified( $parts );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-
-			if ( 'core/pattern' === $block['blockName'] ) {
-				$post_data = gutenverse_get_template_part_pattern_post_data( $block['attrs'], 'wp_block' );
-				$parts     = null;
-				if ( $post_data ) {
-					$parts         = $post_data->post_content;
-					$parts         = parse_blocks( $parts );
-					$parts         = $this->flatten_blocks( $parts );
-					$modified_date = get_post_meta( $post_data->ID, 'pattern_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'pattern_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$is_modified_loop = $this->check_modified( $parts );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-			if ( 'core/block' === $block['blockName'] && isset( $block['attrs'] ) && isset( $block['attrs']['ref'] ) ) {
-				$post_data = get_post( $block['attrs']['ref'] );
-				if ( $post_data ) {
-					$modified_date = get_post_meta( $post_data, 'block_modified_time', true );
-					if ( $post_data->post_modified !== $modified_date ) {
-						$is_modified = true;
-						update_post_meta( $post_data->ID, 'block_modified_time', $post_data->post_modified );
-					}
-					if ( ! $is_modified ) {
-						$reusables        = $this->parse_blocks( $post_data->post_content );
-						$reusables        = $this->flatten_blocks( $reusables );
-						$is_modified_loop = $this->check_modified( $reusables );
-						if ( $is_modified_loop ) {
-							$is_modified = $is_modified_loop;
-						}
-					}
-				}
-			}
-			do_action_ref_array( 'gutenverse_check_modified', array( $block, $this ) );
-		}
-		return $is_modified;
-	}
 	/**
 	 * Loop Block.
 	 *
@@ -424,11 +397,15 @@ class Style_Generator {
 
 	/**
 	 * Loading fonts from global styles and variable
+	 *
+	 * @return array
 	 */
 	public function load_global_fonts() {
-		$variable_fonts      = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'google' ) );
-		$custom_fonts        = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'custom_font_pro' ) );
-		$this->font_families = array_merge( apply_filters( 'gutenverse_custom_font_pro', $variable_fonts, $custom_fonts ), $this->font_families );
+		$variable_fonts = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'google' ) );
+		$custom_fonts   = apply_filters( 'gutenverse_font_header', Init::instance()->global_variable->get_global_variable( 'custom_font_pro' ) );
+		$the_fonts      = array_merge( apply_filters( 'gutenverse_custom_font_pro', $variable_fonts, $custom_fonts ), $this->font_families );
+
+		return apply_filters( 'gutenverse_global_fonts', $the_fonts );
 	}
 
 	/**
@@ -441,48 +418,5 @@ class Style_Generator {
 		global $wp_version;
 
 		return ( version_compare( $wp_version, '5', '>=' ) ) ? parse_blocks( $content ) : parse_blocks( $content );
-	}
-	/**
-	 * Delete Generated CSS when Switching Theme
-	 */
-	public function delete_generated_css_when_switching_theme() {
-		global $wp_filesystem;
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
-		$path = gutenverse_css_path();
-		$this->delete_all_files_in_directory( $path );
-	}
-	/**
-	 * Delete All Files in Directory
-	 *
-	 * @param string $dir directory path.
-	 */
-	public function delete_all_files_in_directory( $dir ) {
-		// Check if the directory exists and is a directory.
-		if ( ! is_dir( $dir ) ) {
-			return false;
-		}
-
-		// Open the directory.
-		$handle = opendir( $dir );
-		// Loop through the directory entries.
-		while ( false !== ( $entry = readdir( $handle ) ) ) {
-			// Skip the special entries '.' and '..'.
-			if ( '.' === $entry || '..' === $entry ) {
-				continue;
-			}
-
-			// Construct the file path.
-			$file_path = $dir . DIRECTORY_SEPARATOR . $entry;
-
-			// Check if the entry is a file and not a directory.
-			if ( is_file( $file_path ) ) {
-				// Delete the file.
-				wp_delete_file( $file_path );
-			}
-		}
-
-		// Close the directory handle.
-		closedir( $handle );
 	}
 }
