@@ -957,6 +957,20 @@ if ( ! function_exists( 'gutenverse_str_contains' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_delete_sceduler' ) ) {
+	/**
+	 * Delete Sceduler
+	 *
+	 * @param string $sceduler_name .
+	 */
+	function gutenverse_delete_sceduler( $sceduler_name ) {
+		$timestamp = wp_next_scheduled( $sceduler_name );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, $sceduler_name );
+		}
+	}
+}
+
 if ( ! function_exists( 'gutenverse_permission_check_admin' ) ) {
 	/**
 	 * Check admin permissions.

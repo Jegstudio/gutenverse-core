@@ -143,6 +143,12 @@
             position: relative;
             width: 100%;
 
+            .frontend-setting-dashboard{
+                .control-body{
+                    display: flex;
+                    align-items: center;
+                }
+            }
             span {
                 color: #40505d;
             }

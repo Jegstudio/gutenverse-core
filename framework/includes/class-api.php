@@ -1271,6 +1271,9 @@ class Api {
 					$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 				}
 			}
+			if ( 'frontend_settings' === $key ) {
+				gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
+			}
 		}
 		if ( ! isset( $option ) ) {
 			add_option( 'gutenverse-settings', $value );

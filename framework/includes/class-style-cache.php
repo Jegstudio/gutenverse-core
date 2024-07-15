@@ -31,6 +31,13 @@ class Style_Cache {
 	protected $font_cache_name;
 
 	/**
+	 * Option Settings
+	 *
+	 * @var string
+	 */
+	protected static $options;
+
+	/**
 	 * Init constructor.
 	 */
 	public function __construct() {
@@ -38,6 +45,7 @@ class Style_Cache {
 		add_action( 'wp_loaded', array( $this, 'schedule_cleanup_cron' ) );
 		add_action( 'gutenverse_cleanup_cached_style', array( $this, 'cleanup_cached_style' ) );
 		add_action( 'switch_theme', array( $this, 'delete_generated_css_switch_theme' ) );
+		add_filter( 'cron_schedules', array( $this, 'add_custom_intervals' ) );
 
 		// Reset Generator ID when this hook triggered.
 		add_action( 'save_post', array( $this, 'generate_style_cache_id' ) );
@@ -48,6 +56,8 @@ class Style_Cache {
 		add_filter( 'gutenverse_bypass_generate_style', array( $this, 'bypass_generate_css' ), null, 3 );
 		add_filter( 'gutenverse_global_fonts', array( $this, 'global_fonts' ), null, 2 );
 		add_filter( 'gutenverse_render_generated_style', array( $this, 'render_style' ), null, 4 );
+
+		self::$options = get_option( 'gutenverse-settings' );
 	}
 
 	/**
@@ -56,6 +66,10 @@ class Style_Cache {
 	 * @return string
 	 */
 	public function render_mechanism() {
+		$render_mechanism = self::$options['frontend_settings']['render_mechanism'];
+		if ( ! empty( $render_mechanism ) ) {
+			return $render_mechanism;
+		}
 		return 'file';
 	}
 
@@ -140,11 +154,41 @@ class Style_Cache {
 	}
 
 	/**
+	 * Add Custom Interval for Sceduler
+	 */
+	public function add_custom_intervals() {
+		$schedules['yearly']             = array(
+			'interval' => 365 * 24 * 60 * 60, // 365 days in seconds
+			'display'  => __( 'Once a Year' ),
+		);
+		$schedules['monthly']            = array(
+			'interval' => 30 * 24 * 60 * 60, // 30 days in seconds
+			'display'  => __( 'Once a Month' ),
+		);
+		$schedules['weekly']             = array(
+			'interval' => 7 * 24 * 60 * 60, // 7 days in seconds
+			'display'  => __( 'Every Week' ),
+		);
+		$schedules['every_two_days']     = array(
+			'interval' => 2 * 24 * 60 * 60, // 2 days in seconds
+			'display'  => __( 'Once Every 2 Days' ),
+		);
+		$schedules['every_five_minutes'] = array(
+			'interval' => 5 * 60, // 2 days in seconds
+			'display'  => __( 'Once Every 5 Minutes' ),
+		);
+		return $schedules;
+	}
+	/**
 	 * Schedule Delete Cron.
 	 */
 	public function schedule_cleanup_cron() {
 		if ( ! wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) ) {
-			wp_schedule_event( strtotime( '03:00:00' ), 'daily', 'gutenverse_cleanup_cached_style' );
+			if ( isset( self::$options['frontend_settings']['old_render_deletion_schedule'] ) ) {
+				wp_schedule_event( strtotime( '03:00:00' ), self::$options['frontend_settings']['old_render_deletion_schedule'], 'gutenverse_cleanup_cached_style' );
+			} else {
+				wp_schedule_event( strtotime( '03:00:00' ), 'daily', 'gutenverse_cleanup_cached_style' );
+			}
 		}
 	}
 

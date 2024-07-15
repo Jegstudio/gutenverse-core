@@ -7,6 +7,7 @@ import EditorSetting from './src/settings/editor-setting';
 import TemplateSetting from './src/settings/template-setting';
 import FontIconSetting from './src/settings/font-icon-setting';
 import { DashboardBody, DashboardContent, DashboardHeader,PopupPro } from '../../components';
+import FrontEndSetting from './src/settings/frontend-setting';
 
 const SettingsBody = ({ settings, ...props }) => {
 
@@ -14,6 +15,9 @@ const SettingsBody = ({ settings, ...props }) => {
     switch (settings) {
         case 'editor':
             body = <EditorSetting {...props} />;
+            break;
+        case 'frontend':
+            body = <FrontEndSetting {...props} />;
             break;
         case 'template':
             body = <TemplateSetting {...props} />;
@@ -58,6 +62,10 @@ const Settings = (props) => {
         {
             editor: {
                 title : __('Editor', '--gctd--'),
+                pro   : false,
+            },
+            frontend:{
+                title : __('Frontend', '--gctd--'),
                 pro   : false,
             },
             template: {
