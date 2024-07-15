@@ -7,8 +7,8 @@ import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
-import { oldImagePlaceholder } from 'gutenverse-core/config';
 import { isEmpty } from 'lodash';
+import { imagePlaceholder } from 'gutenverse-core/config';
 
 const ImageBoxFigure = attributes => {
     const { image, imageAlt, lazyLoad } = attributes;
@@ -19,10 +19,10 @@ const ImageBoxFigure = attributes => {
 
     // Handle if empty, pick the 'full' size. If 'full' size also not exist, return placeholder image.
     const imageLazyLoad = () => {
-        if(lazyLoad){
-            return <img className="gutenverse-image-box-empty"  src={oldImagePlaceholder} alt={imageAltText} loading="lazy" />;
-        }else{
-            return <img className="gutenverse-image-box-empty"  src={oldImagePlaceholder} alt={imageAltText} />;
+        if (lazyLoad) {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} loading="lazy" />;
+        } else {
+            return <img className="gutenverse-image-box-empty" src={imagePlaceholder} alt={imageAltText} />;
         }
     };
     if (isEmpty(sizes)) {
@@ -40,9 +40,9 @@ const ImageBoxFigure = attributes => {
     }
 
     if (imageId && imageSrc) {
-        if(lazyLoad){
+        if (lazyLoad) {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} loading="lazy" />;
-        }else{
+        } else {
             return <img className="gutenverse-image-box-filled" src={imageSrc.url} height={imageSrc.height} width={imageSrc.width} alt={imageAltText} />;
         }
     }
@@ -93,6 +93,8 @@ const save = compose(
         titleIcon,
         hoverBottom,
         hoverBottomDirection,
+        hasInnerBlocks,
+        includeButton
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -103,52 +105,54 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
-        'gutenverse-image-box',
+        'guten-image-box',
         'guten-element',
         `style-${contentStyle}`,
     );
 
+    const ContentBody = () => (
+        <div className="inner-container">
+            <div className="image-box-header">
+                <ImageBoxFigure {...attributes} />
+            </div>
+            <div className="image-box-body">
+                {
+                    <div className="body-inner">
+                        {
+                            title && <TitleTag className={classnames(
+                                'body-title',
+                                `icon-position-${titleIconPosition}`
+                            )}>
+                                {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
+                                <RichText.Content
+                                    value={title}
+                                    tagName="span"
+                                />
+                                {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
+                            </TitleTag>
+                        }
+                        {
+                            description && <RichText.Content
+                                className="body-description"
+                                value={description}
+                                tagName="p"
+                            />
+                        }
+                        {includeButton && <InnerBlocks.Content />}
+                        {hoverBottom && <div className={'border-bottom'}>
+                            <div className={`animated ${hoverBottomDirection}`}></div>
+                        </div>}
+                    </div>
+                }
+            </div>
+        </div>
+    );
+
     return (
         <div className={className} {...advanceAnimationData}>
-            <div className="inner-container">
-                <div className="image-box-header">
-                    <WrapAHref {...props}>
-                        <ImageBoxFigure {...attributes} />
-                    </WrapAHref>
-                </div>
-                <div className="image-box-body">
-                    {
-                        <div className="body-inner">
-                            {
-                                title && <TitleTag className={classnames(
-                                    'body-title',
-                                    `icon-position-${titleIconPosition}`
-                                )}>
-                                    <WrapAHref {...props}>
-                                        {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
-                                        <RichText.Content
-                                            value={title}
-                                            tagName="span"
-                                        />
-                                        {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
-                                    </WrapAHref>
-                                </TitleTag>
-                            }
-                            {
-                                description && <RichText.Content
-                                    className="body-description"
-                                    value={description}
-                                    tagName="p"
-                                />
-                            }
-                            <InnerBlocks.Content />
-                            {hoverBottom && <div className={'border-bottom'}>
-                                <div className={`animated ${hoverBottomDirection}`}></div>
-                            </div>}
-                        </div>
-                    }
-                </div>
-            </div>
+            {hasInnerBlocks && includeButton ? <ContentBody /> : <WrapAHref {...props}>
+                <ContentBody />
+            </WrapAHref>}
         </div>
     );
 });

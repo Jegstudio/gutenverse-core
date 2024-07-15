@@ -54,7 +54,8 @@ const save = compose(
         hoverBottom,
         hoverBottomDirection,
         hasInnerBlocks,
-        includeButton
+        includeButton,
+        buttonUrl
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -73,7 +74,11 @@ const save = compose(
     const ContentBody = () => (
         <div className="inner-container">
             <div className="image-box-header">
-                <ImageBoxFigure {...attributes} />
+                {
+                    buttonUrl ? 
+                    <a href={buttonUrl} ><ImageBoxFigure {...attributes} /></a> :
+                    <ImageBoxFigure {...attributes} />
+                }
             </div>
             <div className="image-box-body">
                 {

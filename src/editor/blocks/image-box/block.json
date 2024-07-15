@@ -400,7 +400,11 @@
 		"hasInnerBlocks": {
             "type": "boolean",
             "default": false
-        }
+        },
+		"buttonUrl": {
+			"type": "string",
+			"copyStyle": true
+		}
 	},
 	"supports": {
 		"className": false
