@@ -1271,6 +1271,9 @@ class Api {
 					$wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE );
 				}
 			}
+			if ( 'frontend_settings' === $key ) {
+				gutenverse_delete_sceduler( 'gutenverse_cleanup_cached_style' );
+			}
 		}
 		if ( ! isset( $option ) ) {
 			add_option( 'gutenverse-settings', $value );
@@ -1313,14 +1316,13 @@ class Api {
 	 * @param object $request .
 	 */
 	public function modify_global_variable( $request ) {
-		Init::instance()->global_variable->set_global_variable(
-			array(
-				'googlefont' => $request->get_param( 'googlefont' ),
-				'fonts'      => $request->get_param( 'fonts' ),
-				'colors'     => $request->get_param( 'colors' ),
-			)
+		$variable = array(
+			'googlefont' => $request->get_param( 'googlefont' ),
+			'fonts'      => $request->get_param( 'fonts' ),
+			'colors'     => $request->get_param( 'colors' ),
 		);
-
+		Init::instance()->global_variable->set_global_variable( $variable );
+		do_action( 'gutenverse_modify_global_variable', $variable );
 		return true;
 	}
 

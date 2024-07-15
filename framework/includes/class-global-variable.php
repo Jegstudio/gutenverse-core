@@ -91,6 +91,49 @@ class Global_Variable {
 	}
 
 	/**
+	 * Google Fonts. Need to fetch font config from child if data is empty.
+	 */
+	public function get_google_fonts() {
+		$google_fonts = get_option( $this->google_option, false );
+
+		if ( ! $google_fonts ) {
+			$config = apply_filters( 'gutenverse_block_config', array() );
+			if ( isset( $config['globalVariable']['fonts'] ) ) {
+				$fonts = $config['globalVariable']['fonts'];
+				foreach ( $fonts as $font ) {
+					$the_font       = $font['font'];
+					$google_fonts[] = array(
+						'label'   => $the_font['font']['label'],
+						'type'    => $the_font['font']['type'],
+						'value'   => $the_font['font']['value'],
+						'weight'  => $the_font['weight'],
+						'id'      => $font['id'],
+						'weights' => array( $the_font['weight'] ),
+					);
+				}
+			}
+		}
+
+		return $google_fonts;
+	}
+
+	/**
+	 * Global Fonts. Need to fetch font config from child if data is empty.
+	 */
+	public function get_global_fonts() {
+		$global_fonts = get_option( $this->font_option, false );
+
+		if ( ! $global_fonts ) {
+			$config = apply_filters( 'gutenverse_block_config', array() );
+			if ( isset( $config['globalVariable']['fonts'] ) ) {
+				$global_fonts = $config['globalVariable']['fonts'];
+			}
+		}
+
+		return $global_fonts;
+	}
+
+	/**
 	 * Get global variables of a theme
 	 *
 	 * @param string $type which variable to get, default = all.
@@ -102,9 +145,9 @@ class Global_Variable {
 		$global_variable = get_option( $this->variable_option );
 
 		// Get value from new options.
-		$global_fonts  = get_option( $this->font_option, array() );
+		$global_fonts  = $this->get_global_fonts();
+		$google_fonts  = $this->get_google_fonts();
 		$global_colors = get_option( $this->color_option, array() );
-		$google_fonts  = get_option( $this->google_option, array() );
 		$inc_old_fonts = false;
 
 		if ( ! empty( $global_variable['fonts'] ) ) {
@@ -129,16 +172,18 @@ class Global_Variable {
 		}
 		if ( 'custom_font_pro' === $type ) {
 			$custom_font = array();
-			foreach ( $global_fonts as $value ) {
-				if ( isset( $value ['font']['font']['type'] ) && 'custom_font_pro' === $value ['font']['font']['type'] ) {
-					$temp_arr = array(
-						'value'  => $value['font']['font']['value'],
-						'type'   => $value['font']['font']['type'],
-						'weight' => $value['font']['weight'],
-					);
-					array_push( $custom_font, $temp_arr );
-				} else {
-					continue;
+			if ( $global_fonts ) {
+				foreach ( $global_fonts as $value ) {
+					if ( isset( $value ['font']['font']['type'] ) && 'custom_font_pro' === $value ['font']['font']['type'] ) {
+						$temp_arr = array(
+							'value'  => $value['font']['font']['value'],
+							'type'   => $value['font']['font']['type'],
+							'weight' => $value['font']['weight'],
+						);
+						array_push( $custom_font, $temp_arr );
+					} else {
+						continue;
+					}
 				}
 			}
 			return $custom_font;

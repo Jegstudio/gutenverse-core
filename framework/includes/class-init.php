@@ -79,6 +79,13 @@ class Init {
 	public $style_generator;
 
 	/**
+	 * Style Cache
+	 *
+	 * @var Style_Cache
+	 */
+	public $style_cache;
+
+	/**
 	 * Hold instance of global variable
 	 *
 	 * @var Global_Variable
@@ -169,6 +176,7 @@ class Init {
 		$this->blocks           = new Blocks();
 		$this->frontend_assets  = new Frontend_Assets();
 		$this->editor_assets    = new Editor_Assets();
+		$this->style_cache      = new Style_Cache();
 		$this->style_generator  = new Style_Generator();
 		$this->frontend_toolbar = new Frontend_Toolbar();
 		$this->global_variable  = new Global_Variable();

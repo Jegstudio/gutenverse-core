@@ -321,7 +321,6 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	 * Header Font
 	 *
 	 * @param array $font_families Array of font family.
-	 * @param array $font_variables Array of font id that needed to be loaded.
 	 *
 	 * @return void
 	 */
@@ -479,69 +478,6 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'gutenverse_core_make_css_file' ) ) {
-	/**
-	 * Print Header Style
-	 *
-	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
-	 *
-	 * @param string $name Name of style.
-	 * @param string $content Content of css.
-	 */
-	function gutenverse_core_make_css_style( $name, $content ) {
-		global $wp_filesystem;
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
-		$custom_dir = gutenverse_css_path();
-		if ( ! $wp_filesystem->is_dir( $custom_dir ) ) {
-			wp_mkdir_p( $custom_dir );
-		}
-		$local_file = gutenverse_css_path( $name . '.css' );
-		if ( $wp_filesystem->put_contents( $local_file, $content, FS_CHMOD_FILE ) ) {
-			error_log( 'File created successfully.' );
-		} else {
-			error_log( 'Error writing to file.' );
-		}
-	}
-}
-if ( ! function_exists( 'gutenverse_core_inject_css_file_to_header' ) ) {
-	/**
-	 * Inject Css file to header
-	 *
-	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
-	 *
-	 * @param string $name Name of style.
-	 */
-	function gutenverse_core_inject_css_file_to_header( $name ) {
-		$file_url   = gutenverse_css_url( $name . '.css' );
-		$time_stamp = gmdate( 'Ymdhis' );
-		wp_enqueue_style(
-			$name . '-css-file',
-			$file_url,
-			array(),
-			$time_stamp
-		);
-	}
-}
-if ( ! function_exists( 'gutenverse_core_print_header_style' ) ) {
-	/**
-	 * Print Header Style
-	 *
-	 * 'gutenverse_core_print_header_style' is deprecated and will not be used anymore
-	 *
-	 * @param string $name Name of style.
-	 * @param string $content Content of css.
-	 */
-	function gutenverse_core_print_header_style( $name, $content ) {
-		?>
-		<style id="<?php echo esc_attr( $name ); ?>"> 
-			<?php
-				echo esc_html( wp_specialchars_decode( trim( $content ) ) );
-			?>
-		</style>
-		<?php
-	}
-}
 
 if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
@@ -872,8 +808,8 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 			}
 		}
 		return 'body { ' . $variable_style['Desktop'] . ' } 
-				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Tablet' ) . 'px) { body {' . $variable_style['Tablet'] . '}
-				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Mobile' ) . 'px) { body {' . $variable_style['Mobile'] . '}';
+				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Tablet' ) . 'px) { body {' . $variable_style['Tablet'] . '}}
+				@media only screen and (max-width: ' . gutenverse_breakpoint( 'Mobile' ) . 'px) { body {' . $variable_style['Mobile'] . '}}';
 	}
 }
 
@@ -1018,6 +954,20 @@ if ( ! function_exists( 'gutenverse_str_contains' ) ) {
 	 */
 	function gutenverse_str_contains( $haystack, $needle ) {
 		return '' !== $needle && mb_strpos( $haystack, $needle ) !== false;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_delete_sceduler' ) ) {
+	/**
+	 * Delete Sceduler
+	 *
+	 * @param string $sceduler_name .
+	 */
+	function gutenverse_delete_sceduler( $sceduler_name ) {
+		$timestamp = wp_next_scheduled( $sceduler_name );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, $sceduler_name );
+		}
 	}
 }
 
