@@ -21,7 +21,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
 
     return <div className="frontend-setting-dashboard">
         <div className="form-tab-body">
-            <h2>{__('Responsive Breakpoints', '--gctd--')}</h2>
+            <h2>{__('Frontend Style Render Settings', '--gctd--')}</h2>
             <AlertControl>
                 <span>{__('Please Refresh the Page After Saving Your Settings', '--gctd--')}</span>
             </AlertControl>
