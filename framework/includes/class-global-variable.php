@@ -112,6 +112,8 @@ class Global_Variable {
 					);
 				}
 			}
+		} else {
+			$google_fonts = array();
 		}
 
 		return $google_fonts;
