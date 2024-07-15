@@ -95,7 +95,6 @@ class Global_Variable {
 	 */
 	public function get_google_fonts() {
 		$google_fonts = get_option( $this->google_option, false );
-
 		if ( ! $google_fonts ) {
 			$config = apply_filters( 'gutenverse_block_config', array() );
 			if ( isset( $config['globalVariable']['fonts'] ) ) {
@@ -111,9 +110,9 @@ class Global_Variable {
 						'weights' => array( $the_font['weight'] ),
 					);
 				}
+			} else {
+				$google_fonts = array();
 			}
-		} else {
-			$google_fonts = array();
 		}
 
 		return $google_fonts;
