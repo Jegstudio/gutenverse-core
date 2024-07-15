@@ -66,9 +66,11 @@ class Style_Cache {
 	 * @return string
 	 */
 	public function render_mechanism() {
-		$render_mechanism = self::$options['frontend_settings']['render_mechanism'];
-		if ( ! empty( $render_mechanism ) ) {
-			return $render_mechanism;
+		if ( isset( self::$options['frontend_settings']['render_mechanism'] ) ) {
+			$render_mechanism = self::$options['frontend_settings']['render_mechanism'];
+			if ( ! empty( $render_mechanism ) ) {
+				return $render_mechanism;
+			}
 		}
 		return 'file';
 	}
