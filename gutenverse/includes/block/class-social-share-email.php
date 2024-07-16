@@ -55,7 +55,7 @@ class Social_Share_Email extends Block_Abstract {
 		$title            = get_the_title( $post_id );
 		$share_url        = 'mailto:?subject=' . $title . '&amp;body=' . $encoded_post_url;
 		$text             = esc_html( $this->attributes['text'] );
-		$content          = $this->render_content();
+		$content          = $this->render_content( $text );
 
 		return "<div class='gutenverse-share-email gutenverse-share-item' id='{$this->get_element_id()}'>
 			<a target='_blank' href='{$share_url}' aria-label='{$text}'>
