@@ -46,7 +46,9 @@ abstract class Style_Abstract extends Style_Interface {
 	 * @param array $attrs Attribute.
 	 */
 	public function __construct( $attrs ) {
-		$this->element_id = $attrs['elementId'];
+		if ( isset( $attrs['elementId'] ) ) {
+			$this->element_id = $attrs['elementId'];
+		}
 		$this->set_attrs( $attrs );
 	}
 
