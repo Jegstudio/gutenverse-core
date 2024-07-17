@@ -135,7 +135,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
     const buttonUrl = useSelect(select => {
         const block = select('core/block-editor').getBlock(clientId);
-        return block && block.innerBlocks[0].attributes.url;
+        return block && block.innerBlocks[0]?.attributes.url;
     }, [clientId]);
 
     setAttributes({ hasInnerBlocks });
