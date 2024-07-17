@@ -64,6 +64,7 @@ class Editor_Assets {
 		$template       = get_user_meta( get_current_user_id(), 'gutense_templates_viewed', true );
 		$global_setting = get_option( 'gutenverse-global-setting' );
 		$upload_path    = wp_upload_dir();
+		$settings       = get_option( 'gutenverse-settings', array() );
 
 		$config                      = array();
 		$config['globals']           = array();
@@ -90,6 +91,8 @@ class Editor_Assets {
 		$config['proDemoUrl']        = GUTENVERSE_FRAMEWORK_SERVER_URL;
 		$config['uploadPath']        = $upload_path['baseurl'];
 		$config['updateLicensePage'] = admin_url( 'admin.php?page=gutenverse&path=license' );
+		$config['autoBlockRecovery'] = isset( $settings['editor_settings']['autoblock_recovery'] ) ? $settings['editor_settings']['autoblock_recovery'] : true;
+
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';
 		}

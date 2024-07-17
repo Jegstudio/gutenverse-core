@@ -4,6 +4,7 @@ import domReady from '@wordpress/dom-ready';
 import GutenverseLibrary from './library';
 import elementChange from 'element-change';
 import { applyFilters } from '@wordpress/hooks';
+import { initAutoAttemptRecovery } from './auto-recovery';
 
 /* Other Editor Components */
 import './hook';
@@ -41,5 +42,7 @@ domReady(() => {
         null
     );
 
+    initAutoAttemptRecovery();
     render(content, document.getElementById('gutenverse-root'));
 });
+
