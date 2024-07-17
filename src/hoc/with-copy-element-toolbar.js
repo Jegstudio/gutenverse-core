@@ -13,8 +13,8 @@ export const withCopyElementToolbar = () => (BlockElement) => {
 
         const copyRef = useRef();
 
-        const copyText = async () => {
-            await navigator.clipboard.writeText(elementId);
+        const copyText =  () => {
+            navigator.clipboard.writeText(elementId);
 
             setDummyID(__('Copied...', '--gctd--'));
             setTimeout(() => {
