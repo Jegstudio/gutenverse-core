@@ -98,21 +98,18 @@ const save = compose(
                     }
                 </div>}
             {
+                (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
+            }
+            {
                 isCanSticky ? <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
                     <div className="guten-column-wrapper">
                         {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                         {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                        {
-                            (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
-                        }
                         <InnerBlocks.Content />
                     </div>
                 </div> : <div className="guten-column-wrapper" data-id={elementId?.split('-')[1]}>
                     {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                     {_isBgAnimated && <div className={'guten-background-animated'} data-id={elementId?.split('-')[1]}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                    {
-                        (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
-                    }
                     <InnerBlocks.Content />
                 </div>
             }
