@@ -4,7 +4,7 @@ import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript, withAutoRecovery } from 'gutenverse-core/hoc';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 
@@ -13,6 +13,7 @@ const save = compose(
     withMouseMoveEffectScript,
     withBackgroundEffectScript,
     withCursorEffectScript,
+    withAutoRecovery
 )((props) => {
     const {
         attributes,

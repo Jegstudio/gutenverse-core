@@ -1,4 +1,5 @@
-import { select, dispatch, subscribe } from '@wordpress/data';
+import { select, subscribe, dispatch } from '@wordpress/data';
+import debounce from 'lodash/debounce';
 import { __ } from '@wordpress/i18n';
 import {
     createBlock,
@@ -24,13 +25,10 @@ export const isInvalid = (block) => {
     return true;
 };
 
-export const autoAttemptRecovery = () => {
-    setTimeout(() => {
+export const checkInvalidBlock = debounce(() => {
+    setTimeout(()=>{
         const unsubscribe = subscribe(() => {
-            if (
-                select('core').getEntityRecords('postType', 'wp_block') !==
-                null
-            ) {
+            if (select('core').getEntityRecords('postType', 'wp_block') !== null) {
                 unsubscribe();
                 const mainBlocks = recoverBlocks(
                     select('core/block-editor').getBlocks()
@@ -58,8 +56,8 @@ export const autoAttemptRecovery = () => {
                 });
             }
         });
-    }, 0);
-};
+    }, 100);
+}, 1000);
 
 const recursivelyRecoverInvalidBlockList = (blocks) => {
     const currentBlocks = [...blocks];
@@ -161,10 +159,11 @@ const consoleMessage = (block) => {
     );
 };
 
-export const initAutoAttemptRecovery = () => {
-    if (window._wpLoadBlockEditor && window?.GutenverseConfig?.autoBlockRecovery) {
-        window._wpLoadBlockEditor.then(() => {
-            autoAttemptRecovery();
-        });
+export const withAutoRecovery = (BlockElement) => {
+    if (window?.GutenverseConfig?.autoBlockRecovery) {
+        checkInvalidBlock();
     }
+    return (props) => {
+        return <BlockElement {...props} />;
+    };
 };

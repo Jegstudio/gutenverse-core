@@ -13,3 +13,4 @@ export { withBackgroundEffect } from './with-background-effect';
 export { withBackgroundEffectScript } from './with-background-effect-script';
 export { withMouseMoveEffect } from './with-mouse-move-effect';
 export { withMouseMoveEffectScript } from './with-mouse-move-effect-script';
+export { withAutoRecovery } from './with-auto-recovery';

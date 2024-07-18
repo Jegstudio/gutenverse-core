@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript} from 'gutenverse-core/hoc';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript, withAutoRecovery } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -19,6 +19,7 @@ const save = compose(
     withCursorEffectScript,
     withMouseMoveEffectScript,
     withBackgroundEffectScript,
+    withAutoRecovery,
 )((props) => {
     const {
         attributes,
