@@ -875,10 +875,8 @@ if ( ! function_exists( 'gutenverse_autoblock_recovery' ) ) {
 		$settings_data      = get_option( 'gutenverse-settings', array() );
 		$autoblock_recovery = true;
 
-		if ( isset( $settings_data['editor_settings'] ) ) {
-			if ( ! empty( $settings_data['editor_settings']['autoblock_recovery'] ) ) {
-				$autoblock_recovery = $settings_data['editor_settings']['autoblock_recovery'];
-			}
+		if ( isset( $settings_data['editor_settings'] ) && isset( $settings_data['editor_settings']['autoblock_recovery'] ) ) {
+			$autoblock_recovery = $settings_data['editor_settings']['autoblock_recovery'];
 		}
 
 		return $autoblock_recovery;
