@@ -1,4 +1,5 @@
-import { select, dispatch, subscribe } from '@wordpress/data';
+import debounce from 'lodash/debounce';
+import { select, subscribe, dispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import {
     createBlock,
@@ -22,43 +23,6 @@ export const isInvalid = (block) => {
     }
 
     return true;
-};
-
-export const autoAttemptRecovery = () => {
-    setTimeout(() => {
-        const unsubscribe = subscribe(() => {
-            if (
-                select('core').getEntityRecords('postType', 'wp_block') !==
-                null
-            ) {
-                unsubscribe();
-                const mainBlocks = recoverBlocks(
-                    select('core/block-editor').getBlocks()
-                );
-                // Replace the recovered blocks with the new ones.
-                mainBlocks.forEach((block) => {
-                    if (block.isReusable && block.ref) {
-                        // Update the reusable blocks.
-                        dispatch('core')
-                            .editEntityRecord(
-                                'postType',
-                                'wp_block',
-                                block.ref,
-                                { content: serialize(block.blocks) }
-                            )
-                            .then();
-                    }
-
-                    if (block.recovered && block.replacedClientId) {
-                        dispatch('core/block-editor').replaceBlock(
-                            block.replacedClientId,
-                            block
-                        );
-                    }
-                });
-            }
-        });
-    }, 0);
 };
 
 const recursivelyRecoverInvalidBlockList = (blocks) => {
@@ -161,10 +125,43 @@ const consoleMessage = (block) => {
     );
 };
 
-export const initAutoAttemptRecovery = () => {
-    if (window._wpLoadBlockEditor && window?.GutenverseConfig?.autoBlockRecovery) {
-        window._wpLoadBlockEditor.then(() => {
-            autoAttemptRecovery();
-        });
-    }
+export const autoRecovery = () => {
+    const checkInvalid = debounce(() => {
+        if (window?.GutenverseConfig?.autoBlockRecovery) {
+            const mainBlocks = recoverBlocks(
+                select('core/block-editor').getBlocks()
+            );
+            // Replace the recovered blocks with the new ones.
+            mainBlocks.forEach((block) => {
+                if (block.isReusable && block.ref) {
+                    // Update the reusable blocks.
+                    dispatch('core')
+                        .editEntityRecord(
+                            'postType',
+                            'wp_block',
+                            block.ref,
+                            { content: serialize(block.blocks) }
+                        )
+                        .then();
+                }
+
+                if (block.recovered && block.replacedClientId) {
+                    dispatch('core/block-editor').replaceBlock(
+                        block.replacedClientId,
+                        block
+                    );
+                }
+            });
+        }
+    }, 1000);
+
+    let content = false;
+
+    subscribe(() => {
+        const temporaryContent = select('core/editor').getEditedPostContent();
+        if (select('core').getEntityRecords('postType', 'wp_block') !== null && content !== temporaryContent) {
+            content = temporaryContent;
+            checkInvalid();
+        }
+    });
 };
