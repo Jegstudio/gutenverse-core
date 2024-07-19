@@ -175,8 +175,12 @@ class Style_Cache {
 			'interval' => 2 * 24 * 60 * 60, // 2 days in seconds
 			'display'  => __( 'Once Every 2 Days' ),
 		);
+		$schedules['daily']     = array(
+			'interval' => 24 * 60 * 60, // 1 day in seconds
+			'display'  => __( 'Daily' ),
+		);
 		$schedules['every_five_minutes'] = array(
-			'interval' => 5 * 60, // 2 days in seconds
+			'interval' => 5 * 60, // 5 minutes in seconds
 			'display'  => __( 'Once Every 5 Minutes' ),
 		);
 		return $schedules;
@@ -187,9 +191,9 @@ class Style_Cache {
 	public function schedule_cleanup_cron() {
 		if ( ! wp_next_scheduled( 'gutenverse_cleanup_cached_style' ) ) {
 			if ( isset( self::$options['frontend_settings']['old_render_deletion_schedule'] ) ) {
-				wp_schedule_event( strtotime( '03:00:00' ), self::$options['frontend_settings']['old_render_deletion_schedule'], 'gutenverse_cleanup_cached_style' );
+				wp_schedule_event( time(), self::$options['frontend_settings']['old_render_deletion_schedule'], 'gutenverse_cleanup_cached_style' );
 			} else {
-				wp_schedule_event( strtotime( '03:00:00' ), 'daily', 'gutenverse_cleanup_cached_style' );
+				wp_schedule_event( time(), 'daily', 'gutenverse_cleanup_cached_style' );
 			}
 		}
 	}

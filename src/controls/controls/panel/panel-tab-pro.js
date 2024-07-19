@@ -1,24 +1,28 @@
 import { applyFilters } from '@wordpress/hooks';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { IconCrownBannerSVG, IconCrownSVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl
+        upgradeProUrl, adminUrl
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-    const ButtonProFirst = applyFilters(
-        'gutenverse.pro-text-button', 
-        () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-card-pro-button"><span>{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /> </span></a>, 
-        {location, buttonType : 'first'});
-    const ButtonProSecond = applyFilters(
-        'gutenverse.pro-text-button', 
-        () => isEmpty(window?.gprodata) &&
-        <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>, 
-        {location, buttonType : 'second'});
+    const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
+        if (isEmpty(window?.gprodata)) {
+            if ( location !== 'dashboard-navigation' ){
+                return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
+            }
+        } else {
+            if ( location !== 'dashboard-navigation' ){
+                return applyFilters('gutenverse.button.pro.banner',
+                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Activate License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
+                    <a href={adminUrl + 'admin.php?page=gutenverse&path=license'} target="_blank" rel="noreferrer" className="guten-pro-bottom-button"> {__('Renew License', 'gutenverse-pro')} <IconKeySVG fill={'white'} transform={'translate(0,4)'}/></a>,
+                    <></>);
+            }
+        } 
+    }, {location,isBanner : true});
     return applyFilters(
         'gutenverse.panel.tab.pro.content',
         (

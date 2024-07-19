@@ -111,7 +111,7 @@ class Assets {
 			}
 
 			gutenverse_remove_folder( $folder . '/font-icon' );
-			WP_Filesystem::move( $folder . "/font-icon-{$version}", $folder . '/font-icon' );
+			$wp_filesystem->move( $folder . "/font-icon-{$version}", $folder . '/font-icon' );
 			$wp_filesystem->delete( $file );
 		}
 

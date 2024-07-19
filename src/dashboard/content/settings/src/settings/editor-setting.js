@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ControlNumber } from 'gutenverse-core/backend';
+import { ControlNumber, ControlCheckbox } from 'gutenverse-core/backend';
 
 const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData }) => {
     const {
@@ -8,7 +8,8 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
 
     const {
         tablet_breakpoint = 1024,
-        mobile_breakpoint = 767
+        mobile_breakpoint = 767,
+        autoblock_recovery = true
     } = editor_settings;
 
     const updateValue = (id, value) => {
@@ -34,6 +35,16 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
                 max={779}
                 step={1}
                 value={mobile_breakpoint}
+                updateValue={updateValue}
+            />
+        </div>
+        <div className="template-tab-body" style={{paddingTop: '30px'}}>
+            <h2>{__('Block Recovery', '--gctd--')}</h2>
+            <ControlCheckbox
+                id={'autoblock_recovery'}
+                title={__('Enable Autoblock Recovery', '--gctd--')}
+                description={__('Recover block automatically.', '--gctd--')}
+                value={autoblock_recovery}
                 updateValue={updateValue}
             />
         </div>

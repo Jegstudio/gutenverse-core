@@ -50,6 +50,10 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
                 updateValue={updateValue}
                 options = {[
                     {
+                        label: __('Every 5 Minutes', '--gctd--'),
+                        value: 'every_five_minutes',
+                    },
+                    {
                         label: __('Daily', '--gctd--'),
                         value: 'daily'
                     },
