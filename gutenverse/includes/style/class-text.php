@@ -29,7 +29,7 @@ class Text extends Style_Abstract {
 	 *
 	 * @var array
 	 */
-	protected $name = 'text';
+	protected $name = 'text-paragraph';
 
 
 	/**
