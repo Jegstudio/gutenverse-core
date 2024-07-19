@@ -155,8 +155,12 @@ export const autoRecovery = () => {
         }
     }, 1000);
 
+    let content = false;
+
     subscribe(() => {
-        if (select('core').getEntityRecords('postType', 'wp_block') !== null) {
+        const temporaryContent = select('core/editor').getEditedPostContent();
+        if (select('core').getEntityRecords('postType', 'wp_block') !== null && content !== temporaryContent) {
+            content = temporaryContent;
             checkInvalid();
         }
     });
