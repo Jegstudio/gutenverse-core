@@ -1,6 +1,6 @@
 import debounce from 'lodash/debounce';
 import { select, subscribe, dispatch } from '@wordpress/data';
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import {
     createBlock,
     parse,
@@ -49,7 +49,7 @@ const recursivelyRecoverInvalidBlockList = (blocks) => {
 };
 
 // start recovery blocks
-export const recoverBlocks = (allBlocks) => {
+export const recoverBlocks = (allBlocks, invalidBlock) => {
     return allBlocks.map((block) => {
         const currentBlock = block;
 
@@ -68,6 +68,7 @@ export const recoverBlocks = (allBlocks) => {
                 recursivelyRecoverInvalidBlockList(parsedBlocks);
 
             if (isRecovered) {
+                invalidBlock();
                 consoleMessage(currentBlock);
                 return {
                     blocks: recoveredBlocks,
@@ -78,7 +79,7 @@ export const recoverBlocks = (allBlocks) => {
         }
 
         if (currentBlock.innerBlocks && currentBlock.innerBlocks.length) {
-            const newInnerBlocks = recoverBlocks(currentBlock.innerBlocks);
+            const newInnerBlocks = recoverBlocks(currentBlock.innerBlocks, invalidBlock);
             if (
                 newInnerBlocks.some((InnerBlock) => InnerBlock.recovered)
             ) {
@@ -89,6 +90,7 @@ export const recoverBlocks = (allBlocks) => {
         }
 
         if (isInvalid(currentBlock)) {
+            invalidBlock();
             const newBlock = recoverBlock(currentBlock);
             newBlock.replacedClientId = currentBlock.clientId;
             newBlock.recovered = true;
@@ -128,8 +130,13 @@ const consoleMessage = (block) => {
 export const autoRecovery = () => {
     const checkInvalid = debounce(() => {
         if (window?.GutenverseConfig?.autoBlockRecovery) {
+            let recoveredCount = 0;
+            const invalidBlock = () => {
+                recoveredCount ++;
+            };
             const mainBlocks = recoverBlocks(
-                select('core/block-editor').getBlocks()
+                select('core/block-editor').getBlocks(),
+                invalidBlock
             );
             // Replace the recovered blocks with the new ones.
             mainBlocks.forEach((block) => {
@@ -152,6 +159,16 @@ export const autoRecovery = () => {
                     );
                 }
             });
+            if (recoveredCount) {
+                dispatch('core/notices').createNotice(
+                    'info',
+                    sprintf(__('%s Block%s Recovered', '--gctd--'), recoveredCount, recoveredCount === 1 ? '' : 's'),
+                    {
+                        type: 'snackbar',
+                        isDismissible: true,
+                    }
+                );
+            }
         }
     }, 1000);
 
