@@ -12,6 +12,7 @@ const LockedDividerControl = ({isOpen}) => {
             description={__( 'Transform your website design with custom-shaped elements that elegantly separate sections, complete with captivating animations for an irresistible layout.', '--gctd--' )}
             img={'/shape-divider-animated.mp4'}
             isOpen={isOpen}
+            permaLink={__('#shape-divider')}
         />
     </div>;
 };

@@ -12,6 +12,7 @@ const LockedAnimationControl = ({isOpen}) => {
             description={__( 'Discover our advanced animation framework, designed to craft visually stunning and interactive elements that captivate and engage your audience.', '--gctd--' )}
             img={'/advance-animation.mp4'}
             isOpen={isOpen}
+            permaLink={__('animation-effects/')}
         />
     </div>;
 };

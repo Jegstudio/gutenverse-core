@@ -12,6 +12,7 @@ const LockedTextClip = ({isOpen}) => {
             description={__( 'Create stuning website with text clip for both image background and CSS Gradient', '--gctd--' )}
             img={'/text-clip.mp4'}
             isOpen={isOpen}
+            permaLink={__('#textclip')}
         />
     </div>;
 };
