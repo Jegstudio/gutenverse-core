@@ -168,6 +168,23 @@ export const logosStylePanel = (props) => {
             ]
         },
         {
+            id: 'transitionDuration',
+            show: switcher.imageHover === 'hover',
+            label: __('Transition Duration', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 10,
+            step: 0.1,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image, .${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    allowRender: value => value,
+                    render: value => `transition-duration: ${value}s;`
+                }
+            ]
+        },
+        {
             id: 'imageHoverPadding',
             show: switcher.imageHover === 'hover',
             label: __('Hover Padding', 'gutenverse'),

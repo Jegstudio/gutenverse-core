@@ -23,6 +23,7 @@ export const logosPanel = () => {
                     id: 'hoverSrc',
                     label: __('Hover Logo', 'gutenverse'),
                     component: ImageControl,
+                    description: __('If the Hover Logo is empty, the Client Logo will be used as a placeholder. Hovering options will still apply.', 'gutenverse'),
                 },
                 {
                     id: 'lazyLoad',

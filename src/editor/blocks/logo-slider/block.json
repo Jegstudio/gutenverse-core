@@ -91,6 +91,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"transitionDuration": {
+			"type": "string",
+			"copyStyle": true
+		},
 		"spacing": {
 			"type": "object",
 			"default": {},

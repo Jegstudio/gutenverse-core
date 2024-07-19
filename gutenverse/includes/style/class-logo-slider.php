@@ -118,6 +118,19 @@ class Logo_Slider extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['transitionDuration'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-client-logo .swiper-container .content-image .hover-image, .{$this->element_id}.guten-client-logo .swiper-container .content-image .main-image",
+					'property'       => function ( $value ) {
+						return "transition-duration: {$value}s";
+					},
+					'value'          => $this->attrs['transitionDuration'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageHoverPadding'] ) ) {
 			$this->inject_style(
 				array(
