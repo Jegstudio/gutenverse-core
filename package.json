@@ -63,6 +63,6 @@
     "classnames": "^2.2.6",
     "gutenverse-core": "file:gutenverse-core",
     "shufflejs": "^6.1.0",
-    "swiper": "https://gitpkg.now.sh/Jegstudio/swiper-for-gutenverse/11.0.5?main"
+    "swiper": "https://gitpkg.vercel.app/Jegstudio/swiper-for-gutenverse/11.0.5?main"
   }
 }
