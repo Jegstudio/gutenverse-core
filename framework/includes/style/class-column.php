@@ -173,11 +173,11 @@ class Column extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
-			$this->handle_background( ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id} > .guten-column-wrapper:before", $this->attrs['backgroundOverlay'] );
+			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper  > .guten-column-wrapper > .guten-background-overlay, .{$this->element_id}.background-animated  > .guten-column-wrapper > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
 		}
 
 		if ( isset( $this->attrs['backgroundOverlayHover'] ) ) {
-			$this->handle_background( ".{$this->element_id}:hover > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id}:hover > .guten-column-wrapper:before", $this->attrs['backgroundOverlayHover'] );
+			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .{$this->element_id}.background-animated  > .guten-column-wrapper:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
 		}
 
 		if ( isset( $this->attrs['opacity'] ) ) {

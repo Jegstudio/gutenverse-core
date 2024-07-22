@@ -6,6 +6,7 @@ import saveV2 from './deprecated/v2/save';
 import saveV3 from './deprecated/v3/save';
 import saveV4 from './deprecated/v4/save';
 import saveV5 from './deprecated/v5/save';
+import saveV6 from './deprecated/v6/save';
 import attrV2 from './deprecated/v2/attribute.json';
 import metadata from './block.json';
 import { IconColumnSVG } from 'gutenverse-core/icons';
@@ -19,6 +20,10 @@ export const settings = {
     edit,
     save,
     deprecated: [
+        {
+            attributes,
+            save: saveV6
+        },
         {
             attributes,
             save: saveV5

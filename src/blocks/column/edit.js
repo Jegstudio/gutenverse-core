@@ -624,7 +624,6 @@ const ColumnWrapper = (props) => {
                 onResizeStop={resizeStop}
             >
                 <FluidCanvas attributes={attributes} />
-                <div className="guten-background-overlay"></div>
                 <div className={'guten-inserter insert-top'}>
                     <Inserter
                         __experimentalIsQuick={true}
@@ -636,6 +635,7 @@ const ColumnWrapper = (props) => {
                     <div className={wrapperClass} ref={columnWrapRef}>
                         {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                         {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                        <div className="guten-background-overlay" />
                         <InnerBlocks />
                     </div>
                 </div>
