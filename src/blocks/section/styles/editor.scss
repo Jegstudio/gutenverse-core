@@ -30,8 +30,8 @@
   }
 
   &.layout-fullwidth {
-    > .guten-container {
-      > .wp-block {
+    >.guten-container {
+      >.wp-block {
         max-width: 100%;
       }
     }
@@ -98,13 +98,16 @@
     &:not(:last-child) {
       margin-right: 10px
     }
+
     button {
       height: auto;
       box-shadow: none !important;
       color: transparent;
       padding: 0px !important;
+
       &:hover {
         color: transparent !important;
+
         svg {
           box-shadow: 0 0 0 1px #3b57f7 !important;
           border-radius: 3px;
@@ -127,15 +130,17 @@
         vertical-align: bottom;
       }
 
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      display: inline-block;
-      color: #3c3c3c;
-      background: #dedede;
-      margin-top: 20px;
-      padding: 5px 20px;
-      border-radius: 15px;
+      & {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        display: inline-block;
+        color: #3c3c3c;
+        background: #dedede;
+        margin-top: 20px;
+        padding: 5px 20px;
+        border-radius: 15px;
+      }
     }
   }
 }
@@ -148,6 +153,7 @@
 
 // Force max width on backend
 body {
+
   &.gutenverse_blank,
   &.gutenverse_full {
     section.guten-section {
@@ -166,6 +172,7 @@ body {
         fill: transparent !important;
         padding: unset !important;
         border: unset !important;
+
         &:hover {
           box-shadow: 0 0 0 1px #3b57f7 !important;
         }
@@ -173,7 +180,8 @@ body {
     }
   }
 }
-.gutenverse-control-wrapper{
+
+.gutenverse-control-wrapper {
   .gutenverse-button-available-pro {
     display: flex;
     flex-direction: row;
@@ -205,16 +213,19 @@ body {
     }
   }
 
-  .no-license-control-body{
+  .no-license-control-body {
     display: block;
-    .no-license-image-wrapper{
+
+    .no-license-image-wrapper {
       display: flex;
       justify-content: center;
-      .no-license-image{
+
+      .no-license-image {
         max-width: 154px;
       }
     }
-    .no-license-title{
+
+    .no-license-title {
       margin-top: 20px;
       text-align: center;
       font-family: "Roboto", serif;
@@ -223,11 +234,12 @@ body {
       line-height: 19px;
       letter-spacing: -0.01em;
 
-      span{
+      span {
         color: #E32D64;
       }
     }
-    .no-license-description{
+
+    .no-license-description {
       font-family: "Roboto", serif;
       font-size: 12px;
       font-weight: 400;
@@ -236,10 +248,12 @@ body {
       text-align: center;
       margin-bottom: 20px;
     }
-    .no-license-button-wrapper{
+
+    .no-license-button-wrapper {
       display: flex;
       justify-content: center;
-      .no-license-button{
+
+      .no-license-button {
         align-items: center;
         border-radius: 50px;
         background: linear-gradient(90deg, #3B57F7 0%, #18D8E9 100%);
