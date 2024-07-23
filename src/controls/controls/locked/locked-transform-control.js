@@ -12,6 +12,7 @@ const LockedTransformControl = ({isOpen}) => {
             description={__( 'Transform your element with dynamic effects: rotate, move, scale, and adjust opacity seamlessly between normal and hovered states for a captivating user experience.', '--gctd--' )}
             img={'/transform.mp4'}
             isOpen={isOpen}
+            permaLink={__('animation-effects/')}
         />
     </div>;
 };

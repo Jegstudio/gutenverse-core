@@ -12,6 +12,7 @@ const LockedTransform = ({isOpen}) => {
             description={__( 'Lets you rotate, scale, skew, or translate an element', '--gctd--' )}
             img={'/transform.mp4'}
             isOpen={isOpen}
+            permaLink={__('animation-effects/')}
         />
     </div>;
 };

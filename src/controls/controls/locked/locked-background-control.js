@@ -12,6 +12,7 @@ const LockedBackgroundControl = ({isOpen}) => {
             description={__( 'Elevate your website design with dynamic backgrounds that bring animations and movements to life, ensuring an engaging and memorable user experience.', '--gctd--' )}
             img={'/background-animated.mp4'}
             isOpen={isOpen}
+            permaLink={__('animation-effects/')}
         />
     </div>;
 };

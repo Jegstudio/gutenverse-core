@@ -11,6 +11,7 @@ const LockedStickyControl = ({isOpen}) => {
             description={__( 'Keep your elements firmly in place on your webpage as users seamlessly interact with the rest of the content.', '--gctd--' )}
             img={'/scroll-sticky.mp4'}
             isOpen={isOpen}
+            permaLink={__('#sticky')}
         />
     </div>;
 };

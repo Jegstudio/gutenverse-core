@@ -7,6 +7,17 @@
  * @package gutenverse-framework
  */
 
+if ( ! function_exists( 'is_image_url' ) ) {
+	/**
+	 * Check if the url is an image url
+	 */
+	function is_image_url( $url ) {
+		$image_extensions = array( 'webp', 'jpeg', 'jpg', 'png' );
+		$path             = parse_url( $url, PHP_URL_PATH );
+		$extension        = pathinfo( $path, PATHINFO_EXTENSION );
+		return in_array( strtolower( $extension ), $image_extensions );
+	}
+}
 if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log
@@ -866,6 +877,23 @@ if ( ! function_exists( 'gutenverse_breakpoint' ) ) {
 		}
 	}
 }
+
+if ( ! function_exists( 'gutenverse_autoblock_recovery' ) ) {
+	/**
+	 * Check if autoblock recovery is enabled.
+	 */
+	function gutenverse_autoblock_recovery() {
+		$settings_data      = get_option( 'gutenverse-settings', array() );
+		$autoblock_recovery = true;
+
+		if ( isset( $settings_data['editor_settings'] ) && isset( $settings_data['editor_settings']['autoblock_recovery'] ) ) {
+			$autoblock_recovery = $settings_data['editor_settings']['autoblock_recovery'];
+		}
+
+		return $autoblock_recovery;
+	}
+}
+
 
 
 if ( ! function_exists( 'gutenverse_get_global_variable' ) ) {

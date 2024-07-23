@@ -7,7 +7,8 @@ const DefaultLayout = ({
     title,
     description,
     img,
-    isOpen
+    isOpen,
+    permaLink
 }) => {
     const {
         videoDir,
@@ -43,7 +44,7 @@ const DefaultLayout = ({
                     <circle cx="8" cy="8" r="7.75" stroke="#3B57F7" strokeWidth="0.5" />
                     <path d="M6.21875 11.1128V4.89062L11.1076 8.00174L6.21875 11.1128Z" fill="#3B57F7" />
                 </svg>
-                <a href={proDemoUrl} target="_blank" rel="noreferrer">{__('Learn More', '--gctd--')}</a>
+                <a href={`${proDemoUrl}/${permaLink ? permaLink : ''}`} target="_blank" rel="noreferrer">{__('Learn More', '--gctd--')}</a>
             </div>
             <div className="more-detail">
                 <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
