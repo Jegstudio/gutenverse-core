@@ -145,6 +145,7 @@ class Init {
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
 		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'customize_register', '__return_true' );
+		add_action( 'init', array( $this, 'remove_doing_wp_cron_param' ), 1 );
 
 		// filters.
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
@@ -158,7 +159,16 @@ class Init {
 		$this->register_menu_position();
 		$this->import_mechanism();
 	}
-
+	/**
+	 * Hide doing_wp_cron query argument in url
+	 */
+	public function remove_doing_wp_cron_param() {
+		if ( isset( $_GET['doing_wp_cron'] ) ) {
+			$url = remove_query_arg( 'doing_wp_cron' );
+			wp_safe_redirect( $url );
+			exit;
+		}
+	}
 	/**
 	 * Initialize Instances
 	 */
