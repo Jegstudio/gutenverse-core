@@ -129,6 +129,8 @@ class Global_Variable {
 			$config = apply_filters( 'gutenverse_block_config', array() );
 			if ( isset( $config['globalVariable']['fonts'] ) ) {
 				$global_fonts = $config['globalVariable']['fonts'];
+			}else{
+				$global_fonts = array();
 			}
 		}
 
