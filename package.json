@@ -36,6 +36,7 @@
     "@wordpress/core-data": "^6.9.0",
     "@wordpress/data": "^4.25.0",
     "@wordpress/date": "*",
+    "@wordpress/dependency-extraction-webpack-plugin": "^6.3.0",
     "@wordpress/i18n": "^3.16.0",
     "@wordpress/icons": "^9.23.0",
     "@wordpress/keycodes": "^2.18.3",
