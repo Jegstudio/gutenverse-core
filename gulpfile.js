@@ -100,7 +100,7 @@ gulp.task('clean', function () {
  */
 gulp.task('copy-plugin-folder', function () {
     return gulp
-        .src('./gutenverse/**/*')
+        .src(['./gutenverse/**/*', '!./gutenverse/lib/framework'])
         .pipe(gulp.dest('./release/gutenverse/'));
 });
 
