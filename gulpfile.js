@@ -10,7 +10,6 @@ const path = require('path');
 const postcss = require('gulp-postcss');
 const concat = require('gulp-concat');
 const sass = require('gulp-sass')(require('sass'));
-const zip = require('gulp-zip');
 const del = require('del');
 const replace = require('gulp-string-replace');
 
@@ -124,9 +123,15 @@ gulp.task('release', gulp.series(
     'replace-text-domain',
 ));
 
-gulp.task('zip', function () {
+async function getZip() {
+    const zip = await import('gulp-zip');
+    return zip.default;
+};
+
+gulp.task('zip', async function () {
+    const zip = await getZip();
     return gulp
-        .src('./release/gutenverse/**', {base: './release'})
+        .src('./release/gutenverse/**', { base: './release' })
         .pipe(zip('gutenverse.zip'))
         .pipe(gulp.dest('./release'));
 });
