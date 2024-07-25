@@ -52,6 +52,5 @@ export { default as ReactPlayer } from 'react-player';
 export { default as queryString } from 'query-string';
 export * from '@wordpress/block-editor';
 export * from '@wordpress/components';
-export * from 'react-beautiful-dnd';
 export * from 'react-datepicker';
 
