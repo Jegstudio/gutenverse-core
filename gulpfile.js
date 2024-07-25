@@ -100,13 +100,13 @@ gulp.task('clean', function () {
  */
 gulp.task('copy-plugin-folder', function () {
     return gulp
-        .src(['./gutenverse/**/*', '!./gutenverse/lib/framework'])
+        .src(['./gutenverse/**/*', '!./gutenverse/lib/framework/**'])
         .pipe(gulp.dest('./release/gutenverse/'));
 });
 
 gulp.task('copy-framework', function () {
     return gulp
-        .src('./gutenverse-core/framework/**/*')
+        .src('./gutenverse-core/framework/**/*', { encoding: false })
         .pipe(gulp.dest('./release/gutenverse/lib/framework/'));
 });
 
