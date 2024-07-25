@@ -210,7 +210,7 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        return pro ? <ButtonUpgradePro licenseActiveButton={defaultButton()} isBanner={true} location="card-pro" customStyles={{marginRight: '10px'}}/> : defaultButton();
+        return pro ? <ButtonUpgradePro licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/> : defaultButton();
     };
 
     const dev = '--dev_mode--';
@@ -265,6 +265,8 @@ const PluginInstallThemeList = props => {
     const { installedPlugin } = plugins;
     const { requirements, compatibleVersion } = data;
     const [installCounter, setInstallCounter] = useState(0);
+
+    console.log(requirements);
 
     const increaseCounter = () => {
         setInstallCounter(counter => counter + 1);
