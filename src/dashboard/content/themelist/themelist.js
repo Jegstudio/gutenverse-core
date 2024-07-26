@@ -290,6 +290,16 @@ const PluginInstallThemeList = props => {
                     <h2>{sprintf(__('%s - Plugin Requirement', '--gctd--'), data.title)}</h2>
                     <p>{__('Please install or update and activate these missing requirements plugin for this themes to work correctly. We recommend to backup your site before install/update plugin listed below.', '--gctd--')}</p>
                 </div>
+                <div className="plugin-requirement-notice">
+                    <div className="plugin-requirement-icon">
+                        <IconInfoYellowSVG />
+                    </div>
+                    <div className="plugin-requirement-content">
+                        <strong>{__('Attention!', '--gctd--')}</strong>
+                        &nbsp;
+                        <span>{__('Please refresh this page after install or update plugin', '--gctd--')}</span>
+                    </div>
+                </div>
                 <PluginInstallItem
                     plugin={{
                         installed: true,

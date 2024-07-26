@@ -170,6 +170,47 @@ $border: #eaeaea;
             .plugin-install-inner {
                 margin-bottom: 30px;
             }
+            .plugin-requirement-notice {
+                display: flex;
+                margin: 15px 0 20px;
+                border: 1px solid #e3e4e6;
+                border-left: 4px solid #ffc909;
+                background: #fff;
+        
+                .plugin-requirement-icon {
+                    padding: 22px 15px;
+                    background: #fff9e2;
+                    display: flex;
+                }
+        
+                .plugin-requirement-content {
+                    border-left: 0;
+                    padding: 20px 15px;
+                    font-size: 13px;
+                    align-items: center;
+        
+                    h3 {
+                        margin: 0;
+                        font-family: "Roboto", serif;
+                        font-size: 14px;
+                        font-weight: 600;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.44;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: #011627;
+                    }
+        
+                    p {
+                        margin: 10px 0 15px;
+                    }
+        
+                    a {
+                        cursor: pointer;
+                    }
+                }
+            }
 
             .plugin-install-item {
                 align-items: center;
