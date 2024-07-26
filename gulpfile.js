@@ -100,7 +100,7 @@ gulp.task('clean', function () {
  */
 gulp.task('copy-plugin-folder', function () {
     return gulp
-        .src(['./gutenverse/**/*', '!./gutenverse/lib/framework/**'])
+        .src(['./gutenverse/**/*', '!./gutenverse/lib/framework/**'], { encoding: false })
         .pipe(gulp.dest('./release/gutenverse/'));
 });
 
@@ -131,7 +131,7 @@ async function getZip() {
 gulp.task('zip', async function () {
     const zip = await getZip();
     return gulp
-        .src('./release/gutenverse/**', { base: './release' })
+        .src('./release/gutenverse/**', { base: './release', encoding: false })
         .pipe(zip('gutenverse.zip'))
         .pipe(gulp.dest('./release'));
 });
