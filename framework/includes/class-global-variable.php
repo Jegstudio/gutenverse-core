@@ -111,7 +111,7 @@ class Global_Variable {
 							'id'      => $font['id'],
 							'weights' => array( $the_font['weight'] ),
 						);
-					} 
+					}
 				}
 			} else {
 				$google_fonts = array();

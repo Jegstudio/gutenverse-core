@@ -6,18 +6,6 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
-
-if ( ! function_exists( 'is_image_url' ) ) {
-	/**
-	 * Check if the url is an image url
-	 */
-	function is_image_url( $url ) {
-		$image_extensions = array( 'webp', 'jpeg', 'jpg', 'png' );
-		$path             = parse_url( $url, PHP_URL_PATH );
-		$extension        = pathinfo( $path, PATHINFO_EXTENSION );
-		return in_array( strtolower( $extension ), $image_extensions );
-	}
-}
 if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log
