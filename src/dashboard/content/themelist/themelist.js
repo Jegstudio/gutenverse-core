@@ -210,7 +210,8 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        return pro ? <ButtonUpgradePro licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/> : defaultButton();
+        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
+        return pro ? buttonPro : defaultButton();
     };
 
     const dev = '--dev_mode--';

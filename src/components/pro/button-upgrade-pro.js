@@ -19,7 +19,7 @@ const ButtonUpgradePro = ({
     link = null,
     location = '',
     isBanner = false,
-    licenseActiveButton = <></>
+    licenseActiveButton = <></>,
 }) => {
 
     const { upgradeProUrl, adminUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};

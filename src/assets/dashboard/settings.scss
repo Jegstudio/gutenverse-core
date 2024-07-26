@@ -282,6 +282,10 @@
                     }
                 }
             }
+
+            .gutenverse-button {
+                border-radius: 5px !important;
+            }
         }
     }
 }
@@ -308,7 +312,7 @@
         border: 1px solid #3B57F7;
         color: #3B57F7;
         background-color: white;
-        border-radius: 50px;
+        border-radius: 5px;
         height: 34px;
         width: 136px;
     }

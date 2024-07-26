@@ -133,6 +133,43 @@
                     text-transform: uppercase;
                     display: flex;
                     justify-content: flex-start;
+                    border: 1px solid transparent;
+                    background: 
+                        linear-gradient(to right, #343a6d, #343a6d),
+                        linear-gradient(101deg, rgba(158, 112, 255, 0.63) 6%, #90d9ff 58%, rgba(123, 131, 255, 0.5) 100%);
+                    background-clip: padding-box, border-box;
+                    background-origin: padding-box, border-box;
+                    border-radius: 3px;
+
+                    a{
+                        flex-grow: 0;
+                        display: flex;
+                        justify-content: flex-start;
+                        align-items: center;
+                        gap: 6px;
+                        padding: 7px 8px;
+                        background-image: linear-gradient(139deg, rgba(59, 88, 247, 0.33) 17%, rgba(143, 244, 255, 0.16) 73%);
+                        text-decoration: none;
+
+                        span {
+                            font-family: 'Roboto', serif;
+                            font-size: 7px;
+                            font-weight: 500;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 7px;
+                            letter-spacing: 0.42px;
+                            text-align: center;
+                            color: #fff;
+                            text-decoration: none;
+                        }
+                        
+                        .star-rating {
+                            display: flex;
+                            gap: 4px;
+                        }
+
+                    }
                 }
 
                 .support a {
@@ -148,7 +185,33 @@
                     line-height: 18px;
                     letter-spacing: 0em;
                     text-align: left;
-                }
+                  
+                    .tech-support-pro {
+                        font-family: "Roboto", serif;
+                        font-size: 10px;
+                        font-weight: 400;
+                        text-align: left;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: 0.42px;
+                        justify-content: flex-start;
+                        border: 1px solid transparent;
+                        background: 
+                            linear-gradient(to right, #343a6d, #343a6d),
+                            linear-gradient(101deg, rgba(158, 112, 255, 0.63) 6%, #90d9ff 58%, rgba(123, 131, 255, 0.5) 100%);
+                        background-clip: padding-box, border-box;
+                        background-origin: padding-box, border-box;
+                        border-radius: 3px;
+                  
+                      .container {
+                            align-items: center;
+                            display: flex;
+                            gap: 6px;
+                            padding: 4px 8px;
+                            background-image: linear-gradient(139deg, rgba(59, 88, 247, 0.33) 17%, rgba(143, 244, 255, 0.16) 73%);
+                        }
+                    }
+                }  
             }
         }
     }
@@ -215,7 +278,7 @@
     .feature-panel {
         align-items: flex-start;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 10px;
         display: flex;
         justify-content: center;
         padding: 0px;
@@ -229,7 +292,7 @@
 
     .subscribe-panel {
         background: radial-gradient(35.35% 90.91% at 18.82% 68%, #5c8dc8 0%, #93bddb 100%);
-        border-radius: 5px;
+        border-radius: 10px;
         padding: 0 30px;
 
         >div {
@@ -323,7 +386,7 @@
 
     .feature-panel .join-community-button {
         background-color: var(--gutenverse-dashboard-primary);
-        border-radius: 50px;
+        border-radius: 5px;
         color: #fff;
         display: flex;
         padding: 6px;
@@ -331,7 +394,7 @@
 
         .circle {
             background-color: #fff;
-            border-radius: 50px;
+            border-radius: 5px;
             color: var(--gutenverse-dashboard-primary);
             height: 28px;
             width: 28px;
@@ -503,7 +566,7 @@
         }
 
         .illustration {
-            border-radius: 5px;
+            border-radius: 10px;
             height: 314px;
             object-fit: cover;
             width: 100%;
