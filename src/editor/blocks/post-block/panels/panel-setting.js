@@ -4,7 +4,7 @@ import { NumberControl, RangeControl, SelectSearchControl, SelectControl, Checkb
 import { addQueryArgs } from '@wordpress/url';
 import { searchAuthor, searchCategory, searchTag } from 'gutenverse-core/requests';
 
-export const settingPanel = ({postType}) => {
+export const settingPanel = ({ postType }) => {
     const path = () => {
         switch (postType) {
             case 'page':
@@ -74,6 +74,7 @@ export const settingPanel = ({postType}) => {
             id: 'postOffset',
             label: __('Post Offset', 'gutenverse'),
             component: NumberControl,
+            forceType: 'string'
         },
         {
             id: 'includePost',

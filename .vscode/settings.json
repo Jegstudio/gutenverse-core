@@ -6,5 +6,6 @@
 		"**/release": true,
 		"**/assets/js": true
 	},
-	"intelephense.environment.phpVersion": "7.0.0"
+	"intelephense.environment.phpVersion": "7.0.0",
+	"eslint.workingDirectories": [{ "mode": "auto" }]
 }
