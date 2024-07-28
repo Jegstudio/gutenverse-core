@@ -25,10 +25,21 @@ const BlockController = (props) => {
     );
 
     return panelArray(panelProps).map((item) => {
-        const { id, show, onChange, component: Component, style, allowDeviceControl = false, proLabel } = item;
+        const { id, show, onChange, component: Component, style, allowDeviceControl = false, proLabel, forceType } = item;
         const { clientId, setAttributes } = panelProps;
 
         const onValueChange = (value) => {
+
+            switch(forceType) {
+                case 'string':
+                    value = value.toString();
+                    break;
+                case 'integer':
+                    value = parseInt(value);
+                    break;
+            }
+
+
             const newValue = {
                 [id]: value
             };
