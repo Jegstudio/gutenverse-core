@@ -75,6 +75,7 @@ export const settingPanel = ({postType}) => {
             id: 'postOffset',
             label: __('Post Offset', 'gutenverse'),
             component: NumberControl,
+            forceType: 'string'
         },
         {
             id: 'includePost',

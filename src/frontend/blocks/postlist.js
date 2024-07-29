@@ -58,7 +58,7 @@ class GutenversePostlist extends Default {
             qApi  = true;
         }
 
-        element.find('.guten-block-loadmore').text(paginationLoadingText);
+        element.find('.guten-block-loadmore').html(`<span>${paginationLoadingText}</span>`)
 
         apiFetch({
             path: addQueryArgs('/gutenverse-client/v1/postlist/data', {
