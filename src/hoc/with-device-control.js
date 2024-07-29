@@ -1,4 +1,3 @@
-
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const withDeviceControl = (BlockControl) => {
