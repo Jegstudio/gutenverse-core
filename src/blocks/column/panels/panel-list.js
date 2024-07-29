@@ -56,8 +56,8 @@ export const panelList = () => {
                 styleId: 'column-background-overlay',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient'],
-                normalSelector: ` .${props.elementId} .guten-column-wrapper > .guten-background-overlay, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay`,
-                hoverSelector: `.${props.elementId} .guten-column-wrapper:hover > .guten-background-overlay, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay`
+                normalSelector: ` .${props.elementId}> .guten-column-resizeable> .sticky-wrapper> .guten-column-wrapper > .guten-background-overlay, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay`,
+                hoverSelector: `.${props.elementId}> .guten-column-resizeable> .sticky-wrapper> .guten-column-wrapper:hover > .guten-background-overlay, .${props.elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay`
             }),
             tabRole: TabStyle
         },
