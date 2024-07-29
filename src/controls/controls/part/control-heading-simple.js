@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import { IconInfoSVG } from 'gutenverse-core/icons';
 import ControlDevices from './control-devices';
 
-const ControlHeadingSimple = ({ id, label, description = '', allowDeviceControl, showDeviceControlOnly, inLabel = null, outLabel = null }) => {
+const ControlHeadingSimple = ({ id = null, label, description = '', allowDeviceControl, showDeviceControlOnly, inLabel = null, outLabel = null }) => {
     return label && <div className={'control-title'}>
         {(allowDeviceControl || showDeviceControlOnly) && <ControlDevices />}
         <label htmlFor={id}>

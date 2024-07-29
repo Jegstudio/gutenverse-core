@@ -20,13 +20,13 @@ const SwitchControl = ({
             {options.map((item, index) => {
                 const checked = value ? value === item.value : index === 0;
 
-                return <label key={index}>
+                return <label key={index} htmlFor={`${id}-${item.value}`}>
                     <input
                         onClick={() => onChange(options[index]['value'])}
                         onChange={() => {}}
                         checked={checked}
                         type={'radio'}
-                        id={`${id}-hover`}
+                        id={`${id}-${item.value}`}
                         name={`${id}`}
                         value={item.label}
                     />

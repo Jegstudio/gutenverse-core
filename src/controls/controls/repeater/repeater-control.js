@@ -345,7 +345,6 @@ const RepeaterControl = (props) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-repeater'}>
         <ControlHeadingSimple
-            id={`${id}-repeater`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
