@@ -17,6 +17,7 @@ export const panelFloating = props => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
@@ -32,6 +33,7 @@ export const panelFloating = props => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: '%',
             style: [
                 {
                     selector: `.${elementId}.style-floating .inner-container .image-box-body`,
@@ -63,6 +65,7 @@ export const panelFloating = props => {
             max: 500,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
@@ -79,6 +82,7 @@ export const panelFloating = props => {
             max: 500,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.style-floating:hover .inner-container .image-box-body .body-inner`,

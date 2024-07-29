@@ -38,6 +38,7 @@ export const settingPanel = ({elementId, grid}) => {
             min: 100,
             max: 10000,
             step: 1,
+            unit: 's',
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap`,
@@ -78,6 +79,7 @@ export const settingPanel = ({elementId, grid}) => {
             max: 1000,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             liveUpdate: true,
             style: [
                 {

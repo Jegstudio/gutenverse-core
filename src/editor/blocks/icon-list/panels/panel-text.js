@@ -35,6 +35,7 @@ export const panelText = (props) => {
             label: __('Text Indent', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max : 50,
             step: 1,

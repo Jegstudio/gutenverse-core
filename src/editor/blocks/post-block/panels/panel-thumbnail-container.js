@@ -13,6 +13,7 @@ export const thumbnailContainerPanel = ({elementId}) => {
             max: 1000,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-thumb .thumbnail-container`,

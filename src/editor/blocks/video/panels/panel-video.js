@@ -79,6 +79,7 @@ export const videoPanel = (props) => {
             label: __('Width', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: '%',
             min: 1,
             max: 100,
             step: 1,
@@ -96,6 +97,7 @@ export const videoPanel = (props) => {
             label: __('Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 1000,
             step: 1,
@@ -142,6 +144,7 @@ export const videoPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-caption`,

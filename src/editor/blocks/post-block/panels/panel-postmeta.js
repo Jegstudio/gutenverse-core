@@ -89,6 +89,7 @@ export const postmetaPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-author.icon-position-before i`,
@@ -108,6 +109,7 @@ export const postmetaPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-before i`,

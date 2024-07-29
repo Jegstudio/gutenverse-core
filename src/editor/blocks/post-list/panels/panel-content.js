@@ -52,6 +52,7 @@ export const contentPanel = (props) => {
             label: __('Column Gap', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 200,
             step: 1,

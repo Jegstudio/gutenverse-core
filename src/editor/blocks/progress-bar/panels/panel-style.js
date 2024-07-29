@@ -73,6 +73,7 @@ export const stylePanel = ({elementId, colorMode}) => {
             label: __('Track Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 200,
             step: 1,

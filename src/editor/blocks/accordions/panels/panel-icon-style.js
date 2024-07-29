@@ -88,6 +88,7 @@ export const panelIconStyle = (props) => {
             label: __('Icon Size', 'gutenverse'),
             component: RangeControl,
             show: !switcher.accIcon || switcher.accIcon === 'normal',
+            unit: 'px',
             min: 1,
             max: 200,
             step: 1,
@@ -180,6 +181,7 @@ export const panelIconStyle = (props) => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             show: switcher.accIcon === 'active',
             style: [
                 {

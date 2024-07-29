@@ -50,6 +50,7 @@ export const panelIcon = (props) => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .accordion-item .accordion-icon`,
