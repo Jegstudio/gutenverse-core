@@ -104,13 +104,15 @@ const RangeControl = ({
                 />
                 {!isEmpty(unit) && <span
                     style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    pointerEvents: 'none',
-                    }}
-                >
+                        position: 'absolute',
+                        right: '7px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        pointerEvents: 'none',
+                        color: '#8181a5',
+                        fontSize: '10px',
+                        textTransform: 'uppercase',
+                    }}>
                     {unit}
                 </span>}
             </div>

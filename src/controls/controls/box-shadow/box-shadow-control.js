@@ -87,6 +87,7 @@ const BoxShadowControl = ({
                 min={-100}
                 max={100}
                 step={1}
+                unit="px"
                 value={value.horizontal}
                 onValueChange={horizontal => onValueChange({ ...value, horizontal })}
                 onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
@@ -96,6 +97,7 @@ const BoxShadowControl = ({
                 min={-100}
                 max={100}
                 step={1}
+                unit="px"
                 value={value.vertical}
                 onValueChange={vertical => onValueChange({ ...value, vertical })}
                 onStyleChange={vertical => onStyleChange({ ...value, vertical })}
@@ -114,6 +116,7 @@ const BoxShadowControl = ({
                 min={-100}
                 max={100}
                 step={1}
+                unit="px"
                 value={value.spread}
                 onValueChange={spread => onValueChange({ ...value, spread })}
                 onStyleChange={spread => onStyleChange({ ...value, spread })}

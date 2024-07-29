@@ -105,6 +105,7 @@ const DividerAnimatedControl = (props) => {
             max={300}
             step={1}
             allowDeviceControl={true}
+            unit="px"
         />
         <RangeControl
             label={__('Height', '--gctd--')}
@@ -115,6 +116,7 @@ const DividerAnimatedControl = (props) => {
             max={500}
             step={1}
             allowDeviceControl={true}
+            unit="px"
         />
         <RangeControl
             label={__('Speed', '--gctd--')}
@@ -124,6 +126,7 @@ const DividerAnimatedControl = (props) => {
             min={0}
             max={10}
             step={0.1}
+            unit="s"
         />
         <CheckboxControl
             label={__('Flip', '--gctd--')}
