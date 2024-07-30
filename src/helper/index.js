@@ -667,6 +667,6 @@ export const theDeviceType = (location) => {
     return deviceType;
 };
 
-export const useSettingFallback = () => {
-    return useSettings === undefined ? useSetting : useSettings;
+export const useSettingFallback = (param) => {
+    return useSettings === undefined ? useSetting(param) : useSettings(param)[0];
 };
