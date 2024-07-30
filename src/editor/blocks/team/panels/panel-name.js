@@ -17,6 +17,7 @@ export const namePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title`,

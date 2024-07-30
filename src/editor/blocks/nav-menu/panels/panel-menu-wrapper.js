@@ -16,6 +16,7 @@ export const menuWrapperPanel = (props) => {
             label: __('Menu Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 30,
             max: 300,
             step: 1,

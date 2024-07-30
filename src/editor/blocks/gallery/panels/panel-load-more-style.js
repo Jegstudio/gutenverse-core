@@ -22,6 +22,7 @@ export const loadMoreStylePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .load-more-items`,
@@ -37,6 +38,7 @@ export const loadMoreStylePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .load-more-items .load-more-icon`,
@@ -52,6 +54,7 @@ export const loadMoreStylePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .load-more-items .load-more-icon.icon-position-before`,

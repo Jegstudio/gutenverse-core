@@ -142,6 +142,7 @@ export const iconStylePanel = (props) => {
             max: 300,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon`,
@@ -157,6 +158,7 @@ export const iconStylePanel = (props) => {
             max: 360,
             step: 1,
             allowDeviceControl: true,
+            unit: 'deg',
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon`,

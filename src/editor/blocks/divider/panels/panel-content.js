@@ -71,6 +71,7 @@ export const contentPanel = (props) => {
             show: ['text', 'icon'].includes(content),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 50,
             step: 1,

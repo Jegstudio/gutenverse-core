@@ -72,6 +72,7 @@ export const hamburgerStyle = (props) => {
             max: 300,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu i`,
@@ -295,6 +296,7 @@ export const hamburgerStyle = (props) => {
             max: 300,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i`,

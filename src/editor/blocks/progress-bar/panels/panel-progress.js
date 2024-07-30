@@ -58,7 +58,8 @@ export const progressPanel = () => {
             min: 0,
             max: 100,
             step: 1,
-            isParseFloat : true
+            isParseFloat : true,
+            unit: '%',
         },
         {
             id: 'duration',
@@ -67,7 +68,8 @@ export const progressPanel = () => {
             min: 100,
             max: 10000,
             step: 1,
-            isParseFloat : true
+            isParseFloat : true,
+            unit: 'ms',
         },
     ];
 };

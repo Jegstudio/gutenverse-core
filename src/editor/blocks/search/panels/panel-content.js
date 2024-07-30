@@ -21,9 +21,9 @@ export const contentPanel = props => {
         {
             id: 'inputHeight',
             label: __('Height', 'gutenverse'),
-            description: __('Height calculated in px', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 1000,
             step: 1,

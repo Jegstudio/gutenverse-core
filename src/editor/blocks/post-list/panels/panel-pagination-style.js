@@ -90,6 +90,7 @@ export const paginationStylePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 's',
             style: [
                 {
                     selector: `.${elementId} .guten-block-pagination .guten-block-loadmore`,
@@ -105,6 +106,7 @@ export const paginationStylePanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-block-pagination .guten-block-loadmore.icon-position-before i`,

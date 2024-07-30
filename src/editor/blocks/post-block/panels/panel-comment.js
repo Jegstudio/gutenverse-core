@@ -27,6 +27,7 @@ export const commentPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment a`,
@@ -42,6 +43,7 @@ export const commentPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-comment.icon-position-before span`,

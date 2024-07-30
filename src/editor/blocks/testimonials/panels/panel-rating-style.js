@@ -74,6 +74,7 @@ export const panelRatingStyle = ({ elementId }) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} ul.rating-stars li i`,
@@ -89,6 +90,7 @@ export const panelRatingStyle = ({ elementId }) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.style-1 ul.rating-stars, 

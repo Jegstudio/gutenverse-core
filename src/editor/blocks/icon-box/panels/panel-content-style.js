@@ -173,6 +173,7 @@ export const panelContentStyle = (props) => {
             label: __('Watermark Font Size', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 1000,
             step: 1,

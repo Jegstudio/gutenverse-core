@@ -70,6 +70,7 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
             step: 1,
             isParseFloat: true,
             showDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon img`,
@@ -88,6 +89,7 @@ export const iconPanel = ({ elementId, iconType, imageSize, removeStyle }) => {
             step: 1,
             isParseFloat: true,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .fun-fact-inner .icon img`,

@@ -42,6 +42,7 @@ export const panelContentTypography = props => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
@@ -96,6 +97,7 @@ export const panelContentTypography = props => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
@@ -117,6 +119,7 @@ export const panelContentTypography = props => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
@@ -134,6 +137,7 @@ export const panelContentTypography = props => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
