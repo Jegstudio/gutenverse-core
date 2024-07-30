@@ -10,11 +10,11 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import {
     InspectorControls,
-    useBlockProps,
-    useSetting,
+    useBlockProps
 } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { useSettingFallback } from 'gutenverse-core/helper';
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -40,7 +40,7 @@ const PostContentBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const postTitleRef = useRef();
-    const layout = useSetting('layout');
+    const layout = useSettingFallback('layout');
 
     useEffect(() => {
         if (postTitleRef.current) {
