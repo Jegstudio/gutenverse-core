@@ -267,8 +267,6 @@ const PluginInstallThemeList = props => {
     const { requirements, compatibleVersion } = data;
     const [installCounter, setInstallCounter] = useState(0);
 
-    console.log(requirements);
-
     const increaseCounter = () => {
         setInstallCounter(counter => counter + 1);
     };
