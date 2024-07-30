@@ -183,7 +183,6 @@ const ColorControl = (props) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-color'}>
         <ControlHeadingSimple
-            id={`${id}-color`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}

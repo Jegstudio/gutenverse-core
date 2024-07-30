@@ -46,8 +46,8 @@ const SelectControl = (props) => {
             <div className={`select-option${pro && ' pro'}`}>
                 <div>{label}</div>
                 {pro && <ProLock
-                    title = {label}
-                    description = {description}
+                    title={label}
+                    description={description}
                 />}
 
             </div>
@@ -85,7 +85,13 @@ const SelectControl = (props) => {
 
     return (
         <div id={id} className={'gutenverse-control-wrapper gutenverse-control-select'}>
-            <ControlHeadingSimple id={`${id}-select`} label={label} description={description} proLabel={proLabel} allowDeviceControl={allowDeviceControl} showDeviceControlOnly={showDeviceControlOnly} />
+            <ControlHeadingSimple
+                label={label}
+                description={description}
+                proLabel={proLabel}
+                allowDeviceControl={allowDeviceControl}
+                showDeviceControlOnly={showDeviceControlOnly}
+            />
             <div className={'control-body'}>
                 <div className={'control-select'}>
                     <Select

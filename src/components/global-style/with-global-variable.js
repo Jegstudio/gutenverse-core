@@ -11,7 +11,8 @@ import {
     variableColorName,
     variableFontName,
     responsiveBreakpoint,
-    determineLocation
+    determineLocation,
+    theDeviceType
 } from 'gutenverse-core/helper';
 import {
     renderColor,
@@ -59,23 +60,10 @@ const withGlobalVariable = GlobalStyle => {
         const {
             deviceType,
         } = useSelect(
-            (select) => {
+            () => {
                 const location = determineLocation();
-                let deviceType = 'Desktop';
-
-                switch (location) {
-                    case 'editor':
-                        deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
-                        break;
-                    case 'post':
-                        deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
-                        break;
-                    default:
-                        deviceType = 'Desktop';
-                }
-
                 return {
-                    deviceType: deviceType
+                    deviceType: theDeviceType(location)
                 };
             },
             []

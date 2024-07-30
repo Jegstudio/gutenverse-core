@@ -1,6 +1,7 @@
 import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
+import { select } from '@wordpress/data';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -641,4 +642,26 @@ export const isBlockActive = (name) => {
     const { settingsData } = window['GutenverseConfig'] || window['GutenverseSettings'] || {};
     const { active_blocks = {} } = settingsData;
     return name in active_blocks ? active_blocks[name] : true;
+};
+
+
+export const theDeviceType = (location) => {
+    let deviceType = null;
+
+    if (select('core/editor').getDeviceType !== undefined) {
+        deviceType = select('core/editor').getDeviceType();
+    } else {
+        switch (location) {
+            case 'editor':
+                deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
+                break;
+            case 'post':
+                deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
+                break;
+            default:
+                deviceType = 'Desktop';
+        }
+    }
+
+    return deviceType;
 };

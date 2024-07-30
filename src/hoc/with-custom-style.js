@@ -1,7 +1,7 @@
 import { useEffect, useState } from '@wordpress/element';
 import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
-import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck, theDeviceType } from 'gutenverse-core/helper';
 import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet, u } from 'gutenverse-core/components';
@@ -76,23 +76,10 @@ export const withCustomStyle = panelList => BlockElement => {
         const {
             deviceType,
         } = useSelect(
-            (select) => {
+            () => {
                 const location = determineLocation();
-                let deviceType = 'Desktop';
-
-                switch (location) {
-                    case 'editor':
-                        deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
-                        break;
-                    case 'post':
-                        deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
-                        break;
-                    default:
-                        deviceType = 'Desktop';
-                }
-
                 return {
-                    deviceType: deviceType
+                    deviceType: theDeviceType(location)
                 };
             },
             []
@@ -248,14 +235,14 @@ export const withCustomStyle = panelList => BlockElement => {
          * and set controlValues for the first time.
          */
         useEffect(() => {
-            if(elementRef){
+            if (elementRef) {
                 if (elementId === undefined) {
                     createElementId();
                 } else {
                     const { getBlocks } = select('core/block-editor');
                     const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
                     const parent = u(elementRef).closest('html');
-                    if (flag && !parent.hasClass('block-editor-block-preview__content-iframe') ) {
+                    if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
                         createElementId();
                     } else {
                         registerElement(elementId);
