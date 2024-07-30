@@ -33,15 +33,18 @@ elementChange('#site-editor', () => {
 });
 
 domReady(() => {
-    const content = applyFilters(
-        'gutenverse.site.editor.content',
-        <>
-            <GlobalStyle />
-            <GutenverseLibrary />
-        </>,
-        null
-    );
     autoRecovery();
-    render(content, document.getElementById('gutenverse-root'));
+
+    if (document.getElementById('gutenverse-root')) {
+        const content = applyFilters(
+            'gutenverse.site.editor.content',
+            <>
+                <GlobalStyle />
+                <GutenverseLibrary />
+            </>,
+            null
+        );
+        render(content, document.getElementById('gutenverse-root'));
+    }
 });
 

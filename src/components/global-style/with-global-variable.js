@@ -2,7 +2,6 @@ import { useSelect } from '@wordpress/data';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useEffect, useState } from '@wordpress/element';
-import { useSetting } from '@wordpress/block-editor';
 import { Helmet } from 'gutenverse-core/components';
 
 import {
@@ -12,7 +11,8 @@ import {
     variableFontName,
     responsiveBreakpoint,
     determineLocation,
-    theDeviceType
+    theDeviceType,
+    useSettingFallback
 } from 'gutenverse-core/helper';
 import {
     renderColor,
@@ -54,7 +54,7 @@ const withGlobalVariable = GlobalStyle => {
         const { userConfig } = useGlobalStylesConfig();
 
         // Get global color from settings
-        const themePalette = useSetting('color.palette.theme');
+        const themePalette = useSettingFallback('color.palette.theme');
 
         // Keep this using useSelect instead of getDeviceType, to trigger changes
         const {

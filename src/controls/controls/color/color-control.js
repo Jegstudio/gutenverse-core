@@ -11,8 +11,8 @@ import { RefreshCw, Globe, ChevronRight } from 'react-feather';
 import { renderColor, signal, hexToRgb } from 'gutenverse-core/editor-helper';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
-import { useSetting } from '@wordpress/block-editor';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
+import { useSettingFallback } from 'gutenverse-core/helper';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;
@@ -48,9 +48,9 @@ const ColorControl = (props) => {
     const [updating, setUpdating] = useState(false);
     const [variableOpen, setVariableOpen] = useState(false);
 
-    const defaultPalette = useSetting('color.palette.default');
-    const themePalette = useSetting('color.palette.theme');
-    const customs = useSetting('color.palette.custom') ? useSetting('color.palette.custom') : [];
+    const defaultPalette = useSettingFallback('color.palette.default');
+    const themePalette = useSettingFallback('color.palette.theme');
+    const customs = useSettingFallback('color.palette.custom') ? useSettingFallback('color.palette.custom') : [];
     const [customPalette, setCustomPalette] = useState(customs);
 
     const { isUserConfigReady, userConfig } = useGlobalStylesConfig();

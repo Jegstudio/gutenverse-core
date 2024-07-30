@@ -4,11 +4,10 @@ import { ChromePicker } from 'react-color';
 import { Trash } from 'react-feather';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
-import { useSetting } from '@wordpress/block-editor';
 import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
 import set from 'lodash/set';
-import { getLastSequence, rgbToHex } from 'gutenverse-core/helper';
+import { getLastSequence, rgbToHex, useSettingFallback } from 'gutenverse-core/helper';
 import { hexToRgb, useGlobalStylesConfig, renderColor } from 'gutenverse-core/editor-helper';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { Prompt, PromptContent, PromptHeader } from 'gutenverse-core/components';
@@ -124,8 +123,8 @@ const ThemeVariableColor = ({ value }) => {
 };
 
 const GlobalVariableColor = () => {
-    const defaultPalette = useSetting('color.palette.default');
-    const themePalette = useSetting('color.palette.theme');
+    const defaultPalette = useSettingFallback('color.palette.default');
+    const themePalette = useSettingFallback('color.palette.theme');
 
     const { userConfig, setUserConfig } = useGlobalStylesConfig();
 

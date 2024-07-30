@@ -2,6 +2,7 @@ import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
+import { useSetting, useSettings } from '@wordpress/block-editor';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -664,4 +665,8 @@ export const theDeviceType = (location) => {
     }
 
     return deviceType;
+};
+
+export const useSettingFallback = () => {
+    return useSettings === undefined ? useSetting : useSettings;
 };

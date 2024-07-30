@@ -20,7 +20,7 @@ class Editor_Assets {
 	 */
 	public function __construct() {
 		add_action( 'admin_footer', array( $this, 'register_root' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'register_script' ) );
+		add_action( 'enqueue_block_assets', array( $this, 'register_script' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backend' ) );
 	}
 
