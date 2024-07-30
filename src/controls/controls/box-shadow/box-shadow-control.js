@@ -56,7 +56,6 @@ const BoxShadowControl = ({
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-box-shadow'}>
         <ControlHeadingSimple
-            id={`${id}-box-shadow`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}

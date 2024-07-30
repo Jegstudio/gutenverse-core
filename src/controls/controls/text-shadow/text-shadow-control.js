@@ -57,7 +57,6 @@ const TextShadowControl = ({
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-text-shadow'}>
         <ControlHeadingSimple
-            id={`${id}-text-shadow`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}

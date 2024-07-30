@@ -145,7 +145,8 @@ class Init {
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
 		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
 		add_action( 'customize_register', '__return_true' );
-		add_action( 'init', array( $this, 'remove_doing_wp_cron_param' ), 1 );
+		add_action( 'template_redirect', array( $this, 'remove_doing_wp_cron_param' ) );
+		add_action( 'wp_footer', array( $this, 'run_wp_cron_from_footer' ) );
 
 		// filters.
 		add_filter( 'after_setup_theme', array( $this, 'init_settings' ) );
@@ -169,6 +170,19 @@ class Init {
 			exit;
 		}
 	}
+
+	/**
+	 * Run Cron from footer instead of query argument
+	 */
+	public function run_wp_cron_from_footer() {
+		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+			return;
+		}
+		define( 'DOING_CRON', true );
+
+		wp_cron();
+	}
+
 	/**
 	 * Initialize Instances
 	 */
