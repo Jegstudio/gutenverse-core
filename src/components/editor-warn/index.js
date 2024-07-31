@@ -71,12 +71,14 @@ const WarnModal = (props) => {
     const [pluginsEco, setPluginsEco] = useState(false);
     const [missingPlugin, setMissingPlugins] = useState(false);
     const [plugins, setPlugins] = useState(window['GutenverseConfig']?.plugins);
+    const [refresh, setRefresh] = useState(false);
 
     const doNotShow = () => {
         setDoNotShowAgain(!doNotShowAgain);
     };
 
     const activatePlugin = (pluginKey) => {
+        setRefresh(true);
         setPlugins((prevPlugins) => {
             if (prevPlugins[pluginKey]) {
                 return {
@@ -92,6 +94,7 @@ const WarnModal = (props) => {
     };
 
     const installPlugin = ({ slug, name, path, version }) => {
+        setRefresh(true);
         setPlugins((prevPlugins) => {
             return {
                 ...prevPlugins,
@@ -119,6 +122,9 @@ const WarnModal = (props) => {
                     }
                 }
             });
+        }
+        if (refresh) {
+            window.location.reload();
         }
     };
 
