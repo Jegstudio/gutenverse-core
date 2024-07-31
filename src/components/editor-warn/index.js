@@ -184,7 +184,7 @@ const WarnModal = (props) => {
                     <span>{__('Missing Gutenverse Block', '--gctd--')}</span>
                 </div>
                 <div className="gutenverse-warn-description">
-                    {__('Some blocks are missing. They might be disabled or require the corresponding Gutenverse plugins to be installed and activated to restore the blocks:', '--gctd--')}
+                    {__('Some blocks are missing. Please check if any blocks are disabled or if plugins from the corresponding Gutenverse plugin need to be installed and activated.', '--gctd--')}
                 </div>
                 {/* <ul className="gutenverse-warn-list">
                     {missingBlock.map((block, index) => (
