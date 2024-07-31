@@ -1,3 +1,4 @@
+@import "flatpickr/dist/flatpickr.min";
 .guten-form-builder {
     max-width: 1140px;
     margin-left: auto;
@@ -38,7 +39,6 @@
         }
     }
 }
-@import "flatpickr/dist/flatpickr.min";
 .guten-form-input {
     &.input-invalid {
       .choices {
@@ -97,10 +97,10 @@
         padding: 0;
       }
     }
-  }
 
   .choices{
     overflow: visible;
+  }
 }
 .guten-form-input {
     .gutenverse-input-textarea {
