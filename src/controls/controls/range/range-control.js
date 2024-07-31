@@ -30,12 +30,6 @@ const RangeControl = ({
     const inputRef = useRef(null);
     const theUnit = unit? unit : '';
 
-    const addUnit = () => {
-        const input = inputRef.current;
-        if (!input.value.endsWith(theUnit)) {
-        input.value = input.value.replace(theUnit, '') + theUnit;
-        }
-    };
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
             id={`${id}-range`}
@@ -100,7 +94,6 @@ const RangeControl = ({
                         }
                     }}
                     ref={inputRef}
-                    onInput={addUnit}
                 />
                 {!isEmpty(unit) && <span
                     style={{
