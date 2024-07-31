@@ -9,6 +9,8 @@
 
 namespace Gutenverse;
 
+use Gutenverse\Form_Fallback\Form_Fallback_Init;
+
 /**
  * Class Gutenverse
  *
@@ -142,6 +144,13 @@ class Gutenverse {
 	public $upgrade_wizard;
 
 	/**
+	 * Form Fallback
+	 *
+	 * @var Form_Fallback
+	 */
+	public $form_fallback;
+
+	/**
 	 * Singleton page for Gutenverse Class
 	 *
 	 * @return Gutenverse
@@ -163,7 +172,7 @@ class Gutenverse {
 			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 		}
-		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient') );
+		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient' ) );
 	}
 
 	/**
@@ -343,7 +352,7 @@ class Gutenverse {
 	}
 
 	/**
-	 * Initialize Form
+	 * Initialize Dashboard
 	 */
 	public function init_post_type() {
 		$this->dashboard = new Dashboard();
@@ -361,6 +370,11 @@ class Gutenverse {
 		$this->upgrader        = new Upgrader();
 		$this->meta_option     = new Meta_Option();
 		$this->upgrade_wizard  = new Upgrade_Wizard();
+
+		$active_plugins = get_option( 'active_plugins' );
+		if ( ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins ) ) {
+			$this->form_fallback = new Form_Fallback_Init();
+		}
 	}
 
 	/**

@@ -31,5 +31,4 @@ defined( 'GUTENVERSE_FRAMEWORK_URL' ) || define( 'GUTENVERSE_FRAMEWORK_URL', plu
 defined( 'GUTENVERSE_REQUIRED_PRO_VERSION' ) || define( 'GUTENVERSE_REQUIRED_PRO_VERSION', '1.0.0' );
 
 require_once GUTENVERSE_DIR . 'lib/autoload.php';
-
 Gutenverse::instance();
