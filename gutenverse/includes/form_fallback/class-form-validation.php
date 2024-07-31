@@ -39,6 +39,12 @@ class Form_Validation extends Style_Generator {
 	public function form_validation_scripts() {
 		wp_enqueue_script( 'gutenverse-frontend-event' );
 		wp_localize_script( 'gutenverse-frontend-event', 'GutenverseFormValidationData', $this->form_validation_data );
+		wp_enqueue_style(
+			'gutenverse-form-default-style',
+			GUTENVERSE_URL . '/assets/css/form-default-style.css',
+			array(),
+			GUTENVERSE_VERSION
+		);
 	}
 	/**
 	 * Get form Block from Widgets.
