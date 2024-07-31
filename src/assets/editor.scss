@@ -115,6 +115,118 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
 
+    .plugin-item {
+      align-items: stretch;
+      background: #F9F9FF;
+      border-radius: 5px;
+      border: 1px solid var(--gutenverse-dashboard-border);
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin: 0 25px 22px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e3e4e6;
+      align-items: center;
+
+      .icon-plugin {
+        width: 64px;
+        height: 64px;
+        border-radius: 100px;
+      }
+
+
+      @media only screen and (max-width: 765px) {
+        .icon-wrapper {
+          display: none;
+        }
+      }
+
+      .details {
+        margin-right: auto;
+      }
+
+      .plugin-title {
+        font-family: "Plus Jakarta Sans", serif;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 20px;
+        margin: 0;
+
+        span {
+          font-weight: 800;
+        }
+      }
+
+      .ribbon {
+        background-color: #FED134;
+        position: absolute;
+        top: -1px;
+        font-weight: bolder;
+        left: -36px;
+        padding: 20px 50px 5px;
+        margin: 0;
+        font-size: 13px;
+        transform: rotate(-40deg) translate(-9px, -13px);
+
+      }
+
+      .plugin-version {
+        color: #99A2A9;
+        font-family: "Roboto", serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 14px;
+        margin: 4px 0 0;
+      }
+
+      .plugin-description {
+        color: #40505D;
+        font-family: "Roboto", serif;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%;
+        margin: 8px 0 0;
+      }
+
+      .plugin-actions {
+        align-content: center;
+        align-items: center;
+        display: flex;
+
+        .install-action {
+          align-items: center;
+          background: #3b57f7;
+          border-radius: 5px;
+          border: 1px solid #3b57f7;
+          color: white;
+          cursor: pointer;
+          display: flex;
+          flex-direction: row;
+          gap: 6px;
+          justify-content: center;
+          padding: 8px 14px;
+          white-space: nowrap;
+
+          &.installed {
+            border: 1px solid #99A2A9;
+            background: #99A2A9;
+            color: white;
+            cursor: default;
+          }
+
+          &.update {
+            background: white;
+            color: #3b57f7
+          }
+        }
+      }
+    }
+
     .gutenverse-warn-wrapper {
       background-color: #fff;
       border-radius: 8px;
