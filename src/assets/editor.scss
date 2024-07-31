@@ -59,7 +59,8 @@ img {
   background: #F5F5FA;
   border-radius: 5px;
 
-  a, a:active {
+  a,
+  a:active {
     width: 85%;
     margin-left: 10px;
     font-size: 12px;
@@ -81,11 +82,12 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
     text-decoration: none;
   }
 }
-.guten-label-pro-wrapper{
+
+.guten-label-pro-wrapper {
   display: flex;
   justify-content: start;
 
-  .pro-label{
+  .pro-label {
     background: #ffdbde;
     border: 0.3px solid #c1313f;
     border-radius: 2px;
@@ -98,4 +100,114 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 // This is set because sticky not working in page editor
 .interface-interface-skeleton__content .edit-post-visual-editor {
   overflow: unset;
+}
+
+#gutenverse-warn {
+  .gutenverse-editor-warn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+
+    .gutenverse-warn-wrapper {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      width: 500px;
+      height: fit-content;
+      align-items: center;
+    }
+
+    .gutenverse-warn-header {
+      display: flex;
+      gap: 10px;
+      padding: 24px 26px;
+      border-bottom: solid 1px #e3e4e6;
+      align-items: center;
+
+      span {
+        font-family: Inter;
+        font-size: 18px;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: #0f1538;
+      }
+    }
+
+    .gutenverse-warn-description {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: left;
+      color: #40505d;
+      margin: 22px 25px;
+    }
+
+    .gutenverse-warn-list {
+      list-style-type: disc;
+      margin-left: 40px;
+      margin-bottom: 50px;
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.8;
+      letter-spacing: normal;
+      text-align: left;
+      color: #000;
+    }
+
+    .gutenverse-warn-footer {
+      border-top: solid 1px #e3e4e6;
+      padding: 16px 26px;
+      display: flex;
+
+      .warn-checkbox {
+        align-items: center;
+        display: flex;
+        gap: 8px;
+        margin-right: auto;
+        cursor: pointer;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        text-align: left;
+        color: #40505d;
+      }
+
+      button {
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        padding: 7px 18px 8px 16px;
+        border-radius: 5px;
+        background-color: #3b57f7;
+        cursor: pointer;
+      }
+    }
+  }
 }

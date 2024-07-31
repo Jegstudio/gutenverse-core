@@ -9,7 +9,8 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
     const {
         tablet_breakpoint = 1024,
         mobile_breakpoint = 767,
-        autoblock_recovery = true
+        autoblock_recovery = true,
+        missing_block_warn = true
     } = editor_settings;
 
     const updateValue = (id, value) => {
@@ -39,12 +40,19 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
             />
         </div>
         <div className="template-tab-body" style={{paddingTop: '30px'}}>
-            <h2>{__('Block Recovery', '--gctd--')}</h2>
+            <h2>{__('Editor Helper', '--gctd--')}</h2>
             <ControlCheckbox
                 id={'autoblock_recovery'}
                 title={__('Enable Autoblock Recovery', '--gctd--')}
                 description={__('Recover block automatically.', '--gctd--')}
                 value={autoblock_recovery}
+                updateValue={updateValue}
+            />
+            <ControlCheckbox
+                id={'missing_block_warn'}
+                title={__('Enable Missing Block Warning', '--gctd--')}
+                description={__('Enable warning popup when Gutenverse block is unsupported or disabled.', '--gctd--')}
+                value={missing_block_warn}
                 updateValue={updateValue}
             />
         </div>

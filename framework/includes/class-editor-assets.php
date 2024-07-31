@@ -102,6 +102,7 @@ class Editor_Assets {
 		$config['uploadPath']        = $upload_path['baseurl'];
 		$config['updateLicensePage'] = admin_url( 'admin.php?page=gutenverse&path=license' );
 		$config['autoBlockRecovery'] = gutenverse_autoblock_recovery();
+		$config['missingBlocksWarn'] = gutenverse_missing_blocks();
 
 		if ( defined( 'GUTENVERSE' ) ) {
 			$config['oldImagePlaceholder'] = plugins_url( GUTENVERSE ) . '/assets/img/img-placeholder.jpg';
