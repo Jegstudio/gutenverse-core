@@ -209,7 +209,7 @@ const WarnModal = (props) => {
                     <button
                         onClick={closeWarn}
                     >
-                        {__('OK', '--gctd--')}
+                        {doNotShowAgain ? __('OK', '--gctd--') : __('Dismiss', '--gctd--')}
                     </button>
                 </div>
             </div>
