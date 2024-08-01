@@ -40,8 +40,153 @@ class Entries {
 		add_filter( 'posts_join', array( $this, 'search_join' ) );
 		add_filter( 'posts_where', array( $this, 'search_where' ) );
 		add_filter( 'posts_groupby', array( $this, 'search_groupby' ) );
+		add_action( 'admin_notices', array( $this, 'page_form_entries_notice' ) );
 	}
 
+	/**
+	 * Admin Notice for page form entries.
+	 */
+	public function page_form_entries_notice() {
+		$active_plugins = get_option( 'active_plugins' );
+		$url            = wp_nonce_url( self_admin_url( 'edit.php?post_type=gutenverse-entries' ), 'install-plugin_gutenverse_form' );
+		$path           = 'gutenverse-form/gutenverse-form.php';
+		$active         = is_plugin_active( $path );
+		$all_plugin     = get_plugins();
+		if ( isset( $all_plugin[ $path ] ) ) {
+			if ( $active ) {
+				$actions['gutenverse-form'] = 'active';
+			} else {
+				$actions['gutenverse-form'] = 'inactive';
+			}
+		} else {
+			$actions['gutenverse-form'] = '';
+		}
+		if ( isset( $_GET['post_type'] ) && 'gutenverse-entries' === $_GET['post_type'] && ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins ) ) {
+			$this->enqueue_script();
+			?>
+			<style>
+				.notice .close-button{
+					position: absolute;
+					top: 2px;
+					right: 8px;
+					cursor: pointer;
+				}
+			</style>
+			<div class="notice gutenverse-upgrade-notice gutenverse-install-form">
+				<div class="notice-logo">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M10 0C4.47754 0 0 4.47915 0 10C0 15.5241 4.47754 20 10 20C15.5225 20 20 15.5241 20 10C20 4.47915 15.5225 0 10 0ZM10 4.43548C10.9353 4.43548 11.6935 5.19371 11.6935 6.12903C11.6935 7.06435 10.9353 7.82258 10 7.82258C9.06468 7.82258 8.30645 7.06435 8.30645 6.12903C8.30645 5.19371 9.06468 4.43548 10 4.43548ZM12.2581 14.6774C12.2581 14.9446 12.0414 15.1613 11.7742 15.1613H8.22581C7.95859 15.1613 7.74194 14.9446 7.74194 14.6774V13.7097C7.74194 13.4425 7.95859 13.2258 8.22581 13.2258H8.70968V10.6452H8.22581C7.95859 10.6452 7.74194 10.4285 7.74194 10.1613V9.19355C7.74194 8.92633 7.95859 8.70968 8.22581 8.70968H10.8065C11.0737 8.70968 11.2903 8.92633 11.2903 9.19355V13.2258H11.7742C12.0414 13.2258 12.2581 13.4425 12.2581 13.7097V14.6774Z" fill="#FFC908"/>
+					</svg>
+				</div>
+				<div class="notice-content">
+					<h2><?php esc_html_e( 'Gutenverse Form Plugin Not Installed!', 'gutenverse' ); ?></h2>
+					<p><?php echo esc_html__( 'To use all the features and capabilities of Gutenverse Form, you need to ', 'gutenverse' ); ?> <b><?php echo esc_html__( 'install and activate ', 'gutenverse' ); ?></b><?php echo esc_html__( 'the Gutenverse Form plugin to access all functionalities and enhance your experience.', 'gutenverse' ); ?></p>
+					<div class="gutenverse-upgrade-action">
+						<a class='button-primary upgrade-themes' id="gutenverse-install-form" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'Install & Activate Gutenverse Form!', 'gutenverse' ); ?></a>
+					</div>
+				</div>
+				<div class="close-button">
+					<svg width="8" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M1.3 8L0.5 7.2L3.7 4L0.5 0.8L1.3 0L4.5 3.2L7.7 0L8.5 0.8L5.3 4L8.5 7.2L7.7 8L4.5 4.8L1.3 8Z" fill="#011627" fill-opacity="0.5"/>
+					</svg>
+				</div>
+			</div>
+			<script>
+				var actions = <?php echo wp_json_encode( $actions ); ?>;
+				function sequenceInstall (plugins, index = 0) {
+					if (plugins[index]) {
+						var plugin = plugins[index];
+						switch (actions[plugin?.slug]) {
+							case 'active':
+								break;
+							case 'inactive':
+								var path = plugin?.slug + '/' + plugin?.slug;
+								promises.push(
+									new Promise((resolve) => {
+										fetch(wpApiSettings.root + 'wp/v2/plugins/' + path, {									
+											method: 'POST',
+											headers: {
+												"X-WP-Nonce": wpApiSettings.nonce,
+												'Content-Type': 'application/json',
+											},
+											body: JSON.stringify(
+												{
+													status: 'active'
+												}
+											)
+										}).then(() => {
+											sequenceInstall(plugins, index + 1);
+											resolve(plugin);
+										}).catch((error) => {
+											alert('Plugin Install Failed')	
+										});
+									})
+								);
+								break;
+							default:
+								promises.push(
+									new Promise((resolve) => {
+										fetch(wpApiSettings.root + 'wp/v2/plugins', {									
+											method: 'POST',
+											headers: {
+												"X-WP-Nonce": wpApiSettings.nonce,
+												'Content-Type': 'application/json',
+											},
+											body: JSON.stringify(
+												{
+													slug: plugin?.slug,
+													status: 'active'
+												}
+											)
+										}).then(() => {
+											sequenceInstall(plugins, index + 1);
+											resolve(plugin);
+										}).catch((error) => {
+											alert('Plugin Install Failed')	
+										});
+									})
+								);
+								break;
+						}
+					}
+
+					return;
+				};
+				(function($) {
+					$("#gutenverse-install-form").on('click', function(e) {
+						var hasFinishClass = $(this).hasClass('finished');
+						var hasLoaderClass = $(this).hasClass('loader');
+
+						if(!hasFinishClass) {
+							e.preventDefault();
+						}
+
+						if(!hasLoaderClass && !hasFinishClass) {
+							promises = [];
+							var plugins = [
+								{
+									'slug' : 'gutenverse-form',
+									'name' : 'Gutenverse Form'
+								}
+							];
+							$(this).addClass('loader').text('Loading...');
+
+							sequenceInstall(plugins);
+							Promise.all(promises).then(() => {						
+								$(this).removeClass('loader').addClass('finished').text('Reload Page');
+							});
+						}
+					});
+				})(jQuery);
+				(function($) {
+					$('.notice .close-button').on('click', function() {
+						$('.gutenverse-install-form').fadeOut();
+					});
+				})(jQuery);
+			</script>
+			<?php
+		}
+	}
 	/**
 	 * Enqueue Script
 	 */
@@ -98,7 +243,7 @@ class Entries {
 	 */
 	private static function get_form_list() {
 		$args = array(
-			'post_type' => Form::POST_TYPE,
+			'post_type' => 'gutenverse-form',
 		);
 
 		wp_reset_postdata();
@@ -397,7 +542,7 @@ class Entries {
 				'hierarchical'        => false,
 				'supports'            => array( 'title', 'revisions', 'page-attributes' ),
 				'map_meta_cap'        => true,
-				'show_in_menu'        => Form::POST_TYPE,
+				'show_in_menu'        => 'gutenverse-form',
 				'rewrite'             => array(
 					'slug' => self::POST_TYPE,
 				),

@@ -14,7 +14,6 @@ class GutenverseFormValidation extends Default {
         const formBuilder = u(element);
         const formId = formBuilder.data('form-id');
         const data = window['GutenverseFormValidationData'];
-        console.log(data);
         const formData = data.filter(el => el.formId == formId);
         if(formData.length !== 0){
             if (formData[0]['require_login'] && !formData[0]['logged_in'] ) {

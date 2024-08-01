@@ -103,10 +103,10 @@ class Form_Fallback_Init {
 	 * Init constructor.
 	 */
 	public function __construct() {
+		add_action( 'admin_menu', array( $this, 'parent_menu' ) );
 		$this->style_generator = new Style_Generator();
 		$this->form_validation = new Form_Validation();
 		$this->entries         = new Entries();
-		$this->form            = new Form();
 		$this->load_textdomain();
 	}
 	/**
@@ -122,5 +122,20 @@ class Form_Fallback_Init {
 	 */
 	public function init_api() {
 		$this->api = Api::instance();
+	}
+
+	/**
+	 * Parent Menu
+	 */
+	public function parent_menu() {
+		add_menu_page(
+			esc_html__( 'Form', 'gutenverse-form' ),
+			esc_html__( 'Form', 'gutenverse-form' ),
+			'manage_options',
+			'gutenverse-form',
+			null,
+			GUTENVERSE_URL . '/assets/img/form-icon-dashboard.svg',
+			31
+		);
 	}
 }

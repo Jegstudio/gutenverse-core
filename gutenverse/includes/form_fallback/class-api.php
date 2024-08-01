@@ -57,29 +57,6 @@ class Api {
 	 * Register Gutenverse APIs
 	 */
 	private function register_routes() {
-		/**
-		 * Backend routes.
-		 */
-
-		register_rest_route(
-			self::ENDPOINT,
-			'form-action/(?P<id>\d+)',
-			array(
-				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_form_action' ),
-				'permission_callback' => 'gutenverse_permission_check_author',
-			)
-		);
-
-		register_rest_route(
-			self::ENDPOINT,
-			'form/search',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'search_form' ),
-				'permission_callback' => 'gutenverse_permission_check_author',
-			)
-		);
 
 		/** ----------------------------------------------------------------
 		 * Frontend/Global Routes
@@ -103,76 +80,6 @@ class Api {
 				'permission_callback' => '__return_true',
 			)
 		);
-	}
-
-	/**
-	 * Export Form Action
-	 *
-	 * @param object $request object.
-	 */
-	public function export_form_action( $request ) {
-		$form_id    = $request->get_param( 'id' );
-		$file_title = get_the_title( $form_id ) . '-' . time();
-		$posts      = get_posts(
-			array(
-				'post_type'  => Entries::POST_TYPE,
-				'meta_query' => array( //phpcs:ignore
-					array(
-						'key'     => 'form-id',
-						'value'   => $form_id,
-						'compare' => '===',
-					),
-				),
-			)
-		);
-
-		header( 'Content-type: text/csv' );
-		header( 'Content-Disposition: attachment; filename=' . $file_title . '.csv' );
-		header( 'Pragma: no-cache' );
-		header( 'Expires: 0' );
-
-		foreach ( $posts as $id => $post ) {
-			$form = get_post_meta( $post->ID, 'entry-data', true );
-			if ( 0 === $id ) {
-				foreach ( $form as $id => $data ) {
-					echo esc_html( $data['id'] );
-
-					if ( count( $form ) > ( $id + 1 ) ) {
-						echo ',';
-					}
-				}
-				echo "\n";
-			}
-
-			foreach ( $form as $id => $data ) {
-				if ( is_array( $data['value'] ) ) {
-					echo '"';
-					echo esc_html( implode( ',', $data['value'] ) );
-					echo '"';
-				} else {
-					echo esc_html( $data['value'] );
-				}
-
-				if ( count( $form ) > ( $id + 1 ) ) {
-					echo ',';
-				}
-			}
-			echo "\n";
-		}
-
-		exit;
-	}
-
-	/**
-	 * Get Form Action
-	 *
-	 * @param object $request object.
-	 *
-	 * @return boolean
-	 */
-	public function get_form_action( $request ) {
-		$id = $request->get_param( 'id' );
-		return Form::get_form_action_data( $id );
 	}
 
 	/**
@@ -389,68 +296,6 @@ class Api {
 		return $mail_list;
 	}
 
-	/**
-	 * Search Form
-	 *
-	 * @param object $request .
-	 *
-	 * @return WP_Rest.
-	 */
-	public function search_form( $request ) {
-		$search = $request->get_param( 'search' );
-
-		$args = array(
-			'post_type' => Form::POST_TYPE,
-			's'         => $search,
-		);
-
-		$query  = new \WP_Query( $args );
-		$result = array();
-
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$result[] = array(
-					'label' => get_the_title(),
-					'value' => get_the_ID(),
-				);
-			}
-		}
-
-		wp_reset_postdata();
-
-		return $result;
-	}
-
-	/**
-	 * Fetch Menu API
-	 */
-	public function menu() {
-		$menus = wp_get_nav_menus();
-		$data  = array();
-
-		foreach ( $menus as $menu ) {
-			$data[] = array(
-				'label' => $menu->name,
-				'value' => $menu->term_id,
-			);
-		}
-
-		return $data;
-	}
-
-	/**
-	 * Render WP Menu
-	 *
-	 * @param object $request object.
-	 *
-	 * @return void|string|false
-	 */
-	public function menu_render( $request ) {
-		$menu_id = $request->get_param( 'menu' );
-
-		return gutenverse_get_menu( $menu_id );
-	}
 
 	/**
 	 * Search Meta
@@ -467,7 +312,7 @@ class Api {
 			'logged_in'     => is_user_logged_in(),
 		);
 
-		if ( Form::POST_TYPE === $post_type ) {
+		if ( 'gutenverse-form' === $post_type ) {
 			$data                          = get_post_meta( (int) $form_id, 'form-data', true );
 			$result['require_login']       = $data['require_login'];
 			$result['form_success_notice'] = $data['form_success_notice'];
