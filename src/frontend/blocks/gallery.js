@@ -44,7 +44,7 @@ class GutenverseGallery extends Default {
                     }
 
                     count++;
-                }, 100);
+                }, 500);
             }));
 
             Promise.allSettled([...promiseImages])
