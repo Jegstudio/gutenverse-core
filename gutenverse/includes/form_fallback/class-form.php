@@ -33,9 +33,24 @@ class Form {
 		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
 		add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( $this, 'custom_column' ), 10, 2 );
 		add_filter( 'post_row_actions', array( $this, 'action_row' ), 10, 2 );
+		add_action( 'admin_menu', array( $this, 'parent_menu' ) );
 		add_filter( 'manage_' . self::POST_TYPE . '_posts_columns', array( $this, 'set_custom_column' ) );
 	}
 
+	/**
+	 * Parent Menu
+	 */
+	public function parent_menu() {
+		add_menu_page(
+			esc_html__( 'Form', 'gutenverse-form' ),
+			esc_html__( 'Form', 'gutenverse-form' ),
+			'manage_options',
+			self::POST_TYPE,
+			null,
+			GUTENVERSE_URL . '/assets/img/form-icon-dashboard.svg',
+			31
+		);
+	}
 	/**
 	 * Set custom columns.
 	 *
@@ -177,7 +192,7 @@ class Form {
 				'hierarchical'    => false,
 				'supports'        => array( 'title', 'revisions', 'page-attributes' ),
 				'map_meta_cap'    => true,
-				'show_in_menu'    => self::POST_TYPE,
+				'show_in_menu'    => false,
 				'rewrite'         => array(
 					'slug' => self::POST_TYPE,
 				),
@@ -185,120 +200,4 @@ class Form {
 		);
 	}
 
-
-
-	/**
-	 * Create Form Action
-	 *
-	 * @param integer $id Post ID.
-	 *
-	 * @return array
-	 */
-	public static function get_form_action_data( $id ) {
-		if ( $id ) {
-			$meta = get_post_meta( $id, 'form-data', true );
-			$data = array(
-				'title' => get_the_title( $id ),
-			);
-
-			return array_merge( $data, $meta );
-		}
-
-		return false;
-	}
-
-	/**
-	 * Create Form Action
-	 *
-	 * @param array $params Form Action Parameter.
-	 *
-	 * @return array
-	 */
-	public static function create_form_action( $params ) {
-		$form_data = array(
-			'post_title'  => $params['title'],
-			'post_status' => 'publish',
-			'post_type'   => self::POST_TYPE,
-			'meta_input'  => array(
-				'form-data' => $params,
-			),
-		);
-
-		return wp_insert_post( $form_data );
-	}
-
-	/**
-	 * Edit Form Action
-	 *
-	 * @param array $params Form Action Parameter.
-	 *
-	 * @return array
-	 */
-	public static function edit_form_action( $params ) {
-		update_post_meta(
-			$params['id'],
-			'form-data',
-			array(
-				'require_login'                  => $params['require_login'],
-				'user_browser'                   => $params['user_browser'],
-				'form_success_notice'            => $params['form_success_notice'],
-				'form_error_notice'              => $params['form_error_notice'],
-				'user_confirm'                   => $params['user_confirm'],
-				'auto_select_email'              => $params['auto_select_email'],
-				'email_input_name'               => $params['email_input_name'],
-				'user_email_subject'             => $params['user_email_subject'],
-				'user_email_form'                => $params['user_email_form'],
-				'user_email_reply_to'            => $params['user_email_reply_to'],
-				'user_email_body'                => $params['user_email_body'],
-				'admin_confirm'                  => $params['admin_confirm'],
-				'admin_email_subject'            => $params['admin_email_subject'],
-				'admin_email_to'                 => $params['admin_email_to'],
-				'admin_email_from'               => $params['admin_email_from'],
-				'admin_email_reply_to'           => $params['admin_email_reply_to'],
-				'admin_note'                     => $params['admin_note'],
-				'overwrite_default_confirmation' => $params['overwrite_default_confirmation'],
-				'overwrite_default_notification' => $params['overwrite_default_notification'],
-			)
-		);
-
-		return wp_update_post(
-			array(
-				'ID'         => $params['id'],
-				'post_title' => $params['title'],
-			)
-		);
-	}
-
-	/**
-	 * Delete Form Action
-	 *
-	 * @param integer $id Delete Form Action.
-	 *
-	 * @return mixed
-	 */
-	public static function delete_form_action( $id ) {
-		return wp_delete_post( $id, true );
-	}
-
-	/**
-	 * Clone Form Action
-	 *
-	 * @param integer $id Delete Form Action.
-	 *
-	 * @return mixed
-	 */
-	public static function clone_form_action( $id ) {
-		$title     = get_the_title( $id );
-		$meta      = get_post_meta( $id, 'form-data', true );
-		$new_title = $title . esc_html__( ' Clone', 'gutenverse-form' );
-
-		return self::create_form_action(
-			array_merge(
-				$meta,
-				array(
-					'title' => $new_title,
-				)
-			)
-		);
-	}
 }

@@ -70,20 +70,29 @@ gulp.task('update-notice', function () {
 
 gulp.task('form-default-style', function () {
     return gulp
-        .src([path.resolve(__dirname, './src/assets/form-default-style.scss')])
+        .src([path.resolve(__dirname, './src/assets/form_fallback/form-default-style.scss')])
         .pipe(sass({ includePaths: ['node_modules'] }))
         .pipe(sass(sassOptions).on('error', sass.logError))
         .pipe(concat('form-default-style.css'))
         .pipe(postcss(postCSSOptions))
         .pipe(gulp.dest('gutenverse/assets/css/'));
 });
+gulp.task('form', function () {
+    return gulp
+        .src([path.resolve(__dirname, './src/assets/form_fallback/form.scss')])
+        .pipe(sass({ includePaths: ['node_modules'] }))
+        .pipe(sass(sassOptions).on('error', sass.logError))
+        .pipe(concat('form.css'))
+        .pipe(postcss(postCSSOptions))
+        .pipe(gulp.dest('gutenverse/assets/css/'));
+});
 
-gulp.task('build-process', gulp.parallel('blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style'));
+gulp.task('build-process', gulp.parallel('blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form'));
 
 gulp.task('build', gulp.series('build-process'));
 
 const watchProcess = (basePath = '.') => {
-    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style']));
+    gulp.watch([`${basePath}/src/**/*.scss`], gulp.parallel(['blocks', 'frontend', 'wizard', 'update-notice', 'form-default-style', 'form']));
 };
 
 gulp.task(
