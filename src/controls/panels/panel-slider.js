@@ -15,6 +15,7 @@ export const sliderPanel = (props) => {
             max: 50,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
         },
         {
             id: 'itemShowed',

@@ -1,9 +1,10 @@
-import { useState } from '@wordpress/element';
+import { useState, useRef } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
+import isEmpty from 'lodash/isEmpty';
 
 const RangeControl = ({
     label,
@@ -21,10 +22,14 @@ const RangeControl = ({
     onStyleChange,
     description = '',
     isParseFloat = false,
+    unit,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
     const [localValue, setLocalValue] = useState(value);
     const [updating, setUpdating] = useState(false);
+    const inputRef = useRef(null);
+    const theUnit = unit? unit : '';
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
             id={`${id}-range`}
@@ -88,7 +93,21 @@ const RangeControl = ({
                             onValueChange(e.target.value);
                         }
                     }}
+                    ref={inputRef}
                 />
+                {!isEmpty(unit) && <span
+                    style={{
+                        position: 'absolute',
+                        right: '7px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        pointerEvents: 'none',
+                        color: '#8181a5',
+                        fontSize: '10px',
+                        textTransform: 'uppercase',
+                    }}>
+                    {unit}
+                </span>}
             </div>
         </div>
     </div>;

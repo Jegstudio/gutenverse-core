@@ -32,7 +32,6 @@ const IconRadioControl = ({
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-icon-radio'}>
         <ControlHeadingSimple
-            id={`${id}-icon-radio`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
@@ -47,7 +46,7 @@ const IconRadioControl = ({
                             onChange={() => {}}
                             checked={checked}
                             type={'radio'}
-                            id={`${id}-icon-radio`}
+                            id={`${id}-${item.value}`}
                             name={`${id}`}
                             value={item.label}
                         />

@@ -6,7 +6,6 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
-
 if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log

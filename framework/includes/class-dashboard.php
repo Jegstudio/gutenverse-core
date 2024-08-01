@@ -140,6 +140,17 @@ class Dashboard {
 			);
 		}
 
+		/** Polyfil for version 6.6 */
+		if ( ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
+			wp_register_script(
+				'react-jsx-runtime',
+				GUTENVERSE_FRAMEWORK_URL . '/assets/js/react-jsx-runtime.js',
+				array( 'react' ),
+				GUTENVERSE_FRAMEWORK_VERSION,
+				true
+			);
+		}
+
 		do_action( 'gutenverse_include_dashboard' );
 	}
 

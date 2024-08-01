@@ -37,7 +37,6 @@ const BorderControl = (props) => {
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
         <ControlHeadingSimple
-            id={`${id}-borders`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}

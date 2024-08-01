@@ -5,7 +5,7 @@ import { useMemo, useCallback } from '@wordpress/element';
 import { store as coreStore } from '@wordpress/core-data';
 import { dateI18n } from '@wordpress/date';
 import { imagePlaceholder } from 'gutenverse-core/config';
-import { filteredAttributes, isAlignStickyColumn, getFixData, getIndex, determineLocation } from 'gutenverse-core/helper';
+import { filteredAttributes, isAlignStickyColumn, getFixData, getIndex, determineLocation, theDeviceType } from 'gutenverse-core/helper';
 import { BuildAdminStyle, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
 import identity from 'lodash/identity';
 import isArray from 'lodash/isArray';
@@ -309,19 +309,7 @@ export const cleanEmptyObject = (object) => {
 
 export const getDeviceType = () => {
     const location = determineLocation();
-    let deviceType = null;
-
-    switch (location) {
-        case 'editor':
-            deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
-            break;
-        case 'post':
-            deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
-            break;
-        default:
-            deviceType = 'Desktop';
-    }
-
+    let deviceType = theDeviceType(location);
     // Update for WordPress version 6.3
     return deviceType.charAt(0).toUpperCase() + deviceType.slice(1);
 };

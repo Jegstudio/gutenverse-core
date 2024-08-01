@@ -2,7 +2,6 @@ import { useSelect } from '@wordpress/data';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useEffect, useState } from '@wordpress/element';
-import { useSetting } from '@wordpress/block-editor';
 import { Helmet } from 'gutenverse-core/components';
 
 import {
@@ -11,7 +10,9 @@ import {
     variableColorName,
     variableFontName,
     responsiveBreakpoint,
-    determineLocation
+    determineLocation,
+    theDeviceType,
+    useSettingFallback
 } from 'gutenverse-core/helper';
 import {
     renderColor,
@@ -53,29 +54,16 @@ const withGlobalVariable = GlobalStyle => {
         const { userConfig } = useGlobalStylesConfig();
 
         // Get global color from settings
-        const themePalette = useSetting('color.palette.theme');
+        const themePalette = useSettingFallback('color.palette.theme');
 
         // Keep this using useSelect instead of getDeviceType, to trigger changes
         const {
             deviceType,
         } = useSelect(
-            (select) => {
+            () => {
                 const location = determineLocation();
-                let deviceType = 'Desktop';
-
-                switch (location) {
-                    case 'editor':
-                        deviceType = select('core/edit-site').__experimentalGetPreviewDeviceType();
-                        break;
-                    case 'post':
-                        deviceType = select('core/edit-post').__experimentalGetPreviewDeviceType();
-                        break;
-                    default:
-                        deviceType = 'Desktop';
-                }
-
                 return {
-                    deviceType: deviceType
+                    deviceType: theDeviceType(location)
                 };
             },
             []

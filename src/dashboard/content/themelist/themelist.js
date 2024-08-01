@@ -210,7 +210,8 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        return pro ? <ButtonUpgradePro licenseActiveButton={defaultButton()} isBanner={true} location="card-pro" customStyles={{marginRight: '10px'}}/> : defaultButton();
+        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
+        return pro ? buttonPro : defaultButton();
     };
 
     const dev = '--dev_mode--';
@@ -286,6 +287,16 @@ const PluginInstallThemeList = props => {
                 <div className="plugin-install-inner">
                     <h2>{sprintf(__('%s - Plugin Requirement', '--gctd--'), data.title)}</h2>
                     <p>{__('Please install or update and activate these missing requirements plugin for this themes to work correctly. We recommend to backup your site before install/update plugin listed below.', '--gctd--')}</p>
+                </div>
+                <div className="plugin-requirement-notice">
+                    <div className="plugin-requirement-icon">
+                        <IconInfoYellowSVG />
+                    </div>
+                    <div className="plugin-requirement-content">
+                        <strong>{__('Attention!', '--gctd--')}</strong>
+                        &nbsp;
+                        <span>{__('Please refresh this page after install or update plugin', '--gctd--')}</span>
+                    </div>
                 </div>
                 <PluginInstallItem
                     plugin={{

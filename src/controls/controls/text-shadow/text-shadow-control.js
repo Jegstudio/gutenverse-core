@@ -57,7 +57,6 @@ const TextShadowControl = ({
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-text-shadow'}>
         <ControlHeadingSimple
-            id={`${id}-text-shadow`}
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
@@ -89,6 +88,7 @@ const TextShadowControl = ({
                 max={100}
                 step={1}
                 value={value.horizontal}
+                unit="px"
                 onValueChange={horizontal => onValueChange({ ...value, horizontal })}
                 onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
             />
@@ -98,6 +98,7 @@ const TextShadowControl = ({
                 max={100}
                 step={1}
                 value={value.vertical}
+                unit="px"
                 onValueChange={vertical => onValueChange({ ...value, vertical })}
                 onStyleChange={vertical => onStyleChange({ ...value, vertical })}
             />
@@ -107,6 +108,7 @@ const TextShadowControl = ({
                 max={100}
                 step={1}
                 value={value.blur}
+                unit="%"
                 onValueChange={blur => onValueChange({ ...value, blur })}
                 onStyleChange={blur => onStyleChange({ ...value, blur })}
             />

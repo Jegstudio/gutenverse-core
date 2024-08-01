@@ -1,7 +1,13 @@
 const path = require("path");
+const fs = require('fs');
 const rules = require("../rules");
 const FileManagerPlugin = require("filemanager-webpack-plugin");
 const { stats, output, plugins } = require("../config");
+
+let reactPlayerStandalone = path.resolve(process.cwd(), "node_modules/react-player/dist/ReactPlayer.standalone.js");
+if (!fs.existsSync(reactPlayerStandalone)) {
+    reactPlayerStandalone = path.resolve(process.cwd(), "../node_modules/react-player/dist/ReactPlayer.standalone.js");
+}
 
 const corefrontend = {
     mode: "development",
@@ -42,11 +48,7 @@ const corefrontend = {
                             destination: "./framework/assets/js/",
                         },
                         {
-                            source: path.resolve(process.cwd(), "node_modules/react-player/dist/ReactPlayer.standalone.js"),
-                            destination: "./framework/assets/js/",
-                        },
-                        {
-                            source: path.resolve(process.cwd(), "../node_modules/react-player/dist/ReactPlayer.standalone.js"),
+                            source: reactPlayerStandalone,
                             destination: "./framework/assets/js/",
                         }
                     ],

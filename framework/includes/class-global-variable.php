@@ -99,17 +99,19 @@ class Global_Variable {
 			$config = apply_filters( 'gutenverse_block_config', array() );
 			if ( isset( $config['globalVariable']['fonts'] ) ) {
 				$google_fonts = array();
-				$fonts = $config['globalVariable']['fonts'];
+				$fonts        = $config['globalVariable']['fonts'];
 				foreach ( $fonts as $font ) {
-					$the_font       = $font['font'];
-					$google_fonts[] = array(
-						'label'   => $the_font['font']['label'],
-						'type'    => $the_font['font']['type'],
-						'value'   => $the_font['font']['value'],
-						'weight'  => $the_font['weight'],
-						'id'      => $font['id'],
-						'weights' => array( $the_font['weight'] ),
-					);
+					$the_font = $font['font'];
+					if ( ! empty( $the_font ) ) {
+						$google_fonts[] = array(
+							'label'   => $the_font['font']['label'],
+							'type'    => $the_font['font']['type'],
+							'value'   => $the_font['font']['value'],
+							'weight'  => $the_font['weight'],
+							'id'      => $font['id'],
+							'weights' => array( $the_font['weight'] ),
+						);
+					}
 				}
 			} else {
 				$google_fonts = array();
@@ -129,6 +131,8 @@ class Global_Variable {
 			$config = apply_filters( 'gutenverse_block_config', array() );
 			if ( isset( $config['globalVariable']['fonts'] ) ) {
 				$global_fonts = $config['globalVariable']['fonts'];
+			} else {
+				$global_fonts = array();
 			}
 		}
 

@@ -1,24 +1,25 @@
 .copy-clipboard {
     display: flex;
     align-items: center;
-  
+
     .copy-wrapper {
-      border: 1px solid #949191;
-      background: #ddd;
-      cursor: pointer;
-      border-radius: 0;
-      text-align: center;
-      width: 120px;
-      line-height: 33px;
-      margin: 0 10px;
-  
-      &:focus {
         border: 1px solid #949191;
-        box-shadow: none;
-      }
+        background: #ddd;
+        cursor: pointer;
+        border-radius: 0;
+        text-align: center;
+        width: 120px;
+        line-height: 33px;
+        margin: 0 10px;
+
+        &:focus {
+            border: 1px solid #949191;
+            box-shadow: none;
+        }
     }
-  }
-.gutenverse-info{
+}
+
+.gutenverse-info {
     background: #F9F9FF;
     border: 1px solid #E3E4E6;
     padding: 10px;
@@ -26,11 +27,12 @@
     border-radius: 7px;
     display: flex;
     gap: 10;
-    
-    svg{
+
+    svg {
         margin: 2px;
     }
 }
+
 .gutenverse-how {
     background: #F9F9FF;
     border: 1px solid #E3E4E6;
@@ -61,9 +63,11 @@
             }
         }
 
-        border-bottom: 1px solid #E3E4E6;
-        padding-bottom: 8px;
-        margin-bottom: 8px;
+        & {
+            border-bottom: 1px solid #E3E4E6;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
     }
 
     .accordion-header {

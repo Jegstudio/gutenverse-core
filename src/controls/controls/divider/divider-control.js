@@ -147,6 +147,7 @@ const DividerControl = (props) => {
             max={300}
             step={1}
             allowDeviceControl={true}
+            unit="px"
         />
         <RangeControl
             label={__('Height', '--gctd--')}
@@ -157,6 +158,7 @@ const DividerControl = (props) => {
             max={500}
             step={1}
             allowDeviceControl={true}
+            unit="px"
         />
         <CheckboxControl
             label={__('Flip', '--gctd--')}

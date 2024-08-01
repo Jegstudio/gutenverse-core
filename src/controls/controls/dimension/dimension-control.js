@@ -166,7 +166,6 @@ const DimensionControl = (props) => {
             label={label}
             description={description}
             proLabel={proLabel}
-            id={`${id}-range`}
             allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControlOnly}
         />
         <div className={'control-body'}>

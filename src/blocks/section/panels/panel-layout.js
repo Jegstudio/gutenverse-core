@@ -46,6 +46,7 @@ export const layoutPanel = (props) => {
             min: 500,
             max: 1600,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,

@@ -157,7 +157,6 @@ const BackgroundControl = (props) => {
             label={label}
             description={description}
             proLabel={proLabel}
-            id={`${id}-range`}
             allowDeviceControl={allowDeviceControl}
         />
         <IconRadioControl
