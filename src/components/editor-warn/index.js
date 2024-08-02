@@ -77,6 +77,10 @@ const WarnModal = (props) => {
         setDoNotShowAgain(!doNotShowAgain);
     };
 
+    useEffect(() => {
+        window.GutenverseConfig.missingBlocksWarn = !doNotShowAgain;
+    }, [doNotShowAgain]);
+
     const activatePlugin = (pluginKey) => {
         setRefresh(true);
         setPlugins((prevPlugins) => {
