@@ -163,14 +163,26 @@ export const handleTransitionCursorEffect = (style) => {
         case 'opacity':
             normalAppender({
                 style:`
-                    
+                    transition: opacity ${transitionSpeed?.point}s, transorm 0s;
                 `,
                 elementStyle
             });
             break;
         case 'scale':
+            normalAppender({
+                style:`
+                    transition: opacity 0s, transorm ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
             break;
         case 'opactyScale':
+            normalAppender({
+                style:`
+                    transition: opacity ${transitionSpeed?.point}s, transorm ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
             break;
         default:
             break;
