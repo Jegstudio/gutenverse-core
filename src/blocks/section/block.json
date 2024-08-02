@@ -349,6 +349,9 @@
     "container",
     "section"
   ],
+  "supports": {
+    "anchor": true
+  },
   "editor_script": "gutenverse",
   "editor_style": "gutenverse-editor-style",
   "style": "gutenverse-frontend-style"
