@@ -150,6 +150,35 @@ export const handleInnerCursorEffect = (style) => {
     }
     return elementStyle;
 };
+
+export const handleTransitionCursorEffect = (style) => {
+    const elementStyle = elementVar();
+
+    const {
+        entranceTransition,
+        transitionSpeed
+    } = style;
+
+    switch(entranceTransition){
+        case 'opacity':
+            normalAppender({
+                style:`
+                    
+                `,
+                elementStyle
+            });
+            break;
+        case 'scale':
+            break;
+        case 'opactyScale':
+            break;
+        default:
+            break;
+    }
+
+    return elementStyle;
+}
+
 export const handleIconCursorEffect = (style) =>{
     const elementStyle = elementVar();
 
