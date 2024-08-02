@@ -10,6 +10,7 @@ export * from '@wordpress/url';
 // Internal.
 export * from './helper/fetch';
 export * from './blocks/index';
+export * from './scroll';
 
 // Frontend Script.
 export { default as GutenverseVideo } from './blocks/video';
