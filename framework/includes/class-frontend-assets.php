@@ -172,6 +172,12 @@ class Frontend_Assets {
 		$config['settingsData'] = ! empty( $settings_data ) ? array(
 			'editor_settings' => isset( $settings_data['editor_settings'] ) ? $settings_data['editor_settings'] : null,
 		) : array();
+		$active_plugins         = get_option( 'active_plugins' );
+		$arr_plugin             = array();
+		foreach ( $active_plugins as $plugin ) {
+			$arr_plugin[] = $plugin;
+		}
+		$config['activePlugins'] = $arr_plugin;
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}
