@@ -20,10 +20,6 @@ if ( ! function_exists( 'esc_data' ) ) {
 		if ( ! $value ) {
 			return false;
 		}
-		$value_type = gettype( $value );
-		if ( $value_type !== $type ) {
-			return false;
-		}
 		switch ( $type ) {
 			case 'string':
 				return esc_html( sanitize_text_field( wp_unslash( $value ) ) );
