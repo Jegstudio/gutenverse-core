@@ -29,23 +29,26 @@ class GutenverseGallery extends Default {
 
     _loadGallery({Shuffle, Swiper}) {
         const $this = this;
-        this._elements.map(element => {
-            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) => new Promise((resolve, reject) => {
-                let count = 0;
-                const checkIfComplete = setInterval(() => {
-                    if (img.complete && img.naturalHeight !== 0) {
-                        clearInterval(checkIfComplete);
-                        resolve(img);
+        $this._elements.map(element => {
+            const promiseImages = u(element).find('.gallery-item-wrap img').nodes.map((img) => 
+                new Promise((resolve, reject) => {
+                    img.onload = () => {
+                        if (img.complete && img.naturalHeight !== 0) {
+                            resolve(img);
+                        } else {
+                            reject(new Error("Image is not completely loaded or has a height of zero."));
+                        }
+                    };
+                    img.onerror = () => {
+                        reject(new Error("Failed to load image."));
+                    };
+                    if (img.src) {
+                        const src = img.src;
+                        img.src = '';
+                        img.src = src;
                     }
-
-                    if (count > 10) {
-                        clearInterval(checkIfComplete);
-                        reject(img);
-                    }
-
-                    count++;
-                }, 100);
-            }));
+                })
+            );
 
             Promise.allSettled([...promiseImages])
                 .then(() => {

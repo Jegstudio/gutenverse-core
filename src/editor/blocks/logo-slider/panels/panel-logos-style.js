@@ -31,14 +31,14 @@ export const logosStylePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
-                    allowRender: () => imageHeight !== undefined,
+                    allowRender: (value) => imageHeight !== undefined && value,
                     render: () => {
                         return `height: ${imageHeight[device]}px;`;
                     }
                 },
                 {
                     selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
-                    allowRender: () => imageFit !== undefined,
+                    allowRender: (value) => imageFit !== undefined && value,
                     render: () => `object-fit: ${imageFit[device]};`
                 }
             ]
@@ -51,6 +51,7 @@ export const logosStylePanel = (props) => {
             min: 0,
             max: 400,
             step: 1,
+            unit: 'px',
             allowDeviceControl: true,
             style: [
                 {
