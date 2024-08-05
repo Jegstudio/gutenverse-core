@@ -50,7 +50,7 @@ if ( ! function_exists( 'esc_data' ) ) {
 					$type          = gettype( $val );
 					$value[ $key ] = esc_data( $val, $type );
 				}
-				return $value;
+				return (object) $value;
 			default:
 				return false;
 		}
