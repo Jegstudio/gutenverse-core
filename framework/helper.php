@@ -6,6 +6,52 @@
  * @since 1.0.0
  * @package gutenverse-framework
  */
+
+if ( ! function_exists( 'esc_data' ) ) {
+	/**
+	 * Escape data
+	 *
+	 * @param mixed $value .
+	 * @param mixed $type .
+	 *
+	 * @return mixed
+	 */
+	function esc_data( $value, $type = 'string' ) {
+		if ( ! $value ) {
+			return false;
+		}
+		switch ( $type ) {
+			case 'string':
+				return esc_html( sanitize_text_field( wp_unslash( $value ) ) );
+			case 'integer':
+			case 'int':
+				return (int) $value;
+			case 'float':
+			case 'double':
+				return (float) $value;
+			case 'boolean':
+			case 'bool':
+				return (bool) $value;
+			case 'content':
+				return $value;
+			case 'array':
+				foreach ( $value as $key => $val ) {
+					$type          = gettype( $val );
+					$value[ $key ] = esc_data( $val, $type );
+				}
+				return $value;
+			case 'object':
+				$value = (array) $value;
+				foreach ( $value as $key => $val ) {
+					$type          = gettype( $val );
+					$value[ $key ] = esc_data( $val, $type );
+				}
+				return (object) $value;
+			default:
+				return false;
+		}
+	}
+}
 if ( ! function_exists( 'gutenverse_jlog' ) ) {
 	/**
 	 * Print Log
@@ -882,7 +928,21 @@ if ( ! function_exists( 'gutenverse_autoblock_recovery' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_missing_blocks' ) ) {
+	/**
+	 * Check if missing block editor warning is enabled.
+	 */
+	function gutenverse_missing_blocks() {
+		$settings_data      = get_option( 'gutenverse-settings', array() );
+		$missing_block_warn = true;
 
+		if ( isset( $settings_data['editor_settings'] ) && isset( $settings_data['editor_settings']['missing_block_warn'] ) ) {
+			$missing_block_warn = $settings_data['editor_settings']['missing_block_warn'];
+		}
+
+		return $missing_block_warn;
+	}
+}
 
 if ( ! function_exists( 'gutenverse_get_global_variable' ) ) {
 	/**

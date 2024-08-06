@@ -2219,7 +2219,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
-								return 'animation-name: none; visibility: visible !important;';
+								return 'animation-name: none;';
 							}
 						},
 						'value'          => $this->attrs['animation']['type'],

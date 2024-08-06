@@ -173,17 +173,17 @@ class Column extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['backgroundOverlay'] ) ) {
-			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper  > .guten-column-wrapper > .guten-background-overlay, .{$this->element_id} .guten-column-wrapper > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
+			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper  > .guten-column-wrapper > .guten-background-overlay, .{$this->element_id}.background-animated  > .guten-column-wrapper > .guten-background-overlay, .{$this->element_id}  > .guten-column-wrapper > .guten-background-overlay", $this->attrs['backgroundOverlay'] );
 		}
 
 		if ( isset( $this->attrs['backgroundOverlayHover'] ) ) {
-			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .{$this->element_id} .guten-column-wrapper:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
+			$this->handle_background( ".{$this->element_id}.background-animated > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .{$this->element_id}.background-animated  > .guten-column-wrapper:hover > .guten-background-overlay, .{$this->element_id}  > .guten-column-wrapper:hover > .guten-background-overlay", $this->attrs['backgroundOverlayHover'] );
 		}
 
 		if ( isset( $this->attrs['opacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay, .{$this->element_id}  .guten-column-wrapper > .guten-background-overlay",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id} > .guten-column-wrapper:before",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
@@ -196,7 +196,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['opacityHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .{$this->element_id} .guten-column-wrapper:hover > .guten-background-overlay",
+					'selector'       => ".{$this->element_id}:hover > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id}:hover > .guten-column-wrapper:before",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
@@ -209,7 +209,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['blur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper, .{$this->element_id} > .guten-column-wrapper",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id} > .guten-column-wrapper:before",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -222,7 +222,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['blurHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover, .{$this->element_id} > .guten-column-wrapper:hover",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:hover::before, .{$this->element_id} > .guten-column-wrapper:hover::before",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
