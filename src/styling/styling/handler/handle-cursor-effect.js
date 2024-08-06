@@ -163,7 +163,7 @@ export const handleTransitionCursorEffect = (style) => {
         case 'opacity':
             normalAppender({
                 style:`
-                    transition: opacity ${transitionSpeed?.point}s, transorm 0s;
+                    transition: opacity ${transitionSpeed?.point}s, transform 0s;
                 `,
                 elementStyle
             });
@@ -171,15 +171,32 @@ export const handleTransitionCursorEffect = (style) => {
         case 'scale':
             normalAppender({
                 style:`
-                    transition: opacity 0s, transorm ${transitionSpeed?.point}s;
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
                 `,
                 elementStyle
             });
             break;
-        case 'opactyScale':
+        case 'opacityScale':
             normalAppender({
                 style:`
-                    transition: opacity ${transitionSpeed?.point}s, transorm ${transitionSpeed?.point}s;
+                    transition: opacity ${transitionSpeed?.point}s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateY':
+            normalAppender({
+                style:`
+                    transform: translate(-50%, -50%) scale(0) rotateY(0deg) !important;
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateX':
+            normalAppender({
+                style:`
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
                 `,
                 elementStyle
             });

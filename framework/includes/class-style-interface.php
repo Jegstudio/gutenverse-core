@@ -641,6 +641,57 @@ abstract class Style_Interface {
 				);
 			}
 
+			if ( isset( $cursor_efect['entranceTransition'] ) ) {
+				$entrance_transition = $cursor_efect['entranceTransition'];
+
+				switch ( $entrance_transition ) {
+					case 'opacity':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity {$value}s, transform 0s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'scale':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity 0s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'opacityScale':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity {$value}s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					default:
+						break;
+				}
+			}
+
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
 					if ( isset( $cursor_efect['textColor'] ) ) {
