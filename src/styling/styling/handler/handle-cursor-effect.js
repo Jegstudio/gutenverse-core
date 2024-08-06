@@ -187,13 +187,20 @@ export const handleTransitionCursorEffect = (style) => {
         case 'rotateY':
             normalAppender({
                 style:`
-                    transform: translate(-50%, -50%) scale(0) rotateY(0deg) !important;
                     transition: opacity 0s, transform ${transitionSpeed?.point}s;
                 `,
                 elementStyle
             });
             break;
         case 'rotateX':
+            normalAppender({
+                style:`
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateXY':
             normalAppender({
                 style:`
                     transition: opacity 0s, transform ${transitionSpeed?.point}s;

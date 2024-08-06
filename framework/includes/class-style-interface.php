@@ -687,6 +687,48 @@ abstract class Style_Interface {
 							);
 						}
 						break;
+					case 'rotateY':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity 0s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'rotateX':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity 0s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'rotateXY':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity 0s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
 					default:
 						break;
 				}
