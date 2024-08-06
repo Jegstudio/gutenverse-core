@@ -42,6 +42,7 @@ export const captionPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-caption`,

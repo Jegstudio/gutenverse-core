@@ -12,6 +12,7 @@ export const contentSpace = ({elementId}) => {
             min: 1,
             max: 100,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.horizontal > div:not(:first-child)`,

@@ -16,6 +16,7 @@ export const thumbnailPanel = ({ elementId }) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: '%',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock:not(.postblock-type-5) .guten-thumb, .${elementId} .guten-postblock.postblock-type-5 .guten-post`,

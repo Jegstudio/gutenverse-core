@@ -17,6 +17,7 @@ export const descPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc`,

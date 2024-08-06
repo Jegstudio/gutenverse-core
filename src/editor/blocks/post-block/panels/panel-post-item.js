@@ -16,6 +16,7 @@ export const postItemPanel = ({ elementId }) => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-posts`,

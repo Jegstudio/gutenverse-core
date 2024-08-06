@@ -33,6 +33,7 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .swiper-pagination-bullets`,
@@ -64,6 +65,7 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .swiper-pagination-bullet`,
@@ -80,6 +82,7 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .swiper-pagination-bullet`,
@@ -137,6 +140,7 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
@@ -153,6 +157,7 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,

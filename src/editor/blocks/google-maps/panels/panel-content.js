@@ -26,6 +26,7 @@ export const panelContent = (props) => {
             max: 1440,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId}.gutenverse-maps iframe`,

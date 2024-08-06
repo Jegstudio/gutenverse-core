@@ -22,6 +22,7 @@ export const arrowPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} div[class*='swiper-button-']`,

@@ -14,6 +14,7 @@ export const contentStyle = (props) => {
             id: 'borderWidth',
             label: __('Border Width', 'gutenverse'),
             component: RangeControl,
+            unit: 'px',
             min: 0,
             max: 100,
             style: [

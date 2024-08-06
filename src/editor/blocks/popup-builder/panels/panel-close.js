@@ -54,6 +54,8 @@ export const closePanel = (props) => {
             component: RangeControl,
             show: showCloseButton,
             allowDeviceControl: true,
+            unit: 'px',
+            unit: 'px',
             min: 1,
             max: 200,
             step: 1,

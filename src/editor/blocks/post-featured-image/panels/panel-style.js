@@ -95,6 +95,7 @@ export const stylePanel = (props) => {
             label: __('Rotate', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'deg',
             min: 0,
             max: 360,
             step: 1,

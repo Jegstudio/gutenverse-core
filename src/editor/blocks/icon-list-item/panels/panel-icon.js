@@ -12,6 +12,7 @@ export const panelIcon = (props) => {
             label: __('Icon line height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 100,
             step: 1,

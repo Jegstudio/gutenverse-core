@@ -103,6 +103,7 @@ export const SubmenuPanelStyle = (props) => {
             label: __('Submenu Panel Width', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'px',
             min: 1,
             max: 1000,
             step: 1,

@@ -56,6 +56,7 @@ export const panelTitleStyle = props => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .inner-container .image-box-body .body-title i`,
@@ -71,6 +72,7 @@ export const panelTitleStyle = props => {
             max: 200,
             step: 1,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.${elementId} .inner-container .image-box-body .body-title.icon-position-before i`,

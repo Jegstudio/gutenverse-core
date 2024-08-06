@@ -287,6 +287,7 @@ export const panelIconStyle = (props) => {
             label: __('Icon Rotate', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            unit: 'deg',
             min: 1,
             max: 360,
             step: 1,

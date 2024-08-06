@@ -50,6 +50,7 @@ export const contentStyle = (props) => {
             min: 1,
             max: 100,
             allowDeviceControl: true,
+            unit: 'px',
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.horizontal > div:not(:first-of-type)`,
