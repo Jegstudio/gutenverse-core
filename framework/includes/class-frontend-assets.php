@@ -164,16 +164,18 @@ class Frontend_Assets {
 	 * @return array
 	 */
 	public function gutenverse_data() {
-		$settings_data          = get_option( 'gutenverse-settings' );
-		$config                 = array();
-		$config['postId']       = get_the_ID();
-		$config['homeUrl']      = home_url();
-		$config['query']        = $this->get_template_query();
-		$config['settingsData'] = ! empty( $settings_data ) ? array(
+		$settings_data            = get_option( 'gutenverse-settings' );
+		$config                   = array();
+		$config['postId']         = get_the_ID();
+		$config['homeUrl']        = home_url();
+		$config['query']          = $this->get_template_query();
+		$config['settingsData']   = ! empty( $settings_data ) ? array(
 			'editor_settings' => isset( $settings_data['editor_settings'] ) ? $settings_data['editor_settings'] : null,
 		) : array();
-		$active_plugins         = get_option( 'active_plugins' );
-		$arr_plugin             = array();
+		$active_plugins           = get_option( 'active_plugins' );
+		$active_plugins_multisite = array_keys( get_site_option( 'active_sitewide_plugins' ) );
+		$active_plugins           = array_merge( $active_plugins, $active_plugins_multisite );
+		$arr_plugin               = array();
 		foreach ( $active_plugins as $plugin ) {
 			$arr_plugin[] = $plugin;
 		}
