@@ -2,7 +2,7 @@
 
 Contributors: Jegstudio
 Tags: gutenberg, blocks, page builder, gallery, templates
-Tested up to: 6.5
+Tested up to: 6.6
 Requires PHP: 7.0
 Stable tag: 2.0.0
 License: GPLv3
@@ -12,13 +12,17 @@ Powerful and lightweight blocks and page builder for WordPress Gutenberg Editor.
 
 == DESCRIPTION ==
 
-Gutenverse is a powerful and lightweight Gutenberg blocks and page builder plugin for WordPress Full Site Editing (FSE). With over 35 easy-to-use blocks, Gutenverse allows you to customize your website and turn your dream design into reality. Experience the convenience of using Gutenberg with Gutenverse.
+Gutenverse is a powerful and lightweight Gutenberg blocks and page builder plugin for WordPress Site Editor, featuring over 35+ user-friendly blocks.
+Gutenverse allows you to customize your website and turn your dream design into reality. Experience the convenience of using Gutenberg with Gutenverse.
 
 <a href="https://www.gutenverse.com/" target="_blank" rel="">Check out Gutenverse Blocks in Action</a>
 
-Fully compatible with the latest WordPress Full Site Editor and Gutenberg, Gutenverse unlocks the full potential of WordPress's Full Site Editor and Block Patterns. Enjoy an improved publishing experience with advanced options and a diverse range of blocks to fulfill all your needs. To help you get started, we've also created a beautiful WordPress theme that works seamlessly with Gutenverse.
+Fully compatible with the latest WordPress Full Site Editor and Gutenberg, Gutenverse unlocks the full potential of WordPress's Full Site Editor and Block Patterns.
+Enjoy an improved publishing experience with advanced options and a diverse range of blocks to fulfill all your needs.
 
-<a href="https://wordpress.org/themes/author/jegstudio/" target="_blank" rel="">Explore Gutenverse Pre-Built Template Websites</a>
+To help you get started, we've also created a beautiful WordPress theme that works seamlessly with Gutenverse.
+
+<a href="https://gutenverse.com/theme-list/" target="_blank" rel="">Explore Gutenverse Pre-Built Template Websites</a>
 
 == FEATURES ==
 
@@ -58,44 +62,44 @@ Edit breakpoints for tablet and mobile devices to optimize your website's respon
 == GUTENBERG BLOCKS ==
 The block Gutenverse provide is grouped as the following:
 
-<a href="https://www.gutenverse.com/element" target="_blank" rel="">General Blocks</a>. Get blocks with functionalities you need. Each is designed to serve a specific function. Mix & match them to best serve your site.
+<a href="https://gutenverse.com/elements" target="_blank" rel="">General Blocks</a>. Get blocks with functionalities you need. Each is designed to serve a specific function. Mix & match them to best serve your site.
 
-<a href="https://www.gutenverse.com/element/#post" target="_blank" rel="">Post Blocks</a>. Blocks that are designed to create post templates. Highly customizable blocks to create elaborate post templates.
+<a href="https://gutenverse.com/element/#post" target="_blank" rel="">Post Blocks</a>. Blocks that are designed to create post templates. Highly customizable blocks to create elaborate post templates.
 
 = GENERAL BLOCKS =
 * **Section**. Add a section to wrap several blocks within columns.
 * **Column**. Resizable column to hold your block elements, with draggable resize control that make it convenient to use.
-* <a href="https://gutenverse.com/accordion-blocks/" target="_blank" rel="">Accordions</a>. A vertically stacked list of expandable/collapsable item.
-* <a href="https://gutenverse.com/advanced-heading-blocks/" target="_blank" rel="">Advanced Heading</a>. A more Advanced Heading with multiple options.
-* <a href="https://gutenverse.com/animated-text-blocks/" target="_blank" rel="">Animated Text</a>. Create text with beautiful animation flow.
-* <a href="https://gutenverse.com/button-blocks/" target="_blank" rel="">Button</a>. Add beautiful and interactive action button.
-* <a href="https://gutenverse.com/multi-buttons-blocks/" target="_blank" rel="">Multi Buttons</a>. Create multiple buttons easier.
-* <a href="https://gutenverse.com/divider-blocks/" target="_blank" rel="">Divider</a>. Split your content with a customizable divider.
-* <a href="https://gutenverse.com/funfact-blocks/" target="_blank" rel="">Fun Facts</a>. Create an interesting fact about your website or something you achieved.
-* <a href="https://gutenverse.com/gallery-blocks/" target="_blank" rel="">Gallery</a>. Showcase your images in grid or masonry layout, with a popup and zoom option.
-* <a href="https://gutenverse.com/google-maps-blocks/" target="_blank" rel="">Google Maps</a>. Display a location you want to share to your website visitor.
-* <a href="https://gutenverse.com/heading-blocks/" target="_blank" rel="">Heading</a>. Create Title/Heading on your page.
-* <a href="https://gutenverse.com/icon-blocks/" target="_blank" rel="">Icon</a>. Add a beautiful icon with more than 100 icon options.
-* <a href="https://gutenverse.com/icon-box-blocks/" target="_blank" rel="">Icon Box</a>. Add an information section with icon box.
-* <a href="https://gutenverse.com/icon-list-blocks/" target="_blank" rel="">Icon List</a>. Create a list with icons.
-* <a href="https://gutenverse.com/image-blocks/" target="_blank" rel="">Image</a>. Showcase your image.
-* <a href="https://gutenverse.com/image-box-blocks/" target="_blank" rel="">Image Box</a>. Add an information section with image box.
-* <a href="https://gutenverse.com/logo-slider-blocks/" target="_blank" rel="">Logo Slider</a>. Showcase your clients, sponsors, or a list of images on your website.
-* <a href="https://gutenverse.com/nav-menu-blocks/" target="_blank" rel="">Nav Menu</a>. Create a navigation menu for your visitor to explore your website.
-* <a href="https://gutenverse.com/progress-bar-blocks/" target="_blank" rel="">Progress Bar</a>. Create a progress bar of your achivement or other things you want to share.
+* <a href="https://gutenverse.com/accordion/" target="_blank" rel="">Accordions</a>. A vertically stacked list of expandable/collapsable item.
+* <a href="https://gutenverse.com/advance-heading/" target="_blank" rel="">Advanced Heading</a>. A more Advanced Heading with multiple options.
+* <a href="https://gutenverse.com/animated-text/" target="_blank" rel="">Animated Text</a>. Create text with beautiful animation flow.
+* <a href="https://gutenverse.com/button/" target="_blank" rel="">Button</a>. Add beautiful and interactive action button.
+* <a href="https://gutenverse.com/multi-buttons/" target="_blank" rel="">Multi Buttons</a>. Create multiple buttons easier.
+* <a href="https://gutenverse.com/divider/" target="_blank" rel="">Divider</a>. Split your content with a customizable divider.
+* <a href="https://gutenverse.com/funfact/" target="_blank" rel="">Fun Facts</a>. Create an interesting fact about your website or something you achieved.
+* <a href="https://gutenverse.com/gallery/" target="_blank" rel="">Gallery</a>. Showcase your images in grid or masonry layout, with a popup and zoom option.
+* <a href="https://gutenverse.com/google-maps/" target="_blank" rel="">Google Maps</a>. Display a location you want to share to your website visitor.
+* <a href="https://gutenverse.com/heading/" target="_blank" rel="">Heading</a>. Create Title/Heading on your page.
+* <a href="https://gutenverse.com/icon/" target="_blank" rel="">Icon</a>. Add a beautiful icon with more than 100 icon options.
+* <a href="https://gutenverse.com/icon-box/" target="_blank" rel="">Icon Box</a>. Add an information section with icon box.
+* <a href="https://gutenverse.com/icon-list/" target="_blank" rel="">Icon List</a>. Create a list with icons.
+* <a href="https://gutenverse.com/image/" target="_blank" rel="">Image</a>. Showcase your image.
+* <a href="https://gutenverse.com/image-box/" target="_blank" rel="">Image Box</a>. Add an information section with image box.
+* <a href="https://gutenverse.com/logo-slider/" target="_blank" rel="">Logo Slider</a>. Showcase your clients, sponsors, or a list of images on your website.
+* <a href="https://gutenverse.com/nav-menu/" target="_blank" rel="">Nav Menu</a>. Create a navigation menu for your visitor to explore your website.
+* <a href="https://gutenverse.com/progress-bar/" target="_blank" rel="">Progress Bar</a>. Create a progress bar of your achivement or other things you want to share.
 * <a href="https://gutenverse.com/social-icon/" target="_blank" rel="">Social Icons</a>. Show social networks link to your website visitors.
-* <a href="https://gutenverse.com/social-share-blocks/" target="_blank" rel="">Social Share</a>. Allow your visitor to share the current page.
+* <a href="https://gutenverse.com/social-share/" target="_blank" rel="">Social Share</a>. Allow your visitor to share the current page.
 * **Spacer**. Create a spacer to give a gap between content.
-* <a href="https://gutenverse.com/star-rating-blocks/" target="_blank" rel="">Star Rating</a>. Showcase ratings of anything you want to share.
-* <a href="https://gutenverse.com/tabs-blocks/" target="_blank" rel="">Tabs</a>. Create content inside a tab block.
-* <a href="https://gutenverse.com/team-blocks/" target="_blank" rel="">Team</a>. Show your team details.
-* <a href="https://gutenverse.com/testimonials-blocks/" target="_blank" rel="">Testimonials</a>. Showcase your client's or people's testimonals.
+* <a href="https://gutenverse.com/star-rating/" target="_blank" rel="">Star Rating</a>. Showcase ratings of anything you want to share.
+* <a href="https://gutenverse.com/tabs/" target="_blank" rel="">Tabs</a>. Create content inside a tab block.
+* <a href="https://gutenverse.com/teams/" target="_blank" rel="">Team</a>. Show your team details.
+* <a href="https://gutenverse.com/testimonials/" target="_blank" rel="">Testimonials</a>. Showcase your client's or people's testimonals.
 * **Text Editor**. A place to create a text content.
-* <a href="https://gutenverse.com/video-blocks/" target="_blank" rel="">Video</a>. Embed a video you want to share.
+* **Video**. Embed a video you want to share.
 
 = POST BLOCKS =
 * **Post Author**. Show post author name.
-* <a href="https://gutenverse.com/post-blocks/" target="_blank" rel="">Post Blocks</a>. Showcase a block of posts of your choice.
+* <a href="https://gutenverse.com/post-block/" target="_blank" rel="">Post Blocks</a>. Showcase a block of posts of your choice.
 * **Post Comment**. Show comment section of a single post.
 * **Post Content**. Show the content of your post.
 * **Post Date**. Show the published/modified date of a single post.
@@ -119,9 +123,12 @@ Explore our collection of pre-built templates:
 == 3RD PARTY DETAILS ==
 
 - Gutenverse Newsletter
-In our Gutenverse Dashboard, we offer a form for subscribing to our newsletter. By subscribing, we will sent you recent updates about Gutenverse. The only information required and sent is the email address you manually input into the designated box. This data is securely sent to our server at <a href="https://gutenverse.com/" target="_blank" rel="">gutenverse.com</a>. Rest assured, no information is transmitted automatically without your explicit consent.
+Our Gutenverse Dashboard offers a form for subscribing to our newsletter. By subscribing, we will send you recent updates about Gutenverse. The only information required and sent is the email address you manually input into the designated box. This data is securely sent to our server at <a href="https://gutenverse.com/" target="_blank" rel="">gutenverse.com</a>. Rest assured, no information is transmitted automatically without your explicit consent.
 
 If you'd like more details about Gutenverse, you can check out the terms and conditions <a href="https://gutenverse.com/terms-and-conditions/" target="_blank" rel="">Here!</a>.
+
+== DOCUMENTATION ==
+We have some <a href="https://gutenverse.com/docs/" target="_blank" rel="">documentation articles here</a> that might help you start your journey with Gutenverse.
 
 == COMMUNITY ==
 
@@ -195,7 +202,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
-= 2.0.0 - 2024-05-22 =
+= 2.0.0 - 2024-08-08 =
 ##### New
 * **Archive Title Block**, Add new block
 * **Copy Style**, Add new ability to copy styles between blocks
@@ -230,6 +237,15 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Galery**, Fixed Galery FrontEnd Zoom
 * **Section**, Fix issue with Shape Divider bottom Bring to Front option
 * **Post Block**, Fix issue with autoload scroll and fix some predefined styles
+
+= 1.9.4 - 2024-07-18 =
+##### Bug Fixes
+* **Compatibility**, Fix compatibility with WordPress versin 6.6
+
+= 1.9.3 - 2024-07-16 =
+##### Bug Fixes
+* **Plugin Activation**, Fix Plugin Activation when activate in Plugin Install Page.
+* **Security**, Fix security issue. credit: Patchstack.
 
 = 1.9.2 - 2024-05-02 =
 ##### Bug Fixes
