@@ -11,6 +11,20 @@ export const HeaderV200 = () => {
                 {__('Gutenverse', 'gutenverse')}
                 &nbsp;
                 <span>{__('Version 2.0.0', 'gutenverse')}</span>
+                <svg width="30" height="32" viewBox="0 0 30 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.887 21.774c2.28-6.758 4.13-8.606 10.887-10.887C15.016 8.607 13.168 6.757 10.887 0 8.607 6.757 6.757 8.606 0 10.887c6.757 2.28 8.606 4.13 10.887 10.887z" fill="url(#170g7q8f6a)"/>
+                    <path d="M23.371 20.121c-1.244 3.687-2.253 4.695-5.94 5.94 3.687 1.244 4.696 2.252 5.94 5.939 1.244-3.687 2.253-4.695 5.94-5.94-3.687-1.244-4.696-2.252-5.94-5.939z" fill="url(#whjndz5ptb)"/>
+                    <defs>
+                        <linearGradient id="170g7q8f6a" x1="2.844" y1="-8.404" x2="32.507" y2="36.419" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#65DCF5"/>
+                            <stop offset="1" stopColor="#65DCF5" stopOpacity="0"/>
+                        </linearGradient>
+                        <linearGradient id="whjndz5ptb" x1="18.983" y1="15.537" x2="35.165" y2="39.989" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#65DCF5"/>
+                            <stop offset="1" stopColor="#65DCF5" stopOpacity="0"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
             </h3>
         </div>
     );

@@ -13,6 +13,13 @@
             font-weight: 700;
             line-height: normal;
             letter-spacing: -0.64px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            svg {
+                margin-top: -10px;
+            }
         }
         
         .upgrade-notice-head > div > .upgrade-notice-title > span {
