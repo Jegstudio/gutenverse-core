@@ -183,7 +183,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['opacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id} > .guten-column-wrapper:before",
+					'selector'       => ".{$this->element_id} > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id} > .guten-column-wrapper:before, .{$this->element_id}  > .guten-column-wrapper > .guten-background-overlay",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
@@ -196,7 +196,7 @@ class Column extends Style_Abstract {
 		if ( isset( $this->attrs['opacityHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id}:hover > .guten-column-wrapper:before",
+					'selector'       => ".{$this->element_id}:hover > .sticky-wrapper > .guten-column-wrapper:before, .{$this->element_id}:hover > .guten-column-wrapper:before, .{$this->element_id}  > .guten-column-wrapper > .guten-background-overlay",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
