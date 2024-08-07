@@ -371,7 +371,9 @@ class Gutenverse {
 		$this->meta_option     = new Meta_Option();
 		$this->upgrade_wizard  = new Upgrade_Wizard();
 
-		$active_plugins = get_option( 'active_plugins' );
+		$active_plugins           = get_option( 'active_plugins' );
+		$active_plugins_multisite = array_keys( get_site_option( 'active_sitewide_plugins' ) );
+		$active_plugins           = array_merge( $active_plugins, $active_plugins_multisite );
 		if ( ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins ) ) {
 			$this->form_fallback = new Form_Fallback_Init();
 		}
