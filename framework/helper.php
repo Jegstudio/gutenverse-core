@@ -928,7 +928,21 @@ if ( ! function_exists( 'gutenverse_autoblock_recovery' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_missing_blocks' ) ) {
+	/**
+	 * Check if missing block editor warning is enabled.
+	 */
+	function gutenverse_missing_blocks() {
+		$settings_data      = get_option( 'gutenverse-settings', array() );
+		$missing_block_warn = true;
 
+		if ( isset( $settings_data['editor_settings'] ) && isset( $settings_data['editor_settings']['missing_block_warn'] ) ) {
+			$missing_block_warn = $settings_data['editor_settings']['missing_block_warn'];
+		}
+
+		return $missing_block_warn;
+	}
+}
 
 if ( ! function_exists( 'gutenverse_get_global_variable' ) ) {
 	/**
