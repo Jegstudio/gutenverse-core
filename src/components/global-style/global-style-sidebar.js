@@ -51,6 +51,7 @@ const GlobalStyleSidebar = props => {
 };
 
 export default compose(
+
     withSelect(select => {
         const {
             getVariable,
@@ -64,6 +65,7 @@ export default compose(
             customFont: getCustomFont()
         };
     }),
+
     withDispatch((dispatch) => {
         const {
             initVariableFont,
@@ -83,5 +85,6 @@ export default compose(
             setCustomFonts: setCustomFonts
         };
     }),
+    
     withGlobalVariable,
 )(GlobalStyleSidebar);
