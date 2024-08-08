@@ -124,11 +124,15 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
       gap: 10px;
       justify-content: space-between;
       margin: 0 25px 22px;
-      padding: 20px;
+      padding: 16px;
       position: relative;
       overflow: hidden;
       border: 1px solid #e3e4e6;
       align-items: center;
+
+      .icon-wrapper {
+        display: flex;
+      }
 
       .icon-plugin {
         width: 64px;
@@ -212,16 +216,31 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
           padding: 8px 14px;
           white-space: nowrap;
 
+          &:hover {
+            background: #2435ec;
+            border: 1px solid #2435ec;
+          }
+
           &.installed {
             border: 1px solid #99A2A9;
             background: #99A2A9;
             color: white;
             cursor: default;
+
+            &:hover {
+              background: #99A2A9;
+              border: 1px solid #99A2A9;
+            }
           }
 
           &.update {
             background: white;
-            color: #3b57f7
+            color: #3b57f7;
+
+            &:hover {
+              background: #3b57f7;
+              color: #fff;
+            }
           }
         }
       }
@@ -269,6 +288,39 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
       margin: 22px 25px;
     }
 
+    .gutenverse-warn-refresh-notice {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border: solid 1px #e3e4e6;
+      margin: 16px 24px 31px;
+      border-left: 4px solid #ffc909;
+      display: flex;
+      gap: 16px;
+
+      span {
+        align-items: center;
+        display: flex;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.4;
+        letter-spacing: normal;
+        text-align: left;
+        color: #40505d;
+      }
+
+      >.warn-icon {
+        display: flex;
+        background-color: #fff9e2;
+
+        svg {
+          margin: 16px 11.6px 16px 11.3px;
+        }
+      }
+    }
+
     .gutenverse-warn-list {
       list-style-type: disc;
       margin-left: 40px;
@@ -307,9 +359,9 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
       }
 
       button {
-        border: none;
+        border: solid 1px #e3e4e6;
         border-radius: 4px;
-        color: #fff;
+        color: #40505d;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -317,8 +369,15 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
         gap: 9px;
         padding: 7px 18px 8px 16px;
         border-radius: 5px;
-        background-color: #3b57f7;
+        background-color: #fff;
         cursor: pointer;
+        font-family: Roboto;
+        font-size: 12px;
+
+        &:hover {
+          color: #3b57f7;
+          border-color: #3b57f7;
+        }
       }
     }
   }
