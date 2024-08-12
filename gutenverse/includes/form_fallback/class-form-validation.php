@@ -137,6 +137,14 @@ class Form_Validation extends Style_Generator {
 			if ( 'gutenverse/form-builder' === $item['blockName'] ) {
 				$result[] = $item;
 			}
+			if ( 'core/template-part' === $item['blockName'] ) {
+				$parts = $this->get_template_part_content( $item['attrs'] );
+				$parts = $this->parse_blocks( $parts );
+				$parts = $this->flatten_blocks( $parts );
+				if ( $parts ) {
+					$result = array_merge( $result, $this->findFormBlock( $parts ) );
+				}
+			}
 			if ( ! empty( $item['innerBlock'] ) ) {
 				$result = array_merge( $result, $this->findFormBlock( $item['innerBlock'] ) );
 			}
