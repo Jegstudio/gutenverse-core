@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: gutenberg, blocks, page builder, gallery, templates
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Powerful and lightweight blocks and page builder for WordPress Gutenberg Editor.
 
 == DESCRIPTION ==
 
-Gutenverse is a powerful and lightweight Gutenberg blocks and page builder plugin for WordPress Site Editor, featuring over 35+ user-friendly blocks.
+Gutenverse is a powerful and lightweight Gutenberg blocks and page builder plugin for WordPress Site Editor, featuring over 45+ user-friendly blocks.
 Gutenverse allows you to customize your website and turn your dream design into reality. Experience the convenience of using Gutenberg with Gutenverse.
 
 <a href="https://www.gutenverse.com/" target="_blank" rel="">Check out Gutenverse Blocks in Action</a>
@@ -86,7 +86,9 @@ The block Gutenverse provide is grouped as the following:
 * <a href="https://gutenverse.com/image-box/" target="_blank" rel="">Image Box</a>. Add an information section with image box.
 * <a href="https://gutenverse.com/logo-slider/" target="_blank" rel="">Logo Slider</a>. Showcase your clients, sponsors, or a list of images on your website.
 * <a href="https://gutenverse.com/nav-menu/" target="_blank" rel="">Nav Menu</a>. Create a navigation menu for your visitor to explore your website.
+* <a href="https://gutenverse.com/popup/" target="_blank" rel="">Popup Builder</a>. Create a stunning popup to catch your user attention.
 * <a href="https://gutenverse.com/progress-bar/" target="_blank" rel="">Progress Bar</a>. Create a progress bar of your achivement or other things you want to share.
+* <a href="https://gutenverse.com/search/" target="_blank" rel="">Search</a>. Create a search bar to easily search your site contents.
 * <a href="https://gutenverse.com/social-icon/" target="_blank" rel="">Social Icons</a>. Show social networks link to your website visitors.
 * <a href="https://gutenverse.com/social-share/" target="_blank" rel="">Social Share</a>. Allow your visitor to share the current page.
 * **Spacer**. Create a spacer to give a gap between content.
@@ -108,6 +110,7 @@ The block Gutenverse provide is grouped as the following:
 * **Post List**. Show a list of posts of your choice.
 * **Post Terms**. Show the categories/tags of a single post.
 * **Post Title**. Show the title of a single post.
+* **Archive Title**. Show the title of an archive.
 
 
 == TEMPLATE LIBRARY ==
@@ -202,6 +205,14 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.0.1 - 2024-08-13 =
+##### Improvements
+* **Framework**, Update core framework
+
+##### Bug Fixes
+* **Form Fallback**, Fix issue with Form Builder in template part
+* **Styling**, Fix issue with styling on frontend
+
 = 2.0.0 - 2024-08-08 =
 ##### New
 * **Archive Title Block**, Add new block

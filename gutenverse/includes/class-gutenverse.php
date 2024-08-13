@@ -169,7 +169,9 @@ class Gutenverse {
 	private function __construct() {
 		$flag = $this->register_framework();
 		if ( $flag ) {
-			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ) );
+			// Change priority to 9 to prevent gutenverse form crash at version 1.0.0.
+			add_action( 'plugins_loaded', array( $this, 'plugin_loaded' ), 9 );
+			add_action( 'plugins_loaded', array( $this, 'framework_loaded' ), 99 );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_meta_links' ), 10, 2 );
 		}
 		register_activation_hook( GUTENVERSE_FILE, array( $this, 'set_activation_transient' ) );
@@ -329,6 +331,12 @@ class Gutenverse {
 	 */
 	public function plugin_loaded() {
 		$this->init_framework();
+	}
+
+	/**
+	 * Framework Loaded
+	 */
+	public function framework_loaded() {
 		$this->load_textdomain();
 		$this->init_instance();
 		$this->init_post_type();
