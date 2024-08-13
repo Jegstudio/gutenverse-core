@@ -406,6 +406,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"readmoreWidth":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"readmoreAlign":{
+			"type": "object",
+			"copyStyle": true
+		},
 		"readmoreColor": {
 			"type": "object",
 			"copyStyle": true

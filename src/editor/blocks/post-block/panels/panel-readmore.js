@@ -1,8 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
+
 
 export const readmorePanel = (props) => {
     const {
@@ -123,6 +124,50 @@ export const readmorePanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore i`,
                     render: value => handleUnitPoint(value, 'font-size')
+                }
+            ]
+        },
+        {
+            id: 'readmoreWidth',
+            label: __('Width', 'gutenverse'),
+            component: RangeControl,
+            min: 1,
+            max: 500,
+            step: 1,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
+                    render: value => `width: ${value}%;`
+                },
+            ],
+        },
+        {
+            id: 'readmoreAlign',
+            label: __('Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'start',
+                    icon: <AlignLeft />,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'end',
+                    icon: <AlignRight />,
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
+                    render: value => `justify-content: ${value};`
                 }
             ]
         },

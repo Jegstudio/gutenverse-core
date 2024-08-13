@@ -630,6 +630,32 @@ class Post_Block extends Style_Abstract {
 				)
 			);
 		}
+		if ( isset( $this->attrs['readmoreWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore",
+					'property'       => function ( $value ) {
+						return "width: $value%;";
+					},
+					'value'          => $this->attrs['readmoreWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['readmoreAlign'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore",
+					'property'       => function ( $value ) {
+						return "justify-content: $value;";
+					},
+					'value'          => $this->attrs['readmoreAlign'],
+					'device_control' => true,
+				)
+			);
+		}
+
 
 		if ( isset( $this->attrs['readmoreColor'] ) ) {
 			$this->inject_style(
