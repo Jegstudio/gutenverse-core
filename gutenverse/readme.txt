@@ -206,8 +206,11 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.0.1 - 2024-08-13 =
+##### Improvements
+* **Framework**, Update core framework
+
 ##### Bug Fixes
-* **Form Fallback**, Fix issue when submiting form
+* **Form Fallback**, Fix issue with Form Builder in template part
 * **Styling**, Fix issue with styling on frontend
 
 = 2.0.0 - 2024-08-08 =
