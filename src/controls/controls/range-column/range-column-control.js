@@ -55,7 +55,7 @@ const RangeColumnControl = (props) => {
 
     useEffect(() => {
         setLocalValue(value[deviceType]);
-    }, [value]);
+    }, [value[deviceType]]);
 
     const selector = (selectorId) => {
         return `.${selectorId}`;
