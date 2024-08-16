@@ -361,6 +361,17 @@ if ( ! function_exists( 'gutenverse_get_json' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_secure_iterable' ) ) {
+	/**
+	 * Check if a value is iterable
+	 *
+	 * @param array $value .
+	 */
+	function gutenverse_secure_iterable( $value ) {
+		return is_iterable( $value ) ? $value : array();
+	}
+}
+
 if ( ! function_exists( 'gutenverse_header_font' ) ) {
 	/**
 	 * Header Font
@@ -374,7 +385,7 @@ if ( ! function_exists( 'gutenverse_header_font' ) ) {
 		$upload_path   = wp_upload_dir();
 		$upload_url    = $upload_path['baseurl'];
 		$custom_family = array();
-		foreach ( $font_families as $font ) {
+		foreach ( gutenverse_secure_iterable( $font_families ) as $font ) {
 			$family = $font['value'];
 			$type   = $font['type'];
 			$id     = ! empty( $font['id'] ) ? $font['id'] : null;
