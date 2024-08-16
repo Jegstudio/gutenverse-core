@@ -173,7 +173,12 @@ class Frontend_Assets {
 			'editor_settings' => isset( $settings_data['editor_settings'] ) ? $settings_data['editor_settings'] : null,
 		) : array();
 		$active_plugins         = get_option( 'active_plugins' );
-		$arr_plugin             = array();
+		$multisite_plugins      = get_site_option( 'active_sitewide_plugins' );
+		if ( $multisite_plugins ) {
+			$active_plugins_multisite = array_keys( $multisite_plugins );
+			$active_plugins           = array_merge( $active_plugins, $active_plugins_multisite );
+		}
+		$arr_plugin = array();
 		foreach ( $active_plugins as $plugin ) {
 			$arr_plugin[] = $plugin;
 		}
