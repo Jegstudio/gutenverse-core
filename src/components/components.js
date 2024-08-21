@@ -5,6 +5,7 @@ import GutenverseLibrary from './library';
 import elementChange from 'element-change';
 import { applyFilters } from '@wordpress/hooks';
 import { autoRecovery } from './auto-recovery';
+import { editorWarn } from './editor-warn';
 
 /* Other Editor Components */
 import './hook';
@@ -34,6 +35,7 @@ elementChange('#site-editor', () => {
 
 domReady(() => {
     autoRecovery();
+    editorWarn();
 
     if (document.getElementById('gutenverse-root')) {
         const content = applyFilters(

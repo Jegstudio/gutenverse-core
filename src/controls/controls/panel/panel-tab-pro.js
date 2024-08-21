@@ -75,7 +75,7 @@ const PanelTabPro = ({ activeTab }) => {
                                 </div>
                             </div>
                             <div className="guten-pro-total-themes guten-pro-themes-half">
-                                <h5 className="guten-pro-total-themes-number">650+</h5>
+                                <h5 className="guten-pro-total-themes-number">700+</h5>
                                 <p className="guten-pro-total-themes-title">Themes, Layouts,</p>
                                 <p className="guten-pro-total-themes-title"> and Sections.</p>
                                 <img className="guten-pro-total-themes-image" src={window['GutenverseConfig'].imgDir + '/pro/library/graphic-library.png'} />

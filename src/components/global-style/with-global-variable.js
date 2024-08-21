@@ -232,6 +232,7 @@ const withGlobalVariable = GlobalStyle => {
                 href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                 rel="stylesheet" type="text/css" />;
         };
+        
         const renderCustomFont = () => {
             let customFontData = Object.keys(customFont).map((value) => {
                 return customFont[value].value;

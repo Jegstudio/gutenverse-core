@@ -45,7 +45,7 @@ const FrontEndSetting = ({ settingValues, updateSettingValues, saving, saveData 
             { render_mechanism === 'file' && <ControlSelect 
                 id={'old_render_deletion_schedule'}
                 title={__('Old File Deletion Schedule', '--gctd--')}
-                description={__(`Set how long should the system store old css file for frontend style. Next Schedule : ${renderSchedule}`, '--gctd--')}
+                description={__(`Set how long should the system store old css file for frontend style. This process need wp cron to be working. Next Schedule : ${renderSchedule}`, '--gctd--')}
                 value={old_render_deletion_schedule}
                 updateValue={updateValue}
                 options = {[

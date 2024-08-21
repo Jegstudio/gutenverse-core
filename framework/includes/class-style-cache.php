@@ -157,8 +157,12 @@ class Style_Cache {
 
 	/**
 	 * Add Custom Interval for Sceduler
+	 *
+	 * @param array $schedules Schedules.
+	 *
+	 * @return array
 	 */
-	public function add_custom_intervals() {
+	public function add_custom_intervals( $schedules ) {
 		$schedules['yearly']             = array(
 			'interval' => 365 * 24 * 60 * 60, // 365 days in seconds
 			'display'  => __( 'Once a Year' ),
@@ -175,7 +179,7 @@ class Style_Cache {
 			'interval' => 2 * 24 * 60 * 60, // 2 days in seconds
 			'display'  => __( 'Once Every 2 Days' ),
 		);
-		$schedules['daily']     = array(
+		$schedules['daily']              = array(
 			'interval' => 24 * 60 * 60, // 1 day in seconds
 			'display'  => __( 'Daily' ),
 		);

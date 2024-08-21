@@ -68,8 +68,7 @@ const DimensionInput = (props) => {
     });
 
     useEffect(() => {
-        const sync = Object.keys(value).every(pos => value[pos] === value[Object.keys(value)[0]]);
-
+        const sync = position.every(pos => value[pos] === value[position[0]]);
         !proLabel && setActive(sync);
     }, []);
 
