@@ -150,6 +150,64 @@ export const handleInnerCursorEffect = (style) => {
     }
     return elementStyle;
 };
+
+export const handleTransitionCursorEffect = (style) => {
+    const elementStyle = elementVar();
+
+    const {
+        entranceTransition,
+        transitionSpeed
+    } = style;
+
+    switch(entranceTransition){
+        case 'opacity':
+            normalAppender({
+                style:`
+                    transition: opacity ${transitionSpeed?.point}s, transform 0s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'scale':
+            normalAppender({
+                style:`
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'opacityScale':
+            normalAppender({
+                style:`
+                    transition: opacity ${transitionSpeed?.point}s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateY':
+            normalAppender({
+                style:`
+                    transform: translate(-50%, -50%) scale(0) rotateY(0deg) !important;
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateX':
+            normalAppender({
+                style:`
+                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                `,
+                elementStyle
+            });
+            break;
+        default:
+            break;
+    }
+
+    return elementStyle;
+}
+
 export const handleIconCursorEffect = (style) =>{
     const elementStyle = elementVar();
 
