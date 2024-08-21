@@ -502,6 +502,21 @@ if ( ! function_exists( 'gutenverse_css_path' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gutenverse_remove_protocol' ) ) {
+	/**
+	 * Get Gutenverse CSS Path.
+	 *
+	 * @param string $url File name.
+	 *
+	 * @return string
+	 *
+	 * @since 1.0.1
+	 */
+	function gutenverse_remove_protocol( $url ) {
+		return preg_replace( '(^https?:)', '', $url );
+	}
+}
+
 if ( ! function_exists( 'gutenverse_css_url' ) ) {
 	/**
 	 * Get Gutenverse CSS Path.
@@ -516,9 +531,9 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 		$custom_dir  = $upload_path . '/gutenverse/css';
 
 		if ( '' === $file ) {
-			return $custom_dir . $file;
+			return gutenverse_remove_protocol( $custom_dir . $file );
 		} else {
-			return $custom_dir . '/' . $file;
+			return gutenverse_remove_protocol( $custom_dir . '/' . $file );
 		}
 	}
 }
