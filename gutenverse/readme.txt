@@ -210,6 +210,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * **Column**, update width value while dragging
 * **Popup builder**, fix issue with cursor effect
 * **Post Block**, Update Readmore functionality
+* **Post Content**, Fix issue with not showing content
 
 = 2.0.1 - 2024-08-13 =
 ##### Improvements
