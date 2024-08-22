@@ -165,9 +165,11 @@ class Frontend_Assets {
 	 */
 	public function gutenverse_data() {
 		$settings_data          = get_option( 'gutenverse-settings' );
+		$option_data            = get_option( 'gutenverse_option', null );
 		$config                 = array();
 		$config['postId']       = get_the_ID();
 		$config['homeUrl']      = home_url();
+		$config['currencyRate'] = ! empty( $option_data ) ? $option_data['rate_usd_idr'] : 1;
 		$config['query']        = $this->get_template_query();
 		$config['settingsData'] = ! empty( $settings_data ) ? array(
 			'editor_settings' => isset( $settings_data['editor_settings'] ) ? $settings_data['editor_settings'] : null,
