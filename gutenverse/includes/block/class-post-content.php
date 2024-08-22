@@ -40,7 +40,7 @@ class Post_Content extends Block_Abstract {
 		if ( ! empty( $blocks ) ) {
 			foreach ( $blocks as $block ) {
 				// prevent loop if there is another post content block inside.
-				if ( 'core/post-content' !== $block['blockName'] && 'gutenverse/post-content' !== $block['blockName'] && isset( $block['blockName'] ) ) {
+				if ( 'core/post-content' !== $block['blockName'] && 'gutenverse/post-content' !== $block['blockName'] ) {
 					$content .= apply_filters( 'the_content', render_block( $block ) );
 				}
 			}
