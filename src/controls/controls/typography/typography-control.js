@@ -387,6 +387,7 @@ const TypographyControl = (props) => {
                     min={-10}
                     max={10}
                     step={0.1}
+                    unit={'px'}
                     value={value.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value, spacing })}

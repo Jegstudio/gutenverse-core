@@ -302,6 +302,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     min={-10}
                     max={10}
                     step={0.1}
+                    unit={'px'}
                     value={value.font.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value.font, spacing })}
