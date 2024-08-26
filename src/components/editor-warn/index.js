@@ -184,7 +184,6 @@ const WarnModal = (props) => {
         <div className="gutenverse-editor-warn">
             <div className="gutenverse-warn-wrapper">
                 <div className="gutenverse-warn-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none"><path fill="#FFC908" d="M7.5 0a7.501 7.501 0 0 0 0 15 7.5 7.5 0 1 0 0-15m0 3.327a1.27 1.27 0 1 1 0 2.54 1.27 1.27 0 0 1 0-2.54m1.694 7.681c0 .2-.163.363-.363.363H6.169a.363.363 0 0 1-.363-.363v-.726c0-.2.163-.363.363-.363h.363V7.984H6.17a.363.363 0 0 1-.363-.363v-.726c0-.2.163-.363.363-.363h1.936c.2 0 .363.163.363.363V9.92h.363c.2 0 .363.163.363.363z"></path></svg>
                     <span>{__('Missing Gutenverse Block', '--gctd--')}</span>
                 </div>
                 <div className="gutenverse-warn-description">
@@ -198,6 +197,10 @@ const WarnModal = (props) => {
                 <div className="gutenverse-warn-plugin-list">
                     <PluginsData {...missingPlugin} />
                 </div>
+                {refresh ? <div className="gutenverse-warn-refresh-notice">
+                    <div className="warn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none"><path fill="#FFC908" d="M7.5 0a7.501 7.501 0 0 0 0 15 7.5 7.5 0 1 0 0-15m0 3.327a1.27 1.27 0 1 1 0 2.54 1.27 1.27 0 0 1 0-2.54m1.694 7.681c0 .2-.163.363-.363.363H6.169a.363.363 0 0 1-.363-.363v-.726c0-.2.163-.363.363-.363h.363V7.984H6.17a.363.363 0 0 1-.363-.363v-.726c0-.2.163-.363.363-.363h1.936c.2 0 .363.163.363.363V9.92h.363c.2 0 .363.163.363.363z"></path></svg></div>
+                    <span>{__('Please refresh this page after install & update the plugin', '--gctd--')}</span>
+                </div> : ''}
                 <div className="gutenverse-warn-footer">
                     <div className="warn-checkbox" onClick={doNotShow}>
                         {doNotShowAgain ? <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -343,7 +346,7 @@ const PluginItem = ({
 
             action = <div className={`${singleClass} installed`} >
                 {loadingCircle}
-                {loading ? loadingString : __('Done', '--gctd--')}
+                {loading ? loadingString : __('Activated', '--gctd--')}
             </div>;
         }
     } else if (!installed && incoming == 0) {
