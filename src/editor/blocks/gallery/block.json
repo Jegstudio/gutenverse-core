@@ -392,7 +392,8 @@
 			"default": false
 		},
 		"itemsPerLoad": {
-			"type": "integer"
+			"type": "integer",
+			"default": 2
 		},
 		"enableLoadText": {
 			"type": "string",

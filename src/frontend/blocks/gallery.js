@@ -213,11 +213,13 @@ class GutenverseGallery extends Default {
             e.preventDefault();
             const gallery = thisElement.find('.gallery-items');
             const loaded = parseInt(gallery.data('loaded'));
-            const more = parseInt(gallery.data('more'));
+            let more = parseInt(gallery.data('more'));
+            if( !more ){
+                more = 2;
+            }
             const max = parseInt(gallery.data('max'));
             const total = loaded + more;
             const items = gallery.find('.gallery-item-wrap');
-
             if (total - more <= max) {
                 items.map((item, index) => {
                     if (index >= loaded && index < total) {
