@@ -1872,8 +1872,8 @@ abstract class Style_Interface {
 	protected function feature_border( $selector ) {
 		if ( empty( $selector ) ) {
 			$selector = array(
-				'normal' => ".{$this->element_id}",
-				'hover'  => ".{$this->element_id}:hover",
+				'normal' => ".{$this->element_id}.guten-element",
+				'hover'  => ".{$this->element_id}.guten-element:hover",
 			);
 		}
 
