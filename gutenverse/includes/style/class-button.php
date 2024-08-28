@@ -221,17 +221,42 @@ class Button extends Style_Abstract {
 				$this->handle_background( $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button", $this->attrs['buttonBackgroundHover'] );
 			}
 			if ( isset( $this->attrs['buttonBorderHover'] ) ) {
-				$this->handle_border( 'buttonBorderHover', $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button" );
+				
+				$this->attrs['newButtonBorderHover'] = $this->attrs['buttonBorderHover'];
+				if ( isset( $this->attrs['buttonBorder']['all'] ) ) {
+
+					$border_hover = $this->attrs['buttonBorderHover']['all'];
+					$border = $this->attrs['buttonBorder']['all'];
+					$this->attrs['newButtonBorderHover']['all'] = [
+						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
+						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
+					];
+				}
+				$this->handle_border( 'newButtonBorderHover', $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button" );
 			}
 
 			if ( isset( $this->attrs['buttonBorderHoverResponsive'] ) ) {
+
+				$this->attrs['newbuttonBorderHoverResponsive'] = $this->attrs['buttonBorderHoverResponsive'];
+				if ( isset( $this->attrs['buttonBorderResponsive']['all'] ) ) {
+
+					$border_hover = $this->attrs['buttonBorderHoverResponsive']['all'];
+					$border = $this->attrs['buttonBorderResponsive']['all'];
+					$this->attrs['newbuttonBorderHoverResponsive']['all'] = [
+						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
+						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
+					];
+				}
+
 				$this->inject_style(
 					array(
 						'selector'       => $this->attrs['parentSelector'] . " .{$this->element_id}.guten-button-wrapper .guten-button",
 						'property'       => function ( $value ) {
 							return $this->handle_border_responsive( $value );
 						},
-						'value'          => $this->attrs['buttonBorderHoverResponsive'],
+						'value'          => $this->attrs['newbuttonBorderHoverResponsive'],
 						'device_control' => true,
 						'skip_device'    => array(
 							'Desktop',
@@ -282,17 +307,43 @@ class Button extends Style_Abstract {
 				$this->handle_background( ".{$this->element_id}.guten-button-wrapper .guten-button:hover", $this->attrs['buttonBackgroundHover'] );
 			}
 			if ( isset( $this->attrs['buttonBorderHover'] ) ) {
-				$this->handle_border( 'buttonBorderHover', ".{$this->element_id}.guten-button-wrapper .guten-button:hover" );
+
+				$this->attrs['newButtonBorderHover'] = $this->attrs['buttonBorderHover'];
+				if ( isset( $this->attrs['buttonBorder']['all'] ) ) {
+
+					$border_hover = $this->attrs['buttonBorderHover']['all'];
+					$border = $this->attrs['buttonBorder']['all'];
+					$this->attrs['newButtonBorderHover']['all'] = [
+						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
+						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
+					];
+				}
+
+				$this->handle_border( 'newButtonBorderHover', ".{$this->element_id}.guten-button-wrapper .guten-button:hover" );
 			}
 
 			if ( isset( $this->attrs['buttonBorderHoverResponsive'] ) ) {
+
+				$this->attrs['newbuttonBorderHoverResponsive'] = $this->attrs['buttonBorderHoverResponsive'];
+				if ( isset( $this->attrs['buttonBorderResponsive']['all'] ) ) {
+
+					$border_hover = $this->attrs['buttonBorderHoverResponsive']['all'];
+					$border = $this->attrs['buttonBorderResponsive']['all'];
+					$this->attrs['newbuttonBorderHoverResponsive']['all'] = [
+						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
+						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
+					];
+				}
+
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button:hover",
 						'property'       => function ( $value ) {
 							return $this->handle_border_responsive( $value );
 						},
-						'value'          => $this->attrs['buttonBorderHoverResponsive'],
+						'value'          => $this->attrs['newbuttonBorderHoverResponsive'],
 						'device_control' => true,
 						'skip_device'    => array(
 							'Desktop',

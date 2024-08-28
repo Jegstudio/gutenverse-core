@@ -10,10 +10,26 @@ export const buttonBorderPanel = (props) => {
         switcher,
         setSwitcher,
         hoverWithParent,
-        parentSelector
+        parentSelector,
+        buttonBorder,
+        buttonBorderResponsive,
     } = props;
 
     const device = getDeviceType();
+
+    const customHandleHoverBorder = (value, normal) =>{
+        //make button border use the normal value if hover value is empty
+        const newValue = {
+            ...value,
+            all : {
+                ...value?.all,
+                type: value?.all?.type ? value.all.type : normal?.all?.type,
+                width: value?.all?.width ? value.all.width : normal?.all?.width,
+                color: value?.all?.color ? value.all.color : normal?.all?.color,
+            }
+        };
+        return handleBorder(newValue);
+    };
 
     return [
         {
@@ -68,13 +84,13 @@ export const buttonBorderPanel = (props) => {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                     hasChild: true,
                     allowRender: () => !hoverWithParent,
-                    render: value => handleBorder(value)
+                    render: value => customHandleHoverBorder(value, buttonBorder)
                 },
                 {
                     selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
                     hasChild: true,
                     allowRender: () => hoverWithParent,
-                    render: value => handleBorder(value)
+                    render: value => customHandleHoverBorder(value, buttonBorder)
                 }
             ]
         },
@@ -88,13 +104,13 @@ export const buttonBorderPanel = (props) => {
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                     allowRender: () => device !== 'Desktop' && !hoverWithParent,
-                    render: value => handleBorderResponsive(value)
+                    render: value => customHandleHoverBorder(value, buttonBorderResponsive),
                 },
                 {
                     selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
                     hasChild: true,
                     allowRender: () => device !== 'Desktop' && hoverWithParent,
-                    render: value => handleBorder(value)
+                    render: value => customHandleHoverBorder(value, buttonBorderResponsive),
                 }
             ]
         },
