@@ -96,6 +96,8 @@ class Style_Generator {
 				}
 			}
 
+			do_action( 'gutenverse_after_style_loop_blocks' );
+
 			$this->render_style( $style_name, $style, 'widget' );
 		}
 	}
@@ -227,6 +229,8 @@ class Style_Generator {
 					$this->render_style( $style_name, $style, 'template' );
 				}
 			}
+
+			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
 
@@ -251,6 +255,8 @@ class Style_Generator {
 					$this->render_style( $style_name, $style, 'content' );
 				}
 			}
+
+			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
 
