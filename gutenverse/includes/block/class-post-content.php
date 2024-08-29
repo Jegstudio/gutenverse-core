@@ -25,6 +25,10 @@ class Post_Content extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
+		if ( ! empty( $this->attributes['__exclude_from_loop'] ) ) {
+			return '';
+		}
+
 		if ( ! empty( $post_id ) && post_password_required( $post_id ) ) {
 			// show password form.
 			return $this->protected_post( $post_id );
@@ -37,15 +41,40 @@ class Post_Content extends Block_Abstract {
 		// removed because some HTML tags styling became broken.
 		remove_filter( 'the_content', 'wpautop' );
 
-		if ( ! empty( $blocks ) ) {
-			foreach ( $blocks as $block ) {
+		$filtered_blocks = $this->filter_post_content_blocks( $blocks );
+
+		if ( ! empty( $filtered_blocks ) ) {
+			foreach ( $filtered_blocks as $block ) {
 				// prevent loop if there is another post content block inside.
 				if ( 'core/post-content' !== $block['blockName'] && 'gutenverse/post-content' !== $block['blockName'] ) {
-					$content .= apply_filters( 'the_content', render_block( $block ) );
+					$content .= render_block( $block );
 				}
 			}
 		}
-		return $content;
+
+		return apply_filters( 'the_content', $content );
+	}
+
+	/**
+	 * Filter blocks so it won't looping endlessly
+	 *
+	 * @param array $blocks .
+	 */
+	private function filter_post_content_blocks( $blocks ) {
+		$new_arr = array();
+
+		foreach ( $blocks as $block ) {
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				$block['innerBlocks'] = $this->filter_post_content_blocks( $block['innerBlocks'] );
+			}
+
+			if ( 'core/post-content' === $block['blockName'] || 'gutenverse/post-content' === $block['blockName'] ) {
+				$block['attrs']['__exclude_from_loop'] = true;
+			}
+
+			$new_arr[] = $block;
+		}
+		return $new_arr;
 	}
 
 	/**
