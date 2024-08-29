@@ -297,6 +297,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 2.0.3 - 2024-08-29 =
 ##### Bug Fixes
 * **Gallery**, Fix load more function
+* **Post Content**, Fix issue with looping content
 * **Post Terms**, Fix border line 
 
 = 2.0.2 - 2024-08-21 =
