@@ -15,8 +15,6 @@ const ControlSelect = (props) => {
         updateValue(id,value.value);
     };
 
-    const inputValue = value === undefined ? defaultValue : value;
-
     return <div className="control-wrapper control-select">
         <label className="control-title" htmlFor={`${id}-${uuid}`} style={customLabel}>{title} {isRequired && <span style={{color:'red'}}> *</span>}</label>
         <Select

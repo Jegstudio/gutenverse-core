@@ -33,6 +33,14 @@ const SettingsBody = ({ settings, ...props }) => {
                 props
             );
             break;
+        case 'maintenance':
+            body = applyFilters(
+                'gutenverse.dashboard.settings.body',
+                body,
+                settings,
+                props
+            );
+            break;
         case 'custom-font':
             body = applyFilters(
                 'gutenverse.setting-pro-content',
