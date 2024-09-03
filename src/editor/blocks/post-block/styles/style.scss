@@ -115,6 +115,11 @@
         @include userselect('none');
         @include transition(false, false, .2s ease);
     }
+    .guten-readmore {
+        i {
+            transition: none !important;
+        }
+    }
     .guten-meta-comment a {
         color: var(--guten-txt-h-color, #181D23);
     }
