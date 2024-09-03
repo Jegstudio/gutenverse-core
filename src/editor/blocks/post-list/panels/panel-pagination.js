@@ -25,6 +25,14 @@ export const paginationPanel = (props) => {
                     label: __('Auto Load on Scroll'),
                     value: 'scrollload'
                 },
+                {
+                    label: __('Prev Next'),
+                    value: 'prevnext'
+                },
+                {
+                    label: __('Number'),
+                    value: 'number'
+                },
             ],
         },
         {
