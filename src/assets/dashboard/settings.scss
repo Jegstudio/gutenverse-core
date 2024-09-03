@@ -60,6 +60,36 @@
             text-align: center;
         }
     }
+    .input-array-value {
+        display: flex;
+        gap: 10px;
+    }
+
+    .input-array-field {
+        margin-bottom: 5px;
+        display: flex;
+        gap: 10px;
+
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgb(199, 199, 199);
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #0058e6;
+            border: 1px solid #0058e6;
+            width: 40px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        &.last {
+            margin-bottom: 0px;
+        }
+    }
     
 }
 

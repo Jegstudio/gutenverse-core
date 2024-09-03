@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import AsyncSelect from 'react-select/async';
 import { __ } from '@wordpress/i18n';
+import { useState } from 'react';
 
 const ControlSelectSearch = (props) => {
     const {
@@ -20,9 +21,11 @@ const ControlSelectSearch = (props) => {
         noOptionsText
     } = props;
 
+    const [label, setLabel] = useState(value);
     let uuid = uuidv4();
     const inputChange = (value) => {
         updateValue(id,value);
+        setLabel(value);
     };
     const noOptionsMessage = () =>  noOptionsText ? noOptionsText : __('Type to start searching...', '--gctd--');
 
@@ -35,6 +38,7 @@ const ControlSelectSearch = (props) => {
             defaultOptions={defaultOptions}
             components={components}
             onChange={inputChange}
+            value={label}
             loadOptions={input => onSearch(input, values)}
         />
         {description !== '' && <span className="control-description">
