@@ -10,7 +10,7 @@ export const paginationPanel = (props) => {
     return [
         {
             id: 'paginationMode',
-            label: __('Pagination Mode Z', 'gutenverse'),
+            label: __('Pagination Mode', 'gutenverse'),
             description: __('Note: Auto Load on Scroll effect is disabled in editor mode, but it can be viewed on Preview mode.', 'gutenverse'),
             component: SelectControl,
             options: [
