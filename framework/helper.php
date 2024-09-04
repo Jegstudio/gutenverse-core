@@ -7,7 +7,7 @@
  * @package gutenverse-framework
  */
 
-if ( ! function_exists( 'esc_data' ) ) {
+if ( ! function_exists( 'gutenverse_esc_data' ) ) {
 	/**
 	 * Escape data
 	 *
@@ -16,7 +16,7 @@ if ( ! function_exists( 'esc_data' ) ) {
 	 *
 	 * @return mixed
 	 */
-	function esc_data( $value, $type = 'string' ) {
+	function gutenverse_esc_data( $value, $type = 'string' ) {
 		if ( ! $value ) {
 			return false;
 		}
@@ -37,14 +37,14 @@ if ( ! function_exists( 'esc_data' ) ) {
 			case 'array':
 				foreach ( $value as $key => $val ) {
 					$type          = gettype( $val );
-					$value[ $key ] = esc_data( $val, $type );
+					$value[ $key ] = gutenverse_esc_data( $val, $type );
 				}
 				return $value;
 			case 'object':
 				$value = (array) $value;
 				foreach ( $value as $key => $val ) {
 					$type          = gettype( $val );
-					$value[ $key ] = esc_data( $val, $type );
+					$value[ $key ] = gutenverse_esc_data( $val, $type );
 				}
 				return (object) $value;
 			default:

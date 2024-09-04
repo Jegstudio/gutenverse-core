@@ -197,7 +197,7 @@ export const displayPanel = (props) => {
             ],
             style: [
                 {
-                    selector: customSelector,
+                    selector: `${customSelector}, ${customSelector} .block-editor-block-list__layout`,
                     allowRender: value => value[deviceType] && value[deviceType] !== 'default' && ['flex', 'grid'].includes(displayType),
                     render: value => {
                         if (value === 'default') {
