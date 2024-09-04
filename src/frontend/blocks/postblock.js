@@ -211,17 +211,14 @@ class GutenversePostblock extends Default {
                 attributes: {
                     ...settings,
                     paged: currentPage,
-                    numberPost: postsPerPage, // Load only the posts for the current page
+                    numberPost: postsPerPage,
+                    paginationNumberPost: postsPerPage
                 },
             }),
         }).then((data) => {
-            // Replace the current posts with the new posts
             element.html(data.rendered);
-
-            // Update the state of the pagination buttons
             this._tabItems(`.${elementId}.guten-post-block`);
         }).catch(() => {
-            // Handle error
         });
     }
 
@@ -242,9 +239,6 @@ class GutenversePostblock extends Default {
             window.removeEventListener('scroll', scrolling);
             window.addEventListener('scroll', scrolling);
         }
-
-        console.log('babyyyy');
-        
 
         if (paginationMode === 'prevnext' || paginationMode === 'number') {
             const prevButton = blockElement.find('.guten_block_nav .prev');
