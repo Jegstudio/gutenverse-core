@@ -22,7 +22,7 @@ export const paginationStylePanel = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore span`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore span, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     hasChild: true,
                     render: (value, id) => handleTypography(value, props, id)
                 }
@@ -50,7 +50,7 @@ export const paginationStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]
@@ -77,7 +77,7 @@ export const paginationStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -93,7 +93,7 @@ export const paginationStylePanel = (props) => {
             unit: '%',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     render: value => `width: ${value}%;`
                 },
             ],
@@ -109,11 +109,11 @@ export const paginationStylePanel = (props) => {
             unit: 'px',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i`,
                     render: value => `margin-right: ${value}px;`
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i`,
                     render: value => `margin-left: ${value}px;`
                 }
             ],
@@ -139,11 +139,11 @@ export const paginationStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-before i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev i`,
                     render: value => handleUnitPoint(value, 'font-size')
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore.icon-position-after i, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.next i`,
                     render: value => handleUnitPoint(value, 'font-size')
                 },
             ]
@@ -172,7 +172,7 @@ export const paginationStylePanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination,  .${elementId} .guten-postblock .guten_block_nav`,
                     render: value => `text-align: ${value};`
                 }
             ]
@@ -199,7 +199,7 @@ export const paginationStylePanel = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -211,7 +211,7 @@ export const paginationStylePanel = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -225,7 +225,7 @@ export const paginationStylePanel = (props) => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -240,7 +240,7 @@ export const paginationStylePanel = (props) => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -253,7 +253,7 @@ export const paginationStylePanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -267,7 +267,7 @@ export const paginationStylePanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -280,7 +280,7 @@ export const paginationStylePanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -294,7 +294,7 @@ export const paginationStylePanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -307,7 +307,7 @@ export const paginationStylePanel = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }
@@ -320,7 +320,7 @@ export const paginationStylePanel = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }

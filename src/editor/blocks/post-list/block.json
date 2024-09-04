@@ -536,6 +536,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"paginationIconSize": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"transform": {
 			"type": "object",
 			"copyStyle": true
@@ -547,6 +551,26 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"paginationPrevNextText": {
+			"type": "boolean",
+			"default": true
+		},
+		"paginationPrevText": {
+			"type": "string",
+			"default": "Prev"
+		},
+		"paginationNextText": {
+			"type": "string",
+			"default": "Next"
+		},
+		"paginationPrevIcon": {
+			"type": "string",
+			"default": "fas fa-chevron-left"
+		},
+		"paginationNextIcon": {
+			"type": "string",
+			"default": "fas fa-chevron-right"
 		}
 	},
 	"supports": {

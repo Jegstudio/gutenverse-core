@@ -704,6 +704,26 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"paginationPrevNextText": {
+			"type": "boolean",
+			"default": true
+		},
+		"paginationPrevText": {
+			"type": "string",
+			"default": "Prev"
+		},
+		"paginationNextText": {
+			"type": "string",
+			"default": "Next"
+		},
+		"paginationPrevIcon": {
+			"type": "string",
+			"default": "fas fa-chevron-left"
+		},
+		"paginationNextIcon": {
+			"type": "string",
+			"default": "fas fa-chevron-right"
 		}
 	},
 	"supports": {

@@ -68,6 +68,11 @@ const PostBlockBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        paginationPrevNextText,
+        paginationPrevText,
+        paginationNextText,
+        paginationPrevIcon,
+        paginationNextIcon,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -101,72 +106,77 @@ const PostBlockBlock = compose(
         setLoading(true);
 
         elementId &&
-			apiFetch({
-			    path: addQueryArgs(
-			        '/wp/v2/block-renderer/gutenverse/post-block',
-			        {
-			            context: 'edit',
-			            attributes: {
-			                elementId,
-			                inheritQuery,
-			                postType,
-			                postOffset,
-			                numberPost:
-								parseInt(postLoaded) === parseInt(numberPost)
-								    ? numberPost
-								    : postLoaded,
-			                breakpoint,
-			                includePost,
-			                excludePost,
-			                includeCategory,
-			                excludeCategory,
-			                includeAuthor,
-			                includeTag,
-			                excludeTag,
-			                sortBy,
-			                htmlTag,
-			                categoryEnabled,
-			                categoryPosition,
-			                excerptEnabled,
-			                excerptLength,
-			                excerptMore,
-			                readmoreEnabled,
-			                readmoreIcon,
-			                readmoreIconPosition,
-			                readmoreText,
-			                commentEnabled,
-			                commentIcon,
-			                commentIconPosition,
-			                metaEnabled,
-			                metaAuthorEnabled,
-			                metaAuthorByText,
-			                metaAuthorIcon,
-			                metaAuthorIconPosition,
-			                metaDateEnabled,
-			                metaDateType,
-			                metaDateFormat,
-			                metaDateFormatCustom,
-			                metaDateIcon,
-			                metaDateIconPosition,
-			                postblockType,
-			                paginationMode,
-			                paginationLoadmoreText,
-			                paginationLoadingText,
-			                paginationNumberPost,
-			                paginationScrollLimit,
-			                paginationIcon,
-			                paginationIconPosition,
-			            },
-			        },
-			    ),
-			})
-			    .then((data) => {
-			        setResponse(data.rendered);
-			    })
-			    .catch(() => {
-			        setResponse('<span>Error</span>');
-			    })
-			    .finally(() => setLoading(false));
+            apiFetch({
+                path: addQueryArgs(
+                    '/wp/v2/block-renderer/gutenverse/post-block',
+                    {
+                        context: 'edit',
+                        attributes: {
+                            elementId,
+                            inheritQuery,
+                            postType,
+                            postOffset,
+                            numberPost:
+                                parseInt(postLoaded) === parseInt(numberPost)
+                                    ? numberPost
+                                    : postLoaded,
+                            breakpoint,
+                            includePost,
+                            excludePost,
+                            includeCategory,
+                            excludeCategory,
+                            includeAuthor,
+                            includeTag,
+                            excludeTag,
+                            sortBy,
+                            htmlTag,
+                            categoryEnabled,
+                            categoryPosition,
+                            excerptEnabled,
+                            excerptLength,
+                            excerptMore,
+                            readmoreEnabled,
+                            readmoreIcon,
+                            readmoreIconPosition,
+                            readmoreText,
+                            commentEnabled,
+                            commentIcon,
+                            commentIconPosition,
+                            metaEnabled,
+                            metaAuthorEnabled,
+                            metaAuthorByText,
+                            metaAuthorIcon,
+                            metaAuthorIconPosition,
+                            metaDateEnabled,
+                            metaDateType,
+                            metaDateFormat,
+                            metaDateFormatCustom,
+                            metaDateIcon,
+                            metaDateIconPosition,
+                            postblockType,
+                            paginationMode,
+                            paginationLoadmoreText,
+                            paginationLoadingText,
+                            paginationNumberPost,
+                            paginationScrollLimit,
+                            paginationIcon,
+                            paginationIconPosition,
+                            paginationPrevNextText,
+                            paginationPrevText,
+                            paginationNextText,
+                            paginationPrevIcon,
+                            paginationNextIcon,
+                        },
+                    },
+                ),
+            })
+                .then((data) => {
+                    setResponse(data.rendered);
+                })
+                .catch(() => {
+                    setResponse('<span>Error</span>');
+                })
+                .finally(() => setLoading(false));
     }, [
         elementId,
         postType,
@@ -213,6 +223,11 @@ const PostBlockBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        paginationPrevNextText,
+        paginationPrevText,
+        paginationNextText,
+        paginationPrevIcon,
+        paginationNextIcon,
     ]);
 
     const blockProps = useBlockProps({

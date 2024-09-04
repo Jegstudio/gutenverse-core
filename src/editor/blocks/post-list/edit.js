@@ -60,6 +60,11 @@ const PostListBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        paginationPrevNextText,
+        paginationPrevText,
+        paginationNextText,
+        paginationPrevIcon,
+        paginationNextIcon,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -127,7 +132,13 @@ const PostListBlock = compose(
                     paginationNumberPost,
                     paginationScrollLimit,
                     paginationIcon,
-                    paginationIconPosition,                },
+                    paginationIconPosition,
+                    paginationPrevNextText,
+                    paginationPrevText,
+                    paginationNextText,
+                    paginationPrevIcon,
+                    paginationNextIcon,
+                },
             }),
         }).then((data) => {
             setResponse(data.rendered);
@@ -168,6 +179,11 @@ const PostListBlock = compose(
         paginationScrollLimit,
         paginationIcon,
         paginationIconPosition,
+        paginationPrevNextText,
+        paginationPrevText,
+        paginationNextText,
+        paginationPrevIcon,
+        paginationNextIcon,
     ]);
 
     const blockProps = useBlockProps({
