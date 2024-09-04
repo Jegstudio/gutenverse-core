@@ -113,7 +113,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$content = $this->empty_content();
 		}
 
-		$pagination = $this->render_pagination( $results['next'], $results['total_page'] );
+		$pagination = $this->render_pagination( $results['prev'], $results['next'], $results['total_page'], $results['page'] );
 
 		return '<div class="guten-block-container">
             ' . apply_filters( 'gutenverse_module_block_container_extend', $content, $this->attributes ) . '
@@ -522,6 +522,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'result'     => $result,
 			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
+			'page'       => $args['paged'],
 			'total_page' => self::count_total_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
 		);
 	}
@@ -600,7 +601,7 @@ abstract class Post_Abstract extends Block_Abstract {
 					continue;
 				}
 
-				$counter ++;
+				++$counter;
 				$result[] = get_post( $post['post_id'] );
 
 				if ( $counter === $attr['numberPost'] ) {
@@ -677,13 +678,19 @@ abstract class Post_Abstract extends Block_Abstract {
 	 * Render pagination
 	 *
 	 * @param  bool $next Next.
+	 * @param  bool $prev Next.
 	 * @param  int  $total Total page.
 	 * @return string
 	 */
-	protected function render_pagination( $next = false, $total = 1 ) {
-		$output        = '';
-		$icon          = esc_attr( $this->attributes['paginationIcon'] );
-		$icon_position = esc_attr( $this->attributes['paginationIconPosition'] );
+	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
+		$output          = '';
+		$icon            = esc_attr( $this->attributes['paginationIcon'] );
+		$icon_position   = esc_attr( $this->attributes['paginationIconPosition'] );
+		$pre_next_text   = esc_attr( $this->attributes['paginationPrevNextText'] );
+		$prev_inner_text = esc_attr( $this->attributes['paginationPrevText'] );
+		$next_innet_text = esc_attr( $this->attributes['paginationNextText'] );
+		$prev_icon       = esc_attr( $this->attributes['paginationPrevIcon'] );
+		$next_icon       = esc_attr( $this->attributes['paginationNextIcon'] );
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
@@ -698,6 +705,71 @@ abstract class Post_Abstract extends Block_Abstract {
 
 			$output = '<div class="guten-block-loadmore icon-position-' . $icon_position . '">' . $output . '</div>';
 			$output = '<div class="guten-block-pagination guten-align">' . apply_filters( 'gutenverse_module_block_pagination_extend', $output, $this->attributes ) . '</div>';
+		}
+
+		if ( 'prevnext' === $this->attributes['paginationMode'] && $total > 1 ) {
+			$next = $next ? '' : 'disabled';
+			$prev = $prev ? '' : 'disabled';
+
+			$prev_text = '<i class="' . $prev_icon . '"></i>';
+			$next_text = '<i class="' . $next_icon . '"></i>';
+
+			if ( $pre_next_text ) {
+				$prev_text = '<i class="' . $prev_icon . '"></i> ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
+			}
+
+			$output =
+			'<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">
+                    <a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . "\">{$prev_text}</a>
+                    <a href=\"#\" class=\"btn-pagination next " . esc_attr( $next ) . '" title="' . $next_innet_text . "\">{$next_text}</a>
+                </div>";
+		}
+
+		if ( 'number' === $this->attributes['paginationMode'] && $total > 1 ) {
+			$prev_text = '<i class="' . $prev_icon . '"></i>';
+			$next_text = '<i class="' . $next_icon . '"></i>';
+
+			if ( $pre_next_text ) {
+				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', 'gutenverse' );
+				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
+			}
+
+			$output = '<div class="guten_block_nav" data-page="' . $page . '">';
+
+			if ( $page > 1 ) {
+				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
+			}
+
+			if ( $page > 2 ) {
+				$output .= '<a href="#" class="btn-pagination" data-page="1">1</a> ';
+				if ( $page > 3 ) {
+					$output .= '<span>...</span>  ';
+				}
+			}
+
+			if ( $page > 1 ) {
+				$output .= '<a href="#" class="btn-pagination" data-page="' . ( $page - 1 ) . '">' . ( $page - 1 ) . '</a> ';
+			}
+
+			$output .= '<span class="btn-pagination current">' . $page . '</span> ';
+
+			if ( $page < $total ) {
+				$output .= '<a href="#" class="btn-pagination" data-page="' . ( $page + 1 ) . '">' . ( $page + 1 ) . '</a> ';
+			}
+
+			if ( $page < $total - 1 ) {
+				if ( $page < $total - 2 ) {
+					$output .= '<span>...</span>  ';
+				}
+				$output .= '<a href="#" class="btn-pagination" data-page="' . $total . '">' . $total . '</a> ';
+			}
+
+			if ( $page < $total ) {
+				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', 'gutenverse' ) . "\">{$next_text}</a>";
+			}
+
+			$output .= '</div>';
 		}
 
 		return $output;
@@ -830,7 +902,7 @@ abstract class Post_Abstract extends Block_Abstract {
 		if ( $remain > 0 ) {
 			while ( $remain > 0 ) {
 				$remain -= $perpage_ajax;
-				$curpage ++;
+				++$curpage;
 			}
 		}
 
