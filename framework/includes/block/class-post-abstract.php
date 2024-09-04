@@ -683,9 +683,14 @@ abstract class Post_Abstract extends Block_Abstract {
 	 * @return string
 	 */
 	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
-		$output        = '';
-		$icon          = esc_attr( $this->attributes['paginationIcon'] );
-		$icon_position = esc_attr( $this->attributes['paginationIconPosition'] );
+		$output          = '';
+		$icon            = esc_attr( $this->attributes['paginationIcon'] );
+		$icon_position   = esc_attr( $this->attributes['paginationIconPosition'] );
+		$pre_next_text   = esc_attr( $this->attributes['paginationPrevNextText'] );
+		$prev_inner_text = esc_attr( $this->attributes['paginationPrevText'] );
+		$next_innet_text = esc_attr( $this->attributes['paginationNextText'] );
+		$prev_icon       = esc_attr( $this->attributes['paginationPrevIcon'] );
+		$next_icon       = esc_attr( $this->attributes['paginationNextIcon'] );
 
 		if ( in_array( $this->attributes['paginationMode'], array( 'loadmore', 'scrollload' ), true ) && $next ) {
 			$output = '<span data-load="' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '" data-loading="' . esc_attr( $this->attributes['paginationLoadingText'] ) . '"> ' . esc_attr( $this->attributes['paginationLoadmoreText'] ) . '</span>';
@@ -706,57 +711,62 @@ abstract class Post_Abstract extends Block_Abstract {
 			$next = $next ? '' : 'disabled';
 			$prev = $prev ? '' : 'disabled';
 
-			$prev_text = '<i class="fas fa-chevron-left"></i>';
-			$next_text = '<i class="fas fa-chevron-right"></i>';
+			$prev_text = '<i class="' . $prev_icon . '"></i>';
+			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			if ( 1 ) {
-				$prev_text = '<i class="fas fa-chevron-left"></i> ' . esc_html__( 'Prev', 'gutenverse' );
-				$next_text = esc_html__( 'Next', 'gutenverse' ) . '  <i class="fas fa-chevron-right"></i>';
+			if ( $pre_next_text ) {
+				$prev_text = '<i class="' . $prev_icon . '"></i> ' . $prev_inner_text;
+				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
 
 			$output =
 			'<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">
-                    <div class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . esc_html__( 'Previous', 'gutenverse' ) . "\">{$prev_text}</div>
-                    <div class=\"btn-pagination next " . esc_attr( $next ) . '" title="' . esc_html__( 'Next', 'gutenverse' ) . "\">{$next_text}</div>
+                    <a href="#" class="btn-pagination prev ' . esc_attr( $prev ) . '" title="' . $prev_inner_text . "\">{$prev_text}</a>
+                    <a href=\"#\" class=\"btn-pagination next " . esc_attr( $next ) . '" title="' . $next_innet_text . "\">{$next_text}</a>
                 </div>";
 		}
 
 		if ( 'number' === $this->attributes['paginationMode'] && $total > 1 ) {
-			$prev_text = '<i class="fas fa-chevron-left"></i>';
-			$next_text = '<i class="fas fa-chevron-right"></i>';
+			$prev_text = '<i class="' . $prev_icon . '"></i>';
+			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			$output = '<div class="guten_block_nav ' . esc_attr( 'additional_class' ) . '" data-page="' . $page . '">';
+			if ( $pre_next_text ) {
+				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', 'gutenverse' );
+				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
+			}
+
+			$output = '<div class="guten_block_nav" data-page="' . $page . '">';
 
 			if ( $page > 1 ) {
-				$output .= '<div class="btn-pagination prev" title="' . esc_html__( 'Previous', 'gutenverse' ) . "\">{$prev_text}</div> ";
+				$output .= '<a href="#" class="btn-pagination prev" title="' . $prev_inner_text . "\">{$prev_text}</a> ";
 			}
 
 			if ( $page > 2 ) {
-				$output .= '<div class="btn-pagination" data-page="1">1</div> ';
+				$output .= '<a href="#" class="btn-pagination" data-page="1">1</a> ';
 				if ( $page > 3 ) {
 					$output .= '<span>...</span>  ';
 				}
 			}
 
 			if ( $page > 1 ) {
-				$output .= '<div class="btn-pagination" data-page="' . ( $page - 1 ) . '">' . ( $page - 1 ) . '</div> ';
+				$output .= '<a href="#" class="btn-pagination" data-page="' . ( $page - 1 ) . '">' . ( $page - 1 ) . '</a> ';
 			}
 
 			$output .= '<span class="btn-pagination current">' . $page . '</span> ';
 
 			if ( $page < $total ) {
-				$output .= '<div class="btn-pagination" data-page="' . ( $page + 1 ) . '">' . ( $page + 1 ) . '</div> ';
+				$output .= '<a href="#" class="btn-pagination" data-page="' . ( $page + 1 ) . '">' . ( $page + 1 ) . '</a> ';
 			}
 
 			if ( $page < $total - 1 ) {
 				if ( $page < $total - 2 ) {
 					$output .= '<span>...</span>  ';
 				}
-				$output .= '<div class="btn-pagination" data-page="' . $total . '">' . $total . '</div> ';
+				$output .= '<a href="#" class="btn-pagination" data-page="' . $total . '">' . $total . '</a> ';
 			}
 
 			if ( $page < $total ) {
-				$output .= '<div class="btn-pagination next" title="' . esc_html__( 'Next', 'gutenverse' ) . "\">{$next_text}</div>";
+				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', 'gutenverse' ) . "\">{$next_text}</a>";
 			}
 
 			$output .= '</div>';
