@@ -205,6 +205,30 @@ export const paginationStylePanel = (props) => {
             ]
         },
         {
+            id: 'paginationCurrentColor',
+            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            label: __('Current color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'paginationDisabledColor',
+            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            label: __('Disabled color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.disabled`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
             id: 'paginationHoverColor',
             show: switcher.paginationHover === 'hover',
             label: __('Hover color', 'gutenverse'),
@@ -226,6 +250,36 @@ export const paginationStylePanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
+        },
+        {
+            id: 'paginationCurrentBackground',
+            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            label: __('Current Background', 'gutenverse'),
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.current`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
+        },
+        {
+            id: 'paginationDisabledBackground',
+            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            label: __('Disabled Background', 'gutenverse'),
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.disabled`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }

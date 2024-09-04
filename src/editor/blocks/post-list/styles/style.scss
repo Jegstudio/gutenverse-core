@@ -131,9 +131,14 @@
             -webkit-transition: .2s ease;
             transition: .2s ease;
 
-            .disabled {
+            &.disabled {
                 color: #a0a0a0;
                 border-color: #eee;
+            }
+
+            &.current {
+                background-color: var(--guten-btn-bg-color,#0058e6);
+                color: var(--guten-btn-txt-color, #fff);
             }
         }
     }

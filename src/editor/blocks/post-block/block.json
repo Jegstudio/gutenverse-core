@@ -546,11 +546,27 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"paginationCurrentColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationDisabledColor": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"paginationHoverColor": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"paginationBackground": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationCurrentBackground": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationDisabledBackground": {
 			"type": "object",
 			"copyStyle": true
 		},

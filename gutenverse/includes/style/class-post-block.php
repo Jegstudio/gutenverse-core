@@ -1060,6 +1060,32 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['paginationCurrentColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['paginationCurrentColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['paginationDisabledColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['paginationDisabledColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['paginationHoverColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -1075,6 +1101,14 @@ class Post_Block extends Style_Abstract {
 
 		if ( isset( $this->attrs['paginationBackground'] ) ) {
 			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination", $this->attrs['paginationBackground'] );
+		}
+
+		if ( isset( $this->attrs['paginationCurrentBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.current", $this->attrs['paginationCurrentBackground'] );
+		}
+
+		if ( isset( $this->attrs['paginationDisabledBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.disabled", $this->attrs['paginationDisabledBackground'] );
 		}
 
 		if ( isset( $this->attrs['paginationHoverBackground'] ) ) {
