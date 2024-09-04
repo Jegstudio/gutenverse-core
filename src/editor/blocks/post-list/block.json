@@ -571,6 +571,10 @@
 		"paginationNextIcon": {
 			"type": "string",
 			"default": "fas fa-chevron-right"
+		},
+		"editParam": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

@@ -80,6 +80,7 @@ const PostBlockBlock = compose(
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
     const [postLoaded, setPostLoaded] = useState(0);
+    const [page, setPage] = useState(1);
     const postBlockRef = useRef();
 
     useEffect(() => {
@@ -98,6 +99,26 @@ const PostBlockBlock = compose(
                 .find('.guten-block-loadmore')
                 .on('click', () => {
                     setPostLoaded(postLoaded + parseInt(paginationNumberPost));
+                });
+            u(postBlockRef.current)
+                .find('.btn-pagination.next:not(.disabled)')
+                .on('click', () => {
+                    setPage(page + 1);
+                });
+            u(postBlockRef.current)
+                .find('.btn-pagination.prev:not(.disabled)')
+                .on('click', () => {
+                    setPage(page - 1);
+                });
+            u(postBlockRef.current)
+                .find('.btn-pagination')
+                .each((el) => {
+                    const page = el.getAttribute('data-page');
+                    if (page) {
+                        u(el).on('click', () => {
+                            setPage(parseInt(page, 10)); // Convert the page number to an integer and set the page
+                        });
+                    }
                 });
         }
     }, [response]);
@@ -157,7 +178,7 @@ const PostBlockBlock = compose(
                             paginationMode,
                             paginationLoadmoreText,
                             paginationLoadingText,
-                            paginationNumberPost,
+                            paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
                             paginationScrollLimit,
                             paginationIcon,
                             paginationIconPosition,
@@ -166,6 +187,9 @@ const PostBlockBlock = compose(
                             paginationNextText,
                             paginationPrevIcon,
                             paginationNextIcon,
+                            editParam: {
+                                page
+                            }
                         },
                     },
                 ),
@@ -228,6 +252,7 @@ const PostBlockBlock = compose(
         paginationNextText,
         paginationPrevIcon,
         paginationNextIcon,
+        page
     ]);
 
     const blockProps = useBlockProps({
