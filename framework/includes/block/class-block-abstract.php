@@ -103,6 +103,11 @@ abstract class Block_Abstract {
 	 * @param array $attributes .
 	 */
 	public function set_attributes( $attributes ) {
+		if ( isset( $attributes['editParam'] ) && $attributes['editParam'] ) {
+			if ( isset( $attributes['editParam']['page'] ) && $attributes['editParam']['page'] ) {
+				$attributes['paged'] = $attributes['editParam']['page'];
+			}
+		}
 		$this->attributes = $attributes;
 	}
 
