@@ -308,7 +308,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$attr['numberPost'] = intval( $attr['numberPost'] );
 		}
 
-		if ( ! isset( $attr['paginationNumberPost'] ) ) {
+		if ( ! isset( $attr['paginationNumberPost'] ) || ( isset( $attr['paginationMode'] ) && ( 'number' === $attr['paginationMode'] || 'prevnext' === $attr['paginationMode'] ) ) ) {
 			$attr['paginationNumberPost'] = $attr['numberPost'];
 		}
 
