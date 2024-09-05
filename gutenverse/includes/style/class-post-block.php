@@ -1089,7 +1089,7 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['paginationHoverColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover",
+					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -1112,7 +1112,7 @@ class Post_Block extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['paginationHoverBackground'] ) ) {
-			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:hover", $this->attrs['paginationHoverBackground'] );
+			$this->handle_background( ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover", $this->attrs['paginationHoverBackground'] );
 		}
 
 		if ( isset( $this->attrs['paginationBorder'] ) ) {
