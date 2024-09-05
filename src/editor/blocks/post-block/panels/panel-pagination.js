@@ -5,6 +5,9 @@ export const paginationPanel = (props) => {
     const {
         paginationMode,
         paginationPrevNextText,
+        setSwitcher,
+        switcher,
+        setAttributes
     } = props;
 
     return [
@@ -35,6 +38,10 @@ export const paginationPanel = (props) => {
                     value: 'number'
                 },
             ],
+            onChange: () => {
+                setAttributes({__paginationHover: 'normal'});
+                setSwitcher({ ...switcher, paginationHover: 'normal' });
+            }
         },
         {
             id: 'paginationPrevNextText',

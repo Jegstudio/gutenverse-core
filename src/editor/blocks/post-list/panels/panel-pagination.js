@@ -4,7 +4,10 @@ import { IconControl, NumberControl, RangeControl, SelectControl, TextControl, C
 export const paginationPanel = (props) => {
     const {
         paginationMode,
-        paginationPrevNextText
+        paginationPrevNextText,
+        setSwitcher,
+        switcher,
+        setAttributes
     } = props;
 
     return [
@@ -35,6 +38,10 @@ export const paginationPanel = (props) => {
                     value: 'number'
                 },
             ],
+            onChange: () => {
+                setAttributes({__paginationHover: 'normal'});
+                setSwitcher({ ...switcher, paginationHover: 'normal' });
+            }
         },
         {
             id: 'paginationPrevNextText',
