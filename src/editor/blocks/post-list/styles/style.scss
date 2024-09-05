@@ -128,17 +128,22 @@
             line-height: 30px;
             font-size: 13px;
             font-weight: 700;
-            -webkit-transition: .2s ease;
             transition: .2s ease;
+
+            i {
+                transition: none;
+            }
 
             &.disabled {
                 color: #a0a0a0;
                 border-color: #eee;
+                cursor: auto;
             }
 
             &.current {
                 background-color: var(--guten-btn-bg-color,#0058e6);
                 color: var(--guten-btn-txt-color, #fff);
+                cursor: auto;
             }
         }
     }
