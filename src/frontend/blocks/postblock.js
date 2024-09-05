@@ -206,13 +206,26 @@ class GutenversePostblock extends Default {
             currentPage = direction;
         }
 
+        let query = null;
+        let qApi = false;
+
+        if (window['GutenverseData'] && !isEmpty(window['GutenverseData']['query'])) {
+            query = window['GutenverseData']['query'];
+            qApi = true;
+        }
+
         apiFetch({
             path: addQueryArgs('/gutenverse-client/v1/postblock/data', {
                 attributes: {
                     ...settings,
                     paged: currentPage,
                     numberPost: postsPerPage,
-                    paginationNumberPost: postsPerPage
+                    paginationNumberPost: postsPerPage,
+                    qApi,
+                    qSearch: query && query['q_search'],
+                    qCategory: query && query['q_category_name'],
+                    qTag: query && query['q_tag'],
+                    qAuthor: query && query['q_author'],
                 },
             }),
         }).then((data) => {

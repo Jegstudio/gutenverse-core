@@ -209,7 +209,7 @@ export const paginationStylePanel = (props) => {
                         },
                         {
                             value: 'current',
-                            label: 'Current'
+                            label: 'Active'
                         }
                     ];
                 } else {
@@ -242,7 +242,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationCurrentColor',
             show: !switcher.paginationHover || switcher.paginationHover === 'current',
-            label: __('Current color', 'gutenverse'),
+            label: __('Active color', 'gutenverse'),
             component: ColorControl,
             style: [
                 {
@@ -270,7 +270,7 @@ export const paginationStylePanel = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -293,7 +293,7 @@ export const paginationStylePanel = (props) => {
         {
             id: 'paginationCurrentBackground',
             show: !switcher.paginationHover || switcher.paginationHover === 'current',
-            label: __('Current Background', 'gutenverse'),
+            label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
@@ -329,7 +329,7 @@ export const paginationStylePanel = (props) => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:hover`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore:hover, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.disabled):not(.current):hover`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
