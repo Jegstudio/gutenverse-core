@@ -10,7 +10,8 @@ export const paginationStylePanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        paginationMode
     } = props;
 
     const device = getDeviceType();
@@ -206,7 +207,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: 'number' === paginationMode,
             label: __('Current color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -218,7 +219,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: 'prevnext' === paginationMode,
             label: __('Disabled color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -257,7 +258,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: 'number' === paginationMode,
             label: __('Current Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -272,7 +273,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: 'prevnext' === paginationMode,
             label: __('Disabled Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
