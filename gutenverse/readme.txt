@@ -1,4 +1,4 @@
-=== Gutenverse – Gutenberg Blocks and Page Builder for Site Editor ===
+=== Gutenverse – Ultimate Block Addons and Page Builder for Site Editor ===
 
 Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
@@ -8,7 +8,7 @@ Stable tag: 2.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The best Gutenberg blocks editor, blocks addons, page builder and website builder for Full Site Editing FSE with ready to import template library.
+The best Gutenberg blocks editor, block addons, page builder and website builder for Full Site Editing FSE with ready to import template library.
 
 ## Description
 
