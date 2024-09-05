@@ -442,6 +442,10 @@
             -webkit-transition: .2s ease;
             transition: .2s ease;
 
+            i {
+                transition: none;
+            }
+
             &.disabled {
                 color: #a0a0a0;
                 border-color: #eee;
