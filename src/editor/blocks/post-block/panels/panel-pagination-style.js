@@ -10,7 +10,8 @@ export const paginationStylePanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        paginationMode
     } = props;
 
     const device = getDeviceType();
@@ -180,16 +181,50 @@ export const paginationStylePanel = (props) => {
         {
             id: '__paginationHover',
             component: SwitchControl,
-            options: [
-                {
-                    value: 'normal',
-                    label: 'Normal'
-                },
-                {
-                    value: 'hover',
-                    label: 'Hover'
+            options: (() => {
+                if ('prevnext' === paginationMode) {
+                    return [
+                        {
+                            value: 'normal',
+                            label: 'Normal'
+                        },
+                        {
+                            value: 'hover',
+                            label: 'Hover'
+                        },
+                        {
+                            value: 'disabled',
+                            label: 'Disabled'
+                        }
+                    ];
+                } else if ('number' === paginationMode) {
+                    return [
+                        {
+                            value: 'normal',
+                            label: 'Normal'
+                        },
+                        {
+                            value: 'hover',
+                            label: 'Hover'
+                        },
+                        {
+                            value: 'current',
+                            label: 'Current'
+                        }
+                    ];
+                } else {
+                    return [
+                        {
+                            value: 'normal',
+                            label: 'Normal'
+                        },
+                        {
+                            value: 'hover',
+                            label: 'Hover'
+                        }
+                    ];
                 }
-            ],
+            })(),
             onChange: ({ __paginationHover }) => setSwitcher({ ...switcher, paginationHover: __paginationHover })
         },
         {
@@ -206,7 +241,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: !switcher.paginationHover || switcher.paginationHover === 'current',
             label: __('Current color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -218,7 +253,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
             label: __('Disabled color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -257,7 +292,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: !switcher.paginationHover || switcher.paginationHover === 'current',
             label: __('Current Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -272,7 +307,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'normal',
+            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
             label: __('Disabled Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,

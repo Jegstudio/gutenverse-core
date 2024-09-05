@@ -137,7 +137,7 @@ const PostBlockBlock = compose(
                             inheritQuery,
                             postType,
                             postOffset,
-                            numberPost:
+                            numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
                                 parseInt(postLoaded) === parseInt(numberPost)
                                     ? numberPost
                                     : postLoaded,

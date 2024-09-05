@@ -124,7 +124,10 @@ const PostListBlock = compose(
                     inheritQuery,
                     postType,
                     postOffset,
-                    numberPost: parseInt(postLoaded) === parseInt(numberPost) ? numberPost : postLoaded,
+                    numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
+                        parseInt(postLoaded) === parseInt(numberPost)
+                            ? numberPost
+                            : postLoaded,
                     includePost,
                     excludePost,
                     includeCategory,
