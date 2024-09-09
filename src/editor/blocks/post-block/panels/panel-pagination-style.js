@@ -11,7 +11,9 @@ export const paginationStylePanel = (props) => {
         elementId,
         switcher,
         setSwitcher,
-        paginationMode
+        paginationMode,
+        setAttributes,
+        paginationWidthUnit
     } = props;
 
     const device = getDeviceType();
@@ -88,14 +90,16 @@ export const paginationStylePanel = (props) => {
             label: __('Width', 'gutenverse'),
             component: RangeControl,
             min: 1,
-            max: 100,
+            max: paginationWidthUnit === '%' ? 100 : 500,
             step: 1,
             allowDeviceControl: true,
-            unit: '%',
+            unit: ['%', 'px'],
+            setAttributes: setAttributes,
+            unitAttribute: 'paginationWidthUnit',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
-                    render: value => `width: ${value}%;`
+                    render: value => `width: ${value}${paginationWidthUnit};`
                 },
             ],
         },

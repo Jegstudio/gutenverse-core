@@ -99,6 +99,7 @@
         justify-content: space-between;
         position: relative;
         margin-top: 0 !important;
+        width: 100%;
 
         >* {
             margin-top: 1.5rem;
@@ -428,6 +429,10 @@
 
     .guten_block_nav {
         text-align: center;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 5px;
 
         .btn-pagination {
             color: #212121;
@@ -454,6 +459,13 @@
             &.current {
                 background-color: var(--guten-btn-bg-color,#0058e6);
                 color: var(--guten-btn-txt-color, #fff);
+            }
+
+            &.next, &.prev {
+                align-items: center;
+                display: inline-flex;
+                gap: 5px;
+                justify-content: center;
             }
         }
     }

@@ -635,7 +635,8 @@ class Post_Block extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore",
 					'property'       => function ( $value ) {
-						return "width: $value%;";
+						$unit = $this->attrs['readmoreWidthUnit'];
+						return "width: {$value}{$unit};";
 					},
 					'value'          => $this->attrs['readmoreWidth'],
 					'device_control' => true,
@@ -978,7 +979,8 @@ class Post_Block extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination",
 					'property'       => function ( $value ) {
-						return "width: {$value}%;";
+						$unit = $this->attrs['paginationWidthUnit'];
+						return "width: {$value}{$unit};";
 					},
 					'value'          => $this->attrs['paginationWidth'],
 					'device_control' => true,

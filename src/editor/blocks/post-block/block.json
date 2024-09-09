@@ -410,6 +410,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"readmoreWidthUnit": {
+			"type": "string",
+			"copyStyle": true,
+			"default": "%"
+		},
 		"readmoreAlign":{
 			"type": "object",
 			"copyStyle": true
@@ -529,6 +534,11 @@
 		"paginationWidth": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"paginationWidthUnit": {
+			"type": "string",
+			"copyStyle": true,
+			"default": "%"
 		},
 		"paginationIconSpacing": {
 			"type": "object",
