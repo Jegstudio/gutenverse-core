@@ -9,7 +9,7 @@ import isEmpty from 'lodash/isEmpty';
 // Note:
 // To add multi unit in range control:
 // 1. unit prop need to be an array
-// 2. create unitAttribute in block.json to save the unit option
+// 2. create unitAttribute in block.json to save the unit option, pass the name and value as an object prop
 // 3. pass the setAttributes function
 // 4. see post block (pagination & readmore) for reference
 
@@ -30,7 +30,7 @@ const RangeControl = ({
     description = '',
     isParseFloat = false,
     setAttributes = () => {},
-    unitAttribute,
+    unitAttribute = {},
     unit,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
@@ -38,7 +38,7 @@ const RangeControl = ({
     const [updating, setUpdating] = useState(false);
     const inputRef = useRef(null);
     const unitArray = Array.isArray(unit)? unit : [];
-    const [selectedUnit, setSelectedUnit] = useState(unitArray[0]);
+    const [selectedUnit, setSelectedUnit] = useState(unitAttribute.value);
     const [openUnitSelect, setOpenUnitSelect] = useState(false);
     const containerRef = useRef(null);
     const unitRef = useRef(null);
@@ -157,7 +157,7 @@ const RangeControl = ({
                                 key={index}
                                 onClick={() => {
                                     setSelectedUnit(unit);
-                                    setAttributes({[unitAttribute]: unit});
+                                    setAttributes({[unitAttribute.name]: unit});
                                 }}
                                 onMouseDown={onStart}
                                 onMouseUp={onEnd}>
