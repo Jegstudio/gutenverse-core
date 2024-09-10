@@ -32,7 +32,7 @@ export const jobPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub,
-                            .${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
+                            .${elementId} .profile-sub> a, #${elementId} .profile-sub> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -44,7 +44,7 @@ export const jobPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}:hover .profile-sub, #${elementId}:hover .profile-sub, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub,
-                            .${elementId}:hover .profile-sub, #${elementId}:hover .profile-sub, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
+                            .${elementId}:hover .profile-sub> a, #${elementId}:hover .profile-sub> a, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
                     render: value => handleColor(value, 'color')
                 }
             ]
