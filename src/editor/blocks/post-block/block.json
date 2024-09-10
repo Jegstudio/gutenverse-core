@@ -540,6 +540,15 @@
 			"copyStyle": true,
 			"default": "%"
 		},
+		"paginationNavigationWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationNavigationWidthUnit": {
+			"type": "string",
+			"copyStyle": true,
+			"default": "%"
+		},
 		"paginationIconSpacing": {
 			"type": "object",
 			"copyStyle": true

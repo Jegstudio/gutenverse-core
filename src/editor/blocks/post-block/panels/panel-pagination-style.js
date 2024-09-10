@@ -13,7 +13,8 @@ export const paginationStylePanel = (props) => {
         setSwitcher,
         paginationMode,
         setAttributes,
-        paginationWidthUnit
+        paginationWidthUnit,
+        paginationNavigationWidthUnit
     } = props;
 
     const device = getDeviceType();
@@ -87,7 +88,8 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationWidth',
-            label: __('Width', 'gutenverse'),
+            label: 'number' === paginationMode ? __('Number Width', 'gutenverse') : __('Width', 'gutenverse'),
+            show: 'prevnext' !== paginationMode,
             component: RangeControl,
             min: 1,
             max: paginationWidthUnit === '%' ? 100 : 500,
@@ -95,11 +97,31 @@ export const paginationStylePanel = (props) => {
             allowDeviceControl: true,
             unit: ['%', 'px'],
             setAttributes: setAttributes,
-            unitAttribute: 'paginationWidthUnit',
+            unitAttribute: {name: 'paginationWidthUnit', value: paginationWidthUnit},
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
                     render: value => `width: ${value}${paginationWidthUnit};`
+                },
+            ],
+        },
+        {
+            id: 'paginationNavigationWidth',
+            label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Button Width', 'gutenverse'),
+            show: 'number' === paginationMode || 'prevnext' === paginationMode,
+            component: RangeControl,
+            min: 1,
+            max: paginationNavigationWidthUnit === '%' ? 100 : 500,
+            step: 1,
+            allowDeviceControl: true,
+            unit: ['%', 'px'],
+            setAttributes: setAttributes,
+            unitAttribute: {name: 'paginationNavigationWidthUnit', value: paginationNavigationWidthUnit},
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev`,
+                    allowRender: () => 'number' === paginationMode,
+                    render: value => `width: ${value}${paginationNavigationWidthUnit};`
                 },
             ],
         },
