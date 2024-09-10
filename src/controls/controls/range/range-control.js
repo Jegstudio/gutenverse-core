@@ -6,6 +6,13 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
 
+// Note:
+// To add multi unit in range control:
+// 1. unit prop need to be an array
+// 2. create unitAttribute in block.json to save the unit option
+// 3. pass the setAttributes function
+// 4. see post block (pagination & readmore) for reference
+
 const RangeControl = ({
     label,
     min,
@@ -22,7 +29,7 @@ const RangeControl = ({
     onStyleChange,
     description = '',
     isParseFloat = false,
-    setAttributes,
+    setAttributes = () => {},
     unitAttribute,
     unit,
 }) => {
