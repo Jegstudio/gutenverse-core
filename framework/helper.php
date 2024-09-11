@@ -545,9 +545,11 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
 	 * Check if gutenverse is compatible.
+	 *
+	 * @param string $before_ver WordPress Version.
 	 */
-	function gutenverse_compatible_check() {
-		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], '5.9', '>=' );
+	function gutenverse_compatible_check( $before_ver = '5.9' ) {
+		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], $before_ver, '>=' );
 	}
 }
 
