@@ -366,9 +366,9 @@ class Api {
 	 * @param object $request .
 	 */
 	public function install_theme( $request ) {
-		$theme = $this->esc_data( $request->get_param( 'slug' ), 'string' );
-		$info  = $this->esc_data( $request->get_param( 'info' ), 'string' );
-		$key   = $this->esc_data( $request->get_param( 'key' ), 'string' );
+		$theme = $this->gutenverse_api_esc_data( $request->get_param( 'slug' ), 'string' );
+		$info  = $this->gutenverse_api_esc_data( $request->get_param( 'info' ), 'string' );
+		$key   = $this->gutenverse_api_esc_data( $request->get_param( 'key' ), 'string' );
 
 		if ( empty( $info ) ) {
 			$info = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1/theme/information';
@@ -555,9 +555,9 @@ class Api {
 	 * @return WP_Rest
 	 */
 	public function search_theme( $request ) {
-		$keyword = $this->esc_data( $request->get_param( 'keyword' ), 'string' );
-		$paging  = $this->esc_data( $request->get_param( 'paging' ), 'integer' );
-		$filter  = $this->esc_data( $request->get_param( 'filter' ), 'string' );
+		$keyword = $this->gutenverse_api_esc_data( $request->get_param( 'keyword' ), 'string' );
+		$paging  = $this->gutenverse_api_esc_data( $request->get_param( 'paging' ), 'integer' );
+		$filter  = $this->gutenverse_api_esc_data( $request->get_param( 'filter' ), 'string' );
 
 		$result = array();
 		$themes = $this->filter_layout(
@@ -622,8 +622,8 @@ class Api {
 	 * @return WP_Rest
 	 */
 	public function section_like_state( $request ) {
-		$slug  = $this->esc_data( $request->get_param( 'slug' ), 'string' );
-		$state = $this->esc_data( $request->get_param( 'state' ), 'boolean' );
+		$slug  = $this->gutenverse_api_esc_data( $request->get_param( 'slug' ), 'string' );
+		$state = $this->gutenverse_api_esc_data( $request->get_param( 'state' ), 'boolean' );
 
 		return $this->like_state( $slug, $state, 'liked_section' );
 	}
@@ -636,8 +636,8 @@ class Api {
 	 * @return WP_Rest
 	 */
 	public function layout_like_state( $request ) {
-		$slug  = $this->esc_data( $request->get_param( 'slug' ), 'string' );
-		$state = $this->esc_data( $request->get_param( 'state' ), 'boolean' );
+		$slug  = $this->gutenverse_api_esc_data( $request->get_param( 'slug' ), 'string' );
+		$state = $this->gutenverse_api_esc_data( $request->get_param( 'state' ), 'boolean' );
 
 		return $this->like_state( $slug, $state, 'liked_layout' );
 	}
@@ -707,7 +707,7 @@ class Api {
 	 *
 	 * @return mixed
 	 */
-	private function esc_data( $value, $type = 'string' ) {
+	private function gutenverse_api_esc_data( $value, $type = 'string' ) {
 		switch ( $type ) {
 			case 'string':
 				return esc_html( sanitize_text_field( wp_unslash( $value ) ) );
@@ -783,7 +783,7 @@ class Api {
 	 * @param object $request Request Object.
 	 */
 	public function notice_close( $request ) {
-		$notice_id = $this->esc_data( $request->get_param( 'id' ), 'string' );
+		$notice_id = $this->gutenverse_api_esc_data( $request->get_param( 'id' ), 'string' );
 		update_option( "gutenverse_{$notice_id}", true );
 
 		return false;
@@ -866,8 +866,8 @@ class Api {
 	 */
 	public function section_categories( $request ) {
 		$categories = $this->get_json_data( 'section-categories' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
-		$favorite   = $this->esc_data( $request->get_param( 'favorite' ), 'boolean' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
+		$favorite   = $this->gutenverse_api_esc_data( $request->get_param( 'favorite' ), 'boolean' );
 		$filters    = array(
 			'license' => $license,
 		);
@@ -982,9 +982,9 @@ class Api {
 	 */
 	public function section_search( $request ) {
 		$liked      = Meta_Option::instance()->get_option( 'liked_section' );
-		$categories = $this->esc_data( $request->get_param( 'categories' ), 'integer' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
-		$paging     = $this->esc_data( $request->get_param( 'paging' ), 'integer' );
+		$categories = $this->gutenverse_api_esc_data( $request->get_param( 'categories' ), 'integer' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
+		$paging     = $this->gutenverse_api_esc_data( $request->get_param( 'paging' ), 'integer' );
 
 		$result   = array();
 		$sections = $this->filter_section(
@@ -1016,9 +1016,9 @@ class Api {
 	 */
 	public function layout_categories( $request ) {
 		$categories = $this->get_json_data( 'theme-categories' );
-		$keyword    = $this->esc_data( $request->get_param( 'keyword' ), 'string' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
-		$favorite   = $this->esc_data( $request->get_param( 'favorite' ), 'boolean' );
+		$keyword    = $this->gutenverse_api_esc_data( $request->get_param( 'keyword' ), 'string' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
+		$favorite   = $this->gutenverse_api_esc_data( $request->get_param( 'favorite' ), 'boolean' );
 
 		$filters = array(
 			'keyword' => $keyword,
@@ -1113,10 +1113,10 @@ class Api {
 	 */
 	public function layout_search( $request ) {
 		$liked      = Meta_Option::instance()->get_option( 'liked_layout' );
-		$categories = $this->esc_data( $request->get_param( 'categories' ), 'integer' );
-		$keyword    = $this->esc_data( $request->get_param( 'keyword' ), 'string' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
-		$paging     = $this->esc_data( $request->get_param( 'paging' ), 'integer' );
+		$categories = $this->gutenverse_api_esc_data( $request->get_param( 'categories' ), 'integer' );
+		$keyword    = $this->gutenverse_api_esc_data( $request->get_param( 'keyword' ), 'string' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
+		$paging     = $this->gutenverse_api_esc_data( $request->get_param( 'paging' ), 'integer' );
 
 		$result  = array();
 		$layouts = $this->filter_layout(
@@ -1151,8 +1151,8 @@ class Api {
 	 */
 	public function liked_layout( $request ) {
 		$liked      = Meta_Option::instance()->get_option( 'liked_layout' );
-		$categories = (int) $this->esc_data( $request->get_param( 'categories' ), 'integer' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
+		$categories = (int) $this->gutenverse_api_esc_data( $request->get_param( 'categories' ), 'integer' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
 
 		$result = array();
 		$liked  = ! empty( $liked ) ? $liked : array();
@@ -1188,8 +1188,8 @@ class Api {
 	 */
 	public function liked_section( $request ) {
 		$liked      = Meta_Option::instance()->get_option( 'liked_section' );
-		$categories = (int) $this->esc_data( $request->get_param( 'categories' ), 'integer' );
-		$license    = $this->esc_data( $request->get_param( 'license' ), 'string' );
+		$categories = (int) $this->gutenverse_api_esc_data( $request->get_param( 'categories' ), 'integer' );
+		$license    = $this->gutenverse_api_esc_data( $request->get_param( 'license' ), 'string' );
 
 		$result = array();
 		$liked  = ! empty( $liked ) ? $liked : array();
