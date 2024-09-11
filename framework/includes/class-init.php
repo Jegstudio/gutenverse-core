@@ -141,6 +141,7 @@ class Init {
 	public function init_hook() {
 		// actions.
 		add_action( 'admin_notices', array( $this, 'notice_install_plugin' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'notice_install_plugin_script' ) );
 		add_action( 'rest_api_init', array( $this, 'init_api' ) );
 		add_action( 'activated_plugin', array( $this, 'flush_rewrite_rules' ) );
 		add_action( 'admin_init', array( $this, 'redirect_to_dashboard' ) );
@@ -339,80 +340,6 @@ class Init {
 			return;
 		}
 		?>
-		<style>
-			.install-gutenverse-plugin-notice {
-				border: 1px solid #E6E6EF;
-				border-radius: 5px;
-				padding: 35px 40px;
-				position: relative;
-				overflow: hidden;
-				background-position: right top;
-				background-repeat: no-repeat;
-			}
-
-			.install-gutenverse-plugin-notice .notice-dismiss {
-				top: 20px;
-				right: 20px;
-				padding: 0;
-			}
-
-			.install-gutenverse-plugin-notice .notice-dismiss:before {
-				content: "\f335";
-				font-size: 17px;
-				width: 25px;
-				height: 25px;
-				line-height: 25px;
-				border: 1px solid #E6E6EF;
-				border-radius: 3px;
-				color: #fff;
-			}
-
-			.install-gutenverse-plugin-notice h3 {
-				margin-top: 5px;
-				font-weight: 700;
-				font-size: 18px;
-			}
-
-			.install-gutenverse-plugin-notice p {
-				font-size: 14px;
-				font-weight: 300;
-			}
-
-			.install-gutenverse-plugin-notice .gutenverse-bottom {
-				display: flex;
-				align-items: center;
-				margin-top: 20px;
-			}
-
-			.install-gutenverse-plugin-notice a {
-				text-decoration: none;
-				margin-right: 20px;
-			}
-
-			.install-gutenverse-plugin-notice a.gutenverse-button {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", serif, serif
-				text-decoration: none;
-				cursor: pointer;
-				font-size: 12px;
-				line-height: 18px;
-				border-radius: 17px;
-				background: #3B57F7;
-				color: #fff;
-				padding: 8px 30px;
-				font-weight: 300;
-			}
-		</style>
-		<script>
-		jQuery( function( $ ) {
-			$( 'div.notice.install-gutenverse-plugin-notice' ).on( 'click', 'button.notice-dismiss', function( event ) {
-				event.preventDefault();
-
-				$.post( ajaxurl, {
-					action: 'gutenverse_set_admin_notice_viewed'
-				} );
-			} );
-		} );
-		</script>
 		<div class="notice is-dismissible install-gutenverse-plugin-notice">
 			<div class="gutenverse-notice-inner">
 				<div class="gutenverse-notice-content">
@@ -422,5 +349,39 @@ class Init {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Show notification to install Gutenverse Plugin script.
+	 */
+	public function notice_install_plugin_script() {
+		// skip if compatible.
+		if ( gutenverse_compatible_check() ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( isset( $screen->parent_file ) && 'plugins.php' === $screen->parent_file && 'update' === $screen->id ) {
+			return;
+		}
+
+		if ( 'true' === get_user_meta( get_current_user_id(), 'gutenverse_install_notice', true ) ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'gutenverse-core-install-plugin-notice',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/admin/css/install-plugin-notice.css',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION
+		);
+
+		wp_enqueue_script(
+			'gutenverse-core-install-plugin-notice',
+			GUTENVERSE_FRAMEWORK_URL . '/assets/admin/js/install-plugin-notice.js',
+			array(),
+			GUTENVERSE_FRAMEWORK_VERSION,
+			true
+		);
 	}
 }

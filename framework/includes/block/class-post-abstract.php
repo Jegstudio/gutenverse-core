@@ -156,7 +156,7 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		if ( 'both' === $date_type ) {
 			$output = gutenverse_get_post_date( $post, $date_format, 'published', $custom_format );
-			$output = $output . esc_html__( ' - Updated on ', 'gutenverse' );
+			$output = $output . esc_html__( ' - Updated on ', '--gctd--' );
 			$output = $output . gutenverse_get_post_date( $post, $date_format, 'modified', $custom_format );
 		} else {
 			$output = gutenverse_get_post_date( $post, $date_format, $date_type, $custom_format );
@@ -203,12 +203,6 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		if ( isset( $attr['uniqueContent'] ) && 'disable' !== $attr['uniqueContent'] ) {
 			$this->manager->add_unique_article( $attr['uniqueContent'], $this->collect_post_id( $result ) );
-		}
-
-		if ( isset( $result['result'] ) ) {
-			foreach ( $result['result'] as $post ) {
-				do_action( 'guten_json_archive_push', $post->ID );
-			}
 		}
 
 		return $result;
@@ -731,7 +725,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$next_text = '<i class="' . $next_icon . '"></i>';
 
 			if ( $pre_next_text ) {
-				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', 'gutenverse' );
+				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', '--gctd--' );
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
 
@@ -766,7 +760,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			}
 
 			if ( $page < $total ) {
-				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', 'gutenverse' ) . "\">{$next_text}</a>";
+				$output .= '<a href="#" class="btn-pagination next" title="' . esc_html__( 'Next', '--gctd--' ) . "\">{$next_text}</a>";
 			}
 
 			$output .= '</div>';

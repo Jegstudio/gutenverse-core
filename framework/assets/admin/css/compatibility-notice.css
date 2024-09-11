@@ -1,0 +1,9 @@
+.gutenverse-upgrade-notice.important .notice-logo {
+    background: #ffe2e2;
+    border-left-color: #ff0909;
+}
+
+.gutenverse-upgrade-notice .plugin-list {
+    list-style: disc;
+    padding-left: 16px;
+}
