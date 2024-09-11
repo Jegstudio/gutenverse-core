@@ -549,6 +549,22 @@
 			"copyStyle": true,
 			"default": "%"
 		},
+		"numberGap": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationHeight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationNavigationHeight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"navigationAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"paginationIconSpacing": {
 			"type": "object",
 			"copyStyle": true

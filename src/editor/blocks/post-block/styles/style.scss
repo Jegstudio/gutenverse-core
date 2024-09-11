@@ -433,6 +433,8 @@
         width: 100%;
         justify-content: center;
         gap: 5px;
+        height: fit-content;
+        align-items: center;
 
         .btn-pagination {
             color: #212121;
@@ -446,6 +448,7 @@
             font-weight: 700;
             -webkit-transition: .2s ease;
             transition: .2s ease;
+            height: fit-content;
 
             i {
                 transition: none;
@@ -467,6 +470,12 @@
                 gap: 5px;
                 justify-content: center;
             }
+        }
+
+        span {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
         }
     }
 }

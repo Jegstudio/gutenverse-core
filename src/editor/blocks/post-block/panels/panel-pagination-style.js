@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { AlignCenter, AlignLeft, AlignRight, AlignJustify } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
@@ -14,12 +14,47 @@ export const paginationStylePanel = (props) => {
         paginationMode,
         setAttributes,
         paginationWidthUnit,
-        paginationNavigationWidthUnit
+        paginationNavigationWidthUnit,
     } = props;
 
     const device = getDeviceType();
 
     return [
+        {
+            id: 'navigationAlign',
+            label: __('Alignment', 'gutenverse'),
+            allowDeviceControl: true,
+            show: 'prevnext' === paginationMode,
+            component: IconRadioControl,
+            options: [
+                {
+                    label: __('Left', 'gutenverse'),
+                    value: 'left',
+                    icon: <AlignLeft/>,
+                },
+                {
+                    label: __('Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter/>,
+                },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'right',
+                    icon: <AlignRight/>,
+                },
+                {
+                    label: __('Edge', 'gutenverse'),
+                    value: 'space-between',
+                    icon: <AlignJustify/>,
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav`,
+                    render: value => `justify-content: ${value};`
+                }
+            ]
+        },
         {
             id: 'paginationTypography',
             label: __('Typography', 'gutenverse'),
@@ -54,7 +89,7 @@ export const paginationStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]
@@ -87,6 +122,23 @@ export const paginationStylePanel = (props) => {
             ]
         },
         {
+            id: 'numberGap',
+            label: __('Number Gap', 'gutenverse'),
+            show: 'number' === paginationMode,
+            component: RangeControl,
+            min: 0,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number  .guten_block_nav`,
+                    render: value => `gap: ${value}px;`
+                }
+            ]
+        },
+        {
             id: 'paginationWidth',
             label: 'number' === paginationMode ? __('Number Width', 'gutenverse') : __('Width', 'gutenverse'),
             show: 'prevnext' !== paginationMode,
@@ -100,14 +152,14 @@ export const paginationStylePanel = (props) => {
             unitAttribute: {name: 'paginationWidthUnit', value: paginationWidthUnit},
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
+                    selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock:not(.guten-pagination-prevnext) .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
                     render: value => `width: ${value}${paginationWidthUnit};`
                 },
             ],
         },
         {
             id: 'paginationNavigationWidth',
-            label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Button Width', 'gutenverse'),
+            label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Width', 'gutenverse'),
             show: 'number' === paginationMode || 'prevnext' === paginationMode,
             component: RangeControl,
             min: 1,
@@ -119,9 +171,44 @@ export const paginationStylePanel = (props) => {
             unitAttribute: {name: 'paginationNavigationWidthUnit', value: paginationNavigationWidthUnit},
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock .guten_block_nav .btn-pagination.prev`,
-                    allowRender: () => 'number' === paginationMode,
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
                     render: value => `width: ${value}${paginationNavigationWidthUnit};`
+                },
+            ],
+        },
+        {
+            id: 'paginationHeight',
+            label: __('Number Height', 'gutenverse'),
+            show: 'number' === paginationMode,
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
+                    allowRender: () => 'number' === paginationMode,
+                    render: value => `line-height: ${value}px;`
+                },
+            ],
+        },
+        {
+            id: 'paginationNavigationHeight',
+            label: __('Navigation Height', 'gutenverse'),
+            show: 'number' === paginationMode,
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
+                    render: value => `line-height: ${value}px;`
                 },
             ],
         },
