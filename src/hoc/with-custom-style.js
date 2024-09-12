@@ -308,7 +308,10 @@ export const withCustomStyle = panelList => BlockElement => {
             if (elementRef) {
                 const observer = new IntersectionObserver(
                     ([entry]) => setIsVisible(entry.isIntersecting),
-                    { threshold: 0.1 } // Adjust as needed
+                    {
+                        rootMargin: '10% 0px 0px 0px', // top margin is 10% of the viewport height
+                        threshold: 0
+                    }
                 );
                 observer.observe(elementRef);
 
