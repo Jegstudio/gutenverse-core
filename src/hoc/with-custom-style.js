@@ -50,6 +50,8 @@ export const withCustomStyle = panelList => BlockElement => {
         const [headElement, setHeadElement] = useState(null);
         const [refreshId, setRefreshId] = useState(null);
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
+        const [isVisible, setIsVisible] = useState(false);
+
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
 
@@ -275,7 +277,7 @@ export const withCustomStyle = panelList => BlockElement => {
          * Render style on event change
          */
         useEffect(() => {
-            if (elementId !== undefined) {
+            if (elementId !== undefined && isVisible) {
                 renderStyle();
             }
         }, [
@@ -285,6 +287,7 @@ export const withCustomStyle = panelList => BlockElement => {
             confirmSignal,
             deviceType,
             additionalAttribute,
+            isVisible,
             ...renderStyleCustomDeps(props),
         ]);
 
@@ -296,20 +299,34 @@ export const withCustomStyle = panelList => BlockElement => {
                         const headEl = windowEl.document.getElementsByTagName('head')[0];
                         setHeadElement(headEl);
                     }
-                }, 1);
+                }, 500);
             }
         }, [elementRef]);
+
+        // Set up IntersectionObserver to check visibility
+        useEffect(() => {
+            if (elementRef) {
+                const observer = new IntersectionObserver(
+                    ([entry]) => setIsVisible(entry.isIntersecting),
+                    { threshold: 0.1 } // Adjust as needed
+                );
+                observer.observe(elementRef);
+
+                return () => observer.unobserve(elementRef);
+            }
+        }, [elementRef]);
+
         return <>
-            {hasIcon && (
+            {isVisible && hasIcon && (
                 <Helmet head={headElement}>
                     <link rel="stylesheet" href={gtniconURL} media="all"></link>
                     <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
                 </Helmet>
             )}
-            <Helmet device={deviceType} head={headElement}>
+            { isVisible && <Helmet device={deviceType} head={headElement}>
                 {elementId !== undefined && renderGoogleFont()}
                 {elementId !== undefined && renderCustomFont()}
-            </Helmet>
+            </Helmet>}
             {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
             <BlockElement
                 {...props}
