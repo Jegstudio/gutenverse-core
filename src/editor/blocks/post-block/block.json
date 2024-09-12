@@ -410,11 +410,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"readmoreWidthUnit": {
-			"type": "string",
-			"copyStyle": true,
-			"default": "%"
-		},
 		"readmoreAlign":{
 			"type": "object",
 			"copyStyle": true
@@ -535,19 +530,9 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"paginationWidthUnit": {
-			"type": "string",
-			"copyStyle": true,
-			"default": "%"
-		},
 		"paginationNavigationWidth": {
 			"type": "object",
 			"copyStyle": true
-		},
-		"paginationNavigationWidthUnit": {
-			"type": "string",
-			"copyStyle": true,
-			"default": "%"
 		},
 		"numberGap": {
 			"type": "object",

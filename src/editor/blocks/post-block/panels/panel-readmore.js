@@ -10,8 +10,6 @@ export const readmorePanel = (props) => {
         elementId,
         switcher,
         setSwitcher,
-        readmoreWidthUnit,
-        setAttributes
     } = props;
 
     const device = getDeviceType();
@@ -132,18 +130,29 @@ export const readmorePanel = (props) => {
         {
             id: 'readmoreWidth',
             label: __('Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             min: 1,
-            max: readmoreWidthUnit === '%' ? 100 : 500,
+            max: 500,
             step: 1,
-            unit: ['%', 'px'],
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 500,
+                    step: 1
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                },
+            },
             allowDeviceControl: true,
-            setAttributes: setAttributes,
-            unitAttribute: 'readmoreWidthUnit',
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
-                    render: value => `width: ${value}${readmoreWidthUnit};`
+                    render: value => handleUnitPoint(value, 'width')
                 },
             ],
         },

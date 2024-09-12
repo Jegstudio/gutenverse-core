@@ -12,9 +12,6 @@ export const paginationStylePanel = (props) => {
         switcher,
         setSwitcher,
         paginationMode,
-        setAttributes,
-        paginationWidthUnit,
-        paginationNavigationWidthUnit,
     } = props;
 
     const device = getDeviceType();
@@ -142,18 +139,29 @@ export const paginationStylePanel = (props) => {
             id: 'paginationWidth',
             label: 'number' === paginationMode ? __('Number Width', 'gutenverse') : __('Width', 'gutenverse'),
             show: 'prevnext' !== paginationMode,
-            component: RangeControl,
+            component: SizeControl,
             min: 1,
-            max: paginationWidthUnit === '%' ? 100 : 500,
+            max: 500,
             step: 1,
             allowDeviceControl: true,
-            unit: ['%', 'px'],
-            setAttributes: setAttributes,
-            unitAttribute: {name: 'paginationWidthUnit', value: paginationWidthUnit},
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 500,
+                    step: 1
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                },
+            },
             style: [
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination .guten-block-loadmore, .${elementId} .guten-postblock:not(.guten-pagination-prevnext) .guten_block_nav .btn-pagination:not(.next):not(.prev)`,
-                    render: value => `width: ${value}${paginationWidthUnit};`
+                    render: value => handleUnitPoint(value, 'width')
                 },
             ],
         },
@@ -161,19 +169,30 @@ export const paginationStylePanel = (props) => {
             id: 'paginationNavigationWidth',
             label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Width', 'gutenverse'),
             show: 'number' === paginationMode || 'prevnext' === paginationMode,
-            component: RangeControl,
+            component: SizeControl,
             min: 1,
-            max: paginationNavigationWidthUnit === '%' ? 100 : 500,
+            max: 500,
             step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 500,
+                    step: 1
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1
+                },
+            },
             allowDeviceControl: true,
-            unit: ['%', 'px'],
-            setAttributes: setAttributes,
-            unitAttribute: {name: 'paginationNavigationWidthUnit', value: paginationNavigationWidthUnit},
             style: [
                 {
                     selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
-                    render: value => `width: ${value}${paginationNavigationWidthUnit};`
+                    render: value => handleUnitPoint(value, 'width')
                 },
             ],
         },

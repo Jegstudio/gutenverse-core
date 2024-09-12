@@ -635,8 +635,7 @@ class Post_Block extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore",
 					'property'       => function ( $value ) {
-						$unit = $this->attrs['readmoreWidthUnit'];
-						return "width: {$value}{$unit};";
+						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['readmoreWidth'],
 					'device_control' => true,
@@ -992,8 +991,7 @@ class Post_Block extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten-block-pagination .guten-block-loadmore, .{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination:not(.next):not(.prev)",
 					'property'       => function ( $value ) {
-						$unit = $this->attrs['paginationWidthUnit'];
-						return "width: {$value}{$unit};";
+						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['paginationWidth'],
 					'device_control' => true,
@@ -1007,8 +1005,7 @@ class Post_Block extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
 					'property'       => function ( $value ) {
-						$unit = $this->attrs['paginationNavigationWidthUnit'];
-						return "width: {$value}{$unit};";
+						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['paginationNavigationWidth'],
 					'device_control' => true,
