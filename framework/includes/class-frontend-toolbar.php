@@ -135,7 +135,7 @@ class Frontend_Toolbar {
 						$block_template = resolve_block_template(
 							$this->hierarchy['type'],
 							$this->hierarchy['templates'],
-							null
+							''
 						);
 
 						$this->the_toolbar( $admin_bar, $block_template );
@@ -151,6 +151,7 @@ class Frontend_Toolbar {
 						)
 					);
 				}
+
 				$admin_bar->add_menu(
 					array(
 						'id'     => 'backend',
@@ -285,6 +286,18 @@ class Frontend_Toolbar {
 				'parent' => 'gutenverse',
 				'title'  => esc_html__( 'Rate Us ★★★★★', '--gctd--' ),
 				'href'   => 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post',
+				'meta'   => array(
+					'target' => '_blank',
+				),
+			)
+		);
+
+		$admin_bar->add_menu(
+			array(
+				'id'     => 'help-documentation',
+				'parent' => 'gutenverse',
+				'title'  => esc_html__( 'Help/Documentation', '--gctd--' ),
+				'href'   => 'https://gutenverse.com/docs/',
 				'meta'   => array(
 					'target' => '_blank',
 				),
