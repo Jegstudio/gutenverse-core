@@ -330,12 +330,14 @@ class Frontend_Toolbar {
 	 */
 	public function the_toolbar( $admin_bar, $block ) {
 		if ( $block ) {
+			$is_wp_above_6_4 = version_compare( $GLOBALS['wp_version'], '6.4', '>=' );
+
 			$admin_bar->add_menu(
 				array(
 					'id'     => 'edit-template',
 					'parent' => 'gutenverse',
 					'title'  => esc_html__( 'Edit Template: ', '--gctd--' ) . '<strong>' . $block->title . '</strong>',
-					'href'   => admin_url( 'site-editor.php' ) . '?postType=' . $block->type . '&postId=' . $block->id,
+					'href'   => $is_wp_above_6_4 ? ( admin_url( 'site-editor.php' ) . '?postId=' . $block->id . '&postType=' . $block->type . '&canvas=edit' ) : ( admin_url( 'site-editor.php' ) . '?postType=' . $block->type . '&postId=' . $block->id ),
 					'meta'   => array(
 						'target' => 'blank',
 					),
@@ -360,7 +362,7 @@ class Frontend_Toolbar {
 							'id'     => 'edit-template-' . $part['attrs']['slug'],
 							'parent' => 'template-part',
 							'title'  => esc_html__( 'Edit: ', '--gctd--' ) . '<strong>' . $part['attrs']['slug'] . '</strong>',
-							'href'   => admin_url( 'site-editor.php' ) . '?postType=wp_template_part&postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'],
+							'href'   => $is_wp_above_6_4 ? ( admin_url( 'site-editor.php' ) . '?postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'] . '&postType=wp_template_part&canvas=edit' ) : ( admin_url( 'site-editor.php' ) . '?postType=wp_template_part&postId=' . $part['attrs']['theme'] . '//' . $part['attrs']['slug'] ),
 							'meta'   => array(
 								'target' => 'blank',
 							),
