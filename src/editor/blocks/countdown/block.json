@@ -1,0 +1,208 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/countdown",
+	"title": "Countdown",
+	"description": "Create a countdown block",
+	"category": "gutenverse-element",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"dueDate" : {
+			"type": "string"
+		},
+		"showDivider": {
+			"type": "boolean",
+			"default": false
+		},
+		"dividerType":{
+			"type": "string",
+			"default": ""
+		},
+		"labelPosition": {
+			"type": "string",
+			"default": "bottom"
+		},
+		"showDays": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLabelDays": {
+			"type": "boolean",
+			"default": true
+		},
+		"labelDays": {
+			"type": "string",
+			"default": "days"
+		},
+		"showHours": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLabelHours": {
+			"type": "boolean",
+			"default": true
+		},
+		"labelHours": {
+			"type": "string",
+			"default": "hours"
+		},
+		"showMinutes": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLabelMinutes": {
+			"type": "boolean",
+			"default": true
+		},
+		"labelMinutes": {
+			"type": "string",
+			"default": "minutes"
+		},
+		"showSeconds": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLabelSeconds": {
+			"type": "boolean",
+			"default": true
+		},
+		"labelSeconds": {
+			"type": "string",
+			"default": "seconds"
+		},
+		"background": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"border": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"borderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"zIndex": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"positioningType": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningLocation": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"positioningLeft": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningRight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningTop": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningBottom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"advanceAnimation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		}
+	},
+	"supports": {
+		"className": false
+	},
+	"keywords": [
+		"countdown"
+	]
+}
