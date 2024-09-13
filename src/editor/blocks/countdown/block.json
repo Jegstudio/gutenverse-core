@@ -28,19 +28,11 @@
 			"type": "boolean",
 			"default": true
 		},
-		"showLabelDays": {
-			"type": "boolean",
-			"default": true
-		},
 		"labelDays": {
 			"type": "string",
 			"default": "days"
 		},
 		"showHours": {
-			"type": "boolean",
-			"default": true
-		},
-		"showLabelHours": {
 			"type": "boolean",
 			"default": true
 		},
@@ -52,19 +44,11 @@
 			"type": "boolean",
 			"default": true
 		},
-		"showLabelMinutes": {
-			"type": "boolean",
-			"default": true
-		},
 		"labelMinutes": {
 			"type": "string",
 			"default": "minutes"
 		},
 		"showSeconds": {
-			"type": "boolean",
-			"default": true
-		},
-		"showLabelSeconds": {
 			"type": "boolean",
 			"default": true
 		},

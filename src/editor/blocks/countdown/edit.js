@@ -79,12 +79,6 @@ const CountDownBlock = compose(
         setSeconds(second);
     };
 
-
-    useEffect(()=> {
-        console.log(showDays)
-        console.log(days)
-    },[days])
-
     useEffect(() => {
         const countDownInterval = setInterval(() => {
             if(dueDate){
@@ -92,33 +86,33 @@ const CountDownBlock = compose(
             }
         },1000);
         return () => clearInterval(countDownInterval);
-    }, []);
-
+    }, [dueDate]);
+    console.log(labelPosition)
     return <>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            {showDays && <div className="child-wrapper days-wrapper">
-                { ( showLabelDays && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelDays}</div> }
+            {showDays && <div className="time-container days-wrapper">
+                { ( labelDays && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelDays}</div> }
                 <div className="countdown-value">{days}</div>
-                { ( showLabelDays && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelDays}</div> }
+                { ( labelDays && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelDays}</div> }
             </div>}
             {showDivider && <div className="countdown-divider">{dividerType}</div>}
-            {showHours && <div className="child-wrapper hours-wrapper">
-                { ( showLabelHours && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelHours}</div> }
+            {showHours && <div className="time-container hours-wrapper">
+                { ( labelHours && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelHours}</div> }
                 <div className="countdown-value">{hours}</div>
-                { ( showLabelHours && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelHours}</div> }
+                { ( labelHours && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelHours}</div> }
             </div>}
             {showDivider && <div className="countdown-divider">{dividerType}</div>}
-            {showMinutes && <div className="child-wrapper minutes-wrapper">
-                { ( showLabelMinutes && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+            {showMinutes && <div className="time-container minutes-wrapper">
+                { ( labelMinutes && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelMinutes}</div> }
                 <div className="countdown-value">{minutes}</div>
-                { ( showLabelMinutes && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+                { ( labelMinutes && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelMinutes}</div> }
             </div>}
             {showDivider && <div className="countdown-divider">{dividerType}</div>}
-            {showSeconds && <div className="child-wrapper seconds-wrapper">
-                { ( showLabelSeconds && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+            {showSeconds && <div className="time-container seconds-wrapper">
+                { ( labelSeconds && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelSeconds}</div> }
                 <div className="countdown-value">{seconds}</div>
-                { ( showLabelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+                { ( labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
             </div>}
         </div>
     </>;

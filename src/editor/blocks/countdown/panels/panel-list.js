@@ -2,13 +2,20 @@ import { __ } from '@wordpress/i18n';
 import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-settings';
+import { contentStylePanel } from './panel-content-style';
 
 export const panelList = () => {
     return [
         {
             title: __('Countdown Settings', 'gutenverse'),
-            initialOpen: true,
+            initialOpen: false,
             panelArray: settingPanel
+        },
+        {
+            title: __('Content Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: contentStylePanel,
+            tabRole: TabStyle
         },
         {
             title: __('Background', 'gutenverse'),

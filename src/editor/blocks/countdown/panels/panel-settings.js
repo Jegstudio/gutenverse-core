@@ -1,22 +1,22 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, DateTimeControl, IconRadioControl, SelectControl, TextControl } from 'gutenverse-core/controls';
-import { handleAlign } from 'gutenverse-core/styling';
+import { CheckboxControl, DateTimeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingPanel = ({elementId, showSub}) => {
+export const settingPanel = (props) => {
+    const {
+        showDivider
+    } = props;
     return [
         {
             id: 'dueDate',
             label: __('Due Date', 'gutenverse'),
             component: DateTimeControl,
-            minDate: 'today',
-            dateFormat: 'j/M/y H:i:s',
             enableTime: true,
-            show: value => ['date_range'].includes(value.rule),
-            description: __('This date range using your current time zone', 'gutenverse-pro'),
+            minDate: 'today',
+            dateFormat: 'j F Y H:i',
         },
         {
-            id: 'showLabelDays',
+            id: 'showDays',
             label: __('Show Days', 'gutenverse'),
             component: CheckboxControl
         },
@@ -26,7 +26,7 @@ export const settingPanel = ({elementId, showSub}) => {
             component: TextControl
         },
         {
-            id: 'showLabelHours',
+            id: 'showHours',
             label: __('Show Hours', 'gutenverse'),
             component: CheckboxControl
         },
@@ -36,7 +36,7 @@ export const settingPanel = ({elementId, showSub}) => {
             component: TextControl
         },
         {
-            id: 'showLabelMinutes',
+            id: 'showMinutes',
             label: __('Show Minutes', 'gutenverse'),
             component: CheckboxControl
         },
@@ -46,7 +46,7 @@ export const settingPanel = ({elementId, showSub}) => {
             component: TextControl
         },
         {
-            id: 'showLabelSeconds',
+            id: 'showSeconds',
             label: __('Show Seconds', 'gutenverse'),
             component: CheckboxControl
         },
@@ -64,6 +64,7 @@ export const settingPanel = ({elementId, showSub}) => {
             id: 'dividerType',
             label: __('Separator Type', 'gutenverse'),
             component: SelectControl,
+            show: showDivider,
             options: [
                 {
                     label: __('None', 'gutenverse'),

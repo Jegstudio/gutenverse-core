@@ -28,7 +28,6 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            
         </div>
     );
 });
