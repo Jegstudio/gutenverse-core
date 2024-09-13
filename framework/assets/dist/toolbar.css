@@ -23,3 +23,11 @@
 #wp-admin-bar-rate a:hover {
     color: #1d5fe2 !important;
 }
+
+#wp-admin-bar-help-documentation a {
+    color: #f2df70 !important;
+}
+
+#wp-admin-bar-help-documentation a:hover {
+    color: #e2b11d !important;
+}

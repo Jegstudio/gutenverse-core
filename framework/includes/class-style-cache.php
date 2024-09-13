@@ -165,27 +165,27 @@ class Style_Cache {
 	public function add_custom_intervals( $schedules ) {
 		$schedules['yearly']             = array(
 			'interval' => 365 * 24 * 60 * 60, // 365 days in seconds
-			'display'  => __( 'Once a Year' ),
+			'display'  => esc_html__( 'Once a Year', '--gctd--' ),
 		);
 		$schedules['monthly']            = array(
 			'interval' => 30 * 24 * 60 * 60, // 30 days in seconds
-			'display'  => __( 'Once a Month' ),
+			'display'  => esc_html__( 'Once a Month', '--gctd--' ),
 		);
 		$schedules['weekly']             = array(
 			'interval' => 7 * 24 * 60 * 60, // 7 days in seconds
-			'display'  => __( 'Every Week' ),
+			'display'  => esc_html__( 'Every Week', '--gctd--' ),
 		);
 		$schedules['every_two_days']     = array(
 			'interval' => 2 * 24 * 60 * 60, // 2 days in seconds
-			'display'  => __( 'Once Every 2 Days' ),
+			'display'  => esc_html__( 'Once Every 2 Days', '--gctd--' ),
 		);
 		$schedules['daily']              = array(
 			'interval' => 24 * 60 * 60, // 1 day in seconds
-			'display'  => __( 'Daily' ),
+			'display'  => esc_html__( 'Daily', '--gctd--' ),
 		);
 		$schedules['every_five_minutes'] = array(
 			'interval' => 5 * 60, // 5 minutes in seconds
-			'display'  => __( 'Once Every 5 Minutes' ),
+			'display'  => esc_html__( 'Once Every 5 Minutes', '--gctd--' ),
 		);
 		return $schedules;
 	}
