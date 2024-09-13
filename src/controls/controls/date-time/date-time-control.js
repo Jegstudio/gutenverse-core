@@ -40,8 +40,7 @@ const DatePickerComponent = props => {
 const DateTimeControl = (props) => {
     const {
         label,
-        allowDeviceControl,
-        value = allowDeviceControl ? {} : '',
+        value = '',
         onValueChange,
         onStyleChange,
         enableTime = true,
@@ -62,7 +61,6 @@ const DateTimeControl = (props) => {
             id={`${id}-text`}
             label={label}
             description={description}
-            allowDeviceControl={allowDeviceControl}
         />
         <div className={'control-body'}>
             <div className={'control-date-time-wrapper'}>
