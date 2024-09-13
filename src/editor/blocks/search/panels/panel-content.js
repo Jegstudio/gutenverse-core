@@ -1,13 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconRadioControl, RangeControl, SizeControl, TextControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = props => {
     const {
         elementId
     } = props;
 
-
+    const device = getDeviceType();
 
     return [
         {
