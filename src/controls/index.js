@@ -46,6 +46,7 @@ export { default as ChildIDGeneratorControl } from './controls/id-generator/chil
 export { default as DateTimeRangeControl } from './controls/date-time-range/date-time-range-control';
 export { default as TimeRangeControl } from './controls/time-range/time-range-control';
 export { default as MaskControl } from './controls/mask/mask-control';
+export { default as DateTimeControl } from './controls/date-time/date-time-control';
 
 // Locked Controls
 export { default as LockedControl } from './controls/locked/locked-control';
