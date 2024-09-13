@@ -6,6 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet, u } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
+import { parseCurrentURL } from 'gutenverse-core/helper';
 import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
@@ -50,7 +51,12 @@ export const withCustomStyle = panelList => BlockElement => {
         const [headElement, setHeadElement] = useState(null);
         const [refreshId, setRefreshId] = useState(null);
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
-        const [isVisible, setIsVisible] = useState(false);
+        const { params = {} } = parseCurrentURL();
+        const { action = false, canvas = false, postType = false } = params;
+
+        const [isVisible, setIsVisible] = useState( //only for multiple editor list menu
+            !action && !canvas && !postType ? true : action || canvas ? true : false
+        );
 
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
@@ -305,7 +311,7 @@ export const withCustomStyle = panelList => BlockElement => {
 
         // Set up IntersectionObserver to check visibility
         useEffect(() => {
-            if (elementRef) {
+            if (elementRef && !isVisible) {
                 const observer = new IntersectionObserver(
                     ([entry]) => setIsVisible(entry.isIntersecting),
                     {
@@ -326,7 +332,7 @@ export const withCustomStyle = panelList => BlockElement => {
                     <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
                 </Helmet>
             )}
-            { isVisible && <Helmet device={deviceType} head={headElement}>
+            {isVisible && <Helmet device={deviceType} head={headElement}>
                 {elementId !== undefined && renderGoogleFont()}
                 {elementId !== undefined && renderCustomFont()}
             </Helmet>}
