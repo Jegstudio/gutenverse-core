@@ -241,6 +241,7 @@ export const dynamicData = (props) => {
     let timeoutId;
     useEffect(() => {
 
+        if ( !dynamicDataList.length > 0 ) return;
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
