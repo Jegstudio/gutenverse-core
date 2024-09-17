@@ -211,7 +211,7 @@ const PostBlockBlock = compose(
                                 <div class="guten-thumb"><a href="javascript:void(0);">
                                         <div class="thumbnail-container ">
                                             <img loading="eager" width="400" height="400"
-                                                src="${imgDir}/dashboard-landing-1.webp"
+                                                src="${imgDir}/img-placeholder.jpg"
                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
                                                 decoding="async" loading="lazy"
                                                 sizes="(max-width: 400px) 100vw, 400px" />
