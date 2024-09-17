@@ -13,7 +13,7 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { isOnEditor } from 'gutenverse-core/helper';
+import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 
 const PostListBlock = compose(
     withCustomStyle(panelList),
@@ -179,7 +179,7 @@ const PostListBlock = compose(
             for (let i = 0; i < numberPost; i++) {
                 articles += `<article class="guten-post post-list-item">
                             <a href="javascript:void(0);">
-                                <div class="guten-postlist-content"><span class="guten-postlist-title">Post ${i}</span></div>
+                                <div class="guten-postlist-content"><span class="guten-postlist-title">${dummyText(5, 10)}</span></div>
                             </a>
                         </article>`;
             }

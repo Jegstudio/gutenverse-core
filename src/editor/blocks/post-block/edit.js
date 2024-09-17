@@ -12,7 +12,7 @@ import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { isOnEditor } from 'gutenverse-core/helper';
+import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 
 const PostBlockBlock = compose(
     withCustomStyle(panelList),
@@ -211,7 +211,7 @@ const PostBlockBlock = compose(
                                 <div class="guten-thumb"><a href="javascript:void(0);">
                                         <div class="thumbnail-container ">
                                             <img loading="eager" width="400" height="400"
-                                                src="${imgDir}/img-placeholder.jpg"
+                                                src="${`https://picsum.photos/400/400?random=${i+1}`}"
                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
                                                 decoding="async" loading="lazy"
                                                 sizes="(max-width: 400px) 100vw, 400px" />
@@ -221,7 +221,7 @@ const PostBlockBlock = compose(
                                 <div class="guten-postblock-content">
                                     <div class="guten-post-category "><span><a href="javascript:void(0);"
                                                 class="category-category">category</a></span></div>
-                                    <h3 class="guten-post-title"><a href="javascript:void(0);">Post Title ${i + 1}</a>
+                                    <h3 class="guten-post-title"><a href="javascript:void(0);">${dummyText(5, 10)}</a>
                                     </h3>
                                     <div class="guten-post-meta">
                                         <div class="guten-meta-author icon-position-before"><i aria-hidden="true"
@@ -230,7 +230,7 @@ const PostBlockBlock = compose(
                                                 class="fas fa-clock"></i>January 1, 2024</div>
                                     </div>
                                     <div class="guten-post-excerpt">
-                                        <p>Post Excerpt ${i + 1}...</p>
+                                        <p>${dummyText(10, 20)}...</p>
                                     </div>
                                     <div class="guten-post-meta-bottom">
                                         <div class="guten-meta-readmore icon-position-after">
