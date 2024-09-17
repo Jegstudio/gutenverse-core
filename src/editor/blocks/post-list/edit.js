@@ -13,6 +13,7 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const PostListBlock = compose(
     withCustomStyle(panelList),
@@ -114,64 +115,85 @@ const PostListBlock = compose(
     }, [response]);
 
     useEffect(() => {
-        setLoading(true);
+        if (isOnEditor()) {
+            setLoading(true);
 
-        elementId && apiFetch({
-            path: addQueryArgs('/wp/v2/block-renderer/gutenverse/post-list', {
-                context: 'edit',
-                attributes: {
-                    elementId,
-                    inheritQuery,
-                    postType,
-                    postOffset,
-                    numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
-                        parseInt(postLoaded) === parseInt(numberPost)
-                            ? numberPost
-                            : postLoaded,
-                    includePost,
-                    excludePost,
-                    includeCategory,
-                    excludeCategory,
-                    includeAuthor,
-                    includeTag,
-                    excludeTag,
-                    sortBy,
-                    imageEnabled,
-                    backgroundImageEnabled,
-                    iconEnabled,
-                    icon,
-                    metaEnabled,
-                    metaDateEnabled,
-                    metaDateType,
-                    metaDateFormat,
-                    metaDateFormatCustom,
-                    metaDateIcon,
-                    metaDateIconPosition,
-                    metaCategoryEnabled,
-                    metaCategoryIcon,
-                    metaPosition,
-                    paginationMode,
-                    paginationLoadmoreText,
-                    paginationLoadingText,
-                    paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
-                    paginationScrollLimit,
-                    paginationIcon,
-                    paginationIconPosition,
-                    paginationPrevNextText,
-                    paginationPrevText,
-                    paginationNextText,
-                    paginationPrevIcon,
-                    paginationNextIcon,
-                    editParam: {
-                        page
-                    }
-                },
-            }),
-        }).then((data) => {
-            setResponse(data.rendered);
-        }).catch(() => {
-            setResponse('<span>Error</span>');
-        }).finally(() => setLoading(false));
+            elementId && apiFetch({
+                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/post-list', {
+                    context: 'edit',
+                    attributes: {
+                        elementId,
+                        inheritQuery,
+                        postType,
+                        postOffset,
+                        numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
+                            parseInt(postLoaded) === parseInt(numberPost)
+                                ? numberPost
+                                : postLoaded,
+                        includePost,
+                        excludePost,
+                        includeCategory,
+                        excludeCategory,
+                        includeAuthor,
+                        includeTag,
+                        excludeTag,
+                        sortBy,
+                        imageEnabled,
+                        backgroundImageEnabled,
+                        iconEnabled,
+                        icon,
+                        metaEnabled,
+                        metaDateEnabled,
+                        metaDateType,
+                        metaDateFormat,
+                        metaDateFormatCustom,
+                        metaDateIcon,
+                        metaDateIconPosition,
+                        metaCategoryEnabled,
+                        metaCategoryIcon,
+                        metaPosition,
+                        paginationMode,
+                        paginationLoadmoreText,
+                        paginationLoadingText,
+                        paginationNumberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost : paginationNumberPost,
+                        paginationScrollLimit,
+                        paginationIcon,
+                        paginationIconPosition,
+                        paginationPrevNextText,
+                        paginationPrevText,
+                        paginationNextText,
+                        paginationPrevIcon,
+                        paginationNextIcon,
+                        editParam: {
+                            page
+                        }
+                    },
+                }),
+            }).then((data) => {
+                setResponse(data.rendered);
+            }).catch(() => {
+                setResponse('<span>Error</span>');
+            }).finally(() => setLoading(false));
+        } else {
+            let articles = '';
+            for (let i = 0; i < numberPost; i++) {
+                articles += `<article class="guten-post post-list-item">
+                            <a href="javascript:void(0);">
+                                <div class="guten-postlist-content"><span class="guten-postlist-title">Post ${i}</span></div>
+                            </a>
+                        </article>`;
+            }
+            setResponse(`<div class="gutenverse guten-postlist layout-vertical post-element guten-pagination-disable ${elementId}"
+                data-id="${elementId}"></div>
+                <div class="guten-block-container">
+                    <div class="guten-posts guten-ajax-flag">
+                        ${articles}
+                    </div>
+                </div>
+            </div>`);
+            setLoading(false);
+        }
+
     }, [
         elementId,
         postType,

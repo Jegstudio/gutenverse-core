@@ -13,6 +13,7 @@ const SocialShareWhatsapp = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'whatsapp',
         serverPath: 'gutenverse/social-share-whatsapp',
     };
 

@@ -13,6 +13,7 @@ const SocialShareLinkedin = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'linkedin',
         serverPath: 'gutenverse/social-share-linkedin',
     };
 

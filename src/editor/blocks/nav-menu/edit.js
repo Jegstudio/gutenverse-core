@@ -13,6 +13,7 @@ import { NavSkeleton, classnames, NavSkeletonNormal } from 'gutenverse-core/comp
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const NavMenuBlock = compose(
     withCustomStyle(panelList),
@@ -65,32 +66,51 @@ const NavMenuBlock = compose(
     };
 
     useEffect(() => {
-        setLoading(true);
-        apiFetch({
-            path: addQueryArgs('/wp/v2/block-renderer/gutenverse/nav-menu', {
-                context: 'edit',
-                attributes: {
-                    elementId,
-                    menuId,
-                    breakpoint,
-                    mobileMenuLogo,
-                    mobileMenuLink,
-                    mobileMenuURL,
-                    mobileIcon,
-                    mobileCloseIcon,
-                    submenuClick,
-                    mobileSubmenuClick,
-                    mobileCloseOnClick,
-                    submenuItemIndicator,
-                    transform
-                },
-            }),
-        }).then((data) => {
-            setResponse(data.rendered);
-            removeClick();
-        }).catch(() => {
-            setResponse('<h1>Error</h1>');
-        }).finally(() => setLoading(false));
+        if (isOnEditor()) {
+            setLoading(true);
+            apiFetch({
+                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/nav-menu', {
+                    context: 'edit',
+                    attributes: {
+                        elementId,
+                        menuId,
+                        breakpoint,
+                        mobileMenuLogo,
+                        mobileMenuLink,
+                        mobileMenuURL,
+                        mobileIcon,
+                        mobileCloseIcon,
+                        submenuClick,
+                        mobileSubmenuClick,
+                        mobileCloseOnClick,
+                        submenuItemIndicator,
+                        transform
+                    },
+                }),
+            }).then((data) => {
+                setResponse(data.rendered);
+                removeClick();
+            }).catch(() => {
+                setResponse('<h1>Error</h1>');
+            }).finally(() => setLoading(false));
+        } else {
+            setResponse(`<div id="${elementId}" class="guten-element guten-nav-menu nav-menu break-point-tablet submenu-click-title " data-item-indicator="gtn gtn-angle-down-solid" data-close-on-click="1">
+                <div class="gutenverse-hamburger-wrapper">
+                    <button class="gutenverse-hamburger-menu">
+                        <i aria-hidden="true" class="gtn gtn-burger-menu-light"></i>
+                    </button>
+                </div>
+                <div class="gutenverse-menu-wrapper">
+                    <div class="gutenverse-menu">
+                        <ul>
+                            <li class="page_item"><a href="javascript:void(0);">Menu 1</a></li>
+                            <li class="page_item"><a href="javascript:void(0);">Menu 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>`);
+            setLoading(false);
+        }
     }, [
         menuId,
         breakpoint,

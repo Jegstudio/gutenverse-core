@@ -13,6 +13,7 @@ const SocialShareTumblr = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'tumblr',
         serverPath: 'gutenverse/social-share-tumblr',
     };
 
