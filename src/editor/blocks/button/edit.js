@@ -16,6 +16,7 @@ import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -208,12 +209,12 @@ const ButtonBlock = compose(
     };
 
     useEffect(() => {
-        const dynamicUrlcontent = applyFilters(
+        const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
             'gutenverse.dynamic.fetch-url',
             dynamicUrl
         );
 
-        const dynamicTextContent = applyFilters(
+        const dynamicTextContent = isEmpty(dynamicContent) || !isOnEditor() ? dynamicContent : applyFilters(
             'gutenverse.dynamic.fetch-text',
             dynamicContent
         );

@@ -19,6 +19,7 @@ import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -221,7 +222,7 @@ const ImageBlock = compose(
     };
 
     useEffect(() => {
-        const dynamicUrlcontent = applyFilters(
+        const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
             'gutenverse.dynamic.fetch-url',
             dynamicUrl
         );
