@@ -670,3 +670,31 @@ export const theDeviceType = (location) => {
 export const useSettingFallback = (param) => {
     return useSettings === undefined ? useSetting(param) : useSettings(param)[0];
 };
+
+export const parseCurrentURL = () => {
+    const url = window.location;
+
+    const parsedURL = {
+        protocol: url.protocol,         // Protocol (e.g., 'https:')
+        hostname: url.hostname,         // Hostname (e.g., 'www.example.com')
+        port: url.port || 'default',    // Port (e.g., '8080' or default)
+        pathname: url.pathname,         // Pathname (e.g., '/path/to/page')
+        search: url.search,             // Search query (e.g., '?query=123')
+        hash: url.hash,                 // Fragment (e.g., '#section1')
+        params: {}                      // Object for search parameters
+    };
+
+    const searchParams = new URLSearchParams(url.search);
+    for (const [key, value] of searchParams.entries()) {
+        parsedURL.params[key] = value;
+    }
+
+    return parsedURL;
+};
+
+export const isOnEditor = () => {
+    const { params = {} } = parseCurrentURL();
+    const { action = false, canvas = false, postType = false } = params;
+
+    return !action && !canvas && !postType ? true : action || canvas ? true : false;
+};
