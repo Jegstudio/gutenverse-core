@@ -206,6 +206,41 @@ const PostBlockBlock = compose(
             const { imgDir } = window.GutenverseConfig || {};
             let articles = '';
             for (let i = 0; i < numberPost; i++) {
+
+                const meta = metaEnabled ?
+                    `<div class="guten-post-meta">
+                        ${metaAuthorEnabled ? `<div class="guten-meta-author icon-position-before"><i aria-hidden="true"
+                                class="fas fa-user"></i><span class="by">by</span> <a href="javascript:void(0);">gutenverse</a>
+                        </div>` : ''}
+                        ${metaDateEnabled ? `<div class="guten-meta-date icon-position-before"><i aria-hidden="true"
+                                class="fas fa-clock"></i>January 1, 2024
+                        </div>` : ''}
+                    </div>` : '';
+
+                const metaBottom = readmoreEnabled || commentEnabled ?
+                    `<div class="guten-post-meta-bottom">
+                        ${readmoreEnabled ? `<div class="guten-meta-readmore icon-position-after">
+                            <a href="javascript:void(0);"
+                                ${readmoreIconPosition === 'before' ? 'class="guten-readmore"><i aria-hidden="true" class="fas fa-arrow-right"></i>Read More</a>' : 'class="guten-readmore">Read More<i aria-hidden="true" class="fas fa-arrow-right"></i></a>'}
+                        </div>` : ''}
+                        ${commentEnabled ? `<div class="guten-meta-comment icon-position-before">
+                            <a href="javascript:void(0);" data-href="dummy-data">
+                                ${commentIconPosition === 'before' ? '<i aria-hidden="true" class="fas fa-comment"></i><span>0</span>' : '<span>0</span><i aria-hidden="true" class="fas fa-comment"></i>' }
+                            </a>
+                        </div>` : ''}
+                    </div>` : '';
+
+                const excerpt = excerptEnabled ? `<div class="guten-post-excerpt">
+                                        <p>${dummyText(10, 20)}${excerptMore ? excerptMore : '...'}</p>
+                                    </div>` : '';
+
+                const category = categoryEnabled ?
+                    `<div class="guten-post-category ">
+                        <span>
+                            <a href="javascript:void(0);" class="category-category">category</a>
+                        </span>
+                    </div>` : '';
+
                 articles += `<article
                                 class="guten-post post-${i} post type-post status-publish format-standard has-post-thumbnail hentry category-category tag-tag">
                                 <div class="guten-thumb"><a href="javascript:void(0);">
@@ -219,26 +254,13 @@ const PostBlockBlock = compose(
                                         </div>
                                     </a></div>
                                 <div class="guten-postblock-content">
-                                    <div class="guten-post-category "><span><a href="javascript:void(0);"
-                                                class="category-category">category</a></span></div>
-                                    <h3 class="guten-post-title"><a href="javascript:void(0);">${dummyText(5, 10)}</a>
+                                    ${category}
+                                    <h3 class="guten-post-title">
+                                        <a href="javascript:void(0);">${dummyText(5, 10)}</a>
                                     </h3>
-                                    <div class="guten-post-meta">
-                                        <div class="guten-meta-author icon-position-before"><i aria-hidden="true"
-                                                class="fas fa-user"></i><span class="by">by</span> <a href="javascript:void(0);">gutenverse</a></div>
-                                        <div class="guten-meta-date icon-position-before"><i aria-hidden="true"
-                                                class="fas fa-clock"></i>January 1, 2024</div>
-                                    </div>
-                                    <div class="guten-post-excerpt">
-                                        <p>${dummyText(10, 20)}...</p>
-                                    </div>
-                                    <div class="guten-post-meta-bottom">
-                                        <div class="guten-meta-readmore icon-position-after">
-                                            <a href="javascript:void(0);"
-                                                class="guten-readmore">Read More<i aria-hidden="true"
-                                                    class="fas fa-arrow-right"></i></a>
-                                        </div>
-                                    </div>
+                                    ${meta}
+                                    ${excerpt}
+                                    ${metaBottom}
                                 </div>
                             </article>`;
             }

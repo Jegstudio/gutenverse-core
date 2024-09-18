@@ -177,9 +177,30 @@ const PostListBlock = compose(
         } else {
             let articles = '';
             for (let i = 0; i < numberPost; i++) {
+                const bg = backgroundImageEnabled ? `style="background-image: url(${`https://picsum.photos/400/400?random=${i+1}`})"` : '';
+
+                const img = imageEnabled ? `<img loading="eager" width="400" height="400"
+                        src="${`https://picsum.photos/400/400?random=${i+1}`}"
+                        class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
+                        decoding="async" loading="lazy"
+                        sizes="(max-width: 400px) 100vw, 400px" />` : '';
+
+                const meta = metaEnabled ? `<div class="meta-lists">
+                                        ${metaDateEnabled ? `<span class="meta-date">
+                                            <i aria-hidden="true" class="fas fa-clock"></i> &nbsp;January 1, 2024
+                                        </span>` : ''}
+                                        ${metaCategoryEnabled ? `<span class="meta-category">
+                                            <i aria-hidden="true" class="fas fa-tag"></i> Categorized
+                                        </span>` : ''}
+                                    </div>` : '';
+
                 articles += `<article class="guten-post post-list-item">
-                            <a href="javascript:void(0);">
-                                <div class="guten-postlist-content"><span class="guten-postlist-title">${dummyText(5, 10)}</span></div>
+                            <a href="javascript:void(0);" ${bg}>
+                                ${img}
+                                <div class="guten-postlist-content">
+                                    ${meta}
+                                    <span class="guten-postlist-title">${dummyText(5, 10)}</span>
+                                </div>
                             </a>
                         </article>`;
             }
