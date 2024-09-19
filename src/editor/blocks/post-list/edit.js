@@ -204,6 +204,47 @@ const PostListBlock = compose(
                             </a>
                         </article>`;
             }
+            let pagination = '';
+            switch (paginationMode) {
+                default:
+                    pagination = '';
+                    break;
+                case 'loadmore' :
+                    pagination =
+                    `<div class="guten-block-pagination guten-align">
+                        <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>     
+                    </div>`;
+                    break;
+                case 'prevnext' :
+                    pagination =
+                    `<div class="guten_block_nav additional_class" data-page="1">
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination prev disabled" title="Prev">
+                            <i class="fas fa-chevron-left"></i> ${paginationPrevNextText ? paginationPrevText : ''}
+                        </a>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination next " title="Next">
+                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>`;
+                    break;
+                case 'number' :
+                    pagination =
+                    `<div class="guten_block_nav" data-page="4">
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination prev" title="Prev">
+                            <i class="fas fa-chevron-left"></i> ${paginationPrevNextText ? paginationPrevText : ''}
+                        </a>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="1">1</a>
+                        <span>...</span>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="3">3</a>
+                        <span class="btn-pagination current">4</span>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="5">5</a>
+                        <span>...</span>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="99">99</a>
+                        <a href="javascript:void(0);" data-href="#" class="btn-pagination next" title="Next">
+                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>`;
+                    break;
+            }
             setResponse(`<div class="gutenverse guten-postlist layout-vertical post-element guten-pagination-disable ${elementId}"
                 data-id="${elementId}"></div>
                 <div class="guten-block-container">
@@ -211,6 +252,7 @@ const PostListBlock = compose(
                         ${articles}
                     </div>
                 </div>
+                ${pagination}
             </div>`);
             setLoading(false);
         }
