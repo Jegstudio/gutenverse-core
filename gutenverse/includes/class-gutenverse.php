@@ -347,6 +347,7 @@ class Gutenverse {
 	 */
 	public function init_framework() {
 		if ( $this->can_load_framework() ) {
+			defined( 'GUTENVERSE_FRAMEWORK_URL_PATH' ) || define( 'GUTENVERSE_FRAMEWORK_URL_PATH', plugins_url( GUTENVERSE ) . '/lib/framework' );
 			require_once GUTENVERSE_DIR . 'lib/framework/bootstrap.php';
 		}
 	}
