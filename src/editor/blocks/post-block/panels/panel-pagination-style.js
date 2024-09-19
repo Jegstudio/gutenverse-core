@@ -18,41 +18,6 @@ export const paginationStylePanel = (props) => {
 
     return [
         {
-            id: 'navigationAlign',
-            label: __('Alignment', 'gutenverse'),
-            allowDeviceControl: true,
-            show: 'prevnext' === paginationMode,
-            component: IconRadioControl,
-            options: [
-                {
-                    label: __('Left', 'gutenverse'),
-                    value: 'left',
-                    icon: <AlignLeft/>,
-                },
-                {
-                    label: __('Center', 'gutenverse'),
-                    value: 'center',
-                    icon: <AlignCenter/>,
-                },
-                {
-                    label: __('Right', 'gutenverse'),
-                    value: 'right',
-                    icon: <AlignRight/>,
-                },
-                {
-                    label: __('Edge', 'gutenverse'),
-                    value: 'space-between',
-                    icon: <AlignJustify/>,
-                },
-            ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav`,
-                    render: value => `justify-content: ${value};`
-                }
-            ]
-        },
-        {
             id: 'paginationTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
@@ -120,17 +85,17 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'numberGap',
-            label: __('Number Gap', 'gutenverse'),
-            show: 'number' === paginationMode,
+            label: __('Gap', 'gutenverse'),
+            show: 'number' === paginationMode || 'prevnext' === paginationMode,
             component: RangeControl,
             min: 0,
-            max: 100,
+            max: 500,
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number  .guten_block_nav`,
+                    selector: `.${elementId} .guten-postblock .guten_block_nav`,
                     render: value => `gap: ${value}px;`
                 }
             ]
@@ -285,6 +250,7 @@ export const paginationStylePanel = (props) => {
             id: 'paginationAlign',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
+            show: 'prevnext' !== paginationMode && 'number' !== paginationMode,
             allowDeviceControl: true,
             options: [
                 {
@@ -307,6 +273,41 @@ export const paginationStylePanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-pagination,  .${elementId} .guten-postblock .guten_block_nav`,
                     render: value => `text-align: ${value};`
+                }
+            ]
+        },
+        {
+            id: 'navigationAlign',
+            label: __('Alignment', 'gutenverse'),
+            allowDeviceControl: true,
+            show: 'prevnext' === paginationMode || 'number' === paginationMode,
+            component: IconRadioControl,
+            options: [
+                {
+                    label: __('Left', 'gutenverse'),
+                    value: 'left',
+                    icon: <AlignLeft/>,
+                },
+                {
+                    label: __('Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter/>,
+                },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'right',
+                    icon: <AlignRight/>,
+                },
+                {
+                    label: __('Edge', 'gutenverse'),
+                    value: 'space-between',
+                    icon: <AlignJustify/>,
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav`,
+                    render: value => `justify-content: ${value};`
                 }
             ]
         },
