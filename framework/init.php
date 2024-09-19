@@ -215,14 +215,14 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		public function gutenverse_compatibility_notice_script() {
 			wp_enqueue_style(
 				'gutenverse-core-compatibility-notice',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/admin/css/compatibility-notice.css',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/css/compatibility-notice.css',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
 
 			wp_enqueue_script(
 				'gutenverse-core-compatibility-notice',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/admin/js/compatibility-notice.js',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/js/compatibility-notice.js',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true

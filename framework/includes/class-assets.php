@@ -54,7 +54,7 @@ class Assets {
 			return $folder . 'gtnicon/gtnicon.css';
 		}
 
-		return GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/gtnicon/gtnicon.css';
+		return GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/gtnicon/gtnicon.css';
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Assets {
 			return $folder . 'fontawesome/css/all.min.css';
 		}
 
-		return GUTENVERSE_FRAMEWORK_URL . '/assets/fonts/fontawesome/css/all.min.css';
+		return GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/fonts/fontawesome/css/all.min.css';
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Assets {
 
 		wp_register_style(
 			'gutenverse-frontend-style',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/css/frontend.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/frontend.css',
 			array( 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
@@ -152,7 +152,7 @@ class Assets {
 
 		wp_register_script(
 			'gutenverse-core-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/core.js',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/core.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
@@ -160,7 +160,7 @@ class Assets {
 
 		wp_register_script(
 			'gutenverse-frontend-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/corefrontend.js',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/corefrontend.js',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
@@ -176,7 +176,7 @@ class Assets {
 
 		wp_register_script(
 			'gutenverse-components-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/components.js',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/components.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
@@ -186,7 +186,7 @@ class Assets {
 
 		wp_register_script(
 			'gutenverse-blocks-event',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/js/blocks.js',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/blocks.js',
 			$include,
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true
@@ -203,9 +203,9 @@ class Assets {
 		$config['wpjson_url']        = get_rest_url();
 		$config['wpjson_nonce']      = wp_create_nonce( 'wp_rest' );
 		$config['wpjson_endpoint']   = admin_url( 'admin-ajax.php?action=rest-nonce' );
-		$config['framework_asset']   = GUTENVERSE_FRAMEWORK_URL . '/assets/';
+		$config['framework_asset']   = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/';
 		$config['framework_version'] = GUTENVERSE_FRAMEWORK_VERSION;
-		$config['image_placeholder'] = GUTENVERSE_FRAMEWORK_URL . '/assets/img/img-placeholder.jpg';
+		$config['image_placeholder'] = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
 
 		return $config;
 	}
