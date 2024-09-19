@@ -55,3 +55,8 @@ export * from '@wordpress/components';
 export * from 'react-datepicker';
 export { default as AsyncSelect } from 'react-select/async';
 
+
+// TODO: TESTING ISSUE, REMOVE THIS LATER
+export const CoreCheck = () => {
+    return true;
+};

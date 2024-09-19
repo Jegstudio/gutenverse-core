@@ -1160,13 +1160,13 @@ abstract class Style_Interface {
 
 				switch ( $mask['shape'] ) {
 					case 'circle':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/circe.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/circe.svg';
 						break;
 					case 'triangle':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/triangle.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/triangle.svg';
 						break;
 					case 'blob':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/blob.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/blob.svg';
 						break;
 					case 'custom':
 						$svg       = isset( $mask['svg'] ) ? $mask['svg'] : null;

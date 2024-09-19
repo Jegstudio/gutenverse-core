@@ -121,7 +121,7 @@ class Frontend_Toolbar {
 
 			if ( in_array( 'administrator', $roles, true ) || in_array( 'editor', $roles, true ) ) {
 
-				$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
+				$title = '<span><img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg' ) . '"/>' . esc_html__( 'Gutenverse', '--gctd--' ) . '</span>';
 
 				$admin_bar->add_menu(
 					array(
@@ -165,7 +165,7 @@ class Frontend_Toolbar {
 					$admin_bar->add_menu(
 						array(
 							'id'    => 'gutenverse-pro',
-							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
+							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 							'href'  => gutenverse_upgrade_pro(),
 							'meta'  => array(
 								'target' => '_blank',

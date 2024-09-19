@@ -371,14 +371,14 @@ class Init {
 
 		wp_enqueue_style(
 			'gutenverse-core-install-plugin-notice',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/admin/css/install-plugin-notice.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/css/install-plugin-notice.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
 		wp_enqueue_script(
 			'gutenverse-core-install-plugin-notice',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/admin/js/install-plugin-notice.js',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/js/install-plugin-notice.js',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION,
 			true

@@ -87,14 +87,14 @@ class Dashboard {
 
 		wp_enqueue_style(
 			'gutenverse-core-dashboard-icons',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/dist/dashboard-icon.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/dashboard-icon.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
 
 		wp_enqueue_style(
 			'gutenverse-core-dashboard-notice',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/dist/dashboard-notice.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/dashboard-notice.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
@@ -117,7 +117,7 @@ class Dashboard {
 
 			wp_enqueue_script(
 				'gutenverse-core-dashboard-event',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/js/dashboard.js',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/dashboard.js',
 				$include,
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true
@@ -127,14 +127,14 @@ class Dashboard {
 
 			wp_enqueue_style(
 				'gutenverse-core-dashboard-bg',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/dist/dashboard-bg.css',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/dashboard-bg.css',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
 
 			wp_enqueue_style(
 				'gutenverse-core-dashboard-event',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/css/backend.css',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/css/backend.css',
 				array( 'fontawesome-gutenverse' ),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
@@ -144,7 +144,7 @@ class Dashboard {
 		if ( ! wp_script_is( 'react-jsx-runtime', 'registered' ) ) {
 			wp_register_script(
 				'react-jsx-runtime',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/js/react-jsx-runtime.js',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/js/react-jsx-runtime.js',
 				array( 'react' ),
 				GUTENVERSE_FRAMEWORK_VERSION,
 				true
@@ -162,12 +162,12 @@ class Dashboard {
 	public function gutenverse_dashboard_config() {
 		$config = array();
 
-		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL . '/assets/img';
+		$config['imgDir']           = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
 		$config['libraryApi']       = GUTENVERSE_FRAMEWORK_LIBRARY_URL . '/wp-json/gutenverse-server/v1';
 		$config['url']              = home_url();
 		$config['fseUrl']           = gutenverse_compatible_check() ? admin_url( 'site-editor.php' ) : admin_url( 'edit.php?post_type=page' );
 		$config['subscribed']       = Meta_Option::instance()->get_option( 'subscribed' );
-		$config['assetURL']         = GUTENVERSE_FRAMEWORK_URL . '/assets/';
+		$config['assetURL']         = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/';
 		$config['rating']           = 'https://wordpress.org/support/plugin/gutenverse/reviews/#new-post';
 		$config['support']          = 'https://wordpress.org/support/plugin/gutenverse/';
 		$config['docs']             = GUTENVERSE_FRAMEWORK_DOCUMENTATION_URL;
@@ -328,7 +328,7 @@ class Dashboard {
 			'manage_options',
 			self::TYPE,
 			null,
-			GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-logo-dashboard.svg',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-logo-dashboard.svg',
 			30
 		);
 	}
@@ -413,7 +413,7 @@ class Dashboard {
 			add_submenu_page(
 				self::TYPE,
 				esc_html__( 'Upgrade to PRO', '--gctd--' ),
-				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
+				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 				'manage_options',
 				'admin.php?page=gutenverse&path=upgrade-pro',
 				null,
