@@ -16,6 +16,11 @@ export const contentStylePanel = (props) => {
             component: CheckboxControl
         },
         {
+            id: '',
+            label: __('One For All', 'gutenverse'),
+            component: CheckboxControl
+        },
+        {
             id: '__tabTime',
             component: SwitchControl,
             show: ! oneForAll,
