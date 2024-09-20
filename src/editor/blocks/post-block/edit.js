@@ -209,11 +209,13 @@ const PostBlockBlock = compose(
 
                 const meta = metaEnabled ?
                     `<div class="guten-post-meta">
-                        ${metaAuthorEnabled ? `<div class="guten-meta-author icon-position-before"><i aria-hidden="true"
-                                class="fas fa-user"></i><span class="by">by</span> <a href="javascript:void(0);">gutenverse</a>
+                        ${metaAuthorEnabled ? `<div class="guten-meta-author icon-position-before">${metaAuthorIconPosition === 'before' ? `<i aria-hidden="true"
+                                class="${metaAuthorIcon}"></i>` : ''}<span class="by">${metaAuthorByText}</span> <a href="javascript:void(0);">gutenverse</a>${metaAuthorIconPosition === 'before' ? '' : `<i aria-hidden="true"
+                                class="${metaAuthorIcon}"></i>`}
                         </div>` : ''}
-                        ${metaDateEnabled ? `<div class="guten-meta-date icon-position-before"><i aria-hidden="true"
-                                class="fas fa-clock"></i>January 1, 2024
+                        ${metaDateEnabled ? `<div class="guten-meta-date icon-position-before">${metaDateIconPosition === 'before' ? `<i aria-hidden="true"
+                                class="${metaDateIcon}"></i>` : ''}${metaDateFormat === 'ago' ? '3 days ago' : 'January 1, 2024'}${metaDateIconPosition === 'before' ? '' : `<i aria-hidden="true"
+                                class="${metaDateIcon}"></i> `}
                         </div>` : ''}
                     </div>` : '';
 
@@ -273,17 +275,17 @@ const PostBlockBlock = compose(
                 case 'loadmore' :
                     pagination =
                     `<div class="guten-block-pagination guten-align">
-                        <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>     
+                        <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>
                     </div>`;
                     break;
                 case 'prevnext' :
                     pagination =
                     `<div class="guten_block_nav additional_class" data-page="1">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev disabled" title="Prev">
-                            <i class="fas fa-chevron-left"></i> ${paginationPrevNextText ? paginationPrevText : ''}
+                            <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination next " title="Next">
-                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="fas fa-chevron-right"></i>
+                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="${paginationNextIcon}"></i>
                         </a>
                     </div>`;
                     break;
@@ -291,7 +293,7 @@ const PostBlockBlock = compose(
                     pagination =
                     `<div class="guten_block_nav" data-page="4">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev" title="Prev">
-                            <i class="fas fa-chevron-left"></i> ${paginationPrevNextText ? paginationPrevText : ''}
+                            <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="1">1</a>
                         <span>...</span>
@@ -301,7 +303,7 @@ const PostBlockBlock = compose(
                         <span>...</span>
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination" data-page="99">99</a>
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination next" title="Next">
-                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="fas fa-chevron-right"></i>
+                            ${paginationPrevNextText ? paginationNextText : ''}  <i class="${paginationNextIcon}"></i>
                         </a>
                     </div>`;
                     break;
