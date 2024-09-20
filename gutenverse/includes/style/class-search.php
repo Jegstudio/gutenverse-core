@@ -270,25 +270,31 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-button-wrapper ",
 					'property'       => function ( $value ) {
-						return "width: {$value};";
+						if ( '100%' === $value ) {
+							return "width: {$value} !important;";
+						}
 					},
 					'value'          => $this->attrs['formStyle'],
 					'device_control' => true,
 				)
 			);
+			if ( $this->attrs['formStyle'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input ",
+						'property'       => function ( $value ) {
+							if ( '100%' === $value ) {
+								return "max-width: none !important; width: 100% !important;";
+							}
+						},
+						'value'          => $this->attrs['formStyle'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 
 		if ( isset( $this->attrs['inputWidth'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .guten-button-wrapper",
-					'property'       => function ( $value ) {
-						return 'width:auto;';
-					},
-					'value'          => $this->attrs['inputWidth'],
-					'device_control' => true,
-				)
-			);
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
@@ -296,6 +302,32 @@ class Search extends Style_Abstract {
 						return $this->handle_unit_point( $value, 'width' );
 					},
 					'value'          => $this->attrs['inputWidth'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['buttonWidth'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-button-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['buttonWidth'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'property'       => function ( $value ) {
+						$point = ( int ) $value['point'];
+						$unit = $value['unit'];
+						$diff = 'px' === $unit ? 2 : ( '%' === $unit ? 0.2 : 0.12 );
+						return "max-width: calc(100% - " . ( $point + $diff ) . $unit . ");";
+					},
+					'value'          => $this->attrs['buttonWidth'],
 					'device_control' => true,
 				)
 			);

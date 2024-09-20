@@ -17,12 +17,12 @@ const SearchBlock = compose(
 )(props => {
     const {
         attributes,
-        setElementRef
+        setElementRef,
     } = props;
     const {
         showButton,
         inputPlaceholder,
-        elementId
+        elementId,
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -66,6 +66,7 @@ const SearchBlock = compose(
             setElementRef(searchRef.current);
         }
     }, [searchRef]);
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>

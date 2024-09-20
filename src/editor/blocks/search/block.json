@@ -27,7 +27,13 @@
 			"default": "top"
 		},
 		"buttonWidth": {
-			"type": "object"
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point": "100",
+					"unit": "px"
+				}
+			}
 		},
 		"positioningType": {
 			"type": "object"
