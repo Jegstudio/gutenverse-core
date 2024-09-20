@@ -13,6 +13,7 @@ const SocialShareVk = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'vk',
         serverPath: 'gutenverse/social-share-vk',
     };
 

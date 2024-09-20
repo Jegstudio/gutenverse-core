@@ -6,12 +6,14 @@ import { panelList } from './panels/panel-list';
 import ServerSideRender from '@wordpress/server-side-render';
 import { __ } from '@wordpress/i18n';
 import { SelectParent } from 'gutenverse-core/components';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const SingleSocialShare = (props) => {
     const {
         attributes,
         serverPath,
-        setElementRef
+        setElementRef,
+        shareType
     } = props;
 
     const {
@@ -43,7 +45,7 @@ const SingleSocialShare = (props) => {
         </InspectorControls>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            <ServerSideRender
+            {isOnEditor() ? <ServerSideRender
                 block={serverPath}
                 attributes={{
                     elementId,
@@ -51,7 +53,14 @@ const SingleSocialShare = (props) => {
                     text
                 }}
                 EmptyResponsePlaceholder={EmptySocialShare}
-            />
+            /> : <div className={`gutenverse-share-${shareType} gutenverse-share-item`} id={elementId}>
+                <a href="#">
+                    <div className="gutenverse-share-icon">
+                        <i className={`fab fa-${shareType}`}></i>
+                    </div>
+                    {showText ? <div className="gutenverse-share-text">{__('Share on', 'gutenverse')}{shareType}</div> : ''}
+                </a>
+            </div>}
         </div>
     </>;
 };

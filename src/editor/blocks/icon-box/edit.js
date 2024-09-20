@@ -25,6 +25,7 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -195,7 +196,7 @@ const IconBoxBlock = compose(
     HighLightToolbar(props);
 
     useEffect(() => {
-        const dynamicUrlcontent = applyFilters(
+        const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
             'gutenverse.dynamic.fetch-url',
             dynamicUrl
         );

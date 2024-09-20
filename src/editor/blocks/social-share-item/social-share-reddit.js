@@ -13,6 +13,7 @@ const SocialShareReddit = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'reddit',
         serverPath: 'gutenverse/social-share-reddit',
     };
 

@@ -13,6 +13,7 @@ const SocialShareEmail = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'email',
         serverPath: 'gutenverse/social-share-email',
     };
 

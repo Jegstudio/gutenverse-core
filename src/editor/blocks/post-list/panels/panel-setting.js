@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { NumberControl, RangeControl, SelectSearchControl, SelectControl, CheckboxControl, TextControl } from 'gutenverse-core/controls';
 import { addQueryArgs } from '@wordpress/url';
 import { searchAuthor, searchCategory, searchTag } from 'gutenverse-core/requests';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 export const settingPanel = ({postType}) => {
     const path = () => {
@@ -15,7 +16,7 @@ export const settingPanel = ({postType}) => {
         }
     };
 
-    const searchPosts = input => new Promise(resolve => {
+    const searchPosts =  isOnEditor() ? input => new Promise(resolve => {
         apiFetch({
             path: addQueryArgs(path(), {
                 search: input,
@@ -32,8 +33,36 @@ export const settingPanel = ({postType}) => {
         }).catch(() => {
             resolve([]);
         });
-    });
+    }) : () => {
+        return {
+            label: '',
+            value: ''
+        };
+    };
 
+    const newSearchAuthor = isOnEditor() ? searchAuthor :
+        () => {
+            return {
+                label: '',
+                value: ''
+            };
+        };
+
+    const newSearchCategory = isOnEditor() ? searchCategory :
+        () => {
+            return {
+                label: '',
+                value: ''
+            };
+        };
+
+    const newSearchTag = isOnEditor() ? searchTag :
+        () => {
+            return {
+                label: '',
+                value: ''
+            };
+        };
 
     return [
         {
@@ -96,35 +125,35 @@ export const settingPanel = ({postType}) => {
             label: __('Include Category', 'gutenverse'),
             component: SelectSearchControl,
             isMulti: true,
-            onSearch: searchCategory
+            onSearch: newSearchCategory
         },
         {
             id: 'excludeCategory',
             label: __('Exclude Category', 'gutenverse'),
             component: SelectSearchControl,
             isMulti: true,
-            onSearch: searchCategory
+            onSearch: newSearchCategory
         },
         {
             id: 'includeAuthor',
             label: __('Include Author', 'gutenverse'),
             component: SelectSearchControl,
             isMulti: true,
-            onSearch: searchAuthor
+            onSearch: newSearchAuthor
         },
         {
             id: 'includeTag',
             label: __('Include Tag', 'gutenverse'),
             component: SelectSearchControl,
             isMulti: true,
-            onSearch: searchTag
+            onSearch: newSearchTag
         },
         {
             id: 'excludeTag',
             label: __('Exclude Tag', 'gutenverse'),
             component: SelectSearchControl,
             isMulti: true,
-            onSearch: searchTag
+            onSearch: newSearchTag
         },
         {
             id: 'sortBy',

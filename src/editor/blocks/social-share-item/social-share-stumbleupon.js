@@ -13,6 +13,7 @@ const SocialShareStumbelupon = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'stumbleupon',
         serverPath: 'gutenverse/social-share-stumbleupon',
     };
 
