@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,73 +293,77 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
-= 2.0.4 - 2024-09-05 =
+= 2.0.5 =
 ##### Improvements
-* **Post Block**, Add new pagination options
-* **Post List**, Add new pagination options
+* Add option for border radius in Post List featured image
 
 ##### Bug Fixes
-* **Flexible Wrapper**, Flexible wrapper Horizontal alignment
-* **Archive Title**, Tag name is not displayed
-* **Post Block**, Readmore icon transition delayed
-* **Team**, style not working with link
+* Fix issue with clicking nav menu
+* Fix pagination number issue in post block and post list
+* Fix warning messages on frontend
+* Fix post comment typography style
+* Fix Icon list spacing in editor
+* Fix search block width setting
 
-= 2.0.3 - 2024-08-29 =
-##### Bug Fixes
-* **Gallery**, Fix load more function
-* **Post Content**, Fix issue with looping content
-* **Post Terms**, Fix border line 
-
-= 2.0.2 - 2024-08-21 =
+= 2.0.4 =
 ##### Improvements
-* **Column**, update width value while dragging
-* **Popup builder**, fix issue with cursor effect
-* **Post Block**, Update Readmore functionality
-* **Post Content**, Fix issue with not showing content
-
-= 2.0.1 - 2024-08-13 =
-##### Improvements
-* **Framework**, Update core framework
+* Add new pagination options in post block and post list
 
 ##### Bug Fixes
-* **Form Fallback**, Fix issue with Form Builder in template part
-* **Styling**, Fix issue with styling on frontend
+* Fix flexible wrapper Horizontal alignment
+* Fix archive title block title name is not displayed
+* Fix post block readmore icon transition delayed
+* Fix team block style not working with link
 
-= 2.0.0 - 2024-08-08 =
+= 2.0.3 =
+##### Bug Fixes
+* Fix gallery load more function
+* Fix post content issue with looping content
+* Fix post terms block border line 
+
+= 2.0.2 =
+##### Improvements
+* Fix column block update width value while dragging
+* Fix issue with cursor effect
+* Fix post block readmore functionality
+* Fix post content issue with not showing content
+
+= 2.0.1 =
+##### Improvements
+* Update core framework
+
+##### Bug Fixes
+* Fix issue with Form Builder in template part
+* Fix issue with styling on frontend
+
+= 2.0.0 =
 ##### New
-* **Archive Title Block**, Add new block
-* **Copy Style**, Add new ability to copy styles between blocks
-* **Flexible Wrapper Block**, Add new block
-* **Ecosystem**, Add gutenverse plugin ecosystem
-* **Search Block**, Add new block
+* Add new block: Archive Title block, Flexible Wrapper Block, & Search Block
+* Add new ability to copy styles between blocks
+* Add gutenverse plugin ecosystem
 
 ##### Improvements
-* **Codes**, Improve codes to be more lightweight
-* **Dashboard**, Improve dashboard experience
-* **Popup Builder**, Add option to only show popup once
+* Improve codes to be more lightweight
+* Improve dashboard experience
+* Add option to only show popup once
 
 ##### Bug Fixes
-* **Button**, Fixed hover button background normal color
-* **Client Logo**, Fix Slider Arrow for Client Logo
-* **Client Logo**, Fix Slider Dots for Client Logo 
-* **Client Logo**, Remove Inline Auto Width for Client Logo
-* **Fun Fact**, Fix icon display property
-* **Global Style**, Fix color opacity not working
-* **Testimonial**, Fix Slider Arrow for Testimonial
-* **Testimonial**, Fix Slider Dots for Testimonial
-* **Testimonial**, Remove Inline Auto Width for Testimonial
-* **Positioning**, Fix positioning for the value "fixed" and "absolute",
-* **Text Box**, Remove Text Spread,
-* **Button**, Fixed hover button background normal color
-* **Gradient**, Fixed gradient color picker
-* **Section**, Fixed section overlay
-* **Team**, Fixed width image and overlay
-* **Icon List**, Fixed when width inline and using postition fixed,
-* **ProgressBar**, Removing Progressbar Width Inline Auto
-* **Galery**, Fixed Rating and Star Color
-* **Galery**, Fixed Galery FrontEnd Zoom
-* **Section**, Fix issue with Shape Divider bottom Bring to Front option
-* **Post Block**, Fix issue with autoload scroll and fix some predefined styles
+* Fixed hover button background normal color
+* Fix slider arrow and dots navigation for Logo Slider block and Testimonia block
+* Remove Inline Auto Width for Logo Slider block and Testimonia block
+* Fix Fun Fact bock icon display property
+* Fix color opacity not working in global styles
+* Fix positioning for the value "fixed" and "absolute",
+* Remove text spread in Text Box,
+* Fixed gradient color picker
+* Fixed section overlay
+* Fixed width image and overlay in Team block
+* Fixed Icon List block when width inline and using postition fixed,
+* Removing Progressbar width inline auto
+* Fixed Gallery rating and star color
+* Fixed Galery frontend zoom
+* Fix issue with Shape Divider bottom Bring to Front option
+* Fix post block issue with autoload scroll and fix some predefined styles
 
 = 1.9.4 - 2024-07-18 =
 ##### Bug Fixes
