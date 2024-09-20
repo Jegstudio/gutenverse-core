@@ -295,6 +295,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.0.5 =
 ##### Improvements
+* Improve blocks loading inside editor
 * Add option for border radius in Post List featured image
 
 ##### Bug Fixes
@@ -304,6 +305,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * Fix post comment typography style
 * Fix Icon list spacing in editor
 * Fix search block width setting
+* Fix post block setting issue
 
 = 2.0.4 =
 ##### Improvements
