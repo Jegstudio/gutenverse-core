@@ -38,7 +38,7 @@ export const contentPanel = props => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .gutenverse-search-form .guten-search-button-wrapper, .${elementId} .gutenverse-search-form .guten-search-button-wrapper .guten-button-wrapper .guten-button`,
+                    selector: `.${elementId} .gutenverse-search-form .guten-search-button-wrapper`,
                     render: value => `width: ${value}`
                 },
                 {
