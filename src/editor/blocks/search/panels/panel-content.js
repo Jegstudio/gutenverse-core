@@ -41,7 +41,7 @@ export const contentPanel = props => {
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input`,
                     allowRender: value => '100%' === value[device],
-                    render: () => 'max-width: none !important;'
+                    render: () => 'max-width: none !important; width: 100% !important;'
                 },
                 {
                     selector: `.${elementId} gutenverse-search-form`,
