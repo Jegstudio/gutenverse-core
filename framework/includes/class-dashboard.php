@@ -219,7 +219,7 @@ class Dashboard {
 		$status['count_tag']        = wp_count_terms( 'post_tag' );
 
 		/** Server Environment */
-		$remote     = wp_remote_get( 'http://api.wordpress.org/plugins/update-check/1.1/' );
+		$remote     = wp_remote_get( home_url() );
 		$gd_support = array();
 
 		if ( function_exists( 'gd_info' ) ) {
