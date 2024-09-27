@@ -28,6 +28,7 @@ const TextEditorBlock = compose(
     const {
         elementId,
         dropcap,
+        enableHeading
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -49,7 +50,11 @@ const TextEditorBlock = compose(
         ref: textEditorRef
     });
 
-    const innerBlocksProps = useInnerBlocksProps({
+    const innerBlocksProps = enableHeading? useInnerBlocksProps({
+        template: [['gutenverse/text-paragraph']]
+    }, {
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/heading'],
+    }) : useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
         allowedBlocks: ['gutenverse/text-paragraph','core/paragraph'],
