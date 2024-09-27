@@ -73,14 +73,16 @@ const SearchBlock = compose(
             <div
                 className="gutenverse-search-form"
             >
-                <input type="search"
-                    placeholder={inputPlaceholder}
-                    name="s"
-                    className={classnames(
-                        'gutenverse-search',
-                        'gutenverse-search-input',
-                    )}
-                />
+                <div className="search-input-container">
+                    <input type="search"
+                        placeholder={inputPlaceholder}
+                        name="s"
+                        className={classnames(
+                            'gutenverse-search',
+                            'gutenverse-search-input',
+                        )}
+                    />
+                </div>
                 {
                     showButton && <div className="gutenverse-search-button" {...innerBlockProps} />
                 }

@@ -306,7 +306,8 @@ export const paginationStylePanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav`,
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav`,
                     render: value => `justify-content: ${value};`
                 }
             ]

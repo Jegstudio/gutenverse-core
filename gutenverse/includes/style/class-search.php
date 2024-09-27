@@ -297,7 +297,8 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['inputWidth'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input,
+						",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -320,7 +321,7 @@ class Search extends Style_Abstract {
 			);
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input",
+					'selector'       => ".{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
 						$point = ( int ) $value['point'];
 						$unit = $value['unit'];
@@ -384,7 +385,7 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['alignContent'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search-form",
+					'selector'       => ".{$this->element_id} .gutenverse-search-form, .{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},

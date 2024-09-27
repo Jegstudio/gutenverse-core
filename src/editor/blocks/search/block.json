@@ -154,13 +154,7 @@
 			}
 		},
 		"inputWidth": {
-			"type": "object",
-			"default": {
-				"Desktop": {
-					"point": "350",
-					"unit": "px"
-				}
-			}
+			"type": "object"
 		},
 		"inputTypography": {
 			"type": "object"
