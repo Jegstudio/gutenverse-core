@@ -49,7 +49,7 @@ export const contentPanel = props => {
                     render: (value) => `max-width: none !important; width: ${value} !important;`
                 },
                 {
-                    selector: `.${elementId} gutenverse-search-form`,
+                    selector: `.${elementId} .gutenverse-search-form`,
                     allowRender: value => '100%' === value[device],
                     render: () => 'align-items: center;'
                 },

@@ -229,7 +229,7 @@ class Search extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
-					'property'       => function() {
+					'property'       => function () {
 						return 'outline: none !important;';
 					},
 					'value'          => '',
@@ -256,7 +256,7 @@ class Search extends Style_Abstract {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input:focus",
-					'property'       => function() {
+					'property'       => function () {
 						return 'outline: none !important;';
 					},
 					'value'          => '',
@@ -268,7 +268,7 @@ class Search extends Style_Abstract {
 		if ( isset( $this->attrs['formStyle'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-button-wrapper ",
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-button-wrapper",
 					'property'       => function ( $value ) {
 						if ( '100%' === $value ) {
 							return "width: {$value} !important;";
@@ -278,27 +278,51 @@ class Search extends Style_Abstract {
 					'device_control' => true,
 				)
 			);
-			if ( $this->attrs['formStyle'] ) {
-				$this->inject_style(
-					array(
-						'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input ",
-						'property'       => function ( $value ) {
-							if ( '100%' === $value ) {
-								return "max-width: none !important; width: 100% !important;";
-							}
-						},
-						'value'          => $this->attrs['formStyle'],
-						'device_control' => true,
-					)
-				);
-			}
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-input-container",
+					'property'       => function ( $value ) {
+						if ( '100%' === $value ) {
+							return "max-width: none !important; width: {$value} !important;";
+						}
+					},
+					'value'          => $this->attrs['formStyle'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gutenverse-search-form .guten-search-button-wrapper",
+					'property'       => function ( $value ) {
+						if ( '100%' === $value ) {
+							return "width: {$value} !important;";
+						}
+					},
+					'value'          => $this->attrs['formStyle'],
+					'device_control' => true,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['inputWidth'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search.gutenverse-search-input,
-						",
+						.{$this->element_id} .gutenverse-search-form .gutenverse-search-input,
+						.{$this->element_id} .search-input-container .gutenverse-search.gutenverse-search-input",
+					'property'       => function ( $value ) {
+						if ( '%' === $value['unit'] ) {
+							return 'width: 100%;';
+						}
+						return $this->handle_unit_point( $value, 'width' );
+					},
+					'value'          => $this->attrs['inputWidth'],
+					'device_control' => true,
+				)
+			);
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'width' );
 					},
@@ -323,10 +347,10 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .search-input-container",
 					'property'       => function ( $value ) {
-						$point = ( int ) $value['point'];
+						$point = (int) $value['point'];
 						$unit = $value['unit'];
 						$diff = 'px' === $unit ? 2 : ( '%' === $unit ? 0.2 : 0.12 );
-						return "max-width: calc(100% - " . ( $point + $diff ) . $unit . ");";
+						return 'max-width: calc(100% - ' . ( $point + $diff ) . $unit . ');';
 					},
 					'value'          => $this->attrs['buttonWidth'],
 					'device_control' => true,
