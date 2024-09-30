@@ -157,6 +157,7 @@ export const contentPanel = props => {
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search-form .guten-search-button-wrapper`,
+                    allowRender: () => '100%' !== formStyle[device],
                     render: value => `width: ${value.point}${value.unit}!important;`
                 },
                 {

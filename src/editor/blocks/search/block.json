@@ -17,7 +17,7 @@
 			"default": true
 		},
 		"formStyle": {
-			"type": "string",
+			"type": "object",
 			"default": {
 				"Desktop": "fit-content"
 			}
