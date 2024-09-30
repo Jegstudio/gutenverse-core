@@ -110,7 +110,12 @@ export const contentPanel = props => {
             style: [
                 {
                     selector: `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-                    render: value => `width: ${value.point}${value.unit}!important;`
+                    render: value => {
+                        if ('%' !== value.unit) {
+                            return `width: ${value.point}${value.unit} !important;`
+                        }
+                        return 'width: 100% !important;'
+                    }
                 },
                 {
                     selector: `.${elementId} .search-input-container`,
