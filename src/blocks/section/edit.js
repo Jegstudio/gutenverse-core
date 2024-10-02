@@ -29,6 +29,7 @@ import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import { BackgroundSlideShow } from 'gutenverse-core/components';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -186,6 +187,7 @@ const SectionBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
+        addStyle,
     } = props;
 
     const {
@@ -198,6 +200,7 @@ const SectionBlock = compose(
         backgroundAnimated = {},
         cursorEffect,
         backgroundEffect,
+        background
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -271,6 +274,7 @@ const SectionBlock = compose(
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
+                {background?.slideImage?.length > 0 && <BackgroundSlideShow attributes={attributes} addStyle={addStyle}/>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 <FluidCanvas attributes={attributes} />
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
