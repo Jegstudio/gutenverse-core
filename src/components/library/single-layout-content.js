@@ -230,6 +230,7 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
     const [installedLoad, setInstalledLoad] = useState(false);
     const [isInstalled, setIsInstalled] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
 
     useEffect(() => {
         const { themeData } = library;
@@ -261,12 +262,11 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
 
     const InstallStatus = () => {
         const { themeListUrl, pluginVersions } = window['GutenverseConfig'];
-        const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
 
         const pluginVersion = pluginVersions?.gutenverse?.version || '0.0.0';
 
         if (isInstalled) {
-            if (!isActive && semver.gte(pluginVersion, singleData?.compatibleVersion || '0.0.0') && !isThemeforest) {
+            if (!isActive && semver.gte(pluginVersion, singleData?.compatibleVersion || '0.0.0')) {
                 return <div className="single-install-themes active">
                     <h3>{__('Activate', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
                     <p>{__('You already install the themes, you can get all template by activating this themes.', '--gctd--')}</p>
@@ -294,7 +294,7 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
         return !installedLoad ? <InstallThemeStatusSkeleton /> : <InstallStatus />;
     };
 
-    return themeExist && themeInstallBlock();
+    return themeExist && !isThemeforest && themeInstallBlock();
 };
 
 const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode }) => {
