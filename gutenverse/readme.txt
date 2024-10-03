@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.6
+Stable tag: 2.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,6 +293,17 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.0.7 =
+##### Improvements
+* Add option to style comment reply in Post Comment block
+* Allowed core/heading in Text block
+
+##### Bug Fixes
+* Fix issue with scrolling when url has no anchor tag
+* Fix issue with opening link in flexible wrapper
+* Fix styling for Search block
+* Fix issue with icon position on frontend for Icon Box block
+
 = 2.0.6 =
 ##### Bug Fixes
 * Fix issue with system status on sites using WP Engine
