@@ -10,7 +10,7 @@ const CommentPlaceholder = (showForm = true) => {
                         <div className="comment-author vcard">
                             <img alt="" src="http://2.gravatar.com/avatar/89bf62eef95ad7f15f6026f781b35dfa?s=32&amp;d=mm&amp;r=g" srcSet="http://2.gravatar.com/avatar/89bf62eef95ad7f15f6026f781b35dfa?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" />
                             <b className="fn"><a href="javascript:void(0);" rel="external nofollow ugc" className="url">User</a></b>
-                            <span className="says">says:</span>
+                            <span className="says"> says:</span>
                         </div>
                         <div className="comment-metadata">
                             <a href="javascript:void(0);">
@@ -25,6 +25,33 @@ const CommentPlaceholder = (showForm = true) => {
                         <a rel="nofollow" className="comment-reply-link" href="javascript:void(0);" data-commentid="2" data-postid="1" data-belowelement="div-comment-2" data-respondelement="respond" data-replyto="Reply to admin" aria-label="Reply to admin">Reply</a>
                     </div>
                 </article>
+                <ul className="children">
+                    <li id="comment-40" className="comment byuser comment-author-user bypostauthor odd alt depth-2">
+                        <article id="div-comment-40" className="comment-body">
+                            <footer className="comment-meta">
+                                <div className="comment-author vcard">
+                                    <img alt="" src="http://1.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcSet="http://1.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
+                                    <b className="fn"><a href="javascript:void(0);" className="url" rel="ugc">User</a></b>
+                                    <span className="says"> says:</span>
+                                </div>
+
+                                <div className="comment-metadata">
+                                    <a href="javascript:void(0);">
+                                        <time dateTime="2024-09-20T02:20:38+00:00">01 January 2022 at 10:00 am</time>
+                                    </a>
+                                </div>
+                            </footer>
+
+                            <div className="comment-content">
+                                <p>this is my replay</p>
+                            </div>
+
+                            <div className="reply">
+                                <a rel="nofollow" className="comment-reply-link" href="#comment-40" data-commentid="40" data-postid="2175" data-belowelement="div-comment-40" data-respondelement="respond" data-replyto="Reply to user" aria-label="Reply to user">Reply</a>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
             </li>
         </ol>
         {showForm && <div className="comment-form">

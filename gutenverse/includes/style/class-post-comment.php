@@ -93,7 +93,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['typographyText'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} p",
+					'selector'       => ".{$this->element_id} .comment-form p",
 					'value'          => $this->attrs['typographyText'],
 					'device_control' => false,
 				)
@@ -103,7 +103,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['colorText'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} p",
+					'selector'       => ".{$this->element_id} .comment-form p",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -116,7 +116,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['marginText'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} p",
+					'selector'       => ".{$this->element_id} .comment-form p",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -126,10 +126,46 @@ class Post_Comment extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['typographyTextList'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist p:not(.comment-respond p)",
+					'value'          => $this->attrs['typographyTextList'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['colorTextList'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist p:not(.comment-respond p)",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['colorTextList'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['marginTextList'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment p:not(.comment-respond p)",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['marginTextList'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['typographyLink'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} a",
+					'selector'       => ".{$this->element_id} .comment-form a",
 					'value'          => $this->attrs['typographyLink'],
 					'device_control' => false,
 				)
@@ -139,7 +175,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['colorLink'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} a",
+					'selector'       => ".{$this->element_id} .comment-form a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -152,11 +188,119 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['marginLink'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} a",
+					'selector'       => ".{$this->element_id} .comment-form a",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
 					'value'          => $this->attrs['marginLink'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['userNameTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist b.fn a.url",
+					'value'          => $this->attrs['userNameTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['userNameColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist b.fn a.url",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['userNameColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['userNameMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist b.fn a.url",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['userNameMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['dateTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment-metadata a time",
+					'value'          => $this->attrs['dateTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['dateColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment-metadata a time",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['dateColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['dateMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment-metadata a time",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['dateMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyLinkTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .reply .comment-reply-link",
+					'value'          => $this->attrs['replyLinkTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyLinkColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .reply .comment-reply-link",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['replyLinkColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyLinkMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .reply .comment-reply-link",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['replyLinkMargin'],
 					'device_control' => true,
 				)
 			);
@@ -212,7 +356,8 @@ class Post_Comment extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['inputBorder'] ) ) {
-			$this->handle_border( 'inputBorder', ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea" );
+			$this->handle_border( 'inputBorder', ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea,
+				.{$this->element_id} .commentlist .comment-respond textarea" );
 		}
 
 		if ( isset( $this->attrs['inputBorderResponsive'] ) ) {
@@ -518,7 +663,8 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['inputTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea",
+					'selector'       => ".{$this->element_id} .comment-form form input:not([type=submit]), .{$this->element_id} .comment-form form textarea,
+						.{$this->element_id} textarea",
 					'value'          => $this->attrs['inputTypography'],
 					'device_control' => false,
 				)
@@ -546,6 +692,58 @@ class Post_Comment extends Style_Abstract {
 						return $this->handle_dimension( $value, 'padding' );
 					},
 					'value'          => $this->attrs['inputPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyBgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment .children",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['replyBgColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment .children",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['replyMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment .children",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['replyPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['replyBorder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment .children",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['replyBorder'],
 					'device_control' => true,
 				)
 			);

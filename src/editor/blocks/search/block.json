@@ -17,7 +17,7 @@
 			"default": true
 		},
 		"formStyle": {
-			"type": "string",
+			"type": "object",
 			"default": {
 				"Desktop": "fit-content"
 			}
@@ -27,7 +27,13 @@
 			"default": "top"
 		},
 		"buttonWidth": {
-			"type": "object"
+			"type": "object",
+			"default": {
+				"Desktop": {
+					"point": "100",
+					"unit": "px"
+				}
+			}
 		},
 		"positioningType": {
 			"type": "object"
@@ -148,13 +154,7 @@
 			}
 		},
 		"inputWidth": {
-			"type": "object",
-			"default": {
-				"Desktop": {
-					"point": "350",
-					"unit": "px"
-				}
-			}
+			"type": "object"
 		},
 		"inputTypography": {
 			"type": "object"

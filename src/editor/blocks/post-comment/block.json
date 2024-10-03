@@ -29,10 +29,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"typographyText": {
-			"type": "object",
-			"copyStyle": true
-		},
 		"typographyLink": {
 			"type": "object",
 			"copyStyle": true
@@ -42,10 +38,6 @@
 			"copyStyle": true
 		},
 		"colorHeading": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"colorText": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -71,7 +63,28 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"typographyText": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorText": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"marginText": {
+			"type": "object",
+			"copyStyle": true
+		},
+
+		"typographyTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"marginTextList": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -286,6 +299,70 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+
+		"userNameTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"userNameColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"userNameMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyMargin": {
+			"type": "object",
+			"copyStyle": true,
+			"default" : {
+				"Desktop": {
+					"unit": "px",
+					"dimension": {
+						"top": "",
+						"right": "",
+						"bottom": "",
+						"left": "20"
+					}
+				}
+			}
+		},
+		"replyPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyBorder": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"usesContext": [

@@ -4,9 +4,13 @@
 
     .gutenverse-search.gutenverse-search-input {
         border-width: 1px;
+        width: 350px;
     }
     .guten-search-button-wrapper, .guten-button-wrapper{
         display: inline-flex!important;
         flex-grow: unset !important;
+    }
+    .search-input-container {
+        display: flex;
     }
 }
