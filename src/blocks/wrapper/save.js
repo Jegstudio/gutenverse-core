@@ -56,8 +56,9 @@ const save = compose(
     });
     const _isBgAnimated = isAnimationActive(backgroundAnimated);
     const dataId = elementId?.split('-')[1];
+    const newLinkTarget = undefined === linkTarget ? '_self' : linkTarget;
     return (
-        <div {...blockProps} onClick={url && `window.open('${url}', '${linkTarget}');`}>
+        <div {...blockProps} onClick={url && `window.open('${url}', '${newLinkTarget}');`}>
             {(_isBgAnimated) &&
                 <div className="guten-data">
                     {_isBgAnimated &&

@@ -96,7 +96,7 @@ const FlexibleWrapper = compose(
 
     const onToggleOpenInNewTab = useCallback(
         (value) => {
-            const newLinkTarget = value ? '_blank' : undefined;
+            const newLinkTarget = value ? '_blank' : '_self';
 
             let updatedRel = rel;
             if (newLinkTarget && !rel) {
