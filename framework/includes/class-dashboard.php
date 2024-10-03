@@ -359,15 +359,18 @@ class Dashboard {
 			1
 		);
 
-		add_submenu_page(
-			self::TYPE,
-			esc_html__( 'Theme List', '--gctd--' ),
-			esc_html__( 'Theme List', '--gctd--' ),
-			'manage_options',
-			$path . 'theme-list',
-			null,
-			2
-		);
+		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
+		if ( $show_theme_list ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Theme List', '--gctd--' ),
+				esc_html__( 'Theme List', '--gctd--' ),
+				'manage_options',
+				$path . 'theme-list',
+				null,
+				2
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,
