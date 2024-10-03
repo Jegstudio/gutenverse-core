@@ -976,7 +976,7 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['numberGap'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav",
+					'selector'       => ".{$this->element_id} .guten-postblock .guten_block_nav",
 					'property'       => function ( $value ) {
 						return "gap: {$value}px;";
 					},
@@ -1042,7 +1042,8 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['navigationAlign'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav",
+					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav,
+						.{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},

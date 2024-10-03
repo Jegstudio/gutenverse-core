@@ -17,12 +17,12 @@ const SearchBlock = compose(
 )(props => {
     const {
         attributes,
-        setElementRef
+        setElementRef,
     } = props;
     const {
         showButton,
         inputPlaceholder,
-        elementId
+        elementId,
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -66,20 +66,23 @@ const SearchBlock = compose(
             setElementRef(searchRef.current);
         }
     }, [searchRef]);
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             <div
                 className="gutenverse-search-form"
             >
-                <input type="search"
-                    placeholder={inputPlaceholder}
-                    name="s"
-                    className={classnames(
-                        'gutenverse-search',
-                        'gutenverse-search-input',
-                    )}
-                />
+                <div className="search-input-container">
+                    <input type="search"
+                        placeholder={inputPlaceholder}
+                        name="s"
+                        className={classnames(
+                            'gutenverse-search',
+                            'gutenverse-search-input',
+                        )}
+                    />
+                </div>
                 {
                     showButton && <div className="gutenverse-search-button" {...innerBlockProps} />
                 }

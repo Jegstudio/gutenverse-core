@@ -89,18 +89,23 @@ export const panelGeneral = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'right'),
                     render: () => 'display: flex !important; align-items: flex-start; flex-direction: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'right'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
                     render: () => 'display: flex !important; flex-direction: row-reverse; align-items: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top') || (value && value[deviceType] === 'bottom')),
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'bottom')),
                     render: () => 'display: block !important; flex-direction: unset !important; align-items: unset !important;'
+                },
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top')),
+                    render: () => 'display: flex !important; flex-direction: column-reverse !important; align-items: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,

@@ -252,26 +252,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentBackgroundColorActive": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"contentTextColorActive": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"contentBorderActive": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"contentBorderActiveResponsive": {
-			"type": "object",
-			"migrate": {
-				"attr": "contentBorderActive",
-				"type": "border"
-			},
-			"copyStyle": true
-		},
 		"titleBackgroundActiveColor": {
 			"type": "object",
 			"copyStyle": true
