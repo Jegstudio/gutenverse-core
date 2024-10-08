@@ -525,9 +525,9 @@ const BackgroundControl = (props) => {
             <RangeControl
                 label={__('Duration', '--gctd--')}
                 min={0}
-                max={5000}
-                step={100}
-                unit="ms"
+                max={100}
+                step={1}
+                unit="s"
                 value={value.duration}
                 onValueChange={duration => onValueChange({ ...value, duration })}
                 onStyleChange={duration => onStyleChange({ ...value, duration })}
@@ -608,12 +608,12 @@ const BackgroundControl = (props) => {
                     },
                 ]}
             />
-            <CheckboxControl
+            {/* <CheckboxControl
                 label={__('Lazy Load', '--gctd--')}
                 value={value.lazyLoad}
                 onValueChange={lazyLoad => onValueChange({ ...value, lazyLoad })}
                 onStyleChange={lazyLoad => onStyleChange({ ...value, lazyLoad })}
-            />
+            /> */}
         </>}
 
         {value.type !== undefined && value.type === 'fluid' && applyFilters(

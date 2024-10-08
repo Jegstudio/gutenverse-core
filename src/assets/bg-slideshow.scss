@@ -8,6 +8,7 @@
     width: 100% !important;
     height: 100% !important;
     margin: auto;
+    overflow: hidden;
 
     .bg-slideshow-item {
         background-position: center;
@@ -16,5 +17,6 @@
         left: 0;
         width: 100%;
         height: inherit;
+        object-fit: cover;
     }
 }
