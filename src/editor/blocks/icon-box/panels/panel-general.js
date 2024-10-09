@@ -89,12 +89,12 @@ export const panelGeneral = (props) => {
             style: [
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'right'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
                     render: () => 'display: flex !important; align-items: flex-start; flex-direction: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
+                    allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'right'),
                     render: () => 'display: flex !important; flex-direction: row-reverse; align-items: unset !important;'
                 },
                 {
@@ -110,7 +110,7 @@ export const panelGeneral = (props) => {
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
                     allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
-                    render: () => 'margin-right: 15px; margin-right: unset !important;'
+                    render: () => 'margin-right: 15px; margin-left: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
