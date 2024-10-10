@@ -497,11 +497,11 @@ const BackgroundControl = (props) => {
 
         {value.type !== undefined && value.type === 'slide' && <>
             <RepeaterControl
-                label= {__('Image', '--gctd--')}
-                titleFormat= "<strong><%= value.title%></strong>"
-                value= {value.slideImage}
-                values = {values}
-                options= {[
+                label={__('Image', '--gctd--')}
+                titleFormat="<strong><%= value.title%></strong>"
+                value={value.slideImage}
+                values={values}
+                options={[
                     {
                         id: 'image',
                         label: __('Image', '--gctd--'),
@@ -539,8 +539,12 @@ const BackgroundControl = (props) => {
                 onStyleChange={transition => onStyleChange({ ...value, transition })}
                 options={[
                     {
-                        label: __('Fade', '--gctd--'),
+                        label: __('fade', '--gctd--'),
                         value: 'fade'
+                    },
+                    {
+                        label: __('Cross Fade', '--gctd--'),
+                        value: 'crossFade'
                     },
                     {
                         label: __('Slide Right', '--gctd--'),
@@ -605,6 +609,54 @@ const BackgroundControl = (props) => {
                     {
                         label: __('Bottom Left', '--gctd--'),
                         value: 'bottom-left'
+                    },
+                ]}
+            />
+            <SelectControl
+                label={__('Background Size', '--gctd--')}
+                value={value.backgroundSize}
+                onValueChange={backgroundSize => onValueChange({ ...value, backgroundSize })}
+                onStyleChange={backgroundSize => onStyleChange({ ...value, backgroundSize })}
+                options={[
+                    {
+                        label: __('Default', '--gctd--'),
+                        value: 'auto'
+                    },
+                    {
+                        label: __('Contain', '--gctd--'),
+                        value: 'contain'
+                    },
+                    {
+                        label: __('Cover', '--gctd--'),
+                        value: 'cover'
+                    },
+                ]}
+            />
+            <SelectControl
+                label={__('Background Repeat', '--gctd--')}
+                value={value.backgroundRepeat}
+                onValueChange={backgroundRepeat => onValueChange({ ...value, backgroundRepeat })}
+                onStyleChange={backgroundRepeat => onStyleChange({ ...value, backgroundRepeat })}
+                options={[
+                    {
+                        label: __('Default', '--gctd--'),
+                        value: 'repeat'
+                    },
+                    {
+                        label: __('No repeat', '--gctd--'),
+                        value: 'no-repeat'
+                    },
+                    {
+                        label: __('Repeat Y', '--gctd--'),
+                        value: 'repeat-y'
+                    },
+                    {
+                        label: __('Repeat X', '--gctd--'),
+                        value: 'repeat-x'
+                    },
+                    {
+                        label: __('Round', '--gctd--'),
+                        value: 'round'
                     },
                 ]}
             />
