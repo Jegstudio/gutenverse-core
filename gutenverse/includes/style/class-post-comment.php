@@ -748,5 +748,57 @@ class Post_Comment extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['mainBgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment.depth-1 > .comment-body",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['mainBgColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['mainMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment.depth-1 > .comment-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['mainMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['mainPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment.depth-1 > .comment-body",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['mainPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['mainBorder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .commentlist .comment.depth-1 > .comment-body",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['mainBorder'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

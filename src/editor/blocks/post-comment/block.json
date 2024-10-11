@@ -363,6 +363,22 @@
 		"replyBorder": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"mainBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainBorder": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"usesContext": [
