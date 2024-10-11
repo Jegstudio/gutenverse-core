@@ -130,7 +130,11 @@ export const panelRatingStyle = ({ elementId }) => {
                     selector:  `.${elementId}.style-1 ul.rating-stars, 
                                 .${elementId}.style-2 ul.rating-stars, 
                                 .${elementId}.style-3 ul.rating-stars, 
-                                .${elementId}.style-4 ul.rating-stars`,
+                                .${elementId}.style-4 ul.rating-stars,
+                                .${elementId}.style-1 .comment-header ul.rating-stars, 
+                                .${elementId}.style-2 .comment-header ul.rating-stars, 
+                                .${elementId}.style-3 .comment-header ul.rating-stars, 
+                                .${elementId}.style-4 .comment-header ul.rating-stars`,
                     render: value => {
                         return handleDimension(value, 'margin');
                     }
