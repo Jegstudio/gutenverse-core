@@ -230,6 +230,7 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
     const [installedLoad, setInstalledLoad] = useState(false);
     const [isInstalled, setIsInstalled] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
 
     useEffect(() => {
         const { themeData } = library;
@@ -261,6 +262,7 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
 
     const InstallStatus = () => {
         const { themeListUrl, pluginVersions } = window['GutenverseConfig'];
+
         const pluginVersion = pluginVersions?.gutenverse?.version || '0.0.0';
 
         if (isInstalled) {
@@ -292,7 +294,7 @@ const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
         return !installedLoad ? <InstallThemeStatusSkeleton /> : <InstallStatus />;
     };
 
-    return themeExist && themeInstallBlock();
+    return themeExist && !isThemeforest && themeInstallBlock();
 };
 
 const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode }) => {

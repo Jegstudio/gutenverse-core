@@ -338,6 +338,7 @@ class Dashboard {
 	 */
 	public function child_menu() {
 		$path = admin_url( 'admin.php?page=gutenverse&path=' );
+		$show_theme_list = apply_filters( 'gutenverse_show_theme_list', true );
 
 		add_submenu_page(
 			self::TYPE,
@@ -359,15 +360,17 @@ class Dashboard {
 			1
 		);
 
-		add_submenu_page(
-			self::TYPE,
-			esc_html__( 'Theme List', '--gctd--' ),
-			esc_html__( 'Theme List', '--gctd--' ),
-			'manage_options',
-			$path . 'theme-list',
-			null,
-			2
-		);
+		if ( $show_theme_list ) {
+			add_submenu_page(
+				self::TYPE,
+				esc_html__( 'Theme List', '--gctd--' ),
+				esc_html__( 'Theme List', '--gctd--' ),
+				'manage_options',
+				$path . 'theme-list',
+				null,
+				2
+			);
+		}
 
 		add_submenu_page(
 			self::TYPE,
@@ -422,15 +425,17 @@ class Dashboard {
 		}
 
 		// Add Submenu on Appearance.
-		add_submenu_page(
-			'themes.php',
-			esc_html__( 'Gutenverse Themes', '--gctd--' ),
-			esc_html__( 'Gutenverse Themes', '--gctd--' ),
-			'manage_options',
-			'admin.php?page=gutenverse&path=theme-list',
-			null,
-			1
-		);
+		if ( $show_theme_list ) {
+			add_submenu_page(
+				'themes.php',
+				esc_html__( 'Gutenverse Themes', '--gctd--' ),
+				esc_html__( 'Gutenverse Themes', '--gctd--' ),
+				'manage_options',
+				'admin.php?page=gutenverse&path=theme-list',
+				null,
+				1
+			);
+		}
 	}
 
 	/**
