@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 2.0.8
+Stable tag: 2.0.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -293,6 +293,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.0.9 =
+##### Bug Fixes
+* Fix warning issue related to global fonts when certain values are empty
+* Fix icon box alignment in editor
+* Fix rating margin in testimonials block
+* Fix setting for post comment 
+
 = 2.0.8 =
 ##### Bug Fixes
 * Fix appearance menu for some themes
