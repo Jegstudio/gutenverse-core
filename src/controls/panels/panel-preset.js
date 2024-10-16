@@ -1,5 +1,5 @@
 import { applyFilters } from '@wordpress/hooks';
-import LockedPresetControl from '../controls/locked/locked-preset-control';
+import { LockedPresetControl } from 'gutenverse-core/controls';
 
 export const presetPanel = (props) => {
     return applyFilters(
