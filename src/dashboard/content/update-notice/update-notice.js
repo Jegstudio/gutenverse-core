@@ -102,7 +102,7 @@ const UpdateNotice = ({ location }) => {
                                     </li>
                                 ))}
                                 {loaded < versions.length && (
-                                    <li className="load">
+                                    <li className="load-version">
                                         <a onClick={() => increaseLoaded()}>
                                             <sup>. . .</sup>
                                         </a>
