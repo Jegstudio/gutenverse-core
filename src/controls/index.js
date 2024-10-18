@@ -69,7 +69,6 @@ export { default as LockedFluidBackground } from './controls/locked/locked-fluid
 export { default as LockedConditionControl } from './controls/locked/locked-condition-control';
 export { default as LockedProPanel } from './controls/locked/locked-pro-panel';
 export { default as LockedDynamicContentControl } from './controls/locked/locked-dynamic-content-control';
-export { default as LockedPresetControl } from './controls/locked/locked-preset-control';
 
 export { default as ControlDevices } from './controls/part/control-devices';
 export { default as ControlHeadingSimple } from './controls/part/control-heading-simple';
@@ -105,4 +104,3 @@ export { PanelTutorial } from './panels/panel-tutorial';
 export { PanelSequence, TabSetting, TabStyle, TabAdvance, TabPro } from './panels/panel-constant';
 export { conditionPanel } from './panels/panel-condition';
 export { dynamicContentPanel } from './panels/panel-dynamic-content';
-export { presetPanel } from './panels/panel-preset';

@@ -15,7 +15,8 @@ const PanelController = ({ ...props }) => {
         panelProps,
         panelList,
         elementRef,
-        panelState
+        panelState,
+        name
     } = props;
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
@@ -92,7 +93,6 @@ const PanelController = ({ ...props }) => {
         ])(),
         tabList
     );
-
     return <>
         <InspectorControls>
             <div className="gutenverse-panel-wrapper" ref={onRefChange}>
@@ -109,12 +109,17 @@ const PanelController = ({ ...props }) => {
                                 </div>
                             </Tooltip>;
                         })}
+                        {
+                            applyFilters('gutenverse.panel.tab', null, {setActiveTab, activeTab})
+                        }
                     </div>
                     <PanelTabPro activeTab={activeTab} />
+                    {
+                        applyFilters('gutenverse.panel.tab.content', null, {activeTab, name})
+                    }
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
                         const { tabRole } = panel;
-
                         if (tabRole) {
                             const { id: tabId } = tabRole;
                             return tabId === active;
