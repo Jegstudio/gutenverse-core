@@ -16,8 +16,12 @@ const PanelController = ({ ...props }) => {
         panelList,
         elementRef,
         panelState,
-        name
+        name,
+        setAttributes,
+        attributes,
+        refreshStyle,
     } = props;
+
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
     useEffect(() => {
@@ -110,12 +114,12 @@ const PanelController = ({ ...props }) => {
                             </Tooltip>;
                         })}
                         {
-                            applyFilters('gutenverse.panel.tab', null, {setActiveTab, activeTab})
+                            applyFilters('gutenverse.panel.tab', null, {setActiveTab, activeTab, name})
                         }
                     </div>
                     <PanelTabPro activeTab={activeTab} />
                     {
-                        applyFilters('gutenverse.panel.tab.content', null, {activeTab, name})
+                        applyFilters('gutenverse.panel.tab.content', null, {activeTab, name, setAttributes, attributes, refreshStyle})
                     }
                     {panelList().filter(panel => {
                         let active = activeTab === null ? tabPanel[0].id : activeTab;
