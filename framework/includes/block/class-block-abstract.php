@@ -44,6 +44,13 @@ abstract class Block_Abstract {
 	protected $manager;
 
 	/**
+	 * Block Instance.
+	 *
+	 * @var Object
+	 */
+	protected $block_instance;
+
+	/**
 	 * Render
 	 *
 	 * @param array  $attributes .
@@ -126,7 +133,8 @@ abstract class Block_Abstract {
 	 * @param object $fulldata .
 	 */
 	protected function set_context( $fulldata ) {
-		$this->context = $fulldata->context;
+		$this->context        = $fulldata->context;
+		$this->block_instance = $fulldata->parsed_block;
 	}
 
 	/**
