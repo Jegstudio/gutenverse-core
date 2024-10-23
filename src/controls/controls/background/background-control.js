@@ -543,10 +543,6 @@ const BackgroundControl = (props) => {
                         value: 'fade'
                     },
                     {
-                        label: __('Cross Fade', '--gctd--'),
-                        value: 'crossFade'
-                    },
-                    {
                         label: __('Slide Right', '--gctd--'),
                         value: 'slideRight'
                     },

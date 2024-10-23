@@ -3,8 +3,10 @@ import { useEffect, useState } from '@wordpress/element';
 const BackgroundSlideShow = (props) => {
     const {attributes, addStyle, elementId, removeStyle, elementRef} = props;
     const {background} = attributes;
+    const {slideImage} = background;
     if (background.slideImage?.length < 1 || !elementRef.current ) return '';
-    const [newSlide, setNewSlide] = useState([...background.slideImage, background.slideImage[0]]);
+    const newSlide = [...background.slideImage, background.slideImage[0]];
+    const [ duration, setDuration ] = useState(background.duration);
 
     let evenSlide = [];
     let oddSlide = [];
@@ -21,11 +23,39 @@ const BackgroundSlideShow = (props) => {
     const newEvenSlide = [...evenSlide, evenSlide[0]];
     const { width = '', height = '' } = elementRef?.current?.getBoundingClientRect();
 
+    const element = document.querySelector('.second-child-slideshow');
+    const images = slideImage.map((image) => image?.image?.image);
+    let test = 0;
+
     useEffect(() => {
+        console.log(background.duration, (width * 10 / 100));
+
+        let intervalId = setInterval(() => {
+            if (element && images.length > 0) {
+                const leftPosition = element.getBoundingClientRect().left;
+                if (Math.abs(leftPosition + width) <= (width * 10 / 100)) {
+                    let pattern = [0];
+
+                    if (images.length > 1) {
+                        pattern.push(images.length - 1);
+                    }
+
+                    if (images.length > 2) {
+                        pattern.push(1);
+                    }
+
+                    const bgImage = images[pattern[test % pattern.length]];
+                    element.style.backgroundImage = `url("${bgImage}")`;
+                    test++;
+                }
+            }
+        }, background.duration * 1000);
+
         const styles = generateStyle(background, width, height, newSlide, newOddSlide, newEvenSlide, elementId);
         addStyle(`${elementId}-background-slideshow`, styles);
         return () => {
             removeStyle(`${elementId}-background-slideshow`);
+            clearInterval(intervalId);
         };
     }, [background]);
     return <>
@@ -33,7 +63,10 @@ const BackgroundSlideShow = (props) => {
             {/* {!background.transition || background.transition === 'fade' ?
                 <div className="bg-slideshow-item" /> :
                 slides} */}
-            {<div className="bg-slideshow-item" />}
+            {<div className="bg-slideshow-item">
+                <div className="first-child-slideshow" />
+                <div className="second-child-slideshow" />
+            </div>}
         </div>
     </>;
 };
@@ -69,83 +102,66 @@ const generateKeyframes = (newSlide, order) => {
 };
 
 const generateStyle = (background, width, height, newSlide, newOddSlide, newEvenSlide, elementId) => {
-    const {slideImage, infiniteLoop, duration, backgroundPosition, transition, backgroundSize, backgroundRepeat} = background;
-    const totalBackgrounds = slideImage.length;
-    const totalBg = newSlide.length;
+    const {infiniteLoop, duration, backgroundPosition, transition, backgroundSize, backgroundRepeat} = background;
     let styles;
     let keyframes;
 
     const infinite = infiniteLoop ? 'infinite' : 'forwards';
     const durationSlide = duration ? duration : '15';
     const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
-    const durationImage = (durationSlide/2) * totalBackgrounds;
 
     const oddKeyframes = generateKeyframes(newOddSlide, 'even');
     const evenKeyframes = generateKeyframes(newEvenSlide, 'odd');
-
-    let bgImagekeyframes = '@keyframes background-image-slideshow {';
-
-    newSlide.forEach((bg, index) => {
-        const percentage = (index / (totalBg - 1)) * 100;
-
-        if ( index > 0) {
-            bgImagekeyframes += `${percentage - 0.1}% {
-                background-image: url('${newSlide[index - 1]?.image?.image}');
-            }`;
-        }
-
-        bgImagekeyframes += `${percentage}% {
-            background-image: url('${bg?.image?.image}');
-        }`;
-    });
-
-    bgImagekeyframes += '}';
+    const fullKeyframes = generateKeyframes(newSlide, 'full');
 
     switch (transition) {
         case 'fade': {
-            keyframes = '@keyframes background-image-slideshow {';
+            keyframes = `@keyframes fade-element {
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+                90% {
+                    opacity: 1;
+                    z-index: 2;
+                }
+                100% {
+                    opacity: 1;
+                    z-index: 3;
+                }
+            }`;
 
-            slideImage.forEach((bg, index) => {
-                const percentage = (index / (totalBackgrounds - 1)) * 100;
-
-                keyframes += `${percentage}% {
-                    background-image: url('${bg?.image?.image}');
-                }`;
-            });
-
-            keyframes += '}';
-
-            styles = `.bg-slideshow-item{
-                background-position: ${bgPosition} !important;
+            styles = `
+            .bg-slideshow-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
                 background-size: ${backgroundSize};
-                background-repeat: ${backgroundRepeat};
-                animation: background-slideshow ${durationSlide}s ease-in-out ${infinite};
-            }
-            ${bgImagekeyframes}`;
-            break;
-        }
-        case 'crossFade': {
-
-            keyframes = '@keyframes background-slideshow {';
-
-            slideImage.forEach((bg, index) => {
-                const percentage = (index / (totalBackgrounds - 1)) * 100;
-
-                keyframes += `${percentage}% {
-                    background-image: url('${bg?.image?.image}');
-                }`;
-            });
-
-            keyframes += '}';
-
-            styles = `.bg-slideshow-item{
                 background-position: ${bgPosition} !important;
-                background-size: ${backgroundSize};
                 background-repeat: ${backgroundRepeat};
-                animation: background-slideshow ${durationSlide * (totalBackgrounds - 1)}s ease-in-out ${infinite};
+                z-index: 3;
+                animation: fade-element ${durationSlide}s ease-in-out 0s ${infinite}, background-even-slideshow ${(newEvenSlide.length - 1) * (durationSlide)}s ease ${durationSlide/2}s ${infinite};
             }
-            ${keyframes}
-            ${bgImagekeyframes}`;
+
+            .bg-slideshow-item::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-size: ${backgroundSize};
+                background-position: ${bgPosition} !important;
+                background-repeat: ${backgroundRepeat};
+                z-index: 2;
+                animation: fade-element ${durationSlide}s ease-in-out ${durationSlide/2}s ${infinite}, background-odd-slideshow ${(newOddSlide.length - 1) * (durationSlide)}s ease ${infinite};
+            } 
+            ${keyframes}`;
             break;
         }
         case 'slideRight': {
@@ -179,7 +195,7 @@ const generateStyle = (background, width, height, newSlide, newOddSlide, newEven
                 }
             }`;
             styles = `
-            .bg-slideshow-item::before {
+            .first-child-slideshow {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -189,11 +205,12 @@ const generateStyle = (background, width, height, newSlide, newOddSlide, newEven
                 background-size: ${backgroundSize};
                 background-position: ${bgPosition} !important;
                 background-repeat: ${backgroundRepeat};
+                // background-image: url('http://gutenverse.local/wp-content/uploads/2024/09/FeaxosUaUAAWp-T.jpg');
                 z-index: 3;
-                animation: slide-element-before ${durationSlide}s ease-in-out 0s ${infinite}, background-even-slideshow ${(newEvenSlide.length - 1) * (durationSlide)}s ease ${durationSlide/2}s ${infinite};
+                animation: slide-element-before ${durationSlide}s ease-in-out 0s ${infinite};
             }
 
-            .bg-slideshow-item::after {
+            .second-child-slideshow {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -203,10 +220,12 @@ const generateStyle = (background, width, height, newSlide, newOddSlide, newEven
                 background-size: ${backgroundSize};
                 background-position: ${bgPosition} !important;
                 background-repeat: ${backgroundRepeat};
+                background-image: url('http://gutenverse.local/wp-content/uploads/2024/09/Screenshot-2024-08-14-at-09.38.28.png');
                 z-index: 2;
-                animation: slide-element-after ${durationSlide}s ease-in-out 0s ${infinite}, background-odd-slideshow ${(newOddSlide.length - 1) * (durationSlide)}s ease ${infinite};
+                animation: slide-element-after ${durationSlide}s ease-in-out 0s ${infinite};
             } 
-            ${keyframes}`;
+            ${keyframes}
+            ${fullKeyframes}`;
             break;
         }
         case 'slideLeft': {
