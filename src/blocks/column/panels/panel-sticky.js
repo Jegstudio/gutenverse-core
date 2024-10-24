@@ -8,15 +8,9 @@ export const stickyPanel = (props) => {
         },
     ];
 
-    const stickyFilter = applyFilters(
+    return applyFilters(
         'gutenverse.column.sticky',
         stickyOption,
         props
     );
-
-    if(stickyFilter?.result){
-        return stickyFilter?.result;
-    }
-
-    return stickyFilter;
 };
