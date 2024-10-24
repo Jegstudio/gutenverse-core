@@ -7,6 +7,32 @@
  * @package gutenverse-framework
  */
 
+if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
+	/**
+	 * Check if Script localized
+	 *
+	 * @param string $handle .
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_check_if_script_localized( $handle ) {
+		global $wp_scripts;
+
+		if ( ! is_a( $wp_scripts, 'WP_Scripts' ) ) {
+			return false;
+		}
+
+		if ( isset( $wp_scripts->registered[ $handle ] ) ) {
+			$script = $wp_scripts->registered[ $handle ];
+			if ( ! empty( $script->extra['data'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+}
+
 if ( ! function_exists( 'gutenverse_esc_data' ) ) {
 	/**
 	 * Escape data

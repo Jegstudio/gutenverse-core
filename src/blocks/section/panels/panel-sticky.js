@@ -7,10 +7,15 @@ export const stickyPanel = (props) => {
             component: LockedProStickyControl,
         },
     ];
-
-    return applyFilters(
+    const stickyFilter = applyFilters(
         'gutenverse.section.sticky',
         stickyOption,
         props
     );
+
+    if(stickyFilter?.result){
+        return stickyFilter?.result;
+    }
+
+    return stickyFilter;
 };
