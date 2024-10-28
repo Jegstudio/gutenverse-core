@@ -26,8 +26,7 @@
 			"default": "fas fa-search-plus"
 		},
 		"zoomText": {
-			"type": "string",
-			"default": "none"
+			"type": "string"
 		},
 		"linkIcon": {
 			"type": "string",
@@ -35,8 +34,7 @@
 		},
 
 		"linkText": {
-			"type": "string",
-			"default": "none"
+			"type": "string"
 		},
 		"filter": {
 			"type": "boolean",

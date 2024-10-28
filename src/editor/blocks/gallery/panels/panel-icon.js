@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl, TypographyControl, BackgroundControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl, TypographyControl, BackgroundControl, HeadingControl } from 'gutenverse-core/controls';
 import { getDeviceType, isEmptyValue } from 'gutenverse-core/editor-helper';
 import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
 
@@ -250,244 +250,6 @@ export const iconPanel = (props) => {
                 }
             ]
         },
-
-        //text style
-        {
-            id: 'textZoomTypography',
-            label: __('Text Zoom Typography', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
-        },
-        {
-            id: 'textLinkTypography',
-            label: __('Text Link Typography', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
-        },
-        {
-            id: 'textZoomColor',
-            label: __('Text Zoom Color', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
-        },
-        {
-            id: 'textLinkColor',
-            label: __('Text Link Color', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
-        },
-        {
-            id: 'textZoomBackground',
-            label: __('Text Zoom Background', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: BackgroundControl,
-            allowDeviceControl: true,
-            options: ['default', 'gradient'],
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
-        },
-        {
-            id: 'textLinkBackground',
-            label: __('Text Link Background', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: BackgroundControl,
-            allowDeviceControl: true,
-            options: ['default', 'gradient'],
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
-        },
-        {
-            id: 'textZoomBorder',
-            show: switcher.textIcon === 'text',
-            label: __('Text Zoom Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleBorderResponsive(value)
-                }
-            ]
-        },
-        {
-            id: 'textLinkBorder',
-            show: switcher.textIcon === 'text',
-            label: __('Text Link Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleBorderResponsive(value)
-                }
-            ]
-        },
-        {
-            id: 'textZoomMargin',
-            label: __('Text Zoom Margin', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: DimensionControl,
-            allowDeviceControl: true,
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
-        {
-            id: 'textLinkMargin',
-            label: __('Text Link Margin', 'gutenverse'),
-            show: switcher.textIcon === 'text',
-            component: DimensionControl,
-            allowDeviceControl: true,
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
-        {
-            id: 'textZoomPadding',
-            label: __('Text Zoom Padding', 'gutenverse'),
-            component: DimensionControl,
-            allowDeviceControl: true,
-            show: switcher.textIcon === 'text',
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
-        },
-        {
-            id: 'textLinkPadding',
-            label: __('Text Link Padding', 'gutenverse'),
-            component: DimensionControl,
-            allowDeviceControl: true,
-            show: switcher.textIcon === 'text',
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
-        },
         {
             id: 'iconTextGap',
             label: __('Icon Text Gap', 'gutenverse'),
@@ -533,6 +295,256 @@ export const iconPanel = (props) => {
                 {
                     selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text`,
                     render: value => `flex-direction: ${value};`
+                }
+            ]
+        },
+
+        //text zoom style
+        {
+            id: 'textZoomHeading',
+            component: HeadingControl,
+            label: __('Text Zoom Styles')
+        },
+        {
+            id: 'textZoomTypography',
+            label: __('Text Zoom Typography', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
+            id: 'textZoomColor',
+            label: __('Text Zoom Color', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'textZoomBackground',
+            label: __('Text Zoom Background', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
+        },
+        {
+            id: 'textZoomBorder',
+            show: switcher.textIcon === 'text',
+            label: __('Text Zoom Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'textZoomMargin',
+            label: __('Text Zoom Margin', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'textZoomPadding',
+            label: __('Text Zoom Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            show: switcher.textIcon === 'text',
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+
+        //text link style
+        {
+            id: 'textLinkHeading',
+            component: HeadingControl,
+            label: __('Text Link Styles')
+        },
+        {
+            id: 'textLinkTypography',
+            label: __('Text Link Typography', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
+            id: 'textLinkColor',
+            label: __('Text Link Color', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'textLinkBackground',
+            label: __('Text Link Background', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: BackgroundControl,
+            allowDeviceControl: true,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
+        },
+        {
+            id: 'textLinkBorder',
+            show: switcher.textIcon === 'text',
+            label: __('Text Link Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'textLinkMargin',
+            label: __('Text Link Margin', 'gutenverse'),
+            show: switcher.textIcon === 'text',
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'textLinkPadding',
+            label: __('Text Link Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            show: switcher.textIcon === 'text',
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    render: value => handleDimension(value, 'padding')
                 }
             ]
         },
