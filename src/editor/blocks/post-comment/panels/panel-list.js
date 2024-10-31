@@ -3,6 +3,8 @@ import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPa
 import { avatarPanel } from './panel-avatar';
 import { buttonPanel } from './panel-button';
 import { inputPanel } from './panel-input';
+import { replyPanel } from './panel-reply';
+import { mainCommentPanel } from './panel-main-comment';
 import { settingPanel } from './panel-setting';
 // import { settingPanelDeprecated } from './panel-setting-deprecated';
 import { headingTypographyPanel } from './panel-typography-heading';
@@ -45,6 +47,16 @@ export const panelList = () => {
         {
             title: __('Comment Inputs', 'gutenverse'),
             panelArray: inputPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Comment Main', 'gutenverse'),
+            panelArray: mainCommentPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Comment Reply', 'gutenverse'),
+            panelArray: replyPanel,
             tabRole: TabStyle
         },
         {

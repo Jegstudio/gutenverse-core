@@ -13,6 +13,7 @@ const SocialSharePinterest = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'pinterest',
         serverPath: 'gutenverse/social-share-pinterest',
     };
 

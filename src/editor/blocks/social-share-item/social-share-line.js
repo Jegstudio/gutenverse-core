@@ -13,6 +13,7 @@ const SocialShareLine = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'line',
         serverPath: 'gutenverse/social-share-line',
     };
 

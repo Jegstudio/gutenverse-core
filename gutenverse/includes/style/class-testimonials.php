@@ -867,7 +867,8 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['ratingMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars",
+					'selector'       => ".{$this->element_id}.style-1 ul.rating-stars, .{$this->element_id}.style-2 ul.rating-stars, .{$this->element_id}.style-3 ul.rating-stars, .{$this->element_id}.style-4 ul.rating-stars,
+						.{$this->element_id}.style-1 .comment-header ul.rating-stars, .{$this->element_id}.style-2 .comment-header ul.rating-stars, .{$this->element_id}.style-3 .comment-header ul.rating-stars, .{$this->element_id}.style-4 .comment-header ul.rating-stars",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},

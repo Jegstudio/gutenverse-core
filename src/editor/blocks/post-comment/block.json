@@ -29,10 +29,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"typographyText": {
-			"type": "object",
-			"copyStyle": true
-		},
 		"typographyLink": {
 			"type": "object",
 			"copyStyle": true
@@ -45,10 +41,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"colorText": {
-			"type": "object",
-			"copyStyle": true
-		},
 		"colorLink": {
 			"type": "object",
 			"copyStyle": true
@@ -57,11 +49,42 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"colorRequired": {
+			"type": "object",
+			"copyStyle": true,
+			"default": {
+				"a" : 1,
+				"r" : 255,
+				"g" : 0,
+				"b" : 0
+			}
+		},
 		"marginHeading": {
 			"type": "object",
 			"copyStyle": true
 		},
+		"typographyText": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorText": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"marginText": {
+			"type": "object",
+			"copyStyle": true
+		},
+
+		"typographyTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"marginTextList": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -276,6 +299,86 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+
+		"userNameTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"userNameColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"userNameMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"dateMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyLinkMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyMargin": {
+			"type": "object",
+			"copyStyle": true,
+			"default" : {
+				"Desktop": {
+					"unit": "px",
+					"dimension": {
+						"top": "",
+						"right": "",
+						"bottom": "",
+						"left": "20"
+					}
+				}
+			}
+		},
+		"replyPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"replyBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainBorder": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"usesContext": [

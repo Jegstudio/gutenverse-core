@@ -99,13 +99,18 @@ export const panelGeneral = (props) => {
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper`,
-                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top') || (value && value[deviceType] === 'bottom')),
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'top')),
                     render: () => 'display: block !important; flex-direction: unset !important; align-items: unset !important;'
+                },
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    allowRender: (value) => (deviceType !== 'Desktop') && ((value && value[deviceType] === 'bottom')),
+                    render: () => 'display: flex !important; flex-direction: column-reverse !important; align-items: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
                     allowRender: (value) => (deviceType !== 'Desktop') && (value && value[deviceType] === 'left'),
-                    render: () => 'margin-right: 15px; margin-right: unset !important;'
+                    render: () => 'margin-right: 15px; margin-left: unset !important;'
                 },
                 {
                     selector: `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,

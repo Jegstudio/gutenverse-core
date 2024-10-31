@@ -343,32 +343,6 @@ class Accordions extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['contentBackgroundColorActive'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background-color' );
-					},
-					'value'          => $this->attrs['contentBackgroundColorActive'],
-					'device_control' => false,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['contentTextColorActive'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['contentTextColorActive'],
-					'device_control' => false,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['contentTypography'] ) ) {
 			$this->inject_typography(
 				array(
@@ -405,26 +379,6 @@ class Accordions extends Style_Abstract {
 						return $this->handle_border_responsive( $value );
 					},
 					'value'          => $this->attrs['contentBorderResponsive'],
-					'device_control' => true,
-					'skip_device'    => array(
-						'Desktop',
-					),
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['contentBorderActive'] ) ) {
-			$this->handle_border( 'contentBorderActive', ".{$this->element_id} .accordion-item.active .accordion-content" );
-		}
-
-		if ( isset( $this->attrs['contentBorderActiveResponsive'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-content",
-					'property'       => function ( $value ) {
-						return $this->handle_border_responsive( $value );
-					},
-					'value'          => $this->attrs['contentBorderActiveResponsive'],
 					'device_control' => true,
 					'skip_device'    => array(
 						'Desktop',

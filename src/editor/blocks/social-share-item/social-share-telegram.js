@@ -13,6 +13,7 @@ const SocialShareTelegram = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'telegram',
         serverPath: 'gutenverse/social-share-telegram',
     };
 

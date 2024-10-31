@@ -17,6 +17,10 @@
       "type": "boolean",
       "default": false
     },
+    "enableHeading": {
+      "type": "boolean",
+      "default": false
+    },
     "dropcapTypography": {
       "type": "object",
       "copyStyle": true

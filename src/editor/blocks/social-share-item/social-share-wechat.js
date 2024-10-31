@@ -13,6 +13,7 @@ const SocialShareWechat = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'wechat',
         serverPath: 'gutenverse/social-share-wechat',
     };
 

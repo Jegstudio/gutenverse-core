@@ -13,6 +13,7 @@ const SocialShareTwitter = compose(
 )(props => {
     const socialProps = {
         ...props,
+        shareType: 'twitter',
         serverPath: 'gutenverse/social-share-twitter',
     };
 
@@ -32,6 +33,14 @@ const metadata = {
         text: {
             type: 'string',
             default: __('Share on Twitter', 'gutenverse')
+        },
+        type: {
+            type: 'string',
+            default: __('twitter', 'gutenverse')
+        },
+        selectedIcon: {
+            type: 'string',
+            default: __('twitter', 'gutenverse')
         },
     },
     keywords: [
