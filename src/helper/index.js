@@ -670,3 +670,52 @@ export const theDeviceType = (location) => {
 export const useSettingFallback = (param) => {
     return useSettings === undefined ? useSetting(param) : useSettings(param)[0];
 };
+
+export const parseCurrentURL = () => {
+    const url = window.location;
+
+    const parsedURL = {
+        protocol: url.protocol,         // Protocol (e.g., 'https:')
+        hostname: url.hostname,         // Hostname (e.g., 'www.example.com')
+        port: url.port || 'default',    // Port (e.g., '8080' or default)
+        pathname: url.pathname,         // Pathname (e.g., '/path/to/page')
+        search: url.search,             // Search query (e.g., '?query=123')
+        hash: url.hash,                 // Fragment (e.g., '#section1')
+        params: {}                      // Object for search parameters
+    };
+
+    const searchParams = new URLSearchParams(url.search);
+    for (const [key, value] of searchParams.entries()) {
+        parsedURL.params[key] = value;
+    }
+
+    return parsedURL;
+};
+
+export const isOnEditor = () => {
+    const { params = {} } = parseCurrentURL();
+    const { action = false, canvas = false, postType = false } = params;
+
+    return !action && !canvas && !postType ? true : action || canvas ? true : false;
+};
+
+export const dummyText = (minLength, maxLength) => {
+    const loremIpsumWords = [
+        'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
+        'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore',
+        'magna', 'aliqua', 'ut', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud',
+        'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea',
+        'commodo', 'consequat', 'duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit',
+        'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla',
+        'pariatur', 'excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident',
+        'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id',
+        'est', 'laborum'
+    ];
+
+    const wordCount = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+    let result = [];
+    for (let i = 0; i < wordCount; i++) {
+        result.push(loremIpsumWords[Math.floor(Math.random() * loremIpsumWords.length)]);
+    }
+    return result.join(' ');
+};

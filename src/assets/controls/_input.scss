@@ -2482,6 +2482,16 @@
     }
   }
 
+  .range-control-unit {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8181a5;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
   .not-empty {
     border: 1px solid #e7ecfd;
     background: #e7ecfd;

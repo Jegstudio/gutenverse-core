@@ -3,6 +3,7 @@ import u from 'umbrellajs';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import _ from 'lodash';
+import { isOnEditor } from 'gutenverse-core/helper';
 
 export const dynamicData = (props) => {
     const {
@@ -240,6 +241,7 @@ export const dynamicData = (props) => {
     let timeoutId;
     useEffect(() => {
 
+        if ( !dynamicDataList.length > 0 ) return;
         // take the content and put them in an array separated by childNodes
         const newDiv = document.createElement('div');
         newDiv.innerHTML = content;
@@ -327,14 +329,14 @@ export const dynamicData = (props) => {
                 const linkExist = document.querySelector(`.link-${id}`);
 
                 // filter for dynamically set the content and link both in editor ang frontend
-                const href = applyFilters(
+                const href = isEmpty(dynamicDataList[index]) || !isOnEditor() ? dynamicDataList[index] : applyFilters(
                     'gutenverse.dynamic.generate-url',
                     '#',
                     'dynamicUrl',
                     dynamicDataList[index],
                     id,
                 );
-                const dynamicUrlcontent = applyFilters(
+                const dynamicUrlcontent = isEmpty(dynamicDataList[index].dynamicUrl) || !isOnEditor() ? dynamicDataList[index].dynamicUrl : applyFilters(
                     'gutenverse.dynamic.fetch-url',
                     dynamicDataList[index].dynamicUrl
                 );
@@ -342,7 +344,7 @@ export const dynamicData = (props) => {
 
                 const dynamicContent = dynamicDataList[index].dynamicContent;
                 if (dynamicContent.postdata || dynamicContent.sitedata || dynamicContent.authordata || dynamicContent.termdata){
-                    title = applyFilters(
+                    title = isEmpty(dynamicDataList[index]) || !isOnEditor() ? dynamicDataList[index] : applyFilters(
                         'gutenverse.dynamic.generate-content',
                         content,
                         'dynamicContent',
@@ -350,7 +352,7 @@ export const dynamicData = (props) => {
                         id,
                     );
                 }
-                const dynamicTextContent = applyFilters(
+                const dynamicTextContent = isEmpty(dynamicDataList[index].dynamicContent) || !isOnEditor() ? dynamicDataList[index].dynamicContent : applyFilters(
                     'gutenverse.dynamic.fetch-text',
                     dynamicDataList[index].dynamicContent
                 );

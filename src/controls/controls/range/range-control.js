@@ -28,7 +28,7 @@ const RangeControl = ({
     const [localValue, setLocalValue] = useState(value);
     const [updating, setUpdating] = useState(false);
     const inputRef = useRef(null);
-    const theUnit = unit? unit : '';
+    const unitRef = useRef(null);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
@@ -96,16 +96,8 @@ const RangeControl = ({
                     ref={inputRef}
                 />
                 {!isEmpty(unit) && <span
-                    style={{
-                        position: 'absolute',
-                        right: '7px',
-                        top: '50%',
-                        transform: 'translateY(-50%)',
-                        pointerEvents: 'none',
-                        color: '#8181a5',
-                        fontSize: '10px',
-                        textTransform: 'uppercase',
-                    }}>
+                    className="range-control-unit"
+                    ref={unitRef}>
                     {unit}
                 </span>}
             </div>

@@ -64,8 +64,10 @@ const save = compose(
             'with-url' :  url
         },
     );
+
+    const newLinkTarget = undefined === linkTarget ? '_self' : linkTarget;
     return (
-        <div className={className} {...advanceAnimationData} onClick={url && `window.open('${url}', '${linkTarget}');`}>
+        <div className={className} {...advanceAnimationData} onClick={url && `window.open('${url}', '${newLinkTarget}');`}>
             {(_isBgAnimated) &&
                 <div className="guten-data">
                     {_isBgAnimated &&
