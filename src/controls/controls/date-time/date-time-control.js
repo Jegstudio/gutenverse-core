@@ -24,7 +24,6 @@ const DatePickerComponent = props => {
     return <>
         <Flatpickr
             className="form-control clickable"
-            disabled={disabled}
             allowInput={true}
             placeholder={placeholder}
             options={{
@@ -46,7 +45,7 @@ const DateTimeControl = (props) => {
         enableTime = true,
         minDate,
         description = '',
-        dateFormat
+        dateFormat,
     } = props;
 
     const id = useInstanceId(DateTimeControl, 'inspector-date-time-control');
