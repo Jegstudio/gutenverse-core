@@ -1,10 +1,12 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, DateTimeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, DateTimeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const settingPanel = (props) => {
     const {
-        showDivider
+        showDivider,
+        elementId
     } = props;
     return [
         {
@@ -79,6 +81,17 @@ export const settingPanel = (props) => {
                     value: ':',
                 },
             ],
-        }
+        },
+        {
+            id: 'dividerColor',
+            label: __('Divider color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .countdown-divider`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
     ];
 };

@@ -4,6 +4,7 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-settings';
 import { contentStylePanel } from './panel-content-style';
 import { timeStylePanel } from './panel-time-style';
+import { expiredPanel } from './panel-expired';
 
 export const panelList = () => {
     return [
@@ -11,6 +12,12 @@ export const panelList = () => {
             title: __('Countdown Settings', 'gutenverse'),
             initialOpen: false,
             panelArray: settingPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Countdown Expired', 'gutenverse'),
+            initialOpen: false,
+            panelArray: expiredPanel,
             tabRole: TabSetting
         },
         {

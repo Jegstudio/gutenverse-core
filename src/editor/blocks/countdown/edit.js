@@ -1,11 +1,12 @@
 import { compose } from '@wordpress/compose';
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import { withAnimationAdvance, withCopyElementToolbar, withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
+import { __ } from '@wordpress/i18n';
 
 const CountDownBlock = compose(
     withAnimationAdvance('countdown'),
@@ -34,6 +35,7 @@ const CountDownBlock = compose(
         dividerType,
         labelPosition,
         oneForAll,
+        expiredAction
     } = attributes;
 
     const [days, setDays] = useState('0');
@@ -62,6 +64,12 @@ const CountDownBlock = compose(
             setElementRef && setElementRef(countDownRef.current);
         }
     }, [countDownRef]);
+
+    const innerBlocksProps = useInnerBlocksProps({
+        className: 'countdown-expired'
+    }, {
+        template: [['core/paragraph']]
+    });
 
     const handleTimer = (date) => {
         let targetDate = new Date(date);
@@ -110,7 +118,7 @@ const CountDownBlock = compose(
     useEffect(() => {
         refreshStyle();
     }, [oneForAll]);
-    
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
@@ -144,6 +152,12 @@ const CountDownBlock = compose(
                 { ( labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
             </div>}
         </div>
+        {
+            expiredAction === 'section' && <div className="countdown-expired-wrapper">
+                <h3>{__('Expired Section', 'gutenverse')}</h3>
+                <div {...innerBlocksProps} />
+            </div>
+        }
     </>;
 });
 
