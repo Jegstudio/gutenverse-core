@@ -56,6 +56,10 @@
 			"type": "string",
 			"default": "seconds"
 		},
+		"oneForAll": {
+			"type": "boolean",
+			"default": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},

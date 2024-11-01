@@ -3,18 +3,26 @@ import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, b
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-settings';
 import { contentStylePanel } from './panel-content-style';
+import { timeStylePanel } from './panel-time-style';
 
 export const panelList = () => {
     return [
         {
             title: __('Countdown Settings', 'gutenverse'),
             initialOpen: false,
-            panelArray: settingPanel
+            panelArray: settingPanel,
+            tabRole: TabSetting
         },
         {
             title: __('Content Style', 'gutenverse'),
             initialOpen: false,
             panelArray: contentStylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Time Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: timeStylePanel,
             tabRole: TabStyle
         },
         {
