@@ -17,7 +17,7 @@ export const contentStylePanel = (props) => {
             style: [
                 {
                     selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
-                    render: value => `flex : 0 0 calc( 100% / ${value} ); max-width: calc( 100% / ${value} );`
+                    render: value => `flex : 0 0 calc( 100% / ${value} ); max-width: calc( (100% / ${value}) - 1%);`
                 }
             ]
         },

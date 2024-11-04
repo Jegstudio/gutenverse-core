@@ -70,7 +70,7 @@ class Countdown extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id}.guten-countdown .guten-countdown-wrapper .time-container",
 					'property'       => function ( $value ) {
-						return "flex : 0 0 calc( 100% / {$value} ); max-width: calc( 100% / {$value} );";
+						return "flex : 0 0 calc( 100% / {$value} ); max-width: calc( (100% / {$value}) - 1% );";
 					},
 					'value'          => $this->attrs['column'],
 					'device_control' => true,
