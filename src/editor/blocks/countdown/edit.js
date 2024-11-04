@@ -122,42 +122,44 @@ const CountDownBlock = compose(
     return <>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            {showDays && <>
-                <div className="time-container days-wrapper">
-                    { ( labelDays && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelDays}</div> }
-                    <div className="countdown-value">{days}</div>
-                    { ( labelDays && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelDays}</div> }
-                </div>
-                {showDivider && <div className="countdown-divider">{dividerType}</div>}
-            </>}
-            {showHours && <>
-                <div className="time-container hours-wrapper">
-                    { ( labelHours && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelHours}</div> }
-                    <div className="countdown-value">{hours}</div>
-                    { ( labelHours && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelHours}</div> }
-                </div>
-                {showDivider && <div className="countdown-divider">{dividerType}</div>}
-            </>}
-            {showMinutes && <>
-                <div className="time-container minutes-wrapper">
-                    { ( labelMinutes && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelMinutes}</div> }
-                    <div className="countdown-value">{minutes}</div>
-                    { ( labelMinutes && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelMinutes}</div> }
-                </div>
-                {(showDivider && showSeconds) && <div className="countdown-divider">{dividerType}</div>}
-            </>}
-            {showSeconds && <div className="time-container seconds-wrapper">
-                { ( labelSeconds && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelSeconds}</div> }
-                <div className="countdown-value">{seconds}</div>
-                { ( labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
-            </div>}
-        </div>
-        {
-            expiredAction === 'section' && <div className="countdown-expired-wrapper">
-                <h3>{__('Expired Section', 'gutenverse')}</h3>
-                <div {...innerBlocksProps} />
+            <div className="guten-countdown-wrapper">
+                {showDays && <>
+                    <div className="time-container days-wrapper">
+                        { ( labelDays && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelDays}</div> }
+                        <div className="countdown-value">{days}</div>
+                        { ( labelDays && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelDays}</div> }
+                    </div>
+                    {showDivider && <div className="countdown-divider">{dividerType}</div>}
+                </>}
+                {showHours && <>
+                    <div className="time-container hours-wrapper">
+                        { ( labelHours && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelHours}</div> }
+                        <div className="countdown-value">{hours}</div>
+                        { ( labelHours && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelHours}</div> }
+                    </div>
+                    {showDivider && <div className="countdown-divider">{dividerType}</div>}
+                </>}
+                {showMinutes && <>
+                    <div className="time-container minutes-wrapper">
+                        { ( labelMinutes && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+                        <div className="countdown-value">{minutes}</div>
+                        { ( labelMinutes && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+                    </div>
+                    {(showDivider && showSeconds) && <div className="countdown-divider">{dividerType}</div>}
+                </>}
+                {showSeconds && <div className="time-container seconds-wrapper">
+                    { ( labelSeconds && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+                    <div className="countdown-value">{seconds}</div>
+                    { ( labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+                </div>}
             </div>
-        }
+            {
+                expiredAction === 'section' && <div className="countdown-expired-wrapper">
+                    <h3>{__('Expired Section', 'gutenverse')}</h3>
+                    <div {...innerBlocksProps} />
+                </div>
+            }
+        </div>
     </>;
 });
 

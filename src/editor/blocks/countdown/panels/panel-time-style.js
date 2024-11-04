@@ -666,12 +666,11 @@ export const timeStylePanel = (props) => {
             id: 'oneForAllBoxShadow',
             show: oneForAll,
             component: BoxShadowControl,
-            label: __('BoxShadow', 'gutenverse'),
-            allowDeviceControl: true,
+            label: __('Box Shadow', 'gutenverse'),
             style: [
                 {
-                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
-                    allowRender: (value) => oneForAll && allowRenderBoxShadow(value),
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    allowRender: (value) => (oneForAll && allowRenderBoxShadow(value)),
                     render: value => handleBoxShadow(value)
                 }
             ]
@@ -687,7 +686,6 @@ export const timeStylePanel = (props) => {
             show: oneForAll,
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .time-container:hover`,
@@ -701,7 +699,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
@@ -721,7 +718,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
@@ -735,7 +731,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'hours',
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
@@ -755,7 +750,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'hours',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`,
@@ -769,7 +763,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'minutes',
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
@@ -789,7 +782,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'minutes',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
@@ -803,7 +795,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'seconds',
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
@@ -823,7 +814,6 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'seconds',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            allowDeviceControl: true,
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
@@ -1391,11 +1381,11 @@ export const timeStylePanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: __('left', 'gutenverse'),
+                    label: __('Left', 'gutenverse'),
                     value: 'start',
                 },
                 {
-                    label: __('right', 'gutenverse'),
+                    label: __('Right', 'gutenverse'),
                     value: 'end',
                 },
                 {
@@ -1457,11 +1447,11 @@ export const timeStylePanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: __('left', 'gutenverse'),
+                    label: __('Left', 'gutenverse'),
                     value: 'start',
                 },
                 {
-                    label: __('right', 'gutenverse'),
+                    label: __('Right', 'gutenverse'),
                     value: 'end',
                 },
                 {
@@ -1523,11 +1513,11 @@ export const timeStylePanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: __('left', 'gutenverse'),
+                    label: __('Left', 'gutenverse'),
                     value: 'start',
                 },
                 {
-                    label: __('right', 'gutenverse'),
+                    label: __('Right', 'gutenverse'),
                     value: 'end',
                 },
                 {
@@ -1589,11 +1579,11 @@ export const timeStylePanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: __('left', 'gutenverse'),
+                    label: __('Left', 'gutenverse'),
                     value: 'start',
                 },
                 {
-                    label: __('right', 'gutenverse'),
+                    label: __('Right', 'gutenverse'),
                     value: 'end',
                 },
                 {
@@ -1655,11 +1645,11 @@ export const timeStylePanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    label: __('left', 'gutenverse'),
+                    label: __('Left', 'gutenverse'),
                     value: 'start',
                 },
                 {
-                    label: __('right', 'gutenverse'),
+                    label: __('Right', 'gutenverse'),
                     value: 'end',
                 },
                 {

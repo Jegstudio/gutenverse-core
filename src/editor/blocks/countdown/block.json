@@ -10,7 +10,7 @@
 			"type": "string"
 		},
 		"dueDate" : {
-			"type": "string"
+			"type": "array"
 		},
 		"showDivider": {
 			"type": "boolean",
@@ -18,9 +18,14 @@
 		},
 		"dividerType":{
 			"type": "string",
-			"default": ""
+			"default": "",
+			"copyStyle": true
 		},
 		"dividerColor":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"dividerSize":{
 			"type": "object",
 			"copyStyle": true
 		},
@@ -388,6 +393,9 @@
 			"type" : "string",
 			"default": "none"
 		},
+		"expiredUrl":{
+			"type" : "string"
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -516,7 +524,9 @@
 		}
 	},
 	"supports": {
-		"className": false
+		"className": false,
+		"html": false,
+		"innerBlocks": true
 	},
 	"keywords": [
 		"countdown"

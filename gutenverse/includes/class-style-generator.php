@@ -16,6 +16,7 @@ use Gutenverse\Style\Animated_Text;
 use Gutenverse\Style\Archive_Title;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
+use Gutenverse\Style\Countdown;
 use Gutenverse\Style\Divider;
 use Gutenverse\Style\Fun_Fact;
 use Gutenverse\Style\Gallery;
@@ -229,6 +230,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/search':
 				$instance = new Search( $attrs );
+				break;
+			case 'gutenverse/countdown':
+				$instance = new Countdown( $attrs );
 				break;
 			case 'gutenverse/social-share-facebook':
 			case 'gutenverse/social-share-twitter':

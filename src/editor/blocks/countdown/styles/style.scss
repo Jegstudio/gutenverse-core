@@ -1,4 +1,4 @@
-.guten-countdown{
+.guten-countdown-wrapper{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -9,4 +9,8 @@
         align-items: center;
         justify-content: center;
     }
+}
+.countdown-expired-wrapper{
+    display: none;
+    width: 100%;
 }
