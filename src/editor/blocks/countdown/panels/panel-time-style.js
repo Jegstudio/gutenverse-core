@@ -323,8 +323,24 @@ export const timeStylePanel = (props) => {
             label: __('Background', 'gutenverse'),
         },
         {
-            id: 'oneForAllBackground',
+            id: '__oneForAllBackgroundTab',
+            component: SwitchControl,
             show: oneForAll,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __oneForAllBackgroundTab }) => setSwitcher({ ...switcher, oneForAllBackgroundTab: __oneForAllBackgroundTab })
+        },
+        {
+            id: 'oneForAllBackground',
+            show: oneForAll && ( switcher.oneForAllBackgroundTab === 'normal' || !switcher.oneForAllBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
@@ -340,7 +356,7 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'oneForAllBackgroundHover',
-            show: oneForAll,
+            show: oneForAll && switcher.oneForAllBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -355,8 +371,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'daysBackground',
+            id: '__daysBackgroundTab',
+            component: SwitchControl,
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __daysBackgroundTab }) => setSwitcher({ ...switcher, daysBackgroundTab: __daysBackgroundTab })
+        },
+        {
+            id: 'daysBackground',
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( 'normal' === switcher.daysBackgroundTab || !switcher.daysBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
@@ -372,7 +404,7 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'daysBackgroundHover',
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && 'hover' === switcher.daysBackgroundTab,
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -387,8 +419,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'hoursBackground',
+            id: '__hoursBackgroundTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'hours',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __hoursBackgroundTab }) => setSwitcher({ ...switcher, hoursBackgroundTab: __hoursBackgroundTab })
+        },
+        {
+            id: 'hoursBackground',
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBackgroundTab === 'normal' || !switcher.hoursBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
@@ -404,7 +452,7 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'hoursBackgroundHover',
-            show: ! oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -419,8 +467,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'minutesBackground',
+            id: '__minutesBackgroundTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'minutes',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __minutesBackgroundTab }) => setSwitcher({ ...switcher, minutesBackgroundTab: __minutesBackgroundTab })
+        },
+        {
+            id: 'minutesBackground',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBackgroundTab === 'normal' || !switcher.minutesBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
@@ -436,7 +500,7 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'minutesBackgroundHover',
-            show: ! oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -451,8 +515,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'secondsBackground',
+            id: '__secondsBackgroundTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'seconds',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __secondsBackgroundTab }) => setSwitcher({ ...switcher, secondsBackgroundTab: __secondsBackgroundTab })
+        },
+        {
+            id: 'secondsBackground',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBackgroundTab === 'normal' || !switcher.secondsBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
@@ -468,7 +548,7 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'secondsBackgroundHover',
-            show: ! oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.minutesBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -488,8 +568,24 @@ export const timeStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
         },
         {
-            id: 'oneForAllBorder',
+            id: '__oneForAllBorderTab',
+            component: SwitchControl,
             show: oneForAll,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __oneForAllBorderTab }) => setSwitcher({ ...switcher, oneForAllBorderTab: __oneForAllBorderTab })
+        },
+        {
+            id: 'oneForAllBorder',
+            show: oneForAll && ( switcher.oneForAllBorderTab === 'normal' || !switcher.oneForAllBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
@@ -502,14 +598,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'borderHoverOptions1',
-            component: HeadingControl,
-            show: oneForAll,
-            label: __('Border Hover', 'gutenverse'),
-        },
-        {
             id: 'oneForAllBorderHover',
-            show: oneForAll,
+            show: oneForAll && switcher.oneForAllBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -522,8 +612,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'daysBorder',
+            id: '__daysBorderTab',
+            component: SwitchControl,
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __daysBorderTab }) => setSwitcher({ ...switcher, daysBorderTab: __daysBorderTab })
+        },
+        {
+            id: 'daysBorder',
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( switcher.daysBorderTab === 'normal' || !switcher.daysBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
@@ -536,14 +642,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'borderHoverOptions2',
-            component: HeadingControl,
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-            label: __('Border Hover', 'gutenverse'),
-        },
-        {
             id: 'daysBorderHover',
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -556,8 +656,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'hoursBorder',
+            id: '__hoursBorderTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'hours',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __hoursBorderTab }) => setSwitcher({ ...switcher, hoursBorderTab: __hoursBorderTab })
+        },
+        {
+            id: 'hoursBorder',
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBorderTab === 'normal' || !switcher.hoursBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
@@ -570,14 +686,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'borderHoverOptions3',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'hours',
-            label: __('Border Hover', 'gutenverse'),
-        },
-        {
             id: 'hoursBorderHover',
-            show: ! oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -590,8 +700,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'minutesBorder',
+            id: '__minutesBorderTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'minutes',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __minutesBorderTab }) => setSwitcher({ ...switcher, minutesBorderTab: __minutesBorderTab })
+        },
+        {
+            id: 'minutesBorder',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBorderTab === 'normal' || !switcher.minutesBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
@@ -604,14 +730,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'borderHoverOptions4',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'minutes',
-            label: __('Border Hover', 'gutenverse'),
-        },
-        {
             id: 'minutesBorderHover',
-            show: ! oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -624,8 +744,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'secondsBorder',
+            id: '__secondsBorderTab',
+            component: SwitchControl,
             show: ! oneForAll && switcher.tabTime === 'seconds',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __secondsBorderTab }) => setSwitcher({ ...switcher, secondsBorderTab: __secondsBorderTab })
+        },
+        {
+            id: 'secondsBorder',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBorderTab === 'normal' || !switcher.secondsBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
@@ -638,14 +774,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'borderHoverOptions5',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'seconds',
-            label: __('Border Hover', 'gutenverse'),
-        },
-        {
             id: 'secondsBorderHover',
-            show: ! oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
@@ -663,8 +793,24 @@ export const timeStylePanel = (props) => {
             label: __('Box Shadow', 'gutenverse'),
         },
         {
-            id: 'oneForAllBoxShadow',
+            id: '__oneForAllBoxShadowTab',
+            component: SwitchControl,
             show: oneForAll,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __oneForAllBoxShadowTab }) => setSwitcher({ ...switcher, oneForAllBoxShadowTab: __oneForAllBoxShadowTab })
+        },
+        {
+            id: 'oneForAllBoxShadow',
+            show: oneForAll && ( switcher.oneForAllBoxShadowTab === 'normal' || !switcher.oneForAllBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
             style: [
@@ -676,14 +822,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'boxShadowHoverOptions1',
-            component: HeadingControl,
-            show: oneForAll,
-            label: __('Box Shadow Hover', 'gutenverse'),
-        },
-        {
             id: 'oneForAllBoxShadowHover',
-            show: oneForAll,
+            show: oneForAll && switcher.oneForAllBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -695,8 +835,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
+            id: '__daysBoxShadowTab',
+            component: SwitchControl,
+            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __daysBoxShadowTab }) => setSwitcher({ ...switcher, daysBoxShadowTab: __daysBoxShadowTab })
+        },
+        {
             id: 'daysBoxShadow',
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( switcher.daysBoxShadowTab === 'normal' || !switcher.daysBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
             style: [
@@ -708,14 +864,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'boxShadowHoverOptions2',
-            component: HeadingControl,
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-            label: __('Box Shadow Hover', 'gutenverse'),
-        },
-        {
             id: 'daysBoxShadowHover',
-            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -727,8 +877,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
+            id: '__hoursBoxShadowTab',
+            component: SwitchControl,
+            show: !oneForAll && switcher.tabTime === 'hours',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __hoursBoxShadowTab }) => setSwitcher({ ...switcher, hoursBoxShadowTab: __hoursBoxShadowTab })
+        },
+        {
             id: 'hoursBoxShadow',
-            show: ! oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBoxShadowTab === 'normal' || !switcher.hoursBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
             style: [
@@ -740,14 +906,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'boxShadowHoverOptions3',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'hours',
-            label: __('Box Shadow Hover', 'gutenverse'),
-        },
-        {
             id: 'hoursBoxShadowHover',
-            show: ! oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -759,8 +919,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
+            id: '__minutesBoxShadowTab',
+            component: SwitchControl,
+            show: !oneForAll && switcher.tabTime === 'minutes',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __minutesBoxShadowTab }) => setSwitcher({ ...switcher, minutesBoxShadowTab: __minutesBoxShadowTab })
+        },
+        {
             id: 'minutesBoxShadow',
-            show: ! oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBoxShadowTab === 'normal' || !switcher.minutesBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
             style: [
@@ -772,14 +948,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'boxShadowHoverOptions4',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'minutes',
-            label: __('Box Shadow Hover', 'gutenverse'),
-        },
-        {
             id: 'minutesBoxShadowHover',
-            show: ! oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -791,8 +961,24 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
+            id: '__secondsBoxShadowTab',
+            component: SwitchControl,
+            show: !oneForAll && switcher.tabTime === 'seconds',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                },
+            ],
+            onChange: ({ __secondsBoxShadowTab }) => setSwitcher({ ...switcher, secondsBoxShadowTab: __secondsBoxShadowTab })
+        },
+        {
             id: 'secondsBoxShadow',
-            show: ! oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBoxShadowTab === 'normal' || !switcher.secondsBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
             style: [
@@ -804,14 +990,8 @@ export const timeStylePanel = (props) => {
             ]
         },
         {
-            id: 'boxShadowHoverOptions5',
-            component: HeadingControl,
-            show: ! oneForAll && switcher.tabTime === 'seconds',
-            label: __('Box Shadow Hover', 'gutenverse'),
-        },
-        {
             id: 'secondsBoxShadowHover',
-            show: ! oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
             style: [
@@ -1170,7 +1350,7 @@ export const timeStylePanel = (props) => {
             show: oneForAll,
             unit: 'px',
             min: 0,
-            max: 100,
+            max: 1000,
             step: 1,
             style: [
                 {
@@ -1242,7 +1422,7 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'hours',
             unit: 'px',
             min: 0,
-            max: 100,
+            max: 1000,
             step: 1,
             style: [
                 {
@@ -1278,7 +1458,7 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'minutes',
             unit: 'px',
             min: 0,
-            max: 100,
+            max: 1000,
             step: 1,
             style: [
                 {
@@ -1314,7 +1494,7 @@ export const timeStylePanel = (props) => {
             show: ! oneForAll && switcher.tabTime === 'seconds',
             unit: 'px',
             min: 0,
-            max: 100,
+            max: 1000,
             step: 1,
             style: [
                 {
@@ -1352,13 +1532,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Bottom', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Bottom', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: oneForAll,
             style: [
@@ -1385,13 +1565,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Right', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: oneForAll,
             style: [
@@ -1418,13 +1598,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Bottom', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Bottom', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             style: [
@@ -1451,13 +1631,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Right', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             style: [
@@ -1484,13 +1664,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Bottom', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Bottom', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'hours',
             style: [
@@ -1517,13 +1697,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Right', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'hours',
             style: [
@@ -1550,13 +1730,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Bottom', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Bottom', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'minutes',
             style: [
@@ -1583,13 +1763,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Right', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'minutes',
             style: [
@@ -1616,13 +1796,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Bottom', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Bottom', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'seconds',
             style: [
@@ -1649,13 +1829,13 @@ export const timeStylePanel = (props) => {
                     value: 'start',
                 },
                 {
-                    label: __('Right', 'gutenverse'),
-                    value: 'end',
-                },
-                {
                     label: __('Middle', 'gutenverse'),
                     value: 'center',
                 },
+                {
+                    label: __('Right', 'gutenverse'),
+                    value: 'end',
+                }
             ],
             show: ! oneForAll && switcher.tabTime === 'seconds',
             style: [

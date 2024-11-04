@@ -9,6 +9,14 @@
 		"elementId": {
 			"type": "string"
 		},
+		"column" :{
+			"type": "object",
+			"copyStyle": true
+		},
+		"rowGap" :{
+			"type": "object",
+			"copyStyle": true
+		},
 		"dueDate" : {
 			"type": "array"
 		},
@@ -32,6 +40,10 @@
 		"labelPosition": {
 			"type": "string",
 			"default": "bottom"
+		},
+		"labelSpacing":{
+			"type": "object",
+			"copyStyle": true
 		},
 		"showDays": {
 			"type": "boolean",

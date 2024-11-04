@@ -64,6 +64,59 @@ class Countdown extends Style_Abstract {
 			$one_for_all = $this->attrs['oneForAll'];
 		}
 		$label_position = $this->attrs['labelPosition'];
+
+		if ( isset( $this->attrs['column'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-countdown .guten-countdown-wrapper .time-container",
+					'property'       => function ( $value ) {
+						return "flex : 0 0 calc( 100% / {$value} ); max-width: calc( 100% / {$value} );";
+					},
+					'value'          => $this->attrs['column'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['rowGap'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-countdown .guten-countdown-wrapper",
+					'property'       => function ( $value ) {
+						return "row-gap: {$value}px;";
+					},
+					'value'          => $this->attrs['rowGap'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['labelPosition'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-countdown .time-container",
+					'property'       => function ( $value ) {
+						if ( 'top' === $value || 'bottom' === $value ) {
+							return 'flex-direction: column;';
+						} else {
+							return 'flex-direction: row;';
+						}
+					},
+					'value'          => $this->attrs['labelPosition'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['labelSpacing'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-countdown .time-container",
+					'property'       => function ( $value ) {
+						return "gap: {$value}px;";
+					},
+					'value'          => $this->attrs['labelSpacing'],
+					'device_control' => true,
+				)
+			);
+		}
 		if ( isset( $this->attrs['dividerColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -488,7 +541,7 @@ class Countdown extends Style_Abstract {
 					)
 				);
 			}
-            if ( isset( $this->attrs['hoursDigitColor'] ) ) {
+			if ( isset( $this->attrs['hoursDigitColor'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .hours-wrapper .countdown-value",
@@ -687,7 +740,7 @@ class Countdown extends Style_Abstract {
 					)
 				);
 			}
-            if ( isset( $this->attrs['minutesDigitColor'] ) ) {
+			if ( isset( $this->attrs['minutesDigitColor'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .minutes-wrapper .countdown-value",
@@ -886,7 +939,7 @@ class Countdown extends Style_Abstract {
 					)
 				);
 			}
-            if ( isset( $this->attrs['secondsDigitColor'] ) ) {
+			if ( isset( $this->attrs['secondsDigitColor'] ) ) {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .seconds-wrapper .countdown-value",

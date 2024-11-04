@@ -16,7 +16,7 @@ export const contentStylePanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
                     render: value => `flex : 0 0 calc( 100% / ${value} ); max-width: calc( 100% / ${value} );`
                 }
             ]
@@ -31,7 +31,7 @@ export const contentStylePanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown`,
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper`,
                     render: value => `row-gap: ${value}px;`
                 }
             ]
