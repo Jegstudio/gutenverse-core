@@ -71,10 +71,7 @@ const CountDownBlock = compose(
         template: [['core/paragraph']]
     });
 
-    const handleTimer = (date) => {
-        let targetDate = new Date(date);
-        let now = new Date();
-        let distance = targetDate - now;
+    const handleTimer = (distance) => {
         if(showDays){
             let day = Math.floor(distance / (1000 * 60 * 60 * 24));
             setDays(day);
@@ -109,7 +106,14 @@ const CountDownBlock = compose(
     useEffect(() => {
         const countDownInterval = setInterval(() => {
             if(dueDate){
-                handleTimer(dueDate);
+                let targetDate = new Date(dueDate);
+                let now = new Date();
+                let distance = targetDate - now;
+                if( distance > 0 ){
+                    handleTimer(distance);
+                }else{
+                    clearInterval(countDownInterval);
+                }
             }
         },1000);
         return () => clearInterval(countDownInterval);

@@ -1,7 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, ColorControl, DimensionControl, HeadingControl, RangeControl, SelectControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, ColorControl, DimensionControl, HeadingControl, RangeControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const timeStylePanel = (props) => {
     const {
@@ -1345,18 +1345,35 @@ export const timeStylePanel = (props) => {
         {
             id: 'oneForAllWidth',
             label: __('Set Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             show: oneForAll,
-            unit: 'px',
-            min: 0,
-            max: 1000,
-            step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px',
+                    min: 0,
+                    max: 1000,
+                    step: 1,
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em',
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .time-container`,
                     allowRender: () => oneForAll,
-                    render: value => `width: ${value}px;`
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1381,18 +1398,35 @@ export const timeStylePanel = (props) => {
         {
             id: 'daysWidth',
             label: __('Set Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-            unit: 'px',
-            min: 0,
-            max: 100,
-            step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px',
+                    min: 0,
+                    max: 1000,
+                    step: 1,
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em',
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
                     allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-                    render: value => `width: ${value}px;`
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1417,18 +1451,35 @@ export const timeStylePanel = (props) => {
         {
             id: 'hoursWidth',
             label: __('Set Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             show: ! oneForAll && switcher.tabTime === 'hours',
-            unit: 'px',
-            min: 0,
-            max: 1000,
-            step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px',
+                    min: 0,
+                    max: 1000,
+                    step: 1,
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em',
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
                     allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
-                    render: value => `width: ${value}px;`
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1453,18 +1504,35 @@ export const timeStylePanel = (props) => {
         {
             id: 'minutesWidth',
             label: __('Set Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             show: ! oneForAll && switcher.tabTime === 'minutes',
-            unit: 'px',
-            min: 0,
-            max: 1000,
-            step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px',
+                    min: 0,
+                    max: 1000,
+                    step: 1,
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em',
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
                     allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
-                    render: value => `width: ${value}px;`
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1489,18 +1557,35 @@ export const timeStylePanel = (props) => {
         {
             id: 'secondsWidth',
             label: __('Set Width', 'gutenverse'),
-            component: RangeControl,
+            component: SizeControl,
             allowDeviceControl: true,
             show: ! oneForAll && switcher.tabTime === 'seconds',
-            unit: 'px',
-            min: 0,
-            max: 1000,
-            step: 1,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px',
+                    min: 0,
+                    max: 1000,
+                    step: 1,
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em',
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
             style: [
                 {
                     selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
                     allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
-                    render: value => `width: ${value}px;`
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },

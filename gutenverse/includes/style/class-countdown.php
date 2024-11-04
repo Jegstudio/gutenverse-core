@@ -281,7 +281,7 @@ class Countdown extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .time-container",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['oneForAllWidth'],
 						'device_control' => true,
@@ -481,7 +481,7 @@ class Countdown extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .days-wrapper",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['daysWidth'],
 						'device_control' => true,
@@ -680,7 +680,7 @@ class Countdown extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .hours-wrapper",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['hoursWidth'],
 						'device_control' => true,
@@ -879,7 +879,7 @@ class Countdown extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .minutes-wrapper",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['minutesWidth'],
 						'device_control' => true,
@@ -1078,7 +1078,7 @@ class Countdown extends Style_Abstract {
 					array(
 						'selector'       => ".{$this->element_id}.guten-countdown .seconds-wrapper",
 						'property'       => function ( $value ) {
-							return "width: {$value}px;";
+							return $this->handle_unit_point( $value, 'width' );
 						},
 						'value'          => $this->attrs['secondsWidth'],
 						'device_control' => true,
