@@ -9,10 +9,10 @@ import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 
 const CountDownBlock = compose(
+    withCustomStyle(panelList),
     withAnimationAdvance('countdown'),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
-    withCustomStyle(panelList)
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,
