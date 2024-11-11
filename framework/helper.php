@@ -24,6 +24,11 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 			return null;
 		}
 		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+			return null;
+		}
 		return $body;
 	}
 }
