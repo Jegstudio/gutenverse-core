@@ -44,11 +44,11 @@ const  BannerPro = ({
     const EventBanner = () => {
         return <>
             {
-                ( eventData && today <= expired ) ? <div className="event-banner-wrapper">
+                ( eventData && today <= expired && container === 'library') ? <div className="event-banner-wrapper">
                     <a href={eventData?.url} target="_blank" rel="noreferrer" >
                         <img src={container === 'library' ? eventData?.bannerLibrary : eventData?.banner} alt="event-banner"/>
                     </a>
-                </div> : bannerPro
+                </div> : (!eventData || today > expired) && bannerPro
             }
         </>
     }
