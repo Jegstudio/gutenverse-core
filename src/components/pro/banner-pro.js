@@ -2,7 +2,7 @@ import { applyFilters } from '@wordpress/hooks';
 import ButtonUpgradePro from './button-upgrade-pro';
 import isEmpty from 'lodash/isEmpty';
 
-const BannerPro = ({
+const  BannerPro = ({
     subtitle,
     title,
     leftBannerImg,
@@ -12,10 +12,12 @@ const BannerPro = ({
     customStyles = {},
 }) => {
     const {
+        eventBanner,
         imgDir,
-        themesUrl,
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
+    const eventData = JSON.parse(eventBanner);
+    const today = new Date();
+    const expired = new Date(eventData?.expired);
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && (
             <>
@@ -33,13 +35,24 @@ const BannerPro = ({
             {/* <a className="demo-button" href={themesUrl} target="_blank" rel="noreferrer">{__('View Prebuild Demo', '--gctd--')}</a> */}
         </div>
     </div>;
-
     // Remove banner when script PRO is loaded.
-    return applyFilters(
+    const bannerPro = applyFilters(
         'gutenverse.pro.upgrade.banner',
         banner,
         null
     );
+    const EventBanner = () => {
+        return <>
+            {
+                ( eventData && today <= expired ) ? <div className="event-banner-wrapper">
+                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
+                        <img src={container === 'library' ? eventData?.bannerLibrary : eventData?.banner} alt="event-banner"/>
+                    </a>
+                </div> : bannerPro
+            }
+        </>
+    }
+    return <EventBanner/>;
 };
 
 export default BannerPro;

@@ -7,6 +7,26 @@
  * @package gutenverse-framework
  */
 
+if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
+	/**
+	 * Get Event Banner
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_event_banner() {
+		$response = wp_remote_request(
+			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
+			array(
+				'method' => 'POST',
+			)
+		);
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return null;
+		}
+		$body = wp_remote_retrieve_body( $response );
+		return $body;
+	}
+}
 if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
 	/**
 	 * Check if Script localized
