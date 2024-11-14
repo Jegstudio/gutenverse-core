@@ -379,6 +379,22 @@
 		"mainBorder": {
 			"type": "object",
 			"copyStyle": true
+		},
+		"mainContainerBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerBorder": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"usesContext": [
