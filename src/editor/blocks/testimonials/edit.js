@@ -40,7 +40,6 @@ const TestimonialsBlock = compose(
         iconRatingHalf,
         iconRatingFull,
         starPosition,
-        dotsColor
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -61,7 +60,6 @@ const TestimonialsBlock = compose(
     const focusBlock = () => {
         selectBlock(clientId);
     };
-    console.log(dotsColor);
     useEffect(() => {
         if (testimonialRef.current) {
             setElementRef(testimonialRef.current);
