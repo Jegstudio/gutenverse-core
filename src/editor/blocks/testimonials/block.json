@@ -201,6 +201,22 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"arrowBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowBorderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "arrowBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"arrowBoxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"arrowHoverColor": {
 			"type": "object",
 			"copyStyle": true
@@ -221,22 +237,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"arrowBorder": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"arrowBorderResponsive": {
-			"type": "object",
-			"migrate": {
-				"attr": "arrowBorder",
-				"type": "border"
-			},
-			"copyStyle": true
-		},
-		"arrowBoxShadow": {
-			"type": "object",
-			"copyStyle": true
-		},
 		"arrowBorderHover": {
 			"type": "object",
 			"copyStyle": true
@@ -250,6 +250,34 @@
 			"copyStyle": true
 		},
 		"arrowBoxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowDisabledColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowDisabledBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowDisabledPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowDisabledMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowDisabledOpacity": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowBorderDisabled": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"arrowBoxShadowDisabled": {
 			"type": "object",
 			"copyStyle": true
 		},
