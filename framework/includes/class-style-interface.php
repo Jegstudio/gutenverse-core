@@ -1693,7 +1693,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 
-							$bg_attachment = '';
+							$bg_attachment = 'background-attachment: scroll';
 
 							if ( is_bool( $value ) || '1' === $value ) {
 								$fixed = ( $value || '1' === $value ) ? 'fixed' : 'scroll';
