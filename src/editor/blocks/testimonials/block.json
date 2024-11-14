@@ -143,6 +143,14 @@
 		},
 		"dotsColor": {
 			"type": "object",
+			"default": {
+				"Desktop": {
+					"r": 0,
+					"g": 0,
+					"b": 0,
+					"a": 0.3
+				}
+			},
 			"copyStyle": true
 		},
 		"dotsActiveWidth": {
@@ -159,6 +167,14 @@
 		},
 		"dotsActiveColor": {
 			"type": "object",
+			"default": {
+				"Desktop": {
+					"r": 0,
+					"g": 0,
+					"b": 255,
+					"a": 1
+				}
+			},
 			"copyStyle": true
 		},
 		"arrowFontSize": {
