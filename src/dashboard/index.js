@@ -7,13 +7,30 @@ export { blocklistStore, dashboardStore, libraryStore } from 'gutenverse-core/st
 
 const loadGutenverseDashboard = () => {
     const dashboardDiv = document.getElementById('gutenverse-dashboard');
-
+    const {
+        eventBanner,
+    } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const eventData = JSON.parse(eventBanner);
+    const today = new Date();
+    const expired = new Date(eventData?.expired);
+    const EventBanner = () => {
+        return <>
+            {
+                ( eventData && today <= expired ) && <div className="event-banner-wrapper">
+                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
+                        <img src={eventData?.banner} alt="event-banner"/>
+                    </a>
+                </div>
+            }
+        </>
+    }
     if (dashboardDiv) {
         render(
             <Routing>
                 {(props) => {
                     return <>
                         <Navigation {...props}/>
+                        <EventBanner/>
                         <ProUpdateNotice/>
                         <Content {...props}/>
                     </>;

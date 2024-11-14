@@ -182,6 +182,7 @@ class Dashboard {
 		$config['adminUrl']         = admin_url();
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
+		$config['eventBanner']       = gutenverse_get_event_banner();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
