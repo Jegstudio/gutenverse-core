@@ -21,8 +21,7 @@ const ButtonUpgradePro = ({
     isBanner = false,
     licenseActiveButton = <></>,
 }) => {
-
-    const { upgradeProUrl, adminUrl, license } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const { upgradeProUrl, adminUrl } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const buttonClasses = classnames(
         'button-upgrade-pro',
         {

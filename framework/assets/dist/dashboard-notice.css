@@ -66,7 +66,9 @@
 }
 
 #toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"],
-#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] {
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"],
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > .button-upgrade-pro-sidebar,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="https://pro.gutenverse.com/?utm_source=gutenverse&utm_medium=dashboardnav"] {
     background-color: #3B57F7;
     border-radius: 5px;
     color: white;
@@ -78,10 +80,14 @@
     line-height: normal;
     margin: 4px 12px;
     padding: 8px 14px;
+    box-shadow: none;
+    transition: all .5s;
 }
 
 #toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"] span,
-#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] span {
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"] span,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > .button-upgrade-pro-sidebar span,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="https://pro.gutenverse.com/?utm_source=gutenverse&utm_medium=dashboardnav"] span {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -89,6 +95,9 @@
 
 #toplevel_page_gutenverse > .wp-submenu > li.current:last-child > a[href="?page=gutenverse&path=upgrade-pro"],
 #toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="?page=gutenverse&path=upgrade-pro"]:hover,
-#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"]:hover {
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="admin.php?page=gutenverse&path=upgrade-pro"]:hover,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > .button-upgrade-pro-sidebar:hover,
+#toplevel_page_gutenverse > .wp-submenu > li:last-child > a[href="https://pro.gutenverse.com/?utm_source=gutenverse&utm_medium=dashboardnav"]:hover {
     box-shadow: none;
+    transform: scale(90%);
 }

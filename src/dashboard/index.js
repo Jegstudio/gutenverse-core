@@ -10,7 +10,7 @@ const loadGutenverseDashboard = () => {
     const {
         eventBanner,
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-    const eventData = JSON.parse(eventBanner);
+    const eventData = eventBanner;
     const today = new Date();
     const expired = new Date(eventData?.expired);
     const EventBanner = () => {
