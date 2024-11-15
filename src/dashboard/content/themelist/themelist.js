@@ -211,7 +211,7 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
+        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
         return pro ? buttonPro : defaultButton();
     };
 
