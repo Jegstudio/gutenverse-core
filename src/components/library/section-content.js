@@ -12,6 +12,7 @@ import ImportSectionButton from './import-section-button';
 import BannerPro from '../pro/banner-pro';
 import { Loader } from 'react-feather';
 import { ExportNotice } from './library-helper';
+import { upgradeProUrl } from 'gutenverse-core/config';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
@@ -135,7 +136,9 @@ const SectionContentWrapper = (props) => {
                 container="library"
                 leftBannerImg="library-graphic-library-left.png"
                 rightBannerImg="library-graphic-library-right.png"
-                backgroundGradient="library-bg-library.png" />
+                backgroundGradient="library-bg-library.png"
+                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library`}
+            />
             <SectionContentData
                 current={content.current}
                 data={content.data}
