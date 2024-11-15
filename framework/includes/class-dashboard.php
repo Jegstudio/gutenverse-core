@@ -182,7 +182,7 @@ class Dashboard {
 		$config['adminUrl']         = admin_url();
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
-		$config['eventBanner']       = gutenverse_get_event_banner();
+		$config['eventBanner']      = gutenverse_get_event_banner();
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -419,7 +419,7 @@ class Dashboard {
 				esc_html__( 'Upgrade to PRO', '--gctd--' ),
 				'<span>' . esc_html__( 'Upgrade to PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
 				'manage_options',
-				'admin.php?page=gutenverse&path=upgrade-pro',
+				gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=dashboardnav',
 				null,
 				9999
 			);

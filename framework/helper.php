@@ -29,7 +29,7 @@ if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
 		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
 			return null;
 		}
-		return $body;
+		return $data;
 	}
 }
 if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
