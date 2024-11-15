@@ -162,6 +162,42 @@ class Post_Comment extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['suffixTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} span.says",
+					'value'          => $this->attrs['suffixTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['suffixColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} span.says",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['suffixColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['suffixMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} span.says",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['suffixMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['typographyLink'] ) ) {
 			$this->inject_typography(
 				array(

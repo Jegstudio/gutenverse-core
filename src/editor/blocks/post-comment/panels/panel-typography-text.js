@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
-import { ColorControl, DimensionControl, TypographyControl, SwitchControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, TypographyControl, SwitchControl, HeadingControl } from 'gutenverse-core/controls';
 
 export const textTypographyPanel = (props) => {
     const {
@@ -85,6 +85,11 @@ export const textTypographyPanel = (props) => {
         },
         //list comment
         {
+            id: 'submenuSplitter1',
+            component: HeadingControl,
+            label: __('Comment Text')
+        },
+        {
             id: 'typographyTextList',
             label: __('Text Typography', 'gutenverse'),
             show: switcher.commentType === 'listComment',
@@ -111,7 +116,7 @@ export const textTypographyPanel = (props) => {
         },
         {
             id: 'marginTextList',
-            label: __('Margin', 'gutenverse'),
+            label: __('Text Margin', 'gutenverse'),
             show: switcher.commentType === 'listComment',
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
@@ -137,6 +142,69 @@ export const textTypographyPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .commentlist .comment p`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        //suffix text
+        {
+            id: 'submenuSplitter2',
+            component: HeadingControl,
+            label: __('Username Suffix')
+        },
+        {
+            id: 'suffixTypography',
+            label: __('Suffix Typography', 'gutenverse'),
+            show: switcher.commentType === 'listComment',
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
+            id: 'suffixColor',
+            label: __('Suffix Color', 'gutenverse'),
+            show: switcher.commentType === 'listComment',
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'suffixMargin',
+            label: __('Suffix Margin', 'gutenverse'),
+            show: switcher.commentType === 'listComment',
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+                rem: {
+                    text: 'rem',
+                    unit: 'rem'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]

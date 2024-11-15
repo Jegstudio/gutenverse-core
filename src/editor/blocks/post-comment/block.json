@@ -21,6 +21,18 @@
 			"type": "boolean",
 			"default": true
 		},
+		"enableSuffix": {
+			"type": "boolean",
+			"default": true
+		},
+		"suffixMain": {
+			"type": "string",
+			"default": "says:"
+		},
+		"suffixReply": {
+			"type": "string",
+			"default": "replied:"
+		},
 		"noContentText": {
 			"type": "string",
 			"default": "No Content"
@@ -85,6 +97,18 @@
 			"copyStyle": true
 		},
 		"marginTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
