@@ -469,6 +469,104 @@
     "condition": {
         "type": "object",
         "default": {}
+    },
+    "titleHorizontal": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    
+    "titleVertical": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "titleOpacity": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "titleHorizontalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    
+    "titleVerticalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "titleOpacityHover": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "descHorizontal": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "descVertical": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "descOpacity": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "descHorizontalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "descVerticalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "descOpacityHover": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "jobHorizontal": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "jobVertical": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "jobOpacity": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "jobHorizontalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "jobVerticalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "jobOpacityHover": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "socialHorizontal": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "socialVertical": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "socialOpacity": {
+      "type": "string",
+      "copyStyle" : true
+    },
+    "socialHorizontalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "socialVerticalHover": {
+      "type": "object",
+      "copyStyle" : true
+    },
+    "socialOpacityHover": {
+      "type": "string",
+      "copyStyle" : true
     }
   },
   "supports": {},

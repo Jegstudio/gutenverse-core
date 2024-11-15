@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, ImageControl, SelectControl, SizeControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, HeadingControl, ImageControl, SelectControl, SizeControl, SwitchControl, TextareaControl, TextControl, RangeControl } from 'gutenverse-core/controls';
 import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const teamPanel = (props) => {
@@ -7,7 +7,9 @@ export const teamPanel = (props) => {
         showDesc,
         elementId,
         hoverBottom,
-        profileType
+        profileType,
+        setSwitcher,
+        switcher
     } = props;
 
     return [
@@ -80,6 +82,10 @@ export const teamPanel = (props) => {
                 {
                     value: 'hover',
                     label: 'Social Hover'
+                },
+                {
+                    value: 'titleSocialHorizontal',
+                    label: 'Title & Social Horizontal'
                 },
             ],
         },
@@ -174,6 +180,768 @@ export const teamPanel = (props) => {
             show: showDesc,
             label: __('Description', 'gutenverse'),
             component: TextareaControl
+        },
+        {
+            id: 'titleSocialSeparator',
+            component: HeadingControl,
+            label: __('Title Social Settings', 'gutenverse'),
+            show: profileType === 'titleSocialHorizontal'
+        },
+        {
+            id: '__titleSocial',
+            component: SwitchControl,
+            show: profileType === 'titleSocialHorizontal',
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({__titleSocial}) => setSwitcher({...switcher, titleSocial: __titleSocial})
+        },
+        {
+            id: 'titleSeparatorPosition',
+            component: HeadingControl,
+            label: __('Title Positions', 'gutenverse'),
+            show: profileType === 'titleSocialHorizontal'
+        },
+        {
+            id: 'titleHorizontal',
+            label: __('Title Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+
+
+        {
+            id: 'titleVertical',
+            label: __('Title Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
+            ]
+        },
+        {
+            id: 'titleOpacity',
+            label: __('Title Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'titleHorizontalHover',
+            label: __('Title Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+
+        {
+            id: 'titleVerticalHover',
+            label: __('Title Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
+            ]
+        },
+        {
+            id: 'titleOpacityHover',
+            label: __('Title Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'jobSeparatorPosition',
+            component: HeadingControl,
+            label: __('Job Positions', 'gutenverse'),
+            show: profileType === 'titleSocialHorizontal'
+        },
+        {
+            id: 'jobHorizontal',
+            label: __('Job Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+
+        {
+            id: 'jobVertical',
+            label: __('Job Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
+            ]
+        },
+
+        {
+            id: 'jobOpacity',
+            label: __('Job Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'jobHorizontalHover',
+            label: __('Job Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+
+        {
+            id: 'jobVerticalHover',
+            label: __('Job Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
+            ]
+        },
+
+        {
+            id: 'jobOpacityHover',
+            label: __('Job Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'descSeparatorPosition',
+            component: HeadingControl,
+            label: __('Description Positions', 'gutenverse'),
+            show: profileType === 'titleSocialHorizontal'
+        },
+        {
+            id: 'descHorizontal',
+            label: __('Description Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+        {
+            id: 'descVertical',
+            label: __('Description Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
+            ]
+        },
+        {
+            id: 'descOpacity',
+            label: __('Description Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'descHorizontalHover',
+            label: __('Description Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vw: {
+                    text: 'vw',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vw',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
+            ]
+        },
+
+        {
+            id: 'descVerticalHover',
+            label: __('Description Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
+            ]
+        },
+
+        {
+            id: 'descOpacityHover',
+            label: __('Description Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'socialSeparatorPosition',
+            component: HeadingControl,
+            label: __('Social Icons Positions', 'gutenverse'),
+            show: profileType === 'titleSocialHorizontal'
+        },
+
+        {
+            id: 'socialHorizontal',
+            label: __('Social Icons Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    render: value => handleUnitPoint(value, 'right')
+                },
+            ]
+        },
+
+        {
+            id: 'socialVertical',
+            label: __('Social Icons Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
+            ]
+        },
+        {
+            id: 'socialOpacity',
+            label: __('Social Icons Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'normal' || !switcher.titleSocial),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
+        },
+        {
+            id: 'socialHorizontalHover',
+            label: __('Social Icons Horizontal Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    render: value => handleUnitPoint(value, 'right')
+                },
+            ]
+        },
+
+        {
+            id: 'socialVerticalHover',
+            label: __('Social Icons Vertical Orientation', '--gctd--'),
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    min: -1000,
+                    max: 1000,
+                    step: 1,
+                    unit: 'px',
+                },
+                ['%']: {
+                    text: '%',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: '%',
+                },
+                vh: {
+                    text: 'vh',
+                    min: -200,
+                    max: 200,
+                    step: 1,
+                    unit: 'vh',
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
+            ]
+        },
+        {
+            id: 'socialOpacityHover',
+            label: __('Social Icons Opacity', 'gutenverse'),
+            component: RangeControl,
+            show: profileType === 'titleSocialHorizontal' && (switcher.titleSocial === 'hover'),
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
         },
         {
             id: 'hoverBottom',
