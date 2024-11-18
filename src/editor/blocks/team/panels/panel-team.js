@@ -426,7 +426,7 @@ export const teamPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub`,
-                    render: value => handleUnitPoint(value, 'left')
+                    render: value => handleUnitPoint(value, 'right')
                 },
             ]
         },
@@ -516,7 +516,7 @@ export const teamPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub`,
-                    render: value => handleUnitPoint(value, 'left')
+                    render: value => handleUnitPoint(value, 'right')
                 },
             ]
         },

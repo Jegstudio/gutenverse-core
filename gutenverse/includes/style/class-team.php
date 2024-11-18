@@ -518,7 +518,7 @@ class Team extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
-			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before", $this->attrs['hoverBgColor'] );
+			$this->handle_background( ".{$this->element_id}.guten-team .profile-box .profile-card.card-overlay:before, .{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:before", $this->attrs['hoverBgColor'] );
 		}
 
 		if ( isset( $this->attrs['hoverPadding'] ) ) {
@@ -630,6 +630,294 @@ class Team extends Style_Abstract {
 					},
 					'value'          => $this->attrs['overlayProfilePosition'],
 					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleHorizontal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'left' );
+					},
+					'value'          => $this->attrs['titleHorizontal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleVertical'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'bottom' );
+					},
+					'value'          => $this->attrs['titleVertical'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-title",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['titleOpacity'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleHorizontalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'left' );
+					},
+					'value'          => $this->attrs['titleHorizontalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleVerticalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'bottom' );
+					},
+					'value'          => $this->attrs['titleVerticalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['titleOpacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-title",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['titleOpacityHover'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobHorizontal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'right' );
+					},
+					'value'          => $this->attrs['jobHorizontal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobVertical'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'top' );
+					},
+					'value'          => $this->attrs['jobVertical'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-sub",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['jobOpacity'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobHorizontalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'right' );
+					},
+					'value'          => $this->attrs['jobHorizontalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobVerticalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'top' );
+					},
+					'value'          => $this->attrs['jobVerticalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['jobOpacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-sub",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['jobOpacityHover'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descHorizontal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'left' );
+					},
+					'value'          => $this->attrs['descHorizontal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descVertical'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'top' );
+					},
+					'value'          => $this->attrs['descVertical'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .profile-desc",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['descOpacity'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descHorizontalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'left' );
+					},
+					'value'          => $this->attrs['descHorizontalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descVerticalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'top' );
+					},
+					'value'          => $this->attrs['descVerticalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['descOpacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .profile-desc",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['descOpacityHover'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialHorizontal'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'right' );
+					},
+					'value'          => $this->attrs['socialHorizontal'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialVertical'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'bottom' );
+					},
+					'value'          => $this->attrs['socialVertical'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal .socials-wrapper",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['socialOpacity'],
+					'device_control' => false,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialHorizontalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'right' );
+					},
+					'value'          => $this->attrs['socialHorizontalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialVerticalHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper",
+					'property'       => function ( $value ) {
+						return $this->handle_unit_point( $value, 'bottom' );
+					},
+					'value'          => $this->attrs['socialVerticalHover'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['socialOpacityHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.guten-team .profile-box .profile-card.card-title-social-horizontal:hover .socials-wrapper",
+					'property'       => function ( $value ) {
+						return "opacity: {$value};";
+					},
+					'value'          => $this->attrs['socialOpacityHover'],
+					'device_control' => false,
 				)
 			);
 		}
