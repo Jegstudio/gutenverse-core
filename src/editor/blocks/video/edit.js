@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -77,6 +77,7 @@ const VideoPicker = (props) => {
 };
 
 const VideoBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('video'),
     withCopyElementToolbar(),

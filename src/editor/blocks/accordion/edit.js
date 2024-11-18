@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
@@ -11,7 +11,6 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
 import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
-import { applyFilters } from '@wordpress/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
@@ -26,6 +25,7 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 };
 
 const Accordion = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
 )(props => {
@@ -49,7 +49,7 @@ const Accordion = compose(
         setElementRef,
         setPanelState
     } = props;
-    
+
     const {
         iconPosition,
         iconOpen,

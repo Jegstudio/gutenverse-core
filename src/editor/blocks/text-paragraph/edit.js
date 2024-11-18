@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle,  withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle,  withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -21,6 +21,7 @@ const TextBlockControl = (props) => {
     FilterDynamic(props);
 };
 const TextBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('text-paragraph'),
     withCopyElementToolbar(),
@@ -33,7 +34,6 @@ const TextBlock = compose(
         clientId,
         setAttributes,
         setPanelState,
-        elementRef
     } = props;
     const {
         elementId,
@@ -80,9 +80,7 @@ const TextBlock = compose(
             section: 0,
         }
     );
-    //don't delete this, it will get error when deleted;
-    const onReplace = (value) => {
-    }
+
     useEffect(() => {
         if (textRef.current) {
             setElementRef(textRef.current);
@@ -112,7 +110,7 @@ const TextBlock = compose(
             setPanelState={setPanelState}
             isOnSplit={true}
             onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
-            onReplace= {onReplace}
+            onReplace= {() => {}}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
             isUseDinamic={true}

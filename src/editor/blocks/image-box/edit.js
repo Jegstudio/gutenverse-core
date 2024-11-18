@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import {
     BlockControls,
     MediaUpload,
@@ -102,7 +102,7 @@ const ImageBoxPicker = (props) => {
     );
 };
 
-const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, elementRef, setPanelState }) => {
+const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, setPanelState }) => {
     const {
         getBlocks
     } = useSelect(
@@ -225,6 +225,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 };
 
 const ImageBoxBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('image-box'),
     withCopyElementToolbar(),
@@ -313,9 +314,7 @@ const ImageBoxBlock = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }

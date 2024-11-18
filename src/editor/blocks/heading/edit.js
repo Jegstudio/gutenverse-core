@@ -7,10 +7,9 @@ import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { applyFilters } from '@wordpress/hooks';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -58,6 +57,7 @@ const HeadingInspection = (props) => {
 };
 
 const HeadingBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('heading'),
     withCopyElementToolbar(),

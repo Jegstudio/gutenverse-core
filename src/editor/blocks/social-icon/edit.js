@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import {
     BlockControls, InspectorControls,
     RichText,
@@ -31,6 +31,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('social-icon'),
     withCopyElementToolbar()
@@ -114,9 +115,7 @@ const SocialIcon = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }

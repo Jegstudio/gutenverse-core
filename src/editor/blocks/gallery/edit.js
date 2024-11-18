@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -17,6 +17,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const GalleryBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('gallery'),
     withCopyElementToolbar(),
@@ -127,7 +128,7 @@ const GalleryBlock = compose(
             im.onload=()=>res([im.width,im.height])
         ));
 
-        Promise.all(proms).then(data=>{
+        Promise.all(proms).then(()=>{
             setImageLoaded(true);
         });
     }, []);

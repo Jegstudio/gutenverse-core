@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -16,6 +16,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 
 const PostListBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect

@@ -2,7 +2,7 @@ import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'gutenverse-core/components';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps, MediaUploadCheck, MediaUpload, } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { classnames } from 'gutenverse-core/components';
@@ -109,6 +109,7 @@ const ImagePicker = (props) => {
 };
 
 const ImageBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('image'),
     withCopyElementToolbar(),
@@ -232,9 +233,7 @@ const ImageBlock = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }

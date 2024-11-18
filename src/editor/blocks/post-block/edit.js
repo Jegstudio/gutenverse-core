@@ -4,6 +4,7 @@ import {
     withCustomStyle,
     withMouseMoveEffect,
     withCopyElementToolbar,
+    withPartialRender,
 } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, PostSkeleton, u } from 'gutenverse-core/components';
@@ -15,6 +16,7 @@ import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 
 const PostBlockBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect,
@@ -203,7 +205,6 @@ const PostBlockBlock = compose(
                     })
                     .finally(() => setLoading(false));
         } else {
-            const { imgDir } = window.GutenverseConfig || {};
             let articles = '';
             for (let i = 0; i < numberPost; i++) {
 
