@@ -15,7 +15,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const SocialIcons = compose(
-    withPartialRender(),
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('social-icons'),
     withCopyElementToolbar(),
