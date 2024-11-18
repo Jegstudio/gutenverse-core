@@ -1,15 +1,13 @@
-import { useRef, useState } from '@wordpress/element';
+import { useRef, useState, useEffect } from '@wordpress/element';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { memo } from 'react';
-import { useEffect } from 'react';
 
-const BlockLoading = memo(({
+const BlockLoading = ({
     renderRef
 }) => {
     return <div className="gutenverse-block-loading" ref={renderRef}>
         <div></div>
     </div>;
-});
+};
 
 export const withPartialRender = (BlockElement) => {
     return (props) => {
