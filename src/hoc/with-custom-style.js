@@ -1,4 +1,4 @@
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useMemo, useState } from '@wordpress/element';
 import cryptoRandomString from 'crypto-random-string';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { determineLocation, getGoogleFontParams, recursiveDuplicateCheck, theDeviceType } from 'gutenverse-core/helper';
@@ -6,7 +6,6 @@ import isEmpty from 'lodash/isEmpty';
 import { setControlStyle, signal } from 'gutenverse-core/editor-helper';
 import { Helmet, u } from 'gutenverse-core/components';
 import { applyFilters } from '@wordpress/hooks';
-import { getBlockType } from '@wordpress/blocks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;
@@ -53,25 +52,6 @@ export const withCustomStyle = panelList => BlockElement => {
         const controls = panelList();
         const { uploadPath } = window['GutenverseConfig'];
 
-        const refreshStyle = () => {
-            const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-            setRefreshId(uniqueId);
-        };
-
-        const refreshSignal = (key) => {
-            setRefresh(key);
-        };
-
-        useEffect(() => {
-            const binding = signal.refreshSignal.add(refreshSignal);
-            const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
-
-            return () => {
-                binding.detach();
-                bindStyling.detach();
-            };
-        }, []);
-
         // keep this using useSelect instead of getDevice, to trigger changes
         const {
             deviceType,
@@ -84,6 +64,15 @@ export const withCustomStyle = panelList => BlockElement => {
             },
             []
         );
+
+        const refreshStyle = () => {
+            const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+            setRefreshId(uniqueId);
+        };
+
+        const refreshSignal = (key) => {
+            setRefresh(key);
+        };
 
         const addStyle = (id, adminStyle) => {
             setAdminStyle(prevStyles => ({
@@ -230,6 +219,27 @@ export const withCustomStyle = panelList => BlockElement => {
             registerElement(uniqueId);
         };
 
+        useEffect(() => {
+            const binding = signal.refreshSignal.add(refreshSignal);
+            const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
+
+            Object.keys(attributes).map(key => {
+                if (typeof attributes[key] === 'string' && (
+                    attributes[key].indexOf('gtn gtn-') > -1
+                    || attributes[key].indexOf('fas fa-') > -1
+                    || attributes[key].indexOf('fab fa-') > -1
+                    || attributes[key].indexOf('far fa-') > -1
+                )) {
+                    setHasIcon(true);
+                }
+            });
+
+            return () => {
+                binding.detach();
+                bindStyling.detach();
+            };
+        }, []);
+
         /**
          * On mount, set elementId if undefined,
          * and set controlValues for the first time.
@@ -248,36 +258,32 @@ export const withCustomStyle = panelList => BlockElement => {
                         registerElement(elementId);
                     }
                 }
+
+                if (elementRef.ownerDocument) {
+                    setTimeout(() => {
+                        const windowEl = elementRef.ownerDocument.defaultView || elementRef.ownerDocument.parentWindow;
+                        if (windowEl?.document) {
+                            const headEl = windowEl.document.getElementsByTagName('head')[0];
+                            setHeadElement(headEl);
+                        }
+                    }, 1);
+                }
             }
         }, [elementRef]);
 
-        useEffect(() => {
-            Object.keys(attributes).map(key => {
-                if (typeof attributes[key] === 'string' && (
-                    attributes[key].indexOf('gtn gtn-') > -1
-                    || attributes[key].indexOf('fas fa-') > -1
-                    || attributes[key].indexOf('fab fa-') > -1
-                    || attributes[key].indexOf('far fa-') > -1
-                )) {
-                    setHasIcon(true);
-                }
-            });
-        }, []);
-
-        /**
-         * Refresh if there is change.
-         */
-        useEffect(() => {
-            /*  */
-        }, [attributes]);
+        const customDeps = useMemo(() => renderStyleCustomDeps(props), [props]);
 
         /**
          * Render style on event change
          */
         useEffect(() => {
-            if (elementId !== undefined) {
-                renderStyle();
-            }
+            const timer = setTimeout(() => {
+                if (elementId !== undefined) {
+                    renderStyle();
+                }
+            }, 300);  // Delay execution by 300ms
+
+            return () => clearTimeout(timer);  // Cleanup timer on every render
         }, [
             elementId,
             refreshStyleId,
@@ -285,20 +291,9 @@ export const withCustomStyle = panelList => BlockElement => {
             confirmSignal,
             deviceType,
             additionalAttribute,
-            ...renderStyleCustomDeps(props),
+            ...customDeps,
         ]);
 
-        useEffect(() => {
-            if (elementRef && elementRef.ownerDocument) {
-                setTimeout(() => {
-                    const windowEl = elementRef.ownerDocument.defaultView || elementRef.ownerDocument.parentWindow;
-                    if (windowEl?.document) {
-                        const headEl = windowEl.document.getElementsByTagName('head')[0];
-                        setHeadElement(headEl);
-                    }
-                }, 1);
-            }
-        }, [elementRef]);
         return <>
             {hasIcon && (
                 <Helmet head={headElement}>
