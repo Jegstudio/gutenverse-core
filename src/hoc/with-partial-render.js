@@ -1,7 +1,8 @@
+// import { useSelect } from '@wordpress/data';
 import { useRef, useState, useEffect } from '@wordpress/element';
 // import { Skeleton } from 'gutenverse-core/components';
 // import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { isOnEditor } from 'gutenverse-core/helper';
+// import { isOnEditor } from 'gutenverse-core/helper';
 
 const BlockLoading = ({
     renderRef
@@ -19,56 +20,86 @@ export const withPartialRender = (BlockElement) => {
         // const deviceType = getDeviceType();
 
         useEffect(() => {
-            startPartialRender();
-        }, [renderRef, windowData]);
+            if (!window.IntersectionObserver || !renderRef?.current) {
+                return;
+            }
 
-        useEffect(() => {
-            const timeout = setTimeout(() => {
-                if (!renderRef?.current || !renderRef?.current?.ownerDocument) {
-                    return;
-                }
+            const blockElement = renderRef.current;
 
-                // check if this is site editor
-                if (window.location.href.indexOf('site-editor.php') !== -1) {
-                    const windowEl = renderRef?.current?.ownerDocument?.defaultView || renderRef?.current?.ownerDocument?.parentWindow;
-                    setWindowData({
-                        type: 'site',
-                        window: windowEl
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            setPartialRender(true);
+                            observer.unobserve(blockElement);
+                        }
                     });
-                } else {
-                    const scrollEl = document?.getElementsByClassName('interface-interface-skeleton__content');
-                    scrollEl?.length > 0 && setWindowData({
-                        type: 'post',
-                        window: scrollEl[0]
-                    });
+                },
+                {
+                    rootMargin: '240px',
+                    threshold: 0.01,
                 }
-            }, 500);
+            );
 
-            return () => clearTimeout(timeout);
+            observer.observe(blockElement);
+
+            return () => {
+                observer.disconnect();
+            };
         }, [renderRef]);
 
         // useEffect(() => {
-        //     if (partialRender) {
-        //         setPartialRender(false);
+        //     startPartialRender();
+        // }, [renderRef, windowData]);
+
+        // useEffect(() => {
+        //     const timeout = setTimeout(() => {
+        //         if (!renderRef?.current || !renderRef?.current?.ownerDocument) {
+        //             return;
+        //         }
+
+        //         const elDocument = renderRef?.current?.ownerDocument;
+        //         const postEditor = elDocument?.getElementsByClassName('interface-interface-skeleton__content');
+
+        //         if (postEditor?.length > 0) {
+        //             setWindowData({
+        //                 type: 'post',
+        //                 window: postEditor[0]
+        //             });
+        //         } else {
+        //             const iframeEditor = elDocument?.defaultView || elDocument?.parentWindow;
+        //             setWindowData({
+        //                 type: 'site',
+        //                 window: iframeEditor
+        //             });
+        //         }
+        //     }, 500);
+
+        //     return () => clearTimeout(timeout);
+        // }, [blocks]);
+
+        // // useEffect(() => {
+        // //     if (partialRender) {
+        // //         setPartialRender(false);
+        // //     }
+        // // }, [deviceType]);
+
+        // const startPartialRender = () => {
+        //     if ( !partialRender && windowData?.type && renderRef?.current && renderRef?.current?.getBoundingClientRect ) {
+        //         const elementPosition = renderRef?.current?.getBoundingClientRect();
+        //         const windowHeight = windowData?.type === 'post' ? windowData?.window?.getBoundingClientRect()?.height : windowData?.window?.innerHeight;
+        //         const checking = isOnEditor() ? (elementPosition?.top < (3 * windowHeight)) : (elementPosition?.top < (1.5 * windowHeight));
+
+        //         if (checking) {
+        //             setPartialRender(true);
+        //         }
         //     }
-        // }, [deviceType]);
+        // };
 
-        const startPartialRender = () => {
-            if ( !partialRender && windowData?.type && renderRef?.current && renderRef?.current?.getBoundingClientRect ) {
-                const elementPosition = renderRef?.current?.getBoundingClientRect();
-                const windowHeight = windowData?.type === 'post' ? windowData?.window?.getBoundingClientRect()?.height : windowData?.window?.innerHeight;
-                const checking = isOnEditor() ? (elementPosition?.top < (3 * windowHeight)) : (elementPosition?.top < (1.5 * windowHeight));
-
-                if (checking) {
-                    setPartialRender(true);
-                }
-            }
-        };
-
-        // Move this to useEffect
-        windowData?.window?.addEventListener('scroll', () => {
-            startPartialRender();
-        });
+        // // Move this to useEffect
+        // windowData?.window?.addEventListener('scroll', () => {
+        //     startPartialRender();
+        // });
 
         return partialRender ? <BlockElement {...props}/> : <BlockLoading renderRef={renderRef}/>;
     };
