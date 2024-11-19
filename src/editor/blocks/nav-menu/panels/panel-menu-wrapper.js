@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { BackgroundControl, ColorControl, DimensionControl, RangeControl, BoxShadowControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor, handleDimension, handleBoxShadow, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const menuWrapperPanel = (props) => {
@@ -132,6 +132,18 @@ export const menuWrapperPanel = (props) => {
                 {
                     selector: `.${elementId} .gutenverse-menu-wrapper`,
                     render: value => handleDimension(value, 'border-radius', false)
+                }
+            ]
+        },
+        {
+            id: 'menuBoxShadow',
+            label: __('Box Shadow', 'gutenverse'),
+            allowDeviceControl: true,
+            component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-menu-wrapper`,
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

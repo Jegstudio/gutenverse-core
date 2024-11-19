@@ -52,6 +52,27 @@
       "type": "boolean",
       "default": true
     },
+    "mobileEnableOverlay": {
+      "type": "boolean",
+      "default": false
+    },
+    "overlayOpacity": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "overlayPointer": {
+      "type": "string",
+      "default": "none",
+      "copyStyle": true
+    },
+    "overlayBackground": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "overlayBlur": {
+			"type": "object",
+			"copyStyle": true
+		},
     "mobileLogoWidth": {
       "type": "object",
       "copyStyle": true
@@ -93,6 +114,10 @@
       "copyStyle": true
     },
     "menuRadius": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "menuBoxShadow": {
       "type": "object",
       "copyStyle": true
     },
