@@ -18,5 +18,16 @@
         width: 100%;
         height: inherit;
         object-fit: cover;
+
+        .slideshow-image {
+            width: 100%;
+            height: inherit;
+            display: none;
+            background-size: contain;
+
+            &.current {
+                display: block;
+            }
+        }
     }
 }
