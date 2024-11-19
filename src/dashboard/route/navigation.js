@@ -11,6 +11,7 @@ const Navigation = ({ location }) => {
     const {
         homeSlug,
         pluginVersions,
+        upgradeProUrl
     } = window['GutenverseDashboard'];
 
     const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
@@ -70,8 +71,9 @@ const Navigation = ({ location }) => {
                 name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
                 slug: homeSlug,
                 upgrade: true,
-                path: 'upgrade-pro',
-                priority: 9999
+                link: 'https://gutenverse.com/pro?utm_source=gutenverse&utm_medium=adminmenu',
+                priority: 9999,
+                external: true,
             },
         ],
         homeSlug
@@ -107,15 +109,17 @@ const Navigation = ({ location }) => {
                 }
 
                 return <li key={menu.path} className={`${menu.path === path ? 'current' : ''}`}>
-                    <Link
-                        index={`${menu.path}`}
-                        to={{
-                            pathname: pathname,
-                            search: param,
-                        }}
-                    >
-                        {menu.name}
-                    </Link>
+                    {
+                        menu.external ? <a className="button-upgrade-pro-sidebar" href={menu.link} target="_blank" rel="noreferrer">{menu.name}</a> : <Link
+                            index={`${menu.path}`}
+                            to={{
+                                pathname: pathname,
+                                search: param,
+                            }}
+                        >
+                            {menu.name}
+                        </Link>
+                    }
                 </li>;
             }
 
@@ -156,7 +160,7 @@ const Navigation = ({ location }) => {
 
                     return null;
                 })}
-                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} />
+                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav`}/>
             </div>
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}

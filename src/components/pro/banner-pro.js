@@ -2,7 +2,7 @@ import { applyFilters } from '@wordpress/hooks';
 import ButtonUpgradePro from './button-upgrade-pro';
 import isEmpty from 'lodash/isEmpty';
 
-const BannerPro = ({
+const  BannerPro = ({
     subtitle,
     title,
     leftBannerImg,
@@ -10,12 +10,15 @@ const BannerPro = ({
     backgroundGradient,
     container,
     customStyles = {},
+    link
 }) => {
     const {
+        eventBanner,
         imgDir,
-        themesUrl,
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
-
+    const eventData = eventBanner;
+    const today = new Date();
+    const expired = new Date(eventData?.expired);
     const banner = <div className="banner-pro" style={customStyles}>
         {imgDir && (
             <>
@@ -29,17 +32,28 @@ const BannerPro = ({
         {!isEmpty(subtitle) && <p className="subtitle">{subtitle}</p>}
         {!isEmpty(title) && <h4 className="title">{title}</h4>}
         <div className="buttons">
-            <ButtonUpgradePro location={container} isBanner={true}/>
+            <ButtonUpgradePro location={container} isBanner={true} link={link}/>
             {/* <a className="demo-button" href={themesUrl} target="_blank" rel="noreferrer">{__('View Prebuild Demo', '--gctd--')}</a> */}
         </div>
     </div>;
-
     // Remove banner when script PRO is loaded.
-    return applyFilters(
+    const bannerPro = applyFilters(
         'gutenverse.pro.upgrade.banner',
         banner,
         null
     );
+    const EventBanner = () => {
+        return <>
+            {
+                ( eventData && today <= expired && container === 'library') ? <div className="event-banner-wrapper">
+                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
+                        <img src={container === 'library' ? eventData?.bannerLibrary : eventData?.banner} alt="event-banner"/>
+                    </a>
+                </div> : (!eventData || today > expired) && bannerPro
+            }
+        </>
+    }
+    return <EventBanner/>;
 };
 
 export default BannerPro;
