@@ -19,7 +19,7 @@ const PostBlockBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect,
 )((props) => {
-    const { attributes, deviceType, setElementRef } = props;
+    const { attributes, deviceType, setElementRef, setAttributes } = props;
 
     const {
         elementId,
@@ -91,7 +91,15 @@ const PostBlockBlock = compose(
     }, [postBlockRef]);
 
     useEffect(() => {
-        setPostLoaded(parseInt(numberPost));
+        if(numberPost > 0){
+            setPostLoaded(parseInt(numberPost));
+        }else{
+            setAttributes({
+                ...attributes,
+                numberPost : 1
+            })
+        }
+
     }, [numberPost]);
 
     useEffect(() => {
