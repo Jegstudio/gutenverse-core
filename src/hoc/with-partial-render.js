@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from '@wordpress/element';
-import { Skeleton } from 'gutenverse-core/components';
+// import { Skeleton } from 'gutenverse-core/components';
 // import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 
@@ -8,7 +8,6 @@ const BlockLoading = ({
 }) => {
     return <div className="gutenverse-block-loading" ref={renderRef}>
         <div></div>
-        <Skeleton width="100%" height="200px" />
     </div>;
 };
 
@@ -43,7 +42,7 @@ export const withPartialRender = (BlockElement) => {
                         window: scrollEl[0]
                     });
                 }
-            }, 250);
+            }, 500);
 
             return () => clearTimeout(timeout);
         }, [renderRef]);
