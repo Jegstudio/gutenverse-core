@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -24,6 +24,7 @@ const Placeholder = () => {
 };
 
 const PostContentBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {

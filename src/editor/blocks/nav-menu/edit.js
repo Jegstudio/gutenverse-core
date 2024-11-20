@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -16,6 +16,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
 
 const NavMenuBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect

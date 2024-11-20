@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -27,6 +27,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('icon'),
     withCopyElementToolbar(),
@@ -118,9 +119,7 @@ const IconBlock = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }

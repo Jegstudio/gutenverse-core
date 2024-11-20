@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -16,6 +16,7 @@ import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 
 const PostFeaturedImageBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {

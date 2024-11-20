@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -21,6 +21,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('button'),
     withCopyElementToolbar(),
@@ -224,9 +225,7 @@ const ButtonBlock = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
@@ -236,10 +235,7 @@ const ButtonBlock = compose(
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
                 }
-            })
-            .catch(error => {
-                console.error(error);
-            });
+            }).catch(() => {});
         if (dynamicText !== undefined) {
             setAttributes({ content: dynamicText });
         }

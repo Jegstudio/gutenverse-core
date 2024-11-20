@@ -1,6 +1,6 @@
 
 import { compose } from '@wordpress/compose';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import {
     useInnerBlocksProps,
@@ -10,6 +10,7 @@ import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 
 const Tab = compose(
+    withPartialRender,
     withCustomStyle(panelList)
 )(props => {
     const {

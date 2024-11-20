@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
@@ -11,6 +11,7 @@ import { PanelController } from 'gutenverse-core/controls';
 
 
 const SearchBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
