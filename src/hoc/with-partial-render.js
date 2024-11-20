@@ -25,7 +25,8 @@ export const withPartialRender = (BlockElement) => {
             }
 
             const blockElement = renderRef.current;
-            const windowEl = renderRef.current.ownerDocument;
+            const postEditor = blockElement?.ownerDocument?.getElementsByClassName('interface-interface-skeleton__content');
+            const windowEl = postEditor?.length > 0 ? postEditor[0] : blockElement?.ownerDocument;
 
             const observer = new IntersectionObserver(
                 (entries) => {
