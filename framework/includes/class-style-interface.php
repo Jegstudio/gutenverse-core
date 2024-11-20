@@ -2178,6 +2178,8 @@ abstract class Style_Interface {
 						'property'       => function ( $value ) {
 							if ( 'none' === $value ) {
 								return 'animation-name: none;';
+							} else {
+								return "animation-name: {$value};";
 							}
 						},
 						'value'          => $this->attrs['animation']['type'],
