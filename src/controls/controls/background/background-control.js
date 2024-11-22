@@ -523,10 +523,10 @@ const BackgroundControl = (props) => {
                 onStyleChange={infiniteLoop => onStyleChange({ ...value, infiniteLoop })}
             />
             <RangeControl
-                label={__('Duration', '--gctd--')}
+                label={__('Transition Duration', '--gctd--')}
                 min={0}
-                max={100}
-                step={1}
+                max={10}
+                step={0.5}
                 unit="s"
                 value={value.duration}
                 onValueChange={duration => onValueChange({ ...value, duration })}
@@ -559,6 +559,16 @@ const BackgroundControl = (props) => {
                         value: 'slideDown'
                     },
                 ]}
+            />
+            <RangeControl
+                label={__('Image Display Duration', '--gctd--')}
+                min={0}
+                max={10}
+                step={0.5}
+                unit="s"
+                value={value.displayDuration}
+                onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
+                onStyleChange={displayDuration => onStyleChange({ ...value, displayDuration })}
             />
             <SelectControl
                 label={__('Background Position', '--gctd--')}

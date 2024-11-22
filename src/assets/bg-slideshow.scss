@@ -24,10 +24,28 @@
             height: inherit;
             display: none;
             background-size: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
 
             &.current {
                 display: block;
+                z-index: 1;
+            }
+            &.previous {
+                z-index: 2;
+                animation: slide 1s ease-in-out 1s forwards;
+                display: block;
             }
         }
+    }
+}
+
+@keyframes slide {
+    from {
+        opacity: 1;
+      }
+    to {
+        opacity: 0;
     }
 }
