@@ -311,7 +311,7 @@ class Search extends Style_Abstract {
 						.{$this->element_id} .gutenverse-search-form .gutenverse-search-input,
 						.{$this->element_id} .search-input-container .gutenverse-search.gutenverse-search-input",
 					'property'       => function ( $value ) {
-						if ( '%' === $value['unit'] ) {
+						if ( is_array( $value ) && isset( $value['unit'] ) && '%' === $value['unit'] ) {
 							return 'width: 100%;';
 						}
 						return $this->handle_unit_point( $value, 'width' );
