@@ -8,16 +8,18 @@ import { isOnEditor } from 'gutenverse-core/helper';
 const BlockLoading = ({
     renderRef
 }) => {
-    return <div className="gutenverse-block-loading" ref={renderRef}>
-        <div></div>
-    </div>;
+    const blockHeight = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_height ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_height + 'px' : '150px';
+
+    return <div className="gutenverse-block-loading" ref={renderRef} style={{height: blockHeight}}></div>;
 };
 
 export const withPartialRender = (BlockElement) => {
     return (props) => {
+        const disableLazyLoad = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load === false;
+        const threshold = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold/100 : 0;
+        const extendViewport = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport * 1 : 250;
         const [partialRender, setPartialRender] = useState(false);
         const renderRef = useRef();
-        // const deviceType = getDeviceType();
 
         useEffect(() => {
             if (!window.IntersectionObserver || !renderRef?.current) {
@@ -39,8 +41,8 @@ export const withPartialRender = (BlockElement) => {
                 },
                 {
                     root: windowEl,
-                    rootMargin: isOnEditor() ? '150% 0px' : '0px',
-                    threshold: 0,
+                    rootMargin: isOnEditor() ? `${extendViewport}% 0px` : '0px',
+                    threshold: threshold,
                 }
             );
 
@@ -51,13 +53,6 @@ export const withPartialRender = (BlockElement) => {
             };
         }, [renderRef]);
 
-
-        // // useEffect(() => {
-        // //     if (partialRender) {
-        // //         setPartialRender(false);
-        // //     }
-        // // }, [deviceType]);
-
-        return partialRender ? <BlockElement {...props}/> : <BlockLoading renderRef={renderRef}/>;
+        return disableLazyLoad || partialRender ? <BlockElement {...props}/> : <BlockLoading renderRef={renderRef}/>;
     };
 };
