@@ -16,8 +16,8 @@ const BlockLoading = ({
 export const withPartialRender = (BlockElement) => {
     return (props) => {
         const disableLazyLoad = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load === false;
-        const threshold = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold/100 : 0;
-        const extendViewport = window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport * 1 : 250;
+        const threshold = ! isNaN( window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold ) ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_block_threshold/100 : 0;
+        const extendViewport = ! isNaN( window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport ) ? window['GutenverseConfig']?.settingsData?.editor_settings?.editor_lazy_load_extend_viewport * 1 : 250;
         const [partialRender, setPartialRender] = useState(false);
         const renderRef = useRef();
 
@@ -42,7 +42,7 @@ export const withPartialRender = (BlockElement) => {
                 {
                     root: windowEl,
                     rootMargin: isOnEditor() ? `${extendViewport}% 0px` : '0px',
-                    threshold: threshold,
+                    threshold: `${threshold}`,
                 }
             );
 

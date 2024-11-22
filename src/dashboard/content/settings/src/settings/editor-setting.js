@@ -71,13 +71,13 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
             />
             {editor_lazy_load && <>
                 <ControlNumber
-                    id={'editor_lazy_load_block_height'}
-                    title={__('Block Placeholder Height (px)', '--gctd--')}
-                    description={__('Adjust the height of the block placeholder for lazy loading to optimize loading performance.', '--gctd--')}
+                    id={'editor_lazy_load_extend_viewport'}
+                    title={__('Extend Lazy Loader Viewport (%)', '--gctd--')}
+                    description={__('Define the viewport extension distance to trigger detection when the block enters the visible area.', '--gctd--')}
                     min={0}
-                    max={500}
+                    max={1000}
                     step={1}
-                    value={editor_lazy_load_block_height}
+                    value={editor_lazy_load_extend_viewport}
                     updateValue={updateValue}
                 />
                 <ControlNumber
@@ -91,13 +91,13 @@ const EditorSetting = ({ settingValues, updateSettingValues, saving, saveData })
                     updateValue={updateValue}
                 />
                 <ControlNumber
-                    id={'editor_lazy_load_extend_viewport'}
-                    title={__('Block Placeholder Extend Viewport (%)', '--gctd--')}
-                    description={__('Define the viewport extension distance to trigger detection when the block enters the visible area.', '--gctd--')}
+                    id={'editor_lazy_load_block_height'}
+                    title={__('Block Placeholder Height (px)', '--gctd--')}
+                    description={__('Adjust the height of the block placeholder for lazy loading to optimize loading performance.', '--gctd--')}
                     min={0}
-                    max={1000}
+                    max={500}
                     step={1}
-                    value={editor_lazy_load_extend_viewport}
+                    value={editor_lazy_load_block_height}
                     updateValue={updateValue}
                 />
             </>}
