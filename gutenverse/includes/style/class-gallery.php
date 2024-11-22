@@ -1608,12 +1608,10 @@ class Gallery extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['textLinkColor'] ) ) {
-			gutenverse_jlog( 'masuk' );
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text",
 					'property'       => function ( $value ) {
-						gutenverse_jlog( 'kesini' );
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textLinkColor'],

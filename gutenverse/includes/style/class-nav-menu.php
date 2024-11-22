@@ -180,7 +180,6 @@ class Nav_Menu extends Style_Abstract {
 				array(
 					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
 					'property'       => function ( $value ) {
-						gutenverse_jlog( $value );
 						return "opacity: calc({$value}/100);";
 					},
 					'value'          => $this->attrs['overlayOpacity'],
