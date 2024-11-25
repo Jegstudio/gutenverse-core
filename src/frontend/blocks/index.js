@@ -6,6 +6,7 @@ import GutenverseVideo from './video';
 const gutenClasses = {
     ['element']: GutenverseElements,
     ['video-background']: GutenverseVideo,
+    
 };
 
 Object.keys(gutenClasses).map((index) => {

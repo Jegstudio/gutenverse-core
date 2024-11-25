@@ -47,7 +47,9 @@ const save = compose(
         backgroundEffect = {},
         backgroundOverlay,
         backgroundOverlayHover,
+        background
     } = attributes;
+    const isSlideShow = background?.slideImage?.length > 0;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -59,6 +61,7 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
+        isSlideShow ? 'guten-background-slide-show' : '',
         {
             'background-animated': isAnimationActive(backgroundAnimated),
             [`layout-${layout}`]: layout,
@@ -126,6 +129,7 @@ const save = compose(
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
+                {isSlideShow && <div className="bg-slideshow-container"></div>}
                 {videoContainer}
                 {
                     (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>

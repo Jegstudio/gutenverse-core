@@ -1760,6 +1760,19 @@ abstract class Style_Interface {
 					)
 				);
 			}
+		} elseif ( 'slide' === $background['type'] ) {
+			if ( isset( $background['videoImage'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
+						},
+						'value'          => $background['videoImage'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 
