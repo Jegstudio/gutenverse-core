@@ -20,6 +20,7 @@ export const handleCursorEffect = (style, props, id) => {
         imageWidth,
         textBorder,
         typography,
+        blur,
     } = style;
 
     switch (type) {
@@ -108,6 +109,12 @@ export const handleCursorEffect = (style, props, id) => {
                 });
             }
             break;
+    }
+    if(blur){
+        normalAppender({
+            style: `-webkit-backdrop-filter: blur(${blur}px); backdrop-filter: blur(${blur}px);`,
+            elementStyle
+        });
     }
     return elementStyle;
 };
