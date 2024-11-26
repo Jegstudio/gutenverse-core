@@ -53,6 +53,141 @@ const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
                     label: 'Slide in Up',
                     value: 'slideInUp'
                 },
+                {
+                    label: 'Zoom In',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'zoomInLeft',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Zoom In Down',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Zoom In Right',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Zoom In Up',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce In ',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce In Left',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce In Down',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce In Right',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce In Up',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rotate In ',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rotate In Down Left',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rotate In Down Right',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rotate In Up Left',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rotate In Up Right',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Bounce',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Flash',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Pulse',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Rubber Band',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Shake',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Head Shake',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Swing',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Tada',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Wobble',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Jello',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Light Speed In',
+                    value: '-',
+                    pro: true
+                },
+                {
+                    label: 'Roll In',
+                    value: '-',
+                    pro: true
+                },
                 // {
                 //     label: __('More Options', '--gctd--'),
                 //     value: 'more',
