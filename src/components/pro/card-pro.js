@@ -2,6 +2,9 @@ import ButtonUpgradePro from './button-upgrade-pro';
 import { applyFilters } from '@wordpress/hooks';
 
 const CardPro = () => {
+    const {
+        upgradeProUrl
+    } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
     const card = <>
         <div className="guten-pro-themes-wrapper">
             <div className="guten-card-pro-wrapper guten-pro-themes-full" style={{ backgroundImage: `url(${window['GutenverseConfig'].imgDir + '/pop-up-bg-popup-banner.png'})` }}>
@@ -18,7 +21,7 @@ const CardPro = () => {
                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/banner-graphic-blink.png'} alt="Guten Card Pro Blink" />
                     </div>
                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/banner-arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                    <ButtonUpgradePro isBanner={true} location="card-pro" />
+                    <ButtonUpgradePro isBanner={true} location="card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`} />
                 </div>
             </div>
         </div>

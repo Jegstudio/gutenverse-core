@@ -67,7 +67,7 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 * Hooks.
 		 */
 		public function hook() {
-			add_action( 'admin_head', array( $this, 'print_info' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'print_info' ) );
 		}
 
 		/**
@@ -75,16 +75,21 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 		 */
 		public function print_info() {
 			$version = isset( $this->versions[ $this->loaded ] ) ? $this->versions[ $this->loaded ] : '';
-			?>
-			<script> 
-			var gutenverseLoadedFramework = {
-				plugin: "<?php echo esc_html( $this->loaded ); ?>",
-				version: "<?php echo esc_html( $version ); ?>",
-				registered: <?php echo wp_json_encode( $this->versions ); ?>,
-				pro: <?php echo wp_json_encode( $this->pro ); ?>
-			}; 
-			</script>
-			<?php
+			wp_enqueue_script( 'jquery' );
+
+			$loaded_framework = sprintf(
+				'var gutenverseLoadedFramework = {
+					"plugin": "%s",
+					"version": "%s",
+					"registered": %s,
+					"pro": %s,
+				};',
+				esc_js( $this->loaded ),
+				esc_js( $version ),
+				wp_json_encode( $this->versions ),
+				wp_json_encode( $this->pro )
+			);
+			wp_add_inline_script( 'jquery', $loaded_framework );
 		}
 
 		/**
@@ -196,11 +201,32 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 			if ( defined( 'GUTENVERSE_VERSION' ) && version_compare( GUTENVERSE_VERSION, '1.9.9', '<=' ) ) {
 				add_action( 'admin_notices', array( $this, 'gutenverse_compatibility_notice' ) );
 				add_action( 'wp_ajax_gutenverse_compatibility_notice_close', array( $this, 'compatibility_notice_close' ) );
+				add_action( 'admin_enqueue_scripts', array( $this, 'gutenverse_compatibility_notice_script' ) );
 
 				return false;
 			}
 
 			return true;
+		}
+
+		/**
+		 * Compatibility Notice .
+		 */
+		public function gutenverse_compatibility_notice_script() {
+			wp_enqueue_style(
+				'gutenverse-core-compatibility-notice',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/css/compatibility-notice.css',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION
+			);
+
+			wp_enqueue_script(
+				'gutenverse-core-compatibility-notice',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/admin/js/compatibility-notice.js',
+				array(),
+				GUTENVERSE_FRAMEWORK_VERSION,
+				true
+			);
 		}
 
 		/**
@@ -215,17 +241,6 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 
 			if ( ! get_option( 'gutenverse_compatibility_notice_flag' ) ) {
 				?>
-				<style>
-					.gutenverse-upgrade-notice.important .notice-logo {
-						background: #ffe2e2;
-						border-left-color: #ff0909;
-					}
-
-					.gutenverse-upgrade-notice .plugin-list {
-						list-style: disc;
-						padding-left: 16px;
-					}
-				</style>
 				<div class="notice gutenverse-upgrade-notice important page-content-upgrade">
 					<div class="notice-logo">
 						<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -254,17 +269,6 @@ if ( ! class_exists( 'Gutenverse_Initialize_Framework' ) ) {
 						</div>
 					</div>
 				</div>
-				<script>
-					(function($) {
-						$('.gutenverse-upgrade-notice.page-content-upgrade .close-notification').on('click', function() {
-							$.post( ajaxurl, {
-								action: 'gutenverse_compatibility_notice_close'
-							} );
-
-							$('.gutenverse-upgrade-notice.page-content-upgrade').fadeOut();
-						});
-					})(jQuery);
-				</script>
 				<?php
 			}
 		}

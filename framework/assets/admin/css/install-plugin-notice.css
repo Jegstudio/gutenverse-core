@@ -1,0 +1,61 @@
+.install-gutenverse-plugin-notice {
+    border: 1px solid #E6E6EF;
+    border-radius: 5px;
+    padding: 35px 40px;
+    position: relative;
+    overflow: hidden;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+.install-gutenverse-plugin-notice .notice-dismiss {
+    top: 20px;
+    right: 20px;
+    padding: 0;
+}
+
+.install-gutenverse-plugin-notice .notice-dismiss:before {
+    content: "\f335";
+    font-size: 17px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #E6E6EF;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.install-gutenverse-plugin-notice h3 {
+    margin-top: 5px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.install-gutenverse-plugin-notice p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.install-gutenverse-plugin-notice .gutenverse-bottom {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.install-gutenverse-plugin-notice a {
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.install-gutenverse-plugin-notice a.gutenverse-button {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", serif, serif
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 18px;
+    border-radius: 17px;
+    background: #3B57F7;
+    color: #fff;
+    padding: 8px 30px;
+    font-weight: 300;
+}

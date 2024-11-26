@@ -103,6 +103,11 @@ abstract class Block_Abstract {
 	 * @param array $attributes .
 	 */
 	public function set_attributes( $attributes ) {
+		if ( isset( $attributes['editParam'] ) && $attributes['editParam'] ) {
+			if ( isset( $attributes['editParam']['page'] ) && $attributes['editParam']['page'] ) {
+				$attributes['paged'] = $attributes['editParam']['page'];
+			}
+		}
 		$this->attributes = $attributes;
 	}
 
@@ -208,10 +213,10 @@ abstract class Block_Abstract {
 	 */
 	protected function protected_post( $post_id ) {
 		return '<form action="' . home_url() . '/wp-login.php?action=postpass" class="guten-post-password-form" method="post">
-			<p>' . esc_html__( 'This content is password protected. To view it please enter this post password below:', 'gutenverse' ) . '</p>
+			<p>' . esc_html__( 'This content is password protected. To view it please enter this post password below:', '--gctd--' ) . '</p>
 			<div class="guten-pass-inputs">
 				<input class="guten-input" name="post_password" id="pwbox-' . esc_attr( $post_id ) . '" type="password" size="20"/>
-				<input class="guten-submit" type="submit" name="Submit" value="' . esc_attr( esc_html__( 'Enter', 'gutenverse' ) ) . '"/>
+				<input class="guten-submit" type="submit" name="Submit" value="' . esc_attr( esc_html__( 'Enter', '--gctd--' ) ) . '"/>
 			</div>
 		</form>';
 	}

@@ -7,7 +7,58 @@
  * @package gutenverse-framework
  */
 
-if ( ! function_exists( 'esc_data' ) ) {
+if ( ! function_exists( 'gutenverse_get_event_banner' ) ) {
+	/**
+	 * Get Event Banner
+	 *
+	 * @return mixed
+	 */
+	function gutenverse_get_event_banner() {
+		$response = wp_remote_request(
+			GUTENVERSE_FRAMEWORK_LIBRARY_URL . 'wp-json/gutenverse-banner/v1/bannerdata',
+			array(
+				'method' => 'POST',
+			)
+		);
+		if ( is_wp_error( $response ) || 200 !== $response['response']['code'] ) {
+			return null;
+		}
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body );
+
+		if ( ! $data->banner || ! $data->bannerLibrary || ! $data->url || ! $data->expired ) {
+			return null;
+		}
+		return $data;
+	}
+}
+if ( ! function_exists( 'gutenverse_check_if_script_localized' ) ) {
+	/**
+	 * Check if Script localized
+	 *
+	 * @param string $handle .
+	 *
+	 * @return boolean
+	 */
+	function gutenverse_check_if_script_localized( $handle ) {
+		global $wp_scripts;
+
+		if ( ! is_a( $wp_scripts, 'WP_Scripts' ) ) {
+			return false;
+		}
+
+		if ( isset( $wp_scripts->registered[ $handle ] ) ) {
+			$script = $wp_scripts->registered[ $handle ];
+			if ( ! empty( $script->extra['data'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+}
+
+if ( ! function_exists( 'gutenverse_esc_data' ) ) {
 	/**
 	 * Escape data
 	 *
@@ -16,7 +67,7 @@ if ( ! function_exists( 'esc_data' ) ) {
 	 *
 	 * @return mixed
 	 */
-	function esc_data( $value, $type = 'string' ) {
+	function gutenverse_esc_data( $value, $type = 'string' ) {
 		if ( ! $value ) {
 			return false;
 		}
@@ -37,14 +88,14 @@ if ( ! function_exists( 'esc_data' ) ) {
 			case 'array':
 				foreach ( $value as $key => $val ) {
 					$type          = gettype( $val );
-					$value[ $key ] = esc_data( $val, $type );
+					$value[ $key ] = gutenverse_esc_data( $val, $type );
 				}
 				return $value;
 			case 'object':
 				$value = (array) $value;
 				foreach ( $value as $key => $val ) {
 					$type          = gettype( $val );
-					$value[ $key ] = esc_data( $val, $type );
+					$value[ $key ] = gutenverse_esc_data( $val, $type );
 				}
 				return (object) $value;
 			default:
@@ -83,7 +134,10 @@ if ( ! function_exists( 'gutenverse_is_block_editor' ) ) {
 	 * @return boolean
 	 */
 	function gutenverse_is_block_editor() {
-		return function_exists( 'get_current_screen' ) && get_current_screen()->is_block_editor;
+		if ( function_exists( 'get_current_screen' ) && get_current_screen() ) {
+			return get_current_screen()->is_block_editor;
+		}
+		return false;
 	}
 }
 if ( ! function_exists( 'gutenverse_secure_permalink' ) ) {
@@ -553,9 +607,11 @@ if ( ! function_exists( 'gutenverse_css_url' ) ) {
 if ( ! function_exists( 'gutenverse_compatible_check' ) ) {
 	/**
 	 * Check if gutenverse is compatible.
+	 *
+	 * @param string $before_ver WordPress Version.
 	 */
-	function gutenverse_compatible_check() {
-		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], '5.9', '>=' );
+	function gutenverse_compatible_check( $before_ver = '5.9' ) {
+		return defined( 'GUTENBERG_VERSION' ) || version_compare( $GLOBALS['wp_version'], $before_ver, '>=' );
 	}
 }
 

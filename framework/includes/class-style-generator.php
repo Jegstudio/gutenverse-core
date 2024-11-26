@@ -96,6 +96,8 @@ class Style_Generator {
 				}
 			}
 
+			do_action( 'gutenverse_after_style_loop_blocks' );
+
 			$this->render_style( $style_name, $style, 'widget' );
 		}
 	}
@@ -166,9 +168,9 @@ class Style_Generator {
 	 * @return blocks.
 	 */
 	public function inject_theme_attribute_in_block_template_content( $template_content ) {
-		if ( gutenverse_compatible_check() ) {
-			// use Gutenberg or WP 5.9 & above version.
-			return _inject_theme_attribute_in_block_template_content( $template_content );
+		if ( gutenverse_compatible_check( '6.4' ) ) {
+			// use Gutenberg or WP 6.4 & above version.
+			return traverse_and_serialize_blocks( parse_blocks( $template_content ), '_inject_theme_attribute_in_template_part_block' );
 		}
 
 		/**
@@ -227,6 +229,8 @@ class Style_Generator {
 					$this->render_style( $style_name, $style, 'template' );
 				}
 			}
+
+			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
 
@@ -251,6 +255,8 @@ class Style_Generator {
 					$this->render_style( $style_name, $style, 'content' );
 				}
 			}
+
+			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
 	}
 

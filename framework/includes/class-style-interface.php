@@ -641,6 +641,70 @@ abstract class Style_Interface {
 				);
 			}
 
+			if ( isset( $cursor_efect['entranceTransition'] ) ) {
+				$entrance_transition = $cursor_efect['entranceTransition'];
+
+				switch ( $entrance_transition ) {
+					case 'opacity':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity {$value}s, transform 0s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'scale':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity 0s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'opacityScale':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										return "transition: opacity {$value}s, transform {$value}s;";
+									},
+									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					default:
+						break;
+				}
+			}
+
+			if ( isset( $cursor_efect['blur'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+						'property'       => function ( $value ) {
+							return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+						},
+						'value'          => $cursor_efect['blur'],
+						'device_control' => false,
+					)
+				);
+			}
+
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
 					if ( isset( $cursor_efect['textColor'] ) ) {
@@ -1109,13 +1173,13 @@ abstract class Style_Interface {
 
 				switch ( $mask['shape'] ) {
 					case 'circle':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/circe.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/circe.svg';
 						break;
 					case 'triangle':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/triangle.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/triangle.svg';
 						break;
 					case 'blob':
-						$svg_image = GUTENVERSE_FRAMEWORK_URL . '/assets/img/mask/blob.svg';
+						$svg_image = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/mask/blob.svg';
 						break;
 					case 'custom':
 						$svg       = isset( $mask['svg'] ) ? $mask['svg'] : null;
@@ -1642,7 +1706,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 
-							$bg_attachment = '';
+							$bg_attachment = 'background-attachment: scroll';
 
 							if ( is_bool( $value ) || '1' === $value ) {
 								$fixed = ( $value || '1' === $value ) ? 'fixed' : 'scroll';
@@ -1821,8 +1885,8 @@ abstract class Style_Interface {
 	protected function feature_border( $selector ) {
 		if ( empty( $selector ) ) {
 			$selector = array(
-				'normal' => ".{$this->element_id}",
-				'hover'  => ".{$this->element_id}:hover",
+				'normal' => ".{$this->element_id}.guten-element",
+				'hover'  => ".{$this->element_id}.guten-element:hover",
 			);
 		}
 

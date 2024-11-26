@@ -99,7 +99,7 @@ class Wrapper extends Style_Abstract {
 			if ( isset( $this->attrs['horizontalAlign'] ) && in_array( $this->attrs['displayType'], array( 'flex', 'grid' ), true ) ) {
 				$this->inject_style(
 					array(
-						'selector'       => $selector,
+						'selector'       => "{$selector}, {$selector} .guten-inner-wrap",
 						'property'       => function ( $value ) {
 							if ( 'default' === $value ) {
 								return null;

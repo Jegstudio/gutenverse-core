@@ -282,7 +282,7 @@ const ColorControl = (props) => {
             </div>
             <ChromePicker
                 disableAlpha={!alpha}
-                color={updating ? localColor : value}
+                color={updating ? localColor : getColorValue(value)}
                 onChange={color => {
                     onStyleChange(color.rgb);
                     setLocalColor(color.rgb);

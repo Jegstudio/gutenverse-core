@@ -111,7 +111,7 @@ class Frontend_Assets {
 
 		wp_enqueue_style(
 			'gutenverse-frontend-icon',
-			GUTENVERSE_FRAMEWORK_URL . '/assets/dist/frontend-icon.css',
+			GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/frontend-icon.css',
 			array(),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
@@ -119,7 +119,7 @@ class Frontend_Assets {
 		if ( is_user_logged_in() ) {
 			wp_enqueue_style(
 				'gutenverse-toolbar',
-				GUTENVERSE_FRAMEWORK_URL . '/assets/dist/toolbar.css',
+				GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/dist/toolbar.css',
 				array(),
 				GUTENVERSE_FRAMEWORK_VERSION
 			);
