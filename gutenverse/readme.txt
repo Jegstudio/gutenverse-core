@@ -299,9 +299,21 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.1.3 =
+##### Improvements
+* Add box shadow and overlay option for nav menu
+* Add spacing option to gallery title and content
+* Add option to show/hide & styling the word "says" in post comment block
+* Added a feature to customize the main post comments (not replies).
+* Add option to disable navigation arrow for the testimonials block
+* Remove default opacity from navigation dot testimonials
+* Use the value of global color on the chrome picker when opened.
+
 ##### Bug Fixes
 * Fix animation effect on frontend
-* 
+* Fix section vertical-align when column position stretch
+* Fix section "fixed background" responsive on frontend
+* Fix bug post block pagination
+* Address php warning and error messages
 
 = 2.1.2 =
 ##### Improvements
