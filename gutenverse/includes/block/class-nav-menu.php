@@ -29,6 +29,7 @@ class Nav_Menu extends Block_Abstract {
 		$menu_breakpoint   = esc_attr( $this->attributes['breakpoint'] );
 		$mobile_menu_icon  = esc_attr( $this->attributes['mobileIcon'] );
 		$mobile_close_icon = esc_attr( $this->attributes['mobileCloseIcon'] );
+		$enable_overlay    = esc_attr( $this->attributes['mobileEnableOverlay'] );
 		$mobile_logo       = isset( $this->attributes['mobileMenuLogo'] ) ? $this->attributes['mobileMenuLogo'] : null;
 		$mobile_logo_image = $this->render_image( $mobile_logo );
 		$submenu_click     = $this->attributes['mobileSubmenuClick'] ? 'submenu-click-title' : 'submenu-click-icon';
@@ -46,12 +47,18 @@ class Nav_Menu extends Block_Abstract {
 			$menu = str_replace( 'href', 'href="javascript:void(0);" data-href', $menu );
 		}
 
+		$overlay = '';
+		if ( $enable_overlay ) {
+			$overlay = '<div class="guten-nav-overlay"></div>';
+		}
+
 		return '<div id="' . $element_id . '" class="guten-element guten-nav-menu nav-menu break-point-' . $menu_breakpoint . ' ' . $submenu_click . $display_classes . $animation_class . $custom_classes . '" data-item-indicator="' . $item_indicator . '" data-close-on-click="' . $closeon_click . '">
 			<div class="gutenverse-hamburger-wrapper">
 				<button class="gutenverse-hamburger-menu">
 					<i aria-hidden="true" class="' . $mobile_menu_icon . '"></i>
 				</button>
 			</div>
+			' . $overlay . '
 			<div class="gutenverse-menu-wrapper">' . $menu . '
 				<div>
 					<div class="gutenverse-nav-identity-panel">

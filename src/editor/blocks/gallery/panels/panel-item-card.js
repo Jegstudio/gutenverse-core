@@ -116,7 +116,7 @@ export const itemCardPanel = (props) => {
         {
             id: 'submenuSplitter2',
             component: HeadingControl,
-            label: __('Title Typography')
+            label: __('Title Style')
         },
         {
             id: 'itemCardTitleColor',
@@ -174,7 +174,7 @@ export const itemCardPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]
@@ -201,7 +201,7 @@ export const itemCardPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -209,7 +209,7 @@ export const itemCardPanel = (props) => {
         {
             id: 'submenuSplitter3',
             component: HeadingControl,
-            label: __('Content Typography')
+            label: __('Content Style')
         },
         {
             id: 'itemCardContentColor',
@@ -244,6 +244,60 @@ export const itemCardPanel = (props) => {
                     render: (value, id) => handleTypography(value, props, id)
                 }
             ],
+        },
+        {
+            id: 'itemCardContentMargin',
+            label: __('Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'itemCardContentPadding',
+            label: __('Padding', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

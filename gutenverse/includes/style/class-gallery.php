@@ -811,6 +811,32 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['itemHoverTitlePadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['itemHoverTitlePadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemHoverTitleMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['itemHoverTitleMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['itemHoverContentColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -846,27 +872,27 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['itemHoverTitlePadding'] ) ) {
+		if ( isset( $this->attrs['itemHoverContentPadding'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
-					'value'          => $this->attrs['itemHoverTitlePadding'],
+					'value'          => $this->attrs['itemHoverContentPadding'],
 					'device_control' => true,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['itemHoverTitleMargin'] ) ) {
+		if ( isset( $this->attrs['itemHoverContentMargin'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
-					'value'          => $this->attrs['itemHoverTitleMargin'],
+					'value'          => $this->attrs['itemHoverContentMargin'],
 					'device_control' => true,
 				)
 			);
@@ -957,6 +983,32 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['itemCardTitlePadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['itemCardTitlePadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['itemCardTitleMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['itemCardTitleMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['itemCardContentColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -992,27 +1044,27 @@ class Gallery extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['itemCardTitlePadding'] ) ) {
+		if ( isset( $this->attrs['itemCardContentPadding'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
-					'value'          => $this->attrs['itemCardTitlePadding'],
+					'value'          => $this->attrs['itemCardContentPadding'],
 					'device_control' => true,
 				)
 			);
 		}
 
-		if ( isset( $this->attrs['itemCardTitleMargin'] ) ) {
+		if ( isset( $this->attrs['itemCardContentMargin'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
-					'value'          => $this->attrs['itemCardTitleMargin'],
+					'value'          => $this->attrs['itemCardContentMargin'],
 					'device_control' => true,
 				)
 			);
@@ -1556,12 +1608,10 @@ class Gallery extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['textLinkColor'] ) ) {
-			gutenverse_jlog( 'masuk' );
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text",
 					'property'       => function ( $value ) {
-						gutenverse_jlog( 'kesini' );
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['textLinkColor'],
