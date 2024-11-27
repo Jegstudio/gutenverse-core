@@ -9,6 +9,8 @@ import { Tooltip } from '@wordpress/components';
 import { ColorControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { IconTypographySVG } from 'gutenverse-core/icons';
+import { withDeviceControl } from 'gutenverse-core/hoc';
+import { compose } from '@wordpress/compose';
 
 const BoxShadowControl = ({
     label,
@@ -140,4 +142,4 @@ const BoxShadowControl = ({
     </div>;
 };
 
-export default withParentControl(BoxShadowControl);
+export default compose(withParentControl, withDeviceControl)(BoxShadowControl);

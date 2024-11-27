@@ -517,7 +517,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'next'       => self::has_next_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
 			'prev'       => self::has_prev_page( $args['paged'] ),
 			'page'       => $args['paged'],
-			'total_page' => self::count_total_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] ),
+			'total_page' => self::count_total_page( $query->found_posts, $args['paged'], $args['offset'], $attr['numberPost'], $attr['paginationNumberPost'] > 0 ? $attr['paginationNumberPost'] : 1 ),
 		);
 	}
 
@@ -892,12 +892,9 @@ abstract class Post_Abstract extends Block_Abstract {
 	 */
 	private static function count_total_page( $total, $curpage = 1, $offset = 0, $perpage = 2, $perpage_ajax = 2 ) {
 		$remain = (int) $total - ( (int) $offset + (int) $perpage );
-
-		if ( $remain > 0 ) {
-			while ( $remain > 0 ) {
-				$remain -= $perpage_ajax;
-				++$curpage;
-			}
+		while ( $remain > 0 ) {
+			$remain -= $perpage_ajax;
+			++$curpage;
 		}
 
 		return $curpage;
