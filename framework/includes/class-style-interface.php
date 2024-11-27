@@ -692,6 +692,19 @@ abstract class Style_Interface {
 				}
 			}
 
+			if ( isset( $cursor_efect['blur'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content",
+						'property'       => function ( $value ) {
+							return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
+						},
+						'value'          => $cursor_efect['blur'],
+						'device_control' => false,
+					)
+				);
+			}
+
 			switch ( $cursor_efect['type'] ) {
 				case 'text':
 					if ( isset( $cursor_efect['textColor'] ) ) {
@@ -1693,7 +1706,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 
-							$bg_attachment = '';
+							$bg_attachment = 'background-attachment: scroll';
 
 							if ( is_bool( $value ) || '1' === $value ) {
 								$fixed = ( $value || '1' === $value ) ? 'fixed' : 'scroll';

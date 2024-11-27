@@ -31,46 +31,55 @@
             transition: all 0.6s ease;
         }
     }
+
     .hover-from-left,
     &.hover-from-left {
         &:before {
             top: 0;
             left: -101%;
         }
+
         &:hover:before {
             left: 0;
         }
     }
+
     .hover-from-right,
     &.hover-from-right {
         &:before {
             top: 0;
             right: -101%;
         }
+
         &:hover:before {
             right: 0;
         }
     }
+
     .hover-from-top,
     &.hover-from-top {
         &:before {
             top: -101%;
             left: 0;
         }
+
         &:hover:before {
             top: 0;
         }
     }
+
     .hover-from-bottom,
     &.hover-from-bottom {
         &:before {
             bottom: -101%;
             left: 0;
         }
+
         &:hover:before {
             bottom: 0;
         }
     }
+
     .hover-from-arise,
     &.hover-from-arise {
         &:before {
@@ -78,6 +87,7 @@
             left: 0;
             opacity: 0%;
         }
+
         &:hover:before {
             opacity: 100%;
         }
@@ -94,7 +104,7 @@
 }
 
 .guten-background-animated {
-    position: absolute!important;
+    position: absolute !important;
     top: 0;
     left: 0;
     height: 100%;
@@ -103,11 +113,19 @@
     overflow: hidden;
 
     .animated-layer {
-        position: absolute!important;
+        position: absolute !important;
         top: 0;
         left: 0;
         height: 100%;
         width: 100%;
         border-radius: inherit;
     }
+}
+
+.gutenverse-block-loading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
 }
