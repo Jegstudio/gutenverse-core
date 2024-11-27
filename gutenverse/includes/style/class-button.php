@@ -311,13 +311,14 @@ class Button extends Style_Abstract {
 				$this->attrs['newButtonBorderHover'] = $this->attrs['buttonBorderHover'];
 				if ( isset( $this->attrs['buttonBorder']['all'] ) ) {
 
-					$border_hover = $this->attrs['buttonBorderHover']['all'];
-					$border = $this->attrs['buttonBorder']['all'];
-					$this->attrs['newButtonBorderHover']['all'] = [
-						'type' => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
+					$border_hover = isset( $this->attrs['buttonBorderHover']['all'] ) ? $this->attrs['buttonBorderHover']['all'] : null;
+					$border       = isset( $this->attrs['buttonBorder']['all'] ) ? $this->attrs['buttonBorder']['all'] : null;
+
+					$this->attrs['newButtonBorderHover']['all'] = array(
+						'type'  => isset( $border_hover['type'] ) ? $border_hover['type'] : $border['type'],
 						'width' => isset( $border_hover['width'] ) ? $border_hover['width'] : $border['width'],
 						'color' => isset( $border_hover['color'] ) ? $border_hover['color'] : $border['color'],
-					];
+					);
 				}
 
 				$this->handle_border( 'newButtonBorderHover', ".{$this->element_id}.guten-button-wrapper .guten-button:hover" );

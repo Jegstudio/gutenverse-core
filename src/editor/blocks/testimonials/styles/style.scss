@@ -457,4 +457,8 @@
             overflow: hidden;
         }
     }
+
+    .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+        opacity: 1;
+    }
 }

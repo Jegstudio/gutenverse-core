@@ -134,71 +134,6 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['arrowHoverColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'color' );
-					},
-					'value'          => $this->attrs['arrowHoverColor'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['arrowHoverBgColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background-color' );
-					},
-					'value'          => $this->attrs['arrowHoverBgColor'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['arrowHoverPadding'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['arrowHoverPadding'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['arrowHoverMargin'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'margin' );
-					},
-					'value'          => $this->attrs['arrowHoverMargin'],
-					'device_control' => true,
-				)
-			);
-		}
-
-		if ( isset( $this->attrs['arrowHoverOpacity'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
-					'property'       => function ( $value ) {
-						return "opacity: calc({$value}/100);";
-					},
-					'value'          => $this->attrs['arrowHoverOpacity'],
-					'device_control' => true,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['arrowBorder'] ) ) {
 			$this->handle_border( 'arrowBorder', ".{$this->element_id} div[class*='swiper-button-']" );
 		}
@@ -232,14 +167,79 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['arrowHoverColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['arrowHoverColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowHoverBgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['arrowHoverBgColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowHoverPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['arrowHoverPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowHoverMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['arrowHoverMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowHoverOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'property'       => function ( $value ) {
+						return "opacity: calc({$value}/100);";
+					},
+					'value'          => $this->attrs['arrowHoverOpacity'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
-			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']" );
+			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)" );
 		}
 
 		if ( isset( $this->attrs['arrowBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
@@ -255,11 +255,102 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowBoxShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']",
+					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
 					'property'       => function ( $value ) {
 						return $this->handle_box_shadow( $value );
 					},
 					'value'          => $this->attrs['arrowBoxShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowDisabledColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['arrowDisabledColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowDisabledBgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['arrowDisabledBgColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowDisabledPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['arrowDisabledPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowDisabledMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['arrowDisabledMargin'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowDisabledOpacity'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return "opacity: calc({$value}/100);";
+					},
+					'value'          => $this->attrs['arrowDisabledOpacity'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowBorderDisabled'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['arrowBorderDisabled'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['arrowBoxShadowDisabled'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .swiper-button-disabled",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['arrowBoxShadowDisabled'],
 					'device_control' => false,
 				)
 			);
