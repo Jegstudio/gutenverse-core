@@ -303,6 +303,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * Add box shadow and overlay option for nav menu
 * Add spacing option to gallery title and content
 * Add option to show/hide & styling the word "says" in post comment block
+* Add the option to change indicator size in the nav menu
 * Added a feature to customize the main post comments (not replies).
 * Add option to disable navigation arrow for the testimonials block
 * Remove default opacity from navigation dot testimonials
