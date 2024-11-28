@@ -105,6 +105,7 @@ const BackgroundControl = (props) => {
         proLabel,
         allowDeviceControl,
         values,
+        type = '',
     } = props;
 
     const availableOptions = [
@@ -167,7 +168,7 @@ const BackgroundControl = (props) => {
             allowDeviceControl={allowDeviceControl}
         />
         <IconRadioControl
-            label={__('Background Type', '--gctd--')}
+            label={'' === type ? __('Background Type', '--gctd--') : type}
             value={value.type}
             onValueChange={type => {
                 if (type === null) {
