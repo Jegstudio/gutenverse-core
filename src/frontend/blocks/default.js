@@ -24,7 +24,6 @@ export class Default {
             const data = animations.map((animation) => {
                 return `${device}-${animation}`;
             });
-
             animationsData.push(...data);
         });
 
