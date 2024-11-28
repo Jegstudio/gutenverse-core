@@ -149,7 +149,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item .gutenverse-share-icon i",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item .gutenverse-share-icon i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -162,7 +162,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['iconBackgroundColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item .gutenverse-share-icon",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item .gutenverse-share-icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -175,7 +175,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['backgroundColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item .gutenverse-share-text",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item .gutenverse-share-text",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -188,7 +188,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['textColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item .gutenverse-share-text",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item .gutenverse-share-text",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -221,7 +221,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-icon i",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-icon i",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -234,7 +234,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['iconBackgroundColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-icon",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-icon",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -247,7 +247,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['backgroundColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-text",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-text",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -260,7 +260,7 @@ class Social_Share extends Style_Abstract {
 		if ( isset( $this->attrs['textColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-text",
+					'selector'       => ".guten-element.guten-social-share.{$this->element_id} .gutenverse-share-item:hover .gutenverse-share-text",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},

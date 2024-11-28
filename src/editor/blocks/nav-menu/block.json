@@ -56,6 +56,10 @@
       "type": "boolean",
       "default": false
     },
+    "overlayColor": {
+      "type": "object",
+      "copyStyle": true
+    },
     "overlayOpacity": {
       "type": "object",
       "copyStyle": true
@@ -160,6 +164,10 @@
     "submenuItemIndicator": {
       "type": "string",
       "default": "fas fa-angle-down"
+    },
+    "SubmenuIndicatorSize":{
+      "type": "object",
+      "copyStyle": true
     },
     "submenuIndicatorColor": {
       "type": "object",
