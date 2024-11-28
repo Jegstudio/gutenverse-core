@@ -43,7 +43,7 @@ class GutenverseNavMenu extends Default {
     }
 
     _toggleMenu(item) {
-        item.openToggle.on('click', function () {
+        item.openToggle.off('click').on('click', function () {
             if (item.container.hasClass('active')) {
                 item.container.removeClass('active');
             } else {
@@ -63,7 +63,7 @@ class GutenverseNavMenu extends Default {
             item.container.removeClass('active');
             
             if (item.overlay.hasClass('active')) {
-                item.overlay.addClass('exiting'); 
+                item.overlay.addClass('exiting');
             }
             item.overlay.removeClass('active');
             
