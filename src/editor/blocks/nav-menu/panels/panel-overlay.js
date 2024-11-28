@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl, BackgroundControl, AlertControl } from 'gutenverse-core/controls';
-import { handleBackground } from 'gutenverse-core/styling';
+import { RangeControl, SelectControl, BackgroundControl, AlertControl, ColorControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor } from 'gutenverse-core/styling';
 
 export const overlayPanel = (props) => {
     const {
@@ -16,6 +16,19 @@ export const overlayPanel = (props) => {
             children: <>
                 <span>{__('You need to enable the overlay first in the "Mobile Menu" panel to use this setting!', 'gutenverse')}</span>
             </>
+        },
+        {
+            id: 'overlayColor',
+            show: mobileEnableOverlay,
+            label: __('Overlay Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    render: value => handleColor(value, 'background-color')
+                },
+            ],
         },
         {
             id: 'overlayBackground',
