@@ -220,13 +220,13 @@
         transition: transform 0s ease-in-out;
 
         &.active {
-          animation: slideLeftToRight 1s ease-in-out .4s forwards;
-          transition: transform 1s ease-in-out;
+          animation: slideLeftToRight .5s ease-in-out forwards;
+          transition: transform .5s ease-in-out;
         }
       
         &.exiting {
-          animation: slideRightToLeft 1s ease-in-out forwards;
-          transition: transform 1s ease-in-out;
+          animation: slideRightToLeft .5s ease-in-out forwards;
+          transition: transform .5s ease-in-out;
         }
       }
     }
@@ -333,13 +333,13 @@
         transition: transform 0s ease-in-out;
 
         &.active {
-          animation: slideLeftToRight 1s ease-in-out .4s forwards;
-          transition: transform 1s ease-in-out;
+          animation: slideLeftToRight .5s ease-in-out forwards;
+          transition: transform .5s ease-in-out;
         }
       
         &.exiting {
-          animation: slideRightToLeft 1s ease-in-out forwards;
-          transition: transform 1s ease-in-out;
+          animation: slideRightToLeft .5s ease-in-out forwards;
+          transition: transform .5s ease-in-out;
         }
       }
     }
