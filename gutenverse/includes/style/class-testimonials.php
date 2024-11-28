@@ -170,7 +170,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -183,7 +183,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverBgColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'background-color' );
 					},
@@ -196,7 +196,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverPadding'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -209,7 +209,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverMargin'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'margin' );
 					},
@@ -222,7 +222,7 @@ class Testimonials extends Style_Abstract {
 		if ( isset( $this->attrs['arrowHoverOpacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id}div[class*='swiper-button-']:not(.swiper-button-disabled):hover ",
 					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
@@ -233,13 +233,13 @@ class Testimonials extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['arrowBorderHover'] ) ) {
-			$this->handle_border( 'arrowBorderHover', ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)" );
+			$this->handle_border( 'arrowBorderHover', ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover" );
 		}
 
 		if ( isset( $this->attrs['arrowBorderHoverResponsive'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)",
+					'selector'       => ".{$this->element_id} div[class*='swiper-button-']:not(.swiper-button-disabled):hover",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},

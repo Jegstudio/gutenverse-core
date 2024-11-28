@@ -195,7 +195,7 @@ export const arrowPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover `,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -208,7 +208,7 @@ export const arrowPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     render: value => handleColor(value, 'background-color')
                 }
             ]
@@ -236,7 +236,7 @@ export const arrowPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -264,7 +264,7 @@ export const arrowPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     render: value => handleDimension(value, 'margin')
                 }
             ]
@@ -280,7 +280,7 @@ export const arrowPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     render: value => `opacity: calc(${value}/100);`
                 }
             ]
@@ -292,7 +292,7 @@ export const arrowPanel = (props) => {
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -306,7 +306,7 @@ export const arrowPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -319,7 +319,7 @@ export const arrowPanel = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']:not(.swiper-button-disabled)`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }

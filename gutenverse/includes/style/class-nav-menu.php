@@ -387,6 +387,20 @@ class Nav_Menu extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['SubmenuIndicatorSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > i,
+						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a > i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['SubmenuIndicatorSize'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['submenuIndicatorHoverColor'] ) ) {
 			$this->inject_style(
 				array(
