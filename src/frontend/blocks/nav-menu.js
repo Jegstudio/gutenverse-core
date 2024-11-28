@@ -52,14 +52,21 @@ class GutenverseNavMenu extends Default {
 
             if (item.overlay.hasClass('active')) {
                 item.overlay.removeClass('active');
+                item.overlay.addClass('exiting');
             } else {
                 item.overlay.addClass('active');
+                item.overlay.removeClass('exiting');
             }
         });
 
         item.closeToggle.on('click', function () {
             item.container.removeClass('active');
+            
+            if (item.overlay.hasClass('active')) {
+                item.overlay.addClass('exiting'); 
+            }
             item.overlay.removeClass('active');
+            
         });
 
         if (item.wrapper.hasClass('submenu-click-title')) {

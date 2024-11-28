@@ -18,19 +18,6 @@ export const overlayPanel = (props) => {
             </>
         },
         {
-            id: 'overlayColor',
-            show: mobileEnableOverlay,
-            label: __('Overlay Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
-                    render: value => handleColor(value, 'background-color')
-                },
-            ],
-        },
-        {
             id: 'overlayBackground',
             component: BackgroundControl,
             label: __('Overlay Background', 'gutenverse'),
@@ -39,8 +26,8 @@ export const overlayPanel = (props) => {
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -57,8 +44,8 @@ export const overlayPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `opacity: calc(${value}/100);`
                 }
             ]
@@ -80,8 +67,8 @@ export const overlayPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `pointer-events: ${value} !important;`
                 }
             ]
@@ -104,8 +91,8 @@ export const overlayPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
                 }
             ]
