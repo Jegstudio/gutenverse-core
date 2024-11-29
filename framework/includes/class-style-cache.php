@@ -352,10 +352,10 @@ class Style_Cache {
 		}
 
 		if ( $wp_filesystem->put_contents( $file_path, $content, FS_CHMOD_FILE ) ) {
-			gutenverse_rlog( 'File created with name : ' . $filename );
+			defined( 'WP_DEBUG' ) && WP_DEBUG && gutenverse_rlog( 'File created with name : ' . $filename );
 			return true;
 		} else {
-			gutenverse_rlog( 'Failed to create file with name : ' . $filename );
+			defined( 'WP_DEBUG' ) && WP_DEBUG && gutenverse_rlog( 'Failed to create file with name : ' . $filename );
 			return false;
 		}
 	}
