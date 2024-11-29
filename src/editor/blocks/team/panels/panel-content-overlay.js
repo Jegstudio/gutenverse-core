@@ -16,7 +16,7 @@ export const overlayPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-overlay:before`,
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-overlay:before, .${elementId}.guten-team .profile-box .profile-card.card-title-social-horizontal:before`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }

@@ -152,6 +152,20 @@ const TeamProfile = (props) => {
                         </div>}
                     </div>
                 );
+            case 'titleSocialHorizontal':
+                return (
+                    <div className={'profile-card card-title-social-horizontal'}>
+                        {lazyLoad()}
+                        <div className="profile-body">
+                            {contentDesc(`profile-title ${addPopup ? 'popup' : ''}`,__('Profile Name', 'gutenverse'), 'name', name, NameTag )}
+                            {contentDesc('profile-sub', __('Profile Job', 'gutenverse'), 'job', job, 'p')}
+                            {contentDesc('profile-desc', __('Team Description', 'gutenverse'), 'description', description, 'p')}
+                            {showSocial && <div className="socials-wrapper">
+                                {socialComponent}
+                            </div>}
+                        </div>
+                    </div>
+                );
             default:
                 return (
                     <div className={'profile-card card-default'}>
