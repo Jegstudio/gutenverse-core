@@ -61,7 +61,6 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
-        isSlideShow ? 'guten-background-slide-show' : '',
         {
             'background-animated': isAnimationActive(backgroundAnimated),
             [`layout-${layout}`]: layout,
@@ -71,6 +70,7 @@ const save = compose(
             [`sticky-${stickyPosition}`]: isSticky(sticky),
             ['guten-cursor-effect']: cursorEffect?.show,
             'guten-background-effect-active': isBackgroundEffect,
+            'guten-background-slideshow' : isSlideShow,
         }
     );
 
@@ -97,7 +97,7 @@ const save = compose(
         <div className={wrapperClassName} data-id={dataId}>
             <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
                 <FluidCanvasSave attributes={attributes} />
-                {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated) &&
+                {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated || isSlideShow) &&
                     <div className="guten-data">
                         {_isSticky &&
                             <div data-var={`stickyData${dataId}`} data-value={JSON.stringify({
@@ -125,11 +125,16 @@ const save = compose(
                                 ...bottomDividerAnimated
                             })} />
                         }
+                        {isSlideShow &&
+                            <div data-var={`backgroundSlideshow${dataId}`} data-value={JSON.stringify({
+                                ...background
+                            })} />
+                        }
                     </div>
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                {isSlideShow && <div className="bg-slideshow-container"></div>}
+                {isSlideShow && <div className="bg-slideshow-container"><div className="bg-slideshow-item"></div></div>}
                 {videoContainer}
                 {
                     (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>

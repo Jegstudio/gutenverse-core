@@ -47,6 +47,10 @@ const BackgroundSlideShow = (props) => {
             }
             count++;
         }, duration);
+
+        if (duration <= 0) {
+            clearInterval(intervalToggle);
+        }
     }
 
     useEffect(() => {
@@ -70,7 +74,7 @@ const BackgroundSlideShow = (props) => {
 };
 
 const generateStyle = (background, elementId) => {
-    const {infiniteLoop, duration, backgroundPosition, transition, backgroundSize, backgroundRepeat} = background;
+    const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, displayDuration} = background;
     let styles = '';
     const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
 
@@ -85,7 +89,7 @@ const generateStyle = (background, elementId) => {
     switch (transition) {
         case 'fade': {
             styles += `.bg-slideshow-container .bg-slideshow-item .slideshow-image.previous {
-                animation: slide ${duration}s ease-in-out 1s forwards;
+                ${displayDuration > 0 && `animation: fade ${duration}s ease-in-out forwards;`}
             }`;
             break;
         }

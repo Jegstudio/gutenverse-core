@@ -524,14 +524,14 @@ const BackgroundControl = (props) => {
                 onStyleChange={infiniteLoop => onStyleChange({ ...value, infiniteLoop })}
             />
             <RangeControl
-                label={__('Transition Duration', '--gctd--')}
+                label={__('Image Display Duration', '--gctd--')}
                 min={0}
                 max={10}
-                step={0.5}
+                step={0.1}
                 unit="s"
-                value={value.duration}
-                onValueChange={duration => onValueChange({ ...value, duration })}
-                onStyleChange={duration => onStyleChange({ ...value, duration })}
+                value={value.displayDuration}
+                onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
+                onStyleChange={displayDuration => onStyleChange({ ...value, displayDuration })}
             />
             <SelectControl
                 label={__('Transition', '--gctd--')}
@@ -562,14 +562,14 @@ const BackgroundControl = (props) => {
                 ]}
             />
             <RangeControl
-                label={__('Image Display Duration', '--gctd--')}
+                label={__('Transition Duration', '--gctd--')}
                 min={0}
                 max={10}
-                step={0.5}
+                step={0.1}
                 unit="s"
-                value={value.displayDuration}
-                onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
-                onStyleChange={displayDuration => onStyleChange({ ...value, displayDuration })}
+                value={value.duration}
+                onValueChange={duration => onValueChange({ ...value, duration })}
+                onStyleChange={duration => onStyleChange({ ...value, duration })}
             />
             <SelectControl
                 label={__('Background Position', '--gctd--')}

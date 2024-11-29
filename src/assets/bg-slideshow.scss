@@ -34,14 +34,13 @@
             }
             &.previous {
                 z-index: 2;
-                animation: slide 1s ease-in-out 1s forwards;
                 display: block;
             }
         }
     }
 }
 
-@keyframes slide {
+@keyframes fade {
     from {
         opacity: 1;
       }
