@@ -50,7 +50,8 @@ export const metaPanel = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists, 
+                    .${elementId} .guten-postlist .guten-post a .meta-lists span`,
                     hasChild: true,
                     render: (value, id) => handleTypography(value, props, id)
                 }
