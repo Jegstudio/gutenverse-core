@@ -470,7 +470,7 @@ class Post_List extends Style_Abstract {
 		if ( isset( $this->attrs['metaTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector' => ".{$this->element_id} .guten-post a .meta-lists",
+					'selector' => ".{$this->element_id} .guten-post a .meta-lists, .{$this->element_id} .guten-post a .meta-lists span",
 					'value'    => $this->attrs['metaTypography'],
 				)
 			);
