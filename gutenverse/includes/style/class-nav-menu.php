@@ -172,13 +172,13 @@ class Nav_Menu extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['overlayBackground'] ) ) {
-			$this->handle_background( "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active", $this->attrs['overlayBackground'] );
+			$this->handle_background( "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay", $this->attrs['overlayBackground'] );
 		}
 
 		if ( isset( $this->attrs['overlayOpacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
@@ -191,7 +191,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['overlayPointer'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "pointer-events: {$value} !important;";
 					},
@@ -204,7 +204,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['overlayBlur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},

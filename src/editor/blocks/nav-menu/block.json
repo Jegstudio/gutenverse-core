@@ -56,10 +56,6 @@
       "type": "boolean",
       "default": false
     },
-    "overlayColor": {
-      "type": "object",
-      "copyStyle": true
-    },
     "overlayOpacity": {
       "type": "object",
       "copyStyle": true
