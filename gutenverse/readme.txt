@@ -2,7 +2,7 @@
 
 Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.0
 Stable tag: 2.1.3
 License: GPLv3
