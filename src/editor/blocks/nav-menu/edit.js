@@ -39,7 +39,8 @@ const NavMenuBlock = compose(
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
-        transform
+        transform,
+        mobileEnableOverlay,
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -84,7 +85,8 @@ const NavMenuBlock = compose(
                         mobileSubmenuClick,
                         mobileCloseOnClick,
                         submenuItemIndicator,
-                        transform
+                        transform,
+                        mobileEnableOverlay
                     },
                 }),
             }).then((data) => {
@@ -124,7 +126,8 @@ const NavMenuBlock = compose(
         mobileSubmenuClick,
         mobileCloseOnClick,
         submenuItemIndicator,
-        transform
+        transform,
+        mobileEnableOverlay
     ]);
 
     useEffect(() => {

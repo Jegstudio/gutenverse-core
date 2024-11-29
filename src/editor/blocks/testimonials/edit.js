@@ -39,7 +39,7 @@ const TestimonialsBlock = compose(
         showRating,
         iconRatingHalf,
         iconRatingFull,
-        starPosition
+        starPosition,
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);

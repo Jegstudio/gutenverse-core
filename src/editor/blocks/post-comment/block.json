@@ -21,6 +21,18 @@
 			"type": "boolean",
 			"default": true
 		},
+		"enableSuffix": {
+			"type": "boolean",
+			"default": true
+		},
+		"suffixMain": {
+			"type": "string",
+			"default": "says:"
+		},
+		"suffixReply": {
+			"type": "string",
+			"default": "replied:"
+		},
 		"noContentText": {
 			"type": "string",
 			"default": "No Content"
@@ -85,6 +97,18 @@
 			"copyStyle": true
 		},
 		"marginTextList": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"suffixMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -377,6 +401,22 @@
 			"copyStyle": true
 		},
 		"mainBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerBgColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mainContainerBorder": {
 			"type": "object",
 			"copyStyle": true
 		}

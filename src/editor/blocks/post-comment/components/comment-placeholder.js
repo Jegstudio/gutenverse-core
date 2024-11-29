@@ -1,6 +1,7 @@
+import { imagePlaceholder } from "gutenverse-core/config";
 
+const CommentPlaceholder = ({showForm = true, enableSuffix = true, suffixMain = 'says:', suffixReply = 'relplied:'}) => {
 
-const CommentPlaceholder = (showForm = true) => {
     return <>
         <div><span>Below is an example view of the post comment if user is not logged in.</span></div>
         <ol className="commentlist">
@@ -8,9 +9,9 @@ const CommentPlaceholder = (showForm = true) => {
                 <article id="div-comment-2" className="comment-body">
                     <footer className="comment-meta">
                         <div className="comment-author vcard">
-                            <img alt="" src="http://2.gravatar.com/avatar/89bf62eef95ad7f15f6026f781b35dfa?s=32&amp;d=mm&amp;r=g" srcSet="http://2.gravatar.com/avatar/89bf62eef95ad7f15f6026f781b35dfa?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" />
+                            <img src="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
                             <b className="fn"><a href="javascript:void(0);" rel="external nofollow ugc" className="url">User</a></b>
-                            <span className="says"> says:</span>
+                            {enableSuffix && <span className="says"> {suffixMain}</span>}
                         </div>
                         <div className="comment-metadata">
                             <a href="javascript:void(0);">
@@ -30,9 +31,9 @@ const CommentPlaceholder = (showForm = true) => {
                         <article id="div-comment-40" className="comment-body">
                             <footer className="comment-meta">
                                 <div className="comment-author vcard">
-                                    <img alt="" src="http://1.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcSet="http://1.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" className="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
+                                    <img src="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=32&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/436d1f5d097f14a6dd6f3bcf25f65a56?s=64&amp;d=mm&amp;r=g 2x" class="avatar avatar-32 photo" height="32" width="32" loading="lazy" decoding="async" />
                                     <b className="fn"><a href="javascript:void(0);" className="url" rel="ugc">User</a></b>
-                                    <span className="says"> says:</span>
+                                    {enableSuffix && <span className="says"> {suffixReply}</span>}
                                 </div>
 
                                 <div className="comment-metadata">

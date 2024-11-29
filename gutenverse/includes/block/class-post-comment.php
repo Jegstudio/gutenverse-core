@@ -47,8 +47,20 @@ class Post_Comment extends Block_Abstract {
 				$comments
 			);
 
+			$show_suffix  = $this->attributes['enableSuffix'];
+			$suffix_main  = $this->attributes['suffixMain'];
+			$suffix_reply = $this->attributes['suffixReply'];
+
+			$data_settings = array(
+				'enableSuffix' => "{$show_suffix}",
+				'suffixMain'   => "{$suffix_main}",
+				'suffixReply'  => "{$suffix_reply}",
+			);
+
+			$json_data = wp_json_encode( $data_settings );
+
 			if ( ! empty( $comment_list ) ) {
-				$comment_list = '<ol class="commentlist">' . $comment_list . '</ol>';
+				$comment_list = "<ol class='commentlist' data-settings='{$json_data}' >" . $comment_list . '</ol>';
 			}
 
 			if ( ! empty( $this->attributes['showForm'] ) ) {

@@ -53,5 +53,10 @@ export const mobileMenuPanel = (props) => {
             label: __('Close Drawer on Click', 'gutenverse'),
             component: CheckboxControl,
         },
+        {
+            id: 'mobileEnableOverlay',
+            label: __('Enable Overlay', 'gutenverse'),
+            component: CheckboxControl,
+        },
     ];
 };

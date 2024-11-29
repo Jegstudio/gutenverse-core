@@ -18,6 +18,7 @@ class GutenverseNavMenu extends Default {
             container: wrapper.find('.gutenverse-menu-wrapper'),
             menuDropdown: wrapper.find('li.menu-item-has-children > a'),
             singleMenu: wrapper.find('li.menu-item:not(.menu-item-has-children)'),
+            overlay: wrapper.find('.guten-nav-overlay'),
         };
 
         this._firstLoad(item);
@@ -48,10 +49,24 @@ class GutenverseNavMenu extends Default {
             } else {
                 item.container.addClass('active');
             }
+
+            if (item.overlay.hasClass('active')) {
+                item.overlay.removeClass('active');
+                item.overlay.addClass('exiting');
+            } else {
+                item.overlay.addClass('active');
+                item.overlay.removeClass('exiting');
+            }
         });
 
         item.closeToggle.on('click', function () {
             item.container.removeClass('active');
+            
+            if (item.overlay.hasClass('active')) {
+                item.overlay.addClass('exiting'); 
+            }
+            item.overlay.removeClass('active');
+            
         });
 
         if (item.wrapper.hasClass('submenu-click-title')) {
@@ -80,6 +95,7 @@ class GutenverseNavMenu extends Default {
         if ( parseInt( item.wrapper.data('close-on-click') ) === 1 ) {
             item.singleMenu.on('click', function () {
                 item.container.removeClass('active');
+                item.overlay.removeClass('active');
             });
         }
     }

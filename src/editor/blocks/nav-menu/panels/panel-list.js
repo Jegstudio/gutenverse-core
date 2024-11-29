@@ -10,6 +10,7 @@ import { hamburgerStyle } from './panel-hamburger-style';
 import { mobileMenuStyle } from './panel-mobile-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { menuPanel } from './panel-menu';
+import { overlayPanel } from './panel-overlay';
 
 export const panelList = () => {
     return [
@@ -64,6 +65,12 @@ export const panelList = () => {
         {
             title: __('Mobile Menu Logo', 'gutenverse'),
             panelArray: mobileMenuStyle,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Overlay Style', 'gutenverse'),
+            panelArray: overlayPanel,
             initialOpen: false,
             tabRole: TabStyle
         },

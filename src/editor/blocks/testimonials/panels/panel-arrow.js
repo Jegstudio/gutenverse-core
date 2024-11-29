@@ -41,6 +41,10 @@ export const arrowPanel = (props) => {
                 {
                     value: 'hover',
                     label: 'Hover'
+                },
+                {
+                    value: 'disabled',
+                    label: 'Disabled'
                 }
             ],
             onChange: ({ __arrowHover }) => setSwitcher({ ...switcher, arrowHover: __arrowHover })
@@ -144,104 +148,6 @@ export const arrowPanel = (props) => {
             ]
         },
         {
-            id: 'arrowHoverColor',
-            show: switcher.arrowHover === 'hover',
-            label: __('Hover Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
-        },
-        {
-            id: 'arrowHoverBgColor',
-            show: switcher.arrowHover === 'hover',
-            label: __('Background Hover Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ]
-        },
-        {
-            id: 'arrowHoverPadding',
-            show: switcher.arrowHover === 'hover',
-            label: __('Hover Padding', 'gutenverse'),
-            component: DimensionControl,
-            allowDeviceControl: true,
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
-        },
-        {
-            id: 'arrowHoverMargin',
-            show: switcher.arrowHover === 'hover',
-            label: __('Hover Margin', 'gutenverse'),
-            component: DimensionControl,
-            allowDeviceControl: true,
-            position: ['top', 'right', 'bottom', 'left'],
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                ['%']: {
-                    text: '%',
-                    unit: '%'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
-        {
-            id: 'arrowHoverOpacity',
-            show: switcher.arrowHover === 'hover',
-            label: __('Hover Opacity', 'gutenverse'),
-            component: RangeControl,
-            min: 0,
-            max: 100,
-            step: 1,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
-                    render: value => `opacity: calc(${value}/100);`
-                }
-            ]
-        },
-        {
             id: 'arrowBorder',
             show: (!switcher.arrowHover || switcher.arrowHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
@@ -282,13 +188,111 @@ export const arrowPanel = (props) => {
             ]
         },
         {
+            id: 'arrowHoverColor',
+            show: switcher.arrowHover === 'hover',
+            label: __('Hover Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover `,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'arrowHoverBgColor',
+            show: switcher.arrowHover === 'hover',
+            label: __('Background Hover Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
+        },
+        {
+            id: 'arrowHoverPadding',
+            show: switcher.arrowHover === 'hover',
+            label: __('Hover Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'arrowHoverMargin',
+            show: switcher.arrowHover === 'hover',
+            label: __('Hover Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'arrowHoverOpacity',
+            show: switcher.arrowHover === 'hover',
+            label: __('Hover Opacity', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => `opacity: calc(${value}/100);`
+                }
+            ]
+        },
+        {
             id: 'arrowBorderHover',
             show: switcher.arrowHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     hasChild: true,
                     render: value => handleBorder(value)
                 }
@@ -302,7 +306,7 @@ export const arrowPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
                     allowRender: () => device !== 'Desktop',
                     render: value => handleBorderResponsive(value)
                 }
@@ -315,7 +319,131 @@ export const arrowPanel = (props) => {
             component: BoxShadowControl,
             style: [
                 {
-                    selector: `.${elementId}:hover div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
+        },
+        {
+            id: 'arrowDisabledColor',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Disabled Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'arrowDisabledBgColor',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Background Disabled Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
+        },
+        {
+            id: 'arrowDisabledPadding',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Disabled Padding', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
+        },
+        {
+            id: 'arrowDisabledMargin',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Disabled Margin', 'gutenverse'),
+            component: DimensionControl,
+            allowDeviceControl: true,
+            position: ['top', 'right', 'bottom', 'left'],
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'arrowDisabledOpacity',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Disabled Opacity', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => `opacity: calc(${value}/100);`
+                }
+            ]
+        },
+        {
+            id: 'arrowBorderDisabled',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'arrowBoxShadowDisabled',
+            show: switcher.arrowHover === 'disabled',
+            label: __('Disabled Box Shadow', 'gutenverse'),
+            component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }

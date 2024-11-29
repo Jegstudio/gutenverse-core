@@ -213,6 +213,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"itemHoverTitleMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"itemHoverTitlePadding": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"itemHoverContentColor": {
 			"type": "object",
 			"copyStyle": true
@@ -225,11 +233,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemHoverTitleMargin": {
+		"itemHoverContentMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemHoverTitlePadding": {
+		"itemHoverContentPadding": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -269,6 +277,15 @@
 			"type": "object",
 			"copyStyle": true
 		},
+
+		"itemCardTitleMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"itemCardTitlePadding": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"itemCardContentColor": {
 			"type": "object",
 			"copyStyle": true
@@ -281,11 +298,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemCardTitleMargin": {
+		"itemCardContentMargin": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"itemCardTitlePadding": {
+		"itemCardContentPadding": {
 			"type": "object",
 			"copyStyle": true
 		},

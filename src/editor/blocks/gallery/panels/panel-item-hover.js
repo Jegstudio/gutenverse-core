@@ -131,7 +131,7 @@ export const itemHoverPanel = (props) => {
         {
             id: 'submenuTitleSplitter',
             component: HeadingControl,
-            label: __('Title Typography')
+            label: __('Title Style')
         },
         {
             id: 'itemHoverTitleColor',
@@ -167,7 +167,6 @@ export const itemHoverPanel = (props) => {
                 }
             ],
         },
-
         {
             id: 'itemHoverTitleMargin',
             label: __('Margin', 'gutenverse'),
@@ -225,7 +224,7 @@ export const itemHoverPanel = (props) => {
         {
             id: 'submenuContentSplitter',
             component: HeadingControl,
-            label: __('Content Typography')
+            label: __('Content Style')
         },
         {
             id: 'itemHoverContentColor',
@@ -260,6 +259,60 @@ export const itemHoverPanel = (props) => {
                     render: (value, id) => handleTypography(value, props, id)
                 }
             ],
+        },
+        {
+            id: 'itemHoverContentMargin',
+            label: __('Margin', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
+        },
+        {
+            id: 'itemHoverContentPadding',
+            label: __('Padding', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                em: {
+                    text: 'em',
+                    unit: 'em'
+                },
+                ['%']: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };
