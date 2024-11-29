@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
@@ -13,7 +13,6 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const PopupBuilder = compose(
-    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -94,8 +93,10 @@ const PopupBuilder = compose(
                 <h1>{__('Popup Builder', 'gutenverse')}</h1>
                 <span>{__('This block doesn\'t render on frontend. Click to show popup.', 'gutenverse')}</span>
             </div>
-            {show && <div className={classnames(
-                'show',
+            {<div className={classnames(
+                {
+                    'show': show
+                },
                 'guten-popup',
                 `guten-popup-${position}`,
                 `guten-popup-side-${sideMode}`,
