@@ -1,9 +1,5 @@
-// import { useSelect } from '@wordpress/data';
 import { useRef, useState, useEffect } from '@wordpress/element';
 import { isOnEditor } from 'gutenverse-core/helper';
-// import { Skeleton } from 'gutenverse-core/components';
-// import { getDeviceType } from 'gutenverse-core/editor-helper';
-// import { isOnEditor } from 'gutenverse-core/helper';
 
 const BlockLoading = ({
     renderRef
@@ -30,10 +26,26 @@ export const withPartialRender = (BlockElement) => {
             const postEditor = blockElement?.ownerDocument?.getElementsByClassName('interface-interface-skeleton__content');
             const windowEl = postEditor?.length > 0 ? postEditor[0] : blockElement?.ownerDocument;
 
+            // Check if inside certain block, such as popup. Render the child block anyway.
+            let isAlwaysIntersecting = false;
+            let parent = blockElement.parentElement;
+
+            while (!isAlwaysIntersecting) {
+                if (parent?.classList?.contains('guten-popup-content-wrapper')) {
+                    isAlwaysIntersecting = true;
+                }
+
+                if (parent?.classList?.contains('is-root-container')) {
+                    break;
+                }
+
+                parent = parent?.parentElement;
+            }
+
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
+                        if (entry.isIntersecting || isAlwaysIntersecting) {
                             setPartialRender(true);
                             observer.unobserve(blockElement);
                         }
