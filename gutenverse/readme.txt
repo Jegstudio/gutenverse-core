@@ -308,6 +308,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * Add option to disable navigation arrow for the testimonials block
 * Remove default opacity from navigation dot testimonials
 * Use the value of global color on the chrome picker when opened.
+* Add option Overlay Content Position for Team Block
 
 ##### Bug Fixes
 * Fix animation effect on frontend
