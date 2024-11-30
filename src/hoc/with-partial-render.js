@@ -1,3 +1,4 @@
+import { useSelect } from '@wordpress/data';
 import { useRef, useState, useEffect } from '@wordpress/element';
 import { isOnEditor } from 'gutenverse-core/helper';
 
@@ -17,6 +18,27 @@ export const withPartialRender = (BlockElement) => {
         const [partialRender, setPartialRender] = useState(false);
         const renderRef = useRef();
 
+        const isAlwaysRendered = useSelect((select) => {
+            let renderBlock = false;
+            const { clientId } = props;
+            const { getBlockParents, getBlock } = select('core/block-editor');
+            const parents = getBlockParents(clientId);
+            const exceptionList = [
+                'gutenverse/popup-builder',
+                'gutenverse/popup-container'
+            ];
+
+            parents.map(id => {
+                const block = getBlock(id);
+
+                if (exceptionList?.includes(block?.name)) {
+                    renderBlock = true;
+                }
+            });
+
+            return renderBlock;
+        },[]);
+
         useEffect(() => {
             if (!window.IntersectionObserver || !renderRef?.current) {
                 return;
@@ -26,26 +48,10 @@ export const withPartialRender = (BlockElement) => {
             const postEditor = blockElement?.ownerDocument?.getElementsByClassName('interface-interface-skeleton__content');
             const windowEl = postEditor?.length > 0 ? postEditor[0] : blockElement?.ownerDocument;
 
-            // Check if inside certain block, such as popup. Render the child block anyway.
-            let isAlwaysIntersecting = false;
-            let parent = blockElement.parentElement;
-
-            while (!isAlwaysIntersecting) {
-                if (parent?.classList?.contains('guten-popup-content-wrapper')) {
-                    isAlwaysIntersecting = true;
-                }
-
-                if (parent?.classList?.contains('is-root-container')) {
-                    break;
-                }
-
-                parent = parent?.parentElement;
-            }
-
             const observer = new IntersectionObserver(
                 (entries) => {
                     entries.forEach((entry) => {
-                        if (entry.isIntersecting || isAlwaysIntersecting) {
+                        if (entry.isIntersecting || isAlwaysRendered) {
                             setPartialRender(true);
                             observer.unobserve(blockElement);
                         }
