@@ -8,12 +8,12 @@ import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef, RawHTML } from '@wordpress/element';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
-import { isOnEditor } from 'gutenverse-core/helper';
-import { addQueryArgs, apiFetch } from 'gutenverse-core/frontend';
+import { dummyText, isOnEditor } from 'gutenverse-core/helper';
+import { addQueryArgs } from '@wordpress/url';
+import apiFetch from '@wordpress/api-fetch';
 
 const IconListBlock = compose(
     withCustomStyle(panelList),
-    withAnimationAdvance('category-list'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
@@ -35,7 +35,7 @@ const IconListBlock = compose(
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
-            'guten-icon-list',
+            'guten-category-list',
             'no-margin',
             elementId,
             animationClass,
@@ -55,18 +55,20 @@ const IconListBlock = compose(
             setLoading(true);
 
             elementId && apiFetch({
-                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/post-list', {
+                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/category-list', {
                     context: 'edit',
                     attributes: {
+                        elementId
                     },
                 }),
             }).then((data) => {
+                console.log(data);
                 setResponse(data.rendered);
             }).catch(() => {
                 setResponse('<span>Error</span>');
             }).finally(() => setLoading(false));
         }
-    }, [])
+    }, []);
 
     return <>
         <PanelController panelList={panelList} {...props} />

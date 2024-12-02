@@ -1,8 +1,9 @@
 {
 	"apiVersion": 2,
-	"name": "gutenverse/icon-list",
-	"title": "Icon List",
-	"description": "Create a list with icons",
+	"name": "gutenverse/category-list",
+	"title": "Category List",
+	"description": "Create a list of categories",
+	"class_callback": "\\Gutenverse\\Block\\Category_List",
 	"category": "gutenverse-element",
 	"allowCopyStyle": true,
 	"attributes": {
@@ -10,51 +11,6 @@
 			"type": "string"
 		},
 		"mouseMoveEffect": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"displayInline": {
-			"type": "boolean",
-			"default": false,
-			"copyStyle": true
-		},
-		"spaceBetween": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"alignList": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"verticalAlign": {
-			"type": "string",
-			"copyStyle": true
-		},
-		"iconColor": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"iconColorHover": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"iconSize": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textColor": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textColorHover": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textIndent": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"textTypography": {
 			"type": "object",
 			"copyStyle": true
 		},
@@ -73,14 +29,6 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"borderResponsive": {
-			"type": "object",
-			"migrate": {
-				"attr": "border",
-				"type": "border"
-			},
-			"copyStyle": true
-		},
 		"boxShadow": {
 			"type": "object",
 			"copyStyle": true
@@ -88,14 +36,6 @@
 		"borderHover": {
 			"type": "object",
 			"default": {},
-			"copyStyle": true
-		},
-		"borderHoverResponsive": {
-			"type": "object",
-			"migrate": {
-				"attr": "borderHover",
-				"type": "border"
-			},
 			"copyStyle": true
 		},
 		"boxShadowHover": {
@@ -176,26 +116,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"colorDivider": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"typeDivider": {
-			"type": "string",
-			"copyStyle": true
-		},
-		"sizeDivider": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"widthDivider": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"isDivider": {
-			"type": "boolean",
-			"default": false
-		},
 		"condition": {
 			"type": "object",
 			"default": {}
@@ -205,7 +125,7 @@
 		"className": false
 	},
 	"keywords": [
-		"icon",
+		"categories",
 		"list"
 	]
 }
