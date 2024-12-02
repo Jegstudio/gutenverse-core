@@ -43,7 +43,7 @@ export const URLToolbar = ({
 
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
-            position="bottom center"
+            placement="top-start"
             onClose={() => setIsURLPickerOpen(false)}
             anchorRef={anchorRef?.current}
         >
