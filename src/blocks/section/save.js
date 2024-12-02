@@ -22,7 +22,8 @@ const save = compose(
 )((props) => {
     const {
         attributes,
-        videoContainer
+        videoContainer,
+        slideElements
     } = props;
 
     const {

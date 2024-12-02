@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -29,7 +29,6 @@ import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
-import { BackgroundSlideShow } from 'gutenverse-core/components';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -171,6 +170,7 @@ const SectionBlock = compose(
     withMouseMoveEffect,
     withCursorEffect,
     withBackgroundEffect,
+    withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockRootClientId,
@@ -187,8 +187,7 @@ const SectionBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
-        addStyle,
-        removeStyle
+        slideElement
     } = props;
 
     const {
@@ -275,7 +274,7 @@ const SectionBlock = compose(
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
-                {background?.slideImage?.length > 0 && <BackgroundSlideShow attributes={attributes} addStyle={addStyle} elementId={elementId} removeStyle={removeStyle} elementRef={sectionRef}/>}
+                {background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 <FluidCanvas attributes={attributes} />
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
