@@ -166,7 +166,7 @@ class Frontend_Toolbar {
 						array(
 							'id'    => 'gutenverse-pro',
 							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
-							'href'  => gutenverse_upgrade_pro(),
+							'href'  => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar',
 							'meta'  => array(
 								'target' => '_blank',
 							),

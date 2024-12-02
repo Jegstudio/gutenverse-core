@@ -7,12 +7,15 @@ import { ButtonUpgradePro } from 'gutenverse-core/components';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
-        upgradeProUrl, adminUrl
+        upgradeProUrl, adminUrl, eventBanner
     } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
+    const eventData = eventBanner;
+    const today = new Date();
+    const expired = new Date(eventData?.expired);
     const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
             if ( location !== 'dashboard-navigation' ){
-                return <a href={upgradeProUrl} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
+                return <a href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
             }
         } else {
             if ( location !== 'dashboard-navigation' ){
@@ -30,6 +33,13 @@ const PanelTabPro = ({ activeTab }) => {
                 {window['GutenverseConfig'] &&
                     <>
                         <div className="guten-pro-themes-wrapper">
+                            {
+                                ( eventData && today <= expired ) && <div className="event-banner-wrapper guten-card-pro-wrapper">
+                                    <a href={eventData?.url} target="_blank" rel="noreferrer" >
+                                        <img src={eventData?.bannerSidePanel} alt="event-banner"/>
+                                    </a>
+                                </div>
+                            }
                             <div className="guten-card-pro-wrapper guten-pro-themes-full" style={{ backgroundImage: `url(${window['GutenverseConfig'].imgDir + '/pop-up-bg-popup-banner.png'})` }}>
                                 <div className="guten-card-pro-image-wrapper">
                                     <img className="guten-card-pro-mockup-library" src={window['GutenverseConfig'].imgDir + '/pop-up-mockup-pro.png'} />
@@ -44,7 +54,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/banner-graphic-blink.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/banner-arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <ButtonUpgradePro isBanner={true} location = "card-pro"/>
+                                    <ButtonUpgradePro isBanner={true} location = "card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`}/>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">

@@ -22,7 +22,7 @@ const DefaultLayout = ({
     };
     const ButtonPro = applyFilters(
         'gutenverse.pro-panel-button',
-        () => isEmpty(window?.gprodata) && <div className="gutenverse-button-available-pro" onClick={openLink}> {__('Available in Pro Version', '--gctd--')} <IconCrownBannerSVG /> </div>
+        () => isEmpty(window?.gprodata) && <a className="gutenverse-button-available-pro" href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`} target="_blank" rel="noreferrer"> {__('Available in Pro Version', '--gctd--')} <IconCrownBannerSVG /> </a>
     );
     return <>
         <h2 className="title">{title}</h2>

@@ -12,7 +12,12 @@ export const layoutPanel = (props) => {
         height,
         heightControl,
         overflow,
+        align,
     } = props;
+
+    const verticalSelector = 'stretch' === align ?
+        `section.guten-element.${elementId} > .guten-container > .guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout` :
+        `section.guten-element.${elementId} > .guten-container`;
 
     const layoutControls = Object.keys(sectionLayoutControls).map(key => {
         return {
@@ -234,7 +239,7 @@ export const layoutPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `section.guten-element.${elementId} > .guten-container`,
+                    selector: `${verticalSelector}`,
                     allowRender: value => value && value !== 'default',
                     render: value => {
                         if (value === 'default') {

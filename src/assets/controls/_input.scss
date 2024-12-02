@@ -703,6 +703,7 @@
 
         &.pro {
           z-index: 99999900;
+          align-items: center;
 
           .control-locked {
             cursor: pointer;
@@ -710,13 +711,14 @@
             border: 0.3px solid #C1313F;
             border-radius: 2px;
             color: #C1313F;
-            padding: 0 6px;
+            padding: 4px 5px;
             border-radius: 3px;
             margin: 0;
             margin-left: 6px;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: fit-content;
 
             .label {
               display: flex;

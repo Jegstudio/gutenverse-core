@@ -17,6 +17,7 @@ import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { BannerPro, ButtonUpgradePro } from 'gutenverse-core/components';
+import { upgradeProUrl } from 'gutenverse-core/config';
 
 const { installNonce, themeUrl } = window['GutenverseThemeList'];
 
@@ -210,7 +211,7 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
+        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
         return pro ? buttonPro : defaultButton();
     };
 
@@ -516,7 +517,9 @@ const ThemeListPage = (props) => {
                     container = "themeList"
                     leftBannerImg = "theme-list-graphic-theme-left.png"
                     rightBannerImg = "theme-list-graphic-theme-right.png"
-                    backgroundGradient = "banner-dasboard-bg.png"/>
+                    backgroundGradient = "banner-dasboard-bg.png"
+                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`}
+                />
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />
                 </div>
