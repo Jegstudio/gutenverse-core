@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,11 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.1.4 =
+##### Improvements
+* Improve Blocks Loading inside editor
+* Add option in dashboard to enable/disable lazy load blocks in editor
+
 = 2.1.3 =
 ##### Improvements
 * Add box shadow and overlay option for nav menu
