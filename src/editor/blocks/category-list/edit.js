@@ -24,6 +24,13 @@ const IconListBlock = compose(
 
     const {
         elementId,
+        includedCategory,
+        sortBy,
+        qty,
+        icon,
+        sortType,
+        hideEmpty,
+        showIcon
     } = attributes;
     const categoryListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -53,22 +60,36 @@ const IconListBlock = compose(
     useEffect(() => {
         if ( isOnEditor() ) {
             setLoading(true);
-
             elementId && apiFetch({
                 path: addQueryArgs('/wp/v2/block-renderer/gutenverse/category-list', {
                     context: 'edit',
                     attributes: {
-                        elementId
-                    },
+                        elementId,
+                        sortBy,
+                        sortType,
+                        includedCategory,
+                        qty,
+                        icon,
+                        hideEmpty,
+                        showIcon,
+                    }
                 }),
             }).then((data) => {
-                console.log(data);
                 setResponse(data.rendered);
             }).catch(() => {
                 setResponse('<span>Error</span>');
             }).finally(() => setLoading(false));
         }
-    }, []);
+    }, [
+        elementId,
+        sortBy,
+        sortType,
+        includedCategory,
+        qty,
+        icon,
+        hideEmpty,
+        showIcon
+    ]);
 
     return <>
         <PanelController panelList={panelList} {...props} />

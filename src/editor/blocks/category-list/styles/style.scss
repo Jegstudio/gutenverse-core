@@ -1,0 +1,15 @@
+.category-list-item a{
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    transition: all .1s;
+    .icon-list{
+        transition: all 0.05s;
+    }
+}
+
+.category-list-wrapper{
+    display: flex;
+    flex-direction: column;
+}
