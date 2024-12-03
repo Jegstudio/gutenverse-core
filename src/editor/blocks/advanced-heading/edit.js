@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import { classnames, RichText, RichTextComponent } from 'gutenverse-core/components';
+import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -13,6 +13,7 @@ import { __ } from '@wordpress/i18n';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 const AdvancedHeadingBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('advance-heading'),
     withCopyElementToolbar(),
@@ -39,7 +40,7 @@ const AdvancedHeadingBlock = compose(
     const advHeadingRef = useRef();
     const focusTextRef = useRef();
     const textRef = useRef();
-    const subTextRef = useRef()
+    const subTextRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -92,6 +93,7 @@ const AdvancedHeadingBlock = compose(
             isUseHighlight={true}
         />;
     };
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>

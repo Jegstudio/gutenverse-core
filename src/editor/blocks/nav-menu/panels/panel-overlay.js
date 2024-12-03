@@ -1,25 +1,33 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl, BackgroundControl, AlertControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor, handleBackground } from 'gutenverse-core/styling';
+import { RangeControl, SelectControl, BackgroundControl, AlertControl, ColorControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor } from 'gutenverse-core/styling';
 
 export const overlayPanel = (props) => {
     const {
         elementId,
-        switcher,
-        setSwitcher,
+        mobileEnableOverlay,
     } = props;
 
     return [
         {
+            id: 'activate-notice',
+            component: AlertControl,
+            show: !mobileEnableOverlay,
+            children: <>
+                <span>{__('You need to enable the overlay first in the "Mobile Menu" panel to use this setting!', 'gutenverse')}</span>
+            </>
+        },
+        {
             id: 'overlayBackground',
             component: BackgroundControl,
             label: __('Overlay Background', 'gutenverse'),
+            show: mobileEnableOverlay,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     hasChild: true,
                     render: value => handleBackground(value)
                 }
@@ -28,6 +36,7 @@ export const overlayPanel = (props) => {
         {
             id: 'overlayOpacity',
             label: __('Overlay Opacity', 'gutenverse'),
+            show: mobileEnableOverlay,
             component: RangeControl,
             min: 0,
             max: 100,
@@ -35,8 +44,8 @@ export const overlayPanel = (props) => {
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `opacity: calc(${value}/100);`
                 }
             ]
@@ -44,6 +53,7 @@ export const overlayPanel = (props) => {
         {
             id: 'overlayPointer',
             label: __('Overlay Pointer Event', 'gutenverse'),
+            show: mobileEnableOverlay,
             component: SelectControl,
             options: [
                 {
@@ -57,8 +67,8 @@ export const overlayPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `pointer-events: ${value} !important;`
                 }
             ]
@@ -66,37 +76,23 @@ export const overlayPanel = (props) => {
         {
             id: 'blur-notice',
             component: AlertControl,
+            show: mobileEnableOverlay,
             children: <>
                 <span>{__('This option will blur background and anything behind this element', 'gutenverse')}</span>
             </>
         },
         {
-            id: '__blurHover',
-            component: SwitchControl,
-            options: [
-                {
-                    value: 'normal',
-                    label: 'Normal'
-                },
-                {
-                    value: 'hover',
-                    label: 'Hover'
-                }
-            ],
-            onChange: ({ __blurHover }) => setSwitcher({ ...switcher, state: __blurHover })
-        },
-        {
             id: 'overlayBlur',
             label: __('Overlay Blur', 'gutenverse'),
-            show: !switcher.state || switcher.state === 'normal',
+            show: mobileEnableOverlay,
             component: RangeControl,
             min: 0,
             max: 100,
             allowDeviceControl: true,
             style: [
                 {
-                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active, 
-                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay.active`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
                     render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
                 }
             ]

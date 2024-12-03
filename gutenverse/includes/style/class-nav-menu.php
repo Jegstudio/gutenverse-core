@@ -172,13 +172,13 @@ class Nav_Menu extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['overlayBackground'] ) ) {
-			$this->handle_background( "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active", $this->attrs['overlayBackground'] );
+			$this->handle_background( "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay", $this->attrs['overlayBackground'] );
 		}
 
 		if ( isset( $this->attrs['overlayOpacity'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "opacity: calc({$value}/100);";
 					},
@@ -191,7 +191,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['overlayPointer'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "pointer-events: {$value} !important;";
 					},
@@ -204,7 +204,7 @@ class Nav_Menu extends Style_Abstract {
 		if ( isset( $this->attrs['overlayBlur'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay.active, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay.active",
+					'selector'       => "#{$this->element_id}.break-point-tablet.guten-nav-menu .guten-nav-overlay, #{$this->element_id}.break-point-mobile.guten-nav-menu .guten-nav-overlay",
 					'property'       => function ( $value ) {
 						return "-webkit-backdrop-filter: blur({$value}px); backdrop-filter: blur({$value}px);";
 					},
@@ -382,6 +382,20 @@ class Nav_Menu extends Style_Abstract {
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['submenuIndicatorColor'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['SubmenuIndicatorSize'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > i,
+						#{$this->element_id}.guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu> ul > li > a > i",
+					'property'       => function ( $value ) {
+						return "font-size: {$value}px;";
+					},
+					'value'          => $this->attrs['SubmenuIndicatorSize'],
 					'device_control' => true,
 				)
 			);

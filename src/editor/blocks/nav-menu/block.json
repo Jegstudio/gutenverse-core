@@ -161,6 +161,10 @@
       "type": "string",
       "default": "fas fa-angle-down"
     },
+    "SubmenuIndicatorSize":{
+      "type": "object",
+      "copyStyle": true
+    },
     "submenuIndicatorColor": {
       "type": "object",
       "copyStyle": true

@@ -93,8 +93,10 @@ const PopupBuilder = compose(
                 <h1>{__('Popup Builder', 'gutenverse')}</h1>
                 <span>{__('This block doesn\'t render on frontend. Click to show popup.', 'gutenverse')}</span>
             </div>
-            {show && <div className={classnames(
-                'show',
+            {<div className={classnames(
+                {
+                    'show': show
+                },
                 'guten-popup',
                 `guten-popup-${position}`,
                 `guten-popup-side-${sideMode}`,

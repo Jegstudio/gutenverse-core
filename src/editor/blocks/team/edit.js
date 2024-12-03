@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 // import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 // import { getSaveElement } from '@wordpress/blocks';
 import { PanelController } from 'gutenverse-core/controls';
@@ -21,6 +21,7 @@ import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 
 
 const TeamBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('team'),
     withCopyElementToolbar(),

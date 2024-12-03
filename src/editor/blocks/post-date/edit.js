@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle } from 'gutenverse-core/hoc';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -17,6 +17,7 @@ import { PanelTutorial } from 'gutenverse-core/controls';
 import { getSettings } from '@wordpress/date';
 
 const PostDateBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {

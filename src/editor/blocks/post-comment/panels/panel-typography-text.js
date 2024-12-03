@@ -85,7 +85,7 @@ export const textTypographyPanel = (props) => {
         },
         //list comment
         {
-            id: 'submenuSplitter1',
+            id: 'splitSubmenu1',
             component: HeadingControl,
             label: __('Comment Text')
         },
@@ -148,7 +148,7 @@ export const textTypographyPanel = (props) => {
         },
         //suffix text
         {
-            id: 'submenuSplitter2',
+            id: 'splitSubmenu2',
             component: HeadingControl,
             label: __('Username Suffix')
         },
