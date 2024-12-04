@@ -16,6 +16,7 @@ use Gutenverse\Style\Animated_Text;
 use Gutenverse\Style\Archive_Title;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
+use Gutenverse\Style\Category_List;
 use Gutenverse\Style\Divider;
 use Gutenverse\Style\Fun_Fact;
 use Gutenverse\Style\Gallery;
@@ -109,6 +110,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/animated-text':
 				$instance = new Animated_Text( $attrs );
+				break;
+			case 'gutenverse/category-list':
+				$instance = new Category_List( $attrs );
 				break;
 			case 'gutenverse/logo-slider':
 				$instance = new Logo_Slider( $attrs );

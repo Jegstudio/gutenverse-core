@@ -12,17 +12,13 @@ export const contentStylePanel = (props) => {
         elementId,
         layout,
         switcher,
-        setSwitcher
+        setSwitcher,
+        contentAlignment
     } = props;
 
-    return [
-        {
-            id: 'contentAlignment',
-            label: __('Content Alignment', 'gutenverse'),
-            allowDeviceControl: true,
-            component: IconRadioControl,
-            show: layout === 'column',
-            options: [
+    const optionAlign = () => {
+        if( layout === 'column' ){
+            return [
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'flex-start',
@@ -38,21 +34,9 @@ export const contentStylePanel = (props) => {
                     value: 'flex-end',
                     icon: <AlignRight />,
                 },
-            ],
-            style: [
-                {
-                    selector: `.${elementId} .category-list-wrapper`,
-                    render: value => `align-items: ${value}; `
-                },
             ]
-        },
-        {
-            id: 'contentAlignment',
-            label: __('Content Alignment', 'gutenverse'),
-            allowDeviceControl: true,
-            component: IconRadioControl,
-            show: layout === 'row',
-            options: [
+        }else{
+            return [
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'flex-start',
@@ -73,10 +57,25 @@ export const contentStylePanel = (props) => {
                     value: 'space-between',
                     icon: <AlignJustify />,
                 },
-            ],
+            ]
+        }
+    }
+    return [
+        {
+            id: 'contentAlignment',
+            label: __('Content Alignment', 'gutenverse'),
+            allowDeviceControl: true,
+            component: IconRadioControl,
+            options: optionAlign(),
             style: [
                 {
                     selector: `.${elementId} .category-list-wrapper`,
+                    allowRender: () => layout === 'column' && contentAlignment !== 'space-between',
+                    render: value => `align-items: ${value}; `
+                },
+                {
+                    selector: `.${elementId} .category-list-wrapper`,
+                    allowRender: () => layout === 'row',
                     render: value => `justify-content: ${value}; `
                 },
             ]
