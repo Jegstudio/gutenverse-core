@@ -131,7 +131,7 @@ class Section extends Style_Abstract {
 		}
 
 		$selector = 'stretch' === $this->attrs['align'] ?
-			"section.guten-element.{$this->element_id} > .guten-container > .guten-column > .sticky-wrapper > .guten-column-wrapper, .guten-section > .guten-container >  .guten-column > .guten-column-wrapper" :
+			"section.guten-element.{$this->element_id} > .guten-container > .guten-column > .sticky-wrapper > .guten-column-wrapper" :
 			"section.guten-element.{$this->element_id} > .guten-container";
 		if ( isset( $this->attrs['verticalAlign'] ) ) {
 			$this->inject_style(

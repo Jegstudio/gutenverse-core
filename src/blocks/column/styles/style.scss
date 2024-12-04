@@ -20,6 +20,10 @@
     }
   }
 
+  &.sticky-bottom, &.sticky-top {
+    height: fit-content;
+  }
+
   & > .guten-column-resizeable > .sticky-wrapper,
   & > .sticky-wrapper {
     width: 100%;
