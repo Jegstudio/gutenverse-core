@@ -74,7 +74,6 @@ export const URLToolbar = ({
 
             if (panelIsClicked && isSelected){
                 if (sidebar && !sidebar.contains(event.target)) {
-                    console.log('masuk');
                     setPanelIsClicked(false);
                     style.textContent = `
                         .block-editor-block-popover, .components-popover {
