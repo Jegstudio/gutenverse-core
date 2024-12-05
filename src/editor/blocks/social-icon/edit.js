@@ -43,6 +43,8 @@ const SocialIcon = compose(
         isSelected,
         setElementRef,
         setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -147,6 +149,8 @@ const SocialIcon = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Item Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState

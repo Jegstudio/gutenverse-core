@@ -236,7 +236,9 @@ const ImageBoxBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -320,7 +322,6 @@ const ImageBoxBlock = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
-
     return <>
         <BlockControls>
             <ToolbarGroup>
@@ -336,6 +337,8 @@ const ImageBoxBlock = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Item Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState

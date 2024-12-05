@@ -53,7 +53,9 @@ const IconBoxBlock = compose(
         attributes,
         setAttributes,
         setElementRef,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -229,6 +231,8 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Global Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState
