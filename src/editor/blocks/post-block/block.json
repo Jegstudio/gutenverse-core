@@ -764,6 +764,27 @@
 		"editParam": {
 			"type": "object",
 			"default": {}
+		},
+		"contentOrder":{
+			"type":"array",
+			"default": [
+                {
+                    "label": "Title",
+                    "value": "title"
+                },
+                {
+                    "label": "Meta",
+                    "value": "meta"
+                },
+                {
+                    "label": "Excerpt",
+                    "value": "excerpt"
+                },
+                {
+                    "label": "Read More",
+                    "value": "read"
+                }
+            ]
 		}
 	},
 	"supports": {

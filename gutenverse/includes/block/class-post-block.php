@@ -374,19 +374,37 @@ class Post_Block extends Post_Abstract {
 		$block    = '';
 		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
 		$type     = esc_attr( $this->attributes['postblockType'] );
-
+		$orders   = $this->attributes['contentOrder'];
+		$content  = '';
 		foreach ( $results as $post ) {
 			$thumbnail        = $this->get_thumbnail( $post->ID, 'post-thumbnail' );
 			$primary_category = $this->get_primary_category( $post->ID );
 			$post_url         = esc_url( get_the_permalink( $post ) );
 			$post_title       = esc_attr( get_the_title( $post ) );
 
-			$content =
-			'<' . $html_tag . ' class="guten-post-title"><a href="' . $post_url . '">' . $post_title . '</a></' . $html_tag . '>
-                ' . $this->post_meta( $post ) . $this->get_excerpt( $post ) . '
-            <div class="guten-post-meta-bottom">
-                ' . $this->get_readmore( $post ) . $this->get_comment_bubble( $post ) . '
-            </div>';
+			foreach ( $orders as $order ) {
+				if ( 'title' === $order['value'] ) {
+					$content .=
+						'<' . $html_tag . ' class="guten-post-title">
+							<a href="' . $post_url . '">' . $post_title . '</a>
+						</' . $html_tag . '>';
+				}
+
+				if ( 'meta' === $order['value'] ) {
+					$content .= $this->post_meta( $post );
+				}
+
+				if ( 'excerpt' === $order['value'] ) {
+					$content .= $this->get_excerpt( $post );
+				}
+
+				if ( 'read' === $order['value'] ) {
+					$content .=
+						'<div class="guten-post-meta-bottom">
+							' . $this->get_readmore( $post ) . $this->get_comment_bubble( $post ) . '
+						</div>';
+				}
+			}
 
 			$thumb = $this->guten_edit_post( $post->ID ) . '<a href="' . $post_url . '">' . $thumbnail . '</a>';
 

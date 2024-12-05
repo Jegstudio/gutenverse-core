@@ -68,12 +68,7 @@
     }
 
     .guten-post-meta {
-        display: -webkit-inline-box;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        justify-content: center;
+        display: flex;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
         color: var(--guten-txt-m-color, #96989B);
