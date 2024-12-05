@@ -277,13 +277,9 @@ export const withCustomStyle = panelList => BlockElement => {
          * Render style on event change
          */
         useEffect(() => {
-            const timer = setTimeout(() => {
-                if (elementId !== undefined) {
-                    renderStyle();
-                }
-            }, 300);  // Delay execution by 300ms
-
-            return () => clearTimeout(timer);  // Cleanup timer on every render
+            if (elementId !== undefined) {
+                renderStyle();
+            }
         }, [
             elementId,
             refreshStyleId,
