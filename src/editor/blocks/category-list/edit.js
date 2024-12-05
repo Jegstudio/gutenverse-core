@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withAnimationAdvance, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withAnimationAdvance, withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import {
     useInnerBlocksProps, useBlockProps,
 } from '@wordpress/block-editor';
@@ -15,7 +15,8 @@ import apiFetch from '@wordpress/api-fetch';
 const IconListBlock = compose(
     withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    withMouseMoveEffect,
+    withPartialRender,
 )((props) => {
     const {
         attributes,
