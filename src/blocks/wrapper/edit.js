@@ -76,7 +76,9 @@ const FlexibleWrapper = compose(
         attributes,
         setElementRef,
         isSelected,
-        setAttributes
+        setAttributes,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -149,6 +151,8 @@ const FlexibleWrapper = compose(
                     opensInNewTab={linkTarget === '_blank'}
                     anchorRef={blockProps.ref}
                     onToggleOpenInNewTab={onToggleOpenInNewTab}
+                    panelIsClicked={panelIsClicked}
+                    setPanelIsClicked={setPanelIsClicked}
                 />
             </ToolbarGroup>
         </BlockControls>
