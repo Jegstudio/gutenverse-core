@@ -131,6 +131,24 @@ export const paginationStylePanel = (props) => {
             ],
         },
         {
+            id: 'paginationHeight',
+            label: __('Number Height', 'gutenverse'),
+            show: 'number' === paginationMode,
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
+                    allowRender: () => 'number' === paginationMode,
+                    render: value => `line-height: ${value}px;`
+                },
+            ],
+        },
+        {
             id: 'paginationNavigationWidth',
             label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Width', 'gutenverse'),
             show: 'number' === paginationMode || 'prevnext' === paginationMode,
@@ -162,27 +180,9 @@ export const paginationStylePanel = (props) => {
             ],
         },
         {
-            id: 'paginationHeight',
-            label: __('Number Height', 'gutenverse'),
-            show: 'number' === paginationMode,
-            component: RangeControl,
-            min: 1,
-            max: 100,
-            step: 1,
-            allowDeviceControl: true,
-            unit: 'px',
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
-                    allowRender: () => 'number' === paginationMode,
-                    render: value => `line-height: ${value}px;`
-                },
-            ],
-        },
-        {
             id: 'paginationNavigationHeight',
-            label: __('Navigation Height', 'gutenverse'),
-            show: 'number' === paginationMode,
+            label: 'prevnext' === paginationMode ? __('Height', 'gutenverse') : __('Navigation Height', 'gutenverse'),
+            show: 'number' === paginationMode || 'prevnext' === paginationMode,
             component: RangeControl,
             min: 1,
             max: 100,
@@ -191,7 +191,8 @@ export const paginationStylePanel = (props) => {
             unit: 'px',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
                     render: value => `line-height: ${value}px;`
                 },
             ],
