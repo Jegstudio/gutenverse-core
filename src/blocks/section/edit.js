@@ -29,6 +29,7 @@ import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import { roundToDown } from 'round-to';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -129,7 +130,7 @@ const SectionAddColumn = ({ clientId }) => {
     const addNewColumn = () => {
         const newChild = createBlock('gutenverse/column', {
             width: {
-                Desktop: 5
+                Desktop: roundToDown(100/(getBlocks(clientId).length + 1), 1)
             }
         });
         insertBlock(newChild, getBlocks(clientId).length + 1, clientId);
