@@ -15,7 +15,8 @@ const PanelController = ({ ...props }) => {
         panelProps,
         panelList,
         elementRef,
-        panelState
+        panelState,
+        setPanelIsClicked,
     } = props;
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
@@ -95,7 +96,7 @@ const PanelController = ({ ...props }) => {
 
     return <>
         <InspectorControls>
-            <div className="gutenverse-panel-wrapper" ref={onRefChange}>
+            <div className="gutenverse-panel-wrapper" ref={onRefChange} onClick={() => setPanelIsClicked(true)} >
                 {applyFilters('gutenverse.inspectorcontrol.before', null, props)}
                 {tabPanel.length >= 1 && <>
                     <div className="gutenverse-tab-list">

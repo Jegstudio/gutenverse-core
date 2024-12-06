@@ -9,7 +9,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect,withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -29,6 +29,8 @@ import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import { BackgroundSlideShow } from 'gutenverse-core/components';
+import { roundToDown } from 'round-to';
 
 // Placeholder
 const SectionPlaceholder = (props) => {
@@ -129,7 +131,7 @@ const SectionAddColumn = ({ clientId }) => {
     const addNewColumn = () => {
         const newChild = createBlock('gutenverse/column', {
             width: {
-                Desktop: 5
+                Desktop: roundToDown(100/(getBlocks(clientId).length + 1), 1)
             }
         });
         insertBlock(newChild, getBlocks(clientId).length + 1, clientId);
@@ -162,6 +164,7 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationAdvance('section'),
     withAnimationBackground(),
