@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -55,6 +55,7 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 };
 
 const FlexibleWrapper = compose(
+    withPartialRender,
     withCustomStyle(panelList),
     withAnimationBackground(),
     withCopyElementToolbar(),
@@ -75,7 +76,9 @@ const FlexibleWrapper = compose(
         attributes,
         setElementRef,
         isSelected,
-        setAttributes
+        setAttributes,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -148,6 +151,8 @@ const FlexibleWrapper = compose(
                     opensInNewTab={linkTarget === '_blank'}
                     anchorRef={blockProps.ref}
                     onToggleOpenInNewTab={onToggleOpenInNewTab}
+                    panelIsClicked={panelIsClicked}
+                    setPanelIsClicked={setPanelIsClicked}
                 />
             </ToolbarGroup>
         </BlockControls>
