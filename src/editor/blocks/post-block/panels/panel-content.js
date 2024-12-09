@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, IconControl, IconRadioControl, ImageRadioControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, IconRadioControl, ImageRadioControl, RangeControl, SelectControl, SelectSearchControl, SelectSortableControl, TextControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -20,6 +20,28 @@ export const contentPanel = (props) => {
     const {
         gutenverseImgDir
     } = window['GutenverseConfig'];
+
+    const searchOrder = input => new Promise(resolve => {
+        const options = [
+            {
+                label: __('Title'),
+                value: 'title'
+            },
+            {
+                label: __('Meta'),
+                value: 'meta'
+            },
+            {
+                label: __('Excerpt'),
+                value: 'excerpt'
+            },
+            {
+                label: __('Read More'),
+                value: 'read'
+            },
+        ];
+        resolve(options.filter(el => el.value.toLowerCase().includes(input.toLowerCase())));
+    });
 
     return [
         {
@@ -48,6 +70,13 @@ export const contentPanel = (props) => {
                     value: 'type-5'
                 },
             ],
+        },
+        {
+            id: 'contentOrder',
+            label: __('Content Order', 'gutenverse'),
+            component: SelectSortableControl,
+            isMulti: true,
+            onSearch: searchOrder
         },
         {
             id: 'column',

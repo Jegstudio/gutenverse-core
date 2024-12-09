@@ -301,10 +301,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 2.1.4 =
 ##### New
 * Add new category list block
+* Add new search title block
 
 ##### Improvements
 * Improve Blocks Loading inside editor
 * Add option in dashboard to enable/disable lazy load blocks in editor
+* Add image filter option for Image Box block
+* Add Post order in Post Block
 
 ##### Bug Fixes
 * Fix issue when editing button text when there is active link

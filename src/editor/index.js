@@ -1,8 +1,9 @@
-import { getBlockType, registerBlockType } from '@wordpress/blocks';
+import { getBlockType, registerBlockType, getBlockTypes } from '@wordpress/blocks';
 import { isBlockActive } from 'gutenverse-core/helper';
 import { updateBlockList } from 'gutenverse-core/editor-helper';
 import { addFilter } from '@wordpress/hooks';
 import { IconLottieSVG, IconMegaMenuSVG } from '../assets/icon';
+
 
 addFilter(
     'gutenverse.blocklist.locked',
@@ -83,6 +84,7 @@ const registerBlocks = () => {
         });
     });
 };
+
 
 (() => {
     registerBlocks();

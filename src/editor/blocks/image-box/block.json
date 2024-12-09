@@ -167,6 +167,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"imageFilter": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"imageFilterHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"bodyBackground": {
 			"type": "object",
 			"copyStyle": true
