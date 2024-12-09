@@ -87,6 +87,7 @@ export const textTypographyPanel = (props) => {
         {
             id: 'splitSubmenu1',
             component: HeadingControl,
+            show: switcher.commentType === 'listComment',
             label: __('Comment Text')
         },
         {
@@ -150,6 +151,7 @@ export const textTypographyPanel = (props) => {
         {
             id: 'splitSubmenu2',
             component: HeadingControl,
+            show: switcher.commentType === 'listComment',
             label: __('Username Suffix')
         },
         {
