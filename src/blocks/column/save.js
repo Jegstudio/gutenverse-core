@@ -36,6 +36,10 @@ const save = compose(
     } = attributes;
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+    const stickyClasses = Object.keys(sticky)
+        .filter((device) => sticky[device])
+        .map((device) => `sticky-${device.toLowerCase()}`)
+        .join(' ');
 
     const stickyClass = {
         ['guten-sticky']: isCanSticky,
@@ -56,6 +60,7 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
+        stickyClasses,
         stickyClass,
         cursorEffectClass,
         {
