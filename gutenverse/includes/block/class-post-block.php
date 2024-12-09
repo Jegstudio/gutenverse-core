@@ -375,12 +375,12 @@ class Post_Block extends Post_Abstract {
 		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
 		$type     = esc_attr( $this->attributes['postblockType'] );
 		$orders   = $this->attributes['contentOrder'];
-		$content  = '';
 		foreach ( $results as $post ) {
 			$thumbnail        = $this->get_thumbnail( $post->ID, 'post-thumbnail' );
 			$primary_category = $this->get_primary_category( $post->ID );
 			$post_url         = esc_url( get_the_permalink( $post ) );
 			$post_title       = esc_attr( get_the_title( $post ) );
+			$content          = '';
 
 			foreach ( $orders as $order ) {
 				if ( 'title' === $order['value'] ) {
