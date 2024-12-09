@@ -36,7 +36,9 @@ const IconListItemBlock = compose(
         isSelected,
         setElementRef,
         clientId,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -145,6 +147,8 @@ const IconListItemBlock = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Item Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState
