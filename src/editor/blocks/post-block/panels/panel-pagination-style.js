@@ -376,7 +376,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -388,7 +388,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -427,7 +427,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -442,7 +442,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
