@@ -1029,7 +1029,8 @@ class Post_Block extends Style_Abstract {
 		if ( isset( $this->attrs['paginationNavigationHeight'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
+					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
+                        .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
 					'property'       => function ( $value ) {
 						return "line-height: {$value}px;";
 					},
