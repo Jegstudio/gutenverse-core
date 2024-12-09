@@ -16,6 +16,7 @@ use Gutenverse\Style\Animated_Text;
 use Gutenverse\Style\Archive_Title;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
+use Gutenverse\Style\Category_List;
 use Gutenverse\Style\Divider;
 use Gutenverse\Style\Fun_Fact;
 use Gutenverse\Style\Gallery;
@@ -55,6 +56,7 @@ use Gutenverse\Style\Text_Editor;
 use Gutenverse\Style\Video;
 use Gutenverse\Style\Popup_Builder;
 use Gutenverse\Style\Search;
+use Gutenverse\Style\Search_Result_Title;
 use Gutenverse\Style\Text;
 
 /**
@@ -109,6 +111,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/animated-text':
 				$instance = new Animated_Text( $attrs );
+				break;
+			case 'gutenverse/category-list':
+				$instance = new Category_List( $attrs );
 				break;
 			case 'gutenverse/logo-slider':
 				$instance = new Logo_Slider( $attrs );
@@ -229,6 +234,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/search':
 				$instance = new Search( $attrs );
+				break;
+			case 'gutenverse/search-result-title':
+				$instance = new Search_Result_Title( $attrs );
 				break;
 			case 'gutenverse/social-share-facebook':
 			case 'gutenverse/social-share-twitter':
