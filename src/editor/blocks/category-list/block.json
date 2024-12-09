@@ -30,6 +30,13 @@
 			"type": "boolean",
 			"default": false
 		},
+		"taxonomyType": {
+			"type": "object",
+			"default": {
+				"label" : "Categories",
+				"value" : "category"
+			}
+		},
 		"showIcon":{
 			"type": "boolean",
 			"default": false

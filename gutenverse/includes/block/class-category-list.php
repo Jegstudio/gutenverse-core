@@ -32,7 +32,7 @@ class Category_List extends Block_Abstract {
 			$included[] = $value['value'];
 		}
 		$args = array(
-			'taxonomy'   => 'category',
+			'taxonomy'   => $this->attributes['taxonomyType']['value'],
 			'order'      => $sort,
 			'orderby'    => $orderby,
 			'number'     => $category_qty ? $category_qty : 0,

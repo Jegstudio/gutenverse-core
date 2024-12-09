@@ -33,7 +33,8 @@ const IconListBlock = compose(
         sortType,
         hideEmpty,
         showIcon,
-        layout
+        layout,
+        taxonomyType
     } = attributes;
     const categoryListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -75,6 +76,7 @@ const IconListBlock = compose(
                         icon,
                         hideEmpty,
                         showIcon,
+                        taxonomyType
                     }
                 }),
             }).then((data) => {
@@ -115,6 +117,7 @@ const IconListBlock = compose(
         icon,
         hideEmpty,
         showIcon,
+        taxonomyType
     ]);
 
     useEffect(() => {

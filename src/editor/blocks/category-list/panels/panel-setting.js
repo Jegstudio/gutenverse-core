@@ -39,7 +39,37 @@ export const settingPanel = (props) => {
         };
     };
 
+    const searchTaxonomy =  isOnEditor() ? input => new Promise(resolve => {
+        apiFetch({
+            path: addQueryArgs('/wp/v2/taxonomies', {
+                search: input,
+            }),
+        }).then(data => {
+            const promiseOptions = Object.keys(data).map(item => {
+                return {
+                    label: data[item].name,
+                    value: data[item].slug
+                };
+            });
+            resolve(promiseOptions);
+        }).catch(() => {
+            resolve([]);
+        });
+    }) : () => {
+        return {
+            label: '',
+            value: ''
+        };
+    };
+
     return [
+        {
+            id: 'taxonomyType',
+            label: __('Taxonomy Type', 'gutenverse'),
+            component: SelectSearchControl,
+            isMulti: false,
+            onSearch: searchTaxonomy
+        },
         {
             id: 'qty',
             label: __('Number of Category', 'gutenverse'),
