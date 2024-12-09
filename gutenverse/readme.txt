@@ -299,9 +299,17 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.1.4 =
+##### New
+* Add new category list block
+
 ##### Improvements
 * Improve Blocks Loading inside editor
 * Add option in dashboard to enable/disable lazy load blocks in editor
+
+##### Bug Fixes
+* Fix issue when editing button text when there is active link
+* Fix sticky & vertical align issue
+* Fix post block pagination style
 
 = 2.1.3 =
 ##### Improvements
