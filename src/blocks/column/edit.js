@@ -961,6 +961,11 @@ const ColumnBlock = compose(
             <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
         </svg></>;
 
+    const stickyClasses = Object.keys(sticky)
+        .filter((device) => sticky[device])
+        .map((device) => `sticky-${device.toLowerCase()}`)
+        .join(' ');
+
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -969,6 +974,7 @@ const ColumnBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            stickyClasses,
             deviceType.toLowerCase(),
             ...vertical,
             ...horizontal,
