@@ -81,35 +81,8 @@ export const contentStylePanel = (props) => {
             ]
         },
         {
-            id: 'contentMargin',
-            label: __('Margin', 'gutenverse'),
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
-        {
-            id: 'contentPadding',
-            label: __('Padding', 'gutenverse'),
+            id: 'contentSpacing',
+            label: __('Content Spacing', 'gutenverse'),
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,

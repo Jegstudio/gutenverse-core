@@ -10,10 +10,11 @@ export const settingPanel = (props) => {
     const {
         elementId,
         showIcon,
+        showDivider,
         setSwitcher,
-        switcher
+        switcher,
+        layout
     } = props;
-
     const searchCategory =  isOnEditor() ? input => new Promise(resolve => {
         apiFetch({
             path: addQueryArgs('/wp/v2/categories', {
@@ -41,7 +42,7 @@ export const settingPanel = (props) => {
     return [
         {
             id: 'qty',
-            label: __('Category Qty', 'gutenverse'),
+            label: __('Number of Category', 'gutenverse'),
             component : RangeControl,
             min: 0,
             max: 100,
@@ -198,6 +199,7 @@ export const settingPanel = (props) => {
         {
             id: '__iconSwitch',
             component: SwitchControl,
+            show: showIcon,
             options: [
                 {
                     value: 'normal',
@@ -214,7 +216,7 @@ export const settingPanel = (props) => {
             id: 'iconColor',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            show: !switcher.iconSwitch || switcher.iconSwitch === 'normal',
+            show: (!switcher.iconSwitch || switcher.iconSwitch === 'normal') && showIcon,
             style: [
                 {
                     selector: `.${elementId} .category-list-wrapper .category-list-item a .icon-list`,
@@ -226,12 +228,95 @@ export const settingPanel = (props) => {
             id: 'iconColorHover',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            show: switcher.iconSwitch === 'hover',
+            show: switcher.iconSwitch === 'hover' && showIcon,
             style: [
                 {
                     selector: `.${elementId} .category-list-wrapper .category-list-item a:hover .icon-list`,
                     render: value => handleColor(value, 'color')
                 }
+            ]
+        },
+        {
+            id: 'showDivider',
+            label: __('Show Divider', 'gutenverse'),
+            component: CheckboxControl,
+            style: [
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : (value) => value && layout === 'column',
+                    render: () => 'border-top-style : solid;'
+                },
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : (value) => value && layout === 'row',
+                    render: () => 'border-left-style : solid;'
+                },
+            ]
+        },
+        {
+            id: 'colorDivider',
+            label: __('Color Divider', 'gutenverse'),
+            show: showDivider,
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    render: value => handleColor(value, 'border-color')
+                },
+            ]
+        },
+        {
+            id: 'typeDivider',
+            label: __('Type Divider', 'gutenverse'),
+            show: showDivider,
+            component: SelectControl,
+            options:[
+                {
+                    label: __('Solid', 'gutenverse'),
+                    value: 'solid'
+                },
+                {
+                    label: __('Double', 'gutenverse'),
+                    value: 'double'
+                },
+                {
+                    label: __('Dotted', 'gutenverse'),
+                    value: 'dotted'
+                },
+                {
+                    label: __('Dashed', 'gutenverse'),
+                    value: 'dashed'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : () => showDivider && layout === 'column',
+                    render: value => `border-top-style : ${value};`
+                },
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : () => showDivider && layout === 'row',
+                    render: value => `border-left-style : ${value};`
+                },
+            ]
+        },
+        {
+            id: 'widthDivider',
+            label: __('Width Divider', 'gutenverse'),
+            show: showDivider,
+            component: SizeControl,
+            style: [
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : () => showDivider && layout === 'column',
+                    render: value => `width : ${value.point}${value.unit};`
+                },
+                {
+                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    allowRender : () => showDivider && layout === 'row',
+                    render: value => `height : ${value.point}${value.unit};`
+                },
             ]
         },
     ];

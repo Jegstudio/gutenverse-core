@@ -70,17 +70,32 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentMargin":{
-			"type": "object",
-			"copyStyle": true
-		},
-		"contentPadding":{
+		"contentSpacing":{
 			"type": "object",
 			"copyStyle": true
 		},
 		"layout":{
 			"type": "string",
-      		"default": "column"
+      		"default": "column",
+			"copyStyle" : true
+		},
+		"showDivider":{
+			"type" : "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"colorDivider" :{
+			"type" : "object",
+			"copyStyle": true
+		},
+		"typeDivider":{
+			"type": "string",
+      		"default": "solid",
+			"copyStyle" : true
+		},
+		"widthDivider":{
+			"type" : "object",
+			"copyStyle": true
 		},
 		"mouseMoveEffect": {
 			"type": "object",

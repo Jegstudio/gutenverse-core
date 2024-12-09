@@ -19,7 +19,8 @@ const IconListBlock = compose(
 )((props) => {
     const {
         attributes,
-        setElementRef
+        setElementRef,
+        refreshStyle
     } = props;
 
     const {
@@ -30,7 +31,8 @@ const IconListBlock = compose(
         icon,
         sortType,
         hideEmpty,
-        showIcon
+        showIcon,
+        layout
     } = attributes;
     const categoryListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -111,8 +113,12 @@ const IconListBlock = compose(
         qty,
         icon,
         hideEmpty,
-        showIcon
+        showIcon,
     ]);
+
+    useEffect(() => {
+        refreshStyle()
+    },[layout])
 
     return <>
         <PanelController panelList={panelList} {...props} />

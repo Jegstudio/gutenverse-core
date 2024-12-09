@@ -152,26 +152,14 @@ class Category_List extends Style_Abstract {
 			}
 		}
 
-		if ( isset( $this->attrs['contentMargin'] ) ) {
+		if ( isset( $this->attrs['contentSpacing'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item",
 					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'margin' );
+						return $this->handle_dimension( $value, 'padding' );
 					},
-					'value'          => $this->attrs['contentMargin'],
-					'device_control' => true,
-				)
-			);
-		}
-		if ( isset( $this->attrs['contentPadding'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item",
-					'property'       => function ( $value ) {
-						return $this->handle_unit_point( $value, 'padding' );
-					},
-					'value'          => $this->attrs['contentPadding'],
+					'value'          => $this->attrs['contentSpacing'],
 					'device_control' => true,
 				)
 			);
@@ -210,6 +198,95 @@ class Category_List extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+		if ( isset( $this->attrs['showDivider'] ) ) {
+			if ( $this->attrs['showDivider'] ) {
+				if ( 'column' === $this->attrs['layout'] ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return 'border-top-style : solid;';
+							},
+							'value'          => $this->attrs['showDivider'],
+							'device_control' => false,
+						)
+					);
+				} elseif ( 'row' === $this->attrs['layout'] ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return 'border-left-style : solid;';
+							},
+							'value'          => $this->attrs['showDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+				if ( isset( $this->attrs['colorDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'property'       => function ( $value ) {
+								return $this->handle_color( $value, 'border-color' );
+							},
+							'value'          => $this->attrs['colorDivider'],
+							'device_control' => false,
+						)
+					);
+				}
+				if ( isset( $this->attrs['typeDivider'] ) ) {
+					if ( 'column' === $this->attrs['layout'] ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'property'       => function ( $value ) {
+									return "border-top-style : {$value};";
+								},
+								'value'          => $this->attrs['typeDivider'],
+								'device_control' => false,
+							)
+						);
+					} elseif ( 'row' === $this->attrs['layout'] ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'property'       => function ( $value ) {
+									return "border-left-style : {$value};";
+								},
+								'value'          => $this->attrs['typeDivider'],
+								'device_control' => false,
+							)
+						);
+					}
+				}
+				if ( isset( $this->attrs['widthDivider'] ) ) {
+					if ( 'column' === $this->attrs['layout'] ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'property'       => function ( $value ) {
+									return $this->handle_unit_point( $value, 'width' );
+								},
+								'value'          => $this->attrs['widthDivider'],
+								'device_control' => false,
+							)
+						);
+					} elseif ( 'row' === $this->attrs['layout'] ) {
+						$this->inject_style(
+							array(
+								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'property'       => function ( $value ) {
+									return $this->handle_unit_point( $value, 'height' );
+								},
+								'value'          => $this->attrs['widthDivider'],
+								'device_control' => false,
+							)
+						);
+					}
+				}
+			}
 		}
 	}
 }
