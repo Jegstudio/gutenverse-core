@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
-import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript } from 'gutenverse-core/hoc';
+import { withVideoBackground, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundEffectScript, withBackgroundSlideshowScript } from 'gutenverse-core/hoc';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { compose } from '@wordpress/compose';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
@@ -19,6 +19,7 @@ const save = compose(
     withCursorEffectScript,
     withMouseMoveEffectScript,
     withBackgroundEffectScript,
+    withBackgroundSlideshowScript,
 )((props) => {
     const {
         attributes,
@@ -135,7 +136,7 @@ const save = compose(
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                {isSlideShow && <div className="bg-slideshow-container"><div className="bg-slideshow-item"></div></div>}
+                {isSlideShow && slideElements}
                 {videoContainer}
                 {
                     (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>

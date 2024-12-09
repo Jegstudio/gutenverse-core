@@ -14,4 +14,5 @@ export { withBackgroundEffectScript } from './with-background-effect-script';
 export { withMouseMoveEffect } from './with-mouse-move-effect';
 export { withMouseMoveEffectScript } from './with-mouse-move-effect-script';
 export { withBackgroundSlideshow } from './with-background-slideshow';
+export { withBackgroundSlideshowScript } from './with-background-slideshow-script';
 export { withPartialRender } from './with-partial-render';
