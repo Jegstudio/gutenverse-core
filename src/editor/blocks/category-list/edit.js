@@ -79,6 +79,29 @@ const IconListBlock = compose(
             }).catch(() => {
                 setResponse('<span>Error</span>');
             }).finally(() => setLoading(false));
+        }else{
+            setResponse(`<div class="category-list-wrapper">
+                    <div class="category-list-item">
+						<a href="#">
+							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<div class="category-list-content">${dummyText(5, 10)}</div>
+						</a>
+					</div>
+                    <div class="category-list-item">
+						<a href="#">
+							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<div class="category-list-content">${dummyText(5, 10)}</div>
+						</a>
+					</div>
+                    <div class="category-list-item">
+						<a href="#">
+							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
+							<div class="category-list-content">${dummyText(5, 10)}</div>
+						</a>
+					</div>
+                </div>
+            `);
+            setLoading(false);
         }
     }, [
         elementId,
