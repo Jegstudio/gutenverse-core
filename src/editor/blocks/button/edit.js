@@ -36,6 +36,8 @@ const ButtonBlock = compose(
         context: { hoverWithParent, parentSelector },
         refreshStyle,
         setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const prevHoverWithParent = useRef();
@@ -148,7 +150,7 @@ const ButtonBlock = compose(
             });
         }
     }, []);
-
+    
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -206,6 +208,8 @@ const ButtonBlock = compose(
             usingDynamic={true}
             setPanelState={setPanelState}
             panelState={panelState}
+            panelIsClicked={panelIsClicked}
+            setPanelIsClicked={setPanelIsClicked}
         />;
     };
 
