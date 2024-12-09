@@ -64,7 +64,6 @@ class Category_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a .icon-list",
 					'property'       => function ( $value ) {
-						gutenverse_rlog( $this->handle_color( $value, 'color' ) );
 						return $this->handle_color( $value, 'color' );
 					},
 					'value'          => $this->attrs['iconColor'],
