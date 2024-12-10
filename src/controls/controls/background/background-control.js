@@ -667,6 +667,28 @@ const BackgroundControl = (props) => {
                     },
                 ]}
             />
+            <CheckboxControl
+                label={__('Ken Burns Effet', '--gctd--')}
+                value={value.kenBurns}
+                onValueChange={kenBurns => onValueChange({ ...value, kenBurns })}
+                onStyleChange={kenBurns => onStyleChange({ ...value, kenBurns })}
+            />
+            {value.kenBurns && <SelectControl
+                label={__('Direction', '--gctd--')}
+                value={value.direction}
+                onValueChange={direction => onValueChange({ ...value, direction })}
+                onStyleChange={direction => onStyleChange({ ...value, direction })}
+                options={[
+                    {
+                        label: __('In', '--gctd--'),
+                        value: 'directionIn'
+                    },
+                    {
+                        label: __('Out', '--gctd--'),
+                        value: 'directionOut'
+                    },
+                ]}
+            />}
             {/* <CheckboxControl
                 label={__('Lazy Load', '--gctd--')}
                 value={value.lazyLoad}

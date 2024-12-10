@@ -12,10 +12,13 @@ export const withBackgroundSlideshowScript = (BlockElement) => {
             <div className="bg-slideshow-item">
                 {slideImage.map((image, index) => (
                     <div
-                        key={index}
-                        className={`${index}-child-slideshow ${elementId}-slideshow-image slideshow-image ${1 === index ? 'current' : 0 === index ? 'previous' : ''}`}
-                        style={{ backgroundImage: `url(${image?.image?.image ? image?.image?.image : imagePlaceholder})` }}
-                    />
+                        className={`${elementId}-child-slideshow slideshow-item-container item-${index}`}
+                        key={index} >
+                        <div
+                            className={`${elementId}-slideshow-image slideshow-image ${1 === index ? 'current' : 0 === index ? 'previous' : ''}`}
+                            style={{ backgroundImage: `url(${image?.image?.image ? image?.image?.image : imagePlaceholder})` }}
+                        />
+                    </div>
                 ))}
             </div>
         </div>;

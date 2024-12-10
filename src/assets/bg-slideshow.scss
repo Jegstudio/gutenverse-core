@@ -9,6 +9,7 @@
     height: 100% !important;
     margin: auto;
     overflow: hidden;
+    z-index: 0;
 
     .bg-slideshow-item {
         background-position: center;
@@ -19,14 +20,16 @@
         height: inherit;
         object-fit: cover;
 
-        .slideshow-image {
-            width: 100%;
-            height: inherit;
-            display: none;
-            background-size: contain;
-            position: absolute;
+        .slideshow-item-container {
+            background-position: center;
+            position: absolute !important;
             top: 0;
             left: 0;
+            width: 100%;
+            height: inherit;
+            object-fit: cover;
+            display: none;
+            overflow: hidden;
 
             &.current {
                 display: block;
@@ -35,6 +38,15 @@
             &.previous {
                 z-index: 2;
                 display: block;
+            }
+
+            .slideshow-image {
+                width: 100%;
+                height: inherit;
+                background-size: contain;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
         }
     }
@@ -46,5 +58,96 @@
       }
     to {
         opacity: 0;
+    }
+}
+
+@keyframes ken-burns-toggle-out {
+    from {
+        transform: scale(1.15);
+      }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+@keyframes ken-burns-toggle-in {
+    from {
+        transform: scale(1);
+      }
+    to {
+        transform: scale(1.15);
+    }
+}
+                
+@keyframes current-slideRight {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 0%;
+    }
+}
+    
+@keyframes previous-slideRight {
+    0% {
+        left: 0%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes current-slideLeft {
+    0% {
+        right: -100%;
+    }
+    100% {
+        right: 0%;
+    }
+}
+    
+@keyframes previous-slideLeft {
+    0% {
+        right: 0%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+@keyframes current-slideTop {
+    0% {
+        bottom: -100%;
+    }
+    100% {
+        bottom: 0%;
+    }
+}
+    
+@keyframes previous-slideTop {
+    0% {
+        bottom: 0%;
+    }
+    100% {
+        bottom: 100%;
+    }
+}
+
+@keyframes current-slideBottom {
+    0% {
+        top: -100%;
+    }
+    100% {
+        top: 0%;
+    }
+}
+    
+@keyframes previous-slideBottom {
+    0% {
+        top: 0%;
+    }
+    100% {
+        top: 100%;
     }
 }

@@ -29,7 +29,6 @@ import { IconToolbarColumnAddSVG } from 'gutenverse-core/icons';
 import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
-import { BackgroundSlideShow } from 'gutenverse-core/components';
 import { roundToDown } from 'round-to';
 
 // Placeholder

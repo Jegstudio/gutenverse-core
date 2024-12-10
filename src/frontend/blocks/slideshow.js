@@ -14,38 +14,142 @@ class GutenverseSlideshow extends Default {
 
         if (slideImage?.length < 1 ) return;
         const images = slideImage.map((image) => image?.image?.image);
+        const elementId = `guten-${dataId}`;
 
         const slideshowImage = document.querySelectorAll(`.guten-${dataId}-slideshow-image`);
-        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, displayDuration * 1000, infiniteLoop, images);
+        const slideshowContainer = document.querySelectorAll(`.guten-${dataId}-child-slideshow`);
+        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, displayDuration * 1000, infiniteLoop, images);
+        this.generateStyle(background, elementId);
     }
 
-    toggleClassWithDuration(elements, duration, infiniteLoop, images, prevClass = 'previous',  currentClass = 'current') {
+    toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, images, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
         let currentIndex = 1;
         let prevIndex = 0;
 
-        elements.forEach(el => {
+        slideshowContainer.forEach(el => {
             el.classList.remove(prevClass);
             el.classList.remove(currentClass);
+            el.classList.remove(parentClass);
         });
 
-        elements[currentIndex].classList.add(currentClass);
-        elements[prevIndex].classList.add(prevClass);
+        slideshowContainer[currentIndex].classList.add(currentClass);
+        slideshowContainer[prevIndex].classList.add(prevClass);
+        slideshowContainer[currentIndex].classList.add(parentClass);
+        slideshowContainer[prevIndex].classList.add(parentClass);
 
         let intervalToggle = setInterval(() => {
-            elements[prevIndex].classList.remove(prevClass);
+            slideshowContainer[prevIndex].classList.remove(parentClass);
+            slideshowContainer[prevIndex].classList.remove(prevClass);
             prevIndex = (prevIndex + 1) % elements.length;
-            elements[prevIndex].classList.add(prevClass);
+            slideshowContainer[prevIndex].classList.add(prevClass);
+            slideshowContainer[prevIndex].classList.add(parentClass);
 
-            elements[currentIndex].classList.remove(currentClass);
+            slideshowContainer[currentIndex].classList.remove(currentClass);
             currentIndex = (currentIndex + 1) % elements.length;
-            elements[currentIndex].classList.add(currentClass);
-            if (!infiniteLoop && currentIndex === (images.length - 1)){
+            slideshowContainer[currentIndex].classList.add(currentClass);
+            slideshowContainer[currentIndex].classList.add(parentClass);
+
+            if (!infiniteLoop && currentIndex === (images.length - 1)) {
                 clearInterval(intervalToggle);
             }
         }, duration);
-        if (duration <= 0) {
-            clearInterval(intervalToggle);
+    }
+
+    generateStyle(background, elementId) {
+        const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction} = background;
+        const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
+        const effectDirection = 'directionOut' === direction ? 'ken-burns-toggle-out' : 'ken-burns-toggle-in';
+        let styles = '';
+
+        styles += `
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
+                background-size: ${backgroundSize};
+                background-position: ${bgPosition};
+                background-repeat: ${backgroundRepeat};
+            }
+                
+            ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
+                animation: ${effectDirection} 15s ease-in-out forwards;
+            }` : ''}
+        `;
+
+        switch (transition) {
+            case 'fade': {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    ${`animation: fade ${duration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
+            case 'slideRight': {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    z-index: 1;
+                    ${`animation: previous-slideRight ${duration}s ease-in-out forwards;`}
+                }
+                
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                    z-index: 2;
+                    ${`animation: current-slideRight ${duration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
+            case 'slideLeft': {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    z-index: 1;
+                    left: unset;
+                    ${`animation: previous-slideLeft ${duration}s ease-in-out forwards;`}
+                }
+                
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                    z-index: 2;
+                    left: unset;
+                    ${`animation: current-slideLeft ${duration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
+            case 'slideTop': {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    z-index: 1;
+                    top: unset;
+                    ${`animation: previous-slideTop ${duration}s ease-in-out forwards;`}
+                }
+                
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                    z-index: 2;
+                    top: unset;
+                    ${`animation: current-slideTop ${duration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
+            case 'slideDown': {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    z-index: 1;
+                    ${`animation: previous-slideBottom ${duration}s ease-in-out forwards;`}
+                }
+                
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                    z-index: 2;
+                    ${`animation: current-slideBottom ${duration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
         }
+
+        this.addAnimation(styles);
+    }
+
+    addAnimation(rule){
+        let styleElement = document.createElement('style');
+        if (styleElement.styleSheet) {
+            styleElement.styleSheet.cssText = rule;
+        } else {
+            styleElement.appendChild(document.createTextNode(rule));
+        }
+        document.head.appendChild(styleElement);
     }
 }
 
