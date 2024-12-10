@@ -4,6 +4,8 @@ import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
 import { contentStylePanel } from './panel-content-style';
+import { iconPanel } from './panel-icon';
+import { dividerPanel } from './panel-divider';
 
 export const panelList = () => {
     return [
@@ -17,6 +19,18 @@ export const panelList = () => {
             title: __('Content Style', 'gutenverse'),
             initialOpen: true,
             panelArray: contentStylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Icon Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: iconPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Divider Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: dividerPanel,
             tabRole: TabStyle
         },
         {
