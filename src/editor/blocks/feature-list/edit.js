@@ -42,6 +42,7 @@ const FeatureListBlock = compose(
         iconPosition,
         featureList,
     } = attributes;
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const featureListRef = useRef();
@@ -60,10 +61,23 @@ const FeatureListBlock = compose(
     });
 
     const iconContent = (item) => {
-        return <div className="icon-wrapper">
-            
-        </div>
-    }
+        switch (item.type) {
+            case 'icon':
+                return <div className="icon-wrapper">
+                    <div className="icon" >
+                        <i className={item.icon}></i>
+                    </div>
+                </div>;
+            case 'image':
+                return <div className="icon-wrapper">
+                    <div className="icon">
+                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad}/>
+                    </div>
+                </div>;
+            default:
+                return null;
+        }
+    };
 
     return <>
         <PanelController panelList={panelList} {...props} deviceType={deviceType} />
@@ -71,7 +85,7 @@ const FeatureListBlock = compose(
             <div className="feature-list-wrapper">
                 {
                     featureList.map((el, index) => {
-                        <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
+                        return <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
                             {iconContent(el)}
                             <div className="feature-list-content">
                                 { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
