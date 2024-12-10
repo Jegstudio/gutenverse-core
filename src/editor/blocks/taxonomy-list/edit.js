@@ -34,7 +34,8 @@ const IconListBlock = compose(
         hideEmpty,
         showIcon,
         layout,
-        taxonomyType
+        taxonomyType,
+        showDivider
     } = attributes;
     const taxonomyListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -122,7 +123,7 @@ const IconListBlock = compose(
 
     useEffect(() => {
         refreshStyle()
-    },[layout])
+    },[layout, showDivider])
 
     return <>
         <PanelController panelList={panelList} {...props} />

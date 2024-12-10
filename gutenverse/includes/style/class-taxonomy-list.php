@@ -152,16 +152,33 @@ class Taxonomy_List extends Style_Abstract {
 		}
 
 		if ( isset( $this->attrs['contentSpacing'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
-					'property'       => function ( $value ) {
-						return $this->handle_dimension( $value, 'padding' );
-					},
-					'value'          => $this->attrs['contentSpacing'],
-					'device_control' => true,
-				)
-			);
+			if ( 'column' === $this->attrs['layout'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
+						'property'       => function ( $value ) {
+							$point = $value['point'] / 2;
+							$unit  = $value['unit'];
+							return "padding: {$point}{$unit} 0;";
+						},
+						'value'          => $this->attrs['contentSpacing'],
+						'device_control' => true,
+					)
+				);
+			} elseif ( 'row' === $this->attrs['layout'] ) {
+				$this->inject_style(
+					array(
+						'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
+						'property'       => function ( $value ) {
+							$point = $value['point'] / 2;
+							$unit  = $value['unit'];
+							return "padding: 0 {$point}{$unit};";
+						},
+						'value'          => $this->attrs['contentSpacing'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 		if ( isset( $this->attrs['contentTypography'] ) ) {
 			$this->inject_typography(
@@ -284,6 +301,18 @@ class Taxonomy_List extends Style_Abstract {
 							)
 						);
 					}
+				}
+				if ( isset( $this->attrs['sizeDivider'] ) ) {
+					$this->inject_style(
+						array(
+							'selector'       => ".{$this->element_id} .taxonomy-list-item",
+							'property'       => function ( $value ) {
+								return $this->handle_unit_point( $value, 'border-width' );
+							},
+							'value'          => $this->attrs['sizeDivider'],
+							'device_control' => false,
+						)
+					);
 				}
 			}
 		}

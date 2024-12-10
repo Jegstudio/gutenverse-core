@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, DimensionControl, IconControl, IconRadioControl, RangeControl, SelectControl, SelectSearchControl, SwitchControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, DimensionControl, IconControl, IconRadioControl, RangeControl, SelectControl, SelectSearchControl, SizeControl, SwitchControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { isOnEditor } from 'gutenverse-core/helper';
@@ -83,28 +83,19 @@ export const contentStylePanel = (props) => {
         {
             id: 'contentSpacing',
             label: __('Content Spacing', 'gutenverse'),
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
+            component: SizeControl,
             allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-            },
             style: [
                 {
                     selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
-                    render: value => handleDimension(value, 'padding')
-                }
+                    allowRender: () => layout === 'column',
+                    render: value => `padding: calc(${value['point']}${value['unit']}/2) 0;`
+                },
+                {
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    allowRender: () => layout === 'row',
+                    render: value => `padding: 0 calc(${value['point']}${value['unit']}/2);`
+                },
             ]
         },
         {

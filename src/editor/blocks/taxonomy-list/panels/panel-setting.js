@@ -9,10 +9,6 @@ import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 export const settingPanel = (props) => {
     const {
         elementId,
-        showIcon,
-        showDivider,
-        setSwitcher,
-        switcher,
         layout
     } = props;
     const searchCategory =  isOnEditor() ? input => new Promise(resolve => {
@@ -74,7 +70,7 @@ export const settingPanel = (props) => {
             id: 'qty',
             label: __('Number of Category', 'gutenverse'),
             component : RangeControl,
-            min: 0,
+            min: 1,
             max: 100,
             isParseFloat: true
         },
@@ -147,207 +143,9 @@ export const settingPanel = (props) => {
             component: CheckboxControl,
         },
         {
-            id: 'icon',
-            show: showIcon,
-            label: __('Icon', 'gutenverse'),
-            component: IconControl
-        },
-        {
-            id: 'iconSpace',
-            component: SizeControl,
-            show: showIcon,
-            label: __('Icon Space', 'gutenverse'),
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 1000,
-                    step: 1,
-                    unit: 'px',
-                },
-                ['%']: {
-                    text: '%',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: '%',
-                },
-                vh: {
-                    text: 'vh',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: 'vh',
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list`,
-                    allowRender: () => true,
-                    render: value => handleUnitPoint(value, 'margin-right')
-                }
-            ]
-        },
-        {
-            id: 'iconSize',
-            component: SizeControl,
-            show: showIcon,
-            label: __('Icon Size', 'gutenverse'),
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 1000,
-                    step: 1,
-                    unit: 'px',
-                },
-                ['%']: {
-                    text: '%',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: '%',
-                },
-                vh: {
-                    text: 'vh',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: 'vh',
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list i`,
-                    allowRender: () => true,
-                    render: value => handleUnitPoint(value, 'font-size')
-                }
-            ]
-        },
-        {
-            id: '__iconSwitch',
-            component: SwitchControl,
-            show: showIcon,
-            options: [
-                {
-                    value: 'normal',
-                    label: 'Normal'
-                },
-                {
-                    value: 'hover',
-                    label: 'Hover'
-                }
-            ],
-            onChange: ({ __iconSwitch }) => setSwitcher({ ...switcher, iconSwitch: __iconSwitch })
-        },
-        {
-            id: 'iconColor',
-            label: __('Icon Color', 'gutenverse'),
-            component: ColorControl,
-            show: (!switcher.iconSwitch || switcher.iconSwitch === 'normal') && showIcon,
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
-        },
-        {
-            id: 'iconColorHover',
-            label: __('Icon Color', 'gutenverse'),
-            component: ColorControl,
-            show: switcher.iconSwitch === 'hover' && showIcon,
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
-        },
-        {
             id: 'showDivider',
             label: __('Show Divider', 'gutenverse'),
-            component: CheckboxControl,
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : (value) => value && layout === 'column',
-                    render: () => 'border-top-style : solid;'
-                },
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : (value) => value && layout === 'row',
-                    render: () => 'border-left-style : solid;'
-                },
-            ]
-        },
-        {
-            id: 'colorDivider',
-            label: __('Color Divider', 'gutenverse'),
-            show: showDivider,
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    render: value => handleColor(value, 'border-color')
-                },
-            ]
-        },
-        {
-            id: 'typeDivider',
-            label: __('Type Divider', 'gutenverse'),
-            show: showDivider,
-            component: SelectControl,
-            options:[
-                {
-                    label: __('Solid', 'gutenverse'),
-                    value: 'solid'
-                },
-                {
-                    label: __('Double', 'gutenverse'),
-                    value: 'double'
-                },
-                {
-                    label: __('Dotted', 'gutenverse'),
-                    value: 'dotted'
-                },
-                {
-                    label: __('Dashed', 'gutenverse'),
-                    value: 'dashed'
-                },
-            ],
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : () => showDivider && layout === 'column',
-                    render: value => `border-top-style : ${value};`
-                },
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : () => showDivider && layout === 'row',
-                    render: value => `border-left-style : ${value};`
-                },
-            ]
-        },
-        {
-            id: 'widthDivider',
-            label: __('Width Divider', 'gutenverse'),
-            show: showDivider,
-            component: SizeControl,
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-item`,
-                    allowRender : () => showDivider && layout === 'column',
-                    render: value => `width : ${value.point}${value.unit};`
-                },
-                {
-                    selector: `.${elementId} .taxonomy-list-item`,
-                    allowRender : () => showDivider && layout === 'row',
-                    render: value => `height : ${value.point}${value.unit};`
-                },
-            ]
-        },
+            component: CheckboxControl
+        }
     ];
 };
