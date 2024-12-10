@@ -14,17 +14,123 @@
 			"default": [
 				{
 					"title": "One",
+					"type": "icon",
+					"icon": "fas fa-check",
 					"content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500s."
 				},
 				{
 					"title": "Two",
+					"type": "icon",
+					"icon": "fas fa-check",
 					"content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500s."
 				},
 				{
 					"title": "Three",
+					"type": "icon",
+					"icon": "fas fa-check",
 					"content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#039;s standard dummy text ever since the 1500s."
 				}
 			]
+		},
+		"iconWrapperShape":{
+			"type": "string",
+			"default": "square",
+			"copyStyle": true
+		},
+		"iconPosition":{
+			"type": "string",
+			"default": "left",
+			"copyStyle": true
+		},
+		"showConnector":{
+			"type": "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"listSpace":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"connectorStyle":{
+			"type": "string",
+			"default": "solid",
+			"copyStyle": true
+		},
+		"connectorColor":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"connectorWidth":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconColor":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBackground":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconColorHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBackgroundHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconBorderHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconSize":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconPadding":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconContentSpacing":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleTypography":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleColor":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"descTypography":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"descColor":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleTypographyHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"titleColorHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"descTypographyHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"descColorHover":{
+			"type": "object",
+			"copyStyle": true
 		},
 		"mouseMoveEffect": {
 			"type": "object",
