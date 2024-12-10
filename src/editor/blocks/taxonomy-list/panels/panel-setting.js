@@ -136,7 +136,7 @@ export const settingPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper`,
+                    selector: `.${elementId} .taxonomy-list-wrapper`,
                     render: value => `flex-direction: ${value};`
                 },
             ]
@@ -183,7 +183,7 @@ export const settingPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .icon-list`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list`,
                     allowRender: () => true,
                     render: value => handleUnitPoint(value, 'margin-right')
                 }
@@ -220,7 +220,7 @@ export const settingPanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .icon-list i`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list i`,
                     allowRender: () => true,
                     render: value => handleUnitPoint(value, 'font-size')
                 }
@@ -249,7 +249,7 @@ export const settingPanel = (props) => {
             show: (!switcher.iconSwitch || switcher.iconSwitch === 'normal') && showIcon,
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item a .icon-list`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -261,7 +261,7 @@ export const settingPanel = (props) => {
             show: switcher.iconSwitch === 'hover' && showIcon,
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item a:hover .icon-list`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -272,12 +272,12 @@ export const settingPanel = (props) => {
             component: CheckboxControl,
             style: [
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
                     allowRender : (value) => value && layout === 'column',
                     render: () => 'border-top-style : solid;'
                 },
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
                     allowRender : (value) => value && layout === 'row',
                     render: () => 'border-left-style : solid;'
                 },
@@ -290,7 +290,7 @@ export const settingPanel = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
                     render: value => handleColor(value, 'border-color')
                 },
             ]
@@ -320,12 +320,12 @@ export const settingPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
                     allowRender : () => showDivider && layout === 'column',
                     render: value => `border-top-style : ${value};`
                 },
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
                     allowRender : () => showDivider && layout === 'row',
                     render: value => `border-left-style : ${value};`
                 },
@@ -338,12 +338,12 @@ export const settingPanel = (props) => {
             component: SizeControl,
             style: [
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item`,
                     allowRender : () => showDivider && layout === 'column',
                     render: value => `width : ${value.point}${value.unit};`
                 },
                 {
-                    selector: `.${elementId} .category-list-item:not(:nth-child(1))`,
+                    selector: `.${elementId} .taxonomy-list-item`,
                     allowRender : () => showDivider && layout === 'row',
                     render: value => `height : ${value.point}${value.unit};`
                 },

@@ -36,7 +36,7 @@ const IconListBlock = compose(
         layout,
         taxonomyType
     } = attributes;
-    const categoryListRef = useRef();
+    const taxonomyListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -46,26 +46,26 @@ const IconListBlock = compose(
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
-            'guten-category-list',
+            'guten-taxonomy-list',
             'no-margin',
             elementId,
             animationClass,
             displayClass,
         ),
-        ref: categoryListRef
+        ref: taxonomyListRef
     });
 
     useEffect(() => {
-        if (categoryListRef.current) {
-            setElementRef && setElementRef(categoryListRef.current);
+        if (taxonomyListRef.current) {
+            setElementRef && setElementRef(taxonomyListRef.current);
         }
-    }, [categoryListRef]);
+    }, [taxonomyListRef]);
 
     useEffect(() => {
         if ( isOnEditor() ) {
             setLoading(true);
             elementId && apiFetch({
-                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/category-list', {
+                path: addQueryArgs('/wp/v2/block-renderer/gutenverse/taxonomy-list', {
                     context: 'edit',
                     attributes: {
                         elementId,
@@ -85,23 +85,23 @@ const IconListBlock = compose(
                 setResponse('<span>Error</span>');
             }).finally(() => setLoading(false));
         }else{
-            setResponse(`<div class="category-list-wrapper">
-                    <div class="category-list-item">
+            setResponse(`<div class="taxonomy-list-wrapper">
+                    <div class="taxonomy-list-item">
 						<a href="#">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
-							<div class="category-list-content">${dummyText(5, 10)}</div>
+							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
-                    <div class="category-list-item">
+                    <div class="taxonomy-list-item">
 						<a href="#">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
-							<div class="category-list-content">${dummyText(5, 10)}</div>
+							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
-                    <div class="category-list-item">
+                    <div class="taxonomy-list-item">
 						<a href="#">
 							<span class="icon-list"><i aria-hidden="true" class="${icon}"></i></span>
-							<div class="category-list-content">${dummyText(5, 10)}</div>
+							<div class="taxonomy-list-content">${dummyText(5, 10)}</div>
 						</a>
 					</div>
                 </div>

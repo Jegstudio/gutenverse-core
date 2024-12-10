@@ -1,6 +1,6 @@
 <?php
 /**
- * Gutenverse Category_List
+ * Gutenverse Taxonomy_List
  *
  * @author Jegstudio
  * @since 1.0.0
@@ -12,11 +12,11 @@ namespace Gutenverse\Style;
 use Gutenverse\Framework\Style_Abstract;
 
 /**
- * Class Category_List
+ * Class Taxonomy_List
  *
  * @package gutenverse\style
  */
-class Category_List extends Style_Abstract {
+class Taxonomy_List extends Style_Abstract {
 	/**
 	 * Block Directory
 	 *
@@ -29,7 +29,7 @@ class Category_List extends Style_Abstract {
 	 *
 	 * @var array
 	 */
-	protected $name = 'category-list';
+	protected $name = 'taxonomy-list';
 
 	/**
 	 * Constructor
@@ -62,7 +62,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a .icon-list",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -75,7 +75,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a:hover .icon-list",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -88,7 +88,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconSize'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a .icon-list",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'font-size' );
 					},
@@ -100,7 +100,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['iconSpace'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a .icon-list",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list",
 					'property'       => function ( $value ) {
 						return $this->handle_unit_point( $value, 'margin-right' );
 					},
@@ -113,7 +113,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['layout'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
 					'property'       => function ( $value ) {
 						return "flex-direction: {$value};";
 					},
@@ -125,7 +125,7 @@ class Category_List extends Style_Abstract {
 				if ( 'column' === $this->attrs['layout'] ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id} .category-list-wrapper",
+							'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
 							'property'       => function ( $value ) {
 								if ( 'space-between' === $value ) {
 									return 'align-items: flex-start;';
@@ -139,7 +139,7 @@ class Category_List extends Style_Abstract {
 				} elseif ( 'row' === $this->attrs['layout'] ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id} .category-list-wrapper",
+							'selector'       => ".{$this->element_id} .taxonomy-list-wrapper",
 							'property'       => function ( $value ) {
 								return "justify-content: {$value};";
 							},
@@ -154,7 +154,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['contentSpacing'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item",
 					'property'       => function ( $value ) {
 						return $this->handle_dimension( $value, 'padding' );
 					},
@@ -166,7 +166,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['contentTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-wrapper .category-list-item a .category-list-content",
+					'selector'       => ".{$this->element_id} .taxonomy-list-wrapper .taxonomy-list-item a .taxonomy-list-content",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['contentTypography'],
 					'device_control' => false,
@@ -176,7 +176,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['contentColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-item a",
+					'selector'       => ".{$this->element_id} .taxonomy-list-item a",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -189,7 +189,7 @@ class Category_List extends Style_Abstract {
 		if ( isset( $this->attrs['contentColorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .category-list-item a:hover",
+					'selector'       => ".{$this->element_id} .taxonomy-list-item a:hover",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -203,7 +203,7 @@ class Category_List extends Style_Abstract {
 				if ( 'column' === $this->attrs['layout'] ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'selector'       => ".{$this->element_id} .taxonomy-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
 								return 'border-top-style : solid;';
 							},
@@ -214,7 +214,7 @@ class Category_List extends Style_Abstract {
 				} elseif ( 'row' === $this->attrs['layout'] ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'selector'       => ".{$this->element_id} .taxonomy-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
 								return 'border-left-style : solid;';
 							},
@@ -226,7 +226,7 @@ class Category_List extends Style_Abstract {
 				if ( isset( $this->attrs['colorDivider'] ) ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+							'selector'       => ".{$this->element_id} .taxonomy-list-item:not(:first-child)",
 							'property'       => function ( $value ) {
 								return $this->handle_color( $value, 'border-color' );
 							},
@@ -239,7 +239,7 @@ class Category_List extends Style_Abstract {
 					if ( 'column' === $this->attrs['layout'] ) {
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'selector'       => ".{$this->element_id} .taxonomy-list-item:not(:first-child)",
 								'property'       => function ( $value ) {
 									return "border-top-style : {$value};";
 								},
@@ -250,7 +250,7 @@ class Category_List extends Style_Abstract {
 					} elseif ( 'row' === $this->attrs['layout'] ) {
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'selector'       => ".{$this->element_id} .taxonomy-list-item:not(:first-child)",
 								'property'       => function ( $value ) {
 									return "border-left-style : {$value};";
 								},
@@ -264,7 +264,7 @@ class Category_List extends Style_Abstract {
 					if ( 'column' === $this->attrs['layout'] ) {
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'selector'       => ".{$this->element_id} .taxonomy-list-item",
 								'property'       => function ( $value ) {
 									return $this->handle_unit_point( $value, 'width' );
 								},
@@ -275,7 +275,7 @@ class Category_List extends Style_Abstract {
 					} elseif ( 'row' === $this->attrs['layout'] ) {
 						$this->inject_style(
 							array(
-								'selector'       => ".{$this->element_id} .category-list-item:not(:first-child)",
+								'selector'       => ".{$this->element_id} .taxonomy-list-item",
 								'property'       => function ( $value ) {
 									return $this->handle_unit_point( $value, 'height' );
 								},

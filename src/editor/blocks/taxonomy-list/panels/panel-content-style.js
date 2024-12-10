@@ -69,12 +69,12 @@ export const contentStylePanel = (props) => {
             options: optionAlign(),
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper`,
+                    selector: `.${elementId} .taxonomy-list-wrapper`,
                     allowRender: () => layout === 'column' && contentAlignment !== 'space-between',
                     render: value => `align-items: ${value}; `
                 },
                 {
-                    selector: `.${elementId} .category-list-wrapper`,
+                    selector: `.${elementId} .taxonomy-list-wrapper`,
                     allowRender: () => layout === 'row',
                     render: value => `justify-content: ${value}; `
                 },
@@ -102,7 +102,7 @@ export const contentStylePanel = (props) => {
             },
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -113,7 +113,7 @@ export const contentStylePanel = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item a .category-list-content`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .taxonomy-list-content`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
@@ -141,7 +141,7 @@ export const contentStylePanel = (props) => {
             show: !switcher.contentSwitch || switcher.contentSwitch === 'normal',
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item a`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -153,7 +153,7 @@ export const contentStylePanel = (props) => {
             show: switcher.contentSwitch === 'hover',
             style: [
                 {
-                    selector: `.${elementId} .category-list-wrapper .category-list-item a:hover`,
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover`,
                     render: value => handleColor(value, 'color')
                 }
             ]

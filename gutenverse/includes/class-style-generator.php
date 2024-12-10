@@ -16,7 +16,6 @@ use Gutenverse\Style\Animated_Text;
 use Gutenverse\Style\Archive_Title;
 use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
-use Gutenverse\Style\Category_List;
 use Gutenverse\Style\Divider;
 use Gutenverse\Style\Fun_Fact;
 use Gutenverse\Style\Gallery;
@@ -57,6 +56,7 @@ use Gutenverse\Style\Video;
 use Gutenverse\Style\Popup_Builder;
 use Gutenverse\Style\Search;
 use Gutenverse\Style\Search_Result_Title;
+use Gutenverse\Style\Taxonomy_List;
 use Gutenverse\Style\Text;
 
 /**
@@ -112,8 +112,8 @@ class Style_Generator {
 			case 'gutenverse/animated-text':
 				$instance = new Animated_Text( $attrs );
 				break;
-			case 'gutenverse/category-list':
-				$instance = new Category_List( $attrs );
+			case 'gutenverse/taxonomy-list':
+				$instance = new Taxonomy_List( $attrs );
 				break;
 			case 'gutenverse/logo-slider':
 				$instance = new Logo_Slider( $attrs );

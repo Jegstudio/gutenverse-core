@@ -8,7 +8,7 @@ import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
 
 const save = compose(
-    withAnimationAdvanceScript('category-list'),
+    withAnimationAdvanceScript('taxonomy-list'),
     withMouseMoveEffectScript
 )((props) => {
     const {
@@ -25,7 +25,7 @@ const save = compose(
 
     const className = classnames(
         'guten-element',
-        'guten-category-list',
+        'guten-taxonomy-list',
         elementId,
         animationClass,
         displayClass,

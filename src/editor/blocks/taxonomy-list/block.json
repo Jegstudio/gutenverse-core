@@ -1,9 +1,9 @@
 {
 	"apiVersion": 2,
-	"name": "gutenverse/category-list",
-	"title": "Category List",
+	"name": "gutenverse/taxonomy-list",
+	"title": "Taxonomy List",
 	"description": "Create a list of categories",
-	"class_callback": "\\Gutenverse\\Block\\Category_List",
+	"class_callback": "\\Gutenverse\\Block\\Taxonomy_List",
 	"category": "gutenverse-post",
 	"allowCopyStyle": true,
 	"attributes": {

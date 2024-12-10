@@ -1,6 +1,6 @@
 <?php
 /**
- * Category List Block class
+ * Taxonomy List Block class
  *
  * @author Jegstudio
  * @since 1.0.0
@@ -12,11 +12,11 @@ namespace Gutenverse\Block;
 use Gutenverse\Framework\Block\Block_Abstract;
 
 /**
- * Class Post List Block
+ * Class Taxonomy Block
  *
  * @package gutenverse\block
  */
-class Category_List extends Block_Abstract {
+class Taxonomy_List extends Block_Abstract {
 	/**
 	 * Render content
 	 *
@@ -48,13 +48,13 @@ class Category_List extends Block_Abstract {
 		if ( ! empty( $categories ) ) {
 			ob_start();
 			?>
-			<div class="category-list-wrapper">
+			<div class="taxonomy-list-wrapper">
 				<?php
 				foreach ( $categories as $category ) {
-					echo '<div class="category-list-item">
+					echo '<div class="taxonomy-list-item">
 						<a href="' . esc_url( get_term_link( $category ) ) . '">
 							' . $icon  . '
-							<div class="category-list-content">' . esc_html( $category->name ) . '</div>
+							<div class="taxonomy-list-content">' . esc_html( $category->name ) . '</div>
 						</a>
 					</div>';
 				}
@@ -86,6 +86,6 @@ class Category_List extends Block_Abstract {
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-category-list guten-element">' . $this->render_content( $this->attributes['qty'], $this->attributes['includedCategory'], $this->attributes['sortType'], $this->attributes['hideEmpty'], $this->attributes['sortBy'] ) . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-taxonomy-list guten-element">' . $this->render_content( $this->attributes['qty'], $this->attributes['includedCategory'], $this->attributes['sortType'], $this->attributes['hideEmpty'], $this->attributes['sortBy'] ) . '</div>';
 	}
 }
