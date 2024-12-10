@@ -63,6 +63,7 @@ import IconPluginFont from './icon-plugin-font.svg';
 import IconPluginCheck from './icon-plugin-check.svg';
 import IconSearch from './icon-search.svg';
 import IconArchiveTitle from './icon-archive-title.svg';
+import IconSearchResultTitle from './icon-search-result-title.svg';
 
 /** Block PRO */
 import IconMegaMenu from './icon-mega-menu.svg';
@@ -73,7 +74,9 @@ import IconAdvanceTabs from './icon-advanced-tabs.svg';
 import IconAdvanceButton from './icon-advanced-button.svg';
 import IconImageMarquee from './icon-image-marquee.svg';
 
-
+export const IconSearchResultTitleSVG = () => {
+    return <IconSearchResultTitle />;
+}
 export const IconMegaMenuSVG = () => {
     return <IconMegaMenu />;
 };
