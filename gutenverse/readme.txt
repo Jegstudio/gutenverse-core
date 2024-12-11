@@ -300,7 +300,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.1.4 =
 ##### New
-* Add new category list block
+* Add new taxonomy list block
 * Add new search title block
 
 ##### Improvements
