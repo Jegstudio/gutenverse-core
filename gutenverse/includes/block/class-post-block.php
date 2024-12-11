@@ -131,6 +131,7 @@ class Post_Block extends Post_Abstract {
 			'paginationNextText',
 			'paginationPrevIcon',
 			'paginationNextIcon',
+			'contentOrder',
 		);
 	}
 
