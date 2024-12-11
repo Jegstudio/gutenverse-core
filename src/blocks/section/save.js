@@ -135,8 +135,8 @@ const save = compose(
                     </div>
                 }
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {isSlideShow && slideElements}
+                {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
                 {
                     (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>

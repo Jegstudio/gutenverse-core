@@ -4,7 +4,7 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 export const withBackgroundSlideshowScript = (BlockElement) => {
     return (props) => {
         const { attributes } = props;
-        const { background, elementId } = attributes;
+        const { background = {}, elementId } = attributes;
         const { slideImage = {} } = background;
         if (isEmpty(background.slideImage)) return <BlockElement {...props}/>;
 

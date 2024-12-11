@@ -5,13 +5,12 @@ import isEmpty from 'lodash/isEmpty';
 export const withBackgroundSlideshow = (BlockControl) => {
     return (props) => {
         const {attributes, addStyle, removeStyle} = props;
-        const {background, elementId} = attributes;
-        const {slideImage, infiniteLoop} = background;
+        const {background = {}, elementId} = attributes;
+        const {slideImage = {}, infiniteLoop = false} = background;
         const elementRefs = useRef(null);
-        if ( isEmpty(background.slideImage) ) return <BlockControl {...props}/>;
 
         const elements = <div ref={elementRefs} className="bg-slideshow-item">
-            {slideImage.map((image, index) => (
+            {!isEmpty(slideImage) && slideImage.map((image, index) => (
                 <div
                     className={`${elementId}-child-slideshow slideshow-item-container item-${index}`}
                     key={index} >
@@ -22,6 +21,32 @@ export const withBackgroundSlideshow = (BlockControl) => {
                 </div>
             ))}
         </div>;
+
+        useEffect(() => {
+            if (isEmpty(slideImage)) return;
+            clearInterval(intervalToggle);
+            const duration = background.displayDuration < 0.1 ? 500 : background.displayDuration * 1000;
+            const slideshowImage = document.querySelectorAll(`.${elementId}-slideshow-image`);
+            const slideshowContainer = document.querySelectorAll(`.${elementId}-child-slideshow`);
+            slideshowImage?.length > 0 && toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop);
+
+            const styles = generateStyle(background, elementId);
+            addStyle(`${elementId}-background-slideshow`, styles);
+            return () => {
+                removeStyle(`${elementId}-background-slideshow`);
+                clearInterval(intervalToggle);
+            };
+        }, [background.displayDuration,
+            background.duration,
+            background.slideImage?.length,
+            background.transition,
+            background.type,
+            background.infiniteLoop,
+            background.backgroundPosition,
+            background.backgroundRepeat,
+            background.backgroundSize,
+            background.kenBurns,
+            background.direction]);
 
         let intervalToggle;
         function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
@@ -61,31 +86,6 @@ export const withBackgroundSlideshow = (BlockControl) => {
             }
         }
 
-        useEffect(() => {
-            clearInterval(intervalToggle);
-            const duration = background.displayDuration < 0.1 ? 500 : background.displayDuration * 1000;
-            const slideshowImage = document.querySelectorAll(`.${elementId}-slideshow-image`);
-            const slideshowContainer = document.querySelectorAll(`.${elementId}-child-slideshow`);
-            slideshowImage?.length > 0 && toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop);
-
-            const styles = generateStyle(background, elementId);
-            addStyle(`${elementId}-background-slideshow`, styles);
-            return () => {
-                removeStyle(`${elementId}-background-slideshow`);
-                clearInterval(intervalToggle);
-            };
-        }, [background.displayDuration,
-            background.duration,
-            background.slideImage.length,
-            background.transition,
-            background.type,
-            background.infiniteLoop,
-            background.backgroundPosition,
-            background.backgroundRepeat,
-            background.backgroundSize,
-            background.kenBurns,
-            background.direction]);
-
         const slideElement = <div className="bg-slideshow-container">
             {elements}
         </div>;
@@ -102,7 +102,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
 };
 
 const generateStyle = (background, elementId) => {
-    const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction} = background;
+    const {duration = 0.5, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction} = background;
     const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
     const effectDirection = 'directionOut' === direction ? 'ken-burns-toggle-out' : 'ken-burns-toggle-in';
     let styles = '';

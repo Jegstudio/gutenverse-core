@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -16,11 +16,12 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
-const WrapperContainer = ({ attributes, blockProps }) => {
+const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
     const {
         elementId,
         backgroundAnimated = {},
-        backgroundEffect
+        backgroundEffect,
+        background
     } = attributes;
 
     const dataId = elementId ? elementId.split('-')[1] : '';
@@ -31,6 +32,7 @@ const WrapperContainer = ({ attributes, blockProps }) => {
             <FluidCanvas attributes={attributes} />
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
+                {background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                 <InnerBlocks />
@@ -63,6 +65,7 @@ const FlexibleWrapper = compose(
     withMouseMoveEffect,
     withBackgroundEffect,
     withCursorEffect,
+    withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockOrder
@@ -78,7 +81,8 @@ const FlexibleWrapper = compose(
         isSelected,
         setAttributes,
         panelIsClicked,
-        setPanelIsClicked
+        setPanelIsClicked,
+        slideElement
     } = props;
 
     const {
@@ -156,7 +160,7 @@ const FlexibleWrapper = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <Component blockProps={blockProps} attributes={attributes} clientId={clientId} />
+        <Component blockProps={blockProps} attributes={attributes} slideElement={slideElement} clientId={clientId} />
     </>;
 });
 

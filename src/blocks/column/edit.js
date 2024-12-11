@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
@@ -535,14 +535,16 @@ const ColumnWrapper = (props) => {
         openTool,
         setOpenTool,
         HoverIcon,
-        editorDom
+        editorDom,
+        slideElement
     } = props;
 
     const {
         elementId,
         width,
         backgroundAnimated = {},
-        backgroundEffect
+        backgroundEffect,
+        background,
     } = attributes;
 
     const dataId = elementId ? elementId.split('-')[1] : '';
@@ -633,6 +635,7 @@ const ColumnWrapper = (props) => {
                 </div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
+                        {background?.slideImage?.length > 0 && slideElement}
                         {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                         {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                         <div className="guten-background-overlay" />
@@ -803,6 +806,7 @@ const ColumnBlock = compose(
     withMouseMoveEffect,
     withBackgroundEffect,
     withCursorEffect,
+    withBackgroundSlideshow,
 )((props) => {
     const {
         getBlock,

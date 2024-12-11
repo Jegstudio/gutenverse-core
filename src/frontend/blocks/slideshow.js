@@ -8,8 +8,16 @@ class GutenverseSlideshow extends Default {
     }
 
     startSlideshow(element){
-        const dataId = u(element).parent().data('id');
-        const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : null;
+        let dataId;
+        if (u(element).hasClass('guten-wrap-helper')) {
+            dataId = u(element).find('.guten-inner-wrap').data('id');
+        } else if (u(element).hasClass('guten-column')) {
+            dataId = u(element).find('.guten-column-wrapper').data('id');
+        } else {
+            dataId = u(element).parent().data('id');
+        }
+
+        const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
         const {slideImage = {}, infiniteLoop, displayDuration} = background;
 
         if (slideImage?.length < 1 ) return;
