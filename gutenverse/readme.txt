@@ -301,6 +301,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 2.1.5 =
 ##### Bug Fixes
 * Fix issue with post block pagination/loadmore
+* Fix align issue when column wrap 100%
 
 = 2.1.4 =
 ##### New
