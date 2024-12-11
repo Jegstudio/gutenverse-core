@@ -1,12 +1,11 @@
 import { compose } from '@wordpress/compose';
 import { classnames } from 'gutenverse-core/components';
-import { InnerBlocks, RichText, useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withAnimationAdvanceScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
 import { useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
 import { useAnimationAdvanceData } from 'gutenverse-core/hooks';
-import { applyFilters } from '@wordpress/hooks';
 
 const save = compose(
     withAnimationAdvanceScript('icon-box'),
@@ -18,6 +17,9 @@ const save = compose(
 
     const {
         elementId,
+        iconPosition,
+        featureList,
+        showConnector
     } = attributes;
 
     const advanceAnimationData = useAnimationAdvanceData(attributes);
@@ -32,33 +34,40 @@ const save = compose(
         'guten-feature-list',
     );
 
-    // const imageLazyLoad = () => {
-    //     if (lazyLoad) {
-    //         return <img src={getImageSrc(image)} alt={imageAltText} loading="lazy" />;
-    //     } else {
-    //         return <img src={getImageSrc(image)} alt={imageAltText} />;
-    //     }
-    // };
-    // const iconContent = () => {
-    //     switch (iconType) {
-    //         case 'icon':
-    //             return <div className="icon-box icon-box-header">
-    //                 <div className={`icon style-${iconStyleMode}`}>
-    //                     <i className={icon}></i>
-    //                 </div>
-    //             </div>;
-    //         case 'image':
-    //             return <div className="icon-box icon-box-header">
-    //                 <div className={`icon style-${iconStyleMode} type-image`}>
-    //                     {imageLazyLoad()}
-    //                 </div>
-    //             </div>;
-    //         default:
-    //             return null;
-    //     }
-    // };
+    const iconContent = (item) => {
+        switch (item.type) {
+            case 'icon':
+                return <div className="icon-wrapper">
+                    <div className="icon">
+                        <i className={item.icon}></i>
+                    </div>
+                </div>;
+            case 'image':
+                return <div className="icon-wrapper">
+                    <div className="icon">
+                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad}/>
+                    </div>
+                </div>;
+            default:
+                return null;
+        }
+    };
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
+            <div className="feature-list-wrapper">
+                {
+                    featureList.map((el, index) => {
+                        return <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
+                            { showConnector && <span className={`connector icon-position-${iconPosition}`}></span>}
+                            {iconContent(el)}
+                            <div className="feature-list-content">
+                                { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
+                                <p className="feature-list-desc">{el.content}</p>
+                            </div>
+                        </div>
+                    })
+                }
+            </div>
         </div>
     );
 });

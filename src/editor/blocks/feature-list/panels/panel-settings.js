@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, IconControl, ImageControl, RepeaterControl, SelectControl, SizeControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, ImageControl, RangeControl, RepeaterControl, SelectControl, SizeControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
 
 export const settingsPanel = (props) => {
     const {
@@ -127,40 +127,20 @@ export const settingsPanel = (props) => {
         },
         {
             id: 'listSpace',
-            component: SizeControl,
+            component: RangeControl,
             label: __('List Space', 'gutenverse'),
             allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    min: 1,
-                    max: 1000,
-                    step: 1,
-                    unit: 'px',
-                },
-                ['%']: {
-                    text: '%',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: '%',
-                },
-                vh: {
-                    text: 'vh',
-                    min: 1,
-                    max: 100,
-                    step: 1,
-                    unit: 'vh',
-                },
-            },
+            min: 1,
+            max: 100,
+            step: 1,
             style: [
                 {
                     selector: `.${elementId}.guten-feature-list .feature-list-wrapper`,
-                    render: value => `gap:${value['point']}${value['unit']};`
+                    render: value => `gap:${value}px;`
                 },
                 {
                     selector: `.${elementId}.guten-feature-list`,
-                    render: value => `--space-between: ${value['point']}${value['unit']};`
+                    render: value => `--space-between: ${value}px;`
                 },
             ]
         },
