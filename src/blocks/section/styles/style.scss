@@ -206,21 +206,21 @@ section.guten-section {
   //set to important because column position alignment is prioritized over vertical align except when align strecth
   &.align-top {
     &>.guten-container {
-      align-content: unset !important;
+      align-content: flex-start !important;
       align-items: flex-start !important;
     }
   }
 
   &.align-middle {
     &>.guten-container {
-      align-content: unset !important;
+      align-content: center !important;
       align-items: center !important;
     }
   }
 
   &.align-bottom {
     &>.guten-container {
-      align-content: unset !important;
+      align-content: flex-end !important;
       align-items: flex-end !important;
     }
   }
