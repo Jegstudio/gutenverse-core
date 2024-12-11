@@ -1,28 +1,16 @@
 import { compose } from '@wordpress/compose';
-import { useState } from '@wordpress/element';
 import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
-import { BlockControls, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { RichTextComponent, classnames } from 'gutenverse-core/components';
+import { useBlockProps } from '@wordpress/block-editor';
+import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { createPortal } from 'react-dom';
-import { IconLibrary } from 'gutenverse-core/controls';
-import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
-import { displayShortcut } from '@wordpress/keycodes';
-import { gutenverseRoot } from 'gutenverse-core/helper';
-import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
-import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
-import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { useCallback } from '@wordpress/element';
+import { useRef, useEffect } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { applyFilters } from '@wordpress/hooks';
-import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const FeatureListBlock = compose(
@@ -32,15 +20,16 @@ const FeatureListBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
-
     const {
         attributes,
+        setElementRef
     } = props;
 
     const {
         elementId,
         iconPosition,
         featureList,
+        showConnector
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -64,7 +53,7 @@ const FeatureListBlock = compose(
         switch (item.type) {
             case 'icon':
                 return <div className="icon-wrapper">
-                    <div className="icon" >
+                    <div className="icon">
                         <i className={item.icon}></i>
                     </div>
                 </div>;
@@ -78,6 +67,11 @@ const FeatureListBlock = compose(
                 return null;
         }
     };
+    useEffect(() => {
+        if (featureListRef.current) {
+            setElementRef(featureListRef.current);
+        }
+    }, [featureListRef]);
 
     return <>
         <PanelController panelList={panelList} {...props} deviceType={deviceType} />
@@ -86,6 +80,7 @@ const FeatureListBlock = compose(
                 {
                     featureList.map((el, index) => {
                         return <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
+                            { showConnector && <span className={`connector icon-position-${iconPosition}`}></span>}
                             {iconContent(el)}
                             <div className="feature-list-content">
                                 { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}

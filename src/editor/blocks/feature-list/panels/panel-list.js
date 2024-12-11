@@ -1,10 +1,38 @@
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, childStylePanel, conditionPanel, dynamicContentPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { settingsPanel } from './panel-settings';
+import { connectorPanel } from './panel-connector';
+import { iconPanel } from './panel-icon';
+import { contentPanel } from './panel-content';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Setting', 'gutenverse'),
+            initialOpen: true,
+            panelArray: settingsPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Connector Style', 'gutenverse'),
+            initialOpen: true,
+            panelArray: connectorPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Icon/Image Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: iconPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Content Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: contentPanel,
+            tabRole: TabStyle
+        },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,

@@ -1,9 +1,69 @@
 .guten-feature-list{
+    --space-between : 20px;
+    --icon-size : 70px;
+    --connector-width: 3px;
     .feature-list-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
         .feature-list-item{
             display: flex;
             align-items: center;
             gap: 20px;
+            position: relative;
+            
+            .icon-wrapper{
+                display: flex;
+                justify-content: center;
+                z-index: 2;
+            }
+            .icon{
+                border: 1px solid black;
+                width: 70px;
+                height: 70px;
+                flex-shrink: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2;
+                background: white;
+                i{
+                    font-size: 20px;
+                }
+                img{
+                    width: 20px;
+                }
+            }
+            &.icon-position-left{
+                flex-flow: row;
+                text-align: start;
+            }
+            &.icon-position-right{
+                flex-flow: row-reverse;
+                text-align: end;
+            }
+            &:last-child{
+                .connector{
+                    display: none;
+                }
+            }
+        }
+        
+    }
+    .connector{
+        position: absolute;
+        width: 0;
+        height: calc(100% + var(--space-between));
+        top: 50%;
+        border: 3px solid black;
+        border-right: none !important;
+        z-index: 1;
+        display: block;
+        &.icon-position-left{
+            left: calc((var(--icon-size)/2) - (var(--connector-width)/2));
+        }
+        &.icon-position-right{
+            right: calc((var(--icon-size)/2) - (var(--connector-width)/2));
         }
     }
 }

@@ -64,6 +64,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"iconWrapperSize": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"iconColor":{
 			"type": "object",
 			"copyStyle": true
@@ -92,10 +96,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconPadding":{
-			"type": "object",
-			"copyStyle": true
-		},
 		"iconContentSpacing":{
 			"type": "object",
 			"copyStyle": true
@@ -116,15 +116,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleTypographyHover":{
-			"type": "object",
-			"copyStyle": true
-		},
 		"titleColorHover":{
-			"type": "object",
-			"copyStyle": true
-		},
-		"descTypographyHover":{
 			"type": "object",
 			"copyStyle": true
 		},
