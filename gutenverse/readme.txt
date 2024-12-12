@@ -318,6 +318,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * Fix issue when editing button text when there is active link
 * Fix sticky & vertical align issue
 * Fix post block pagination style
+* Fix column size when adding/removing it
 
 = 2.1.3 =
 ##### Improvements
