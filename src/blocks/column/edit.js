@@ -635,9 +635,11 @@ const ColumnWrapper = (props) => {
                 </div>
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
-                        {background?.slideImage?.length > 0 && slideElement}
+                        {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
                         {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                        {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                        {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                            {background?.slideImage?.length > 0 && slideElement}
+                        </div></div>}
                         <div className="guten-background-overlay" />
                         <InnerBlocks />
                     </div>

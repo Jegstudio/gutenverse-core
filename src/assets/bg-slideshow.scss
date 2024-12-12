@@ -1,3 +1,9 @@
+.guten-background-slideshow {
+    .guten-inner-wrap {
+        border-radius: inherit;
+        height: inherit;
+    }
+}
 .bg-slideshow-container {
     position: absolute !important;
     top: 0;
@@ -10,6 +16,7 @@
     margin: auto;
     overflow: hidden;
     z-index: 0;
+    border-radius: inherit;
 
     .bg-slideshow-item {
         background-position: center;
@@ -19,6 +26,7 @@
         width: 100%;
         height: inherit;
         object-fit: cover;
+        border-radius: inherit;
 
         .slideshow-item-container {
             background-position: center;

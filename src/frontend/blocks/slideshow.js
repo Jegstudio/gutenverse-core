@@ -20,7 +20,7 @@ class GutenverseSlideshow extends Default {
         const background = u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value') ? JSON.parse(u(element).find('.guten-data').find(`[data-var="backgroundSlideshow${dataId}"]`).data('value')) : {};
         const {slideImage = {}, infiniteLoop, displayDuration} = background;
 
-        if (slideImage?.length < 1 ) return;
+        if (slideImage?.length < 1 || undefined === slideImage?.length) return;
         const images = slideImage.map((image) => image?.image?.image);
         const elementId = `guten-${dataId}`;
 
@@ -52,6 +52,7 @@ class GutenverseSlideshow extends Default {
             slideshowContainer[prevIndex].classList.add(prevClass);
             slideshowContainer[prevIndex].classList.add(parentClass);
 
+            if (currentIndex === 0) slideshowContainer[currentIndex].classList.remove(parentClass);
             slideshowContainer[currentIndex].classList.remove(currentClass);
             currentIndex = (currentIndex + 1) % elements.length;
             slideshowContainer[currentIndex].classList.add(currentClass);

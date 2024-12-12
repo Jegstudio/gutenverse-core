@@ -668,7 +668,7 @@ const BackgroundControl = (props) => {
                 ]}
             />
             <CheckboxControl
-                label={__('Ken Burns Effet', '--gctd--')}
+                label={__('Ken Burns Effect', '--gctd--')}
                 value={value.kenBurns}
                 onValueChange={kenBurns => onValueChange({ ...value, kenBurns })}
                 onStyleChange={kenBurns => onStyleChange({ ...value, kenBurns })}

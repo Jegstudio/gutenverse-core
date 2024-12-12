@@ -134,8 +134,10 @@ const save = compose(
                         }
                     </div>
                 }
-                {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
-                {isSlideShow && slideElements}
+                {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                    {isSlideShow && slideElements}
+                </div></div>}
+                {!_isBgAnimated && isSlideShow && slideElements}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {videoContainer}
                 {

@@ -8,15 +8,19 @@ export const withBackgroundSlideshow = (BlockControl) => {
         const {background = {}, elementId} = attributes;
         const {slideImage = {}, infiniteLoop = false} = background;
         const elementRefs = useRef(null);
+        const slideshowContainerRefs = useRef([]);
+        const slideshowImageRefs = useRef([]);
 
         const elements = <div ref={elementRefs} className="bg-slideshow-item">
             {!isEmpty(slideImage) && slideImage.map((image, index) => (
                 <div
                     className={`${elementId}-child-slideshow slideshow-item-container item-${index}`}
-                    key={index} >
+                    key={index}
+                    ref={(el) => (slideshowContainerRefs.current[index] = el)}>
                     <div
                         className={`${elementId}-slideshow-image slideshow-image ${1 === index ? 'current' : 0 === index ? 'previous' : ''}`}
                         style={{ backgroundImage: `url(${image?.image?.image ? image?.image?.image : imagePlaceholder})` }}
+                        ref={(el) => (slideshowImageRefs.current[index] = el)}
                     />
                 </div>
             ))}
@@ -25,10 +29,11 @@ export const withBackgroundSlideshow = (BlockControl) => {
         useEffect(() => {
             if (isEmpty(slideImage)) return;
             clearInterval(intervalToggle);
-            const duration = background.displayDuration < 0.1 ? 500 : background.displayDuration * 1000;
-            const slideshowImage = document.querySelectorAll(`.${elementId}-slideshow-image`);
-            const slideshowContainer = document.querySelectorAll(`.${elementId}-child-slideshow`);
-            slideshowImage?.length > 0 && toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop);
+            const duration = (background.displayDuration < 0.1 || undefined === background.displayDuration) ? 500 : background.displayDuration * 1000;
+            const transition = (background.duration < 0.1 || undefined === background.duration) ? 500 : background.duration * 1000 ;
+            const slideshowImage = slideshowImageRefs.current;
+            const slideshowContainer = slideshowContainerRefs.current;
+            slideshowImage?.length > 0 && toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, transition);
 
             const styles = generateStyle(background, elementId);
             addStyle(`${elementId}-background-slideshow`, styles);
@@ -46,10 +51,12 @@ export const withBackgroundSlideshow = (BlockControl) => {
             background.backgroundRepeat,
             background.backgroundSize,
             background.kenBurns,
-            background.direction]);
+            background.direction,
+            
+        ]);
 
         let intervalToggle;
-        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
+        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, transition, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
             let currentIndex = 1;
             let prevIndex = 0;
 
@@ -65,7 +72,11 @@ export const withBackgroundSlideshow = (BlockControl) => {
             slideshowContainer[prevIndex]?.classList.add(parentClass);
 
             intervalToggle = setInterval(() => {
-                slideshowContainer[prevIndex].classList.remove(parentClass);
+                if (slideshowContainer.length <= 2) {
+                    setTimeout(() => {
+                        slideshowContainer[prevIndex].classList.remove(parentClass);
+                    }, transition);
+                } else  slideshowContainer[prevIndex].classList.remove(parentClass);
                 slideshowContainer[prevIndex].classList.remove(prevClass);
                 prevIndex = (prevIndex + 1) % elements.length;
                 slideshowContainer[prevIndex].classList.add(prevClass);
@@ -75,6 +86,11 @@ export const withBackgroundSlideshow = (BlockControl) => {
                 currentIndex = (currentIndex + 1) % elements.length;
                 slideshowContainer[currentIndex]?.classList.add(currentClass);
                 slideshowContainer[currentIndex]?.classList.add(parentClass);
+                if (currentIndex === 1 && slideshowContainer.length <= 2) {
+                    setTimeout(() => {
+                        slideshowContainer[0].classList.remove(parentClass);
+                    }, transition);
+                }
 
                 if (!infiniteLoop && currentIndex === (slideImage.length - 1)) {
                     clearInterval(intervalToggle);

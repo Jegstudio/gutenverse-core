@@ -32,9 +32,11 @@ const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
             <FluidCanvas attributes={attributes} />
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
-                {background?.slideImage?.length > 0 && slideElement}
+                {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                    {background?.slideImage?.length > 0 && slideElement}
+                </div></div>}
                 <InnerBlocks />
             </div>
         </div>
@@ -92,7 +94,8 @@ const FlexibleWrapper = compose(
         backgroundEffect,
         url,
         rel,
-        linkTarget
+        linkTarget,
+        background
     } = attributes;
 
     const wrapperRef = useRef();
@@ -100,6 +103,7 @@ const FlexibleWrapper = compose(
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+    const isSlideShow = background?.slideImage?.length > 0;
 
     const onToggleOpenInNewTab = useCallback(
         (value) => {
@@ -131,6 +135,7 @@ const FlexibleWrapper = compose(
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
                 'guten-background-effect-active': isBackgroundEffect,
+                'guten-background-slideshow' : isSlideShow,
             }
         ),
         ref: wrapperRef
