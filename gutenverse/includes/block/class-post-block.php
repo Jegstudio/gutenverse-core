@@ -21,13 +21,14 @@ class Post_Block extends Post_Abstract {
 	 * Render content
 	 *
 	 * @param boolean $remove_link : Flag to remove link.
+	 * @param boolean $exclude_current : Flag to exclude current post.
 	 *
 	 * @return string
 	 */
-	public function render_content( $remove_link = false ) {
+	public function render_content( $remove_link = false, $exclude_current = false ) {
 		$this->filter_post_attributes( $this->attributes );
 
-		$content  = $this->render_block_element();
+		$content  = $this->render_block_element( $exclude_current );
 		$settings = $this->render_settings();
 
 		if ( $remove_link ) {
@@ -443,6 +444,6 @@ class Post_Block extends Post_Abstract {
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content() . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content( false, $this->attributes['excludeCurrentPost'] ) . '</div>';
 	}
 }

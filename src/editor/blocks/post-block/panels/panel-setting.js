@@ -114,6 +114,12 @@ export const settingPanel = ({ postType }) => {
             onSearch: searchPosts
         },
         {
+            id: 'excludeCurrentPost',
+            label: __('Exclude Current Post', 'gutenverse'),
+            description: __('Exclude current post. Use this for single post template. Only show on frontend.'),
+            component: CheckboxControl,
+        },
+        {
             id: 'excludePost',
             label: __('Exclude Post', 'gutenverse'),
             component: SelectSearchControl,
