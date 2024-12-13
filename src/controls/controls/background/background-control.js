@@ -566,6 +566,7 @@ const BackgroundControl = (props) => {
                 min={0}
                 max={10}
                 step={0.1}
+                description={__('Image Display Duration value will be used if Transition Duration value is higher', '--gctd--')}
                 unit="s"
                 value={value.duration}
                 onValueChange={duration => onValueChange({ ...value, duration })}
