@@ -25,6 +25,22 @@
 			"type": "boolean",
 			"default": true
 		},
+		"avatarMargin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"avatarBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"avatarBorderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "avatarBorder",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
 		"suffixMain": {
 			"type": "string",
 			"default": "says:"

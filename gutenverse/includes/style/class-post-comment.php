@@ -237,7 +237,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['userNameTypography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id} .commentlist b.fn a.url",
+					'selector'       => ".{$this->element_id} .commentlist b.fn a.url, .{$this->element_id} .commentlist b.fn",
 					'value'          => $this->attrs['userNameTypography'],
 					'device_control' => false,
 				)
@@ -247,7 +247,7 @@ class Post_Comment extends Style_Abstract {
 		if ( isset( $this->attrs['userNameColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id} .commentlist b.fn a.url",
+					'selector'       => ".{$this->element_id} .commentlist b.fn a.url, .{$this->element_id} .commentlist b.fn",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -408,6 +408,19 @@ class Post_Comment extends Style_Abstract {
 					'skip_device'    => array(
 						'Desktop',
 					),
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['avatarMargin'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .comment-author img.avatar",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['avatarMargin'],
+					'device_control' => true,
 				)
 			);
 		}
