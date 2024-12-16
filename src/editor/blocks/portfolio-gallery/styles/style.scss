@@ -2,9 +2,11 @@
     .portfolio-gallery-container{
         position: relative;
         overflow: hidden;
+        width: 100%;
         .content-items{
             display: flex;
             flex-wrap: wrap;
+            width: 100%;
             .row-item{
                 height: 500px;
                 flex: 0 0 calc(100% / 4);
@@ -34,6 +36,9 @@
                     position: relative;
                     display: flex;
                     flex-direction: column;
+                    &> * {
+                        transition: all .5s;
+                    }
                 }
                 .row-item-info::after{
                     transform-origin: -100% 0;
@@ -60,6 +65,7 @@
             
         }
         .image-items{
+            width: 100%;
             .image-item{
                 position: absolute;
                 top: 0;
