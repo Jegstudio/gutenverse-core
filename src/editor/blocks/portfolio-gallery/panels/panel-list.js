@@ -2,6 +2,8 @@ import { __ } from '@wordpress/i18n';
 import { advanceAnimationPanel, advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, TabSetting, TabStyle, transformPanel } from 'gutenverse-core/controls';
 import { settingsPanel } from './panel-settings';
 import { galleryPanel } from './panel-gallery';
+import { contentPanel } from './panel-content';
+import { linkPanel } from './panel-link';
 
 export const panelList = () => {
     return [
@@ -16,6 +18,18 @@ export const panelList = () => {
             initialOpen: true,
             panelArray: galleryPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Content Style','gutenverse'),
+            initialOpen: true,
+            panelArray: contentPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Link Style','gutenverse'),
+            initialOpen: false,
+            panelArray: linkPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Background', 'gutenverse'),

@@ -75,7 +75,7 @@
 		},
 		"linkIconPosition":{
 			"type" : "string",
-            "default" : "View More",
+            "default" : "right",
             "copyStyle" : true
 		},
         "rowHeight":{
@@ -87,7 +87,7 @@
             "default" : "center",
             "copyStyle" : true
         },
-        "contentMargin":{
+        "contentPadding":{
             "type": "object",
             "copyStyle" : true
         },
@@ -113,10 +113,12 @@
         },
         "titleTextShadow":{
             "type": "object",
+			"default": {},
             "copyStyle" : true
         },
         "titleTextShadowHover":{
             "type": "object",
+			"default": {},
             "copyStyle" : true
         },
         "subTitleTypography":{
@@ -133,10 +135,12 @@
         },
         "subTitleTextShadow":{
             "type": "object",
+			"default": {},
             "copyStyle" : true
         },
         "subTitleTextShadowHover":{
             "type": "object",
+			"default": {},
             "copyStyle" : true
         },
         "linkAlignment":{
@@ -144,14 +148,34 @@
             "default" : "center",
             "copyStyle" : true
         },
-        "linkMargin":{
+        "linkPadding":{
             "type": "object",
             "copyStyle" : true
         },
+		"linkMargin":{
+            "type": "object",
+            "copyStyle" : true
+        },
+		"linkBackground":{
+			"type": "object",
+            "copyStyle" : true
+		},
+		"linkBorder":{
+			"type": "object",
+            "copyStyle" : true
+		},
         "linkTypography":{
             "type": "object",
             "copyStyle" : true
         },
+		"linkIconSpace":{
+			"type": "object",
+            "copyStyle" : true
+		},
+		"linkIconSize":{
+			"type": "object",
+            "copyStyle" : true
+		},
         "linkColor":{
             "type": "object",
             "copyStyle" : true
@@ -169,6 +193,10 @@
             "copyStyle" : true
         },
         "linkTextShadow":{
+            "type": "object",
+            "copyStyle" : true
+        },
+		"linkTextShadowHover":{
             "type": "object",
             "copyStyle" : true
         },

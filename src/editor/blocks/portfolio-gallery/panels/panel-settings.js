@@ -18,7 +18,7 @@ export const settingsPanel = (props) => {
                     label: __('On Hover')
                 },
                 {
-                    value: 'onClick',
+                    value: 'onclick',
                     label: __('On Click')
                 }
             ]
@@ -61,6 +61,16 @@ export const settingsPanel = (props) => {
                     selector: `.${elementId} .portfolio-gallery-container .content-items .row-item`,
                     allowRender: value => value,
                     render: value => 'flex-direction: column-reverse;'
+                },
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper`,
+                    allowRender: value => value,
+                    render: value => 'transform: translateY(-100%); '
+                },
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-item-info::after`,
+                    allowRender: value => value,
+                    render: value => 'transform-origin: 0 100%;'
                 }
             ]
         },
@@ -88,11 +98,11 @@ export const settingsPanel = (props) => {
             component: SelectControl,
             options: [
                 {
-                    value: 'row',
+                    value: 'row-reverse',
                     label: __('Left')
                 },
                 {
-                    value: 'row-reverse',
+                    value: 'row',
                     label: __('Right')
                 }
             ],

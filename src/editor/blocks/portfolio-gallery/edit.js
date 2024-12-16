@@ -71,7 +71,7 @@ const PortfolioGalleryBlock = compose(
             setCurrent(index);
         }
     };
-    
+
     useEffect(() => {
         let newImages = images;
         let isCurrent = images.findIndex(el => el.current);
@@ -79,9 +79,10 @@ const PortfolioGalleryBlock = compose(
             newImages[0].current = true;
             setAttributes({images : newImages});
         }else{
-            setCurrent(isCurrent)
+            setCurrent(isCurrent);
         }
     }, [images]);
+
     return <>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
