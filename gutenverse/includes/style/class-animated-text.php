@@ -46,6 +46,7 @@ class Animated_Text extends Style_Abstract {
 				'positioning' => null,
 				'advance'     => null,
 				'mask'        => null,
+				'text-stroke' => null,
 			)
 		);
 	}
