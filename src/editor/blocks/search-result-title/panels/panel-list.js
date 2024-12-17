@@ -1,6 +1,6 @@
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
+import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, positioningPanel, responsivePanel, textStrokePanel, transformPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -16,6 +16,12 @@ export const panelList = () => {
             title: __('Style', 'gutenverse'),
             initialOpen: false,
             panelArray: stylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Text Stroke', 'gutenverse'),
+            initialOpen: false,
+            panelArray: textStrokePanel,
             tabRole: TabStyle
         },
         {

@@ -47,6 +47,7 @@ class Archive_Title extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'mask'        => null,
+				'text-stroke' => null,
 			)
 		);
 	}

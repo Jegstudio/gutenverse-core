@@ -67,6 +67,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},

@@ -121,6 +121,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"animation": {
 			"type": "object",
 			"default": {},
