@@ -8,6 +8,7 @@ import {Trash} from 'react-feather';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
+import { useEffect, useRef } from '@wordpress/element';
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -19,10 +20,14 @@ const ImageControl = (props) => {
         onValueChange,
         onStyleChange,
         description = '',
+        useExternalValue = false,
+        externalValue = {},
     } = props;
 
-    const {id: imageId, image} = value;
+    const newValue = useExternalValue ? externalValue : value;
+    const {id: imageId, image} = newValue;
     const id = useInstanceId(ImageControl, 'inspector-image-control');
+    const previousUseExternalValue = useRef(useExternalValue);
 
     const onChange = value => {
         onValueChange(value);
@@ -33,6 +38,16 @@ const ImageControl = (props) => {
         e.stopPropagation();
         onChange({});
     };
+
+    useEffect(() => {
+        if (useExternalValue) {
+            onChange(externalValue);
+        } else if (previousUseExternalValue.current) {
+            onChange({});
+        }
+
+        previousUseExternalValue.current = useExternalValue;
+    },[useExternalValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-image'}>
         <ControlHeadingSimple
@@ -45,26 +60,24 @@ const ImageControl = (props) => {
             <MediaUploadCheck>
                 <MediaUpload
                     onSelect={(media) => onChange({
-                        id: media.id,
-                        image: media.sizes.full.url
+                        id: useExternalValue ? imageId : media.id,
+                        image: useExternalValue ? image : media.sizes.full.url
                     })}
                     allowedTypes={ALLOWED_MEDIA_TYPES}
-                    value={value.id}
+                    value={imageId}
                     render={({open}) => {
                         if (imageId) {
                             return <>
-                                <div className={'image-placeholder'} onClick={open}>
-                                    <div className={'image-remove'} onClick={e => removeImage(e)}>
+                                <div className={'image-placeholder'} onClick={useExternalValue ? null : open} >
+                                    <div className={'image-remove'} onClick={e => useExternalValue ? e.preventDefault() : removeImage(e)} >
                                         <Trash/>
                                     </div>
-                                    <div className={'image-preview'} style={{backgroundImage: `url(${image})`}}/>
+                                    <div className={'image-preview'} style={{ backgroundImage: `url(${image})` }} />
                                     <div className={'image-change'}>{__('Change Image', '--gctd--')}</div>
                                 </div>
                             </>;
                         } else {
-                            return <Button
-                                className={'select-image'}
-                                onClick={open}>
+                            return <Button className={'select-image'} onClick={useExternalValue ? null : open} >
                                 {__('Select Image', '--gctd--')}
                             </Button>;
                         }
