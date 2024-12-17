@@ -615,6 +615,8 @@ abstract class Style_Interface {
 				case 'background-effect':
 					$this->feature_background_effect( $selector );
 					break;
+				case 'text-stroke':
+					$this->feature_text_stroke( $selector );
 			}
 		}
 	}
@@ -2156,6 +2158,48 @@ abstract class Style_Interface {
 					'device_control' => true,
 				)
 			);
+		}
+	}
+	/**
+	 * Handle Advance Feature
+	 *
+	 * @param string $selector Selector.
+	 */
+	protected function feature_text_stroke( $selector ) {
+		gutenverse_rlog($this->attrs['textStroke']);
+		if ( empty( $selector ) ) {
+			$selector = ".{$this->element_id}";
+		}
+		if ( isset( $this->attrs['textStroke'] ) ) {
+			if ( isset( $this->attrs['textStroke']['color'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							$stroke_style = $this->handle_color( $value, '-webkit-text-stroke-color' );
+							$stroke_style .= $this->handle_color( $value, 'stroke-color' );
+							return $stroke_style;
+						},
+						'value'          => $this->attrs['textStroke']['color'],
+						'device_control' => false,
+					)
+				);
+			}
+
+			if ( isset( $this->attrs['textStroke']['width'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							$stroke_style = $this->handle_unit_point( $value, '-webkit-text-stroke-width' );
+							$stroke_style .= $this->handle_unit_point( $value, 'stroke-width' );
+							return $stroke_style;
+						},
+						'value'          => $this->attrs['textStroke']['width'],
+						'device_control' => false,
+					)
+				);
+			}
 		}
 	}
 

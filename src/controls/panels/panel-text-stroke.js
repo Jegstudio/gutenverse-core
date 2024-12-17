@@ -10,11 +10,11 @@ export const textStrokePanel = (props) => {
     return [
         {
             id: 'textStroke',
-            allowDeviceControl: true,
             component: TextStrokeControl,
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
+                    hasChild: true,
                     render: value => handleTextStroke(value)
                 }
             ]

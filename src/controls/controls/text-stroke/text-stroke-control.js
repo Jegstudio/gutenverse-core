@@ -24,14 +24,13 @@ const TextStrokeControl = (props) => {
         <SizeControl
             label={__('Stroke Width', '--gctd--')}
             value={value.width}
-            allowDeviceControl={true}
             onValueChange={width => onValueChange({ ...value, width })}
             onStyleChange={width => onStyleChange({ ...value, width })}
             units={{
                 px: {
                     text: 'px',
                     min: 1,
-                    max: 200,
+                    max: 10,
                     step: 1,
                     unit: 'px',
                 },
@@ -54,4 +53,4 @@ const TextStrokeControl = (props) => {
     </div>;
 };
 
-export default compose(withParentControl, withDeviceControl)(TextStrokeControl);
+export default compose(withParentControl)(TextStrokeControl);

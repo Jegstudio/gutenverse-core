@@ -1,4 +1,4 @@
-import { handleColor, DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from 'gutenverse-core/styling';
+import { handleColor, elementVar, normalAppender} from 'gutenverse-core/styling';
 
 export const handleTextStroke = (props) => {
     const {
@@ -12,18 +12,16 @@ export const handleTextStroke = (props) => {
         const result2 = handleColor(color, 'stroke');
         normalAppender({
             style: `${result} ${result2}`,
-            elementStyle
+            elementStyle: elementStyle
         });
     }
 
     if (width) {
-        DeviceLoop(device => {
-            const _width = deviceStyleValue(device, width);
-            responsiveAppender({
-                style: `-webkit-text-stroke-width: ${_width.point}${_width.unit}; stroke-width: ${_width.point}${_width.unit};`,
-                device,
-                elementStyle
-            });
+        normalAppender({
+            style: ` -webkit-text-stroke-width: ${width.point}${width.unit}; stroke-width: ${width.point}${width.unit};`,
+            elementStyle: elementStyle
         });
     }
+
+    return elementStyle;
 };
