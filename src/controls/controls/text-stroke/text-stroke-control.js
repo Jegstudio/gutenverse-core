@@ -14,7 +14,7 @@ const TextStrokeControl = (props) => {
 
     const id = useInstanceId(TextStrokeControl, 'inspector-text-stroke-control');
 
-    return <div id={id} className={'gutenverse-control-wrapper'}>
+    return <div id={id} className={'gutenverse-control-wrapper gutenverse-text-stroke-control'}>
         <ColorControl
             label={__('Stroke Color', '--gctd--')}
             value={value.color}
