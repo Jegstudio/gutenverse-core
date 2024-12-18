@@ -615,8 +615,6 @@ abstract class Style_Interface {
 				case 'background-effect':
 					$this->feature_background_effect( $selector );
 					break;
-				case 'text-stroke':
-					$this->feature_text_stroke( $selector );
 			}
 		}
 	}
@@ -2160,48 +2158,6 @@ abstract class Style_Interface {
 			);
 		}
 	}
-	/**
-	 * Handle Advance Feature
-	 *
-	 * @param string $selector Selector.
-	 */
-	protected function feature_text_stroke( $selector ) {
-		gutenverse_rlog($this->attrs['textStroke']);
-		if ( empty( $selector ) ) {
-			$selector = ".{$this->element_id}";
-		}
-		if ( isset( $this->attrs['textStroke'] ) ) {
-			if ( isset( $this->attrs['textStroke']['color'] ) ) {
-				$this->inject_style(
-					array(
-						'selector'       => $selector,
-						'property'       => function ( $value ) {
-							$stroke_style = $this->handle_color( $value, '-webkit-text-stroke-color' );
-							$stroke_style .= $this->handle_color( $value, 'stroke-color' );
-							return $stroke_style;
-						},
-						'value'          => $this->attrs['textStroke']['color'],
-						'device_control' => false,
-					)
-				);
-			}
-
-			if ( isset( $this->attrs['textStroke']['width'] ) ) {
-				$this->inject_style(
-					array(
-						'selector'       => $selector,
-						'property'       => function ( $value ) {
-							$stroke_style = $this->handle_unit_point( $value, '-webkit-text-stroke-width' );
-							$stroke_style .= $this->handle_unit_point( $value, 'stroke-width' );
-							return $stroke_style;
-						},
-						'value'          => $this->attrs['textStroke']['width'],
-						'device_control' => false,
-					)
-				);
-			}
-		}
-	}
 
 	/**
 	 * Handle Advance Feature
@@ -2281,6 +2237,28 @@ abstract class Style_Interface {
 
 			return "text-shadow: {$horizontal}px {$vertical}px {$blur}px {$shadow_color};";
 		}
+	}
+
+	/**
+	 * Handle Text Stroke
+	 *
+	 * @param array $value Value of Box Shadow.
+	 *
+	 * @return string|null
+	 */
+	protected function handle_text_stroke( $value ) {
+		$style = '';
+		if ( isset( $value['color'] ) ) {
+			$style .= $this->handle_color( $value['color'], '-webkit-text-stroke-color' );
+			$style .= $this->handle_color( $value['color'], 'stroke-color' );
+		}
+
+		if ( isset( $value['width'] ) ) {
+			$style .= $this->handle_unit_point( $value['width'], '-webkit-text-stroke-width' );
+			$style .= $this->handle_unit_point( $value['width'], 'stroke-width' );
+		}
+
+		return $style;
 	}
 
 	/**
