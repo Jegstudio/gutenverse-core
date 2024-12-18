@@ -61,12 +61,6 @@ export const panelList = () => {
             pro: true
         },
         {
-            title: __('Text Stroke', 'gutenverse'),
-            initialOpen: false,
-            panelArray: textStrokePanel,
-            tabRole: TabStyle
-        },
-        {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({

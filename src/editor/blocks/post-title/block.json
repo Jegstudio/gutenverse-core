@@ -71,6 +71,10 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"textStrokeHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},

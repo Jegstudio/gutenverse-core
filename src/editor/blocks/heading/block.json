@@ -55,6 +55,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -178,10 +182,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"textStroke": {
-			"type": "object",
-			"copyStyle": true
-		},
+		
 		"textClip": {
 			"type": "object",
 			"default": {},

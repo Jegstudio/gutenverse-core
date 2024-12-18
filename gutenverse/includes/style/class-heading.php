@@ -47,7 +47,6 @@ class Heading extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'mask'        => null,
-				'text-stroke' => null,
 			)
 		);
 	}
@@ -101,6 +100,19 @@ class Heading extends Style_Abstract {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStroke'],
 					'device_control' => false,
 				)
 			);

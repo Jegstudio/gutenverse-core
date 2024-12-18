@@ -47,7 +47,6 @@ class Post_Title extends Style_Abstract {
 				'animation'   => null,
 				'advance'     => null,
 				'mask'        => null,
-				'text-stroke' => null,
 			)
 		);
 	}
@@ -125,6 +124,32 @@ class Post_Title extends Style_Abstract {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} h1, .{$this->element_id} h2, .{$this->element_id} h3, .{$this->element_id} h4, .{$this->element_id} h5, .{$this->element_id} h6, .{$this->element_id} span, .{$this->element_id} a",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['textStrokeHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span, .{$this->element_id}:hover a",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStrokeHover'],
 					'device_control' => false,
 				)
 			);

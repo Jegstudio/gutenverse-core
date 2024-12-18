@@ -2,8 +2,8 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
     const {
@@ -43,6 +43,18 @@ export const stylePanel = (props) => {
                     selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
                     allowRender: (value) => allowRenderTextShadow(value),
                     render: value => handleTextShadow(value)
+                }
+            ]
+        },
+        {
+            id: 'textStroke',
+            label: __('Text Stroke', 'gutenverse'),
+            component: TextStrokeControl,
+            style: [
+                {
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
                 }
             ]
         }

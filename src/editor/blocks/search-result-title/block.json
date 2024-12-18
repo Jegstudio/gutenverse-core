@@ -38,6 +38,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"colorHover": {
 			"type": "object",
 			"copyStyle": true
@@ -45,6 +49,10 @@
 		"textShadowHover": {
 			"type": "object",
 			"default": {},
+			"copyStyle": true
+		},
+		"textStrokeHover": {
+			"type": "object",
 			"copyStyle": true
 		},
 		"searchTextColor": {
@@ -56,6 +64,10 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"searchTextStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"searchTextColorHover": {
 			"type": "object",
 			"copyStyle": true
@@ -65,7 +77,7 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"textStroke": {
+		"searchTextStrokeHover": {
 			"type": "object",
 			"copyStyle": true
 		},
