@@ -29,6 +29,7 @@
 // Set element default position relative (this is required so element with Z Index could work properly)
 .guten-element {
     position: relative;
+    text-shadow: 0 0 transparent;
 
     * {
         -webkit-box-sizing: border-box;

@@ -2246,7 +2246,7 @@ abstract class Style_Interface {
 	 *
 	 * @return string|null
 	 */
-	protected function handle_text_stroke( $value ) {
+	public function handle_text_stroke( $value ) {
 		$style = '';
 		if ( isset( $value['color'] ) ) {
 			$style .= $this->handle_color( $value['color'], '-webkit-text-stroke-color' );
