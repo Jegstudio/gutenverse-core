@@ -223,18 +223,19 @@ const BackgroundControl = (props) => {
                 value={value.useFeaturedImage}
                 deviceValues={useFeaturedImage}
                 allowDeviceControl={true}
-                usePreviousDevice={true}
+                usePreviousDeviceValue={true}
                 onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
                 onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
             />
-            {!isEmpty(useFeaturedImage) && useFeaturedImage[deviceType] ?
+            {!isEmpty(useFeaturedImage) ?
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
                     externalValue={featuredImage}
+                    value={value.image}
                     onValueChange={(image) => onValueChange({ ...value, image })}
                     onStyleChange={(image) => onStyleChange({ ...value, image })}
                     allowDeviceControl={true}
-                    useExternalValue={true}
+                    useExternalValue={useFeaturedImage[deviceType]}
                 /> :
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
