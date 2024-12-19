@@ -24,21 +24,22 @@ export const handleTransform = (values) => {
         opacity,
     } = values;
 
-    const duration_ = ! isEmpty(duration) ? duration: '0.4';
-    normalAppender({
-        style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
-        elementStyle
-    });
     if(duration){
         DeviceLoop(device => {
             const _duration = deviceStyleValue(device, duration);
-            const duration_ = ! isEmpty(_duration) ? _duration : '0.4';
+            const duration_ = _duration ? _duration : '0.4';
             responsiveAppender({
                 style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
                 device,
                 elementStyle
             });
         })
+    }else{
+        const duration_ = duration ? duration: '0.4';
+        normalAppender({
+            style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
+            elementStyle
+        });
     }
     if(delay){
         DeviceLoop(device => {
