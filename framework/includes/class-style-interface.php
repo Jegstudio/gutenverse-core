@@ -499,11 +499,23 @@ abstract class Style_Interface {
 	 */
 	public function get_global_color_by_slug( $slug ) {
 		$theme_colors = wp_get_global_settings( array( 'color', 'palette' ) );
-
 		if ( ! empty( $theme_colors ) && is_array( $theme_colors ) ) {
 			foreach ( $theme_colors as $color ) {
-				if ( isset( $color['slug'] ) && $color['slug'] === $slug ) {
-					return $color['color']; 
+				foreach ( $color as $key => $value ) {
+					if ( isset( $value['slug'] ) && $value['slug'] === $slug ) {
+						$global_color = $value['color'];
+						$hex          = str_replace( '#', '', $global_color );
+
+						// Handle shorthand HEX codes (e.g., #abc)
+						if ( strlen( $hex ) === 3 ) {
+							$hex = str_repeat( $hex[0], 2 ) . str_repeat( $hex[1], 2 ) . str_repeat( $hex[2], 2 );
+						}
+						return  array(
+							'r' => hexdec( substr( $hex, 0, 2 ) ),
+							'g' => hexdec( substr( $hex, 2, 2 ) ),
+							'b' => hexdec( substr( $hex, 4, 2 ) ),
+						);
+					}
 				}
 			}
 		}
