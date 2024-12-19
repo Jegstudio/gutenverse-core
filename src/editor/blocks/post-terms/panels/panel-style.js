@@ -35,7 +35,7 @@ export const stylePanel = (props) => {
                     value: 'flex-end',
                     icon: <AlignRight />,
                 },
-                {
+                contentType === 'string' && {
                     label: __('Align Right', 'gutenverse'),
                     value: 'space-between',
                     icon: <AlignJustify />,

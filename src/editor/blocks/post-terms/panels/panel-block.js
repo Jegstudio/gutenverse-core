@@ -7,6 +7,7 @@ export const blockPanel = (props) => {
     const {
         elementId,
         contentType,
+        inlineDisplay,
         switcher,
         setSwitcher
     } = props;
@@ -23,7 +24,9 @@ export const blockPanel = (props) => {
             id: 'termAlignment',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
+            show: !inlineDisplay,
             allowDeviceControl: true,
+            description: __('This option only show if Content Type : "Block" with Display Content Inline "On"', 'gutenverse'),
             options: [
                 {
                     label: __('Align Left', 'gutenverse'),
@@ -43,7 +46,7 @@ export const blockPanel = (props) => {
             ],
             style: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item`,
+                    selector: `.${elementId} .post-term-block .term-item `,
                     render: value => `text-align: ${value};`
                 },
             ]
@@ -89,7 +92,7 @@ export const blockPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __termHover }) => setSwitcher({ ...switcher, term: __termHover })
+            onChange: ({ __termHover }) => setSwitcher({ ...switcher, termHover: __termHover })
         },
         {
             id: 'termBackground',

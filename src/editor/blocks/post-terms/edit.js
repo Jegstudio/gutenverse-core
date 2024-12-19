@@ -88,14 +88,14 @@ const PostTermsBlock = compose(
                         {
                             terms.map((term, index) => {
                                 const name = term?.name; 
-                                return linkTo && linkTo !== 'none' ? <HtmlTag className="term-item"><a href="#" onClick={e => e.preventDefault()}>{name}</a></HtmlTag> : <HtmlTag className="term-item">{name}</HtmlTag>;
+                                return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()} className="term-item"><HtmlTag >{name}</HtmlTag></a> : <HtmlTag className="term-item">{name}</HtmlTag>;
                             })
                         }
                     </div>;
                 }else{
                     return <div className="post-term-block">
                         {
-                            linkTo && linkTo !== 'none' ? <HtmlTag className="term-item"><a href="#" onClick={e => e.preventDefault()}>{'Post Terms'}</a></HtmlTag> : <HtmlTag className="term-item">{'Post Terms'}</HtmlTag>
+                            linkTo && linkTo !== 'none' ? <a href="#" className="term-item" onClick={e => e.preventDefault()}><HtmlTag >{'Post Terms'}</HtmlTag></a> : <HtmlTag className="term-item">{'Post Terms'}</HtmlTag>
                         }
                     </div>;
                 }
