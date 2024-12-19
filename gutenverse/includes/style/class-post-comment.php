@@ -198,6 +198,88 @@ class Post_Comment extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['typographyCommentTitle'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p",
+					'value'          => $this->attrs['typographyCommentTitle'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['colorCommentTitle'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['colorCommentTitle'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['marginCommentTitle'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'margin' );
+					},
+					'value'          => $this->attrs['marginCommentTitle'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['commentCountTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p span.comment-count",
+					'value'          => $this->attrs['commentCountTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['commentCountColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p span.comment-count",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['commentCountColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['postTitleTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p span.comment-post-title",
+					'value'          => $this->attrs['postTitleTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['postTitleColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-post-comment-title p span.comment-post-title",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['postTitleColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['typographyLink'] ) ) {
 			$this->inject_typography(
 				array(

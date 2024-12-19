@@ -151,4 +151,14 @@
         word-break: break-word;
         box-sizing: border-box;
     }
+
+    .guten-post-comment-title {
+        p {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            margin-top: .5rem;
+            font-size: 2rem;
+        }
+    }
 }
