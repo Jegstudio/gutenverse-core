@@ -491,6 +491,27 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Get global color by slug
+	 *
+	 * @param string $slug name of variable.
+	 *
+	 * @return string
+	 */
+	public function get_global_color_by_slug( $slug ) {
+		$theme_colors = wp_get_global_settings( array( 'color', 'palette' ) );
+
+		if ( ! empty( $theme_colors ) && is_array( $theme_colors ) ) {
+			foreach ( $theme_colors as $color ) {
+				if ( isset( $color['slug'] ) && $color['slug'] === $slug ) {
+					return $color['color']; 
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Handle gradient
 	 *
 	 * @param array  $props Value of Color.
