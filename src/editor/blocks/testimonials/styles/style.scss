@@ -461,4 +461,14 @@
     .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
         opacity: 1;
     }
+
+    &.is-hovered, &:hover {
+        .guten-testimonial-item {
+            .hover-from-left {
+                &:before {
+                    left: 0;
+                }
+            }
+        }
+    }
 }
