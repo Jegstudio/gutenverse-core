@@ -57,9 +57,11 @@ const IconListItemBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
 
-    if (isGlobalLinkSet) {
-        setAttributes({ hasGlobalLink: isGlobalLinkSet });
-    } else setAttributes({ hasGlobalLink: false });
+    useEffect(() => {
+        setAttributes({
+            hasGlobalLink: isGlobalLinkSet ? isGlobalLinkSet : false,
+        });
+    }, [isGlobalLinkSet]);
 
     const blockProps = useBlockProps({
         className: classnames(
