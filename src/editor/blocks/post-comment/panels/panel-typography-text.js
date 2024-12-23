@@ -97,7 +97,7 @@ export const textTypographyPanel = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId} .commentlist p`,
+                    selector: `.${elementId} .commentlist .comment p`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }

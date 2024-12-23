@@ -147,15 +147,22 @@ class Post_List extends Post_Abstract {
 				$date_icon = $this->attributes['metaDateIcon'];
 				$date      = esc_attr( $this->format_date( $post ) );
 
-				if ( $date_icon ) {
-					$meta_date = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date;
+				if ( $date_icon || $date ) {
+					$meta_date = $date;
+					if ( $date_icon ) {
+						$icon_html = '<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i>';
+					} else {
+						$icon_html = '';
+					}
 					if ( isset( $this->attributes['metaDateIconPosition'] ) ) {
 						$icon_position = esc_attr( $this->attributes['metaDateIconPosition'] );
 						if ( 'before' === $icon_position ) {
-							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '"><i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i> &nbsp;' . $date . '</div>';
+							$meta_date = '<div class="guten-meta-date icon-position-before">' . $icon_html . ' &nbsp;' . $date . '</div>';
 						} else {
-							$meta_date = '<div class="guten-meta-date icon-position-' . $icon_position . '">' . $date . '&nbsp;<i aria-hidden="true" class="' . esc_attr( $date_icon ) . '"></i></div>';
+							$meta_date = '<div class="guten-meta-date icon-position-after">' . $date . '&nbsp;' . $icon_html . '</div>';
 						}
+					} else {
+						$meta_date = '<div class="guten-meta-date">' . $icon_html . ' &nbsp;' . $date . '</div>';
 					}
 				}
 
@@ -165,12 +172,15 @@ class Post_List extends Post_Abstract {
 			if ( $this->attr_is_true( $this->attributes['metaCategoryEnabled'] ) ) {
 				$category_icon = $this->attributes['metaCategoryIcon'];
 				$category      = get_category( $this->get_primary_category( $post->ID ) );
-
-				if ( $category_icon && isset( $category->name ) ) {
-					$meta_category = '<i aria-hidden="true" class="' . esc_attr( $category_icon ) . '"></i> ' . $category->name;
+				$meta_category = isset( $category->name ) ? $category->name : '';
+				if ( $category_icon ) {
+					$icon_html = '<i aria-hidden="true" class="' . esc_attr( $category_icon ) . '"></i>';
+				} else {
+					$icon_html = '';
 				}
-
-				$meta_category = '<span class="meta-category">' . $meta_category . '</span>';
+				if ( $icon_html || $meta_category ) {
+					$meta_category = '<span class="meta-category">' . $icon_html . ' ' . $meta_category . '</span>';
+				}
 			}
 
 			$meta = '<div class="meta-lists">' . $meta_date . ' ' . $meta_category . '</div>';
