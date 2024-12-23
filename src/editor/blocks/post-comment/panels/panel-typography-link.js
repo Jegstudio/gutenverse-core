@@ -118,38 +118,38 @@ export const linkTypographyPanel = (props) => {
                 }
             ]
         },
-        {
-            id: 'userNameMargin',
-            label: __('User Name Margin', 'gutenverse'),
-            show: !switcher.linkType || switcher.linkType === 'userName',
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .commentlist b.fn a.url`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
+        // {
+        //     id: 'userNameMargin',
+        //     label: __('User Name Margin', 'gutenverse'),
+        //     show: !switcher.linkType || switcher.linkType === 'userName',
+        //     component: DimensionControl,
+        //     position: ['top', 'right', 'bottom', 'left'],
+        //     allowDeviceControl: true,
+        //     units: {
+        //         px: {
+        //             text: 'px',
+        //             unit: 'px'
+        //         },
+        //         em: {
+        //             text: 'em',
+        //             unit: 'em'
+        //         },
+        //         percent: {
+        //             text: '%',
+        //             unit: '%'
+        //         },
+        //         rem: {
+        //             text: 'rem',
+        //             unit: 'rem'
+        //         },
+        //     },
+        //     style: [
+        //         {
+        //             selector: `.${elementId} .commentlist b.fn a.url`,
+        //             render: value => handleDimension(value, 'margin')
+        //         }
+        //     ]
+        // },
         {
             id: 'dateTypography',
             label: __('Date Typography', 'gutenverse'),
@@ -175,38 +175,38 @@ export const linkTypographyPanel = (props) => {
                 }
             ]
         },
-        {
-            id: 'dateMargin',
-            label: __('Date Margin', 'gutenverse'),
-            show: switcher.linkType === 'date',
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .comment-metadata a time`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
+        // {
+        //     id: 'dateMargin',
+        //     label: __('Date Margin', 'gutenverse'),
+        //     show: switcher.linkType === 'date',
+        //     component: DimensionControl,
+        //     position: ['top', 'right', 'bottom', 'left'],
+        //     allowDeviceControl: true,
+        //     units: {
+        //         px: {
+        //             text: 'px',
+        //             unit: 'px'
+        //         },
+        //         em: {
+        //             text: 'em',
+        //             unit: 'em'
+        //         },
+        //         percent: {
+        //             text: '%',
+        //             unit: '%'
+        //         },
+        //         rem: {
+        //             text: 'rem',
+        //             unit: 'rem'
+        //         },
+        //     },
+        //     style: [
+        //         {
+        //             selector: `.${elementId} .commentlist .comment-metadata a time`,
+        //             render: value => handleDimension(value, 'margin')
+        //         }
+        //     ]
+        // },
         {
             id: 'replyLinkTypography',
             label: __('Reply Typography', 'gutenverse'),
@@ -232,38 +232,38 @@ export const linkTypographyPanel = (props) => {
                 }
             ]
         },
-        {
-            id: 'replyLinkMargin',
-            label: __('Reply Margin', 'gutenverse'),
-            show: switcher.linkType === 'reply',
-            component: DimensionControl,
-            position: ['top', 'right', 'bottom', 'left'],
-            allowDeviceControl: true,
-            units: {
-                px: {
-                    text: 'px',
-                    unit: 'px'
-                },
-                em: {
-                    text: 'em',
-                    unit: 'em'
-                },
-                percent: {
-                    text: '%',
-                    unit: '%'
-                },
-                rem: {
-                    text: 'rem',
-                    unit: 'rem'
-                },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .reply .comment-reply-link`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
-        },
+        // {
+        //     id: 'replyLinkMargin',
+        //     label: __('Reply Margin', 'gutenverse'),
+        //     show: switcher.linkType === 'reply',
+        //     component: DimensionControl,
+        //     position: ['top', 'right', 'bottom', 'left'],
+        //     allowDeviceControl: true,
+        //     units: {
+        //         px: {
+        //             text: 'px',
+        //             unit: 'px'
+        //         },
+        //         em: {
+        //             text: 'em',
+        //             unit: 'em'
+        //         },
+        //         percent: {
+        //             text: '%',
+        //             unit: '%'
+        //         },
+        //         rem: {
+        //             text: 'rem',
+        //             unit: 'rem'
+        //         },
+        //     },
+        //     style: [
+        //         {
+        //             selector: `.${elementId} .commentlist .reply .comment-reply-link`,
+        //             render: value => handleDimension(value, 'margin')
+        //         }
+        //     ]
+        // },
     ];
 };
 

@@ -47,9 +47,15 @@ class Post_Comment extends Block_Abstract {
 				$comments
 			);
 
-			$show_suffix  = $this->attributes['enableSuffix'];
-			$suffix_main  = $this->attributes['suffixMain'];
-			$suffix_reply = $this->attributes['suffixReply'];
+			$show_suffix          = $this->attributes['enableSuffix'];
+			$suffix_main          = $this->attributes['suffixMain'];
+			$suffix_reply         = $this->attributes['suffixReply'];
+			$text_title           = $this->attributes['titleText'];
+			$enable_comment_count = $this->attributes['enableCommentCount'];
+			$enable_post_title    = $this->attributes['enablePostTitle'];
+			$post_title           = $enable_post_title ? '"' . get_the_title( $post_id ) . '"' : '';
+			$comments_count       = $enable_comment_count ? count( $comments ) : '';
+			$comment_title        = '';
 
 			$data_settings = array(
 				'enableSuffix' => "{$show_suffix}",
@@ -59,8 +65,19 @@ class Post_Comment extends Block_Abstract {
 
 			$json_data = wp_json_encode( $data_settings );
 
+			if ( ! empty( $this->attributes['enableCommentTitle'] ) ) {
+				$comment_title .= "
+				<div class='guten-post-comment-title comment-title'>
+					<p class='title-text'>
+						<span class='comment-count'>{$comments_count}</span>
+						{$text_title}
+						<span class='comment-post-title'>{$post_title}</span>
+					</p>
+				</div>";
+			}
+
 			if ( ! empty( $comment_list ) ) {
-				$comment_list = "<ol class='commentlist' data-settings='{$json_data}' >" . $comment_list . '</ol>';
+				$comment_list = $comment_title . "<ol class='commentlist' data-settings='{$json_data}' >" . $comment_list . '</ol>';
 			}
 
 			if ( ! empty( $this->attributes['showForm'] ) ) {
