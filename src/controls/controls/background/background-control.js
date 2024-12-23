@@ -149,7 +149,7 @@ const BackgroundControl = (props) => {
         allowDeviceControl,
         type = '',
     } = props;
-    const locationEditor = determineLocation();
+
     const availableOptions = [
         {
             label: __('Image & Color', '--gctd--'),
@@ -227,17 +227,15 @@ const BackgroundControl = (props) => {
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
-            {
-                locationEditor !== 'editor' && <CheckboxControl
-                    label={__('Use Featured Image', '--gctd--')}
-                    value={value.useFeaturedImage}
-                    deviceValues={useFeaturedImage}
-                    allowDeviceControl={true}
-                    usePreviousDeviceValue={true}
-                    onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
-                    onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
-                />
-            }
+            <CheckboxControl
+                label={__('Use Featured Image', '--gctd--')}
+                value={value.useFeaturedImage}
+                deviceValues={useFeaturedImage}
+                allowDeviceControl={true}
+                usePreviousDeviceValue={true}
+                onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
+                onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
+            />
             {!isEmpty(useFeaturedImage) ?
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
