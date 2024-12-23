@@ -299,9 +299,13 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 2.1.6 =
+##### Improvements
+* Update Google Font list
+
 ##### Bug Fixes
 * Fix issue when adding column on section with empty column
 * Fix refreshing style function
+* Fix library plugin requirement in multisite
 
 = 2.1.5 =
 ##### Bug Fixes
