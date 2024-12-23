@@ -161,6 +161,10 @@
 			"type": "string",
 			"default": "before"
 		},
+		"postMetaInline": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"postblockType": {
 			"type": "string",
 			"default": "type-1"
@@ -383,6 +387,10 @@
 			"copyStyle": true
 		},
 		"excerptTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"excerptInline": {
 			"type": "object",
 			"copyStyle": true
 		},
