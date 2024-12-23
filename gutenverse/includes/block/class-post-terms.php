@@ -31,7 +31,7 @@ class Post_Terms extends Block_Abstract {
 		$separator      = esc_html( $this->attributes['separator'] );
 		$link_to        = $this->attributes['linkTo'];
 		$content_type   = esc_attr( $this->attributes['contentType'] );
-		$inline_display = esc_attr( $this->attributes['inlineDisplay'] );
+		$inline_display = isset( $this->attributes['inlineDisplay'] ) ? esc_attr( $this->attributes['inlineDisplay'] ) : false;
 		if ( ! empty( $post_id ) ) {
 			$term_list = get_the_terms( $post_id, $taxonomy );
 			$content   = '';
