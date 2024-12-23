@@ -302,6 +302,10 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 ##### Improvements
 * update Google Font list
 * give post excerpt and post meta display inline option
+* add dynamic title & toggle on/off comment count to post comment block
+* add more styling option each terms item in post term block
+* add featured image as background
+* add exlude current post feature
 
 ##### Bug Fixes
 * fix issue when adding column on section with empty column
