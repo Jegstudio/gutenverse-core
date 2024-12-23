@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const excerptPanel = (props) => {
@@ -57,6 +57,18 @@ export const excerptPanel = (props) => {
                     render: (value,id) => handleTypography(value, props, id)
                 }
             ]
+        },
+        {
+            id: 'excerptInline',
+            label: __('Set Inline Excerpt', 'gutenverse'),
+            component: CheckboxControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt`,
+                    render: value => `display: ${value ? 'inline-flex' : 'flex'};`
+                },
+            ],
         },
     ];
 };
