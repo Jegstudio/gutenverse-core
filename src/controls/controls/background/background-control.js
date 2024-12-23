@@ -9,6 +9,8 @@ import { applyFilters } from '@wordpress/hooks';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
+import { imagePlaceholder } from 'gutenverse-core/config';
+import { determineLocation } from 'gutenverse-core/helper';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;
@@ -121,10 +123,17 @@ const getFeaturedImage = () => {
         },
         [featuredImage, postType]
     );
-    const mediaUrl = {
-        id: media.id,
-        image: media.source_url
+    let mediaUrl = {
+        id: null,
+        image: imagePlaceholder
     };
+
+    if(media){
+        mediaUrl = {
+            id: media.id,
+            image: media.source_url
+        };
+    }
     return mediaUrl;
 };
 
@@ -140,7 +149,7 @@ const BackgroundControl = (props) => {
         allowDeviceControl,
         type = '',
     } = props;
-
+    const locationEditor = determineLocation();
     const availableOptions = [
         {
             label: __('Image & Color', '--gctd--'),
@@ -218,15 +227,17 @@ const BackgroundControl = (props) => {
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
-            <CheckboxControl
-                label={__('Use Featured Image', '--gctd--')}
-                value={value.useFeaturedImage}
-                deviceValues={useFeaturedImage}
-                allowDeviceControl={true}
-                usePreviousDeviceValue={true}
-                onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
-                onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
-            />
+            {
+                locationEditor !== 'editor' && <CheckboxControl
+                    label={__('Use Featured Image', '--gctd--')}
+                    value={value.useFeaturedImage}
+                    deviceValues={useFeaturedImage}
+                    allowDeviceControl={true}
+                    usePreviousDeviceValue={true}
+                    onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
+                    onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
+                />
+            }
             {!isEmpty(useFeaturedImage) ?
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
