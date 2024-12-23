@@ -648,21 +648,23 @@ const ColumnWrapper = (props) => {
                             onClose();
                         }}
                     >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() => {
-                        onOpen();
-                        setOpenTool(true);
-                    }} onBlur={() => {
-                        onClose();
-                        setOpenTool(false);
-                    }}
-                    onMouseEnter={() => {
-                        onOpen();
-                    }}
-                    onMouseLeave={() => {
-                        if (!openTool) {
+                    <div className={'column-popup'}
+                        onFocus={() => {
+                            onOpen();
+                            setOpenTool(true);
+                        }}
+                        onBlur={() => {
                             onClose();
-                        }
-                    }}
+                            setOpenTool(false);
+                        }}
+                        onMouseEnter={() => {
+                            onOpen();
+                        }}
+                        onMouseLeave={() => {
+                            if (!openTool) {
+                                onClose();
+                            }
+                        }}
                     >
                         <div>
                             <input
@@ -838,7 +840,8 @@ const ColumnBlock = compose(
         sticky = {},
         stickyPosition,
         backgroundAnimated = {},
-        backgroundEffect
+        backgroundEffect,
+        adjustSiblingColumn
     } = attributes;
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -856,18 +859,20 @@ const ColumnBlock = compose(
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const updateBlockWidth = (clientId, eachWidth) => {
-        const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
-        const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
-        const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
-        const targetColumnWidthAttr = getBlock(clientId).attributes.width;
+        if (adjustSiblingColumn) {
+            const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
+            const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
+            const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
+            const targetColumnWidthAttr = getBlock(clientId).attributes.width;
 
-        if (targetColumnStyle) {
-            targetWidth[deviceType] = eachWidth;
-            targetColumnStyle(
-                'column-width',
-                `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`
-            );
-            updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
+            if (targetColumnStyle) {
+                targetWidth[deviceType] = eachWidth;
+                targetColumnStyle(
+                    'column-width',
+                    `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`
+                );
+                updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
+            }
         }
     };
 

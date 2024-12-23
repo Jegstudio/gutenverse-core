@@ -246,7 +246,11 @@
     "condition": {
 			"type": "object",
 			"default": {}
-		}
+		},
+    "adjustSiblingColumn": {
+      "type": "boolean",
+      "default": true
+    }
   },
   "supports": {
     "anchor": true,
