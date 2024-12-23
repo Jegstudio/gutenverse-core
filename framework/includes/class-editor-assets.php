@@ -124,6 +124,11 @@ class Editor_Assets {
 		foreach ( get_option( 'active_plugins' ) as  $plugin ) {
 			$active[] = explode( '/', $plugin )[0];
 		}
+		if ( is_multisite() ) {
+			foreach ( get_site_option( 'active_sitewide_plugins' ) as $key => $plugin ) {
+				$active[] = explode( '/', $key )[0];
+			}
+		}
 
 		foreach ( get_plugins() as $key => $plugin ) {
 			$slug             = explode( '/', $key )[0];
