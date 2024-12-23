@@ -11,7 +11,6 @@ export const blockPanel = (props) => {
         switcher,
         setSwitcher
     } = props;
-
     return [
         {
             id: 'term-notice',
@@ -24,7 +23,7 @@ export const blockPanel = (props) => {
             id: 'termAlignment',
             label: __('Alignment', 'gutenverse'),
             component: IconRadioControl,
-            show: !inlineDisplay,
+            show: !inlineDisplay && contentType === 'block',
             allowDeviceControl: true,
             description: __('This option only show if Content Type : "Block" with Display Content Inline "On"', 'gutenverse'),
             options: [
@@ -82,6 +81,7 @@ export const blockPanel = (props) => {
         {
             id: '__termHover',
             component: SwitchControl,
+            show: contentType === 'block',
             options: [
                 {
                     value: 'normal',
@@ -96,7 +96,6 @@ export const blockPanel = (props) => {
         },
         {
             id: 'termBackground',
-            label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
@@ -111,7 +110,6 @@ export const blockPanel = (props) => {
         },
         {
             id: 'termBackgroundHover',
-            label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
