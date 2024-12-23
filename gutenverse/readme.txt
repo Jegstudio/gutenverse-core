@@ -300,12 +300,17 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.1.6 =
 ##### Improvements
-* Update Google Font list
+* update Google Font list
+* give post excerpt and post meta display inline option
 
 ##### Bug Fixes
-* Fix issue when adding column on section with empty column
-* Fix refreshing style function
-* Fix library plugin requirement in multisite
+* fix issue when adding column on section with empty column
+* fix refreshing style function
+* fix library plugin requirement in multisite
+* fix the condition where meta text is also disabled when the icon did not exist
+* fix username and comment text typography bug
+* fix glitch hover on testimonials block
+* fix popup trigger anchor in flexible wrapper does not work
 
 = 2.1.5 =
 ##### Bug Fixes
