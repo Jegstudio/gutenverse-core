@@ -32,7 +32,7 @@ export const spacerPanel = ({elementId}) => {
             style: [
                 {
                     selector: `.${elementId}.guten-spacer`,
-                    render: value => handleUnitPoint(value, 'padding-bottom')
+                    render: value => handleUnitPoint(value, 'padding-bottom', true)
                 }
             ]
         },
