@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingPanel = ({enableSuffix, enableTitle}) => {
+export const settingPanel = ({enableSuffix, enableCommentTitle}) => {
     return [
         {
             id: 'showForm',
@@ -32,19 +32,19 @@ export const settingPanel = ({enableSuffix, enableTitle}) => {
         },
         {
             id: 'titleText',
-            show: enableTitle,
+            show: enableCommentTitle,
             label: __('Title Text', 'gutenverse'),
             component: TextControl,
         },
         {
             id: 'enablePostTitle',
-            show: enableTitle,
+            show: enableCommentTitle,
             label: __('Show Post Title ', 'gutenverse'),
             component: CheckboxControl,
         },
         {
             id: 'enableCommentCount',
-            show: enableTitle,
+            show: enableCommentTitle,
             label: __('Show Comments Count', 'gutenverse'),
             component: CheckboxControl,
         },
