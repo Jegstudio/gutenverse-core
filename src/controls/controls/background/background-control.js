@@ -98,7 +98,7 @@ const gradientOption = (props) => {
     </>;
 };
 
-const getFeaturedImage = () => {
+const getFeaturedImage = (useFeaturedImage) => {
     const { postType } = useSelect((select) => {
         const currentPostType = select('core/editor').getCurrentPostType();
         return {
@@ -108,6 +108,8 @@ const getFeaturedImage = () => {
 
     const postId = select('core/editor').getCurrentPostId();
     const [ featuredImage ] = useEntityProp( 'postType', postType, 'featured_media', postId );
+    const onEditor = determineLocation() === 'editor';
+
 
     const { media } = useSelect(
         (select) => {
@@ -123,10 +125,18 @@ const getFeaturedImage = () => {
         },
         [featuredImage, postType]
     );
+
     let mediaUrl = {
         id: null,
         image: imagePlaceholder
     };
+
+    if(!isEmpty(useFeaturedImage)){
+        mediaUrl = {
+            id: onEditor ? '#gutenFeaturedImage' : null,
+            image: imagePlaceholder
+        };
+    }
 
     if(media){
         mediaUrl = {
@@ -195,7 +205,7 @@ const BackgroundControl = (props) => {
     };
 
     const deviceType = getDeviceType();
-    const featuredImage = getFeaturedImage();
+    const featuredImage = getFeaturedImage(useFeaturedImage);
 
     const id = useInstanceId(BackgroundControl, 'inspector-background-control');
 
