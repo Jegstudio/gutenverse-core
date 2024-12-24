@@ -326,6 +326,13 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"categoryVerticalAlign": {
+			"type": "object",
+			"default": {
+                "Desktop": "end"
+            },
+			"copyStyle": true
+		},
 		"categoryColor": {
 			"type": "object",
 			"copyStyle": true

@@ -162,6 +162,9 @@ class Post_Block extends Post_Abstract {
 			$position = 'type-3' === $this->attributes['postblockType'] ? 'position-' . esc_attr( $this->attributes['categoryPosition'] ) : '';
 			$class    = 'class="category-' . esc_attr( $category->slug ) . '"';
 			$category = '<div class="guten-post-category ' . $position . '"><span><a href="' . esc_url( get_category_link( $cat_id ) ) . '" ' . $class . '>' . esc_attr( $category->name ) . '</a></span></div>';
+			if ( 'type-5' === $this->attributes['postblockType'] ) {
+				$category = '<div class="post-category-container">' . $category . '</div>';
+			}
 		}
 
 		return $category;
