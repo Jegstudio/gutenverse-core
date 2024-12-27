@@ -213,13 +213,15 @@ class Style_Generator {
 			$template   = explode( '//', $_wp_current_template_id );
 			$style_name = 'gutenverse-template-' . $template[1];
 
-			if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'template' ) ) {
-				return;
-			}
-
 			if ( ! empty( $_wp_current_template_content ) ) {
 				$blocks = $this->parse_blocks( $_wp_current_template_content );
 				$blocks = $this->flatten_blocks( $blocks );
+
+				$blocks_using_featured_image = $this->template_check_featured_image( $blocks );
+
+				if ( apply_filters( 'gutenverse_bypass_generate_style', false, $style_name, 'template' ) && empty( $blocks_using_featured_image ) ) {
+					return;
+				}
 
 				if ( $blocks ) {
 					$this->loop_blocks( $blocks, $style );
@@ -232,6 +234,26 @@ class Style_Generator {
 
 			do_action( 'gutenverse_after_style_loop_blocks' );
 		}
+	}
+
+	/**
+	 * Check for featured image in background of template.
+	 *
+	 * @param array $blocks Array of blocks.
+	 */
+	public function template_check_featured_image( $blocks ) {
+		$matching_blocks = array();
+
+		foreach ( $blocks as $block ) {
+			$array_string = wp_json_encode( $block );
+			$pattern      = '/#gutenFeaturedImage/';
+
+			if ( preg_match( $pattern, $array_string ) ) {
+				$matching_blocks[] = $block;
+			}
+		}
+
+		return $matching_blocks;
 	}
 
 	/**
