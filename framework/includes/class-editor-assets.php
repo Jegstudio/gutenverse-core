@@ -80,6 +80,7 @@ class Editor_Assets {
 		$config['globals']           = array();
 		$config['fonts']             = ( new Fonts() )->get_font_settings();
 		$config['customFonts']       = ( new Fonts() )->get_custom_font_settings();
+		$config['globalColors']      = wp_get_global_settings( array( 'color', 'palette' ) );
 		$config['imagePlaceholder']  = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img/img-placeholder.jpg';
 		$config['imgDir']            = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/img';
 		$config['videoDir']          = GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/video';
@@ -123,6 +124,11 @@ class Editor_Assets {
 
 		foreach ( get_option( 'active_plugins' ) as  $plugin ) {
 			$active[] = explode( '/', $plugin )[0];
+		}
+		if ( is_multisite() ) {
+			foreach ( get_site_option( 'active_sitewide_plugins' ) as $key => $plugin ) {
+				$active[] = explode( '/', $key )[0];
+			}
 		}
 
 		foreach ( get_plugins() as $key => $plugin ) {

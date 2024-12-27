@@ -491,6 +491,39 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Get global color by slug
+	 *
+	 * @param string $slug name of variable.
+	 *
+	 * @return string
+	 */
+	public function get_global_color_by_slug( $slug ) {
+		$theme_colors = wp_get_global_settings( array( 'color', 'palette' ) );
+		if ( ! empty( $theme_colors ) && is_array( $theme_colors ) ) {
+			foreach ( $theme_colors as $color ) {
+				foreach ( $color as $key => $value ) {
+					if ( isset( $value['slug'] ) && $value['slug'] === $slug ) {
+						$global_color = $value['color'];
+						$hex          = str_replace( '#', '', $global_color );
+
+						// Handle shorthand HEX codes (e.g., #abc)
+						if ( strlen( $hex ) === 3 ) {
+							$hex = str_repeat( $hex[0], 2 ) . str_repeat( $hex[1], 2 ) . str_repeat( $hex[2], 2 );
+						}
+						return  array(
+							'r' => hexdec( substr( $hex, 0, 2 ) ),
+							'g' => hexdec( substr( $hex, 2, 2 ) ),
+							'b' => hexdec( substr( $hex, 4, 2 ) ),
+						);
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Handle gradient
 	 *
 	 * @param array  $props Value of Color.
@@ -1561,6 +1594,14 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
+							if ( '#gutenFeaturedImage' === $value['id'] ) {
+								$post_id = get_the_ID();
+								$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
+
+								if ( ! empty( $post_featured ) ) {
+									$value['image'] = $post_featured;
+								}
+							}
 							return "background-image: url({$value['image']});";
 						},
 						'value'          => $background['image'],

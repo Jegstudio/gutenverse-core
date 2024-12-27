@@ -273,6 +273,14 @@ export const withCustomStyle = panelList => BlockElement => {
 
         const customDeps = useMemo(() => renderStyleCustomDeps(props), [props]);
 
+        useEffect(() => {
+            const styleTimeoout = setTimeout(() => {
+                refreshStyle();
+            }, 100);
+
+            return () => clearTimeout(styleTimeoout);
+        }, [attributes]);
+
         /**
          * Render style on event change
          */

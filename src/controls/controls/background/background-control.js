@@ -6,6 +6,11 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { applyFilters } from '@wordpress/hooks';
+import { useEntityProp, store as coreStore } from '@wordpress/core-data';
+import { useSelect, select } from '@wordpress/data';
+import isEmpty from 'lodash/isEmpty';
+import { imagePlaceholder } from 'gutenverse-core/config';
+import { determineLocation } from 'gutenverse-core/helper';
 
 const gradientOption = (props) => {
     const { value = {}, onValueChange, onStyleChange } = props;
@@ -93,6 +98,55 @@ const gradientOption = (props) => {
     </>;
 };
 
+const getFeaturedImage = (useFeaturedImage) => {
+    const { postType } = useSelect((select) => {
+        const currentPostType = select('core/editor').getCurrentPostType();
+        return {
+            postType: currentPostType,
+        };
+    }, []);
+
+    const postId = select('core/editor').getCurrentPostId();
+    const [ featuredImage ] = useEntityProp( 'postType', postType, 'featured_media', postId );
+    const onEditor = determineLocation() === 'editor';
+
+
+    const { media } = useSelect(
+        (select) => {
+            const { getMedia, getPostType } = select(coreStore);
+            return {
+                media:
+                    featuredImage &&
+                    getMedia(featuredImage, {
+                        context: 'view',
+                    }),
+                postType: postType && getPostType(postType),
+            };
+        },
+        [featuredImage, postType]
+    );
+
+    let mediaUrl = {
+        id: null,
+        image: imagePlaceholder
+    };
+
+    if(!isEmpty(useFeaturedImage)){
+        mediaUrl = {
+            id: onEditor ? '#gutenFeaturedImage' : null,
+            image: imagePlaceholder
+        };
+    }
+
+    if(media){
+        mediaUrl = {
+            id: media.id,
+            image: media.source_url
+        };
+    }
+    return mediaUrl;
+};
+
 const BackgroundControl = (props) => {
     const {
         value = {},
@@ -140,7 +194,8 @@ const BackgroundControl = (props) => {
         blendMode,
         fixed = {
             Desktop: false
-        }
+        },
+        useFeaturedImage,
     } = value;
 
     const parameter = {
@@ -150,6 +205,7 @@ const BackgroundControl = (props) => {
     };
 
     const deviceType = getDeviceType();
+    const featuredImage = getFeaturedImage(useFeaturedImage);
 
     const id = useInstanceId(BackgroundControl, 'inspector-background-control');
 
@@ -181,13 +237,32 @@ const BackgroundControl = (props) => {
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
-            <ImageControl
-                label={__('Background Image', '--gctd--')}
-                value={value.image}
-                onValueChange={image => onValueChange({ ...value, image })}
-                onStyleChange={image => onStyleChange({ ...value, image })}
+            <CheckboxControl
+                label={__('Use Featured Image', '--gctd--')}
+                value={value.useFeaturedImage}
+                deviceValues={useFeaturedImage}
                 allowDeviceControl={true}
+                usePreviousDeviceValue={true}
+                onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
+                onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
             />
+            {!isEmpty(useFeaturedImage) ?
+                <ImageControl
+                    label={__('Background Image', '--gctd--')}
+                    externalValue={featuredImage}
+                    value={value.image}
+                    onValueChange={(image) => onValueChange({ ...value, image })}
+                    onStyleChange={(image) => onStyleChange({ ...value, image })}
+                    allowDeviceControl={true}
+                    useExternalValue={useFeaturedImage[deviceType]}
+                /> :
+                <ImageControl
+                    label={__('Background Image', '--gctd--')}
+                    value={value.image}
+                    onValueChange={image => onValueChange({ ...value, image })}
+                    onStyleChange={image => onStyleChange({ ...value, image })}
+                    allowDeviceControl={true}
+                />}
             <SelectControl
                 label={__('Background Position', '--gctd--')}
                 value={value.position}
