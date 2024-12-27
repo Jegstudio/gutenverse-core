@@ -1,4 +1,4 @@
-export const handleDimension = (attribute, prefix, multi = true, min = 0) => {
+export const handleDimension = (attribute, prefix = '', multi = true, min = 0) => {
     const { dimension, unit } = attribute;
     const positions = ['top', 'right', 'bottom', 'left'];
     const styles = [];
@@ -6,7 +6,11 @@ export const handleDimension = (attribute, prefix, multi = true, min = 0) => {
         if (multi) {
             positions.map(position => {
                 if (dimension[position]) {
-                    styles.push(`${prefix}-${position}: ${dimension[position]}${unit};`);
+                    if(prefix){
+                        styles.push(`${prefix}-${position}: ${dimension[position]}${unit};`);
+                    }else{
+                        styles.push(`${position}: ${dimension[position]}${unit};`);
+                    }
                 }
             });
 
