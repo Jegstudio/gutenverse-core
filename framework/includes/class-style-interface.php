@@ -2291,7 +2291,7 @@ abstract class Style_Interface {
 		$style = '';
 		if ( isset( $value['color'] ) ) {
 			$style .= $this->handle_color( $value['color'], '-webkit-text-stroke-color' );
-			$style .= $this->handle_color( $value['color'], 'stroke-color' );
+			$style .= $this->handle_color( $value['color'], 'stroke' );
 		}
 
 		if ( isset( $value['width'] ) ) {
