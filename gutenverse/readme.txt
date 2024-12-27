@@ -312,6 +312,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add more styling option each terms item in post term block
 * add featured image as background
 * add exlude current post feature
+* add text stroke option in text blocks
 
 ##### Bug Fixes
 * fix issue when adding column on section with empty column
