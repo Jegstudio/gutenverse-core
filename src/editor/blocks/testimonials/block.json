@@ -405,6 +405,10 @@
 			},
 			"copyStyle": true
 		},
+		"imageRadius": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"imageMargin": {
 			"type": "object",
 			"copyStyle": true

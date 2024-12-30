@@ -825,6 +825,19 @@ class Testimonials extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['imageRadius'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .guten-testimonial-item .profile-image img",
+					'property'       => function ( $value ) {
+						return $this->handle_border_radius( $value );
+					},
+					'value'          => $this->attrs['imageRadius'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['imageMargin'] ) ) {
 			$this->inject_style(
 				array(
