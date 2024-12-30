@@ -298,6 +298,9 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.1.8 =
+* fix issue with pagination panel control switcher
+
 = 2.1.7 =
 * fix issue with text based blocks
 
