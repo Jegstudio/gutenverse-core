@@ -24,9 +24,10 @@ const save = compose(
         backgroundOverlay,
         backgroundOverlayHover,
         backgroundAnimated = {},
-        backgroundEffect
+        backgroundEffect,
+        background,
     } = attributes;
-
+    const usingFeaturedImage = !isEmpty(background.useFeaturedImage) && (background.useFeaturedImage.Desktop || background.useFeaturedImage.Tablet || background.useFeaturedImage.Mobile);
     const animationClass = useAnimationFrontend(attributes);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -49,7 +50,8 @@ const save = compose(
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
                 'with-url' :  url,
-                'guten-background-effect-active': isBackgroundEffect
+                'guten-background-effect-active': isBackgroundEffect,
+                'guten-using-featured-image': usingFeaturedImage,
             }
         ),
         ...advanceAnimationData

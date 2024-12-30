@@ -48,7 +48,8 @@ const CheckboxControl = (props) => {
                     device === 'Mobile' &&
                     !checked &&
                     deviceValues[device] === undefined &&
-                    (deviceValues.Tablet === undefined || deviceValues.Tablet)
+                    (deviceValues.Tablet === undefined || deviceValues.Tablet) &&
+                    !(deviceValues.Desktop === undefined && deviceValues.Tablet === undefined)
                 ) {
                     return true;
                 }

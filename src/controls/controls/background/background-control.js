@@ -158,6 +158,7 @@ const BackgroundControl = (props) => {
         proLabel,
         allowDeviceControl,
         type = '',
+        blockType = '',
     } = props;
 
     const availableOptions = [
@@ -186,6 +187,13 @@ const BackgroundControl = (props) => {
     const finalOptions = availableOptions.filter(item => {
         return options.includes(item.value);
     });
+
+    const isWrapperBlock = () => {
+        if ('column' === blockType || 'section' === blockType || 'wrapper' === blockType) {
+            return true;
+        }
+        return false;
+    };
 
     // multi device control
     const {
@@ -237,7 +245,7 @@ const BackgroundControl = (props) => {
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
-            <CheckboxControl
+            {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}
                 value={value.useFeaturedImage}
                 deviceValues={useFeaturedImage}
@@ -245,7 +253,7 @@ const BackgroundControl = (props) => {
                 usePreviousDeviceValue={true}
                 onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
                 onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
-            />
+            />}
             {!isEmpty(useFeaturedImage) ?
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
