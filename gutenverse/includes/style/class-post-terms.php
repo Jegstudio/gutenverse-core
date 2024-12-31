@@ -116,10 +116,17 @@ class Post_Terms extends Style_Abstract {
 			);
 		}
 
+		$text_hover_selector = ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span, .{$this->element_id}:hover a";
+		if ( isset( $this->attrs['contentType'] ) ) {
+			if ( 'block' === $this->attrs['contentType'] ) {
+				$text_hover_selector = ".{$this->element_id} .post-term-block a:hover";
+			}
+		}
+
 		if ( isset( $this->attrs['colorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span, .{$this->element_id}:hover a",
+					'selector'       => $text_hover_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -132,7 +139,7 @@ class Post_Terms extends Style_Abstract {
 		if ( isset( $this->attrs['textShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span",
+					'selector'       => $text_hover_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
