@@ -123,11 +123,7 @@ class Heading extends Style_Abstract {
 				array(
 					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
-						if ( $value ) {
-							return 'overflow-wrap: normal; word-break: normal;';
-						} else {
-							return 'overflow-wrap: break-word;';
-						}
+						return "overflow-wrap: {$value}; word-break: {$value};";
 					},
 					'value'          => $this->attrs['overflowWrap'],
 					'device_control' => true,

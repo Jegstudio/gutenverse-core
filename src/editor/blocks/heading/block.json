@@ -62,7 +62,7 @@
 		"overflowWrap": {
 			"type": "object",
 			"default": {
-				"Desktop": true
+				"Desktop": "break-word"
 			},
 			"copyStyle": true
 		},

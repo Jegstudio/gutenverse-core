@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
 import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
     const {
@@ -61,22 +61,24 @@ export const stylePanel = (props) => {
         },
         {
             id: 'overflowWrap',
-            label: __('Do Not Break Word', '--gctd--'),
-            description: __('When word length longer than container, do not break them to a new line.', 'gutenverse'),
+            label: __('Text Overflow Wrap', 'gutenverse'),
+            description: __('If a word is longer than the container, choose whether to break it into a new line or not.', 'gutenverse'),
             allowDeviceControl: true,
-            component: CheckboxControl,
-            value: overflowWrap,
-            deviceValues: overflowWrap,
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Break Word', 'gutenverse'),
+                    value: 'break-word'
+                },
+                {
+                    label: __('Normal', 'gutenverse'),
+                    value: 'normal'
+                },
+            ],
             style: [
                 {
                     selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
-                    render: (value) => {
-                        if (value){
-                            return 'overflow-wrap: normal; word-break: normal;';
-                        } else {
-                            return 'overflow-wrap: break-word;';
-                        }
-                    }
+                    render: (value) => `overflow-wrap: ${value}; word-break:${value};`
                 },
             ]
         },
