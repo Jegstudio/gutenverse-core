@@ -65,6 +65,7 @@ export const stylePanel = (props) => {
             label: __('Gap', 'gutenverse'),
             component: RangeControl,
             show: contentType === 'block',
+            unit: 'px',
             min: 0,
             max: 100,
             allowDeviceControl: true,
