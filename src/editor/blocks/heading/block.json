@@ -59,6 +59,13 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"overflowWrap": {
+			"type": "object",
+			"default": {
+				"Desktop": true
+			},
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
