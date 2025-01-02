@@ -160,13 +160,14 @@ class Frontend_Toolbar {
 						'href'   => admin_url( 'admin.php?page=' . Dashboard::TYPE ),
 					)
 				);
-
+				$site_url = get_site_url();
+				$active_theme = get_option( 'stylesheet' );
 				if ( ! defined( 'GUTENVERSE_PRO' ) ) {
 					$admin_bar->add_menu(
 						array(
 							'id'    => 'gutenverse-pro',
 							'title' => '<span class="gutenverse-pro-right">' . esc_html__( 'Gutenverse PRO', '--gctd--' ) . '<img src="' . esc_url( GUTENVERSE_FRAMEWORK_URL_PATH . '/assets/icon/icon-crown.svg' ) . '"/> </span>',
-							'href'  => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar',
+							'href'  => gutenverse_upgrade_pro() . '/?utm_source=gutenverse&utm_medium=admintopbar&utm_client_site=' . $site_url . '&utm_client_theme=' . $active_theme,
 							'meta'  => array(
 								'target' => '_blank',
 							),

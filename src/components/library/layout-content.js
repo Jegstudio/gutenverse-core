@@ -12,7 +12,7 @@ import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG } from 'gutenverse-core/ic
 import Paging from './paging';
 import BannerPro from '../pro/banner-pro';
 import isEmpty from 'lodash/isEmpty';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
 const LayoutContent = (props) => {
     const [slug, setSlug] = useState(null);
@@ -134,7 +134,7 @@ const LayoutContentList = ({ libraryData, modalData, content, setContent, setSin
                 leftBannerImg = "library-graphic-library-left.png"
                 rightBannerImg = "library-graphic-library-right.png"
                 backgroundGradient = "library-bg-library.png"
-                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library`}
+                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
             />
             <LayoutContentData
                 current={content.current}
