@@ -64,6 +64,18 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
 		"position": {
 			"type": "string",
 			"default": "center",

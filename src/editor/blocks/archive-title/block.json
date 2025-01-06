@@ -58,6 +58,14 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textStrokeHover": {
+			"type": "object",
+			"copyStyle": true
+		},
 		"colorHover": {
 			"type": "object",
 			"copyStyle": true
@@ -121,6 +129,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		
 		"animation": {
 			"type": "object",
 			"default": {},

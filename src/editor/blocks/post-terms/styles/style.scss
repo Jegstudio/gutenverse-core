@@ -13,4 +13,12 @@
         margin-top: 0;
         margin-bottom: 0;
     }
+    .post-term-block{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &.inline-display{
+            flex-direction: row;
+        }
+    }
 }

@@ -1,17 +1,59 @@
 import { __ } from '@wordpress/i18n';
-import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const categoryPanel = (props) => {
     const {
-        elementId
+        elementId,
+        postblockType
     } = props;
 
     const device = getDeviceType();
 
     return [
+        {
+            id: 'categoryVerticalAlign',
+            label: __('Category Vertical Align', 'gutenverse'),
+            show: 'type-5' === postblockType,
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: 'Top',
+                    value: 'baseline'
+                },
+                {
+                    label: 'Middle',
+                    value: 'center'
+                },
+                {
+                    label: 'Bottom',
+                    value: 'end'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
+                    allowRender: (value) => {
+                        return ('type-5' === postblockType) && 'end' !== value;
+                    },
+                    render: () => {
+                        return 'height: 100%; display: grid; grid-template-rows: 1fr auto;';
+                    }
+                },
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content .post-category-container`,
+                    allowRender: (value) => {
+                        return ('type-5' === postblockType) && 'end' !== value;
+                    },
+                    render: (value) => {
+                        return `align-self: ${value}`;
+                    }
+                }
+            ]
+        },
         {
             id: 'categoryColor',
             label: __('Color', 'gutenverse'),

@@ -111,6 +111,10 @@
             "type": "object",
             "copyStyle": true
         },
+        "mainTextStroke":{
+            "type": "object",
+            "copyStyle": true
+        },
         "mainBackground": {
             "type": "object",
             "copyStyle": true
@@ -128,6 +132,10 @@
             "copyStyle": true
         },
         "focusTypography": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "focusTextStroke":{
             "type": "object",
             "copyStyle": true
         },

@@ -1,0 +1,87 @@
+.guten-portfolio-gallery{
+    .portfolio-gallery-container{
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        .content-items{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            .row-item{
+                height: 500px;
+                flex: 0 0 calc(100% / 4);
+                max-width: calc(100% / 4);
+                padding: 0;
+                position: relative;
+                z-index: 2;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+                &:not(:last-child){
+                    border-right: 1px solid rgba(255,255,255, .3);
+                }
+                .row-link-wrapper{
+                    display: flex;
+                    transition: all .5s ease;
+                    transform: translateY(100%);
+                    a{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        transition: all .5s ease;
+                    }
+                }
+                .row-item-info{
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    &> * {
+                        transition: all .5s;
+                    }
+                }
+                .row-item-info::after{
+                    transform-origin: -100% 0;
+                    transform: scaleY(0);
+                    height: 100%;
+                    background: white;
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                    transition: all .5s;
+                }
+                &:hover{
+                    .row-item-info::after{
+                        transform: scaleY(1)
+                    }
+                    .row-link-wrapper{
+                        transform: translateY(0);
+                    }
+                }
+            }
+            
+        }
+        .image-items{
+            width: 100%;
+            .image-item{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                transform: scale(1.1);
+                transition: all .7s ease;
+                background-size: cover;
+                background-position: center center;
+                &.current-item{
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}

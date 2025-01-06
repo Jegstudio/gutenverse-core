@@ -2,12 +2,13 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
     const {
-        elementId
+        elementId,
+        overflowWrap,
     } = props;
 
     return [
@@ -45,7 +46,42 @@ export const stylePanel = (props) => {
                     render: value => handleTextShadow(value)
                 }
             ]
-        }
+        },
+        {
+            id: 'textStroke',
+            label: __('Text Stroke', 'gutenverse'),
+            component: TextStrokeControl,
+            style: [
+                {
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
+                }
+            ]
+        },
+        {
+            id: 'overflowWrap',
+            label: __('Text Overflow Wrap', 'gutenverse'),
+            description: __('If a word is longer than the container, choose whether to break it into a new line or not.', 'gutenverse'),
+            allowDeviceControl: true,
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Break Word', 'gutenverse'),
+                    value: 'break-word'
+                },
+                {
+                    label: __('Normal', 'gutenverse'),
+                    value: 'normal'
+                },
+            ],
+            style: [
+                {
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    render: (value) => `overflow-wrap: ${value}; word-break:${value};`
+                },
+            ]
+        },
     ];
 };
 

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { BackgroundControl, ColorControl, DimensionControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor, handleDimension, handleTextStroke, handleTypography } from 'gutenverse-core/styling';
 
 export const focusTitlePanel = (props) => {
     const {
@@ -32,6 +32,18 @@ export const focusTitlePanel = (props) => {
                     selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
+        },
+        {
+            id: 'focusTextStroke',
+            label: __('Focus Text Stroke', 'gutenverse'),
+            component: TextStrokeControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
                 }
             ]
         },

@@ -157,6 +157,19 @@ class Advanced_Heading extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['mainTextStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .heading-title",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['mainTextStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['mainBackground'] ) ) {
 			$this->handle_background( ".{$this->element_id} .heading-title", $this->attrs['mainBackground'] );
 		}
@@ -206,6 +219,19 @@ class Advanced_Heading extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .heading-focus",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['focusTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['focusTextStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .heading-focus",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['focusTextStroke'],
 					'device_control' => false,
 				)
 			);

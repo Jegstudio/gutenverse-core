@@ -1,9 +1,24 @@
-import { imagePlaceholder } from "gutenverse-core/config";
-
-const CommentPlaceholder = ({showForm = true, enableSuffix = true, suffixMain = 'says:', suffixReply = 'relplied:'}) => {
+const CommentPlaceholder = (props) => {
+    const {
+        showForm = true,
+        enableSuffix = true,
+        suffixMain = 'says:',
+        suffixReply = 'relplied:',
+        titleText = ' Comments On ',
+        enableCommentTitle = true,
+        enableCommentCount,
+        enablePostTitle
+    } = props;
 
     return <>
         <div><span>Below is an example view of the post comment if user is not logged in.</span></div>
+        {enableCommentTitle && <div className="guten-post-comment-title comment-title">
+            <p className="title-text">
+                {enableCommentCount && <span className="comment-count">1</span>}
+                {titleText}
+                {enablePostTitle && <span className="comment-post-title">"Post Title"</span>}
+            </p>
+        </div>}
         <ol className="commentlist">
             <li id="comment-1" className="comment byuser comment-author-admin bypostauthor even thread-even depth-1">
                 <article id="div-comment-2" className="comment-body">

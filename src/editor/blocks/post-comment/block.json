@@ -49,6 +49,21 @@
 			"type": "string",
 			"default": "replied:"
 		},
+		"enableCommentTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"titleText": {
+			"type": "string",
+			"default": " Comments On "
+		},
+		"enablePostTitle": {
+			"type": "boolean",
+			"default": true
+		},"enableCommentCount": {
+			"type": "boolean",
+			"default": true
+		},
 		"noContentText": {
 			"type": "string",
 			"default": "No Content"
@@ -128,6 +143,34 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"typographyCommentTitle": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "colorCommentTitle": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "marginCommentTitle": {
+            "type": "object",
+            "copyStyle": true
+        },
+		"commentCountTypography": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "commentCountColor": {
+            "type": "object",
+            "copyStyle": true
+        },
+		"postTitleTypography": {
+            "type": "object",
+            "copyStyle": true
+        },
+        "postTitleColor": {
+            "type": "object",
+            "copyStyle": true
+        },
 		"marginLink": {
 			"type": "object",
 			"copyStyle": true

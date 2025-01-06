@@ -25,43 +25,65 @@ class Post_Terms extends Block_Abstract {
 	 * @return string
 	 */
 	public function render_content( $post_id ) {
-		$element_id = esc_html( $this->get_element_id() );
-		$html_tag   = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
-		$taxonomy   = esc_html( $this->attributes['taxonomy'] );
-		$separator  = esc_html( $this->attributes['separator'] );
-		$link_to    = $this->attributes['linkTo'];
-
+		$element_id     = esc_html( $this->get_element_id() );
+		$html_tag       = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'p' ) );
+		$taxonomy       = esc_html( $this->attributes['taxonomy'] );
+		$separator      = esc_html( $this->attributes['separator'] );
+		$link_to        = $this->attributes['linkTo'];
+		$content_type   = esc_attr( $this->attributes['contentType'] );
+		$inline_display = isset( $this->attributes['inlineDisplay'] ) ? esc_attr( $this->attributes['inlineDisplay'] ) : false;
 		if ( ! empty( $post_id ) ) {
 			$term_list = get_the_terms( $post_id, $taxonomy );
 			$content   = '';
 
-			if ( ! empty( $term_list ) ) {
-				$count = count( $term_list );
-
-				$term = $term_list[0]->name;
-
-				if ( 'term' === $link_to ) {
-					$term = sprintf( '<a href="%1$s">%2$s</a>', esc_url( get_term_link( $term_list[0] ) ), $term );
+			if ( 'block' === $content_type ) {
+				if ( ! empty( $term_list ) ) {
+					$content = "<div class='post-term-block'>";
+					if ( $inline_display ) {
+						$content = "<div class='post-term-block inline-display'>";
+					}
+					foreach ( $term_list as $key => $term ) {
+						$term_name = $term->name;
+						if ( 'term' === $link_to ) {
+							$link     = get_term_link( $term );
+							$content .= "<a href='{$link}' class='term-item'><{$html_tag}>$term_name</{$html_tag}></a>";
+						} else {
+							$content .= "<{$html_tag} class='term-item' >$term_name</{$html_tag}>";
+						}
+					}
+					$content .= '</div>';
+					return $content;
 				}
+				return "<div class='post-term-block'><{$html_tag} class='term-item'>No Terms Found</{$html_tag}></div>";
+			} else {
+				if ( ! empty( $term_list ) ) {
+					$count = count( $term_list );
 
-				$content .= sprintf( '<%1$s class="term-list">%2$s</%1$s>', $html_tag, $term );
-
-				for ( $i = 1; $i < $count; $i++ ) {
-					$term = $term_list[ $i ]->name;
+					$term = $term_list[0]->name;
 
 					if ( 'term' === $link_to ) {
-						$term = sprintf( '<a href="%1$s">%2$s</a>', esc_url( get_term_link( $term_list[ $i ] ) ), $term );
+						$term = sprintf( '<a href="%1$s">%2$s</a>', esc_url( get_term_link( $term_list[0] ) ), $term );
 					}
 
-					$content .= sprintf( '%1$s  <%2$s class="term-list">%3$s</%2$s>', $separator, $html_tag, $term );
+					$content .= sprintf( '<%1$s class="term-list">%2$s</%1$s>', $html_tag, $term );
+
+					for ( $i = 1; $i < $count; $i++ ) {
+						$term = $term_list[ $i ]->name;
+
+						if ( 'term' === $link_to ) {
+							$term = sprintf( '<a href="%1$s">%2$s</a>', esc_url( get_term_link( $term_list[ $i ] ) ), $term );
+						}
+
+						$content .= sprintf( '%1$s  <%2$s class="term-list">%3$s</%2$s>', $separator, $html_tag, $term );
+					}
+
+					$content = sprintf( '<span class="%2$s guten-post-terms">%1$s</span>', $content, $element_id );
+
+					return $content;
 				}
+				return "<span class='guten-post-terms'>example, category, and, terms</span>";
 
-				$content = sprintf( '<span class="%2$s guten-post-terms">%1$s</span>', $content, $element_id );
-
-				return $content;
 			}
-
-			return "<span class='guten-post-terms'>example, category, and, terms</span>";
 		}
 
 		return $this->empty_content();
