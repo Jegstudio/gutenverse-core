@@ -10,7 +10,7 @@ import SingleLayoutContent from './single-layout-content';
 import PluginInstallMode from './plugin-install-mode';
 import { saveLayoutLikeState } from 'gutenverse-core/requests';
 import BannerPro from '../pro/banner-pro';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { upgradeProUrl, clientUrl, activeTheme } from 'gutenverse-core/config';
 
 const FavoriteContent = props => {
     const { modalData, library, burger } = props;
@@ -215,7 +215,7 @@ const FavoriteContent = props => {
                     leftBannerImg = "library-graphic-library-left.png"
                     rightBannerImg = "library-graphic-library-right.png"
                     backgroundGradient = "library-bg-library.png"
-                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library`}
+                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
                 />
                 <>
                     {'layout' === layoutContentData.library && <LayoutContentData

@@ -328,7 +328,7 @@ export const setControlStyle = ({
         hasChild = false,
         render
     } = style;
-
+    
     if (allowRender(value) && (!isNaN(value) || !isEmpty(value))) {
         const elementStyle = hasChild ? render(value, id) : elementVar();
 
@@ -352,7 +352,6 @@ export const setControlStyle = ({
                 });
             }
         }
-
         addStyle(
             id,
             BuildAdminStyle(elementStyle.adminStyle, selector)
