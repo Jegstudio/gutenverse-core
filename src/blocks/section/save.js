@@ -47,7 +47,9 @@ const save = compose(
         backgroundEffect = {},
         backgroundOverlay,
         backgroundOverlayHover,
+        background,
     } = attributes;
+    const usingFeaturedImage = !isEmpty(background.useFeaturedImage) && (background.useFeaturedImage.Desktop || background.useFeaturedImage.Tablet || background.useFeaturedImage.Mobile);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -68,6 +70,7 @@ const save = compose(
             [`sticky-${stickyPosition}`]: isSticky(sticky),
             ['guten-cursor-effect']: cursorEffect?.show,
             'guten-background-effect-active': isBackgroundEffect,
+            'guten-using-featured-image': usingFeaturedImage,
         }
     );
 
