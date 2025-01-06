@@ -11,7 +11,7 @@ import { Loader } from 'react-feather';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { LogoIconGutenverseSVG } from 'gutenverse-core/icons';
 import { BannerPro } from 'gutenverse-core/components';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
 const PluginItem = ({
     plugin,
@@ -243,7 +243,7 @@ const Ecosystem = props => {
                 leftBannerImg = "ecosystem-graphic-ecosystem-left.png"
                 rightBannerImg = "ecosystem-graphic-ecosystem-right.png"
                 backgroundGradient = "banner-dasboard-bg.png"
-                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`}
+                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
             />
             <div className="ecosystem-wrapper">
                 <PluginsData {...pluginsData} />

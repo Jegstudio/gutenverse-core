@@ -10,7 +10,7 @@ import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect,withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -179,6 +179,7 @@ const SectionBlock = compose(
     withMouseMoveEffect,
     withCursorEffect,
     withBackgroundEffect,
+    withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockRootClientId,
@@ -195,6 +196,7 @@ const SectionBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
+        slideElement
     } = props;
 
     const {
@@ -207,6 +209,7 @@ const SectionBlock = compose(
         backgroundAnimated = {},
         cursorEffect,
         backgroundEffect,
+        background
     } = attributes;
 
     const { settingsData } = window['GutenverseConfig'];
@@ -280,9 +283,12 @@ const SectionBlock = compose(
         <SectionInspection {...props} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
+                {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 <FluidCanvas attributes={attributes} />
-                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                    {background?.slideImage?.length > 0 && slideElement}
+                </div></div>}
                 <SectionVideoContainer {...props} />
                 <div className="guten-background-overlay" />
                 <Component {...componentProps} />

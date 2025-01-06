@@ -4,7 +4,7 @@ import { compose } from '@wordpress/compose';
 import { isAlignStickyColumn, isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { useAnimationAdvanceData, useAnimationFrontend } from 'gutenverse-core/hooks';
 import { useDisplayFrontend } from 'gutenverse-core/hooks';
-import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundSlideshowScript } from 'gutenverse-core/hoc';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 
@@ -13,9 +13,11 @@ const save = compose(
     withMouseMoveEffectScript,
     withBackgroundEffectScript,
     withCursorEffectScript,
+    withBackgroundSlideshowScript,
 )((props) => {
     const {
         attributes,
+        slideElements,
     } = props;
     const {
         elementId,
@@ -34,8 +36,11 @@ const save = compose(
         backgroundOverlayHover,
         backgroundAnimated = {},
         backgroundEffect = {},
-        anchor
+        anchor,
+        background
     } = attributes;
+    const isSlideShow = background?.slideImage?.length > 0;
+    const usingFeaturedImage = !isEmpty(background.useFeaturedImage) && (background.useFeaturedImage.Desktop || background.useFeaturedImage.Tablet || background.useFeaturedImage.Mobile);
     const isCanSticky = isSticky(sticky) && isAlignStickyColumn(sectionVerticalAlign);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
     const stickyClasses = Object.keys(sticky)
@@ -68,6 +73,8 @@ const save = compose(
         {
             'background-animated': isAnimationActive(backgroundAnimated),
             'guten-background-effect-active': isBackgroundEffect,
+            'guten-background-slideshow' : isSlideShow,
+            'guten-using-featured-image': usingFeaturedImage,
         }
     );
 
@@ -87,7 +94,7 @@ const save = compose(
     return (
         <div {...blockProps}>
             <FluidCanvasSave attributes={attributes} />
-            {(isCanSticky || _isBgAnimated) &&
+            {(isCanSticky || _isBgAnimated || isSlideShow) &&
                 <div className="guten-data">
                     {isCanSticky && <div data-var={`stickyData${elementId?.split('-')[1]}`} data-value={JSON.stringify({
                         sticky,
@@ -105,10 +112,16 @@ const save = compose(
                             ...backgroundAnimated
                         })} />
                     }
+                    {isSlideShow &&
+                        <div data-var={`backgroundSlideshow${dataId}`} data-value={JSON.stringify({
+                            ...background
+                        })} />
+                    }
                 </div>}
             {
                 isCanSticky ? <div className={'sticky-wrapper'} data-id={elementId?.split('-')[1]}>
                     <div className="guten-column-wrapper">
+                        {isSlideShow && slideElements}
                         {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                         {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
                         {
@@ -117,8 +130,11 @@ const save = compose(
                         <InnerBlocks.Content />
                     </div>
                 </div> : <div className="guten-column-wrapper" data-id={elementId?.split('-')[1]}>
+                    {!_isBgAnimated && isSlideShow && slideElements}
                     {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                    {_isBgAnimated && <div className={'guten-background-animated'} data-id={elementId?.split('-')[1]}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                    {_isBgAnimated && <div className={'guten-background-animated'} data-id={elementId?.split('-')[1]}><div className={`animated-layer animated-${dataId}`}>
+                        {isSlideShow && slideElements}
+                    </div></div>}
                     {
                         (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
                     }
