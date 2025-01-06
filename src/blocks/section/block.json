@@ -33,8 +33,18 @@
       "default": "top",
       "copyStyle": true
     },
+    "offsetY": {
+      "type": "float",
+      "default": 0,
+      "copyStyle": true
+    },
+    "offsetX": {
+      "type": "float",
+      "default": 0,
+      "copyStyle": true
+    },
     "stickyDuration": {
-      "type": "integer",
+      "type": "float",
       "default": 0.25,
       "copyStyle": true
     },

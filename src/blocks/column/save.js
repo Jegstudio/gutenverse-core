@@ -23,6 +23,8 @@ const save = compose(
         stickyShowOn,
         stickyEase,
         stickyPosition,
+        offsetY,
+        offsetX,
         stickyDuration,
         topSticky,
         bottomSticky,
@@ -92,6 +94,8 @@ const save = compose(
                         stickyShowOn,
                         stickyPosition,
                         stickyEase,
+                        offsetY,
+                        offsetX,
                         stickyDuration,
                         topSticky,
                         bottomSticky
