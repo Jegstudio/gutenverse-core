@@ -1,6 +1,7 @@
 import { useEffect, useRef } from '@wordpress/element';
 import {
     BlockControls,
+    InnerBlocks,
     useBlockProps,
     useInnerBlocksProps,
 } from '@wordpress/block-editor';
@@ -52,18 +53,24 @@ const SectionPlaceholder = (props) => {
 
     const blockType = getBlockType(name);
 
-    return (<SectionVariation
-        icon={get(blockType, ['icon', 'src'])}
-        label={get(blockType, ['title'])}
-        blockId={clientId}
-        wrapper={wrapper}
-        onSelect={(nextVariation) => {
-            const variation = createBlocksFromInnerBlocksTemplate(
-                nextVariation
-            );
-            replaceInnerBlocks(clientId, variation, true);
-        }}
-    />);
+    return <>
+        <SectionVariation
+            icon={get(blockType, ['icon', 'src'])}
+            label={get(blockType, ['title'])}
+            blockId={clientId}
+            wrapper={wrapper}
+            onSelect={(nextVariation) => {
+                const variation = createBlocksFromInnerBlocksTemplate(
+                    nextVariation
+                );
+                replaceInnerBlocks(clientId, variation, true);
+            }}
+        />
+        <div style={{display: 'none'}}>
+            {/* Note: Inner Block is here to allow insert block when section total column is at 0. */}
+            <InnerBlocks />
+        </div>
+    </>;
 };
 
 // Backend Wrapper

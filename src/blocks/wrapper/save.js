@@ -34,6 +34,7 @@ const save = compose(
     } = attributes;
 
     const isSlideShow = background?.slideImage?.length > 0;
+    const usingFeaturedImage = !isEmpty(background.useFeaturedImage) && (background.useFeaturedImage.Desktop || background.useFeaturedImage.Tablet || background.useFeaturedImage.Mobile);
     const animationClass = useAnimationFrontend(attributes);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -58,6 +59,7 @@ const save = compose(
                 'with-url' :  url,
                 'guten-background-effect-active': isBackgroundEffect,
                 'guten-background-slideshow' : isSlideShow,
+                'guten-using-featured-image': usingFeaturedImage,
             }
         ),
         ...advanceAnimationData

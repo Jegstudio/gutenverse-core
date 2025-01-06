@@ -52,6 +52,7 @@ const save = compose(
         background
     } = attributes;
     const isSlideShow = background?.slideImage?.length > 0;
+    const usingFeaturedImage = !isEmpty(background.useFeaturedImage) && (background.useFeaturedImage.Desktop || background.useFeaturedImage.Tablet || background.useFeaturedImage.Mobile);
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
     const displayClass = useDisplayFrontend(attributes);
@@ -73,6 +74,7 @@ const save = compose(
             ['guten-cursor-effect']: cursorEffect?.show,
             'guten-background-effect-active': isBackgroundEffect,
             'guten-background-slideshow' : isSlideShow,
+            'guten-using-featured-image': usingFeaturedImage,
         }
     );
 

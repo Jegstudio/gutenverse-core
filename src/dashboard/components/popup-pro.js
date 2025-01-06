@@ -1,7 +1,7 @@
 import { ButtonUpgradePro, EscListener } from 'gutenverse-core/components';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { useRef, useEffect } from '@wordpress/element';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
 const PopupPro = ({
     active = false,
@@ -39,7 +39,7 @@ const PopupPro = ({
                     </div>
                     <div className="content">
                         <h3 className="details">{description}</h3>
-                        <ButtonUpgradePro location="popup" isBanner={true} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`} customStyles={{ height: '16px', padding: '12px 25px 12px 30px' }} />
+                        <ButtonUpgradePro location="popup" isBanner={true} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} customStyles={{ height: '16px', padding: '12px 25px 12px 30px' }} />
                     </div>
                 </div>
             </div>

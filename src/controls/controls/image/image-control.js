@@ -8,6 +8,8 @@ import {Trash} from 'react-feather';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
+import { useEffect, useRef } from '@wordpress/element';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const ALLOWED_MEDIA_TYPES = ['image'];
 
@@ -19,10 +21,16 @@ const ImageControl = (props) => {
         onValueChange,
         onStyleChange,
         description = '',
+        useExternalValue,
+        externalValue = {},
     } = props;
 
-    const {id: imageId, image} = value;
+    const newValue = useExternalValue ? externalValue : value;
+    const deviceType = getDeviceType();
+    const {id: imageId, image} = newValue;
     const id = useInstanceId(ImageControl, 'inspector-image-control');
+    const prevUseExternalValue = useRef();
+    const prevDevice = useRef();
 
     const onChange = value => {
         onValueChange(value);
@@ -33,6 +41,30 @@ const ImageControl = (props) => {
         e.stopPropagation();
         onChange({});
     };
+
+    const deviceTypeHierarchy = {
+        Mobile: 1,
+        Tablet: 2,
+        Desktop: 3,
+    };
+
+    useEffect(() => {
+        prevDevice.current = deviceType;
+        if (prevUseExternalValue.current === true && (deviceTypeHierarchy[prevDevice.current] < deviceTypeHierarchy[deviceType])) {
+            if (!useExternalValue) {
+                onChange({});
+            } else {
+                onChange(newValue);
+            }
+        } else {
+            if (useExternalValue) {
+                onChange(newValue);
+            }
+        }
+
+        prevDevice.current = deviceType;
+        prevUseExternalValue.current = useExternalValue;
+    },[deviceType, useExternalValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-image'}>
         <ControlHeadingSimple
@@ -49,22 +81,20 @@ const ImageControl = (props) => {
                         image: media.sizes.full.url
                     })}
                     allowedTypes={ALLOWED_MEDIA_TYPES}
-                    value={value.id}
+                    value={imageId}
                     render={({open}) => {
                         if (imageId) {
                             return <>
-                                <div className={'image-placeholder'} onClick={open}>
-                                    <div className={'image-remove'} onClick={e => removeImage(e)}>
+                                <div className={'image-placeholder'} onClick={useExternalValue ? null : open} >
+                                    {!useExternalValue && <div className={'image-remove'} onClick={e => removeImage(e)} >
                                         <Trash/>
-                                    </div>
-                                    <div className={'image-preview'} style={{backgroundImage: `url(${image})`}}/>
-                                    <div className={'image-change'}>{__('Change Image', '--gctd--')}</div>
+                                    </div>}
+                                    <div className={'image-preview'} style={{ backgroundImage: `url(${image})` }} />
+                                    {!useExternalValue && <div className={'image-change'}>{__('Change Image', '--gctd--')}</div>}
                                 </div>
                             </>;
                         } else {
-                            return <Button
-                                className={'select-image'}
-                                onClick={open}>
+                            return <Button className={'select-image'} onClick={open} >
                                 {__('Select Image', '--gctd--')}
                             </Button>;
                         }
