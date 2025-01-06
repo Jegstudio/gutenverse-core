@@ -30,9 +30,9 @@ const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
     return (
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
+            {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
-                {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
                     {background?.slideImage?.length > 0 && slideElement}

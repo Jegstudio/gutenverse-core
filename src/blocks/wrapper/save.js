@@ -83,11 +83,11 @@ const save = compose(
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />
+            {!_isBgAnimated && isSlideShow && slideElements}
             {
                 (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
             }
             <div className="guten-inner-wrap" data-id={dataId}>
-                {!_isBgAnimated && isSlideShow && slideElements}
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
                 {_isBgAnimated && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
                     {isSlideShow && slideElements}
