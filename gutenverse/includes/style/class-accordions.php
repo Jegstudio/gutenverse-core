@@ -487,6 +487,26 @@ class Accordions extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['iconActiveBorder'] ) ) {
+			$this->handle_border( 'iconActiveBorder', ".{$this->element_id} .accordion-item.active .accordion-icon" );
+		}
+
+		if ( isset( $this->attrs['iconActiveBorderResponsive'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .accordion-item.active .accordion-icon",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['iconActiveBorderResponsive'],
+					'device_control' => true,
+					'skip_device'    => array(
+						'Desktop',
+					),
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['iconActiveBoxShadow'] ) ) {
 			$this->inject_style(
 				array(
