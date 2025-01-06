@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { SelectControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingPanel = () => {
+export const settingPanel = ({contentType}) => {
     return [
         {
             id: 'taxonomy',
@@ -19,8 +19,30 @@ export const settingPanel = () => {
             ],
         },
         {
+            id: 'contentType',
+            label: __('Content Type', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('One Line', 'gutenverse'),
+                    value: 'string'
+                },
+                {
+                    label: __('Block', 'gutenverse'),
+                    value: 'block'
+                },
+            ],
+        },
+        {
+            id: 'inlineDisplay',
+            label: __('Display Content Inline', 'gutenverse'),
+            show: contentType === 'block',
+            component: CheckboxControl,
+        },
+        {
             id: 'separator',
             label: __('Separator', 'gutenverse'),
+            show: contentType === 'string',
             component: TextControl
         },
         {

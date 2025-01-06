@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.1.4
+Stable tag: 2.1.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,9 +298,55 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.1.8 =
+##### Improvements
+* add display panel to popup builder
+* add option to set image radius in testimonials block
+* add option to align category for post block type 5
+* add option to break word or not in heading block
+
+##### Bug Fixes
+* fix issue with pagination panel control switcher
+* fix background featured image not dynamic in the template
+* fix conflict with plugin editorkit
+* fix issue with spacer responsive
+* fix post term text hover on content type block
+* fix column horizontal and vertical alignment responsive in editor
+
+= 2.1.7 =
+##### Bug Fixes
+* fix issue with text based blocks
+
+= 2.1.6 =
+##### New
+* add Portfolio Gallery block
+
+##### Improvements
+* update Google Font list
+* give post excerpt and post meta display inline option
+* add dynamic title & toggle on/off comment count to post comment block
+* add more styling option each terms item in post term block
+* add featured image as background
+* add exlude current post feature
+* add text stroke option in text blocks
+
+##### Bug Fixes
+* fix issue when adding column on section with empty column
+* fix refreshing style function
+* fix library plugin requirement in multisite
+* fix the condition where meta text is also disabled when the icon did not exist
+* fix username and comment text typography bug
+* fix glitch hover on testimonials block
+* fix popup trigger anchor in flexible wrapper does not work
+
+= 2.1.5 =
+##### Bug Fixes
+* Fix issue with post block pagination/loadmore
+* Fix align issue when column wrap 100%
+
 = 2.1.4 =
 ##### New
-* Add new category list block
+* Add new taxonomy list block
 * Add new search title block
 
 ##### Improvements
@@ -313,6 +359,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * Fix issue when editing button text when there is active link
 * Fix sticky & vertical align issue
 * Fix post block pagination style
+* Fix column size when adding/removing it
 
 = 2.1.3 =
 ##### Improvements

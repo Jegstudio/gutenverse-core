@@ -68,6 +68,19 @@ class Post_Terms extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['contentGap'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block",
+					'property'       => function ( $value ) {
+						return "gap: {$value}px;";
+					},
+					'value'          => $this->attrs['contentGap'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['typography'] ) ) {
 			$this->inject_typography(
 				array(
@@ -103,10 +116,17 @@ class Post_Terms extends Style_Abstract {
 			);
 		}
 
+		$text_hover_selector = ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span, .{$this->element_id}:hover a";
+		if ( isset( $this->attrs['contentType'] ) ) {
+			if ( 'block' === $this->attrs['contentType'] ) {
+				$text_hover_selector = ".{$this->element_id} .post-term-block a:hover";
+			}
+		}
+
 		if ( isset( $this->attrs['colorHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span, .{$this->element_id}:hover a",
+					'selector'       => $text_hover_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -119,11 +139,96 @@ class Post_Terms extends Style_Abstract {
 		if ( isset( $this->attrs['textShadowHover'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:hover h1, .{$this->element_id}:hover h2, .{$this->element_id}:hover h3, .{$this->element_id}:hover h4, .{$this->element_id}:hover h5, .{$this->element_id}:hover h6, .{$this->element_id}:hover span",
+					'selector'       => $text_hover_selector,
 					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
 					'value'          => $this->attrs['textShadowHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['termAlignment'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item",
+					'property'       => function ( $value ) {
+						return "text-align: {$value};";
+					},
+					'value'          => $this->attrs['termAlignment'],
+					'device_control' => true,
+				)
+			);
+		}
+		if ( isset( $this->attrs['termPadding'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item",
+					'property'       => function ( $value ) {
+						return $this->handle_dimension( $value, 'padding' );
+					},
+					'value'          => $this->attrs['termPadding'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['termBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .post-term-block .term-item", $this->attrs['termBackground'] );
+		}
+
+		if ( isset( $this->attrs['termBackgroundHover'] ) ) {
+			$this->handle_background( ".{$this->element_id} .post-term-block .term-item:hover", $this->attrs['termBackgroundHover'] );
+		}
+
+		if ( isset( $this->attrs['termBorder'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['termBorder'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['termBorderHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_border_responsive( $value );
+					},
+					'value'          => $this->attrs['termBorderHover'],
+					'device_control' => true,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['termBoxShadow'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['termBoxShadow'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['termBoxShadowHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .post-term-block .term-item:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_box_shadow( $value );
+					},
+					'value'          => $this->attrs['termBoxShadowHover'],
 					'device_control' => false,
 				)
 			);

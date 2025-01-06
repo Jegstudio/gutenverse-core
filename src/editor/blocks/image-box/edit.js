@@ -139,13 +139,14 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
         return block && block.innerBlocks[0]?.attributes.url;
     }, [clientId]);
 
-    setAttributes({ hasInnerBlocks });
-    setAttributes({separateButtonLink: hasInnerBlocks});
-    setAttributes({ buttonUrl });
-
-    if (isGlobalLinkSet) {
-        setAttributes({ hasGlobalLink: isGlobalLinkSet });
-    } else setAttributes({ hasGlobalLink: false });
+    useEffect(() => {
+        setAttributes({
+            hasInnerBlocks,
+            separateButtonLink: hasInnerBlocks,
+            buttonUrl,
+            hasGlobalLink: isGlobalLinkSet ? isGlobalLinkSet : false,
+        });
+    }, [hasInnerBlocks, buttonUrl, isGlobalLinkSet]);
 
     const blockProps = useBlockProps({
         className: classnames(

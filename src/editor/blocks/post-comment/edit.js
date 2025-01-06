@@ -28,7 +28,11 @@ const PostCommentBlock = compose(
         showForm,
         suffixMain,
         enableSuffix,
-        suffixReply
+        suffixReply,
+        enableCommentTitle,
+        enablePostTitle,
+        enableCommentCount,
+        titleText
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -69,7 +73,16 @@ const PostCommentBlock = compose(
         </InspectorControls>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
-            <CommentPlaceholder showForm={showForm} suffixMain={suffixMain} enableSuffix={enableSuffix} suffixReply={suffixReply}/>
+            <CommentPlaceholder 
+                showForm={showForm}
+                suffixMain={suffixMain}
+                enableSuffix={enableSuffix}
+                suffixReply={suffixReply}
+                enableCommentTitle={enableCommentTitle}
+                titleText={titleText}
+                enablePostTitle={enablePostTitle}
+                enableCommentCount={enableCommentCount}
+            />
         </div>
     </>;
 });

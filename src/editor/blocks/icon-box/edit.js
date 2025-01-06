@@ -99,12 +99,13 @@ const IconBoxBlock = compose(
         return block && block.innerBlocks.length > 0;
     }, [props.clientId]);
 
-    setAttributes({ hasInnerBlocks });
-    setAttributes({separateButtonLink: hasInnerBlocks});
-
-    if (isGlobalLinkSet) {
-        setAttributes({ hasGlobalLink: isGlobalLinkSet });
-    } else setAttributes({ hasGlobalLink: false });
+    useEffect(() => {
+        setAttributes({
+            hasInnerBlocks,
+            separateButtonLink: hasInnerBlocks,
+            hasGlobalLink: isGlobalLinkSet ? isGlobalLinkSet : false,
+        });
+    }, [hasInnerBlocks, isGlobalLinkSet]);
 
     const blockProps = useBlockProps({
         className: classnames(

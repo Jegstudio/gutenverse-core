@@ -55,6 +55,17 @@
 			"default": {},
 			"copyStyle": true
 		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"overflowWrap": {
+			"type": "object",
+			"default": {
+				"Desktop": "break-word"
+			},
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},
@@ -178,6 +189,7 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		
 		"textClip": {
 			"type": "object",
 			"default": {},

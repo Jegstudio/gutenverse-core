@@ -31,6 +31,8 @@ const PostTermsBlock = compose(
         taxonomy = 'category',
         separator = ',',
         linkTo,
+        contentType,
+        inlineDisplay,
         htmlTag: HtmlTag,
     } = attributes;
 
@@ -78,6 +80,38 @@ const PostTermsBlock = compose(
         ref: postTermRef
     });
 
+    const contentHTML = () => {
+        switch (contentType) {
+            case 'block':
+                if( !isEmpty(terms) ){
+                    return <div className={`post-term-block ${inlineDisplay ? 'inline-display' : ''}`}>
+                        {
+                            terms.map((term, index) => {
+                                const name = term?.name; 
+                                return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()} className="term-item"><HtmlTag >{name}</HtmlTag></a> : <HtmlTag className="term-item">{name}</HtmlTag>;
+                            })
+                        }
+                    </div>;
+                }else{
+                    return <div className="post-term-block">
+                        {
+                            linkTo && linkTo !== 'none' ? <a href="#" className="term-item" onClick={e => e.preventDefault()}><HtmlTag >{'Post Terms'}</HtmlTag></a> : <HtmlTag className="term-item">{'Post Terms'}</HtmlTag>
+                        }
+                    </div>;
+                }
+            case 'string':
+            default:
+                return <HtmlTag>
+                    {!isEmpty(terms) ? terms.map((term, index) => {
+                        const name = term?.name;
+                        const after = index < terms.length - 1 ? separator : '';
+
+                        return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{name + after}</a> : name + after;
+                    }) : linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{'Post Terms'}</a> : 'Post Terms'}
+                </HtmlTag>;
+        }
+    }
+
     return <>
         <InspectorControls>
             <PanelTutorial
@@ -96,14 +130,7 @@ const PostTermsBlock = compose(
         </InspectorControls>
         <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
-            <HtmlTag>
-                {!isEmpty(terms) ? terms.map((term, index) => {
-                    const name = term?.name;
-                    const after = index < terms.length - 1 ? separator : '';
-
-                    return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{name + after}</a> : name + after;
-                }) : linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{'Post Terms'}</a> : 'Post Terms'}
-            </HtmlTag>
+            {contentHTML()}
         </div>
     </>;
 });
