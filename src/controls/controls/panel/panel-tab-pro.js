@@ -4,6 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { IconCrownBannerSVG, IconCrownSVG, IconKeySVG } from 'gutenverse-core/icons';
 import isEmpty from 'lodash/isEmpty';
 import { ButtonUpgradePro } from 'gutenverse-core/components';
+import { activeTheme, clientUrl } from 'gutenverse-core/config';
 
 const PanelTabPro = ({ activeTab }) => {
     const {
@@ -15,7 +16,7 @@ const PanelTabPro = ({ activeTab }) => {
     const ButtonProSecond = applyFilters('gutenverse.button.pro.library', () => {
         if (isEmpty(window?.gprodata)) {
             if ( location !== 'dashboard-navigation' ){
-                return <a href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
+                return <a href={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} target="_blank" rel="noreferrer" className="guten-pro-bottom-button">{__('Upgrade To PRO', 'gutenverse-pro')} <IconCrownBannerSVG transform="translate(0,3)" /></a>;
             }
         } else {
             if ( location !== 'dashboard-navigation' ){
@@ -54,7 +55,7 @@ const PanelTabPro = ({ activeTab }) => {
                                         <img className="guten-card-pro-blink" src={window['GutenverseConfig'].imgDir + '/banner-graphic-blink.png'} alt="Guten Card Pro Blink" />
                                     </div>
                                     <img className="guten-card-pro-arrow" src={window['GutenverseConfig'].imgDir + '/banner-arrow-blue.png'} alt="Guten Card Pro Arrow" />
-                                    <ButtonUpgradePro isBanner={true} location = "card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor`}/>
+                                    <ButtonUpgradePro isBanner={true} location = "card-pro" link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=blockeditor&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}/>
                                 </div>
                             </div>
                             <div className="guten-pro-advance-animation-banner guten-pro-themes-full">

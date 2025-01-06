@@ -84,7 +84,7 @@ export const layoutPanel = (props) => {
             style: [
                 {
                     selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    allowRender: value => allowRender(value),
+                    // allowRender: value => allowRender(value),
                     render: value => {
                         if (value === 'default') {
                             return null;
@@ -133,7 +133,7 @@ export const layoutPanel = (props) => {
             style: [
                 {
                     selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    allowRender: value => allowRender(value),
+                    // allowRender: value => allowRender(value),
                     render: value => {
                         if (value === 'default') {
                             return null;

@@ -183,6 +183,7 @@ class Dashboard {
 		$config['upgradeProUrl']    = gutenverse_upgrade_pro();
 		$config['requireProUpdate'] = \Gutenverse_Initialize_Framework::instance()->need_update_pro();
 		$config['eventBanner']      = gutenverse_get_event_banner();
+		$config['activeTheme']      = get_option( 'stylesheet' );
 
 		return apply_filters( 'gutenverse_dashboard_config', $config );
 	}
@@ -412,7 +413,7 @@ class Dashboard {
 			null,
 			100
 		);
-
+		
 		if ( ! defined( 'GUTENVERSE_PRO' ) ) {
 			add_submenu_page(
 				self::TYPE,

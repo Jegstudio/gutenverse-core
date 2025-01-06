@@ -7,7 +7,7 @@ import { Loader } from 'react-feather';
 import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
 const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
@@ -108,7 +108,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection`} isBanner={true} location="card-pro"/>;
+        return <ButtonUpgradePro licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} isBanner={true} location="card-pro"/>;
     };
 
     const renderButton = () => {

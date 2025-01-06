@@ -17,7 +17,7 @@ import { withSelect } from '@wordpress/data';
 import { withDispatch } from '@wordpress/data';
 import { DashboardBody, DashboardContent, DashboardHeader } from '../../components';
 import { BannerPro, ButtonUpgradePro } from 'gutenverse-core/components';
-import { upgradeProUrl } from 'gutenverse-core/config';
+import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 
 const { installNonce, themeUrl } = window['GutenverseThemeList'];
 
@@ -211,7 +211,7 @@ const ThemeItem = (props) => {
     };
 
     const actionButton = () => {
-        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
+        const buttonPro = <ButtonUpgradePro setRequirementStatus={setRequirementStatus} link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} licenseActiveButton={defaultButton()} isBanner={true} location="themeList" customStyles={{marginRight: '10px'}}/>;
         return pro ? buttonPro : defaultButton();
     };
 
@@ -518,7 +518,7 @@ const ThemeListPage = (props) => {
                     leftBannerImg = "theme-list-graphic-theme-left.png"
                     rightBannerImg = "theme-list-graphic-theme-right.png"
                     backgroundGradient = "banner-dasboard-bg.png"
-                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard`}
+                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboard&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
                 />
                 <div className="themelist-wrapper">
                     <ThemesData {...themesData} />

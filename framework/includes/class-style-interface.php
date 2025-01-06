@@ -1608,12 +1608,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							if ( '#gutenFeaturedImage' === $value['id'] ) {
-								$post_id = get_the_ID();
-								$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
-
-								if ( ! empty( $post_featured ) ) {
-									$value['image'] = $post_featured;
-								}
+								$value['image'] = $value['id'];
 							}
 							return "background-image: url({$value['image']});";
 						},

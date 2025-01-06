@@ -30,6 +30,7 @@ const ImageControl = (props) => {
     const {id: imageId, image} = newValue;
     const id = useInstanceId(ImageControl, 'inspector-image-control');
     const prevUseExternalValue = useRef();
+    const prevDevice = useRef();
 
     const onChange = value => {
         onValueChange(value);
@@ -41,8 +42,15 @@ const ImageControl = (props) => {
         onChange({});
     };
 
+    const deviceTypeHierarchy = {
+        Mobile: 1,
+        Tablet: 2,
+        Desktop: 3,
+    };
+
     useEffect(() => {
-        if (prevUseExternalValue.current === true) {
+        prevDevice.current = deviceType;
+        if (prevUseExternalValue.current === true && (deviceTypeHierarchy[prevDevice.current] < deviceTypeHierarchy[deviceType])) {
             if (!useExternalValue) {
                 onChange({});
             } else {
@@ -54,6 +62,7 @@ const ImageControl = (props) => {
             }
         }
 
+        prevDevice.current = deviceType;
         prevUseExternalValue.current = useExternalValue;
     },[deviceType, useExternalValue]);
 

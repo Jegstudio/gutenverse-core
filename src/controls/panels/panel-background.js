@@ -10,6 +10,7 @@ export const backgroundPanel = (props) => {
         hoverSelector,
         switcher,
         setSwitcher,
+        blockType = '',
     } = props;
 
     return [{
@@ -39,7 +40,8 @@ export const backgroundPanel = (props) => {
                 hasChild: true,
                 render: value => handleBackground(value)
             }
-        ]
+        ],
+        blockType: blockType,
     },
     {
         id: 'backgroundHover',
