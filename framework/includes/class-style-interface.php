@@ -1185,6 +1185,19 @@ abstract class Style_Interface {
 					)
 				);
 			}
+
+			if ( isset( $background_effect['opacity'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
+						'property'       => function ( $value ) {
+							return "opacity: {$value};";
+						},
+						'value'          => $background_effect['opacity'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 
