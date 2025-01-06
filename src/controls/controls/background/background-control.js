@@ -243,6 +243,7 @@ const BackgroundControl = (props) => {
             }}
             onStyleChange={(type => onStyleChange({ ...value, type }))}
             options={finalOptions}
+            blockType={blockType}
         />
 
         {value.type !== undefined && value.type === 'default' && <>
