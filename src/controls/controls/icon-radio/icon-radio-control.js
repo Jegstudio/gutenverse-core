@@ -31,7 +31,7 @@ const IconRadioControl = ({
         }
     };
 
-    let isSection;
+    let isSection = '';
     if ('section' === blockType) {
         isSection = 'section-background';
     }
