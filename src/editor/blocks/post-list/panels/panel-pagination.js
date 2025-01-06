@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { IconControl, NumberControl, RangeControl, SelectControl, TextControl, CheckboxControl } from 'gutenverse-core/controls';
+import { paginationSwitcher } from '../data/data';
 
 export const paginationPanel = (props) => {
     const {
@@ -38,8 +39,12 @@ export const paginationPanel = (props) => {
                     value: 'number'
                 },
             ],
-            onChange: () => {
-                setAttributes({__paginationHover: 'normal'});
+            onChange: ({ paginationMode, __paginationHover }) => {
+                const paginationSwitcherData = paginationSwitcher(paginationMode);
+
+                if (paginationSwitcherData?.some(item => item.value === __paginationHover)) return;
+
+                setAttributes({ __paginationHover: 'normal' });
                 setSwitcher({ ...switcher, paginationHover: 'normal' });
             }
         },
