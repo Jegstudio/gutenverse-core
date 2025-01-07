@@ -31,3 +31,9 @@ $animations:
         }
     }
 }
+
+.__desktop-none,
+.__tablet-none,
+.__mobile-none  {
+    visibility: unset !important;
+}

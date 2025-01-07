@@ -1185,6 +1185,19 @@ abstract class Style_Interface {
 					)
 				);
 			}
+
+			if ( isset( $background_effect['opacity'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
+						'property'       => function ( $value ) {
+							return "opacity: {$value};";
+						},
+						'value'          => $background_effect['opacity'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 
@@ -1595,12 +1608,7 @@ abstract class Style_Interface {
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
 							if ( '#gutenFeaturedImage' === $value['id'] ) {
-								$post_id = get_the_ID();
-								$post_featured   = get_the_post_thumbnail_url( $post_id, 'full' );
-
-								if ( ! empty( $post_featured ) ) {
-									$value['image'] = $post_featured;
-								}
+								$value['image'] = $value['id'];
 							}
 							return "background-image: url({$value['image']});";
 						},
@@ -1802,6 +1810,19 @@ abstract class Style_Interface {
 				)
 			);
 		} elseif ( 'video' === $background['type'] ) {
+			if ( isset( $background['videoImage'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
+						},
+						'value'          => $background['videoImage'],
+						'device_control' => true,
+					)
+				);
+			}
+		} elseif ( 'slide' === $background['type'] ) {
 			if ( isset( $background['videoImage'] ) ) {
 				$this->inject_style(
 					array(
