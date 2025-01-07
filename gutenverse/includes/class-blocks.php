@@ -74,6 +74,7 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/social-share/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/search/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/text-paragraph/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/feature-list/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/portfolio-gallery/block.json' );
 
 		// Dynamic blocks.
