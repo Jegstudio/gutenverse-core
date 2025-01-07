@@ -1,11 +1,12 @@
 
 import { useInstanceId } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
-import { Droplet, Image, Video, Wind } from 'react-feather';
+import { Droplet, Image, Video, Wind, Airplay } from 'react-feather';
 import { withParentControl } from 'gutenverse-core/hoc';
-import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, IconRadioControl, ImageControl, SelectControl, SizeControl, TextControl, GradientControl, AngleControl, ControlHeadingSimple, LockedFluidBackground, RepeaterControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { applyFilters } from '@wordpress/hooks';
+import textControl from '../text/text-control';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
@@ -157,35 +158,49 @@ const BackgroundControl = (props) => {
         description,
         proLabel,
         allowDeviceControl,
+        values,
         type = '',
+        blockType = '',
     } = props;
 
     const availableOptions = [
         {
             label: __('Image & Color', '--gctd--'),
             value: 'default',
-            icon: <Image size={20} />,
+            icon: <Image size={18} />,
         },
         {
             label: __('Gradient', '--gctd--'),
             value: 'gradient',
-            icon: <Droplet size={20} />,
+            icon: <Droplet size={18} />,
         },
         {
             label: __('Video', '--gctd--'),
             value: 'video',
-            icon: <Video size={20} />,
+            icon: <Video size={18} />,
+        },
+        {
+            label: __('Slide Show', '--gctd--'),
+            value: 'slide',
+            icon: <Airplay size={18} />,
         },
         {
             label: __('Fluid Background', '--gctd--'),
             value: 'fluid',
-            icon: <Wind size={20} />,
+            icon: <Wind size={18} />,
         },
     ];
 
     const finalOptions = availableOptions.filter(item => {
         return options.includes(item.value);
     });
+
+    const isWrapperBlock = () => {
+        if ('column' === blockType || 'section' === blockType || 'wrapper' === blockType) {
+            return true;
+        }
+        return false;
+    };
 
     // multi device control
     const {
@@ -237,7 +252,7 @@ const BackgroundControl = (props) => {
                 onValueChange={color => onValueChange({ ...value, color })}
                 onStyleChange={color => onStyleChange({ ...value, color })}
             />
-            <CheckboxControl
+            {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}
                 value={value.useFeaturedImage}
                 deviceValues={useFeaturedImage}
@@ -245,7 +260,7 @@ const BackgroundControl = (props) => {
                 usePreviousDeviceValue={true}
                 onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
                 onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
-            />
+            />}
             {!isEmpty(useFeaturedImage) ?
                 <ImageControl
                     label={__('Background Image', '--gctd--')}
@@ -562,6 +577,208 @@ const BackgroundControl = (props) => {
                 onStyleChange={videoImage => onStyleChange({ ...value, videoImage })}
                 allowDeviceControl={true}
             />
+        </>}
+
+        {value.type !== undefined && value.type === 'slide' && <>
+            <RepeaterControl
+                label={__('Image', '--gctd--')}
+                titleFormat="<strong><%= value.title%></strong>"
+                value={value.slideImage}
+                values={values}
+                options={[
+                    {
+                        id: 'image',
+                        label: __('Image', '--gctd--'),
+                        component: ImageControl,
+                    },
+                    {
+                        id: 'title',
+                        label: __('Title', '--gctd--'),
+                        component: textControl,
+                    },
+                ]}
+                onValueChange={slideImage => onValueChange({ ...value, slideImage })}
+                onStyleChange={slideImage => onStyleChange({ ...value, slideImage })}
+            />
+            <CheckboxControl
+                label={__('Infinite Loop', '--gctd--')}
+                value={value.infiniteLoop}
+                onValueChange={infiniteLoop => onValueChange({ ...value, infiniteLoop })}
+                onStyleChange={infiniteLoop => onStyleChange({ ...value, infiniteLoop })}
+            />
+            <RangeControl
+                label={__('Image Display Duration', '--gctd--')}
+                min={0}
+                max={10}
+                step={0.1}
+                unit="s"
+                value={value.displayDuration}
+                onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
+                onStyleChange={displayDuration => onStyleChange({ ...value, displayDuration })}
+            />
+            <SelectControl
+                label={__('Transition', '--gctd--')}
+                value={value.transition}
+                onValueChange={transition => onValueChange({ ...value, transition })}
+                onStyleChange={transition => onStyleChange({ ...value, transition })}
+                options={[
+                    {
+                        label: __('fade', '--gctd--'),
+                        value: 'fade'
+                    },
+                    {
+                        label: __('Slide Right', '--gctd--'),
+                        value: 'slideRight'
+                    },
+                    {
+                        label: __('Slide Left', '--gctd--'),
+                        value: 'slideLeft'
+                    },
+                    {
+                        label: __('Slide Top', '--gctd--'),
+                        value: 'slideTop'
+                    },
+                    {
+                        label: __('Slide Down', '--gctd--'),
+                        value: 'slideDown'
+                    },
+                ]}
+            />
+            <RangeControl
+                label={__('Transition Duration', '--gctd--')}
+                min={0}
+                max={10}
+                step={0.1}
+                description={__('Image Display Duration value will be used if Transition Duration value is higher', '--gctd--')}
+                unit="s"
+                value={value.duration}
+                onValueChange={duration => onValueChange({ ...value, duration })}
+                onStyleChange={duration => onStyleChange({ ...value, duration })}
+            />
+            <SelectControl
+                label={__('Background Position', '--gctd--')}
+                value={value.backgroundPosition}
+                onValueChange={backgroundPosition => onValueChange({ ...value, backgroundPosition })}
+                onStyleChange={backgroundPosition => onStyleChange({ ...value, backgroundPosition })}
+                options={[
+                    {
+                        label: __('Default', '--gctd--'),
+                        value: 'default'
+                    },
+                    {
+                        label: __('Center Center', '--gctd--'),
+                        value: 'center-center'
+                    },
+                    {
+                        label: __('Center Right', '--gctd--'),
+                        value: 'center-right'
+                    },
+                    {
+                        label: __('Center Left', '--gctd--'),
+                        value: 'center-left'
+                    },
+                    {
+                        label: __('Top Center', '--gctd--'),
+                        value: 'top-center'
+                    },
+                    {
+                        label: __('Top Right', '--gctd--'),
+                        value: 'top-right'
+                    },
+                    {
+                        label: __('Top Left', '--gctd--'),
+                        value: 'top-left'
+                    },
+                    {
+                        label: __('Bottom Center', '--gctd--'),
+                        value: 'bottom-center'
+                    },
+                    {
+                        label: __('Bottom Right', '--gctd--'),
+                        value: 'bottom-right'
+                    },
+                    {
+                        label: __('Bottom Left', '--gctd--'),
+                        value: 'bottom-left'
+                    },
+                ]}
+            />
+            <SelectControl
+                label={__('Background Size', '--gctd--')}
+                value={value.backgroundSize}
+                onValueChange={backgroundSize => onValueChange({ ...value, backgroundSize })}
+                onStyleChange={backgroundSize => onStyleChange({ ...value, backgroundSize })}
+                options={[
+                    {
+                        label: __('Default', '--gctd--'),
+                        value: 'auto'
+                    },
+                    {
+                        label: __('Contain', '--gctd--'),
+                        value: 'contain'
+                    },
+                    {
+                        label: __('Cover', '--gctd--'),
+                        value: 'cover'
+                    },
+                ]}
+            />
+            <SelectControl
+                label={__('Background Repeat', '--gctd--')}
+                value={value.backgroundRepeat}
+                onValueChange={backgroundRepeat => onValueChange({ ...value, backgroundRepeat })}
+                onStyleChange={backgroundRepeat => onStyleChange({ ...value, backgroundRepeat })}
+                options={[
+                    {
+                        label: __('Default', '--gctd--'),
+                        value: 'repeat'
+                    },
+                    {
+                        label: __('No repeat', '--gctd--'),
+                        value: 'no-repeat'
+                    },
+                    {
+                        label: __('Repeat Y', '--gctd--'),
+                        value: 'repeat-y'
+                    },
+                    {
+                        label: __('Repeat X', '--gctd--'),
+                        value: 'repeat-x'
+                    },
+                    {
+                        label: __('Round', '--gctd--'),
+                        value: 'round'
+                    },
+                ]}
+            />
+            <CheckboxControl
+                label={__('Ken Burns Effect', '--gctd--')}
+                value={value.kenBurns}
+                onValueChange={kenBurns => onValueChange({ ...value, kenBurns })}
+                onStyleChange={kenBurns => onStyleChange({ ...value, kenBurns })}
+            />
+            {value.kenBurns && <SelectControl
+                label={__('Direction', '--gctd--')}
+                value={value.direction}
+                onValueChange={direction => onValueChange({ ...value, direction })}
+                onStyleChange={direction => onStyleChange({ ...value, direction })}
+                options={[
+                    {
+                        label: __('In', '--gctd--'),
+                        value: 'directionIn'
+                    },
+                    {
+                        label: __('Out', '--gctd--'),
+                        value: 'directionOut'
+                    },
+                ]}
+            />}
+            {/* <CheckboxControl
+                label={__('Lazy Load', '--gctd--')}
+                value={value.lazyLoad}
+                onValueChange={lazyLoad => onValueChange({ ...value, lazyLoad })}
+                onStyleChange={lazyLoad => onStyleChange({ ...value, lazyLoad })}
+            /> */}
         </>}
 
         {value.type !== undefined && value.type === 'fluid' && applyFilters(

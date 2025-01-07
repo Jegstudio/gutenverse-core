@@ -11,7 +11,9 @@ const Navigation = ({ location }) => {
     const {
         homeSlug,
         pluginVersions,
-        upgradeProUrl
+        upgradeProUrl,
+        activeTheme,
+        url
     } = window['GutenverseDashboard'];
 
     const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
@@ -71,7 +73,7 @@ const Navigation = ({ location }) => {
                 name: <span>{__('Upgrade to PRO', '--gctd--')}<IconCrownBannerSVG /></span>,
                 slug: homeSlug,
                 upgrade: true,
-                link: 'https://gutenverse.com/pro?utm_source=gutenverse&utm_medium=adminmenu',
+                link: `https://gutenverse.com/pro?utm_source=gutenverse&utm_medium=adminmenu&utm_client_site=${url}&utm_client_theme=${activeTheme}`,
                 priority: 9999,
                 external: true,
             },
@@ -160,7 +162,7 @@ const Navigation = ({ location }) => {
 
                     return null;
                 })}
-                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav`}/>
+                <ButtonUpgradePro location="dashboard-navigation" isBanner={true} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=dashboardnav&utm_client_site=${url}&utm_client_theme=${activeTheme}`}/>
             </div>
         </div>
         {injectLocation && createPortal(navigationButton, injectLocation)}
