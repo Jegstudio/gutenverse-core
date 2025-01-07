@@ -1,4 +1,4 @@
-import { Default, u } from 'gutenverse-core-frontend';
+import { Default, u, responsiveBreakpoint } from 'gutenverse-core-frontend';
 
 class GutenverseElements extends Default {
     init() {
@@ -23,6 +23,7 @@ class GutenverseElements extends Default {
         }
 
         const { animationClass, animationClasses } = this.getAnimationClass(elementObj);
+        const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
 
         // Load the animation
         if (animationClass) {
@@ -49,6 +50,24 @@ class GutenverseElements extends Default {
                         e.stopPropagation();
                         elementObj.removeClass('animated');
                     });
+                }
+                if (elementObj.is('[class*="-none"]')) {
+                    if(elementObj.hasClass('desktop-none') && (window.innerWidth > tabletBreakpoint)) {
+                        elementObj.removeClass('guten-element-hide');
+                        elementObj.removeClass('animated');
+                    }
+                    if(elementObj.hasClass('tablet-none') && (window.innerWidth <= tabletBreakpoint && window.innerWidth > mobileBreakpoint)) {
+                        elementObj.removeClass('guten-element-hide');
+                        elementObj.removeClass('animated');
+                    }
+                    if(elementObj.hasClass('mobile-none') && (window.innerWidth <= mobileBreakpoint)) {
+                        elementObj.removeClass('guten-element-hide');
+                        elementObj.removeClass('animated');
+                    }
+                    if((elementObj.hasClass('tablet-none') && !elementObj.is('[class*="mobile-"]')) && (window.innerWidth <= mobileBreakpoint)) {
+                        elementObj.removeClass('guten-element-hide');
+                        elementObj.removeClass('animated');
+                    }
                 }
             };
 
