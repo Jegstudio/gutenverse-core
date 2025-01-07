@@ -32,14 +32,8 @@ $animations:
     }
 }
 
-.__desktop-none {
-    visibility: unset !important;
-}
-
-.__tablet-none {
-    visibility: unset !important;
-}
-
-.__mobile-none {
+.__desktop-none,
+.__tablet-none,
+.__mobile-none  {
     visibility: unset !important;
 }

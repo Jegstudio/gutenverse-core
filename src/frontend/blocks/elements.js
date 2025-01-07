@@ -64,6 +64,10 @@ class GutenverseElements extends Default {
                         elementObj.removeClass('guten-element-hide');
                         elementObj.removeClass('animated');
                     }
+                    if((elementObj.hasClass('tablet-none') && !elementObj.is('[class*="mobile-"]')) && (window.innerWidth <= mobileBreakpoint)) {
+                        elementObj.removeClass('guten-element-hide');
+                        elementObj.removeClass('animated');
+                    }
                 }
             };
 
