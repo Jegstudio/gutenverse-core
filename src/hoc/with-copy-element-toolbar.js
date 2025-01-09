@@ -10,6 +10,7 @@ export const withCopyElementToolbar = () => (BlockElement) => {
         const { elementId } = attributes;
         const [dummyID, setDummyID] = useState(elementId);
         const [panelState, setPanelState] = useState({});
+        const [panelIsClicked, setPanelIsClicked] = useState(false);
 
         const copyRef = useRef();
 
@@ -27,7 +28,7 @@ export const withCopyElementToolbar = () => (BlockElement) => {
         }, [elementId]);
 
         return <>
-            <BlockElement {...props} panelState={panelState} setPanelState={setPanelState} />
+            <BlockElement {...props} panelState={panelState} setPanelState={setPanelState} panelIsClicked={panelIsClicked} setPanelIsClicked={setPanelIsClicked} />
             <BlockControls>
                 <ToolbarGroup>
                     <Tooltip text={__('Click to Copy Element Id', '--gctd--')}>

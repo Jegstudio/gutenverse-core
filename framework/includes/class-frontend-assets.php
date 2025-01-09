@@ -183,6 +183,8 @@ class Frontend_Assets {
 			$arr_plugin[] = $plugin;
 		}
 		$config['activePlugins'] = $arr_plugin;
+		$post_featured           = get_the_post_thumbnail_url( $config['postId'], 'full' );
+		$config['featuredImage'] = $post_featured;
 
 		return apply_filters( 'gutenverse_frontend_config', $config );
 	}

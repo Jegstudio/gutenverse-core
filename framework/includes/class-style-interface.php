@@ -491,6 +491,39 @@ abstract class Style_Interface {
 	}
 
 	/**
+	 * Get global color by slug
+	 *
+	 * @param string $slug name of variable.
+	 *
+	 * @return string
+	 */
+	public function get_global_color_by_slug( $slug ) {
+		$theme_colors = wp_get_global_settings( array( 'color', 'palette' ) );
+		if ( ! empty( $theme_colors ) && is_array( $theme_colors ) ) {
+			foreach ( $theme_colors as $color ) {
+				foreach ( $color as $key => $value ) {
+					if ( isset( $value['slug'] ) && $value['slug'] === $slug ) {
+						$global_color = $value['color'];
+						$hex          = str_replace( '#', '', $global_color );
+
+						// Handle shorthand HEX codes (e.g., #abc)
+						if ( strlen( $hex ) === 3 ) {
+							$hex = str_repeat( $hex[0], 2 ) . str_repeat( $hex[1], 2 ) . str_repeat( $hex[2], 2 );
+						}
+						return  array(
+							'r' => hexdec( substr( $hex, 0, 2 ) ),
+							'g' => hexdec( substr( $hex, 2, 2 ) ),
+							'b' => hexdec( substr( $hex, 4, 2 ) ),
+						);
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Handle gradient
 	 *
 	 * @param array  $props Value of Color.
@@ -1152,6 +1185,19 @@ abstract class Style_Interface {
 					)
 				);
 			}
+
+			if ( isset( $background_effect['opacity'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector ? $selector : ".{$this->element_id}> .guten-background-effect",
+						'property'       => function ( $value ) {
+							return "opacity: {$value};";
+						},
+						'value'          => $background_effect['opacity'],
+						'device_control' => true,
+					)
+				);
+			}
 		}
 	}
 
@@ -1561,6 +1607,9 @@ abstract class Style_Interface {
 					array(
 						'selector'       => $selector,
 						'property'       => function ( $value ) {
+							if ( '#gutenFeaturedImage' === $value['id'] ) {
+								$value['image'] = $value['id'];
+							}
 							return "background-image: url({$value['image']});";
 						},
 						'value'          => $background['image'],
@@ -1761,6 +1810,19 @@ abstract class Style_Interface {
 				)
 			);
 		} elseif ( 'video' === $background['type'] ) {
+			if ( isset( $background['videoImage'] ) ) {
+				$this->inject_style(
+					array(
+						'selector'       => $selector,
+						'property'       => function ( $value ) {
+							return "background-image: url({$value['image']}); background-size: cover; background-position: center;";
+						},
+						'value'          => $background['videoImage'],
+						'device_control' => true,
+					)
+				);
+			}
+		} elseif ( 'slide' === $background['type'] ) {
 			if ( isset( $background['videoImage'] ) ) {
 				$this->inject_style(
 					array(
@@ -2237,6 +2299,28 @@ abstract class Style_Interface {
 
 			return "text-shadow: {$horizontal}px {$vertical}px {$blur}px {$shadow_color};";
 		}
+	}
+
+	/**
+	 * Handle Text Stroke
+	 *
+	 * @param array $value Value of Box Shadow.
+	 *
+	 * @return string|null
+	 */
+	public function handle_text_stroke( $value ) {
+		$style = '';
+		if ( isset( $value['color'] ) ) {
+			$style .= $this->handle_color( $value['color'], '-webkit-text-stroke-color' );
+			$style .= $this->handle_color( $value['color'], 'stroke' );
+		}
+
+		if ( isset( $value['width'] ) ) {
+			$style .= $this->handle_unit_point( $value['width'], '-webkit-text-stroke-width' );
+			$style .= $this->handle_unit_point( $value['width'], 'stroke-width' );
+		}
+
+		return $style;
 	}
 
 	/**

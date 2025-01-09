@@ -1,4 +1,5 @@
 export const animations = [
+    'none',
     'fadeIn',
     'fadeInLeft',
     'fadeInDown',

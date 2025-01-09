@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -16,11 +16,12 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
 
 const NEW_TAB_REL = 'noreferrer noopener';
-const WrapperContainer = ({ attributes, blockProps }) => {
+const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
     const {
         elementId,
         backgroundAnimated = {},
-        backgroundEffect
+        backgroundEffect,
+        background
     } = attributes;
 
     const dataId = elementId ? elementId.split('-')[1] : '';
@@ -29,10 +30,13 @@ const WrapperContainer = ({ attributes, blockProps }) => {
     return (
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
+            {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
-                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}></div></div>}
+                {isAnimationActive(backgroundAnimated) && <div className={'guten-background-animated'}><div className={`animated-layer animated-${dataId}`}>
+                    {background?.slideImage?.length > 0 && slideElement}
+                </div></div>}
                 <InnerBlocks />
             </div>
         </div>
@@ -63,6 +67,7 @@ const FlexibleWrapper = compose(
     withMouseMoveEffect,
     withBackgroundEffect,
     withCursorEffect,
+    withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockOrder
@@ -76,7 +81,10 @@ const FlexibleWrapper = compose(
         attributes,
         setElementRef,
         isSelected,
-        setAttributes
+        setAttributes,
+        panelIsClicked,
+        setPanelIsClicked,
+        slideElement
     } = props;
 
     const {
@@ -86,7 +94,8 @@ const FlexibleWrapper = compose(
         backgroundEffect,
         url,
         rel,
-        linkTarget
+        linkTarget,
+        background
     } = attributes;
 
     const wrapperRef = useRef();
@@ -94,6 +103,7 @@ const FlexibleWrapper = compose(
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
+    const isSlideShow = background?.slideImage?.length > 0;
 
     const onToggleOpenInNewTab = useCallback(
         (value) => {
@@ -125,6 +135,7 @@ const FlexibleWrapper = compose(
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
                 'guten-background-effect-active': isBackgroundEffect,
+                'guten-background-slideshow' : isSlideShow,
             }
         ),
         ref: wrapperRef
@@ -149,10 +160,12 @@ const FlexibleWrapper = compose(
                     opensInNewTab={linkTarget === '_blank'}
                     anchorRef={blockProps.ref}
                     onToggleOpenInNewTab={onToggleOpenInNewTab}
+                    panelIsClicked={panelIsClicked}
+                    setPanelIsClicked={setPanelIsClicked}
                 />
             </ToolbarGroup>
         </BlockControls>
-        <Component blockProps={blockProps} attributes={attributes} clientId={clientId} />
+        <Component blockProps={blockProps} attributes={attributes} slideElement={slideElement} clientId={clientId} />
     </>;
 });
 

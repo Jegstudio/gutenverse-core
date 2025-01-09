@@ -27,7 +27,7 @@ export const panelList = () => {
                 ...props,
                 blockType: 'wrapper',
                 styleId: 'wrapper-background',
-                normalOptions: ['default', 'gradient', 'video', 'fluid'],
+                normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`,
                 hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-inner-wrap > .guten-background-animated .animated-layer`

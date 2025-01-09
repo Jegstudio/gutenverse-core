@@ -20,6 +20,10 @@
     }
   }
 
+  &.sticky-bottom.sticky-desktop, &.sticky-top.sticky-desktop {
+    height: fit-content;
+  }
+
   & > .guten-column-resizeable > .sticky-wrapper,
   & > .sticky-wrapper {
     width: 100%;
@@ -161,6 +165,10 @@
     &.horizontal-evenly-tablet {
       justify-content: space-evenly;
     }
+
+    &.sticky-bottom.sticky-tablet, &.sticky-top.sticky-tablet {
+      height: fit-content;
+    }
   }
 
   @media only screen and (max-width: 425px) {
@@ -213,6 +221,10 @@
 
     &.horizontal-evenly-mobile {
       justify-content: space-evenly;
+    }
+
+    &.sticky-bottom.sticky-mobile, &.sticky-top.sticky-mobile {
+      height: fit-content;
     }
   }
 }

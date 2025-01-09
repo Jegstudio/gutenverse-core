@@ -929,6 +929,12 @@
       justify-content: space-between;
       align-items: center;
 
+      &.section-background {
+        .control-title {
+          width: min-content;
+        }
+      }
+      
       .control-body {
         margin-right: 0;
 
@@ -1289,6 +1295,7 @@
     &typography,
     &box-shadow,
     &text-shadow,
+    &text-stroke,
     &image-filter {
       .font-value-wrapper {
         display: flex;
@@ -1309,6 +1316,7 @@
       .typography-icon,
       .box-shadow-icon,
       .text-shadow-icon,
+      .text-stroke-icon,
       .image-filter-icon {
         cursor: pointer;
         width: 24px;

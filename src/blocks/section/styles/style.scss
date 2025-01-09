@@ -203,22 +203,25 @@ section.guten-section {
     position: relative;
     max-width: 100vw;
   }
-
+  //set to important because column position alignment is prioritized over vertical align except when align strecth
   &.align-top {
     &>.guten-container {
-      align-items: flex-start;
+      align-content: flex-start !important;
+      align-items: flex-start !important;
     }
   }
 
   &.align-middle {
     &>.guten-container {
-      align-items: center;
+      align-content: center !important;
+      align-items: center !important;
     }
   }
 
   &.align-bottom {
     &>.guten-container {
-      align-items: flex-end;
+      align-content: flex-end !important;
+      align-items: flex-end !important;
     }
   }
 
