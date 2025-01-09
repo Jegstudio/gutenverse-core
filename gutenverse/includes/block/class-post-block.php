@@ -87,6 +87,7 @@ class Post_Block extends Post_Abstract {
 			'uniqueContent',
 			'includePost',
 			'excludePost',
+			'excludeCurrentPost',
 			'includeCategory',
 			'excludeCategory',
 			'includeAuthor',
