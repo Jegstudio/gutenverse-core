@@ -685,9 +685,10 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Render pagination
 	 *
+	 * @param  bool $prev Prev.
 	 * @param  bool $next Next.
-	 * @param  bool $prev Next.
 	 * @param  int  $total Total page.
+	 * @param  int  $page Number page.
 	 * @return string
 	 */
 	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
@@ -722,7 +723,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$prev_text = '<i class="' . $prev_icon . '"></i>';
 			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			if ( $pre_next_text ) {
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
 				$prev_text = '<i class="' . $prev_icon . '"></i> ' . $prev_inner_text;
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
@@ -738,7 +739,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$prev_text = '<i class="' . $prev_icon . '"></i>';
 			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			if ( $pre_next_text ) {
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
 				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', '--gctd--' );
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
