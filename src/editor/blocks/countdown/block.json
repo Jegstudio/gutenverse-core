@@ -93,7 +93,7 @@
 			"type" : "object",
 			"copyStyle" : true
 		},
-		"oneForAlllabelTypography":{
+		"oneForAllLabelTypography":{
 			"type" : "object",
 			"copyStyle" : true
 		},
