@@ -1,0 +1,212 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/search-result-title",
+	"class_callback": "\\Gutenverse\\Block\\Search_Result_Title",
+	"title": "Search Result Title",
+	"description": "Show the search result title.",
+	"category": "gutenverse-post",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"backendArchiveId": {
+			"type": "string"
+		},
+		"htmlTag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"staticText": {
+			"type" : "string",
+			"default": "Search Result For:"
+		},
+		"alignment": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"typography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"color": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textShadow": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"textStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"colorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"textShadowHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"textStrokeHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchTextColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchTextShadow": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"searchTextStroke": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchTextColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"searchTextShadowHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"searchTextStrokeHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"background": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"border": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "border",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHoverResponsive": {
+			"type": "object",
+			"migrate": {
+				"attr": "borderHover",
+				"type": "border"
+			},
+			"copyStyle": true
+		},
+		"boxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"zIndex": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"positioningType": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningLocation": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"positioningLeft": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningRight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningTop": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningBottom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+        "condition": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"usesContext": [
+		"archiveId",
+		"archiveType",
+		"queryId"
+	],
+	"supports": {
+		"className": false
+	},
+	"keywords": [
+		"archive",
+		"title"
+	]
+}

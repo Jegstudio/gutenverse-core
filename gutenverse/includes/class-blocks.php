@@ -9,6 +9,8 @@
 
 namespace Gutenverse;
 
+use WP_Block_Type_Registry;
+
 /**
  * Class Blocks
  *
@@ -73,6 +75,8 @@ class Blocks {
 		register_block_type( GUTENVERSE_DIR . './block/search/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/text-paragraph/block.json' );
 		register_block_type( GUTENVERSE_DIR . './block/countdown/block.json');
+		register_block_type( GUTENVERSE_DIR . './block/feature-list/block.json' );
+		register_block_type( GUTENVERSE_DIR . './block/portfolio-gallery/block.json' );
 
 		// Dynamic blocks.
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-author/block.json' );
@@ -82,16 +86,17 @@ class Blocks {
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-featured-image/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-terms/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-title/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/search-result-title/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-content/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-block/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/post-list/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/nav-menu/block.json' );
 		$this->register_dynamic_block( GUTENVERSE_DIR . './block/archive-title/block.json' );
+		$this->register_dynamic_block( GUTENVERSE_DIR . './block/taxonomy-list/block.json' );
 
 		// Social Share Block.
 		$this->register_social_share_block( GUTENVERSE_DIR . './block/social-share-item/block.json' );
 	}
-
 	/**
 	 * Register dynamic block.
 	 *

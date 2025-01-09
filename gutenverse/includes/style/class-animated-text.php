@@ -130,6 +130,19 @@ class Animated_Text extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['textStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} *",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['textShadow'] ) ) {
 			$this->inject_style(
 				array(

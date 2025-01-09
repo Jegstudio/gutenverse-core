@@ -53,7 +53,9 @@ const IconBoxBlock = compose(
         attributes,
         setAttributes,
         setElementRef,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -97,12 +99,13 @@ const IconBoxBlock = compose(
         return block && block.innerBlocks.length > 0;
     }, [props.clientId]);
 
-    setAttributes({ hasInnerBlocks });
-    setAttributes({separateButtonLink: hasInnerBlocks});
-
-    if (isGlobalLinkSet) {
-        setAttributes({ hasGlobalLink: isGlobalLinkSet });
-    } else setAttributes({ hasGlobalLink: false });
+    useEffect(() => {
+        setAttributes({
+            hasInnerBlocks,
+            separateButtonLink: hasInnerBlocks,
+            hasGlobalLink: isGlobalLinkSet ? isGlobalLinkSet : false,
+        });
+    }, [hasInnerBlocks, isGlobalLinkSet]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -229,6 +232,8 @@ const IconBoxBlock = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Global Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState

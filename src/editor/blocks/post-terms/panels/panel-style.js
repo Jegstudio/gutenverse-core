@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
-import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, RangeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleTextShadow } from 'gutenverse-core/styling';
 
@@ -9,7 +9,8 @@ export const stylePanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        contentType,
     } = props;
 
     return [
@@ -34,7 +35,7 @@ export const stylePanel = (props) => {
                     value: 'flex-end',
                     icon: <AlignRight />,
                 },
-                {
+                contentType === 'string' && {
                     label: __('Align Right', 'gutenverse'),
                     value: 'space-between',
                     icon: <AlignJustify />,
@@ -44,7 +45,7 @@ export const stylePanel = (props) => {
                 {
                     selector: `.${elementId}`,
                     render: value => `justify-content: ${value}; display:flex;`
-                },
+                }
             ]
         },
         {
@@ -56,6 +57,22 @@ export const stylePanel = (props) => {
                     selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
+        },
+        {
+            id: 'contentGap',
+            label: __('Gap', 'gutenverse'),
+            component: RangeControl,
+            show: contentType === 'block',
+            unit: 'px',
+            min: 0,
+            max: 100,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .post-term-block`,
+                    render: (value) => `gap: ${value}px;`
                 }
             ]
         },

@@ -5,6 +5,7 @@ import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowCon
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { paginationSwitcher } from '../data/data';
 
 export const paginationStylePanel = (props) => {
     const {
@@ -181,50 +182,7 @@ export const paginationStylePanel = (props) => {
         {
             id: '__paginationHover',
             component: SwitchControl,
-            options: (() => {
-                if ('prevnext' === paginationMode) {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        },
-                        {
-                            value: 'disabled',
-                            label: 'Disabled'
-                        }
-                    ];
-                } else if ('number' === paginationMode) {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        },
-                        {
-                            value: 'current',
-                            label: 'Active'
-                        }
-                    ];
-                } else {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        }
-                    ];
-                }
-            })(),
+            options: paginationSwitcher(paginationMode),
             onChange: ({ __paginationHover }) => setSwitcher({ ...switcher, paginationHover: __paginationHover })
         },
         {

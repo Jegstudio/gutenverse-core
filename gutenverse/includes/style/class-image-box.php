@@ -221,6 +221,44 @@ class Image_Box extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['imageFilter'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} .inner-container .image-box-header img",
+					'property'       => function ( $value ) {
+						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
+						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
+						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
+						$blur = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
+						$hue = ! gutenverse_truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
+
+						return "filter: brightness({$brightness}) contrast({$contrast}) saturate({$saturation}) blur({$blur})hue-rotate({$hue});";
+					},
+					'value'          => $this->attrs['imageFilter'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['imageFilterHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}:hover .inner-container .image-box-header img",
+					'property'       => function ( $value ) {
+						$brightness = ! gutenverse_truly_empty( $value['brightness'] ) ? $value['brightness'] . '%' : '100%';
+						$contrast = ! gutenverse_truly_empty( $value['contrast'] ) ? $value['contrast'] . '%' : '100%';
+						$saturation = ! gutenverse_truly_empty( $value['saturation'] ) ? $value['saturation'] . '%' : '100%';
+						$blur = ! gutenverse_truly_empty( $value['blur'] ) ? $value['blur'] . 'px' : '0px';
+						$hue = ! gutenverse_truly_empty( $value['hue'] ) ? $value['hue'] . 'deg' : '0deg';
+
+						return "filter: brightness({$brightness}) contrast({$contrast}) saturate({$saturation}) blur({$blur})hue-rotate({$hue});";
+					},
+					'value'          => $this->attrs['imageFilterHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['bodyBackground'] ) ) {
 			$this->handle_background( ".{$this->element_id} .inner-container .image-box-body .body-inner", $this->attrs['bodyBackground'] );
 		}

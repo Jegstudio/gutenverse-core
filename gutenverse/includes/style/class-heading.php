@@ -104,5 +104,31 @@ class Heading extends Style_Abstract {
 				)
 			);
 		}
+
+		if ( isset( $this->attrs['textStroke'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return $this->handle_text_stroke( $value );
+					},
+					'value'          => $this->attrs['textStroke'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['overflowWrap'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
+					'property'       => function ( $value ) {
+						return "overflow-wrap: {$value}; word-break: {$value};";
+					},
+					'value'          => $this->attrs['overflowWrap'],
+					'device_control' => true,
+				)
+			);
+		}
 	}
 }

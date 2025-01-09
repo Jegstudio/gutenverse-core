@@ -57,16 +57,19 @@ class GutenversePopupElement {
     }
 
     _addCloseClick() {
-        this.closeButton.on('click', () => {
+        this.closeButton.on('click', (e) => {
+            e.stopPropagation();
             this._closePopup();
         });
 
         if (this.closeOverlay === 'true') {
-            this.overlay.on('click', () => {
+            this.overlay.on('click', (e) => {
+                e.stopPropagation();
                 this._closePopup();
             });
 
             this.wrapper.on('click', (e) => {
+                e.stopPropagation();
                 if (!this.content.first().contains(e.target)) {
                     this._closePopup();
                 }
@@ -135,6 +138,16 @@ class GutenversePopupElement {
                         event.preventDefault();
                     });
 
+                u(document)
+                    .find(`.guten-wrap-helper[onclick^="window.open('#${anchor}'"]`)
+                    .on('click', (event) => {
+                        if (!maxClick || countClick < maxClick) {
+                            this._showPopup();
+                            countClick += 1;
+                        }
+                        event.preventDefault();
+                    });
+
                 break;
             case 'hover':
                 anchor = this.element.data('anchor');
@@ -154,6 +167,16 @@ class GutenversePopupElement {
 
                 u(document)
                     .find(`#${anchor}`)
+                    .on('mouseover', (event) => {
+                        if (!maxClick || countClick < maxClick) {
+                            this._showPopup();
+                            countClick += 1;
+                        }
+                        event.preventDefault();
+                    });
+
+                u(document)
+                    .find(`.guten-wrap-helper[onclick^="window.open('#${anchor}'"]`)
                     .on('mouseover', (event) => {
                         if (!maxClick || countClick < maxClick) {
                             this._showPopup();

@@ -21,13 +21,14 @@ class Post_Block extends Post_Abstract {
 	 * Render content
 	 *
 	 * @param boolean $remove_link : Flag to remove link.
+	 * @param boolean $exclude_current : Flag to exclude current post.
 	 *
 	 * @return string
 	 */
-	public function render_content( $remove_link = false ) {
+	public function render_content( $remove_link = false, $exclude_current = false ) {
 		$this->filter_post_attributes( $this->attributes );
 
-		$content  = $this->render_block_element();
+		$content  = $this->render_block_element( $exclude_current );
 		$settings = $this->render_settings();
 
 		if ( $remove_link ) {
@@ -131,6 +132,7 @@ class Post_Block extends Post_Abstract {
 			'paginationNextText',
 			'paginationPrevIcon',
 			'paginationNextIcon',
+			'contentOrder',
 		);
 	}
 
@@ -160,6 +162,9 @@ class Post_Block extends Post_Abstract {
 			$position = 'type-3' === $this->attributes['postblockType'] ? 'position-' . esc_attr( $this->attributes['categoryPosition'] ) : '';
 			$class    = 'class="category-' . esc_attr( $category->slug ) . '"';
 			$category = '<div class="guten-post-category ' . $position . '"><span><a href="' . esc_url( get_category_link( $cat_id ) ) . '" ' . $class . '>' . esc_attr( $category->name ) . '</a></span></div>';
+			if ( 'type-5' === $this->attributes['postblockType'] ) {
+				$category = '<div class="post-category-container">' . $category . '</div>';
+			}
 		}
 
 		return $category;
@@ -374,19 +379,37 @@ class Post_Block extends Post_Abstract {
 		$block    = '';
 		$html_tag = esc_html( $this->check_tag( $this->attributes['htmlTag'], 'h3' ) );
 		$type     = esc_attr( $this->attributes['postblockType'] );
-
+		$orders   = $this->attributes['contentOrder'];
 		foreach ( $results as $post ) {
 			$thumbnail        = $this->get_thumbnail( $post->ID, 'post-thumbnail' );
 			$primary_category = $this->get_primary_category( $post->ID );
 			$post_url         = esc_url( get_the_permalink( $post ) );
 			$post_title       = esc_attr( get_the_title( $post ) );
+			$content          = '';
 
-			$content =
-			'<' . $html_tag . ' class="guten-post-title"><a href="' . $post_url . '">' . $post_title . '</a></' . $html_tag . '>
-                ' . $this->post_meta( $post ) . $this->get_excerpt( $post ) . '
-            <div class="guten-post-meta-bottom">
-                ' . $this->get_readmore( $post ) . $this->get_comment_bubble( $post ) . '
-            </div>';
+			foreach ( $orders as $order ) {
+				if ( 'title' === $order['value'] ) {
+					$content .=
+						'<' . $html_tag . ' class="guten-post-title">
+							<a href="' . $post_url . '">' . $post_title . '</a>
+						</' . $html_tag . '>';
+				}
+
+				if ( 'meta' === $order['value'] ) {
+					$content .= $this->post_meta( $post );
+				}
+
+				if ( 'excerpt' === $order['value'] ) {
+					$content .= $this->get_excerpt( $post );
+				}
+
+				if ( 'read' === $order['value'] ) {
+					$content .=
+						'<div class="guten-post-meta-bottom">
+							' . $this->get_readmore( $post ) . $this->get_comment_bubble( $post ) . '
+						</div>';
+				}
+			}
 
 			$thumb = $this->guten_edit_post( $post->ID ) . '<a href="' . $post_url . '">' . $thumbnail . '</a>';
 
@@ -424,6 +447,6 @@ class Post_Block extends Post_Abstract {
 		$animation_class = $this->set_animation_classes();
 		$custom_classes  = $this->get_custom_classes();
 
-		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content() . '</div>';
+		return '<div class="' . $element_id . $display_classes . $animation_class . $custom_classes . ' guten-post-block guten-element">' . $this->render_content( false, $this->attributes['excludeCurrentPost'] ) . '</div>';
 	}
 }

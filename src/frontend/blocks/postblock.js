@@ -72,6 +72,7 @@ class GutenversePostblock extends Default {
             breakpoint,
             noContentText,
             backgroundHover,
+            contentOrder
         } = settings;
 
         let query = null;
@@ -152,6 +153,7 @@ class GutenversePostblock extends Default {
                     qCategory: query && query['q_category_name'],
                     qTag: query && query['q_tag'],
                     qAuthor: query && query['q_author'],
+                    contentOrder
                 },
             }),
         }).then((data) => {

@@ -18,6 +18,7 @@ use Gutenverse\Style\Button;
 use Gutenverse\Style\Buttons;
 use Gutenverse\Style\Countdown;
 use Gutenverse\Style\Divider;
+use Gutenverse\Style\Feature_List;
 use Gutenverse\Style\Fun_Fact;
 use Gutenverse\Style\Gallery;
 use Gutenverse\Style\Google_Maps;
@@ -55,7 +56,10 @@ use Gutenverse\Style\Testimonials;
 use Gutenverse\Style\Text_Editor;
 use Gutenverse\Style\Video;
 use Gutenverse\Style\Popup_Builder;
+use Gutenverse\Style\Portfolio_Gallery;
 use Gutenverse\Style\Search;
+use Gutenverse\Style\Search_Result_Title;
+use Gutenverse\Style\Taxonomy_List;
 use Gutenverse\Style\Text;
 
 /**
@@ -111,8 +115,14 @@ class Style_Generator {
 			case 'gutenverse/animated-text':
 				$instance = new Animated_Text( $attrs );
 				break;
+			case 'gutenverse/taxonomy-list':
+				$instance = new Taxonomy_List( $attrs );
+				break;
 			case 'gutenverse/logo-slider':
 				$instance = new Logo_Slider( $attrs );
+				break;
+			case 'gutenverse/feature-list':
+				$instance = new Feature_List( $attrs );
 				break;
 			case 'gutenverse/fun-fact':
 				$instance = new Fun_Fact( $attrs );
@@ -233,6 +243,11 @@ class Style_Generator {
 				break;
 			case 'gutenverse/countdown':
 				$instance = new Countdown( $attrs );
+			case 'gutenverse/search-result-title':
+				$instance = new Search_Result_Title( $attrs );
+				break;
+			case 'gutenverse/portfolio-gallery':
+				$instance = new Portfolio_Gallery( $attrs );
 				break;
 			case 'gutenverse/social-share-facebook':
 			case 'gutenverse/social-share-twitter':

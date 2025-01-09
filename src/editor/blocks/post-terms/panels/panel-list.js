@@ -4,6 +4,7 @@ import { settingPanel } from './panel-setting';
 // import { settingPanelDeprecated } from './panel-setting-deprecated';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { blockPanel } from './panel-block';
 
 export const panelList = () => {
     return [
@@ -20,6 +21,12 @@ export const panelList = () => {
             title: __('Style', 'gutenverse'),
             initialOpen: false,
             panelArray: stylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Term Item', 'gutenverse'),
+            initialOpen: false,
+            panelArray: blockPanel,
             tabRole: TabStyle
         },
         {

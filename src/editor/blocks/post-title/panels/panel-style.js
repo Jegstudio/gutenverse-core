@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
-import { allowRenderTextShadow, handleAlign, handleColor, handleTypography } from 'gutenverse-core/styling';
-import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderTextShadow, handleAlign, handleColor, handleTextStroke, handleTypography } from 'gutenverse-core/styling';
+import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { handleTextShadow } from 'gutenverse-core/styling';
 
@@ -100,6 +100,19 @@ export const stylePanel = (props) => {
             ]
         },
         {
+            id: 'textStroke',
+            show: !switcher.styleHover || switcher.styleHover === 'normal',
+            label: __('Text Stroke', 'gutenverse'),
+            component: TextStrokeControl,
+            style: [
+                {
+                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
+                }
+            ]
+        },
+        {
             id: 'colorHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text color', 'gutenverse'),
@@ -123,7 +136,20 @@ export const stylePanel = (props) => {
                     render: value => handleTextShadow(value)
                 }
             ]
-        }
+        },
+        {
+            id: 'textStrokeHover',
+            show: switcher.styleHover === 'hover',
+            label: __('Hover Text Stroke', 'gutenverse'),
+            component: TextStrokeControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
+                }
+            ]
+        },
     ];
 };
 

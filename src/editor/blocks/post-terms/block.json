@@ -21,6 +21,51 @@
 			"type": "string",
 			"default": "No Content"
 		},
+		"contentType":{
+			"type":"string",
+			"default": "string",
+			"copyStyle": true
+		},
+		"inlineDisplay":{
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"contentGap":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termAlignment":{
+			"type":"object",
+			"copyStyle": true
+		},
+		"termPadding":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBackground":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBackgroundHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBorder":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBorderHover":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBoxShadow":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"termBoxShadowHover":{
+			"type": "object",
+			"copyStyle": true
+		},
 		"taxonomy": {
 			"type": "string",
 			"default": "category"

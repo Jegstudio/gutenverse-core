@@ -76,6 +76,7 @@ const PostBlockBlock = compose(
         paginationNextText,
         paginationPrevIcon,
         paginationNextIcon,
+        contentOrder
     } = attributes;
 
     const animationClass = useAnimationEditor(attributes);
@@ -147,6 +148,7 @@ const PostBlockBlock = compose(
                                 elementId,
                                 inheritQuery,
                                 postType,
+                                contentOrder,
                                 postOffset,
                                 numberPost: ('prevnext' === paginationMode || 'number' === paginationMode) ? numberPost :
                                     parseInt(postLoaded) === parseInt(numberPost)
@@ -331,6 +333,7 @@ const PostBlockBlock = compose(
 
     }, [
         elementId,
+        contentOrder,
         postType,
         postOffset,
         postLoaded,
@@ -403,7 +406,6 @@ const PostBlockBlock = compose(
             <PostSkeleton number={1} />
         );
     };
-
     return (
         <>
             <PanelController panelList={panelList} {...props} />

@@ -1,16 +1,25 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { handleBackground, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {
     const {
         elementId,
+        iconEnabled
     } = props;
 
     return [
         {
+            id: 'icon-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('This Panel Option Only Show If You Turn On "Show Icon" Option')}</span>
+            </>
+        },
+        {
             id: 'iconAlign',
             label: __('Icon Alignment', 'gutenverse'),
+            show: iconEnabled,
             component: SelectControl,
             allowDeviceControl: true,
             options: [
@@ -39,6 +48,7 @@ export const iconPanel = (props) => {
             label: __('Width', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            show: iconEnabled,
             unit: 'px',
             min: 1,
             max: 200,
@@ -55,6 +65,7 @@ export const iconPanel = (props) => {
             label: __('Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            show: iconEnabled,
             unit: 'px',
             min: 1,
             max: 200,
@@ -71,6 +82,7 @@ export const iconPanel = (props) => {
             label: __('Line Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            show: iconEnabled,
             unit: 'px',
             min: 1,
             max: 100,
@@ -87,6 +99,7 @@ export const iconPanel = (props) => {
             label: __('Size', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
+            show: iconEnabled,
             unit: 'px',
             min: 1,
             max: 100,
@@ -104,6 +117,7 @@ export const iconPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
+            show: iconEnabled,
             units: {
                 px: {
                     text: 'px',
@@ -131,6 +145,7 @@ export const iconPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
+            show: iconEnabled,
             units: {
                 px: {
                     text: 'px',
@@ -156,6 +171,7 @@ export const iconPanel = (props) => {
             id: 'iconColor',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
+            show: iconEnabled,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post a .icon-list i`,
@@ -167,6 +183,7 @@ export const iconPanel = (props) => {
             id: 'iconHoverColor',
             label: __('Icon Hover Color', 'gutenverse'),
             component: ColorControl,
+            show: iconEnabled,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post:hover a .icon-list i`,
@@ -180,6 +197,7 @@ export const iconPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
+            show: iconEnabled,
             style: [
                 {
                     selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,

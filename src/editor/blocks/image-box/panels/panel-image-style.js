@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BoxShadowControl, DimensionControl, RangeControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { BoxShadowControl, DimensionControl, ImageFilterControl, RangeControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { isEmptyString } from 'gutenverse-core/helper';
 import { allowRenderBoxShadow, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
@@ -232,6 +233,46 @@ export const panelImageStyle = props => {
                     transform: scale(${value});`
                 }
             ],
+        },
+        {
+            id: 'imageFilter',
+            label: __('Image Filter', 'gutenverse'),
+            show:!__imageHover || __imageHover === 'normal',
+            component: ImageFilterControl,
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    allowRender: props => props !== undefined,
+                    render: ({ brightness, contrast, blur, saturation, hue }) => {
+                        return `filter: 
+                            brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+                            contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+                            saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+                            blur( ${!isEmptyString(blur) ? blur : 0}px )
+                            hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+                    }
+                }
+            ]
+        },
+        {
+            id: 'imageFilterHover',
+            label: __('Image Filter', 'gutenverse'),
+            show:__imageHover === 'hover',
+            component: ImageFilterControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
+                    allowRender: props => props !== undefined,
+                    render: ({ brightness, contrast, blur, saturation, hue }) => {
+                        return `filter: 
+                            brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+                            contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+                            saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+                            blur( ${!isEmptyString(blur) ? blur : 0}px )
+                            hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+                    }
+                }
+            ]
         },
     ];
 };

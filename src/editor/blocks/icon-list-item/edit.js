@@ -36,7 +36,9 @@ const IconListItemBlock = compose(
         isSelected,
         setElementRef,
         clientId,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -55,9 +57,11 @@ const IconListItemBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
 
-    if (isGlobalLinkSet) {
-        setAttributes({ hasGlobalLink: isGlobalLinkSet });
-    } else setAttributes({ hasGlobalLink: false });
+    useEffect(() => {
+        setAttributes({
+            hasGlobalLink: isGlobalLinkSet ? isGlobalLinkSet : false,
+        });
+    }, [isGlobalLinkSet]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -145,6 +149,8 @@ const IconListItemBlock = compose(
                         setPanelState={setPanelState}
                         panelState={panelState}
                         title="Item Link"
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState

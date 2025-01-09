@@ -1,0 +1,229 @@
+{
+	"apiVersion": 2,
+	"name": "gutenverse/taxonomy-list",
+	"title": "Taxonomy List",
+	"description": "Create a list of categories",
+	"class_callback": "\\Gutenverse\\Block\\Taxonomy_List",
+	"category": "gutenverse-post",
+	"allowCopyStyle": true,
+	"attributes": {
+		"elementId": {
+			"type": "string"
+		},
+		"qty":{
+			"type": "integer",
+			"default": 3
+		},
+		"includedCategory":{
+			"type": "array",
+			"default": []
+		},
+		"sortType":{
+			"type": "string",
+			"default": "ASC"
+		},
+		"sortBy":{
+			"type": "string",
+			"default": "count"
+		},
+		"hideEmpty":{
+			"type": "boolean",
+			"default": false
+		},
+		"taxonomyType": {
+			"type": "object",
+			"default": {
+				"label" : "Categories",
+				"value" : "category"
+			}
+		},
+		"showIcon":{
+			"type": "boolean",
+			"default": false
+		},
+		"icon":{
+			"type": "string",
+      		"default": "fab fa-wordpress"
+		},
+		"iconColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconSize": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconSpace": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentTypography": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentAlignment":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"contentSpacing":{
+			"type": "object",
+			"copyStyle": true
+		},
+		"layout":{
+			"type": "string",
+      		"default": "column",
+			"copyStyle" : true
+		},
+		"showDivider":{
+			"type" : "boolean",
+			"default": false,
+			"copyStyle": true
+		},
+		"colorDivider" :{
+			"type" : "object",
+			"copyStyle": true
+		},
+		"typeDivider":{
+			"type": "string",
+      		"default": "solid",
+			"copyStyle" : true
+		},
+		"widthDivider":{
+			"type" : "object",
+			"copyStyle": true
+		},
+		"sizeDivider":{
+			"type" : "object",
+			"copyStyle": true
+		},
+		"mouseMoveEffect": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"background": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"backgroundHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"border": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"boxShadow": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"borderHover": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"boxShadowHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"margin": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"padding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"zIndex": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"animation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"hideDesktop": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideTablet": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"hideMobile": {
+			"type": "boolean",
+			"copyStyle": true
+		},
+		"positioningType": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningWidth": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningAlign": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningLocation": {
+			"type": "string",
+			"copyStyle": true
+		},
+		"positioningLeft": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningRight": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningTop": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"positioningBottom": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"advanceAnimation": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
+		"transform": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"mask": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"condition": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"className": false
+	},
+	"keywords": [
+		"categories",
+		"list"
+	]
+}

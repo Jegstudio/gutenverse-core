@@ -38,7 +38,9 @@ const IconBlock = compose(
         setAttributes,
         isSelected,
         setElementRef,
-        setPanelState
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -140,6 +142,8 @@ const IconBlock = compose(
                         usingDynamic={true}
                         setPanelState={setPanelState}
                         panelState={panelState}
+                        panelIsClicked={panelIsClicked}
+                        setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
                     panelState

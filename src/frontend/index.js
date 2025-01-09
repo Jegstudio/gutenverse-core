@@ -19,6 +19,7 @@ import GutenverseInputSelect from './form_fallback/input-select';
 import GutenverseMultiInputSelect from './form_fallback/input-multiselect';
 import GutenverseCountdown from './blocks/countdown';
 import GutenversePostComment from './blocks/post-comment';
+import GutenversePortfolioGallery from './blocks/portfolio-gallery';
 
 let gutenClasses = {
     ['tabs']: GutenverseTabs,
@@ -38,6 +39,7 @@ let gutenClasses = {
     ['search']: GutenverseSearch,
     ['countdown']: GutenverseCountdown,
     ['post-comment']: GutenversePostComment,
+    ['portfolio-gallery']: GutenversePortfolioGallery
 };
 
 //gutenverse-form functionality

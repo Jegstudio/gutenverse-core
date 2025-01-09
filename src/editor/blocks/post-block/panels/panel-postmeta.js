@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, RangeControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const postmetaPanel = (props) => {
@@ -118,6 +118,18 @@ export const postmetaPanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta .guten-meta-date.icon-position-after i`,
                     render: value => `margin-left: ${value}px;`
+                },
+            ],
+        },
+        {
+            id: 'postMetaInline',
+            label: __('Set Inline Post Meta', 'gutenverse'),
+            component: CheckboxControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta`,
+                    render: value => `display: ${value ? 'inline-flex' : 'flex'};`
                 },
             ],
         },

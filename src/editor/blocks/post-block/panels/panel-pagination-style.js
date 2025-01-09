@@ -5,6 +5,7 @@ import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowCon
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
+import { paginationSwitcher } from '../data/data';
 
 export const paginationStylePanel = (props) => {
     const {
@@ -131,6 +132,24 @@ export const paginationStylePanel = (props) => {
             ],
         },
         {
+            id: 'paginationHeight',
+            label: __('Number Height', 'gutenverse'),
+            show: 'number' === paginationMode,
+            component: RangeControl,
+            min: 1,
+            max: 100,
+            step: 1,
+            allowDeviceControl: true,
+            unit: 'px',
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
+                    allowRender: () => 'number' === paginationMode,
+                    render: value => `line-height: ${value}px;`
+                },
+            ],
+        },
+        {
             id: 'paginationNavigationWidth',
             label: 'prevnext' === paginationMode ? __('Width', 'gutenverse') : __('Navigation Width', 'gutenverse'),
             show: 'number' === paginationMode || 'prevnext' === paginationMode,
@@ -162,27 +181,9 @@ export const paginationStylePanel = (props) => {
             ],
         },
         {
-            id: 'paginationHeight',
-            label: __('Number Height', 'gutenverse'),
-            show: 'number' === paginationMode,
-            component: RangeControl,
-            min: 1,
-            max: 100,
-            step: 1,
-            allowDeviceControl: true,
-            unit: 'px',
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
-                    allowRender: () => 'number' === paginationMode,
-                    render: value => `line-height: ${value}px;`
-                },
-            ],
-        },
-        {
             id: 'paginationNavigationHeight',
-            label: __('Navigation Height', 'gutenverse'),
-            show: 'number' === paginationMode,
+            label: 'prevnext' === paginationMode ? __('Height', 'gutenverse') : __('Navigation Height', 'gutenverse'),
+            show: 'number' === paginationMode || 'prevnext' === paginationMode,
             component: RangeControl,
             min: 1,
             max: 100,
@@ -191,7 +192,8 @@ export const paginationStylePanel = (props) => {
             unit: 'px',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
+                    selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
+                        .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
                     render: value => `line-height: ${value}px;`
                 },
             ],
@@ -315,50 +317,7 @@ export const paginationStylePanel = (props) => {
         {
             id: '__paginationHover',
             component: SwitchControl,
-            options: (() => {
-                if ('prevnext' === paginationMode) {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        },
-                        {
-                            value: 'disabled',
-                            label: 'Disabled'
-                        }
-                    ];
-                } else if ('number' === paginationMode) {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        },
-                        {
-                            value: 'current',
-                            label: 'Active'
-                        }
-                    ];
-                } else {
-                    return [
-                        {
-                            value: 'normal',
-                            label: 'Normal'
-                        },
-                        {
-                            value: 'hover',
-                            label: 'Hover'
-                        }
-                    ];
-                }
-            })(),
+            options: paginationSwitcher(paginationMode),
             onChange: ({ __paginationHover }) => setSwitcher({ ...switcher, paginationHover: __paginationHover })
         },
         {
@@ -375,7 +334,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -387,7 +346,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledColor',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -426,7 +385,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationCurrentBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'current',
+            show: switcher.paginationHover === 'current',
             label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
@@ -441,7 +400,7 @@ export const paginationStylePanel = (props) => {
         },
         {
             id: 'paginationDisabledBackground',
-            show: !switcher.paginationHover || switcher.paginationHover === 'disabled',
+            show: switcher.paginationHover === 'disabled',
             label: __('Disabled Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,

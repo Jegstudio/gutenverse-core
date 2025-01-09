@@ -48,6 +48,29 @@ export const panelImage = ({ elementId, contentType }) => {
             ]
         },
         {
+            id: 'imageRadius',
+            label: __('Image Radius', 'gutenverse'),
+            component: DimensionControl,
+            position: ['top', 'right', 'bottom', 'left'],
+            allowDeviceControl: true,
+            units: {
+                px: {
+                    text: 'px',
+                    unit: 'px'
+                },
+                percent: {
+                    text: '%',
+                    unit: '%'
+                },
+            },
+            style: [
+                {
+                    selector: `.${elementId} .guten-testimonial-item .profile-image img`,
+                    render: value => handleDimension(value, 'border-radius', false)
+                }
+            ],
+        },
+        {
             id: 'imageMargin',
             label: __('Margin', 'gutenverse'),
             component: DimensionControl,
