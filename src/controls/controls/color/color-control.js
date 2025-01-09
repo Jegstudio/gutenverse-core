@@ -285,7 +285,7 @@ const ColorControl = (props) => {
                 color={updating ? localColor : getColorValue(value)}
                 onChange={color => {
                     onStyleChange(color.rgb);
-                    setLocalColor(color.rgb);
+                    setLocalColor(color.hsl);
                     setUpdating(true);
                 }}
                 onChangeComplete={(color) => {
