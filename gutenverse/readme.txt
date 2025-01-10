@@ -300,6 +300,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 == Changelog ==
 = 2.1.8 =
 ##### New & Improvements
+* add Countdown block
 * add Feature List block
 * add background slide in section
 * add display panel to popup builder
