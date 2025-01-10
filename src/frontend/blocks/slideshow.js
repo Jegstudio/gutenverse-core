@@ -21,8 +21,8 @@ class GutenverseSlideshow extends Default {
         const {slideImage = {}, infiniteLoop, displayDuration} = background;
 
         if (slideImage?.length < 1 || undefined === slideImage?.length) return;
-        const transition = (background.duration < 0.1 || undefined === background.duration) ? 500 : background.duration * 1000 ;
-        const transitionDuration = (transition <= displayDuration * 1000) ? transition : (displayDuration * 1000) - 100;
+        const transition = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000 ;
+        const transitionDuration = (transition < displayDuration * 1000) ? transition : (displayDuration * 1000) - 100;
         const images = slideImage.map((image) => image?.image?.image);
         const elementId = `guten-${dataId}`;
 
@@ -78,8 +78,8 @@ class GutenverseSlideshow extends Default {
         const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction, displayDuration} = background;
         const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
         const effectDirection = 'directionOut' === direction ? 'ken-burns-toggle-out' : 'ken-burns-toggle-in';
-        const transitions = (duration < 0.1 || undefined === duration) ? 0.5 : duration;
-        const transitionDuration = (transitions <= displayDuration) ? transitions : displayDuration - 0.1;
+        const transitions = (duration < 0.1 || undefined === duration) ? 1 : duration;
+        const transitionDuration = (transitions >= displayDuration) ? transitions : displayDuration - 0.1;
         let styles = '';
 
         styles += `
@@ -95,13 +95,6 @@ class GutenverseSlideshow extends Default {
         `;
 
         switch (transition) {
-            case 'fade': {
-                styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
-                }`;
-                break;
-            }
             case 'slideRight': {
                 styles += `
                 .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
@@ -155,6 +148,13 @@ class GutenverseSlideshow extends Default {
                 .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
                     z-index: 2;
                     ${`animation: current-slideBottom ${transitionDuration}s ease-in-out forwards;`}
+                }`;
+                break;
+            }
+            default: {
+                styles += `
+                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                    ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
                 }`;
                 break;
             }
