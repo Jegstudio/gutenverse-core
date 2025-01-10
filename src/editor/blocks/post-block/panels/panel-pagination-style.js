@@ -143,9 +143,9 @@ export const paginationStylePanel = (props) => {
             unit: 'px',
             style: [
                 {
-                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav span`,
+                    selector: `.${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav`,
                     allowRender: () => 'number' === paginationMode,
-                    render: value => `line-height: ${value}px;`
+                    render: value => `height: ${value}px;`
                 },
             ],
         },
@@ -194,7 +194,7 @@ export const paginationStylePanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .${elementId} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev`,
-                    render: value => `line-height: ${value}px;`
+                    render: value => `height: ${value}px;`
                 },
             ],
         },
