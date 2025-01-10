@@ -2,7 +2,7 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
-import { IconDualButtonSVG } from '../../../assets/icon/index';
+import { IconCountdownSVG } from '../../../assets/icon/index';
 import example from './data/example';
 
 const { name } = metadata;
@@ -10,7 +10,7 @@ const { name } = metadata;
 export { metadata, name };
 
 export const settings = {
-    icon: <IconDualButtonSVG />,
+    icon: <IconCountdownSVG />,
     example,
     edit,
     save,
