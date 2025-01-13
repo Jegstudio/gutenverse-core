@@ -1074,7 +1074,7 @@ class Post_Block extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination:not(.next):not(.prev), .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav span",
 					'property'       => function ( $value ) {
-						return "line-height: {$value}px;";
+						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationHeight'],
 					'device_control' => true,
@@ -1088,7 +1088,7 @@ class Post_Block extends Style_Abstract {
 					'selector'       => ".{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-prevnext .guten_block_nav .btn-pagination.prev,
                         .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.next, .{$this->element_id} .guten-postblock.guten-pagination-number .guten_block_nav .btn-pagination.prev",
 					'property'       => function ( $value ) {
-						return "line-height: {$value}px;";
+						return "height: {$value}px;";
 					},
 					'value'          => $this->attrs['paginationNavigationHeight'],
 					'device_control' => true,
