@@ -1,15 +1,28 @@
 import { __ } from '@wordpress/i18n';
 import { BorderResponsiveControl, SelectControl } from 'gutenverse-core/controls';
-import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl, BackgroundControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
+import isEmpty from 'lodash/isEmpty';
 
 export const panelTitle = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        setAttributes,
+        titleBackgroundActiveColor,
+        titleBackgroundColor,
+        titleBackground,
+        titleActiveBackground,
     } = props;
+
+    if(!isEmpty(titleBackgroundColor) && isEmpty(titleBackground)) {
+        setAttributes({titleBackground: {color: titleBackgroundColor, type: 'default'}})
+    }
+    if(!isEmpty(titleBackgroundActiveColor) && isEmpty(titleActiveBackground)) {
+        setAttributes({titleActiveBackground: {color: titleBackgroundActiveColor, type: 'default'}})
+    }
 
     const device = getDeviceType();
 
@@ -118,7 +131,7 @@ export const panelTitle = (props) => {
         },
         {
             id: 'titleBackgroundColor',
-            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -127,6 +140,20 @@ export const panelTitle = (props) => {
                     render: value => handleColor(value, 'background-color')
                 }
             ],
+        },
+        {
+            id: 'titleBackground',
+            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            label: __('Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'titleBorder',
@@ -169,7 +196,7 @@ export const panelTitle = (props) => {
         },
         {
             id: 'titleBackgroundActiveColor',
-            show: switcher.accTitle === 'active',
+            show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             style: [
@@ -178,6 +205,20 @@ export const panelTitle = (props) => {
                     render: value => handleColor(value, 'background-color')
                 }
             ],
+        },
+        {
+            id: 'titleActiveBackground',
+            show: switcher.accTitle === 'active',
+            label: __('Active Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'titleBorderActive',
