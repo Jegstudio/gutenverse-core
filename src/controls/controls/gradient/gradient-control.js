@@ -6,6 +6,8 @@ import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
+import { RangeControl } from 'gutenverse-core/controls';
+import { __ } from '@wordpress/i18n';
 
 const ColorPicker = ({ onSelect, ...rest }) => {
     return <ChromePicker
@@ -33,11 +35,16 @@ const GradientControl = (props) => {
         onValueChange,
         onStyleChange,
         description = '',
-        proLabel
+        proLabel,
+        useLocation = true,
     } = props;
 
     const wrapperRef = useRef();
     const [controlOpen, setControlOpen] = useState(false);
+    const [location, setLocation] = useState(0);
+    const [activeIndex, setActiveIndex] = useState(-1);
+    let newValue = value;
+    console.log(value);
 
     const onChange = value => {
         onValueChange(value);
@@ -45,8 +52,22 @@ const GradientControl = (props) => {
     };
 
     useEffect(() => {
-        wrapperRef?.current?.querySelector([ '.csh', '.cs']).addEventListener('click', () => setControlOpen(true));
+        wrapperRef?.current?.querySelector([ '.csh', '.cs']).addEventListener('click', () => {
+            setControlOpen(true);
+            const divs = document.querySelectorAll('.cs');
+            divs.forEach((div, index) => {
+                if (div.classList.contains('active')) {
+                    setActiveIndex(index);
+                    setLocation(value[index].offset * 100);
+                }
+            });
+        });
     }, [value]);
+
+    useEffect(() => {
+        newValue[activeIndex] = {...newValue[activeIndex], offset: `${location/100}`};
+        onChange(newValue);
+    },[location, activeIndex]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -76,7 +97,7 @@ const GradientControl = (props) => {
                 {...{
                     width: 205,
                     paletteHeight: 40,
-                    palette: value,
+                    palette: newValue,
                     onPaletteChange: onChange,
                     maxStops: 18,
                     stopRemovalDrop: 25
@@ -84,6 +105,16 @@ const GradientControl = (props) => {
             >
                 {controlOpen && <ColorPicker/>}
             </GradientPicker>
+            {controlOpen && useLocation && <RangeControl
+                label={__('Location', '--gctd--')}
+                min={0}
+                max={100}
+                step={0.1}
+                unit="%"
+                value={location}
+                onValueChange={(value) => setLocation(parseFloat(value))}
+                onStyleChange={() => { }}
+            />}
         </div>
     </div>;
 };
