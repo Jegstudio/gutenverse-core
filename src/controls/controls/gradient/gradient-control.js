@@ -44,7 +44,6 @@ const GradientControl = (props) => {
     const [location, setLocation] = useState(0);
     const [activeIndex, setActiveIndex] = useState(-1);
     let newValue = value;
-    console.log(value);
 
     const onChange = value => {
         onValueChange(value);
