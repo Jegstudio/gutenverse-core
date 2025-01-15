@@ -178,7 +178,7 @@ abstract class Block_Abstract {
 		$is_animation = false;
 
 		if ( isset( $this->attributes ['animation']['type'] ) ) {
-			$is_animation = ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) ) || ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) ) || ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) );
+			$is_animation = ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) && 'none' !== $this->attributes ['animation']['type']['Desktop'] ) || ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) && 'none' !== $this->attributes ['animation']['type']['Tablet'] ) || ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) && 'none' !== $this->attributes ['animation']['type']['Mobile'] );
 		}
 
 		if ( $is_animation ) {
@@ -189,16 +189,16 @@ abstract class Block_Abstract {
 			$animation_classes .= "{$this->attributes ['animation']['duration']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) ) {
+		if ( ! empty( $this->attributes ['animation']['type']['Desktop'] ) && 'none' !== $this->attributes ['animation']['type']['Desktop'] ) {
 			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Desktop']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) ) {
-			$animation_classes .= "tablet-{$this->attributes ['animation']['type']['Tablet']} ";
+		if ( ! empty( $this->attributes ['animation']['type']['Tablet'] ) && 'none' !== $this->attributes ['animation']['type']['Tablet'] ) {
+			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Tablet']} ";
 		}
 
-		if ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) ) {
-			$animation_classes .= "mobile-{$this->attributes ['animation']['type']['Mobile']} ";
+		if ( ! empty( $this->attributes ['animation']['type']['Mobile'] ) && 'none' !== $this->attributes ['animation']['type']['Mobile'] ) {
+			$animation_classes .= "desktop-{$this->attributes ['animation']['type']['Mobile']} ";
 		}
 
 		return esc_attr( $animation_classes );
