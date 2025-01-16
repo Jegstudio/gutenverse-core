@@ -104,7 +104,6 @@ class GutenverseNavMenu extends Default {
     }
     __removingClass(element, currentUrl){
         let menuLinks = u(element).find('.gutenverse-menu a');
-        console.log(menuLinks)
         menuLinks.each(link => {
             const parentLi = u(link).closest('li');
             if (this.__normalizeUrl(link.href) !== currentUrl) {
