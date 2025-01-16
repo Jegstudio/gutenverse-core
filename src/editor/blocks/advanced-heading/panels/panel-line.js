@@ -7,7 +7,6 @@ export const linePanel = (props) => {
         elementId,
         showLine
     } = props;
-
     return [
         {
             id: 'showLine',

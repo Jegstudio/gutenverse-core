@@ -1,0 +1,16 @@
+.guten-countdown-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .time-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.countdown-expired-wrapper{
+    display: none;
+    width: 100%;
+}

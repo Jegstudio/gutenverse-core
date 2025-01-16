@@ -7,7 +7,8 @@ import { handleBoxShadow } from 'gutenverse-core/styling';
 export const categoryPanel = (props) => {
     const {
         elementId,
-        postblockType
+        postblockType,
+        categoryEnabled
     } = props;
 
     const device = getDeviceType();
@@ -37,7 +38,7 @@ export const categoryPanel = (props) => {
                 {
                     selector: `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
                     allowRender: (value) => {
-                        return ('type-5' === postblockType) && 'end' !== value;
+                        return ('type-5' === postblockType) && 'end' !== value && categoryEnabled;
                     },
                     render: () => {
                         return 'height: 100%; display: grid; grid-template-rows: 1fr auto;';

@@ -1,5 +1,7 @@
 @import "gutenverse-core/src/assets/mixin";
 @import "gutenverse-core/src/assets/wp-fix";
+@import "gutenverse-core/src/assets/variables";
+@import "flatpickr/dist/flatpickr.min";
 
 // Swiper JS
 @import "./lib/swiper";
@@ -49,6 +51,7 @@
 @import "../editor/blocks/advanced-heading/styles/editor";
 @import "../editor/blocks/popup-builder/styles/editor.scss";
 @import "../editor/blocks/search/styles/editor.scss";
+@import "../editor/blocks/countdown/styles/editor.scss";
 @import "../editor/blocks/taxonomy-list/styles/editor.scss";
 @import "../editor/blocks/search-result-title/styles/editor.scss";
 @import "../editor/blocks/feature-list/styles/editor.scss";

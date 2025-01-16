@@ -214,6 +214,10 @@ class Accordions extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['titleBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .accordion-item .accordion-heading", $this->attrs['titleBackground'] );
+		}
+
 		if ( isset( $this->attrs['titleTextColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -238,6 +242,10 @@ class Accordions extends Style_Abstract {
 					'device_control' => false,
 				)
 			);
+		}
+
+		if ( isset( $this->attrs['titleActiveBackground'] ) ) {
+			$this->handle_background( ".{$this->element_id} .accordion-item.active .accordion-heading", $this->attrs['titleActiveBackground'] );
 		}
 
 		if ( isset( $this->attrs['titleActiveColor'] ) ) {

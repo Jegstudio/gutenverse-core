@@ -92,7 +92,7 @@
 			"copyStyle": true
 		},
 		"transitionDuration": {
-			"type": "string",
+			"type": "object",
 			"copyStyle": true
 		},
 		"spacing": {
