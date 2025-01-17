@@ -934,6 +934,12 @@
           width: min-content;
         }
       }
+
+      &.flexible-wrapper-background {
+        .control-title {
+          width: min-content;
+        }
+      }
       
       .control-body {
         margin-right: 0;

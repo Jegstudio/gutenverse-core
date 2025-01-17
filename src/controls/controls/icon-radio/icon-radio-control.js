@@ -31,12 +31,14 @@ const IconRadioControl = ({
         }
     };
 
-    let isSection = '';
+    let wrapperType = '';
     if ('section' === blockType) {
-        isSection = 'section-background';
+        wrapperType = 'section-background';
+    } else if ('wrapper' === blockType) {
+        wrapperType = 'flexible-wrapper-background';
     }
 
-    return <div id={id} className={`gutenverse-control-wrapper gutenverse-control-icon-radio ${isSection}`}>
+    return <div id={id} className={`gutenverse-control-wrapper gutenverse-control-icon-radio ${wrapperType}`}>
         <ControlHeadingSimple
             label={label}
             description={description}
