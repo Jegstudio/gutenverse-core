@@ -16,7 +16,9 @@ const {
     proImg,
     isTools,
     settingsData,
-    upgradeProUrl
+    upgradeProUrl,
+    clientUrl,
+    activeTheme
 } = window['GutenverseConfig'] || window['GutenverseDashboard'] || {};
 
 export {
@@ -34,5 +36,7 @@ export {
     proImg,
     isTools,
     settingsData,
-    upgradeProUrl
+    upgradeProUrl,
+    clientUrl,
+    activeTheme
 };

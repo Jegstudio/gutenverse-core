@@ -1,4 +1,4 @@
-import { useState } from '@wordpress/element';
+import { useState, useEffect } from '@wordpress/element';
 import { KeyboardShortcuts, Popover, ToolbarButton, CheckboxControl } from '@wordpress/components';
 import { __experimentalLinkControl as LinkControl } from '@wordpress/block-editor';
 import { link, linkOff } from '@wordpress/icons';
@@ -19,6 +19,8 @@ export const URLToolbar = ({
     panelState,
     isDynamic,
     title = 'Link',
+    panelIsClicked,
+    setPanelIsClicked
 }) => {
     const [isURLPickerOpen, setIsURLPickerOpen] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
@@ -40,31 +42,67 @@ export const URLToolbar = ({
     };
 
     const isPro = applyFilters('gutenverse.toolbar.url-toolbar');
+    const settings = (urlIsSetandSelected && isPro) ? [
+        {
+            id: 'opensInNewTab',
+            title: 'Open in new tab',
+        },
+        {
+            id: 'isDynamic',
+            title: 'Use dynamic link'
+        }
+    ] : [
+        {
+            id: 'opensInNewTab',
+            title: 'Open in new tab',
+        }
+    ];
+
+    useEffect(() => {
+        const style = document.createElement('style');
+
+        if (panelIsClicked && isSelected) {
+            style.textContent = `
+                .block-editor-block-popover, .components-popover {
+                    display: none !important;
+                }
+            `;
+        }
+
+        const handleMouseMove = (event) => {
+            const sidebar = document.querySelector('.interface-interface-skeleton__sidebar');
+
+            if (panelIsClicked && isSelected){
+                if (sidebar && !sidebar.contains(event.target)) {
+                    setPanelIsClicked(false);
+                    style.textContent = `
+                        .block-editor-block-popover, .components-popover {
+                            display: block !important;
+                        }
+                    `;
+                }
+            }
+        };
+
+        window.addEventListener('mousemove', handleMouseMove);
+        document.head.appendChild(style);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            document.head.removeChild(style);
+        };
+    }, [url, isSelected, panelIsClicked]);
 
     const linkControl = (isURLPickerOpen || urlIsSetandSelected) && (
         <Popover
-            position="bottom center"
+            placement="top-start"
             onClose={() => setIsURLPickerOpen(false)}
             anchorRef={anchorRef?.current}
         >
             <LinkControl
                 className="wp-block-navigation-link__inline-link-input"
                 value={{ url, opensInNewTab, isDynamic }}
-                settings={(urlIsSetandSelected && isPro) ? [
-                    {
-                        id: 'opensInNewTab',
-                        title: 'Open in new tab',
-                    },
-                    {
-                        id: 'isDynamic',
-                        title: 'Use dynamic link'
-                    }
-                ] : [
-                    {
-                        id: 'opensInNewTab',
-                        title: 'Open in new tab',
-                    }
-                ]}
+                settings={settings}
                 onChange={({
                     url: newURL = '',
                     opensInNewTab: newOpensInNewTab,
@@ -95,27 +133,27 @@ export const URLToolbar = ({
         </Popover>
     );
 
+    const linkToolbar = !urlIsSet ?
+        <ToolbarButton
+            name="link"
+            icon={link}
+            title={title}
+            shortcut={displayShortcut.primary('k')}
+            onClick={openLinkControl}
+        /> : urlIsSetandSelected ?
+            <ToolbarButton
+                name="link"
+                icon={linkOff}
+                title={__('Unlink', '--gctd--')}
+                shortcut={displayShortcut.primaryShift('k')}
+                onClick={unlinkButton}
+                isActive={true}
+            /> : <></>;
+
+
     return (
         <>
-            {!urlIsSet && (
-                <ToolbarButton
-                    name="link"
-                    icon={link}
-                    title={title}
-                    shortcut={displayShortcut.primary('k')}
-                    onClick={openLinkControl}
-                />
-            )}
-            {urlIsSetandSelected && (
-                <ToolbarButton
-                    name="link"
-                    icon={linkOff}
-                    title={__('Unlink', '--gctd--')}
-                    shortcut={displayShortcut.primaryShift('k')}
-                    onClick={unlinkButton}
-                    isActive={true}
-                />
-            )}
+            {linkToolbar}
             {isSelected && (
                 <KeyboardShortcuts
                     bindGlobal

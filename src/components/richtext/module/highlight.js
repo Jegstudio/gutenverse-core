@@ -59,6 +59,8 @@ export const highlight = (props) => {
                         typographyHover: {},
                         textClip:{},
                         textClipHover:{},
+                        textStroke:{},
+                        textStrokeHover:{},
                         background: {},
                         backgroundHover: {},
                         padding:{},

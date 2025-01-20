@@ -98,13 +98,15 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Render block element
 	 *
+	 * @param boolean $exclude_current : Flag to exclude current post.
+	 *
 	 * @return mixed
 	 */
-	public function render_block_element() {
+	public function render_block_element( $exclude_current = false ) {
 		if ( isset( $this->attributes['results'] ) ) {
 			$results = $this->attributes['results'];
 		} else {
-			$results = $this->build_query( $this->attributes );
+			$results = $this->build_query( $this->attributes, $exclude_current );
 		}
 
 		if ( ! empty( $results['result'] ) ) {
@@ -180,26 +182,25 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Prepare to build query.
 	 *
-	 * @param array $attr Attribute.
+	 * @param array   $attr Attribute.
+	 * @param boolean $exclude_current : Flag to exclude current post.
 	 *
 	 * @return array
 	 */
-	protected function build_query( $attr ) {
+	protected function build_query( $attr, $exclude_current = false ) {
 		if ( isset( $attr['uniqueContent'] ) && 'disable' !== $attr['uniqueContent'] ) {
 			if ( ! empty( $attr['excludePost'] ) ) {
 				$exclude_post = explode( ',', $attr['excludePost'] );
 			} else {
 				$exclude_post = array();
 			}
-
 			$exclude_post        = array_merge( $this->manager->get_unique_article( $attr['uniqueContent'] ), $exclude_post );
 			$attr['excludePost'] = implode( ',', $exclude_post );
 
 			// we need to alter attribute here...
 			$this->attributes = $attr;
 		}
-
-		$result = $this->get_query( $attr );
+		$result = $this->get_query( $attr, $exclude_current );
 
 		if ( isset( $attr['uniqueContent'] ) && 'disable' !== $attr['uniqueContent'] ) {
 			$this->manager->add_unique_article( $attr['uniqueContent'], $this->collect_post_id( $result ) );
@@ -227,17 +228,17 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Retrieve Query from defined Attribute
 	 *
-	 * @param array $attr Attribute.
+	 * @param array   $attr Attribute.
+	 * @param boolean $exclude_current : Flag to exclude current post.
 	 *
 	 * @return array
 	 */
-	public static function get_query( $attr ) {
+	public static function get_query( $attr, $exclude_current = false ) {
 		$attr = self::filter_attribute( $attr );
-
 		if ( self::is_jetpack_query( $attr ) ) {
 			$result = self::jetpack_query( $attr );
 		} else {
-			$result = self::default_query( $attr );
+			$result = self::default_query( $attr, $exclude_current );
 		}
 
 		self::optimize_query( $result );
@@ -261,6 +262,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			'postOffset',
 			'includePost',
 			'excludePost',
+			'excludeCurrentPost',
 			'includeCategory',
 			'excludeCategory',
 			'includeAuthor',
@@ -344,11 +346,12 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Build Query of WordPress Default
 	 *
-	 * @param array $attr Attribute.
+	 * @param array   $attr Attribute.
+	 * @param boolean $exclude_current : Flag to exclude current post.
 	 *
 	 * @return array
 	 */
-	private static function default_query( $attr ) {
+	private static function default_query( $attr, $exclude_current ) {
 		$include_category = array();
 		$exclude_category = array();
 		$result           = array();
@@ -398,6 +401,17 @@ abstract class Post_Abstract extends Block_Abstract {
 
 		if ( ! empty( $attr['excludePost'] ) ) {
 			$args['post__not_in'] = self::filter_array( $attr['excludePost'] );
+		}
+		if ( ! empty( $attr['excludeCurrentPost'] ) && $exclude_current ) {
+			$current_post_id = get_the_ID();
+			if ( isset( $args['post__not_in'] ) ) {
+				$post_not_in = $args['post__not_in'];
+				if ( ! in_array( $current_post_id, $post_not_in ) ) {
+					$args['post__not_in'][] = $current_post_id;
+				}
+			} else {
+				$args['post__not_in'] = array( $current_post_id );
+			}
 		}
 
 		if ( ! empty( $attr['includeCategory'] ) ) {
@@ -671,9 +685,10 @@ abstract class Post_Abstract extends Block_Abstract {
 	/**
 	 * Render pagination
 	 *
+	 * @param  bool $prev Prev.
 	 * @param  bool $next Next.
-	 * @param  bool $prev Next.
 	 * @param  int  $total Total page.
+	 * @param  int  $page Number page.
 	 * @return string
 	 */
 	protected function render_pagination( $prev = false, $next = false, $total = 1, $page = 1 ) {
@@ -708,7 +723,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$prev_text = '<i class="' . $prev_icon . '"></i>';
 			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			if ( $pre_next_text ) {
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
 				$prev_text = '<i class="' . $prev_icon . '"></i> ' . $prev_inner_text;
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}
@@ -724,7 +739,7 @@ abstract class Post_Abstract extends Block_Abstract {
 			$prev_text = '<i class="' . $prev_icon . '"></i>';
 			$next_text = '<i class="' . $next_icon . '"></i>';
 
-			if ( $pre_next_text ) {
+			if ( $pre_next_text && 'false' !== $pre_next_text ) {
 				$prev_text = '<i class="' . $prev_icon . '"></i> ' . esc_html__( 'Prev', '--gctd--' );
 				$next_text = $next_innet_text . '  <i class="' . $next_icon . '"></i>';
 			}

@@ -14,6 +14,7 @@ const IconRadioControl = ({
     onStyleChange,
     options,
     description = '',
+    blockType = '',
 }) => {
     const id = useInstanceId(IconRadioControl, 'inspector-icon-radio-control');
 
@@ -30,7 +31,12 @@ const IconRadioControl = ({
         }
     };
 
-    return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-icon-radio'}>
+    let isSection = '';
+    if ('section' === blockType) {
+        isSection = 'section-background';
+    }
+
+    return <div id={id} className={`gutenverse-control-wrapper gutenverse-control-icon-radio ${isSection}`}>
         <ControlHeadingSimple
             label={label}
             description={description}
