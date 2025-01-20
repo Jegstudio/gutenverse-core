@@ -165,7 +165,6 @@ export const withCustomStyle = panelList => BlockElement => {
         };
 
         const renderStyle = () => {
-            console.log('render style')
             controls.map(data => {
                 data.panelArray(panelProps).map(data => {
                     const { id, style, allowDeviceControl, onChange, options } = data;
