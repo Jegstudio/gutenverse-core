@@ -1899,7 +1899,7 @@ abstract class Style_Interface {
 					$styles[ $device ] = '';
 				}
 
-				if ( ! empty( $prop['value'][ $device ] ) ) {
+				if ( ! gutenverse_truly_empty( $prop['value'][ $device ] ) ) {
 					if ( is_array( $prop['value'][ $device ] ) ) {
 						if ( gutenverse_truly_empty( $prop['value'][ $device ]['point'] ) || gutenverse_truly_empty( $prop['value'][ $device ]['unit'] ) ) {
 							continue;
