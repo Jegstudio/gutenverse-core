@@ -166,48 +166,59 @@ export const withCustomStyle = panelList => BlockElement => {
 
         const renderStyle = () => {
             controls.map(data => {
-                data.panelArray(panelProps).map(data => {
-                    const { id, style, allowDeviceControl, onChange, options } = data;
-
-                    if (!isEmpty(style)) {
-                        style.map((item, index) => setControlStyle({
-                            ...panelProps,
-                            id: item.updateID ? item.updateID : `${id}-style-${index}`,
-                            value: panelProps[id],
-                            style: item,
-                            allowDeviceControl
-                        }));
+                let newControls = Object.keys(attributes).reduce((acc, key) => {
+                    if (!isEmpty(attributes[key])) {
+                        let option = data.panelArray(panelProps).find((el) => el.id === key);
+                        if (option) {
+                            acc.push(option);
+                        }
                     }
-                    !!onChange && onChange(panelProps);
-                    !isEmpty(options) && options.map(option => {
-                        const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-                        if (!isEmpty(repeaterStyle)) {
-                            panelProps[id] && panelProps[id].map((value, valueIndex) => {
-                                const theStyle = repeaterStyle.map(item => {
-                                    const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
-                                    return {
-                                        ...item,
-                                        selector: theSelector
-                                    };
-                                });
-
-                                theStyle.map((item, index) => {
-                                    const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
-                                    return setControlStyle({
-                                        ...panelProps,
-                                        id: item.updateID ? item.updateID : styleId,
-                                        value: value[optionId],
-                                        style: item,
-                                        allowDeviceControl
+                    return acc;
+                }, []);
+                if(newControls.length > 0){
+                    newControls.map(control => {
+                        const { id, style, allowDeviceControl, onChange, options } = control;
+                        if (!isEmpty(style)) {
+                            style.map((item, index) => setControlStyle({
+                                ...panelProps,
+                                id: item.updateID ? item.updateID : `${id}-style-${index}`,
+                                value: panelProps[id],
+                                style: item,
+                                allowDeviceControl
+                            }));
+                        }
+                        !!onChange && onChange(panelProps);
+                        !isEmpty(options) && options.map(option => {
+                            const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
+                            if (!isEmpty(repeaterStyle)) {
+                                panelProps[id] && panelProps[id].map((value, valueIndex) => {
+                                    const theStyle = repeaterStyle.map(item => {
+                                        const { selector } = item;
+                                        let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
+                                        return {
+                                            ...item,
+                                            selector: theSelector
+                                        };
+                                    });
+    
+                                    theStyle.map((item, index) => {
+                                        const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
+                                        return setControlStyle({
+                                            ...panelProps,
+                                            id: item.updateID ? item.updateID : styleId,
+                                            value: value[optionId],
+                                            style: item,
+                                            allowDeviceControl
+                                        });
                                     });
                                 });
-                            });
-                        }
-
-                        !!onChange && onChange(panelProps);
+                            }
+    
+                            !!onChange && onChange(panelProps);
+                        });
                     });
-                });
+                }
+                
             });
         };
 
