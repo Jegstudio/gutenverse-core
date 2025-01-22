@@ -168,7 +168,7 @@ export const withCustomStyle = panelList => BlockElement => {
             controls.map(data => {
                 let newControls = Object.keys(attributes).reduce((acc, key) => {
                     if (!isEmpty(attributes[key])) {
-                        let option = data.panelArray(panelProps).find((el) => el.id === key);
+                        let option = data.panelArray(panelProps).find((el) => el.id === key && el.style);
                         if (option) {
                             acc.push(option);
                         }
@@ -218,7 +218,6 @@ export const withCustomStyle = panelList => BlockElement => {
                         });
                     });
                 }
-                
             });
         };
 
@@ -304,7 +303,7 @@ export const withCustomStyle = panelList => BlockElement => {
             refreshStyleId,
             refreshId,
             confirmSignal,
-            deviceType,
+            // deviceType,
             additionalAttribute,
             ...customDeps,
         ]);
