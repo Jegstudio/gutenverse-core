@@ -9,12 +9,10 @@ import { applyFilters } from '@wordpress/hooks';
 
 const renderStyleCustomDeps = (props) => {
     const { attributes, name } = props;
-
     switch (name) {
         case 'gutenverse/column':
             return [attributes.sectionVerticalAlign];
         case 'gutenverse/mega-menu':
-            return [attributes.breakpoint, attributes.orientation];
         case 'gutenverse/mega-menu-item':
             return [attributes.breakpoint, attributes.orientation];
         default:
@@ -22,23 +20,14 @@ const renderStyleCustomDeps = (props) => {
     }
 };
 
-/**
- * Note :
- *  Force Refresh style bakalan tertrigger kalau:
- *      1. Kalau dari luar element, setAttribute dengan client element ini dengan attribute refreshStyleId
- *      2. Kalua dari element ini sendiri, bisa dengan refreshStyle();
- *      3. refreshSignal bakal merefresh semua block dalam page.
- *
- * @param {*} panelList.
- * @returns
- */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
         const { clientId, attributes, setAttributes } = props;
-        const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
+        const { gtniconURL, fontawesomeURL, uploadPath } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
         const gutenverse = dispatch('gutenverse/style');
         const gutenverseSelector = select('gutenverse/style');
+
         const [adminStyles, setAdminStyle] = useState({});
         const [totalChild, setTotalChild] = useState(0);
         const [switcher, setSwitcher] = useState({});
@@ -50,73 +39,44 @@ export const withCustomStyle = panelList => BlockElement => {
         const [refreshId, setRefreshId] = useState(null);
         const [additionalAttribute, setAdditionalAttribute] = useState(null);
         const controls = panelList();
-        const { uploadPath } = window['GutenverseConfig'];
 
-        // keep this using useSelect instead of getDevice, to trigger changes
-        const {
-            deviceType,
-        } = useSelect(
-            () => {
-                const location = determineLocation();
-                return {
-                    deviceType: theDeviceType(location)
-                };
-            },
-            []
-        );
+        const { deviceType } = useSelect(() => ({
+            deviceType: theDeviceType(determineLocation())
+        }), []);
 
         const refreshStyle = () => {
             const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
             setRefreshId(uniqueId);
         };
 
-        const refreshSignal = (key) => {
-            setRefresh(key);
-        };
+        const refreshSignal = (key) => setRefresh(key);
 
-        const addStyle = (id, adminStyle) => {
-            setAdminStyle(prevStyles => ({
-                ...prevStyles,
-                [id]: adminStyle
-            }));
-        };
+        const addStyle = (id, adminStyle) => setAdminStyle(prevStyles => ({
+            ...prevStyles,
+            [id]: adminStyle
+        }));
 
         const addFont = (id, font, weight) => {
             const fontId = `${elementId}-${id}`;
-
-            if (font !== undefined && font.type === 'google') {
-                gutenverse.setGoogleFonts(fontId, {
-                    ...font,
-                    weight
-                });
-            } else if (font !== undefined && font.type === 'custom_font_pro') {
-                gutenverse.setCustomFonts(fontId, {
-                    ...font,
-                    weight
-                });
+            if (font) {
+                const fontData = { ...font, weight };
+                if (font.type === 'google') {
+                    gutenverse.setGoogleFonts(fontId, fontData);
+                } else if (font.type === 'custom_font_pro') {
+                    gutenverse.setCustomFonts(fontId, fontData);
+                }
             }
         };
 
         const renderGoogleFont = () => {
             const googleFont = gutenverseSelector.getGoogleFonts();
-            return !isEmpty(googleFont) &&
-                <link
-                    href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
-                    rel="stylesheet" type="text/css" />;
+            return !isEmpty(googleFont) && <link href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`} rel="stylesheet" type="text/css" />;
         };
 
         const renderCustomFont = () => {
             const customFont = gutenverseSelector.getCustomFonts();
-            let customFontData = Object.keys(customFont).map((value) => {
-                return customFont[value].value;
-            });
-            let uniqueFont = customFontData.filter((value, index, array) => array.indexOf(value) === index);
-            return !isEmpty(customFont) &&
-                applyFilters(
-                    'gutenverse.apply-custom-font',
-                    uniqueFont,
-                    uploadPath
-                );
+            const uniqueFonts = [...new Set(Object.values(customFont).map(value => value.value))];
+            return !isEmpty(customFont) && applyFilters('gutenverse.apply-custom-font', uniqueFonts, uploadPath);
         };
 
         const removeStyle = (id) => {
@@ -126,9 +86,7 @@ export const withCustomStyle = panelList => BlockElement => {
             });
         };
 
-        const buildStyle = (styles) => {
-            return Object.keys(styles).map(key => styles[key]).join(' ');
-        };
+        const buildStyle = (styles) => Object.values(styles).join(' ');
 
         // Control Props
         const panelProps = {
@@ -145,67 +103,56 @@ export const withCustomStyle = panelList => BlockElement => {
         };
 
         const registerElement = (uniqueId) => {
-            const data = {
-                elementId: uniqueId
-            };
-
-            if (props.name === 'gutenverse/column' || props.name === 'gutenverse/accordion') {
+            const data = { elementId: uniqueId };
+            if (['gutenverse/column', 'gutenverse/accordion'].includes(props.name)) {
                 data.addStyle = addStyle;
             }
-
             if (props.name === 'gutenverse/section') {
                 data.setTotalChild = setTotalChild;
             }
-
             if (props.name === 'gutenverse/accordion') {
                 data.removeStyle = removeStyle;
             }
-
             gutenverse.registerElement(clientId, data);
         };
 
         const renderStyle = () => {
-            controls.map(data => {
-                let newControls = Object.keys(attributes).reduce((acc, key) => {
-                    if (!isEmpty(attributes[key])) {
-                        let option = data.panelArray(panelProps).find((el) => el.id === key && el.style);
-                        if (option) {
-                            acc.push(option);
-                        }
-                    }
-                    return acc;
-                }, []);
-                if(newControls.length > 0){
-                    newControls.map(control => {
-                        const { id, style, allowDeviceControl, onChange, options } = control;
-                        if (!isEmpty(style)) {
-                            style.map((item, index) => setControlStyle({
+            controls.forEach(control => {
+                control.panelArray(panelProps).forEach(data => {
+                    const { id, style, allowDeviceControl, onChange, options } = data;
+                    if (style?.length) {
+                        style.forEach((item, index) => {
+                            setControlStyle({
                                 ...panelProps,
-                                id: item.updateID ? item.updateID : `${id}-style-${index}`,
+                                id: item.updateID || `${id}-style-${index}`,
                                 value: panelProps[id],
                                 style: item,
                                 allowDeviceControl
-                            }));
-                        }
-                        !!onChange && onChange(panelProps);
-                        !isEmpty(options) && options.map(option => {
+                            });
+                        });
+                    }
+
+                    if (onChange) onChange(panelProps);
+
+                    if (options?.length) {
+                        options.forEach(option => {
                             const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-                            if (!isEmpty(repeaterStyle)) {
-                                panelProps[id] && panelProps[id].map((value, valueIndex) => {
-                                    const theStyle = repeaterStyle.map(item => {
-                                        const { selector } = item;
-                                        let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
-                                        return {
-                                            ...item,
-                                            selector: theSelector
-                                        };
-                                    });
-    
-                                    theStyle.map((item, index) => {
+
+                            if (repeaterStyle?.length) {
+                                const panelData = panelProps[id];
+                                panelData?.forEach((value, valueIndex) => {
+                                    const theStyle = repeaterStyle.map(item => ({
+                                        ...item,
+                                        selector: typeof item.selector === 'string' || item.selector instanceof String
+                                            ? item.selector
+                                            : item.selector(valueIndex, { props: value })
+                                    }));
+
+                                    theStyle.forEach((item, index) => {
                                         const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
-                                        return setControlStyle({
+                                        setControlStyle({
                                             ...panelProps,
-                                            id: item.updateID ? item.updateID : styleId,
+                                            id: item.updateID || styleId,
                                             value: value[optionId],
                                             style: item,
                                             allowDeviceControl
@@ -213,19 +160,17 @@ export const withCustomStyle = panelList => BlockElement => {
                                     });
                                 });
                             }
-    
-                            !!onChange && onChange(panelProps);
+
+                            if (onChange) onChange(panelProps);
                         });
-                    });
-                }
+                    }
+                });
             });
         };
 
         const createElementId = () => {
             const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-            setAttributes({
-                elementId: uniqueId,
-            });
+            setAttributes({ elementId: uniqueId });
             registerElement(uniqueId);
         };
 
@@ -233,13 +178,8 @@ export const withCustomStyle = panelList => BlockElement => {
             const binding = signal.refreshSignal.add(refreshSignal);
             const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
 
-            Object.keys(attributes).map(key => {
-                if (typeof attributes[key] === 'string' && (
-                    attributes[key].indexOf('gtn gtn-') > -1
-                    || attributes[key].indexOf('fas fa-') > -1
-                    || attributes[key].indexOf('fab fa-') > -1
-                    || attributes[key].indexOf('far fa-') > -1
-                )) {
+            Object.keys(attributes).forEach(key => {
+                if (typeof attributes[key] === 'string' && /gtn\s|fas\s|fab\s|far\s/.test(attributes[key])) {
                     setHasIcon(true);
                 }
             });
@@ -248,15 +188,11 @@ export const withCustomStyle = panelList => BlockElement => {
                 binding.detach();
                 bindStyling.detach();
             };
-        }, []);
+        }, [attributes]);
 
-        /**
-         * On mount, set elementId if undefined,
-         * and set controlValues for the first time.
-         */
         useEffect(() => {
             if (elementRef) {
-                if (elementId === undefined) {
+                if (!elementId) {
                     createElementId();
                 } else {
                     const { getBlocks } = select('core/block-editor');
@@ -269,57 +205,45 @@ export const withCustomStyle = panelList => BlockElement => {
                     }
                 }
 
-                if (elementRef.ownerDocument) {
-                    setTimeout(() => {
-                        const windowEl = elementRef.ownerDocument.defaultView || elementRef.ownerDocument.parentWindow;
-                        if (windowEl?.document) {
-                            const headEl = windowEl.document.getElementsByTagName('head')[0];
-                            setHeadElement(headEl);
-                        }
-                    }, 1);
-                }
+                setTimeout(() => {
+                    const windowEl = elementRef?.ownerDocument?.defaultView || elementRef?.ownerDocument?.parentWindow;
+                    if (windowEl?.document) {
+                        const headEl = windowEl.document.getElementsByTagName('head')[0];
+                        setHeadElement(headEl);
+                    }
+                }, 1);
             }
-        }, [elementRef]);
+        }, [elementRef, elementId]);
 
         const customDeps = useMemo(() => renderStyleCustomDeps(props), [props]);
 
         useEffect(() => {
-            const styleTimeoout = setTimeout(() => {
-                refreshStyle();
-            }, 100);
-
-            return () => clearTimeout(styleTimeoout);
+            const styleTimeout = setTimeout(() => refreshStyle(), 100);
+            return () => clearTimeout(styleTimeout);
         }, [attributes]);
 
-        /**
-         * Render style on event change
-         */
         useEffect(() => {
-            if (elementId !== undefined) {
-                renderStyle();
-            }
+            if (elementId) renderStyle();
         }, [
             elementId,
             refreshStyleId,
             refreshId,
             confirmSignal,
-            // deviceType,
-            additionalAttribute,
             ...customDeps,
         ]);
 
         return <>
             {hasIcon && (
                 <Helmet head={headElement}>
-                    <link rel="stylesheet" href={gtniconURL} media="all"></link>
-                    <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
+                    <link rel="stylesheet" href={gtniconURL} media="all" />
+                    <link rel="stylesheet" href={fontawesomeURL} media="all" />
                 </Helmet>
             )}
             <Helmet device={deviceType} head={headElement}>
-                {elementId !== undefined && renderGoogleFont()}
-                {elementId !== undefined && renderCustomFont()}
+                {elementId && renderGoogleFont()}
+                {elementId && renderCustomFont()}
             </Helmet>
-            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
+            {elementId && <style id={elementId}>{buildStyle(adminStyles)}</style>}
             <BlockElement
                 {...props}
                 addStyle={addStyle}
@@ -330,7 +254,6 @@ export const withCustomStyle = panelList => BlockElement => {
                 setElementRef={setElementRef}
                 elementRef={elementRef}
                 refreshStyle={refreshStyle}
-                setAdditionalAttribute={setAdditionalAttribute}
             />
         </>;
     };
