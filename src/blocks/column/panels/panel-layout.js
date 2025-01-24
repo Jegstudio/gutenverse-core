@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
 export const layoutPanel = (props) => {
     const {
@@ -28,7 +27,7 @@ export const layoutPanel = (props) => {
         addStyle,
         setAttributes
     };
-    
+
     return [
         {
             id: 'width',
@@ -36,15 +35,14 @@ export const layoutPanel = (props) => {
             component: RangeColumnControl,
             min: minWidth[deviceType],
             step: 0.1,
+            allowDeviceControl: true,
             additionalProps,
-            onChange: (value) => {
-                const { width } = value;
-                addStyle(
-                    'column-width',
-                    BuildColumnWidthStyle(width, `.${elementId}`)
-                );
-            },
-            style: []
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `width: ${value}%;`
+                }
+            ]
         },
         {
             id: 'verticalAlign',
