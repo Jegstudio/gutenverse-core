@@ -6,7 +6,9 @@ const SectionVideoContainer = ({ attributes }) => {
     const {
         background = {}
     } = attributes;
-
+    if(background.type !== 'video'){
+        return null;
+    }
     background.videoPlayOnMobile = background.videoPlayOnMobile || false;
 
     const deviceType = getDeviceType();
@@ -46,7 +48,6 @@ const SectionVideoContainer = ({ attributes }) => {
             config={playerConfig}
         />
     ) : null;
-
     if ('Mobile' === deviceType) {
         if (background.videoPlayOnMobile) {
             return videoPlayer;

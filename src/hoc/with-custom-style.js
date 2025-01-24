@@ -34,6 +34,7 @@ const renderStyleCustomDeps = (props) => {
  */
 export const withCustomStyle = panelList => BlockElement => {
     return (props) => {
+
         const { clientId, attributes, setAttributes } = props;
         const { gtniconURL, fontawesomeURL } = window['GutenverseConfig'];
         const { elementId, refreshStyleId } = attributes;
