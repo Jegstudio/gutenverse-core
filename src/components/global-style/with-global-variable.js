@@ -40,11 +40,11 @@ const withGlobalVariable = GlobalStyle => {
         const { uploadPath } = window['GutenverseConfig'];
 
         const setWindow = () => {
-            setTimeout(() => {
+            debounce(() => {
                 const canvas = document.querySelector('[name=\'editor-canvas\']');
                 const wrapper = !canvas ? window : canvas.contentWindow;
                 setHeadElement(wrapper.document.getElementsByTagName('head')[0]);
-            }, 500);
+            }, 100);
         };
 
         elementChange('#editor', setWindow);
@@ -70,7 +70,7 @@ const withGlobalVariable = GlobalStyle => {
         );
 
         const debounceSave = useCallback(
-            debounce((params) => modifyGlobalVariable(params), 200),
+            debounce((params) => modifyGlobalVariable(params), 100),
             []
         );
 
@@ -98,7 +98,7 @@ const withGlobalVariable = GlobalStyle => {
         const buildStyle = (variable) => {
             let variableStyle = elementVar();
             const { fonts, userConfig } = variable;
-            fonts?.map(item => {
+            fonts?.forEach(item => {
                 const { id, font: typography } = item;
                 if (typography) {
                     const { font, size, weight, transform, style, decoration, lineHeight, spacing } = typography;
@@ -232,7 +232,7 @@ const withGlobalVariable = GlobalStyle => {
                 href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                 rel="stylesheet" type="text/css" />;
         };
-        
+
         const renderCustomFont = () => {
             let customFontData = Object.keys(customFont).map((value) => {
                 return customFont[value].value;
@@ -263,7 +263,11 @@ const withGlobalVariable = GlobalStyle => {
                 initFontVar(fonts);
 
                 // Set Google Fonts
-                fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
+                fonts.forEach(({ id, font }) => {
+                    if (font) {
+                        handleFont(font, addFont, id);
+                    }
+                });
 
                 setAdminStyles(buildStyle({
                     fonts,
@@ -284,7 +288,7 @@ const withGlobalVariable = GlobalStyle => {
                 fonts: variable?.fonts,
                 googlefont: getGoogleFontDatas(googleFont)
             });
-        }, [userConfig, variable, deviceType]);
+        }, [userConfig, variable]);
 
         return <>
             <Helmet device={deviceType} head={headElement}>
