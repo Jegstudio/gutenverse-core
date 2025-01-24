@@ -28,7 +28,7 @@ export const layoutPanel = (props) => {
         addStyle,
         setAttributes
     };
-
+    
     return [
         {
             id: 'width',
@@ -39,12 +39,12 @@ export const layoutPanel = (props) => {
             additionalProps,
             onChange: (value) => {
                 const { width } = value;
-
                 addStyle(
                     'column-width',
                     BuildColumnWidthStyle(width, `.${elementId}`)
                 );
-            }
+            },
+            style: []
         },
         {
             id: 'verticalAlign',

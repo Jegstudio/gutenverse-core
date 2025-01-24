@@ -6,6 +6,9 @@ export const withBackgroundSlideshow = (BlockControl) => {
     return (props) => {
         const {attributes, addStyle, removeStyle} = props;
         const {background = {}, elementId} = attributes;
+        if(background.type !== 'slide'){
+            return <BlockControl {...props}/>;
+        }
         const {slideImage = {}, infiniteLoop = false} = background;
         const elementRefs = useRef(null);
         const slideshowContainerRefs = useRef([]);
