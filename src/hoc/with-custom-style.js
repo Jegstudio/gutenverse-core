@@ -165,7 +165,7 @@ export const withCustomStyle = panelList => BlockElement => {
         };
 
         const renderStyle = () => {
-            controls.map(data => {
+            controls.forEach(data => {
                 let newControls = Object.keys(attributes).reduce((acc, key) => {
                     if (!isEmpty(attributes[key])) {
                         let option = data.panelArray(panelProps).find((el) => el.id === key && el.style);
@@ -176,10 +176,10 @@ export const withCustomStyle = panelList => BlockElement => {
                     return acc;
                 }, []);
                 if(newControls.length > 0){
-                    newControls.map(control => {
+                    newControls.forEach(control => {
                         const { id, style, allowDeviceControl, onChange, options } = control;
                         if (!isEmpty(style)) {
-                            style.map((item, index) => setControlStyle({
+                            style.forEach((item, index) => setControlStyle({
                                 ...panelProps,
                                 id: item.updateID ? item.updateID : `${id}-style-${index}`,
                                 value: panelProps[id],
@@ -188,10 +188,10 @@ export const withCustomStyle = panelList => BlockElement => {
                             }));
                         }
                         !!onChange && onChange(panelProps);
-                        !isEmpty(options) && options.map(option => {
+                        !isEmpty(options) && options.forEach(option => {
                             const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
                             if (!isEmpty(repeaterStyle)) {
-                                panelProps[id] && panelProps[id].map((value, valueIndex) => {
+                                panelProps[id] && panelProps[id].forEach((value, valueIndex) => {
                                     const theStyle = repeaterStyle.map(item => {
                                         const { selector } = item;
                                         let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
@@ -201,7 +201,7 @@ export const withCustomStyle = panelList => BlockElement => {
                                         };
                                     });
     
-                                    theStyle.map((item, index) => {
+                                    theStyle.forEach((item, index) => {
                                         const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
                                         return setControlStyle({
                                             ...panelProps,
@@ -233,7 +233,7 @@ export const withCustomStyle = panelList => BlockElement => {
             const binding = signal.refreshSignal.add(refreshSignal);
             const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
 
-            Object.keys(attributes).map(key => {
+            Object.keys(attributes).forEach(key => {
                 if (typeof attributes[key] === 'string' && (
                     attributes[key].indexOf('gtn gtn-') > -1
                     || attributes[key].indexOf('fas fa-') > -1
@@ -303,7 +303,6 @@ export const withCustomStyle = panelList => BlockElement => {
             refreshStyleId,
             refreshId,
             confirmSignal,
-            // deviceType,
             additionalAttribute,
             ...customDeps,
         ]);
