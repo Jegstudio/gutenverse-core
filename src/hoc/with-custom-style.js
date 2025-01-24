@@ -201,10 +201,10 @@ export const withCustomStyle = panelList => BlockElement => {
                                             selector: theSelector
                                         };
                                     });
-    
+
                                     theStyle.forEach((item, index) => {
                                         const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
-                                        return setControlStyle({
+                                        setControlStyle({
                                             ...panelProps,
                                             id: item.updateID ? item.updateID : styleId,
                                             value: value[optionId],
@@ -214,7 +214,7 @@ export const withCustomStyle = panelList => BlockElement => {
                                     });
                                 });
                             }
-    
+
                             !!onChange && onChange(panelProps);
                         });
                     });
