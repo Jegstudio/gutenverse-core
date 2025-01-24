@@ -28,7 +28,7 @@ export const layoutPanel = (props) => {
         addStyle,
         setAttributes
     };
-    
+
     return [
         {
             id: 'width',
@@ -36,15 +36,14 @@ export const layoutPanel = (props) => {
             component: RangeColumnControl,
             min: minWidth[deviceType],
             step: 0.1,
+            allowDeviceControl: true,
             additionalProps,
-            onChange: (value) => {
-                const { width } = value;
-                addStyle(
-                    'column-width',
-                    BuildColumnWidthStyle(width, `.${elementId}`)
-                );
-            },
-            style: []
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `width: ${value}%;`
+                }
+            ]
         },
         {
             id: 'verticalAlign',
