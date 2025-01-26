@@ -1,5 +1,5 @@
 /* External dependencies */
-import { useEffect, useRef } from '@wordpress/element';
+import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
@@ -17,9 +17,10 @@ import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
+import blockStyle from './styles/block';
 
 const HeadingBlockControl = (props) => {
-    const{
+    const {
         attributes,
         setAttributes,
     } = props;
@@ -56,24 +57,94 @@ const HeadingInspection = (props) => {
     />;
 };
 
+const cssDeviceString = (elementId, attribute, prefix) => {
+    let css = [];
+
+    if (attribute['Desktop']) {
+        css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
+    } else {
+        css.push(null);
+    }
+
+    if (attribute['Tablet']) {
+        css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
+    } else {
+        css.push(null);
+    }
+
+    if (attribute['Mobile']) {
+        css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
+    } else {
+        css.push(null);
+    }
+
+    return css;
+};
+
+const generateCSSString = (Desktop, Tablet, Mobile) => {
+    let css = [];
+
+    if (Desktop.length) {
+        css.push(Desktop.join(' '));
+    }
+
+    if (Tablet.length) {
+        css.push('@media only screen and (max-width: 781px) {' + Tablet.join(' ') + '}');
+    }
+
+    if (Mobile.length) {
+        css.push('@media only screen and (max-width: 361px) {' + Mobile.join(' ') + '}');
+    }
+
+    return css.join(' ');
+};
+
+const useDynamicStyle = (elementId, attributes, blockStyle) => {
+    const { generatedCSS, fontUsed } = useMemo(() => {
+        const deviceTypeDesktop = [];
+        const deviceTypeTablet = [];
+        const deviceTypeMobile = [];
+        const fontUsed = [];
+
+        blockStyle.forEach((style) => {
+            const { id, prefix, responsive } = style;
+            if (attributes[id]) {
+                const css = cssDeviceString(elementId, attributes[id], prefix);
+                if (responsive) {
+                    css[0] && deviceTypeDesktop.push(css[0]);
+                    css[1] && deviceTypeTablet.push(css[1]);
+                    css[2] && deviceTypeMobile.push(css[2]);
+                }
+            }
+        });
+
+        const generatedCSS = generateCSSString(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+
+        return { generatedCSS, fontUsed };
+    }, [elementId, attributes]);
+
+    return [generatedCSS, fontUsed];
+};
+
 const HeadingBlock = compose(
-    withPartialRender,
     withCustomStyle(panelList),
-    withAnimationAdvance('heading'),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
 )(props => {
+
     const {
         attributes,
         setAttributes,
         setElementRef,
         clientId,
-        setPanelState
+        setPanelState,
     } = props;
+
     const {
         elementId,
         type,
     } = attributes;
+
+    const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, blockStyle);
 
     const tagName = 'h' + type;
     const headingRef = useRef();
@@ -97,10 +168,11 @@ const HeadingBlock = compose(
     }, [headingRef]);
 
     return <>
+        <style id={elementId}>{generatedCSS}</style>
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
         <RichTextComponent
-            isBlockProps = {true}
+            isBlockProps={true}
             blockProps={blockProps}
             ref={headingRef}
             tagName={tagName}
@@ -111,8 +183,8 @@ const HeadingBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            panelPosition={{panel : 'style', section : 2}}
-            panelDynamic={{panel: 'setting', section: 1}}
+            panelPosition={{ panel: 'style', section: 2 }}
+            panelDynamic={{ panel: 'setting', section: 1 }}
             contentAttribute={'content'}
             setPanelState={setPanelState}
             textChilds={'textChilds'}

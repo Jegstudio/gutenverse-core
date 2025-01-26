@@ -68,12 +68,12 @@ export const contentPanel = ({ elementId }) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `.${elementId}`,
+            //         render: value => `text-align: ${value};`
+            //     }
+            // ]
         },
     ];
 };
