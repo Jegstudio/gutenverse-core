@@ -1,5 +1,3 @@
-import { multiProperty } from './generator-plain';
-
 export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
     const { dimension, unit } = attribute;
     const positions = ['top', 'right', 'bottom', 'left'];
@@ -39,7 +37,7 @@ export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
 };
 
 export const dimensionGenerator = (attribute, style, css) => {
-    const {type, selector, property, responsive = false} = style;
+    const {selector, property, responsive = false} = style;
     if ( !responsive ) {
         css.Desktop = dimensionCSS(attribute, property[0]);
     }
