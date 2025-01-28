@@ -78,6 +78,12 @@ const getBlockStyle = (elementId) => {
             'property': ['box-shadow'],
             'selector': `h1.guten-element.${elementId}:hover,h2.guten-element.${elementId}:hover,h3.guten-element.${elementId}:hover,h4.guten-element.${elementId}:hover,h5.guten-element.${elementId}:hover,h6.guten-element.${elementId}:hover`,
         },
+        {
+            'type': 'mask',
+            'id': 'mask',
+            'responsive': true,
+            'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        },
     ];
 };
 
