@@ -23,7 +23,7 @@ export const plainGenerator = (attribute, style, css) => {
         if (attribute['Mobile']) {
             const value = renderValue(type, attribute['Mobile']);
             const style = multiProperty(property, value);
-            css.Tablet = `${selector} { ${style} }`;
+            css.Mobile = `${selector} { ${style} }`;
         }
     }
     return css;
