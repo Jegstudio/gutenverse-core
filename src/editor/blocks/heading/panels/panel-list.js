@@ -71,18 +71,18 @@ export const panelList = () => {
             panelArray: borderPanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Masking', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: maskPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Display', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: responsivePanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
         // {
         //     title: __('Positioning', 'gutenverse'),
         //     initialOpen: false,
