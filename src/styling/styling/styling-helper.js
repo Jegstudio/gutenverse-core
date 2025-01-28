@@ -6,6 +6,9 @@ import { textShadowCSS } from './generator/generator-text-shadow';
 import { textStrokeGenerator } from './generator/generator-text-stroke';
 import cryptoRandomString from 'crypto-random-string';
 import { Helmet } from 'gutenverse-core/components';
+import { backgroundGenerator } from './generator/generator-background';
+import { borderGenerator } from './generator/generator-border';
+import { borderResponsiveGenerator } from './generator/generator-border-responsive';
 
 const cssDeviceString = (elementId, attribute, prefix) => {
     let css = [];
@@ -79,6 +82,15 @@ const generateCSSString = (attribute, style) => {
         case 'textStroke':
             css = textStrokeGenerator(attribute, style, css);
             break;
+        case 'background':
+            css = backgroundGenerator(attribute, style, css);
+            break;
+        case 'border':
+            css = borderGenerator(attribute, style, css);
+            break;
+        case 'borderResponsive':
+            css = borderResponsiveGenerator(attribute, style, css);
+            break;
         case 'textShadow':
         case 'color':
         default:
@@ -116,7 +128,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             if (attributes[id]) {
                 const value = attributes[id];
                 const css = generateCSSString(value, style);
-                console.log(css);
 
                 css.Desktop && deviceTypeDesktop.push(css.Desktop);
                 css.Tablet && deviceTypeTablet.push(css.Tablet);

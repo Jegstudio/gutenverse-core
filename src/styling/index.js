@@ -42,4 +42,8 @@ export {
     HeadElement
 } from './styling/styling-helper';
 
+export { backgroundGenerator } from './styling/generator/generator-background';
+export { borderGenerator } from './styling/generator/generator-border';
+export { borderResponsiveGenerator } from './styling/generator/generator-border-responsive';
+
 export { shapeDividerLoader } from './data/shape-divider';

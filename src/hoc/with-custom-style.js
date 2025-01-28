@@ -299,7 +299,7 @@ export const withCustomStyle = panelList => BlockElement => {
         // ]);
 
         return <>
-            {hasIcon && (
+            {/* {hasIcon && (
                 <Helmet head={headElement}>
                     <link rel="stylesheet" href={gtniconURL} media="all"></link>
                     <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
