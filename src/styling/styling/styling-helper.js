@@ -13,6 +13,8 @@ import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import { select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
+import { getDimension } from './handler/handle-dimension';
+import { dimensionGenerator } from './generator/generator-dimension';
 
 // const cssDeviceString = (elementId, attribute, prefix) => {
 //     let css = [];
@@ -95,6 +97,9 @@ const generateCSSString = (attribute, style) => {
             break;
         case 'borderResponsive':
             css = borderResponsiveGenerator(attribute, style, css);
+            break;
+        case 'dimension':
+            css = dimensionGenerator(attribute, style, css);
             break;
         case 'mask':
             css = maskGenerator(attribute, style, css);
