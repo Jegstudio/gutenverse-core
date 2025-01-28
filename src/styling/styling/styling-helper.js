@@ -1,5 +1,8 @@
 import { useMemo } from '@wordpress/element';
-import { getColor } from './handler/handle-color';
+import { getColor, handleColor } from './handler/handle-color';
+import { backgroundGenerator } from './generator/generator-background';
+import { borderGenerator } from './generator/generator-border';
+import { borderResponsiveGenerator } from './generator/generator-border-responsive';
 
 const cssDeviceString = (elementId, attribute, prefix) => {
     let css = [];
@@ -133,50 +136,64 @@ const typographyCSS = (attribute) => {
 };
 
 const generateCSSString = (type, attribute, selector, property, responsive = false) => {
+    const style = {type, attribute, selector, property, responsive};
     let css = {
         Desktop: null,
         Tablet: null,
         Mobile: null,
     };
 
-    if (type === 'plain' || type === 'color') {
-        if (!responsive || attribute['Desktop']) {
+    switch (type) {
+        case 'plain':
+        case 'color':
+            if (!responsive || attribute['Desktop']) {
+                if (responsive) {
+                    const value = renderValue(type, attribute['Desktop']);
+                    css.Desktop = `${selector} { ${property}: ${value}; }`;
+                } else {
+                    const value = renderValue(type, attribute);
+                    css.Desktop = `${selector} { ${property}: ${value}; }`;
+                }
+            }
+
             if (responsive) {
-                const value = renderValue(type, attribute['Desktop']);
-                css.Desktop = `${selector} { ${property}: ${value}; }`;
-            } else {
-                const value = renderValue(type, attribute);
-                css.Desktop = `${selector} { ${property}: ${value}; }`;
+                if (attribute['Tablet']) {
+                    const value = renderValue(type, attribute['Tablet']);
+                    css.Tablet = `${selector} { ${property}: ${value}; }`;
+                }
+
+                if (attribute['Mobile']) {
+                    const value = renderValue(type, attribute['Mobile']);
+                    css.Tablet = `${selector} { ${property}: ${value}; }`;
+                }
             }
-        }
+            break;
+        case 'typography':
+            const typography = typographyCSS(attribute);
 
-        if (responsive) {
-            if (attribute['Tablet']) {
-                const value = renderValue(type, attribute['Tablet']);
-                css.Tablet = `${selector} { ${property}: ${value}; }`;
+            if (typography.Desktop.length) {
+                css.Desktop = `${selector} { ` + typography.Desktop.join(' ') + ' }';
             }
 
-            if (attribute['Mobile']) {
-                const value = renderValue(type, attribute['Mobile']);
-                css.Tablet = `${selector} { ${property}: ${value}; }`;
+            if (typography.Tablet.length) {
+                css.Tablet = `${selector} { ` + typography.Tablet.join(' ') + ' }';
             }
-        }
-    }
 
-    if (type === 'typography') {
-        const typography = typographyCSS(attribute);
-
-        if (typography.Desktop.length) {
-            css.Desktop = `${selector} { ` + typography.Desktop.join(' ') + ' }';
-        }
-
-        if (typography.Tablet.length) {
-            css.Tablet = `${selector} { ` + typography.Tablet.join(' ') + ' }';
-        }
-
-        if (typography.Mobile.length) {
-            css.Mobile = `${selector} { ` + typography.Mobile.join(' ') + ' }';
-        }
+            if (typography.Mobile.length) {
+                css.Mobile = `${selector} { ` + typography.Mobile.join(' ') + ' }';
+            }
+            break;
+        case 'background':
+            css = backgroundGenerator(attribute, style, css);
+            break;
+        case 'border':
+            css = borderGenerator(attribute, style, css);
+            break;
+        case 'borderResponsive':
+            css = borderResponsiveGenerator(attribute, style, css);
+            break;
+        default:
+            break;
     }
 
     return css;
