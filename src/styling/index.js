@@ -39,7 +39,7 @@ export {
 export {
     useDynamicStyle,
     useGenerateElementId,
-    HeadElement
+    headElement
 } from './styling/styling-helper';
 
 export { backgroundGenerator } from './styling/generator/generator-background';
