@@ -11,30 +11,32 @@ import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
 import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
 import { select } from '@wordpress/data';
+import { boxShadowCSS } from './generator/generator-box-shadow';
+import { maskGenerator } from './generator/generator-mask';
 
-const cssDeviceString = (elementId, attribute, prefix) => {
-    let css = [];
+// const cssDeviceString = (elementId, attribute, prefix) => {
+//     let css = [];
 
-    if (attribute['Desktop']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Desktop']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    if (attribute['Tablet']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Tablet']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    if (attribute['Mobile']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Mobile']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    return css;
-};
+//     return css;
+// };
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     let css = [];
@@ -56,6 +58,8 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
 
 export const renderValue = (type, attribute) => {
     switch (type) {
+        case 'boxShadow':
+            return boxShadowCSS(attribute);
         case 'color':
             return getColor(attribute);
         case 'plain':
@@ -70,7 +74,7 @@ export const renderValue = (type, attribute) => {
 };
 
 const generateCSSString = (attribute, style) => {
-    const {type} = style
+    const {type} = style;
     let css = {
         Desktop: null,
         Tablet: null,
@@ -92,6 +96,10 @@ const generateCSSString = (attribute, style) => {
         case 'borderResponsive':
             css = borderResponsiveGenerator(attribute, style, css);
             break;
+        case 'mask':
+            css = maskGenerator(attribute, style, css);
+            break;
+        case 'boxShadow':
         case 'textShadow':
         case 'color':
         default:
