@@ -166,7 +166,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
 
 export const useGenerateElementId = (clientId, elementId, setAttributes, styleRef) => {
     useEffect(() => {
-        console.log('here')
         if( !elementId ){
             const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
             setAttributes({
@@ -177,8 +176,10 @@ export const useGenerateElementId = (clientId, elementId, setAttributes, styleRe
             console.log(getBlocks());
             const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
             const parent = u(styleRef).closest('html');
+            console.log(flag);
             if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
                 const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                console.log(uniqueId);
                 setAttributes({
                     elementId: uniqueId,
                 });
@@ -187,7 +188,8 @@ export const useGenerateElementId = (clientId, elementId, setAttributes, styleRe
     }, [])
 }
 
-export const HeadElement = (fontUsed, styleRef) => {
+export const headElement = (fontUsed, styleRef) => {
+    console.log(fontUsed, styleRef)
     if (styleRef.current) {
         const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
         if (windowEl?.document) {
