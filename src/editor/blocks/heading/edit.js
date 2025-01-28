@@ -1,6 +1,6 @@
 /* External dependencies */
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
-import { RichTextComponent, classnames } from 'gutenverse-core/components';
+import { Helmet, RichTextComponent, classnames, headingLevel1 } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
@@ -17,7 +17,8 @@ import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import blockStyle from './styles/block';
+import getBlockStyle from './styles/block';
+import { getColor } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = (props) => {
     const {
@@ -81,7 +82,7 @@ const cssDeviceString = (elementId, attribute, prefix) => {
     return css;
 };
 
-const generateCSSString = (Desktop, Tablet, Mobile) => {
+const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     let css = [];
 
     if (Desktop.length) {
@@ -99,26 +100,190 @@ const generateCSSString = (Desktop, Tablet, Mobile) => {
     return css.join(' ');
 };
 
-const useDynamicStyle = (elementId, attributes, blockStyle) => {
+const renderValue = (type, attribute) => {
+    switch (type) {
+        case 'color':
+            return getColor(attribute);
+        case 'plain':
+            return attribute;
+        default:
+            return attribute;
+    }
+};
+
+const typographyCSS = (attribute) => {
+    let typography = {
+        'Desktop': [],
+        'Tablet': [],
+        'Mobile': [],
+    };
+
+    const {
+        font,
+        size,
+        weight,
+        transform,
+        style,
+        decoration,
+        lineHeight,
+        spacing
+    } = attribute;
+
+    if (font) {
+        typography.Desktop.push(`font-family: "${font.value}";`);
+    }
+
+    if (size) {
+        if (size.Desktop && size.Desktop.point && size.Desktop.unit) {
+            typography.Desktop.push(`font-size: ${size.Desktop.point}${size.Desktop.unit};`);
+        }
+        if (size.Tablet && size.Tablet.point && size.Tablet.unit) {
+            typography.Tablet.push(`font-size: ${size.Tablet.point}${size.Tablet.unit};`);
+        }
+        if (size.Mobile && size.Mobile.point && size.Mobile.unit) {
+            typography.Mobile.push(`font-size: ${size.Mobile.point}${size.Mobile.unit};`);
+        }
+    }
+
+    if (lineHeight) {
+        if (lineHeight.Desktop && lineHeight.Desktop.point && lineHeight.Desktop.unit) {
+            typography.Desktop.push(`line-height: ${lineHeight.Desktop.point}${lineHeight.Desktop.unit};`);
+        }
+        if (lineHeight.Tablet && lineHeight.Tablet.point && lineHeight.Tablet.unit) {
+            typography.Tablet.push(`line-height: ${lineHeight.Tablet.point}${lineHeight.Tablet.unit};`);
+        }
+        if (lineHeight.Mobile && lineHeight.Mobile.point && lineHeight.Mobile.unit) {
+            typography.Mobile.push(`line-height: ${lineHeight.Mobile.point}${lineHeight.Mobile.unit};`);
+        }
+    }
+
+    if (weight) {
+        const checkWeight = weight === 'default' ? '400' : weight;
+        typography.Desktop.push(`font-weight: ${checkWeight};`);
+    }
+
+    if (transform && transform !== 'default') {
+        typography.Desktop.push(`text-transform: ${transform};`);
+    }
+
+    if (style && style !== 'default') {
+        typography.Desktop.push(`font-style: ${style};`);
+    }
+
+    if (decoration && decoration !== 'default') {
+        typography.Desktop.push(`text-decoration: ${decoration};`);
+    }
+
+    if (spacing) {
+        if (spacing.Desktop) {
+            typography.Desktop.push(`letter-spacing: ${spacing.Desktop}em;`);
+        }
+        if (spacing.Tablet) {
+            typography.Tablet.push(`letter-spacing: ${spacing.Tablet}em;`);
+        }
+        if (spacing.Mobile) {
+            typography.Mobile.push(`letter-spacing: ${spacing.Mobile}em;`);
+        }
+    }
+
+    return typography;
+};
+
+const generateCSSString = (type, attribute, selector, property, responsive = false) => {
+    let css = {
+        Desktop: null,
+        Tablet: null,
+        Mobile: null,
+    };
+
+    if (type === 'plain' || type === 'color') {
+        if (!responsive || attribute['Desktop']) {
+            if (responsive) {
+                const value = renderValue(type, attribute['Desktop']);
+                css.Desktop = `${selector} { ${property}: ${value}; }`;
+            } else {
+                const value = renderValue(type, attribute);
+                css.Desktop = `${selector} { ${property}: ${value}; }`;
+            }
+        }
+
+        if (responsive) {
+            if (attribute['Tablet']) {
+                const value = renderValue(type, attribute['Tablet']);
+                css.Tablet = `${selector} { ${property}: ${value}; }`;
+            }
+
+            if (attribute['Mobile']) {
+                const value = renderValue(type, attribute['Mobile']);
+                css.Tablet = `${selector} { ${property}: ${value}; }`;
+            }
+        }
+    }
+
+    if (type === 'typography') {
+        const typography = typographyCSS(attribute);
+
+        if (typography.Desktop.length) {
+            css.Desktop = `${selector} { ` + typography.Desktop.join(' ') + ' }';
+        }
+
+        if (typography.Tablet.length) {
+            css.Tablet = `${selector} { ` + typography.Tablet.join(' ') + ' }';
+        }
+
+        if (typography.Mobile.length) {
+            css.Mobile = `${selector} { ` + typography.Mobile.join(' ') + ' }';
+        }
+    }
+
+    return css;
+};
+
+const mergeFontDevice = (fonts) => {
+    let googleFont = '';
+    let systemFont = '';
+
+    fonts.forEach((font) => {
+        const { font: fontName, type, weight } = font;
+        if (type === 'google') {
+            googleFont = `https://fonts.googleapis.com/css?family=${fontName.replace(/ /g, '+')}:${weight}`;
+        }
+    });
+
+    return [googleFont, systemFont];
+};
+
+const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         const deviceTypeDesktop = [];
         const deviceTypeTablet = [];
         const deviceTypeMobile = [];
-        const fontUsed = [];
+        const gatheredFont = [];
 
-        blockStyle.forEach((style) => {
-            const { id, prefix, responsive } = style;
+        getBlockStyle(elementId).forEach((style) => {
+            const { type, id, selector, property, responsive } = style;
             if (attributes[id]) {
-                const css = cssDeviceString(elementId, attributes[id], prefix);
-                if (responsive) {
-                    css[0] && deviceTypeDesktop.push(css[0]);
-                    css[1] && deviceTypeTablet.push(css[1]);
-                    css[2] && deviceTypeMobile.push(css[2]);
+                const value = attributes[id];
+                const css = generateCSSString(type, value, selector, property, responsive);
+
+                css.Desktop && deviceTypeDesktop.push(css.Desktop);
+                css.Tablet && deviceTypeTablet.push(css.Tablet);
+                css.Mobile && deviceTypeMobile.push(css.Mobile);
+            }
+            if (type === 'typography' && attributes[id]) {
+                const { font, weight } = attributes[id];
+                if (font) {
+                    gatheredFont.push({
+                        font: font.value,
+                        type: font.type,
+                        weight: weight
+                    });
                 }
             }
         });
 
-        const generatedCSS = generateCSSString(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+        const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+        const fontUsed = mergeFontDevice(gatheredFont);
 
         return { generatedCSS, fontUsed };
     }, [elementId, attributes]);
@@ -134,7 +299,6 @@ const HeadingBlock = compose(
     const {
         attributes,
         setAttributes,
-        setElementRef,
         clientId,
         setPanelState,
     } = props;
@@ -144,12 +308,12 @@ const HeadingBlock = compose(
         type,
     } = attributes;
 
-    const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, blockStyle);
-
     const tagName = 'h' + type;
-    const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+
+    const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
+    const styleRef = useRef(null);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -157,24 +321,31 @@ const HeadingBlock = compose(
             elementId,
             animationClass,
             displayClass,
-        ),
-        ref: headingRef
+        )
     });
 
-    useEffect(() => {
-        if (headingRef.current) {
-            setElementRef(headingRef.current);
+    const getHeadElement = (styleRef) => {
+        if (styleRef.current) {
+            const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
+            if (windowEl?.document) {
+                const headEl = windowEl.document.getElementsByTagName('head')[0];
+                return headEl;
+            }
         }
-    }, [headingRef]);
+
+        return null;
+    };
 
     return <>
-        <style id={elementId}>{generatedCSS}</style>
+        <style ref={styleRef} id={elementId}>{generatedCSS}</style>
+        {fontUsed[0] && <Helmet head={getHeadElement(styleRef)}>
+            <link href={fontUsed[0]} rel="stylesheet" type="text/css" />
+        </Helmet>}
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
         <RichTextComponent
             isBlockProps={true}
             blockProps={blockProps}
-            ref={headingRef}
             tagName={tagName}
             onChange={value => setAttributes({ content: value })}
             placeholder={__('Write heading…')}

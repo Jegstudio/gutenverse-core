@@ -16,12 +16,12 @@ export const panelList = () => {
             panelArray: contentPanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Style', 'gutenverse'),
-        //     panelArray: stylePanel,
-        //     initialOpen: false,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Style', 'gutenverse'),
+            panelArray: stylePanel,
+            initialOpen: false,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Dynamic Data', 'gutenverse'),
         //     panelArray: (props) => {
