@@ -18,7 +18,7 @@ import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import getBlockStyle from './styles/block';
-import { useDynamicStyle, useGenerateElementId, HeadElement } from 'gutenverse-core/styling';
+import { useDynamicStyle, useGenerateElementId, headElement } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = (props) => {
     const {
@@ -93,7 +93,7 @@ const HeadingBlock = compose(
 
     return <>
         {elementId && generatedCSS && <style ref={styleRef} id={elementId}>{generatedCSS}</style>}
-        {fontUsed[0] && <HeadElement fontUsed={fontUsed} styleRef={styleRef}/>}
+        {fontUsed[0] && headElement(fontUsed, styleRef)}
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
         <RichTextComponent
