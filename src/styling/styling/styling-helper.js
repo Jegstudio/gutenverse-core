@@ -10,6 +10,7 @@ import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
 import { boxShadowCSS } from './generator/generator-box-shadow';
+import { maskGenerator } from './generator/generator-mask';
 
 // const cssDeviceString = (elementId, attribute, prefix) => {
 //     let css = [];
@@ -93,6 +94,9 @@ const generateCSSString = (attribute, style) => {
             break;
         case 'borderResponsive':
             css = borderResponsiveGenerator(attribute, style, css);
+            break;
+        case 'mask':
+            css = maskGenerator(attribute, style, css);
             break;
         case 'boxShadow':
         case 'textShadow':
