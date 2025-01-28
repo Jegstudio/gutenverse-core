@@ -6,17 +6,54 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        // Settings Tab
         {
             title: __('Content', 'gutenverse'),
             panelArray: contentPanel,
             tabRole: TabSetting
         },
         {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: advancePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        // Stylings Tab
+        {
             title: __('Style', 'gutenverse'),
             panelArray: stylePanel,
             initialOpen: false,
             tabRole: TabStyle
         },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+
         // {
         //     title: __('Dynamic Data', 'gutenverse'),
         //     panelArray: (props) => {
@@ -55,34 +92,6 @@ export const panelList = () => {
         //     tabRole: TabStyle,
         //     pro: true
         // },
-        {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: borderPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
         // {
         //     title: __('Positioning', 'gutenverse'),
         //     initialOpen: false,
@@ -120,15 +129,6 @@ export const panelList = () => {
         //         blockType: 'heading'
         //     }),
         //     pro: true
-        // },
-        // {
-        //     title: __('Spacing', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: (props) => advancePanel({
-        //         ...props,
-        //         styleId: 'heading-advance',
-        //     }),
-        //     tabRole: TabSetting
         // },
         // {
         //     title: __('Condition', 'gutenverse'),
