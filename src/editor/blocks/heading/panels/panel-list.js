@@ -1,10 +1,5 @@
-/* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
-
-/* Gutenverse dependencies */
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, positioningPanel, responsivePanel, advanceAnimationPanel, transformPanel, maskPanel, childStylePanel, textClipPanel, mouseMoveEffectPanel, conditionPanel, dynamicContentPanel, textStrokePanel } from 'gutenverse-core/controls';
-
-/* Local dependencies */
 import { contentPanel } from './panel-content';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
@@ -60,26 +55,22 @@ export const panelList = () => {
         //     tabRole: TabStyle,
         //     pro: true
         // },
-        // {
-        //     title: __('Background', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundPanel({
-        //         ...props,
-        //         styleId: 'heading-background',
-        //         normalOptions: ['default', 'gradient'],
-        //         hoverOptions: ['default', 'gradient']
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Border', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: (props) => borderPanel({
-        //         ...props,
-        //         styleId: 'heading-border'
-        //     }),
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Masking', 'gutenverse'),
         //     initialOpen: false,
