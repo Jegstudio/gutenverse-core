@@ -78,7 +78,7 @@ const HeadingBlock = compose(
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    useGenerateElementId(elementId, setAttributes);
+    useGenerateElementId(clientId, elementId, setAttributes, styleRef);
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
     const styleRef = useRef(null);
 
