@@ -1,17 +1,24 @@
-import { useRef } from '@wordpress/element';
-import { Helmet, RichTextComponent, classnames } from 'gutenverse-core/components';
+/* External dependencies */
+import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
+import { Helmet, RichTextComponent, classnames, headingLevel1 } from 'gutenverse-core/components';
+
+/* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
+
+/* Gutenverse dependencies */
 import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
+
+/* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import getBlockStyle from './styles/block';
-import { useDynamicStyle } from 'gutenverse-core/styling';
+import { useDynamicStyle, useGenerateElementId, HeadElement } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = (props) => {
     const {
@@ -52,11 +59,8 @@ const HeadingInspection = (props) => {
 };
 
 const HeadingBlock = compose(
-    // withPartialRender,
     withCustomStyle(panelList),
-    // withAnimationAdvance('heading'),
     withCopyElementToolbar(),
-    // withMouseMoveEffect
 )(props => {
 
     const {
@@ -66,7 +70,7 @@ const HeadingBlock = compose(
         setPanelState,
     } = props;
 
-    const {
+    let {
         elementId,
         type,
     } = attributes;
@@ -74,7 +78,7 @@ const HeadingBlock = compose(
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-
+    useGenerateElementId(elementId, setAttributes);
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
     const styleRef = useRef(null);
 
@@ -87,23 +91,9 @@ const HeadingBlock = compose(
         )
     });
 
-    const getHeadElement = (styleRef) => {
-        if (styleRef.current) {
-            const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
-            if (windowEl?.document) {
-                const headEl = windowEl.document.getElementsByTagName('head')[0];
-                return headEl;
-            }
-        }
-
-        return null;
-    };
-
     return <>
-        <style ref={styleRef} id={elementId}>{generatedCSS}</style>
-        {fontUsed[0] && <Helmet head={getHeadElement(styleRef)}>
-            <link href={fontUsed[0]} rel="stylesheet" type="text/css" />
-        </Helmet>}
+        {elementId && generatedCSS && <style ref={styleRef} id={elementId}>{generatedCSS}</style>}
+        {fontUsed[0] && <HeadElement fontUsed={fontUsed} styleRef={styleRef}/>}
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
         <RichTextComponent
