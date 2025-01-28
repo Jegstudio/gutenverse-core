@@ -284,22 +284,22 @@ export const withCustomStyle = panelList => BlockElement => {
         /**
          * Render style on event change
          */
-        useEffect(() => {
-            if (elementId !== undefined) {
-                renderStyle();
-            }
-        }, [
-            elementId,
-            refreshStyleId,
-            refreshId,
-            confirmSignal,
-            deviceType,
-            additionalAttribute,
-            ...customDeps,
-        ]);
+        // useEffect(() => {
+        //     if (elementId !== undefined) {
+        //         renderStyle();
+        //     }
+        // }, [
+        //     elementId,
+        //     refreshStyleId,
+        //     refreshId,
+        //     confirmSignal,
+        //     deviceType,
+        //     additionalAttribute,
+        //     ...customDeps,
+        // ]);
 
         return <>
-            {hasIcon && (
+            {/* {hasIcon && (
                 <Helmet head={headElement}>
                     <link rel="stylesheet" href={gtniconURL} media="all"></link>
                     <link rel="stylesheet" href={fontawesomeURL} media="all"></link>
@@ -309,7 +309,7 @@ export const withCustomStyle = panelList => BlockElement => {
                 {elementId !== undefined && renderGoogleFont()}
                 {elementId !== undefined && renderCustomFont()}
             </Helmet>
-            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
+            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>} */}
             <BlockElement
                 {...props}
                 addStyle={addStyle}
