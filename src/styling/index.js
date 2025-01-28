@@ -36,4 +36,8 @@ export {
     isEmptyStyle
 } from './styling/styling-utility';
 
+export {
+    useDynamicStyle
+} from './styling/styling-helper';
+
 export { shapeDividerLoader } from './data/shape-divider';
