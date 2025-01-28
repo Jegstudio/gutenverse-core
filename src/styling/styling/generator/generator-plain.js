@@ -1,7 +1,7 @@
 import { renderValue } from '../styling-helper';
 
 export const plainGenerator = (attribute, style, css) => {
-    const {type, selector, property, responsive = false} = style
+    const {type, selector, property, responsive = false} = style;
     if ( !responsive ) {
         const value = renderValue(type, attribute);
         const style = multiProperty(property, value);
@@ -27,7 +27,7 @@ export const plainGenerator = (attribute, style, css) => {
         }
     }
     return css;
-}
+};
 
 export const multiProperty = (properties, value) => {
     let styles = '';
@@ -37,4 +37,4 @@ export const multiProperty = (properties, value) => {
         });
     }
     return styles;
-}
+};

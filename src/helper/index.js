@@ -507,15 +507,17 @@ export const getActiveWindow = () => {
 export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
     let count = 0;
 
-    blocks.map(block => {
-        if (!(elementId === undefined && block.attributes.elementId === undefined) &&
-            elementId === block.attributes.elementId &&
-            clientId !== block.clientId) {
-            count += 1;
+    blocks.forEach(block => {
+        if (!(elementId === undefined && block.attributes.elementId === undefined)) {
+            if( elementId === block.attributes.elementId && clientId !== block.clientId ){
+                count += 1;
+            }
         }
-
         if (block.innerBlocks.length > 0) {
             count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        }
+        if (count > 0){
+            return count;
         }
     });
 
