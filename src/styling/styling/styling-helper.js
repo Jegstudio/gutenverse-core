@@ -1,14 +1,16 @@
-import { useMemo } from '@wordpress/element';
+import { useMemo, useEffect } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
 import { textShadowCSS } from './generator/generator-text-shadow';
 import { textStrokeGenerator } from './generator/generator-text-stroke';
 import cryptoRandomString from 'crypto-random-string';
-import { Helmet } from 'gutenverse-core/components';
+import { Helmet, u } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
+import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { select } from '@wordpress/data';
 
 const cssDeviceString = (elementId, attribute, prefix) => {
     let css = [];
@@ -74,7 +76,6 @@ const generateCSSString = (attribute, style) => {
         Tablet: null,
         Mobile: null,
     };
-    console.log(type)
     switch (type) {
         case 'typography':
             css = typographyGenerator(attribute, style, css);
@@ -118,49 +119,64 @@ const mergeFontDevice = (fonts) => {
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
-        const deviceTypeDesktop = [];
-        const deviceTypeTablet = [];
-        const deviceTypeMobile = [];
-        const gatheredFont = [];
+        if(elementId){
+            const deviceTypeDesktop = [];
+            const deviceTypeTablet = [];
+            const deviceTypeMobile = [];
+            const gatheredFont = [];
 
-        getBlockStyle(elementId).forEach((style) => {
-            const { type, id } = style;
-            if (attributes[id]) {
-                const value = attributes[id];
-                const css = generateCSSString(value, style);
+            getBlockStyle(elementId).forEach((style) => {
+                const { type, id } = style;
+                if (attributes[id]) {
+                    const value = attributes[id];
+                    const css = generateCSSString(value, style);
 
-                css.Desktop && deviceTypeDesktop.push(css.Desktop);
-                css.Tablet && deviceTypeTablet.push(css.Tablet);
-                css.Mobile && deviceTypeMobile.push(css.Mobile);
-            }
-            if (type === 'typography' && attributes[id]) {
-                const { font, weight } = attributes[id];
-                if (font) {
-                    gatheredFont.push({
-                        font: font.value,
-                        type: font.type,
-                        weight: weight
-                    });
+                    css.Desktop && deviceTypeDesktop.push(css.Desktop);
+                    css.Tablet && deviceTypeTablet.push(css.Tablet);
+                    css.Mobile && deviceTypeMobile.push(css.Mobile);
                 }
-            }
-        });
+                if (type === 'typography' && attributes[id]) {
+                    const { font, weight } = attributes[id];
+                    if (font) {
+                        gatheredFont.push({
+                            font: font.value,
+                            type: font.type,
+                            weight: weight
+                        });
+                    }
+                }
+            });
 
-        const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
-        const fontUsed = mergeFontDevice(gatheredFont);
-
-        return { generatedCSS, fontUsed };
+            const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+            const fontUsed = mergeFontDevice(gatheredFont);
+            return { generatedCSS, fontUsed };
+        }
     }, [elementId, attributes]);
 
     return [generatedCSS, fontUsed];
 };
 
-export const useGenerateElementId = (elementId, setAttributes) => {
-    if( !elementId ){
-        const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-        setAttributes({
-            elementId: uniqueId,
-        });
-    }
+export const useGenerateElementId = (clientId, elementId, setAttributes, styleRef) => {
+    useEffect(() => {
+        console.log('here')
+        if( !elementId ){
+            const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+            setAttributes({
+                elementId: uniqueId,
+            });
+        }else{
+            const { getBlocks } = select('core/block-editor');
+            console.log(getBlocks());
+            const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
+            const parent = u(styleRef).closest('html');
+            if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
+                const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                setAttributes({
+                    elementId: uniqueId,
+                });
+            }
+        }
+    }, [])
 }
 
 export const HeadElement = (fontUsed, styleRef) => {
