@@ -84,6 +84,27 @@ const getBlockStyle = (elementId) => {
             'responsive': true,
             'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
         },
+        {
+            'type': 'dimension',
+            'id': 'margin',
+            'responsive': true,
+            'property': ['margin'],
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        },
+        {
+            'type': 'dimension',
+            'id': 'padding',
+            'responsive': true,
+            'property': ['padding'],
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        },
+        {
+            'type': 'plain',
+            'id': 'zIndex',
+            'responsive': true,
+            'property': ['z-index'],
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        },
     ];
 };
 
