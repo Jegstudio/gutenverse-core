@@ -9,30 +9,31 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
+import { boxShadowCSS } from './generator/generator-box-shadow';
 
-const cssDeviceString = (elementId, attribute, prefix) => {
-    let css = [];
+// const cssDeviceString = (elementId, attribute, prefix) => {
+//     let css = [];
 
-    if (attribute['Desktop']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Desktop']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    if (attribute['Tablet']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Tablet']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    if (attribute['Mobile']) {
-        css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
-    } else {
-        css.push(null);
-    }
+//     if (attribute['Mobile']) {
+//         css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
+//     } else {
+//         css.push(null);
+//     }
 
-    return css;
-};
+//     return css;
+// };
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     let css = [];
@@ -54,6 +55,8 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
 
 export const renderValue = (type, attribute) => {
     switch (type) {
+        case 'boxShadow':
+            return boxShadowCSS(attribute);
         case 'color':
             return getColor(attribute);
         case 'plain':
@@ -68,13 +71,13 @@ export const renderValue = (type, attribute) => {
 };
 
 const generateCSSString = (attribute, style) => {
-    const {type} = style
+    const {type} = style;
     let css = {
         Desktop: null,
         Tablet: null,
         Mobile: null,
     };
-    console.log(type)
+
     switch (type) {
         case 'typography':
             css = typographyGenerator(attribute, style, css);
@@ -91,6 +94,7 @@ const generateCSSString = (attribute, style) => {
         case 'borderResponsive':
             css = borderResponsiveGenerator(attribute, style, css);
             break;
+        case 'boxShadow':
         case 'textShadow':
         case 'color':
         default:
@@ -161,7 +165,7 @@ export const useGenerateElementId = (elementId, setAttributes) => {
             elementId: uniqueId,
         });
     }
-}
+};
 
 export const HeadElement = (fontUsed, styleRef) => {
     if (styleRef.current) {
