@@ -65,21 +65,21 @@ export const withCustomStyle = panelList => BlockElement => {
             []
         );
 
-        const refreshStyle = () => {
-            const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-            setRefreshId(uniqueId);
-        };
+        // const refreshStyle = () => {
+        //     const uniqueId = 'refresh-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+        //     setRefreshId(uniqueId);
+        // };
 
-        const refreshSignal = (key) => {
-            setRefresh(key);
-        };
+        // const refreshSignal = (key) => {
+        //     setRefresh(key);
+        // };
 
-        const addStyle = (id, adminStyle) => {
-            setAdminStyle(prevStyles => ({
-                ...prevStyles,
-                [id]: adminStyle
-            }));
-        };
+        // const addStyle = (id, adminStyle) => {
+        //     setAdminStyle(prevStyles => ({
+        //         ...prevStyles,
+        //         [id]: adminStyle
+        //     }));
+        // };
 
         const addFont = (id, font, weight) => {
             const fontId = `${elementId}-${id}`;
@@ -119,27 +119,27 @@ export const withCustomStyle = panelList => BlockElement => {
                 );
         };
 
-        const removeStyle = (id) => {
-            setAdminStyle(prevStyles => {
-                const { [id]: omit, ...newStyles } = prevStyles;
-                return newStyles;
-            });
-        };
+        // const removeStyle = (id) => {
+        //     setAdminStyle(prevStyles => {
+        //         const { [id]: omit, ...newStyles } = prevStyles;
+        //         return newStyles;
+        //     });
+        // };
 
-        const buildStyle = (styles) => {
-            return Object.keys(styles).map(key => styles[key]).join(' ');
-        };
+        // const buildStyle = (styles) => {
+        //     return Object.keys(styles).map(key => styles[key]).join(' ');
+        // };
 
         // Control Props
         const panelProps = {
             clientId,
-            addStyle,
+            // addStyle,
             addFont,
-            removeStyle,
+            // removeStyle,
             switcher,
             setSwitcher,
             setAttributes,
-            refreshStyle,
+            // refreshStyle,
             ...attributes,
             ...additionalAttribute
         };
@@ -149,67 +149,67 @@ export const withCustomStyle = panelList => BlockElement => {
                 elementId: uniqueId
             };
 
-            if (props.name === 'gutenverse/column' || props.name === 'gutenverse/accordion') {
-                data.addStyle = addStyle;
-            }
+            // if (props.name === 'gutenverse/column' || props.name === 'gutenverse/accordion') {
+            //     data.addStyle = addStyle;
+            // }
 
             if (props.name === 'gutenverse/section') {
                 data.setTotalChild = setTotalChild;
             }
 
-            if (props.name === 'gutenverse/accordion') {
-                data.removeStyle = removeStyle;
-            }
+            // if (props.name === 'gutenverse/accordion') {
+            //     data.removeStyle = removeStyle;
+            // }
 
             gutenverse.registerElement(clientId, data);
         };
 
-        const renderStyle = () => {
-            controls.map(data => {
-                data.panelArray(panelProps).map(data => {
-                    const { id, style, allowDeviceControl, onChange, options } = data;
+        // const renderStyle = () => {
+        //     controls.map(data => {
+        //         data.panelArray(panelProps).map(data => {
+        //             const { id, style, allowDeviceControl, onChange, options } = data;
 
-                    if (!isEmpty(style)) {
-                        style.map((item, index) => setControlStyle({
-                            ...panelProps,
-                            id: item.updateID ? item.updateID : `${id}-style-${index}`,
-                            value: panelProps[id],
-                            style: item,
-                            allowDeviceControl
-                        }));
-                    }
-                    !!onChange && onChange(panelProps);
-                    !isEmpty(options) && options.map(option => {
-                        const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
-                        if (!isEmpty(repeaterStyle)) {
-                            panelProps[id] && panelProps[id].map((value, valueIndex) => {
-                                const theStyle = repeaterStyle.map(item => {
-                                    const { selector } = item;
-                                    let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
-                                    return {
-                                        ...item,
-                                        selector: theSelector
-                                    };
-                                });
+        //             if (!isEmpty(style)) {
+        //                 style.map((item, index) => setControlStyle({
+        //                     ...panelProps,
+        //                     id: item.updateID ? item.updateID : `${id}-style-${index}`,
+        //                     value: panelProps[id],
+        //                     style: item,
+        //                     allowDeviceControl
+        //                 }));
+        //             }
+        //             !!onChange && onChange(panelProps);
+        //             !isEmpty(options) && options.map(option => {
+        //                 const { id: optionId, style: repeaterStyle, onChange, allowDeviceControl } = option;
+        //                 if (!isEmpty(repeaterStyle)) {
+        //                     panelProps[id] && panelProps[id].map((value, valueIndex) => {
+        //                         const theStyle = repeaterStyle.map(item => {
+        //                             const { selector } = item;
+        //                             let theSelector = typeof selector === 'string' || selector instanceof String ? selector : selector(valueIndex, { props: value });
+        //                             return {
+        //                                 ...item,
+        //                                 selector: theSelector
+        //                             };
+        //                         });
 
-                                theStyle.map((item, index) => {
-                                    const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
-                                    return setControlStyle({
-                                        ...panelProps,
-                                        id: item.updateID ? item.updateID : styleId,
-                                        value: value[optionId],
-                                        style: item,
-                                        allowDeviceControl
-                                    });
-                                });
-                            });
-                        }
+        //                         theStyle.map((item, index) => {
+        //                             const styleId = `${id}-style-${valueIndex}-${optionId}-style-${index}`;
+        //                             return setControlStyle({
+        //                                 ...panelProps,
+        //                                 id: item.updateID ? item.updateID : styleId,
+        //                                 value: value[optionId],
+        //                                 style: item,
+        //                                 allowDeviceControl
+        //                             });
+        //                         });
+        //                     });
+        //                 }
 
-                        !!onChange && onChange(panelProps);
-                    });
-                });
-            });
-        };
+        //                 !!onChange && onChange(panelProps);
+        //             });
+        //         });
+        //     });
+        // };
 
         const createElementId = () => {
             const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
@@ -219,26 +219,26 @@ export const withCustomStyle = panelList => BlockElement => {
             registerElement(uniqueId);
         };
 
-        useEffect(() => {
-            const binding = signal.refreshSignal.add(refreshSignal);
-            const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
+        // useEffect(() => {
+        //     const binding = signal.refreshSignal.add(refreshSignal);
+        //     const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
 
-            Object.keys(attributes).map(key => {
-                if (typeof attributes[key] === 'string' && (
-                    attributes[key].indexOf('gtn gtn-') > -1
-                    || attributes[key].indexOf('fas fa-') > -1
-                    || attributes[key].indexOf('fab fa-') > -1
-                    || attributes[key].indexOf('far fa-') > -1
-                )) {
-                    setHasIcon(true);
-                }
-            });
+        //     Object.keys(attributes).map(key => {
+        //         if (typeof attributes[key] === 'string' && (
+        //             attributes[key].indexOf('gtn gtn-') > -1
+        //             || attributes[key].indexOf('fas fa-') > -1
+        //             || attributes[key].indexOf('fab fa-') > -1
+        //             || attributes[key].indexOf('far fa-') > -1
+        //         )) {
+        //             setHasIcon(true);
+        //         }
+        //     });
 
-            return () => {
-                binding.detach();
-                bindStyling.detach();
-            };
-        }, []);
+        //     return () => {
+        //         binding.detach();
+        //         bindStyling.detach();
+        //     };
+        // }, []);
 
         /**
          * On mount, set elementId if undefined,
@@ -271,32 +271,32 @@ export const withCustomStyle = panelList => BlockElement => {
             }
         }, [elementRef]);
 
-        const customDeps = useMemo(() => renderStyleCustomDeps(props), [props]);
+        // const customDeps = useMemo(() => renderStyleCustomDeps(props), [props]);
 
-        useEffect(() => {
-            const styleTimeoout = setTimeout(() => {
-                refreshStyle();
-            }, 100);
+        // useEffect(() => {
+        //     const styleTimeoout = setTimeout(() => {
+        //         refreshStyle();
+        //     }, 100);
 
-            return () => clearTimeout(styleTimeoout);
-        }, [attributes]);
+        //     return () => clearTimeout(styleTimeoout);
+        // }, [attributes]);
 
         /**
          * Render style on event change
          */
-        useEffect(() => {
-            if (elementId !== undefined) {
-                renderStyle();
-            }
-        }, [
-            elementId,
-            refreshStyleId,
-            refreshId,
-            confirmSignal,
-            deviceType,
-            additionalAttribute,
-            ...customDeps,
-        ]);
+        // useEffect(() => {
+        //     if (elementId !== undefined) {
+        //         renderStyle();
+        //     }
+        // }, [
+        //     elementId,
+        //     refreshStyleId,
+        //     refreshId,
+        //     confirmSignal,
+        //     deviceType,
+        //     additionalAttribute,
+        //     ...customDeps,
+        // ]);
 
         return <>
             {hasIcon && (
@@ -309,17 +309,17 @@ export const withCustomStyle = panelList => BlockElement => {
                 {elementId !== undefined && renderGoogleFont()}
                 {elementId !== undefined && renderCustomFont()}
             </Helmet>
-            {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>}
+            {/* {elementId !== undefined && <style id={elementId}>{buildStyle(adminStyles)}</style>} */}
             <BlockElement
                 {...props}
-                addStyle={addStyle}
-                removeStyle={removeStyle}
+                // addStyle={addStyle}
+                // removeStyle={removeStyle}
                 panelProps={panelProps}
                 totalChild={totalChild}
                 deviceType={deviceType}
                 setElementRef={setElementRef}
                 elementRef={elementRef}
-                refreshStyle={refreshStyle}
+                // refreshStyle={refreshStyle}
                 setAdditionalAttribute={setAdditionalAttribute}
             />
         </>;

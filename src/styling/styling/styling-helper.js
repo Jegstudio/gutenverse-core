@@ -1,5 +1,11 @@
 import { useMemo } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
+import { plainGenerator } from './generator/generator-plain';
+import { typographyGenerator } from './generator/generator-typography';
+import { textShadowCSS } from './generator/generator-text-shadow';
+import { textStrokeGenerator } from './generator/generator-text-stroke';
+import cryptoRandomString from 'crypto-random-string';
+import { Helmet } from 'gutenverse-core/components';
 
 const cssDeviceString = (elementId, attribute, prefix) => {
     let css = [];
@@ -43,144 +49,46 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     return css.join(' ');
 };
 
-const renderValue = (type, attribute) => {
+export const renderValue = (type, attribute) => {
     switch (type) {
         case 'color':
             return getColor(attribute);
         case 'plain':
+            return attribute;
+        case 'textShadow':
+            return textShadowCSS(attribute);
+        case 'textStroke':
             return attribute;
         default:
             return attribute;
     }
 };
 
-const typographyCSS = (attribute) => {
-    let typography = {
-        'Desktop': [],
-        'Tablet': [],
-        'Mobile': [],
-    };
-
-    const {
-        font,
-        size,
-        weight,
-        transform,
-        style,
-        decoration,
-        lineHeight,
-        spacing
-    } = attribute;
-
-    if (font) {
-        typography.Desktop.push(`font-family: "${font.value}";`);
-    }
-
-    if (size) {
-        if (size.Desktop && size.Desktop.point && size.Desktop.unit) {
-            typography.Desktop.push(`font-size: ${size.Desktop.point}${size.Desktop.unit};`);
-        }
-        if (size.Tablet && size.Tablet.point && size.Tablet.unit) {
-            typography.Tablet.push(`font-size: ${size.Tablet.point}${size.Tablet.unit};`);
-        }
-        if (size.Mobile && size.Mobile.point && size.Mobile.unit) {
-            typography.Mobile.push(`font-size: ${size.Mobile.point}${size.Mobile.unit};`);
-        }
-    }
-
-    if (lineHeight) {
-        if (lineHeight.Desktop && lineHeight.Desktop.point && lineHeight.Desktop.unit) {
-            typography.Desktop.push(`line-height: ${lineHeight.Desktop.point}${lineHeight.Desktop.unit};`);
-        }
-        if (lineHeight.Tablet && lineHeight.Tablet.point && lineHeight.Tablet.unit) {
-            typography.Tablet.push(`line-height: ${lineHeight.Tablet.point}${lineHeight.Tablet.unit};`);
-        }
-        if (lineHeight.Mobile && lineHeight.Mobile.point && lineHeight.Mobile.unit) {
-            typography.Mobile.push(`line-height: ${lineHeight.Mobile.point}${lineHeight.Mobile.unit};`);
-        }
-    }
-
-    if (weight) {
-        const checkWeight = weight === 'default' ? '400' : weight;
-        typography.Desktop.push(`font-weight: ${checkWeight};`);
-    }
-
-    if (transform && transform !== 'default') {
-        typography.Desktop.push(`text-transform: ${transform};`);
-    }
-
-    if (style && style !== 'default') {
-        typography.Desktop.push(`font-style: ${style};`);
-    }
-
-    if (decoration && decoration !== 'default') {
-        typography.Desktop.push(`text-decoration: ${decoration};`);
-    }
-
-    if (spacing) {
-        if (spacing.Desktop) {
-            typography.Desktop.push(`letter-spacing: ${spacing.Desktop}em;`);
-        }
-        if (spacing.Tablet) {
-            typography.Tablet.push(`letter-spacing: ${spacing.Tablet}em;`);
-        }
-        if (spacing.Mobile) {
-            typography.Mobile.push(`letter-spacing: ${spacing.Mobile}em;`);
-        }
-    }
-
-    return typography;
-};
-
-const generateCSSString = (type, attribute, selector, property, responsive = false) => {
+const generateCSSString = (attribute, style) => {
+    const {type} = style
     let css = {
         Desktop: null,
         Tablet: null,
         Mobile: null,
     };
-
-    if (type === 'plain' || type === 'color') {
-        if (!responsive || attribute['Desktop']) {
-            if (responsive) {
-                const value = renderValue(type, attribute['Desktop']);
-                css.Desktop = `${selector} { ${property}: ${value}; }`;
-            } else {
-                const value = renderValue(type, attribute);
-                css.Desktop = `${selector} { ${property}: ${value}; }`;
-            }
-        }
-
-        if (responsive) {
-            if (attribute['Tablet']) {
-                const value = renderValue(type, attribute['Tablet']);
-                css.Tablet = `${selector} { ${property}: ${value}; }`;
-            }
-
-            if (attribute['Mobile']) {
-                const value = renderValue(type, attribute['Mobile']);
-                css.Tablet = `${selector} { ${property}: ${value}; }`;
-            }
-        }
-    }
-
-    if (type === 'typography') {
-        const typography = typographyCSS(attribute);
-
-        if (typography.Desktop.length) {
-            css.Desktop = `${selector} { ` + typography.Desktop.join(' ') + ' }';
-        }
-
-        if (typography.Tablet.length) {
-            css.Tablet = `${selector} { ` + typography.Tablet.join(' ') + ' }';
-        }
-
-        if (typography.Mobile.length) {
-            css.Mobile = `${selector} { ` + typography.Mobile.join(' ') + ' }';
-        }
+    console.log(type)
+    switch (type) {
+        case 'typography':
+            css = typographyGenerator(attribute, style, css);
+            break;
+        case 'textStroke':
+            css = textStrokeGenerator(attribute, style, css);
+            break;
+        case 'textShadow':
+        case 'color':
+        default:
+            css = plainGenerator(attribute, style, css);
+            break;
     }
 
     return css;
 };
+
 
 const mergeFontDevice = (fonts) => {
     let googleFont = '';
@@ -204,10 +112,11 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
         const gatheredFont = [];
 
         getBlockStyle(elementId).forEach((style) => {
-            const { type, id, selector, property, responsive } = style;
+            const { type, id } = style;
             if (attributes[id]) {
                 const value = attributes[id];
-                const css = generateCSSString(type, value, selector, property, responsive);
+                const css = generateCSSString(value, style);
+                console.log(css);
 
                 css.Desktop && deviceTypeDesktop.push(css.Desktop);
                 css.Tablet && deviceTypeTablet.push(css.Tablet);
@@ -232,4 +141,26 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
     }, [elementId, attributes]);
 
     return [generatedCSS, fontUsed];
+};
+
+export const useGenerateElementId = (elementId, setAttributes) => {
+    if( !elementId ){
+        const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+        setAttributes({
+            elementId: uniqueId,
+        });
+    }
+}
+
+export const HeadElement = (fontUsed, styleRef) => {
+    if (styleRef.current) {
+        const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
+        if (windowEl?.document) {
+            const headEl = windowEl.document.getElementsByTagName('head')[0];
+            return <Helmet head={headEl}>
+                <link href={fontUsed[0]} rel="stylesheet" type="text/css" />
+            </Helmet>;
+        }
+    }
+    return null;
 };

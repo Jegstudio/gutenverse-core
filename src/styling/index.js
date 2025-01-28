@@ -37,7 +37,9 @@ export {
 } from './styling/styling-utility';
 
 export {
-    useDynamicStyle
+    useDynamicStyle,
+    useGenerateElementId,
+    HeadElement
 } from './styling/styling-helper';
 
 export { shapeDividerLoader } from './data/shape-divider';
