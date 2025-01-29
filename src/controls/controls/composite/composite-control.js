@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import template from 'lodash/template';
 import cryptoRandomString from 'crypto-random-string';
 
-const CompositeComponent = ({ component: Component, index, itemProps, value = {}, onValueChange, onStyleChange }) => {
+const CompositeComponent = ({ component: Component, index, itemProps, value = {}, onValueChange }) => {
     const { id, onChange } = itemProps;
 
     const onCompositeComponentChange = (val) => {
@@ -24,21 +24,11 @@ const CompositeComponent = ({ component: Component, index, itemProps, value = {}
         }, index) : null;
     };
 
-    const onCompositeStyleChange = (val) => {
-        const newVal = {
-            ...value,
-            [id]: val,
-        };
-
-        onStyleChange(newVal);
-    };
-
     return <Component
         {...itemProps}
         value={value[id] === undefined ? null : value[id]}
         values={value}
         onValueChange={onCompositeComponentChange}
-        onStyleChange={onCompositeStyleChange}
     />;
 };
 
@@ -56,7 +46,6 @@ const CompositeItem = ({
     options,
     index,
     onValueChange,
-    onStyleChange,
     initialOpen = true,
 }) => {
     const [open, setOpen] = useState(initialOpen);
@@ -68,11 +57,6 @@ const CompositeItem = ({
     const onUpdateIndexValue = (val) => {
         const newValue = values.map((item, idx) => index === idx ? val : item);
         onValueChange(newValue);
-    };
-
-    const onUpdateIndexStyle = (val) => {
-        const newValue = values.map((item, idx) => index === idx ? val : item);
-        onStyleChange(newValue);
     };
 
     const itemClass = classnames('composite-item', open ? 'open' : 'close');
@@ -100,7 +84,6 @@ const CompositeItem = ({
                         value={values[index]}
                         itemProps={item}
                         onValueChange={val => onUpdateIndexValue(val)}
-                        onStyleChange={val => onUpdateIndexStyle(val)}
                     />;
                 })}
             </div>}
@@ -114,7 +97,6 @@ const CompositeControl = ({
     allowDeviceControl,
     value = [],
     onValueChange,
-    onStyleChange,
     options,
     titleFormat,
     description = '',
@@ -135,7 +117,6 @@ const CompositeControl = ({
         });
 
         onValueChange(newValue);
-        onStyleChange(newValue);
     }, []);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-composite'}>
@@ -158,7 +139,6 @@ const CompositeControl = ({
                                     values={value}
                                     options={options}
                                     onValueChange={onValueChange}
-                                    onStyleChange={onStyleChange}
                                     titleFormat={titleFormat}
                                     initialOpen={index === openLast}
                                 />;

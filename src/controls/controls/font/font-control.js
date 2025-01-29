@@ -58,7 +58,6 @@ const FontControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         isMulti = false,
         description = '',
     } = props;
@@ -67,7 +66,6 @@ const FontControl = (props) => {
     const [ fonts, setFonts ] = useState({});
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {

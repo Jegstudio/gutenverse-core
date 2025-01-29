@@ -46,7 +46,6 @@ const TypographyControl = (props) => {
         allowDeviceControl,
         value = {},
         onValueChange,
-        onStyleChange,
         description = '',
     } = props;
 
@@ -144,11 +143,6 @@ const TypographyControl = (props) => {
         onValueChange(value);
     };
 
-    const onTypographyStyleChange = data => {
-        const { id, type, ...value } = data; // eslint-disable-line no-unused-vars
-        onStyleChange(value);
-    };
-
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-typography'}>
         <ControlHeadingSimple
             id={`${id}-typography`}
@@ -178,7 +172,6 @@ const TypographyControl = (props) => {
                                 ...theFont
                             };
                             onValueChange(value);
-                            onStyleChange(value);
                         },
                         active: value.id === id
                     };
@@ -196,7 +189,6 @@ const TypographyControl = (props) => {
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(null);
-                            onStyleChange(null);
                         }} />
                     </span>
                 </Tooltip>
@@ -206,7 +198,6 @@ const TypographyControl = (props) => {
                     label={__('Font Family', '--gctd--')}
                     value={value.font}
                     onValueChange={font => onTypographyChange({ ...value, font })}
-                    onStyleChange={font => onTypographyStyleChange({ ...value, font })}
                 />
                 <div className={'font-value-wrapper'}>
                     <div>
@@ -216,13 +207,11 @@ const TypographyControl = (props) => {
                             allowDeviceControl={true}
                             hideRange={true}
                             onValueChange={size => onTypographyChange({ ...value, size })}
-                            onStyleChange={size => onTypographyStyleChange({ ...value, size })}
                         />
                         <SelectControl
                             label={__('Weight', '--gctd--')}
                             value={value.weight}
                             onValueChange={weight => onTypographyChange({ ...value, weight })}
-                            onStyleChange={weight => onTypographyStyleChange({ ...value, weight })}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -278,7 +267,6 @@ const TypographyControl = (props) => {
                             label={__('Decoration', '--gctd--')}
                             value={value.decoration}
                             onValueChange={decoration => onTypographyChange({ ...value, decoration })}
-                            onStyleChange={decoration => onTypographyStyleChange({ ...value, decoration })}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -326,13 +314,11 @@ const TypographyControl = (props) => {
                                 },
                             }}
                             onValueChange={lineHeight => onTypographyChange({ ...value, lineHeight })}
-                            onStyleChange={lineHeight => onTypographyStyleChange({ ...value, lineHeight })}
                         />
                         <SelectControl
                             label={__('Transform', '--gctd--')}
                             value={value.transform}
                             onValueChange={transform => onTypographyChange({ ...value, transform })}
-                            onStyleChange={transform => onTypographyStyleChange({ ...value, transform })}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -360,7 +346,6 @@ const TypographyControl = (props) => {
                             label={__('Style', '--gctd--')}
                             value={value.style}
                             onValueChange={style => onTypographyChange({ ...value, style })}
-                            onStyleChange={style => onTypographyStyleChange({ ...value, style })}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -390,7 +375,6 @@ const TypographyControl = (props) => {
                     value={value.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value, spacing })}
-                    onStyleChange={spacing => onTypographyStyleChange({ ...value, spacing })}
                 />
             </>}
         </div>

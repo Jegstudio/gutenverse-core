@@ -14,14 +14,13 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { determineLocation } from 'gutenverse-core/helper';
 
 const gradientOption = (props) => {
-    const { value = {}, onValueChange, onStyleChange } = props;
+    const { value = {}, onValueChange } = props;
     return <>
         <GradientControl
             label={__('Gradient Color', '--gctd--')}
             description={__('Drag a circle outside the box to remove it. \nYou can\'t remove if there are only two left.', '--gctd--')}
             value={value.gradientColor}
             onValueChange={gradientColor => onValueChange({ ...value, gradientColor })}
-            onStyleChange={gradientColor => onStyleChange({ ...value, gradientColor })}
         />
         <div className={'gradient-type'}>
             <div>
@@ -29,7 +28,6 @@ const gradientOption = (props) => {
                     label={__('Gradient Type', '--gctd--')}
                     value={value.gradientType}
                     onValueChange={gradientType => onValueChange({ ...value, gradientType })}
-                    onStyleChange={gradientType => onStyleChange({ ...value, gradientType })}
                     options={[
                         {
                             label: __('Linear', '--gctd--'),
@@ -47,14 +45,12 @@ const gradientOption = (props) => {
                     label={__('Angle', '--gctd--')}
                     value={value.gradientAngle}
                     onValueChange={gradientAngle => onValueChange({ ...value, gradientAngle })}
-                    onStyleChange={gradientAngle => onStyleChange({ ...value, gradientAngle })}
                 />
                 }
                 {value.gradientType !== undefined && value.gradientType === 'radial' && <SelectControl
                     label={__('Radial Position', '--gctd--')}
                     value={value.gradientRadial}
                     onValueChange={gradientRadial => onValueChange({ ...value, gradientRadial })}
-                    onStyleChange={gradientRadial => onStyleChange({ ...value, gradientRadial })}
                     options={[
                         {
                             label: __('Center Center', '--gctd--'),
@@ -152,7 +148,6 @@ const BackgroundControl = (props) => {
     const {
         value = {},
         onValueChange,
-        onStyleChange,
         options = [],
         label,
         description,
@@ -216,7 +211,6 @@ const BackgroundControl = (props) => {
     const parameter = {
         value,
         onValueChange,
-        onStyleChange
     };
 
     const deviceType = getDeviceType();
@@ -241,7 +235,6 @@ const BackgroundControl = (props) => {
                     onValueChange({ ...value, type });
                 }
             }}
-            onStyleChange={(type => onStyleChange({ ...value, type }))}
             options={finalOptions}
             blockType={blockType}
         />
@@ -251,7 +244,6 @@ const BackgroundControl = (props) => {
                 label={__('Background Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
             />
             {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}
@@ -260,7 +252,6 @@ const BackgroundControl = (props) => {
                 allowDeviceControl={true}
                 usePreviousDeviceValue={true}
                 onValueChange={useFeaturedImage => onValueChange({ ...value, useFeaturedImage })}
-                onStyleChange={useFeaturedImage => onStyleChange({ ...value, useFeaturedImage })}
             />}
             {!isEmpty(useFeaturedImage) ?
                 <ImageControl
@@ -268,7 +259,6 @@ const BackgroundControl = (props) => {
                     externalValue={featuredImage}
                     value={value.image}
                     onValueChange={(image) => onValueChange({ ...value, image })}
-                    onStyleChange={(image) => onStyleChange({ ...value, image })}
                     allowDeviceControl={true}
                     useExternalValue={useFeaturedImage[deviceType]}
                 /> :
@@ -276,14 +266,12 @@ const BackgroundControl = (props) => {
                     label={__('Background Image', '--gctd--')}
                     value={value.image}
                     onValueChange={image => onValueChange({ ...value, image })}
-                    onStyleChange={image => onStyleChange({ ...value, image })}
                     allowDeviceControl={true}
                 />}
             <SelectControl
                 label={__('Background Position', '--gctd--')}
                 value={value.position}
                 onValueChange={position => onValueChange({ ...value, position })}
-                onStyleChange={position => onStyleChange({ ...value, position })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -339,21 +327,18 @@ const BackgroundControl = (props) => {
                         value={value.xposition}
                         allowDeviceControl={true}
                         onValueChange={xposition => onValueChange({ ...value, xposition })}
-                        onStyleChange={xposition => onStyleChange({ ...value, xposition })}
                     />
                     <SizeControl
                         label={__('Y Position', '--gctd--')}
                         value={value.yposition}
                         allowDeviceControl={true}
                         onValueChange={yposition => onValueChange({ ...value, yposition })}
-                        onStyleChange={yposition => onStyleChange({ ...value, yposition })}
                     />
                 </>}
             <SelectControl
                 label={__('Repeat', '--gctd--')}
                 value={value.repeat}
                 onValueChange={repeat => onValueChange({ ...value, repeat })}
-                onStyleChange={repeat => onStyleChange({ ...value, repeat })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -382,7 +367,6 @@ const BackgroundControl = (props) => {
                 label={__('Size', '--gctd--')}
                 value={value.size}
                 onValueChange={size => onValueChange({ ...value, size })}
-                onStyleChange={size => onStyleChange({ ...value, size })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -414,7 +398,6 @@ const BackgroundControl = (props) => {
                         value={value.width}
                         allowDeviceControl={true}
                         onValueChange={width => onValueChange({ ...value, width })}
-                        onStyleChange={width => onStyleChange({ ...value, width })}
                         units={{
                             px: {
                                 text: 'px',
@@ -452,7 +435,6 @@ const BackgroundControl = (props) => {
                 label={__('Blend Mode', '--gctd--')}
                 value={blendMode}
                 onValueChange={blendMode => onValueChange({ ...value, blendMode })}
-                onStyleChange={blendMode => onStyleChange({ ...value, blendMode })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -529,7 +511,6 @@ const BackgroundControl = (props) => {
                 allowDeviceControl={true}
                 usePreviousDevice={true}
                 onValueChange={fixed => onValueChange({ ...value, fixed })}
-                onStyleChange={fixed => onStyleChange({ ...value, fixed })}
             />
         </>}
 
@@ -540,7 +521,6 @@ const BackgroundControl = (props) => {
                 label={__('Video Link', '--gctd--')}
                 value={value.videoLink}
                 onValueChange={videoLink => onValueChange({ ...value, videoLink })}
-                onStyleChange={videoLink => onStyleChange({ ...value, videoLink })}
                 placeholder={'https://www.youtube.com/watch?v=cAH1bSq2LmI'}
             />
             <TextControl
@@ -548,7 +528,6 @@ const BackgroundControl = (props) => {
                 description={__('in Seconds. For example 1:30 minutes will be 90', '--gctd--')}
                 value={value.videoStartTime}
                 onValueChange={videoStartTime => onValueChange({ ...value, videoStartTime })}
-                onStyleChange={videoStartTime => onStyleChange({ ...value, videoStartTime })}
                 placeholder={'10'}
             />
             <TextControl
@@ -556,26 +535,22 @@ const BackgroundControl = (props) => {
                 description={__('in Seconds. For example 1:30 minutes will be 90', '--gctd--')}
                 value={value.videoEndTime}
                 onValueChange={videoEndTime => onValueChange({ ...value, videoEndTime })}
-                onStyleChange={videoEndTime => onStyleChange({ ...value, videoEndTime })}
                 placeholder={'70'}
             />
             <CheckboxControl
                 label={__('Play Once', '--gctd--')}
                 value={value.videoPlayOnce}
                 onValueChange={videoPlayOnce => onValueChange({ ...value, videoPlayOnce })}
-                onStyleChange={videoPlayOnce => onStyleChange({ ...value, videoPlayOnce })}
             />
             <CheckboxControl
                 label={__('Play On Mobile', '--gctd--')}
                 value={value.videoPlayOnMobile}
                 onValueChange={videoPlayOnMobile => onValueChange({ ...value, videoPlayOnMobile })}
-                onStyleChange={videoPlayOnMobile => onStyleChange({ ...value, videoPlayOnMobile })}
             />
             <ImageControl
                 label={__('Background Fallback', '--gctd--')}
                 value={value.videoImage}
                 onValueChange={videoImage => onValueChange({ ...value, videoImage })}
-                onStyleChange={videoImage => onStyleChange({ ...value, videoImage })}
                 allowDeviceControl={true}
             />
         </>}
@@ -599,13 +574,11 @@ const BackgroundControl = (props) => {
                     },
                 ]}
                 onValueChange={slideImage => onValueChange({ ...value, slideImage })}
-                onStyleChange={slideImage => onStyleChange({ ...value, slideImage })}
             />
             <CheckboxControl
                 label={__('Infinite Loop', '--gctd--')}
                 value={value.infiniteLoop}
                 onValueChange={infiniteLoop => onValueChange({ ...value, infiniteLoop })}
-                onStyleChange={infiniteLoop => onStyleChange({ ...value, infiniteLoop })}
             />
             <RangeControl
                 label={__('Image Display Duration', '--gctd--')}
@@ -615,13 +588,11 @@ const BackgroundControl = (props) => {
                 unit="s"
                 value={value.displayDuration}
                 onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
-                onStyleChange={displayDuration => onStyleChange({ ...value, displayDuration })}
             />
             <SelectControl
                 label={__('Transition', '--gctd--')}
                 value={value.transition}
                 onValueChange={transition => onValueChange({ ...value, transition })}
-                onStyleChange={transition => onStyleChange({ ...value, transition })}
                 options={[
                     {
                         label: __('fade', '--gctd--'),
@@ -654,13 +625,11 @@ const BackgroundControl = (props) => {
                 unit="s"
                 value={value.duration}
                 onValueChange={duration => onValueChange({ ...value, duration })}
-                onStyleChange={duration => onStyleChange({ ...value, duration })}
             />
             <SelectControl
                 label={__('Background Position', '--gctd--')}
                 value={value.backgroundPosition}
                 onValueChange={backgroundPosition => onValueChange({ ...value, backgroundPosition })}
-                onStyleChange={backgroundPosition => onStyleChange({ ...value, backgroundPosition })}
                 options={[
                     {
                         label: __('Default', '--gctd--'),
@@ -708,7 +677,6 @@ const BackgroundControl = (props) => {
                 label={__('Background Size', '--gctd--')}
                 value={value.backgroundSize}
                 onValueChange={backgroundSize => onValueChange({ ...value, backgroundSize })}
-                onStyleChange={backgroundSize => onStyleChange({ ...value, backgroundSize })}
                 options={[
                     {
                         label: __('Default', '--gctd--'),
@@ -728,7 +696,6 @@ const BackgroundControl = (props) => {
                 label={__('Background Repeat', '--gctd--')}
                 value={value.backgroundRepeat}
                 onValueChange={backgroundRepeat => onValueChange({ ...value, backgroundRepeat })}
-                onStyleChange={backgroundRepeat => onStyleChange({ ...value, backgroundRepeat })}
                 options={[
                     {
                         label: __('Default', '--gctd--'),
@@ -756,13 +723,11 @@ const BackgroundControl = (props) => {
                 label={__('Ken Burns Effect', '--gctd--')}
                 value={value.kenBurns}
                 onValueChange={kenBurns => onValueChange({ ...value, kenBurns })}
-                onStyleChange={kenBurns => onStyleChange({ ...value, kenBurns })}
             />
             {value.kenBurns && <SelectControl
                 label={__('Direction', '--gctd--')}
                 value={value.direction}
                 onValueChange={direction => onValueChange({ ...value, direction })}
-                onStyleChange={direction => onStyleChange({ ...value, direction })}
                 options={[
                     {
                         label: __('In', '--gctd--'),
@@ -778,7 +743,6 @@ const BackgroundControl = (props) => {
                 label={__('Lazy Load', '--gctd--')}
                 value={value.lazyLoad}
                 onValueChange={lazyLoad => onValueChange({ ...value, lazyLoad })}
-                onStyleChange={lazyLoad => onStyleChange({ ...value, lazyLoad })}
             /> */}
         </>}
 

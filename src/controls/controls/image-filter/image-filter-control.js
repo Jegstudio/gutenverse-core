@@ -15,7 +15,6 @@ const ImageFilterControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -71,7 +70,6 @@ const ImageFilterControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                            onStyleChange({});
                         }}/>
                     </span>
                 </Tooltip>
@@ -83,7 +81,6 @@ const ImageFilterControl = ({
                 step={0.1}
                 value={value.blur}
                 onValueChange={blur => onValueChange({ ...value, blur })}
-                onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
             <RangeControl
                 label={__('Brightness', '--gctd--')}
@@ -92,7 +89,6 @@ const ImageFilterControl = ({
                 step={1}
                 value={value.brightness}
                 onValueChange={brightness => onValueChange({ ...value, brightness })}
-                onStyleChange={brightness => onStyleChange({ ...value, brightness })}
             />
             <RangeControl
                 label={__('Contrast', '--gctd--')}
@@ -101,7 +97,6 @@ const ImageFilterControl = ({
                 step={1}
                 value={value.contrast}
                 onValueChange={contrast => onValueChange({ ...value, contrast })}
-                onStyleChange={contrast => onStyleChange({ ...value, contrast })}
             />
             <RangeControl
                 label={__('Saturation', '--gctd--')}
@@ -110,7 +105,6 @@ const ImageFilterControl = ({
                 step={1}
                 value={value.saturation}
                 onValueChange={saturation => onValueChange({ ...value, saturation })}
-                onStyleChange={saturation => onStyleChange({ ...value, saturation })}
             />
             <RangeControl
                 label={__('Hue', '--gctd--')}
@@ -119,7 +113,6 @@ const ImageFilterControl = ({
                 step={1}
                 value={value.hue}
                 onValueChange={hue => onValueChange({ ...value, hue })}
-                onStyleChange={hue => onStyleChange({ ...value, hue })}
             />
         </div>
     </div>;

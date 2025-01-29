@@ -11,14 +11,12 @@ const TextControl = ({
     placeholder = '',
     value = allowDeviceControl ? {} : '',
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const id = useInstanceId(TextControl, 'inspector-text-control');
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-text'}>

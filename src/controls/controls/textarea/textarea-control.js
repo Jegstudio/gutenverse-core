@@ -11,14 +11,12 @@ const TextareaControl = ({
     placeholder = '',
     value = '',
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const id = useInstanceId(TextareaControl, 'inspector-text-control');
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-textarea'}>

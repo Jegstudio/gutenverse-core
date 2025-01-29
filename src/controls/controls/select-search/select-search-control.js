@@ -14,7 +14,6 @@ const SelectSearchControl = (props) => {
         value = allowDeviceControl ? {} : [],
         values,
         onValueChange,
-        onStyleChange,
         onSearch,
         isMulti = false,
         description = '',
@@ -28,7 +27,6 @@ const SelectSearchControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const customStyles = {

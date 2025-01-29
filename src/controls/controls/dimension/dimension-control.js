@@ -97,7 +97,6 @@ const DimensionControl = (props) => {
         allowDeviceControl,
         showDeviceControlOnly,
         onValueChange,
-        onStyleChange,
         position,
         description = '',
         proLabel
@@ -108,7 +107,6 @@ const DimensionControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const changeUnit = (unit) => {

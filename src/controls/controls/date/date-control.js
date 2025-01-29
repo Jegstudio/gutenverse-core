@@ -10,7 +10,6 @@ const DateControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         enableTime = false,
         description = '',
         dateFormat = 'F j, Y'
@@ -20,7 +19,6 @@ const DateControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-date'}>

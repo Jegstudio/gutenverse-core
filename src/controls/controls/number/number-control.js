@@ -14,7 +14,6 @@ const NumberControl = (props) => {
         value,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
         description = '',
         proLabel,
     } = props;
@@ -23,7 +22,6 @@ const NumberControl = (props) => {
 
     const onChange = value => {
         onValueChange(parseFloat(value));
-        onStyleChange(parseFloat(value));
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-number'}>

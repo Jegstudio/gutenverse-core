@@ -112,7 +112,6 @@ const ElementSelectorControl = (props) => {
         placeholder = '',
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         description = '',
         elementRef,
         blocks = select('core/block-editor').getBlocks(),
@@ -124,7 +123,6 @@ const ElementSelectorControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const toggleExpand = () => {

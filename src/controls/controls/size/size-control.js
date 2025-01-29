@@ -90,7 +90,6 @@ const SizeControl = (props) => {
         liveUpdate,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
         description = '',
         hideRange = false,
     } = props;
@@ -99,7 +98,6 @@ const SizeControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {
@@ -150,11 +148,6 @@ const SizeControl = (props) => {
                     step={activeUnit ? units[activeUnit]?.step : null}
                     value={updating ? localValue : point}
                     onChange={(e) => {
-                        onStyleChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
                         setLocalValue(e.target.value);
                         setUpdating(true);
                         liveUpdate ? onValueChange({
