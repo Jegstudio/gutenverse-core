@@ -18,6 +18,8 @@ const PanelController = ({ ...props }) => {
         panelState,
         setPanelIsClicked,
     } = props;
+
+    const [switcher, setSwitcher] = useState({});
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
     useEffect(() => {
@@ -94,6 +96,12 @@ const PanelController = ({ ...props }) => {
         tabList
     );
 
+    const thePanelProps = {
+        ...panelProps,
+        switcher,
+        setSwitcher
+    };
+
     return <>
         <InspectorControls>
             <div className="gutenverse-panel-wrapper" ref={onRefChange} onClick={() => setPanelIsClicked(true)} >
@@ -137,7 +145,7 @@ const PanelController = ({ ...props }) => {
                         >
                             <BlockController
                                 panelArray={panel.panelArray}
-                                panelProps={panelProps}
+                                panelProps={thePanelProps}
                                 elementRef={elementRef}
                             />
                         </PanelBody>;
@@ -159,7 +167,7 @@ const PanelController = ({ ...props }) => {
                     >
                         <BlockController
                             panelArray={panel.panelArray}
-                            panelProps={panelProps}
+                            panelProps={thePanelProps}
                             elementRef={elementRef}
                         />
                     </PanelBody>;
