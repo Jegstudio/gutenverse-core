@@ -7,21 +7,20 @@ const textStrokeCSS = (attribute) => {
         width,
     } = attribute;
 
-    if(color){
+    if (color) {
         let colorStyle = getColor(color);
         style += `-webkit-text-stroke-color : ${colorStyle}; stroke: ${colorStyle};`;
     }
 
-    if(width){
+    if (width) {
         style += ` -webkit-text-stroke-width: ${width.point}${width.unit}; stroke-width: ${width.point}${width.unit};`;
     }
-    
     return style;
 };
 
 export const textStrokeGenerator = (attribute, style, css) => {
-    const {type, selector, responsive = false} = style
-    if ( !responsive ) {
+    const { type, selector, responsive = false } = style
+    if (!responsive) {
         const value = textStrokeCSS(attribute);
         css.Desktop = `${selector} { ${value} }`;
     }

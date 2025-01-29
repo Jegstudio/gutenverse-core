@@ -7,7 +7,6 @@ const typographyCSS = (attribute) => {
         'Mobile': [],
     };
 
-
     const {
         font,
         size,
@@ -37,11 +36,11 @@ const typographyCSS = (attribute) => {
         typography.Tablet.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
         typography.Mobile.push(`letter-spacing: var(${variableFontName(id, 'spacing')});`);
         return typography;
-    }else{
+    } else {
         if (font) {
             typography.Desktop.push(`font-family: "${font.value}";`);
         }
-    
+
         if (size) {
             if (size.Desktop && size.Desktop.point && size.Desktop.unit) {
                 typography.Desktop.push(`font-size: ${size.Desktop.point}${size.Desktop.unit};`);
@@ -53,7 +52,7 @@ const typographyCSS = (attribute) => {
                 typography.Mobile.push(`font-size: ${size.Mobile.point}${size.Mobile.unit};`);
             }
         }
-    
+
         if (lineHeight) {
             if (lineHeight.Desktop && lineHeight.Desktop.point && lineHeight.Desktop.unit) {
                 typography.Desktop.push(`line-height: ${lineHeight.Desktop.point}${lineHeight.Desktop.unit};`);
@@ -65,24 +64,24 @@ const typographyCSS = (attribute) => {
                 typography.Mobile.push(`line-height: ${lineHeight.Mobile.point}${lineHeight.Mobile.unit};`);
             }
         }
-    
+
         if (weight) {
             const checkWeight = weight === 'default' ? '400' : weight;
             typography.Desktop.push(`font-weight: ${checkWeight};`);
         }
-    
+
         if (transform && transform !== 'default') {
             typography.Desktop.push(`text-transform: ${transform};`);
         }
-    
+
         if (style && style !== 'default') {
             typography.Desktop.push(`font-style: ${style};`);
         }
-    
+
         if (decoration && decoration !== 'default') {
             typography.Desktop.push(`text-decoration: ${decoration};`);
         }
-    
+
         if (spacing) {
             if (spacing.Desktop) {
                 typography.Desktop.push(`letter-spacing: ${spacing.Desktop}em;`);
@@ -94,10 +93,11 @@ const typographyCSS = (attribute) => {
                 typography.Mobile.push(`letter-spacing: ${spacing.Mobile}em;`);
             }
         }
-    
+
         return typography;
     }
 };
+
 export const typographyGenerator = (attribute, style, css) => {
     const typography = typographyCSS(attribute);
     const { selector } = style;
@@ -114,4 +114,4 @@ export const typographyGenerator = (attribute, style, css) => {
         css.Mobile = `${selector} { ` + typography.Mobile.join(' ') + ' }';
     }
     return css;
-}
+};

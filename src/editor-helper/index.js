@@ -328,7 +328,7 @@ export const setControlStyle = ({
         hasChild = false,
         render
     } = style;
-    
+
     if (allowRender(value) && (!isNaN(value) || !isEmpty(value))) {
         const elementStyle = hasChild ? render(value, id) : elementVar();
 
@@ -372,7 +372,7 @@ export const updateBlockList = ({ name, settings, metadata }, pro = false) => {
 
 export const devices = ['Desktop', 'Tablet', 'Mobile'];
 
-export const getRgbaValue = (colorId) =>{
+export const getRgbaValue = (colorId) => {
     const color = `var(--wp--preset--color--${colorId})`;
     const tempElement = document.createElement('div');
     document.body.appendChild(tempElement);
@@ -384,7 +384,7 @@ export const getRgbaValue = (colorId) =>{
         r: Number(rgbValues[0]),
         g: Number(rgbValues[1]),
         b: Number(rgbValues[2]),
-        a:1
+        a: 1
     };
 
     document.body.removeChild(tempElement);

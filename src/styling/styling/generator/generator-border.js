@@ -48,7 +48,7 @@ export const borderCSS = (value) => {
 };
 
 export const borderGenerator = (attribute, style, css) => {
-    const {selector} = style;
+    const { selector } = style;
 
     const border = borderCSS(attribute);
 

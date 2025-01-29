@@ -52,7 +52,7 @@ export const borderResponsiveCSS = (value) => {
 };
 
 export const borderResponsiveGenerator = (attribute, style, css) => {
-    const {selector} = style;
+    const { selector } = style;
 
     const border = borderResponsiveCSS(attribute);
 

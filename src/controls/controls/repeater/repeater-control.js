@@ -66,7 +66,7 @@ const SortableItem = SortableElement(props => {
         duplicateIndex(index);
     };
     const isHaveUniqueId = () => {
-        if(items[index].spanId){
+        if (items[index].spanId) {
             return items[index].spanId;
         }
     };
@@ -76,7 +76,7 @@ const SortableItem = SortableElement(props => {
             u(el).addClass('hover-child-style');
         });
         const iframe = u('.edit-site-visual-editor__editor-canvas');
-        if(iframe.length > 0){
+        if (iframe.length > 0) {
             wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
             wrapper.nodes.map(el => {
                 u(el).addClass('hover-child-style');
@@ -89,7 +89,7 @@ const SortableItem = SortableElement(props => {
             u(el).removeClass('hover-child-style');
         });
         const iframe = u('.edit-site-visual-editor__editor-canvas');
-        if(iframe.length > 0){
+        if (iframe.length > 0) {
             wrapper = u(iframe.nodes[0].contentWindow.document).find(`#${items[index].spanId}`);
             wrapper.nodes.map(el => {
                 u(el).removeClass('hover-child-style');
@@ -114,7 +114,7 @@ const SortableItem = SortableElement(props => {
                 </div>
             }
             {
-                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index,items,onStyleChange,onValueChange,refreshStyle) } >
+                isReset && resetStatus(items[index]) && <div className="repeater-clear" onClick={() => resetMethod(index, items, onStyleChange, onValueChange, refreshStyle)} >
                     <RotateCcw size={12} />
                 </div>
             }
@@ -147,7 +147,7 @@ const SortableItem = SortableElement(props => {
 });
 
 const SortableList = SortableContainer(props => {
-    const { items, id} = props;
+    const { items, id } = props;
     return (
         <ul>
             {items.map((item, index) => {
@@ -240,10 +240,10 @@ const RepeaterComponent = (props) => {
 };
 
 const processTitle = (format, values) => {
-    if( values.value && isEmpty( values.value ) ){
+    if (values.value && isEmpty(values.value)) {
         values.value = u(`#${values.id}`).nodes[0];
         const iframe = u('.edit-site-visual-editor__editor-canvas');
-        if(iframe.length > 0){
+        if (iframe.length > 0) {
             values.value = u(iframe.nodes[0].contentWindow.document).find(`#${values.spanId}`).nodes[0];
         }
     }
@@ -286,7 +286,7 @@ const RepeaterControl = (props) => {
     useEffect(() => {
         let indexOpenChild = value.findIndex(el => el.id === openChild);
         setOpenLast(indexOpenChild);
-    },[openChild]);
+    }, [openChild]);
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
