@@ -22,25 +22,16 @@ import isEmpty from 'lodash/isEmpty';
 import getBlockStyle from './styles/block';
 
 const getPosition = (blockId) => {
-    const parentClientId = useSelect((select) => {
-        return select('core/block-editor').getBlockParents(blockId, true)[0];
-    }, [blockId]);
-    const childBlockIds = useSelect((select) => {
-        return select('core/block-editor').getBlockOrder(parentClientId);
-    }, [parentClientId]);
+    const blockEditor = select('core/block-editor');
+    const parentClientId = blockEditor.getBlockParents(blockId, true)[0];
+    const childBlockIds = blockEditor.getBlockOrder(parentClientId);
     const blockIndex = childBlockIds.findIndex((id) => id === blockId);
-    let position = '';
-    if (blockIndex === 0 && childBlockIds.length === 1) {
-        position = 'only';
-    } else if (blockIndex === 0) {
-        position = 'first';
-    } else if (blockIndex === childBlockIds.length - 1) {
-        position = 'last';
-    } else {
-        position = 'middle';
-    }
 
-    return position;
+    if (blockIndex === 0 && childBlockIds.length === 1) return 'only';
+    if (blockIndex === 0) return 'first';
+    if (blockIndex === childBlockIds.length - 1) return 'last';
+
+    return 'middle';
 };
 
 const toolResize = (props) => {
