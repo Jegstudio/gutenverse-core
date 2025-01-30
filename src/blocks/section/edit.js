@@ -170,16 +170,16 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
-    withPartialRender,
+    // withPartialRender,
     withCustomStyle(panelList),
-    withAnimationAdvance('section'),
-    withAnimationBackground(),
-    withAnimationSticky(),
+    // withAnimationAdvance('section'),
+    // withAnimationBackground(),
+    // withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
-    withCursorEffect,
-    withBackgroundEffect,
-    withBackgroundSlideshow,
+    // withMouseMoveEffect,
+    // withCursorEffect,
+    // withBackgroundEffect,
+    // withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockRootClientId,

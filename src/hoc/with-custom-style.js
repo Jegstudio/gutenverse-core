@@ -260,13 +260,13 @@ export const withCustomStyle = panelList => BlockElement => {
                 }
 
                 if (elementRef.ownerDocument) {
-                    setTimeout(() => {
-                        const windowEl = elementRef.ownerDocument.defaultView || elementRef.ownerDocument.parentWindow;
-                        if (windowEl?.document) {
-                            const headEl = windowEl.document.getElementsByTagName('head')[0];
-                            setHeadElement(headEl);
-                        }
-                    }, 1);
+                    // setTimeout(() => {
+                    //     const windowEl = elementRef.ownerDocument.defaultView || elementRef.ownerDocument.parentWindow;
+                    //     if (windowEl?.document) {
+                    //         const headEl = windowEl.document.getElementsByTagName('head')[0];
+                    //         setHeadElement(headEl);
+                    //     }
+                    // }, 1);
                 }
             }
         }, [elementRef]);

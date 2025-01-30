@@ -5,7 +5,7 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
+import { BuildColumnWidthStyle, headStyleSheet, setDeviceClasses, useDynamicStyle } from 'gutenverse-core/styling';
 import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
@@ -19,6 +19,7 @@ import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import getBlockStyle from './styles/block';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -453,7 +454,7 @@ const ColumnPlaceholder = (props) => {
                         />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
                         onMouseEnter={() => {
                             onOpen();
@@ -506,7 +507,7 @@ const ColumnPlaceholder = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
+                </div>}
             </ResizableBox>
         </div>
     );
@@ -626,13 +627,13 @@ const ColumnWrapper = (props) => {
                 onResizeStop={resizeStop}
             >
                 <FluidCanvas attributes={attributes} />
-                <div className={'guten-inserter insert-top'}>
+                {(isHovered || eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
+                </div>}
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
                         {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
@@ -644,15 +645,8 @@ const ColumnWrapper = (props) => {
                         <InnerBlocks />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
-                    <div
-                        onMouseEnter={() => {
-                            onOpen();
-                        }}
-                        onMouseLeave={() => {
-                            onClose();
-                        }}
-                    >{HoverIcon}</div>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                    <div onMouseEnter={onOpen} onMouseLeave={onClose}>{HoverIcon}</div>
                     <div className={'column-popup'} onFocus={() => {
                         onOpen();
                         setOpenTool(true);
@@ -660,9 +654,7 @@ const ColumnWrapper = (props) => {
                         onClose();
                         setOpenTool(false);
                     }}
-                    onMouseEnter={() => {
-                        onOpen();
-                    }}
+                    onMouseEnter={onOpen}
                     onMouseLeave={() => {
                         if (!openTool) {
                             onClose();
@@ -700,14 +692,14 @@ const ColumnWrapper = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
-                <div className={'guten-inserter insert-bottom'}>
+                </div>}
+                {(isHovered || eSelect) && <div className={'guten-inserter insert-bottom'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
+                </div>}
 
             </ResizableBox>
         </div>
@@ -932,6 +924,8 @@ const ColumnBlock = compose(
     const [openTool, setOpenTool] = useState(false);
     const [editorDom, setEditorDom] = useState(null);
     const [totalWidth, setTotalWidth] = useState(0);
+    const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
+    const styleRef = useRef(null);
 
     useEffect(() => {
         if (isFSE()) {
@@ -1051,6 +1045,8 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
+        {generatedCSS && <style ref={styleRef} id={elementId}>{generatedCSS}</style>}
+        {fontUsed[0] && headStyleSheet(fontUsed, styleRef)}
         <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
         <ColumnInspection {...props} />
         <Component {...theProps} />
