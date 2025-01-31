@@ -15,30 +15,6 @@ import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 
-// const cssDeviceString = (elementId, attribute, prefix) => {
-//     let css = [];
-
-//     if (attribute['Desktop']) {
-//         css.push(`.${elementId} { ${prefix}: ${attribute['Desktop']}; }`);
-//     } else {
-//         css.push(null);
-//     }
-
-//     if (attribute['Tablet']) {
-//         css.push(`.${elementId} { ${prefix}: ${attribute['Tablet']}; }`);
-//     } else {
-//         css.push(null);
-//     }
-
-//     if (attribute['Mobile']) {
-//         css.push(`.${elementId} { ${prefix}: ${attribute['Mobile']}; }`);
-//     } else {
-//         css.push(null);
-//     }
-
-//     return css;
-// };
-
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     let css = [];
 
@@ -47,11 +23,11 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     }
 
     if (Tablet.length) {
-        css.push('@media only screen and (max-width: 781px) {' + Tablet.join(' ') + '}');
+        css.push('@media only screen and (max-width: 1024px) {' + Tablet.join(' ') + '}');
     }
 
     if (Mobile.length) {
-        css.push('@media only screen and (max-width: 361px) {' + Mobile.join(' ') + '}');
+        css.push('@media only screen and (max-width: 767px) {' + Mobile.join(' ') + '}');
     }
 
     return css.join(' ');
@@ -75,7 +51,7 @@ export const renderValue = (type, attribute) => {
 };
 
 const generateCSSString = (attribute, style) => {
-    const {type} = style;
+    const { type } = style;
     let css = {
         Desktop: null,
         Tablet: null,
@@ -114,7 +90,6 @@ const generateCSSString = (attribute, style) => {
     return css;
 };
 
-
 const mergeFontDevice = (fonts) => {
     let googleFont = '';
     let systemFont = '';
@@ -131,7 +106,7 @@ const mergeFontDevice = (fonts) => {
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
-        if(elementId){
+        if (elementId) {
             const deviceTypeDesktop = [];
             const deviceTypeTablet = [];
             const deviceTypeMobile = [];
@@ -162,6 +137,8 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
             return { generatedCSS, fontUsed };
+        } else {
+            return { generatedCSS: '', fontUsed: [] };
         }
     }, [elementId, attributes]);
 
@@ -194,9 +171,11 @@ export const headStyleSheet = (fontUsed, styleRef) => {
         const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
         if (windowEl?.document) {
             const headEl = windowEl.document.getElementsByTagName('head')[0];
-            return <Helmet head={headEl}>
-                <link href={fontUsed[0]} rel="stylesheet" type="text/css" />
-            </Helmet>;
+            return (
+                <Helmet head={headEl}>
+                    <link href={fontUsed[0]} rel="stylesheet" type="text/css" />
+                </Helmet>
+            );
         }
     }
     return null;

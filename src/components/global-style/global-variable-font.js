@@ -121,7 +121,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     label={__('Font Family', '--gctd--')}
                     value={value.font.font}
                     onValueChange={font => onTypographyChange({ ...value.font, font })}
-                    onStyleChange={() => { }}
                 />
                 <div className={'font-value-wrapper'}>
                     <div>
@@ -131,13 +130,11 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             allowDeviceControl={true}
                             hideRange={true}
                             onValueChange={size => onTypographyChange({ ...value.font, size })}
-                            onStyleChange={() => { }}
                         />
                         <SelectControl
                             label={__('Weight', '--gctd--')}
                             value={value.font.weight}
                             onValueChange={weight => onTypographyChange({ ...value.font, weight })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -193,7 +190,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             label={__('Decoration', '--gctd--')}
                             value={value.font.decoration}
                             onValueChange={decoration => onTypographyChange({ ...value.font, decoration })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -241,13 +237,11 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                                 },
                             }}
                             onValueChange={lineHeight => onTypographyChange({ ...value.font, lineHeight })}
-                            onStyleChange={() => { }}
                         />
                         <SelectControl
                             label={__('Transform', '--gctd--')}
                             value={value.font.transform}
                             onValueChange={transform => onTypographyChange({ ...value.font, transform })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -275,7 +269,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             label={__('Style', '--gctd--')}
                             value={value.font.style}
                             onValueChange={style => onTypographyChange({ ...value.font, style })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -305,7 +298,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     value={value.font.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value.font, spacing })}
-                    onStyleChange={() => { }}
                 />
             </>
         </div>}

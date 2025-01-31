@@ -9,7 +9,6 @@ const DividerAnimatedControl = (props) => {
     const {
         value = {},
         onValueChange,
-        onStyleChange,
         elementRef
     } = props;
 
@@ -36,7 +35,6 @@ const DividerAnimatedControl = (props) => {
             label={__('Type', '--gctd--')}
             value={value.type}
             onValueChange={type => onValueChange({ ...value, type })}
-            onStyleChange={type => onValueChange({ ...value, type })}
             options={[
                 {
                     label: __('None', '--gctd--'),
@@ -100,7 +98,6 @@ const DividerAnimatedControl = (props) => {
             label={__('Width', '--gctd--')}
             value={value.width}
             onValueChange={width => onValueChange({ ...value, width })}
-            onStyleChange={width => onStyleChange({ ...value, width })}
             min={100}
             max={300}
             step={1}
@@ -111,7 +108,6 @@ const DividerAnimatedControl = (props) => {
             label={__('Height', '--gctd--')}
             value={value.height}
             onValueChange={height => onValueChange({ ...value, height })}
-            onStyleChange={height => onStyleChange({ ...value, height })}
             min={1}
             max={500}
             step={1}
@@ -122,7 +118,6 @@ const DividerAnimatedControl = (props) => {
             label={__('Speed', '--gctd--')}
             value={value.speed}
             onValueChange={speed => onValueChange({ ...value, speed })}
-            onStyleChange={speed => onStyleChange({ ...value, speed })}
             min={0}
             max={10}
             step={0.1}
@@ -132,25 +127,21 @@ const DividerAnimatedControl = (props) => {
             label={__('Flip', '--gctd--')}
             value={value.flip}
             onValueChange={flip => onValueChange({ ...value, flip })}
-            onStyleChange={flip => onStyleChange({ ...value, flip })}
         />
         <CheckboxControl
             label={__('Bring to Front', '--gctd--')}
             value={value.front}
             onValueChange={front => onValueChange({ ...value, front })}
-            onStyleChange={front => onStyleChange({ ...value, front })}
         />
         <CheckboxControl
             label={__('Loop', '--gctd--')}
             value={value.loop}
             onValueChange={loop => onValueChange({ ...value, loop })}
-            onStyleChange={loop => onStyleChange({ ...value, loop })}
         />
         <SelectControl
             label={__('Load On', '--gctd--')}
             value={value.loadOn}
             onValueChange={loadOn => onValueChange({ ...value, loadOn })}
-            onStyleChange={loadOn => onStyleChange({ ...value, loadOn })}
             options={[
                 {
                     label: __('Page Load', '--gctd--'),
@@ -172,7 +163,6 @@ const DividerAnimatedControl = (props) => {
                 value={value.offset}
                 default={{ point: 50, unit: '%' }}
                 onValueChange={offset => onValueChange({ ...value, offset })}
-                onStyleChange={offset => onStyleChange({ ...value, offset })}
                 units={{
                     ['%']: {
                         text: '%',
@@ -190,7 +180,6 @@ const DividerAnimatedControl = (props) => {
                 description={__('Use Element ID or Class, or click Tree below to select. Leave empty to use body.', '--gctd--')}
                 value={value.hoverAnchor}
                 onValueChange={hoverAnchor => onValueChange({ ...value, hoverAnchor })}
-                onStyleChange={hoverAnchor => onStyleChange({ ...value, hoverAnchor })}
                 elementRef={elementRef}
             />
         }
@@ -199,14 +188,12 @@ const DividerAnimatedControl = (props) => {
                 label={__('Pause on Leave', '--gctd--')}
                 value={value.pauseOnLeave}
                 onValueChange={pauseOnLeave => onValueChange({ ...value, pauseOnLeave })}
-                onStyleChange={pauseOnLeave => onStyleChange({ ...value, pauseOnLeave })}
             />
         }
         <SelectControl
             label={__('Color Mode', '--gctd--')}
             value={value.colorMode}
             onValueChange={colorMode => onValueChange({ ...value, colorMode })}
-            onStyleChange={colorMode => onStyleChange({ ...value, colorMode })}
             options={[
                 {
                     label: __('Default', '--gctd--'),
@@ -225,7 +212,6 @@ const DividerAnimatedControl = (props) => {
                     label={formatString(__('Color {0}', '--gctd--'), i + 1)}
                     value={value[`color${i}`]}
                     onValueChange={color => onValueChange({ ...value, [`color${i}`]: color })}
-                    onStyleChange={color => onStyleChange({ ...value, [`color${i}`]: color })}
                 />
             ))
         )}
@@ -237,13 +223,11 @@ const DividerAnimatedControl = (props) => {
                         description={__('Drag a circle outside the box to remove it. \nYou can\'t remove if there are only two left.', '--gctd--')}
                         value={value[`gradientColor${i}`]}
                         onValueChange={color => onValueChange({ ...value, [`gradientColor${i}`]: color })}
-                        onStyleChange={color => onStyleChange({ ...value, [`gradientColor${i}`]: color })}
                     />
                     <AngleControl
                         label={formatString(__('Gradient Angle {0}', '--gctd--'), i + 1)}
                         value={value[`gradientAngle${i}`]}
                         onValueChange={angle => onValueChange({ ...value, [`gradientAngle${i}`]: angle })}
-                        onStyleChange={angle => onStyleChange({ ...value, [`gradientAngle${i}`]: angle })}
                     />
                 </>
             ))

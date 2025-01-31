@@ -12,7 +12,6 @@ const AngleControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : false,
         onValueChange,
-        onStyleChange,
         description = '',
         proLabel
     } = props;
@@ -21,7 +20,6 @@ const AngleControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-angle'}>

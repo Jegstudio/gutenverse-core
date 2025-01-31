@@ -16,7 +16,6 @@ const TextShadowControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -71,7 +70,6 @@ const TextShadowControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                            onStyleChange({});
                         }}/>
                     </span>
                 </Tooltip>
@@ -80,7 +78,6 @@ const TextShadowControl = ({
                 label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
             />
             <RangeControl
                 label={__('Horizontal', '--gctd--')}
@@ -90,7 +87,6 @@ const TextShadowControl = ({
                 value={value.horizontal}
                 unit="px"
                 onValueChange={horizontal => onValueChange({ ...value, horizontal })}
-                onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
             />
             <RangeControl
                 label={__('Vertical', '--gctd--')}
@@ -100,7 +96,6 @@ const TextShadowControl = ({
                 value={value.vertical}
                 unit="px"
                 onValueChange={vertical => onValueChange({ ...value, vertical })}
-                onStyleChange={vertical => onStyleChange({ ...value, vertical })}
             />
             <RangeControl
                 label={__('Blur', '--gctd--')}
@@ -110,7 +105,6 @@ const TextShadowControl = ({
                 value={value.blur}
                 unit="%"
                 onValueChange={blur => onValueChange({ ...value, blur })}
-                onStyleChange={blur => onStyleChange({ ...value, blur })}
             />
         </div>
     </div>;

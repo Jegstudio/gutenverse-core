@@ -34,7 +34,6 @@ const ColorControl = (props) => {
         value = allowDeviceControl ? {} : '',
         alpha = true,
         onValueChange,
-        onStyleChange,
         description = '',
     } = props;
 
@@ -211,7 +210,6 @@ const ColorControl = (props) => {
                                         id: id
                                     };
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
                                 active: value.id === id
                             };
@@ -233,7 +231,6 @@ const ColorControl = (props) => {
                                         id
                                     };
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
                                 active: value.id === id
                             };
@@ -255,7 +252,6 @@ const ColorControl = (props) => {
                                         id
                                     };
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
                                 active: value.id === id
                             };
@@ -275,7 +271,6 @@ const ColorControl = (props) => {
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(allowDeviceControl ? {} : '');
-                            onStyleChange(null);
                         }} />
                     </span>
                 </Tooltip>
@@ -284,7 +279,6 @@ const ColorControl = (props) => {
                 disableAlpha={!alpha}
                 color={updating ? localColor : getColorValue(value)}
                 onChange={color => {
-                    onStyleChange(color.rgb);
                     setLocalColor(color.rgb);
                     setUpdating(true);
                 }}

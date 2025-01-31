@@ -19,7 +19,6 @@ const RangeControl = ({
     onStart = () => {},
     onEnd = () => {},
     onValueChange,
-    onStyleChange,
     description = '',
     isParseFloat = false,
     unit,
@@ -51,11 +50,9 @@ const RangeControl = ({
                     onMouseDown={onStart}
                     onChange={(e) => {
                         if(isParseFloat){
-                            onStyleChange(parseFloat(e.target.value));
                             setLocalValue(parseFloat(e.target.value));
                             liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
                         }else{
-                            onStyleChange(e.target.value);
                             setLocalValue(e.target.value);
                             liveUpdate ? onValueChange(e.target.value) : null;
                         }
@@ -86,10 +83,8 @@ const RangeControl = ({
                     onBlur={onEnd}
                     onChange={(e) => {
                         if(isParseFloat){
-                            onStyleChange(parseFloat(e.target.value));
                             onValueChange(parseFloat(e.target.value));
                         }else{
-                            onStyleChange(e.target.value);
                             onValueChange(e.target.value);
                         }
                     }}

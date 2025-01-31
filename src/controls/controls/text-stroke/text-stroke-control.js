@@ -16,7 +16,6 @@ const TextStrokeControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -71,7 +70,6 @@ const TextStrokeControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                            onStyleChange({});
                         }}/>
                     </span>
                 </Tooltip>
@@ -80,13 +78,11 @@ const TextStrokeControl = ({
                 label={__('Stroke Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
             />
             <SizeControl
                 label={__('Stroke Width', '--gctd--')}
                 value={value.width}
                 onValueChange={width => onValueChange({ ...value, width })}
-                onStyleChange={width => onStyleChange({ ...value, width })}
                 units={{
                     px: {
                         text: 'px',

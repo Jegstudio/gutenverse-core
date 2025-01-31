@@ -16,7 +16,6 @@ const BorderControl = (props) => {
         showDeviceControl = true,
         value = {},
         onValueChange,
-        onStyleChange,
         description = '',
         proLabel
     } = props;
@@ -29,7 +28,6 @@ const BorderControl = (props) => {
         <span className={'border-refresh'}>
             <RefreshCw size={14} onClick={() => {
                 onValueChange(undefined);
-                onStyleChange(undefined);
                 setActive('all');
             }}/>
         </span>
@@ -88,13 +86,6 @@ const BorderControl = (props) => {
                                 });
                             }
                         }}
-                        onStyleChange={type => onStyleChange({
-                            ...value,
-                            [`${active}`]: {
-                                ...value[active],
-                                type
-                            }
-                        })}
                         options={[
                             {
                                 label: __('Default', '--gctd--'),
@@ -141,26 +132,12 @@ const BorderControl = (props) => {
                                 width
                             }
                         })}
-                        onStyleChange={width => onStyleChange({
-                            ...value,
-                            [`${active}`]: {
-                                ...value[active],
-                                width
-                            }
-                        })}
                     />
                 </div>
                 <ColorControl
                     label={__('Color', '--gctd--')}
                     value={value && value[active] && value[active].color}
                     onValueChange={color => onValueChange({
-                        ...value,
-                        [`${active}`]: {
-                            ...value[active],
-                            color
-                        }
-                    })}
-                    onStyleChange={color => onStyleChange({
                         ...value,
                         [`${active}`]: {
                             ...value[active],
@@ -186,7 +163,6 @@ const BorderControl = (props) => {
             value={value && value.radius}
             allowDeviceControl={true}
             onValueChange={radius => onValueChange({ ...value, radius })}
-            onStyleChange={radius => onStyleChange({ ...value, radius })}
         />
     </div>;
 };

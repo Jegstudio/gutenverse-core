@@ -1,7 +1,3 @@
-import throttle from 'lodash/throttle';
-import { useCallback } from '@wordpress/element';
-import { setControlStyle } from 'gutenverse-core/editor-helper';
-
 const BlockController = (props) => {
     const {
         panelProps,
@@ -9,23 +5,8 @@ const BlockController = (props) => {
         elementRef
     } = props;
 
-    const throttleSave = useCallback(
-        throttle(({ id, value, style, allowDeviceControl }) => {
-            style.map((item, index) => {
-                setControlStyle({
-                    ...panelProps,
-                    id: item.updateID ? item.updateID : `${id}-style-${index}`,
-                    value,
-                    style: item,
-                    allowDeviceControl
-                });
-            });
-        }, 100),
-        []
-    );
-
     return panelArray(panelProps).map((item) => {
-        const { id, show, onChange, component: Component, style, allowDeviceControl = false, proLabel, forceType } = item;
+        const { id, show, onChange, component: Component, proLabel, forceType } = item;
         const { clientId, setAttributes } = panelProps;
 
         const onValueChange = (value) => {
@@ -53,12 +34,6 @@ const BlockController = (props) => {
             }) : null;
         };
 
-        const onStyleChange = (value) => {
-            if (style) {
-                throttleSave({ id, value, style, allowDeviceControl });
-            }
-        };
-
         return show !== false && <Component
             key={`${id}`}
             {...item}
@@ -66,10 +41,8 @@ const BlockController = (props) => {
             value={panelProps[id]}
             values={panelProps}
             onValueChange={onValueChange}
-            onStyleChange={onStyleChange}
             elementRef={elementRef}
             isOpen={true}
-            throttleSave={throttleSave}
         />;
     });
 };

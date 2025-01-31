@@ -14,7 +14,6 @@ const CheckboxControl = (props) => {
         label,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
         proLabel,
         usePreviousDevice = false,
         usePreviousDeviceValue = false,
@@ -31,7 +30,6 @@ const CheckboxControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {

@@ -6,9 +6,9 @@ export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
         if (multi) {
             positions.map(position => {
                 if (dimension[position]) {
-                    if(prefix){
+                    if (prefix) {
                         styles.push(`${prefix}-${position}: ${dimension[position]}${unit};`);
-                    }else{
+                    } else {
                         styles.push(`${position}: ${dimension[position]}${unit};`);
                     }
                 }
@@ -37,8 +37,8 @@ export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
 };
 
 export const dimensionGenerator = (attribute, style, css) => {
-    const {selector, property, responsive = false} = style;
-    if ( !responsive ) {
+    const { selector, property, responsive = false } = style;
+    if (!responsive) {
         css.Desktop = dimensionCSS(attribute, property[0]);
     }
 

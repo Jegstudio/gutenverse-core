@@ -15,14 +15,6 @@ export const withDeviceControl = (BlockControl) => {
 
                 props.onValueChange(newData);
             },
-            onStyleChange: (data) => {
-                const newData = data !== undefined? {
-                    ...value,
-                    [deviceType]: data
-                } : {};
-
-                props.onStyleChange(newData);
-            },
             value: value[deviceType],
         } : props;
 

@@ -200,7 +200,6 @@ const IconControl = ({
     allowDeviceControl,
     value = '',
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -208,7 +207,6 @@ const IconControl = ({
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const removeIcon = (e) => {

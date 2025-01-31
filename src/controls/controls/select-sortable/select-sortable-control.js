@@ -47,7 +47,6 @@ const  SelectSortableControl = props => {
         value = allowDeviceControl ? {} : '',
         values,
         onValueChange,
-        onStyleChange,
         onSearch,
         isMulti = false,
         description = '',
@@ -56,14 +55,13 @@ const  SelectSortableControl = props => {
         cacheOptions = true,
         defaultOptions = true,
     } = props;
-        
+
     const [selected, setSelected] = useState([]);
 
     const id = useInstanceId(SelectSortableControl, 'inspector-select-async-control');
 
     const onChange = (selectedOptions) => {
         onValueChange(selectedOptions);
-        onStyleChange(selectedOptions);
     };
 
     const customStyles = {
@@ -92,7 +90,6 @@ const  SelectSortableControl = props => {
     const onSortEnd = ({ oldIndex, newIndex }) => {
         const newValue = arrayMove(selected, oldIndex, newIndex);
         onValueChange(newValue);
-        onStyleChange(newValue);
     };
 
     useEffect(() => {

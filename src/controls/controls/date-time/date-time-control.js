@@ -41,7 +41,6 @@ const DateTimeControl = (props) => {
         label,
         value = '',
         onValueChange,
-        onStyleChange,
         enableTime = true,
         minDate,
         description = '',
@@ -52,7 +51,6 @@ const DateTimeControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-date-time'}>
