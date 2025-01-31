@@ -1,6 +1,6 @@
 /* External dependencies */
-import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
-import { Helmet, RichTextComponent, classnames, headingLevel1 } from 'gutenverse-core/components';
+import {useRef } from '@wordpress/element';
+import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
@@ -9,7 +9,7 @@ import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -75,10 +75,10 @@ const HeadingBlock = compose(
         type,
     } = attributes;
 
+    useGenerateElementId(clientId, elementId, elementRef);
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    useGenerateElementId(clientId, elementId, elementRef);
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
     const elementRef = useRef(null);
 
@@ -92,7 +92,7 @@ const HeadingBlock = compose(
     });
 
     return <>
-        {elementId && generatedCSS && <style ref={elementRef} id={elementId}>{generatedCSS}</style>}
+        {generatedCSS && <style ref={elementRef} id={elementId}>{generatedCSS}</style>}
         {fontUsed[0] && headStyleSheet(fontUsed, elementRef)}
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
