@@ -10,7 +10,7 @@ import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
 import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
-import { select } from '@wordpress/data';
+import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
@@ -145,26 +145,25 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
     return [generatedCSS, fontUsed];
 };
 
-export const useGenerateElementId = (clientId, elementId, setAttributes, styleRef) => {
+export const useGenerateElementId = (clientId, elementId, elementRef) => {
     useEffect(() => {
-        if (!elementId) {
-            createElementId(setAttributes);
-        } else {
+        if( !elementId ){
+            createElementId(clientId);
+        }else{
             const { getBlocks } = select('core/block-editor');
             const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-            const parent = u(styleRef).closest('html');
+            const parent = u(elementRef).closest('html');
             if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
-                createElementId(setAttributes);
+                createElementId(clientId);
             }
         }
     }, []);
 };
 
-const createElementId = (setAttributes) => {
+const createElementId = (clientId) => {
     const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-    setAttributes({
-        elementId: uniqueId,
-    });
+    const {updateBlockAttributes} = dispatch('core/block-editor');
+    updateBlockAttributes(clientId, {'elementId' : uniqueId });
 };
 
 export const headStyleSheet = (fontUsed, styleRef) => {
