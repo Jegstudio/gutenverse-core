@@ -3,13 +3,16 @@ import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
 import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
     const {
         elementId,
         overflowWrap,
+        useStyleInLink = false,
     } = props;
+
+    const linkStyle = useStyleInLink ? `, .guten-element.${elementId} a, .guten-element.${elementId} a *, .guten-element.${elementId} a:hover, .guten-element.${elementId} a:hover *` : '';
 
     return [
         {
@@ -18,7 +21,7 @@ export const stylePanel = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId} ${linkStyle}`,
                     render: value => handleColor(value, 'color')
                 }
             ]
@@ -29,7 +32,7 @@ export const stylePanel = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId} ${linkStyle}`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
@@ -41,7 +44,7 @@ export const stylePanel = (props) => {
             component: TextShadowControl,
             style: [
                 {
-                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId} ${linkStyle}`,
                     allowRender: (value) => allowRenderTextShadow(value),
                     render: value => handleTextShadow(value)
                 }
@@ -53,7 +56,7 @@ export const stylePanel = (props) => {
             component: TextStrokeControl,
             style: [
                 {
-                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId} ${linkStyle}`,
                     hasChild: true,
                     render: value => handleTextStroke(value)
                 }
@@ -77,10 +80,16 @@ export const stylePanel = (props) => {
             ],
             style: [
                 {
-                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+                    selector: `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId} ${linkStyle}`,
                     render: (value) => `overflow-wrap: ${value}; word-break:${value};`
                 },
             ]
+        },
+        {
+            id: 'useStyleInLink',
+            label: __('Use Style in Link', 'gutenverse'),
+            description: __('Applies heading block styling to links within text, overriding the default core link style.', 'gutenverse'),
+            component: CheckboxControl,
         },
     ];
 };
