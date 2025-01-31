@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from '@wordpress/element';
+import { useRef, useState, useEffect, useMemo, useCallback } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose } from '@wordpress/compose';
@@ -364,7 +364,7 @@ const ColumnPlaceholder = (props) => {
         width,
     } = attributes;
 
-    const wvalue = width ? width[deviceType] ? width[deviceType] : width['Desktop'] : 10;
+    const wvalue = useMemo(() => width ? width[deviceType] ? width[deviceType] : width['Desktop'] : 10, [width]);
 
     const wrapperClass = classnames(
         'guten-column-wrapper',
@@ -374,17 +374,17 @@ const ColumnPlaceholder = (props) => {
         }
     );
 
-    const resizeStart = (e, p) => {
+    const resizeStart = useCallback((e, p) => {
         onResizeStart(props, p);
-    };
+    }, [props]);
 
-    const resize = (e, p, t, d) => {
+    const resize = useCallback((e, p, t, d) => {
         onResize(props, d.width);
-    };
+    }, [props]);
 
-    const resizeStop = () => {
+    const resizeStop = useCallback(() => {
         onResizeStop(props);
-    };
+    }, [props]);
 
     const {
         getBlock,
@@ -396,25 +396,25 @@ const ColumnPlaceholder = (props) => {
     const parentClientId = getBlockParents(clientId, true)[0];
     const parentBlock = getBlock(parentClientId);
 
-    const valueLength = parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
+    const valueLength = useMemo(() => parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0), [wvalue]);
 
-    const onOpen = () => {
+    const onOpen = useCallback(() => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
         }
-    };
+    }, [parentBlock]);
 
-    const onClose = () => {
+    const onClose = useCallback(() => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
         }
-    };
+    }, [parentBlock]);
 
     return (
         <div {...blockProps}>
