@@ -9,13 +9,14 @@ import { Helmet, u } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
+    const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
     let css = [];
 
     if (Desktop.length) {
@@ -23,11 +24,11 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     }
 
     if (Tablet.length) {
-        css.push('@media only screen and (max-width: 1024px) {' + Tablet.join(' ') + '}');
+        css.push('@media only screen and (max-width: ' + tabletBreakpoint + 'px) {' + Tablet.join(' ') + '}');
     }
 
     if (Mobile.length) {
-        css.push('@media only screen and (max-width: 767px) {' + Mobile.join(' ') + '}');
+        css.push('@media only screen and (max-width: ' + mobileBreakpoint + 'px) {' + Mobile.join(' ') + '}');
     }
 
     return css.join(' ');
@@ -121,15 +122,16 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
                     css.Desktop && deviceTypeDesktop.push(css.Desktop);
                     css.Tablet && deviceTypeTablet.push(css.Tablet);
                     css.Mobile && deviceTypeMobile.push(css.Mobile);
-                }
-                if (type === 'typography' && attributes[id]) {
-                    const { font, weight } = attributes[id];
-                    if (font) {
-                        gatheredFont.push({
-                            font: font.value,
-                            type: font.type,
-                            weight: weight
-                        });
+
+                    if (type === 'typography') {
+                        const { font, weight } = attributes[id];
+                        if (font) {
+                            gatheredFont.push({
+                                font: font.value,
+                                type: font.type,
+                                weight: weight
+                            });
+                        }
                     }
                 }
             });
@@ -147,9 +149,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
     useEffect(() => {
-        if( !elementId ){
+        if (!elementId) {
             createElementId(clientId);
-        }else{
+        } else {
             const { getBlocks } = select('core/block-editor');
             const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
             const parent = u(elementRef).closest('html');
@@ -162,8 +164,8 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
 
 const createElementId = (clientId) => {
     const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-    const {updateBlockAttributes} = dispatch('core/block-editor');
-    updateBlockAttributes(clientId, {'elementId' : uniqueId });
+    const { updateBlockAttributes } = dispatch('core/block-editor');
+    updateBlockAttributes(clientId, { 'elementId': uniqueId });
 };
 
 export const headStyleSheet = (fontUsed, styleRef) => {
