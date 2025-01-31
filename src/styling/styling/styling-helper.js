@@ -113,7 +113,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             const deviceTypeMobile = [];
             const gatheredFont = [];
 
-            getBlockStyle(elementId).forEach((style) => {
+            const blockStyles = getBlockStyle(elementId);
+            for (let index = 0; index < blockStyles.length; index++) {
+                const style = blockStyles[index];
                 const { type, id } = style;
                 if (attributes[id]) {
                     const value = attributes[id];
@@ -134,7 +136,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
                         }
                     }
                 }
-            });
+            }
 
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
