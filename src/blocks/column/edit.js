@@ -35,171 +35,80 @@ const getPosition = (blockId) => {
 };
 
 const toolResize = (props) => {
-    const {
-        setAttributes,
-        attributes,
-        newWidth,
-        addStyle,
-        position,
-        clientId,
-        getNextBlockClientId,
-        getPreviousBlockClientId,
-        getBlock,
-        updateBlockAttributes
-    } = props;
+    const { setAttributes, attributes, newWidth, addStyle, position, clientId, getNextBlockClientId, getPreviousBlockClientId, getBlock, updateBlockAttributes } = props;
 
-    let targetId = '';
-    if ('last' !== position) {
-        targetId = getNextBlockClientId(clientId);
-    } else {
-        targetId = getPreviousBlockClientId(clientId);
-    }
-
-    const minWidth = {
-        Desktop: 5,
-        Tablet: 10,
-        Mobile: 15,
-    };
-
-    const {
-        width,
-        elementId
-    } = attributes;
-
+    let targetId = position !== 'last' ? getNextBlockClientId(clientId) : getPreviousBlockClientId(clientId);
+    const minWidth = { Desktop: 5, Tablet: 10, Mobile: 15 };
+    const { width, elementId } = attributes;
     const deviceType = getDeviceType();
     const gutenverseSelector = select('gutenverse/style');
-    const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
+    const currentWidth = attributes.width[deviceType] || attributes.width['Desktop'];
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
 
-    if ('only' === position) {
+    if (position === 'only') {
         let deviceCache = width;
         let nWidth = parseFloat(newWidth.toFixed(1));
-
-        if (nWidth < minWidth[deviceType]) {
-            nWidth = minWidth[deviceType];
-        }
-
-        if (nWidth > 100) {
-            nWidth = 100;
-        }
-
+        nWidth = Math.max(minWidth[deviceType], Math.min(nWidth, 100));
         deviceCache[deviceType] = nWidth;
-        addStyle(
-            'column-width',
-            BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-        );
+        addStyle('column-width', BuildColumnWidthStyle(deviceCache, `.${elementId}`));
         setAttributes({ width: { ...props.attributes.width, [deviceType]: nWidth } });
         return;
     }
 
-    const bothWidth = (parseFloat(currentWidth) + parseFloat(targetWidth[deviceType] ? targetWidth[deviceType] : targetWidth['Desktop']));
-    const targetColumnStyle = gutenverseSelector.findElement(targetId) ? gutenverseSelector.findElement(targetId).addStyle : null;
+    const bothWidth = parseFloat(currentWidth) + parseFloat(targetWidth[deviceType] || targetWidth['Desktop']);
+    const targetColumnStyle = gutenverseSelector.findElement(targetId)?.addStyle;
     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
 
-    let newCurentWidth = newWidth.toFixed(1);
-    let newTargetWidth = bothWidth.toFixed(1) - newWidth.toFixed(1);
-
-    if (newCurentWidth > (bothWidth - minWidth[deviceType])) {
-        newCurentWidth = bothWidth - minWidth[deviceType];
-        newTargetWidth = minWidth[deviceType];
-    }
-
-    if (newCurentWidth < minWidth[deviceType]) {
-        newCurentWidth = minWidth[deviceType];
-        newTargetWidth = bothWidth - minWidth[deviceType];
-    }
-
-    if (newTargetWidth < minWidth[deviceType]) {
-        newTargetWidth = minWidth[deviceType];
-        newCurentWidth = bothWidth - minWidth[deviceType];
-    }
+    let newCurentWidth = Math.max(minWidth[deviceType], Math.min(newWidth.toFixed(1), bothWidth - minWidth[deviceType]));
+    let newTargetWidth = bothWidth - newCurentWidth;
 
     if (deviceType !== 'Desktop') {
-        newCurentWidth = newWidth.toFixed(1);
-        if (newCurentWidth < minWidth[deviceType]) {
-            newCurentWidth = minWidth[deviceType];
-        }
-        if (newCurentWidth > 100) {
-            newCurentWidth = 100;
-        }
+        newCurentWidth = Math.max(minWidth[deviceType], Math.min(newWidth.toFixed(1), 100));
     }
 
     newCurentWidth = parseFloat(newCurentWidth);
     newTargetWidth = parseFloat(newTargetWidth);
 
     let deviceCache = width;
-    deviceCache[deviceType] = parseFloat(newCurentWidth);
+    deviceCache[deviceType] = newCurentWidth;
 
-    addStyle(
-        'column-width',
-        BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-    );
+    addStyle('column-width', BuildColumnWidthStyle(deviceCache, `.${elementId}`));
 
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = newTargetWidth;
-        targetColumnStyle(
-            'column-width',
-            `.guten-column.${targetColumnElementId} { width: ${newTargetWidth}%; }`
-        );
+        targetColumnStyle('column-width', `.guten-column.${targetColumnElementId} { width: ${newTargetWidth}%; }`);
     }
-    const newWidths = {
-        current: newCurentWidth,
-        target: newTargetWidth
-    };
-    const nextColumnWidthAttr = getBlock(targetId).attributes.width;
 
-    setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidths.current } });
+    const nextColumnWidthAttr = getBlock(targetId).attributes.width;
+    setAttributes({ width: { ...props.attributes.width, [deviceType]: newCurentWidth } });
     if (deviceType === 'Desktop') {
-        updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidths.target } });
+        updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newTargetWidth } });
     }
 };
 
 const onResizeStart = (props, p) => {
-    const {
-        clientId,
-        attributes,
-        setTargetBlock,
-        getBlock,
-        getNextBlockClientId,
-        getPreviousBlockClientId,
-        getBlockParents,
-        setParentBlockWidth,
-        setCurentBlockWidth,
-        setTargetId,
-        setParentId,
-        editorDom,
-        setOpenTool,
-        setTotalWidth
-    } = props;
+    const { clientId, attributes, setTargetBlock, getBlock, getNextBlockClientId, getPreviousBlockClientId, getBlockParents, setParentBlockWidth, setCurentBlockWidth, setTargetId, setParentId, editorDom, setOpenTool, setTotalWidth } = props;
 
     const parentClientId = getBlockParents(clientId, true)[0];
     const deviceType = getDeviceType();
     const parentBlock = getBlock(parentClientId);
     if (deviceType === 'Desktop') {
-        parentBlock.innerBlocks.map(({ clientId }) => {
+        parentBlock.innerBlocks.forEach(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.add('dragging');
+            toolTip?.classList.add('dragging');
         });
     }
 
-    let targetId = '';
-
-    if ('right' === p) {
-        targetId = getNextBlockClientId(clientId);
-    } else {
-        targetId = getPreviousBlockClientId(clientId);
-    }
-
+    let targetId = p === 'right' ? getNextBlockClientId(clientId) : getPreviousBlockClientId(clientId);
     const targetBlock = getBlock(targetId);
-
     const parentElement = editorDom.querySelector(`.wp-block[data-block="${parentClientId}"] .guten-container`);
     const domParentWidth = parentElement?.offsetWidth;
-    const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
+    const currentWidth = attributes.width[deviceType] || attributes.width['Desktop'];
 
     setCurentBlockWidth(currentWidth);
     setParentBlockWidth(domParentWidth);
     if (deviceType === 'Desktop') {
-        const targetWidth = targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop'];
+        const targetWidth = targetBlock.attributes.width[deviceType] || targetBlock.attributes.width['Desktop'];
         setTargetBlock(targetWidth);
         setTargetId(targetId);
         setParentId(parentClientId);
@@ -210,29 +119,14 @@ const onResizeStart = (props, p) => {
 };
 
 const onResize = (props, off) => {
-    const {
-        clientId,
-        addStyle,
-        targetBlock,
-        getBlock,
-        parentBlockWidth,
-        curentBlockWidth,
-        targetId,
-        setNewWidth,
-        totalWidth
-    } = props;
+    const { clientId, addStyle, targetBlock, getBlock, parentBlockWidth, curentBlockWidth, targetId, setNewWidth, totalWidth } = props;
 
-    const minWidth = {
-        Desktop: 5,
-        Tablet: 10,
-        Mobile: 15,
-    };
-
+    const minWidth = { Desktop: 5, Tablet: 10, Mobile: 15 };
     const deviceType = getDeviceType();
     const gutenverseSelector = select('gutenverse/style');
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
     const curentWidth = clientId ? getBlock(clientId).attributes.width : null;
-    const targetColumnStyle = gutenverseSelector.findElement(targetId) ? gutenverseSelector.findElement(targetId).addStyle : null;
+    const targetColumnStyle = gutenverseSelector.findElement(targetId)?.addStyle;
     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
     const currentColumnElementId = getBlock(clientId).attributes.elementId;
     const targetBlockPx = (targetBlock / 100) * parentBlockWidth;
@@ -243,51 +137,24 @@ const onResize = (props, off) => {
     const targetModPercent = ((((targetModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
     const bothModPercent = parseFloat((parseFloat(curentModPercent) + parseFloat(targetModPercent))).toFixed(1);
 
-    let calcCurentModPercent = curentModPercent;
-    let calcTargetModPercent = targetModPercent;
-
-    if (calcCurentModPercent < minWidth[deviceType]) {
-        calcCurentModPercent = minWidth[deviceType];
-        calcTargetModPercent = bothModPercent - minWidth[deviceType];
-    }
-
-    if (calcTargetModPercent < minWidth[deviceType]) {
-        calcTargetModPercent = minWidth[deviceType];
-        calcCurentModPercent = bothModPercent - minWidth[deviceType];
-    }
+    let calcCurentModPercent = Math.max(minWidth[deviceType], Math.min(curentModPercent, bothModPercent - minWidth[deviceType]));
+    let calcTargetModPercent = bothModPercent - calcCurentModPercent;
 
     if (deviceType !== 'Desktop') {
-        calcCurentModPercent = curentModPercent;
-        if (calcCurentModPercent < minWidth[deviceType]) {
-            calcCurentModPercent = minWidth[deviceType];
-        }
-        if (calcCurentModPercent > 100) {
-            calcCurentModPercent = 100;
-        }
+        calcCurentModPercent = Math.max(minWidth[deviceType], Math.min(curentModPercent, 100));
     }
 
-    calcCurentModPercent = parseFloat(calcCurentModPercent);
-    calcTargetModPercent = parseFloat(calcTargetModPercent);
-
-    // Need to force column to fit with previous total width.
     if (deviceType === 'Desktop' && calcCurentModPercent + calcTargetModPercent > totalWidth) {
         calcTargetModPercent = calcTargetModPercent - 0.1;
     }
 
     curentWidth[deviceType] = calcCurentModPercent;
 
-    // Update attribute
-    addStyle(
-        'column-width',
-        BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
-    );
+    addStyle('column-width', BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`));
 
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = calcTargetModPercent;
-        targetColumnStyle(
-            'column-width',
-            `.guten-column.${targetColumnElementId} { width: ${calcTargetModPercent}%; }`
-        );
+        targetColumnStyle('column-width', `.guten-column.${targetColumnElementId} { width: ${calcTargetModPercent}%; }`);
     }
 
     setNewWidth({
@@ -300,22 +167,13 @@ const onResize = (props, off) => {
 };
 
 const onResizeStop = (props) => {
-    const {
-        parentId,
-        getBlock,
-        newWidth,
-        setAttributes,
-        updateBlockAttributes,
-        targetId,
-        editorDom,
-        setOpenTool
-    } = props;
+    const { parentId, getBlock, newWidth, setAttributes, updateBlockAttributes, targetId, editorDom, setOpenTool } = props;
     const deviceType = getDeviceType();
     const parentBlock = getBlock(parentId);
     if (parentBlock) {
-        parentBlock.innerBlocks.map(({ clientId }) => {
+        parentBlock.innerBlocks.forEach(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.remove('dragging');
+            toolTip?.classList.remove('dragging');
         });
     }
 
@@ -323,16 +181,10 @@ const onResizeStop = (props) => {
         setOpenTool(false);
     }
 
-
     if (newWidth.current && newWidth.target && newWidth.targetStyle) {
-        // Update style again to avoid missmatch with width style
         newWidth.targetWidth[deviceType] = newWidth.target;
-        newWidth.targetColumnStyle(
-            'column-width',
-            `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
-        );
+        newWidth.targetColumnStyle('column-width', `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`);
         const nextColumnWidthAttr = getBlock(targetId).attributes.width;
-
         setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
         if (deviceType === 'Desktop') {
             updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
@@ -340,59 +192,22 @@ const onResizeStop = (props) => {
     }
 };
 
-// Column Placeholder component
 const ColumnPlaceholder = (props) => {
     const deviceType = getDeviceType();
-    const {
-        blockProps,
-        clientId,
-        stickyFlagRef,
-        columnWrapRef,
-        sticky = {},
-        stickyPosition,
-        eSelect,
-        isHovered,
-        position,
-        attributes,
-        openTool,
-        setOpenTool,
-        HoverIcon,
-        editorDom
-    } = props;
+    const { blockProps, clientId, stickyFlagRef, columnWrapRef, sticky = {}, stickyPosition, eSelect, isHovered, position, attributes, openTool, setOpenTool, HoverIcon, editorDom } = props;
+    const { width } = attributes;
+    const wvalue = useMemo(() => width ? width[deviceType] || width['Desktop'] : 10, [width, deviceType]);
 
-    const {
-        width,
-    } = attributes;
+    const wrapperClass = classnames('guten-column-wrapper', {
+        ['guten-sticky']: isSticky(sticky),
+        [`sticky-${stickyPosition}`]: isSticky(sticky),
+    });
 
-    const wvalue = useMemo(() => width ? width[deviceType] ? width[deviceType] : width['Desktop'] : 10, [width]);
+    const resizeStart = useCallback((e, p) => onResizeStart(props, p), [props]);
+    const resize = useCallback((e, p, t, d) => onResize(props, d.width), [props]);
+    const resizeStop = useCallback(() => onResizeStop(props), [props]);
 
-    const wrapperClass = classnames(
-        'guten-column-wrapper',
-        {
-            ['guten-sticky']: isSticky(sticky),
-            [`sticky-${stickyPosition}`]: isSticky(sticky),
-        }
-    );
-
-    const resizeStart = useCallback((e, p) => {
-        onResizeStart(props, p);
-    }, [props]);
-
-    const resize = useCallback((e, p, t, d) => {
-        onResize(props, d.width);
-    }, [props]);
-
-    const resizeStop = useCallback(() => {
-        onResizeStop(props);
-    }, [props]);
-
-    const {
-        getBlock,
-        getBlockParents
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    const { getBlock, getBlockParents } = useSelect((select) => select('core/block-editor'), []);
     const parentClientId = getBlockParents(clientId, true)[0];
     const parentBlock = getBlock(parentClientId);
 
@@ -400,30 +215,30 @@ const ColumnPlaceholder = (props) => {
 
     const onOpen = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.add('dragging');
+                toolTip?.classList.add('dragging');
             });
         }
-    }, [parentBlock]);
+    }, [parentBlock, editorDom, deviceType]);
 
     const onClose = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.remove('dragging');
+                toolTip?.classList.remove('dragging');
             });
         }
-    }, [parentBlock]);
+    }, [parentBlock, editorDom, deviceType]);
 
     return (
         <div {...blockProps}>
             <ResizableBox
                 enable={{
                     top: false,
-                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
+                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position,
                     bottom: false,
-                    left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType ? true : false,
+                    left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType,
                     topRight: false,
                     bottomRight: false,
                     bottomLeft: false,
@@ -446,27 +261,8 @@ const ColumnPlaceholder = (props) => {
                     </div>
                 </div>
                 {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
-                    <div
-                        onMouseEnter={() => {
-                            onOpen();
-                        }}
-                        onMouseLeave={() => {
-                            onClose();
-                        }}
-                    >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() => {
-                        onOpen();
-                        setOpenTool(true);
-                    }} onBlur={() => {
-                        onClose();
-                        setOpenTool(false);
-                    }} onMouseEnter={() => {
-                        onOpen();
-                    }} onMouseLeave={() => {
-                        if (!openTool) {
-                            onClose();
-                        }
-                    }}>
+                    <div onMouseEnter={onOpen} onMouseLeave={onClose}>{HoverIcon}</div>
+                    <div className={'column-popup'} onFocus={() => { onOpen(); setOpenTool(true); }} onBlur={() => { onClose(); setOpenTool(false); }} onMouseEnter={onOpen} onMouseLeave={() => { if (!openTool) onClose(); }}>
                         <div>
                             <input
                                 type="number"
@@ -475,17 +271,8 @@ const ColumnPlaceholder = (props) => {
                                 value={parseFloat(wvalue).toFixed(1)}
                                 onChange={(event) => {
                                     const newWidth = parseFloat(event.target.value);
-                                    let theWidth = 0;
-                                    if (isNaN(newWidth)) {
-                                        theWidth = parseFloat(wvalue);
-                                    } else {
-                                        theWidth = newWidth;
-                                    }
-                                    const theProps = {
-                                        ...props,
-                                        newWidth: parseFloat(theWidth),
-                                        position,
-                                    };
+                                    let theWidth = isNaN(newWidth) ? parseFloat(wvalue) : newWidth;
+                                    const theProps = { ...props, newWidth: parseFloat(theWidth), position };
                                     toolResize(theProps);
                                 }}
                                 onKeyDown={(event) => {
@@ -504,77 +291,28 @@ const ColumnPlaceholder = (props) => {
     );
 };
 
-// Column InnerBlocks Wrapper component
 const ColumnWrapper = (props) => {
-    const {
-        getBlocks
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    const { getBlocks } = useSelect((select) => select('core/block-editor'), []);
     const deviceType = getDeviceType();
-    const {
-        clientId,
-        blockProps,
-        columnWrapRef,
-        stickyFlagRef,
-        sticky = {},
-        stickyPosition,
-        eSelect,
-        isHovered,
-        position,
-        attributes,
-        openTool,
-        setOpenTool,
-        HoverIcon,
-        editorDom,
-        slideElement
-    } = props;
-
-    const {
-        elementId,
-        width,
-        backgroundAnimated = {},
-        backgroundEffect,
-        background,
-    } = attributes;
-
+    const { clientId, blockProps, columnWrapRef, stickyFlagRef, sticky = {}, stickyPosition, eSelect, isHovered, position, attributes, openTool, setOpenTool, HoverIcon, editorDom, slideElement } = props;
+    const { elementId, width, backgroundAnimated = {}, backgroundEffect, background } = attributes;
     const dataId = elementId ? elementId.split('-')[1] : '';
-
-    const wvalue = width[deviceType] ? width[deviceType] : width['Desktop'];
-
+    const wvalue = width[deviceType] || width['Desktop'];
     const blocks = getBlocks(clientId);
-    const size = getBlocks(clientId).length;
+    const size = blocks.length;
     const clientColumnId = size > 1 ? blocks[0].clientId : clientId;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
-    const wrapperClass = classnames(
-        'guten-column-wrapper',
-        {
-            ['guten-sticky']: isSticky(sticky),
-            [`sticky-${stickyPosition}`]: isSticky(sticky),
-        }
-    );
+    const wrapperClass = classnames('guten-column-wrapper', {
+        ['guten-sticky']: isSticky(sticky),
+        [`sticky-${stickyPosition}`]: isSticky(sticky),
+    });
 
-    const resizeStart = (e, p) => {
-        onResizeStart(props, p);
-    };
+    const resizeStart = (e, p) => onResizeStart(props, p);
+    const resize = (e, p, t, d) => onResize(props, d.width);
+    const resizeStop = () => onResizeStop(props);
 
-    const resize = (e, p, t, d) => {
-        onResize(props, d.width);
-    };
-
-    const resizeStop = () => {
-        onResizeStop(props);
-    };
-
-    const {
-        getBlock,
-        getBlockParents
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    const { getBlock, getBlockParents } = useSelect((select) => select('core/block-editor'), []);
     const parentClientId = getBlockParents(clientId, true)[0];
     const parentBlock = getBlock(parentClientId);
 
@@ -582,18 +320,18 @@ const ColumnWrapper = (props) => {
 
     const onOpen = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.add('dragging');
+                toolTip?.classList.add('dragging');
             });
         }
     };
 
     const onClose = () => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.remove('dragging');
+                toolTip?.classList.remove('dragging');
             });
         }
     };
@@ -603,9 +341,9 @@ const ColumnWrapper = (props) => {
             <ResizableBox
                 enable={{
                     top: false,
-                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
+                    right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position,
                     bottom: false,
-                    left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType ? true : false,
+                    left: 'first' !== position && 'only' !== position && 'Desktop' === deviceType,
                     topRight: false,
                     bottomRight: false,
                     bottomLeft: false,
@@ -638,20 +376,7 @@ const ColumnWrapper = (props) => {
                 </div>
                 {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div onMouseEnter={onOpen} onMouseLeave={onClose}>{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() => {
-                        onOpen();
-                        setOpenTool(true);
-                    }} onBlur={() => {
-                        onClose();
-                        setOpenTool(false);
-                    }}
-                    onMouseEnter={onOpen}
-                    onMouseLeave={() => {
-                        if (!openTool) {
-                            onClose();
-                        }
-                    }}
-                    >
+                    <div className={'column-popup'} onFocus={() => { onOpen(); setOpenTool(true); }} onBlur={() => { onClose(); setOpenTool(false); }} onMouseEnter={onOpen} onMouseLeave={() => { if (!openTool) onClose(); }}>
                         <div>
                             <input
                                 type="number"
@@ -660,17 +385,8 @@ const ColumnWrapper = (props) => {
                                 value={parseFloat(wvalue).toFixed(1)}
                                 onChange={(event) => {
                                     const newWidth = parseFloat(event.target.value);
-                                    let theWidth = 0;
-                                    if (isNaN(newWidth)) {
-                                        theWidth = parseFloat(wvalue);
-                                    } else {
-                                        theWidth = newWidth;
-                                    }
-                                    const theProps = {
-                                        ...props,
-                                        newWidth: parseFloat(theWidth),
-                                        position,
-                                    };
+                                    let theWidth = isNaN(newWidth) ? parseFloat(wvalue) : newWidth;
+                                    const theProps = { ...props, newWidth: parseFloat(theWidth), position };
                                     toolResize(theProps);
                                 }}
                                 onKeyDown={(event) => {
@@ -691,69 +407,43 @@ const ColumnWrapper = (props) => {
                         clientId={clientColumnId}
                     />
                 </div>}
-
             </ResizableBox>
         </div>
     );
 };
 
-// Column Block Control
-const ColumnInspection = (props) => {
-    return <PanelController panelList={panelList} {...props} />;
-};
+const ColumnInspection = (props) => <PanelController panelList={panelList} {...props} />;
 
 const ColumnRemove = (props) => {
     const { clientId } = props;
-    const {
-        removeBlocks,
-    } = dispatch('core/block-editor');
+    const { removeBlocks } = dispatch('core/block-editor');
 
-    const removeColumn = () => {
-        removeBlocks(clientId, false);
-    };
+    const removeColumn = () => removeBlocks(clientId, false);
 
     return <ToolbarButton
         name="remove-column"
         icon={<IconToolbarColumnDeleteSVG />}
         title={__('Remove Column', '--gctd--')}
-        onClick={() => removeColumn()}
+        onClick={removeColumn}
     />;
 };
 
 const ColumnAdd = (props) => {
-    const {
-        clientId,
-        updateBlockWidth,
-        adjacentBlock
-    } = props;
-    const {
-        insertBlock,
-    } = dispatch('core/block-editor');
+    const { clientId, updateBlockWidth, adjacentBlock } = props;
+    const { insertBlock } = dispatch('core/block-editor');
     const blockCount = adjacentBlock.length;
 
-    const {
-        getBlocks,
-        getBlockRootClientId
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    const { getBlocks, getBlockRootClientId } = useSelect((select) => select('core/block-editor'), []);
 
     const addNewColumn = () => {
         const width = roundToDown(100 / (blockCount + 1), 1);
-        const newChild = createBlock('gutenverse/column', {
-            width: {
-                Desktop: width
-            }
-        });
+        const newChild = createBlock('gutenverse/column', { width: { Desktop: width } });
         const rootClientId = getBlockRootClientId(clientId);
 
-        adjacentBlock.map(item => {
-            updateBlockWidth(item.clientId, width);
-        });
+        adjacentBlock.forEach(item => updateBlockWidth(item.clientId, width));
 
         let insertIndex = 0;
-        getBlocks(rootClientId).map((block, index) => {
+        getBlocks(rootClientId).forEach((block, index) => {
             if (block.clientId === clientId) {
                 insertIndex = index + 1;
             }
@@ -766,21 +456,19 @@ const ColumnAdd = (props) => {
         name="add-column"
         icon={<IconToolbarColumnAddSVG />}
         title={__('Add Column', '--gctd--')}
-        onClick={() => addNewColumn()}
+        onClick={addNewColumn}
     />;
 };
 
-const ColumnBlockControl = (props) => {
-
-    return <BlockControls>
+const ColumnBlockControl = (props) => (
+    <BlockControls>
         <ToolbarGroup>
             <ColumnAdd {...props} />
             <ColumnRemove {...props} />
         </ToolbarGroup>
-    </BlockControls>;
-};
+    </BlockControls>
+);
 
-// Column Block edit component
 const ColumnBlock = compose(
     withPartialRender,
     withCustomStyle(panelList),
@@ -793,43 +481,10 @@ const ColumnBlock = compose(
     withCursorEffect,
     withBackgroundSlideshow,
 )((props) => {
-    const {
-        getBlock,
-        getBlocks,
-        getBlockOrder,
-        getBlockRootClientId,
-        getNextBlockClientId,
-        getPreviousBlockClientId,
-        getBlockParents
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
-
-    const {
-        updateBlockAttributes,
-    } = dispatch('core/block-editor');
-
-    const {
-        clientId,
-        attributes,
-        setAttributes,
-        setElementRef,
-        deviceType,
-        isSelected,
-    } = props;
-
-    const {
-        elementId,
-        verticalAlign,
-        horizontalAlign,
-        width,
-        sticky = {},
-        stickyPosition,
-        backgroundAnimated = {},
-        backgroundEffect
-    } = attributes;
-
+    const { getBlock, getBlocks, getBlockOrder, getBlockRootClientId, getNextBlockClientId, getPreviousBlockClientId, getBlockParents } = useSelect((select) => select('core/block-editor'), []);
+    const { updateBlockAttributes } = dispatch('core/block-editor');
+    const { clientId, attributes, setAttributes, setElementRef, deviceType, isSelected } = props;
+    const { elementId, verticalAlign, horizontalAlign, width, sticky = {}, stickyPosition, backgroundAnimated = {}, backgroundEffect } = attributes;
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
     const columnRef = useRef();
@@ -844,48 +499,32 @@ const ColumnBlock = compose(
     const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
-    const updateBlockWidth = (clientId, eachWidth) => {
-        const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
+    const updateBlockWidth = useCallback((clientId, eachWidth) => {
+        const targetColumnStyle = gutenverseSelector.findElement(clientId)?.addStyle;
         const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
         const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
         const targetColumnWidthAttr = getBlock(clientId).attributes.width;
 
         if (targetColumnStyle) {
             targetWidth[deviceType] = eachWidth;
-            targetColumnStyle(
-                'column-width',
-                `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`
-            );
-            updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
+            targetColumnStyle('column-width', `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`);
+            updateBlockAttributes(clientId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
         }
-    };
+    }, [deviceType, gutenverseSelector, getBlock, updateBlockAttributes]);
 
-    const getChildTotalWidth = () => {
+    const getChildTotalWidth = useCallback(() => {
         let total = 0;
-
-        getBlocks(rootClientId).map(item => {
+        getBlocks(rootClientId).forEach(item => {
             const { name, attributes } = item;
-
             if (name === 'gutenverse/column') {
                 const { width } = attributes;
-                let Desktop = 0;
-
-                if (width !== undefined) {
-                    Desktop = width.Desktop;
-                } else {
-                    Desktop = 100;
-                }
-
-                if (isNaN(Desktop)) {
-                    Desktop = 5;
-                }
-
+                let Desktop = width?.Desktop || 100;
+                if (isNaN(Desktop)) Desktop = 5;
                 total += Desktop;
             }
         });
-
         return total;
-    };
+    }, [getBlocks, rootClientId]);
 
     useEffect(() => {
         const eachWidth = roundToDown(100 / adjacentCount, 1);
@@ -897,11 +536,9 @@ const ColumnBlock = compose(
         } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
             const innerBlocks = getBlocks(rootClientId);
             setPrevAdjacentCount(adjacentCount);
-            innerBlocks.map(item => {
-                updateBlockWidth(item.clientId, eachWidth);
-            });
+            innerBlocks.forEach(item => updateBlockWidth(item.clientId, eachWidth));
         }
-    }, [adjacentCount]);
+    }, [adjacentCount, getChildTotalWidth, prevAdjacentCount, setAttributes, width, deviceType, getBlocks, rootClientId, updateBlockWidth]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
     const horizontal = setDeviceClasses(horizontalAlign, 'horizontal');
@@ -918,44 +555,38 @@ const ColumnBlock = compose(
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
     const styleRef = useRef(null);
 
-    // useEffect(() => {
-    //     if (isFSE()) {
-    //         setTimeout(() => {
-    //             const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //             if (iframeEl) {
-    //                 if (iframeEl.contentDocument.body.innerHTML === '') {
-    //                     setTimeout(() => {
-    //                         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //                         if (iframeEl) {
-    //                             setEditorDom(iframeEl.contentDocument.body);
-    //                         }
-    //                     }, 200);
-    //                 } else {
-    //                     setEditorDom(iframeEl.contentDocument.body);
-    //                 }
-    //             } else {
-    //                 setEditorDom(document.querySelector('.editor-styles-wrapper'));
-    //             }
-    //         }, 200);
-    //     } else {
-    //         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //         if (iframeEl) {
-    //             setEditorDom(iframeEl.contentDocument.body);
-    //         } else {
-    //             setEditorDom(document.querySelector('.editor-styles-wrapper'));
-    //         }
-    //     }
-    // }, [deviceType]);
+    useEffect(() => {
+        if (isFSE()) {
+            setTimeout(() => {
+                const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                if (iframeEl) {
+                    if (iframeEl.contentDocument.body.innerHTML === '') {
+                        setTimeout(() => {
+                            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                            if (iframeEl) {
+                                setEditorDom(iframeEl.contentDocument.body);
+                            }
+                        }, 200);
+                    } else {
+                        setEditorDom(iframeEl.contentDocument.body);
+                    }
+                } else {
+                    setEditorDom(document.querySelector('.editor-styles-wrapper'));
+                }
+            }, 200);
+        } else {
+            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+            if (iframeEl) {
+                setEditorDom(iframeEl.contentDocument.body);
+            } else {
+                setEditorDom(document.querySelector('.editor-styles-wrapper'));
+            }
+        }
+    }, [deviceType]);
 
-    const HoverIcon = <>
-        <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
-        </svg></>;
+    const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" /></svg>;
 
-    const stickyClasses = Object.keys(sticky)
-        .filter((device) => sticky[device])
-        .map((device) => `sticky-${device.toLowerCase()}`)
-        .join(' ');
+    const stickyClasses = Object.keys(sticky).filter((device) => sticky[device]).map((device) => `sticky-${device.toLowerCase()}`).join(' ');
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -979,19 +610,15 @@ const ColumnBlock = compose(
             }
         ),
         ref: columnRef,
-        onMouseEnter: () => {
-            setIsHovered(true);
-        },
-        onMouseLeave: () => {
-            setIsHovered(false);
-        },
+        onMouseEnter: () => setIsHovered(true),
+        onMouseLeave: () => setIsHovered(false),
     });
 
     useEffect(() => {
         if (columnRef.current) {
             setElementRef(columnRef.current);
         }
-    }, [columnRef]);
+    }, [columnRef, setElementRef]);
 
     const theProps = {
         ...props,
