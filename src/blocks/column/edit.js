@@ -555,34 +555,34 @@ const ColumnBlock = compose(
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
     const styleRef = useRef(null);
 
-    useEffect(() => {
-        if (isFSE()) {
-            setTimeout(() => {
-                const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-                if (iframeEl) {
-                    if (iframeEl.contentDocument.body.innerHTML === '') {
-                        setTimeout(() => {
-                            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-                            if (iframeEl) {
-                                setEditorDom(iframeEl.contentDocument.body);
-                            }
-                        }, 200);
-                    } else {
-                        setEditorDom(iframeEl.contentDocument.body);
-                    }
-                } else {
-                    setEditorDom(document.querySelector('.editor-styles-wrapper'));
-                }
-            }, 200);
-        } else {
-            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-            if (iframeEl) {
-                setEditorDom(iframeEl.contentDocument.body);
-            } else {
-                setEditorDom(document.querySelector('.editor-styles-wrapper'));
-            }
-        }
-    }, [deviceType]);
+    // useEffect(() => {
+    //     if (isFSE()) {
+    //         setTimeout(() => {
+    //             const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //             if (iframeEl) {
+    //                 if (iframeEl.contentDocument.body.innerHTML === '') {
+    //                     setTimeout(() => {
+    //                         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //                         if (iframeEl) {
+    //                             setEditorDom(iframeEl.contentDocument.body);
+    //                         }
+    //                     }, 200);
+    //                 } else {
+    //                     setEditorDom(iframeEl.contentDocument.body);
+    //                 }
+    //             } else {
+    //                 setEditorDom(document.querySelector('.editor-styles-wrapper'));
+    //             }
+    //         }, 200);
+    //     } else {
+    //         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //         if (iframeEl) {
+    //             setEditorDom(iframeEl.contentDocument.body);
+    //         } else {
+    //             setEditorDom(document.querySelector('.editor-styles-wrapper'));
+    //         }
+    //     }
+    // }, [deviceType]);
 
     const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" /></svg>;
 
