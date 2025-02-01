@@ -5,7 +5,7 @@ import { typographyGenerator } from './generator/generator-typography';
 import { textShadowCSS } from './generator/generator-text-shadow';
 import { textStrokeGenerator } from './generator/generator-text-stroke';
 import cryptoRandomString from 'crypto-random-string';
-import { Helmet, u } from 'gutenverse-core/components';
+import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
@@ -155,10 +155,14 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
             createElementId(clientId);
         } else {
             const { getBlocks } = select('core/block-editor');
-            const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-            const parent = u(elementRef).closest('html');
-            if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
-                createElementId(clientId);
+            const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+            if (windowEl?.document) {
+                const htmlEl = windowEl.document.getElementsByTagName('html')[0];
+                if (!htmlEl.classList.contains('block-editor-block-preview__content-iframe')) {
+                    if (recursiveDuplicateCheck(getBlocks(), clientId, elementId)) {
+                        createElementId(clientId);
+                    }
+                }
             }
         }
     }, []);
@@ -170,9 +174,9 @@ const createElementId = (clientId) => {
     updateBlockAttributes(clientId, { 'elementId': uniqueId });
 };
 
-export const headStyleSheet = (fontUsed, styleRef) => {
-    if (styleRef.current) {
-        const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
+export const headStyleSheet = (fontUsed, elementRef) => {
+    if (elementRef.current) {
+        const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
         if (windowEl?.document) {
             const headEl = windowEl.document.getElementsByTagName('head')[0];
             return (
