@@ -1,5 +1,5 @@
 /* External dependencies */
-import {useRef } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
@@ -45,10 +45,11 @@ const HeadingBlockControl = (props) => {
 };
 
 const HeadingInspection = (props) => {
-    const { panelProps, isSelected } = props;
+    const { panelProps, isSelected, setAttributes } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
+        setAttributes
     };
     return <PanelController
         panelList={panelList}
@@ -59,7 +60,6 @@ const HeadingInspection = (props) => {
 };
 
 const HeadingBlock = compose(
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
 )(props => {
 
@@ -67,7 +67,6 @@ const HeadingBlock = compose(
         attributes,
         setAttributes,
         clientId,
-        setPanelState,
     } = props;
 
     let {
@@ -75,12 +74,12 @@ const HeadingBlock = compose(
         type,
     } = attributes;
 
+    const elementRef = useRef({});
     useGenerateElementId(clientId, elementId, elementRef);
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
-    const elementRef = useRef(null);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -97,6 +96,7 @@ const HeadingBlock = compose(
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
         <RichTextComponent
+            ref={elementRef}
             isBlockProps={true}
             blockProps={blockProps}
             tagName={tagName}
@@ -110,7 +110,6 @@ const HeadingBlock = compose(
             panelPosition={{ panel: 'style', section: 2 }}
             panelDynamic={{ panel: 'setting', section: 1 }}
             contentAttribute={'content'}
-            setPanelState={setPanelState}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
             isUseDinamic={true}
