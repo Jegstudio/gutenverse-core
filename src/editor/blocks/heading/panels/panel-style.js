@@ -12,7 +12,11 @@ export const stylePanel = (props) => {
         useStyleInLink = false,
     } = props;
 
-    const linkStyle = useStyleInLink ? `, .guten-element.${elementId} a, .guten-element.${elementId} a *, .guten-element.${elementId} a:hover, .guten-element.${elementId} a:hover *` : '';
+    const linkStyle = useStyleInLink ? `
+        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
 
     return [
         {

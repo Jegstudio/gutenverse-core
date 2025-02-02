@@ -70,7 +70,11 @@ class Heading extends Style_Abstract {
 
 		$link_style = '';
 		if ( isset( $this->attrs['useStyleInLink'] ) ) {
-			$link_style = $this->attrs['useStyleInLink'] ? ", .guten-element.{$this->element_id} a, .guten-element.{$this->element_id} a *, .guten-element.{$this->element_id} a:hover, .guten-element.{$this->element_id} a:hover *" : '';
+			$link_style = $this->attrs['useStyleInLink'] ?
+				", .guten-element.{$this->element_id} a:not(.guten-text-highlight a), 
+				.guten-element.{$this->element_id} a:not(.guten-text-highlight a) *, 
+				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a), 
+				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a) *" : '';
 		}
 
 		if ( isset( $this->attrs['color'] ) ) {
