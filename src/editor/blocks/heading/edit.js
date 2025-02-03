@@ -76,10 +76,10 @@ const HeadingBlock = compose(
 
     const elementRef = useRef({});
     useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [generatedCSS, fontUsed] = useDynamicStyle(elementId, attributes, getBlockStyle);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -91,10 +91,9 @@ const HeadingBlock = compose(
     });
 
     return <>
-        {generatedCSS && <style ref={elementRef} id={elementId}>{generatedCSS}</style>}
-        {fontUsed[0] && headStyleSheet(fontUsed, elementRef)}
         <HeadingInspection {...props} />
         <HeadingBlockControl {...props} />
+        <span ref={elementRef} style={{ display: 'none' }}></span>
         <RichTextComponent
             ref={elementRef}
             isBlockProps={true}

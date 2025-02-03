@@ -3,7 +3,7 @@ const getBlockStyle = (elementId) => {
         {
             'type': 'plain',
             'id': 'textAlign',
-            'selector': `.${elementId}`,
+            'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
             'property': ['text-align'],
             'responsive': true,
         },
