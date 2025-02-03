@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from '@wordpress/element';
+import { useMemo, useEffect, useRef } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
@@ -14,6 +14,7 @@ import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
+import { debounce } from '@wordpress/compose';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -106,11 +107,7 @@ const mergeFontDevice = (fonts) => {
 };
 
 const getWindow = (elementRef) => {
-    if (elementRef.current) {
-        return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
-    }
-
-    return null;
+    return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
 };
 
 export const injectStyleTag = (css, theWindow) => {
@@ -123,22 +120,35 @@ export const injectStyleTag = (css, theWindow) => {
     cssElement.innerHTML = css;
 };
 
-const injectStyleToIFrame = (elementId, elementRef, css) => {
-    const theWindow = getWindow(elementRef);
-    let theCSS = '';
-
+const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
     if (!theWindow.gutenverseCSS) {
         theWindow.gutenverseCSS = {};
     }
+    if (remove) {
+        delete theWindow.gutenverseCSS[elementId];
+    } else {
+        theWindow.gutenverseCSS[elementId] = css;
+    }
 
-    theWindow.gutenverseCSS[elementId] = css;
-
-    Object.keys(theWindow.gutenverseCSS).map((key) => {
-        theCSS += `/* ${key} */ \n${theWindow.gutenverseCSS[key]}\n\n`;
-    });
-
-    injectStyleTag(theCSS, theWindow);
+    if (isFirstRun) {
+        initProcessStyleTag(theWindow);
+    } else {
+        processStyleTag(theWindow);
+    }
 };
+
+const generateCSS = (theWindow) => {
+    return Object.entries(theWindow.gutenverseCSS)
+        .reduce((css, [key, value]) => css + `/* ${key} */ \n${value}\n\n`, '');
+};
+
+const processStyleTag = (theWindow) => {
+    injectStyleTag(generateCSS(theWindow), theWindow);
+};
+
+const initProcessStyleTag = debounce((theWindow) => {
+    injectStyleTag(generateCSS(theWindow), theWindow);
+}, 500);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
@@ -181,13 +191,16 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         }
     }, [elementId, attributes]);
 
+    const isFirstRun = useRef(true);
+    const iframeWindowRef = useRef(null);
 
     useEffect(() => {
-        if (elementRef) {
-            injectStyleToIFrame(elementId, elementRef, generatedCSS);
+        if (elementRef.current && generatedCSS) {
+            iframeWindowRef.current = iframeWindowRef.current ? iframeWindowRef.current : getWindow(elementRef);
+            injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
         }
-
-        return () => console.log('element removed', elementId, elementRef);
+        isFirstRun.current = false;
+        return () => injectStyleToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
     }, [elementId, attributes, elementRef]);
 
 };
