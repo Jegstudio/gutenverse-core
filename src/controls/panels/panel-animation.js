@@ -6,17 +6,7 @@ export const animationPanel = (props) => {
     return [
         {
             id: 'animation',
-            component: AnimationControl,
-            style: [
-                {
-                    selector: selector ? selector : `.${elementId}`,
-                    allowRender: value => value,
-                    render: value => {
-                        const { delay = 100 } = value;
-                        return `animation-delay: ${delay / 1000}s;`;
-                    }
-                }
-            ]
+            component: AnimationControl
         }
     ];
 };

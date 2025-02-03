@@ -57,6 +57,7 @@ const generateCSSString = (attribute, style) => {
         Tablet: null,
         Mobile: null,
     };
+
     switch (type) {
         case 'typography':
             css = typographyGenerator(attribute, style, css);
@@ -112,9 +113,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             const deviceTypeMobile = [];
             const gatheredFont = [];
 
-            getBlockStyle(elementId).forEach((style) => {
+            getBlockStyle(elementId, attributes).forEach((style) => {
                 const { type, id } = style;
-                if (attributes[id]) {
+                if ( attributes[id] ) {
                     const value = attributes[id];
                     const css = generateCSSString(value, style);
 

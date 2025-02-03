@@ -1,5 +1,4 @@
 import { AES, enc, mode, pad } from 'crypto-js';
-import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
 import { useSetting, useSettings } from '@wordpress/block-editor';
@@ -721,3 +720,9 @@ export const dummyText = (minLength, maxLength) => {
     }
     return result.join(' ');
 };
+
+export const isEmpty = (val) => {
+    if (Array.isArray(val)) return val.length === 0; // Empty array
+    if (typeof val === 'object' && val !== null) return Object.keys(val).length === 0; // Empty object
+    return !val;
+}
