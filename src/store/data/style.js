@@ -38,8 +38,7 @@ export const styleAction = {
 
 export const styleSelector = {
     getStyle: (state) => {
-        console.log(state)
-        return state.blockStyle;
+        return state;
     }
 };
 

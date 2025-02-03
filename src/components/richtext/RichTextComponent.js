@@ -87,6 +87,7 @@ const RichTextComponent = (props) => {
         if(isBlockProps){
             return <RichText
                 {...blockProps}
+                ref={ref}
                 identifier={contentAttribute}
                 tagName={tagName}
                 value={content}
