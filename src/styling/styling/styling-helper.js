@@ -5,17 +5,18 @@ import { typographyGenerator } from './generator/generator-typography';
 import { textShadowCSS } from './generator/generator-text-shadow';
 import { textStrokeGenerator } from './generator/generator-text-stroke';
 import cryptoRandomString from 'crypto-random-string';
-import { Helmet, u } from 'gutenverse-core/components';
+import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck } from 'gutenverse-core/helper';
+import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
+    const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
     let css = [];
 
     if (Desktop.length) {
@@ -23,11 +24,11 @@ const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     }
 
     if (Tablet.length) {
-        css.push('@media only screen and (max-width: 1024px) {' + Tablet.join(' ') + '}');
+        css.push('@media only screen and (max-width: ' + tabletBreakpoint + 'px) {' + Tablet.join(' ') + '}');
     }
 
     if (Mobile.length) {
-        css.push('@media only screen and (max-width: 767px) {' + Mobile.join(' ') + '}');
+        css.push('@media only screen and (max-width: ' + mobileBreakpoint + 'px) {' + Mobile.join(' ') + '}');
     }
 
     return css.join(' ');
@@ -113,7 +114,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             const deviceTypeMobile = [];
             const gatheredFont = [];
 
-            getBlockStyle(elementId, attributes).forEach((style) => {
+            const blockStyles = getBlockStyle(elementId);
+            for (let index = 0; index < blockStyles.length; index++) {
+                const style = blockStyles[index];
                 const { type, id } = style;
                 if ( attributes[id] ) {
                     const value = attributes[id];
@@ -122,18 +125,19 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
                     css.Desktop && deviceTypeDesktop.push(css.Desktop);
                     css.Tablet && deviceTypeTablet.push(css.Tablet);
                     css.Mobile && deviceTypeMobile.push(css.Mobile);
-                }
-                if (type === 'typography' && attributes[id]) {
-                    const { font, weight } = attributes[id];
-                    if (font) {
-                        gatheredFont.push({
-                            font: font.value,
-                            type: font.type,
-                            weight: weight
-                        });
+
+                    if (type === 'typography') {
+                        const { font, weight } = attributes[id];
+                        if (font) {
+                            gatheredFont.push({
+                                font: font.value,
+                                type: font.type,
+                                weight: weight
+                            });
+                        }
                     }
                 }
-            });
+            }
 
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
@@ -148,14 +152,18 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
     useEffect(() => {
-        if( !elementId ){
+        if (!elementId) {
             createElementId(clientId);
-        }else{
+        } else {
             const { getBlocks } = select('core/block-editor');
-            const flag = recursiveDuplicateCheck(getBlocks(), clientId, elementId);
-            const parent = u(elementRef).closest('html');
-            if (flag && !parent.hasClass('block-editor-block-preview__content-iframe')) {
-                createElementId(clientId);
+            const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+            if (windowEl?.document) {
+                const htmlEl = windowEl.document.getElementsByTagName('html')[0];
+                if (!htmlEl.classList.contains('block-editor-block-preview__content-iframe')) {
+                    if (recursiveDuplicateCheck(getBlocks(), clientId, elementId)) {
+                        createElementId(clientId);
+                    }
+                }
             }
         }
     }, []);
@@ -163,13 +171,13 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
 
 const createElementId = (clientId) => {
     const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
-    const {updateBlockAttributes} = dispatch('core/block-editor');
-    updateBlockAttributes(clientId, {'elementId' : uniqueId });
+    const { updateBlockAttributes } = dispatch('core/block-editor');
+    updateBlockAttributes(clientId, { 'elementId': uniqueId });
 };
 
-export const headStyleSheet = (fontUsed, styleRef) => {
-    if (styleRef.current) {
-        const windowEl = styleRef.current.ownerDocument.defaultView || styleRef.current.ownerDocument.parentWindow;
+export const headStyleSheet = (fontUsed, elementRef) => {
+    if (elementRef.current) {
+        const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
         if (windowEl?.document) {
             const headEl = windowEl.document.getElementsByTagName('head')[0];
             return (
