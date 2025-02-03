@@ -2,6 +2,7 @@ import { AES, enc, mode, pad } from 'crypto-js';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
 import { useSetting, useSettings } from '@wordpress/block-editor';
+import { element } from 'prop-types';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -725,4 +726,38 @@ export const isEmpty = (val) => {
     if (Array.isArray(val)) return val.length === 0; // Empty array
     if (typeof val === 'object' && val !== null) return Object.keys(val).length === 0; // Empty object
     return !val;
-}
+};
+
+export const renderStyle = () => {
+    const blockStyles = select('gutenverse/blockstyle').getStyle();
+    if(blockStyles.length > 0){
+        let styleContent = '';
+        blockStyles.forEach(block => {
+            styleContent += block.style + ' ';
+        });
+        const iframeElements = document.getElementsByName('editor-canvas');   
+        if (iframeElements.length > 0) {
+            const iframeElement = iframeElements[0];
+            const iframeDoc = iframeElement.contentDocument || iframeElement.contentWindow.document;
+            let styleTag = iframeDoc.getElementById('gutenverse-style');
+            if(styleTag){
+                styleTag.remove();
+            }
+            styleTag = iframeDoc.createElement('style');
+            styleTag.id = 'gutenverse-style';
+            styleTag.innerHTML = styleContent;
+            const head = iframeDoc.head || iframeDoc.getElementsByTagName('head')[0];
+            head.appendChild(styleTag);
+        }else{
+            let styleTag = document.getElementById('gutenverse-style');
+            if(styleTag){
+                styleTag.remove();
+            }
+            styleTag = document.createElement('style');
+            styleTag.id = 'gutenverse-style';
+            styleTag.innerHTML = styleContent;
+            const head = document.head;
+            head.appendChild(styleTag);
+        }
+    }
+};

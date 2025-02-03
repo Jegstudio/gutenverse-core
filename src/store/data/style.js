@@ -15,6 +15,7 @@ export const styleReducer = (state = [], action) => {
                 return newState;
             }
         case 'REMOVE_STYLE':
+            console.log(state.filter(el => el.id !== action.id));
             return state.filter(el => el.id !== action.id);
         default:
             return state;
@@ -30,7 +31,7 @@ export const styleAction = {
     },
     deleteStyle: (id) => {
         return {
-            type: 'DELETE_VARIABLE_FONT',
+            type: 'REMOVE_STYLE',
             id
         };
     }

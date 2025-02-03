@@ -173,6 +173,7 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
     }, []);
 };
 
+
 const createElementId = (clientId) => {
     const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
     const { updateBlockAttributes } = dispatch('core/block-editor');
