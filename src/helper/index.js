@@ -728,6 +728,7 @@ export const isEmpty = (val) => {
     return !val;
 };
 
+
 export const renderStyle = () => {
     const blockStyles = select('gutenverse/blockstyle').getStyle();
     if(blockStyles.length > 0){
@@ -740,24 +741,22 @@ export const renderStyle = () => {
             const iframeElement = iframeElements[0];
             const iframeDoc = iframeElement.contentDocument || iframeElement.contentWindow.document;
             let styleTag = iframeDoc.getElementById('gutenverse-style');
-            if(styleTag){
-                styleTag.remove();
+            if(!styleTag){
+                styleTag = iframeDoc.createElement('style');
+                styleTag.id = 'gutenverse-style';
             }
-            styleTag = iframeDoc.createElement('style');
-            styleTag.id = 'gutenverse-style';
             styleTag.innerHTML = styleContent;
-            const head = iframeDoc.head || iframeDoc.getElementsByTagName('head')[0];
-            head.appendChild(styleTag);
+            const body = iframeDoc.body || iframeDoc.getElementsByTagName('body')[0];
+            body.insertBefore(styleTag, body.children[0]);
         }else{
             let styleTag = document.getElementById('gutenverse-style');
-            if(styleTag){
-                styleTag.remove();
+            if(!styleTag){
+                styleTag = document.createElement('style');
+                styleTag.id = 'gutenverse-style';
             }
-            styleTag = document.createElement('style');
-            styleTag.id = 'gutenverse-style';
             styleTag.innerHTML = styleContent;
-            const head = document.head;
-            head.appendChild(styleTag);
+            const body = document.body;
+            body.insertBefore(styleTag, body.children[0]);
         }
     }
 };
