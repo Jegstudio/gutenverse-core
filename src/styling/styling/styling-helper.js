@@ -105,7 +105,42 @@ const mergeFontDevice = (fonts) => {
     return [googleFont, systemFont];
 };
 
-export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
+const getWindow = (elementRef) => {
+    if (elementRef.current) {
+        return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+    }
+
+    return null;
+};
+
+export const injectStyleTag = (css, theWindow) => {
+    let cssElement = theWindow.document.getElementById('gutenverse-block-css');
+    if (!cssElement) {
+        cssElement = theWindow.document.createElement('style');
+        cssElement.id = 'gutenverse-block-css';
+        theWindow.document.head.appendChild(cssElement);
+    }
+    cssElement.innerHTML = css;
+};
+
+const injectStyleToIFrame = (elementId, elementRef, css) => {
+    const theWindow = getWindow(elementRef);
+    let theCSS = '';
+
+    if (!theWindow.gutenverseCSS) {
+        theWindow.gutenverseCSS = {};
+    }
+
+    theWindow.gutenverseCSS[elementId] = css;
+
+    Object.keys(theWindow.gutenverseCSS).map((key) => {
+        theCSS += `/* ${key} */ \n${theWindow.gutenverseCSS[key]}\n\n`;
+    });
+
+    injectStyleTag(theCSS, theWindow);
+};
+
+export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
             const deviceTypeDesktop = [];
@@ -146,7 +181,15 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
         }
     }, [elementId, attributes]);
 
-    return [generatedCSS, fontUsed];
+
+    useEffect(() => {
+        if (elementRef) {
+            injectStyleToIFrame(elementId, elementRef, generatedCSS);
+        }
+
+        return () => console.log('element removed', elementId, elementRef);
+    }, [elementId, attributes, elementRef]);
+
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
