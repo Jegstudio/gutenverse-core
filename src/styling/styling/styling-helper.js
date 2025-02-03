@@ -107,7 +107,11 @@ const mergeFontDevice = (fonts) => {
 };
 
 const getWindow = (elementRef) => {
-    return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+    if (elementRef.current) {
+        return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+    }
+
+    return null;
 };
 
 export const injectStyleTag = (css, theWindow) => {
@@ -195,8 +199,11 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     const iframeWindowRef = useRef(null);
 
     useEffect(() => {
-        if (elementRef.current && generatedCSS) {
-            iframeWindowRef.current = iframeWindowRef.current ? iframeWindowRef.current : getWindow(elementRef);
+        if (elementRef && generatedCSS) {
+            if (!iframeWindowRef.current) {
+                iframeWindowRef.current = getWindow(elementRef);
+            }
+            iframeWindowRef.current = getWindow(elementRef);
             injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
         }
         isFirstRun.current = false;
