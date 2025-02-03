@@ -1,21 +1,59 @@
 import { createReduxStore, combineReducers, register } from '@wordpress/data';
 
-export const styleReducer = (state = [], action) => {
+const defaultState = {
+    style : [],
+    font : []
+};
+export const styleReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'UPDATE_STYLE':
-            let findData = state.findIndex(el => el.id === action.data.id);
+            let findData = state.style.findIndex(el => el.id === action.data.id);
             if(findData === -1){
-                return [
+                return {
                     ...state,
-                    action.data
-                ];
+                    style: [...state.style, action.data]
+                };
             }else{
-                let newState = state;
-                newState[findData].style = action.data.style;
-                return newState;
+                let newStyle = state.style;
+                newStyle[findData].style = action.data.style;
+                return {
+                    ...state,
+                    style: newStyle
+                };
             }
         case 'REMOVE_STYLE':
-            return state.filter(el => el.id !== action.id);
+            return {
+                ...state,
+                style : state.style.filter(el => el.id !== action.id)
+            };
+        default:
+            return state;
+    }
+};
+
+export const fontReducer = (state = defaultState, action) => {
+    switch (action.type) {
+        case 'UPDATE_FONT':
+            if(action.data.type === 'variable'){
+                return state;
+            }
+            let findData = state.font.findIndex(el => el.font === action.data.font );
+            if(findData === -1){
+                return {
+                    ...state,
+                    font: [...state.font, action.data]
+                };
+            }else{
+                let newFont = state.font;
+                if(newFont[findData].weight === action.weight || !action.weight ){
+                    return state;
+                }
+                newFont[findData] = action;
+                return {
+                    ...state,
+                    style: newFont
+                };
+            }
         default:
             return state;
     }
@@ -36,19 +74,39 @@ export const styleAction = {
     }
 };
 
+export const fontAction = {
+    updateFont: (data) => {
+        return {
+            type: 'UPDATE_FONT',
+            data
+        };
+    },
+};
+
 export const styleSelector = {
-    getStyle: (state) => {
-        return state;
+    getStyles: (state) => {
+        return state.styleReducer.style;
+    }
+};
+
+export const fontSelector = {
+    getFonts: (state) => {
+        return state.fontReducer.font;
     }
 };
 
 export const store = createReduxStore('gutenverse/blockstyle', {
-    reducer: styleReducer,
+    reducer: combineReducers({
+        styleReducer,
+        fontReducer
+    }),
     actions: {
         ...styleAction,
+        ...fontAction
     },
     selectors: {
         ...styleSelector,
+        ...fontSelector
     }
 });
 

@@ -3,6 +3,7 @@ import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
 import { useSetting, useSettings } from '@wordpress/block-editor';
 import { element } from 'prop-types';
+import { mergeFontDevice } from 'gutenverse-core/styling/styling/styling-helper';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -730,13 +731,16 @@ export const isEmpty = (val) => {
 
 
 export const renderStyle = () => {
-    const blockStyles = select('gutenverse/blockstyle').getStyle();
+    const blockStyles = select('gutenverse/blockstyle').getStyles();
+    const fonts = select('gutenverse/blockstyle').getFonts();
     if(blockStyles.length > 0){
         let styleContent = '';
         blockStyles.forEach(block => {
             styleContent += block.style + ' ';
         });
-        const iframeElements = document.getElementsByName('editor-canvas');   
+        let mergeFonts = mergeFontDevice(fonts);
+
+        const iframeElements = document.getElementsByName('editor-canvas');
         if (iframeElements.length > 0) {
             const iframeElement = iframeElements[0];
             const iframeDoc = iframeElement.contentDocument || iframeElement.contentWindow.document;
@@ -748,6 +752,24 @@ export const renderStyle = () => {
             styleTag.innerHTML = styleContent;
             const body = iframeDoc.body || iframeDoc.getElementsByTagName('body')[0];
             body.insertBefore(styleTag, body.children[0]);
+            const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+            let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
+            if(!googleTag){
+                googleTag = document.createElement('link');
+                googleTag.href = mergeFonts[0];
+                googleTag.rel = 'stylesheet';
+                googleTag.type = 'text/css';
+                googleTag.id = 'gutenverse-google-font-editor';
+            }
+            head.appendChild(googleTag);
+            if(mergeFonts[1]){
+                let customTag = iframeDoc.getElementById('gutenverse-custom-font-editor');
+                if(!customTag){
+                    customTag = mergeFonts[1];
+                    customTag.id = 'gutenverse-custom-font-editor';
+                }
+                head.appendChild(customTag);
+            }
         }else{
             let styleTag = document.getElementById('gutenverse-style');
             if(!styleTag){
@@ -757,6 +779,24 @@ export const renderStyle = () => {
             styleTag.innerHTML = styleContent;
             const body = document.body;
             body.insertBefore(styleTag, body.children[0]);
+            const head = document.head;
+            let googleTag = document.getElementById('gutenverse-google-font-editor');
+            if(!googleTag){
+                googleTag = document.createElement('link');
+                googleTag.href = mergeFonts[0];
+                googleTag.rel = 'stylesheet';
+                googleTag.type = 'text/css';
+                googleTag.id = 'gutenverse-google-font-editor';
+            }
+            head.appendChild(googleTag);
+            if(mergeFonts[1]){
+                let customTag = document.getElementById('gutenverse-custom-font-editor');
+                if(!customTag){
+                    customTag = mergeFonts[1];
+                    customTag.id = 'gutenverse-custom-font-editor';
+                }
+                head.appendChild(customTag);
+            }
         }
     }
 };

@@ -9,11 +9,12 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
+import { applyFilters } from '@wordpress/hooks';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -92,18 +93,36 @@ const generateCSSString = (attribute, style) => {
     return css;
 };
 
-const mergeFontDevice = (fonts) => {
-    let googleFont = '';
-    let systemFont = '';
+export const mergeFontDevice = (fonts) => {
+    const googleFamily = {};
+    const googleArr = [];
+    const { uploadPath } = window['GutenverseConfig'];
+    const customArr = [];
 
     fonts.forEach((font) => {
         const { font: fontName, type, weight } = font;
         if (type === 'google') {
-            googleFont = `https://fonts.googleapis.com/css?family=${fontName.replace(/ /g, '+')}:${weight}`;
+            googleFamily[fontName] = googleFamily[fontName] ? [
+                ...googleFamily[fontName],
+                weight
+            ] : [weight];
+        }
+        if( type === 'custom_font_pro'){
+            customArr.push(font);
         }
     });
-
-    return [googleFont, systemFont];
+    Object.keys(googleFamily).map(name => {
+        let weights = ['400', '400italic', '700', '700italic', ...googleFamily[name]];
+        weights = weights.filter((weight, index) => weights.indexOf(weight) === index);
+        googleArr.push(`${name}:${weights.join(',')}`);
+    });
+    let googleFont = `https://fonts.googleapis.com/css?family=${googleArr.join('|')}`
+    let customFont = !isEmpty(customArr) && applyFilters(
+        'gutenverse.apply-custom-font',
+        customArr,
+        uploadPath
+    );
+    return [googleFont, customFont];
 };
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
@@ -129,7 +148,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
                     if (type === 'typography') {
                         const { font, weight } = attributes[id];
                         if (font) {
-                            gatheredFont.push({
+                            dispatch('gutenverse/blockstyle')?.updateFont({
                                 font: font.value,
                                 type: font.type,
                                 weight: weight
@@ -140,7 +159,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             }
 
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
-            const fontUsed = mergeFontDevice(gatheredFont);
             dispatch('gutenverse/blockstyle')?.updateStyle({
                 id : elementId,
                 style : generatedCSS
