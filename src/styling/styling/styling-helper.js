@@ -114,7 +114,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
             const deviceTypeMobile = [];
             const gatheredFont = [];
 
-            const blockStyles = getBlockStyle(elementId);
+            const blockStyles = getBlockStyle(elementId, attributes);
             for (let index = 0; index < blockStyles.length; index++) {
                 const style = blockStyles[index];
                 const { type, id } = style;
@@ -141,6 +141,10 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
 
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
+            dispatch('gutenverse/blockstyle')?.updateStyle({
+                id : elementId,
+                style : generatedCSS
+            });
             return { generatedCSS, fontUsed };
         } else {
             return { generatedCSS: '', fontUsed: [] };
