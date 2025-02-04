@@ -721,3 +721,9 @@ export const dummyText = (minLength, maxLength) => {
     }
     return result.join(' ');
 };
+
+export const isNotEmpty = (val) => {
+    if (Array.isArray(val)) return val.length !== 0; // Empty array
+    if (typeof val === 'object' && val !== null) return Object.keys(val).length !== 0; // Empty object
+    return !!val;
+};

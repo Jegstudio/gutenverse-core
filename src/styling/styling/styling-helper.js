@@ -125,19 +125,21 @@ export const injectStyleTag = (css, theWindow) => {
 };
 
 const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
-    if (!theWindow.gutenverseCSS) {
-        theWindow.gutenverseCSS = {};
-    }
-    if (remove) {
-        delete theWindow.gutenverseCSS[elementId];
-    } else {
-        theWindow.gutenverseCSS[elementId] = css;
-    }
+    if(theWindow){
+        if (!theWindow.gutenverseCSS) {
+            theWindow.gutenverseCSS = {};
+        }
+        if (remove) {
+            delete theWindow.gutenverseCSS[elementId];
+        } else {
+            theWindow.gutenverseCSS[elementId] = css;
+        }
 
-    if (isFirstRun) {
-        initProcessStyleTag(theWindow);
-    } else {
-        processStyleTag(theWindow);
+        if (isFirstRun) {
+            initProcessStyleTag(theWindow);
+        } else {
+            processStyleTag(theWindow);
+        }
     }
 };
 
@@ -162,7 +164,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             const deviceTypeMobile = [];
             const gatheredFont = [];
 
-            const blockStyles = getBlockStyle(elementId);
+            const blockStyles = getBlockStyle(elementId, attributes);
             for (let index = 0; index < blockStyles.length; index++) {
                 const style = blockStyles[index];
                 const { type, id } = style;
@@ -204,7 +206,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 iframeWindowRef.current = getWindow(elementRef);
             }
             iframeWindowRef.current = getWindow(elementRef);
-            injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
+            if(iframeWindowRef.current){
+                injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
+            }
         }
         isFirstRun.current = false;
         return () => injectStyleToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
