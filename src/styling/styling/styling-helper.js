@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from '@wordpress/element';
+import { useMemo, useEffect, useRef, useState } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
@@ -148,7 +148,6 @@ const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = fal
         } else {
             theWindow.gutenverseCSS[elementId] = css;
         }
-
         if (isFirstRun) {
             initProcessStyleTag(theWindow);
         } else {
@@ -166,24 +165,28 @@ const processStyleTag = (theWindow) => {
     injectStyleTag(generateCSS(theWindow), theWindow);
 };
 
-const initProcessStyleTag = debounce((theWindow) => {
-    injectStyleTag(generateCSS(theWindow), theWindow);
-}, 500);
+const initProcessStyleTag = (theWindow) => {
+    requestIdleCallback(() => {
+        injectStyleTag(generateCSS(theWindow), theWindow);
+    });
+};
 
 const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
-    if (!theWindow.gutenverseFont) {
-        theWindow.gutenverseFont = {};
-    }
-    if (remove) {
-        delete theWindow.gutenverseFont[elementId];
-    } else {
-        theWindow.gutenverseFont[elementId] = font;
-    }
+    if(theWindow){
+        if (!theWindow.gutenverseFont) {
+            theWindow.gutenverseFont = {};
+        }
+        if (remove) {
+            delete theWindow.gutenverseFont[elementId];
+        } else {
+            theWindow.gutenverseFont[elementId] = font;
+        }
 
-    if (isFirstRun) {
-        initProcessFontStyle(theWindow);
-    } else {
-        processFontStyle(theWindow);
+        if (isFirstRun) {
+            initProcessFontStyle(theWindow);
+        } else {
+            processFontStyle(theWindow);
+        }
     }
 };
 
@@ -191,13 +194,14 @@ const processFontStyle = (theWindow) => {
     injectFontStyle(theWindow);
 };
 
-const initProcessFontStyle = debounce((theWindow) => {
-    injectFontStyle(theWindow);
-}, 500);
+const initProcessFontStyle = (theWindow) => {
+    requestIdleCallback(() => {
+        injectFontStyle(theWindow);
+    });
+};
 
 const injectFontStyle = (theWindow) => {
     let googleArr = [];
-
     Object.entries(theWindow.gutenverseFont).forEach(([fontName, value]) => {
         const gFont = value[0];
         if (gFont && typeof gFont === 'object') {
@@ -216,7 +220,7 @@ const injectFontStyle = (theWindow) => {
     });
 
     const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
-        .map(([font, weights]) => `${font}:${weights.join(',')}`)
+        .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
         .join('|')}`;
 
     const iframeDoc = theWindow.document;
@@ -224,12 +228,15 @@ const injectFontStyle = (theWindow) => {
     let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
     if (!googleTag) {
         googleTag = document.createElement('link');
-        googleTag.href = googleFont;
         googleTag.rel = 'stylesheet';
         googleTag.type = 'text/css';
         googleTag.id = 'gutenverse-google-font-editor';
+        googleTag.href = googleFont;
+        head.appendChild(googleTag);
+    }else{
+        googleTag.href = googleFont;
     }
-    head.appendChild(googleTag);
+
     // if (value[1]) {
     //     let customTag = iframeDoc.getElementById('gutenverse-custom-font-editor');
     //     if (!customTag) {
