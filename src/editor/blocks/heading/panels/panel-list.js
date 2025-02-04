@@ -98,15 +98,12 @@ export const panelList = () => {
         //     panelArray: positioningPanel,
         //     tabRole: TabSetting
         // },
-        // {
-        //     title: __('Animation Effects', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: (props) => animationPanel({
-        //         ...props,
-        //         styleId: 'heading-animation'
-        //     }),
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: animationPanel,
+            tabRole: TabSetting
+        },
         // {
         //     title: __('Transform', 'gutenverse'),
         //     initialOpen: false,
