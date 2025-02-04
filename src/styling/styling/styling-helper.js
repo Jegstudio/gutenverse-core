@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef, useState } from '@wordpress/element';
+import { useMemo, useEffect, useRef } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
@@ -107,15 +107,16 @@ export const mergeFontDevice = (fonts) => {
             ] : [weight];
         }
         if (type === 'custom_font_pro') {
-            customArr.push(font);
+            customArr.push(fontName);
         }
     });
     let googleFont = googleFamily;
     let customFont = !isEmpty(customArr) && applyFilters(
-        'gutenverse.apply-custom-font',
+        'gutenverse.v3.apply-custom-font',
         customArr,
         uploadPath
     );
+
     return [googleFont, customFont];
 };
 
@@ -201,6 +202,8 @@ const initProcessFontStyle = (theWindow) => {
 
 const injectFontStyle = (theWindow) => {
     let googleArr = [];
+    let customArr = [];
+
     Object.entries(theWindow.gutenverseFont).forEach(([fontName, value]) => {
         const gFont = value[0];
         if (gFont && typeof gFont === 'object') {
@@ -213,6 +216,14 @@ const injectFontStyle = (theWindow) => {
                     googleArr[fontKey] = uniqueWeights;
                 } else {
                     googleArr[fontKey] = Array.from(new Set([...googleArr[fontKey], ...uniqueWeights]));
+                }
+            });
+        }
+        if(value[1].length > 0){
+            value[1].forEach(link => {
+                let check = customArr.find(el => el === link);
+                if(!check){
+                    customArr = [...customArr, link];
                 }
             });
         }
@@ -236,14 +247,23 @@ const injectFontStyle = (theWindow) => {
         googleTag.href = googleFont;
     }
 
-    // if (value[1]) {
-    //     let customTag = iframeDoc.getElementById('gutenverse-custom-font-editor');
-    //     if (!customTag) {
-    //         customTag = value[1];
-    //         customTag.id = 'gutenverse-custom-font-editor';
-    //     }
-    //     head.appendChild(customTag);
-    // }
+    if(customArr.length > 0){
+        let customTag = iframeDoc.getElementsByClassName('gutenverse-pro-custom-font-editor');
+        if(customTag.length > 0){
+            while (customTag.length > 0) {
+                customTag[0].remove(); // Always remove the first element since the collection updates dynamically
+            }
+        }else{
+            customArr.forEach(el => {
+                customTag = document.createElement('link');
+                customTag.rel = 'stylesheet';
+                customTag.type = 'text/css';
+                customTag.href = el;
+                customTag.classList.add('gutenverse-pro-custom-font-editor');
+                head.appendChild(customTag);
+            });
+        }
+    }
 };
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
