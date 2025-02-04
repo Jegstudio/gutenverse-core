@@ -340,7 +340,7 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
             const { getBlocks } = select('core/block-editor');
             const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
             if (windowEl?.document) {
-                const htmlEl = windowEl.document.getElementsByTagName('html')[0];
+                const htmlEl = windowEl.document.documentElement;
                 if (!htmlEl.classList.contains('block-editor-block-preview__content-iframe')) {
                     if (recursiveDuplicateCheck(getBlocks(), clientId, elementId)) {
                         createElementId(clientId);
