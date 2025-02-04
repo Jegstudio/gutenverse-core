@@ -9,7 +9,7 @@ import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withCopyElementToolbar, withMouseMoveEffect, withPartialRender, withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -61,8 +61,10 @@ const HeadingInspection = (props) => {
 
 const HeadingBlock = compose(
     withCopyElementToolbar(),
+    withPartialRender,
+    withAnimationAdvance('heading'),
+    withMouseMoveEffect
 )(props => {
-
     const {
         attributes,
         setAttributes,
@@ -74,7 +76,7 @@ const HeadingBlock = compose(
         type,
     } = attributes;
 
-    const elementRef = useRef({});
+    const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const tagName = 'h' + type;
