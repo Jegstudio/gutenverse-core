@@ -9,83 +9,83 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
-        {
-            title: __('Content', 'gutenverse'),
-            panelArray: settingPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Dynamic Data', 'gutenverse'),
-            panelArray: (props) => {
-                return dynamicContentPanel({
-                    ...props,
-                    blockType: 'text',
-                    arrOfTextChilds : ['textDynamicList','focusTextDynamicList','subTextDynamicList']
-                });
-            },
-            initialOpen: false,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Line', 'gutenverse'),
-            panelArray: linePanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Highlight Style', 'gutenverse'),
-            panelArray: (props) => childStylePanel({
-                ...props,
-                arrOfTextChilds : ['textChilds','focusTextChilds','subTextChilds']
-            }),
-            tabRole: TabStyle,
-            pro: true
-        },
-        {
-            title: __('Main Title', 'gutenverse'),
-            panelArray: mainTitlePanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Main Title Text Clip', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => {
-                const { elementId } = props;
-                return textClipPanel({
-                    ...props,
-                    textClipSelector: `.editor-styles-wrapper .${elementId} .heading-title`,
-                    textClipId: 'mainTextClip'
-                });
-            },
-            pro: true,
-            tabRole: TabStyle
-        },
+        // {
+        //     title: __('Content', 'gutenverse'),
+        //     panelArray: settingPanel,
+        //     tabRole: TabSetting
+        // },
+        // {
+        //     title: __('Dynamic Data', 'gutenverse'),
+        //     panelArray: (props) => {
+        //         return dynamicContentPanel({
+        //             ...props,
+        //             blockType: 'text',
+        //             arrOfTextChilds : ['textDynamicList','focusTextDynamicList','subTextDynamicList']
+        //         });
+        //     },
+        //     initialOpen: false,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Line', 'gutenverse'),
+        //     panelArray: linePanel,
+        //     tabRole: TabStyle
+        // },
+        // {
+        //     title: __('Highlight Style', 'gutenverse'),
+        //     panelArray: (props) => childStylePanel({
+        //         ...props,
+        //         arrOfTextChilds : ['textChilds','focusTextChilds','subTextChilds']
+        //     }),
+        //     tabRole: TabStyle,
+        //     pro: true
+        // },
+        // {
+        //     title: __('Main Title', 'gutenverse'),
+        //     panelArray: mainTitlePanel,
+        //     tabRole: TabStyle
+        // },
+        // {
+        //     title: __('Main Title Text Clip', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelAdvance: true,
+        //     panelArray: (props) => {
+        //         const { elementId } = props;
+        //         return textClipPanel({
+        //             ...props,
+        //             textClipSelector: `.editor-styles-wrapper .${elementId} .heading-title`,
+        //             textClipId: 'mainTextClip'
+        //         });
+        //     },
+        //     pro: true,
+        //     tabRole: TabStyle
+        // },
         {
             title: __('Focus Title', 'gutenverse'),
             panelArray: focusTitlePanel,
             tabRole: TabStyle
         },
-        {
-            title: __('Focus Title Text Clip', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => {
-                const { elementId } = props;
-                return textClipPanel({
-                    ...props,
-                    textClipSelector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    textClipId: 'focusTextClip'
-                });
-            },
-            pro: true,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Sub Title', 'gutenverse'),
-            panelArray: subTitlePanel,
-            tabRole: TabStyle
-        },
+        // {
+        //     title: __('Focus Title Text Clip', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelAdvance: true,
+        //     panelArray: (props) => {
+        //         const { elementId } = props;
+        //         return textClipPanel({
+        //             ...props,
+        //             textClipSelector: `.editor-styles-wrapper .${elementId} .heading-focus`,
+        //             textClipId: 'focusTextClip'
+        //         });
+        //     },
+        //     pro: true,
+        //     tabRole: TabStyle
+        // },
+        // {
+        //     title: __('Sub Title', 'gutenverse'),
+        //     panelArray: subTitlePanel,
+        //     tabRole: TabStyle
+        // },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
@@ -133,29 +133,29 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'advance-heading'
-            }),
-            pro: true
-        },
+        // {
+        //     title: __('Transform', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: transformPanel,
+        //     pro: true
+        // },
+        // {
+        //     title: __('Mouse Move Effect', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: mouseMoveEffectPanel,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Advanced Animation', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelAdvance: true,
+        //     panelArray: (props) => advanceAnimationPanel({
+        //         ...props,
+        //         blockType: 'advance-heading'
+        //     }),
+        //     pro: true
+        // },
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,
@@ -165,11 +165,11 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
-        },
+        // {
+        //     title: __('Condition', 'gutenverse'),
+        //     panelArray: conditionPanel,
+        //     initialOpen: false,
+        //     pro: true
+        // },
     ];
 };

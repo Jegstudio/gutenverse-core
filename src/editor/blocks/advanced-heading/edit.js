@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { useRef } from '@wordpress/element';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -11,17 +11,31 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
+const AdvHeadingPanelController = (props) => {
+    const { panelProps, isSelected, setAttributes } = props;
+    const defaultPanelProps = {
+        ...panelProps,
+        ...props.attributes,
+        setAttributes
+    };
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
+};
 const AdvancedHeadingBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('advance-heading'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
         setAttributes,
         clientId,
         setPanelState
@@ -37,12 +51,15 @@ const AdvancedHeadingBlock = compose(
         showSub,
         showLine,
     } = attributes;
-    const advHeadingRef = useRef();
+
+    const elementRef = useRef();
     const focusTextRef = useRef();
     const textRef = useRef();
     const subTextRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -52,14 +69,8 @@ const AdvancedHeadingBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: advHeadingRef
+        ref: elementRef
     });
-
-    useEffect(() => {
-        if (advHeadingRef.current) {
-            setElementRef(advHeadingRef.current);
-        }
-    }, [advHeadingRef]);
 
     FilterDynamic(props);
     HighLightToolbar(props);
@@ -95,7 +106,7 @@ const AdvancedHeadingBlock = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <AdvHeadingPanelController {...props}/>
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}
             {showSub === 'top' && richTextContent(subText,SubTag,'heading-subtitle','subText')}
