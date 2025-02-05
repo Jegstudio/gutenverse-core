@@ -26,6 +26,21 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     </div>;
 };
 
+const AccordionPanelController = (props) => {
+    const { panelProps, isSelected, setAttributes } = props;
+    const defaultPanelProps = {
+        ...panelProps,
+        ...props.attributes,
+        setAttributes
+    };
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
+};
+
 const Accordion = compose(
     withPartialRender,
     withCopyElementToolbar(),
@@ -150,7 +165,7 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <PanelController panelList={panelList} {...props} />
+        <AccordionPanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div className={`accordion-heading ${first ? 'active' : ''}`} onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}

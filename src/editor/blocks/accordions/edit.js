@@ -30,7 +30,7 @@ const AccordionPanelController = (props) => {
         isSelected={isSelected}
         {...props}
     />;
-}
+};
 const Accordions = compose(
     withPartialRender,
     withAnimationAdvance('accordions'),
