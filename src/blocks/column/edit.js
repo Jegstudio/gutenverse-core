@@ -5,8 +5,8 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { BuildColumnWidthStyle, setDeviceClasses, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -514,13 +514,9 @@ const ColumnPlaceholder = (props) => {
 
 // Column InnerBlocks Wrapper component
 const ColumnWrapper = (props) => {
-    const {
-        getBlocks
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
-    const deviceType = getDeviceType();
+    const { getBlocks } = useSelect((select) => select('core/block-editor'), []);
+    const deviceType = useSelect(() => theDeviceType(determineLocation()),[]);
+
     const {
         clientId,
         blockProps,
@@ -626,13 +622,13 @@ const ColumnWrapper = (props) => {
                 onResizeStop={resizeStop}
             >
                 <FluidCanvas attributes={attributes} />
-                <div className={'guten-inserter insert-top'}>
+                {(isHovered && eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
+                </div>}
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
                         {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
@@ -644,7 +640,7 @@ const ColumnWrapper = (props) => {
                         <InnerBlocks />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
                         onMouseEnter={() => {
                             onOpen();
@@ -653,21 +649,24 @@ const ColumnWrapper = (props) => {
                             onClose();
                         }}
                     >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() => {
-                        onOpen();
-                        setOpenTool(true);
-                    }} onBlur={() => {
-                        onClose();
-                        setOpenTool(false);
-                    }}
-                    onMouseEnter={() => {
-                        onOpen();
-                    }}
-                    onMouseLeave={() => {
-                        if (!openTool) {
+                    <div
+                        className={'column-popup'}
+                        onFocus={() => {
+                            onOpen();
+                            setOpenTool(true);
+                        }}
+                        onBlur={() => {
                             onClose();
-                        }
-                    }}
+                            setOpenTool(false);
+                        }}
+                        onMouseEnter={() => {
+                            onOpen();
+                        }}
+                        onMouseLeave={() => {
+                            if (!openTool) {
+                                onClose();
+                            }
+                        }}
                     >
                         <div>
                             <input
@@ -700,14 +699,14 @@ const ColumnWrapper = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
-                <div className={'guten-inserter insert-bottom'}>
+                </div>}
+                {(isHovered && eSelect) && <div className={'guten-inserter insert-bottom'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
+                </div>}
 
             </ResizableBox>
         </div>
@@ -799,16 +798,16 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('column'),
-    withAnimationBackground(),
-    withAnimationSticky(),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('column'),
+    // withAnimationBackground(),
+    // withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
-    withBackgroundEffect,
-    withCursorEffect,
-    withBackgroundSlideshow,
+    // withMouseMoveEffect,
+    // withBackgroundEffect,
+    // withCursorEffect,
+    // withBackgroundSlideshow,
 )((props) => {
     const {
         getBlock,
@@ -831,8 +830,6 @@ const ColumnBlock = compose(
         clientId,
         attributes,
         setAttributes,
-        setElementRef,
-        deviceType,
         isSelected,
     } = props;
 
@@ -847,9 +844,24 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
+    const {
+        deviceType,
+    } = useSelect(
+        () => {
+            const location = determineLocation();
+            return {
+                deviceType: theDeviceType(location)
+            };
+        },
+        []
+    );
+
+    const elementRef = useRef(null);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, () => [], elementRef);
+
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
-    const columnRef = useRef();
     const columnWrapRef = useRef();
     const stickyFlagRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -933,34 +945,34 @@ const ColumnBlock = compose(
     const [editorDom, setEditorDom] = useState(null);
     const [totalWidth, setTotalWidth] = useState(0);
 
-    useEffect(() => {
-        if (isFSE()) {
-            setTimeout(() => {
-                const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-                if (iframeEl) {
-                    if (iframeEl.contentDocument.body.innerHTML === '') {
-                        setTimeout(() => {
-                            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-                            if (iframeEl) {
-                                setEditorDom(iframeEl.contentDocument.body);
-                            }
-                        }, 200);
-                    } else {
-                        setEditorDom(iframeEl.contentDocument.body);
-                    }
-                } else {
-                    setEditorDom(document.querySelector('.editor-styles-wrapper'));
-                }
-            }, 200);
-        } else {
-            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-            if (iframeEl) {
-                setEditorDom(iframeEl.contentDocument.body);
-            } else {
-                setEditorDom(document.querySelector('.editor-styles-wrapper'));
-            }
-        }
-    }, [deviceType]);
+    // useEffect(() => {
+    //     if (isFSE()) {
+    //         setTimeout(() => {
+    //             const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //             if (iframeEl) {
+    //                 if (iframeEl.contentDocument.body.innerHTML === '') {
+    //                     setTimeout(() => {
+    //                         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //                         if (iframeEl) {
+    //                             setEditorDom(iframeEl.contentDocument.body);
+    //                         }
+    //                     }, 200);
+    //                 } else {
+    //                     setEditorDom(iframeEl.contentDocument.body);
+    //                 }
+    //             } else {
+    //                 setEditorDom(document.querySelector('.editor-styles-wrapper'));
+    //             }
+    //         }, 200);
+    //     } else {
+    //         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+    //         if (iframeEl) {
+    //             setEditorDom(iframeEl.contentDocument.body);
+    //         } else {
+    //             setEditorDom(document.querySelector('.editor-styles-wrapper'));
+    //         }
+    //     }
+    // }, [deviceType]);
 
     const HoverIcon = <>
         <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -993,7 +1005,7 @@ const ColumnBlock = compose(
                 'guten-background-effect-active': isBackgroundEffect,
             }
         ),
-        ref: columnRef,
+        ref: elementRef,
         onMouseEnter: () => {
             setIsHovered(true);
         },
@@ -1002,11 +1014,11 @@ const ColumnBlock = compose(
         },
     });
 
-    useEffect(() => {
-        if (columnRef.current) {
-            setElementRef(columnRef.current);
-        }
-    }, [columnRef]);
+    // useEffect(() => {
+    //     if (elementRef.current) {
+    //         setElementRef(elementRef.current);
+    //     }
+    // }, [elementRef]);
 
     const theProps = {
         ...props,
@@ -1014,7 +1026,7 @@ const ColumnBlock = compose(
         setAttributes,
         blockProps,
         clientId,
-        columnRef: columnRef.current,
+        columnRef: elementRef.current,
         stickyFlagRef,
         columnWrapRef,
         eSelect: isSelected,
@@ -1054,6 +1066,8 @@ const ColumnBlock = compose(
         <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
         <ColumnInspection {...props} />
         <Component {...theProps} />
+        {/* <div ref={elementRef}><InnerBlocks /></div> */}
+        {/* <ColumnWrapper {...theProps} /> */}
     </>;
 });
 

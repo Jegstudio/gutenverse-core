@@ -1,16 +1,10 @@
 import { useEffect, useRef } from '@wordpress/element';
-import {
-    BlockControls,
-    InnerBlocks,
-    useBlockProps,
-    useInnerBlocksProps,
-} from '@wordpress/block-editor';
+import { BlockControls, InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { default as SectionVariation } from './components/section-variation';
-import get from 'lodash/get';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect,withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withAnimationAdvance, withAnimationSticky, withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -18,11 +12,7 @@ import { PanelController } from 'gutenverse-core/controls';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from './components/section-divider-animated';
 import { dispatch, useSelect } from '@wordpress/data';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationSticky } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
@@ -31,59 +21,47 @@ import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 import { roundToDown } from 'round-to';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
-// Placeholder
-const SectionPlaceholder = (props) => {
-    const {
-        getBlockType
-    } = useSelect(
-        (select) => select('core/blocks'),
-        []
-    );
-
-    const {
-        replaceInnerBlocks
-    } = dispatch('core/block-editor');
-
-    const {
-        clientId,
-        name,
-        wrapper
-    } = props;
-
+const SectionPlaceholder = ({ clientId, name, wrapper }) => {
+    const { getBlockType } = useSelect((select) => select('core/blocks'), []);
+    const { replaceInnerBlocks } = dispatch('core/block-editor');
     const blockType = getBlockType(name);
+
+    const handleVariation = (nextVariation) => {
+        const variation = createBlocksFromInnerBlocksTemplate(nextVariation);
+        replaceInnerBlocks(clientId, variation, true);
+    };
 
     return <>
         <SectionVariation
-            icon={get(blockType, ['icon', 'src'])}
-            label={get(blockType, ['title'])}
+            icon={blockType?.icon?.src}
+            label={blockType?.title}
             blockId={clientId}
             wrapper={wrapper}
-            onSelect={(nextVariation) => {
-                const variation = createBlocksFromInnerBlocksTemplate(
-                    nextVariation
-                );
-                replaceInnerBlocks(clientId, variation, true);
-            }}
+            onSelect={handleVariation}
         />
-        <div style={{display: 'none'}}>
+        <div style={{ display: 'none' }}>
             {/* Note: Inner Block is here to allow insert block when section total column is at 0. */}
             <InnerBlocks />
         </div>
     </>;
 };
 
-// Backend Wrapper
 const SectionWrapper = (props) => {
     const {
-        clientId,
-        attributes: { gap, topDivider, bottomDivider, topDividerAnimated, bottomDividerAnimated },
+        attributes,
         containerRef
     } = props;
 
-    useEffect(() => {
-        dispatch('gutenverse/style').injectRef(clientId, containerRef.current);
-    });
+    const {
+        gap,
+        topDivider,
+        bottomDivider,
+        topDividerAnimated,
+        bottomDividerAnimated
+    } = attributes;
 
     const innerBlocksProps = useInnerBlocksProps({
         className: classnames('guten-container', {
@@ -105,13 +83,13 @@ const SectionWrapper = (props) => {
     </>;
 };
 
-// Inspector
 const SectionInspection = (props) => {
-    const { panelProps, isSelected } = props;
+    const { panelProps, isSelected, attributes, setAttributes } = props;
 
     const defaultPanelProps = {
         ...panelProps,
-        ...props.attributes,
+        ...attributes,
+        setAttributes
     };
 
     return <PanelController
@@ -137,7 +115,7 @@ const SectionAddColumn = ({ clientId }) => {
     const addNewColumn = () => {
         const newChild = createBlock('gutenverse/column', {
             width: {
-                Desktop: roundToDown(100/(getBlocks(clientId).length + 1), 1)
+                Desktop: roundToDown(100 / (getBlocks(clientId).length + 1), 1)
             }
         });
         insertBlock(newChild, getBlocks(clientId).length + 1, clientId);
@@ -170,32 +148,28 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('section'),
-    withAnimationBackground(),
-    withAnimationSticky(),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('section'),
+    // withAnimationBackground(),
+    // withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
-    withCursorEffect,
-    withBackgroundEffect,
-    withBackgroundSlideshow,
+    // withMouseMoveEffect,
+    // withCursorEffect,
+    // withBackgroundEffect,
+    // withBackgroundSlideshow,
 )((props) => {
     const {
         getBlockRootClientId,
         getBlocks,
         getBlock
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    } = useSelect((select) => select('core/block-editor'), []);
 
     const {
         clientId,
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
         slideElement
     } = props;
 
@@ -212,6 +186,10 @@ const SectionBlock = compose(
         background
     } = attributes;
 
+    const elementRef = useRef();
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
     const { inherit_layout: inheritLayout } = templatePage || {};
@@ -221,7 +199,6 @@ const SectionBlock = compose(
     const innerBlocks = getBlocks(clientId);
     const innerBlocksLength = innerBlocks.length;
     const sectionWrapper = useRef();
-    const sectionRef = useRef();
     const containerRef = useRef();
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
     const blockProps = useBlockProps({
@@ -242,28 +219,15 @@ const SectionBlock = compose(
                 'guten-background-effect-active': isBackgroundEffect,
             }
         ),
-        ref: sectionRef
+        ref: elementRef
     });
-
-    useEffect(() => {
-        if (sectionRef.current) {
-            setElementRef(sectionRef.current);
-        }
-    }, [sectionRef]);
 
     useEffect(() => {
         const rootId = getBlockRootClientId(clientId);
         const rootBlock = getBlock(rootId);
+        const isChild = rootBlock && (rootBlock.name === 'gutenverse/column' || rootBlock.name === 'gutenverse/form-builder');
 
-        if (rootBlock && (rootBlock.name === 'gutenverse/column' || rootBlock.name === 'gutenverse/form-builder')) {
-            setAttributes({
-                isChild: true,
-            });
-        } else {
-            setAttributes({
-                isChild: false,
-            });
-        }
+        setAttributes({ isChild });
     }, [isSelected]);
 
     const componentProps = {

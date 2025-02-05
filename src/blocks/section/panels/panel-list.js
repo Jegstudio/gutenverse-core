@@ -12,6 +12,27 @@ import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
+        // Settings
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'section-advance',
+            }),
+            tabRole: TabSetting
+        },
+        // Styles
+        {
+            title: __('Background', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Layouts', '--gctd--'),
         //     panelArray: layoutPanel,
@@ -43,20 +64,6 @@ export const panelList = () => {
         //     panelArray: backgroundEffectPanel,
         //     tabRole: TabSetting,
         //     pro: true,
-        // },
-        // {
-        //     title: __('Background', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundPanel({
-        //         ...props,
-        //         blockType: 'section',
-        //         styleId: 'section-background',
-        //         normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
-        //         hoverOptions: ['default', 'gradient'],
-        //         normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer`,
-        //         hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
-        //     }),
-        //     tabRole: TabStyle
         // },
         // {
         //     title: __('Background Overlay', '--gctd--'),
@@ -169,15 +176,6 @@ export const panelList = () => {
         //     title: __('Positioning', '--gctd--'),
         //     initialOpen: false,
         //     panelArray: positioningPanel,
-        //     tabRole: TabSetting
-        // },
-        // {
-        //     title: __('Spacing', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => advancePanel({
-        //         ...props,
-        //         styleId: 'section-advance',
-        //     }),
         //     tabRole: TabSetting
         // },
         // {
