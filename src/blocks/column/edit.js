@@ -861,18 +861,7 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
-    const {
-        deviceType,
-    } = useSelect(
-        () => {
-            const location = determineLocation();
-            return {
-                deviceType: theDeviceType(location)
-            };
-        },
-        []
-    );
-
+    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -890,7 +879,7 @@ const ColumnBlock = compose(
     const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
-    const updateBlockWidth = (clientId, eachWidth) => {
+    const updateBlockWidth = useCallback((clientId, eachWidth) => {
         const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
         const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
         const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
@@ -904,7 +893,7 @@ const ColumnBlock = compose(
             );
             updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
         }
-    };
+    }, [clientId]);
 
     const getChildTotalWidth = () => {
         let total = 0;
@@ -933,21 +922,21 @@ const ColumnBlock = compose(
         return total;
     };
 
-    useEffect(() => {
-        const eachWidth = roundToDown(100 / adjacentCount, 1);
-        if (!prevAdjacentCount) {
-            if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
-                setAttributes({ width: { ...width, [deviceType]: eachWidth } });
-            }
-            setPrevAdjacentCount(getBlocks(rootClientId).length);
-        } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
-            const innerBlocks = getBlocks(rootClientId);
-            setPrevAdjacentCount(adjacentCount);
-            innerBlocks.map(item => {
-                updateBlockWidth(item.clientId, eachWidth);
-            });
-        }
-    }, [adjacentCount]);
+    // useEffect(() => {
+    //     const eachWidth = roundToDown(100 / adjacentCount, 1);
+    //     if (!prevAdjacentCount) {
+    //         if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
+    //             // setAttributes({ width: { ...width, [deviceType]: eachWidth } });
+    //         }
+    //         setPrevAdjacentCount(getBlocks(rootClientId).length);
+    //     } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
+    //         const innerBlocks = getBlocks(rootClientId);
+    //         setPrevAdjacentCount(adjacentCount);
+    //         innerBlocks.map(item => {
+    //             updateBlockWidth(item.clientId, eachWidth);
+    //         });
+    //     }
+    // }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
     const horizontal = setDeviceClasses(horizontalAlign, 'horizontal');
