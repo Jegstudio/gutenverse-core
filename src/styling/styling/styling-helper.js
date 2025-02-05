@@ -121,7 +121,7 @@ export const mergeFontDevice = (fonts) => {
     return [googleFont, customFont];
 };
 
-const getWindow = (elementRef) => {
+export const getWindow = (elementRef) => {
     if (elementRef.current) {
         return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
     }

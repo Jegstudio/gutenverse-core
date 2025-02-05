@@ -12,12 +12,25 @@ import { __ } from '@wordpress/i18n';
 import { Helmet } from 'gutenverse-core/components';
 import ProLock from '../pro-lock';
 import { applyFilters } from '@wordpress/hooks';
-import { useState,useEffect } from '@wordpress/element';
+import { useState, useEffect, useRef } from '@wordpress/element';
+import { getWindow } from 'gutenverse-core/styling/styling/styling-helper';
+
+
+const toSlug = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-');
+};
 
 const FontComponent = (props) => {
     const { innerProps, isSelected, isFocused, isDisabled } = props;
     const [isVisible, currentElement] = useVisibility(250, 10);
     const { uploadPath } = window['GutenverseConfig'];
+    const fontControlRef = useRef(null);
     const fontClass = classnames(
         'font-option',
         {
@@ -28,20 +41,40 @@ const FontComponent = (props) => {
         props.data.pro && `select-option${props.data.pro && ' pro'}`
     );
 
-    const FontStyleHead = () => {
-        if (props.data.type === 'google' && !isEmpty(props.data.value) && isVisible) {
-            return <Helmet>
-                <link href={`https://fonts.googleapis.com/css?family=${props.data.value}&text=${props.data.value}`} rel="stylesheet" type="text/css" />
-            </Helmet>;
-        } else if (props.data.type === 'custom_font_pro' && !isEmpty(props.data.value)) {
-            return <Helmet>
-                <link href={`${uploadPath}/${props.data.value}.css`} rel="stylesheet" type="text/css" />
-            </Helmet>;
+    const injectControlFont = (iframeDoc, font) => {
+        const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+        let googleTag = iframeDoc.getElementById('gutenverse-google-font-control-editor-' + toSlug(font));
+        if (!googleTag) {
+            googleTag = document.createElement('link');
+            googleTag.rel = 'stylesheet';
+            googleTag.type = 'text/css';
+            googleTag.id = 'gutenverse-google-font-control-editor-' + toSlug(font);
+            googleTag.href = 'https://fonts.googleapis.com/css?family=' + font;
+            head.appendChild(googleTag);
         }
     };
 
+    useEffect(() => {
+        let theWindow = getWindow(fontControlRef);
+        let iframeDoc = theWindow.document;
+        if (theWindow && !theWindow.gutenverseControlFont) {
+            theWindow.gutenverseControlFont = [];
+        }
+        if (isVisible) {
+            if (props.data.type === 'google' && !isEmpty(props.data.value)) {
+                if (theWindow && theWindow.gutenverseControlFont && !theWindow.gutenverseControlFont.includes(props.data.value)) {
+                    theWindow.gutenverseControlFont.push(props.data.value);
+                    injectControlFont(iframeDoc, props.data.value);
+                }
+            } else if (props.data.type === 'custom_font_pro' && !isEmpty(props.data.value)) {
+                // add custom font
+            }
+        }
+    }, [isVisible]);
+
     return <>
-        <FontStyleHead />
+        <div ref={fontControlRef} className="gutenverse-control-font-load">
+        </div>
         <div {...innerProps} ref={currentElement} className={fontClass} style={{ fontFamily: props.data.value }}>
             {props.data.label}
             {props.data.pro && <ProLock
@@ -63,13 +96,30 @@ const FontControl = (props) => {
     } = props;
 
     const { fonts: fontsData, customFonts } = window['GutenverseConfig'];
-    const [ fonts, setFonts ] = useState({});
+    const [fonts, setFonts] = useState({});
+    const fontControlRef = useRef(null);
     const onChange = value => {
         onValueChange(value);
     };
 
     useEffect(() => {
-        setFonts(applyFilters('gutenverse.custom-font',fontsData,customFonts));
+        setFonts(applyFilters('gutenverse.custom-font', fontsData, customFonts));
+    }, []);
+
+    useEffect(() => {
+        let theWindow = getWindow(fontControlRef);
+        let iframeDoc = theWindow.document;
+        return (() => {
+            if (theWindow && theWindow.gutenverseControlFont && theWindow.gutenverseControlFont.length > 0) {
+                theWindow.gutenverseControlFont.forEach(font => {
+                    let googleTag = iframeDoc.getElementById('gutenverse-google-font-control-editor-' + toSlug(font));
+                    if (googleTag) {
+                        googleTag.remove();
+                    }
+                });
+                theWindow.gutenverseControlFont = null;
+            }
+        });
     }, []);
 
     const customStyles = {
@@ -120,7 +170,7 @@ const FontControl = (props) => {
         };
     });
     const id = useInstanceId(FontControl, 'inspector-font-control');
-    return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-font'}>
+    return <div id={id} ref={fontControlRef} className={'gutenverse-control-wrapper gutenverse-control-font'}>
         <ControlHeadingSimple
             id={`${id}-font`}
             label={label}
