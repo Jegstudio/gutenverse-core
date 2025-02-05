@@ -185,7 +185,7 @@ const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = fal
             theWindow.gutenverseFont[elementId] = font;
         }
 
-        if (isFirstRun) {
+        if (isFirstRun && isOnEditor()) {
             initProcessFontStyle(theWindow);
         } else {
             processFontStyle(theWindow);

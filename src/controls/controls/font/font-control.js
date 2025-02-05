@@ -25,10 +25,41 @@ const toSlug = (text) => {
         .replace(/\-\-+/g, '-');
 };
 
+const injectControlFont = (iframeDoc, font) => {
+    const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+    let googleTag = iframeDoc.getElementById('gutenverse-google-font-control-editor-' + toSlug(font));
+    if (!googleTag) {
+        googleTag = document.createElement('link');
+        googleTag.rel = 'stylesheet';
+        googleTag.type = 'text/css';
+        googleTag.id = 'gutenverse-google-font-control-editor-' + toSlug(font);
+        googleTag.href = 'https://fonts.googleapis.com/css?family=' + font;
+        head.appendChild(googleTag);
+    }
+};
+
+const injectControlCustomFont = (iframeDoc, font) => {
+    const { uploadPath } = window['GutenverseConfig'];
+    const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+    let customTag = iframeDoc.getElementById('gutenverse-pro-custom-font-control-editor-' + toSlug(font));
+    let customFont = applyFilters(
+        'gutenverse.v3.apply-custom-font',
+        [font],
+        uploadPath
+    );
+    if ( !customTag && customFont.length === 1 ) {
+        customTag = document.createElement('link');
+        customTag.rel = 'stylesheet';
+        customTag.type = 'text/css';
+        customTag.id = 'gutenverse-pro-custom-font-control-editor-' + toSlug(font);
+        customTag.href = customFont[0];
+        head.appendChild(customTag);
+    }
+};
+
 const FontComponent = (props) => {
     const { innerProps, isSelected, isFocused, isDisabled } = props;
     const [isVisible, currentElement] = useVisibility(250, 10);
-    const { uploadPath } = window['GutenverseConfig'];
     const fontControlRef = useRef(null);
     const fontClass = classnames(
         'font-option',
@@ -39,37 +70,6 @@ const FontComponent = (props) => {
         },
         props.data.pro && `select-option${props.data.pro && ' pro'}`
     );
-
-    const injectControlFont = (iframeDoc, font) => {
-        const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
-        let googleTag = iframeDoc.getElementById('gutenverse-google-font-control-editor-' + toSlug(font));
-        if (!googleTag) {
-            googleTag = document.createElement('link');
-            googleTag.rel = 'stylesheet';
-            googleTag.type = 'text/css';
-            googleTag.id = 'gutenverse-google-font-control-editor-' + toSlug(font);
-            googleTag.href = 'https://fonts.googleapis.com/css?family=' + font;
-            head.appendChild(googleTag);
-        }
-    };
-
-    const injectControlCustomFont = (iframeDoc, font) => {
-        const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
-        let customTag = iframeDoc.getElementById('gutenverse-pro-custom-font-control-editor-' + toSlug(font));
-        let customFont = applyFilters(
-            'gutenverse.v3.apply-custom-font',
-            [font],
-            uploadPath
-        );
-        if (!customTag && customFont.length === 1) {
-            customTag = document.createElement('link');
-            customTag.rel = 'stylesheet';
-            customTag.type = 'text/css';
-            customTag.id = 'gutenverse-pro-custom-font-control-editor-' + toSlug(font);
-            customTag.href = customFont[0];
-            head.appendChild(customTag);
-        }
-    };
 
     useEffect(() => {
         let theWindow = getWindow(fontControlRef);
@@ -129,6 +129,16 @@ const FontControl = (props) => {
     useEffect(() => {
         let theWindow = getWindow(fontControlRef);
         let iframeDoc = theWindow.document;
+        if (theWindow && !theWindow.gutenverseControlFont) {
+            theWindow.gutenverseControlFont = [];
+        }
+        if (value?.type === 'google' && !isEmpty(value.value)) {
+            injectControlFont(iframeDoc, value.value);
+            theWindow.gutenverseControlFont.push(value.value);
+        } else if (value.type === 'custom_font_pro' && !isEmpty(value.value)) {
+            injectControlFont(iframeDoc, value.value);
+            theWindow.gutenverseControlFont.push(value.value);
+        }
         return (() => {
             if (theWindow && theWindow.gutenverseControlFont && theWindow.gutenverseControlFont.length > 0) {
                 theWindow.gutenverseControlFont.forEach(font => {
@@ -140,7 +150,7 @@ const FontControl = (props) => {
                 theWindow.gutenverseControlFont = null;
             }
         });
-    }, []);
+    }, [value]);
 
     const customStyles = {
         input: () => {
