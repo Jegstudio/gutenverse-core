@@ -298,6 +298,10 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.1.9 =
+##### New & Improvements
+* improve typing experience in rich-text blocks
+
 = 2.1.8 =
 ##### New & Improvements
 * add Countdown block
