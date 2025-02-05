@@ -7,7 +7,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'width',
         'responsive': true,
-        'property': ['width'],
+        'property': ['max-width'],
         'selector': `section.guten-section.${elementId}.layout-boxed > .guten-container`,
         'valueCSS' : '{value}px', // wait for unit poin handler
         'values' : {
