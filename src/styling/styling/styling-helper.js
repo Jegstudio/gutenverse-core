@@ -286,16 +286,17 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             for (let index = 0; index < blockStyles.length; index++) {
                 const style = blockStyles[index];
                 const { type, id, requestAttributes =[] } = style;
-                let value = attributes[id];
+                const value = attributes[id];
+
                 if ( attributes[id] ) {
+                    let multiAttr = {};
                     if (requestAttributes && requestAttributes.length > 0){
-                        value = {};
                         for (let i = 0; i < requestAttributes.length; i++) {
-                            value[requestAttributes[i]] = attributes[requestAttributes[i]];
+                            multiAttr[requestAttributes[i]] = attributes[requestAttributes[i]];
                         }
-                        value[id] =  attributes[id];
+                        multiAttr[id] =  attributes[id];
                     }
-                    const css = generateCSSString(value, style);
+                    const css = generateCSSString(value, {...style, multiAttr});
 
                     css.Desktop && deviceTypeDesktop.push(css.Desktop);
                     css.Tablet && deviceTypeTablet.push(css.Tablet);

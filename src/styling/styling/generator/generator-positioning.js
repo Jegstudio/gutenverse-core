@@ -1,7 +1,7 @@
 import { skipDevice, handleAlignV} from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 
-export const positioningCSS = (property, values, attributeType, skipDeviceType, id) => {
+export const positioningCSS = (property, values, attributeType, skipDeviceType, multiAttr) => {
     const positioning = {
         Desktop: [],
         Tablet: [],
@@ -31,24 +31,24 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
             }
             break;
         case 'type': {
-            const firstSkip = skipDevice(values, 'positioningType', (attr, device) =>
+            const firstSkip = skipDevice(multiAttr, 'positioningType', (attr, device) =>
                 ['full', 'inline'].includes(attr['positioningType'][device])
             );
-            const secondSkip = skipDevice(values, 'positioningType', (attr, device) =>
+            const secondSkip = skipDevice(multiAttr, 'positioningType', (attr, device) =>
                 !isEmpty(attr['positioningWidth']) && attr['positioningWidth'][device] && attr['positioningType'][device] === 'custom'
             );
 
-            if (!isEmpty(values[id])) {
+            if (!isEmpty(values)) {
                 const devices = ['Desktop', 'Tablet', 'Mobile'];
                 let skip = skipDeviceType === 'first' ? firstSkip : secondSkip;
 
                 for (let i = 0; i < devices.length; i++) {
                     let device = devices[i];
-                    if (device !== skip && !isEmpty(values[id][device])) {
+                    if (device !== skip && !isEmpty(values[device])) {
                         const pos = setPositioning(
-                            values[id][device],
-                            skipDeviceType === 'second' ? values['positioningWidth'][device] : false,
-                            values['inBlock']
+                            values[device],
+                            skipDeviceType === 'second' ? multiAttr['positioningWidth'][device] : false,
+                            multiAttr['inBlock']
                         );
                         positioning[device].push(pos);
                     }
@@ -57,21 +57,21 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
             break;
         }
         case 'width': {
-            const firstSkip = skipDevice(values, 'positioningType', (attr, device) =>
+            const firstSkip = skipDevice(multiAttr, 'positioningType', (attr, device) =>
                 attr['positioningType'] && attr['positioningType'][device] === 'custom'
             );
 
-            if (!isEmpty(values[id])) {
+            if (!isEmpty(values)) {
                 const devices = ['Desktop', 'Tablet', 'Mobile'];
                 let skip = firstSkip;
 
                 for (let i = 0; i < devices.length; i++) {
                     let device = devices[i];
-                    if (device !== skip && !isEmpty(values[id][device])) {
+                    if (device !== skip && !isEmpty(values[device])) {
                         const pos = setPositioning(
-                            values['positioningType'][device],
-                            values[id][device],
-                            values['inBlock']
+                            multiAttr['positioningType'][device],
+                            values[device],
+                            multiAttr['inBlock']
                         );
                         positioning[device].push(pos);
                     }
@@ -101,13 +101,13 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
 };
 
 export const positioningGenerator = (props, style, css) => {
-    const {selector, property = [], attributeType, skipDeviceType, id} = style;
+    const {selector, property = [], attributeType, skipDeviceType, multiAttr} = style;
 
     // const blockName = select('core/block-editor').getBlockName(clientId);
     // const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     // const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
 
-    const positioning = positioningCSS(property, props, attributeType, skipDeviceType, id);
+    const positioning = positioningCSS(property, props, attributeType, skipDeviceType, multiAttr);
 
     if (positioning.Desktop.length) {
         css.Desktop = `${selector} { ` + positioning.Desktop.join(' ') + ' }';
