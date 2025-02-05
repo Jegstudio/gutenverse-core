@@ -140,7 +140,7 @@ export const injectStyleTag = (css, theWindow) => {
 };
 
 const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
-    if(theWindow){
+    if (theWindow) {
         if (!theWindow.gutenverseCSS) {
             theWindow.gutenverseCSS = {};
         }
@@ -171,7 +171,7 @@ const initProcessStyleTag = debounce((theWindow) => {
 }, 500);
 
 const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
-    if(theWindow){
+    if (theWindow) {
         if (!theWindow.gutenverseFont) {
             theWindow.gutenverseFont = {};
         }
@@ -216,10 +216,10 @@ const injectFontStyle = (theWindow) => {
                 }
             });
         }
-        if(value[1].length > 0){
+        if (value[1].length > 0) {
             value[1].forEach(link => {
                 let check = customArr.find(el => el === link);
-                if(!check){
+                if (!check) {
                     customArr = [...customArr, link];
                 }
             });
@@ -244,20 +244,20 @@ const injectFontStyle = (theWindow) => {
         googleTag.href = googleFont;
         head.appendChild(googleTag);
         theWindow.gutenverseGoogleFontUrl = googleFont;
-    }else{
+    } else {
         if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
             googleTag.href = googleFont;
             theWindow.gutenverseGoogleFontUrl = googleFont;
         }
     }
 
-    if(customArr.length > 0){
+    if (customArr.length > 0) {
         let customTag = iframeDoc.getElementsByClassName('gutenverse-pro-custom-font-editor');
-        if(customTag.length > 0){
+        if (customTag.length > 0) {
             while (customTag.length > 0) {
                 customTag[0].remove(); // Always remove the first element since the collection updates dynamically
             }
-        }else{
+        } else {
             customArr.forEach(el => {
                 customTag = document.createElement('link');
                 customTag.rel = 'stylesheet';

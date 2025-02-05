@@ -4,9 +4,9 @@ export const plainGenerator = (attribute, style, css) => {
     const { type, selector, property, responsive = false, valueCSS, values } = style;
     let value = null;
     if (!responsive) {
-        if( valueCSS && values ){
+        if (valueCSS && values) {
             value = replaceDynamicValues(valueCSS, values, attribute);
-        }else{
+        } else {
             value = renderValue(type, attribute);
         }
         if (value) {
@@ -17,9 +17,9 @@ export const plainGenerator = (attribute, style, css) => {
 
     if (responsive) {
         if (attribute['Desktop']) {
-            if( valueCSS && values ){
+            if (valueCSS && values) {
                 value = replaceDynamicValues(valueCSS, values, attribute);
-            }else{
+            } else {
                 value = renderValue(type, attribute['Desktop']);
             }
             if (value) {
@@ -29,9 +29,9 @@ export const plainGenerator = (attribute, style, css) => {
         }
 
         if (attribute['Tablet']) {
-            if( valueCSS && values ){
+            if (valueCSS && values) {
                 value = replaceDynamicValues(valueCSS, values, attribute);
-            }else{
+            } else {
                 value = renderValue(type, attribute['Tablet']);
             }
             if (value) {
@@ -41,9 +41,9 @@ export const plainGenerator = (attribute, style, css) => {
         }
 
         if (attribute['Mobile']) {
-            if( valueCSS && values ){
+            if (valueCSS && values) {
                 value = replaceDynamicValues(valueCSS, values, attribute);
-            }else{
+            } else {
                 value = renderValue(type, attribute['Mobile']);
             }
             if (value) {
@@ -73,13 +73,13 @@ const replaceDynamicValues = (str, values, attribute) => {
                 ? attribute[values[key].key]
                 : `{${key}}`;
         }
-        if ( values[key] && values[key].type === 'direct' ){
+        if (values[key] && values[key].type === 'direct') {
             return attribute ? attribute : `{${key}}`;
         }
         return `{${key}}`;
     });
-    if(newString === str){
+    if (newString === str) {
         return false;
     }
     return newString;
-}
+};
