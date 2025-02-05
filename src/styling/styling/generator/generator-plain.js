@@ -1,7 +1,8 @@
+import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
 
-export const plainGenerator = (attribute, style, css) => {
-    const { type, selector, property, responsive = false, valueCSS, values } = style;
+const cssGenerator = (attribute, style, css) => {
+    const { type, selector, property, responsive = false, valueCSS, values, multiAttr } = style;
     let value = null;
     if (!responsive) {
         if (valueCSS && values) {
@@ -11,7 +12,7 @@ export const plainGenerator = (attribute, style, css) => {
         }
         if (value) {
             const style = multiProperty(property, value);
-            css.Desktop = `${selector} { ${style} }`;
+            css.Desktop += ` ${selector} { ${style} } `;
         }
     }
 
@@ -24,7 +25,7 @@ export const plainGenerator = (attribute, style, css) => {
             }
             if (value) {
                 const style = multiProperty(property, value);
-                css.Desktop = `${selector} { ${style} }`;
+                css.Desktop += ` ${selector} { ${style} } `;
             }
         }
 
@@ -36,7 +37,7 @@ export const plainGenerator = (attribute, style, css) => {
             }
             if (value) {
                 const style = multiProperty(property, value);
-                css.Tablet = `${selector} { ${style} }`;
+                css.Tablet += ` ${selector} { ${style} } `;
             }
         }
 
@@ -48,9 +49,25 @@ export const plainGenerator = (attribute, style, css) => {
             }
             if (value) {
                 const style = multiProperty(property, value);
-                css.Mobile = `${selector} { ${style} }`;
+                css.Mobile = ` ${selector} { ${style} } `;
             }
         }
+    }
+    return css;
+}
+export const plainGenerator = (attribute, style, css) => {
+    const { multiAttr } = style;
+    css = {
+        Desktop: '',
+        Tablet: '',
+        Mobile: '',
+    };
+    if (isNotEmpty(multiAttr)) {
+        multiAttr.forEach(el => {
+            css = cssGenerator(el, style, css);
+        })
+    } else {
+        css = cssGenerator(attribute, style, css);
     }
     return css;
 };
