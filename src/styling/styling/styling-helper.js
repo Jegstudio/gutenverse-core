@@ -17,6 +17,7 @@ import { dimensionGenerator } from './generator/generator-dimension';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { debounce } from '@wordpress/compose';
+import { positioningGenerator } from './generator/generator-positioning';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -82,6 +83,9 @@ const generateCSSString = (attribute, style) => {
             break;
         case 'mask':
             css = maskGenerator(attribute, style, css);
+            break;
+        case 'positioning':
+            css = positioningGenerator(attribute, style, css);
             break;
         case 'boxShadow':
         case 'textShadow':
@@ -181,7 +185,7 @@ const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = fal
             theWindow.gutenverseFont[elementId] = font;
         }
 
-        if (isFirstRun) {
+        if (isFirstRun && isOnEditor()) {
             initProcessFontStyle(theWindow);
         } else {
             processFontStyle(theWindow);
@@ -281,10 +285,18 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             const blockStyles = getBlockStyle(elementId, attributes);
             for (let index = 0; index < blockStyles.length; index++) {
                 const style = blockStyles[index];
-                const { type, id } = style;
-                if (attributes[id]) {
-                    const value = attributes[id];
-                    const css = generateCSSString(value, style);
+                const { type, id, requestAttributes =[] } = style;
+                const value = attributes[id];
+
+                if ( attributes[id] ) {
+                    let multiAttr = {};
+                    if (requestAttributes && requestAttributes.length > 0){
+                        for (let i = 0; i < requestAttributes.length; i++) {
+                            multiAttr[requestAttributes[i]] = attributes[requestAttributes[i]];
+                        }
+                        multiAttr[id] =  attributes[id];
+                    }
+                    const css = generateCSSString(value, {...style, multiAttr});
 
                     css.Desktop && deviceTypeDesktop.push(css.Desktop);
                     css.Tablet && deviceTypeTablet.push(css.Tablet);
@@ -374,4 +386,21 @@ export const headStyleSheet = (fontUsed, elementRef) => {
         }
     }
     return null;
+};
+
+export const skipDevice = (attributes, name, callback) => {
+    if (attributes[name] === null || attributes[name] === undefined) return;
+    if (typeof attributes[name] === 'object') {
+        let devices = [];
+        ['Desktop', 'Tablet', 'Mobile'].forEach(device => {
+            if (!callback(attributes, device)) {
+                devices.push(device);
+            }else if ((!attributes[name][device] || isEmpty(attributes[name][device]))) {
+                devices.push(device);
+            }
+        });
+        return devices;
+    } else {
+        console.log('make sure the attribute is using device control : ', name);
+    }
 };

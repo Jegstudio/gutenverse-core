@@ -18,7 +18,7 @@ export const plainGenerator = (attribute, style, css) => {
     if (responsive) {
         if (attribute['Desktop']) {
             if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute);
+                value = replaceDynamicValues(valueCSS, values, attribute['Desktop']);
             } else {
                 value = renderValue(type, attribute['Desktop']);
             }
@@ -30,7 +30,7 @@ export const plainGenerator = (attribute, style, css) => {
 
         if (attribute['Tablet']) {
             if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute);
+                value = replaceDynamicValues(valueCSS, values, attribute['Tablet']);
             } else {
                 value = renderValue(type, attribute['Tablet']);
             }
@@ -42,7 +42,7 @@ export const plainGenerator = (attribute, style, css) => {
 
         if (attribute['Mobile']) {
             if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute);
+                value = replaceDynamicValues(valueCSS, values, attribute['Mobile']);
             } else {
                 value = renderValue(type, attribute['Mobile']);
             }
@@ -81,5 +81,6 @@ const replaceDynamicValues = (str, values, attribute) => {
     if (newString === str) {
         return false;
     }
+    console.log(newString)
     return newString;
 };
