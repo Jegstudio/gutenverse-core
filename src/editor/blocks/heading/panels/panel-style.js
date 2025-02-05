@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
 import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
-import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const stylePanel = () => {
 
@@ -45,6 +45,11 @@ export const stylePanel = () => {
                 },
             ],
         },
+        {
+            id: 'useStyleInLink',
+            label: __('Use Style in Link', 'gutenverse'),
+            description: __('Applies heading block styling to links within text, overriding the default core link style.', 'gutenverse'),
+            component: CheckboxControl,
+        },
     ];
 };
-
