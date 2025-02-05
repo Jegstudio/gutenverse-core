@@ -9,13 +9,14 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isOnEditor, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
+import { debounce } from '@wordpress/compose';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -148,7 +149,7 @@ const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = fal
         } else {
             theWindow.gutenverseCSS[elementId] = css;
         }
-        if (isFirstRun) {
+        if (isFirstRun && isOnEditor()) {
             initProcessStyleTag(theWindow);
         } else {
             processStyleTag(theWindow);
@@ -165,11 +166,9 @@ const processStyleTag = (theWindow) => {
     injectStyleTag(generateCSS(theWindow), theWindow);
 };
 
-const initProcessStyleTag = (theWindow) => {
-    requestIdleCallback(() => {
-        injectStyleTag(generateCSS(theWindow), theWindow);
-    });
-};
+const initProcessStyleTag = debounce((theWindow) => {
+    injectStyleTag(generateCSS(theWindow), theWindow);
+}, 500);
 
 const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
     if(theWindow){
@@ -194,11 +193,9 @@ const processFontStyle = (theWindow) => {
     injectFontStyle(theWindow);
 };
 
-const initProcessFontStyle = (theWindow) => {
-    requestIdleCallback(() => {
-        injectFontStyle(theWindow);
-    });
-};
+const initProcessFontStyle = debounce((theWindow) => {
+    injectFontStyle(theWindow);
+}, 500);
 
 const injectFontStyle = (theWindow) => {
     let googleArr = [];
