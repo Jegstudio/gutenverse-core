@@ -1,6 +1,6 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
@@ -9,15 +9,30 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
-import { Button, ToolbarButton, ToolbarGroup} from '@wordpress/components';
+import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { plus } from 'gutenverse-core/components';
 import { displayShortcut } from '@wordpress/keycodes';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
+const AccordionPanelController = (props) => {
+    const { panelProps, isSelected, setAttributes } = props;
+    const defaultPanelProps = {
+        ...panelProps,
+        ...props.attributes,
+        setAttributes
+    };
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
+}
 const Accordions = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('accordions'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -37,7 +52,6 @@ const Accordions = compose(
     const {
         attributes,
         clientId,
-        setElementRef
     } = props;
 
     const {
@@ -48,15 +62,12 @@ const Accordions = compose(
         titleTag,
     } = attributes;
 
+    const elementRef = useRef(null);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const accordionRef = useRef();
-
-    useEffect(() => {
-        if (accordionRef.current) {
-            setElementRef(accordionRef.current);
-        }
-    }, [accordionRef]);
 
     useEffect(() => {
         getBlocks(clientId).map(child => {
@@ -79,7 +90,7 @@ const Accordions = compose(
         allowedBlocks: ['gutenverse/accordion'],
         orientation: 'vertical',
         __experimentalAppenderTagName: 'div',
-        ref: accordionRef
+        ref: elementRef
     });
 
     const blockProps = useBlockProps({
@@ -90,7 +101,7 @@ const Accordions = compose(
             animationClass,
             displayClass
         ),
-        ref: accordionRef
+        ref: elementRef
     });
 
     const addChild = () => {
@@ -101,7 +112,7 @@ const Accordions = compose(
     return <>
         <InspectorControls>
             <div className={'parent-button'}>
-                <Button isPrimary onClick={() => addChild()}>
+                <Button primary={true} onClick={() => addChild()}>
                     {__('Add Accordion Child', 'gutenverse')}
                 </Button>
             </div>
@@ -117,7 +128,7 @@ const Accordions = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <PanelController panelList={panelList} {...props} />
+        <AccordionPanelController {...props} />
         <div {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

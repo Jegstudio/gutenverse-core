@@ -1,17 +1,19 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { Check, X } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { dispatch, select, useSelect } from '@wordpress/data';
+import { dispatch, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
 import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -26,7 +28,6 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 
 const Accordion = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
 )(props => {
     const {
@@ -45,8 +46,6 @@ const Accordion = compose(
         attributes,
         setAttributes,
         clientId,
-        addStyle,
-        setElementRef,
         setPanelState
     } = props;
 
@@ -59,21 +58,10 @@ const Accordion = compose(
         elementId
     } = attributes;
 
-    const accordionRef = useRef();
-    const titleRef = useRef();
-    const onOpening = () => {
-        const rootId = getBlockRootClientId(clientId);
-        const childs = getBlocks(rootId);
-
-        childs.map(child => {
-            select('gutenverse/style').findElement(child.clientId).removeStyle('accordion-style');
-        });
-
-        !first && addStyle(
-            'accordion-style',
-            `[data-block="${rootId}"] .guten-accordions .accordion-item.${elementId} .accordion-body { height: auto }`
-        );
-    };
+    const elementRef = useRef(null);
+    const titleRef = useRef(null);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const accordionClass = classnames('accordion-content');
 
@@ -83,7 +71,7 @@ const Accordion = compose(
             first && 'active',
             elementId,
         ),
-        ref: accordionRef
+        ref: elementRef
     });
 
     const innerBlocksProps = useInnerBlocksProps({
@@ -101,21 +89,13 @@ const Accordion = compose(
         });
 
         setAttributes({ first: !first });
-
-        onOpening();
     };
 
     useEffect(() => {
-        if (accordionRef.current) {
-            setElementRef(accordionRef.current);
-        }
-    }, [accordionRef]);
-
-    useEffect(() => {
-        const rootId = getBlockRootClientId(clientId);
-        const parent = getBlock(rootId);
-        const { attributes } = parent;
-        const {
+        let rootId = getBlockRootClientId(clientId);
+        let parent = getBlock(rootId);
+        let { attributes } = parent;
+        let {
             iconOpen,
             iconClosed,
             iconPosition,
@@ -127,6 +107,15 @@ const Accordion = compose(
             iconPosition,
             titleTag
         });
+        return () => {
+            rootId = null;
+            parent = null;
+            attributes = null;
+            iconOpen = null;
+            iconClosed = null;
+            iconPosition = null;
+            titleTag = null;
+        };
     }, []);
 
     FilterDynamic(props);
@@ -163,7 +152,7 @@ const Accordion = compose(
         </BlockControls>
         <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
-            <div className={'accordion-heading'} onClick={setFirstActive}>
+            <div className={`accordion-heading ${first ? 'active' : ''}`} onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
                 <RichTextComponent
                     ref={titleRef}
@@ -187,7 +176,7 @@ const Accordion = compose(
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>
-            <div className={'accordion-body'}>
+            <div className={`accordion-body ${first ? 'active' : ''}`}>
                 <div {...innerBlocksProps} />
             </div>
         </div>

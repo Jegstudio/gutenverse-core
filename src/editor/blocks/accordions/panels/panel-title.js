@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { BorderResponsiveControl, SelectControl } from 'gutenverse-core/controls';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { BorderResponsiveControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
@@ -14,7 +15,29 @@ export const panelTitle = (props) => {
     const device = getDeviceType();
 
     return [
-
+        {
+            id: 'titleAlign',
+            label: __('Title Alignment', 'gutenverse'),
+            component: IconRadioControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Align Left', 'gutenverse'),
+                    value: 'left',
+                    icon: <AlignLeft />,
+                },
+                {
+                    label: __('Align Center', 'gutenverse'),
+                    value: 'center',
+                    icon: <AlignCenter />,
+                },
+                {
+                    label: __('Align Right', 'gutenverse'),
+                    value: 'right',
+                    icon: <AlignRight />,
+                },
+            ]
+        },
         {
             id: 'titleTag',
             label: __('Title Tag', 'gutenverse'),

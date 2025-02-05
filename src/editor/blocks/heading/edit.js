@@ -9,7 +9,7 @@ import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withCustomStyle, withCopyElementToolbar, withMouseMoveEffect, withPartialRender, withAnimationAdvance } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withMouseMoveEffect, withPartialRender, withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 
@@ -17,8 +17,8 @@ import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import getBlockStyle from './styles/block';
-import { useDynamicStyle, useGenerateElementId, headStyleSheet } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = (props) => {
     const {

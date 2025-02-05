@@ -48,58 +48,58 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['backgroundHover']) && data.push({
         'type': 'background',
         'id': 'backgroundHover',
-        'selector': `h1.guten-element.${elementId}:hover,h2.guten-element.${elementId}:hover,h3.guten-element.${elementId}:hover,h4.guten-element.${elementId}:hover,h5.guten-element.${elementId}:hover,h6.guten-element.${elementId}:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['borderHover']) && data.push({
         'type': 'border',
         'id': 'borderHover',
-        'selector': `h1.guten-element.${elementId}:hover,h2.guten-element.${elementId}:hover,h3.guten-element.${elementId}:hover,h4.guten-element.${elementId}:hover,h5.guten-element.${elementId}:hover,h6.guten-element.${elementId}:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['borderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsive',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['borderResponsiveHover']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsiveHover',
-        'selector': `h1.guten-element.${elementId}:hover,h2.guten-element.${elementId}:hover,h3.guten-element.${elementId}:hover,h4.guten-element.${elementId}:hover,h5.guten-element.${elementId}:hover,h6.guten-element.${elementId}:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['boxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadow',
         'property': ['box-shadow'],
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadowHover',
         'property': ['box-shadow'],
-        'selector': `h1.guten-element.${elementId}:hover,h2.guten-element.${elementId}:hover,h3.guten-element.${elementId}:hover,h4.guten-element.${elementId}:hover,h5.guten-element.${elementId}:hover,h6.guten-element.${elementId}:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['mask']) && data.push({
         'type': 'mask',
         'id': 'mask',
         'responsive': true,
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['padding']) && data.push({
@@ -130,7 +130,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id' : 'animation',
         'property': ['animation-delay'],
-        'selector': `.${elementId}`,
+        'selector': `.editor-styles-wrapper .is-root-container  .${elementId}`,
         'valueCSS' : '{value}ms',
         'values' : {
             'value' : {

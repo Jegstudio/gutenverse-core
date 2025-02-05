@@ -21,13 +21,6 @@ export const panelBody = (props) => {
             id: 'contentTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'contentPadding',
@@ -49,47 +42,22 @@ export const panelBody = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'contentTextColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
         },
         {
             id: 'contentBackgroundColor',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ],
         },
         {
             id: 'contentBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
-                }
-            ]
         },
         {
             id: 'contentBorderResponsive',
@@ -97,13 +65,6 @@ export const panelBody = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item .accordion-content`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
-                }
-            ]
         },
     ];
 };
