@@ -19,6 +19,9 @@ import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
+import getBlockStyle from './styles/block-style';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -515,7 +518,7 @@ const ColumnPlaceholder = (props) => {
 // Column InnerBlocks Wrapper component
 const ColumnWrapper = (props) => {
     const { getBlocks } = useSelect((select) => select('core/block-editor'), []);
-    const deviceType = useSelect(() => theDeviceType(determineLocation()),[]);
+    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
 
     const {
         clientId,
@@ -584,27 +587,27 @@ const ColumnWrapper = (props) => {
 
     const valueLength = parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
 
-    const onOpen = () => {
+    const onOpen = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
         }
-    };
+    }, [deviceType]);
 
-    const onClose = () => {
+    const onClose = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
         }
-    };
+    }, [deviceType]);
 
     return (
         <div {...blockProps}>
-            <ResizableBox
+            {/* <ResizableBox
                 enable={{
                     top: false,
                     right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
@@ -620,7 +623,8 @@ const ColumnWrapper = (props) => {
                 onResizeStart={resizeStart}
                 onResize={resize}
                 onResizeStop={resizeStop}
-            >
+            > */}
+            <div className="guten-column-resizeable">
                 <FluidCanvas attributes={attributes} />
                 {(isHovered && eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
@@ -707,15 +711,28 @@ const ColumnWrapper = (props) => {
                         clientId={clientColumnId}
                     />
                 </div>}
-
-            </ResizableBox>
+            </div>
+            {/* </ResizableBox> */}
         </div>
     );
 };
 
 // Column Block Control
 const ColumnInspection = (props) => {
-    return <PanelController panelList={panelList} {...props} />;
+    const { panelProps, isSelected, attributes, setAttributes } = props;
+
+    const defaultPanelProps = {
+        ...panelProps,
+        ...attributes,
+        setAttributes
+    };
+
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
 };
 
 const ColumnRemove = (props) => {
@@ -858,7 +875,7 @@ const ColumnBlock = compose(
 
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, () => [], elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
@@ -974,15 +991,16 @@ const ColumnBlock = compose(
     //     }
     // }, [deviceType]);
 
-    const HoverIcon = <>
-        <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
-        </svg></>;
+    const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
+    </svg>;
 
-    const stickyClasses = Object.keys(sticky)
-        .filter((device) => sticky[device])
-        .map((device) => `sticky-${device.toLowerCase()}`)
-        .join(' ');
+    const stickyClasses = useMemo(() => {
+        return Object.keys(sticky)
+            .filter((device) => sticky[device])
+            .map((device) => `sticky-${device.toLowerCase()}`)
+            .join(' ');
+    }, [sticky]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -1064,7 +1082,7 @@ const ColumnBlock = compose(
 
     return <>
         <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
-        <ColumnInspection {...props} />
+        <ColumnInspection {...props} setAttributes={setAttributes}/>
         <Component {...theProps} />
         {/* <div ref={elementRef}><InnerBlocks /></div> */}
         {/* <ColumnWrapper {...theProps} /> */}
