@@ -81,6 +81,5 @@ const replaceDynamicValues = (str, values, attribute) => {
     if (newString === str) {
         return false;
     }
-    console.log(newString)
     return newString;
 };

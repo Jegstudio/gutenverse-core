@@ -1,20 +1,20 @@
 import { __ } from '@wordpress/i18n';
 import { RangeColumnControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
+// import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
-export const layoutPanel = (props) => {
-    const {
-        elementId,
-        clientId,
-        setAttributes,
-        addStyle,
-    } = props;
+export const layoutPanel = () => {
+    // const {
+    //     elementId,
+    //     clientId,
+    //     setAttributes,
+    //     addStyle,
+    // } = props;
     const deviceType = getDeviceType();
 
-    const allowRender = value => {
-        return value[deviceType] && value[deviceType] !== 'default';
-    };
+    // const allowRender = value => {
+    //     return value[deviceType] && value[deviceType] !== 'default';
+    // };
 
     const minWidth = {
         Desktop: 5,
@@ -22,12 +22,12 @@ export const layoutPanel = (props) => {
         Mobile: 15,
     };
 
-    const additionalProps = {
-        elementId,
-        clientId,
-        addStyle,
-        setAttributes
-    };
+    // const additionalProps = {
+    //     elementId,
+    //     clientId,
+    //     addStyle,
+    //     setAttributes
+    // };
 
     return [
         {
@@ -37,6 +37,7 @@ export const layoutPanel = (props) => {
             min: minWidth[deviceType],
             step: 0.1,
             allowDeviceControl: true,
+            liveUpdate: true,
             // onChange: (value) => {
             //     const { width } = value;
 

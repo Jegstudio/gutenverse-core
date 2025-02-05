@@ -7,10 +7,33 @@ import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
+        // Settings
         {
             title: __('Layouts', '--gctd--'),
             panelArray: layoutPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'column-advance',
+                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`
+            }),
+            tabRole: TabSetting
+        },
+
+        // Styles
+        {
+            title: __('Background', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient', 'fluid', 'slide'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
         },
         // {
         //     title: __('Sticky', '--gctd--'),
@@ -34,16 +57,6 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        {
-            title: __('Background', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                normalOptions: ['default', 'gradient', 'fluid', 'slide'],
-                hoverOptions: ['default', 'gradient'],
-            }),
-            tabRole: TabStyle
-        },
         // {
         //     title: __('Background Overlay', '--gctd--'),
         //     initialOpen: false,
@@ -129,16 +142,6 @@ export const panelList = () => {
         //     }),
         //     pro: true,
         // },
-        {
-            title: __('Spacing', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'column-advance',
-                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`
-            }),
-            tabRole: TabSetting
-        },
         // {
         //     title: __('Condition', 'gutenverse'),
         //     panelArray: conditionPanel,

@@ -14,6 +14,11 @@ export const panelList = () => {
     return [
         // Settings
         {
+            title: __('Layouts', '--gctd--'),
+            panelArray: layoutPanel,
+            tabRole: TabSetting,
+        },
+        {
             title: __('Spacing', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => advancePanel({
@@ -33,11 +38,6 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Layouts', '--gctd--'),
-        //     panelArray: layoutPanel,
-        //     tabRole: TabSetting,
-        // },
         // {
         //     title: __('Structure', '--gctd--'),
         //     initialOpen: false,
