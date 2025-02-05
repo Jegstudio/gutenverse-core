@@ -9,7 +9,7 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'property': ['width'],
         'selector': `.${elementId}`,
-        'valueCSS' : '{value}px',
+        'valueCSS' : '{value}%',
         'values' : {
             'value' : {
                 'type' : 'direct',
