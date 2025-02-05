@@ -54,6 +54,24 @@ const FontComponent = (props) => {
         }
     };
 
+    const injectControlCustomFont = (iframeDoc, font) => {
+        const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+        let customTag = iframeDoc.getElementById('gutenverse-pro-custom-font-control-editor-' + toSlug(font));
+        let customFont = applyFilters(
+            'gutenverse.v3.apply-custom-font',
+            [font],
+            uploadPath
+        );
+        if ( !customTag && customFont.length === 1 ) {
+            customTag = document.createElement('link');
+            customTag.rel = 'stylesheet';
+            customTag.type = 'text/css';
+            customTag.id = 'gutenverse-pro-custom-font-control-editor-' + toSlug(font);
+            customTag.href = customFont[0];
+            head.appendChild(customTag);
+        }
+    }
+
     useEffect(() => {
         let theWindow = getWindow(fontControlRef);
         let iframeDoc = theWindow.document;
@@ -67,7 +85,10 @@ const FontComponent = (props) => {
                     injectControlFont(iframeDoc, props.data.value);
                 }
             } else if (props.data.type === 'custom_font_pro' && !isEmpty(props.data.value)) {
-                // add custom font
+                if (theWindow && theWindow.gutenverseControlFont && !theWindow.gutenverseControlFont.includes(props.data.value)) {
+                    theWindow.gutenverseControlFont.push(props.data.value);
+                    injectControlCustomFont(iframeDoc, props.data.value);
+                }
             }
         }
     }, [isVisible]);
