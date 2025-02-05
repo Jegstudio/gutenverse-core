@@ -1,12 +1,18 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 
 const getBlockStyle = (elementId, attributes) => {
+
+    const linkStyle = attributes['useStyleInLink'] ? `
+        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
     let data = [];
 
     isNotEmpty(attributes['textAlign']) && data.push({
         'type': 'plain',
         'id': 'textAlign',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
         'property': ['text-align'],
         'responsive': true,
     });
@@ -14,27 +20,27 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['color']) && data.push({
         'type': 'color',
         'id': 'color',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
         'property': ['color'],
     });
 
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
     isNotEmpty(attributes['textShadow']) && data.push({
         'type': 'textShadow',
         'id': 'textShadow',
         'property': ['text-shadow'],
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
     isNotEmpty(attributes['textStroke']) && data.push({
         'type': 'textStroke',
         'id': 'textStroke',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
     isNotEmpty(attributes['overflowWrap']) && data.push({
@@ -42,7 +48,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'overflowWrap',
         'responsive': true,
         'property': ['overflow-wrap', 'word-break'],
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
     isNotEmpty(attributes['background']) && data.push({
