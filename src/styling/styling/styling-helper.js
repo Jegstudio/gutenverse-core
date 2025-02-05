@@ -318,12 +318,22 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     const isFirstRun = useRef(true);
     const iframeWindowRef = useRef(null);
 
+    useEffect(()=>{
+        return () => {
+            console.log('remove?', elementId);
+            injectStyleToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
+            injectFontToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
+            iframeWindowRef.current = null;
+        };
+    }, []);
+
     useEffect(() => {
         if (elementRef) {
             if (!iframeWindowRef.current) {
                 iframeWindowRef.current = getWindow(elementRef);
             }
             if (generatedCSS) {
+                console.log('add?', elementId);
                 injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
             }
             if (fontUsed.some(value => value)) {
@@ -331,11 +341,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             }
         }
         isFirstRun.current = false;
-        return () => {
-            injectStyleToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
-            injectFontToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
-            iframeWindowRef.current = null;
-        };
     }, [elementId, attributes, elementRef]);
 
 };
