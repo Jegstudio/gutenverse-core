@@ -9,7 +9,6 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
 import { __ } from '@wordpress/i18n';
-import { Helmet } from 'gutenverse-core/components';
 import ProLock from '../pro-lock';
 import { applyFilters } from '@wordpress/hooks';
 import { useState, useEffect, useRef } from '@wordpress/element';
@@ -62,7 +61,7 @@ const FontComponent = (props) => {
             [font],
             uploadPath
         );
-        if ( !customTag && customFont.length === 1 ) {
+        if (!customTag && customFont.length === 1) {
             customTag = document.createElement('link');
             customTag.rel = 'stylesheet';
             customTag.type = 'text/css';
@@ -70,7 +69,7 @@ const FontComponent = (props) => {
             customTag.href = customFont[0];
             head.appendChild(customTag);
         }
-    }
+    };
 
     useEffect(() => {
         let theWindow = getWindow(fontControlRef);
