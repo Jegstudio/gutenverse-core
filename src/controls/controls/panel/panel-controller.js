@@ -17,6 +17,8 @@ const PanelController = ({ ...props }) => {
         elementRef,
         panelState,
         setPanelIsClicked,
+        setAttributes,
+        attributes
     } = props;
 
     const [switcher, setSwitcher] = useState({});
@@ -99,7 +101,9 @@ const PanelController = ({ ...props }) => {
     const thePanelProps = {
         ...panelProps,
         switcher,
-        setSwitcher
+        setSwitcher,
+        setAttributes,
+        attributes
     };
 
     return <>
