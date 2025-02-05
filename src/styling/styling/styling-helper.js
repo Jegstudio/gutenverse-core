@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from '@wordpress/element';
+import { useMemo, useEffect, useRef } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
@@ -9,13 +9,15 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { isEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isOnEditor, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 import { applyFilters } from '@wordpress/hooks';
 import { positioningGenerator } from './generator/generator-positioning';
+import isEmpty from 'lodash/isEmpty';
+import { debounce } from '@wordpress/compose';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -99,7 +101,6 @@ const generateCSSString = (attribute, style) => {
 
 export const mergeFontDevice = (fonts) => {
     const googleFamily = {};
-    const googleArr = [];
     const { uploadPath } = window['GutenverseConfig'];
     const customArr = [];
 
@@ -111,25 +112,170 @@ export const mergeFontDevice = (fonts) => {
                 weight
             ] : [weight];
         }
-        if( type === 'custom_font_pro'){
-            customArr.push(font);
+        if (type === 'custom_font_pro') {
+            customArr.push(fontName);
         }
     });
-    Object.keys(googleFamily).map(name => {
-        let weights = ['400', '400italic', '700', '700italic', ...googleFamily[name]];
-        weights = weights.filter((weight, index) => weights.indexOf(weight) === index);
-        googleArr.push(`${name}:${weights.join(',')}`);
-    });
-    let googleFont = `https://fonts.googleapis.com/css?family=${googleArr.join('|')}`
+    let googleFont = googleFamily;
     let customFont = !isEmpty(customArr) && applyFilters(
-        'gutenverse.apply-custom-font',
+        'gutenverse.v3.apply-custom-font',
         customArr,
         uploadPath
     );
+
     return [googleFont, customFont];
 };
 
-export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
+export const getWindow = (elementRef) => {
+    if (elementRef.current) {
+        return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
+    }
+
+    return null;
+};
+
+export const injectStyleTag = (css, theWindow) => {
+    let cssElement = theWindow.document.getElementById('gutenverse-block-css');
+    if (!cssElement) {
+        cssElement = theWindow.document.createElement('style');
+        cssElement.id = 'gutenverse-block-css';
+        theWindow.document.head.appendChild(cssElement);
+    }
+    cssElement.innerHTML = css;
+};
+
+const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
+    if (theWindow) {
+        if (!theWindow.gutenverseCSS) {
+            theWindow.gutenverseCSS = {};
+        }
+        if (remove) {
+            delete theWindow.gutenverseCSS[elementId];
+        } else {
+            theWindow.gutenverseCSS[elementId] = css;
+        }
+        if (isFirstRun && isOnEditor()) {
+            initProcessStyleTag(theWindow);
+        } else {
+            processStyleTag(theWindow);
+        }
+    }
+};
+
+const generateCSS = (theWindow) => {
+    return Object.entries(theWindow.gutenverseCSS)
+        .reduce((css, [key, value]) => css + `/* ${key} */ \n${value}\n\n`, '');
+};
+
+const processStyleTag = (theWindow) => {
+    injectStyleTag(generateCSS(theWindow), theWindow);
+};
+
+const initProcessStyleTag = debounce((theWindow) => {
+    injectStyleTag(generateCSS(theWindow), theWindow);
+}, 500);
+
+const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
+    if (theWindow) {
+        if (!theWindow.gutenverseFont) {
+            theWindow.gutenverseFont = {};
+        }
+        if (remove) {
+            delete theWindow.gutenverseFont[elementId];
+        } else {
+            theWindow.gutenverseFont[elementId] = font;
+        }
+
+        if (isFirstRun) {
+            initProcessFontStyle(theWindow);
+        } else {
+            processFontStyle(theWindow);
+        }
+    }
+};
+
+const processFontStyle = (theWindow) => {
+    injectFontStyle(theWindow);
+};
+
+const initProcessFontStyle = debounce((theWindow) => {
+    injectFontStyle(theWindow);
+}, 500);
+
+const injectFontStyle = (theWindow) => {
+    let googleArr = [];
+    let customArr = [];
+
+    Object.entries(theWindow.gutenverseFont).forEach(([fontName, value]) => {
+        const gFont = value[0];
+        if (gFont && typeof gFont === 'object') {
+            Object.entries(gFont).forEach(([fontKey, fontWeights]) => {
+                if (!fontWeights || fontWeights.length === 0 || fontWeights.includes(undefined)) {
+                    fontWeights = ['400', '400italic', '700', '700italic'];
+                }
+                const uniqueWeights = Array.from(new Set(fontWeights.filter(weight => weight !== undefined)));
+                if (!googleArr[fontKey]) {
+                    googleArr[fontKey] = uniqueWeights;
+                } else {
+                    googleArr[fontKey] = Array.from(new Set([...googleArr[fontKey], ...uniqueWeights]));
+                }
+            });
+        }
+        if (value[1].length > 0) {
+            value[1].forEach(link => {
+                let check = customArr.find(el => el === link);
+                if (!check) {
+                    customArr = [...customArr, link];
+                }
+            });
+        }
+    });
+
+    const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
+        .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
+        .join('|')}`;
+
+    const iframeDoc = theWindow.document;
+    const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
+    let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
+    if (!theWindow.gutenverseGoogleFontUrl) {
+        theWindow.gutenverseGoogleFontUrl = '';
+    }
+    if (!googleTag) {
+        googleTag = document.createElement('link');
+        googleTag.rel = 'stylesheet';
+        googleTag.type = 'text/css';
+        googleTag.id = 'gutenverse-google-font-editor';
+        googleTag.href = googleFont;
+        head.appendChild(googleTag);
+        theWindow.gutenverseGoogleFontUrl = googleFont;
+    } else {
+        if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
+            googleTag.href = googleFont;
+            theWindow.gutenverseGoogleFontUrl = googleFont;
+        }
+    }
+
+    if (customArr.length > 0) {
+        let customTag = iframeDoc.getElementsByClassName('gutenverse-pro-custom-font-editor');
+        if (customTag.length > 0) {
+            while (customTag.length > 0) {
+                customTag[0].remove(); // Always remove the first element since the collection updates dynamically
+            }
+        } else {
+            customArr.forEach(el => {
+                customTag = document.createElement('link');
+                customTag.rel = 'stylesheet';
+                customTag.type = 'text/css';
+                customTag.href = el;
+                customTag.classList.add('gutenverse-pro-custom-font-editor');
+                head.appendChild(customTag);
+            });
+        }
+    }
+};
+
+export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
             const deviceTypeDesktop = [];
@@ -180,7 +326,29 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle) => {
         }
     }, [elementId, attributes]);
 
-    return [generatedCSS, fontUsed];
+    const isFirstRun = useRef(true);
+    const iframeWindowRef = useRef(null);
+
+    useEffect(() => {
+        if (elementRef) {
+            if (!iframeWindowRef.current) {
+                iframeWindowRef.current = getWindow(elementRef);
+            }
+            if (generatedCSS) {
+                injectStyleToIFrame(elementId, iframeWindowRef.current, generatedCSS, isFirstRun.current);
+            }
+            if (fontUsed.some(value => value)) {
+                injectFontToIFrame(elementId, iframeWindowRef.current, fontUsed, isFirstRun.current);
+            }
+        }
+        isFirstRun.current = false;
+        return () => {
+            injectStyleToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
+            injectFontToIFrame(elementId, iframeWindowRef.current, '', 0, 1);
+            iframeWindowRef.current = null;
+        };
+    }, [elementId, attributes, elementRef]);
+
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
@@ -191,7 +359,7 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
             const { getBlocks } = select('core/block-editor');
             const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
             if (windowEl?.document) {
-                const htmlEl = windowEl.document.getElementsByTagName('html')[0];
+                const htmlEl = windowEl.document.documentElement;
                 if (!htmlEl.classList.contains('block-editor-block-preview__content-iframe')) {
                     if (recursiveDuplicateCheck(getBlocks(), clientId, elementId)) {
                         createElementId(clientId);

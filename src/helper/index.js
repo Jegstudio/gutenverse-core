@@ -723,80 +723,8 @@ export const dummyText = (minLength, maxLength) => {
     return result.join(' ');
 };
 
-export const isEmpty = (val) => {
-    if (Array.isArray(val)) return val.length === 0; // Empty array
-    if (typeof val === 'object' && val !== null) return Object.keys(val).length === 0; // Empty object
-    return !val;
-};
-
-
-export const renderStyle = () => {
-    const blockStyles = select('gutenverse/blockstyle').getStyles();
-    const fonts = select('gutenverse/blockstyle').getFonts();
-    if(blockStyles.length > 0){
-        let styleContent = '';
-        blockStyles.forEach(block => {
-            styleContent += block.style + ' ';
-        });
-        let mergeFonts = mergeFontDevice(fonts);
-
-        const iframeElements = document.getElementsByName('editor-canvas');
-        if (iframeElements.length > 0) {
-            const iframeElement = iframeElements[0];
-            const iframeDoc = iframeElement.contentDocument || iframeElement.contentWindow.document;
-            let styleTag = iframeDoc.getElementById('gutenverse-style');
-            if(!styleTag){
-                styleTag = iframeDoc.createElement('style');
-                styleTag.id = 'gutenverse-style';
-            }
-            styleTag.innerHTML = styleContent;
-            const body = iframeDoc.body || iframeDoc.getElementsByTagName('body')[0];
-            body.insertBefore(styleTag, body.children[0]);
-            const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
-            let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
-            if(!googleTag){
-                googleTag = document.createElement('link');
-                googleTag.href = mergeFonts[0];
-                googleTag.rel = 'stylesheet';
-                googleTag.type = 'text/css';
-                googleTag.id = 'gutenverse-google-font-editor';
-            }
-            head.appendChild(googleTag);
-            if(mergeFonts[1]){
-                let customTag = iframeDoc.getElementById('gutenverse-custom-font-editor');
-                if(!customTag){
-                    customTag = mergeFonts[1];
-                    customTag.id = 'gutenverse-custom-font-editor';
-                }
-                head.appendChild(customTag);
-            }
-        }else{
-            let styleTag = document.getElementById('gutenverse-style');
-            if(!styleTag){
-                styleTag = document.createElement('style');
-                styleTag.id = 'gutenverse-style';
-            }
-            styleTag.innerHTML = styleContent;
-            const body = document.body;
-            body.insertBefore(styleTag, body.children[0]);
-            const head = document.head;
-            let googleTag = document.getElementById('gutenverse-google-font-editor');
-            if(!googleTag){
-                googleTag = document.createElement('link');
-                googleTag.href = mergeFonts[0];
-                googleTag.rel = 'stylesheet';
-                googleTag.type = 'text/css';
-                googleTag.id = 'gutenverse-google-font-editor';
-            }
-            head.appendChild(googleTag);
-            if(mergeFonts[1]){
-                let customTag = document.getElementById('gutenverse-custom-font-editor');
-                if(!customTag){
-                    customTag = mergeFonts[1];
-                    customTag.id = 'gutenverse-custom-font-editor';
-                }
-                head.appendChild(customTag);
-            }
-        }
-    }
+export const isNotEmpty = (val) => {
+    if (Array.isArray(val)) return val.length !== 0; // Empty array
+    if (typeof val === 'object' && val !== null) return Object.keys(val).length !== 0; // Empty object
+    return !!val;
 };
