@@ -1,18 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { handleAlignV, handleUnitPoint, deviceStyleValue } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { select } from '@wordpress/data';
-import isEmpty from 'lodash/isEmpty';
 
 export const positioningPanel = (props) => {
     const {
-        clientId,
-        elementId,
         positioningType,
-        positioningWidth,
         positioningLocation,
-        selector,
         options= [
             {
                 value: 'default',
@@ -31,23 +24,9 @@ export const positioningPanel = (props) => {
                 label: 'Custom'
             }
         ],
-        inBlock = true,
     } = props;
-    const setPositioning = (value, width = false) => {
-        switch (value) {
-            case 'full':
-                return 'width: 100%!important;';
-            case 'inline':
-                return `width: auto!important; display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
-            case 'custom':
-                return `${handleUnitPoint(width, 'width', true)} display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
-        }
-    };
 
-    const blockName = select('core/block-editor').getBlockName(clientId);
     const deviceType = getDeviceType();
-    const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
-    const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
 
     return [
         {
@@ -56,19 +35,6 @@ export const positioningPanel = (props) => {
             component: SelectControl,
             allowDeviceControl: true,
             options: options,
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: value => value && ['full', 'inline'].includes(deviceStyleValue(deviceType, value)),
-                    render: value => setPositioning(value)
-                },
-                {
-                    selector: customSelector,
-                    updateID: 'positioningWidth-style-0',
-                    allowRender: value => value && !isEmpty( positioningWidth ) && deviceStyleValue(deviceType, positioningWidth) && deviceStyleValue(deviceType, value) === 'custom',
-                    render: value => setPositioning(value, deviceStyleValue(deviceType, positioningWidth))
-                }
-            ]
         },
         {
             id: 'positioningWidth',
@@ -99,13 +65,6 @@ export const positioningPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: () => positioningType && deviceStyleValue(deviceType, positioningType) === 'custom',
-                    render: value => setPositioning(deviceStyleValue(deviceType, positioningType), value)
-                }
-            ]
         },
         {
             id: 'positioningAlign',
@@ -127,16 +86,6 @@ export const positioningPanel = (props) => {
                     label: 'Bottom'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    render: value => `align-self: ${value};`
-                },
-                {
-                    selector: customSelector,
-                    render: value => `vertical-align: ${handleAlignV(value)};`
-                }
-            ]
         },
         {
             id: 'positioningLocation',
@@ -156,13 +105,6 @@ export const positioningPanel = (props) => {
                     label: 'Absolute'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: value => value && positioningLocation !== 'default' ,
-                    render: value => `position: ${value};`
-                }
-            ]
         },
         {
             id: 'positioningLeft',
@@ -200,13 +142,6 @@ export const positioningPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'left')
-                },
-            ]
         },
         {
             id: 'positioningRight',
@@ -244,13 +179,6 @@ export const positioningPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'right')
-                },
-            ]
         },
         {
             id: 'positioningTop',
@@ -288,13 +216,6 @@ export const positioningPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'top'),
-                },
-            ]
         },
         {
             id: 'positioningBottom',
@@ -332,13 +253,6 @@ export const positioningPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: () => positioningLocation && positioningLocation !== 'default',
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
-            ]
         }
     ];
 };

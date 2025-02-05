@@ -39,7 +39,8 @@ export {
 export {
     useDynamicStyle,
     useGenerateElementId,
-    headStyleSheet
+    headStyleSheet,
+    skipDevice,
 } from './styling/styling-helper';
 
 export { backgroundGenerator } from './styling/generator/generator-background';
