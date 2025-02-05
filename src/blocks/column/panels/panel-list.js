@@ -7,11 +7,11 @@ import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
-        // {
-        //     title: __('Layouts', '--gctd--'),
-        //     panelArray: layoutPanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Layouts', '--gctd--'),
+            panelArray: layoutPanel,
+            tabRole: TabSetting
+        },
         // {
         //     title: __('Sticky', '--gctd--'),
         //     panelArray: stickyPanel,

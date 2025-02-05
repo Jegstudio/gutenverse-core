@@ -3,6 +3,20 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
+    isNotEmpty(attributes['width']) && data.push({
+        'type': 'plain',
+        'id': 'width',
+        'responsive': true,
+        'property': ['width'],
+        'selector': `.${elementId}`,
+        'valueCSS' : '{value}px',
+        'values' : {
+            'value' : {
+                'type' : 'direct',
+            }
+        }
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
