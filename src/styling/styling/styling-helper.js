@@ -18,6 +18,7 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { debounce } from '@wordpress/compose';
 import { positioningGenerator } from './generator/generator-positioning';
+import { unitPointGenerator } from './generator/generator-unit-point';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -86,6 +87,9 @@ const generateCSSString = (attribute, style) => {
             break;
         case 'positioning':
             css = positioningGenerator(attribute, style, css);
+            break;
+        case 'unitPoint':
+            css = unitPointGenerator(attribute, style, css);
             break;
         case 'boxShadow':
         case 'textShadow':
