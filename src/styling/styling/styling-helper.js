@@ -236,6 +236,9 @@ const injectFontStyle = (theWindow) => {
     const iframeDoc = theWindow.document;
     const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
     let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
+    if (!theWindow.gutenverseGoogleFontUrl) {
+        theWindow.gutenverseGoogleFontUrl = '';
+    }
     if (!googleTag) {
         googleTag = document.createElement('link');
         googleTag.rel = 'stylesheet';
@@ -243,8 +246,12 @@ const injectFontStyle = (theWindow) => {
         googleTag.id = 'gutenverse-google-font-editor';
         googleTag.href = googleFont;
         head.appendChild(googleTag);
+        theWindow.gutenverseGoogleFontUrl = googleFont;
     }else{
-        googleTag.href = googleFont;
+        if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
+            googleTag.href = googleFont;
+            theWindow.gutenverseGoogleFontUrl = googleFont;
+        }
     }
 
     if(customArr.length > 0){
