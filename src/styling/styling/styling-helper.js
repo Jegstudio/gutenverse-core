@@ -285,13 +285,13 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             const blockStyles = getBlockStyle(elementId, attributes);
             for (let index = 0; index < blockStyles.length; index++) {
                 const style = blockStyles[index];
-                const { type, id, requestAttributes = {isRequested: false} } = style;
+                const { type, id, requestAttributes =[] } = style;
                 let value = attributes[id];
                 if ( attributes[id] ) {
-                    if (requestAttributes.isRequested){
+                    if (requestAttributes && requestAttributes.length > 0){
                         value = {};
-                        for (let i = 0; i < requestAttributes.attributeList.length; i++) {
-                            value[requestAttributes.attributeList[i]] = attributes[requestAttributes.attributeList[i]];
+                        for (let i = 0; i < requestAttributes.length; i++) {
+                            value[requestAttributes[i]] = attributes[requestAttributes[i]];
                         }
                         value[id] =  attributes[id];
                     }

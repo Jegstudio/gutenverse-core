@@ -19,62 +19,6 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
         }
     };
 
-    // if (!isEmpty(positioningAlign)) {
-    //     let alignVertical = '';
-    //     if (positioningAlign.Desktop) {
-    //         switch (positioningAlign.Desktop) {
-    //             case 'flex-start':
-    //                 alignVertical =  'top';
-    //                 break;
-    //             case 'center':
-    //                 alignVertical = 'middle';
-    //                 break;
-    //             case 'flex-end':
-    //                 alignVertical = 'bottom';
-    //                 break;
-    //             default:
-    //                 alignVertical = positioningAlign.Desktop;
-    //                 break;
-    //         }
-    //         positioning.Desktop.push(`align-self: ${positioningAlign.Desktop}; vertical-align: ${alignVertical};`);
-    //     }
-
-    //     if (positioningAlign.Tablet) {
-    //         switch (positioningAlign.Tablet) {
-    //             case 'flex-start':
-    //                 alignVertical =  'top';
-    //                 break;
-    //             case 'center':
-    //                 alignVertical = 'middle';
-    //                 break;
-    //             case 'flex-end':
-    //                 alignVertical = 'bottom';
-    //                 break;
-    //             default:
-    //                 alignVertical = positioningAlign.Tablet;
-    //                 break;
-    //         }
-    //         positioning.Tablet.push(`align-self: ${positioningAlign.Tablet}; vertical-align: ${alignVertical};`);
-    //     }
-
-    //     if (positioningAlign.Mobile) {
-    //         switch (positioningAlign.Mobile) {
-    //             case 'flex-start':
-    //                 alignVertical =  'top';
-    //                 break;
-    //             case 'center':
-    //                 alignVertical = 'middle';
-    //                 break;
-    //             case 'flex-end':
-    //                 alignVertical = 'bottom';
-    //                 break;
-    //             default:
-    //                 alignVertical = positioningAlign.Mobile;
-    //                 break;
-    //         }
-    //         positioning.Mobile.push(`align-self: ${positioningAlign.Mobile}; vertical-align: ${alignVertical};`);
-    //     }
-    // }
     switch (attributeType) {
         case 'custom' :
             if (!isEmpty(values)) {
