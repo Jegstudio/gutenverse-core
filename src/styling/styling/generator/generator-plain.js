@@ -36,8 +36,8 @@ export const plainGenerator = (attribute, style, css) => {
     };
 
     if (isNotEmpty(multiAttr)) {
-        multiAttr.forEach(el => {
-            css = cssGenerator(el, style, css);
+        Object.keys(multiAttr).forEach(el => {
+            css = cssGenerator(multiAttr[el], style, css);
         });
     } else {
         css = cssGenerator(attribute, style, css);
