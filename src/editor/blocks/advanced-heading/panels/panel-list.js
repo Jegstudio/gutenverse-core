@@ -9,11 +9,11 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
-        // {
-        //     title: __('Content', 'gutenverse'),
-        //     panelArray: settingPanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Content', 'gutenverse'),
+            panelArray: settingPanel,
+            tabRole: TabSetting
+        },
         // {
         //     title: __('Dynamic Data', 'gutenverse'),
         //     panelArray: (props) => {
@@ -27,11 +27,11 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Line', 'gutenverse'),
-        //     panelArray: linePanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Line', 'gutenverse'),
+            panelArray: linePanel,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Highlight Style', 'gutenverse'),
         //     panelArray: (props) => childStylePanel({
@@ -41,11 +41,11 @@ export const panelList = () => {
         //     tabRole: TabStyle,
         //     pro: true
         // },
-        // {
-        //     title: __('Main Title', 'gutenverse'),
-        //     panelArray: mainTitlePanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Main Title', 'gutenverse'),
+            panelArray: mainTitlePanel,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Main Title Text Clip', 'gutenverse'),
         //     initialOpen: false,

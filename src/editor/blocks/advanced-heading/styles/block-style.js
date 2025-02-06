@@ -7,7 +7,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'focusColor',
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['focusTypography']) && data.push({
@@ -33,7 +38,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'focusMargin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
     });
 
@@ -41,7 +51,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'focusPadding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
     });
 
@@ -50,21 +65,156 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'lineColor',
         'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
-        'property': ['border-color'],
+        'properties': [
+            {
+                'name' : 'border-color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['lineWidth']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
         'type': 'plain',
         'id': 'lineWidth',
-        'property': ['width'],
+        'responsive' : true,
         'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
-        'valueCSS': '{value}%',
-        'values': {
-            'value': {
-                'type': 'direct',
+        'properties': [
+            {
+                'name' : 'width',
+                'valueType' : 'pattern',
+                'pattern' : '{value}%',
+                'patternValue' : {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
             }
-        }
+        ]
     });
+
+    isNotEmpty(attributes['lineHeight']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
+        'type': 'plain',
+        'id': 'lineHeight',
+        'properties': [
+            {
+                'name' : 'border-top-width',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValue' : {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+        'responsive': true,
+    });
+
+    isNotEmpty(attributes['lineHeight']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
+        'type': 'plain',
+        'id': 'lineStyle',
+        'properties': [
+            {
+                'name' : 'border-top-style',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+    });
+
+    isNotEmpty(attributes['lineMargin']) && data.push({
+        'type': 'dimension',
+        'id': 'lineMargin',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
+    });
+
+    /**Panel Main Title*/
+    isNotEmpty(attributes['mainColor']) && data.push({
+        'type': 'color',
+        'id': 'mainColor',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['mainTypography']) && data.push({
+        'type': 'typography',
+        'id': 'mainTypography',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+    });
+
+    isNotEmpty(attributes['mainTextStroke']) && data.push({
+        'type': 'textStroke',
+        'id': 'mainTextStroke',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+    });
+
+    isNotEmpty(attributes['mainBackground']) && data.push({
+        'type': 'background',
+        'id': 'mainBackground',
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+    });
+
+    isNotEmpty(attributes['mainMargin']) && data.push({
+        'type': 'dimension',
+        'id': 'mainMargin',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+    });
+
+    isNotEmpty(attributes['mainPadding']) && data.push({
+        'type': 'dimension',
+        'id': 'mainPadding',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+    });
+
+    /**Panel Setting */
+    isNotEmpty(attributes['alignText']) && data.push({
+        'type': 'plain',
+        'id': 'alignText',
+        'selector': `.${elementId}, .${elementId} .heading-section`,
+        'properties': [
+            {
+                'name' : 'justify-content',
+                'valueType' : 'direct',
+            },
+            {
+                'name': 'text-align',
+                'valueType' : 'function',
+                'functionName' : 'handleAlign',
+            }
+        ],
+        'responsive': true,
+    });
+
+    /**Panel Sub Title */
+
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
@@ -106,14 +256,24 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['boxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadowHover',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
@@ -128,7 +288,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'padding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -136,7 +301,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'margin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -144,22 +314,33 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'zIndex',
         'responsive': true,
-        'property': ['z-index'],
+        'properties': [
+            {
+                'name' : 'z-index',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['animation']) && isNotEmpty(attributes['animation']['delay']) && data.push({
         'type': 'plain',
         'id': 'animation',
-        'property': ['animation-delay'],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-        'valueCSS': '{value}ms',
-        'values': {
-            'value': {
-                'type': 'attribute',
-                'key': 'delay'
+        'properties': [
+            {
+                'name' : 'animation-delay',
+                'valueType' : 'pattern',
+                'pattern' : '{value}ms',
+                'patternValue' : {
+                    'value': {
+                        'type' : 'attribute',
+                        'key'  : 'delay',
+                    },
+
+                }
             }
-        }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     return data;

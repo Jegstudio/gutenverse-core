@@ -28,6 +28,7 @@ const AdvHeadingPanelController = (props) => {
         {...props}
     />;
 };
+
 const AdvancedHeadingBlock = compose(
     withPartialRender,
     withAnimationAdvance('advance-heading'),

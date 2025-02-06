@@ -13,7 +13,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'textAlign',
         'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
-        'property': ['text-align'],
+        'properties': [
+            {
+                'name': 'text-align',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
     });
 
@@ -21,7 +26,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'color',
         'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['typography']) && data.push({
@@ -33,7 +43,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['textShadow']) && data.push({
         'type': 'textShadow',
         'id': 'textShadow',
-        'property': ['text-shadow'],
+        'properties': [
+            {
+                'name': 'text-shadow',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
@@ -47,7 +62,16 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'overflowWrap',
         'responsive': true,
-        'property': ['overflow-wrap', 'word-break'],
+        'properties': [
+            {
+                'name': 'overflow-wrap',
+                'valueType': 'direct'
+            },
+            {
+                'name': 'word-break',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
     });
 
@@ -90,14 +114,24 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['boxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadowHover',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
@@ -112,7 +146,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'padding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name': 'padding',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -120,7 +159,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'margin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -128,28 +172,40 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'zIndex',
         'responsive': true,
-        'property': ['z-index'],
+        'properties': [
+            {
+                'name': 'z-index',
+                'valueType': 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['animation']) && isNotEmpty(attributes['animation']['delay']) && data.push({
         'type': 'plain',
-        'id' : 'animation',
-        'property': ['animation-delay'],
+        'id': 'animation',
         'selector': `.editor-styles-wrapper .is-root-container  .${elementId}`,
-        'valueCSS' : '{value}ms',
-        'values' : {
-            'value' : {
-                'type' : 'attribute',
-                'key'  : 'delay'
+        'properties': [
+            {
+                'name': 'animation-delay',
+                'valueType': 'pattern',
+                'pattern': '{value}ms',
+                'patternValue': {
+                    'value': {
+                        'type': 'attribute',
+                        'key': 'delay',
+                    },
+
+                }
             }
-        }
+        ],
     });
+
     //Positioning Panel
     isNotEmpty(attributes['positioningType']) && data.push(
         {
             'type': 'positioning',
-            'id' : 'positioningType',
+            'id': 'positioningType',
             'selector': `.wp-block-gutenverse-heading.${elementId}`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
@@ -159,9 +215,9 @@ const getBlockStyle = (elementId, attributes) => {
         },
         {
             'type': 'positioning',
-            'id' : 'positioningType',
+            'id': 'positioningType',
             'selector': `.wp-block-gutenverse-heading.${elementId}`,
-            'skipDeviceType' : 'second',
+            'skipDeviceType': 'second',
             'attributeType': 'type',
             'requestAttributes': [
                 'positioningWidth',
@@ -171,9 +227,9 @@ const getBlockStyle = (elementId, attributes) => {
     );
     isNotEmpty(attributes['positioningWidth']) && data.push({
         'type': 'positioning',
-        'id' : 'positioningWidth',
+        'id': 'positioningWidth',
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
-        'skipDeviceType' : 'first',
+        'skipDeviceType': 'first',
         'attributeType': 'width',
         'requestAttributes': [
             'positioningType',
@@ -182,27 +238,27 @@ const getBlockStyle = (elementId, attributes) => {
     });
     isNotEmpty(attributes['positioningAlign']) && data.push({
         'type': 'plain',
-        'id' : 'positioningAlign',
+        'id': 'positioningAlign',
         'responsive': true,
         'property': ['align-self'],
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
     },
     {
         'type': 'positioning',
-        'id' : 'positioningAlign',
+        'id': 'positioningAlign',
         'property': ['vertical-align'],
         'attributeType': 'align',
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
     });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
-        'id' : 'positioningLocation',
+        'id': 'positioningLocation',
         'property': ['position'],
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
     });
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
-        'id' : 'positioningLeft',
+        'id': 'positioningLeft',
         'property': ['left'],
         'responsive': true,
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
@@ -210,7 +266,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
-        'id' : 'positioningRight',
+        'id': 'positioningRight',
         'property': ['right'],
         'responsive': true,
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
@@ -218,7 +274,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
-        'id' : 'positioningTop',
+        'id': 'positioningTop',
         'property': ['top'],
         'responsive': true,
         'selector': `.wp-block-gutenverse-heading.${elementId}`,
@@ -226,7 +282,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
-        'id' : 'positioningBottom',
+        'id': 'positioningBottom',
         'property': ['bottom'],
         'responsive': true,
         'selector': `.wp-block-gutenverse-heading.${elementId}`,

@@ -9,7 +9,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'accordionMargin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item, .guten-column .wp-block .${elementId} .accordion-item`,
     });
 
@@ -42,14 +47,24 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['accordionBoxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'accordionBoxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item`,
     });
 
     isNotEmpty(attributes['accordionBoxShadowActive']) && data.push({
         'type': 'boxShadow',
         'id': 'accordionBoxShadowActive',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item.active`,
     });
 
@@ -64,7 +79,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'contentPadding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item .accordion-content`,
     });
 
@@ -72,14 +92,24 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'contentTextColor',
         'selector': `.${elementId} .accordion-item .accordion-content`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['contentBackgroundColor']) && data.push({
         'type': 'color',
         'id': 'contentBackgroundColor',
         'selector': `.${elementId} .accordion-item .accordion-content`,
-        'property': ['background-color'],
+        'properties': [
+            {
+                'name' : 'background-color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['contentBorder']) && data.push({
@@ -100,7 +130,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'iconMargin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
     });
 
@@ -108,7 +143,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'iconPadding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
     });
 
@@ -116,21 +156,31 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconSize',
         'responsive': true,
-        'property': ['font-size'],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
-        'valueCSS' : '{value}px',
-        'values' : {
-            'value' : {
-                'type' : 'direct',
+        'properties': [
+            {
+                'name' : 'font-size',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValue' : {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
             }
-        }
+        ],
     });
 
     isNotEmpty(attributes['iconColor']) && data.push({
         'type': 'color',
         'id': 'iconColor',
         'selector': `.${elementId} .accordion-item .accordion-icon i`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['iconBackground']) && data.push({
@@ -156,7 +206,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconBoxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'iconBoxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
     });
 
@@ -164,21 +219,31 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconActiveSize',
         'responsive': true,
-        'property': ['font-size'],
         'selector': `.${elementId} .accordion-item.active .accordion-icon`,
-        'valueCSS' : '{value}px',
-        'values' : {
-            'value' : {
-                'type' : 'direct',
+        'properties': [
+            {
+                'name' : 'font-size',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValue' : {
+                    'value': {
+                        'type': 'direct',
+                    }
+                }
             }
-        }
+        ],
     });
 
     isNotEmpty(attributes['iconActiveColor']) && data.push({
         'type': 'color',
         'id': 'iconActiveColor',
         'selector': `.${elementId} .accordion-item.active .accordion-icon i`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['iconActiveBackground']) && data.push({
@@ -204,7 +269,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconActiveBoxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'iconActiveBoxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item.active .accordion-icon`,
     });
 
@@ -214,14 +284,19 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPosition',
         'responsive': true,
-        'property': ['margin-right'],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
-        'valueCSS' : '{value}px',
-        'values' : {
-            'value' : {
-                'type' : 'direct',
-            },
-        },
+        'properties': [
+            {
+                'name': 'margin-right',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValue': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
         'multiAttr' : [attributes['iconSpacing']]
     });
 
@@ -229,14 +304,20 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPosition',
         'responsive': true,
-        'property': ['margin-left'],
         'selector': `.${elementId} .accordion-item .accordion-icon`,
-        'valueCSS' : '{value}px',
-        'values' : {
-            'value' : {
-                'type' : 'direct',
-            },
-        },
+        'properties': [
+            {
+                'name': 'margin-left',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValue': {
+                    'value': {
+                        'type': 'direct',
+                    },
+
+                }
+            }
+        ],
         'multiAttr' : [attributes['iconSpacing']]
     });
 
@@ -245,7 +326,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'titleAlign',
         'selector': `.${elementId} .accordion-item .accordion-text`,
-        'property': ['text-align'],
+        'properties': [
+            {
+                'name' : 'text-align',
+                'valueType' : 'direct'
+            }
+        ],
         'responsive': true,
     });
 
@@ -259,7 +345,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'titlePadding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.${elementId} .accordion-item .accordion-text`,
     });
 
@@ -267,14 +358,24 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'titleTextColor',
         'selector': `.${elementId} .accordion-item .accordion-text`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['titleBackgroundColor']) && data.push({
         'type': 'color',
         'id': 'titleBackgroundColor',
         'selector': `.${elementId} .accordion-item .accordion-text`,
-        'property': ['background-color'],
+        'properties': [
+            {
+                'name' : 'background-color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['titleBorder']) && data.push({
@@ -294,14 +395,24 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'color',
         'id': 'titleActiveColor',
         'selector': `.${elementId} .accordion-item.active .accordion-text`,
-        'property': ['color'],
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['titleBackgroundActiveColor']) && data.push({
         'type': 'color',
         'id': 'titleBackgroundActiveColor',
         'selector': `.${elementId} .accordion-item.active .accordion-text`,
-        'property': ['background-color'],
+        'properties': [
+            {
+                'name' : 'background-color',
+                'valueType' : 'direct'
+            }
+        ],
     });
 
     isNotEmpty(attributes['titleBorderActive']) && data.push({
@@ -357,14 +468,24 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['boxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadow',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadowHover',
-        'property': ['box-shadow'],
+        'properties': [
+            {
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
@@ -379,7 +500,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'padding',
         'responsive': true,
-        'property': ['padding'],
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -387,7 +513,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'dimension',
         'id': 'margin',
         'responsive': true,
-        'property': ['margin'],
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
@@ -395,22 +526,33 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'zIndex',
         'responsive': true,
-        'property': ['z-index'],
+        'properties': [
+            {
+                'name' : 'z-index',
+                'valueType' : 'direct'
+            }
+        ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['animation']) && isNotEmpty(attributes['animation']['delay']) && data.push({
         'type': 'plain',
         'id' : 'animation',
-        'property': ['animation-delay'],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-        'valueCSS' : '{value}ms',
-        'values' : {
-            'value' : {
-                'type' : 'attribute',
-                'key'  : 'delay'
+        'properties': [
+            {
+                'name': 'animation-delay',
+                'valueType': 'pattern',
+                'pattern': '{value}ms',
+                'patternValue': {
+                    'value': {
+                        'type': 'attribute',
+                        'key': 'delay',
+                    },
+
+                }
             }
-        }
+        ],
     });
 
     return data;
