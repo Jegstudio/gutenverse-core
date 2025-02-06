@@ -1,20 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { Button } from '@wordpress/components';
-import { useState } from '@wordpress/element';
+import { useMemo, useState } from '@wordpress/element';
 import { ChevronLeft } from 'react-feather';
-import {
-    column1_100,
-    column2_33_66,
-    column2_50_50,
-    column2_66_33,
-    column3_17_66_17,
-    column3_25_25_50,
-    column3_25_50_25,
-    column3_33_33_33,
-    column3_50_25_25,
-    column4_25_25_25_25,
-    column5_20_20_20_20_20
-} from '../data/icons';
 import {
     col1_100,
     col2_33_66,
@@ -31,21 +17,15 @@ import {
 
 const VariationList = (props) => {
     const { onClick, data } = props;
+    const columnIcons = useMemo(() => data?.map((width, key) => <div key={key} className={`column-icon col-${width}`}></div>), []);
+
     return <li className="section-variation-picker-item">
         <div
             className="section-variation-picker-item-button"
             onClick={onClick}
         >
-            {/* {data?.map((width, key) => {
-                return <div key={key} className="column-icon" style={{ width: `${width}%` }}></div>;
-            })} */}
+            {columnIcons}
         </div>
-        {/* <Button
-            isSecondary
-            iconSize={80}
-            className="section-variation-picker-item-button"
-            {...props}
-        /> */}
     </li>;
 };
 
