@@ -22,6 +22,7 @@ import isEmpty from 'lodash/isEmpty';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
 import getBlockStyle from './styles/block-style';
+import { useDeferredValue } from 'react';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -189,7 +190,7 @@ const onResizeStart = (props, p) => {
     if (deviceType === 'Desktop') {
         parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.add('dragging');
+            toolTip?.classList.add('dragging');
         });
     }
 
@@ -223,7 +224,7 @@ const onResizeStart = (props, p) => {
 const onResize = (props, off) => {
     const {
         clientId,
-        addStyle,
+        setAttributes,
         targetBlock,
         getBlock,
         parentBlockWidth,
@@ -287,11 +288,12 @@ const onResize = (props, off) => {
 
     curentWidth[deviceType] = calcCurentModPercent;
 
+    setAttributes({width: curentWidth});
     // Update attribute
-    addStyle(
-        'column-width',
-        BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
-    );
+    // addStyle(
+    //     'column-width',
+    //     BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
+    // );
 
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = calcTargetModPercent;
@@ -326,7 +328,7 @@ const onResizeStop = (props) => {
     if (parentBlock) {
         parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.remove('dragging');
+            toolTip?.classList.remove('dragging');
         });
     }
 
@@ -456,7 +458,7 @@ const ColumnPlaceholder = (props) => {
                         />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
                         onMouseEnter={() => {
                             onOpen();
@@ -509,7 +511,7 @@ const ColumnPlaceholder = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
+                </div>}
             </ResizableBox>
         </div>
     );
@@ -585,7 +587,9 @@ const ColumnWrapper = (props) => {
     const parentClientId = getBlockParents(clientId, true)[0];
     const parentBlock = getBlock(parentClientId);
 
-    const valueLength = parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
+    const valueLength = useMemo(() => {
+        return parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
+    }, [wvalue]);
 
     const onOpen = useCallback(() => {
         if (deviceType === 'Desktop') {
@@ -607,7 +611,7 @@ const ColumnWrapper = (props) => {
 
     return (
         <div {...blockProps}>
-            {/* <ResizableBox
+            <ResizableBox
                 enable={{
                     top: false,
                     right: ('last' !== position || ('Tablet' === deviceType || 'Mobile' === deviceType)) && 'only' !== position ? true : false,
@@ -623,8 +627,7 @@ const ColumnWrapper = (props) => {
                 onResizeStart={resizeStart}
                 onResize={resize}
                 onResizeStop={resizeStop}
-            > */}
-            <div className="guten-column-resizeable">
+            >
                 <FluidCanvas attributes={attributes} />
                 {(isHovered && eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
@@ -711,8 +714,7 @@ const ColumnWrapper = (props) => {
                         clientId={clientColumnId}
                     />
                 </div>}
-            </div>
-            {/* </ResizableBox> */}
+            </ResizableBox>
         </div>
     );
 };
@@ -807,8 +809,8 @@ const ColumnBlockControl = (props) => {
 
     return <BlockControls>
         <ToolbarGroup>
-            <ColumnAdd {...props} />
-            <ColumnRemove {...props} />
+            {/* <ColumnAdd {...props} /> */}
+            {/* <ColumnRemove {...props} /> */}
         </ToolbarGroup>
     </BlockControls>;
 };
@@ -895,32 +897,32 @@ const ColumnBlock = compose(
         }
     }, [clientId]);
 
-    const getChildTotalWidth = () => {
-        let total = 0;
+    // const getChildTotalWidth = () => {
+    //     let total = 0;
 
-        getBlocks(rootClientId).map(item => {
-            const { name, attributes } = item;
+    //     getBlocks(rootClientId).map(item => {
+    //         const { name, attributes } = item;
 
-            if (name === 'gutenverse/column') {
-                const { width } = attributes;
-                let Desktop = 0;
+    //         if (name === 'gutenverse/column') {
+    //             const { width } = attributes;
+    //             let Desktop = 0;
 
-                if (width !== undefined) {
-                    Desktop = width.Desktop;
-                } else {
-                    Desktop = 100;
-                }
+    //             if (width !== undefined) {
+    //                 Desktop = width.Desktop;
+    //             } else {
+    //                 Desktop = 100;
+    //             }
 
-                if (isNaN(Desktop)) {
-                    Desktop = 5;
-                }
+    //             if (isNaN(Desktop)) {
+    //                 Desktop = 5;
+    //             }
 
-                total += Desktop;
-            }
-        });
+    //             total += Desktop;
+    //         }
+    //     });
 
-        return total;
-    };
+    //     return total;
+    // };
 
     // useEffect(() => {
     //     const eachWidth = roundToDown(100 / adjacentCount, 1);
@@ -951,34 +953,38 @@ const ColumnBlock = compose(
     const [editorDom, setEditorDom] = useState(null);
     const [totalWidth, setTotalWidth] = useState(0);
 
-    // useEffect(() => {
-    //     if (isFSE()) {
-    //         setTimeout(() => {
-    //             const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //             if (iframeEl) {
-    //                 if (iframeEl.contentDocument.body.innerHTML === '') {
-    //                     setTimeout(() => {
-    //                         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //                         if (iframeEl) {
-    //                             setEditorDom(iframeEl.contentDocument.body);
-    //                         }
-    //                     }, 200);
-    //                 } else {
-    //                     setEditorDom(iframeEl.contentDocument.body);
-    //                 }
-    //             } else {
-    //                 setEditorDom(document.querySelector('.editor-styles-wrapper'));
-    //             }
-    //         }, 200);
-    //     } else {
-    //         const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
-    //         if (iframeEl) {
-    //             setEditorDom(iframeEl.contentDocument.body);
-    //         } else {
-    //             setEditorDom(document.querySelector('.editor-styles-wrapper'));
-    //         }
-    //     }
-    // }, [deviceType]);
+    useEffect(() => {
+        let timeout = null;
+
+        if (isFSE()) {
+            timeout = setTimeout(() => {
+                const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                if (iframeEl) {
+                    if (iframeEl.contentDocument.body.innerHTML === '') {
+                        setTimeout(() => {
+                            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+                            if (iframeEl) {
+                                setEditorDom(iframeEl.contentDocument.body);
+                            }
+                        }, 200);
+                    } else {
+                        setEditorDom(iframeEl.contentDocument.body);
+                    }
+                } else {
+                    setEditorDom(document.querySelector('.editor-styles-wrapper'));
+                }
+            }, 200);
+        } else {
+            const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
+            if (iframeEl) {
+                setEditorDom(iframeEl.contentDocument.body);
+            } else {
+                setEditorDom(document.querySelector('.editor-styles-wrapper'));
+            }
+        }
+
+        return () => clearTimeout(timeout);
+    }, [deviceType]);
 
     const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
@@ -1013,12 +1019,12 @@ const ColumnBlock = compose(
             }
         ),
         ref: elementRef,
-        onMouseEnter: () => {
-            setIsHovered(true);
-        },
-        onMouseLeave: () => {
-            setIsHovered(false);
-        },
+        // onMouseEnter: () => {
+        //     setIsHovered(true);
+        // },
+        // onMouseLeave: () => {
+        //     setIsHovered(false);
+        // },
     });
 
     // useEffect(() => {
@@ -1070,10 +1076,11 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
-        <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
-        <ColumnInspection {...props} setAttributes={setAttributes}/>
-        <Component {...theProps} />
-        {/* <div ref={elementRef}><InnerBlocks /></div> */}
+        {/* {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />} */}
+        {/* <ColumnInspection {...props} setAttributes={setAttributes}/> */}
+        {/* <Component {...theProps} /> */}
+        <div ref={elementRef}><InnerBlocks /></div>
+        {/* <ColumnPlaceholder {...theProps} /> */}
         {/* <ColumnWrapper {...theProps} /> */}
     </>;
 });
