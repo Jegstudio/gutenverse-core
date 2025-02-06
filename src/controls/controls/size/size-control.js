@@ -93,8 +93,7 @@ const SizeControl = (props) => {
         hideRange = false,
     } = props;
     const {unit = '', point = ''} = value;
-    const [activeUnit, setActiveUnit] = useState(null);
-
+    const [activeUnit, setActiveUnit] = useState(unit);
     const onChange = value => {
         onValueChange(value);
     };
