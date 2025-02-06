@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.1.8
+Stable tag: 2.1.9
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -301,6 +301,15 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 = 2.1.9 =
 ##### New & Improvements
 * improve typing experience in rich-text blocks
+
+##### Bug Fixes
+* fix transform scaleX hover
+* fix logo slider transition duration
+* fix post block pagination number
+* fix accordion title background type gradient
+* fix post block type 5 when category is disabled
+* fix bug menu with anchor and the same page
+* fix heading link styling
 
 = 2.1.8 =
 ##### New & Improvements
