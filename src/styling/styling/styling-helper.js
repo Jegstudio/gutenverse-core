@@ -147,6 +147,22 @@ export const injectStyleTag = (css, theWindow) => {
     cssElement.innerHTML = css;
 };
 
+export const getClientIdByElementId = (elementId) => {
+    const blocks = select('core/block-editor').getBlocks();
+
+    const block = blocks.find(block => block.attributes['elementId'] === elementId);
+
+    return block ? block.clientId : null;
+};
+
+export const isNotPreviewBlock = (clientId, theWindow) => {
+    const { getBlockRootClientId } = select('core/block-editor');
+    const isEditor = getBlockRootClientId(clientId) !== null;
+    const htmlEl = theWindow?.document?.documentElement;
+    const isPreview = htmlEl?.classList.contains('block-editor-block-preview__content-iframe');
+    return isEditor && !isPreview;
+};
+
 const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
     if (theWindow) {
         if (!theWindow.gutenverseCSS) {
@@ -157,7 +173,8 @@ const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = fal
         } else {
             theWindow.gutenverseCSS[elementId] = css;
         }
-        if (isFirstRun && isOnEditor()) {
+        if (isFirstRun && isNotPreviewBlock(getClientIdByElementId(elementId), theWindow)) {
+        // if (isFirstRun && isOnEditor()) {
             initProcessStyleTag(theWindow);
         } else {
             processStyleTag(theWindow);
@@ -189,7 +206,8 @@ const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = fal
             theWindow.gutenverseFont[elementId] = font;
         }
 
-        if (isFirstRun && isOnEditor()) {
+        if (isFirstRun && isNotPreviewBlock(getClientIdByElementId(elementId), theWindow)) {
+        // if (isFirstRun && isOnEditor()) {
             initProcessFontStyle(theWindow);
         } else {
             processFontStyle(theWindow);
