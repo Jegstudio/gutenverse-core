@@ -16,7 +16,7 @@ import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { debounce } from '@wordpress/compose';
+import { throttle } from '@wordpress/compose';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 
@@ -191,9 +191,9 @@ const processStyleTag = (theWindow) => {
     injectStyleTag(generateCSS(theWindow), theWindow);
 };
 
-const initProcessStyleTag = debounce((theWindow) => {
+const initProcessStyleTag = throttle((theWindow) => {
     injectStyleTag(generateCSS(theWindow), theWindow);
-}, 500);
+}, 500, { leading: true, trailing: false });
 
 const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
     if (theWindow) {
@@ -219,9 +219,9 @@ const processFontStyle = (theWindow) => {
     injectFontStyle(theWindow);
 };
 
-const initProcessFontStyle = debounce((theWindow) => {
+const initProcessFontStyle = throttle((theWindow) => {
     injectFontStyle(theWindow);
-}, 500);
+}, 500, { leading: true, trailing: false });
 
 const injectFontStyle = (theWindow) => {
     let googleArr = [];
