@@ -51,7 +51,7 @@ const AnimatedTextBlock = compose(
         titleTag: TitleTag,
     } = attributes;
 
-    const elementRef = useRef();
+    const elementRef = useRef(null);
     const displayClass = useDisplayEditor(attributes);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);

@@ -39,14 +39,14 @@ const TextStyleZoom = (props) => {
         setAnimation(animeInit);
     };
 
-    useEffect(() => animatedTextRef.current && animeInit(), [animatedTextRef]);
-
     useEffect(() => {
-        if (animation) {
-            animation.restart();
-            animation.remove([...animatedTextRef.current.getElementsByClassName('letter'), ...animatedTextRef.current.getElementsByClassName('text-content')]);
-            animeInit();
-        }
+        animeInit();
+        return () => {
+            if (animation) {
+                animation.remove([...animatedTextRef.current.getElementsByClassName('letter'), ...animatedTextRef.current.getElementsByClassName('text-content')]);
+                setAnimation(null);
+            }
+        };
     }, [props]);
 
     return <TitleTag className="text-content">{text}</TitleTag>;
