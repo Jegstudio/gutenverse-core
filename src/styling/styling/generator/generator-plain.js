@@ -61,14 +61,13 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props, type) => {
     let value = null;
-    console.log(attribute);
-    const { pattern, patternValue, valueType, functionName } = props;
+    const { pattern, patternValues, valueType, functionName } = props;
     switch (valueType) {
         case 'function':
             value = renderFunctionValue(functionName, attribute);
             break;
         case 'pattern':
-            value = renderPatternValues(pattern, patternValue, attribute);
+            value = renderPatternValues(pattern, patternValues, attribute);
             break;
         case 'direct':
         default:
