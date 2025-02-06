@@ -99,7 +99,7 @@ const PanelController = ({ ...props }) => {
     const thePanelProps = {
         ...panelProps,
         switcher,
-        setSwitcher
+        setSwitcher,
     };
 
     return <>

@@ -50,7 +50,7 @@ const TextShadowControl = ({
 
     const TextShadowToggle = () => {
         return <div className={toggleClass} onClick={() => toggleShow()}>
-            <IconTypographySVG/>
+            <IconTypographySVG />
         </div>;
     };
 
@@ -59,9 +59,9 @@ const TextShadowControl = ({
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
-            outLabel={<TextShadowToggle/>}
+            outLabel={<TextShadowToggle />}
         />
-        <div className={bodyClass} ref={wrapperRef}>
+        {show && <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
                     {__('Text Shadow', '--gctd--')}
@@ -70,7 +70,7 @@ const TextShadowControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                        }}/>
+                        }} />
                     </span>
                 </Tooltip>
             </div>
@@ -106,7 +106,7 @@ const TextShadowControl = ({
                 unit="%"
                 onValueChange={blur => onValueChange({ ...value, blur })}
             />
-        </div>
+        </div>}
     </div>;
 };
 

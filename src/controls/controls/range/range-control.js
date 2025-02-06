@@ -1,4 +1,4 @@
-import { useState, useRef } from '@wordpress/element';
+import { useState, useRef, useDeferredValue, useEffect } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
@@ -12,12 +12,11 @@ const RangeControl = ({
     max,
     step,
     value = '',
-    liveUpdate,
     disabled = false,
     allowDeviceControl,
     showDeviceControl = false,
-    onStart = () => {},
-    onEnd = () => {},
+    onStart = () => { },
+    onEnd = () => { },
     onValueChange,
     description = '',
     isParseFloat = false,
@@ -25,9 +24,13 @@ const RangeControl = ({
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
     const [localValue, setLocalValue] = useState(value);
-    const [updating, setUpdating] = useState(false);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
+    const deferredValue = useDeferredValue(localValue);
+
+    useEffect(() => {
+        onValueChange(deferredValue);
+    }, [deferredValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
@@ -45,28 +48,15 @@ const RangeControl = ({
                     min={min}
                     max={max}
                     step={step}
-                    value={updating ? localValue : value}
+                    value={value}
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
-                        if(isParseFloat){
+                        if (isParseFloat) {
                             setLocalValue(parseFloat(e.target.value));
-                            liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
-                        }else{
+                        } else {
                             setLocalValue(e.target.value);
-                            liveUpdate ? onValueChange(e.target.value) : null;
                         }
-                        setUpdating(true);
-                    }}
-                    onMouseUp={(e) => {
-                        if(isParseFloat){
-                            onValueChange(parseFloat(e.target.value));
-                        }else{
-                            onValueChange(e.target.value);
-
-                        }
-                        setUpdating(false);
-                        onEnd();
                     }}
                 />
             </div>
@@ -78,13 +68,13 @@ const RangeControl = ({
                     max={max}
                     step={step}
                     disabled={disabled}
-                    value={updating ? localValue : value}
+                    value={value}
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        if(isParseFloat){
+                        if (isParseFloat) {
                             onValueChange(parseFloat(e.target.value));
-                        }else{
+                        } else {
                             onValueChange(e.target.value);
                         }
                     }}

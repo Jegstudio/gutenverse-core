@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState, useDeferredValue } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import { ChromePicker } from 'react-color';
 import ControlHeadingSimple from '../part/control-heading-simple';
@@ -44,8 +44,12 @@ const ColorControl = (props) => {
 
     const [open, setControlOpen] = useState(false);
     const [localColor, setLocalColor] = useState(value);
-    const [updating, setUpdating] = useState(false);
     const [variableOpen, setVariableOpen] = useState(false);
+    const deferredColor = useDeferredValue(localColor);
+
+    useEffect(() => {
+        onValueChange(deferredColor);
+    }, [deferredColor]);
 
     const defaultPalette = useSettingFallback('color.palette.default');
     const themePalette = useSettingFallback('color.palette.theme');
@@ -175,7 +179,7 @@ const ColorControl = (props) => {
                 </div>
             </Tooltip>
             <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
-                <div style={{ backgroundColor: renderColor(updating ? localColor : getColorValue(value)) }} />
+                <div style={{ backgroundColor: renderColor(getColorValue(value)) }} />
             </div>
         </div>
     </div>;
@@ -277,14 +281,9 @@ const ColorControl = (props) => {
             </div>
             <ChromePicker
                 disableAlpha={!alpha}
-                color={updating ? localColor : getColorValue(value)}
+                color={getColorValue(value)}
                 onChange={color => {
                     setLocalColor(color.rgb);
-                    setUpdating(true);
-                }}
-                onChangeComplete={(color) => {
-                    onValueChange(color.rgb);
-                    setUpdating(false);
                 }}
             />
         </div> : null}
