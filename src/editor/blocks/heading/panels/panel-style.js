@@ -2,7 +2,6 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { handleColor, handleTypography, allowRenderTextShadow, handleTextShadow, handleTextStroke } from 'gutenverse-core/styling';
 import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
 export const stylePanel = () => {
