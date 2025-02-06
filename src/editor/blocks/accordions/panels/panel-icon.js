@@ -1,17 +1,8 @@
 import { SelectControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { RangeControl } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const panelIcon = (props) => {
-    const {
-        iconPosition,
-        elementId,
-        iconSpacing
-    } = props;
-
-    const deviceType = getDeviceType();
-
+export const panelIcon = () => {
     return [
         {
             id: 'iconPosition',

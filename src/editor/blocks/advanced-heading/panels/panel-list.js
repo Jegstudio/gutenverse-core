@@ -81,11 +81,11 @@ export const panelList = () => {
         //     pro: true,
         //     tabRole: TabStyle
         // },
-        // {
-        //     title: __('Sub Title', 'gutenverse'),
-        //     panelArray: subTitlePanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Sub Title', 'gutenverse'),
+            panelArray: subTitlePanel,
+            tabRole: TabStyle
+        },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,

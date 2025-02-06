@@ -23,7 +23,7 @@ export const focusTitlePanel = () => {
             id: 'focusBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
+            options: ['default', 'gradient'],
         },
         {
             id: 'focusMargin',

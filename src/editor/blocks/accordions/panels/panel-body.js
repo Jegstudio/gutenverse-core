@@ -7,12 +7,8 @@ import {
     TypographyControl
 } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
-export const panelBody = (props) => {
-    const {
-        elementId,
-    } = props;
+export const panelBody = () => {
 
     const device = getDeviceType();
 

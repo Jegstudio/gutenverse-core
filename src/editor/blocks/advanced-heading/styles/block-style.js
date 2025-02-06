@@ -214,6 +214,62 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel Sub Title */
+    isNotEmpty(attributes['subColor']) && data.push({
+        'type': 'color',
+        'id': 'subColor',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'properties': [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['subTypography']) && data.push({
+        'type': 'typography',
+        'id': 'subTypography',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+    });
+
+    isNotEmpty(attributes['subTextStroke']) && data.push({
+        'type': 'textStroke',
+        'id': 'subTextStroke',
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+    });
+
+    isNotEmpty(attributes['subBackground']) && data.push({
+        'type': 'background',
+        'id': 'subBackground',
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+    });
+
+    isNotEmpty(attributes['subMargin']) && data.push({
+        'type': 'dimension',
+        'id': 'subMargin',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+    });
+
+    isNotEmpty(attributes['subPadding']) && data.push({
+        'type': 'dimension',
+        'id': 'subPadding',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+    });
 
 
     /**Panel List */
