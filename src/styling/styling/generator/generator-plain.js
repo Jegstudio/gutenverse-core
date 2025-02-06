@@ -1,60 +1,32 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
+import { handleAlign } from '../handler/handle-align';
 
 const cssGenerator = (attribute, style, css) => {
-    const { type, selector, property, responsive = false, valueCSS, values, multiAttr } = style;
-    let value = null;
+    const { selector, responsive = false } = style;
     if (!responsive) {
-        if (valueCSS && values) {
-            value = replaceDynamicValues(valueCSS, values, attribute);
-        } else {
-            value = renderValue(type, attribute);
-        }
-        if (value) {
-            const style = multiProperty(property, value);
-            css.Desktop += ` ${selector} { ${style} } `;
-        }
+        const value = multiProperty(attribute, style);
+        css.Desktop += ` ${selector} { ${value} } `;
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
-            if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute['Desktop']);
-            } else {
-                value = renderValue(type, attribute['Desktop']);
-            }
-            if (value) {
-                const style = multiProperty(property, value);
-                css.Desktop += ` ${selector} { ${style} } `;
-            }
+            const value = multiProperty(attribute['Desktop'], style);
+            css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (attribute['Tablet']) {
-            if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute['Tablet']);
-            } else {
-                value = renderValue(type, attribute['Tablet']);
-            }
-            if (value) {
-                const style = multiProperty(property, value);
-                css.Tablet += ` ${selector} { ${style} } `;
-            }
+            const value = multiProperty(attribute['Tablet'], style);
+            css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (attribute['Mobile']) {
-            if (valueCSS && values) {
-                value = replaceDynamicValues(valueCSS, values, attribute['Mobile']);
-            } else {
-                value = renderValue(type, attribute['Mobile']);
-            }
-            if (value) {
-                const style = multiProperty(property, value);
-                css.Mobile = ` ${selector} { ${style} } `;
-            }
+            const value = multiProperty(attribute['Mobile◊'], style);
+            css.Desktop += ` ${selector} { ${value} } `;
         }
     }
     return css;
-}
+};
 export const plainGenerator = (attribute, style, css) => {
     const { multiAttr } = style;
     css = {
@@ -62,41 +34,74 @@ export const plainGenerator = (attribute, style, css) => {
         Tablet: '',
         Mobile: '',
     };
+
     if (isNotEmpty(multiAttr)) {
-        multiAttr.forEach(el => {
-            css = cssGenerator(el, style, css);
-        })
+        Object.keys(multiAttr).forEach(el => {
+            css = cssGenerator(multiAttr[el], style, css);
+        });
     } else {
         css = cssGenerator(attribute, style, css);
     }
     return css;
 };
 
-export const multiProperty = (properties, value) => {
+const multiProperty = (attribute, props) => {
+    const { type, properties } = props;
     let styles = '';
     if (properties && properties.length > 0) {
         properties.forEach(el => {
-            styles += `${el}: ${value};`;
+            let value = generateValue(attribute, el, type);
+            styles += ` ${el.name}: ${value}; `;
         });
     }
     return styles;
 };
 
-const replaceDynamicValues = (str, values, attribute) => {
-    let newString = str;
-    newString = newString.replace(/\{(\w+)\}/g, (_, key) => {
-        if (values[key] && values[key].type === 'attribute') {
-            return attribute[values[key].key]
-                ? attribute[values[key].key]
-                : `{${key}}`;
+const generateValue = (attribute, props, type) => {
+    let value = null;
+    const { pattern, patternValues, valueType, functionName } = props;
+    switch (valueType) {
+        case 'function':
+            value = renderFunctionValue(functionName, attribute);
+            break;
+        case 'pattern':
+            value = renderPatternValues(pattern, patternValues, attribute);
+            break;
+        case 'direct':
+        default:
+            value = renderValue(type, attribute);
+            break;
+    }
+    return value;
+};
+
+const renderFunctionValue = (functionName, attribute) => {
+    let value = null;
+    switch (functionName) {
+        case 'handleAlign':
+            value = handleAlign(attribute);
+            break;
+        default:
+            value = '';
+            break;
+    }
+    return value;
+};
+
+const renderPatternValues = (pattern, patternValues, attribute) => {
+    let newString = pattern;
+    newString = newString.replace(/\{(\w+)\}/g, (_, str) => {
+
+        if (patternValues[str] && patternValues[str].type === 'direct') {
+            return attribute ? attribute : `{${str}}`;
         }
-        if (values[key] && values[key].type === 'direct') {
-            return attribute ? attribute : `{${key}}`;
+        if (patternValues[str] && patternValues[str].type === 'attribute') {
+            return attribute[patternValues[str].key] ? attribute[patternValues[str].key] : `{${str}}`;
         }
-        return `{${key}}`;
+        return `{${str}}`;
     });
-    if (newString === str) {
-        return false;
+    if (newString === pattern) {
+        return '';
     }
     return newString;
 };
