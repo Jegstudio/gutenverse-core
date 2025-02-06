@@ -9,14 +9,13 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { isOnEditor, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
 import { dimensionGenerator } from './generator/generator-dimension';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { debounce } from '@wordpress/compose';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 
@@ -147,7 +146,7 @@ export const injectStyleTag = (css, theWindow) => {
     cssElement.innerHTML = css;
 };
 
-const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = false) => {
+const injectStyleToIFrame = (elementId, theWindow, css, remove = false) => {
     if (theWindow) {
         if (!theWindow.gutenverseCSS) {
             theWindow.gutenverseCSS = {};
@@ -157,28 +156,11 @@ const injectStyleToIFrame = (elementId, theWindow, css, isFirstRun, remove = fal
         } else {
             theWindow.gutenverseCSS[elementId] = css;
         }
-        if (isFirstRun && isOnEditor()) {
-            initProcessStyleTag(theWindow);
-        } else {
-            processStyleTag(theWindow);
-        }
+        injectStyleTag(Object.entries(theWindow.gutenverseCSS).reduce((css, [key, value]) => css + `/* ${key} */ \n${value}\n\n`, ''), theWindow);
     }
 };
 
-const generateCSS = (theWindow) => {
-    return Object.entries(theWindow.gutenverseCSS)
-        .reduce((css, [key, value]) => css + `/* ${key} */ \n${value}\n\n`, '');
-};
-
-const processStyleTag = (theWindow) => {
-    injectStyleTag(generateCSS(theWindow), theWindow);
-};
-
-const initProcessStyleTag = debounce((theWindow) => {
-    injectStyleTag(generateCSS(theWindow), theWindow);
-}, 500);
-
-const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = false) => {
+const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
     if (theWindow) {
         if (!theWindow.gutenverseFont) {
             theWindow.gutenverseFont = {};
@@ -188,22 +170,9 @@ const injectFontToIFrame = (elementId, theWindow, font, isFirstRun, remove = fal
         } else {
             theWindow.gutenverseFont[elementId] = font;
         }
-
-        if (isFirstRun && isOnEditor()) {
-            initProcessFontStyle(theWindow);
-        } else {
-            processFontStyle(theWindow);
-        }
+        injectFontStyle(theWindow);
     }
 };
-
-const processFontStyle = (theWindow) => {
-    injectFontStyle(theWindow);
-};
-
-const initProcessFontStyle = debounce((theWindow) => {
-    injectFontStyle(theWindow);
-}, 500);
 
 const injectFontStyle = (theWindow) => {
     let googleArr = [];
@@ -319,7 +288,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         }
     }, [elementId, attributes]);
 
-    const isFirstRun = useRef(true);
     const iframeWindowRef = useRef(null);
     const idHolder = useRef(null);
 
@@ -329,8 +297,8 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 
     useEffect(() => {
         return () => {
-            injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 0, 1);
-            injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 0, 1);
+            injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
+            injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             iframeWindowRef.current = null;
         };
     }, []);
@@ -341,13 +309,12 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 iframeWindowRef.current = getWindow(elementRef);
             }
             if (generatedCSS) {
-                injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS, isFirstRun.current);
+                injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS);
             }
             if (fontUsed.some(value => value)) {
-                injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed, isFirstRun.current);
+                injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed);
             }
         }
-        isFirstRun.current = false;
     }, [elementId, attributes, elementRef]);
 
 };
