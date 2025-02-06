@@ -297,7 +297,9 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'multiAttr' : [attributes['iconSpacing']]
+        'multiAttr' : {
+            'iconSpacing' : attributes['iconSpacing']
+        }
     });
 
     isNotEmpty(attributes['iconPosition']) && isNotEmpty(attributes['iconSpacing']) && attributes['iconPosition'] === 'right' && data.push({
