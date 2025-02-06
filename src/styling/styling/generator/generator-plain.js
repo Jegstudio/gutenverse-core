@@ -4,7 +4,6 @@ import { handleAlign } from '../handler/handle-align';
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
-    console.log(style)
     if (!responsive) {
         const value = multiProperty(attribute, style);
         css.Desktop += ` ${selector} { ${value} } `;
@@ -51,7 +50,6 @@ const multiProperty = (attribute, props) => {
     let styles = '';
     if (properties && properties.length > 0) {
         properties.forEach(el => {
-            console.log(el);
             let value = generateValue(attribute, el, type);
             styles += ` ${el.name}: ${value}; `;
         });
