@@ -50,6 +50,10 @@
       "type": "object",
       "copyStyle": true
     },
+    "useStyleInLink" : {
+			"type": "boolean",
+			"copyStyle": true
+		},
     "typography": {
       "type": "object",
       "copyStyle": true

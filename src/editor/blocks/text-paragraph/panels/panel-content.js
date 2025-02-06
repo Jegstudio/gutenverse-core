@@ -1,13 +1,20 @@
 import { __ } from '@wordpress/i18n';
 
-import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
 import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {
         elementId,
+        useStyleInLink = false,
     } = props;
+
+    const linkStyle = useStyleInLink ? `
+        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
 
     return [
         {
@@ -92,7 +99,7 @@ export const panelContent = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}`,
+                    selector: `.${elementId}${linkStyle}`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -103,11 +110,17 @@ export const panelContent = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId}`,
+                    selector: `.${elementId}${linkStyle}`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
             ],
+        },
+        {
+            id: 'useStyleInLink',
+            label: __('Use Style in Link', 'gutenverse'),
+            description: __('Applies Text Paragraph styling to links within text, overriding the default core link style.', 'gutenverse'),
+            component: CheckboxControl,
         },
     ];
 };
