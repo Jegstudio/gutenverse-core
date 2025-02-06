@@ -1,7 +1,7 @@
-export const unitPointCSS = (attribute, important= false) => {
+export const unitPointCSS = (attribute, name,  important= false) => {
     const { point, unit } = attribute;
     if (point && unit) {
-        return `${point}${unit}${important ? '!important' : ''};`;
+        return `${name} : ${point}${unit}${important ? '!important' : ''};`;
     }
 
     return '';
@@ -24,7 +24,6 @@ export const unitPointGenerator = (attribute, style, css) => {
             css.Mobile = `${selector} { ` + multiProperty(attribute['Mobile'], style) + ' }';
         }
     }
-
     return css;
 };
 
