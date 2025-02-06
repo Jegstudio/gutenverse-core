@@ -50,7 +50,7 @@ const TextStrokeControl = ({
 
     const TextShadowToggle = () => {
         return <div className={toggleClass} onClick={() => toggleShow()}>
-            <IconTypographySVG/>
+            <IconTypographySVG />
         </div>;
     };
 
@@ -59,9 +59,9 @@ const TextStrokeControl = ({
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
-            outLabel={<TextShadowToggle/>}
+            outLabel={<TextShadowToggle />}
         />
-        <div className={bodyClass} ref={wrapperRef}>
+        {show && <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
                     {__('Text Stroke', '--gctd--')}
@@ -70,7 +70,7 @@ const TextStrokeControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                        }}/>
+                        }} />
                     </span>
                 </Tooltip>
             </div>
@@ -107,7 +107,7 @@ const TextStrokeControl = ({
                     }
                 }}
             />
-        </div>
+        </div>}
     </div>;
 };
 
