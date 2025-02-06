@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from '@wordpress/element';
+import {useEffect, useState, useRef, useDeferredValue} from '@wordpress/element';
 import {useInstanceId} from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -87,7 +87,6 @@ const SizeControl = (props) => {
             }
         },
         value = {},
-        liveUpdate,
         allowDeviceControl,
         onValueChange,
         description = '',
@@ -126,9 +125,16 @@ const SizeControl = (props) => {
     };
 
     const id = useInstanceId(SizeControl, 'inspector-size-control');
-
     const [localValue, setLocalValue] = useState(point);
-    const [updating, setUpdating] = useState(false);
+    const deferredValue = useDeferredValue(localValue);
+
+    useEffect(() => {
+        onValueChange({
+            ...value,
+            point: deferredValue,
+            unit: activeUnit
+        });
+    }, [deferredValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-size'}>
         <ControlHeadingSimple
@@ -146,31 +152,9 @@ const SizeControl = (props) => {
                     min={activeUnit ? units[activeUnit]?.min : null}
                     max={activeUnit ? units[activeUnit]?.max : null}
                     step={activeUnit ? units[activeUnit]?.step : null}
-                    value={updating ? localValue : point}
+                    value={point}
                     onChange={(e) => {
                         setLocalValue(e.target.value);
-                        setUpdating(true);
-                        liveUpdate ? onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        }) : null;
-                    }}
-                    onMouseUp={(e) => {
-                        onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
-                        setUpdating(false);
-                    }}
-                    onTouchEnd={(e) => {
-                        onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
-                        setUpdating(false);
                     }}
                 />
             </div>}
@@ -181,7 +165,7 @@ const SizeControl = (props) => {
                     min={activeUnit ? units[activeUnit]?.min : null}
                     max={activeUnit ? units[activeUnit]?.max : null}
                     step={activeUnit ? units[activeUnit]?.step : null}
-                    value={updating ? localValue : point}
+                    value={point}
                     onChange={(e) => changePoint(e.target.value)}
                 />
                 <UnitControl

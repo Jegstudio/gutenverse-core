@@ -44,13 +44,11 @@ const ColorControl = (props) => {
 
     const [open, setControlOpen] = useState(false);
     const [localColor, setLocalColor] = useState(value);
-    const [updating, setUpdating] = useState(false);
     const [variableOpen, setVariableOpen] = useState(false);
     const deferredColor = useDeferredValue(localColor);
 
     useEffect(() => {
         onValueChange(deferredColor);
-        setUpdating(false);
     }, [deferredColor]);
 
     const defaultPalette = useSettingFallback('color.palette.default');
@@ -181,7 +179,7 @@ const ColorControl = (props) => {
                 </div>
             </Tooltip>
             <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
-                <div style={{ backgroundColor: renderColor(updating ? localColor : getColorValue(value)) }} />
+                <div style={{ backgroundColor: renderColor(getColorValue(value)) }} />
             </div>
         </div>
     </div>;
@@ -283,10 +281,9 @@ const ColorControl = (props) => {
             </div>
             <ChromePicker
                 disableAlpha={!alpha}
-                color={updating ? localColor : getColorValue(value)}
+                color={getColorValue(value)}
                 onChange={color => {
                     setLocalColor(color.rgb);
-                    setUpdating(true);
                 }}
             />
         </div> : null}
