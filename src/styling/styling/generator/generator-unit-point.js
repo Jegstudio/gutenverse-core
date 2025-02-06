@@ -1,4 +1,4 @@
-export const unitPointCSS = (attribute, property, important= false) => {
+export const unitPointCSS = (attribute, important= false) => {
     const { point, unit } = attribute;
     if (point && unit) {
         return `${point}${unit}${important ? '!important' : ''};`;
@@ -8,22 +8,45 @@ export const unitPointCSS = (attribute, property, important= false) => {
 };
 
 export const unitPointGenerator = (attribute, style, css) => {
-    const { selector, property, responsive = false, important } = style;
+    const { selector, responsive = false } = style;
     if (!responsive) {
-        css.Desktop = unitPointCSS(attribute, property[0], important);
+        css.Desktop = `${selector} { ` + multiProperty(attribute, style) + ' }';
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
-            css.Desktop = `${selector} { ` + unitPointCSS(attribute['Desktop'], property[0], important) + ' }';
+            css.Desktop = `${selector} { ` + multiProperty(attribute['Desktop'], style) + ' }';
         }
         if (attribute['Tablet']) {
-            css.Tablet = `${selector} { ` + unitPointCSS(attribute['Tablet'], property[0], important) + ' }';
+            css.Tablet = `${selector} { ` + multiProperty(attribute['Tablet'], style) + ' }';
         }
         if (attribute['Mobile']) {
-            css.Mobile = `${selector} { ` + unitPointCSS(attribute['Mobile'], property[0], important) + ' }';
+            css.Mobile = `${selector} { ` + multiProperty(attribute['Mobile'], style) + ' }';
         }
     }
 
     return css;
+};
+
+const multiProperty = (attribute, props) => {
+    const { properties } = props;
+    let styles = '';
+    if (properties && properties.length > 0) {
+        properties.forEach(el => {
+            styles += `${generateValue(attribute, el)} `;
+        });
+    }
+    return styles;
+};
+
+const generateValue = (attribute, props) => {
+    let value = null;
+    const { valueType, name } = props;
+    switch (valueType) {
+        case 'direct':
+        default:
+            value = unitPointCSS(attribute, name);
+            break;
+    }
+    return value;
 };

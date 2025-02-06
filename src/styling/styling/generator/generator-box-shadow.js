@@ -10,5 +10,5 @@ export const boxShadowCSS = (attribute) => {
     const blurValue = !isEmpty(blur) ? blur : 0;
     const isSpread = !isEmpty(spread) ? `${spread}px` : '';
 
-    return `${position === 'inset' ? position : ''} ${horizontalValue}px ${verticalValue}px ${blurValue}px ${isSpread} ${shadowColor};`;
+    return `${position === 'inset' ? position : ''} ${horizontalValue}px ${verticalValue}px ${blurValue}px ${isSpread} ${shadowColor}`;
 };

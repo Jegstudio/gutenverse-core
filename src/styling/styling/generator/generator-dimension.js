@@ -37,22 +37,46 @@ export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
 };
 
 export const dimensionGenerator = (attribute, style, css) => {
-    const { selector, property, responsive = false } = style;
+    const { selector, responsive = false } = style;
+
     if (!responsive) {
-        css.Desktop = dimensionCSS(attribute, property[0]);
+        css.Desktop = `${selector} { ` + multiProperty(attribute, style); + ' }';
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
-            css.Desktop = `${selector} { ` + dimensionCSS(attribute['Desktop'], property[0]) + ' }';
+            css.Desktop = `${selector} { ` + multiProperty(attribute['Desktop'], style) + ' }';
         }
         if (attribute['Tablet']) {
-            css.Tablet = `${selector} { ` + dimensionCSS(attribute['Tablet'], property[0]) + ' }';
+            css.Tablet = `${selector} { ` + multiProperty(attribute['Tablet'], style) + ' }';
         }
         if (attribute['Mobile']) {
-            css.Mobile = `${selector} { ` + dimensionCSS(attribute['Mobile'], property[0]) + ' }';
+            css.Mobile = `${selector} { ` + multiProperty(attribute['Mobile'], style) + ' }';
         }
     }
 
     return css;
+};
+
+const multiProperty = (attribute, props) => {
+    const { properties } = props;
+    let styles = '';
+    if (properties && properties.length > 0) {
+        properties.forEach(el => {
+            styles += `${generateValue(attribute, el)} `;
+        });
+    }
+    return styles;
+};
+
+const generateValue = (attribute, props) => {
+    let value = null;
+    const { valueType, name } = props;
+    switch (valueType) {
+        case 'direct':
+        default:
+            value = dimensionCSS(attribute, name);
+            break;
+    }
+    return value;
 };
