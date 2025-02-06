@@ -1,4 +1,4 @@
-import { useEffect, useRef } from '@wordpress/element';
+import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { BlockControls, InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
@@ -29,10 +29,10 @@ const SectionPlaceholder = ({ clientId, name, wrapper }) => {
     const { replaceInnerBlocks } = dispatch('core/block-editor');
     const blockType = getBlockType(name);
 
-    const handleVariation = (nextVariation) => {
+    const handleVariation = useCallback((nextVariation) => {
         const variation = createBlocksFromInnerBlocksTemplate(nextVariation);
         replaceInnerBlocks(clientId, variation, true);
-    };
+    }, [clientId]);
 
     return <>
         <SectionVariation
