@@ -190,7 +190,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name': 'animation-delay',
                 'valueType': 'pattern',
                 'pattern': '{value}ms',
-                'patternValue': {
+                'patternValues': {
                     'value': {
                         'type': 'attribute',
                         'key': 'delay',

@@ -162,7 +162,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name' : 'font-size',
                 'valueType' : 'pattern',
                 'pattern' : '{value}px',
-                'patternValue' : {
+                'patternValues' : {
                     'value': {
                         'type': 'direct',
                     }
@@ -225,7 +225,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name' : 'font-size',
                 'valueType' : 'pattern',
                 'pattern' : '{value}px',
-                'patternValue' : {
+                'patternValues' : {
                     'value': {
                         'type': 'direct',
                     }
@@ -290,7 +290,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name': 'margin-right',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
-                'patternValue': {
+                'patternValues': {
                     'value': {
                         'type': 'direct',
                     },
@@ -310,7 +310,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name': 'margin-left',
                 'valueType': 'pattern',
                 'pattern': '{value}px',
-                'patternValue': {
+                'patternValues': {
                     'value': {
                         'type': 'direct',
                     },
@@ -544,7 +544,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name': 'animation-delay',
                 'valueType': 'pattern',
                 'pattern': '{value}ms',
-                'patternValue': {
+                'patternValues': {
                     'value': {
                         'type': 'attribute',
                         'key': 'delay',

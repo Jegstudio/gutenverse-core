@@ -83,7 +83,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name' : 'width',
                 'valueType' : 'pattern',
                 'pattern' : '{value}%',
-                'patternValue' : {
+                'patternValues' : {
                     'value': {
                         'type': 'direct',
                     }
@@ -100,7 +100,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name' : 'border-top-width',
                 'valueType' : 'pattern',
                 'pattern' : '{value}px',
-                'patternValue' : {
+                'patternValues' : {
                     'value': {
                         'type': 'direct',
                     }
@@ -387,7 +387,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name' : 'animation-delay',
                 'valueType' : 'pattern',
                 'pattern' : '{value}ms',
-                'patternValue' : {
+                'patternValues' : {
                     'value': {
                         'type' : 'attribute',
                         'key'  : 'delay',
