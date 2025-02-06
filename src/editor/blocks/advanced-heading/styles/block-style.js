@@ -9,8 +9,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ],
     });
@@ -40,8 +40,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct'
+                'name': 'margin',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
@@ -53,8 +53,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'direct'
+                'name': 'padding',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
@@ -67,8 +67,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
         'properties': [
             {
-                'name' : 'border-color',
-                'valueType' : 'direct'
+                'name': 'border-color',
+                'valueType': 'direct'
             }
         ],
     });
@@ -76,14 +76,14 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['lineWidth']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
         'type': 'plain',
         'id': 'lineWidth',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
         'properties': [
             {
-                'name' : 'width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}%',
-                'patternValues' : {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}%',
+                'patternValues': {
                     'value': {
                         'type': 'direct',
                     }
@@ -97,10 +97,10 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'lineHeight',
         'properties': [
             {
-                'name' : 'border-top-width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
+                'name': 'border-top-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
                     'value': {
                         'type': 'direct',
                     }
@@ -116,8 +116,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'lineStyle',
         'properties': [
             {
-                'name' : 'border-top-style',
-                'valueType' : 'direct'
+                'name': 'border-top-style',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
@@ -129,8 +129,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct'
+                'name': 'margin',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
@@ -143,8 +143,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ],
     });
@@ -174,8 +174,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct'
+                'name': 'margin',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
@@ -187,8 +187,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'direct'
+                'name': 'padding',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
@@ -201,13 +201,13 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}, .${elementId} .heading-section`,
         'properties': [
             {
-                'name' : 'justify-content',
-                'valueType' : 'direct',
+                'name': 'justify-content',
+                'valueType': 'direct',
             },
             {
                 'name': 'text-align',
-                'valueType' : 'function',
-                'functionName' : 'handleAlign',
+                'valueType': 'function',
+                'functionName': 'handleAlign',
             }
         ],
         'responsive': true,
@@ -220,8 +220,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ],
     });
@@ -251,8 +251,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct'
+                'name': 'margin',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
@@ -264,13 +264,12 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'direct'
+                'name': 'padding',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
     });
-
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
@@ -314,8 +313,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'boxShadow',
         'properties': [
             {
-                'name' : 'box-shadow',
-                'valueType' : 'direct'
+                'name': 'box-shadow',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -326,8 +325,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'boxShadowHover',
         'properties': [
             {
-                'name' : 'box-shadow',
-                'valueType' : 'direct'
+                'name': 'box-shadow',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
@@ -346,8 +345,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'direct'
+                'name': 'padding',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -359,8 +358,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct'
+                'name': 'margin',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -372,8 +371,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'z-index',
-                'valueType' : 'direct'
+                'name': 'z-index',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -384,13 +383,13 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'animation',
         'properties': [
             {
-                'name' : 'animation-delay',
-                'valueType' : 'pattern',
-                'pattern' : '{value}ms',
-                'patternValues' : {
+                'name': 'animation-delay',
+                'valueType': 'pattern',
+                'pattern': '{value}ms',
+                'patternValues': {
                     'value': {
-                        'type' : 'attribute',
-                        'key'  : 'delay',
+                        'type': 'attribute',
+                        'key': 'delay',
                     },
 
                 }
@@ -401,6 +400,5 @@ const getBlockStyle = (elementId, attributes) => {
 
     return data;
 };
-
 
 export default getBlockStyle;

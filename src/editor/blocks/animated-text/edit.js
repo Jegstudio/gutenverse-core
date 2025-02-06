@@ -17,16 +17,31 @@ import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
+const AnimatedTextPanelController = (props) => {
+    const { panelProps, isSelected, setAttributes } = props;
+    const defaultPanelProps = {
+        ...panelProps,
+        ...props.attributes,
+        setAttributes
+    };
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
+};
 const AnimatedTextBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -36,14 +51,10 @@ const AnimatedTextBlock = compose(
         titleTag: TitleTag,
     } = attributes;
 
-    const animatedTextRef = useRef();
+    const elementRef = useRef();
     const displayClass = useDisplayEditor(attributes);
-
-    useEffect(() => {
-        if (animatedTextRef.current) {
-            setElementRef(animatedTextRef.current);
-        }
-    }, [animatedTextRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -56,12 +67,12 @@ const AnimatedTextBlock = compose(
                 [`style-${style}`]: style && style !== 'none'
             },
         ),
-        ref: animatedTextRef
+        ref: elementRef
     });
 
     const animationProps = {
         ...attributes,
-        animatedTextRef
+        animatedTextRef : elementRef
     };
 
     const loadAnimatedtext = () => {
@@ -92,7 +103,7 @@ const AnimatedTextBlock = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <AnimatedTextPanelController {...props} />
         <div  {...blockProps}>
             {loadAnimatedtext()}
         </div>
