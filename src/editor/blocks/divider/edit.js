@@ -1,11 +1,11 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { useState } from '@wordpress/element';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
@@ -19,6 +19,9 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;
@@ -71,15 +74,13 @@ const DividerContent = (props) => {
 
 const DividerBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('divider'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        deviceType
+        clientId,
     } = props;
 
     const {
@@ -88,15 +89,17 @@ const DividerBlock = compose(
         type,
     } = attributes;
 
-    const dividerRef = useRef();
+    const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dividerStyle, setDividerStyle] = useState(null);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
     const isRegular = ['default', 'double', 'dotted', 'dashed'].includes(type);
-
     const isTribal = ['fir', 'halfrounds', 'leaves', 'stripes', 'squares', 'trees', 'tribal', 'x'].includes(type);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -105,12 +108,11 @@ const DividerBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType.toLowerCase(),
             {
                 ['guten-divider-tribal']: type && isTribal,
             },
         ),
-        ref: dividerRef
+        ref: elementRef
     });
 
     const dividerClass = {
@@ -123,12 +125,6 @@ const DividerBlock = compose(
             }
         )
     };
-
-    useEffect(() => {
-        if (dividerRef.current) {
-            setElementRef(dividerRef.current);
-        }
-    }, [dividerRef]);
 
     useEffect(() => {
         if (divider[`divider_${type}`]) {
@@ -151,12 +147,12 @@ const DividerBlock = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} />
         {content === 'icon' && <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG/>}
+                    icon={<LogoCircleColor24SVG />}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}

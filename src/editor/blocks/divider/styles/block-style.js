@@ -2,86 +2,168 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    /**Panel Setting */
-    isNotEmpty(attributes['alignText']) && data.push({
-        'type': 'plain',
-        'id': 'alignText',
-        'selector': `.${elementId}`,
-        'properties': [
-            {
-                'name': 'justify-content',
-                'valueType': 'direct',
-            },
-            {
-                'name': 'text-align',
-                'valueType': 'function',
-                'functionName': 'handleAlign',
-            }
-        ],
-        'responsive': true,
-    });
-
-    isNotEmpty(attributes['height']) && data.push({
-        'type': 'unitPoint',
-        'id': 'height',
-        'properties': [
-            {
-                'name': 'min-height',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId}`,
-        'responsive': true
-    });
-
-    isNotEmpty(attributes['verticalAlign']) && data.push({
-        'type': 'plain',
-        'id': 'verticalAlign',
-        'properties': [
-            {
-                'name': 'align-items',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId}`,
-        'responsive': true
-    });
-
-    /**Panel Style */
-    isNotEmpty(attributes['color']) && data.push({
+    isNotEmpty(attributes['contentColor']) && data.push({
         'type': 'color',
-        'id': 'color',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
+        'id': 'contentColor',
+        'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
         'properties': [
             {
-                'name': 'color',
-                'valueType': 'direct'
+                'name' : 'color',
+                'valueType' : 'direct'
             }
-        ],
+        ]
+    });
+
+    isNotEmpty(attributes['contentSpacing']) && data.push({
+        'type': 'plain',
+        'id': 'contentSpacing',
+        'responsive': true,
+        'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+        'properties': [
+            {
+                'name' : 'margin',
+                'valueType' : 'pattern',
+                'pattern' : '0 {value}px',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
+            }
+        ]
     });
 
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
+        'selector': `.${elementId} .guten-divider-content span`,
     });
 
-    isNotEmpty(attributes['textShadow']) && data.push({
-        'type': 'textShadow',
-        'id': 'textShadow',
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'iconSize',
+        'selector': `.${elementId} .guten-divider-content i`,
+        'responsive' : true,
+        'properties' : [
+            {
+                'name' : 'font-size',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    /**Panel Divider */
+    isNotEmpty(attributes['width']) && data.push({
+        'type': 'plain',
+        'id': 'width',
+        'selector': `.${elementId} .guten-divider-wrapper`,
+        'responsive': true,
         'properties': [
             {
-                'name': 'text-shadow',
-                'valueType': 'direct'
+                'name' : 'width',
+                'valueType' : 'pattern',
+                'pattern' : '{value}%',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
             }
-        ],
-        'selector': `.editor-styles-wrapper .${elementId} *`,
+        ]
     });
 
-    isNotEmpty(attributes['textStroke']) && data.push({
-        'type': 'textStroke',
-        'id': 'textStroke',
-        'selector': `.editor-styles-wrapper .${elementId} *`,
+    isNotEmpty(attributes['size']) && data.push({
+        'type': 'plain',
+        'id': 'size',
+        'selector': `.${elementId} .guten-divider-style`,
+        'responsive': true,
+        'properties': [
+            {
+                'name' : '--divider-pattern-height',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['size']) && data.push({
+        'type': 'plain',
+        'id': 'size',
+        'selector': `.${elementId} .guten-divider-line`,
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'border-width',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['gap']) && data.push({
+        'type': 'plain',
+        'id': 'gap',
+        'selector': `.${elementId} .guten-divider-wrapper`,
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'padding',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px 0',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['dividerColor']) && data.push({
+        'type': 'color',
+        'id': 'dividerColor',
+        'selector': `.${elementId} .guten-divider-line`,
+        'properties': [
+            {
+                'name' : 'border-color',
+                'valueType' : 'direct',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['dividerColor']) && data.push({
+        'type': 'color',
+        'id': 'dividerColor',
+        'selector': `.${elementId} .guten-divider-style`,
+        'properties': [
+            {
+                'name' : 'background-color',
+                'valueType' : 'direct',
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['dividerAlign']) && data.push({
+        'type': 'plain',
+        'id': 'dividerAlign',
+        'selector': `.${elementId}.wp-block-gutenverse-divider`,
+        'responsive' : true,
+        'properties': [
+            {
+                'name' : 'justify-content',
+                'valueType' : 'direct',
+            }
+        ]
     });
 
     /**Panel List */

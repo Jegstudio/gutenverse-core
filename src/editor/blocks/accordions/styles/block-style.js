@@ -557,6 +557,94 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    //Positioning Panel
+    isNotEmpty(attributes['positioningType']) && data.push(
+        {
+            'type': 'positioning',
+            'id': 'positioningType',
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'skipDeviceType': 'first',
+            'attributeType': 'type',
+            'requestAttributes': [
+                'inBlock'
+            ]
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningType',
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'skipDeviceType': 'second',
+            'attributeType': 'type',
+            'requestAttributes': [
+                'positioningWidth',
+                'inBlock'
+            ]
+        }
+    );
+    isNotEmpty(attributes['positioningWidth']) && data.push({
+        'type': 'positioning',
+        'id': 'positioningWidth',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'skipDeviceType': 'first',
+        'attributeType': 'width',
+        'requestAttributes': [
+            'positioningType',
+            'inBlock'
+        ]
+    });
+    isNotEmpty(attributes['positioningAlign']) && data.push({
+        'type': 'plain',
+        'id': 'positioningAlign',
+        'responsive': true,
+        'property': ['align-self'],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    },
+    {
+        'type': 'positioning',
+        'id': 'positioningAlign',
+        'property': ['vertical-align'],
+        'attributeType': 'align',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    });
+    isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'plain',
+        'id': 'positioningLocation',
+        'property': ['position'],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    });
+    isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningLeft',
+        'property': ['left'],
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningRight',
+        'property': ['right'],
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningTop',
+        'property': ['top'],
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'attributeType': 'custom',
+    });
+    isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+        'type': 'positioning',
+        'id': 'positioningBottom',
+        'property': ['bottom'],
+        'responsive': true,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'attributeType': 'custom',
+    });
+
     return data;
 };
 
