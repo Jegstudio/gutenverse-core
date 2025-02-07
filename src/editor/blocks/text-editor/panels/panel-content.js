@@ -1,14 +1,17 @@
 import { __ } from '@wordpress/i18n';
 
-import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
+import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl, CheckboxControl, HeadingControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {
         elementId,
+        containsAnchorTag,
+        switcher,
+        setSwitcher
     } = props;
-
+    
     return [
         {
             id: 'enableHeading',
@@ -109,6 +112,78 @@ export const panelContent = (props) => {
             style: [
                 {
                     selector: `.${elementId}`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
+            id: 'linkHeader',
+            component: HeadingControl,
+            label: __('Link', 'gutenverse'),
+            show: containsAnchorTag,
+        },
+        {
+            id: '__linkHover',
+            component: SwitchControl,
+            show: containsAnchorTag,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __linkHover }) => setSwitcher({ ...switcher, state: __linkHover })
+        },
+        {
+            id: 'linkColor',
+            label: __('Link Color', 'gutenverse'),
+            component: ColorControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+            style: [
+                {
+                    selector: `.${elementId} a`,
+                    render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'linkTypography',
+            label: __('Link Typography', 'gutenverse'),
+            component: TypographyControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+            style: [
+                {
+                    selector: `.${elementId} a`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
+        },
+        {
+            id: 'linkColorHover',
+            label: __('Link Color Hover', 'gutenverse'),
+            component: ColorControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
+            style: [
+                {
+                    selector: `.${elementId} a:hover`,
+                    render: value => handleColor(value, 'color')
+                }
+            ],
+        },
+        {
+            id: 'linkTypographyHover',
+            label: __('Link Typography Hover', 'gutenverse'),
+            component: TypographyControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
+            style: [
+                {
+                    selector: `.${elementId} a:hover`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }

@@ -73,6 +73,7 @@ const HeadingBlock = compose(
     const {
         elementId,
         type,
+        content,
     } = attributes;
 
     const tagName = 'h' + type;
@@ -95,6 +96,12 @@ const HeadingBlock = compose(
             setElementRef(headingRef.current);
         }
     }, [headingRef]);
+
+    useEffect(() => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+        setAttributes({containsAnchorTag :doc.querySelector('a') !== null})
+    }, [content])
 
     return <>
         <HeadingInspection {...props} />

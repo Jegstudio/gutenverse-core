@@ -37,6 +37,7 @@ const TextBlock = compose(
     } = props;
     const {
         elementId,
+        paragraph
     } = attributes;
     const {
         getBlocks
@@ -86,6 +87,12 @@ const TextBlock = compose(
             setElementRef(textRef.current);
         }
     }, [textRef]);
+
+    useEffect(() => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(paragraph, 'text/html');
+        setAttributes({containsAnchorTag :doc.querySelector('a') !== null})
+    }, [paragraph])
     return <>
         <PanelController
             {...props}

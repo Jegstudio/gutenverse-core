@@ -10,6 +10,7 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useSelect } from '@wordpress/data';
 
 const TextEditorBlock = compose(
     withPartialRender,
@@ -24,6 +25,7 @@ const TextEditorBlock = compose(
     const {
         attributes,
         setElementRef,
+        setAttributes,
     } = props;
 
     const {
@@ -54,12 +56,31 @@ const TextEditorBlock = compose(
     const innerBlocksProps = enableHeading? useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/heading'],
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/heading', 'gutenverse/heading'],
     }) : useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
         allowedBlocks: ['gutenverse/text-paragraph','core/paragraph'],
     });
+
+    const innerBlocksContent = useSelect((select) => {
+        const { getBlock } = select('core/block-editor');
+        const block = getBlock(props.clientId);
+        return block?.innerBlocks || [];
+    }, [props.clientId]);
+
+    const hasLink = (htmlString) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+        return doc.querySelector('a') !== null;
+    }
+
+    useEffect(() => {
+        const containsAnchorTag = innerBlocksContent.some(innerBlock => 
+            hasLink(innerBlock.attributes?.content || '')
+        );
+        setAttributes({containsAnchorTag: containsAnchorTag})
+    }, [innerBlocksContent]);
 
     useEffect(() => {
         if (textEditorRef.current) {
