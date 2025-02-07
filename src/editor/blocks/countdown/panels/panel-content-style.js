@@ -2,10 +2,7 @@
 import { __ } from '@wordpress/i18n';
 import { RangeControl, SelectControl } from 'gutenverse-core/controls';
 
-export const contentStylePanel = (props) => {
-    const {
-        elementId,
-    } = props;
+export const contentStylePanel = () => {
     return [
         {
             id: 'column',
@@ -14,12 +11,6 @@ export const contentStylePanel = (props) => {
             min: 1,
             max: 4,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
-                    render: value => `flex : 0 0 calc( 100% / ${value} ); max-width: calc( (100% / ${value}) - 1%);`
-                }
-            ]
         },
         {
             id: 'rowGap',
@@ -29,12 +20,6 @@ export const contentStylePanel = (props) => {
             max: 100,
             unit: 'px',
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper`,
-                    render: value => `row-gap: ${value}px;`
-                }
-            ]
         },
         {
             id: 'labelPosition',
@@ -58,18 +43,6 @@ export const contentStylePanel = (props) => {
                     value: 'right',
                 },
             ],
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
-                    render: (value) => {
-                        if( 'top' === value || 'bottom' === value){
-                            return 'flex-direction: column;';
-                        }else{
-                            return 'flex-direction: row;';
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'labelSpacing',
@@ -79,12 +52,6 @@ export const contentStylePanel = (props) => {
             max: 100,
             unit: 'px',
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
-                    render: value => `gap: ${value}px;`
-                }
-            ]
         },
     ];
 };

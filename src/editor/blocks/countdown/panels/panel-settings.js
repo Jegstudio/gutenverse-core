@@ -86,12 +86,6 @@ export const settingPanel = (props) => {
             id: 'dividerColor',
             label: __('Divider color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.guten-element.guten-countdown.${elementId} .countdown-divider`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
         },
         {
             id: 'dividerSize',
@@ -102,12 +96,6 @@ export const settingPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            style: [
-                {
-                    selector: `.guten-element.guten-countdown.${elementId} .countdown-divider`,
-                    render: value => `font-size: ${value}px;`
-                }
-            ]
         },
     ];
 };

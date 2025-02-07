@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { useRef } from '@wordpress/element';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TextStyleZoom from './components/text-style-zoom';
 import TextStyleFade from './components/text-style-fade';

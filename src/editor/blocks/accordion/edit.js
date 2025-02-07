@@ -10,7 +10,7 @@ import { Check, X } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { dispatch, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
-import { BlockPanelController, PanelController, PanelTutorial } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';

@@ -31,7 +31,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'selector': `.${elementId}`,
-        'responsive' : true
+        'responsive': true
     });
 
     isNotEmpty(attributes['verticalAlign']) && data.push({
@@ -44,7 +44,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'selector': `.${elementId}`,
-        'responsive' : true
+        'responsive': true
     });
 
     /**Panel Style */
