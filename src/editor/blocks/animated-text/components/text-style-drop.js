@@ -46,7 +46,7 @@ const TextStyleDrop = (props) => {
                 setAnimation(null);
             }
         };
-    }, [loop, splitByWord]);
+    }, [loop, splitByWord, style]);
 
     return <TitleTag className="text-content">
         <span className="text-wrapper">
