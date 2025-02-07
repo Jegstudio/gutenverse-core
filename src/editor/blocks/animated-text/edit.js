@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { useRef } from '@wordpress/element';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TextStyleZoom from './components/text-style-zoom';
 import TextStyleFade from './components/text-style-fade';
@@ -20,20 +20,6 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
-const AnimatedTextPanelController = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
-    const defaultPanelProps = {
-        ...panelProps,
-        ...props.attributes,
-        setAttributes
-    };
-    return <PanelController
-        panelList={panelList}
-        panelProps={defaultPanelProps}
-        isSelected={isSelected}
-        {...props}
-    />;
-};
 const AnimatedTextBlock = compose(
     withPartialRender,
     withCopyElementToolbar(),
@@ -103,7 +89,7 @@ const AnimatedTextBlock = compose(
     };
 
     return <>
-        <AnimatedTextPanelController {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div  {...blockProps}>
             {loadAnimatedtext()}
         </div>

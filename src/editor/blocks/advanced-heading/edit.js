@@ -3,7 +3,7 @@ import { useRef } from '@wordpress/element';
 import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
@@ -13,21 +13,6 @@ import { __ } from '@wordpress/i18n';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-
-const AdvHeadingPanelController = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
-    const defaultPanelProps = {
-        ...panelProps,
-        ...props.attributes,
-        setAttributes
-    };
-    return <PanelController
-        panelList={panelList}
-        panelProps={defaultPanelProps}
-        isSelected={isSelected}
-        {...props}
-    />;
-};
 
 const AdvancedHeadingBlock = compose(
     withPartialRender,
@@ -107,7 +92,7 @@ const AdvancedHeadingBlock = compose(
     };
 
     return <>
-        <AdvHeadingPanelController {...props}/>
+        <BlockPanelController panelList={panelList} props={props}/>
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}
             {showSub === 'top' && richTextContent(subText,SubTag,'heading-subtitle','subText')}

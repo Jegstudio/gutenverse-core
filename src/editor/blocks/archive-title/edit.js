@@ -1,9 +1,8 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController} from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
@@ -14,21 +13,6 @@ import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-
-const ArchiveTitlePanelController = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
-    const defaultPanelProps = {
-        ...panelProps,
-        ...props.attributes,
-        setAttributes
-    };
-    return <PanelController
-        panelList={panelList}
-        panelProps={defaultPanelProps}
-        isSelected={isSelected}
-        {...props}
-    />;
-};
 
 const ArchiveTitleBlock = compose(
     withPartialRender,
@@ -83,7 +67,7 @@ const ArchiveTitleBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <ArchiveTitlePanelController {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div  {...blockProps}>
             <HtmlTag>{archiveLink ? <a href={link} target={linkTarget} rel={archiveLinkRel} onClick={e => e.preventDefault()}>{archiveTitle}</a> : archiveTitle}</HtmlTag>
         </div>

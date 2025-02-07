@@ -56,7 +56,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'textStroke',
         'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
     });
-    
+
     isNotEmpty(attributes['colorHover']) && data.push({
         'type': 'color',
         'id': 'colorHover',
