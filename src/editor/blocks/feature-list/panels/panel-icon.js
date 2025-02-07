@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { AlertControl, BackgroundControl, BorderResponsiveControl, ColorControl, RangeControl, RepeaterControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { BackgroundControl, BorderResponsiveControl, ColorControl, RangeControl, RepeaterControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
 import { handleBackground, handleBorderResponsive, handleColor } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {

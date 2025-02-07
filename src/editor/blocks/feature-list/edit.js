@@ -1,28 +1,28 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const FeatureListBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('feature-list'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -34,8 +34,11 @@ const FeatureListBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const featureListRef = useRef();
+    const elementRef = useRef(null);
     const deviceType = getDeviceType();
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -46,7 +49,7 @@ const FeatureListBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: featureListRef
+        ref: elementRef
     });
 
     const iconContent = (item) => {
@@ -60,33 +63,28 @@ const FeatureListBlock = compose(
             case 'image':
                 return <div className="icon-wrapper">
                     <div className="icon">
-                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad}/>
+                        <img src={getImageSrc(item.image)} alt={item.title} loading={item.lazyLoad} />
                     </div>
                 </div>;
             default:
                 return null;
         }
     };
-    useEffect(() => {
-        if (featureListRef.current) {
-            setElementRef(featureListRef.current);
-        }
-    }, [featureListRef]);
 
     return <>
-        <PanelController panelList={panelList} {...props} deviceType={deviceType} />
+        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} />
         <div  {...blockProps}>
             <div className="feature-list-wrapper">
                 {
                     featureList.map((el, index) => {
                         return <div key={index} className={`icon-position-${iconPosition} feature-list-item`}>
-                            { showConnector && <span className={`connector icon-position-${iconPosition}`}></span>}
+                            {showConnector && <span className={`connector icon-position-${iconPosition}`}></span>}
                             {iconContent(el)}
                             <div className="feature-list-content">
-                                { el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
+                                {el.link ? <a href={el.link} target="_blank" rel="noreferrer" aria-label={el.title}><h2 className="feature-list-title">{el.title}</h2></a> : <h2 className="feature-list-title">{el.title}</h2>}
                                 <p className="feature-list-desc">{el.content}</p>
                             </div>
-                        </div>
+                        </div>;
                     })
                 }
             </div>

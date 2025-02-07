@@ -21,7 +21,6 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;

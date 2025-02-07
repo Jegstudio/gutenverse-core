@@ -2,9 +2,8 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { ColorControl, IconRadioControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
 
-export const dividerPanel = ({ elementId }) => {
+export const dividerPanel = () => {
     return [
         {
             id: 'type',
@@ -118,12 +117,6 @@ export const dividerPanel = ({ elementId }) => {
             min: 10,
             max: 100,
             step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .guten-divider-wrapper`,
-                    render: value => `width: ${value}%;`
-                }
-            ],
         },
         {
             id: 'size',
@@ -134,16 +127,6 @@ export const dividerPanel = ({ elementId }) => {
             min: 1,
             max: 100,
             step: 0.1,
-            style: [
-                {
-                    selector: `.${elementId} .guten-divider-style`,
-                    render: value => `--divider-pattern-height: ${value}px;`
-                },
-                {
-                    selector: `.${elementId} .guten-divider-line`,
-                    render: value => `border-width: ${value}px;`
-                },
-            ]
         },
         {
             id: 'gap',
@@ -154,27 +137,11 @@ export const dividerPanel = ({ elementId }) => {
             min: 1,
             max: 50,
             step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .guten-divider-wrapper`,
-                    render: value => `padding: ${value}px 0;`
-                }
-            ]
         },
         {
             id: 'dividerColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-divider-line`,
-                    render: value => handleColor(value, 'border-color')
-                },
-                {
-                    selector: `.${elementId} .guten-divider-style`,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ]
         },
         {
             id: 'dividerAlign',
@@ -198,12 +165,6 @@ export const dividerPanel = ({ elementId }) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `justify-content: ${value};`,
-                },
-            ]
         },
     ];
 };
