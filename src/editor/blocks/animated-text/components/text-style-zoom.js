@@ -8,7 +8,8 @@ const TextStyleZoom = (props) => {
         titleTag: TitleTag,
         loop,
         animatedTextRef,
-        splitByWord
+        splitByWord,
+        style
     } = props;
 
     const [animation, setAnimation] = useState();
@@ -43,11 +44,11 @@ const TextStyleZoom = (props) => {
         animeInit();
         return () => {
             if (animation) {
-                animation.remove([...animatedTextRef.current.getElementsByClassName('letter'), ...animatedTextRef.current.getElementsByClassName('text-content')]);
+                animation.remove();
                 setAnimation(null);
             }
         };
-    }, [props]);
+    }, [loop, splitByWord, style]);
 
     return <TitleTag className="text-content">{text}</TitleTag>;
 };
