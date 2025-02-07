@@ -17,12 +17,15 @@ import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
+import getBlockStyle from './styles/block-style';
+import { useDynamicStyle, useGenerateElementId, headStyleSheet } from 'gutenverse-core/styling';
+import { BlockPanelController } from 'gutenverse-core/controls';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
+    // withCustomStyle(panelList),
     withAnimationAdvance('button'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -31,7 +34,6 @@ const ButtonBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
         clientId,
         context: { hoverWithParent, parentSelector },
         refreshStyle,
@@ -80,8 +82,10 @@ const ButtonBlock = compose(
         selectBlock
     } = dispatch('core/block-editor');
 
-    const textRef = useRef();
-    const buttonRef = useRef();
+    const textRef = useRef(); 
+    const elementRef = useRef(null);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
@@ -98,7 +102,7 @@ const ButtonBlock = compose(
             elementId,
             displayClass,
         ),
-        ref: buttonRef
+        ref: elementRef
     });
 
     const buttonProps = {
@@ -170,13 +174,6 @@ const ButtonBlock = compose(
         [rel, setAttributes]
     );
 
-    useEffect(() => {
-        if (buttonRef.current) {
-            setElementRef(buttonRef.current);
-        }
-    }, [buttonRef]);
-
-
     const panelState = {
         panel: 'setting',
         section: 1,
@@ -246,7 +243,7 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController props = {props} panelList={panelList} />
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}
@@ -276,6 +273,7 @@ const ButtonBlock = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
+        <span ref={elementRef} style={{ display: 'none' }}></span>
         <div  {...blockProps}>
             {role === 'link' ?
                 <a {...buttonProps} onClick={() => textRef.current.focus()} aria-label={ariaLabel}>{buttonText}</a> :
