@@ -7,15 +7,7 @@ import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/
 export const panelContent = (props) => {
     const {
         elementId,
-        useStyleInLink = false,
     } = props;
-
-    const linkStyle = useStyleInLink ? `
-        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
-
     return [
         {
             id: 'columns',
@@ -99,7 +91,7 @@ export const panelContent = (props) => {
             component: ColorControl,
             style: [
                 {
-                    selector: `.${elementId}${linkStyle}`,
+                    selector: `.${elementId}`,
                     render: value => handleColor(value, 'color')
                 }
             ],
@@ -110,17 +102,11 @@ export const panelContent = (props) => {
             component: TypographyControl,
             style: [
                 {
-                    selector: `.${elementId}${linkStyle}`,
+                    selector: `.${elementId}`,
                     hasChild: true,
                     render: (value,id) => handleTypography(value, props, id)
                 }
             ],
-        },
-        {
-            id: 'useStyleInLink',
-            label: __('Use Style in Link', 'gutenverse'),
-            description: __('Applies Text Paragraph styling to links within text, overriding the default core link style.', 'gutenverse'),
-            component: CheckboxControl,
         },
     ];
 };

@@ -95,19 +95,10 @@ class Text extends Style_Abstract {
 			);
 		}
 
-		$link_style = '';
-		if ( isset( $this->attrs['useStyleInLink'] ) ) {
-			$link_style = $this->attrs['useStyleInLink'] ?
-				", .guten-element.{$this->element_id} a:not(.guten-text-highlight a), 
-				.guten-element.{$this->element_id} a:not(.guten-text-highlight a) *, 
-				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a), 
-				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a) *" : '';
-		}
-
 		if ( isset( $this->attrs['textColor'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}{$link_style}",
+					'selector'       => ".{$this->element_id}",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -120,7 +111,7 @@ class Text extends Style_Abstract {
 		if ( isset( $this->attrs['typography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => ".{$this->element_id}{$link_style}",
+					'selector'       => ".{$this->element_id}",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typography'],
 					'device_control' => false,

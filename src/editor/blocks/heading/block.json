@@ -125,10 +125,6 @@
 			"default": {},
 			"copyStyle": true
 		},
-		"useStyleInLink" : {
-			"type": "boolean",
-			"copyStyle": true
-		},
 		"hideDesktop": {
 			"type": "boolean",
 			"copyStyle": true
