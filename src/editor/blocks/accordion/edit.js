@@ -10,7 +10,7 @@ import { Check, X } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { dispatch, useSelect } from '@wordpress/data';
 import { SelectParent } from 'gutenverse-core/components';
-import { PanelController, PanelTutorial } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -24,21 +24,6 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
             <i className={iconClosed} />
         </span>
     </div>;
-};
-
-const AccordionPanelController = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
-    const defaultPanelProps = {
-        ...panelProps,
-        ...props.attributes,
-        setAttributes
-    };
-    return <PanelController
-        panelList={panelList}
-        panelProps={defaultPanelProps}
-        isSelected={isSelected}
-        {...props}
-    />;
 };
 
 const Accordion = compose(
@@ -165,7 +150,7 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <AccordionPanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div {...blockProps}>
             <div className={`accordion-heading ${first ? 'active' : ''}`} onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}

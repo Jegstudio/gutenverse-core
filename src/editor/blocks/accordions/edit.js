@@ -4,7 +4,7 @@ import { withAnimationAdvance, withMouseMoveEffect, withPartialRender } from 'gu
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
@@ -17,20 +17,6 @@ import { displayShortcut } from '@wordpress/keycodes';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
-const AccordionPanelController = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
-    const defaultPanelProps = {
-        ...panelProps,
-        ...props.attributes,
-        setAttributes
-    };
-    return <PanelController
-        panelList={panelList}
-        panelProps={defaultPanelProps}
-        isSelected={isSelected}
-        {...props}
-    />;
-};
 const Accordions = compose(
     withPartialRender,
     withAnimationAdvance('accordions'),
@@ -128,7 +114,7 @@ const Accordions = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <AccordionPanelController {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

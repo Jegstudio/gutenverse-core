@@ -3,7 +3,7 @@ import { useEffect } from '@wordpress/element';
 import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
@@ -83,7 +83,7 @@ const ArchiveTitleBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <ArchiveTitlePanelController {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div  {...blockProps}>
             <HtmlTag>{archiveLink ? <a href={link} target={linkTarget} rel={archiveLinkRel} onClick={e => e.preventDefault()}>{archiveTitle}</a> : archiveTitle}</HtmlTag>
         </div>
