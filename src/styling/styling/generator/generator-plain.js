@@ -21,7 +21,7 @@ const cssGenerator = (attribute, style, css) => {
         }
 
         if (attribute['Mobile']) {
-            const value = multiProperty(attribute['Mobile◊'], style);
+            const value = multiProperty(attribute['Mobile'], style);
             css.Desktop += ` ${selector} { ${value} } `;
         }
     }
