@@ -5,8 +5,8 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { BuildColumnWidthStyle, setDeviceClasses } from 'gutenverse-core/styling';
-import { isAnimationActive, isSticky } from 'gutenverse-core/helper';
+import { BuildColumnWidthStyle, setDeviceClasses, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -19,6 +19,10 @@ import { ResizableBox } from '@wordpress/components';
 import { isFSE } from 'gutenverse-core/helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
+import getBlockStyle from './styles/block-style';
+import { useDeferredValue } from 'react';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -186,7 +190,7 @@ const onResizeStart = (props, p) => {
     if (deviceType === 'Desktop') {
         parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.add('dragging');
+            toolTip?.classList.add('dragging');
         });
     }
 
@@ -220,7 +224,7 @@ const onResizeStart = (props, p) => {
 const onResize = (props, off) => {
     const {
         clientId,
-        addStyle,
+        setAttributes,
         targetBlock,
         getBlock,
         parentBlockWidth,
@@ -284,11 +288,12 @@ const onResize = (props, off) => {
 
     curentWidth[deviceType] = calcCurentModPercent;
 
+    setAttributes({width: curentWidth});
     // Update attribute
-    addStyle(
-        'column-width',
-        BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
-    );
+    // addStyle(
+    //     'column-width',
+    //     BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
+    // );
 
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = calcTargetModPercent;
@@ -323,7 +328,7 @@ const onResizeStop = (props) => {
     if (parentBlock) {
         parentBlock.innerBlocks.map(({ clientId }) => {
             const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-            toolTip.classList.remove('dragging');
+            toolTip?.classList.remove('dragging');
         });
     }
 
@@ -453,7 +458,7 @@ const ColumnPlaceholder = (props) => {
                         />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
                         onMouseEnter={() => {
                             onOpen();
@@ -506,7 +511,7 @@ const ColumnPlaceholder = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
+                </div>}
             </ResizableBox>
         </div>
     );
@@ -514,13 +519,9 @@ const ColumnPlaceholder = (props) => {
 
 // Column InnerBlocks Wrapper component
 const ColumnWrapper = (props) => {
-    const {
-        getBlocks
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
-    const deviceType = getDeviceType();
+    const { getBlocks } = useSelect((select) => select('core/block-editor'), []);
+    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+
     const {
         clientId,
         blockProps,
@@ -586,25 +587,27 @@ const ColumnWrapper = (props) => {
     const parentClientId = getBlockParents(clientId, true)[0];
     const parentBlock = getBlock(parentClientId);
 
-    const valueLength = parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
+    const valueLength = useMemo(() => {
+        return parseFloat(wvalue).toFixed(1).toString().length - (parseFloat(wvalue).toFixed(1).toString().includes('.') ? 0.5 : 0);
+    }, [wvalue]);
 
-    const onOpen = () => {
+    const onOpen = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.add('dragging');
             });
         }
-    };
+    }, [deviceType]);
 
-    const onClose = () => {
+    const onClose = useCallback(() => {
         if (deviceType === 'Desktop') {
-            parentBlock.innerBlocks.map(({ clientId }) => {
+            parentBlock.innerBlocks.forEach(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
                 toolTip.classList.remove('dragging');
             });
         }
-    };
+    }, [deviceType]);
 
     return (
         <div {...blockProps}>
@@ -626,13 +629,13 @@ const ColumnWrapper = (props) => {
                 onResizeStop={resizeStop}
             >
                 <FluidCanvas attributes={attributes} />
-                <div className={'guten-inserter insert-top'}>
+                {(isHovered && eSelect) && <div className={'guten-inserter insert-top'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
+                </div>}
                 <div className={'sticky-wrapper'} ref={stickyFlagRef}>
                     <div className={wrapperClass} ref={columnWrapRef}>
                         {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
@@ -644,7 +647,7 @@ const ColumnWrapper = (props) => {
                         <InnerBlocks />
                     </div>
                 </div>
-                <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
+                {isHovered && <div className={`column-resize ${openTool ? 'dragging' : ''}`}>
                     <div
                         onMouseEnter={() => {
                             onOpen();
@@ -653,21 +656,24 @@ const ColumnWrapper = (props) => {
                             onClose();
                         }}
                     >{HoverIcon}</div>
-                    <div className={'column-popup'} onFocus={() => {
-                        onOpen();
-                        setOpenTool(true);
-                    }} onBlur={() => {
-                        onClose();
-                        setOpenTool(false);
-                    }}
-                    onMouseEnter={() => {
-                        onOpen();
-                    }}
-                    onMouseLeave={() => {
-                        if (!openTool) {
+                    <div
+                        className={'column-popup'}
+                        onFocus={() => {
+                            onOpen();
+                            setOpenTool(true);
+                        }}
+                        onBlur={() => {
                             onClose();
-                        }
-                    }}
+                            setOpenTool(false);
+                        }}
+                        onMouseEnter={() => {
+                            onOpen();
+                        }}
+                        onMouseLeave={() => {
+                            if (!openTool) {
+                                onClose();
+                            }
+                        }}
                     >
                         <div>
                             <input
@@ -700,15 +706,14 @@ const ColumnWrapper = (props) => {
                         </div>
                         <div className={'column-next'}>{'%'}</div>
                     </div>
-                </div>
-                <div className={'guten-inserter insert-bottom'}>
+                </div>}
+                {(isHovered && eSelect) && <div className={'guten-inserter insert-bottom'}>
                     <Inserter
                         __experimentalIsQuick={true}
                         rootClientId={clientId}
                         clientId={clientColumnId}
                     />
-                </div>
-
+                </div>}
             </ResizableBox>
         </div>
     );
@@ -716,7 +721,20 @@ const ColumnWrapper = (props) => {
 
 // Column Block Control
 const ColumnInspection = (props) => {
-    return <PanelController panelList={panelList} {...props} />;
+    const { panelProps, isSelected, attributes, setAttributes } = props;
+
+    const defaultPanelProps = {
+        ...panelProps,
+        ...attributes,
+        setAttributes
+    };
+
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        {...props}
+    />;
 };
 
 const ColumnRemove = (props) => {
@@ -791,24 +809,24 @@ const ColumnBlockControl = (props) => {
 
     return <BlockControls>
         <ToolbarGroup>
-            <ColumnAdd {...props} />
-            <ColumnRemove {...props} />
+            {/* <ColumnAdd {...props} /> */}
+            {/* <ColumnRemove {...props} /> */}
         </ToolbarGroup>
     </BlockControls>;
 };
 
 // Column Block edit component
 const ColumnBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('column'),
-    withAnimationBackground(),
-    withAnimationSticky(),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('column'),
+    // withAnimationBackground(),
+    // withAnimationSticky(),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
-    withBackgroundEffect,
-    withCursorEffect,
-    withBackgroundSlideshow,
+    // withMouseMoveEffect,
+    // withBackgroundEffect,
+    // withCursorEffect,
+    // withBackgroundSlideshow,
 )((props) => {
     const {
         getBlock,
@@ -831,8 +849,6 @@ const ColumnBlock = compose(
         clientId,
         attributes,
         setAttributes,
-        setElementRef,
-        deviceType,
         isSelected,
     } = props;
 
@@ -847,9 +863,13 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
+    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+    const elementRef = useRef(null);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
-    const columnRef = useRef();
     const columnWrapRef = useRef();
     const stickyFlagRef = useRef();
     const animationClass = useAnimationEditor(attributes);
@@ -861,7 +881,7 @@ const ColumnBlock = compose(
     const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
-    const updateBlockWidth = (clientId, eachWidth) => {
+    const updateBlockWidth = useCallback((clientId, eachWidth) => {
         const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
         const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
         const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
@@ -875,50 +895,50 @@ const ColumnBlock = compose(
             );
             updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
         }
-    };
+    }, [clientId]);
 
-    const getChildTotalWidth = () => {
-        let total = 0;
+    // const getChildTotalWidth = () => {
+    //     let total = 0;
 
-        getBlocks(rootClientId).map(item => {
-            const { name, attributes } = item;
+    //     getBlocks(rootClientId).map(item => {
+    //         const { name, attributes } = item;
 
-            if (name === 'gutenverse/column') {
-                const { width } = attributes;
-                let Desktop = 0;
+    //         if (name === 'gutenverse/column') {
+    //             const { width } = attributes;
+    //             let Desktop = 0;
 
-                if (width !== undefined) {
-                    Desktop = width.Desktop;
-                } else {
-                    Desktop = 100;
-                }
+    //             if (width !== undefined) {
+    //                 Desktop = width.Desktop;
+    //             } else {
+    //                 Desktop = 100;
+    //             }
 
-                if (isNaN(Desktop)) {
-                    Desktop = 5;
-                }
+    //             if (isNaN(Desktop)) {
+    //                 Desktop = 5;
+    //             }
 
-                total += Desktop;
-            }
-        });
+    //             total += Desktop;
+    //         }
+    //     });
 
-        return total;
-    };
+    //     return total;
+    // };
 
-    useEffect(() => {
-        const eachWidth = roundToDown(100 / adjacentCount, 1);
-        if (!prevAdjacentCount) {
-            if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
-                setAttributes({ width: { ...width, [deviceType]: eachWidth } });
-            }
-            setPrevAdjacentCount(getBlocks(rootClientId).length);
-        } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
-            const innerBlocks = getBlocks(rootClientId);
-            setPrevAdjacentCount(adjacentCount);
-            innerBlocks.map(item => {
-                updateBlockWidth(item.clientId, eachWidth);
-            });
-        }
-    }, [adjacentCount]);
+    // useEffect(() => {
+    //     const eachWidth = roundToDown(100 / adjacentCount, 1);
+    //     if (!prevAdjacentCount) {
+    //         if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
+    //             // setAttributes({ width: { ...width, [deviceType]: eachWidth } });
+    //         }
+    //         setPrevAdjacentCount(getBlocks(rootClientId).length);
+    //     } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
+    //         const innerBlocks = getBlocks(rootClientId);
+    //         setPrevAdjacentCount(adjacentCount);
+    //         innerBlocks.map(item => {
+    //             updateBlockWidth(item.clientId, eachWidth);
+    //         });
+    //     }
+    // }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
     const horizontal = setDeviceClasses(horizontalAlign, 'horizontal');
@@ -934,8 +954,10 @@ const ColumnBlock = compose(
     const [totalWidth, setTotalWidth] = useState(0);
 
     useEffect(() => {
+        let timeout = null;
+
         if (isFSE()) {
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 const iframeEl = document.querySelector('iframe[name="editor-canvas"]');
                 if (iframeEl) {
                     if (iframeEl.contentDocument.body.innerHTML === '') {
@@ -960,17 +982,20 @@ const ColumnBlock = compose(
                 setEditorDom(document.querySelector('.editor-styles-wrapper'));
             }
         }
+
+        return () => clearTimeout(timeout);
     }, [deviceType]);
 
-    const HoverIcon = <>
-        <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
-        </svg></>;
+    const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
+    </svg>;
 
-    const stickyClasses = Object.keys(sticky)
-        .filter((device) => sticky[device])
-        .map((device) => `sticky-${device.toLowerCase()}`)
-        .join(' ');
+    const stickyClasses = useMemo(() => {
+        return Object.keys(sticky)
+            .filter((device) => sticky[device])
+            .map((device) => `sticky-${device.toLowerCase()}`)
+            .join(' ');
+    }, [sticky]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -993,20 +1018,20 @@ const ColumnBlock = compose(
                 'guten-background-effect-active': isBackgroundEffect,
             }
         ),
-        ref: columnRef,
-        onMouseEnter: () => {
-            setIsHovered(true);
-        },
-        onMouseLeave: () => {
-            setIsHovered(false);
-        },
+        ref: elementRef,
+        // onMouseEnter: () => {
+        //     setIsHovered(true);
+        // },
+        // onMouseLeave: () => {
+        //     setIsHovered(false);
+        // },
     });
 
-    useEffect(() => {
-        if (columnRef.current) {
-            setElementRef(columnRef.current);
-        }
-    }, [columnRef]);
+    // useEffect(() => {
+    //     if (elementRef.current) {
+    //         setElementRef(elementRef.current);
+    //     }
+    // }, [elementRef]);
 
     const theProps = {
         ...props,
@@ -1014,7 +1039,7 @@ const ColumnBlock = compose(
         setAttributes,
         blockProps,
         clientId,
-        columnRef: columnRef.current,
+        columnRef: elementRef.current,
         stickyFlagRef,
         columnWrapRef,
         eSelect: isSelected,
@@ -1051,9 +1076,12 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
-        <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />
-        <ColumnInspection {...props} />
+        {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
+        <ColumnInspection {...props} setAttributes={setAttributes}/>
         <Component {...theProps} />
+        {/* <div ref={elementRef}><InnerBlocks /></div> */}
+        {/* <ColumnPlaceholder {...theProps} /> */}
+        {/* <ColumnWrapper {...theProps} /> */}
     </>;
 });
 

@@ -34,14 +34,14 @@ export const layoutPanel = (props) => {
             label: __('Content Width', '--gctd--'),
             component: SelectControl,
             options: layoutControls,
-            style: [
-                {
-                    selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-                    updateID: 'width-style-0',
-                    allowRender: value => value === 'boxed',
-                    render: () => `max-width: ${width[deviceType]}px;`
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
+            //         updateID: 'width-style-0',
+            //         allowRender: value => value === 'boxed',
+            //         render: () => `max-width: ${width[deviceType]}px;`
+            //     }
+            // ]
         },
         {
             id: 'width',
@@ -51,14 +51,15 @@ export const layoutPanel = (props) => {
             min: 500,
             max: 1600,
             allowDeviceControl: true,
+            liveUpdate: true,
             unit: 'px',
-            style: [
-                {
-                    selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-                    allowRender: () => layout === 'boxed',
-                    render: value => `max-width: ${value}px;`
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
+            //         allowRender: () => layout === 'boxed',
+            //         render: value => `max-width: ${value}px;`
+            //     }
+            // ]
         },
         {
             id: 'wrapColumn',
@@ -66,16 +67,16 @@ export const layoutPanel = (props) => {
             description: __('If the current wrap is unchecked, it will use the higher resolution\'s wrap value.', '--gctd--'),
             allowDeviceControl: true,
             component: CheckboxControl,
-            style: [
-                {
-                    selector: `.${elementId} > .guten-container`,
-                    render: () => 'flex-wrap: wrap;'
-                },
-                {
-                    selector: `.${elementId} > .guten-container > .guten-column`,
-                    render: () => 'width: 100%;'
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `.${elementId} > .guten-container`,
+            //         render: () => 'flex-wrap: wrap;'
+            //     },
+            //     {
+            //         selector: `.${elementId} > .guten-container > .guten-column`,
+            //         render: () => 'width: 100%;'
+            //     }
+            // ]
         },
         {
             id: 'gap',
@@ -126,24 +127,24 @@ export const layoutPanel = (props) => {
                     value: 'fit'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    allowRender: value => value && value === 'fit',
-                    render: () => 'height: 100vh;'
-                },
-                {
-                    selector: `.${elementId} > .guten-container`,
-                    allowRender: value => value && value === 'fit',
-                    render: () => 'height: 100%;'
-                },
-                {
-                    selector: `.${elementId} > .guten-container`,
-                    allowRender: value => value && value === 'min',
-                    updateID: 'height-style-0',
-                    render: () => handleUnitPoint(height, 'min-height')
-                },
-            ]
+            // style: [
+            //     {
+            //         selector: `.${elementId}`,
+            //         allowRender: value => value && value === 'fit',
+            //         render: () => 'height: 100vh;'
+            //     },
+            //     {
+            //         selector: `.${elementId} > .guten-container`,
+            //         allowRender: value => value && value === 'fit',
+            //         render: () => 'height: 100%;'
+            //     },
+            //     {
+            //         selector: `.${elementId} > .guten-container`,
+            //         allowRender: value => value && value === 'min',
+            //         updateID: 'height-style-0',
+            //         render: () => handleUnitPoint(height, 'min-height')
+            //     },
+            // ]
         },
         {
             id: 'height',
@@ -171,13 +172,13 @@ export const layoutPanel = (props) => {
                     step: 1
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} > .guten-container`,
-                    allowRender: () => heightControl && heightControl === 'min',
-                    render: value => handleUnitPoint(value, 'min-height')
-                },
-            ]
+            // style: [
+            //     {
+            //         selector: `.${elementId} > .guten-container`,
+            //         allowRender: () => heightControl && heightControl === 'min',
+            //         render: value => handleUnitPoint(value, 'min-height')
+            //     },
+            // ]
         },
         {
             id: 'align',
@@ -237,19 +238,19 @@ export const layoutPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `${verticalSelector}`,
-                    allowRender: value => value && value !== 'default',
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `align-content: ${value}; align-items: ${value};`;
-                        }
-                    }
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `${verticalSelector}`,
+            //         allowRender: value => value && value !== 'default',
+            //         render: value => {
+            //             if (value === 'default') {
+            //                 return null;
+            //             } else {
+            //                 return `align-content: ${value}; align-items: ${value};`;
+            //             }
+            //         }
+            //     }
+            // ]
         },
         {
             id: 'overflow',
@@ -290,13 +291,13 @@ export const layoutPanel = (props) => {
                 }
             },
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `section.guten-section.${elementId}`,
-                    allowRender: () => overflow === 'clip',
-                    render: value => `overflow-clip-margin: ${value['point']}px;`
-                }
-            ]
+            // style: [
+            //     {
+            //         selector: `section.guten-section.${elementId}`,
+            //         allowRender: () => overflow === 'clip',
+            //         render: value => `overflow-clip-margin: ${value['point']}px;`
+            //     }
+            // ]
         },
     ];
 };

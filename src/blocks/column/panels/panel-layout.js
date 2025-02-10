@@ -1,20 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
-export const layoutPanel = (props) => {
-    const {
-        elementId,
-        clientId,
-        setAttributes,
-        addStyle,
-    } = props;
+export const layoutPanel = () => {
     const deviceType = getDeviceType();
-
-    const allowRender = value => {
-        return value[deviceType] && value[deviceType] !== 'default';
-    };
 
     const minWidth = {
         Desktop: 5,
@@ -22,29 +11,14 @@ export const layoutPanel = (props) => {
         Mobile: 15,
     };
 
-    const additionalProps = {
-        elementId,
-        clientId,
-        addStyle,
-        setAttributes
-    };
-
     return [
         {
             id: 'width',
             label: __('Column Width', '--gctd--'),
-            component: RangeColumnControl,
+            component: RangeControl,
             min: minWidth[deviceType],
             step: 0.1,
-            additionalProps,
-            onChange: (value) => {
-                const { width } = value;
-
-                addStyle(
-                    'column-width',
-                    BuildColumnWidthStyle(width, `.${elementId}`)
-                );
-            }
+            allowDeviceControl: true,
         },
         {
             id: 'verticalAlign',
@@ -81,19 +55,6 @@ export const layoutPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    // allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `align-content: ${value}; align-items: ${value};`;
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'horizontalAlign',
@@ -130,30 +91,6 @@ export const layoutPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    // allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `justify-content: ${value};`;
-                        }
-                    }
-                },
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks`,
-                    allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return 'width: 100%;';
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'order',
@@ -202,12 +139,6 @@ export const layoutPanel = (props) => {
                     value: 10
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `order: ${value};`
-                }
-            ]
         }
     ];
 };
