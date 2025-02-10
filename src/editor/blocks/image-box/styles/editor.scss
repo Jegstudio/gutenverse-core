@@ -1,0 +1,14 @@
+.editor-styles-wrapper {
+    .guten-image-box,
+    .gutenverse-image-box {
+        transition: none !important;
+        .inner-container {
+            .image-box-header {
+                transition: none !important;
+                img {
+                    transition: none !important;
+                }
+            }
+        }
+    }
+}
