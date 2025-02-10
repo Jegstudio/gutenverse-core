@@ -34,13 +34,6 @@ export const buttonBackgroundPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: normalOptions,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
         },
         {
             id: 'buttonBackgroundHover',
@@ -48,20 +41,6 @@ export const buttonBackgroundPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: hoverOptions,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    hasChild: true,
-                    allowRender: () => !hoverWithParent,
-                    render: value => handleBackground(value)
-                },
-                {
-                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    allowRender: () => hoverWithParent,
-                    render: value => handleBackground(value)
-                },
-            ]
         }
     ];
 };
