@@ -84,11 +84,12 @@ const SectionWrapper = (props) => {
 };
 
 const SectionInspection = (props) => {
-    const { panelProps, isSelected, attributes, setAttributes } = props;
+    const { clientId, panelProps, isSelected, attributes, setAttributes } = props;
 
     const defaultPanelProps = {
         ...panelProps,
         ...attributes,
+        clientId,
         setAttributes
     };
 

@@ -34,6 +34,28 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', '--gctd--'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'section-animation'
+            }),
+            tabRole: TabSetting
+        },
+
         // Styles
         {
             title: __('Background', '--gctd--'),
@@ -43,6 +65,18 @@ export const panelList = () => {
                 normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
             }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
             tabRole: TabStyle
         },
         // {
@@ -89,21 +123,6 @@ export const panelList = () => {
         //     pro: true,
         // },
         // {
-        //     title: __('Border', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => borderPanel({
-        //         ...props,
-        //         styleId: 'section-border'
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Masking', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: maskPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
         //     title: __('Pointer Event', '--gctd--'),
         //     initialOpen: false,
         //     panelArray: (props) => pointerEventPanel({
@@ -134,21 +153,6 @@ export const panelList = () => {
         //     pro: true,
         // },
         // {
-        //     title: __('Display', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: responsivePanel,
-        //     tabRole: TabSetting
-        // },
-        // {
-        //     title: __('Animation Effects', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => animationPanel({
-        //         ...props,
-        //         styleId: 'section-animation'
-        //     }),
-        //     tabRole: TabSetting
-        // },
-        // {
         //     title: __('Transform', '--gctd--'),
         //     initialOpen: false,
         //     panelArray: transformPanel,
@@ -171,12 +175,6 @@ export const panelList = () => {
         //         blockType: 'section'
         //     }),
         //     pro: true,
-        // },
-        // {
-        //     title: __('Positioning', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: positioningPanel,
-        //     tabRole: TabSetting
         // },
         // {
         //     title: __('Condition', 'gutenverse'),
