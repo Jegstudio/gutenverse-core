@@ -18,6 +18,7 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
+import { isEmptyString } from 'gutenverse-core/helper';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -391,4 +392,13 @@ export const skipDevice = (attributes, name, callback) => {
     } else {
         console.log('make sure the attribute is using device control : ', name);
     }
+};
+
+export const handleFilterImage = (props) => {
+    const { brightness, contrast, blur, saturation, hue } = props;
+    return `brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+        contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+        saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+        blur( ${!isEmptyString(blur) ? blur : 0}px )
+        hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
 };

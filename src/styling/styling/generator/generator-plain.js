@@ -1,6 +1,7 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
 import { handleAlign } from '../handler/handle-align';
+import { handleFilterImage } from '../styling-helper';
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
@@ -82,6 +83,9 @@ const renderFunctionValue = (functionName, attribute) => {
     switch (functionName) {
         case 'handleAlign':
             value = handleAlign(attribute);
+            break;
+        case 'handleFilterImage':
+            value = handleFilterImage(attribute);
             break;
         default:
             value = '';
