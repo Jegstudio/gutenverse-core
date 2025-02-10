@@ -1,28 +1,29 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { encodeDataToURL } from 'gutenverse-core/helper';
-import { useRef, useEffect } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-styles';
 
 const GoogleMapsBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('google-maps'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        isSelected
+        isSelected,
+        clientId
     } = props;
 
     const {
@@ -31,7 +32,7 @@ const GoogleMapsBlock = compose(
         zoom,
     } = attributes;
 
-    const googleMapRef = useRef();
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -45,8 +46,11 @@ const GoogleMapsBlock = compose(
             displayClass,
             animationClass,
         ),
-        ref: googleMapRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const parameter = {
         q: location,
@@ -65,14 +69,8 @@ const GoogleMapsBlock = compose(
         title: parameter['q'],
     };
 
-    useEffect(() => {
-        if (googleMapRef.current) {
-            setElementRef(googleMapRef.current);
-        }
-    }, [googleMapRef]);
-
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div  {...blockProps}>
             <iframe {...iframeParam} />
         </div>

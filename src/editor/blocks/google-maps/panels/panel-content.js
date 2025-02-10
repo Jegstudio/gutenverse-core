@@ -27,12 +27,6 @@ export const panelContent = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
-                {
-                    selector: `.${elementId}.gutenverse-maps iframe`,
-                    render: value => `height: ${value}px;`
-                }
-            ],
         },
     ];
 };
