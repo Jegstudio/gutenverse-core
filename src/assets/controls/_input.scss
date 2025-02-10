@@ -1972,9 +1972,10 @@
     }
 
     &heading-splitter {
-      font-size: 12px;
-      padding-bottom: 10px;
+      font-size: 13px !important;
+      padding-bottom: 0px !important;
       margin-top: 0;
+      text-transform: capitalize !important;
 
       &:not(.first) {
         border-top: 1px solid #e6e6ef;
