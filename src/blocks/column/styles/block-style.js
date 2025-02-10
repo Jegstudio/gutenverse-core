@@ -7,14 +7,19 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'width',
         'responsive': true,
-        'property': ['width'],
         'selector': `.${elementId}`,
-        'valueCSS' : '{value}%',
-        'values' : {
-            'value' : {
-                'type' : 'direct',
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}%',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
             }
-        }
+        ],
     });
 
     isNotEmpty(attributes['background']) && data.push({

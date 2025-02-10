@@ -7,14 +7,19 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'width',
         'responsive': true,
-        'property': ['max-width'],
         'selector': `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-        'valueCSS' : '{value}px', // wait for unit poin handler
-        'values' : {
-            'value' : {
-                'type' : 'direct',
+        'properties': [
+            {
+                'name': 'max-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
             }
-        }
+        ],
     });
 
     isNotEmpty(attributes['background']) && data.push({

@@ -1076,10 +1076,10 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
-        {/* {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />} */}
-        {/* <ColumnInspection {...props} setAttributes={setAttributes}/> */}
-        {/* <Component {...theProps} /> */}
-        <div ref={elementRef}><InnerBlocks /></div>
+        {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
+        <ColumnInspection {...props} setAttributes={setAttributes}/>
+        <Component {...theProps} />
+        {/* <div ref={elementRef}><InnerBlocks /></div> */}
         {/* <ColumnPlaceholder {...theProps} /> */}
         {/* <ColumnWrapper {...theProps} /> */}
     </>;
