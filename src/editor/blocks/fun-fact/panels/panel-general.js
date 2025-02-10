@@ -2,9 +2,8 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { handleColor } from 'gutenverse-core/styling';
 
-export const generalPanel = ({ elementId, hoverBottom }) => {
+export const generalPanel = ({ hoverBottom }) => {
     return [
         {
             id: 'alignButtons',
@@ -27,12 +26,6 @@ export const generalPanel = ({ elementId, hoverBottom }) => {
                     value: 'right',
                     icon: <AlignRight />,
                 },
-            ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
             ]
         },
         {
@@ -87,14 +80,7 @@ export const generalPanel = ({ elementId, hoverBottom }) => {
             id: 'hoverBottomColor',
             show: hoverBottom,
             label: __('Border Bottom Color', 'gutenverse'),
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .border-bottom .animated`,
-                    allowRender: () => hoverBottom,
-                    render: value => handleColor(value, 'background-color')
-                }
-            ]
+            component: ColorControl
         },
         {
             id: 'hoverBottomDirection',

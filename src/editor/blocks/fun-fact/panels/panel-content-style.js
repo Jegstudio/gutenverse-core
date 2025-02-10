@@ -1,56 +1,29 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
-export const contentStylePanel = ({elementId, ...props}) => {
+export const contentStylePanel = () => {
     return [
         {
             id: 'numberColor',
             label: __('Number Color', 'gutenverse'),
             component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            allowDeviceControl: true
         },
         {
             id: 'titleColor',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .title`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            allowDeviceControl: true
         },
         {
             id: 'numberTypography',
             label: __('Number Typography', 'gutenverse'),
-            component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
+            component: TypographyControl
         },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
-            component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .title`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
+            component: TypographyControl
         },
         {
             id: 'numberBottomSpace',
@@ -60,29 +33,7 @@ export const contentStylePanel = ({elementId, ...props}) => {
             unit: 'px',
             min: 0,
             max: 300,
-            step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper `,
-                    render: value => `margin-bottom: ${value}px;`
-                }
-            ]
-        },
-        {
-            id: 'titleBottomSpace',
-            label: __('Title Bottom Space', 'gutenverse'),
-            component: RangeControl,
-            allowDeviceControl: true,
-            unit: 'px',
-            min: 0,
-            max: 300,
-            step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .title `,
-                    render: value => `margin-bottom: ${value}px;`
-                }
-            ]
+            step: 1
         },
         {
             id: 'numberRightSpace',
@@ -92,13 +43,17 @@ export const contentStylePanel = ({elementId, ...props}) => {
             unit: 'px',
             min: 0,
             max: 300,
-            step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .number.loaded`,
-                    render: value => `margin-right: ${value}px;`
-                }
-            ]
+            step: 1
+        },
+        {
+            id: 'titleBottomSpace',
+            label: __('Title Bottom Space', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            unit: 'px',
+            min: 0,
+            max: 300,
+            step: 1
         },
         {
             id: 'contentPadding',
@@ -119,13 +74,7 @@ export const contentStylePanel = ({elementId, ...props}) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
+            }
         },
     ];
 };
