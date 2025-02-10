@@ -51,7 +51,9 @@ const multiProperty = (attribute, props) => {
     if (properties && properties.length > 0) {
         properties.forEach(el => {
             let value = generateValue(attribute, el, type);
-            styles += ` ${el.name}: ${value}; `;
+            if(isNotEmpty(value)){
+                styles += ` ${el.name}: ${value}; `;
+            }
         });
     }
     return styles;
@@ -92,7 +94,6 @@ const renderPatternValues = (pattern, patternValues, attribute) => {
     let newString = pattern;
     if (patternValues) {
         newString = newString.replace(/\{(\w+)\}/g, (_, str) => {
-
             if (patternValues[str] && patternValues[str].type === 'direct') {
                 return attribute ? attribute : `{${str}}`;
             }
