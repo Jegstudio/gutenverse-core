@@ -21,7 +21,7 @@ const cssGenerator = (attribute, style, css) => {
         }
 
         if (attribute['Mobile']) {
-            const value = multiProperty(attribute['Mobile◊'], style);
+            const value = multiProperty(attribute['Mobile'], style);
             css.Desktop += ` ${selector} { ${value} } `;
         }
     }
@@ -90,18 +90,20 @@ const renderFunctionValue = (functionName, attribute) => {
 
 const renderPatternValues = (pattern, patternValues, attribute) => {
     let newString = pattern;
-    newString = newString.replace(/\{(\w+)\}/g, (_, str) => {
+    if (patternValues) {
+        newString = newString.replace(/\{(\w+)\}/g, (_, str) => {
 
-        if (patternValues[str] && patternValues[str].type === 'direct') {
-            return attribute ? attribute : `{${str}}`;
+            if (patternValues[str] && patternValues[str].type === 'direct') {
+                return attribute ? attribute : `{${str}}`;
+            }
+            if (patternValues[str] && patternValues[str].type === 'attribute') {
+                return attribute[patternValues[str].key] ? attribute[patternValues[str].key] : `{${str}}`;
+            }
+            return `{${str}}`;
+        });
+        if (newString === pattern) {
+            return '';
         }
-        if (patternValues[str] && patternValues[str].type === 'attribute') {
-            return attribute[patternValues[str].key] ? attribute[patternValues[str].key] : `{${str}}`;
-        }
-        return `{${str}}`;
-    });
-    if (newString === pattern) {
-        return '';
     }
     return newString;
 };

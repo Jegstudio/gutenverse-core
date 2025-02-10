@@ -247,39 +247,56 @@ const injectFontStyle = (theWindow) => {
     }
 };
 
+const extractStyleFont = (elementId, attributes, arrStyle) => {
+    let deviceTypeDesktop = [];
+    let deviceTypeTablet = [];
+    let deviceTypeMobile = [];
+    let gatheredFont = [];
+
+    let blockStyles = arrStyle;
+    if (typeof arrStyle === 'function') {
+        blockStyles = arrStyle(elementId, attributes);
+    }
+    for (let index = 0; index < blockStyles.length; index++) {
+        const style = blockStyles[index];
+        const { type, id } = style;
+        const value = attributes[id];
+        if (attributes[id]) {
+            const css = generateCSSString(value, style);
+
+            css.Desktop && deviceTypeDesktop.push(css.Desktop);
+            css.Tablet && deviceTypeTablet.push(css.Tablet);
+            css.Mobile && deviceTypeMobile.push(css.Mobile);
+
+            if (type === 'typography') {
+                const { font, weight } = attributes[id];
+                if (font) {
+                    gatheredFont.push({
+                        font: font.value,
+                        type: font.type,
+                        weight: weight
+                    });
+                }
+            }
+            if (type === 'repeater') {
+                let { repeaterOpt } = style;
+                value.forEach((el, index) => {
+                    const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile, gatheredFont: font } = extractStyleFont(elementId, el, repeaterOpt[index]);
+                    deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
+                    deviceTypeTablet = [...deviceTypeTablet, ...tablet];
+                    deviceTypeMobile = [...deviceTypeMobile, ...mobile];
+                    gatheredFont = [...gatheredFont, ...font];
+                });
+            }
+        }
+    }
+    return { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont };
+};
+
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
-            const deviceTypeDesktop = [];
-            const deviceTypeTablet = [];
-            const deviceTypeMobile = [];
-            const gatheredFont = [];
-
-            const blockStyles = getBlockStyle(elementId, attributes);
-            for (let index = 0; index < blockStyles.length; index++) {
-                const style = blockStyles[index];
-                const { type, id } = style;
-                const value = attributes[id];
-                if ( attributes[id] ) {
-                    const css = generateCSSString(value, style);
-
-                    css.Desktop && deviceTypeDesktop.push(css.Desktop);
-                    css.Tablet && deviceTypeTablet.push(css.Tablet);
-                    css.Mobile && deviceTypeMobile.push(css.Mobile);
-
-                    if (type === 'typography') {
-                        const { font, weight } = attributes[id];
-                        if (font) {
-                            gatheredFont.push({
-                                font: font.value,
-                                type: font.type,
-                                weight: weight
-                            });
-                        }
-                    }
-                }
-            }
-
+            const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, attributes, getBlockStyle);
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
             return { generatedCSS, fontUsed };
@@ -366,7 +383,7 @@ export const skipDevice = (attributes, name, callback) => {
         ['Desktop', 'Tablet', 'Mobile'].forEach(device => {
             if (!callback(attributes, device)) {
                 devices.push(device);
-            }else if ((!attributes[name][device] || isEmpty(attributes[name][device]))) {
+            } else if ((!attributes[name][device] || isEmpty(attributes[name][device]))) {
                 devices.push(device);
             }
         });
