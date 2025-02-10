@@ -20,6 +20,7 @@ export const loadMorePanel = (props) => {
             show: enableLoadMore,
             label: __('Items Per Load', 'gutenverse'),
             component: RangeControl,
+            isParseFloat : true,
             min: 1,
             max: 50,
             step: 1,
