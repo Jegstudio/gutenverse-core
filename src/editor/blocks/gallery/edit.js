@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { createPortal } from 'react-dom';
@@ -15,18 +15,18 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const GalleryBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('gallery'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        deviceType
+        clientId
     } = props;
 
     const {
@@ -35,6 +35,7 @@ const GalleryBlock = compose(
         showed,
         column,
         grid,
+        height,
         layout,
         filter,
         filterType,
@@ -56,10 +57,13 @@ const GalleryBlock = compose(
     const [showFilter, setShowFilter] = useState(false);
     const [currentFilter, setCurrentFilter] = useState('All');
     const [showedItems, setShowedItems] = useState(showed);
-    const [shuffleInstance, setShuffleInstance] = useState();
-    const [imageLoaded, setImageLoaded] = useState(false);
-    const galleryRef = useRef();
-    const sizerRef = useRef();
+    const elementRef = useRef(null);
+    const shuffleInstance = useRef(null);
+    const observerRef = useRef(null);
+    const sizerRef = useRef(null);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -69,12 +73,12 @@ const GalleryBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType.toLowerCase(),
             [`layout-${layout}`],
             [`grid-desktop-${column && column['Desktop'] ? column['Desktop'] : 3}`],
             [`grid-tablet-${column && column['Tablet'] ? column['Tablet'] : 2}`],
             [`grid-mobile-${column && column['Mobile'] ? column['Mobile'] : 2}`],
         ),
+        ref: elementRef
     });
 
     const onSearch = (value) => {
@@ -90,10 +94,10 @@ const GalleryBlock = compose(
             return (controlText.toLowerCase()).includes(filterName) && ((titleText.toLowerCase()).includes(searchValue) || (contentText.toLowerCase()).includes(searchValue) || (categoryText.toLowerCase()).includes(searchValue));
         };
 
-        shuffleInstance && shuffleInstance.filter(item => isValid(item));
+        shuffleInstance.current && shuffleInstance.current.filter(item => isValid(item));
     };
 
-    const onFilter = ( value ) => {
+    const onFilter = (value) => {
         const searchValue = value.toLowerCase();
         const isValidFilter = (item) => {
             const element = u(item);
@@ -101,7 +105,7 @@ const GalleryBlock = compose(
             return (controlText.toLowerCase()).includes(searchValue);
         };
 
-        shuffleInstance && shuffleInstance.filter(item => isValidFilter(item));
+        shuffleInstance.current && shuffleInstance.current.filter(item => isValidFilter(item));
     };
 
     const changeFilter = (filterName) => {
@@ -109,49 +113,52 @@ const GalleryBlock = compose(
         filterName === 'All' ? onFilter('') : onFilter(filterName);
     };
 
-    const initShuffleJS = () => {
-        if(imageLoaded){
-            setTimeout(() => {
-                const shuffle = new Shuffle(galleryRef.current, {
-                    itemSelector: `.${elementId} .gallery-item-wrap`,
-                    sizer: `.${elementId} .gallery-sizer-element`,
-                    speed: 500
-                });
-                setShuffleInstance(shuffle);
-            }, 100);
-        }
+    // Initialize Shuffle.js
+    const initializeShuffle = () => {
+        shuffleInstance.current = new Shuffle(elementRef.current.querySelector('.gallery-items'), {
+            itemSelector: `.${elementId} .gallery-item-wrap`,
+            sizer: `.${elementId} .gallery-sizer-element`,
+            speed: 500
+        });
     };
 
-    useEffect(()=>{
-        const images = u(`.${elementId} .thumbnail-wrap img`);
-        const proms=images.nodes.map(im=>new Promise(res=>
-            im.onload=()=>res([im.width,im.height])
-        ));
+    // Wait for images to load
+    const waitForImages = (images) => Promise.all(
+        images.map((img) =>
+            img.complete
+                ? Promise.resolve()
+                : new Promise((resolve) => (img.onload = img.onerror = resolve))
+        )
+    );
 
-        Promise.all(proms).then(()=>{
-            setImageLoaded(true);
+    // Observe changes in image sizes
+    const observeResizeGalleryItems = () => {
+        const items = Array.from(elementRef.current.querySelectorAll('.gallery-item-wrap'));
+        if (observerRef.current) observerRef.current.disconnect();
+        observerRef.current = new ResizeObserver(() => {
+            initializeShuffle();
         });
-    }, []);
-
-    useEffect(() => elementId && galleryRef.current && initShuffleJS(), [attributes, deviceType,imageLoaded]);
-
-    useEffect(() => {
-        shuffleInstance && shuffleInstance.update();
-    }, [shuffleInstance]);
+        items.forEach((item) => {
+            observerRef.current.observe(item);
+        });
+    };
 
     useEffect(() => setShowedItems(showed), [showed]);
 
     useEffect(() => {
-        if (galleryRef.current) {
-            setTimeout(() => {
-                setElementRef(galleryRef.current);
-                elementId && initShuffleJS();
-            }, 100);
+        if (elementRef.current) {
+            // Ensure images are loaded first, then observe changes
+            const images = Array.from(elementRef.current.querySelectorAll('img'));
+            waitForImages(images).then(observeResizeGalleryItems);
         }
-    }, [galleryRef]);
+        return () => {
+            shuffleInstance.current?.destroy();
+            observerRef.current?.disconnect();
+        };
+    }, [showed, showedItems, grid, height, column, layout]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} />
         {showPopup && createPortal(<GalleryPopup activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
@@ -181,7 +188,7 @@ const GalleryBlock = compose(
                     </form>
                 </div>
             )}
-            <div className="gallery-items" ref={galleryRef}>
+            <div className="gallery-items">
                 {images.map((item, index) => {
                     const onZoom = () => {
                         setShowPop(true);
@@ -198,7 +205,6 @@ const GalleryBlock = compose(
                 <div className="guten-gallery-loadmore">
                     <a href="#" className="guten-gallery-load-more" onClick={(e) => {
                         e.preventDefault();
-                        initShuffleJS();
                         setShowedItems(parseInt(showedItems) + parseInt(itemsPerLoad));
                     }}>
                         {enableLoadIcon && enableLoadIconPosition === 'before' && <span className="load-more-icon icon-position-before" aria-hidden="true">
