@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import { getColor } from 'gutenverse-core/styling';
 
 export const boxShadowCSS = (attribute) => {
-    const { color = {}, horizontal = 0, vertical = 0, blur = 0, spread, position } = attribute;
+    const { color = {r: 1, g: 1, b: 1, a: 0.5}, horizontal = 0, vertical = 0, blur = 10, spread, position } = attribute;
     const shadowColor = getColor(color);
 
     const horizontalValue = !isEmpty(horizontal) ? horizontal : 0;
