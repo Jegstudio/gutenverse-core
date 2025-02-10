@@ -77,9 +77,12 @@ const TextEditorBlock = compose(
 
     useEffect(() => {
         const containsAnchorTag = innerBlocksContent.some(innerBlock => 
-            hasLink(innerBlock.attributes?.content || '')
+            hasLink(innerBlock.attributes?.content || innerBlock.attributes?.paragraph || '')
         );
-        setAttributes({containsAnchorTag: containsAnchorTag})
+    
+        if (containsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: containsAnchorTag });
+        }
     }, [innerBlocksContent]);
 
     useEffect(() => {

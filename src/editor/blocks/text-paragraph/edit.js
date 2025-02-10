@@ -91,7 +91,11 @@ const TextBlock = compose(
     useEffect(() => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(paragraph, 'text/html');
-        setAttributes({containsAnchorTag :doc.querySelector('a') !== null})
+        const newContainsAnchorTag = doc.querySelector('a') !== null;
+
+        if (newContainsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: newContainsAnchorTag });
+        }
     }, [paragraph])
     return <>
         <PanelController

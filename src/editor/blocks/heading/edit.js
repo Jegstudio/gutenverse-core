@@ -100,7 +100,11 @@ const HeadingBlock = compose(
     useEffect(() => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, 'text/html');
-        setAttributes({containsAnchorTag :doc.querySelector('a') !== null})
+        const newContainsAnchorTag = doc.querySelector('a') !== null;
+
+        if (newContainsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: newContainsAnchorTag });
+        }
     }, [content])
 
     return <>
