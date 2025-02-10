@@ -22,7 +22,6 @@ import isEmpty from 'lodash/isEmpty';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
 import getBlockStyle from './styles/block-style';
-import { useDeferredValue } from 'react';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -809,8 +808,8 @@ const ColumnBlockControl = (props) => {
 
     return <BlockControls>
         <ToolbarGroup>
-            {/* <ColumnAdd {...props} /> */}
-            {/* <ColumnRemove {...props} /> */}
+            <ColumnAdd {...props} />
+            <ColumnRemove {...props} />
         </ToolbarGroup>
     </BlockControls>;
 };
@@ -1027,12 +1026,6 @@ const ColumnBlock = compose(
         // },
     });
 
-    // useEffect(() => {
-    //     if (elementRef.current) {
-    //         setElementRef(elementRef.current);
-    //     }
-    // }, [elementRef]);
-
     const theProps = {
         ...props,
         attributes,
@@ -1079,9 +1072,6 @@ const ColumnBlock = compose(
         {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
         <ColumnInspection {...props} setAttributes={setAttributes}/>
         <Component {...theProps} />
-        {/* <div ref={elementRef}><InnerBlocks /></div> */}
-        {/* <ColumnPlaceholder {...theProps} /> */}
-        {/* <ColumnWrapper {...theProps} /> */}
     </>;
 });
 

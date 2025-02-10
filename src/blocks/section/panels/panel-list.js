@@ -19,6 +19,13 @@ export const panelList = () => {
             tabRole: TabSetting,
         },
         {
+            title: __('Structure', '--gctd--'),
+            initialOpen: false,
+            panelArray: structurePanel,
+            id: 'structure',
+            tabRole: TabSetting
+        },
+        {
             title: __('Spacing', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => advancePanel({
@@ -38,13 +45,6 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Structure', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: structurePanel,
-        //     id: 'structure',
-        //     tabRole: TabSetting
-        // },
         // {
         //     title: __('Sticky', '--gctd--'),
         //     initialOpen: false,
