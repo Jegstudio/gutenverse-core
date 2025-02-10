@@ -52,13 +52,6 @@ export const buttonBorderPanel = (props) => {
             show: (!switcher.buttonBorder || switcher.buttonBorder === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
-                }
-            ]
         },
         {
             id: 'buttonBorderResponsive',
@@ -66,33 +59,12 @@ export const buttonBorderPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
-                }
-            ]
         },
         {
             id: 'buttonBorderHover',
             show: switcher.buttonBorder === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    hasChild: true,
-                    allowRender: () => !hoverWithParent,
-                    render: value => customHandleHoverBorder(value, buttonBorder)
-                },
-                {
-                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    allowRender: () => hoverWithParent,
-                    render: value => customHandleHoverBorder(value, buttonBorder)
-                }
-            ]
         },
         {
             id: 'buttonBorderHoverResponsive',
@@ -100,50 +72,18 @@ export const buttonBorderPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    allowRender: () => device !== 'Desktop' && !hoverWithParent,
-                    render: value => customHandleHoverBorder(value, buttonBorderResponsive),
-                },
-                {
-                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    allowRender: () => device !== 'Desktop' && hoverWithParent,
-                    render: value => customHandleHoverBorder(value, buttonBorderResponsive),
-                }
-            ]
         },
         {
             id: 'buttonBoxShadow',
             show: !switcher.buttonBorder || switcher.buttonBorder === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
-                }
-            ]
         },
         {
             id: 'buttonBoxShadowHover',
             show: switcher.buttonBorder === 'hover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    allowRender: (value) => allowRenderBoxShadow(value) && !hoverWithParent,
-                    render: value => handleBoxShadow(value)
-                },
-                {
-                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
-                    allowRender: (value) => allowRenderBoxShadow(value) && hoverWithParent,
-                    render: value => handleBoxShadow(value)
-                }
-            ]
         }
     ];
 };
