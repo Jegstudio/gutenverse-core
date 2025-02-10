@@ -66,6 +66,18 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     /**Panel Content */
+    isNotEmpty(attributes['contentPosition']) && data.push({
+        'type': 'plain',
+        'id': 'contentPosition',
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item`,
+        'properties': [
+            {
+                'name': 'align-items',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['titleTypography']) && data.push({
         'type': 'typography',
         'id': 'titleTypography',

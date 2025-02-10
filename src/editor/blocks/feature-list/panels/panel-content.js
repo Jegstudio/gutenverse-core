@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, SelectControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -7,6 +7,25 @@ export const contentPanel = (props) => {
         setSwitcher
     } = props;
     return [
+        {
+            id: 'contentPosition',
+            label: __('Content Position', 'gutenverse'),
+            component: SelectControl,
+            options: [
+                {
+                    label: __('Top'),
+                    value: 'start'
+                },
+                {
+                    label: __('Middle'),
+                    value: 'center'
+                },
+                {
+                    label: __('Bottom'),
+                    value: 'end'
+                },
+            ],
+        },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
