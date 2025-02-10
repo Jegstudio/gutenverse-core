@@ -1,14 +1,10 @@
-import { handleBackground } from 'gutenverse-core/styling';
 import { BackgroundControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 
-export const    backgroundOverlayPanel = (props) => {
+export const backgroundOverlayPanel = (props) => {
     const {
-        elementId,
         normalOptions,
         hoverOptions,
-        normalSelector,
-        hoverSelector,
         switcher,
         setSwitcher
     } = props;
@@ -27,7 +23,7 @@ export const    backgroundOverlayPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__bgOverlayHover}) => setSwitcher({...switcher, bgOverlay: __bgOverlayHover})
+            onChange: ({ __bgOverlayHover }) => setSwitcher({ ...switcher, bgOverlay: __bgOverlayHover })
         },
         {
             id: 'backgroundOverlay',
@@ -35,13 +31,6 @@ export const    backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: normalOptions,
-            style: [
-                {
-                    selector: normalSelector ? normalSelector : `.${elementId} > .guten-background-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
         },
         {
             id: 'opacity',
@@ -51,14 +40,6 @@ export const    backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
-            style: [
-                {
-                    selector: normalSelector ? normalSelector : `.${elementId} > .guten-background-overlay`,
-                    render: value => {
-                        return `opacity: ${value};`;
-                    }
-                },
-            ],
         },
         {
             id: 'backgroundOverlayHover',
@@ -66,13 +47,6 @@ export const    backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: hoverOptions,
-            style: [
-                {
-                    selector: hoverSelector ? hoverSelector : `.${elementId}:hover > .guten-background-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
         },
         {
             id: 'opacityHover',
@@ -82,12 +56,6 @@ export const    backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
-            style: [
-                {
-                    selector: hoverSelector ? hoverSelector : `.${elementId}:hover > .guten-background-overlay`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
         },
     ];
 };

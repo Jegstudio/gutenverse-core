@@ -14,12 +14,23 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', '--gctd--'),
+            title: __('Spacing', 'gutenverse'),
             initialOpen: false,
-            panelArray: (props) => advancePanel({
+            panelArray: advancePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
                 ...props,
-                styleId: 'column-advance',
-                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`
+                styleId: 'column-animation'
             }),
             tabRole: TabSetting
         },
@@ -35,6 +46,35 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
+        {
+            title: __('Background Overlay', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', '-gctd-'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
+            tabRole: TabStyle
+        },
+
         // {
         //     title: __('Sticky', '--gctd--'),
         //     panelArray: stickyPanel,
@@ -58,38 +98,6 @@ export const panelList = () => {
         //     pro: true,
         // },
         // {
-        //     title: __('Background Overlay', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundOverlayPanel({
-        //         ...props,
-        //         normalOptions: ['default', 'gradient'],
-        //         hoverOptions: ['default', 'gradient'],
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Blur', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: blurPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Border', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => borderPanel({
-        //         ...props,
-        //         styleId: 'column-border',
-        //         selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Masking', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: maskPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
         //     title: __('Pointer Event', '--gctd--'),
         //     initialOpen: false,
         //     panelArray: pointerEventPanel,
@@ -110,21 +118,6 @@ export const panelList = () => {
         //         styleId: 'column-typography'
         //     }),
         //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Display', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: responsivePanel,
-        //     tabRole: TabSetting
-        // },
-        // {
-        //     title: __('Animation Effects', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => animationPanel({
-        //         ...props,
-        //         styleId: 'column-animation'
-        //     }),
-        //     tabRole: TabSetting
         // },
         // {
         //     title: __('Background Animation', '--gctd--'),

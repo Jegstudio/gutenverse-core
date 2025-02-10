@@ -1,33 +1,15 @@
 import { __ } from '@wordpress/i18n';
-import { RangeColumnControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-// import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
 export const layoutPanel = () => {
-    // const {
-    //     elementId,
-    //     clientId,
-    //     setAttributes,
-    //     addStyle,
-    // } = props;
     const deviceType = getDeviceType();
-
-    // const allowRender = value => {
-    //     return value[deviceType] && value[deviceType] !== 'default';
-    // };
 
     const minWidth = {
         Desktop: 5,
         Tablet: 10,
         Mobile: 15,
     };
-
-    // const additionalProps = {
-    //     elementId,
-    //     clientId,
-    //     addStyle,
-    //     setAttributes
-    // };
 
     return [
         {
@@ -37,15 +19,6 @@ export const layoutPanel = () => {
             min: minWidth[deviceType],
             step: 0.1,
             allowDeviceControl: true,
-            liveUpdate: true,
-            // onChange: (value) => {
-            //     const { width } = value;
-
-            //     addStyle(
-            //         'column-width',
-            //         BuildColumnWidthStyle(width, `.${elementId}`)
-            //     );
-            // }
         },
         {
             id: 'verticalAlign',
@@ -82,19 +55,6 @@ export const layoutPanel = () => {
                     value: 'space-evenly'
                 },
             ],
-            // style: [
-            //     {
-            //         selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-            //         // allowRender: value => allowRender(value),
-            //         render: value => {
-            //             if (value === 'default') {
-            //                 return null;
-            //             } else {
-            //                 return `align-content: ${value}; align-items: ${value};`;
-            //             }
-            //         }
-            //     }
-            // ]
         },
         {
             id: 'horizontalAlign',
@@ -131,30 +91,6 @@ export const layoutPanel = () => {
                     value: 'space-evenly'
                 },
             ],
-            // style: [
-            //     {
-            //         selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-            //         // allowRender: value => allowRender(value),
-            //         render: value => {
-            //             if (value === 'default') {
-            //                 return null;
-            //             } else {
-            //                 return `justify-content: ${value};`;
-            //             }
-            //         }
-            //     },
-            //     {
-            //         selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks`,
-            //         allowRender: value => allowRender(value),
-            //         render: value => {
-            //             if (value === 'default') {
-            //                 return null;
-            //             } else {
-            //                 return 'width: 100%;';
-            //             }
-            //         }
-            //     }
-            // ]
         },
         {
             id: 'order',
@@ -203,12 +139,6 @@ export const layoutPanel = () => {
                     value: 10
                 },
             ],
-            // style: [
-            //     {
-            //         selector: `.${elementId}`,
-            //         render: value => `order: ${value};`
-            //     }
-            // ]
         }
     ];
 };
