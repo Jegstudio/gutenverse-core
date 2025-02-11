@@ -34,6 +34,7 @@ export const categoryPanel = (props) => {
         {
             id: 'submenuSplitter',
             component: HeadingControl,
+            label: __('Background', 'gutenverse'),
         },
         {
             id: 'categoryBackground',
@@ -51,6 +52,7 @@ export const categoryPanel = (props) => {
         {
             id: 'submenuSplitter',
             component: HeadingControl,
+            label: __('Padding/Margin/Border Radius', 'gutenverse'),
         },
         {
             id: 'categoryPadding',

@@ -184,7 +184,6 @@ export const filterSearchPanel = (props) => {
                 }
             ]
         },
-        
         {
             id: 'filterSearchTextBackground',
             label: __('Background', 'gutenverse'),
@@ -342,7 +341,6 @@ export const filterSearchPanel = (props) => {
                 }
             ]
         },
-        
         {
             id: 'filterSearchFormBorder',
             show: device === 'Desktop',
