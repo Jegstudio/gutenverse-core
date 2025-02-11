@@ -1,26 +1,26 @@
 
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const ButtonsBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('buttons'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -28,7 +28,7 @@ const ButtonsBlock = compose(
         orientation,
     } = attributes;
 
-    const buttonsRef = useRef();
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -42,8 +42,11 @@ const ButtonsBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: buttonsRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const innerBlockProps = useInnerBlocksProps(
         blockProps,
@@ -55,14 +58,8 @@ const ButtonsBlock = compose(
         }
     );
 
-    useEffect(() => {
-        if (buttonsRef.current) {
-            setElementRef(buttonsRef.current);
-        }
-    }, [buttonsRef]);
-
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props}/>
         <div {...innerBlockProps} />
     </>;
 });

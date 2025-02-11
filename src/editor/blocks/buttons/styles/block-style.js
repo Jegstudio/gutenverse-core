@@ -2,49 +2,16 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-
-    isNotEmpty(attributes['height']) && data.push({
+    isNotEmpty(attributes['alignButtons']) && data.push({
         'type': 'plain',
-        'id': 'height',
+        'id': 'alignButtons',
         'responsive': true,
-        'selector': `.${elementId}.gutenverse-maps iframe`,
+        'selector': `.${elementId}, .${elementId} .guten-button-wrapper`,
         'properties': [
             {
-                'name' : 'height',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value': {
-                        'type': 'direct',
-                    }
-                }
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['mapFilter']) && data.push({
-        'type': 'plain',
-        'id': 'mapFilter',
-        'selector': `.${elementId}.gutenverse-maps iframe`,
-        'properties': [
-            {
-                'name': 'filter',
-                'valueType': 'function',
-                'functionName': 'handleFilterImage',
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['mapFilterHover']) && data.push({
-        'type': 'plain',
-        'id': 'mapFilterHover',
-        'selector': `.${elementId}.gutenverse-maps iframe:hover`,
-        'properties': [
-            {
-                'name': 'filter',
-                'valueType': 'function',
-                'functionName': 'handleFilterImage',
-            }
+                'name': 'justify-content',
+                'valueType': 'direct',
+            },
         ],
     });
 
@@ -90,8 +57,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'boxShadow',
         'properties': [
             {
-                'name': 'box-shadow',
-                'valueType': 'direct'
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -102,8 +69,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'boxShadowHover',
         'properties': [
             {
-                'name': 'box-shadow',
-                'valueType': 'direct'
+                'name' : 'box-shadow',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
@@ -122,8 +89,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name': 'padding',
-                'valueType': 'direct'
+                'name' : 'padding',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -135,8 +102,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name': 'margin',
-                'valueType': 'direct'
+                'name' : 'margin',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -148,8 +115,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name': 'z-index',
-                'valueType': 'direct'
+                'name' : 'z-index',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -157,7 +124,8 @@ const getBlockStyle = (elementId, attributes) => {
 
     isNotEmpty(attributes['animation']) && isNotEmpty(attributes['animation']['delay']) && data.push({
         'type': 'plain',
-        'id': 'animation',
+        'id' : 'animation',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
         'properties': [
             {
                 'name': 'animation-delay',
@@ -172,7 +140,6 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     //Positioning Panel
@@ -282,4 +249,3 @@ const getBlockStyle = (elementId, attributes) => {
 
 
 export default getBlockStyle;
-
