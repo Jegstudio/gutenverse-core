@@ -1,7 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconControl, ImageControl, RangeControl, RepeaterControl, SelectControl, TextareaControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingsPanel = () => {
+export const settingsPanel = (props) => {
+    const {
+        elementId,
+    } = props;
     return [
         {
             id: 'featureList',
@@ -74,7 +77,33 @@ export const settingsPanel = () => {
                     value: 'rhombus',
                     label: 'Rhombus'
                 },
-            ]
+            ],
+            style: [
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .icon-wrapper .icon`,
+                    render: (value) => {
+                        switch (value) {
+                            case 'rhombus':
+                                return 'transform: rotate(45deg);';
+                            case 'square':
+                            default:
+                                return 'transform: rotate(0deg);';
+                        }
+                    },
+                },
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .icon-wrapper .icon > *`,
+                    render: (value) => {
+                        switch (value) {
+                            case 'rhombus':
+                                return 'transform: rotate(-45deg);';
+                            case 'square':
+                            default:
+                                return 'transform: rotate(0deg);';
+                        }
+                    },
+                },
+            ],
         },
         {
             id: 'iconPosition',
@@ -104,6 +133,16 @@ export const settingsPanel = () => {
             min: 1,
             max: 100,
             step: 1,
+            style: [
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper`,
+                    render: value => `gap:${value}px;`
+                },
+                {
+                    selector: `.${elementId}.guten-feature-list`,
+                    render: value => `--space-between: ${value}px;`
+                },
+            ]
         },
     ];
 };

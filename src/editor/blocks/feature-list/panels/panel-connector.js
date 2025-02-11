@@ -1,8 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { AlertControl, ColorControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const connectorPanel = (props) => {
     const {
+        elementId,
         showConnector
     } = props;
     return [
@@ -36,12 +38,24 @@ export const connectorPanel = (props) => {
                     value: 'double'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+                    render: value => `border-style: ${value};`
+                }
+            ]
         },
         {
             id: 'connectorColor',
             label: __('Connector Color', 'gutenverse'),
             component: ColorControl,
             show: showConnector,
+            style: [
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+                    render: value => handleColor(value, 'border-color')
+                }
+            ]
         },
         {
             id: 'connectorWidth',
@@ -49,6 +63,16 @@ export const connectorPanel = (props) => {
             component: RangeControl,
             show: showConnector,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+                    render: value => `border-width : ${value}px;`
+                },
+                {
+                    selector: `.${elementId}.guten-feature-list`,
+                    render: value => `--connector-width: ${value}px;`
+                },
+            ]
         }
     ];
 };

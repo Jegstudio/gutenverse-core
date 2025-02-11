@@ -1,8 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const linePanel = (props) => {
     const {
+        elementId,
         showLine
     } = props;
     return [
@@ -43,6 +45,12 @@ export const linePanel = (props) => {
             label: __('Line Color', 'gutenverse'),
             show: showLine && showLine !== 'none',
             component: ColorControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    render: value => handleColor(value, 'border-color')
+                }
+            ]
         },
         {
             id: 'lineWidth',
@@ -54,6 +62,13 @@ export const linePanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `width: ${value}%;`
+                }
+            ]
         },
         {
             id: 'lineHeight',
@@ -65,6 +80,13 @@ export const linePanel = (props) => {
             min: 0,
             max: 50,
             step: 1,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `border-top-width: ${value}px;`
+                }
+            ]
         },
         {
             id: 'lineStyle',
@@ -89,6 +111,13 @@ export const linePanel = (props) => {
                     value: 'double'
                 },
             ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `border-top-style: ${value};`
+                }
+            ]
         },
         {
             id: 'lineMargin',
@@ -115,6 +144,13 @@ export const linePanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
     ];
 };

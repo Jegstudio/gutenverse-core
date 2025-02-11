@@ -12,22 +12,49 @@ export const mainTitlePanel = (props) => {
             id: 'mainColor',
             label: __('Main Heading Color', 'gutenverse'),
             component: ColorControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'mainTypography',
             label: __('Main Heading Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'mainTextStroke',
             label: __('Main Text Stroke', 'gutenverse'),
             component: TextStrokeControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
+                }
+            ]
         },
         {
             id: 'mainBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'mainMargin',
@@ -53,6 +80,12 @@ export const mainTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'mainPadding',
@@ -78,6 +111,12 @@ export const mainTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-title`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

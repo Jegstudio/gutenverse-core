@@ -1,29 +1,56 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
-export const contentStylePanel = () => {
+export const contentStylePanel = ({elementId, ...props}) => {
     return [
         {
             id: 'numberColor',
             label: __('Number Color', 'gutenverse'),
             component: ColorControl,
-            allowDeviceControl: true
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'titleColor',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            allowDeviceControl: true
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .title`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'numberTypography',
             label: __('Number Typography', 'gutenverse'),
-            component: TypographyControl
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
-            component: TypographyControl
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'numberBottomSpace',
@@ -33,7 +60,13 @@ export const contentStylePanel = () => {
             unit: 'px',
             min: 0,
             max: 300,
-            step: 1
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper `,
+                    render: value => `margin-bottom: ${value}px;`
+                }
+            ]
         },
         {
             id: 'numberRightSpace',
@@ -43,7 +76,13 @@ export const contentStylePanel = () => {
             unit: 'px',
             min: 0,
             max: 300,
-            step: 1
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .number.loaded`,
+                    render: value => `margin-right: ${value}px;`
+                }
+            ]
         },
         {
             id: 'titleBottomSpace',
@@ -53,7 +92,13 @@ export const contentStylePanel = () => {
             unit: 'px',
             min: 0,
             max: 300,
-            step: 1
+            step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content .title `,
+                    render: value => `margin-bottom: ${value}px;`
+                }
+            ]
         },
         {
             id: 'contentPadding',
@@ -74,7 +119,13 @@ export const contentStylePanel = () => {
                     text: '%',
                     unit: '%'
                 },
-            }
+            },
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

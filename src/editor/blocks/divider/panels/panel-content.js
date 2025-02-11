@@ -2,9 +2,11 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { ColorControl, IconControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {
+        elementId,
         content
     } = props;
 
@@ -56,6 +58,12 @@ export const contentPanel = (props) => {
             label: __('Color', 'gutenverse'),
             show: ['text', 'icon'].includes(content),
             component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'contentSpacing',
@@ -67,12 +75,25 @@ export const contentPanel = (props) => {
             min: 1,
             max: 50,
             step: 1,
+            style: [
+                {
+                    selector: `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+                    render: value => `margin: 0 ${value}px;`
+                }
+            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             show: content === 'text',
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-divider-content span`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'icon',
@@ -100,6 +121,12 @@ export const contentPanel = (props) => {
                     step: 0.1
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-divider-content i`,
+                    render: value => handleUnitPoint(value, 'font-size')
+                }
+            ]
         },
     ];
 };

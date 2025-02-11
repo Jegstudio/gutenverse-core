@@ -2,8 +2,9 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, IconRadioControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { handleUnitPoint } from 'gutenverse-core/styling';
 
-export const settingPanel = () => {
+export const settingPanel = ({elementId}) => {
     return [
         {
             id: 'titleTag',
@@ -123,6 +124,16 @@ export const settingPanel = () => {
                     icon: <AlignRight/>,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `justify-content: ${value};`
+                },
+                {
+                    selector: `.${elementId} > *`,
+                    render: value => `text-align: ${value === 'flex-start' ? 'left' : value === 'flex-end' ? 'right' : 'center'};`
+                }
+            ]
         },
         {
             id: 'loop',
@@ -148,6 +159,12 @@ export const settingPanel = () => {
                     step: 1
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => handleUnitPoint(value, 'min-height')
+                },
+            ],
         },
         {
             id: 'verticalAlign',
@@ -166,6 +183,12 @@ export const settingPanel = () => {
                 {
                     label: __('Bottom'),
                     value: 'flex-end'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `align-items: ${value};`
                 },
             ],
         },
