@@ -126,7 +126,7 @@ const SizeControl = (props) => {
     const id = useInstanceId(SizeControl, 'inspector-size-control');
     const [localValue, setLocalValue] = useState(point);
     const deferredValue = useDeferredValue(localValue);
-    const isFirstRender = useRef(true)
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
         if (isFirstRender.current) {

@@ -7,23 +7,23 @@ const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style);
-        css.Desktop += ` ${selector} { ${value} } `;
+        if(value) css.Desktop += ` ${selector} { ${value} } `;
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
             const value = multiProperty(attribute['Desktop'], style);
-            css.Desktop += ` ${selector} { ${value} } `;
+            if(value) css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (attribute['Tablet']) {
             const value = multiProperty(attribute['Tablet'], style);
-            css.Desktop += ` ${selector} { ${value} } `;
+            if(value) css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (attribute['Mobile']) {
             const value = multiProperty(attribute['Mobile'], style);
-            css.Desktop += ` ${selector} { ${value} } `;
+            if(value) css.Desktop += ` ${selector} { ${value} } `;
         }
     }
     return css;
