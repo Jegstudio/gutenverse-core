@@ -40,7 +40,7 @@ export const dimensionGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
 
     if (!responsive) {
-        css.Desktop = `${selector} { ` + multiProperty(attribute, style); + ' }';
+        css.Desktop = `${selector} { ` + multiProperty(attribute, style) + ' }';
     }
 
     if (responsive) {
@@ -71,11 +71,11 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props) => {
     let value = null;
-    const { valueType, name, multiDimension } = props;
+    const { valueType, name, multiDimension, minimumValue } = props;
     switch (valueType) {
         case 'direct':
         default:
-            value = dimensionCSS(attribute, name, multiDimension);
+            value = dimensionCSS(attribute, name, multiDimension, minimumValue);
             break;
     }
     return value;
