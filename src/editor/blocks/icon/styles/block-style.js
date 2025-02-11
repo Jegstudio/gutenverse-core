@@ -3,50 +3,249 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    isNotEmpty(attributes['height']) && data.push({
+    //panel icon
+    isNotEmpty(attributes['iconAlign']) && data.push({
         'type': 'plain',
-        'id': 'height',
+        'id': 'iconAlign',
         'responsive': true,
-        'selector': `.${elementId}.gutenverse-maps iframe`,
+        'selector': `.${elementId}`,
         'properties': [
             {
-                'name' : 'height',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
+                'name': 'text-align',
+                'valueType': 'direct',
+            },
+        ],
+    });
+
+    isNotEmpty(attributes['iconSize']) && data.push({
+        'type': 'unitPoint',
+        'id': 'iconSize',
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} i`,
+        'responsive': true
+    });
+
+    isNotEmpty(attributes['iconPadding']) && data.push({
+        'type': 'plain',
+        'id': 'iconPadding',
+        'responsive': true,
+        'selector': `.${elementId} .guten-icon-wrapper`,
+        'properties': [
+            {
+                'name': 'padding',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
                     'value': {
                         'type': 'direct',
-                    }
+                    },
                 }
             }
         ],
     });
 
-    isNotEmpty(attributes['mapFilter']) && data.push({
+    isNotEmpty(attributes['iconRotate']) && data.push({
         'type': 'plain',
-        'id': 'mapFilter',
-        'selector': `.${elementId}.gutenverse-maps iframe`,
+        'id': 'iconRotate',
+        'responsive': true,
+        'selector': `.${elementId} .guten-icon-wrapper i`,
         'properties': [
             {
-                'name': 'filter',
-                'valueType': 'function',
-                'functionName': 'handleFilterImage',
+                'name': 'transform',
+                'valueType': 'pattern',
+                'pattern': 'rotate({value}deg)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
             }
         ],
     });
 
-    isNotEmpty(attributes['mapFilterHover']) && data.push({
-        'type': 'plain',
-        'id': 'mapFilterHover',
-        'selector': `.${elementId}.gutenverse-maps iframe:hover`,
+    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderWidth'])
+    && attributes['iconView'] === 'framed' && attributes['iconShape'] === 'custom' && data.push({
+        'type': 'dimension',
+        'id': 'iconShape',
         'properties': [
             {
-                'name': 'filter',
-                'valueType': 'function',
-                'functionName': 'handleFilterImage',
+                'name': 'border-width',
+                'valueType': 'direct',
+                'multiDimension': false,
+                'minimumValue' : 2,
             }
         ],
+        'selector': `.${elementId} .guten-icon-wrapper`,
     });
+
+    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderRadius'])
+    && attributes['iconShape'] === 'custom' && data.push({
+        'type': 'dimension',
+        'id': 'iconShape',
+        'properties': [
+            {
+                'name': 'border-radius',
+                'valueType': 'direct',
+                'multiDimension': false,
+            }
+        ],
+        'selector': `.${elementId} .guten-icon-wrapper`,
+    });
+
+    isNotEmpty(attributes['iconBorderWidth']) && attributes['iconView'] === 'framed' && attributes['iconShape'] === 'custom' && data.push({
+        'type': 'dimension',
+        'id': 'margin',
+        'properties': [
+            {
+                'name': 'border-width',
+                'valueType': 'direct',
+                'multiDimension': false,
+                'minimumValue' : 2,
+            }
+        ],
+        'selector': `.${elementId} .guten-icon-wrapper`,
+    });
+
+    isNotEmpty(attributes['iconBorderRadius']) && attributes['iconShape'] === 'custom' && data.push({
+        'type': 'dimension',
+        'id': 'iconBorderRadius',
+        'properties': [
+            {
+                'name': 'border-radius',
+                'valueType': 'direct',
+                'multiDimension': false,
+            }
+        ],
+        'selector': `.${elementId} .guten-icon-wrapper`,
+    });
+
+    //panel color
+    isNotEmpty(attributes['iconColorOne']) && data.push(
+        {
+            'type': 'color',
+            'id': 'iconColorOne',
+            'selector': `.${elementId} .guten-icon-wrapper.framed i`,
+            'properties': [
+                {
+                    'name' : 'color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorOne',
+            'selector': `.${elementId} .guten-icon-wrapper.framed`,
+            'properties': [
+                {
+                    'name' : 'border-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorOne',
+            'selector': `.${elementId} .guten-icon-wrapper.stacked`,
+            'properties': [
+                {
+                    'name' : 'background-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+    );
+
+    isNotEmpty(attributes['iconColorTwo']) && data.push(
+        {
+            'type': 'color',
+            'id': 'iconColorTwo',
+            'selector': `.${elementId} .guten-icon-wrapper.stacked i`,
+            'properties': [
+                {
+                    'name' : 'color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorTwo',
+            'selector': `.${elementId} .guten-icon-wrapper.framed`,
+            'properties': [
+                {
+                    'name' : 'background-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+    );
+
+    isNotEmpty(attributes['iconColorHoverOne']) && data.push(
+        {
+            'type': 'color',
+            'id': 'iconColorHoverOne',
+            'selector': `.${elementId} .guten-icon-wrapper.framed:hover i`,
+            'properties': [
+                {
+                    'name' : 'color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorHoverOne',
+            'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
+            'properties': [
+                {
+                    'name' : 'border-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorHoverOne',
+            'selector': `.${elementId} .guten-icon-wrapper.stacked:hover`,
+            'properties': [
+                {
+                    'name' : 'background-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+    );
+
+    isNotEmpty(attributes['iconColorHoverTwo']) && data.push(
+        {
+            'type': 'color',
+            'id': 'iconColorHoverTwo',
+            'selector': `.${elementId} .guten-icon-wrapper.stacked:hover i`,
+            'properties': [
+                {
+                    'name' : 'color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+        {
+            'type': 'color',
+            'id': 'iconColorHoverTwo',
+            'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
+            'properties': [
+                {
+                    'name' : 'background-color',
+                    'valueType' : 'direct'
+                }
+            ],
+        },
+    );
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
@@ -282,4 +481,3 @@ const getBlockStyle = (elementId, attributes) => {
 
 
 export default getBlockStyle;
-
