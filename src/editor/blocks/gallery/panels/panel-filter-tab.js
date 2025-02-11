@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
@@ -8,10 +8,21 @@ export const filterTabPanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        filterType
     } = props;
 
     const device = getDeviceType();
+
+    if(filterType !== 'tab') return [
+        {
+            id: 'divider-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('This Panel Option Only Show If You Choose "Filter Tab" for Filter Type Option')}</span>
+            </>
+        },
+    ];
 
     return [
         {

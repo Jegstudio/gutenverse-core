@@ -1,15 +1,26 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, HeadingControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterSearchPanel = (props) => {
     const {
-        elementId
+        elementId,
+        filterType
     } = props;
 
     const device = getDeviceType();
+
+    if(filterType !== 'search') return [
+        {
+            id: 'divider-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('This Panel Option Only Show If You Choose "Filter & Search" for Filter Type Option')}</span>
+            </>
+        },
+    ];
 
     return [
         {

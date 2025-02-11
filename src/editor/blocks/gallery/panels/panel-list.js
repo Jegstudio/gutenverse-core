@@ -19,11 +19,11 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
-        // {
-        //     title: __('Setting', 'gutenverse'),
-        //     panelArray: settingPanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Setting', 'gutenverse'),
+            panelArray: settingPanel,
+            tabRole: TabSetting
+        },
         {
             title: __('Gallery', 'gutenverse'),
             initialOpen: false,
@@ -42,42 +42,42 @@ export const panelList = () => {
         //     panelArray: loadMorePanel,
         //     tabRole: TabSetting
         // },
-        // {
-        //     title: __('Filter Tab Styling', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: filterTabPanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Filter Tab Styling', 'gutenverse'),
+            initialOpen: false,
+            panelArray: filterTabPanel,
+            tabRole: TabStyle
+        },
         {
             title: __('Filter & Search Styling', 'gutenverse'),
             initialOpen: false,
             panelArray: filterSearchPanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Icon Style', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: iconPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Item Style', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: itemStylePanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Item Hover', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: itemHoverPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Item Card', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: itemCardPanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Icon Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: iconPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Item Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: itemStylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Item Hover', 'gutenverse'),
+            initialOpen: false,
+            panelArray: itemHoverPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Item Card', 'gutenverse'),
+            initialOpen: false,
+            panelArray: itemCardPanel,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Load More Style', 'gutenverse'),
         //     initialOpen: false,

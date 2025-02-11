@@ -1,16 +1,26 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BackgroundControl, BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemCardPanel = (props) => {
     const {
-        elementId
+        elementId,
+        layout
     } = props;
 
     const device = getDeviceType();
+    if (layout !== 'card') return [
+        {
+            id: 'divider-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('This Panel Option Only Show If You Choose "Card" for Layout Option')}</span>
+            </>
+        },
+    ];
 
     return [
         {

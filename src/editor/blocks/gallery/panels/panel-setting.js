@@ -38,11 +38,11 @@ export const settingPanel = ({elementId, grid}) => {
             min: 100,
             max: 10000,
             step: 1,
-            unit: 's',
+            unit: 'ms',
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap`,
-                    render: value => `animation-duration: ${value/1000}s!important;`
+                    render: value => `animation-duration: ${value}ms!important;`
                 }
             ]
         },

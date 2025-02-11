@@ -1,15 +1,15 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl, TypographyControl, BackgroundControl, HeadingControl } from 'gutenverse-core/controls';
-import { getDeviceType, isEmptyValue } from 'gutenverse-core/editor-helper';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {
     const device = getDeviceType();
-    const { 
-        elementId, 
-        selectionIconPadding, 
+    const {
+        elementId,
+        selectionIconPadding,
         switcher,
-        setSwitcher 
+        setSwitcher
     } = props;
     return [
         {
@@ -303,6 +303,7 @@ export const iconPanel = (props) => {
         {
             id: 'textZoomHeading',
             component: HeadingControl,
+            show: switcher.textIcon === 'text',
             label: __('Text Zoom Styles')
         },
         {
@@ -428,6 +429,7 @@ export const iconPanel = (props) => {
         {
             id: 'textLinkHeading',
             component: HeadingControl,
+            show: switcher.textIcon === 'text',
             label: __('Text Link Styles')
         },
         {
