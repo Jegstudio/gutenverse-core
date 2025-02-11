@@ -74,11 +74,11 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props) => {
     let value = null;
-    const { valueType, name, multiDimension } = props;
+    const { valueType, name, multiDimension, minimumValue } = props;
     switch (valueType) {
         case 'direct':
         default:
-            value = dimensionCSS(attribute, name, multiDimension);
+            value = dimensionCSS(attribute, name, multiDimension, minimumValue);
             break;
     }
     return value;
