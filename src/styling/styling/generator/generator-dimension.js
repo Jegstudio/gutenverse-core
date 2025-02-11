@@ -38,20 +38,23 @@ export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
 
 export const dimensionGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
-
     if (!responsive) {
-        css.Desktop = `${selector} { ` + multiProperty(attribute, style); + ' }';
+        const value = multiProperty(attribute, style);
+        if (value) css.Desktop = `${selector} { ` + value + ' }';
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
-            css.Desktop = `${selector} { ` + multiProperty(attribute['Desktop'], style) + ' }';
+            const value = multiProperty(attribute['Desktop'], style);
+            if (value) css.Desktop = `${selector} { ` + value + ' }';
         }
         if (attribute['Tablet']) {
-            css.Tablet = `${selector} { ` + multiProperty(attribute['Tablet'], style) + ' }';
+            const value = multiProperty(attribute['Tablet'], style);
+            if (value) css.Tablet = `${selector} { ` + value + ' }';
         }
         if (attribute['Mobile']) {
-            css.Mobile = `${selector} { ` + multiProperty(attribute['Mobile'], style) + ' }';
+            const value = multiProperty(attribute['Mobile'], style);
+            if (value) css.Mobile = `${selector} { ` + value + ' }';
         }
     }
 
