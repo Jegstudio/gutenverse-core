@@ -27,8 +27,13 @@ const RangeControl = ({
     const inputRef = useRef(null);
     const unitRef = useRef(null);
     const deferredValue = useDeferredValue(localValue);
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
         onValueChange(deferredValue);
     }, [deferredValue]);
 

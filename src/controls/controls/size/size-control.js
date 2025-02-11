@@ -1,11 +1,11 @@
-import {useEffect, useState, useRef, useDeferredValue} from '@wordpress/element';
-import {useInstanceId} from '@wordpress/compose';
+import { useEffect, useState, useRef, useDeferredValue } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 
-const UnitControl = ({units, activeUnit, changeUnit}) => {
+const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
 
     const toggleOpen = () => {
@@ -92,14 +92,14 @@ const SizeControl = (props) => {
         description = '',
         hideRange = false,
     } = props;
-    const {unit = '', point = ''} = value;
+    const { unit = '', point = '' } = value;
     const [activeUnit, setActiveUnit] = useState(unit);
     const onChange = value => {
         onValueChange(value);
     };
 
     useEffect(() => {
-        if(unit === '') {
+        if (unit === '') {
             const firstUnit = Object.keys(units)[0];
             setActiveUnit(firstUnit);
         } else {
@@ -126,8 +126,13 @@ const SizeControl = (props) => {
     const id = useInstanceId(SizeControl, 'inspector-size-control');
     const [localValue, setLocalValue] = useState(point);
     const deferredValue = useDeferredValue(localValue);
+    const isFirstRender = useRef(true)
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
         onValueChange({
             ...value,
             point: deferredValue,
