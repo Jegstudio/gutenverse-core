@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from '@wordpress/element';
+import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { BlockControls, InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
@@ -84,13 +84,14 @@ const SectionWrapper = (props) => {
 };
 
 const SectionInspection = (props) => {
-    const { clientId, panelProps, isSelected, attributes, setAttributes } = props;
+    const { clientId, panelProps, isSelected, attributes, setAttributes, setLocalAttr } = props;
 
     const defaultPanelProps = {
         ...panelProps,
         ...attributes,
         clientId,
-        setAttributes
+        setAttributes,
+        setLocalAttr
     };
 
     return <PanelController
@@ -188,8 +189,9 @@ const SectionBlock = compose(
     } = attributes;
 
     const elementRef = useRef();
+    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
@@ -245,7 +247,7 @@ const SectionBlock = compose(
             {...props}
             clientId={clientId}
         />
-        <SectionInspection {...props} />
+        <SectionInspection {...props} setLocalAttr={setLocalAttr}/>
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
