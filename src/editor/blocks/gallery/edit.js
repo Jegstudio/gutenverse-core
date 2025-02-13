@@ -61,8 +61,6 @@ const GalleryBlock = compose(
     const shuffleInstance = useRef(null);
     const observerRef = useRef(null);
     const sizerRef = useRef(null);
-    const firstInitRef = useRef(true);
-    const currentMode = useRef(null);
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
