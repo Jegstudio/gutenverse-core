@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useDeferredValue } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import { ChromePicker } from 'react-color';
 import ControlHeadingSimple from '../part/control-heading-simple';

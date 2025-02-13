@@ -1,4 +1,4 @@
-import { useState, useRef, useDeferredValue, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
