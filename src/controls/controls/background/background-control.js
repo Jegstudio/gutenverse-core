@@ -156,6 +156,7 @@ const BackgroundControl = (props) => {
         values,
         type = '',
         blockType = '',
+        onLocalChange,
     } = props;
 
     const availableOptions = [
@@ -244,6 +245,7 @@ const BackgroundControl = (props) => {
                 label={__('Background Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
+                onLocalChange={color => onLocalChange({ ...value, color })}
             />
             {isWrapperBlock() && <CheckboxControl
                 label={__('Use Featured Image', '--gctd--')}
