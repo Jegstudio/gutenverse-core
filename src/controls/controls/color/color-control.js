@@ -48,7 +48,7 @@ const ColorControl = (props) => {
     const [localColor, setLocalColor] = useState(value);
     const [variableOpen, setVariableOpen] = useState(false);
     // const deferredColor = useDeferredValue(localColor);
-    const isFirstRender = useRef(true);
+    // const isFirstRender = useRef(true);
 
     // useEffect(() => {
     //     if (isFirstRender.current) {
