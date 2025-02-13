@@ -83,9 +83,11 @@ const RangeControl = ({
                     onBlur={onEnd}
                     onChange={(e) => {
                         if (isParseFloat) {
-                            onValueChange(parseFloat(e.target.value));
+                            setLocalValue(parseFloat(e.target.value));
+                            onLocalChange(parseFloat(e.target.value));
                         } else {
-                            onValueChange(e.target.value);
+                            setLocalValue(e.target.value);
+                            onLocalChange(e.target.value);
                         }
                     }}
                     ref={inputRef}
