@@ -19,6 +19,7 @@ import isEmpty from 'lodash/isEmpty';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 import { isEmptyString } from 'gutenverse-core/helper';
+import { elementVar, normalAppender } from 'gutenverse-core/styling';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -405,4 +406,26 @@ export const handleFilterImage = (props) => {
         saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
         blur( ${!isEmptyString(blur) ? blur : 0}px )
         hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+};
+
+export const customHandleBackground = (background) => {
+    const {
+        gradientColor,
+        gradientType = 'linear',
+        gradientAngle = 180,
+        gradientRadial = 'center center'
+    } = background;
+    let style  ='';
+
+    if (gradientColor !== undefined) {
+        const colors = gradientColor.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
+
+        if (gradientType === 'radial') {
+            style = `radial-gradient(at ${gradientRadial}, ${colors.join(',')});`;
+        } else {
+            style = `linear-gradient(${gradientAngle}deg, ${colors.join(',')});`;
+        }
+    }
+
+    return style;
 };

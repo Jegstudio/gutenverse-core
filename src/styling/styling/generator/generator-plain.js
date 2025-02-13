@@ -1,7 +1,7 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
-import { handleFilterImage } from '../styling-helper';
+import { handleFilterImage, customHandleBackground } from '../styling-helper';
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
@@ -91,6 +91,9 @@ const renderFunctionValue = (functionName, attribute) => {
             break;
         case 'handleAlignReverse':
             value = handleAlignReverse(attribute);
+            break;
+        case 'customHandleBackground':
+            value = customHandleBackground(attribute);
             break;
         default:
             value = '';
