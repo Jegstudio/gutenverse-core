@@ -11,7 +11,7 @@ import { compose } from '@wordpress/compose';
 /* Gutenverse dependencies */
 import { withCopyElementToolbar, withMouseMoveEffect, withPartialRender, withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { panelList } from './panels/panel-list';

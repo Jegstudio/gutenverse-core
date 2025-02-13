@@ -153,10 +153,11 @@ const ImageBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef(null);
+    const [localAttr, setLocalAttr] = useState({});
     const [dynamicHref, setDynamicHref] = useState();
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -259,7 +260,7 @@ const ImageBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} />
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
         {imgSrc && <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>

@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import {
     BlockControls,
     MediaUpload,
@@ -10,7 +10,7 @@ import {
 } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
@@ -26,6 +26,8 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -167,6 +169,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
             updateBlockAttributes(block.clientId, { url, rel, linkTarget });
         });
     }, [url, rel, linkTarget, separateButtonLink]);
+
     return <div className="image-box-body">
         <div className="body-inner">
             <TitleTag className={classnames(
@@ -227,7 +230,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 
 const ImageBoxBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('image-box'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -236,7 +238,7 @@ const ImageBoxBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
+        clientId,
         setPanelState,
         panelIsClicked,
         setPanelIsClicked
@@ -253,15 +255,19 @@ const ImageBoxBlock = compose(
 
     FilterDynamic(props);
     HighLightToolbar(props);
-    const imageBoxRef = useRef();
+    const elementRef = useRef();
     const descRef = useRef();
     const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
+    const [localAttr, setLocalAttr] = useState({});
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
     );
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -273,7 +279,7 @@ const ImageBoxBlock = compose(
             'no-margin',
             `style-${contentStyle}`,
         ),
-        ref: imageBoxRef
+        ref: elementRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -295,12 +301,6 @@ const ImageBoxBlock = compose(
         [rel, setAttributes]
     );
 
-    useEffect(() => {
-        if (imageBoxRef.current) {
-            setElementRef(imageBoxRef.current);
-        }
-    }, [imageBoxRef]);
-
     const panelState = {
         panel: 'setting',
         section: 3,
@@ -312,12 +312,12 @@ const ImageBoxBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
@@ -354,7 +354,7 @@ const ImageBoxBlock = compose(
                 </ImageBoxPicker>
             </ToolbarGroup>
         </BlockControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
         <div {...blockProps}>
             <div className="inner-container">
                 <div className="image-box-header">

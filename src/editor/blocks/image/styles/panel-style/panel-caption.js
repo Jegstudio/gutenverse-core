@@ -37,6 +37,7 @@ const panelCaptionStyle = (elementId, attributes, data) => {
             }
         ]
     });
+
     return data;
 };
 
