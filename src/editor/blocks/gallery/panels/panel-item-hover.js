@@ -27,10 +27,6 @@ export const itemHoverPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter1',
-            component: HeadingControl,
-        },
-        {
             id: 'itemHoverOpacity',
             label: __('Opacity', 'gutenverse'),
             component: RangeControl,

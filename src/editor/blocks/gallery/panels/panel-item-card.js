@@ -37,10 +37,6 @@ export const itemCardPanel = (props) => {
             ]
         },
         {
-            id: 'submenuSplitter1',
-            component: HeadingControl,
-        },
-        {
             id: 'itemCardPadding',
             label: __('Padding', 'gutenverse'),
             component: DimensionControl,
