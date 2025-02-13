@@ -4,7 +4,7 @@ import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
@@ -20,12 +20,13 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconListItemBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -34,7 +35,6 @@ const IconListItemBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
         clientId,
         setPanelState,
         panelIsClicked,
@@ -51,11 +51,14 @@ const IconListItemBlock = compose(
         dynamicUrl,
     } = attributes;
 
-    const iconListItemRef = useRef();
+    const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     useEffect(() => {
         setAttributes({
@@ -71,7 +74,7 @@ const IconListItemBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: iconListItemRef
+        ref: elementRef
     });
     const onToggleOpenInNewTab = useCallback(
         (value) => {
@@ -92,12 +95,6 @@ const IconListItemBlock = compose(
         [rel, setAttributes]
     );
 
-    useEffect(() => {
-        if (iconListItemRef.current) {
-            setElementRef(iconListItemRef.current);
-        }
-    }, [iconListItemRef]);
-
     FilterDynamic(props);
     HighLightToolbar(props);
 
@@ -112,12 +109,12 @@ const IconListItemBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
@@ -129,7 +126,7 @@ const IconListItemBlock = compose(
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} />
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}
@@ -168,7 +165,7 @@ const IconListItemBlock = compose(
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
-                    ref={iconListItemRef}
+                    ref={elementRef}
                     classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}
                     aria-label={__('List text')}
