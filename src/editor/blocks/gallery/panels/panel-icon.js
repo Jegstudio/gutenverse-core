@@ -60,19 +60,6 @@ export const iconPanel = (props) => {
             ]
         },
         {
-            id: 'iconBg',
-            label: __('Icon Background', 'gutenverse'),
-            show: !switcher.textIcon || switcher.textIcon === 'icon',
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    render: value => handleColor(value, 'background')
-                }
-            ]
-        },
-        {
             id: 'iconColor',
             label: __('Icon Color', 'gutenverse'),
             show: !switcher.textIcon || switcher.textIcon === 'icon',
@@ -82,6 +69,19 @@ export const iconPanel = (props) => {
                     selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
                     .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
                     render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'iconBg',
+            label: __('Icon Background', 'gutenverse'),
+            show: !switcher.textIcon || switcher.textIcon === 'icon',
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
+                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
+                    render: value => handleColor(value, 'background')
                 }
             ]
         },

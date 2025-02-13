@@ -36,12 +36,12 @@ export const panelList = () => {
             panelArray: filterPanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Load More', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: loadMorePanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Load More', 'gutenverse'),
+            initialOpen: false,
+            panelArray: loadMorePanel,
+            tabRole: TabSetting
+        },
         {
             title: __('Filter Tab Styling', 'gutenverse'),
             initialOpen: false,
@@ -78,24 +78,24 @@ export const panelList = () => {
             panelArray: itemCardPanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Load More Style', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: loadMoreStylePanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Thumbnail', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: thumbnailPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Price & Rating', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: priceRatingPanel,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Load More Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: loadMoreStylePanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Thumbnail', 'gutenverse'),
+            initialOpen: false,
+            panelArray: thumbnailPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Price & Rating', 'gutenverse'),
+            initialOpen: false,
+            panelArray: priceRatingPanel,
+            tabRole: TabStyle
+        },
         {
             title: __('Category', 'gutenverse'),
             initialOpen: false,

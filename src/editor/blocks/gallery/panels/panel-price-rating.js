@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, HeadingControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const priceRatingPanel = (props) => {
@@ -50,7 +50,7 @@ export const priceRatingPanel = (props) => {
             style: [
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price, .${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    allowRender : () => selectionPriceRatingPadding === 'all',
+                    allowRender: () => selectionPriceRatingPadding === 'all',
                     render: value => handleDimension(value, 'padding')
                 }
             ]
@@ -76,7 +76,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
-            show: selectionPriceRatingPadding === 'custom' && (!switcher.priceRating || switcher.priceRating === 'price') ,
+            show: selectionPriceRatingPadding === 'custom' && (!switcher.priceRating || switcher.priceRating === 'price'),
             units: {
                 px: {
                     text: 'px',
@@ -549,7 +549,7 @@ export const priceRatingPanel = (props) => {
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
@@ -586,7 +586,7 @@ export const priceRatingPanel = (props) => {
                 {
                     selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
                     hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
+                    render: (value, id) => handleTypography(value, props, id)
                 }
             ],
         },
