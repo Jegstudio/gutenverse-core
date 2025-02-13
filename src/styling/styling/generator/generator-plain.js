@@ -1,6 +1,6 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
-import { handleAlign } from '../handler/handle-align';
+import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage } from '../styling-helper';
 
 const cssGenerator = (attribute, style, css) => {
@@ -51,9 +51,11 @@ const multiProperty = (attribute, props) => {
     let styles = '';
     if (properties && properties.length > 0) {
         properties.forEach(el => {
-            let value = generateValue(attribute, el, type);
-            if(isNotEmpty(value)){
-                styles += ` ${el.name}: ${value}; `;
+            if(el.name){
+                let value = generateValue(attribute, el, type);
+                if(isNotEmpty(value)){
+                    styles += ` ${el.name}: ${value}; `;
+                }
             }
         });
     }
@@ -86,6 +88,9 @@ const renderFunctionValue = (functionName, attribute) => {
             break;
         case 'handleFilterImage':
             value = handleFilterImage(attribute);
+            break;
+        case 'handleAlignReverse':
+            value = handleAlignReverse(attribute);
             break;
         default:
             value = '';
