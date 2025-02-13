@@ -2,13 +2,13 @@ import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'gutenverse-core/components';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps, MediaUploadCheck, MediaUpload, } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { classnames } from 'gutenverse-core/components';
 import { useSelect } from '@wordpress/data';
 import { panelList } from './panels/panel-list';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
@@ -20,6 +20,8 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -110,7 +112,6 @@ const ImagePicker = (props) => {
 
 const ImageBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('image'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -128,7 +129,6 @@ const ImageBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
         setPanelState,
         panelIsClicked,
         setPanelIsClicked
@@ -152,9 +152,11 @@ const ImageBlock = compose(
     const rootBlock = rootBlockId ? getBlock(rootBlockId) : null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const imageRef = useRef();
+    const elementRef = useRef(null);
     const [dynamicHref, setDynamicHref] = useState();
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -168,7 +170,7 @@ const ImageBlock = compose(
                 'select-image': !imgSrc,
             },
         ),
-        ref: imageRef
+        ref: elementRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -213,12 +215,6 @@ const ImageBlock = compose(
         {caption()}
     </div>;
 
-    useEffect(() => {
-        if (imageRef.current) {
-            setElementRef(imageRef.current);
-        }
-    }, [imageRef]);
-
     const panelState = {
         panel: 'setting',
         section: 2,
@@ -230,12 +226,12 @@ const ImageBlock = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
@@ -263,7 +259,7 @@ const ImageBlock = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} />
         {imgSrc && <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>

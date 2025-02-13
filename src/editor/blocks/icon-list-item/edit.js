@@ -1,10 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState, useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
