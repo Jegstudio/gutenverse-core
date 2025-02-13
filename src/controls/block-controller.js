@@ -40,7 +40,6 @@ const BlockController = (props) => {
             };
 
             setLocalAttr && setLocalAttr({
-                ...panelProps,
                 ...newValue
             });
         };

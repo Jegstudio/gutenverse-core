@@ -39,9 +39,16 @@ const RangeControl = ({
     //     onValueChange(deferredValue);
     // }, [deferredValue]);
 
-    debounce(() => {
-        onValueChange(localValue);
-    }, 1000);
+    useEffect(() => {
+        const debouncedHandler = debounce(() => {
+            onValueChange(localValue);
+        }, 1000);
+
+        debouncedHandler();
+        return () => {
+            debouncedHandler.cancel();
+        };
+    }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple

@@ -58,9 +58,16 @@ const ColorControl = (props) => {
     //     onValueChange(deferredColor);
     // }, [deferredColor]);
 
-    debounce(() => {
-        onValueChange(localColor);
-    }, 1000);
+    useEffect(() => {
+        const debouncedHandler = debounce(() => {
+            onValueChange(localColor);
+        }, 1000);
+
+        debouncedHandler();
+        return () => {
+            debouncedHandler.cancel();
+        };
+    }, [localColor]);
 
     const defaultPalette = useSettingFallback('color.palette.default');
     const themePalette = useSettingFallback('color.palette.theme');
@@ -190,7 +197,7 @@ const ColorControl = (props) => {
                 </div>
             </Tooltip>
             <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
-                <div style={{ backgroundColor: renderColor(getColorValue(value)) }} />
+                <div style={{ backgroundColor: renderColor(getColorValue(localColor)) }} />
             </div>
         </div>
     </div>;
