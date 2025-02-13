@@ -17,7 +17,7 @@ import {
 
 const VariationList = (props) => {
     const { onClick, data } = props;
-    const columnIcons = useMemo(() => data?.map((width, key) => <div key={key} className={`column-icon col-${width}`}></div>), []);
+    const columnIcons = useMemo(() => data?.map((width, key) => <div key={key} className={`column-icon col-${width}`}></div>), [data]);
 
     return <li className="section-variation-picker-item">
         <div

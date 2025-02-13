@@ -95,6 +95,12 @@ const renderFunctionValue = (functionName, attribute) => {
         case 'customHandleBackground':
             value = customHandleBackground(attribute);
             break;
+        case 'handleOpacity':
+            value = attribute;
+            if(  1 < value && 100 >= value  ){
+                value = value/100;
+            }
+            break;
         default:
             value = '';
             break;
