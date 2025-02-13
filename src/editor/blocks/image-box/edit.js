@@ -261,11 +261,11 @@ const ImageBoxBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
-    const [localAttr, setLocalAttr] = useState({});
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
     );
 
+    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
