@@ -1,5 +1,5 @@
 /* External dependencies */
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
@@ -45,11 +45,12 @@ const HeadingBlockControl = (props) => {
 };
 
 const HeadingInspection = (props) => {
-    const { panelProps, isSelected, setAttributes } = props;
+    const { panelProps, isSelected, setAttributes, setLocalAttr } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
-        setAttributes
+        setAttributes,
+        setLocalAttr
     };
     return <PanelController
         panelList={panelList}
@@ -77,8 +78,9 @@ const HeadingBlock = compose(
     } = attributes;
 
     const elementRef = useRef(null);
+    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -93,7 +95,7 @@ const HeadingBlock = compose(
     });
 
     return <>
-        <HeadingInspection {...props} />
+        <HeadingInspection {...props} setLocalAttr={setLocalAttr}/>
         <HeadingBlockControl {...props} />
         <span ref={elementRef} style={{ display: 'none' }}></span>
         <RichTextComponent
