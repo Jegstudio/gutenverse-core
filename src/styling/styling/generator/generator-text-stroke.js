@@ -19,7 +19,7 @@ const textStrokeCSS = (attribute) => {
 };
 
 export const textStrokeGenerator = (attribute, style, css) => {
-    const { type, selector, responsive = false } = style
+    const { type, selector, responsive = false } = style;
     if (!responsive) {
         const value = textStrokeCSS(attribute);
         css.Desktop = `${selector} { ${value} }`;
@@ -37,8 +37,8 @@ export const textStrokeGenerator = (attribute, style, css) => {
 
         if (attribute['Mobile']) {
             const value = textStrokeCSS(type, attribute['Mobile']);
-            css.Tablet = `${selector} { ${value} }`;
+            css.Mobile = `${selector} { ${value} }`;
         }
     }
     return css;
-}
+};

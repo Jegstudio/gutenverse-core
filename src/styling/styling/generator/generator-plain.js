@@ -18,12 +18,12 @@ const cssGenerator = (attribute, style, css) => {
 
         if (attribute['Tablet']) {
             const value = multiProperty(attribute['Tablet'], style);
-            if(isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+            if(isNotEmpty(value)) css.Tablet += ` ${selector} { ${value} } `;
         }
 
         if (attribute['Mobile']) {
             const value = multiProperty(attribute['Mobile'], style);
-            if(isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+            if(isNotEmpty(value)) css.Mobile += ` ${selector} { ${value} } `;
         }
     }
     return css;
@@ -91,6 +91,12 @@ const renderFunctionValue = (functionName, attribute) => {
             break;
         case 'handleAlignReverse':
             value = handleAlignReverse(attribute);
+            break;
+        case 'handleOpacity':
+            value = attribute;
+            if(  1 < value && 100 >= value  ){
+                value = value/100;
+            }
             break;
         default:
             value = '';
