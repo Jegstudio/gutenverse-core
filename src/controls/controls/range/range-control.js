@@ -28,21 +28,11 @@ const RangeControl = ({
     const [localValue, setLocalValue] = useState(value);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
-    // const deferredValue = useDeferredValue(localValue);
-    const isFirstRender = useRef(true);
-
-    // useEffect(() => {
-    //     if (isFirstRender.current) {
-    //         isFirstRender.current = false;
-    //         return;
-    //     }
-    //     onValueChange(deferredValue);
-    // }, [deferredValue]);
 
     useEffect(() => {
         const debouncedHandler = debounce(() => {
             onValueChange(localValue);
-        }, 1000);
+        }, 500);
 
         debouncedHandler();
         return () => {
