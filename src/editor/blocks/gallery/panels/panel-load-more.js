@@ -80,7 +80,7 @@ export const loadMorePanel = (props) => {
                 {
                     selector: `.${elementId} .load-more-items`,
                     allowRender: () => enableLoadMore,
-                    render: value => `text-align: ${value};`
+                    render: value => `justify-content: ${value};`
                 }
             ]
         },

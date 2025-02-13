@@ -7,6 +7,9 @@ import panelSettingStyle from './panel-style/panel-setting';
 import panelItemCardStyle from './panel-style/panel-item-card';
 import panelItemHoverStyle from './panel-style/panel-item-hover';
 import panelItemStyle from './panel-style/panel-item-style';
+import panelLoadMoreStyle from './panel-style/panel-load-more';
+import panelThumbnailStyle from './panel-style/panel-thumbnail';
+import panelPriceRating from './panel-style/panel-price-rating';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -24,6 +27,12 @@ const getBlockStyle = (elementId, attributes) => {
     data = panelItemHoverStyle(elementId, attributes, data);
     /**Panel Item Style */
     data = panelItemStyle(elementId, attributes, data);
+    /**Panel Load More */
+    data = panelLoadMoreStyle(elementId, attributes, data);
+    /**Panel Thumbnail */
+    data = panelThumbnailStyle(elementId, attributes, data);
+    /**Panel Price Rating */
+    data = panelPriceRating(elementId, attributes, data);
     /**Panel Setting */
     data = panelSettingStyle(elementId, attributes, data);
     /**Panel List */

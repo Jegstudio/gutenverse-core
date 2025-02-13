@@ -135,14 +135,16 @@ const GalleryBlock = compose(
 
     // Observe changes in image sizes
     const observeResizeGalleryItems = () => {
-        const items = Array.from(elementRef.current.querySelectorAll('.gallery-item-wrap'));
-        if (observerRef.current) observerRef.current.disconnect();
-        observerRef.current = new ResizeObserver(() => {
-            initializeShuffle();
-        });
-        items.forEach((item) => {
-            observerRef.current.observe(item);
-        });
+        if(elementRef.current){
+            const items = Array.from(elementRef.current.querySelectorAll('.gallery-item-wrap'));
+            if (observerRef.current) observerRef.current.disconnect();
+            observerRef.current = new ResizeObserver(() => {
+                initializeShuffle();
+            });
+            items.forEach((item) => {
+                observerRef.current.observe(item);
+            });
+        }
     };
 
     useEffect(() => setShowedItems(showed), [showed]);
@@ -156,6 +158,8 @@ const GalleryBlock = compose(
         return () => {
             shuffleInstance.current?.destroy();
             observerRef.current?.disconnect();
+            shuffleInstance.current = null;
+            observerRef.current = null;
         };
     }, [showed, showedItems, grid, height, column, layout]);
 
