@@ -294,17 +294,21 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     return { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont };
 };
 
-export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
+export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef, localAttr = {}) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
-            const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, attributes, getBlockStyle);
+            const mergeAttributes = {
+                ...attributes,
+                ...localAttr
+            };
+            const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, mergeAttributes, getBlockStyle);
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
             return { generatedCSS, fontUsed };
         } else {
             return { generatedCSS: '', fontUsed: [] };
         }
-    }, [elementId, attributes]);
+    }, [elementId, attributes, localAttr]);
 
     const iframeWindowRef = useRef(null);
     const idHolder = useRef(null);
@@ -333,7 +337,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed);
             }
         }
-    }, [elementId, attributes, elementRef]);
+    }, [elementId, attributes, localAttr, elementRef]);
 
 };
 

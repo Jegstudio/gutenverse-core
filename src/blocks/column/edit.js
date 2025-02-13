@@ -336,20 +336,20 @@ const onResizeStop = (props) => {
     }
 
 
-    if (newWidth.current && newWidth.target && newWidth.targetStyle) {
-        // Update style again to avoid missmatch with width style
-        newWidth.targetWidth[deviceType] = newWidth.target;
-        newWidth.targetColumnStyle(
-            'column-width',
-            `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
-        );
-        const nextColumnWidthAttr = getBlock(targetId).attributes.width;
+    // if (newWidth.current && newWidth.target && newWidth.targetStyle) {
+    //     // Update style again to avoid missmatch with width style
+    //     newWidth.targetWidth[deviceType] = newWidth.target;
+    //     newWidth.targetColumnStyle(
+    //         'column-width',
+    //         `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
+    //     );
+    //     const nextColumnWidthAttr = getBlock(targetId).attributes.width;
 
-        setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
-        if (deviceType === 'Desktop') {
-            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
-        }
-    }
+    //     setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
+    //     if (deviceType === 'Desktop') {
+    //         updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
+    //     }
+    // }
 };
 
 // Column Placeholder component
@@ -720,12 +720,13 @@ const ColumnWrapper = (props) => {
 
 // Column Block Control
 const ColumnInspection = (props) => {
-    const { panelProps, isSelected, attributes, setAttributes } = props;
+    const { panelProps, isSelected, attributes, setAttributes, setLocalAttr } = props;
 
     const defaultPanelProps = {
         ...panelProps,
         ...attributes,
-        setAttributes
+        setAttributes,
+        setLocalAttr
     };
 
     return <PanelController
@@ -862,10 +863,11 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
+    const [localAttr, setLocalAttr] = useState({});
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
@@ -1018,12 +1020,12 @@ const ColumnBlock = compose(
             }
         ),
         ref: elementRef,
-        // onMouseEnter: () => {
-        //     setIsHovered(true);
-        // },
-        // onMouseLeave: () => {
-        //     setIsHovered(false);
-        // },
+        onMouseEnter: () => {
+            setIsHovered(true);
+        },
+        onMouseLeave: () => {
+            setIsHovered(false);
+        },
     });
 
     const theProps = {
@@ -1070,7 +1072,7 @@ const ColumnBlock = compose(
 
     return <>
         {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
-        <ColumnInspection {...props} setAttributes={setAttributes}/>
+        <ColumnInspection {...props} setAttributes={setAttributes} setLocalAttr={setLocalAttr}/>
         <Component {...theProps} />
     </>;
 });

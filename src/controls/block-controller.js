@@ -7,7 +7,7 @@ const BlockController = (props) => {
 
     return panelArray(panelProps).map((item) => {
         const { id, show, onChange, component: Component, proLabel, forceType } = item;
-        const { clientId, setAttributes } = panelProps;
+        const { clientId, setAttributes, setLocalAttr } = panelProps;
 
         const onValueChange = (value) => {
 
@@ -34,6 +34,17 @@ const BlockController = (props) => {
             }) : null;
         };
 
+        const onLocalChange = (value) => {
+            const newValue = {
+                [id]: value
+            };
+
+            setLocalAttr && setLocalAttr({
+                ...panelProps,
+                ...newValue
+            });
+        };
+
         return show !== false && <Component
             key={`${id}`}
             {...item}
@@ -41,6 +52,7 @@ const BlockController = (props) => {
             value={panelProps[id]}
             values={panelProps}
             onValueChange={onValueChange}
+            onLocalChange={onLocalChange}
             elementRef={elementRef}
             isOpen={true}
         />;
