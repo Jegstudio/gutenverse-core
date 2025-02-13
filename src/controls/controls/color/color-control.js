@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import { useSettingFallback } from 'gutenverse-core/helper';
+import debounce from 'lodash/debounce';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;
@@ -34,6 +35,7 @@ const ColorControl = (props) => {
         value = allowDeviceControl ? {} : '',
         alpha = true,
         onValueChange,
+        onLocalChange,
         description = '',
     } = props;
 
@@ -45,16 +47,20 @@ const ColorControl = (props) => {
     const [open, setControlOpen] = useState(false);
     const [localColor, setLocalColor] = useState(value);
     const [variableOpen, setVariableOpen] = useState(false);
-    const deferredColor = useDeferredValue(localColor);
+    // const deferredColor = useDeferredValue(localColor);
     const isFirstRender = useRef(true);
 
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-        onValueChange(deferredColor);
-    }, [deferredColor]);
+    // useEffect(() => {
+    //     if (isFirstRender.current) {
+    //         isFirstRender.current = false;
+    //         return;
+    //     }
+    //     onValueChange(deferredColor);
+    // }, [deferredColor]);
+
+    debounce(() => {
+        onValueChange(localColor);
+    }, 1000);
 
     const defaultPalette = useSettingFallback('color.palette.default');
     const themePalette = useSettingFallback('color.palette.theme');
@@ -286,9 +292,10 @@ const ColorControl = (props) => {
             </div>
             <ChromePicker
                 disableAlpha={!alpha}
-                color={getColorValue(value)}
+                color={getColorValue(localColor)}
                 onChange={color => {
                     setLocalColor(color.rgb);
+                    onLocalChange(color.rgb);
                 }}
             />
         </div> : null}

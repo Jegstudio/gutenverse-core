@@ -5,6 +5,7 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
 
 const RangeControl = ({
     label,
@@ -18,6 +19,7 @@ const RangeControl = ({
     onStart = () => { },
     onEnd = () => { },
     onValueChange,
+    onLocalChange,
     description = '',
     isParseFloat = false,
     unit,
@@ -26,16 +28,20 @@ const RangeControl = ({
     const [localValue, setLocalValue] = useState(value);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
-    const deferredValue = useDeferredValue(localValue);
+    // const deferredValue = useDeferredValue(localValue);
     const isFirstRender = useRef(true);
 
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-        onValueChange(deferredValue);
-    }, [deferredValue]);
+    // useEffect(() => {
+    //     if (isFirstRender.current) {
+    //         isFirstRender.current = false;
+    //         return;
+    //     }
+    //     onValueChange(deferredValue);
+    // }, [deferredValue]);
+
+    debounce(() => {
+        onValueChange(localValue);
+    }, 1000);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
@@ -53,14 +59,16 @@ const RangeControl = ({
                     min={min}
                     max={max}
                     step={step}
-                    value={value}
+                    value={localValue}
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
                         if (isParseFloat) {
                             setLocalValue(parseFloat(e.target.value));
+                            onLocalChange(parseFloat(e.target.value));
                         } else {
                             setLocalValue(e.target.value);
+                            onLocalChange(e.target.value);
                         }
                     }}
                 />
@@ -73,7 +81,7 @@ const RangeControl = ({
                     max={max}
                     step={step}
                     disabled={disabled}
-                    value={value}
+                    value={localValue}
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
