@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useDeferredValue } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import { ChromePicker } from 'react-color';
 import ControlHeadingSimple from '../part/control-heading-simple';
@@ -13,7 +13,6 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
 import { useSettingFallback } from 'gutenverse-core/helper';
-import debounce from 'lodash/debounce';
 
 const VariableColorItem = (props) => {
     const { color, active, setActive, name } = props;
@@ -47,27 +46,6 @@ const ColorControl = (props) => {
     const [open, setControlOpen] = useState(false);
     const [localColor, setLocalColor] = useState(value);
     const [variableOpen, setVariableOpen] = useState(false);
-    // const deferredColor = useDeferredValue(localColor);
-    // const isFirstRender = useRef(true);
-
-    // useEffect(() => {
-    //     if (isFirstRender.current) {
-    //         isFirstRender.current = false;
-    //         return;
-    //     }
-    //     onValueChange(deferredColor);
-    // }, [deferredColor]);
-
-    useEffect(() => {
-        const debouncedHandler = debounce(() => {
-            onValueChange(localColor);
-        }, 1000);
-
-        debouncedHandler();
-        return () => {
-            debouncedHandler.cancel();
-        };
-    }, [localColor]);
 
     const defaultPalette = useSettingFallback('color.palette.default');
     const themePalette = useSettingFallback('color.palette.theme');
@@ -303,6 +281,9 @@ const ColorControl = (props) => {
                 onChange={color => {
                     setLocalColor(color.rgb);
                     onLocalChange(color.rgb);
+                }}
+                onChangeComplete={() => {
+                    onValueChange(localColor);
                 }}
             />
         </div> : null}

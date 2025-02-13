@@ -1,4 +1,4 @@
-import { useState, useRef, useDeferredValue, useEffect } from '@wordpress/element';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
@@ -28,21 +28,12 @@ const RangeControl = ({
     const [localValue, setLocalValue] = useState(value);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
-    // const deferredValue = useDeferredValue(localValue);
-    // const isFirstRender = useRef(true);
-
-    // useEffect(() => {
-    //     if (isFirstRender.current) {
-    //         isFirstRender.current = false;
-    //         return;
-    //     }
-    //     onValueChange(deferredValue);
-    // }, [deferredValue]);
 
     useEffect(() => {
         const debouncedHandler = debounce(() => {
             onValueChange(localValue);
-        }, 1000);
+        }, 500);
+
         debouncedHandler();
         return () => {
             debouncedHandler.cancel();
