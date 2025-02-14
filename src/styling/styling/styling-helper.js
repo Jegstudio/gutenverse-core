@@ -337,29 +337,32 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 
 };
 
-export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) => {
+export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef) => {
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];
 
-    const { type } = liveStyle;
+    for (let index = 0; index < liveStyles.length; index++) {
+        const liveStyle = liveStyles[index];
+        const { type, id } = liveStyle;
+        const attribute = attributes[id];
+        if (attribute) {
+            const css = generateCSSString(attribute, liveStyle);
 
-    if (singleAttr) {
-        const css = generateCSSString(singleAttr, liveStyle);
+            css.Desktop && deviceTypeDesktop.push(css.Desktop);
+            css.Tablet && deviceTypeTablet.push(css.Tablet);
+            css.Mobile && deviceTypeMobile.push(css.Mobile);
 
-        css.Desktop && deviceTypeDesktop.push(css.Desktop);
-        css.Tablet && deviceTypeTablet.push(css.Tablet);
-        css.Mobile && deviceTypeMobile.push(css.Mobile);
+            if (type === 'repeater') {
+                let { repeaterOpt } = liveStyle;
+                attribute.forEach((el, index) => {
+                    const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile} = extractStyleFont(elementId, el, repeaterOpt[index]);
 
-        if (type === 'repeater') {
-            let { repeaterOpt } = liveStyle;
-            singleAttr.forEach((el, index) => {
-                const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile} = extractStyleFont(elementId, el, repeaterOpt[index]);
-
-                deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
-                deviceTypeTablet = [...deviceTypeTablet, ...tablet];
-                deviceTypeMobile = [...deviceTypeMobile, ...mobile];
-            });
+                    deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
+                    deviceTypeTablet = [...deviceTypeTablet, ...tablet];
+                    deviceTypeMobile = [...deviceTypeMobile, ...mobile];
+                });
+            }
         }
     }
 

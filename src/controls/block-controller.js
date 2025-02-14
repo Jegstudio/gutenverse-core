@@ -19,7 +19,7 @@ const BlockController = (props) => {
     }, []);
 
     return panelArray(panelProps).map((item) => {
-        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = null } = item;
+        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
         const { clientId, setAttributes, elementId, setLiveAttr, liveAttr } = panelProps;
 
         const onValueChange = (value) => {
@@ -48,7 +48,11 @@ const BlockController = (props) => {
         };
 
         const onLocalChange = (value) => {
-            timeoutRef.current = liveStyle && updateLiveStyle(elementId, value, liveStyle, elementRef);
+            const newValue = {
+                [id]: value
+            };
+
+            timeoutRef.current = liveStyle && updateLiveStyle(elementId, newValue, liveStyle, elementRef);
             if(setLiveAttr){
                 setLiveAttr({
                     ...liveAttr,

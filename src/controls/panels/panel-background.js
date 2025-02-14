@@ -32,10 +32,13 @@ export const backgroundPanel = (props) => {
         allowDeviceControl: true,
         options: normalOptions,
         blockType: blockType,
-        liveStyle: {
-            'type': 'background',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-        },
+        liveStyle: [
+            {
+                'type': 'background',
+                'id': 'background',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            }
+        ],
     },
     {
         id: 'backgroundHover',
@@ -43,9 +46,12 @@ export const backgroundPanel = (props) => {
         component: BackgroundControl,
         allowDeviceControl: true,
         options: hoverOptions,
-        liveStyle: {
-            'type': 'background',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
-        },
+        liveStyle: [
+            {
+                'type': 'background',
+                'id': 'backgroundHover',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+            }
+        ],
     }];
 };

@@ -19,23 +19,26 @@ export const layoutPanel = ({elementId}) => {
             min: minWidth[deviceType],
             step: 0.1,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'plain',
-                'responsive': true,
-                'selector': `.${elementId}`,
-                'properties': [
-                    {
-                        'name': 'width',
-                        'valueType': 'pattern',
-                        'pattern': '{value}%',
-                        'patternValues': {
-                            'value': {
-                                'type': 'direct',
-                            },
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'width',
+                    'responsive': true,
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
                         }
-                    }
-                ],
-            }
+                    ],
+                }
+            ]
         },
         {
             id: 'verticalAlign',

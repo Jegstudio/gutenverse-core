@@ -32,10 +32,13 @@ export const borderPanel = (props) => {
             show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-            }
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'border',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                }
+            ]
         },
         {
             id: 'borderResponsive',
@@ -43,20 +46,26 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-            }
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'borderResponsive',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                }
+            ]
         },
         {
             id: 'borderHover',
             show: switcher.border === 'hover' && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
-            }
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'borderHover',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ]
         },
         {
             id: 'borderHoverResponsive',
@@ -64,42 +73,51 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
-            }
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'borderHoverResponsive',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ]
         },
         {
             id: 'boxShadow',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
-            liveStyle: {
-                'type': 'boxShadow',
-                'properties': [
-                    {
-                        'name': 'box-shadow',
-                        'valueType': 'direct'
-                    }
-                ],
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-            }
+            liveStyle: [
+                {
+                    'type': 'boxShadow',
+                    'id': 'boxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                }
+            ]
         },
         {
             id: 'boxShadowHover',
             show: switcher.border === 'hover',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
-            liveStyle: {
-                'type': 'boxShadow',
-                'properties': [
-                    {
-                        'name': 'box-shadow',
-                        'valueType': 'direct'
-                    }
-                ],
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
-            }
+            liveStyle: [
+                {
+                    'type': 'boxShadow',
+                    'id': 'boxShadowHover',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ]
         }
     ];
 };

@@ -45,23 +45,26 @@ export const layoutPanel = (props) => {
             allowDeviceControl: true,
             liveUpdate: true,
             unit: 'px',
-            liveStyle: {
-                'type': 'plain',
-                'responsive': true,
-                'selector': `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-                'properties': [
-                    {
-                        'name': 'max-width',
-                        'valueType': 'pattern',
-                        'pattern': '{value}px',
-                        'patternValues': {
-                            'value': {
-                                'type': 'direct',
-                            },
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'width',
+                    'responsive': true,
+                    'selector': `section.guten-section.${elementId}.layout-boxed > .guten-container`,
+                    'properties': [
+                        {
+                            'name': 'max-width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
                         }
-                    }
-                ],
-            }
+                    ],
+                }
+            ]
         },
         {
             id: 'wrapColumn',
