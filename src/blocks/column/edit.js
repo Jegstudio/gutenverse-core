@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
-import { compose } from '@wordpress/compose';
+import { compose, debounce } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
@@ -56,7 +56,8 @@ const toolResize = (props) => {
         getNextBlockClientId,
         getPreviousBlockClientId,
         getBlock,
-        updateBlockAttributes
+        updateBlockAttributes,
+        deviceType
     } = props;
 
     let targetId = '';
@@ -77,7 +78,6 @@ const toolResize = (props) => {
         elementId
     } = attributes;
 
-    const deviceType = getDeviceType();
     const gutenverseSelector = select('gutenverse/style');
     const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
@@ -180,11 +180,11 @@ const onResizeStart = (props, p) => {
         setParentId,
         editorDom,
         setOpenTool,
-        setTotalWidth
+        setTotalWidth,
+        deviceType
     } = props;
 
     const parentClientId = getBlockParents(clientId, true)[0];
-    const deviceType = getDeviceType();
     const parentBlock = getBlock(parentClientId);
     if (deviceType === 'Desktop') {
         parentBlock.innerBlocks.map(({ clientId }) => {
@@ -230,7 +230,8 @@ const onResize = (props, off) => {
         curentBlockWidth,
         targetId,
         setNewWidth,
-        totalWidth
+        totalWidth,
+        deviceType
     } = props;
 
     const minWidth = {
@@ -239,7 +240,6 @@ const onResize = (props, off) => {
         Mobile: 15,
     };
 
-    const deviceType = getDeviceType();
     const gutenverseSelector = select('gutenverse/style');
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
     const curentWidth = clientId ? getBlock(clientId).attributes.width : null;
@@ -287,7 +287,7 @@ const onResize = (props, off) => {
 
     curentWidth[deviceType] = calcCurentModPercent;
 
-    setAttributes({width: curentWidth});
+    setAttributes({ width: curentWidth });
     // Update attribute
     // addStyle(
     //     'column-width',
@@ -320,9 +320,10 @@ const onResizeStop = (props) => {
         updateBlockAttributes,
         targetId,
         editorDom,
-        setOpenTool
+        setOpenTool,
+        deviceType
     } = props;
-    const deviceType = getDeviceType();
+
     const parentBlock = getBlock(parentId);
     if (parentBlock) {
         parentBlock.innerBlocks.map(({ clientId }) => {
@@ -354,13 +355,12 @@ const onResizeStop = (props) => {
 
 // Column Placeholder component
 const ColumnPlaceholder = (props) => {
-    const deviceType = getDeviceType();
     const {
         blockProps,
         clientId,
         stickyFlagRef,
         columnWrapRef,
-        sticky = {},
+        sticky = null,
         stickyPosition,
         eSelect,
         isHovered,
@@ -368,8 +368,8 @@ const ColumnPlaceholder = (props) => {
         attributes,
         openTool,
         setOpenTool,
-        HoverIcon,
-        editorDom
+        editorDom,
+        deviceType
     } = props;
 
     const {
@@ -378,12 +378,14 @@ const ColumnPlaceholder = (props) => {
 
     const wvalue = width ? width[deviceType] ? width[deviceType] : width['Desktop'] : 10;
 
-    const wrapperClass = classnames(
-        'guten-column-wrapper',
-        {
-            ['guten-sticky']: isSticky(sticky),
-            [`sticky-${stickyPosition}`]: isSticky(sticky),
-        }
+    const wrapperClass = useMemo(() =>
+        classnames(
+            'guten-column-wrapper',
+            {
+                'guten-sticky': sticky ? isSticky(sticky) : isSticky({}),
+                [`sticky-${stickyPosition}`]: sticky ? isSticky(sticky) : isSticky({}),
+            }
+        ), [sticky, stickyPosition]
     );
 
     const resizeStart = (e, p) => {
@@ -465,7 +467,11 @@ const ColumnPlaceholder = (props) => {
                         onMouseLeave={() => {
                             onClose();
                         }}
-                    >{HoverIcon}</div>
+                    >
+                        <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
+                        </svg>
+                    </div>
                     <div className={'column-popup'} onFocus={() => {
                         onOpen();
                         setOpenTool(true);
@@ -497,6 +503,7 @@ const ColumnPlaceholder = (props) => {
                                         ...props,
                                         newWidth: parseFloat(theWidth),
                                         position,
+                                        deviceType
                                     };
                                     toolResize(theProps);
                                 }}
@@ -519,14 +526,13 @@ const ColumnPlaceholder = (props) => {
 // Column InnerBlocks Wrapper component
 const ColumnWrapper = (props) => {
     const { getBlocks } = useSelect((select) => select('core/block-editor'), []);
-    const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
 
     const {
         clientId,
         blockProps,
         columnWrapRef,
         stickyFlagRef,
-        sticky = {},
+        sticky = null,
         stickyPosition,
         eSelect,
         isHovered,
@@ -534,9 +540,9 @@ const ColumnWrapper = (props) => {
         attributes,
         openTool,
         setOpenTool,
-        HoverIcon,
         editorDom,
-        slideElement
+        slideElement,
+        deviceType
     } = props;
 
     const {
@@ -556,12 +562,14 @@ const ColumnWrapper = (props) => {
     const clientColumnId = size > 1 ? blocks[0].clientId : clientId;
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
-    const wrapperClass = classnames(
-        'guten-column-wrapper',
-        {
-            ['guten-sticky']: isSticky(sticky),
-            [`sticky-${stickyPosition}`]: isSticky(sticky),
-        }
+    const wrapperClass = useMemo(() =>
+        classnames(
+            'guten-column-wrapper',
+            {
+                ['guten-sticky']: sticky ? isSticky(sticky) : isSticky({}),
+                [`sticky-${stickyPosition}`]: sticky ? isSticky(sticky) : isSticky({}),
+            }
+        ), [sticky, stickyPosition]
     );
 
     const resizeStart = (e, p) => {
@@ -654,7 +662,10 @@ const ColumnWrapper = (props) => {
                         onMouseLeave={() => {
                             onClose();
                         }}
-                    >{HoverIcon}</div>
+                    >
+                        <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
+                        </svg></div>
                     <div
                         className={'column-popup'}
                         onFocus={() => {
@@ -857,13 +868,21 @@ const ColumnBlock = compose(
         verticalAlign,
         horizontalAlign,
         width,
-        sticky = {},
+        sticky = null,
         stickyPosition,
-        backgroundAnimated = {},
+        backgroundAnimated = null,
         backgroundEffect
     } = attributes;
 
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
+    const [delayedDeviceType, setDelayedDeviceType] = useState(deviceType);
+    const updateDelayedDeviceType = debounce((newDeviceType) => {
+        setDelayedDeviceType(newDeviceType);
+    }, 1000);
+    useEffect(() => {
+        updateDelayedDeviceType(deviceType);
+    }, [deviceType]);
+
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
@@ -888,12 +907,12 @@ const ColumnBlock = compose(
         const targetColumnWidthAttr = getBlock(clientId).attributes.width;
 
         if (targetColumnStyle) {
-            targetWidth[deviceType] = eachWidth;
+            targetWidth[delayedDeviceType] = eachWidth;
             targetColumnStyle(
                 'column-width',
                 `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`
             );
-            updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [deviceType]: eachWidth } });
+            updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [delayedDeviceType]: eachWidth } });
         }
     }, [clientId]);
 
@@ -984,48 +1003,68 @@ const ColumnBlock = compose(
         }
 
         return () => clearTimeout(timeout);
-    }, [deviceType]);
-
-    const HoverIcon = <svg width="6" height="6" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 2C0 0.89543 0.895431 0 2 0H6L0 6V2Z" fill="#3B57F7" />
-    </svg>;
+    }, [delayedDeviceType]);
 
     const stickyClasses = useMemo(() => {
+        if (!sticky) return '';
+
         return Object.keys(sticky)
-            .filter((device) => sticky[device])
+            .filter((device) => Boolean(sticky[device]))
             .map((device) => `sticky-${device.toLowerCase()}`)
             .join(' ');
     }, [sticky]);
 
-    const blockProps = useBlockProps({
-        className: classnames(
-            'guten-element',
-            'guten-column',
-            'no-margin',
-            elementId,
-            animationClass,
-            displayClass,
-            stickyClasses,
-            deviceType.toLowerCase(),
-            ...vertical,
-            ...horizontal,
-            {
-                'column-empty': !hasChildBlocks,
-                'column-filled': hasChildBlocks,
-                [`sticky-${stickyPosition}`]: isSticky(sticky),
-                'is-hovered': isHovered,
-                'background-animated': isAnimationActive(backgroundAnimated),
-                'guten-background-effect-active': isBackgroundEffect,
-            }
-        ),
-        ref: elementRef,
-        onMouseEnter: () => {
-            setIsHovered(true);
-        },
-        onMouseLeave: () => {
-            setIsHovered(false);
-        },
-    });
+    const onMouseEnter = useCallback(() => setIsHovered(true), []);
+    const onMouseLeave = useCallback(() => setIsHovered(false), []);
+
+    const blockProps = useMemo(() => {
+        const props = useBlockProps({
+            className: classnames(
+                'guten-element',
+                'guten-column',
+                'no-margin',
+                elementId,
+                animationClass,
+                displayClass,
+                stickyClasses,
+                delayedDeviceType.toLowerCase(),
+                ...vertical,
+                ...horizontal,
+                {
+                    'column-empty': !hasChildBlocks,
+                    'column-filled': hasChildBlocks,
+                    [`sticky-${stickyPosition}`]: isSticky(sticky),
+                    'is-hovered': isHovered,
+                    'background-animated': isAnimationActive(backgroundAnimated),
+                    'guten-background-effect-active': isBackgroundEffect,
+                }
+            ),
+            ref: elementRef,
+            onMouseEnter,
+            onMouseLeave,
+        });
+
+        // Explicitly set `style` to `null` if it's an empty object
+        if (props.style && Object.keys(props.style).length === 0) {
+            props.style = null;
+        }
+
+        return props;
+    }, [
+        elementId,
+        animationClass,
+        displayClass,
+        stickyClasses,
+        delayedDeviceType,
+        vertical,
+        horizontal,
+        hasChildBlocks,
+        stickyPosition,
+        sticky,
+        isHovered,
+        backgroundAnimated,
+        isBackgroundEffect
+    ]);
 
     const theProps = {
         ...props,
@@ -1062,9 +1101,9 @@ const ColumnBlock = compose(
         openTool,
         setOpenTool,
         editorDom,
-        HoverIcon,
         setTotalWidth,
-        totalWidth
+        totalWidth,
+        deviceType: delayedDeviceType
     };
 
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
