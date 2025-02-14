@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect } from 'gutenverse-core/hoc';
-import { PanelController } from 'gutenverse-core/controls';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -11,15 +11,16 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const PopupBuilder = compose(
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
     const {
         elementId,
@@ -36,16 +37,13 @@ const PopupBuilder = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const popupBuilderRef = useRef();
+    const elementRef = useRef();
     const containerRef = useRef();
     const deviceType = getDeviceType();
 
-    useEffect(() => {
-        if (popupBuilderRef.current) {
-            setElementRef(popupBuilderRef.current);
-        }
-    }, [popupBuilderRef]);
-
+    const [localAttr, setLocalAttr] = useState({});
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
     const innerBlocksProps = useInnerBlocksProps({
         className: classnames('guten-popup-container')
     }, {
@@ -69,7 +67,7 @@ const PopupBuilder = compose(
             elementId,
             displayClass,
         ),
-        ref: popupBuilderRef,
+        ref: elementRef,
         'data-close-overlay': closePopupOverlay
     });
 
@@ -87,7 +85,7 @@ const PopupBuilder = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
         <div {...blockProps}>
             <div className="guten-popup-holder" onClick={toggleShow}>
                 <h1>{__('Popup Builder', 'gutenverse')}</h1>

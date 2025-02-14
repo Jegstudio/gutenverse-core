@@ -55,7 +55,6 @@ export const closePanel = (props) => {
             show: showCloseButton,
             allowDeviceControl: true,
             unit: 'px',
-            unit: 'px',
             min: 1,
             max: 200,
             step: 1,

@@ -14,20 +14,6 @@ export const popupPanel = (props) => {
         gutenverseImgDir
     } = window['GutenverseConfig'];
 
-    const setWidth = ({ width }) => {
-        const styleId = 'popup-width';
-        const adminClass = `.guten-popup-builder.${elementId} .guten-popup .guten-popup-content`;
-
-        setStylePoint({
-            ...props,
-            attribute: width,
-            selector: 'width',
-            styleId,
-            adminClass,
-            multiDevice: true
-        });
-    };
-
     return applyFilters(
         'gutenverse.popup-builder.options',
         [{
@@ -40,7 +26,6 @@ export const popupPanel = (props) => {
             id: 'width',
             label: __('Popup Container Width', 'gutenverse'),
             component: SizeControl,
-            onChange: setWidth,
             allowDeviceControl: true,
             units: {
                 px: {
@@ -68,6 +53,12 @@ export const popupPanel = (props) => {
                     step: 1
                 },
             },
+            style: [
+                {
+                    selector: `.guten-popup-builder.${elementId} .guten-popup .guten-popup-content`,
+                    render: value => handleUnitPoint(value, 'width')
+                }
+            ]
         },
         {
             id: 'maxHeight',
