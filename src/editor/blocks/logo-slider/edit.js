@@ -44,16 +44,37 @@ const LogoSlider = compose(
 
     const {
         elementId,
-        logos
+        logos,
+        initialSlide,
+        spacing,
+        itemShowed,
+        loop,
+        showNav,
+        showArrow,
+        zoom,
+        zoomRatio,
+        autoplay,
+        autoplayTimeout
     } = attributes;
 
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
-    const [localAttr, setLocalAttr] = useState({});
+    const [liveAttr, setLiveAttr] = useState({
+        initialSlide,
+        spacing,
+        itemShowed,
+        loop,
+        showNav,
+        showArrow,
+        zoom,
+        zoomRatio,
+        autoplay,
+        autoplayTimeout
+    });
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -73,11 +94,11 @@ const LogoSlider = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr}/>
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
-                    {...swiperSettings(attributes)}
+                    {...swiperSettings(liveAttr)}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {

@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl, CheckboxControl } from 'gutenverse-core/controls';
-import { handleBackground, handleUnitPoint, setStylePoint } from 'gutenverse-core/styling';
+import { handleBackground, handleUnitPoint } from 'gutenverse-core/styling';
 import { applyFilters } from '@wordpress/hooks';
 
 export const popupPanel = (props) => {
