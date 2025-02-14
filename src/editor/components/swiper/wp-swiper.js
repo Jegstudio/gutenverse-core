@@ -87,23 +87,15 @@ const WpSwiper = forwardRef((props, externalRef) => {
     };
 
     useEffect(() => {
-        if (swiperInstanceRef.current !== null) {
-            if (rebuildOnUpdate) {
-                buildSwiper();
-            } else if (shouldSwiperUpdate) {
-                swiperInstanceRef.current.update();
-            }
-            const numSlides = swiperInstanceRef.current.slides.length;
-            if (numSlides <= swiperInstanceRef.current.activeIndex) {
-                const index = Math.max(numSlides - 1, 0);
-                swiperInstanceRef.current.slideTo(index);
-            }
-            const slideToIndex = getActiveSlideIndexFromProps();
-            if (slideToIndex !== null) {
-                swiperInstanceRef.current.slideTo(slideToIndex);
-            }
-        }else{
-            buildSwiper();
+        buildSwiper();
+        const numSlides = swiperInstanceRef.current.slides.length;
+        if (numSlides <= swiperInstanceRef.current.activeIndex) {
+            const index = Math.max(numSlides - 1, 0);
+            swiperInstanceRef.current.slideTo(index);
+        }
+        const slideToIndex = getActiveSlideIndexFromProps();
+        if (slideToIndex !== null) {
+            swiperInstanceRef.current.slideTo(slideToIndex);
         }
 
         return () => {
