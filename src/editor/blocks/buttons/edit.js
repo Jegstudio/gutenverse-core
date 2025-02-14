@@ -5,7 +5,7 @@ import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
@@ -31,6 +31,7 @@ const ButtonsBlock = compose(
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -46,7 +47,7 @@ const ButtonsBlock = compose(
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     const innerBlockProps = useInnerBlocksProps(
         blockProps,
@@ -59,7 +60,7 @@ const ButtonsBlock = compose(
     );
 
     return <>
-        <BlockPanelController panelList={panelList} props={props}/>
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
         <div {...innerBlockProps} />
     </>;
 });

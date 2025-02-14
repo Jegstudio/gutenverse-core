@@ -1,6 +1,5 @@
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
-import { allowRenderBoxShadow } from 'gutenverse-core/styling';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -79,7 +78,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'multiAttr' : [attributes['iconSpacing']]
+        'multiAttr' : {'iconSpacing': attributes['iconSpacing']}
     });
 
     isNotEmpty(attributes['iconPosition']) && isNotEmpty(attributes['iconSpacing']) && attributes['iconPosition'] === 'after' && isNotEmpty(attributes['showIcon']) && data.push({
@@ -101,7 +100,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'multiAttr' : [attributes['iconSpacing']]
+        'multiAttr' : {'iconSpacing': attributes['iconSpacing']}
     });
 
     isNotEmpty(attributes['iconSize']) && isNotEmpty(attributes['showIcon']) && data.push({

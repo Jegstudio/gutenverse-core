@@ -13,6 +13,7 @@ import { globalDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
+        //tab setting
         {
             title: __('General', 'gutenverse'),
             panelArray: panelGeneral,
@@ -24,42 +25,103 @@ export const panelList = () => {
             panelArray: panelIcon,
             tabRole: TabSetting
         },
+        // {
+        //     title: __('Dynamic Global Url', 'gutenverse'),
+        //     panelArray: globalDynamicPanel,
+        //     initialOpen: false,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Dynamic Data', 'gutenverse'),
+        //     panelArray: (props) => {
+        //         return dynamicContentPanel({
+        //             ...props,
+        //             blockType: 'text',
+        //             multiText : true,
+        //             arrOfTextChilds : ['titleDynamicList', 'descriptionDynamicList', 'badgeDynamicList']
+        //         });
+        //     },
+        //     initialOpen: false,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
         {
-            title: __('Dynamic Global Url', 'gutenverse'),
-            panelArray: globalDynamicPanel,
+            title: __('Display', 'gutenverse'),
             initialOpen: false,
-            tabRole: TabSetting,
-            pro: true,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
         },
         {
-            title: __('Dynamic Data', 'gutenverse'),
-            panelArray: (props) => {
-                return dynamicContentPanel({
-                    ...props,
-                    blockType: 'text',
-                    multiText : true,
-                    arrOfTextChilds : ['titleDynamicList', 'descriptionDynamicList', 'badgeDynamicList']
-                });
-            },
+            title: __('Positioning', 'gutenverse'),
             initialOpen: false,
-            tabRole: TabSetting,
-            pro: true,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
         },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'icon-box-animation'
+            }),
+            tabRole: TabSetting
+        },
+        // {
+        //     title: __('Transform', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: transformPanel,
+        //     pro: true
+        // },
+        // {
+        //     title: __('Mouse Move Effect', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: mouseMoveEffectPanel,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Advanced Animation', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelAdvance: true,
+        //     panelArray: (props) => advanceAnimationPanel({
+        //         ...props,
+        //         blockType: 'icon-box'
+        //     }),
+        //     pro: true
+        // },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'icon-box-advance',
+            }),
+            tabRole: TabSetting
+        },
+        // {
+        //     title: __('Condition', 'gutenverse'),
+        //     panelArray: conditionPanel,
+        //     initialOpen: false,
+        //     pro: true
+        // },
+
+        //tab style
         {
             title: __('Container Style', 'gutenverse'),
             initialOpen: false,
             panelArray: panelIconBoxContainer,
             tabRole: TabStyle
         },
-        {
-            title: __('Highlight Style', 'gutenverse'),
-            panelArray: (props) => childStylePanel({
-                ...props,
-                arrOfTextChilds : ['titleChilds','descriptionChilds','badgeChilds']
-            }),
-            tabRole: TabStyle,
-            pro: true
-        },
+        // {
+        //     title: __('Highlight Style', 'gutenverse'),
+        //     panelArray: (props) => childStylePanel({
+        //         ...props,
+        //         arrOfTextChilds : ['titleChilds','descriptionChilds','badgeChilds']
+        //     }),
+        //     tabRole: TabStyle,
+        //     pro: true
+        // },
         {
             title: __('Icon Style', 'gutenverse'),
             initialOpen: false,
@@ -109,65 +171,6 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle
-        },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Positioning', 'gutenverse'),
-            initialOpen: false,
-            panelArray: positioningPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'icon-box-animation'
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'icon-box'
-            }),
-            pro: true
-        },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'icon-box-advance',
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
         },
     ];
 };
