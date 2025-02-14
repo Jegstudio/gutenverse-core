@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { ImageRadioControl, SizeControl, RangeControl, SelectControl, BackgroundControl, CheckboxControl } from 'gutenverse-core/controls';
-import { handleBackground, handleUnitPoint } from 'gutenverse-core/styling';
+import { ImageRadioControl, SizeControl, RangeControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
+import { handleUnitPoint } from 'gutenverse-core/styling';
 import { applyFilters } from '@wordpress/hooks';
 
 export const popupPanel = (props) => {
@@ -150,19 +150,6 @@ export const popupPanel = (props) => {
                     value: 'bottom'
                 },
             ],
-        },
-        {
-            id: 'backgroundColor',
-            label: __('Background', 'gutenverse'),
-            component: BackgroundControl,
-            options: ['default', 'gradient'],
-            style: [
-                {
-                    selector: `.${elementId} .guten-popup .guten-popup-container`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                }
-            ]
         },
         {
             id: 'openTrigger',

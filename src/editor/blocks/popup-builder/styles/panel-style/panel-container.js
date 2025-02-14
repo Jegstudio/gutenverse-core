@@ -13,7 +13,6 @@ const panelContainerStyle = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .guten-popup .guten-popup-content`,
     });
-
     isNotEmpty(attributes['containerPadding']) && data.push({
         'type': 'plain',
         'id': 'containerPadding',
@@ -25,7 +24,7 @@ const panelContainerStyle = (elementId, attributes, data) => {
                 'functionName': 'handleContainerPaddingPopup'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId} .guten-popup-left .guten-popup-container, .${elementId} .guten-popup-right .guten-popup-container`,
     });
 
     isNotEmpty(attributes['backgroundColor']) && data.push({
