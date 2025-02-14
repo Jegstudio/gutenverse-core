@@ -51,8 +51,6 @@ const LogoSlider = compose(
         loop,
         showNav,
         showArrow,
-        zoom,
-        zoomRatio,
         autoplay,
         autoplayTimeout
     } = attributes;
