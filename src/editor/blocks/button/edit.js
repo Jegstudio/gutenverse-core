@@ -18,7 +18,7 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
-import { useDynamicStyle, useGenerateElementId, headStyleSheet } from 'gutenverse-core/styling';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -36,7 +36,7 @@ const ButtonBlock = compose(
         isSelected,
         clientId,
         context: { hoverWithParent, parentSelector },
-        refreshStyle,
+        // refreshStyle,
         setPanelState,
         panelIsClicked,
         setPanelIsClicked
@@ -49,7 +49,7 @@ const ButtonBlock = compose(
                 hoverWithParent: hoverWithParent,
                 parentSelector: parentSelector
             });
-            refreshStyle();
+            // refreshStyle();
         }
         prevHoverWithParent.current = hoverWithParent;
     }, [attributes.hoverWithParent, hoverWithParent, parentSelector]);
@@ -85,7 +85,7 @@ const ButtonBlock = compose(
     const textRef = useRef(); 
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
@@ -93,6 +93,7 @@ const ButtonBlock = compose(
     const [allowLink, setAllowLink] = useState(true);
     const [dynamicText, setDynamicText] = useState();
     const [dynamicHref, setDynamicHref] = useState();
+    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -243,7 +244,7 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <BlockPanelController props = {props} panelList={panelList} />
+        <BlockPanelController props = {props} panelList={panelList} setLocalAttr={setLocalAttr}/>
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}

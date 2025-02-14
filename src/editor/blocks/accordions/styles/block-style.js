@@ -320,7 +320,9 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'multiAttr' : [attributes['iconSpacing']]
+        'multiAttr' : {
+            'iconSpacing' : attributes['iconSpacing']
+        }
     });
 
     /**Panel Title */
