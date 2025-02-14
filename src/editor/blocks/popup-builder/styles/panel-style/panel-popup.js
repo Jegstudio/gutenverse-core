@@ -27,11 +27,6 @@ const panelPopupStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} .guten-popup-center .guten-popup-content`,
     });
 
-    isNotEmpty(attributes['backgroundColor']) && data.push({
-        'type': 'background',
-        'id': 'backgroundColor',
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
-    });
     return data;
 };
 

@@ -11,7 +11,7 @@ const panelContainerStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
     });
     isNotEmpty(attributes['containerPadding']) && data.push({
         'type': 'plain',
@@ -24,25 +24,25 @@ const panelContainerStyle = (elementId, attributes, data) => {
                 'functionName': 'handleContainerPaddingPopup'
             }
         ],
-        'selector': `.${elementId} .guten-popup-left .guten-popup-container, .${elementId} .guten-popup-right .guten-popup-container`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-left .guten-popup-container, .${elementId}.guten-popup-builder .guten-popup-right .guten-popup-container`,
     });
 
     isNotEmpty(attributes['backgroundColor']) && data.push({
         'type': 'background',
         'id': 'backgroundColor',
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
     });
 
     isNotEmpty(attributes['containerBorder']) && data.push({
         'type': 'border',
         'id': 'containerBorder',
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
     });
 
     isNotEmpty(attributes['containerBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'containerBorderResponsive',
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
     });
 
     isNotEmpty(attributes['containerBoxShadow']) && data.push({
@@ -54,7 +54,7 @@ const panelContainerStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-content`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
     });
     return data;
 };

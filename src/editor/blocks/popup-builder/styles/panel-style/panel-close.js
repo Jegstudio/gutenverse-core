@@ -17,7 +17,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 }
             }
         ],
-        'selector': `.${elementId} .guten-popup-close i`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close i`,
     });
 
     isNotEmpty(attributes['closePositioningLeft']) && data.push({
@@ -30,7 +30,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closePositioningBottom']) && data.push({
@@ -43,7 +43,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closePositioningRight']) && data.push({
@@ -56,7 +56,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closePositioningTop']) && data.push({
@@ -69,7 +69,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closePadding']) && data.push({
@@ -82,14 +82,14 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closeButtonColor']) && data.push({
         'type': 'color',
         'id': 'closeButtonColor',
         'responsive': true,
-        'selector': `.${elementId} .guten-popup .guten-popup-close i`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close i`,
         'properties': [
             {
                 'name': 'color',
@@ -101,19 +101,19 @@ const panelCloseStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['closeButtonBgColor']) && data.push({
         'type': 'background',
         'id': 'closeButtonBgColor',
-        'selector': `.${elementId} .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closeBorder']) && data.push({
         'type': 'border',
         'id': 'closeBorder',
-        'selector': `.${elementId} .guten-popup .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closeBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'closeBorderResponsive',
-        'selector': `.${elementId} .guten-popup .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closeBoxShadow']) && data.push({
@@ -125,14 +125,14 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-close`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
     });
 
     isNotEmpty(attributes['closeButtonColorHover']) && data.push({
         'type': 'color',
         'id': 'closeButtonColorHover',
         'responsive': true,
-        'selector': `.${elementId} .guten-popup .guten-popup-close:hover i`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover i`,
         'properties': [
             {
                 'name': 'color',
@@ -144,19 +144,19 @@ const panelCloseStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['closeButtonBgColorHover']) && data.push({
         'type': 'background',
         'id': 'closeButtonBgColorHover',
-        'selector': `.${elementId} .guten-popup-close:hover`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup-close:hover`,
     });
 
     isNotEmpty(attributes['closeBorderHover']) && data.push({
         'type': 'border',
         'id': 'closeBorderHover',
-        'selector': `.${elementId} .guten-popup .guten-popup-close:hover`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
     });
 
     isNotEmpty(attributes['closeBorderHoverResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'closeBorderHoverResponsive',
-        'selector': `.${elementId} .guten-popup .guten-popup-close:hover`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
     });
 
     isNotEmpty(attributes['closeBoxShadowHover']) && data.push({
@@ -168,7 +168,7 @@ const panelCloseStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .guten-popup .guten-popup-close:hover`,
+        'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
     });
     return data;
 };
