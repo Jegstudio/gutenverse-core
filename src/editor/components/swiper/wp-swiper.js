@@ -62,12 +62,12 @@ const WpSwiper = forwardRef((props, externalRef) => {
         return activeSlideId;
     }, [activeSlideKey, children, loop]);
 
-    const destroySwiper = useCallback(() => {
+    const destroySwiper = () => {
         if (swiperInstanceRef.current !== null) {
             swiperInstanceRef.current.destroy(true, true);
             setRef(swiperInstanceRef, null);
         }
-    }, []);
+    };
 
     const buildSwiper = useCallback(() => {
         if (swiperNodeRef.current && swiperInstanceRef.current === null) {
@@ -86,13 +86,9 @@ const WpSwiper = forwardRef((props, externalRef) => {
         return cloneElement(e, Object.assign(Object.assign({}, e.props), { className: slideClassNames.join(' ').trim() }));
     };
 
-    useEffect(() => () => destroySwiper(), [destroySwiper]);
-
     useEffect(() => {
-        buildSwiper();
         if (swiperInstanceRef.current !== null) {
             if (rebuildOnUpdate) {
-                destroySwiper();
                 buildSwiper();
             } else if (shouldSwiperUpdate) {
                 swiperInstanceRef.current.update();
@@ -106,7 +102,13 @@ const WpSwiper = forwardRef((props, externalRef) => {
             if (slideToIndex !== null) {
                 swiperInstanceRef.current.slideTo(slideToIndex);
             }
+        }else{
+            buildSwiper();
         }
+
+        return () => {
+            destroySwiper();
+        };
     }, [
         destroySwiper,
         getActiveSlideIndexFromProps,

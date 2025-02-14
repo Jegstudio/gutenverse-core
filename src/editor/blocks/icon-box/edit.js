@@ -1,10 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
@@ -26,12 +26,13 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBoxBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('icon-box'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -52,7 +53,6 @@ const IconBoxBlock = compose(
         isSelected,
         attributes,
         setAttributes,
-        setElementRef,
         setPanelState,
         panelIsClicked,
         setPanelIsClicked
@@ -85,7 +85,7 @@ const IconBoxBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
-    const iconBoxRef = useRef();
+    const elementRef = useRef();
     const titleRef = useRef();
     const descRef = useRef();
     const badgeRef = useRef();
@@ -93,6 +93,7 @@ const IconBoxBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
     const deviceType = getDeviceType();
+    const [localAttr, setLocalAttr] = useState({});
 
     const hasInnerBlocks = useSelect(select => {
         const block = select('core/block-editor').getBlock(props.clientId);
@@ -117,7 +118,7 @@ const IconBoxBlock = compose(
             displayClass,
             `icon-position-${iconPosition}`,
         ),
-        ref: iconBoxRef
+        ref: elementRef
     });
     const imageLazyLoad = () => {
         if (lazyLoad) {
@@ -145,6 +146,9 @@ const IconBoxBlock = compose(
         }
     };
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+
     const innerBlockProps = useInnerBlocksProps(
         {},
         {
@@ -171,12 +175,6 @@ const IconBoxBlock = compose(
         },
         [rel, setAttributes]
     );
-
-    useEffect(() => {
-        if (iconBoxRef.current) {
-            setElementRef(iconBoxRef.current);
-        }
-    }, [iconBoxRef]);
 
     useEffect(() => {
         !separateButtonLink && getBlocks(clientId).map(block => {
@@ -215,9 +213,8 @@ const IconBoxBlock = compose(
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
-
     return <>
-        <PanelController panelList={panelList} {...props} deviceType={deviceType} />
+        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} setLocalAttr={setLocalAttr}/>
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
