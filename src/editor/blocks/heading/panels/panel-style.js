@@ -16,16 +16,19 @@ export const stylePanel = ({elementId, useStyleInLink}) => {
             id: 'color',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ],
-            }
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'color',
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'typography',
@@ -36,16 +39,19 @@ export const stylePanel = ({elementId, useStyleInLink}) => {
             id: 'textShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            liveStyle: {
-                'type': 'textShadow',
-                'properties': [
-                    {
-                        'name': 'text-shadow',
-                        'valueType': 'direct'
-                    }
-                ],
-                'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
-            }
+            liveStyle: [
+                {
+                    'type': 'textShadow',
+                    'id': 'textShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                }
+            ]
         },
         {
             id: 'textStroke',
