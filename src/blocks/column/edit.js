@@ -5,7 +5,7 @@ import { compose, debounce } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { BuildColumnWidthStyle, setDeviceClasses, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { BuildColumnWidthStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
@@ -95,10 +95,10 @@ const toolResize = (props) => {
         }
 
         deviceCache[deviceType] = nWidth;
-        addStyle(
-            'column-width',
-            BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-        );
+        // addStyle(
+        //     'column-width',
+        //     BuildColumnWidthStyle(deviceCache, `.${elementId}`)
+        // );
         setAttributes({ width: { ...props.attributes.width, [deviceType]: nWidth } });
         return;
     }
@@ -141,17 +141,17 @@ const toolResize = (props) => {
     let deviceCache = width;
     deviceCache[deviceType] = parseFloat(newCurentWidth);
 
-    addStyle(
-        'column-width',
-        BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-    );
+    // addStyle(
+    //     'column-width',
+    //     BuildColumnWidthStyle(deviceCache, `.${elementId}`)
+    // );
 
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = newTargetWidth;
-        targetColumnStyle(
-            'column-width',
-            `.guten-column.${targetColumnElementId} { width: ${newTargetWidth}%; }`
-        );
+        // targetColumnStyle(
+        //     'column-width',
+        //     `.guten-column.${targetColumnElementId} { width: ${newTargetWidth}%; }`
+        // );
     }
     const newWidths = {
         current: newCurentWidth,
@@ -223,7 +223,7 @@ const onResizeStart = (props, p) => {
 const onResize = (props, off) => {
     const {
         clientId,
-        setAttributes,
+        elementId,
         targetBlock,
         getBlock,
         parentBlockWidth,
@@ -231,7 +231,8 @@ const onResize = (props, off) => {
         targetId,
         setNewWidth,
         totalWidth,
-        deviceType
+        deviceType,
+        elementRef
     } = props;
 
     const minWidth = {
@@ -241,9 +242,10 @@ const onResize = (props, off) => {
     };
 
     const gutenverseSelector = select('gutenverse/style');
+    // const gutenverseSelector = select('gutenverse/style');
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
     const curentWidth = clientId ? getBlock(clientId).attributes.width : null;
-    const targetColumnStyle = gutenverseSelector.findElement(targetId) ? gutenverseSelector.findElement(targetId).addStyle : null;
+    // const targetColumnStyle = gutenverseSelector.findElement(targetId) ? gutenverseSelector.findElement(targetId).addStyle : null;
     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
     const currentColumnElementId = getBlock(clientId).attributes.elementId;
     const targetBlockPx = (targetBlock / 100) * parentBlockWidth;
@@ -287,28 +289,64 @@ const onResize = (props, off) => {
 
     curentWidth[deviceType] = calcCurentModPercent;
 
-    setAttributes({ width: curentWidth });
-    // Update attribute
-    // addStyle(
-    //     'column-width',
-    //     BuildColumnWidthStyle(curentWidth, `.${currentColumnElementId}`)
-    // );
-
-    if (targetColumnStyle && deviceType === 'Desktop') {
+    if (deviceType === 'Desktop') {
         targetWidth[deviceType] = calcTargetModPercent;
-        targetColumnStyle(
-            'column-width',
-            `.guten-column.${targetColumnElementId} { width: ${calcTargetModPercent}%; }`
-        );
     }
 
-    setNewWidth({
-        current: calcCurentModPercent,
-        target: calcTargetModPercent,
-        targetColumnStyle,
-        targetColumnElementId,
-        targetWidth
-    });
+    updateLiveStyle(
+        elementId,
+        {
+            curentWidth,
+            targetWidth
+        },
+        [
+            {
+                'type': 'plain',
+                'id': 'curentWidth',
+                'responsive': true,
+                'selector': `.${elementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'targetWidth',
+                'responsive': true,
+                'selector': `.${targetColumnElementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            },
+        ],
+        elementRef
+    );
+
+    // setNewWidth({
+    //     current: calcCurentModPercent,
+    //     target: calcTargetModPercent,
+    //     targetColumnStyle,
+    //     targetColumnElementId,
+    //     targetWidth
+    // });
 };
 
 const onResizeStop = (props) => {
@@ -337,20 +375,20 @@ const onResizeStop = (props) => {
     }
 
 
-    // if (newWidth.current && newWidth.target && newWidth.targetStyle) {
-    //     // Update style again to avoid missmatch with width style
-    //     newWidth.targetWidth[deviceType] = newWidth.target;
-    //     newWidth.targetColumnStyle(
-    //         'column-width',
-    //         `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
-    //     );
-    //     const nextColumnWidthAttr = getBlock(targetId).attributes.width;
+    if (newWidth.current && newWidth.target && newWidth.targetStyle) {
+        // Update style again to avoid missmatch with width style
+        newWidth.targetWidth[deviceType] = newWidth.target;
+        newWidth.targetColumnStyle(
+            'column-width',
+            `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
+        );
+        const nextColumnWidthAttr = getBlock(targetId).attributes.width;
 
-    //     setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
-    //     if (deviceType === 'Desktop') {
-    //         updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
-    //     }
-    // }
+        setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
+        if (deviceType === 'Desktop') {
+            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
+        }
+    }
 };
 
 // Column Placeholder component
@@ -1103,7 +1141,9 @@ const ColumnBlock = compose(
         editorDom,
         setTotalWidth,
         totalWidth,
-        deviceType: delayedDeviceType
+        deviceType: delayedDeviceType,
+        elementId,
+        elementRef
     };
 
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
