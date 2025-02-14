@@ -4,13 +4,28 @@ import { __ } from '@wordpress/i18n';
 /* Gutenverse dependencies */
 import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
-export const stylePanel = () => {
+export const stylePanel = ({elementId, useStyleInLink}) => {
+    const linkStyle = useStyleInLink ? `
+        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
+        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
 
     return [
         {
             id: 'color',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
+            liveStyle: {
+                'type': 'color',
+                'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ],
+            }
         },
         {
             id: 'typography',
