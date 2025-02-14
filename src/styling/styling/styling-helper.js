@@ -19,7 +19,6 @@ import isEmpty from 'lodash/isEmpty';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 import { isEmptyString } from 'gutenverse-core/helper';
-import { elementVar, normalAppender } from 'gutenverse-core/styling';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -371,16 +370,18 @@ export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) =>
     if (!cssElement) {
         cssElement = theWindow.document.createElement('style');
         cssElement.id = 'gutenverse-temp-css';
-        theWindow.document.head.appendChild(cssElement); 
+        theWindow.document.head.appendChild(cssElement);
     }
 
     cssElement.innerHTML = generatedCSS;
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
         if (cssElement.parentNode) {
             cssElement.parentNode.removeChild(cssElement);
         }
     }, 1000);
+
+    return timeoutId;
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {

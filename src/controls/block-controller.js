@@ -1,5 +1,5 @@
 import { updateLiveStyle } from 'gutenverse-core/styling';
-
+import { useEffect, useRef } from '@wordpress/element';
 
 const BlockController = (props) => {
     const {
@@ -7,6 +7,16 @@ const BlockController = (props) => {
         panelArray,
         elementRef
     } = props;
+
+    let timeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return panelArray(panelProps).map((item) => {
         const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = null } = item;
@@ -38,7 +48,7 @@ const BlockController = (props) => {
         };
 
         const onLocalChange = (value) => {
-            liveStyle && updateLiveStyle(elementId, value, liveStyle, elementRef);
+            timeoutRef.current = liveStyle && updateLiveStyle(elementId, value, liveStyle, elementRef);
         };
 
         return show !== false && <Component
