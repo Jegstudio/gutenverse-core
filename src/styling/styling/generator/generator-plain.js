@@ -101,6 +101,11 @@ const renderFunctionValue = (functionName, attribute) => {
                 value = value/100;
             }
             break;
+        case 'handleContainerPaddingPopup':
+            const { dimension, unit = 'px' } = attribute || {};
+            const { top = 10, bottom = 10 } = dimension || {};
+            value = `calc(100vh - ${parseFloat(top) + parseFloat(bottom)}${unit})`;
+            break;
         default:
             value = '';
             break;
