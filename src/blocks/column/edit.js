@@ -720,19 +720,19 @@ const ColumnWrapper = (props) => {
 
 // Column Block Control
 const ColumnInspection = (props) => {
-    const { panelProps, isSelected, attributes, setAttributes, setLocalAttr } = props;
+    const { panelProps, isSelected, attributes, setAttributes, elementRef } = props;
 
     const defaultPanelProps = {
         ...panelProps,
         ...attributes,
         setAttributes,
-        setLocalAttr
     };
 
     return <PanelController
         panelList={panelList}
         panelProps={defaultPanelProps}
         isSelected={isSelected}
+        elementRef={elementRef}
         {...props}
     />;
 };
@@ -863,11 +863,10 @@ const ColumnBlock = compose(
         backgroundEffect
     } = attributes;
 
-    const [localAttr, setLocalAttr] = useState({});
     const deviceType = useSelect(() => theDeviceType(determineLocation()), []);
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
@@ -1072,7 +1071,7 @@ const ColumnBlock = compose(
 
     return <>
         {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
-        <ColumnInspection {...props} setAttributes={setAttributes} setLocalAttr={setLocalAttr}/>
+        <ColumnInspection {...props} setAttributes={setAttributes} elementRef={elementRef}/>
         <Component {...theProps} />
     </>;
 });

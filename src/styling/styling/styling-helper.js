@@ -19,7 +19,6 @@ import isEmpty from 'lodash/isEmpty';
 import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 import { isEmptyString } from 'gutenverse-core/helper';
-import { elementVar, normalAppender } from 'gutenverse-core/styling';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -295,21 +294,17 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     return { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont };
 };
 
-export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef, localAttr = {}) => {
+export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
-            const mergeAttributes = {
-                ...attributes,
-                ...localAttr
-            };
-            const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, mergeAttributes, getBlockStyle);
+            const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, attributes, getBlockStyle);
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
             return { generatedCSS, fontUsed };
         } else {
             return { generatedCSS: '', fontUsed: [] };
         }
-    }, [elementId, attributes, localAttr]);
+    }, [elementId, attributes]);
 
     const iframeWindowRef = useRef(null);
     const idHolder = useRef(null);
@@ -338,8 +333,55 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed);
             }
         }
-    }, [elementId, attributes, localAttr, elementRef]);
+    }, [elementId, attributes, elementRef]);
 
+};
+
+export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) => {
+    let deviceTypeDesktop = [];
+    let deviceTypeTablet = [];
+    let deviceTypeMobile = [];
+
+    const { type } = liveStyle;
+
+    if (singleAttr) {
+        const css = generateCSSString(singleAttr, liveStyle);
+
+        css.Desktop && deviceTypeDesktop.push(css.Desktop);
+        css.Tablet && deviceTypeTablet.push(css.Tablet);
+        css.Mobile && deviceTypeMobile.push(css.Mobile);
+
+        if (type === 'repeater') {
+            let { repeaterOpt } = liveStyle;
+            singleAttr.forEach((el, index) => {
+                const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile} = extractStyleFont(elementId, el, repeaterOpt[index]);
+
+                deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
+                deviceTypeTablet = [...deviceTypeTablet, ...tablet];
+                deviceTypeMobile = [...deviceTypeMobile, ...mobile];
+            });
+        }
+    }
+
+    const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+
+    let theWindow = getWindow(elementRef);
+    let cssElement = theWindow.document.getElementById('gutenverse-temp-css');
+    if (!cssElement) {
+        cssElement = theWindow.document.createElement('style');
+        cssElement.id = 'gutenverse-temp-css';
+        theWindow.document.head.appendChild(cssElement);
+    }
+
+    cssElement.innerHTML = generatedCSS;
+
+    const timeoutId = setTimeout(() => {
+        if (cssElement.parentNode) {
+            cssElement.parentNode.removeChild(cssElement);
+        }
+    }, 1000);
+
+    return timeoutId;
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
@@ -415,7 +457,7 @@ export const customHandleBackground = (background) => {
         gradientAngle = 180,
         gradientRadial = 'center center'
     } = background;
-    let style  ='';
+    let style = '';
 
     if (gradientColor !== undefined) {
         const colors = gradientColor.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);

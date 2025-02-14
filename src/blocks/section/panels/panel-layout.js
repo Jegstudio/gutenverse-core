@@ -34,14 +34,6 @@ export const layoutPanel = (props) => {
             label: __('Content Width', '--gctd--'),
             component: SelectControl,
             options: layoutControls,
-            // style: [
-            //     {
-            //         selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-            //         updateID: 'width-style-0',
-            //         allowRender: value => value === 'boxed',
-            //         render: () => `max-width: ${width[deviceType]}px;`
-            //     }
-            // ]
         },
         {
             id: 'width',
@@ -53,13 +45,23 @@ export const layoutPanel = (props) => {
             allowDeviceControl: true,
             liveUpdate: true,
             unit: 'px',
-            // style: [
-            //     {
-            //         selector: `section.guten-section.${elementId}.layout-boxed > .guten-container`,
-            //         allowRender: () => layout === 'boxed',
-            //         render: value => `max-width: ${value}px;`
-            //     }
-            // ]
+            liveStyle: {
+                'type': 'plain',
+                'responsive': true,
+                'selector': `section.guten-section.${elementId}.layout-boxed > .guten-container`,
+                'properties': [
+                    {
+                        'name': 'max-width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}px',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            }
         },
         {
             id: 'wrapColumn',

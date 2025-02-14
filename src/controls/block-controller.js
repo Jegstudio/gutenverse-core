@@ -1,3 +1,6 @@
+import { updateLiveStyle } from 'gutenverse-core/styling';
+import { useEffect, useRef } from '@wordpress/element';
+
 const BlockController = (props) => {
     const {
         panelProps,
@@ -5,13 +8,23 @@ const BlockController = (props) => {
         elementRef
     } = props;
 
+    let timeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
     return panelArray(panelProps).map((item) => {
-        const { id, show, onChange, component: Component, proLabel, forceType } = item;
-        const { clientId, setAttributes, setLocalAttr } = panelProps;
+        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = null } = item;
+        const { clientId, setAttributes, elementId } = panelProps;
 
         const onValueChange = (value) => {
 
-            switch(forceType) {
+            switch (forceType) {
                 case 'string':
                     value = value.toString();
                     break;
@@ -24,7 +37,7 @@ const BlockController = (props) => {
             const newValue = {
                 [id]: value
             };
-            if(!proLabel){
+            if (!proLabel) {
                 setAttributes(newValue);
             }
 
@@ -35,13 +48,7 @@ const BlockController = (props) => {
         };
 
         const onLocalChange = (value) => {
-            const newValue = {
-                [id]: value
-            };
-
-            setLocalAttr && setLocalAttr({
-                ...newValue
-            });
+            timeoutRef.current = liveStyle && updateLiveStyle(elementId, value, liveStyle, elementRef);
         };
 
         return show !== false && <Component

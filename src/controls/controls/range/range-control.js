@@ -28,16 +28,27 @@ const RangeControl = ({
     const [localValue, setLocalValue] = useState(value);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
+    const isFirstRender = useRef(true);
 
     useEffect(() => {
-        const debouncedHandler = debounce(() => {
-            onValueChange(localValue);
-        }, 500);
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
 
-        debouncedHandler();
-        return () => {
-            debouncedHandler.cancel();
-        };
+        if (localValue) {
+            onLocalChange(localValue);
+
+            const debouncedHandler = debounce(() => {
+                onValueChange(localValue);
+            }, 150);
+
+            debouncedHandler();
+
+            return () => {
+                debouncedHandler.cancel();
+            };
+        }
     }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
@@ -62,10 +73,8 @@ const RangeControl = ({
                     onChange={(e) => {
                         if (isParseFloat) {
                             setLocalValue(parseFloat(e.target.value));
-                            onLocalChange(parseFloat(e.target.value));
                         } else {
                             setLocalValue(e.target.value);
-                            onLocalChange(e.target.value);
                         }
                     }}
                 />
@@ -84,10 +93,8 @@ const RangeControl = ({
                     onChange={(e) => {
                         if (isParseFloat) {
                             setLocalValue(parseFloat(e.target.value));
-                            onLocalChange(parseFloat(e.target.value));
                         } else {
                             setLocalValue(e.target.value);
-                            onLocalChange(e.target.value);
                         }
                     }}
                     ref={inputRef}

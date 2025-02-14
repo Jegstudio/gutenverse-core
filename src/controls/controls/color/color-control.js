@@ -163,6 +163,19 @@ const ColorControl = (props) => {
         };
     }, [variableWrapperRef]);
 
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        if (localColor) {
+            onLocalChange(localColor);
+        }
+    }, [localColor]);
+
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 
     const ColorContent = <div className={'control-color-wrapper'}>
@@ -280,7 +293,6 @@ const ColorControl = (props) => {
                 color={getColorValue(localColor)}
                 onChange={color => {
                     setLocalColor(color.rgb);
-                    onLocalChange(color.rgb);
                 }}
                 onChangeComplete={() => {
                     onValueChange(localColor);
