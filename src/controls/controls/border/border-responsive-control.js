@@ -15,6 +15,7 @@ const BorderResponsiveControl = (props) => {
         allowDeviceControl,
         value = {},
         onValueChange,
+        onLocalChange,
         description = '',
         proLabel
     } = props;
@@ -138,6 +139,13 @@ const BorderResponsiveControl = (props) => {
                     label={__('Color', '--gctd--')}
                     value={value && value[active] && value[active].color}
                     onValueChange={color => onValueChange({
+                        ...value,
+                        [`${active}`]: {
+                            ...value[active],
+                            color
+                        }
+                    })}
+                    onLocalChange={color => onLocalChange({
                         ...value,
                         [`${active}`]: {
                             ...value[active],

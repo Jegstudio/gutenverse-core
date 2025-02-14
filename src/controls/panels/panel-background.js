@@ -2,6 +2,7 @@ import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const backgroundPanel = (props) => {
     const {
+        elementId,
         normalOptions,
         hoverOptions,
         switcher,
@@ -31,6 +32,10 @@ export const backgroundPanel = (props) => {
         allowDeviceControl: true,
         options: normalOptions,
         blockType: blockType,
+        liveStyle: {
+            'type': 'background',
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        },
     },
     {
         id: 'backgroundHover',
@@ -38,5 +43,9 @@ export const backgroundPanel = (props) => {
         component: BackgroundControl,
         allowDeviceControl: true,
         options: hoverOptions,
+        liveStyle: {
+            'type': 'background',
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+        },
     }];
 };

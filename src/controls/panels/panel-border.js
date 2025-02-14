@@ -4,6 +4,7 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const borderPanel = (props) => {
     const {
+        elementId,
         switcher,
         setSwitcher,
     } = props;
@@ -31,6 +32,10 @@ export const borderPanel = (props) => {
             show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            liveStyle: {
+                'type': 'border',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            }
         },
         {
             id: 'borderResponsive',
@@ -38,12 +43,20 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
+            liveStyle: {
+                'type': 'borderResponsive',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            }
         },
         {
             id: 'borderHover',
             show: switcher.border === 'hover' && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            liveStyle: {
+                'type': 'border',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+            }
         },
         {
             id: 'borderHoverResponsive',
@@ -51,18 +64,42 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
+            liveStyle: {
+                'type': 'borderResponsive',
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+            }
         },
         {
             id: 'boxShadow',
             show: !switcher.border || switcher.border === 'normal',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
+            liveStyle: {
+                'type': 'boxShadow',
+                'properties': [
+                    {
+                        'name': 'box-shadow',
+                        'valueType': 'direct'
+                    }
+                ],
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            }
         },
         {
             id: 'boxShadowHover',
             show: switcher.border === 'hover',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
+            liveStyle: {
+                'type': 'boxShadow',
+                'properties': [
+                    {
+                        'name': 'box-shadow',
+                        'valueType': 'direct'
+                    }
+                ],
+                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+            }
         }
     ];
 };
