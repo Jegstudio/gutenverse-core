@@ -10,7 +10,7 @@ import PanelTabPro from './panel-tab-pro';
 import { u } from 'gutenverse-core/components';
 import { dispatch, select } from '@wordpress/data';
 
-export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr }) => {
+export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef }) => {
     const { panelProps, isSelected, setAttributes } = props;
     const defaultPanelProps = {
         ...panelProps,
@@ -24,6 +24,7 @@ export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr
         panelProps={defaultPanelProps}
         isSelected={isSelected}
         deviceType={deviceType}
+        elementRef={elementRef}
         {...props}
     />;
 };

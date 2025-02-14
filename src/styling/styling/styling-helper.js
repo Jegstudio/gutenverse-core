@@ -338,6 +338,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 };
 
 export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) => {
+    if (!elementRef) {
+        console.warn('ElementRef is Missing!');
+    }
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];
@@ -354,7 +357,7 @@ export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) =>
         if (type === 'repeater') {
             let { repeaterOpt } = liveStyle;
             singleAttr.forEach((el, index) => {
-                const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile} = extractStyleFont(elementId, el, repeaterOpt[index]);
+                const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile } = extractStyleFont(elementId, el, repeaterOpt[index]);
 
                 deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
                 deviceTypeTablet = [...deviceTypeTablet, ...tablet];
@@ -364,6 +367,7 @@ export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) =>
     }
 
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
+
 
     let theWindow = getWindow(elementRef);
     let cssElement = theWindow.document.getElementById('gutenverse-temp-css');
