@@ -23,6 +23,7 @@ const panelArrowStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['arrowColor']) && data.push({
         'type': 'color',
         'id': 'arrowColor',
+        'responsive' : true,
         'selector': `.${elementId} div[class*='swiper-button-']`,
         'properties': [
             {
@@ -35,6 +36,7 @@ const panelArrowStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['arrowBgColor']) && data.push({
         'type': 'color',
         'id': 'arrowBgColor',
+        'responsive': true,
         'selector': `.${elementId} div[class*='swiper-button-']`,
         'properties': [
             {
@@ -84,10 +86,11 @@ const panelArrowStyle = (elementId, attributes, data) => {
         'selector': `.${elementId} div[class*='swiper-button-']`,
     });
 
-    isNotEmpty(attributes['arrowColorHover']) && data.push({
+    isNotEmpty(attributes['arrowHoverColor']) && data.push({
         'type': 'color',
-        'id': 'arrowColorHover',
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'id': 'arrowHoverColor',
+        'responsive': true,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
         'properties': [
             {
                 'name': 'color',
@@ -96,10 +99,11 @@ const panelArrowStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['arrowBgColorHover']) && data.push({
+    isNotEmpty(attributes['arrowHoverBgColor']) && data.push({
         'type': 'color',
-        'id': 'arrowBgColorHover',
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'id': 'arrowHoverBgColor',
+        'responsive': true,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
         'properties': [
             {
                 'name': 'background-color',
@@ -108,9 +112,9 @@ const panelArrowStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['arrowMarginHover']) && data.push({
+    isNotEmpty(attributes['arrowHoverMargin']) && data.push({
         'type': 'dimension',
-        'id': 'arrowMarginHover',
+        'id': 'arrowHoverMargin',
         'responsive': true,
         'properties': [
             {
@@ -118,12 +122,12 @@ const panelArrowStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
 
-    isNotEmpty(attributes['arrowPaddingHover']) && data.push({
+    isNotEmpty(attributes['arrowHoverPadding']) && data.push({
         'type': 'dimension',
-        'id': 'arrowPaddingHover',
+        'id': 'arrowHoverPadding',
         'responsive': true,
         'properties': [
             {
@@ -131,12 +135,12 @@ const panelArrowStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
 
-    isNotEmpty(attributes['arrowOpacityHover']) && data.push({
+    isNotEmpty(attributes['arrowHoverOpacity']) && data.push({
         'type': 'plain',
-        'id': 'arrowOpacityHover',
+        'id': 'arrowHoverOpacity',
         'responsive' : true,
         'properties': [
             {
@@ -145,7 +149,7 @@ const panelArrowStyle = (elementId, attributes, data) => {
                 'functionName' : 'handleOpacity'
             }
         ],
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
 
     isNotEmpty(attributes['arrowBorder']) && data.push({
@@ -175,13 +179,13 @@ const panelArrowStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['arrowBorderHover']) && data.push({
         'type': 'border',
         'id': 'arrowBorderHover',
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
 
     isNotEmpty(attributes['arrowBorderResponsiveHover']) && data.push({
         'type': 'borderResponsive',
         'id': 'arrowBorderResponsiveHover',
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
 
     isNotEmpty(attributes['arrowBoxShadowHover']) && data.push({
@@ -193,7 +197,7 @@ const panelArrowStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}:hover div[class*='swiper-button-']`,
+        'selector': `.${elementId} div[class*='swiper-button-']:hover`,
     });
     return data;
 };
