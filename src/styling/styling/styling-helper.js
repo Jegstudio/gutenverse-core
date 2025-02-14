@@ -376,11 +376,11 @@ export const updateLiveStyle = (elementId, singleAttr, liveStyle, elementRef) =>
 
     cssElement.innerHTML = generatedCSS;
 
-    // setTimeout(() => {
-    //     if (cssElement.parentNode) {
-    //         cssElement.parentNode.removeChild(cssElement);
-    //     }
-    // }, 1000);
+    setTimeout(() => {
+        if (cssElement.parentNode) {
+            cssElement.parentNode.removeChild(cssElement);
+        }
+    }, 1000);
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
