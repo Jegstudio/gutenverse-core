@@ -11,17 +11,17 @@ const cssGenerator = (attribute, style, css) => {
     }
 
     if (responsive) {
-        if (attribute['Desktop']) {
+        if (isNotEmpty(attribute['Desktop'])) {
             const value = multiProperty(attribute['Desktop'], style);
             if(isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
         }
 
-        if (attribute['Tablet']) {
+        if (isNotEmpty(attribute['Tablet'])) {
             const value = multiProperty(attribute['Tablet'], style);
             if(isNotEmpty(value)) css.Tablet += ` ${selector} { ${value} } `;
         }
 
-        if (attribute['Mobile']) {
+        if (isNotEmpty(attribute['Mobile'])) {
             const value = multiProperty(attribute['Mobile'], style);
             if(isNotEmpty(value)) css.Mobile += ` ${selector} { ${value} } `;
         }
