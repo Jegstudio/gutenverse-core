@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const layoutPanel = () => {
+export const layoutPanel = ({elementId}) => {
     const deviceType = getDeviceType();
 
     const minWidth = {
@@ -19,6 +19,23 @@ export const layoutPanel = () => {
             min: minWidth[deviceType],
             step: 0.1,
             allowDeviceControl: true,
+            liveStyle: {
+                'type': 'plain',
+                'responsive': true,
+                'selector': `.${elementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            }
         },
         {
             id: 'verticalAlign',

@@ -84,20 +84,20 @@ const SectionWrapper = (props) => {
 };
 
 const SectionInspection = (props) => {
-    const { clientId, panelProps, isSelected, attributes, setAttributes, setLocalAttr } = props;
+    const { clientId, panelProps, isSelected, attributes, setAttributes, elementRef } = props;
 
     const defaultPanelProps = {
         ...panelProps,
         ...attributes,
         clientId,
         setAttributes,
-        setLocalAttr
     };
 
     return <PanelController
         panelList={panelList}
         panelProps={defaultPanelProps}
         isSelected={isSelected}
+        elementRef={elementRef}
         {...props}
     />;
 };
@@ -189,9 +189,8 @@ const SectionBlock = compose(
     } = attributes;
 
     const elementRef = useRef();
-    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
@@ -247,7 +246,7 @@ const SectionBlock = compose(
             {...props}
             clientId={clientId}
         />
-        <SectionInspection {...props} setLocalAttr={setLocalAttr}/>
+        <SectionInspection {...props} elementRef={elementRef}/>
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>
                 {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}

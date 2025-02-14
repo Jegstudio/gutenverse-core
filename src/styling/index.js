@@ -42,6 +42,7 @@ export {
     headStyleSheet,
     skipDevice,
     handleFilterImage,
+    updateLiveStyle
 } from './styling/styling-helper';
 
 export { backgroundGenerator } from './styling/generator/generator-background';
