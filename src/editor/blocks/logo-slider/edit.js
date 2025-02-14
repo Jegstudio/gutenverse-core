@@ -4,7 +4,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -68,8 +68,6 @@ const LogoSlider = compose(
         loop,
         showNav,
         showArrow,
-        zoom,
-        zoomRatio,
         autoplay,
         autoplayTimeout
     });
@@ -93,8 +91,27 @@ const LogoSlider = compose(
         selectBlock(clientId);
     };
 
+    useEffect(() => {
+        setLiveAttr({
+            ...liveAttr,
+            loop,
+            showNav,
+            showArrow,
+            initialSlide,
+            autoplay,
+            autoplayTimeout
+        });
+    }, [
+        loop,
+        showNav,
+        showArrow,
+        initialSlide,
+        autoplay,
+        autoplayTimeout
+    ]);
+
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr} />
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
