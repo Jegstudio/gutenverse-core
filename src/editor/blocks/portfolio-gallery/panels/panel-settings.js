@@ -60,17 +60,17 @@ export const settingsPanel = (props) => {
                 {
                     selector: `.${elementId} .portfolio-gallery-container .content-items .row-item`,
                     allowRender: value => value,
-                    render: value => 'flex-direction: column-reverse;'
+                    render: () => 'flex-direction: column-reverse;'
                 },
                 {
                     selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper`,
                     allowRender: value => value,
-                    render: value => 'transform: translateY(-100%); '
+                    render: () => 'transform: translateY(-100%); '
                 },
                 {
                     selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-item-info::after`,
                     allowRender: value => value,
-                    render: value => 'transform-origin: 0 100%;'
+                    render: () => 'transform-origin: 0 100%;'
                 }
             ]
         },

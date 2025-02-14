@@ -114,7 +114,7 @@ const Accordions = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

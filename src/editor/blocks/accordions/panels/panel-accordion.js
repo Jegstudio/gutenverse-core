@@ -1,14 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelAccordion = (props) => {
     const {
-        elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        elementId
     } = props;
 
     const device = getDeviceType();
@@ -33,13 +31,7 @@ export const panelAccordion = (props) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .accordion-item, .guten-column .wp-block .${elementId} .accordion-item`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
+            }
         },
         {
             id: '__accBorderHover',
@@ -61,11 +53,10 @@ export const panelAccordion = (props) => {
             show: (!switcher.accBorder || switcher.accBorder === 'normal') && device === 'Desktop',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'selector': `.${elementId} .accordion-item`,
                 }
             ]
         },
@@ -75,11 +66,11 @@ export const panelAccordion = (props) => {
             label: __('Border Type', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId} .accordion-item`
                 }
             ]
         },
@@ -88,11 +79,10 @@ export const panelAccordion = (props) => {
             show: switcher.accBorder === 'active' && device === 'Desktop',
             label: __('Border Type', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item.active`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'selector': `.${elementId} .accordion-item.active`,
                 }
             ]
         },
@@ -102,11 +92,11 @@ export const panelAccordion = (props) => {
             label: __('Border Type', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item.active`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId} .accordion-item.active`,
                 }
             ]
         },
@@ -115,11 +105,16 @@ export const panelAccordion = (props) => {
             show: !switcher.accBorder || switcher.accBorder === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .accordion-item`,
                 }
             ]
         },
@@ -128,11 +123,16 @@ export const panelAccordion = (props) => {
             show: switcher.accBorder === 'active',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .accordion-item.active`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .accordion-item.active`,
                 }
             ]
         },
