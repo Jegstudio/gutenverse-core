@@ -338,6 +338,11 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 };
 
 export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef) => {
+    if (!elementRef) {
+        console.warn('ElementRef is Missing!');
+        return;
+    }
+
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];
