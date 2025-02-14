@@ -45,17 +45,17 @@ const HeadingBlockControl = (props) => {
 };
 
 const HeadingInspection = (props) => {
-    const { panelProps, isSelected, setAttributes, setLocalAttr } = props;
+    const { panelProps, isSelected, setAttributes, elementRef } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
         setAttributes,
-        setLocalAttr
     };
     return <PanelController
         panelList={panelList}
         panelProps={defaultPanelProps}
         isSelected={isSelected}
+        elementRef={elementRef}
         {...props}
     />;
 };
@@ -78,9 +78,8 @@ const HeadingBlock = compose(
     } = attributes;
 
     const elementRef = useRef(null);
-    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -95,7 +94,7 @@ const HeadingBlock = compose(
     });
 
     return <>
-        <HeadingInspection {...props} setLocalAttr={setLocalAttr}/>
+        <HeadingInspection {...props} elementRef={elementRef}/>
         <HeadingBlockControl {...props} />
         <span ref={elementRef} style={{ display: 'none' }}></span>
         <RichTextComponent
