@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 export const blurPanel = (props) => {
     const {
+        elementId,
         switcher,
         setSwitcher
     } = props;
@@ -38,6 +39,36 @@ export const blurPanel = (props) => {
             min: 0,
             max: 100,
             allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'blur',
+                    'responsive': true,
+                    'selector': `.guten-column.${elementId} .sticky-wrapper .guten-column-wrapper:before`,
+                    'properties': [
+                        {
+                            'name': '-webkit-backdrop-filter',
+                            'valueType': 'pattern',
+                            'pattern': 'blur({value}px)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        },
+                        {
+                            'name': 'backdrop-filter',
+                            'valueType': 'pattern',
+                            'pattern': 'blur({value}px)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'blurHover',
@@ -47,6 +78,36 @@ export const blurPanel = (props) => {
             min: 0,
             max: 100,
             allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'blur',
+                    'responsive': true,
+                    'selector': `.guten-column.${elementId} .sticky-wrapper .guten-column-wrapper:hover::before`,
+                    'properties': [
+                        {
+                            'name': '-webkit-backdrop-filter',
+                            'valueType': 'pattern',
+                            'pattern': 'blur({value}px)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        },
+                        {
+                            'name': 'backdrop-filter',
+                            'valueType': 'pattern',
+                            'pattern': 'blur({value}px)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                }
+            ]
         }
     ];
 };

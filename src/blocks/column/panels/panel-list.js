@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { layoutPanel } from './panel-layout';
 import { advancePanel, animationPanel, backgroundPanel, backgroundOverlayPanel, borderPanel, responsivePanel, typographyPanel, maskPanel, cursorEffectPanel, backgroundAnimatedPanel, advanceAnimationPanel, mouseMoveEffectPanel, pointerEventPanel, backgroundEffectPanel, conditionPanel } from 'gutenverse-core/controls';
+import { layoutPanel } from './panel-layout';
 import { stickyPanel } from './panel-sticky';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { blurPanel } from './panel-blur';
@@ -74,6 +74,23 @@ export const panelList = () => {
             panelArray: blurPanel,
             tabRole: TabStyle
         },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
+            tabRole: TabStyle
+        },
+        // {
+        //     title: __('Typography', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: (props) => typographyPanel({
+        //         ...props,
+        //         styleId: 'column-typography'
+        //     }),
+        //     tabRole: TabStyle
+        // },
+
+        // Pro
 
         // {
         //     title: __('Sticky', '--gctd--'),
@@ -98,26 +115,11 @@ export const panelList = () => {
         //     pro: true,
         // },
         // {
-        //     title: __('Pointer Event', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: pointerEventPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
         //     title: __('Mouse Move Effect', 'gutenverse'),
         //     initialOpen: false,
         //     panelArray: mouseMoveEffectPanel,
         //     tabRole: TabSetting,
         //     pro: true,
-        // },
-        // {
-        //     title: __('Typography', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => typographyPanel({
-        //         ...props,
-        //         styleId: 'column-typography'
-        //     }),
-        //     tabRole: TabStyle
         // },
         // {
         //     title: __('Background Animation', '--gctd--'),

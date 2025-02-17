@@ -185,7 +185,8 @@ const SectionBlock = compose(
         backgroundAnimated = {},
         cursorEffect,
         backgroundEffect,
-        background
+        background,
+        backgroundOverlay
     } = attributes;
 
     const elementRef = useRef();
@@ -256,7 +257,7 @@ const SectionBlock = compose(
                     {background?.slideImage?.length > 0 && slideElement}
                 </div></div>}
                 <SectionVideoContainer {...props} />
-                <div className="guten-background-overlay" />
+                {!isEmpty(backgroundOverlay) && <div className="guten-background-overlay" />}
                 <Component {...componentProps} />
             </section>
         </div>

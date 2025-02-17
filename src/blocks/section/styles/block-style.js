@@ -22,6 +22,169 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['wrapColumn']) && data.push({
+        'type': 'plain',
+        'id': 'wrapColumn',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'flex-wrap',
+                'valueType': 'pattern',
+                'pattern': 'wrap',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['wrapColumn']) && data.push({
+        'type': 'plain',
+        'id': 'wrapColumn',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container > .guten-column`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100vh',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'min' && data.push({
+        'type': 'unitPoint',
+        'id': 'height',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'min-height',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['verticalAlign']) && attributes['verticalAlign'] !== 'default' && data.push({
+        'type': 'plain',
+        'id': 'verticalAlign',
+        'selector': isNotEmpty(attributes['align']) && attributes['align'] === 'stretch' ?
+            `section.guten-element.${elementId} > .guten-container > .guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout` :
+            `section.guten-element.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'align-content',
+                'valueType': 'direct',
+            },
+            {
+                'name': 'align-items',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['clipMargin']) && isNotEmpty(attributes['overflow']) && 'clip' === attributes['overflow'] && data.push({
+        'type': 'unitPoint',
+        'id': 'clipMargin',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}`,
+        'properties': [
+            {
+                'name': 'overflow-clip-margin',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['blur']) && data.push({
+        'type': 'plain',
+        'id': 'blur',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}:before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['blurHover']) && data.push({
+        'type': 'plain',
+        'id': 'blurHover',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}:hover::before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['pointer']) && data.push({
+        'type': 'pointerEvent',
+        'id': 'pointer',
+        'selector': `.section-${elementId}`,
+        'responsive': true,
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',

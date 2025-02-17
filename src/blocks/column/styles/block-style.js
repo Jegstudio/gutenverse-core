@@ -142,6 +142,13 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['pointer']) && data.push({
+        'type': 'pointerEvent',
+        'id': 'pointer',
+        'selector': `.${elementId}`,
+        'responsive': true,
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
