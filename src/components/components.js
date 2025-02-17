@@ -1,4 +1,4 @@
-import { render } from '@wordpress/element';
+import { createRoot } from '@wordpress/element';
 import GlobalStyle from './global-style';
 import domReady from '@wordpress/dom-ready';
 import GutenverseLibrary from './library';
@@ -15,12 +15,13 @@ import './data/block';
 import './copy-style/copy-style';
 import './copy-style/paste-style';
 
+let gutenverseRoot = null;
+
 elementChange('#site-editor', () => {
     const library = document.getElementById('gutenverse-library-button');
-    // const globalStyle = document.getElementById('global-style-options');
 
     if (library === null) {
-        const content = applyFilters(
+        const Content = applyFilters(
             'gutenverse.site.editor.content',
             <>
                 <GlobalStyle />
@@ -29,7 +30,7 @@ elementChange('#site-editor', () => {
             null
         );
 
-        render(content, document.getElementById('gutenverse-root'));
+        gutenverseRoot.render(Content);
     }
 });
 
@@ -37,8 +38,9 @@ domReady(() => {
     autoRecovery();
     editorWarn();
 
-    if (document.getElementById('gutenverse-root')) {
-        const content = applyFilters(
+    const rootElement = document.getElementById('gutenverse-root');
+    if (rootElement) {
+        const Content = applyFilters(
             'gutenverse.site.editor.content',
             <>
                 <GlobalStyle />
@@ -46,7 +48,10 @@ domReady(() => {
             </>,
             null
         );
-        render(content, document.getElementById('gutenverse-root'));
+
+        gutenverseRoot = createRoot(rootElement);
+        gutenverseRoot.render(Content);
     }
 });
 
+export { gutenverseRoot };
