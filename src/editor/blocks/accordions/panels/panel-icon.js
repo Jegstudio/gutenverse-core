@@ -25,29 +25,6 @@ export const panelIcon = (props) => {
                     value: 'right'
                 },
             ],
-            liveStyle: [
-                isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) && iconPosition === 'left' && {
-                    'type': 'plain',
-                    'responsive': true,
-                    'id': 'iconPosition',
-                    'selector': `.${elementId} .accordion-item .accordion-icon`,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
-                    'multiAttr': {
-                        'iconSpacing': iconSpacing
-                    }
-                }
-            ]
         },
         {
             id: 'iconSpacing',
@@ -59,14 +36,14 @@ export const panelIcon = (props) => {
             allowDeviceControl: true,
             unit: 'px',
             liveStyle: [
-                isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) && iconPosition === 'left' && {
+                isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) &&  {
                     'type': 'plain',
                     'id': 'iconSpacing',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item .accordion-icon`,
                     'properties': [
                         {
-                            'name': 'margin-right',
+                            'name': iconPosition === 'left' ? 'margin-right' : 'margin-left',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {
@@ -76,9 +53,6 @@ export const panelIcon = (props) => {
                             }
                         }
                     ],
-                    'multiAttr': {
-                        'iconSpacing': iconSpacing
-                    }
                 }
             ]
         },

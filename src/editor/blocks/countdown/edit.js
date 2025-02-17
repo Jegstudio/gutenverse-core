@@ -117,7 +117,7 @@ const CountDownBlock = compose(
 
 
     return <>
-        <BlockPanelController panelList={panelList} props={props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div {...blockProps}>
             <div className="guten-countdown-wrapper">
                 {showDays && <>
