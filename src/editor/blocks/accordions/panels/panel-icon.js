@@ -29,6 +29,7 @@ export const panelIcon = (props) => {
                 isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) && iconPosition === 'left' && {
                     'type': 'plain',
                     'responsive': true,
+                    'id': 'iconPosition',
                     'selector': `.${elementId} .accordion-item .accordion-icon`,
                     'properties': [
                         {
@@ -60,6 +61,7 @@ export const panelIcon = (props) => {
             liveStyle: [
                 isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) && iconPosition === 'left' && {
                     'type': 'plain',
+                    'id': 'iconSpacing',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item .accordion-icon`,
                     'properties': [

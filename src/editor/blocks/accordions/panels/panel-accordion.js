@@ -55,6 +55,7 @@ export const panelAccordion = (props) => {
             component: BorderControl,
             liveStyle: [
                 {
+                    'id': 'accordionBorder',
                     'type': 'border',
                     'selector': `.${elementId} .accordion-item`,
                 }
@@ -68,6 +69,7 @@ export const panelAccordion = (props) => {
             allowDeviceControl: true,
             liveStyle: [
                 {
+                    'id': 'accordionBorderResponsive',
                     'type': 'borderResponsive',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item`
@@ -81,6 +83,7 @@ export const panelAccordion = (props) => {
             component: BorderControl,
             liveStyle: [
                 {
+                    'id': 'accordionBorderActive',
                     'type': 'border',
                     'selector': `.${elementId} .accordion-item.active`,
                 }
@@ -94,6 +97,7 @@ export const panelAccordion = (props) => {
             allowDeviceControl: true,
             liveStyle: [
                 {
+                    'id': 'accordionBorderActiveResponsive',
                     'type': 'borderResponsive',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item.active`,
@@ -107,6 +111,7 @@ export const panelAccordion = (props) => {
             component: BoxShadowControl,
             liveStyle: [
                 {
+                    'id': 'accordionBoxShadow',
                     'type': 'boxShadow',
                     'properties': [
                         {
@@ -125,6 +130,7 @@ export const panelAccordion = (props) => {
             component: BoxShadowControl,
             liveStyle: [
                 {
+                    'id': 'accordionBoxShadow',
                     'type': 'boxShadow',
                     'properties': [
                         {

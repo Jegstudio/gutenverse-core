@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, ColorControl, DimensionControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTextStroke, handleTypography } from 'gutenverse-core/styling';
 
 export const focusTitlePanel = (props) => {
     const {
@@ -12,14 +11,17 @@ export const focusTitlePanel = (props) => {
             id: 'focusColor',
             label: __('Focus Heading Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    render: value => handleColor(value, 'color')
-                },
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    render: value => handleColor(value, '-webkit-text-fill-color')
+                    'id': 'focusColor',
+                    'type': 'color',
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -27,23 +29,16 @@ export const focusTitlePanel = (props) => {
             id: 'focusTypography',
             label: __('Focus Heading Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'focusTextStroke',
             label: __('Focus Text Stroke', 'gutenverse'),
             component: TextStrokeControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    hasChild: true,
-                    render: value => handleTextStroke(value)
+                    'id': 'focusTextStroke',
+                    'type': 'textStroke',
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
                 }
             ]
         },
@@ -51,12 +46,13 @@ export const focusTitlePanel = (props) => {
             id: 'focusBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
-            style: [
+            options: ['default', 'gradient'],
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'focusBackground',
+                    'type': 'background',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
                 }
             ]
         },
@@ -84,12 +80,6 @@ export const focusTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'focusPadding',
@@ -115,12 +105,6 @@ export const focusTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-focus`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
     ];
 };

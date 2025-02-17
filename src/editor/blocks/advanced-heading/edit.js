@@ -38,7 +38,7 @@ const AdvancedHeadingBlock = compose(
         showLine,
     } = attributes;
 
-    const elementRef = useRef();
+    const elementRef = useRef(null);
     const focusTextRef = useRef();
     const textRef = useRef();
     const subTextRef = useRef();
@@ -92,7 +92,7 @@ const AdvancedHeadingBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}
             {showSub === 'top' && richTextContent(subText,SubTag,'heading-subtitle','subText')}

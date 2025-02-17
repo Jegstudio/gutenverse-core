@@ -83,6 +83,7 @@ export const panelIconStyle = (props) => {
             liveStyle: [
                 {
                     'type': 'plain',
+                    'id': 'iconSize',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item .accordion-icon`,
                     'properties': [
@@ -114,6 +115,7 @@ export const panelIconStyle = (props) => {
             liveStyle: [
                 {
                     'type': 'color',
+                    'id': 'iconColor',
                     'selector': `.${elementId} .accordion-item .accordion-icon i`,
                     'properties': [
                         {

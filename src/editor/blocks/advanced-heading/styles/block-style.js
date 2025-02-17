@@ -6,7 +6,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['focusColor']) && data.push({
         'type': 'color',
         'id': 'focusColor',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
         'properties': [
             {
                 'name': 'color',
@@ -18,20 +18,20 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['focusTypography']) && data.push({
         'type': 'typography',
         'id': 'focusTypography',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
     });
 
     isNotEmpty(attributes['focusTextStroke']) && data.push({
         'type': 'textStroke',
         'id': 'focusTextStroke',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
     });
 
     isNotEmpty(attributes['focusBackground']) && data.push({
         'type': 'background',
         'id': 'focusBackground',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
     });
 
     isNotEmpty(attributes['focusMargin']) && data.push({
@@ -44,7 +44,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
     });
 
     isNotEmpty(attributes['focusPadding']) && data.push({
@@ -57,14 +57,14 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-focus`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-focus`,
     });
 
     /**Panel Line */
     isNotEmpty(attributes['lineColor']) && data.push({
         'type': 'color',
         'id': 'lineColor',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
         'properties': [
             {
                 'name': 'border-color',
@@ -77,7 +77,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'lineWidth',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
         'properties': [
             {
                 'name': 'width',
@@ -107,11 +107,11 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
         'responsive': true,
     });
 
-    isNotEmpty(attributes['lineHeight']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
+    isNotEmpty(attributes['lineStyle']) && isNotEmpty(attributes['showLine']) && attributes['showLine'] !== 'none' && data.push({
         'type': 'plain',
         'id': 'lineStyle',
         'properties': [
@@ -120,7 +120,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-line`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
     });
 
     isNotEmpty(attributes['lineMargin']) && data.push({
@@ -133,14 +133,14 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading.guten-advanced-heading .heading-line`,
     });
 
     /**Panel Main Title*/
     isNotEmpty(attributes['mainColor']) && data.push({
         'type': 'color',
         'id': 'mainColor',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
         'properties': [
             {
                 'name': 'color',
@@ -152,20 +152,20 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['mainTypography']) && data.push({
         'type': 'typography',
         'id': 'mainTypography',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
     });
 
     isNotEmpty(attributes['mainTextStroke']) && data.push({
         'type': 'textStroke',
         'id': 'mainTextStroke',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
     });
 
     isNotEmpty(attributes['mainBackground']) && data.push({
         'type': 'background',
         'id': 'mainBackground',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
     });
 
     isNotEmpty(attributes['mainMargin']) && data.push({
@@ -178,7 +178,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
     });
 
     isNotEmpty(attributes['mainPadding']) && data.push({
@@ -191,14 +191,14 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-title`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-title`,
     });
 
     /**Panel Setting */
     isNotEmpty(attributes['alignText']) && data.push({
         'type': 'plain',
         'id': 'alignText',
-        'selector': `.${elementId}, .${elementId} .heading-section`,
+        'selector': `.${elementId}.guten-advanced-heading, .${elementId}.guten-advanced-heading .heading-section`,
         'properties': [
             {
                 'name': 'justify-content',
@@ -217,7 +217,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['subColor']) && data.push({
         'type': 'color',
         'id': 'subColor',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
         'properties': [
             {
                 'name': 'color',
@@ -229,20 +229,14 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['subTypography']) && data.push({
         'type': 'typography',
         'id': 'subTypography',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-    });
-
-    isNotEmpty(attributes['subTextStroke']) && data.push({
-        'type': 'textStroke',
-        'id': 'subTextStroke',
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
     });
 
     isNotEmpty(attributes['subBackground']) && data.push({
         'type': 'background',
         'id': 'subBackground',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
     });
 
     isNotEmpty(attributes['subMargin']) && data.push({
@@ -255,7 +249,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
     });
 
     isNotEmpty(attributes['subPadding']) && data.push({
@@ -268,7 +262,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .${elementId} .heading-subtitle`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
     });
 
     /**Panel List */

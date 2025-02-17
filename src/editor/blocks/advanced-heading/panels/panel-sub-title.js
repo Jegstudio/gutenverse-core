@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, ColorControl, DimensionControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const subTitlePanel = (props) => {
     const {
@@ -12,10 +11,17 @@ export const subTitlePanel = (props) => {
             id: 'subColor',
             label: __('Subtitle Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-                    render: value => handleColor(value, 'color')
+                    'id': 'subColor',
+                    'type': 'color',
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -23,24 +29,18 @@ export const subTitlePanel = (props) => {
             id: 'subTypography',
             label: __('Subtitle Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'subBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
-            style: [
+            options: ['default', 'gradient'],
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'subBackground',
+                    'type': 'background',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-subtitle`,
                 }
             ]
         },
@@ -68,12 +68,6 @@ export const subTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'subPadding',
@@ -99,12 +93,6 @@ export const subTitlePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .heading-subtitle`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
     ];
 };

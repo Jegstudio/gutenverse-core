@@ -120,6 +120,7 @@ export const panelTitle = (props) => {
             component: ColorControl,
             liveStyle: [
                 {
+                    'id': 'titleTextColor',
                     'type': 'color',
                     'selector': `.${elementId} .accordion-item .accordion-text`,
                     'properties': [
@@ -138,6 +139,7 @@ export const panelTitle = (props) => {
             component: ColorControl,
             liveStyle: [
                 {
+                    'id': 'titleBackgroundColor',
                     'type': 'color',
                     'selector': `.${elementId} .accordion-item .accordion-text`,
                     'properties': [
@@ -156,6 +158,7 @@ export const panelTitle = (props) => {
             component: BorderControl,
             liveStyle: [
                 {
+                    'id': 'titleBorder',
                     'type': 'border',
                     'selector': `.${elementId} .accordion-item .accordion-text`,
                 }
@@ -169,6 +172,7 @@ export const panelTitle = (props) => {
             allowDeviceControl: true,
             liveStyle: [
                 {
+                    'id': 'titleBorderResponsive',
                     'type': 'borderResponsive',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item .accordion-text`,
@@ -182,6 +186,7 @@ export const panelTitle = (props) => {
             component: ColorControl,
             liveStyle: [
                 {
+                    'id': 'titleActiveColor',
                     'type': 'color',
                     'selector': `.${elementId} .accordion-item.active .accordion-text`,
                     'properties': [
@@ -200,6 +205,7 @@ export const panelTitle = (props) => {
             component: ColorControl,
             liveStyle: [
                 {
+                    'id': 'titleBackgroundActiveColor',
                     'type': 'color',
                     'selector': `.${elementId} .accordion-item.active .accordion-text`,
                     'properties': [
@@ -218,6 +224,7 @@ export const panelTitle = (props) => {
             component: BorderControl,
             liveStyle: [
                 {
+                    'id': 'titleBorderActive',
                     'type': 'border',
                     'selector': `.${elementId} .accordion-item.active .accordion-text`,
                 }
@@ -231,6 +238,7 @@ export const panelTitle = (props) => {
             allowDeviceControl: true,
             liveStyle: [
                 {
+                    'id': 'titleBorderActiveResponsive',
                     'type': 'borderResponsive',
                     'responsive': true,
                     'selector': `.${elementId} .accordion-item.active .accordion-text`,

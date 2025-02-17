@@ -48,6 +48,7 @@ export const panelBody = (props) => {
             component: ColorControl,
             liveStyle: [
                 {
+                    'id': 'contentTextColor',
                     'type': 'color',
                     'selector': `.${elementId} .accordion-item .accordion-content`,
                     'properties': [
