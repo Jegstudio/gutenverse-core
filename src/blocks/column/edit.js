@@ -1110,54 +1110,31 @@ const ColumnBlock = compose(
     const onMouseEnter = useCallback(() => setIsHovered(true), []);
     const onMouseLeave = useCallback(() => setIsHovered(false), []);
 
-    const blockProps = useMemo(() => {
-        const props = useBlockProps({
-            className: classnames(
-                'guten-element',
-                'guten-column',
-                'no-margin',
-                elementId,
-                animationClass,
-                displayClass,
-                stickyClasses,
-                delayedDeviceType.toLowerCase(),
-                ...vertical,
-                ...horizontal,
-                {
-                    'column-empty': !hasChildBlocks,
-                    'column-filled': hasChildBlocks,
-                    [`sticky-${stickyPosition}`]: isSticky(sticky),
-                    'is-hovered': isHovered,
-                    'background-animated': isAnimationActive(backgroundAnimated),
-                    'guten-background-effect-active': isBackgroundEffect,
-                }
-            ),
-            ref: elementRef,
-            onMouseEnter,
-            onMouseLeave,
-        });
-
-        // Explicitly set `style` to `null` if it's an empty object
-        if (props.style && Object.keys(props.style).length === 0) {
-            props.style = null;
-        }
-
-        return props;
-    }, [
-        elementId,
-        animationClass,
-        displayClass,
-        stickyClasses,
-        delayedDeviceType,
-        vertical,
-        horizontal,
-        hasChildBlocks,
-        stickyPosition,
-        sticky,
-        isHovered,
-        backgroundAnimated,
-        isBackgroundEffect
-    ]);
+    const blockProps = useBlockProps({
+        className: classnames(
+            'guten-element',
+            'guten-column',
+            'no-margin',
+            elementId,
+            animationClass,
+            displayClass,
+            stickyClasses,
+            delayedDeviceType.toLowerCase(),
+            ...vertical,
+            ...horizontal,
+            {
+                'column-empty': !hasChildBlocks,
+                'column-filled': hasChildBlocks,
+                [`sticky-${stickyPosition}`]: isSticky(sticky),
+                'is-hovered': isHovered,
+                'background-animated': isAnimationActive(backgroundAnimated),
+                'guten-background-effect-active': isBackgroundEffect,
+            }
+        ),
+        ref: elementRef,
+        onMouseEnter,
+        onMouseLeave,
+    });
 
     const theProps = {
         ...props,
