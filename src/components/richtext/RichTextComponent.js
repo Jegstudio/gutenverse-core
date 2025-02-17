@@ -17,7 +17,6 @@ const RichTextComponent = (props) => {
         isOnSplit = false,
         ariaLabel,
         onChange,
-        ref,
         classNames = '',
         isBlockProps = false,
         isUseDinamic = false,
@@ -105,7 +104,6 @@ const RichTextComponent = (props) => {
                 multiline={multiline}
                 aria-label={ariaLabel}
                 className={classNames}
-                ref={ref}
                 onChange={value => handleOnChange(value)}
             />;
         }
