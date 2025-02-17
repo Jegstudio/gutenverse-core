@@ -16,6 +16,7 @@ const TextStrokeControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
+    onLocalChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -78,11 +79,13 @@ const TextStrokeControl = ({
                 label={__('Stroke Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
+                onLocalChange={color => onLocalChange({ ...value, color })}
             />
             <SizeControl
                 label={__('Stroke Width', '--gctd--')}
                 value={value.width}
                 onValueChange={width => onValueChange({ ...value, width })}
+                onLocalChange={width => onLocalChange({ ...value, width })}
                 units={{
                     px: {
                         text: 'px',
