@@ -50,14 +50,14 @@ const toolResize = (props) => {
         setAttributes,
         attributes,
         newWidth,
-        addStyle,
         position,
         clientId,
         getNextBlockClientId,
         getPreviousBlockClientId,
         getBlock,
         updateBlockAttributes,
-        deviceType
+        deviceType,
+        elementRef
     } = props;
 
     let targetId = '';
@@ -95,10 +95,33 @@ const toolResize = (props) => {
         }
 
         deviceCache[deviceType] = nWidth;
-        // addStyle(
-        //     'column-width',
-        //     BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-        // );
+        updateLiveStyle(
+            elementId,
+            {
+                deviceCache
+            },
+            [
+                {
+                    'type': 'plain',
+                    'id': 'deviceCache',
+                    'responsive': true,
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                },
+            ],
+            elementRef
+        );
         setAttributes({ width: { ...props.attributes.width, [deviceType]: nWidth } });
         return;
     }
@@ -141,18 +164,57 @@ const toolResize = (props) => {
     let deviceCache = width;
     deviceCache[deviceType] = parseFloat(newCurentWidth);
 
-    // addStyle(
-    //     'column-width',
-    //     BuildColumnWidthStyle(deviceCache, `.${elementId}`)
-    // );
-
     if (targetColumnStyle && deviceType === 'Desktop') {
         targetWidth[deviceType] = newTargetWidth;
-        // targetColumnStyle(
-        //     'column-width',
-        //     `.guten-column.${targetColumnElementId} { width: ${newTargetWidth}%; }`
-        // );
     }
+
+    updateLiveStyle(
+        elementId,
+        {
+            deviceCache,
+            targetWidth
+        },
+        [
+            {
+                'type': 'plain',
+                'id': 'deviceCache',
+                'responsive': true,
+                'selector': `.${elementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            },
+            {
+                'type': 'plain',
+                'id': 'targetWidth',
+                'responsive': true,
+                'selector': `.${targetColumnElementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            },
+        ],
+        elementRef
+    );
+
     const newWidths = {
         current: newCurentWidth,
         target: newTargetWidth
@@ -340,13 +402,12 @@ const onResize = (props, off) => {
         elementRef
     );
 
-    // setNewWidth({
-    //     current: calcCurentModPercent,
-    //     target: calcTargetModPercent,
-    //     targetColumnStyle,
-    //     targetColumnElementId,
-    //     targetWidth
-    // });
+    setNewWidth({
+        current: calcCurentModPercent,
+        target: calcTargetModPercent,
+        targetColumnElementId,
+        targetWidth
+    });
 };
 
 const onResizeStop = (props) => {
@@ -374,14 +435,8 @@ const onResizeStop = (props) => {
         setOpenTool(false);
     }
 
-
-    if (newWidth.current && newWidth.target && newWidth.targetStyle) {
-        // Update style again to avoid missmatch with width style
+    if (newWidth.current && newWidth.target) {
         newWidth.targetWidth[deviceType] = newWidth.target;
-        newWidth.targetColumnStyle(
-            'column-width',
-            `.guten-column.${newWidth.target} { width: ${newWidth.target}%; }`
-        );
         const nextColumnWidthAttr = getBlock(targetId).attributes.width;
 
         setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
@@ -954,48 +1009,48 @@ const ColumnBlock = compose(
         }
     }, [clientId]);
 
-    // const getChildTotalWidth = () => {
-    //     let total = 0;
+    const getChildTotalWidth = () => {
+        let total = 0;
 
-    //     getBlocks(rootClientId).map(item => {
-    //         const { name, attributes } = item;
+        getBlocks(rootClientId).map(item => {
+            const { name, attributes } = item;
 
-    //         if (name === 'gutenverse/column') {
-    //             const { width } = attributes;
-    //             let Desktop = 0;
+            if (name === 'gutenverse/column') {
+                const { width } = attributes;
+                let Desktop = 0;
 
-    //             if (width !== undefined) {
-    //                 Desktop = width.Desktop;
-    //             } else {
-    //                 Desktop = 100;
-    //             }
+                if (width !== undefined) {
+                    Desktop = width.Desktop;
+                } else {
+                    Desktop = 100;
+                }
 
-    //             if (isNaN(Desktop)) {
-    //                 Desktop = 5;
-    //             }
+                if (isNaN(Desktop)) {
+                    Desktop = 5;
+                }
 
-    //             total += Desktop;
-    //         }
-    //     });
+                total += Desktop;
+            }
+        });
 
-    //     return total;
-    // };
+        return total;
+    };
 
-    // useEffect(() => {
-    //     const eachWidth = roundToDown(100 / adjacentCount, 1);
-    //     if (!prevAdjacentCount) {
-    //         if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
-    //             // setAttributes({ width: { ...width, [deviceType]: eachWidth } });
-    //         }
-    //         setPrevAdjacentCount(getBlocks(rootClientId).length);
-    //     } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
-    //         const innerBlocks = getBlocks(rootClientId);
-    //         setPrevAdjacentCount(adjacentCount);
-    //         innerBlocks.map(item => {
-    //             updateBlockWidth(item.clientId, eachWidth);
-    //         });
-    //     }
-    // }, [adjacentCount]);
+    useEffect(() => {
+        const eachWidth = roundToDown(100 / adjacentCount, 1);
+        if (!prevAdjacentCount) {
+            if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
+                setAttributes({ width: { ...width, [deviceType]: eachWidth } });
+            }
+            setPrevAdjacentCount(getBlocks(rootClientId).length);
+        } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
+            const innerBlocks = getBlocks(rootClientId);
+            setPrevAdjacentCount(adjacentCount);
+            innerBlocks.map(item => {
+                updateBlockWidth(item.clientId, eachWidth);
+            });
+        }
+    }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
     const horizontal = setDeviceClasses(horizontalAlign, 'horizontal');
@@ -1055,54 +1110,31 @@ const ColumnBlock = compose(
     const onMouseEnter = useCallback(() => setIsHovered(true), []);
     const onMouseLeave = useCallback(() => setIsHovered(false), []);
 
-    const blockProps = useMemo(() => {
-        const props = useBlockProps({
-            className: classnames(
-                'guten-element',
-                'guten-column',
-                'no-margin',
-                elementId,
-                animationClass,
-                displayClass,
-                stickyClasses,
-                delayedDeviceType.toLowerCase(),
-                ...vertical,
-                ...horizontal,
-                {
-                    'column-empty': !hasChildBlocks,
-                    'column-filled': hasChildBlocks,
-                    [`sticky-${stickyPosition}`]: isSticky(sticky),
-                    'is-hovered': isHovered,
-                    'background-animated': isAnimationActive(backgroundAnimated),
-                    'guten-background-effect-active': isBackgroundEffect,
-                }
-            ),
-            ref: elementRef,
-            onMouseEnter,
-            onMouseLeave,
-        });
-
-        // Explicitly set `style` to `null` if it's an empty object
-        if (props.style && Object.keys(props.style).length === 0) {
-            props.style = null;
-        }
-
-        return props;
-    }, [
-        elementId,
-        animationClass,
-        displayClass,
-        stickyClasses,
-        delayedDeviceType,
-        vertical,
-        horizontal,
-        hasChildBlocks,
-        stickyPosition,
-        sticky,
-        isHovered,
-        backgroundAnimated,
-        isBackgroundEffect
-    ]);
+    const blockProps = useBlockProps({
+        className: classnames(
+            'guten-element',
+            'guten-column',
+            'no-margin',
+            elementId,
+            animationClass,
+            displayClass,
+            stickyClasses,
+            delayedDeviceType.toLowerCase(),
+            ...vertical,
+            ...horizontal,
+            {
+                'column-empty': !hasChildBlocks,
+                'column-filled': hasChildBlocks,
+                [`sticky-${stickyPosition}`]: isSticky(sticky),
+                'is-hovered': isHovered,
+                'background-animated': isAnimationActive(backgroundAnimated),
+                'guten-background-effect-active': isBackgroundEffect,
+            }
+        ),
+        ref: elementRef,
+        onMouseEnter,
+        onMouseLeave,
+    });
 
     const theProps = {
         ...props,
