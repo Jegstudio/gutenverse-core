@@ -80,15 +80,15 @@ export const panelList = () => {
             panelArray: pointerEventPanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Typography', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => typographyPanel({
-        //         ...props,
-        //         styleId: 'column-typography'
-        //     }),
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Typography', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => typographyPanel({
+                ...props,
+                styleId: 'column-typography'
+            }),
+            tabRole: TabStyle
+        },
 
         // Pro
 
