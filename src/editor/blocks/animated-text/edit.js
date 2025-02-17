@@ -89,7 +89,7 @@ const AnimatedTextBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             {loadAnimatedtext()}
         </div>
