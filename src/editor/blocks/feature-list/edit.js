@@ -72,7 +72,7 @@ const FeatureListBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} />
+        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType}  elementRef={elementRef}/>
         <div  {...blockProps}>
             <div className="feature-list-wrapper">
                 {

@@ -4,7 +4,8 @@ import { ColorControl, SelectControl, SwitchControl, TypographyControl } from 'g
 export const contentPanel = (props) => {
     const {
         switcher,
-        setSwitcher
+        setSwitcher,
+        elementId
     } = props;
     return [
         {
@@ -56,24 +57,76 @@ export const contentPanel = (props) => {
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.colorSwitch === 'normal' || !switcher.colorSwitch,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'titleColor',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .feature-list-content .feature-list-title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'descColor',
             label: __('Description Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.colorSwitch === 'normal' || !switcher.colorSwitch,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'descColor',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .feature-list-content .feature-list-desc`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'titleColorHover',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.colorSwitch === 'hover',
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'titleColorHover',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .feature-list-content .feature-list-title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'descColorHover',
             label: __('Description Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.colorSwitch === 'hover',
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'descColorHover',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .feature-list-content .feature-list-desc`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                },
+            ]
         },
     ];
 };

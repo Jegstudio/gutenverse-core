@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { AlertControl, ColorControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
 
 export const connectorPanel = (props) => {
     const {
@@ -38,22 +37,23 @@ export const connectorPanel = (props) => {
                     value: 'double'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
-                    render: value => `border-style: ${value};`
-                }
-            ]
         },
         {
             id: 'connectorColor',
             label: __('Connector Color', 'gutenverse'),
             component: ColorControl,
             show: showConnector,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
-                    render: value => handleColor(value, 'border-color')
+                    'type': 'color',
+                    'id': 'connectorColor',
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+                    'properties': [
+                        {
+                            'name': 'border-color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -63,15 +63,43 @@ export const connectorPanel = (props) => {
             component: RangeControl,
             show: showConnector,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
-                    render: value => `border-width : ${value}px;`
+                    'type': 'plain',
+                    'id': 'connectorWidth',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .connector`,
+                    'properties': [
+                        {
+                            'name': 'border-width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId}.guten-feature-list`,
-                    render: value => `--connector-width: ${value}px;`
-                },
+                    'type': 'plain',
+                    'id': 'connectorWidth',
+                    'selector': `.${elementId}.guten-feature-list`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': '--connector-width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
             ]
         }
     ];

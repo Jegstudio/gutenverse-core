@@ -78,32 +78,6 @@ export const settingsPanel = (props) => {
                     label: 'Rhombus'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .icon-wrapper .icon`,
-                    render: (value) => {
-                        switch (value) {
-                            case 'rhombus':
-                                return 'transform: rotate(45deg);';
-                            case 'square':
-                            default:
-                                return 'transform: rotate(0deg);';
-                        }
-                    },
-                },
-                {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .icon-wrapper .icon > *`,
-                    render: (value) => {
-                        switch (value) {
-                            case 'rhombus':
-                                return 'transform: rotate(-45deg);';
-                            case 'square':
-                            default:
-                                return 'transform: rotate(0deg);';
-                        }
-                    },
-                },
-            ],
         },
         {
             id: 'iconPosition',
@@ -133,15 +107,43 @@ export const settingsPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper`,
-                    render: value => `gap:${value}px;`
+                    'type': 'plain',
+                    'id': 'listSpace',
+                    'selector': `.${elementId}.guten-feature-list`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': '--space-between',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId}.guten-feature-list`,
-                    render: value => `--space-between: ${value}px;`
-                },
+                    'type': 'plain',
+                    'id': 'listSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        },
+                    ]
+                }
             ]
         },
     ];

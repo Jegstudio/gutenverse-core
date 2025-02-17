@@ -602,7 +602,7 @@ const getBlockStyle = (elementId, attributes) => {
     return data;
 };
 
-const featureListGetBlockStyle = (elementId, attribute) => {
+export const featureListGetBlockStyle = (elementId, attribute) => {
     return attribute.map((el, index) => {
         let arrOpt = [];
         isNotEmpty(el['iconSize']) && arrOpt.push({

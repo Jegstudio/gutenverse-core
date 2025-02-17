@@ -146,7 +146,7 @@ const DividerBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         {content === 'icon' && <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton
