@@ -45,12 +45,10 @@ export const renderValue = (type, attribute) => {
             return boxShadowCSS(attribute);
         case 'color':
             return getColor(attribute);
-        case 'plain':
-            return attribute;
         case 'textShadow':
             return textShadowCSS(attribute);
         case 'textStroke':
-            return attribute;
+        case 'plain':
         default:
             return attribute;
     }
