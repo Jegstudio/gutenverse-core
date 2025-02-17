@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, ColorControl, DimensionControl, HeadingControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const categoryPanel = (props) => {
     const {
@@ -12,24 +11,24 @@ export const categoryPanel = (props) => {
             id: 'categoryColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'categoryColor',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'categoryTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'submenuSplitter',
@@ -40,12 +39,12 @@ export const categoryPanel = (props) => {
             id: 'categoryBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
-            style: [
+            options: ['default', 'gradient'],
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'categoryBackground',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
                 }
             ]
         },
@@ -74,12 +73,6 @@ export const categoryPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'categoryMargin',
@@ -101,12 +94,6 @@ export const categoryPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'categoryBorderRadius',
@@ -127,13 +114,7 @@ export const categoryPanel = (props) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-category span`,
-                    render: value => handleDimension(value, 'border-radius', false)
-                }
-            ]
+            }
         },
     ];
 };

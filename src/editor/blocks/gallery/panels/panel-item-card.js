@@ -3,7 +3,6 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemCardPanel = (props) => {
     const {
@@ -28,11 +27,11 @@ export const itemCardPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'itemCardBackground',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
                 }
             ]
         },
@@ -56,23 +55,17 @@ export const itemCardPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'itemCardBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'itemCardBorder',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
                 }
             ]
         },
@@ -82,11 +75,11 @@ export const itemCardPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'itemCardBorderResponsive',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
                 }
             ]
         },
@@ -111,12 +104,6 @@ export const itemCardPanel = (props) => {
                     value: 'right',
                     icon: <AlignRight />,
                 },
-            ],
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card`,
-                    render: value => `text-align: ${value};`
-                }
             ]
         },
         {
@@ -128,35 +115,42 @@ export const itemCardPanel = (props) => {
             id: 'itemCardTitleColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'itemCardTitleColor',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'itemCardTitleColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card:hover .item-caption-over .item-title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'itemCardTitleColorHover',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card:hover .item-caption-over .item-title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'itemCardTitleTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'itemCardTitleMargin',
@@ -178,12 +172,6 @@ export const itemCardPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'itemCardTitlePadding',
@@ -205,12 +193,6 @@ export const itemCardPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-title`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'submenuSplitter3',
@@ -221,35 +203,42 @@ export const itemCardPanel = (props) => {
             id: 'itemCardContentColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'itemCardContentColor',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'itemCardContentColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card:hover .item-caption-over .item-content`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'itemCardContentColorHover',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card:hover .item-caption-over .item-content`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'itemCardContentTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'itemCardContentMargin',
@@ -270,13 +259,7 @@ export const itemCardPanel = (props) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
+            }
         },
         {
             id: 'itemCardContentPadding',
@@ -297,13 +280,7 @@ export const itemCardPanel = (props) => {
                     text: '%',
                     unit: '%'
                 },
-            },
-            style: [
-                {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-card .item-caption-over .item-content`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
+            }
         },
     ];
 };

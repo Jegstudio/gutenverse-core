@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const loadMoreStylePanel = (props) => {
     const {
@@ -23,10 +21,24 @@ export const loadMoreStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items`,
-                    render: value => `margin-top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'loadMoreMarginTop',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-gallery .load-more-items`,
                 }
             ]
         },
@@ -39,10 +51,24 @@ export const loadMoreStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .load-more-icon`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'loadMoreIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .load-more-items .load-more-icon`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -55,28 +81,49 @@ export const loadMoreStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .load-more-icon.icon-position-before`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'loadMoreIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .load-more-items .load-more-icon.icon-position-before`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId} .load-more-items .load-more-icon.icon-position-after`,
-                    render: value => `margin-left: ${value}px;`
-                },
+                    'type': 'plain',
+                    'id': 'loadMoreIconSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .load-more-items .load-more-icon.icon-position-after`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
             ]
         },
         {
             id: 'loadMoreTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'loadMorePadding',
@@ -98,22 +145,22 @@ export const loadMoreStylePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'loadMoreBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'loadMoreBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more`,
                 }
             ]
         },
@@ -138,10 +185,18 @@ export const loadMoreStylePanel = (props) => {
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'loadMoreTextColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -151,10 +206,18 @@ export const loadMoreStylePanel = (props) => {
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'loadMoreTextColorHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more:hover`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -165,11 +228,11 @@ export const loadMoreStylePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'loadMoreBackground',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more`,
                 }
             ]
         },
@@ -180,11 +243,11 @@ export const loadMoreStylePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'loadMoreBackgroundHover',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more:hover`,
                 }
             ]
         },
@@ -193,11 +256,11 @@ export const loadMoreStylePanel = (props) => {
             show: (!switcher.loadHover || switcher.loadHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'loadMoreBorder',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more`,
                 }
             ]
         },
@@ -207,11 +270,11 @@ export const loadMoreStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'loadMoreBorderResponsive',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more`,
                 }
             ]
         },
@@ -220,11 +283,11 @@ export const loadMoreStylePanel = (props) => {
             show: switcher.loadHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'loadMoreBorderHover',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more:hover`,
                 }
             ]
         },
@@ -234,11 +297,11 @@ export const loadMoreStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .load-more-items .guten-gallery-load-more:hover`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'loadMoreBorderResponsiveHover',
+                    'selector': `.${elementId}.guten-gallery .load-more-items .guten-gallery-load-more:hover`,
                 }
             ]
         },

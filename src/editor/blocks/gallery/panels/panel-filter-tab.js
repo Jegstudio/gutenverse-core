@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { AlertControl, BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const filterTabPanel = (props) => {
     const {
@@ -14,7 +12,7 @@ export const filterTabPanel = (props) => {
 
     const device = getDeviceType();
 
-    if(filterType !== 'tab') return [
+    if (filterType !== 'tab') return [
         {
             id: 'divider-notice',
             component: AlertControl,
@@ -45,12 +43,6 @@ export const filterTabPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'filterTabMargin',
@@ -72,24 +64,11 @@ export const filterTabPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'filterTabTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: '__filterTab',
@@ -112,10 +91,18 @@ export const filterTabPanel = (props) => {
             label: __('General Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'filterTabTextColor',
+                    'responsive': true,
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -125,10 +112,18 @@ export const filterTabPanel = (props) => {
             label: __('Active Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'filterTabTextColorActive',
+                    'responsive': true,
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control.active`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -139,11 +134,11 @@ export const filterTabPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'filterTabBackground',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control`,
                 }
             ]
         },
@@ -154,11 +149,11 @@ export const filterTabPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'filterTabBackgroundActive',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control.active`,
                 }
             ]
         },
@@ -167,11 +162,11 @@ export const filterTabPanel = (props) => {
             show: (!switcher.filterTab || switcher.filterTab === 'general') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'filterTabBorder',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control`,
                 }
             ]
         },
@@ -181,11 +176,11 @@ export const filterTabPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'filterTabBorderResponsive',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control`,
                 }
             ]
         },
@@ -194,11 +189,11 @@ export const filterTabPanel = (props) => {
             show: switcher.filterTab === 'active' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'filterTabBorderActive',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control.active`,
                 }
             ]
         },
@@ -208,11 +203,11 @@ export const filterTabPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'filterTabBorderResponsiveActive',
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control.active`,
                 }
             ]
         },
@@ -221,11 +216,17 @@ export const filterTabPanel = (props) => {
             show: !switcher.filterTab || switcher.filterTab === 'general',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'filterTabBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control`,
                 }
             ]
         },
@@ -234,11 +235,17 @@ export const filterTabPanel = (props) => {
             show: switcher.filterTab === 'active',
             label: __('Active Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .filter-controls .guten-gallery-control.active`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'filterTabBoxShadowActive',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .filter-controls .guten-gallery-control.active`,
                 }
             ]
         },

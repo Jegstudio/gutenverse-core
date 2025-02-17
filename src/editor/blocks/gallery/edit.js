@@ -162,7 +162,7 @@ const GalleryBlock = compose(
     }, [showed, showedItems, grid, height, column, layout]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         {showPopup && createPortal(<GalleryPopup activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (

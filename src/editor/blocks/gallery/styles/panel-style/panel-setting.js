@@ -22,6 +22,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['height']) && attributes['grid'] === 'grid' && data.push({
         'type': 'plain',
         'id': 'height',
+        'responsive': true,
         'selector': `.${elementId}:not([data-grid="masonry"]) .gallery-items .gallery-item-wrap .thumbnail-wrap`,
         'properties': [
             {

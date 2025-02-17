@@ -5,7 +5,6 @@ import { CheckboxControl, IconControl, IconRadioControl, RangeControl, SelectCon
 
 export const loadMorePanel = (props) => {
     const {
-        elementId,
         enableLoadMore
     } = props;
 
@@ -76,13 +75,6 @@ export const loadMorePanel = (props) => {
                     icon: <AlignRight/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .load-more-items`,
-                    allowRender: () => enableLoadMore,
-                    render: value => `justify-content: ${value};`
-                }
-            ]
         },
     ];
 };
