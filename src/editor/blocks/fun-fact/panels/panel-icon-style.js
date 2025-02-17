@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconStylePanel = (props) => {
     const {
@@ -22,10 +21,24 @@ export const iconStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -38,10 +51,24 @@ export const iconStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'deg',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => `transform: rotate(${value}deg);`
+                    'type': 'plain',
+                    'id': 'iconRotate',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
+                    'properties': [
+                        {
+                            'name': 'transform',
+                            'valueType': 'pattern',
+                            'pattern': 'rotate({value}deg)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -65,12 +92,6 @@ export const iconStylePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'iconMargin',
@@ -92,12 +113,6 @@ export const iconStylePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: '__iconHover',
@@ -120,10 +135,18 @@ export const iconStylePanel = (props) => {
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -133,10 +156,18 @@ export const iconStylePanel = (props) => {
             label: __('Normal Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'iconBgColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -145,11 +176,11 @@ export const iconStylePanel = (props) => {
             show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorder',
+                    'selector': `.${elementId} .fun-fact-inner .icon`,
                 }
             ]
         },
@@ -159,11 +190,11 @@ export const iconStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .icon`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'iconBorderResponsive',
+                    'selector': `.${elementId} .fun-fact-inner .icon`,
                 }
             ]
         },
@@ -173,10 +204,18 @@ export const iconStylePanel = (props) => {
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconColorHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -186,10 +225,18 @@ export const iconStylePanel = (props) => {
             label: __('Hover Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'iconBgColorHover',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -198,11 +245,11 @@ export const iconStylePanel = (props) => {
             show: switcher.iconStyle === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorderHover',
+                    'selector': `.${elementId} .fun-fact-inner:hover .icon`,
                 }
             ]
         },
@@ -212,11 +259,11 @@ export const iconStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'iconBorderHoverResponsive',
+                    'selector': `.${elementId} .fun-fact-inner:hover .icon`,
                 }
             ]
         }

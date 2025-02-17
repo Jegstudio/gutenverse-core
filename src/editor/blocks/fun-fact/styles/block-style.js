@@ -1,8 +1,6 @@
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    const device = getDeviceType();
     /**Panel Content Style */
     isNotEmpty(attributes['numberColor']) && data.push({
         'type': 'color',
@@ -11,8 +9,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -24,8 +22,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .title`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -33,7 +31,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['titleTypography']) && data.push({
         'type': 'typography',
         'id': 'titleTypography',
-        'selector':  `.${elementId}.guten-fun-fact .fun-fact-inner .content .title`,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .title`,
     });
 
     isNotEmpty(attributes['titleBottomSpace']) && data.push({
@@ -43,12 +41,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .title `,
         'properties': [
             {
-                'name' : 'margin-bottom',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
+                'name': 'margin-bottom',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -58,7 +56,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['numberTypography']) && data.push({
         'type': 'typography',
         'id': 'numberTypography',
-        'selector':  `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper`,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper`,
     });
 
     isNotEmpty(attributes['numberBottomSpace']) && data.push({
@@ -68,12 +66,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
         'properties': [
             {
-                'name' : 'margin-bottom',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
+                'name': 'margin-bottom',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -87,12 +85,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
         'properties': [
             {
-                'name' : 'margin-right',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
+                'name': 'margin-right',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -120,8 +118,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact`,
         'properties': [
             {
-                'name' : 'text-align',
-                'valueType' : 'direct',
+                'name': 'text-align',
+                'valueType': 'direct',
             }
         ]
     });
@@ -132,8 +130,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .border-bottom .animated`,
         'properties': [
             {
-                'name' : 'background-color',
-                'valueType' : 'direct',
+                'name': 'background-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -147,12 +145,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
         'properties': [
             {
-                'name' : 'font-size',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -166,12 +164,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
         'properties': [
             {
-                'name' : 'transform',
-                'valueType' : 'pattern',
-                'pattern' : 'rotate({value}deg)',
+                'name': 'transform',
+                'valueType': 'pattern',
+                'pattern': 'rotate({value}deg)',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -185,8 +183,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'direct',
+                'name': 'margin',
+                'valueType': 'direct',
             }
         ]
     });
@@ -198,8 +196,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'direct'
+                'name': 'padding',
+                'valueType': 'direct'
             }
         ]
     });
@@ -207,12 +205,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconColor']) && data.push({
         'type': 'color',
         'id': 'iconColor',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -220,12 +218,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconBgColor']) && data.push({
         'type': 'color',
         'id': 'iconBgColor',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
         'properties': [
             {
-                'name' : 'background-color',
-                'valueType' : 'direct',
+                'name': 'background-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -236,7 +234,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .fun-fact-inner .icon`,
     });
 
-    isNotEmpty(attributes['iconBorderResponsive']) && device !== 'Desktop' && data.push({
+    isNotEmpty(attributes['iconBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'iconBorderResponsive',
         'selector': `.${elementId} .fun-fact-inner .icon`,
@@ -245,12 +243,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconColorHover']) && data.push({
         'type': 'color',
         'id': 'iconColorHover',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -258,12 +256,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconBgColorHover']) && data.push({
         'type': 'color',
         'id': 'iconBgColorHover',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
         'properties': [
             {
-                'name' : 'background-color',
-                'valueType' : 'direct',
+                'name': 'background-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -274,7 +272,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .fun-fact-inner:hover .icon`,
     });
 
-    isNotEmpty(attributes['iconBorderHoverResponsive']) && device !== 'Desktop' && data.push({
+    isNotEmpty(attributes['iconBorderHoverResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'iconBorderHoverResponsive',
         'selector': `.${elementId} .fun-fact-inner:hover .icon`,
@@ -288,18 +286,18 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon img`,
         'properties': [
             {
-                'name' : 'width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px; height: {value}px; object-fit: cover;',
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}px; height: {value}px; object-fit: cover;',
                 'patternValues': {
-                    'value' : {
-                        'type' : 'direct'
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
         ],
-        'multiAttr' : {
-            'imageSize' : attributes['imageSizeResponsive'] ? attributes['imageSizeResponsive'] : attributes['imageSize']
+        'multiAttr': {
+            'imageSize': attributes['imageSizeResponsive'] ? attributes['imageSizeResponsive'] : attributes['imageSize']
         }
     });
 
@@ -310,8 +308,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -319,22 +317,22 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['superTypography']) && data.push({
         'type': 'typography',
         'id': 'superTypography',
-        'selector':  `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
+        'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
     });
 
     isNotEmpty(attributes['superTop']) && data.push({
         'type': 'plain',
         'id': 'superTop',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
         'properties': [
             {
-                'name' : 'top',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'top',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -344,16 +342,16 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['superSpace']) && data.push({
         'type': 'plain',
         'id': 'superSpace',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
         'properties': [
             {
-                'name' : 'left',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'left',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -363,12 +361,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['superAlign']) && data.push({
         'type': 'plain',
         'id': 'superAlign',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper .super`,
         'properties': [
             {
-                'name' : 'vertical-align',
-                'valueType' : 'direct'
+                'name': 'vertical-align',
+                'valueType': 'direct'
             }
         ]
     });
@@ -546,8 +544,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'align-self',
-                'valueType' : 'direct'
+                'name': 'align-self',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -564,8 +562,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningLocation',
         'properties': [
             {
-                'name' : 'position',
-                'valueType' : 'direct'
+                'name': 'position',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
