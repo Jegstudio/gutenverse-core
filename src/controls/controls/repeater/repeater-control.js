@@ -27,6 +27,7 @@ const SortableItem = SortableElement(props => {
         options,
         idx: index,
         onValueChange,
+        onLocalChange,
         removeIndex,
         duplicateIndex,
         openLast,
@@ -37,7 +38,7 @@ const SortableItem = SortableElement(props => {
         resetStatus,
         id,
         resetMethod,
-        booleanSwitcher = false
+        booleanSwitcher = false,
     } = props;
 
     const toggleOpen = () => {
@@ -50,6 +51,11 @@ const SortableItem = SortableElement(props => {
     const onUpdateIndexValue = (val) => {
         const newValue = items.map((item, idx) => index === idx ? val : item);
         onValueChange(newValue);
+    };
+
+    const onUpdateIndexValueLocal = (val) => {
+        const newValue = items.map((item, idx) => index === idx ? val : item);
+        onLocalChange(newValue);
     };
 
     const handleDuplicateIndex = e => {
@@ -130,6 +136,7 @@ const SortableItem = SortableElement(props => {
                     value={items[index]}
                     itemProps={item}
                     onValueChange={val => onUpdateIndexValue(val)}
+                    onLocalChange={val => onUpdateIndexValueLocal(val)}
                 />;
             })}
         </div>}
@@ -185,7 +192,7 @@ export const targetHasProp = (
 };
 
 const RepeaterComponent = (props) => {
-    const { component: Component, index: repeaterIndex, itemProps, value = {}, onValueChange } = props;
+    const { component: Component, index: repeaterIndex, itemProps, value = {}, onValueChange, onLocalChange } = props;
     const { id, onChange } = itemProps;
     const onRepeaterComponentChange = (val) => {
         const newVal = {
@@ -200,11 +207,25 @@ const RepeaterComponent = (props) => {
         }, repeaterIndex) : null;
     };
 
+    const onRepeaterComponentLocalChange = (val) => {
+        const newVal = {
+            ...value,
+            [id]: val,
+        };
+
+        onLocalChange(newVal);
+
+        onChange ? onChange({
+            ...newVal
+        }, repeaterIndex) : null;
+    };
+
     return <Component
         {...itemProps}
         value={value[id] === undefined ? null : value[id]}
         values={value}
         onValueChange={onRepeaterComponentChange}
+        onLocalChange={onRepeaterComponentLocalChange}
     />;
 };
 
@@ -230,6 +251,7 @@ const RepeaterControl = (props) => {
         repeaterDefault = {},
         value = [],
         onValueChange,
+        onLocalChange,
         options,
         titleFormat,
         description = '',
@@ -243,14 +265,17 @@ const RepeaterControl = (props) => {
         resetMethod,
         infoMessage,
         booleanSwitcher,
-        openChild = ''
+        openChild = '',
+        liveStyle
     } = props;
     const id = useInstanceId(RepeaterControl, 'inspector-repeater-control');
     const [openLast, setOpenLast] = useState(null);
+
     useEffect(() => {
         let indexOpenChild = value.findIndex(el => el.id === openChild);
         setOpenLast(indexOpenChild);
     }, [openChild]);
+
     useEffect(() => {
         const newValue = value.map(item => {
             if (item._key === undefined) {
@@ -262,7 +287,6 @@ const RepeaterControl = (props) => {
                 return item;
             }
         });
-
         onValueChange(newValue);
     }, []);
 
@@ -276,13 +300,11 @@ const RepeaterControl = (props) => {
                 _key: cryptoRandomString({ length: 6, type: 'alphanumeric' })
             }
         ];
-
         onValueChange(newValue);
     };
 
     const removeIndex = index => {
         const newValue = value.filter((item, idx) => index !== idx);
-
         onValueChange(newValue);
     };
 
@@ -296,7 +318,6 @@ const RepeaterControl = (props) => {
                 _key: cryptoRandomString({ length: 6, type: 'alphanumeric' })
             }
         ];
-
         onValueChange(newValue);
     };
 
@@ -323,6 +344,7 @@ const RepeaterControl = (props) => {
                         rootId={rootId}
                         options={options}
                         onValueChange={onValueChange}
+                        onLocalChange={onLocalChange}
                         titleFormat={titleFormat}
                         removeIndex={removeIndex}
                         duplicateIndex={duplicateIndex}
@@ -335,6 +357,7 @@ const RepeaterControl = (props) => {
                         resetMethod={resetMethod}
                         booleanSwitcher={booleanSwitcher}
                         isDragable={isDragable}
+                        liveStyle={liveStyle}
                     />
                 </>}
                 {
