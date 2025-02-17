@@ -98,7 +98,6 @@ const HeadingBlock = compose(
         <HeadingBlockControl {...props} />
         <span ref={elementRef} style={{ display: 'none' }}></span>
         <RichTextComponent
-            ref={elementRef}
             isBlockProps={true}
             blockProps={blockProps}
             tagName={tagName}
