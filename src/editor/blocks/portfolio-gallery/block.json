@@ -32,19 +32,22 @@
 					"id": "Two",
 					"title": "Two",
 					"subtitle": "Sub Title",
-					"current" : false
+					"current" : false,
+					"link": "#"
 				},
 				{
 					"id": "Three",
 					"title": "Three",
 					"subtitle": "Sub Title",
-					"current" : false
+					"current" : false,
+					"link": "#"
 				},
 				{
 					"id": "Four",
 					"title": "Four",
 					"subtitle": "Sub Title",
-					"current": false
+					"current": false,
+					"link": "#"
 				}
 			]
 		},

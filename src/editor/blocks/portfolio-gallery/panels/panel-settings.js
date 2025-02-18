@@ -35,7 +35,7 @@ export const settingsPanel = (props) => {
                     'type': 'plain',
                     'id': 'column',
                     'responsive': true,
-                    'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
                     'properties': [
                         {
                             'name': 'flex',
@@ -67,7 +67,7 @@ export const settingsPanel = (props) => {
                             'valueType': 'direct',
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
                 }
             ]
         },

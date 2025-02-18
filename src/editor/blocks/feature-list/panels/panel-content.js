@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, SelectControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -26,6 +26,56 @@ export const contentPanel = (props) => {
                     value: 'end'
                 },
             ],
+        },
+        {
+            id: 'contentSpace',
+            label: __('Title Bottom Space', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            units : {
+                px: {
+                    text: 'px',
+                    min: 1,
+                    max: 200,
+                    step: 1,
+                    unit: 'px',
+                },
+                em: {
+                    text: 'em',
+                    min: 0.1,
+                    max: 10,
+                    step: 0.1,
+                    unit: 'em',
+                },
+                rem: {
+                    text: 'rem',
+                    min: 0.1,
+                    max: 10,
+                    step: 0.1,
+                    unit: 'rem',
+                },
+                ['%']: {
+                    text: '%',
+                    min: 1,
+                    max: 100,
+                    step: 1,
+                    unit: '%',
+                },
+            },
+            liveStyle: [
+                {
+                    'type': 'unitPoint',
+                    'id': 'contentSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .feature-list-content .feature-list-title`,
+                    'properties': [
+                        {
+                            'name': 'margin-bottom',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'titleTypography',

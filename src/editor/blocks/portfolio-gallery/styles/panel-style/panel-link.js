@@ -4,7 +4,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['linkAlignment']) && data.push({
         'type': 'plain',
         'id': 'linkAlignment',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper`,
         'properties': [
             {
                 'name': 'justify-content',
@@ -22,7 +22,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
     });
     isNotEmpty(attributes['linkMargin']) && data.push({
         'type': 'dimension',
@@ -34,7 +34,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
     });
     isNotEmpty(attributes['linkBackground']) && data.push({
         'type': 'background',
@@ -50,7 +50,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['linkTypography']) && data.push({
         'type': 'typography',
         'id': 'linkTypography',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
     });
 
     isNotEmpty(attributes['linkIconSpace']) && data.push({
@@ -82,7 +82,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['linkColor']) && data.push({
         'type': 'color',
         'id': 'linkColor',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
         'properties': [
             {
                 'name': 'color',
@@ -94,7 +94,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['linkIconColor']) && data.push({
         'type': 'color',
         'id': 'linkIconColor',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a i`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a i`,
         'properties': [
             {
                 'name': 'color',
@@ -112,13 +112,13 @@ const panelLinkStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
     });
 
     isNotEmpty(attributes['linkColorHover']) && data.push({
         'type': 'color',
         'id': 'linkColorHover',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
         'properties': [
             {
                 'name': 'color',
@@ -130,7 +130,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['linkIconColorHover']) && data.push({
         'type': 'color',
         'id': 'linkIconColorHover',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a i`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a i`,
         'properties': [
             {
                 'name': 'color',
@@ -148,7 +148,7 @@ const panelLinkStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
     });
     return data;
 };

@@ -78,6 +78,19 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
+    isNotEmpty(attributes['contentSpace']) && data.push({
+        'type': 'unitPoint',
+        'id': 'contentSpace',
+        'responsive': true,
+        'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .feature-list-content .feature-list-title`,
+        'properties': [
+            {
+                'name': 'margin-bottom',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
     isNotEmpty(attributes['titleTypography']) && data.push({
         'type': 'typography',
         'id': 'titleTypography',
@@ -542,8 +555,8 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'align-self',
-                'valueType' : 'direct'
+                'name': 'align-self',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -560,8 +573,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningLocation',
         'properties': [
             {
-                'name' : 'position',
-                'valueType' : 'direct'
+                'name': 'position',
+                'valueType': 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,

@@ -19,7 +19,7 @@ export const contentPanel = (props) => {
                 {
                     'type': 'background',
                     'id': 'activeBackground',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item.current-item`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item.current-item`,
                 }
             ]
         },
@@ -114,7 +114,7 @@ export const contentPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'titleColor',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
                     'properties': [
                         {
                             'name': 'color',
@@ -133,7 +133,7 @@ export const contentPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'subTitleColor',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
                     'properties': [
                         {
                             'name': 'color',
@@ -158,7 +158,7 @@ export const contentPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
                 }
             ]
         },
@@ -177,7 +177,7 @@ export const contentPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
                 }
             ]
         },
@@ -190,7 +190,7 @@ export const contentPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'titleColorHover',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
                     'properties': [
                         {
                             'name': 'color',
@@ -209,7 +209,7 @@ export const contentPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'subTitleColorHover',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
                     'properties': [
                         {
                             'name': 'color',
@@ -234,7 +234,7 @@ export const contentPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
                 }
             ]
         },
@@ -253,7 +253,7 @@ export const contentPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
                 }
             ]
         },

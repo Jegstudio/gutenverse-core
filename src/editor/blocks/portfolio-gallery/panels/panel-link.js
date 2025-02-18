@@ -215,7 +215,7 @@ export const linkPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'linkColor',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -234,7 +234,7 @@ export const linkPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'linkIconColor',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a i`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a i`,
                     'properties': [
                         {
                             'name': 'color',
@@ -259,7 +259,7 @@ export const linkPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper a`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper a`,
                 }
             ]
         },
@@ -272,7 +272,7 @@ export const linkPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'linkColorHover',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -291,7 +291,7 @@ export const linkPanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'linkIconColorHover',
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a i`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a i`,
                     'properties': [
                         {
                             'name': 'color',
@@ -316,7 +316,7 @@ export const linkPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
+                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-link-wrapper:hover a`,
                 }
             ]
         }

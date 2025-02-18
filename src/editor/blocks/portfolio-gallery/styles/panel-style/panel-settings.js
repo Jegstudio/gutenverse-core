@@ -5,7 +5,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'column',
         'responsive' : true,
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
         'properties': [
             {
                 'name': 'flex',
@@ -30,7 +30,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
     });
 
     isNotEmpty(attributes['reversePosition']) && data.push({
@@ -43,7 +43,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
                 'pattern': 'column-reverse'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
     });
 
     isNotEmpty(attributes['reversePosition']) && data.push({
@@ -56,7 +56,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
                 'pattern': 'translateY(-100%)'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item .row-link-wrapper`,
     });
 
     isNotEmpty(attributes['reversePosition']) && data.push({
@@ -69,7 +69,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
                 'pattern': '0 100%'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item .row-item-info::after`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item .row-item-info::after`,
     });
 
     isNotEmpty(attributes['linkIconPosition']) && data.push({
@@ -81,7 +81,7 @@ const panelSettingStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper a`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item .row-link-wrapper a`,
     });
     return data;
 };

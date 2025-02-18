@@ -1,6 +1,6 @@
 /* External dependencies */
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { classnames, u } from 'gutenverse-core/components';
+import { classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
 import { useBlockProps } from '@wordpress/block-editor';

@@ -4,13 +4,13 @@ const panelContentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['activeBackground']) && data.push({
         'type': 'background',
         'id': 'activeBackground',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item.current-item`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item.current-item`,
     });
 
     isNotEmpty(attributes['contentAlignment']) && data.push({
         'type': 'plain',
         'id': 'contentAlignment',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info`,
         'properties': [
             {
                 'name': 'text-align',
@@ -29,7 +29,7 @@ const panelContentStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info`,
     });
 
     isNotEmpty(attributes['contentBackground']) && data.push({
@@ -41,19 +41,19 @@ const panelContentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['titleTypography']) && data.push({
         'type': 'typography',
         'id': 'titleTypography',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
     });
 
     isNotEmpty(attributes['subTitleTypography']) && data.push({
         'type': 'typography',
         'id': 'subTitleTypography',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
     });
 
     isNotEmpty(attributes['titleColor']) && data.push({
         'type': 'color',
         'id': 'titleColor',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
         'properties': [
             {
                 'name': 'color',
@@ -65,7 +65,7 @@ const panelContentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['subTitleColor']) && data.push({
         'type': 'color',
         'id': 'subTitleColor',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
         'properties': [
             {
                 'name': 'color',
@@ -83,7 +83,7 @@ const panelContentStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
     });
 
     isNotEmpty(attributes['subTitleTextShadow']) && data.push({
@@ -95,13 +95,13 @@ const panelContentStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
     });
 
     isNotEmpty(attributes['titleColorHover']) && data.push({
         'type': 'color',
         'id': 'titleColorHover',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
         'properties': [
             {
                 'name': 'color',
@@ -113,7 +113,7 @@ const panelContentStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['subTitleColorHover']) && data.push({
         'type': 'color',
         'id': 'subTitleColorHover',
-        'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
         'properties': [
             {
                 'name': 'color',
@@ -131,7 +131,7 @@ const panelContentStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
     });
 
     isNotEmpty(attributes['subTitleTextShadowHover']) && data.push({
@@ -143,7 +143,7 @@ const panelContentStyle = (elementId, attributes, data) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
     });
 
     return data;
