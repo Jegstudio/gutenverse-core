@@ -243,10 +243,7 @@ const SectionBlock = compose(
     const dataId = elementId ? elementId.split('-')[1] : '';
 
     return <>
-        <SectionBlockControl
-            {...props}
-            clientId={clientId}
-        />
+        <SectionBlockControl {...props} clientId={clientId} />
         <SectionInspection {...props} elementRef={elementRef}/>
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
             <section {...blockProps}>

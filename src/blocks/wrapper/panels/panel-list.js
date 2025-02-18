@@ -8,10 +8,27 @@ import { positionPanel } from './panel-position';
 
 export const panelList = () => {
     return [
+        // Settings
+
+        // {
+        //     title: __('Wrapper Display', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: displayPanel,
+        //     tabRole: TabSetting
+        // },
         {
-            title: __('Wrapper Display', '--gctd--'),
+            title: __('Spacing', '--gctd--'),
             initialOpen: false,
-            panelArray: displayPanel,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'wrapper-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
             tabRole: TabSetting
         },
         {
@@ -21,12 +38,23 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Animation Effects', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'wrapper'
+            }),
+            tabRole: TabSetting
+        },
+
+        // Styles
+
+        {
             title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'wrapper',
-                styleId: 'wrapper-background',
                 normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`,
@@ -35,28 +63,10 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
-            title: __('Background Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundEffectPanel({
-                ...props,
-                selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
-            }),
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
             title: __('Background Overlay', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundOverlayPanel({
                 ...props,
-                styleId: 'wrapper-background-overlay',
                 normalOptions: ['default', 'gradient'],
                 hoverOptions: ['default', 'gradient']
             }),
@@ -71,10 +81,7 @@ export const panelList = () => {
         {
             title: __('Border', '--gctd--'),
             initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'wrapper-border'
-            }),
+            panelArray: borderPanel,
             tabRole: TabStyle
         },
         {
@@ -89,65 +96,61 @@ export const panelList = () => {
             panelArray: pointerEventPanel,
             tabRole: TabStyle
         },
-        {
-            title: __('Animation Effects', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'wrapper'
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Display', '--gctd--'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Transform', '--gctd--'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Background Animation', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundAnimatedPanel,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', '--gctd--'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'wrapper'
-            }),
-            pro: true,
-        },
-        {
-            title: __('Spacing', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'wrapper-advance',
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
-        },
+
+        // Pro
+
+        // {
+        //     title: __('Background Effect', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: (props) => backgroundEffectPanel({
+        //         ...props,
+        //         selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
+        //     }),
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Cursor Effect', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: cursorEffectPanel,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Transform', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: transformPanel,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Mouse Move Effect', 'gutenverse'),
+        //     initialOpen: false,
+        //     panelArray: mouseMoveEffectPanel,
+        //     tabRole: TabSetting,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Background Animation', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: backgroundAnimatedPanel,
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Advanced Animation', '--gctd--'),
+        //     initialOpen: false,
+        //     panelAdvance: true,
+        //     panelArray: (props) => advanceAnimationPanel({
+        //         ...props,
+        //         blockType: 'wrapper'
+        //     }),
+        //     pro: true,
+        // },
+        // {
+        //     title: __('Condition', 'gutenverse'),
+        //     panelArray: conditionPanel,
+        //     initialOpen: false,
+        //     pro: true
+        // },
     ];
 };
