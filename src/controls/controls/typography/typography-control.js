@@ -46,6 +46,7 @@ const TypographyControl = (props) => {
         allowDeviceControl,
         value = {},
         onValueChange,
+        onLocalChange,
         description = '',
     } = props;
 
@@ -143,6 +144,11 @@ const TypographyControl = (props) => {
         onValueChange(value);
     };
 
+    const onTypographyChangeLocal = data => {
+        const { id, type, ...value } = data; // eslint-disable-line no-unused-vars
+        onLocalChange(value);
+    };
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-typography'}>
         <ControlHeadingSimple
             id={`${id}-typography`}
@@ -207,6 +213,7 @@ const TypographyControl = (props) => {
                             allowDeviceControl={true}
                             hideRange={true}
                             onValueChange={size => onTypographyChange({ ...value, size })}
+                            onLocalChange={size => onTypographyChangeLocal({ ...value, size})}
                         />
                         <SelectControl
                             label={__('Weight', '--gctd--')}
@@ -314,6 +321,7 @@ const TypographyControl = (props) => {
                                 },
                             }}
                             onValueChange={lineHeight => onTypographyChange({ ...value, lineHeight })}
+                            onLocalChange={lineHeight => onTypographyChangeLocal({ ...value, lineHeight})}
                         />
                         <SelectControl
                             label={__('Transform', '--gctd--')}
@@ -375,6 +383,7 @@ const TypographyControl = (props) => {
                     value={value.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value, spacing })}
+                    onLocalChange={spacing => onTypographyChangeLocal({ ...value, spacing})}
                 />
             </>}
         </div>
