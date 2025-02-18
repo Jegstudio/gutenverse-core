@@ -24,6 +24,7 @@
                     display: flex;
                     transition: all .5s ease;
                     transform: translateY(100%);
+                    padding: 10px 20px 10px 20px;
                     a{
                         display: flex;
                         flex-direction: row;
@@ -36,6 +37,7 @@
                     position: relative;
                     display: flex;
                     flex-direction: column;
+                    padding: 10px 20px 10px 20px;
                     &> * {
                         transition: all .5s;
                     }
