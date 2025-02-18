@@ -988,25 +988,44 @@ const ColumnBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const position = getPosition(clientId);
     const adjacentCount = getBlocks(rootClientId).length;
-    const gutenverseSelector = select('gutenverse/style');
     const adjacentBlock = getBlocks(rootClientId);
     const [prevAdjacentCount, setPrevAdjacentCount] = useState(false);
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const updateBlockWidth = useCallback((clientId, eachWidth) => {
-        const targetColumnStyle = gutenverseSelector.findElement(clientId) ? gutenverseSelector.findElement(clientId).addStyle : null;
         const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
         const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
         const targetColumnWidthAttr = getBlock(clientId).attributes.width;
 
-        if (targetColumnStyle) {
-            targetWidth[delayedDeviceType] = eachWidth;
-            targetColumnStyle(
-                'column-width',
-                `.guten-column.${targetColumnElementId} { width: ${eachWidth}%; }`
-            );
-            updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [delayedDeviceType]: eachWidth } });
-        }
+        updateLiveStyle(
+            elementId,
+            {
+                targetWidth
+            },
+            [
+                {
+                    'type': 'plain',
+                    'id': 'targetWidth',
+                    'responsive': true,
+                    'selector': `.${targetColumnElementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                },
+            ],
+            elementRef,
+            false
+        );
+        updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [delayedDeviceType]: eachWidth } });
     }, [clientId]);
 
     const getChildTotalWidth = () => {
