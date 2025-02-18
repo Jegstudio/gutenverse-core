@@ -41,9 +41,8 @@ const PopupBuilder = compose(
     const containerRef = useRef();
     const deviceType = getDeviceType();
 
-    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const innerBlocksProps = useInnerBlocksProps({
         className: classnames('guten-popup-container')
     }, {
@@ -85,7 +84,7 @@ const PopupBuilder = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="guten-popup-holder" onClick={toggleShow}>
                 <h1>{__('Popup Builder', 'gutenverse')}</h1>

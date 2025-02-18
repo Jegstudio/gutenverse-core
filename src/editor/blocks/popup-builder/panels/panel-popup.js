@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { ImageRadioControl, SizeControl, RangeControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
-import { handleUnitPoint } from 'gutenverse-core/styling';
 import { applyFilters } from '@wordpress/hooks';
 
 export const popupPanel = (props) => {
@@ -53,10 +52,18 @@ export const popupPanel = (props) => {
                     step: 1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.guten-popup-builder.${elementId} .guten-popup .guten-popup-content`,
-                    render: value => handleUnitPoint(value, 'width')
+                    'type': 'unitPoint',
+                    'id': 'width',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct',
+                        }
+                    ],
+                    'selector': `.guten-popup-builder.${elementId} .guten-popup .guten-popup-content`,
                 }
             ]
         },
@@ -80,11 +87,18 @@ export const popupPanel = (props) => {
                     step: 1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-popup-center .guten-popup-content`,
-                    allowRender: () => position === 'center',
-                    render: value => handleUnitPoint(value, 'max-height')
+                    'type': 'unitPoint',
+                    'id': 'maxHeight',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'max-height',
+                            'valueType': 'direct',
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-popup-center .guten-popup-content`,
                 }
             ]
         },
