@@ -62,6 +62,15 @@ const GalleryBlock = compose(
     const observerRef = useRef(null);
     const sizerRef = useRef(null);
 
+    const [liveAttr, setLiveAttr] = useState({
+        showed,
+        showedItems,
+        grid,
+        height,
+        column,
+        layout
+    });
+
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
@@ -133,7 +142,7 @@ const GalleryBlock = compose(
 
     // Observe changes in image sizes
     const observeResizeGalleryItems = () => {
-        if(elementRef.current){
+        if (elementRef.current) {
             const items = Array.from(elementRef.current.querySelectorAll('.gallery-item-wrap'));
             if (observerRef.current) observerRef.current.disconnect();
             observerRef.current = new ResizeObserver(() => {
@@ -144,8 +153,17 @@ const GalleryBlock = compose(
             });
         }
     };
+    //liveAttribute disini belum untuk showedItem
+    useEffect(() => {
+        setShowedItems(showed);
+    }, [showed]);
 
-    useEffect(() => setShowedItems(showed), [showed]);
+    useEffect(() => {
+        setLiveAttr({
+            ...liveAttr,
+            showedItems
+        });
+    },[showedItems]);
 
     useEffect(() => {
         if (elementRef.current) {
@@ -159,10 +177,10 @@ const GalleryBlock = compose(
             shuffleInstance.current = null;
             observerRef.current = null;
         };
-    }, [showed, showedItems, grid, height, column, layout]);
+    }, [liveAttr]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
         {showPopup && createPortal(<GalleryPopup activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>
             {filter && (
