@@ -83,7 +83,7 @@ const ButtonBlock = compose(
     const textRef = useRef();
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
@@ -91,7 +91,6 @@ const ButtonBlock = compose(
     const [allowLink, setAllowLink] = useState(true);
     const [dynamicText, setDynamicText] = useState();
     const [dynamicHref, setDynamicHref] = useState();
-    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -242,7 +241,7 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <BlockPanelController props={props} panelList={panelList} setLocalAttr={setLocalAttr} />
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}

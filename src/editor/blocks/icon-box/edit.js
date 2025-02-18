@@ -92,7 +92,6 @@ const IconBoxBlock = compose(
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
     const deviceType = getDeviceType();
-    const [localAttr, setLocalAttr] = useState({});
 
     const hasInnerBlocks = useSelect(select => {
         const block = select('core/block-editor').getBlock(props.clientId);
@@ -146,7 +145,7 @@ const IconBoxBlock = compose(
     };
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const innerBlockProps = useInnerBlocksProps(
         {},
@@ -213,7 +212,7 @@ const IconBoxBlock = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
     return <>
-        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',

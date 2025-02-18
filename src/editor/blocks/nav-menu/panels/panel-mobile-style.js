@@ -17,10 +17,25 @@ export const mobileMenuStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: 
+            [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img`,
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'mobileLogoWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
                 }
             ],
         },
@@ -33,10 +48,25 @@ export const mobileMenuStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: 
+            [
                 {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img`,
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'mobileLogoHeight',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
                 }
             ],
         },
@@ -67,12 +97,6 @@ export const mobileMenuStyle = (props) => {
                     value: 'none'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo img`,
-                    render: value => `object-fit: ${value};`
-                }
-            ]
         },
         {
             id: 'mobileMenuMargin',
@@ -94,12 +118,6 @@ export const mobileMenuStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'mobileMenuPadding',
@@ -121,12 +139,6 @@ export const mobileMenuStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-nav-site-title .gutenverse-nav-logo`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
     ];
 };

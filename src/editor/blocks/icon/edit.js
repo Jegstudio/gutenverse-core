@@ -59,7 +59,6 @@ const IconBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
-    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -105,7 +104,7 @@ const IconBlock = compose(
         section: 2,
     };
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     useEffect(() => {
         const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
@@ -125,7 +124,7 @@ const IconBlock = compose(
     }, [dynamicUrl, dynamicHref]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',

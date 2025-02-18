@@ -28,12 +28,6 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     icon: <AlignRight />,
                 }
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
-            ],
         },
         {
             id: 'iconSize',
@@ -54,12 +48,20 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} i`,
-                    render: value => handleUnitPoint(value, 'font-size')
+                    'type': 'unitPoint',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} i`,
                 }
-            ],
+            ]
         },
         {
             id: 'iconPadding',
@@ -70,10 +72,24 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
             min: 0,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-wrapper`,
-                    render: value => `padding: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconPadding',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'padding',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-icon-wrapper`,
                 }
             ],
         },
@@ -86,10 +102,24 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
             min: 0,
             max: 360,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-wrapper i`,
-                    render: value => `transform: rotate(${value}deg);`
+                    'type': 'plain',
+                    'id': 'iconRotate',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'transform',
+                            'valueType': 'pattern',
+                            'pattern': 'rotate({value}deg)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-icon-wrapper i`,
                 }
             ],
         },
@@ -136,18 +166,6 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     value: 'custom'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-icon-wrapper`,
-                    allowRender: value => value === 'custom' && iconView === 'framed' && iconBorderWidth,
-                    render: () => handleDimension(iconBorderWidth, 'border-width', false, 2)
-                },
-                {
-                    selector: `.${elementId} .guten-icon-wrapper`,
-                    allowRender: value => value === 'custom' && iconBorderRadius,
-                    render: () => handleDimension(iconBorderRadius, 'border-radius', false)
-                }
-            ]
         },
         {
             id: 'iconBorderWidth',
@@ -165,13 +183,6 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-icon-wrapper`,
-                    allowRender: () => iconShape === 'custom' && iconView === 'framed',
-                    render: value => handleDimension(value, 'border-width', false, 2)
-                }
-            ],
         },
         {
             id: 'iconBorderRadius',
@@ -189,13 +200,6 @@ export const iconPanel = ({ elementId, iconView, iconBorderWidth, iconBorderRadi
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-icon-wrapper`,
-                    allowRender: () => iconShape === 'custom',
-                    render: value => handleDimension(value, 'border-radius', false)
-                }
-            ],
         },
         {
             id: 'ariaLabel',

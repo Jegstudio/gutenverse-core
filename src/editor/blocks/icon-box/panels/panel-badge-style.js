@@ -13,12 +13,19 @@ export const panelBadgeStyle = (props) => {
             id: 'badgeTextColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'badgeTextColor',
+                    'selector': `.${elementId} .icon-box-badge .badge-text`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'badgePadding',
@@ -40,12 +47,6 @@ export const panelBadgeStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'badgeMargin',
@@ -67,12 +68,6 @@ export const panelBadgeStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'badgeRadius',
@@ -94,48 +89,41 @@ export const panelBadgeStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    render: value => handleDimension(value, 'border-radius', false)
-                }
-            ],
         },
         {
             id: 'badgeBackground',
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'badgeBackground',
+                    'selector': `.${elementId} .icon-box-badge .badge-text`,
                 }
-            ]
+            ],
         },
         {
             id: 'badgeTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'badgeShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box-badge .badge-text`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'badgeShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .icon-box-badge .badge-text`,
                 }
-            ]
+            ],
         },
     ];
 };
