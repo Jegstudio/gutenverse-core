@@ -19,40 +19,40 @@ export const shapeDividerGenerator = (attribute, style, css) => {
         if (width) {
             if (width['Desktop']) {
                 const value = width['Desktop'];
-                desktop = `width: calc(${value}% + 1.3px);`;
+                desktop += `width: calc(${value}% + 1.3px);`;
             }
 
             if (width['Tablet']) {
                 const value = width['Tablet'];
-                tablet = `width: calc(${value}% + 1.3px);`;
+                tablet += `width: calc(${value}% + 1.3px);`;
             }
 
             if (width['Mobile']) {
                 const value = width['Mobile'];
-                mobile = `width: calc(${value}% + 1.3px);`;
+                mobile += `width: calc(${value}% + 1.3px);`;
             }
         }
 
         if (height) {
             if (height['Desktop']) {
                 const value = height['Desktop'];
-                desktop = `height: ${value}px;`;
+                desktop += `height: ${value}px;`;
             }
 
             if (height['Tablet']) {
                 const value = height['Tablet'];
-                tablet = `height: ${value}px;`;
+                tablet += `height: ${value}px;`;
             }
 
             if (height['Mobile']) {
                 const value = height['Mobile'];
-                mobile = `height: ${value}px;`;
+                mobile += `height: ${value}px;`;
             }
         }
 
         if (!isEmpty(color) & (isEmpty(colorMode) || colorMode === 'default')) {
             const dividerColor = getColor(color);
-            desktop = `fill: ${dividerColor};`;
+            desktop += `fill: ${dividerColor};`;
         }
 
         css.Desktop = `${selector} { ${desktop} }`;
