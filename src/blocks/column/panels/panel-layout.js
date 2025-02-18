@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const layoutPanel = ({elementId}) => {
@@ -15,7 +15,7 @@ export const layoutPanel = ({elementId}) => {
         {
             id: 'width',
             label: __('Column Width', '--gctd--'),
-            component: RangeControl,
+            component: RangeColumnControl,
             min: minWidth[deviceType],
             step: 0.1,
             allowDeviceControl: true,
@@ -37,7 +37,7 @@ export const layoutPanel = ({elementId}) => {
                             }
                         }
                     ],
-                }
+                },
             ]
         },
         {
