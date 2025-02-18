@@ -73,17 +73,16 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Background Overlay', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundOverlayPanel({
-        //         ...props,
-        //         styleId: 'section-background-overlay',
-        //         normalOptions: ['default', 'gradient'],
-        //         hoverOptions: ['default', 'gradient']
-        //     }),
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Background Overlay', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
         {
             title: __('Border', 'gutenverse'),
             initialOpen: false,

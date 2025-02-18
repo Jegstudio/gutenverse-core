@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 export const backgroundOverlayPanel = (props) => {
     const {
+        elementId,
         normalOptions,
         hoverOptions,
         switcher,
@@ -31,6 +32,13 @@ export const backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: normalOptions,
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'backgroundOverlay',
+                    'selector': `.${elementId} > .guten-background-overlay`,
+                }
+            ]
         },
         {
             id: 'opacity',
@@ -40,6 +48,19 @@ export const backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'opacity',
+                    'selector': `.${elementId} > .guten-background-overlay`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'backgroundOverlayHover',
@@ -47,6 +68,13 @@ export const backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: hoverOptions,
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'backgroundOverlayHover',
+                    'selector': `.${elementId}:hover > .guten-background-overlay`,
+                }
+            ]
         },
         {
             id: 'opacityHover',
@@ -56,6 +84,19 @@ export const backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'opacityHover',
+                    'selector': `.${elementId}:hover > .guten-background-overlay`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ],
+                }
+            ]
         },
     ];
 };
