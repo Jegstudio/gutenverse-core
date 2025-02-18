@@ -1,5 +1,5 @@
 /* External dependencies */
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 
 /* WordPress dependencies */
@@ -9,9 +9,9 @@ import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
 
 /* Gutenverse dependencies */
-import { withCopyElementToolbar, withMouseMoveEffect, withPartialRender, withAnimationAdvance } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withMouseMoveEffect, withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 
 /* Local dependencies */
 import { panelList } from './panels/panel-list';
@@ -62,7 +62,6 @@ const HeadingInspection = (props) => {
 
 const HeadingBlock = compose(
     withCopyElementToolbar(),
-    withPartialRender,
     withAnimationAdvance('heading'),
     withMouseMoveEffect
 )(props => {

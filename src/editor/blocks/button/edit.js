@@ -1,10 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withMouseMoveEffect, withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController, IconLibrary } from 'gutenverse-core/controls';
+import { IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
@@ -24,8 +24,6 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
-    withPartialRender,
-    // withCustomStyle(panelList),
     withAnimationAdvance('button'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -82,7 +80,7 @@ const ButtonBlock = compose(
         selectBlock
     } = dispatch('core/block-editor');
 
-    const textRef = useRef(); 
+    const textRef = useRef();
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
@@ -155,7 +153,7 @@ const ButtonBlock = compose(
             });
         }
     }, []);
-    
+
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -222,29 +220,29 @@ const ButtonBlock = compose(
             dynamicContent
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
 
-        ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicContent) && dynamicTextContent
+        (typeof dynamicTextContent.then === 'function') && !isEmpty(dynamicContent) && dynamicTextContent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
                 }
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicText !== undefined) {
             setAttributes({ content: dynamicText });
         }
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <BlockPanelController props = {props} panelList={panelList} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController props={props} panelList={panelList} setLocalAttr={setLocalAttr} />
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}

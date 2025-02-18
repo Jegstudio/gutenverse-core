@@ -1,6 +1,5 @@
 import { compose } from '@wordpress/compose';
 import { useCallback, useState, useEffect, useRef } from '@wordpress/element';
-import { withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -26,7 +25,6 @@ import getBlockStyle from './styles/block-style';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconListItemBlock = compose(
-    withPartialRender,
     withCopyElementToolbar(),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -126,7 +124,7 @@ const IconListItemBlock = compose(
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}

@@ -2,7 +2,7 @@ import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'gutenverse-core/components';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps, MediaUploadCheck, MediaUpload, } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { classnames } from 'gutenverse-core/components';
@@ -111,7 +111,6 @@ const ImagePicker = (props) => {
 };
 
 const ImageBlock = compose(
-    withPartialRender,
     withAnimationAdvance('image'),
     withCopyElementToolbar(),
     withMouseMoveEffect

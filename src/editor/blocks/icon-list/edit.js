@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import {
     useInnerBlocksProps, useBlockProps,
 } from '@wordpress/block-editor';
@@ -16,7 +16,6 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const IconListBlock = compose(
-    withPartialRender,
     withAnimationAdvance('icon-list'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -30,7 +29,7 @@ const IconListBlock = compose(
         elementId,
         displayInline,
     } = attributes;
-    const elementRef = useRef();
+    const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -63,7 +62,7 @@ const IconListBlock = compose(
     });
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <ul {...innerBlocksProps} />
     </>;
 });

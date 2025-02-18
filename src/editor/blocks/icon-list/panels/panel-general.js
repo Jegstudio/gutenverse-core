@@ -2,13 +2,11 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, ColorControl, IconRadioControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { handleAlign, handleColor } from 'gutenverse-core/styling';
 
 export const panelGeneral = (props) => {
     const {
         elementId,
         isDivider,
-        displayInline
     } = props;
 
     return [
@@ -21,33 +19,24 @@ export const panelGeneral = (props) => {
             id: 'isDivider',
             label: __('Divider', 'gutenverse'),
             component: CheckboxControl,
-            style: [
-                {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
-                    allowRender : value => value,
-                    render: () => 'border-top-style : solid;'
-                },
-                {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    allowRender : value => value,
-                    render: () => 'border-left-style : solid;'
-                },
-            ]
         },
         {
             id: 'colorDivider',
             label: __('Color Divider', 'gutenverse'),
             show: isDivider,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => handleColor(value, 'border-color')
-                },
-                {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => handleColor(value, 'border-color')
-                },
+                    'type': 'color',
+                    'id': 'colorDivider',
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1))`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -55,7 +44,7 @@ export const panelGeneral = (props) => {
             label: __('Type Divider', 'gutenverse'),
             show: isDivider,
             component: SelectControl,
-            options:[
+            options: [
                 {
                     label: __('Solid', 'gutenverse'),
                     value: 'solid'
@@ -73,33 +62,35 @@ export const panelGeneral = (props) => {
                     value: 'dashed'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
-                    allowRender : value => value,
-                    render: value => `border-top-style : ${value};`
-                },
-                {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    allowRender : value => value,
-                    render: value => `border-left-style : ${value};`
-                },
-            ]
         },
         {
             id: 'widthDivider',
             label: __('Width Divider', 'gutenverse'),
             show: isDivider,
             component: SizeControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => `width : ${value.point}${value.unit};`
+                    'type': 'unitPoint',
+                    'id': 'widthDivider',
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct'
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => `height : ${value.point}${value.unit};`
-                },
+                    'type': 'unitPoint',
+                    'id': 'widthDivider',
+                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -107,15 +98,29 @@ export const panelGeneral = (props) => {
             label: __('Size Divider', 'gutenverse'),
             show: isDivider,
             component: SizeControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => `border-top-width : ${value.point}${value.unit};`
+                    'type': 'unitPoint',
+                    'id': 'sizeDivider',
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1))`,
+                    'properties': [
+                        {
+                            'name': 'border-top-width',
+                            'valueType': 'direct'
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(2))`,
-                    render: value => `border-left-width : ${value.point}${value.unit};`
-                },
+                    'type': 'unitPoint',
+                    'id': 'sizeDivider',
+                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1))`,
+                    'properties': [
+                        {
+                            'name': 'border-left-width',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -127,26 +132,81 @@ export const panelGeneral = (props) => {
             max: 100,
             step: 1,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a,
-                    .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
-                    render: value => `margin-top: calc(${value}px/2);`
+                    'type': 'plain',
+                    'id': 'spaceBetween',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}px/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
                 },
                 {
-                    selector: `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child),
-                    .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
-                    render: value => `padding-bottom: calc(${value}px/2);`
+                    'type': 'plain',
+                    'id': 'spaceBetween',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'padding-bottom',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}px/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
+
                 },
                 {
-                    selector: `.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child),
-                    .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child)`,
-                    render: value => `margin-right: calc(${value}px/2);`
+                    'type': 'plain',
+                    'id': 'spaceBetween',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}px/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child)`,
+
                 },
                 {
-                    selector: `.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a,
-                    .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
-                    render: value => `margin-left: calc(${value}px/2);`
+                    'type': 'plain',
+                    'id': 'spaceBetween',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}px/2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
+
                 }
             ]
         },
@@ -172,16 +232,6 @@ export const panelGeneral = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}:not(.inline-icon-list)`,
-                    render: value => `text-align: ${handleAlign(value)};`
-                },
-                {
-                    selector: `.${elementId}.inline-icon-list, .${elementId}:not(.inline-icon-list) .guten-icon-list-item a`,
-                    render: value => `justify-content: ${value};`
-                },
-            ]
         },
         {
             id: 'verticalAlign',
@@ -199,18 +249,6 @@ export const panelGeneral = (props) => {
                 {
                     label: __('Bottom', 'gutenverse'),
                     value: 'flex-end'
-                },
-            ],
-            style: [
-                {
-                    selector: `.${elementId} li`,
-                    allowRender: ()  => displayInline,
-                    render: (value) => `align-items: ${value};`
-                },
-                {
-                    selector: `.${elementId} li a`,
-                    allowRender: ()  => !displayInline,
-                    render: (value) => `align-items: ${value};`
                 },
             ],
         },

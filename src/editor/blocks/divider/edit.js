@@ -1,7 +1,7 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
@@ -72,7 +72,6 @@ const DividerContent = (props) => {
 };
 
 const DividerBlock = compose(
-    withPartialRender,
     withAnimationAdvance('divider'),
     withCopyElementToolbar(),
     withMouseMoveEffect

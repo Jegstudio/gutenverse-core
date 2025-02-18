@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -15,7 +15,6 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-styles';
 
 const GoogleMapsBlock = compose(
-    withPartialRender,
     withAnimationAdvance('google-maps'),
     withCopyElementToolbar(),
     withMouseMoveEffect
@@ -35,7 +34,7 @@ const GoogleMapsBlock = compose(
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-        const [localAttr, setLocalAttr] = useState({});
+    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -71,7 +70,7 @@ const GoogleMapsBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
         <div  {...blockProps}>
             <iframe {...iframeParam} />
         </div>

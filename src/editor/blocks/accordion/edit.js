@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, BlockControls, InspectorControls } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
@@ -27,7 +26,6 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 };
 
 const Accordion = compose(
-    withPartialRender,
     withCopyElementToolbar(),
 )(props => {
     const {
