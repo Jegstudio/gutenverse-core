@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -29,7 +29,6 @@ export const logoHoverLazyLoad = (logo) => {
     }
 };
 const LogoSlider = compose(
-    withPartialRender,
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
@@ -69,6 +68,7 @@ const LogoSlider = compose(
         autoplay,
         autoplayTimeout
     });
+
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
