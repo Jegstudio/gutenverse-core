@@ -6,7 +6,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { encodeDataToURL } from 'gutenverse-core/helper';
-import { useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -34,7 +34,6 @@ const GoogleMapsBlock = compose(
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const [localAttr, setLocalAttr] = useState({});
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -50,7 +49,7 @@ const GoogleMapsBlock = compose(
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const parameter = {
         q: location,
@@ -70,7 +69,7 @@ const GoogleMapsBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <iframe {...iframeParam} />
         </div>

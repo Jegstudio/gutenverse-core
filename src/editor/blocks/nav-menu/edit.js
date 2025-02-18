@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -14,16 +14,16 @@ import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NavMenuBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
         deviceType
     } = props;
 
@@ -50,7 +50,8 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const [localAttr, setLocalAttr] = useState({});
+    
     const removeClick = () => {
         if (elementRef.current) {
             setTimeout(() => {
@@ -163,14 +164,11 @@ const NavMenuBlock = compose(
         ['data-item-indicator']: submenuItemIndicator
     });
 
-    useEffect(() => {
-        if (elementRef.current) {
-            setElementRef(elementRef.current);
-        }
-    }, [elementRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
         <div {...blockProps}>
             {menuId ? !loading ? <RawHTML key="html">
                 {response}

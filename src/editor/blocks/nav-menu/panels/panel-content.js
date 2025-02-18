@@ -36,12 +36,6 @@ export const contentPanel = (props) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu`,
-                    render: value => `justify-content: ${value};`,
-                },
-            ]
         },
         {
             id: 'breakpoint',

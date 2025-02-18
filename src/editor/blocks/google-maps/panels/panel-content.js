@@ -27,10 +27,24 @@ export const panelContent = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.gutenverse-maps iframe`,
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'height',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId}.gutenverse-maps iframe`,
                 }
             ],
         },
