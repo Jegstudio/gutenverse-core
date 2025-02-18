@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
+import { useCallback, useEffect, useRef } from '@wordpress/element';
 import { BlockControls, InnerBlocks, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';

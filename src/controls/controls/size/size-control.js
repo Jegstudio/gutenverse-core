@@ -107,7 +107,7 @@ const SizeControl = (props) => {
     };
 
     useEffect(() => {
-        if (localValue.unit === '') {
+        if (!localValue.unit || localValue.unit === '') {
             const firstUnit = Object.keys(units)[0];
             setLocalValue({
                 ...localValue,

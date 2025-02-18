@@ -3,6 +3,114 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
+    isNotEmpty(attributes['displayType']) && data.push({
+        'type': 'plain',
+        'id': 'displayType',
+        'selector': `.${elementId}.guten-element`,
+        'properties': [
+            {
+                'name': 'display',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['displayType']) && 'inline' === attributes['displayType'] && data.push({
+        'type': 'plain',
+        'id': 'displayType',
+        'selector': `.${elementId}.guten-element .block-editor-inner-blocks, .${elementId}.guten-element .block-editor-block-list__layout`,
+        'properties': [
+            {
+                'name': 'display',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['displayWidth']) && ['block', 'flex', 'grid'].includes(attributes['displayType']) && data.push({
+        'type': 'unitPoint',
+        'id': 'displayWidth',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['displayHeight']) && ['block', 'flex', 'inline-block', 'grid'].includes(attributes['displayType']) && data.push({
+        'type': 'unitPoint',
+        'id': 'displayHeight',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['innerWrapWidth']) && data.push({
+        'type': 'plain',
+        'id': 'innerWrapWidth',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element .guten-inner-wrap`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['horizontalAlign']) && ['flex', 'grid'].includes(attributes['displayType']) && data.push({
+        'type': 'plain',
+        'id': 'horizontalAlign',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element, .${elementId}.guten-element .block-editor-block-list__layout`,
+        'properties': [
+            {
+                'name': 'justify-content',
+                'valueType': 'exclude',
+                'excludeValue': ['default']
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['verticalAlign']) && ['flex', 'grid'].includes(attributes['displayType']) && data.push({
+        'type': 'plain',
+        'id': 'verticalAlign',
+        'responsive': true,
+        'selector': `.${elementId}.guten-element`,
+        'properties': [
+            {
+                'name': 'align-content',
+                'valueType': 'exclude',
+                'excludeValue': ['default']
+            },
+            {
+                'name': 'align-items',
+                'valueType': 'exclude',
+                'excludeValue': ['default']
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['displayOverflow']) && data.push({
+        'type': 'plain',
+        'id': 'displayOverflow',
+        'selector': `.${elementId}.guten-element`,
+        'properties': [
+            {
+                'name': 'overflow',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
     isNotEmpty(attributes['blur']) && data.push({
         'type': 'plain',
         'id': 'blur',

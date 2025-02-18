@@ -10,12 +10,12 @@ export const panelList = () => {
     return [
         // Settings
 
-        // {
-        //     title: __('Wrapper Display', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: displayPanel,
-        //     tabRole: TabSetting
-        // },
+        {
+            title: __('Wrapper Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: displayPanel,
+            tabRole: TabSetting
+        },
         {
             title: __('Spacing', '--gctd--'),
             initialOpen: false,
