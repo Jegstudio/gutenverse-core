@@ -16,7 +16,7 @@ import pickBy from 'lodash/pickBy';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
-export const getImageSrc = src => src && src.image ? src.image : imagePlaceholder;
+export const getImageSrc = (src, placeholder = imagePlaceholder ) => src && src.image ? src.image : placeholder;
 
 export const signal = {
     styleDrawerSignal: new MiniSignal,
