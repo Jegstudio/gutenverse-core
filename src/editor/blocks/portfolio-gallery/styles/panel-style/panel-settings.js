@@ -64,6 +64,19 @@ const panelSettingStyle = (elementId, attributes, data) => {
         'id': 'reversePosition',
         'properties': [
             {
+                'name': 'transform',
+                'valueType': 'pattern',
+                'pattern': 'translateY(0)'
+            }
+        ],
+        'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item:hover .row-link-wrapper`,
+    });
+
+    isNotEmpty(attributes['reversePosition']) && data.push({
+        'type': 'plain',
+        'id': 'reversePosition',
+        'properties': [
+            {
                 'name': 'transform-origin',
                 'valueType': 'pattern',
                 'pattern': '0 100%'

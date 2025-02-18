@@ -30,6 +30,7 @@ export const settingsPanel = (props) => {
             max: 10,
             step: 1,
             allowDeviceControl: true,
+            isParseFloat : true,
             liveStyle: [
                 {
                     'type': 'plain',

@@ -14,9 +14,11 @@
 			"copyStyle": true
 		},
 		"column":{
-			"type": "integer",
+			"type": "object",
 			"copyStyle": true,
-			"default": 4
+			"default": {
+				"Desktop" : 4
+			}
 		},
 		"images": {
 			"type": "array",
