@@ -64,13 +64,18 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props, type) => {
     let value = null;
-    const { pattern, patternValues, valueType, functionName } = props;
+    const { pattern, patternValues, valueType, functionName, excludeValue = [] } = props;
     switch (valueType) {
         case 'function':
             value = renderFunctionValue(functionName, attribute);
             break;
         case 'pattern':
             value = renderPatternValues(pattern, patternValues, attribute);
+            break;
+        case 'exclude':
+            if (!excludeValue?.includes(attribute)) {
+                value = renderValue(type, attribute);
+            }
             break;
         case 'direct':
         default:

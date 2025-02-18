@@ -5,6 +5,8 @@ export const backgroundPanel = (props) => {
         elementId,
         normalOptions,
         hoverOptions,
+        normalSelector,
+        hoverSelector,
         switcher,
         setSwitcher,
         blockType = '',
@@ -36,7 +38,7 @@ export const backgroundPanel = (props) => {
             {
                 'type': 'background',
                 'id': 'background',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}`,
             }
         ],
     },
@@ -50,7 +52,7 @@ export const backgroundPanel = (props) => {
             {
                 'type': 'background',
                 'id': 'backgroundHover',
-                'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                'selector': hoverSelector ? hoverSelector : `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
             }
         ],
     }];
