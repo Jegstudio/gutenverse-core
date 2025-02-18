@@ -142,6 +142,13 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['pointer']) && data.push({
+        'type': 'pointerEvent',
+        'id': 'pointer',
+        'selector': `.${elementId}`,
+        'responsive': true,
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
@@ -250,6 +257,72 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'property': ['z-index'],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    });
+
+    isNotEmpty(attributes['typographyHeadingColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyHeadingColor',
+        'selector': `.${elementId} .wp-block-gutenverse-heading`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextColor',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkColor',
+        'selector': `.${elementId} a`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkHoverColor',
+        'selector': `.${elementId} a:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextAlign']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextAlign',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'text-align',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
     });
 
     return data;

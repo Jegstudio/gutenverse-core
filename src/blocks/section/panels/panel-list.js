@@ -1,8 +1,8 @@
 import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
-import { dividerPanel } from './panel-divider';
 import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, mouseMoveEffectPanel, backgroundEffectPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel, pointerEventPanel, conditionPanel } from 'gutenverse-core/controls';
+import { dividerPanel } from './panel-divider';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
@@ -40,6 +40,12 @@ export const panelList = () => {
             panelArray: responsivePanel,
             tabRole: TabSetting
         },
+        // {
+        //     title: __('Shape Divider', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: dividerPanel,
+        //     tabRole: TabSetting
+        // },
         {
             title: __('Positioning', '--gctd--'),
             initialOpen: false,
@@ -68,6 +74,16 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Background Overlay', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
             title: __('Border', 'gutenverse'),
             initialOpen: false,
             panelArray: borderPanel,
@@ -79,6 +95,30 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Typography', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => typographyPanel({
+                ...props,
+                styleId: 'section-typography'
+            }),
+            tabRole: TabStyle
+        },
+
+        // Pro
+
         // {
         //     title: __('Sticky', '--gctd--'),
         //     initialOpen: false,
@@ -100,51 +140,10 @@ export const panelList = () => {
         //     pro: true,
         // },
         // {
-        //     title: __('Background Overlay', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundOverlayPanel({
-        //         ...props,
-        //         styleId: 'section-background-overlay',
-        //         normalOptions: ['default', 'gradient'],
-        //         hoverOptions: ['default', 'gradient']
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Blur', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: blurPanel,
-        //     tabRole: TabStyle
-        // },
-        // {
         //     title: __('Background Animated', '--gctd--'),
         //     initialOpen: false,
         //     panelArray: backgroundAnimatedPanel,
         //     pro: true,
-        // },
-        // {
-        //     title: __('Pointer Event', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => pointerEventPanel({
-        //         ...props,
-        //         selector: `.section-${props.elementId}`
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Typography', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => typographyPanel({
-        //         ...props,
-        //         styleId: 'section-typography'
-        //     }),
-        //     tabRole: TabStyle
-        // },
-        // {
-        //     title: __('Shape Divider', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: dividerPanel,
-        //     tabRole: TabSetting
         // },
         // {
         //     title: __('Shape Divider Animated', '--gctd--'),

@@ -22,6 +22,169 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['wrapColumn']) && data.push({
+        'type': 'plain',
+        'id': 'wrapColumn',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'flex-wrap',
+                'valueType': 'pattern',
+                'pattern': 'wrap',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['wrapColumn']) && data.push({
+        'type': 'plain',
+        'id': 'wrapColumn',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container > .guten-column`,
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100vh',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
+        'type': 'plain',
+        'id': 'heightControl',
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '100%',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'min' && data.push({
+        'type': 'unitPoint',
+        'id': 'height',
+        'responsive': true,
+        'selector': `.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'min-height',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['verticalAlign']) && attributes['verticalAlign'] !== 'default' && data.push({
+        'type': 'plain',
+        'id': 'verticalAlign',
+        'selector': isNotEmpty(attributes['align']) && attributes['align'] === 'stretch' ?
+            `section.guten-element.${elementId} > .guten-container > .guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout` :
+            `section.guten-element.${elementId} > .guten-container`,
+        'properties': [
+            {
+                'name': 'align-content',
+                'valueType': 'direct',
+            },
+            {
+                'name': 'align-items',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['clipMargin']) && isNotEmpty(attributes['overflow']) && 'clip' === attributes['overflow'] && data.push({
+        'type': 'unitPoint',
+        'id': 'clipMargin',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}`,
+        'properties': [
+            {
+                'name': 'overflow-clip-margin',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['blur']) && data.push({
+        'type': 'plain',
+        'id': 'blur',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}:before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['blurHover']) && data.push({
+        'type': 'plain',
+        'id': 'blurHover',
+        'responsive': true,
+        'selector': `section.guten-section.${elementId}:hover::before`,
+        'properties': [
+            {
+                'name': '-webkit-backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            },
+            {
+                'name': 'backdrop-filter',
+                'valueType': 'pattern',
+                'pattern': 'blur({value}px)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['pointer']) && data.push({
+        'type': 'pointerEvent',
+        'id': 'pointer',
+        'selector': `.section-${elementId}`,
+        'responsive': true,
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
@@ -32,6 +195,42 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'background',
         'id': 'backgroundHover',
         'selector': `.${elementId}:not(.background-animated):hover, .${elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
+    });
+
+    isNotEmpty(attributes['backgroundOverlay']) && data.push({
+        'type': 'background',
+        'id': 'backgroundOverlay',
+        'selector': `.${elementId} > .guten-background-overlay`,
+    });
+
+    isNotEmpty(attributes['backgroundOverlayHover']) && data.push({
+        'type': 'background',
+        'id': 'backgroundOverlayHover',
+        'selector': `.${elementId}:hover > .guten-background-overlay`,
+    });
+
+    isNotEmpty(attributes['opacity']) && data.push({
+        'type': 'plain',
+        'id': 'opacity',
+        'selector': `.${elementId} > .guten-background-overlay`,
+        'properties': [
+            {
+                'name': 'opacity',
+                'valueType': 'direct',
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['opacityHover']) && data.push({
+        'type': 'plain',
+        'id': 'opacityHover',
+        'selector': `.${elementId}:hover > .guten-background-overlay`,
+        'properties': [
+            {
+                'name': 'opacity',
+                'valueType': 'direct',
+            }
+        ],
     });
 
     isNotEmpty(attributes['border']) && data.push({
@@ -143,6 +342,72 @@ const getBlockStyle = (elementId, attributes) => {
                         'key': 'delay',
                     },
 
+                }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyHeadingColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyHeadingColor',
+        'selector': `.${elementId} .wp-block-gutenverse-heading`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextColor',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkColor',
+        'selector': `.${elementId} a`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyLinkHoverColor']) && data.push({
+        'type': 'color',
+        'id': 'typographyLinkHoverColor',
+        'selector': `.${elementId} a:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['typographyTextAlign']) && data.push({
+        'type': 'color',
+        'id': 'typographyTextAlign',
+        'selector': `.${elementId}`,
+        'properties': [
+            {
+                'name': 'text-align',
+                'valueType': 'pattern',
+                'pattern': '{value}',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct',
+                    },
                 }
             }
         ],
