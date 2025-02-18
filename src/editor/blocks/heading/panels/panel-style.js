@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 /* Gutenverse dependencies */
 import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
 
-export const stylePanel = ({elementId, useStyleInLink}) => {
+export const stylePanel = ({ elementId, useStyleInLink }) => {
     const linkStyle = useStyleInLink ? `
         , .guten-element.${elementId} a:not(.guten-text-highlight a), 
         .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
@@ -57,6 +57,13 @@ export const stylePanel = ({elementId, useStyleInLink}) => {
             id: 'textStroke',
             label: __('Text Stroke', 'gutenverse'),
             component: TextStrokeControl,
+            liveStyle: [
+                {
+                    'type': 'textStroke',
+                    'id': 'textStroke',
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                }
+            ]
         },
         {
             id: 'overflowWrap',
