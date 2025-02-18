@@ -343,7 +343,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 
 };
 
-export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef) => {
+export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, timeout = true) => {
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
         return;
@@ -389,13 +389,23 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef) =
 
     cssElement.innerHTML = generatedCSS;
 
-    const timeoutId = setTimeout(() => {
+    const timeoutId = timeout && setTimeout(() => {
         if (cssElement.parentNode) {
             cssElement.parentNode.removeChild(cssElement);
         }
     }, 1000);
 
     return timeoutId;
+};
+
+// Call this to remove any remaining temporary styles.
+export const removeLiveStyle = (elementRef) => {
+    let theWindow = getWindow(elementRef);
+    let cssElement = theWindow.document.getElementById('gutenverse-temp-css');
+
+    if (cssElement && cssElement.parentNode) {
+        cssElement.parentNode.removeChild(cssElement);
+    }
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
