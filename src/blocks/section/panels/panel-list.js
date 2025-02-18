@@ -35,17 +35,17 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Shape Divider', '--gctd--'),
+            initialOpen: false,
+            panelArray: dividerPanel,
+            tabRole: TabSetting
+        },
+        {
             title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Shape Divider', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: dividerPanel,
-        //     tabRole: TabSetting
-        // },
         {
             title: __('Positioning', '--gctd--'),
             initialOpen: false,

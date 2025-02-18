@@ -8,6 +8,7 @@ const DividerControl = (props) => {
     const {
         value = {},
         onValueChange,
+        onLocalChange,
     } = props;
 
     const id = useInstanceId(DividerControl, 'inspector-divider-control');
@@ -134,6 +135,7 @@ const DividerControl = (props) => {
             label={__('Width', '--gctd--')}
             value={value.width}
             onValueChange={width => onValueChange({...value, width})}
+            onLocalChange={width => onLocalChange({...value, width})}
             min={100}
             max={300}
             step={1}
@@ -144,6 +146,7 @@ const DividerControl = (props) => {
             label={__('Height', '--gctd--')}
             value={value.height}
             onValueChange={height => onValueChange({...value, height})}
+            onLocalChange={height => onLocalChange({...value, height})}
             min={1}
             max={500}
             step={1}
@@ -180,6 +183,7 @@ const DividerControl = (props) => {
                 label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({...value, color})}
+                onLocalChange={color => onLocalChange({...value, color})}
             />}
             {value.colorMode && value.colorMode === 'gradient' && <>
                 <GradientControl

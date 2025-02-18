@@ -20,6 +20,7 @@ import { positioningGenerator } from './generator/generator-positioning';
 import { unitPointGenerator } from './generator/generator-unit-point';
 import { isEmptyString } from 'gutenverse-core/helper';
 import { pointerEventGenerator } from './generator/generator-pointer-events';
+import { shapeDividerGenerator } from './generator/generator-shape-divider';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -92,6 +93,9 @@ const generateCSSString = (attribute, style) => {
             break;
         case 'pointerEvent':
             css = pointerEventGenerator(attribute, style, css);
+            break;
+        case 'shapeDivider':
+            css = shapeDividerGenerator(attribute, style, css);
             break;
         case 'boxShadow':
         case 'textShadow':

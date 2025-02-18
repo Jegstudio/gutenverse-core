@@ -185,6 +185,18 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
     });
 
+    isNotEmpty(attributes['topDivider']) && data.push({
+        'type': 'shapeDivider',
+        'id': 'topDivider',
+        'selector': `section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-top svg, section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-top .guten-shape-fill path`,
+    });
+
+    isNotEmpty(attributes['bottomDivider']) && data.push({
+        'type': 'shapeDivider',
+        'id': 'bottomDivider',
+        'selector': `section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-bottom svg, section.guten-section.${elementId} .guten-shape-divider.guten-shape-divider-bottom .guten-shape-fill path`,
+    });
+
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
