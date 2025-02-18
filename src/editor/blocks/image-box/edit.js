@@ -265,9 +265,8 @@ const ImageBoxBlock = compose(
         'gutenverse.pro.dynamic.toolbar',
     );
 
-    const [localAttr, setLocalAttr] = useState({});
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -354,7 +353,7 @@ const ImageBoxBlock = compose(
                 </ImageBoxPicker>
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div {...blockProps}>
             <div className="inner-container">
                 <div className="image-box-header">
