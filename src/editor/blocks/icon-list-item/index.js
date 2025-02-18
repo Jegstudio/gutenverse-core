@@ -2,9 +2,10 @@
 import edit from './edit';
 import save from './save';
 import metadata from './block.json';
+import saveV1 from './deprecated/v1/save';
 import { IconListItemSVG } from '../../../assets/icon/index';
 
-const { name } = metadata;
+const { name, attributes } = metadata;
 
 export { metadata, name };
 
@@ -12,4 +13,10 @@ export const settings = {
     icon: <IconListItemSVG />,
     edit,
     save,
+    deprecated : [
+        {
+            attributes : attributes,
+            save : saveV1
+        }
+    ]
 };

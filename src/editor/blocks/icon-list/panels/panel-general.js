@@ -29,7 +29,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'color',
                     'id': 'colorDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1))`,
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'color',
@@ -72,7 +72,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item`,
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'width',
@@ -83,7 +83,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item`,
+                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'height',
@@ -102,7 +102,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1))`,
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-top-width',
@@ -113,7 +113,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1))`,
+                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-left-width',

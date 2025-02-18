@@ -1,7 +1,7 @@
 .guten-icon-list-item {
     margin-left: 0;
     margin-right: 0;
-    
+    width: fit-content;
     i {
         line-height: 25px;
     }
@@ -9,5 +9,9 @@
     .list-text {
         padding-left: 6px;
         white-space: pre-wrap;
+    }
+    .list-divider{
+        display: flex;
+        justify-self: center;
     }
 }

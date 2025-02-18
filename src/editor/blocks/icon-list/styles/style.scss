@@ -1,11 +1,9 @@
 .guten-icon-list {
     list-style: none;
-
+    display: flex;
+    flex-direction: column;
     &.inline-icon-list {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
+        flex-direction: row;
         flex-wrap: wrap;
         .guten-icon-list-item{
             display: flex;
@@ -13,6 +11,10 @@
     }
 
     .guten-icon-list-item {
+        .list-divider{
+            width: auto;
+            height: auto;
+        }
         .list-text {
             &.no-icon {
                 padding-left: 0;

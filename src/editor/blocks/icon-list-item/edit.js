@@ -159,7 +159,8 @@ const IconListItemBlock = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <li  {...blockProps}>
+        <li {...blockProps}>
+            <div className="list-divider"></div>
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
