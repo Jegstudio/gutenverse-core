@@ -326,7 +326,7 @@ const ColumnPlaceholder = (props) => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.add('dragging');
+                toolTip?.classList?.add('dragging');
             });
         }
     };
@@ -335,7 +335,7 @@ const ColumnPlaceholder = (props) => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.remove('dragging');
+                toolTip?.classList?.remove('dragging');
             });
         }
     };
@@ -401,6 +401,7 @@ const ColumnPlaceholder = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
+                                onChange={() => {}}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -585,6 +586,7 @@ const ColumnWrapper = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
+                                onChange={() => {}}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -814,6 +816,8 @@ const ColumnBlock = compose(
 
     useEffect(() => {
         const eachWidth = roundToDown(100 / adjacentCount, 1);
+        let timeout = null;
+
         if (!prevAdjacentCount) {
             if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
                 setAttributes({ width: { ...width, [deviceType]: eachWidth } });
@@ -822,10 +826,14 @@ const ColumnBlock = compose(
         } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
             const innerBlocks = getBlocks(rootClientId);
             setPrevAdjacentCount(adjacentCount);
-            innerBlocks.map(item => {
-                updateBlockWidth(item.clientId, eachWidth);
-            });
+            timeout = setTimeout(() => {
+                innerBlocks.map(item => {
+                    updateBlockWidth(item.clientId, eachWidth);
+                });
+            }, 20);
         }
+
+        return () => clearTimeout(timeout);
     }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
