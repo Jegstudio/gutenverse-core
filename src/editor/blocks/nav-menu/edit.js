@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -18,13 +18,13 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const NavMenuBlock = compose(
-    withPartialRender,
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        deviceType
+        deviceType,
+        clientId
     } = props;
 
     const {
@@ -50,7 +50,6 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [localAttr, setLocalAttr] = useState({});
     
     const removeClick = () => {
         if (elementRef.current) {
@@ -158,17 +157,17 @@ const NavMenuBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType.toLowerCase(),
+            deviceType?.toLowerCase(),
             `${breakpoint}-breakpoint`,
         ),
         ['data-item-indicator']: submenuItemIndicator
     });
 
     useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             {menuId ? !loading ? <RawHTML key="html">
                 {response}

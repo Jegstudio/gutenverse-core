@@ -1,9 +1,8 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
@@ -14,15 +13,15 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const PostAuthorBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { postId, postType }
     } = props;
 
@@ -38,7 +37,7 @@ const PostAuthorBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postAuthorRef = useRef();
+    const elementRef = useRef();
     const linkTarget = authorLinkTarget ? '_blank' : '_self';
     const [authorName, setAuthorName] = useState('Post Author');
 
@@ -88,10 +87,6 @@ const PostAuthorBlock = compose(
         }
     }, [authorType, authorDetails]);
 
-    useEffect(() => {
-        postAuthorRef.current && setElementRef(postAuthorRef.current);
-    }, [postAuthorRef]);
-
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -101,8 +96,11 @@ const PostAuthorBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postAuthorRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
         <InspectorControls>
@@ -120,7 +118,7 @@ const PostAuthorBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {! isEmpty(authorDetails) && authorAvatar && <img className="avatar photo" width="48" src={authorDetails['avatar_urls']['48']} alt={authorDetails['name']}/>}
             <HtmlTag>{! isEmpty(authorDetails) && authorLink ? <a href={authorDetails['link']} target={linkTarget} rel={authorLinkRel} onClick={e => e.preventDefault()}>{authorName}</a> : authorName}</HtmlTag>
