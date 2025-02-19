@@ -326,7 +326,7 @@ const ColumnPlaceholder = (props) => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.add('dragging');
+                toolTip?.classList?.add('dragging');
             });
         }
     };
@@ -335,7 +335,7 @@ const ColumnPlaceholder = (props) => {
         if (deviceType === 'Desktop') {
             parentBlock.innerBlocks.map(({ clientId }) => {
                 const toolTip = editorDom?.querySelector(`.wp-block[data-block="${clientId}"] > .guten-column-resizeable > .column-resize`);
-                toolTip.classList.remove('dragging');
+                toolTip?.classList?.remove('dragging');
             });
         }
     };
