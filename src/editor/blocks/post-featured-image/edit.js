@@ -1,9 +1,7 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
@@ -14,15 +12,15 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const PostFeaturedImageBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { postId, postType }
     } = props;
 
@@ -34,7 +32,7 @@ const PostFeaturedImageBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postFeaturedRef = useRef();
+    const elementRef = useRef();
 
     const [ featuredImage ] = useEntityProp( 'postType', postType, 'featured_media', postId );
     const [ link ] = useEntityProp( 'postType', postType, 'link', postId );
@@ -55,10 +53,6 @@ const PostFeaturedImageBlock = compose(
     );
     const mediaUrl = media?.source_url;
 
-    useEffect(() => {
-        postFeaturedRef.current && setElementRef(postFeaturedRef.current);
-    }, [postFeaturedRef]);
-
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -68,12 +62,15 @@ const PostFeaturedImageBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postFeaturedRef
+        ref: elementRef
     });
 
     let content = mediaUrl ? <img src={mediaUrl}/> : placeholderImg ? <img src={imagePlaceholder}/> : __('Post Featured Image', 'gutenverse');
 
     content = postLink && link ? <a href={link} onClick={e => e.preventDefault()}>{content}</a> : content;
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
         <InspectorControls>
@@ -91,7 +88,7 @@ const PostFeaturedImageBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {content}
         </div>
