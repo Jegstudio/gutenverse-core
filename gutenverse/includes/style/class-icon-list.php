@@ -254,7 +254,7 @@ class Icon_List extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child) .list-divider",
-						'property'       => function ( $value ) {
+						'property'       => function () {
 							return 'border-top-style : solid;';
 						},
 						'value'          => $this->attrs['isDivider'],
@@ -264,7 +264,7 @@ class Icon_List extends Style_Abstract {
 				$this->inject_style(
 					array(
 						'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:first-child) .list-divider",
-						'property'       => function ( $value ) {
+						'property'       => function () {
 							return 'border-left-style : solid;';
 						},
 						'value'          => $this->attrs['isDivider'],
