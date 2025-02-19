@@ -401,6 +401,7 @@ const ColumnPlaceholder = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
+                                onChange={() => {}}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -585,6 +586,7 @@ const ColumnWrapper = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
+                                onChange={() => {}}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
