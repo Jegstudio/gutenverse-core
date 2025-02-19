@@ -814,6 +814,8 @@ const ColumnBlock = compose(
 
     useEffect(() => {
         const eachWidth = roundToDown(100 / adjacentCount, 1);
+        let timeout = null;
+
         if (!prevAdjacentCount) {
             if ((getChildTotalWidth() > 100) || (getChildTotalWidth() < 99 && !width)) {
                 setAttributes({ width: { ...width, [deviceType]: eachWidth } });
@@ -822,10 +824,14 @@ const ColumnBlock = compose(
         } else if (prevAdjacentCount && (prevAdjacentCount !== adjacentCount)) {
             const innerBlocks = getBlocks(rootClientId);
             setPrevAdjacentCount(adjacentCount);
-            innerBlocks.map(item => {
-                updateBlockWidth(item.clientId, eachWidth);
-            });
+            timeout = setTimeout(() => {
+                innerBlocks.map(item => {
+                    updateBlockWidth(item.clientId, eachWidth);
+                });
+            }, 20);
         }
+
+        return () => clearTimeout(timeout);
     }, [adjacentCount]);
 
     const vertical = setDeviceClasses(verticalAlign, 'vertical');
