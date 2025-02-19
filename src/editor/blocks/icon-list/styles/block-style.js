@@ -1,7 +1,7 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelGeneralStyle from './panel-style/panel-general';
-import panelIconStyle from './panel-style/panel-icon';
-import panelTextStyle from './panel-style/panel-text';
+import panelGeneralStyle from './panel-style/style-general';
+import panelIconStyle from './panel-style/style-icon';
+import panelTextStyle from './panel-style/style-text';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];

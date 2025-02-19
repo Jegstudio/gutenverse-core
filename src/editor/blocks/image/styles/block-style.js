@@ -1,6 +1,6 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelCaptionStyle from './panel-style/panel-caption';
-import panelImageStyle from './panel-style/panel-image';
+import panelCaptionStyle from './panel-style/style-caption';
+import panelImageStyle from './panel-style/style-image';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];

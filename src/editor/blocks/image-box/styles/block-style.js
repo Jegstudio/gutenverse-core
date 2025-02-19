@@ -1,10 +1,10 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelBodyStyle from './panel-style/panel-body-style';
-import panelDescStyle from './panel-style/panel-description-style';
-import panelFloatingStyle from './panel-style/panel-floating';
-import panelImageStyle from './panel-style/panel-image-style';
-import panelTitleStyle from './panel-style/panel-title-style';
-import panelWrapperStyle from './panel-style/panel-wrapper';
+import panelBodyStyle from './panel-style/style-body-style';
+import panelDescStyle from './panel-style/style-description-style';
+import panelFloatingStyle from './panel-style/style-floating';
+import panelImageStyle from './panel-style/style-image-style';
+import panelTitleStyle from './panel-style/style-title-style';
+import panelWrapperStyle from './panel-style/style-wrapper';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];

@@ -1,8 +1,8 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelCloseStyle from './panel-style/panel-close';
-import panelContainerStyle from './panel-style/panel-container';
-import panelOverlayStyle from './panel-style/panel-overlay';
-import panelPopupStyle from './panel-style/panel-popup';
+import panelCloseStyle from './panel-style/style-close';
+import panelContainerStyle from './panel-style/style-container';
+import panelOverlayStyle from './panel-style/style-overlay';
+import panelPopupStyle from './panel-style/style-popup';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];

@@ -1,8 +1,8 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelArrowStyle from './panel-style/panel-arrow';
-import panelDotsStyle from './panel-style/panel-dots';
-import panelLogosStyle from './panel-style/panel-logos-style';
-import panelLogosWrapperStyle from './panel-style/panel-logos-wrapper';
+import panelArrowStyle from './panel-style/style-arrow';
+import panelDotsStyle from './panel-style/style-dots';
+import panelLogosStyle from './panel-style/style-logos-style';
+import panelLogosWrapperStyle from './panel-style/style-logos-wrapper';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];

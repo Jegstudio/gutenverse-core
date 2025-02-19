@@ -1,15 +1,15 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelCategoryStyle from './panel-style/panel-category';
-import panelFilterSearchStyle from './panel-style/panel-filter-search';
-import panelFilterTabStyle from './panel-style/panel-filter-tab';
-import panelIconStyle from './panel-style/panel-icon';
-import panelSettingStyle from './panel-style/panel-setting';
-import panelItemCardStyle from './panel-style/panel-item-card';
-import panelItemHoverStyle from './panel-style/panel-item-hover';
-import panelItemStyle from './panel-style/panel-item-style';
-import panelLoadMoreStyle from './panel-style/panel-load-more';
-import panelThumbnailStyle from './panel-style/panel-thumbnail';
-import panelPriceRating from './panel-style/panel-price-rating';
+import panelCategoryStyle from './panel-style/style-category';
+import panelFilterSearchStyle from './panel-style/style-filter-search';
+import panelFilterTabStyle from './panel-style/style-filter-tab';
+import panelIconStyle from './panel-style/style-icon';
+import panelSettingStyle from './panel-style/style-setting';
+import panelItemCardStyle from './panel-style/style-item-card';
+import panelItemHoverStyle from './panel-style/style-item-hover';
+import panelItemStyle from './panel-style/style-item-style';
+import panelLoadMoreStyle from './panel-style/style-load-more';
+import panelThumbnailStyle from './panel-style/style-thumbnail';
+import panelPriceRating from './panel-style/style-price-rating';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
