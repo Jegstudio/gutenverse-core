@@ -40,24 +40,11 @@ export const stylePanel = (props) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-raw-wrapper`,
-                    render: value => `justify-content: ${value};`
-                },
-            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-raw-wrapper`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: '__styleHover',
@@ -79,50 +66,76 @@ export const stylePanel = (props) => {
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-raw-wrapper`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'color',
+                    'selector': `.${elementId} *`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadow',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-raw-wrapper`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} *`,
                 }
-            ]
+            ],
         },
         {
             id: 'colorHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .guten-raw-wrapper`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'colorHover',
+                    'selector': `.${elementId}:hover *`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadowHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .guten-raw-wrapper`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadowHover',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}:hover *`,
                 }
-            ]
+            ],
         }
     ];
 };

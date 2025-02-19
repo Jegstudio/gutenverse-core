@@ -297,7 +297,7 @@ export const stylePanel = (props) => {
             liveStyle: [
                 authorAvatar && {
                     'type': 'borderResponsive',
-                    'id': 'imgBorderResponsive',
+                    'id': 'authorBorderResponsive',
                     'selector': `.${elementId} img`,
                 }
             ],
