@@ -33,8 +33,27 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
-                'name': 'color',
+                'name': 'border-color',
                 'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['spaceDivider']) && !attributes['displayInline'] && data.push({
+        'type': 'plain',
+        'id': 'spaceDivider',
+        'responsive' : true,
+        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'pattern',
+                'pattern': '0 {value}px',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
             }
         ]
     });
@@ -45,7 +64,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
-                'name': 'color',
+                'name': 'border-color',
                 'valueType': 'direct'
             }
         ]
@@ -206,10 +225,11 @@ const panelGeneralStyle = (elementId, attributes, data) => {
             {
                 'name': 'align-items',
                 'valueType': 'direct',
-            }
+            },
         ],
         'selector': `.${elementId}:not(.inline-icon-list)`,
     });
+
     isNotEmpty(attributes['alignList']) && data.push({
         'type': 'plain',
         'id': 'alignList',
@@ -218,9 +238,13 @@ const panelGeneralStyle = (elementId, attributes, data) => {
             {
                 'name': 'justify-content',
                 'valueType': 'direct',
+            },
+            {
+                'name': 'text-align',
+                'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId}.inline-icon-list, .${elementId}:not(.inline-icon-list) .guten-icon-list-item`,
+        'selector': `.${elementId}.inline-icon-list, .${elementId}:not(.inline-icon-list) .guten-icon-list-item a`,
     });
 
     if (attributes['displayInline']) {

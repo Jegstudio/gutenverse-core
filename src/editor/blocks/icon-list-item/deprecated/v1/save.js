@@ -35,7 +35,6 @@ const save = ({ attributes }) => {
         attributes,
         elementId
     );
-    console.log(className, elementId, href, linkTarget, rel, ariaLabel, hideIcon, icon, text)
     return (
         <div {...useBlockProps.save({ className })}>
             <a id={elementId} href={href} target={ linkTarget } rel={ rel } aria-label={ariaLabel}>

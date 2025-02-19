@@ -7,6 +7,7 @@ export const panelGeneral = (props) => {
     const {
         elementId,
         isDivider,
+        displayInline
     } = props;
 
     return [
@@ -19,6 +20,37 @@ export const panelGeneral = (props) => {
             id: 'isDivider',
             label: __('Divider', 'gutenverse'),
             component: CheckboxControl,
+        },
+        {
+            id: 'spaceDivider',
+            label: __('Divider Horizontal Spacer', 'gutenverse'),
+            show: isDivider && !displayInline,
+            component: RangeControl,
+            allowDeviceControl: true,
+            min: 1,
+            max: 100,
+            step: 1,
+            unit: 'px',
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'spaceDivider',
+                    'responsive' : true,
+                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+                    'properties': [
+                        {
+                            'name': 'margin',
+                            'valueType': 'pattern',
+                            'pattern': '0 {value}px',
+                            'patternValues' : {
+                                'value' : {
+                                    'type' : 'direct'
+                                }
+                            }
+                        }
+                    ]
+                },
+            ]
         },
         {
             id: 'colorDivider',
