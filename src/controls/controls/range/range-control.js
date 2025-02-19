@@ -36,19 +36,17 @@ const RangeControl = ({
             return;
         }
 
-        if (localValue) {
-            onLocalChange(localValue);
+        onLocalChange(localValue);
 
-            const debouncedHandler = debounce(() => {
-                onValueChange(localValue);
-            }, 150);
+        const debouncedHandler = debounce(() => {
+            onValueChange(localValue);
+        }, 150);
 
-            debouncedHandler();
+        debouncedHandler();
 
-            return () => {
-                debouncedHandler.cancel();
-            };
-        }
+        return () => {
+            debouncedHandler.cancel();
+        };
     }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
