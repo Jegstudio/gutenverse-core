@@ -19,7 +19,7 @@ class GutenverseElements extends Default {
         }
 
         if (elementObj.hasClass('guten-advance-button-wrapper')) {
-            elementObj = u(element).find('.guten-advance-button')
+            elementObj = u(element).find('.guten-advance-button');
         }
 
         const { animationClass, animationClasses } = this.getAnimationClass(elementObj);

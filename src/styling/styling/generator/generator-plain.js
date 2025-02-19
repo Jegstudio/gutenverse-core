@@ -64,10 +64,10 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props, type) => {
     let value = null;
-    const { pattern, patternValues, valueType, functionName, excludeValue = [] } = props;
+    const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [] } = props;
     switch (valueType) {
         case 'function':
-            value = renderFunctionValue(functionName, attribute);
+            value = renderFunctionValue(functionName, attribute, functionProps);
             break;
         case 'pattern':
             value = renderPatternValues(pattern, patternValues, attribute);
@@ -85,7 +85,7 @@ const generateValue = (attribute, props, type) => {
     return value;
 };
 
-const renderFunctionValue = (functionName, attribute) => {
+const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
     let value = null;
     switch (functionName) {
         case 'handleAlign':
@@ -110,6 +110,10 @@ const renderFunctionValue = (functionName, attribute) => {
             const { dimension, unit = 'px' } = attribute || {};
             const { top = 10, bottom = 10 } = dimension || {};
             value = `calc(100vh - ${parseFloat(top) + parseFloat(bottom)}${unit})`;
+            break;
+        case 'handleSimpleCondition':
+            const { valueTrue, valueFalse } = functionProps;
+            value = attribute ? valueTrue : valueFalse;
             break;
         default:
             value = '';
