@@ -30,6 +30,7 @@ export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr
 };
 const PanelController = ({ ...props }) => {
     const {
+        clientId,
         panelProps,
         panelList,
         elementRef,
@@ -116,6 +117,7 @@ const PanelController = ({ ...props }) => {
 
     const thePanelProps = {
         ...panelProps,
+        clientId,
         switcher,
         setSwitcher,
     };

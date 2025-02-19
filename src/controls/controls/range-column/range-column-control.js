@@ -6,7 +6,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { dispatch, select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
-import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
+import { removeLiveStyle, updateLiveStyle } from 'gutenverse-core/styling';
 
 const RangeColumnControl = (props) => {
     const {
@@ -16,15 +16,15 @@ const RangeColumnControl = (props) => {
         step,
         value = '',
         description = '',
-        additionalProps
+        elementRef,
+        clientId,
+        values
     } = props;
 
     const {
         elementId,
-        clientId,
-        addStyle,
         setAttributes
-    } = additionalProps;
+    } = values;
 
     const {
         getBlock,
@@ -40,7 +40,6 @@ const RangeColumnControl = (props) => {
     } = dispatch('core/block-editor');
 
     const deviceType = getDeviceType();
-    const gutenverseSelector = select('gutenverse/style');
     const id = useInstanceId(RangeColumnControl, 'inspector-range-control');
     const rootClientId = getBlockRootClientId(clientId);
     const parentId = getBlockParents(clientId, true)[0];
@@ -57,10 +56,6 @@ const RangeColumnControl = (props) => {
         setLocalValue(value[deviceType]);
     }, [value[deviceType]]);
 
-    const selector = (selectorId) => {
-        return `.${selectorId}`;
-    };
-
     const onInputChange = (width) => {
         if (isEmpty(width) && 'Desktop' === deviceType) {
             width = value[deviceType];
@@ -69,7 +64,7 @@ const RangeColumnControl = (props) => {
         const max = (deviceType === 'Desktop') && !(blockIndex === 0 && blockOrder.length === 1) ? totalWidth - min : 100;
         if (width > max) {
             width = max;
-        } else if(width < min) {
+        } else if (width < min) {
             width = min;
         }
 
@@ -89,28 +84,69 @@ const RangeColumnControl = (props) => {
         let deviceCache = value;
         deviceCache[deviceType] = deviceWidth;
 
-        addStyle(
-            'column-width',
-            BuildColumnWidthStyle(deviceCache, selector(elementId))
-        );
-
         setLocalValue(width);
 
         // update neightbor
+        let neightborWidth = {};
+        let neightborElementId = '';
         if (neightborClientId && deviceType === 'Desktop') {
-            const neightborElementId = getBlock(neightborClientId).attributes.elementId;
-            let neightborWidth = getBlock(neightborClientId).attributes.width;
-            const neightborStyle = gutenverseSelector.findElement(neightborClientId) ? gutenverseSelector.findElement(neightborClientId).addStyle : null;
+            neightborElementId = getBlock(neightborClientId).attributes.elementId;
+            neightborWidth = getBlock(neightborClientId).attributes.width;
             neightborWidth[deviceType] = totalWidth - width;
-
-            neightborStyle(
-                'column-width',
-                BuildColumnWidthStyle(neightborWidth, selector(neightborElementId))
-            );
         }
+
+        updateLiveStyle(
+            elementId,
+            {
+                curentWidth: deviceCache,
+                targetWidth: neightborWidth
+            },
+            [
+                {
+                    'type': 'plain',
+                    'id': 'curentWidth',
+                    'responsive': true,
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                },
+                {
+                    'type': 'plain',
+                    'id': 'targetWidth',
+                    'responsive': true,
+                    'selector': `.${neightborElementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                },
+            ],
+            elementRef,
+            false
+        );
     };
 
     const doChangeValue = () => {
+        removeLiveStyle(elementRef);
+
         setAttributes({
             [controlId]: {
                 ...value,
@@ -138,8 +174,8 @@ const RangeColumnControl = (props) => {
     }, [dragging, onFocus]);
 
     const cacheOption = () => {
-        const columns = getBlock(rootClientId).innerBlocks;
-        const totalColumn = columns.length;
+        const columns = getBlock(rootClientId)?.innerBlocks;
+        const totalColumn = columns?.length;
 
         const nextColumnId = getNextBlockClientId(clientId, rootClientId);
         const previousColumnId = getPreviousBlockClientId(clientId, rootClientId);
