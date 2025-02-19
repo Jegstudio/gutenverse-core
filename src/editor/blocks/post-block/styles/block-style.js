@@ -1,7 +1,34 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import panelCategoryStyle from './panel-style/style-category';
+import panelCommentStyle from './panel-style/style-comment';
+import panelContentContainerStyle from './panel-style/style-content-container';
+import panelContentStyle from './panel-style/style-content';
+import panelExcerptStyle from './panel-style/style-excerpt';
+import panelPaginationStyle from './panel-style/style-pagination-style';
+import postItemStyle from './panel-style/style-post-item';
+import postMetaStyle from './panel-style/style-postmeta';
+import readmoreStyle from './panel-style/style-readmore';
+import thumbnailContainerStyle from './panel-style/style-thumbnail-container';
+import thumbnailOverlayStyle from './panel-style/style-thumbnail-overlay';
+import thumbnailStyle from './panel-style/style-thumbnail';
+import titleStyle from './panel-style/style-title';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
+
+    data = panelCategoryStyle(elementId, attributes, data);
+    data = panelCommentStyle(elementId, attributes, data);
+    data = panelContentContainerStyle(elementId, attributes, data);
+    data = panelContentStyle(elementId, attributes, data);
+    data = panelExcerptStyle(elementId, attributes, data);
+    data = panelPaginationStyle(elementId, attributes, data);
+    data = postItemStyle(elementId, attributes, data);
+    data = postMetaStyle(elementId, attributes, data);
+    data = readmoreStyle(elementId, attributes, data);
+    data = thumbnailContainerStyle(elementId, attributes, data);
+    data = thumbnailOverlayStyle(elementId, attributes, data);
+    data = thumbnailStyle(elementId, attributes, data);
+    data = titleStyle(elementId, attributes, data);
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({

@@ -1,20 +1,19 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, RangeControl } from 'gutenverse-core/controls';
-import { handleBackground, } from 'gutenverse-core/styling';
 
-export const thumbnailPanelOverlay = ({elementId}) => {
+export const thumbnailPanelOverlay = ({ elementId }) => {
     return [
         {
             id: 'thumbnailBackground',
             label: __('Overlay Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: [ 'default', 'gradient' ],
-            style: [
+            options: ['default', 'gradient'],
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'thumbnailBackground',
+                    'selector': `.${elementId} .guten-postblock .guten-overlay`,
                 }
             ]
         },
@@ -26,13 +25,20 @@ export const thumbnailPanelOverlay = ({elementId}) => {
             max: 1,
             step: 0.01,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-overlay`,
-                    frontendSelector: 'img',
-                    render: value => `opacity: ${value};`
+                    'type': 'plain',
+                    'id': 'thumbnailOverlayOpacity',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-overlay`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
     ];
 };

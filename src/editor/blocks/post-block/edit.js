@@ -14,12 +14,14 @@ import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const PostBlockBlock = compose(
     withCopyElementToolbar(),
     withMouseMoveEffect,
 )((props) => {
-    const { attributes, deviceType, clientId, setAttributes } = props;
+    const { attributes, clientId, setAttributes } = props;
+    const deviceType = getDeviceType();
 
     const {
         elementId,

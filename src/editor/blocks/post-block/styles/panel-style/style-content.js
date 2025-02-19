@@ -1,10 +1,23 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 
 const panelContentStyle = (elementId, attributes, data) => {
-    isNotEmpty(attributes['overlayColor']) && data.push({
-        'type': 'background',
-        'id': 'overlayColor',
-        'selector': `.${elementId}.guten-popup-builder .guten-popup-overlay`,
+    isNotEmpty(attributes['column']) && data.push({
+        'type': 'plain',
+        'id': 'column',
+        'responsive': true,
+        'selector': `.${elementId} .guten-postblock .guten-posts`,
+        'properties' : [
+            {
+                'name' : 'grid-template-columns',
+                'valueType' : 'pattern',
+                'pattern' : 'repeat({value}, minmax(0, 1fr))',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
+            }
+        ]
     });
     return data;
 };
