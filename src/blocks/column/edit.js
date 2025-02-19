@@ -5,10 +5,9 @@ import { compose, debounce } from '@wordpress/compose';
 import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { BuildColumnWidthStyle, removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { dispatch, select, useSelect } from '@wordpress/data';
+import { dispatch, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -44,188 +43,6 @@ const getPosition = (blockId) => {
 
     return position;
 };
-
-// const toolResize = (props) => {
-//     const {
-//         setAttributes,
-//         attributes,
-//         newWidth,
-//         position,
-//         clientId,
-//         getNextBlockClientId,
-//         getPreviousBlockClientId,
-//         getBlock,
-//         updateBlockAttributes,
-//         deviceType,
-//         elementRef
-//     } = props;
-
-//     let targetId = '';
-//     if ('last' !== position) {
-//         targetId = getNextBlockClientId(clientId);
-//     } else {
-//         targetId = getPreviousBlockClientId(clientId);
-//     }
-
-//     const minWidth = {
-//         Desktop: 5,
-//         Tablet: 10,
-//         Mobile: 15,
-//     };
-
-//     const {
-//         width,
-//         elementId
-//     } = attributes;
-
-//     const gutenverseSelector = select('gutenverse/style');
-//     const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
-//     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
-
-//     if ('only' === position) {
-//         let deviceCache = width;
-//         let nWidth = parseFloat(newWidth.toFixed(1));
-
-//         if (nWidth < minWidth[deviceType]) {
-//             nWidth = minWidth[deviceType];
-//         }
-
-//         if (nWidth > 100) {
-//             nWidth = 100;
-//         }
-
-//         deviceCache[deviceType] = nWidth;
-//         updateLiveStyle(
-//             elementId,
-//             {
-//                 deviceCache
-//             },
-//             [
-//                 {
-//                     'type': 'plain',
-//                     'id': 'deviceCache',
-//                     'responsive': true,
-//                     'selector': `.${elementId}`,
-//                     'properties': [
-//                         {
-//                             'name': 'width',
-//                             'valueType': 'pattern',
-//                             'pattern': '{value}%',
-//                             'patternValues': {
-//                                 'value': {
-//                                     'type': 'direct',
-//                                 },
-//                             }
-//                         }
-//                     ],
-//                 },
-//             ],
-//             elementRef
-//         );
-//         setAttributes({ width: { ...props.attributes.width, [deviceType]: nWidth } });
-//         return;
-//     }
-
-//     const bothWidth = (parseFloat(currentWidth) + parseFloat(targetWidth[deviceType] ? targetWidth[deviceType] : targetWidth['Desktop']));
-//     const targetColumnStyle = gutenverseSelector.findElement(targetId) ? gutenverseSelector.findElement(targetId).addStyle : null;
-//     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
-
-//     let newCurentWidth = newWidth.toFixed(1);
-//     let newTargetWidth = bothWidth.toFixed(1) - newWidth.toFixed(1);
-
-//     if (newCurentWidth > (bothWidth - minWidth[deviceType])) {
-//         newCurentWidth = bothWidth - minWidth[deviceType];
-//         newTargetWidth = minWidth[deviceType];
-//     }
-
-//     if (newCurentWidth < minWidth[deviceType]) {
-//         newCurentWidth = minWidth[deviceType];
-//         newTargetWidth = bothWidth - minWidth[deviceType];
-//     }
-
-//     if (newTargetWidth < minWidth[deviceType]) {
-//         newTargetWidth = minWidth[deviceType];
-//         newCurentWidth = bothWidth - minWidth[deviceType];
-//     }
-
-//     if (deviceType !== 'Desktop') {
-//         newCurentWidth = newWidth.toFixed(1);
-//         if (newCurentWidth < minWidth[deviceType]) {
-//             newCurentWidth = minWidth[deviceType];
-//         }
-//         if (newCurentWidth > 100) {
-//             newCurentWidth = 100;
-//         }
-//     }
-
-//     newCurentWidth = parseFloat(newCurentWidth);
-//     newTargetWidth = parseFloat(newTargetWidth);
-
-//     let deviceCache = width;
-//     deviceCache[deviceType] = parseFloat(newCurentWidth);
-
-//     if (targetColumnStyle && deviceType === 'Desktop') {
-//         targetWidth[deviceType] = newTargetWidth;
-//     }
-
-//     updateLiveStyle(
-//         elementId,
-//         {
-//             deviceCache,
-//             targetWidth
-//         },
-//         [
-//             {
-//                 'type': 'plain',
-//                 'id': 'deviceCache',
-//                 'responsive': true,
-//                 'selector': `.${elementId}`,
-//                 'properties': [
-//                     {
-//                         'name': 'width',
-//                         'valueType': 'pattern',
-//                         'pattern': '{value}%',
-//                         'patternValues': {
-//                             'value': {
-//                                 'type': 'direct',
-//                             },
-//                         }
-//                     }
-//                 ],
-//             },
-//             {
-//                 'type': 'plain',
-//                 'id': 'targetWidth',
-//                 'responsive': true,
-//                 'selector': `.${targetColumnElementId}`,
-//                 'properties': [
-//                     {
-//                         'name': 'width',
-//                         'valueType': 'pattern',
-//                         'pattern': '{value}%',
-//                         'patternValues': {
-//                             'value': {
-//                                 'type': 'direct',
-//                             },
-//                         }
-//                     }
-//                 ],
-//             },
-//         ],
-//         elementRef
-//     );
-
-//     const newWidths = {
-//         current: newCurentWidth,
-//         target: newTargetWidth
-//     };
-//     const nextColumnWidthAttr = getBlock(targetId).attributes.width;
-
-//     setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidths.current } });
-//     if (deviceType === 'Desktop') {
-//         updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidths.target } });
-//     }
-// };
 
 const onResizeStart = (props, p) => {
     const {
@@ -584,22 +401,6 @@ const ColumnPlaceholder = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
-                                onChange={(event) => {
-                                    // const newWidth = parseFloat(event.target.value);
-                                    // let theWidth = 0;
-                                    // if (isNaN(newWidth)) {
-                                    //     theWidth = parseFloat(wvalue);
-                                    // } else {
-                                    //     theWidth = newWidth;
-                                    // }
-                                    // const theProps = {
-                                    //     ...props,
-                                    //     newWidth: parseFloat(theWidth),
-                                    //     position,
-                                    //     deviceType
-                                    // };
-                                    // toolResize(theProps);
-                                }}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -784,21 +585,6 @@ const ColumnWrapper = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
-                                onChange={(event) => {
-                                    // const newWidth = parseFloat(event.target.value);
-                                    // let theWidth = 0;
-                                    // if (isNaN(newWidth)) {
-                                    //     theWidth = parseFloat(wvalue);
-                                    // } else {
-                                    //     theWidth = newWidth;
-                                    // }
-                                    // const theProps = {
-                                    //     ...props,
-                                    //     newWidth: parseFloat(theWidth),
-                                    //     position,
-                                    // };
-                                    // toolResize(theProps);
-                                }}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -993,39 +779,10 @@ const ColumnBlock = compose(
     const isBackgroundEffect = (backgroundEffect !== undefined) && (backgroundEffect?.type !== 'none') && !isEmpty(backgroundEffect);
 
     const updateBlockWidth = useCallback((clientId, eachWidth) => {
-        const targetColumnElementId = clientId ? getBlock(clientId).attributes.elementId : null;
-        const targetWidth = clientId ? getBlock(clientId).attributes.width : null;
         const targetColumnWidthAttr = getBlock(clientId).attributes.width;
+        const updatedWidth = { ...targetColumnWidthAttr, [delayedDeviceType]: eachWidth };
 
-        updateLiveStyle(
-            elementId,
-            {
-                targetWidth
-            },
-            [
-                {
-                    'type': 'plain',
-                    'id': 'targetWidth',
-                    'responsive': true,
-                    'selector': `.${targetColumnElementId}`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
-                },
-            ],
-            elementRef,
-            false
-        );
-        updateBlockAttributes(targetId, { width: { ...targetColumnWidthAttr, [delayedDeviceType]: eachWidth } });
+        updateBlockAttributes(clientId, { width: updatedWidth });
     }, [clientId]);
 
     const getChildTotalWidth = () => {
