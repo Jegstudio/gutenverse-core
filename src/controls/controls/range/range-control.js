@@ -6,6 +6,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
 import debounce from 'lodash/debounce';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const RangeControl = ({
     label,
@@ -30,7 +31,11 @@ const RangeControl = ({
     const unitRef = useRef(null);
     const isFirstRender = useRef(true);
 
-    useEffect(() => setLocalValue(value), [value]);
+    const deviceType = getDeviceType();
+
+    useEffect(() => {
+        setLocalValue(value);
+    }, [deviceType]);
 
     useEffect(() => {
         if (isFirstRender.current) {

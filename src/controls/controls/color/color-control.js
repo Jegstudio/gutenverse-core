@@ -8,7 +8,7 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import { __ } from '@wordpress/i18n';
 import { Tooltip } from '@wordpress/components';
 import { RefreshCw, Globe, ChevronRight } from 'react-feather';
-import { renderColor, signal, hexToRgb } from 'gutenverse-core/editor-helper';
+import { renderColor, signal, hexToRgb, getDeviceType } from 'gutenverse-core/editor-helper';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
@@ -176,9 +176,11 @@ const ColorControl = (props) => {
         }
     }, [localColor]);
 
+    const deviceType = getDeviceType();
+
     useEffect(() => {
         setLocalColor(value);
-    }, [value]);
+    }, [deviceType]);
 
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 

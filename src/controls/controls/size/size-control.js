@@ -5,6 +5,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { debounce } from 'lodash';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
@@ -106,9 +107,11 @@ const SizeControl = (props) => {
         });
     };
 
+    const deviceType = getDeviceType();
+
     useEffect(() => {
         setLocalValue(value);
-    }, [value]);
+    }, [deviceType]);
 
     useEffect(() => {
         if (!localValue.unit || localValue.unit === '') {
