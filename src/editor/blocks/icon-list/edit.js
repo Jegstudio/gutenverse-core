@@ -5,7 +5,7 @@ import {
     useInnerBlocksProps, useBlockProps,
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController} from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
@@ -44,14 +44,18 @@ const IconListBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            {
-                'inline-icon-list': displayInline
-            },
         ),
         ref: elementRef
     });
 
-    const innerBlocksProps = useInnerBlocksProps(blockProps, {
+    const innerBlocksProps = useInnerBlocksProps({
+        className: classnames(
+            'list-wrapper',
+            {
+                'inline-icon-list': displayInline,
+            }
+        )
+    }, {
         template: [
             ['gutenverse/icon-list-item', { icon: 'fas fa-check', text: 'List Item 1' }],
             ['gutenverse/icon-list-item', { icon: 'fas fa-check', text: 'List Item 2' }],
@@ -62,8 +66,10 @@ const IconListBlock = compose(
     });
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
-        <ul {...innerBlocksProps} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <div {...blockProps}>
+            <ul {...innerBlocksProps} />
+        </div>
     </>;
 });
 

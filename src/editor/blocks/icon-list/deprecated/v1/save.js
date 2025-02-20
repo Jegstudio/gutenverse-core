@@ -30,13 +30,14 @@ const save = compose(
         elementId,
         animationClass,
         displayClass,
+        {
+            'inline-icon-list': displayInline
+        },
     );
 
     return (
         <div {...useBlockProps.save({ className, ...advanceAnimationData })}>
-            <div className={ ` list-wrapper ${displayInline ? 'inline-icon-list' : ''}`} >
-                <InnerBlocks.Content/>
-            </div>
+            <InnerBlocks.Content />
         </div>
     );
 });

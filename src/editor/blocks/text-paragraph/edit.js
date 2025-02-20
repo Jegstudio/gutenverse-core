@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle,  withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
@@ -14,23 +14,22 @@ import { dispatch, useSelect } from '@wordpress/data';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 
 const TextBlockControl = (props) => {
-    HighLightToolbar (props);
+    HighLightToolbar(props);
     FilterDynamic(props);
 };
 const TextBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('text-paragraph'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
 )((props) => {
-    const { panelProps} = props;
+    const { panelProps } = props;
     const {
         attributes,
-        setElementRef,
         clientId,
         setAttributes,
         setPanelState,
@@ -44,11 +43,15 @@ const TextBlock = compose(
         (select) => select('core/block-editor'),
         []
     );
-    const textRef = useRef();
+    const elementRef = useRef();
     const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const {insertBlock, replaceBlock} = dispatch('core/block-editor');
+    const { insertBlock, replaceBlock } = dispatch('core/block-editor');
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -58,17 +61,17 @@ const TextBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: textRef
+        ref: elementRef
     });
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock( 'gutenverse/text-paragraph', {
+        const newBlock = createBlock('gutenverse/text-paragraph', {
             paragraph: value,
-        } );
-        if(isOriginal){
-            replaceBlock(clientId,newBlock);
-        }else{
+        });
+        if (isOriginal) {
+            replaceBlock(clientId, newBlock);
+        } else {
             const testBlock = getBlocks();
-            const currentBlockIndex = testBlock.findIndex((el,index) => el.clientId !== oldBlock[index].clientId);
+            const currentBlockIndex = testBlock.findIndex((el, index) => el.clientId !== oldBlock[index].clientId);
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
@@ -81,20 +84,11 @@ const TextBlock = compose(
         }
     );
 
-    useEffect(() => {
-        if (textRef.current) {
-            setElementRef(textRef.current);
-        }
-    }, [textRef]);
     return <>
-        <PanelController
-            {...props}
-            panelList={panelList}
-            panelProps={panelProps}
-        />
-        <TextBlockControl {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <TextBlockControl {...props} />
         <RichTextComponent
-            isBlockProps = {true}
+            isBlockProps={true}
             blockProps={blockProps}
             tagName={'p'}
             onChange={value => setAttributes({ paragraph: value })}
@@ -104,13 +98,13 @@ const TextBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            panelDynamic={{panel : 'setting', section : 0}}
-            panelPosition={{panel : 'style', section : 2}}
+            panelDynamic={{ panel: 'setting', section: 0 }}
+            panelPosition={{ panel: 'style', section: 2 }}
             contentAttribute={'paragraph'}
             setPanelState={setPanelState}
             isOnSplit={true}
-            onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
-            onReplace= {() => {}}
+            onSplit={(value, isOriginal) => onSplit(value, isOriginal)}
+            onReplace={() => { }}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
             isUseDinamic={true}

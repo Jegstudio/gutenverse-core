@@ -140,7 +140,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.${elementId}.guten-element, .${elementId}.guten-element.inline-icon-list li`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {

@@ -11,7 +11,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 'pattern': 'solid'
             }
         ],
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
     });
 
     isNotEmpty(attributes['isDivider']) && data.push({
@@ -24,13 +24,13 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 'pattern': 'solid'
             }
         ],
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
     });
 
     isNotEmpty(attributes['colorDivider']) && data.push({
         'type': 'color',
         'id': 'colorDivider',
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-color',
@@ -43,7 +43,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'spaceDivider',
         'responsive' : true,
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
         'properties': [
             {
                 'name': 'margin',
@@ -61,7 +61,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['colorDivider']) && data.push({
         'type': 'color',
         'id': 'colorDivider',
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-color',
@@ -73,7 +73,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['typeDivider']) && data.push({
         'type': 'plain',
         'id': 'typeDivider',
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-top-style',
@@ -85,7 +85,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['typeDivider']) && data.push({
         'type': 'plain',
         'id': 'typeDivider',
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-left-style',
@@ -97,7 +97,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
         'properties': [
             {
                 'name': 'width',
@@ -109,7 +109,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item .list-divider`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item .list-divider`,
         'properties': [
             {
                 'name': 'height',
@@ -121,7 +121,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['sizeDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'sizeDivider',
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-top-width',
@@ -133,7 +133,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['sizeDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'sizeDivider',
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
         'properties': [
             {
                 'name': 'border-left-width',
@@ -158,7 +158,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 }
             }
         ],
-        'selector': `.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} .list-wrapper:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
     });
 
     isNotEmpty(attributes['spaceBetween']) && data.push({
@@ -177,7 +177,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 }
             }
         ],
-        'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
     });
 
     isNotEmpty(attributes['spaceBetween']) && data.push({
@@ -196,7 +196,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 }
             }
         ],
-        'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child)`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:last-child)`,
     });
     isNotEmpty(attributes['spaceBetween']) && data.push({
         'type': 'plain',
@@ -214,7 +214,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 }
             }
         ],
-        'selector': `.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} .list-wrapper.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
     });
 
     isNotEmpty(attributes['alignList']) && data.push({
@@ -227,7 +227,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             },
         ],
-        'selector': `.${elementId}:not(.inline-icon-list)`,
+        'selector': `.${elementId} .list-wrapper:not(.inline-icon-list)`,
     });
 
     isNotEmpty(attributes['alignList']) && data.push({
@@ -244,27 +244,25 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                 'valueType': 'direct',
             }
         ],
-        'selector': `.${elementId}.inline-icon-list, .${elementId}:not(.inline-icon-list) .guten-icon-list-item a`,
+        'selector': `.${elementId} .list-wrapper.inline-icon-list, .${elementId} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item a`,
     });
 
     if (attributes['displayInline']) {
         isNotEmpty(attributes['verticalAlign']) && data.push({
             'type': 'plain',
             'id': 'verticalAlign',
-            'responsive': true,
             'properties': [
                 {
                     'name': 'align-items',
                     'valueType': 'direct'
                 }
             ],
-            'selector': `.${elementId} li`,
+            'selector': `.${elementId} ul .guten-icon-list-item a`,
         });
     } else {
         isNotEmpty(attributes['verticalAlign']) && data.push({
             'type': 'plain',
             'id': 'verticalAlign',
-            'responsive': true,
             'properties': [
                 {
                     'name': 'align-items',

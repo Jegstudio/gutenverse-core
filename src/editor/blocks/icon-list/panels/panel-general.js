@@ -36,7 +36,7 @@ export const panelGeneral = (props) => {
                     'type': 'plain',
                     'id': 'spaceDivider',
                     'responsive' : true,
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'margin',
@@ -61,7 +61,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'color',
                     'id': 'colorDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'color',
@@ -104,7 +104,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'width',
@@ -115,7 +115,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'height',
@@ -134,7 +134,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-top-width',
@@ -145,7 +145,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-left-width',
@@ -181,7 +181,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} ul:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
                 },
                 {
                     'type': 'plain',
@@ -199,7 +199,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
+                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
 
                 },
                 {
@@ -218,7 +218,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list .guten-icon-list-item:not(:last-child)`,
+                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:last-child)`,
 
                 },
                 {
@@ -237,7 +237,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId}.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
+                    'selector': `.${elementId} ul.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} ul.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
 
                 }
             ]
