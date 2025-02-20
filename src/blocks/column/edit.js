@@ -88,15 +88,12 @@ const onResizeStart = (props, p) => {
 
     setCurentBlockWidth(currentWidth);
     setParentBlockWidth(domParentWidth);
-    if (deviceType === 'Desktop') {
-        const targetWidth = targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop'];
-        setTargetBlock(targetWidth);
-        setTargetId(targetId);
-        setParentId(parentClientId);
-        setTotalWidth(targetWidth + currentWidth);
-    } else {
-        setOpenTool(true);
-    }
+    const targetWidth = targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop'];
+    setTargetBlock(targetWidth);
+    setTargetId(targetId);
+    setParentId(parentClientId);
+    setTotalWidth(targetWidth + currentWidth);
+    setOpenTool(true);
 };
 
 const onResize = (props, off) => {
@@ -144,29 +141,24 @@ const onResize = (props, off) => {
         calcCurentModPercent = bothModPercent - minWidth[deviceType];
     }
 
-    if (deviceType !== 'Desktop') {
-        calcCurentModPercent = curentModPercent;
-        if (calcCurentModPercent < minWidth[deviceType]) {
-            calcCurentModPercent = minWidth[deviceType];
-        }
-        if (calcCurentModPercent > 100) {
-            calcCurentModPercent = 100;
-        }
+    calcCurentModPercent = curentModPercent;
+    if (calcCurentModPercent < minWidth[deviceType]) {
+        calcCurentModPercent = minWidth[deviceType];
+    }
+    if (calcCurentModPercent > 100) {
+        calcCurentModPercent = 100;
     }
 
     calcCurentModPercent = parseFloat(calcCurentModPercent);
     calcTargetModPercent = parseFloat(calcTargetModPercent);
 
     // Need to force column to fit with previous total width.
-    if (deviceType === 'Desktop' && calcCurentModPercent + calcTargetModPercent > totalWidth) {
+    if (calcCurentModPercent + calcTargetModPercent > totalWidth) {
         calcTargetModPercent = calcTargetModPercent - 0.1;
     }
 
     curentWidth[deviceType] = calcCurentModPercent;
-
-    if (deviceType === 'Desktop') {
-        targetWidth[deviceType] = calcTargetModPercent;
-    }
+    targetWidth[deviceType] = calcTargetModPercent;
 
     updateLiveStyle(
         elementId,
@@ -249,18 +241,14 @@ const onResizeStop = (props) => {
         });
     }
 
-    if (deviceType !== 'Desktop') {
-        setOpenTool(false);
-    }
+    setOpenTool(false);
 
     if (newWidth.current && newWidth.target) {
         newWidth.targetWidth[deviceType] = newWidth.target;
         const nextColumnWidthAttr = getBlock(targetId).attributes.width;
 
         setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
-        if (deviceType === 'Desktop') {
-            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
-        }
+        updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
     }
 };
 

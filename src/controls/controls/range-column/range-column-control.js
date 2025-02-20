@@ -54,7 +54,7 @@ const RangeColumnControl = (props) => {
 
     useEffect(() => {
         setLocalValue(value[deviceType]);
-    }, [value[deviceType]]);
+    }, [value]);
 
     const onInputChange = (width) => {
         if (isEmpty(width) && 'Desktop' === deviceType) {
@@ -89,7 +89,7 @@ const RangeColumnControl = (props) => {
         // update neightbor
         let neightborWidth = {};
         let neightborElementId = '';
-        if (neightborClientId && deviceType === 'Desktop') {
+        if (neightborClientId) {
             neightborElementId = getBlock(neightborClientId).attributes.elementId;
             neightborWidth = getBlock(neightborClientId).attributes.width;
             neightborWidth[deviceType] = totalWidth - width;
@@ -154,7 +154,7 @@ const RangeColumnControl = (props) => {
             }
         });
 
-        if (neightborClientId && deviceType === 'Desktop') {
+        if (neightborClientId) {
             const neightborAttribute = getBlock(neightborClientId).attributes;
             const theTotalWidth = Math.floor((totalWidth - localValue) * 100) / 100;
 
