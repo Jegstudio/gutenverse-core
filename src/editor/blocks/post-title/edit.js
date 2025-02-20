@@ -1,9 +1,7 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
@@ -12,15 +10,15 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const PostTitleBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { postId, postType }
     } = props;
 
@@ -34,15 +32,11 @@ const PostTitleBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postTitleRef = useRef();
+    const elementRef = useRef();
     const linkTarget = postLinkTarget ? '_blank' : '_self';
 
     const [ postTitle = 'Post Title' ] = useEntityProp('postType', postType, 'title', postId);
     const [ link ] = useEntityProp( 'postType', postType, 'link', postId );
-
-    useEffect(() => {
-        postTitleRef.current && setElementRef(postTitleRef.current);
-    }, [postTitleRef]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -52,8 +46,11 @@ const PostTitleBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postTitleRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
         <InspectorControls>
@@ -71,7 +68,7 @@ const PostTitleBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <HtmlTag>{postLink ? <a href={link} target={linkTarget} rel={postLinkRel} onClick={e => e.preventDefault()}>{postTitle}</a> : postTitle}</HtmlTag>
         </div>

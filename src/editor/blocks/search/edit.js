@@ -1,24 +1,24 @@
 import { compose } from '@wordpress/compose';
 
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { useEffect, useRef } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 
 const SearchBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
         attributes,
-        setElementRef,
+        clientId
     } = props;
     const {
         showButton,
@@ -27,7 +27,7 @@ const SearchBlock = compose(
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const searchRef = useRef();
+    const elementRef = useRef();
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -35,7 +35,7 @@ const SearchBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: searchRef
+        ref: elementRef
     });
     const innerBlockProps = useInnerBlocksProps(
         {className: classnames('guten-search-button-wrapper')},
@@ -62,14 +62,12 @@ const SearchBlock = compose(
             __experimentalAppenderTagName: 'div',
         }
     );
-    useEffect(() => {
-        if (searchRef.current) {
-            setElementRef(searchRef.current);
-        }
-    }, [searchRef]);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div
                 className="gutenverse-search-form"
