@@ -3,53 +3,59 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    isNotEmpty(attributes['columns']) && data.push({
+    isNotEmpty(attributes['width']) && isNotEmpty(attributes['videoSrc']) && isNotEmpty(attributes['videoType']) && data.push({
         'type': 'plain',
-        'id': 'columns',
-        'selector': `.${elementId}`,
+        'id': 'width',
+        'selector': `.${elementId} video, .${elementId} .guten-video-background`,
         'responsive' : true,
         'properties' : [
             {
-                'name' : 'columns',
-                'valueType' : 'direct'
+                'name' : 'width',
+                'valueType' : 'pattern',
+                'pattern' : '{value}%!important',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
             }
         ]
     });
 
-    isNotEmpty(attributes['gap']) && data.push({
-        'type': 'unitPoint',
-        'id': 'gap',
-        'selector': `.${elementId}`,
-        'responsive' : true,
-        'properties' : [
-            {
-                'name' : 'column-gap',
-                'valueType' : 'direct'
-            }
-        ]
-    });
-
-    isNotEmpty(attributes['alignment']) && data.push({
+    isNotEmpty(attributes['height']) && isNotEmpty(attributes['videoSrc']) && isNotEmpty(attributes['videoType']) && data.push({
         'type': 'plain',
-        'id': 'alignment',
-        'selector': `.${elementId}`,
+        'id': 'height',
+        'selector': `.${elementId} video, .${elementId} .guten-video-background`,
         'responsive' : true,
         'properties' : [
             {
-                'name' : 'text-align',
-                'valueType' : 'direct'
+                'name' : 'height',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px!important',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
             }
         ]
     });
 
-    isNotEmpty(attributes['textColor']) && data.push({
-        'type': 'color',
-        'id': 'textColor',
-        'selector': `.${elementId}`,
+    isNotEmpty(attributes['captionSpace']) && data.push({
+        'type': 'plain',
+        'id': 'captionSpace',
+        'selector': `.${elementId} .guten-caption`,
+        'responsive' : true,
         'properties' : [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name' : 'margin-top',
+                'valueType' : 'pattern',
+                'pattern' : '{value}px',
+                'patternValues' : {
+                    'value' : {
+                        'type' : 'direct'
+                    }
+                }
             }
         ]
     });
@@ -57,7 +63,19 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector': `${elementId}`,
+        'selector':  `.${elementId} .guten-caption`,
+    });
+
+    isNotEmpty(attributes['captionColor']) && data.push({
+        'type': 'color',
+        'id': 'captionColor',
+        'selector': `.${elementId} .guten-caption`,
+        'properties' : [
+            {
+                'name' : 'color',
+                'valueType' : 'direct',
+            }
+        ]
     });
 
     /**Panel List */
