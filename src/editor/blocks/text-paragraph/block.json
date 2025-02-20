@@ -29,8 +29,7 @@
 		},
     "paragraph": {
       "type": "string",
-      "default": "",
-      "copyStyle": true
+      "default": ""
     },
     "columns": {
       "type": "object",
