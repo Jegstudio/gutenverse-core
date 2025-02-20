@@ -1,21 +1,13 @@
 
-import { compose } from '@wordpress/compose';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
-import { panelList } from './panels/panel-list';
 import {
     useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
 
-const Tab = compose(
-    withPartialRender,
-    withCustomStyle(panelList)
-)(props => {
+const Tab = props => {
     const {
         attributes,
-        setElementRef
     } = props;
 
     const {
@@ -40,15 +32,9 @@ const Tab = compose(
         'tab-body-item'
     );
 
-    useEffect(() => {
-        if (tabRef.current) {
-            setElementRef(tabRef.current);
-        }
-    }, [tabRef]);
-
     return <div className={classname} data-id={tabId} ref={tabRef}>
         <div {...innerBlocksProps}/>
     </div>;
-});
+};
 
 export default Tab;
