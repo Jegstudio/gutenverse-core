@@ -226,6 +226,7 @@ const onResize = (props, off) => {
 
 const onResizeStop = (props) => {
     const {
+        elementId,
         parentId,
         getBlock,
         newWidth,
@@ -238,7 +239,7 @@ const onResizeStop = (props) => {
         elementRef
     } = props;
 
-    removeLiveStyle(elementRef);
+    removeLiveStyle(elementRef, elementId);
 
     const parentBlock = getBlock(parentId);
     if (parentBlock) {

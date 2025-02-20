@@ -145,7 +145,7 @@ const RangeColumnControl = (props) => {
     };
 
     const doChangeValue = () => {
-        removeLiveStyle(elementRef);
+        removeLiveStyle(elementRef, elementId);
 
         setAttributes({
             [controlId]: {

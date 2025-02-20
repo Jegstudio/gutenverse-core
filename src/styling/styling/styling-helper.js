@@ -380,10 +380,11 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
 
     let theWindow = getWindow(elementRef);
-    let cssElement = theWindow.document.getElementById('gutenverse-temp-css');
+    const tagId = 'gutenverse-temp-css-' + elementId;
+    let cssElement = theWindow.document.getElementById(tagId);
     if (!cssElement) {
         cssElement = theWindow.document.createElement('style');
-        cssElement.id = 'gutenverse-temp-css';
+        cssElement.id = tagId;
         theWindow.document.head.appendChild(cssElement);
     }
 
@@ -399,9 +400,9 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
 };
 
 // Call this to remove any remaining temporary styles.
-export const removeLiveStyle = (elementRef) => {
+export const removeLiveStyle = (elementRef, elementId) => {
     let theWindow = getWindow(elementRef);
-    let cssElement = theWindow.document.getElementById('gutenverse-temp-css');
+    let cssElement = theWindow.document.getElementById('gutenverse-temp-css-' + elementId);
 
     if (cssElement && cssElement.parentNode) {
         cssElement.parentNode.removeChild(cssElement);
