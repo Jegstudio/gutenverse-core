@@ -1,17 +1,23 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
-export const panelStyle = ({elementId, ...props}) => {
+export const panelStyle = ({ elementId }) => {
     return [
         {
             id: 'titleColor',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'titleColor',
+                    'selector': `.${elementId} .rating-title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -19,13 +25,6 @@ export const panelStyle = ({elementId, ...props}) => {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .rating-title`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'gap',
@@ -36,10 +35,24 @@ export const panelStyle = ({elementId, ...props}) => {
             min: 1,
             max: 50,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-title`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'gap',
+                    'selector': `.${elementId} .rating-title`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -52,10 +65,24 @@ export const panelStyle = ({elementId, ...props}) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-icons i`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'selector': `.${elementId} .rating-icons i`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -68,10 +95,24 @@ export const panelStyle = ({elementId, ...props}) => {
             min: 1,
             max: 50,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-icons i`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconGap',
+                    'selector': `.${elementId} .rating-icons i`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -79,10 +120,17 @@ export const panelStyle = ({elementId, ...props}) => {
             id: 'iconColorMarked',
             label: __('Icon Color (Marked)', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-icons i.full`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconColorMarked',
+                    'selector': `.${elementId} .rating-icons i.full`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -90,10 +138,17 @@ export const panelStyle = ({elementId, ...props}) => {
             id: 'iconColorUnmarked',
             label: __('Icon Color (Unmarked)', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .rating-icons i.empty`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconColorUnmarked',
+                    'selector': `.${elementId} .rating-icons i.empty`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },

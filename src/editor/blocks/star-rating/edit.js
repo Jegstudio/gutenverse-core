@@ -1,27 +1,26 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import StarIcons from './components/star-icons';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const StarRatingBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('star-rating'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -29,9 +28,12 @@ const StarRatingBlock = compose(
         title,
     } = attributes;
 
-    const ratingRef = useRef();
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -42,17 +44,11 @@ const StarRatingBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: ratingRef
+        ref: elementRef
     });
 
-    useEffect(() => {
-        if (ratingRef.current) {
-            setElementRef(ratingRef.current);
-        }
-    }, [ratingRef]);
-
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="rating-wrapper">
                 <span className="rating-title">{title}</span>
