@@ -94,8 +94,8 @@ const SizeControl = (props) => {
         description = '',
         hideRange = false,
     } = props;
-    const [localValue, setLocalValue] = useState(value);
 
+    const [localValue, setLocalValue] = useState(value);
     const id = useInstanceId(SizeControl, 'inspector-size-control');
     const isFirstRender = useRef(true);
 
@@ -105,6 +105,10 @@ const SizeControl = (props) => {
             [id]: value
         });
     };
+
+    useEffect(() => {
+        setLocalValue(value);
+    }, [value]);
 
     useEffect(() => {
         if (!localValue.unit || localValue.unit === '') {

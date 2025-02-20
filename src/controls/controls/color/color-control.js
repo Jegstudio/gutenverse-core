@@ -176,6 +176,10 @@ const ColorControl = (props) => {
         }
     }, [localColor]);
 
+    useEffect(() => {
+        setLocalColor(value);
+    }, [value]);
+
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 
     const ColorContent = <div className={'control-color-wrapper'}>

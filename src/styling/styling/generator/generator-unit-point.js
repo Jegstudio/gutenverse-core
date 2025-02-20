@@ -40,11 +40,11 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props) => {
     let value = null;
-    const { valueType, name } = props;
+    const { valueType, name, important } = props;
     switch (valueType) {
         case 'direct':
         default:
-            value = unitPointCSS(attribute, name);
+            value = unitPointCSS(attribute, name, important);
             break;
     }
     return value;

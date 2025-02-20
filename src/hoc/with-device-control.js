@@ -16,7 +16,7 @@ export const withDeviceControl = (BlockControl) => {
             []
         );
 
-        const panelProps = allowDeviceControl? {
+        const panelProps = allowDeviceControl ? {
             ...props,
             onValueChange: (data) => {
                 const newData = data !== undefined? {
