@@ -1,9 +1,7 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
