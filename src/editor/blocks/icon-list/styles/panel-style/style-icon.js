@@ -64,6 +64,7 @@ const panelIconStyle = (elementId, attributes, data) => {
             },
         ]
     });
+
     return data;
 };
 

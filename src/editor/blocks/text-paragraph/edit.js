@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
-import { BlockPanelController, PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { useEffect, useRef } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -22,12 +22,12 @@ const TextBlockControl = (props) => {
     HighLightToolbar(props);
     FilterDynamic(props);
 };
+
 const TextBlock = compose(
     withAnimationAdvance('text-paragraph'),
     withCopyElementToolbar(),
     withMouseMoveEffect,
 )((props) => {
-    const { panelProps } = props;
     const {
         attributes,
         clientId,

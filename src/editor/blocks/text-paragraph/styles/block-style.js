@@ -3,6 +3,69 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
+    isNotEmpty(attributes['typography']) && data.push({
+        'type': 'typography',
+        'id': 'typography',
+        'selector': `.${elementId}`,
+    });
+
+    isNotEmpty(attributes['columns']) && data.push({
+        'type': 'plain',
+        'id': 'columns',
+        'selector': `.${elementId}`,
+        'responsive' : true,
+        'properties' : [
+            {
+                'name' : 'columns',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['gap']) && data.push({
+        'type': 'unitPoint',
+        'id': 'gap',
+        'selector': `.${elementId}`,
+        'responsive' : true,
+        'properties' : [
+            {
+                'name' : 'column-gap',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['alignment']) && data.push({
+        'type': 'plain',
+        'id': 'alignment',
+        'selector': `.${elementId}`,
+        'responsive' : true,
+        'properties' : [
+            {
+                'name' : 'text-align',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['textColor']) && data.push({
+        'type': 'color',
+        'id': 'textColor',
+        'selector': `.${elementId}`,
+        'properties' : [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['typography']) && data.push({
+        'type': 'typography',
+        'id': 'typography',
+        'selector': `${elementId}`,
+    });
+
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',

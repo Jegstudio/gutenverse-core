@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
-import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/components';
+import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {
@@ -18,12 +17,20 @@ export const panelContent = (props) => {
             max: 10,
             step: 1,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => `columns: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'columns',
+                    'selector': `.${elementId}`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'columns',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'gap',
@@ -45,10 +52,18 @@ export const panelContent = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => handleUnitPoint(value, 'column-gap')
+                    'type': 'unitPoint',
+                    'id': 'gap',
+                    'selector': `.${elementId}`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'column-gap',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -61,53 +76,47 @@ export const panelContent = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
                 {
                     label: __('Align Justify', 'gutenverse'),
                     value: 'justify',
-                    icon: <AlignJustify/>,
+                    icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'textColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'textColor',
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
     ];
 };
