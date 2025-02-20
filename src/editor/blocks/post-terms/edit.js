@@ -14,15 +14,15 @@ import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { isEmpty } from 'lodash';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const PostTermsBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { postId, postType }
     } = props;
 
@@ -38,7 +38,7 @@ const PostTermsBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postTermRef = useRef();
+    const elementRef = useRef();
 
     let type = taxonomy === 'post_tag' ? 'tags' : 'categories';
 
@@ -62,12 +62,6 @@ const PostTermsBlock = compose(
         [taxonomy]
     );
 
-    useEffect(() => {
-        if (postTermRef.current) {
-            setElementRef(postTermRef.current);
-        }
-    }, [postTermRef]);
-
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -77,8 +71,12 @@ const PostTermsBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postTermRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
 
     const contentHTML = () => {
         switch (contentType) {
@@ -128,7 +126,7 @@ const PostTermsBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {contentHTML()}
         </div>

@@ -59,7 +59,6 @@ const PostExcerptBlock = compose(
      */
     const strippedRenderedExcerpt = useMemo(() => {
 
-    console.log(renderedExcerpt);
         if (!renderedExcerpt) return '';
         const document = new window.DOMParser().parseFromString(
             renderedExcerpt,
