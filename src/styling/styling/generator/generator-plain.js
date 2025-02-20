@@ -115,6 +115,12 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
             const { valueTrue, valueFalse } = functionProps;
             value = attribute ? valueTrue : valueFalse;
             break;
+        case 'searchButtonContainerWidth':
+            if (isNotEmpty(attribute)) {
+                const diff = (attribute.unit === 'px') ? 2 : (attribute.unit === '%') ? 0.2 : 0.12;
+                value =  `calc(100% - ${parseInt(attribute.point) + diff }${attribute.unit})`;
+            }
+            break;
         default:
             value = '';
             break;
