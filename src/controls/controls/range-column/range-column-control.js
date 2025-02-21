@@ -86,59 +86,61 @@ const RangeColumnControl = (props) => {
 
         setLocalValue(width);
 
-        // update neightbor
-        let neightborWidth = {};
-        let neightborElementId = '';
-        if (neightborClientId) {
-            neightborElementId = getBlock(neightborClientId).attributes.elementId;
-            neightborWidth = getBlock(neightborClientId).attributes.width;
+        const attributes = {
+            currentWidth: deviceCache
+        };
+
+        const styles = [
+            {
+                'type': 'plain',
+                'id': 'currentWidth',
+                'responsive': true,
+                'selector': `.${elementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            }
+        ];
+
+        if (neightborClientId && deviceType === 'Desktop') {
+            const neightborElementId = getBlock(neightborClientId).attributes.elementId;
+            const neightborWidth = getBlock(neightborClientId).attributes.width;
             neightborWidth[deviceType] = totalWidth - width;
+
+            attributes.targetWidth = neightborWidth;
+            styles.push({
+                'type': 'plain',
+                'id': 'targetWidth',
+                'responsive': true,
+                'selector': `.${neightborElementId}`,
+                'properties': [
+                    {
+                        'name': 'width',
+                        'valueType': 'pattern',
+                        'pattern': '{value}%',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
+            });
         }
 
         updateLiveStyle(
             elementId,
-            {
-                curentWidth: deviceCache,
-                targetWidth: neightborWidth
-            },
-            [
-                {
-                    'type': 'plain',
-                    'id': 'curentWidth',
-                    'responsive': true,
-                    'selector': `.${elementId}`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
-                },
-                {
-                    'type': 'plain',
-                    'id': 'targetWidth',
-                    'responsive': true,
-                    'selector': `.${neightborElementId}`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
-                },
-            ],
+            attributes,
+            styles,
             elementRef,
             false
         );
@@ -154,7 +156,7 @@ const RangeColumnControl = (props) => {
             }
         });
 
-        if (neightborClientId) {
+        if (neightborClientId && deviceType === 'Desktop') {
             const neightborAttribute = getBlock(neightborClientId).attributes;
             const theTotalWidth = Math.floor((totalWidth - localValue) * 100) / 100;
 
