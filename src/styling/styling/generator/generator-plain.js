@@ -7,23 +7,23 @@ const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style);
-        if(isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+        if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
     }
 
     if (responsive) {
         if (isNotEmpty(attribute['Desktop'])) {
             const value = multiProperty(attribute['Desktop'], style);
-            if(isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
+            if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (isNotEmpty(attribute['Tablet'])) {
             const value = multiProperty(attribute['Tablet'], style);
-            if(isNotEmpty(value)) css.Tablet += ` ${selector} { ${value} } `;
+            if (isNotEmpty(value)) css.Tablet += ` ${selector} { ${value} } `;
         }
 
         if (isNotEmpty(attribute['Mobile'])) {
             const value = multiProperty(attribute['Mobile'], style);
-            if(isNotEmpty(value)) css.Mobile += ` ${selector} { ${value} } `;
+            if (isNotEmpty(value)) css.Mobile += ` ${selector} { ${value} } `;
         }
     }
     return css;
@@ -51,9 +51,9 @@ const multiProperty = (attribute, props) => {
     let styles = '';
     if (properties && properties.length > 0) {
         properties.forEach(el => {
-            if(el.name){
+            if (el.name) {
                 let value = generateValue(attribute, el, type);
-                if(isNotEmpty(value)){
+                if (isNotEmpty(value)) {
                     styles += ` ${el.name}: ${value}; `;
                 }
             }
@@ -102,8 +102,8 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
             break;
         case 'handleOpacity':
             value = attribute;
-            if(  1 < value && 100 >= value  ){
-                value = value/100;
+            if (1 < value && 100 >= value) {
+                value = value / 100;
             }
             break;
         case 'handleContainerPaddingPopup':
@@ -118,8 +118,11 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
         case 'searchButtonContainerWidth':
             if (isNotEmpty(attribute)) {
                 const diff = (attribute.unit === 'px') ? 2 : (attribute.unit === '%') ? 0.2 : 0.12;
-                value =  `calc(100% - ${parseInt(attribute.point) + diff }${attribute.unit})`;
+                value = `calc(100% - ${parseInt(attribute.point) + diff}${attribute.unit})`;
             }
+            break;
+        case 'handleDefaultValue':
+            value = attribute !== 'default' ? attribute : '';
             break;
         default:
             value = '';
