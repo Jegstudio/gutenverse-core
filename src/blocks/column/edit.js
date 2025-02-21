@@ -7,7 +7,7 @@ import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
-import { dispatch, useSelect } from '@wordpress/data';
+import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -125,6 +125,15 @@ const onResize = (props, off) => {
         Mobile: 15,
     };
 
+    const {
+        getBlockParents,
+        getBlockOrder,
+    } = select('core/block-editor');
+
+    const parentId = getBlockParents(clientId, true)[0];
+    const blockOrder = getBlockOrder(parentId);
+    const blockIndex = blockOrder.findIndex((id) => id === clientId);
+
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
     const currentWidth = clientId ? getBlock(clientId).attributes.width : null;
     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
@@ -150,11 +159,20 @@ const onResize = (props, off) => {
     }
 
     calcCurentModPercent = curentModPercent;
+
     if (calcCurentModPercent < minWidth[deviceType]) {
         calcCurentModPercent = minWidth[deviceType];
     }
+
     if (calcCurentModPercent > 100) {
         calcCurentModPercent = 100;
+    }
+
+    const max = (deviceType === 'Desktop') && !(blockIndex === 0 && blockOrder.length === 1) ? totalWidth - minWidth['Desktop'] : 100;
+    if (calcCurentModPercent > max) {
+        calcCurentModPercent = max;
+    } else if (calcCurentModPercent < minWidth['Desktop']) {
+        calcCurentModPercent = minWidth['Desktop'];
     }
 
     calcCurentModPercent = parseFloat(calcCurentModPercent);
