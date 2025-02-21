@@ -109,13 +109,13 @@ export const backgroundCSS = (attribute) => {
 
             if (blendMode) {
                 if (blendMode?.Desktop) {
-                    background.Desktop.push(`background-blend-mode: ${blendMode.Desktop};`);
+                    background.Desktop.push(`background-blend-mode: ${blendMode.Desktop}; mix-blend-mode: ${blendMode.Desktop};`);
                 }
                 if (blendMode?.Tablet) {
-                    background.Tablet.push(`background-blend-mode: ${blendMode.Tablet};`);
+                    background.Tablet.push(`background-blend-mode: ${blendMode.Tablet}; mix-blend-mode: ${blendMode.Tablet};`);
                 }
                 if (blendMode?.Mobile) {
-                    background.Mobile.push(`background-blend-mode: ${blendMode.Mobile};`);
+                    background.Mobile.push(`background-blend-mode: ${blendMode.Mobile}; mix-blend-mode: ${blendMode.Mobile};`);
                 }
             }
 
