@@ -73,8 +73,9 @@ const panelImageStyle = (elementId, attributes, data) => {
         'selector': `.${elementId}.guten-image img`,
         'properties': [
             {
-                'name': attributes['imageFit'] !== 'default' && 'object-fit',
-                'valueType': 'direct'
+                'name': 'object-fit',
+                'valueType': 'function',
+                'functionName': 'handleDefaultValue'
             }
         ]
     });

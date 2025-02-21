@@ -1,98 +1,22 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import contentListStyle from './panel-style/style-content-list';
+import contentStyle from './panel-style/style-content';
+import iconStyle from './panel-style/style-icon';
+import imageStyle from './panel-style/style-image';
+import metaStyle from './panel-style/style-meta';
+import paginationStyle from './panel-style/style-pagination';
+import titleStyle from './panel-style/style-title';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    //panel style
-    isNotEmpty(attributes['alignment']) && data.push({
-        'type': 'plain',
-        'id': 'alignment',
-        'responsive': true,
-        'selector': `.${elementId}`,
-        'properties': [
-            {
-                'name': 'justify-content',
-                'valueType': 'direct',
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['size']) && data.push({
-        'type': 'unitPoint',
-        'id': 'size',
-        'responsive': true,
-        'selector': `.${elementId} img`,
-        'properties': [
-            {
-                'name': 'width',
-                'valueType': 'direct'
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['opacity']) && data.push({
-        'type': 'plain',
-        'id': 'opacity',
-        'selector': `.${elementId} img`,
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'opacity',
-                'valueType': 'pattern',
-                'pattern': 'calc({value}/100)',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-
-                }
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['rotate']) && data.push({
-        'type': 'plain',
-        'id': 'rotate',
-        'selector': `.${elementId} img`,
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'transform',
-                'valueType': 'pattern',
-                'pattern': 'rotate({value}deg)',
-                'patternValues': {
-                    'value': {
-                        'type': 'direct',
-                    },
-
-                }
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['imageBorder']) && data.push({
-        'type': 'border',
-        'id': 'imageBorder',
-        'selector': `.${elementId} img`,
-    });
-
-    isNotEmpty(attributes['imageBorderResponsive']) && data.push({
-        'type': 'borderResponsive',
-        'id': 'imageBorderResponsive',
-        'selector': `.${elementId} img`,
-    });
-
-    isNotEmpty(attributes['imageBoxShadow']) && data.push({
-        'type': 'boxShadow',
-        'id': 'imageBoxShadow',
-        'properties': [
-            {
-                'name': 'box-shadow',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.${elementId} img`,
-    });
+    data = contentListStyle(elementId, attributes, data);
+    data = contentStyle(elementId, attributes, data);
+    data = iconStyle(elementId, attributes, data);
+    data = imageStyle(elementId, attributes, data);
+    data = metaStyle(elementId, attributes, data);
+    data = paginationStyle(elementId, attributes, data);
+    data = titleStyle(elementId, attributes, data);
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
