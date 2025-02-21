@@ -81,19 +81,26 @@ const onResizeStart = (props, p) => {
     }
 
     const targetBlock = getBlock(targetId);
-
     const parentElement = editorDom.querySelector(`.wp-block[data-block="${parentClientId}"] .guten-container`);
     const domParentWidth = parentElement?.offsetWidth;
     const currentWidth = attributes.width[deviceType] ? attributes.width[deviceType] : attributes.width['Desktop'];
 
     setCurentBlockWidth(currentWidth);
     setParentBlockWidth(domParentWidth);
-    const targetWidth = targetBlock.attributes.width[deviceType] ? targetBlock.attributes.width[deviceType] : targetBlock.attributes.width['Desktop'];
-    setTargetBlock(targetWidth);
-    setTargetId(targetId);
     setParentId(parentClientId);
-    setTotalWidth(targetWidth + currentWidth);
     setOpenTool(true);
+
+    if (!targetBlock) {
+        setTargetBlock(0);
+    } else {
+        const targetWidth = targetBlock.attributes.width[deviceType]
+            ? targetBlock.attributes.width[deviceType]
+            : targetBlock.attributes.width['Desktop'];
+
+        setTargetBlock(targetWidth);
+        setTargetId(targetId);
+        setTotalWidth(targetWidth + currentWidth);
+    }
 };
 
 const onResize = (props, off) => {
@@ -111,6 +118,7 @@ const onResize = (props, off) => {
         elementRef
     } = props;
 
+    const validTargetBlock = targetBlock != null ? targetBlock : 0;
     const minWidth = {
         Desktop: 5,
         Tablet: 10,
@@ -118,9 +126,9 @@ const onResize = (props, off) => {
     };
 
     const targetWidth = targetId ? getBlock(targetId).attributes.width : null;
-    const curentWidth = clientId ? getBlock(clientId).attributes.width : null;
+    const currentWidth = clientId ? getBlock(clientId).attributes.width : null;
     const targetColumnElementId = targetId ? getBlock(targetId).attributes.elementId : null;
-    const targetBlockPx = (targetBlock / 100) * parentBlockWidth;
+    const targetBlockPx = (validTargetBlock / 100) * parentBlockWidth;
     const curentBlockPx = (curentBlockWidth / 100) * parentBlockWidth;
     const curentModPx = curentBlockPx + off;
     const curentModPercent = ((((curentModPx / parentBlockWidth) * 100) * 100) / 100).toFixed(1);
@@ -152,58 +160,62 @@ const onResize = (props, off) => {
     calcCurentModPercent = parseFloat(calcCurentModPercent);
     calcTargetModPercent = parseFloat(calcTargetModPercent);
 
-    // Need to force column to fit with previous total width.
     if (calcCurentModPercent + calcTargetModPercent > totalWidth) {
         calcTargetModPercent = calcTargetModPercent - 0.1;
     }
 
-    curentWidth[deviceType] = calcCurentModPercent;
-    targetWidth[deviceType] = calcTargetModPercent;
+    currentWidth[deviceType] = calcCurentModPercent;
+    const attributes = {
+        currentWidth
+    };
+    const styles = [
+        {
+            'type': 'plain',
+            'id': 'currentWidth',
+            'responsive': true,
+            'selector': `.${elementId}`,
+            'properties': [
+                {
+                    'name': 'width',
+                    'valueType': 'pattern',
+                    'pattern': '{value}%',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct',
+                        },
+                    }
+                }
+            ],
+        }
+    ];
+
+    if (deviceType === 'Desktop') {
+        targetWidth[deviceType] = calcTargetModPercent;
+        attributes.targetWidth = targetWidth;
+        styles.push({
+            'type': 'plain',
+            'id': 'targetWidth',
+            'responsive': true,
+            'selector': `.${targetColumnElementId}`,
+            'properties': [
+                {
+                    'name': 'width',
+                    'valueType': 'pattern',
+                    'pattern': '{value}%',
+                    'patternValues': {
+                        'value': {
+                            'type': 'direct',
+                        },
+                    }
+                }
+            ],
+        });
+    }
 
     updateLiveStyle(
         elementId,
-        {
-            curentWidth,
-            targetWidth
-        },
-        [
-            {
-                'type': 'plain',
-                'id': 'curentWidth',
-                'responsive': true,
-                'selector': `.${elementId}`,
-                'properties': [
-                    {
-                        'name': 'width',
-                        'valueType': 'pattern',
-                        'pattern': '{value}%',
-                        'patternValues': {
-                            'value': {
-                                'type': 'direct',
-                            },
-                        }
-                    }
-                ],
-            },
-            {
-                'type': 'plain',
-                'id': 'targetWidth',
-                'responsive': true,
-                'selector': `.${targetColumnElementId}`,
-                'properties': [
-                    {
-                        'name': 'width',
-                        'valueType': 'pattern',
-                        'pattern': '{value}%',
-                        'patternValues': {
-                            'value': {
-                                'type': 'direct',
-                            },
-                        }
-                    }
-                ],
-            },
-        ],
+        attributes,
+        styles,
         elementRef,
         false
     );
@@ -243,12 +255,13 @@ const onResizeStop = (props) => {
 
     setOpenTool(false);
 
-    if (newWidth.current && newWidth.target) {
-        newWidth.targetWidth[deviceType] = newWidth.target;
-        const nextColumnWidthAttr = getBlock(targetId).attributes.width;
-
+    if (newWidth.current) {
         setAttributes({ width: { ...props.attributes.width, [deviceType]: newWidth.current } });
-        updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
+
+        if (deviceType === 'Desktop' && newWidth.target) {
+            const nextColumnWidthAttr = getBlock(targetId).attributes.width;
+            updateBlockAttributes(targetId, { width: { ...nextColumnWidthAttr, [deviceType]: newWidth.target } });
+        }
     }
 };
 
@@ -390,7 +403,7 @@ const ColumnPlaceholder = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
-                                onChange={() => {}}
+                                onChange={() => { }}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
@@ -575,7 +588,7 @@ const ColumnWrapper = (props) => {
                                 className="column-next"
                                 style={{ width: valueLength + 'ch' }}
                                 value={parseFloat(wvalue).toFixed(1)}
-                                onChange={() => {}}
+                                onChange={() => { }}
                                 onKeyDown={(event) => {
                                     if (event.key === 'Enter') {
                                         onClose();
