@@ -1,14 +1,13 @@
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import {
     BlockControls, InspectorControls,
     RichText,
     useBlockProps,
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
@@ -27,12 +26,12 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('social-icon'),
     withCopyElementToolbar()
 )(props => {
@@ -41,7 +40,7 @@ const SocialIcon = compose(
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
+        clientId,
         setPanelState,
         panelIsClicked,
         setPanelIsClicked
@@ -60,7 +59,7 @@ const SocialIcon = compose(
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const socialType = getSocialType(icon);
-    const socialIconRef = useRef();
+    const elementRef = useRef();
     const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
@@ -73,7 +72,7 @@ const SocialIcon = compose(
             animationClass,
             displayClass,
         ),
-        ref: socialIconRef
+        ref: elementRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -95,12 +94,6 @@ const SocialIcon = compose(
         [rel, setAttributes]
     );
 
-    useEffect(() => {
-        if (socialIconRef.current) {
-            setElementRef(socialIconRef.current);
-        }
-    }, [socialIconRef]);
-
     const panelState = {
         panel: 'setting',
         section: 1,
@@ -112,16 +105,19 @@ const SocialIcon = compose(
             dynamicUrl
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
         <InspectorControls>
@@ -129,7 +125,7 @@ const SocialIcon = compose(
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}
