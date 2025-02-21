@@ -1,8 +1,9 @@
+import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
+import { AlertControl, RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const layoutPanel = ({elementId}) => {
+export const layoutPanel = ({ elementId, clientId }) => {
     const deviceType = getDeviceType();
 
     const minWidth = {
@@ -11,7 +12,35 @@ export const layoutPanel = ({elementId}) => {
         Mobile: 15,
     };
 
+    const {
+        getBlock,
+        getBlockRootClientId,
+    } = useSelect(select => select('core/block-editor'), []);
+
+    const rootClientId = getBlockRootClientId(clientId);
+    const sectionAttr = rootClientId ? getBlock(rootClientId)?.attributes : {};
+
+    const checkValue = (devices, currentMode) => {
+        const deviceOrder = ['Desktop', 'Tablet', 'Mobile'];
+        const startIndex = deviceOrder.indexOf(currentMode);
+        for (let i = startIndex; i >= 0; i--) {
+            const device = deviceOrder[i];
+            if (devices[device] === true) {
+                return device;
+            }
+        }
+        return false;
+    };
+
     return [
+        {
+            id: 'column-notice',
+            component: AlertControl,
+            children: <>
+                <span>{__('The "Wrap Column 100%" option in the Section settings overrides Column Width. Disable it to use the Column Width below.')}</span>
+            </>,
+            show: checkValue(sectionAttr?.wrapColumn, deviceType),
+        },
         {
             id: 'width',
             label: __('Column Width', '--gctd--'),
