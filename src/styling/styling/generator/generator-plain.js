@@ -2,6 +2,7 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage, customHandleBackground } from '../styling-helper';
+import { handleGradient } from '../handler/handle-gradient';
 
 const cssGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
@@ -122,7 +123,14 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
             }
             break;
         case 'handleDefaultValue':
-            value = attribute !== 'default' ? attribute : '';
+            value = attribute !== 'default' && attribute;
+            break;
+        case 'handleGradient':
+            const { angle } = functionProps;
+            if (isNotEmpty(attribute)) {
+                const colors = attribute.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
+                value = `linear-gradient(${angle}deg, ${colors.join(',')});`;
+            }
             break;
         default:
             value = '';
