@@ -261,25 +261,27 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
-    isNotEmpty(attributes['positioningAlign']) && data.push({
-        'type': 'plain',
-        'id': 'positioningAlign',
-        'responsive': true,
-        'properties': [
-            {
-                'name': 'align-self',
-                'valueType': 'direct'
-            }
-        ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'property': ['vertical-align'],
-        'attributeType': 'align',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    });
+    isNotEmpty(attributes['positioningAlign']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'positioningAlign',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-self',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'property': ['vertical-align'],
+            'attributeType': 'align',
+            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        }
+    );
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',

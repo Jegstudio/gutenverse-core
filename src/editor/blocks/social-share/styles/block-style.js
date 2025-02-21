@@ -1,20 +1,14 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelBodyStyle from './panel-style/style-body-style';
-import panelDescStyle from './panel-style/style-description-style';
-import panelFloatingStyle from './panel-style/style-floating';
-import panelImageStyle from './panel-style/style-image-style';
-import panelTitleStyle from './panel-style/style-title-style';
-import panelWrapperStyle from './panel-style/style-wrapper';
+import itemStyle from './panel-style/style-item';
+import socialStyle from './panel-style/style-social';
+import spacingStyle from './panel-style/style-spacing';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    data = panelBodyStyle(elementId, attributes, data);
-    data = panelDescStyle(elementId, attributes, data);
-    data = panelFloatingStyle(elementId, attributes, data);
-    data = panelImageStyle(elementId, attributes, data);
-    data = panelTitleStyle(elementId, attributes, data);
-    data = panelWrapperStyle(elementId, attributes, data);
+    data = itemStyle(elementId, attributes, data);
+    data = socialStyle(elementId, attributes, data);
+    data = spacingStyle(elementId, attributes, data);
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
@@ -183,34 +177,32 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
-    isNotEmpty(attributes['positioningAlign']) && data.push(
-        {
-            'type': 'plain',
-            'id': 'positioningAlign',
-            'responsive': true,
-            'properties': [
-                {
-                    'name': 'align-self',
-                    'valueType': 'direct'
-                }
-            ],
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-        },
-        {
-            'type': 'positioning',
-            'id': 'positioningAlign',
-            'property': ['vertical-align'],
-            'attributeType': 'align',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-        }
-    );
+    isNotEmpty(attributes['positioningAlign']) && data.push({
+        'type': 'plain',
+        'id': 'positioningAlign',
+        'responsive': true,
+        'properties': [
+            {
+                'name' : 'align-self',
+                'valueType' : 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    },
+    {
+        'type': 'positioning',
+        'id': 'positioningAlign',
+        'property': ['vertical-align'],
+        'attributeType': 'align',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+    });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
         'properties': [
             {
-                'name': 'position',
-                'valueType': 'direct'
+                'name' : 'position',
+                'valueType' : 'direct'
             }
         ],
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
@@ -247,8 +239,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
         'attributeType': 'custom',
     });
-
     return data;
 };
+
 
 export default getBlockStyle;

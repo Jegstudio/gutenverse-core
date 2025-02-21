@@ -1,19 +1,21 @@
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { useRef, useEffect } from '@wordpress/element';
-import { PanelController } from 'gutenverse-core/controls';
+import { useRef } from '@wordpress/element';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import ServerSideRender from '@wordpress/server-side-render';
 import { __ } from '@wordpress/i18n';
 import { SelectParent } from 'gutenverse-core/components';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const SingleSocialShare = (props) => {
     const {
         attributes,
         serverPath,
-        setElementRef,
-        shareType
+        shareType,
+        clientId
     } = props;
 
     const {
@@ -24,21 +26,18 @@ const SingleSocialShare = (props) => {
         selectedIcon
     } = attributes;
 
-    const socialShareItemRef = useRef();
+    const elementRef = useRef();
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
             'guten-social-share-item-wrapper',
             selectedIcon
         ),
-        ref: socialShareItemRef
+        ref: elementRef
     });
-
-    useEffect(() => {
-        if (socialShareItemRef.current) {
-            setElementRef(socialShareItemRef.current);
-        }
-    }, [socialShareItemRef]);
 
     return <>
         <InspectorControls>
@@ -46,7 +45,7 @@ const SingleSocialShare = (props) => {
                 {__('Modify Share Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             {isOnEditor() ? <ServerSideRender
                 block={serverPath}

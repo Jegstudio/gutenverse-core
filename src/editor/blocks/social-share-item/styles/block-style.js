@@ -1,20 +1,13 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
-import panelBodyStyle from './panel-style/style-body-style';
-import panelDescStyle from './panel-style/style-description-style';
-import panelFloatingStyle from './panel-style/style-floating';
-import panelImageStyle from './panel-style/style-image-style';
-import panelTitleStyle from './panel-style/style-title-style';
-import panelWrapperStyle from './panel-style/style-wrapper';
+import itemStyle from './panel-style/item-style';
+import spacingStyle from './panel-style/spacing-style';
+
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
-    data = panelBodyStyle(elementId, attributes, data);
-    data = panelDescStyle(elementId, attributes, data);
-    data = panelFloatingStyle(elementId, attributes, data);
-    data = panelImageStyle(elementId, attributes, data);
-    data = panelTitleStyle(elementId, attributes, data);
-    data = panelWrapperStyle(elementId, attributes, data);
+    data = itemStyle(elementId, attributes, data);
+    data = spacingStyle(elementId, attributes, data);
 
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
@@ -247,8 +240,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
         'attributeType': 'custom',
     });
-
     return data;
 };
+
 
 export default getBlockStyle;

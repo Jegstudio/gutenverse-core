@@ -1,11 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { DimensionControl } from 'gutenverse-core/controls';
-import { handleDimension } from 'gutenverse-core/styling';
 
-export const panelItemSpacing = (props) => {
-    const {
-        elementId,
-    } = props;
+export const panelItemSpacing = () => {
 
     return [
         {
@@ -24,12 +20,6 @@ export const panelItemSpacing = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-icon`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'textPading',
@@ -47,12 +37,6 @@ export const panelItemSpacing = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
     ];
 };
