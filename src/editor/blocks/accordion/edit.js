@@ -66,7 +66,6 @@ const Accordion = compose(
     const blockProps = useBlockProps({
         className: classnames(
             'accordion-item',
-            first && 'active',
             elementId,
         ),
         ref: elementRef
@@ -79,32 +78,67 @@ const Accordion = compose(
     });
 
     const setFirstActive = () => {
-        const rootId = getBlockRootClientId(clientId);
-        const childs = getBlocks(rootId);
+        // Remove Active.
+        const parent = elementRef.current.parentElement;
+        const headings = parent.getElementsByClassName('accordion-heading');
+        const bodies = parent.getElementsByClassName('accordion-body');
 
-        childs.map((child) => {
-            updateBlockAttributes(child.clientId, { first: false });
-        });
+        for (let i = 0; i < headings.length; i++) {
+            headings[i].classList.remove('active');
+            bodies[i].classList.remove('active');
+        }
 
-        setAttributes({ first: !first });
+        // Add active state.
+        if (!first) {
+            const heading = elementRef.current.getElementsByClassName('accordion-heading');
+            const body = elementRef.current.getElementsByClassName('accordion-body');
+
+            heading[0].classList.add('active');
+            body[0].classList.add('active');
+        }
+
+        // Commit to attribute.
+        setTimeout(() => {
+            const rootId = getBlockRootClientId(clientId);
+            const childs = getBlocks(rootId);
+
+            childs.map((child) => {
+                updateBlockAttributes(child.clientId, { first: false });
+            });
+
+            setAttributes({ first: !first });
+        }, 1);
     };
+
+    useEffect(() => {
+        if (first) {
+            const heading = elementRef.current.getElementsByClassName('accordion-heading');
+            const body = elementRef.current.getElementsByClassName('accordion-body');
+
+            heading[0].classList.add('active');
+            body[0].classList.add('active');
+        }
+    }, []);
 
     useEffect(() => {
         let rootId = getBlockRootClientId(clientId);
         let parent = getBlock(rootId);
         let { attributes } = parent;
+
         let {
             iconOpen,
             iconClosed,
             iconPosition,
             titleTag,
         } = attributes;
+
         setAttributes({
             iconOpen,
             iconClosed,
             iconPosition,
             titleTag
         });
+
         return () => {
             rootId = null;
             parent = null;
@@ -148,9 +182,9 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
-            <div className={`accordion-heading ${first ? 'active' : ''}`} onClick={setFirstActive}>
+            <div className="accordion-heading" onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
                 <RichTextComponent
                     ref={titleRef}
@@ -163,8 +197,8 @@ const Accordion = compose(
                     setAttributes={setAttributes}
                     attributes={attributes}
                     clientId={clientId}
-                    panelDynamic={{panel : 'setting', section : 0}}
-                    panelPosition={{panel : 'style', section : 0}}
+                    panelDynamic={{ panel: 'setting', section: 0 }}
+                    panelPosition={{ panel: 'style', section: 0 }}
                     contentAttribute={'title'}
                     setPanelState={setPanelState}
                     textChilds={'titleChilds'}
@@ -174,7 +208,7 @@ const Accordion = compose(
                 />
                 {iconPosition === 'right' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
             </div>
-            <div className={`accordion-body ${first ? 'active' : ''}`}>
+            <div className="accordion-body">
                 <div {...innerBlocksProps} />
             </div>
         </div>
