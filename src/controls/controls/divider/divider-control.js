@@ -13,6 +13,24 @@ const DividerControl = (props) => {
 
     const id = useInstanceId(DividerControl, 'inspector-divider-control');
 
+    const isCapableInvert = [
+        'arrow',
+        'curve',
+        'curve_a2',
+        'curve_o',
+        'mountain',
+        'mountain_o',
+        'papertear',
+        'triangle_3',
+        'waves',
+        'waves_2',
+        'waves_o1',
+        'waves_o2',
+        'waves_o3',
+    ];
+
+    const showInvert = isCapableInvert.includes(value.type);
+
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-background'}>
         <SelectControl
             label={__('Type', '--gctd--')}
@@ -158,6 +176,11 @@ const DividerControl = (props) => {
             value={value.flip}
             onValueChange={flip => onValueChange({...value, flip})}
         />
+        {showInvert ? <CheckboxControl
+            label={__('Invert', '--gctd--')}
+            value={value.invert}
+            onValueChange={invert => onValueChange({...value, invert})}
+        /> : <></>}
         <CheckboxControl
             label={__('Bring to Front', '--gctd--')}
             value={value.front}
