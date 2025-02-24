@@ -1,27 +1,31 @@
-export const unitPointCSS = (attribute, name,  important= false) => {
+import { isNotEmpty } from 'gutenverse-core/helper';
+import { renderPatternValues } from './generator-plain';
+
+export const unitPointCSS = (attribute, name, important = false) => {
     const { point, unit } = attribute;
     if (point && unit) {
         return `${name} : ${point}${unit}${important ? '!important' : ''};`;
     }
-
     return '';
 };
 
 export const unitPointGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
     if (!responsive) {
-        css.Desktop = `${selector} { ` + multiProperty(attribute, style) + ' }';
-    }
-
-    if (responsive) {
+        let valueCSS = multiProperty(attribute, style);
+        if (valueCSS) css.Desktop = `${selector} { ` + valueCSS + ' }';
+    } else {
         if (attribute['Desktop']) {
-            css.Desktop = `${selector} { ` + multiProperty(attribute['Desktop'], style) + ' }';
+            let valueCSS = multiProperty(attribute['Desktop'], style);
+            if (valueCSS) css.Desktop = `${selector} { ` + valueCSS + ' }';
         }
         if (attribute['Tablet']) {
-            css.Tablet = `${selector} { ` + multiProperty(attribute['Tablet'], style) + ' }';
+            let valueCSS = multiProperty(attribute['Tablet'], style);
+            if (valueCSS) css.Tablet = `${selector} { ` + valueCSS + ' }';
         }
         if (attribute['Mobile']) {
-            css.Mobile = `${selector} { ` + multiProperty(attribute['Mobile'], style) + ' }';
+            let valueCSS = multiProperty(attribute['Mobile'], style);
+            if (valueCSS) css.Mobile = `${selector} { ` + valueCSS + ' }';
         }
     }
     return css;
@@ -40,8 +44,14 @@ const multiProperty = (attribute, props) => {
 
 const generateValue = (attribute, props) => {
     let value = null;
-    const { valueType, name, important } = props;
+    const { valueType, name, important, pattern, patternValues } = props;
     switch (valueType) {
+        case 'pattern':
+            if (isNotEmpty(attribute['point'])) {
+                const valueCSS = renderPatternValues(pattern, patternValues, `${attribute['point']}${attribute['unit']}`);
+                value = `${name} : ${valueCSS};`;
+            }
+            break;
         case 'direct':
         default:
             value = unitPointCSS(attribute, name, important);
