@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useRef } from '@wordpress/element';
+import { useMemo, useEffect, useRef, useState } from '@wordpress/element';
 import { getColor } from './handler/handle-color';
 import { plainGenerator } from './generator/generator-plain';
 import { typographyGenerator } from './generator/generator-typography';
@@ -21,6 +21,7 @@ import { unitPointGenerator } from './generator/generator-unit-point';
 import { isEmptyString } from 'gutenverse-core/helper';
 import { pointerEventGenerator } from './generator/generator-pointer-events';
 import { shapeDividerGenerator } from './generator/generator-shape-divider';
+import { signal } from 'gutenverse-core/editor-helper';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -301,6 +302,8 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 };
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
+    const [confirmSignal, setConfirmSignal] = useState(false);
+
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
             const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, attributes, getBlockStyle);
@@ -310,7 +313,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         } else {
             return { generatedCSS: '', fontUsed: [] };
         }
-    }, [elementId, attributes]);
+    }, [elementId, attributes, confirmSignal]);
 
     const iframeWindowRef = useRef(null);
     const idHolder = useRef(null);
@@ -320,10 +323,13 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId]);
 
     useEffect(() => {
+        const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
+
         return () => {
             injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             iframeWindowRef.current = null;
+            bindStyling.detach();
         };
     }, []);
 
@@ -339,7 +345,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
                 injectFontToIFrame(idHolder.current, iframeWindowRef.current, fontUsed);
             }
         }
-    }, [elementId, attributes, elementRef]);
+    }, [elementId, attributes, confirmSignal, elementRef]);
 
 };
 
