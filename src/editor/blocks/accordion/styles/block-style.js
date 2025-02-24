@@ -1,6 +1,5 @@
-import { isNotEmpty } from 'gutenverse-core/helper';
 
-const getBlockStyle = (elementId, attributes) => {
+const getBlockStyle = () => {
     let data = [];
 
     return data;
