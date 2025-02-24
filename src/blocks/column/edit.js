@@ -729,8 +729,6 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
     // withAnimationAdvance('column'),
     // withAnimationBackground(),
     // withAnimationSticky(),

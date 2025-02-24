@@ -150,8 +150,7 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 
 // Section Block
 const SectionBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     // withAnimationAdvance('section'),
     // withAnimationBackground(),
     // withAnimationSticky(),
