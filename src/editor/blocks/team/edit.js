@@ -1,9 +1,9 @@
 import { compose } from '@wordpress/compose';
 // import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 // import { getSaveElement } from '@wordpress/blocks';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TeamProfile from './components/team-profile';
 // import TeamPopup from './components/team-popup';
@@ -11,32 +11,32 @@ import TeamProfile from './components/team-profile';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 // import { gutenverseRoot } from 'gutenverse-core/helper';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-// import { useSelect } from '@wordpress/data';
-
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
 
 const TeamBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
     withAnimationAdvance('team'),
     withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
+
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
+
     const {
         elementId,
     } = attributes;
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const teamRef = useRef();
+    const elementRef = useRef();
     const nameRef = useRef();
     const descRef = useRef();
     const jobRef = useRef();
@@ -49,7 +49,7 @@ const TeamBlock = compose(
             displayClass,
             animationClass,
         ),
-        ref: teamRef
+        ref: elementRef
     });
 
     const innerBlocksProps = useInnerBlocksProps({}, {
@@ -61,15 +61,13 @@ const TeamBlock = compose(
 
     const socialComponent = <div {...innerBlocksProps} />;
 
-    useEffect(() => {
-        if (teamRef.current) {
-            setElementRef(teamRef.current);
-        }
-    }, [teamRef]);
     HighLightToolbar(props);
     FilterDynamic(props);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <TeamProfile
                 frontEnd={false}
