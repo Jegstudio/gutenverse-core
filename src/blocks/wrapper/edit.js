@@ -61,7 +61,7 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 };
 
 const FlexibleWrapper = compose(
-    // withPartialRender,
+    withPartialRender,
     // withAnimationBackground(),
     withCopyElementToolbar(),
     // withAnimationAdvance('wrapper'),

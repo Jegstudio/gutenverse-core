@@ -25,7 +25,10 @@ export const withPartialRender = (BlockElement) => {
             const parents = getBlockParents(clientId);
             const exceptionList = [
                 'gutenverse/popup-builder',
-                'gutenverse/popup-container'
+                'gutenverse/popup-container',
+                'gutenverse/section',
+                'gutenverse/column',
+                'gutenverse/wrapper',
             ];
 
             parents.map(id => {
