@@ -20,6 +20,11 @@ export const panelContentTypography = props => {
             component: TypographyControl,
         },
         {
+            id: 'descriptionTypography',
+            label: __('Comment Typography', 'gutenverse'),
+            component: TypographyControl,
+        },
+        {
             id: 'designationSpacing',
             label: __('Designation Spacing', 'gutenverse'),
             component: RangeControl,
@@ -48,11 +53,6 @@ export const panelContentTypography = props => {
                     ]
                 }
             ]
-        },
-        {
-            id: 'descriptionTypography',
-            label: __('Comment Typography', 'gutenverse'),
-            component: TypographyControl,
         },
         {
             id: 'descriptionMargin',
