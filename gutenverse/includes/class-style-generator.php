@@ -31,6 +31,7 @@ use Gutenverse\Style\Image;
 use Gutenverse\Style\Image_Box;
 use Gutenverse\Style\Logo_Slider;
 use Gutenverse\Style\Nav_Menu;
+use Gutenverse\Style\Pie_Chart;
 use Gutenverse\Style\Post_Author;
 use Gutenverse\Style\Post_Block;
 use Gutenverse\Style\Post_Comment;
@@ -207,6 +208,9 @@ class Style_Generator {
 				break;
 			case 'gutenverse/nav-menu':
 				$instance = new Nav_Menu( $attrs );
+				break;
+			case 'gutenverse/pie-chart':
+				$instance = new Pie_Chart( $attrs );
 				break;
 			case 'gutenverse/progress-bar':
 				$instance = new Progress_Bar( $attrs );

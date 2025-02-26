@@ -37,7 +37,7 @@
     "react-dom": "^18.0.0",
     "webpack": "^5.93.0"
   },
-  "devDependencies": {    
+  "devDependencies": {
     "@wordpress/babel-preset-default": "^8.3.0",
     "@wordpress/scripts": "^28.3.0",
     "babel-eslint": "^10.1.0",
@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "animejs": "^3.2.2",
+    "chart.js": "^4.4.8",
     "classnames": "^2.5.1",
     "gutenverse-core": "file:gutenverse-core",
     "shufflejs": "^6.1.1",
