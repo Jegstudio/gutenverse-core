@@ -30,25 +30,23 @@ export const headingTypographyPanel = (props) => {
             show: !switcher.commentType || switcher.commentType === 'formComment',
             label: __('Heading Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'colorHeading',
             show: !switcher.commentType || switcher.commentType === 'formComment',
             label: __('Heading Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'colorHeading',
+                'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         {
             id: 'marginHeading',
@@ -75,12 +73,6 @@ export const headingTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} .comment-reply-title`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
          //title comment
          {
@@ -94,25 +86,23 @@ export const headingTypographyPanel = (props) => {
             label: __('Text Typography', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'colorCommentTitle',
             label: __('Text Color', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'colorCommentTitle',
+                'selector': `.${elementId} .guten-post-comment-title p`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         {
             id: 'marginCommentTitle',
@@ -139,12 +129,6 @@ export const headingTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'splitSubmenu4',
@@ -157,25 +141,23 @@ export const headingTypographyPanel = (props) => {
             label: __('Comment Count Typography', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p span.comment-count`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'commentCountColor',
             label: __('Comment Count Color', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p span.comment-count`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'commentCountColor',
+                'selector': `.${elementId} .guten-post-comment-title p span.comment-count`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         {
             id: 'splitSubmenu5',
@@ -188,25 +170,23 @@ export const headingTypographyPanel = (props) => {
             label: __('Post Title Typography', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p span.comment-post-title`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'postTitleColor',
             label: __('Post Title Color', 'gutenverse'),
             show: switcher.commentType === 'titleComment',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-post-comment-title p span.comment-post-title`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'postTitleColor',
+                'selector': `.${elementId} .guten-post-comment-title p span.comment-post-title`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         }
     ];
 };
