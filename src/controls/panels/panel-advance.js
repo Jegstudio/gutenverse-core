@@ -1,7 +1,10 @@
 import { __ } from '@wordpress/i18n';
 import { DimensionControl, NumberControl } from 'gutenverse-core/controls';
+import { handleDimension } from 'gutenverse-core/styling';
 
-export const advancePanel = () => {
+export const advancePanel = (props) => {
+    const {elementId, selector, frontendSelector} = props;
+
     return [
         {
             id: 'margin',
@@ -27,6 +30,15 @@ export const advancePanel = () => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
+                    render: value => {
+                        return handleDimension(value, 'margin');
+                    }
+                }
+            ]
         },
         {
             id: 'padding',
@@ -52,6 +64,13 @@ export const advancePanel = () => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'zIndex',
@@ -61,6 +80,13 @@ export const advancePanel = () => {
             min: 1,
             max: 9999,
             step: 1,
+            style: [
+                {
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
+                    render: value => `z-index: ${value};`
+                }
+            ]
         }
     ];
 };

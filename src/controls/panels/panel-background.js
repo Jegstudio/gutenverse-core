@@ -1,4 +1,5 @@
 import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
+import { handleBackground } from 'gutenverse-core/styling';
 
 export const backgroundPanel = (props) => {
     const {
@@ -34,6 +35,13 @@ export const backgroundPanel = (props) => {
         allowDeviceControl: true,
         options: normalOptions,
         blockType: blockType,
+        style: [
+            {
+                selector: normalSelector ? normalSelector : `.${elementId}`,
+                hasChild: true,
+                render: value => handleBackground(value)
+            }
+        ],
         liveStyle: [
             {
                 'type': 'background',
@@ -55,5 +63,12 @@ export const backgroundPanel = (props) => {
                 'selector': hoverSelector ? hoverSelector : `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
             }
         ],
+        style: [
+            {
+                selector: hoverSelector ? hoverSelector : `.${elementId}:hover`,
+                hasChild: true,
+                render: value => handleBackground(value)
+            }
+        ]
     }];
 };

@@ -1,12 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleBoxShadow } from 'gutenverse-core/styling';
 
 export const borderPanel = (props) => {
     const {
         elementId,
         switcher,
         setSwitcher,
+        selector
     } = props;
 
     const device = getDeviceType();
@@ -38,6 +40,13 @@ export const borderPanel = (props) => {
                     'id': 'border',
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
                 }
+            ],
+            style: [
+                {
+                    selector: selector ? selector : `.${elementId}`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
             ]
         },
         {
@@ -52,6 +61,13 @@ export const borderPanel = (props) => {
                     'id': 'borderResponsive',
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
                 }
+            ],
+            style: [
+                {
+                    selector: selector ? selector : `.${elementId}`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
             ]
         },
         {
@@ -64,6 +80,13 @@ export const borderPanel = (props) => {
                     'type': 'border',
                     'id': 'borderHover',
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
+            style: [
+                {
+                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -78,6 +101,12 @@ export const borderPanel = (props) => {
                     'type': 'borderResponsive',
                     'id': 'borderHoverResponsive',
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
+            style: [
+                {
+                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -98,7 +127,14 @@ export const borderPanel = (props) => {
                     ],
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
                 }
-            ]
+            ],
+            style: [
+                {
+                    selector: selector ? selector : `.${elementId}`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ],
         },
         {
             id: 'boxShadowHover',
@@ -116,6 +152,13 @@ export const borderPanel = (props) => {
                         }
                     ],
                     'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
+            style: [
+                {
+                    selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         }

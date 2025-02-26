@@ -9,7 +9,7 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isNotEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
@@ -139,7 +139,6 @@ export const getWindow = (elementRef) => {
     if (elementRef.current) {
         return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
     }
-
     return null;
 };
 
@@ -380,23 +379,25 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
 
     let theWindow = getWindow(elementRef);
-    const tagId = 'gutenverse-temp-css-' + elementId;
-    let cssElement = theWindow.document.getElementById(tagId);
-    if (!cssElement) {
-        cssElement = theWindow.document.createElement('style');
-        cssElement.id = tagId;
-        theWindow.document.head.appendChild(cssElement);
-    }
-
-    cssElement.innerHTML = generatedCSS;
-
-    const timeoutId = timeout && setTimeout(() => {
-        if (cssElement.parentNode) {
-            cssElement.parentNode.removeChild(cssElement);
+    if(theWindow){
+        const tagId = 'gutenverse-temp-css-' + elementId;
+        let cssElement = theWindow.document.getElementById(tagId);
+        if (!cssElement) {
+            cssElement = theWindow.document.createElement('style');
+            cssElement.id = tagId;
+            theWindow.document.head.appendChild(cssElement);
         }
-    }, 1000);
 
-    return timeoutId;
+        cssElement.innerHTML = generatedCSS;
+
+        const timeoutId = timeout && setTimeout(() => {
+            if (cssElement.parentNode) {
+                cssElement.parentNode.removeChild(cssElement);
+            }
+        }, 1000);
+
+        return timeoutId;
+    }
 };
 
 // Call this to remove any remaining temporary styles.
