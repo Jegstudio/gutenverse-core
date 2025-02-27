@@ -182,7 +182,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['pointer']) && data.push({
         'type': 'pointerEvent',
         'id': 'pointer',
-        'selector': `.section-${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'responsive': true,
     });
 
@@ -431,7 +431,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.${elementId}`,
+            'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {
@@ -445,7 +445,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.${elementId}`,
+            'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
             'skipDeviceType': 'second',
             'attributeType': 'type',
             'multiAttr': {
@@ -459,7 +459,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'skipDeviceType': 'first',
         'attributeType': 'width',
         'multiAttr': {
@@ -479,7 +479,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
     });
 
     isNotEmpty(attributes['positioningAlign']) && data.push({
@@ -487,7 +487,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningAlign',
         'property': ['vertical-align'],
         'attributeType': 'align',
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
     });
 
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -499,7 +499,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
     });
 
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -507,7 +507,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningLeft',
         'property': ['left'],
         'responsive': true,
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
 
@@ -516,7 +516,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningRight',
         'property': ['right'],
         'responsive': true,
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
 
@@ -525,7 +525,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningTop',
         'property': ['top'],
         'responsive': true,
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
 
@@ -534,7 +534,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningBottom',
         'property': ['bottom'],
         'responsive': true,
-        'selector': `.${elementId}`,
+        'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
 
