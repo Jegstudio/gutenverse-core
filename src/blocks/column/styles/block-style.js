@@ -200,63 +200,88 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
-        'selector': '',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['borderHover']) && data.push({
         'type': 'border',
         'id': 'borderHover',
-        'selector': '',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover`,
     });
 
     isNotEmpty(attributes['borderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsive',
-        'selector': '',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['borderResponsiveHover']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsiveHover',
-        'selector': '',
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover`,
     });
 
     isNotEmpty(attributes['boxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadow',
-        'property': ['box-shadow'],
-        'selector': '',
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
         'type': 'boxShadow',
         'id': 'boxShadowHover',
-        'property': ['box-shadow'],
-        'selector': '',
+        'properties': [
+            {
+                'name': 'box-shadow',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover`,
     });
 
     isNotEmpty(attributes['padding']) && data.push({
         'type': 'dimension',
         'id': 'padding',
         'responsive': true,
-        'property': ['padding'],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'properties': [
+            {
+                'name': 'padding',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['margin']) && data.push({
         'type': 'dimension',
         'id': 'margin',
         'responsive': true,
-        'property': ['margin'],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['zIndex']) && data.push({
         'type': 'plain',
         'id': 'zIndex',
         'responsive': true,
-        'property': ['z-index'],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'properties': [
+            {
+                'name': 'z-index',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`,
     });
 
     isNotEmpty(attributes['typographyHeadingColor']) && data.push({
