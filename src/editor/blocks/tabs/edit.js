@@ -166,8 +166,10 @@ const TabHeading = ({
 
 
 const Tabs = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )(props => {
     const {
         insertBlock,

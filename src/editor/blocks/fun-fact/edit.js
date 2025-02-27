@@ -16,9 +16,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const FunFactBlock = compose(
-    withAnimationAdvance('fun-fact'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('fun-fact'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

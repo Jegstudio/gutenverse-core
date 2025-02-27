@@ -79,9 +79,11 @@ const VideoPicker = (props) => {
 };
 
 const VideoBlock = compose(
-    withAnimationAdvance('video'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('video'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

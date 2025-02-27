@@ -24,9 +24,11 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
-    withAnimationAdvance('button'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('button'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

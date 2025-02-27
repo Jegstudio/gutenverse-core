@@ -72,9 +72,11 @@ const DividerContent = (props) => {
 };
 
 const DividerBlock = compose(
-    withAnimationAdvance('divider'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('divider'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

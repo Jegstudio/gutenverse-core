@@ -29,9 +29,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBlock = compose(
-    withAnimationAdvance('icon'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('icon'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

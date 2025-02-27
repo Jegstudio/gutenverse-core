@@ -229,10 +229,11 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
 };
 
 const ImageBoxBlock = compose(
-    withPartialRender,
-    withAnimationAdvance('image-box'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('image-box'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

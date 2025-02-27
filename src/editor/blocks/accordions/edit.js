@@ -18,9 +18,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const Accordions = compose(
-    withAnimationAdvance('accordions'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('accordions'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )(props => {
     const {
         getBlocks

@@ -29,8 +29,10 @@ export const logoHoverLazyLoad = (logo) => {
     }
 };
 const LogoSlider = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         selectBlock

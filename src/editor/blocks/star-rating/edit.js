@@ -14,9 +14,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const StarRatingBlock = compose(
-    withAnimationAdvance('star-rating'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('star-rating'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

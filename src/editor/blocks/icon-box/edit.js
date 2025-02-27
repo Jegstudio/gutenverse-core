@@ -32,9 +32,11 @@ import getBlockStyle from './styles/block-style';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBoxBlock = compose(
-    withAnimationAdvance('icon-box'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('icon-box'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         getBlocks,

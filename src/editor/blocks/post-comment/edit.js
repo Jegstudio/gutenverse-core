@@ -14,6 +14,8 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PostCommentBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {

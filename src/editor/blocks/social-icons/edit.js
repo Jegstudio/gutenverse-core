@@ -16,9 +16,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const SocialIcons = compose(
-    withAnimationAdvance('social-icons'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('social-icons'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )(props => {
     const {
         attributes,

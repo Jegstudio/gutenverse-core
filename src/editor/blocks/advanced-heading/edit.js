@@ -15,9 +15,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const AdvancedHeadingBlock = compose(
-    withAnimationAdvance('advance-heading'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('advance-heading'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

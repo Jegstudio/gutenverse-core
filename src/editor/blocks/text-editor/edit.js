@@ -14,9 +14,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const TextEditorBlock = compose(
-    withAnimationAdvance('text-editor'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('text-editor'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

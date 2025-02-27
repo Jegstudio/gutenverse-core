@@ -16,9 +16,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const IconListBlock = compose(
-    withAnimationAdvance('icon-list'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('icon-list'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

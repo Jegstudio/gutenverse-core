@@ -111,9 +111,11 @@ const ImagePicker = (props) => {
 };
 
 const ImageBlock = compose(
-    withAnimationAdvance('image'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('image'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         getBlock,

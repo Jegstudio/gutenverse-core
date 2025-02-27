@@ -20,9 +20,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const TeamBlock = compose(
-    withAnimationAdvance('team'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('team'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
 
     const {

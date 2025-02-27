@@ -17,8 +17,10 @@ import getBlockStyle from './styles/block-style';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const PostBlockBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
+    // withMouseMoveEffect,
 )((props) => {
     const { attributes, clientId, setAttributes } = props;
     const deviceType = getDeviceType();

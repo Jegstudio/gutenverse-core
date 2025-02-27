@@ -17,6 +17,8 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PostDateBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {

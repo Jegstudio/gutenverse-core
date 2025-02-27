@@ -25,6 +25,8 @@ import getBlockStyle from './styles/block-style';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconListItemBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
 )((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);

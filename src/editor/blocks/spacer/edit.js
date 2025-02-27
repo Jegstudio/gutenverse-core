@@ -14,7 +14,9 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const SpacerBlock = compose(
-    withAnimationAdvance('spacer'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('spacer'),
     withCopyElementToolbar()
 )(props => {
     const {

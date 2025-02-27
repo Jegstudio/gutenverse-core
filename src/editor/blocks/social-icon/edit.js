@@ -32,7 +32,9 @@ import getBlockStyle from './styles/block-style';
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
-    withAnimationAdvance('social-icon'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('social-icon'),
     withCopyElementToolbar()
 )(props => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);

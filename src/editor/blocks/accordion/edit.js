@@ -26,6 +26,8 @@ export const AccordionIcon = ({ iconOpen, iconClosed }) => {
 };
 
 const Accordion = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
 )(props => {
     const {

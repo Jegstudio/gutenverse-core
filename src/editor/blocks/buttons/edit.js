@@ -13,9 +13,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const ButtonsBlock = compose(
-    withAnimationAdvance('buttons'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('buttons'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

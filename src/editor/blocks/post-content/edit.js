@@ -24,6 +24,8 @@ const Placeholder = () => {
 };
 
 const PostContentBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {

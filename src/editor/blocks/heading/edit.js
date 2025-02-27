@@ -61,9 +61,11 @@ const HeadingInspection = (props) => {
 };
 
 const HeadingBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('heading'),
     withCopyElementToolbar(),
-    withAnimationAdvance('heading'),
-    withMouseMoveEffect
+    // withMouseMoveEffect,
 )(props => {
     const {
         attributes,

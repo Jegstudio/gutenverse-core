@@ -18,9 +18,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PortfolioGalleryBlock = compose(
-    withAnimationAdvance('portfolio-gallery'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('portfolio-gallery'),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
+    // withMouseMoveEffect,
 )(props => {
     const {
         attributes,

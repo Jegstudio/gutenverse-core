@@ -7,6 +7,7 @@ import { classnames } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const PopupContainer = compose(
+    // withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {

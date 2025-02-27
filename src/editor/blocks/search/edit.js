@@ -13,8 +13,10 @@ import getBlockStyle from './styles/block-style';
 
 
 const SearchBlock = compose(
+    // withPartialRender,
+    // withCustomStyle(panelList),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )(props => {
     const {
         attributes,

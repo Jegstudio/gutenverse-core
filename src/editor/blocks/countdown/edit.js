@@ -11,9 +11,10 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const CountDownBlock = compose(
-    withAnimationAdvance('countdown'),
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('countdown'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

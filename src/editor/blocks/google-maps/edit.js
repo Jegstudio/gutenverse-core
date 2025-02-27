@@ -15,9 +15,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-styles';
 
 const GoogleMapsBlock = compose(
-    withAnimationAdvance('google-maps'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('google-maps'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,

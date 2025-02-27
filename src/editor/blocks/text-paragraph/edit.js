@@ -24,9 +24,11 @@ const TextBlockControl = (props) => {
 };
 
 const TextBlock = compose(
-    withAnimationAdvance('text-paragraph'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('text-paragraph'),
     withCopyElementToolbar(),
-    withMouseMoveEffect,
+    // withMouseMoveEffect,
 )((props) => {
     const {
         attributes,

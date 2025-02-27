@@ -16,9 +16,11 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const ProgressBarBlock = compose(
-    withAnimationAdvance('progress-bar'),
+    // withPartialRender,
+    // withCustomStyle(panelList),
+    // withAnimationAdvance('progress-bar'),
     withCopyElementToolbar(),
-    withMouseMoveEffect
+    // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
