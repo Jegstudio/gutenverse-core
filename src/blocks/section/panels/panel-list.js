@@ -119,12 +119,12 @@ export const panelList = () => {
 
         // Pro
 
-        // {
-        //     title: __('Sticky', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: stickyPanel,
-        //     pro: true,
-        // },
+        {
+            title: __('Sticky', '--gctd--'),
+            initialOpen: false,
+            panelArray: stickyPanel,
+            pro: true,
+        },
         // {
         //     title: __('Cursor Effect', '--gctd--'),
         //     initialOpen: false,
