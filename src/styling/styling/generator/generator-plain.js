@@ -2,27 +2,28 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { renderValue } from '../styling-helper';
 import { handleAlign, handleAlignReverse } from '../handler/handle-align';
 import { handleFilterImage, customHandleBackground } from '../styling-helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const cssGenerator = (attribute, style, css) => {
-    const { selector, responsive = false } = style;
+    const { selector, responsive = false, otherAttribute } = style;
     if (!responsive) {
-        const value = multiProperty(attribute, style);
+        const value = multiProperty(attribute, style, otherAttribute);
         if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
     }
 
     if (responsive) {
         if (isNotEmpty(attribute['Desktop'])) {
-            const value = multiProperty(attribute['Desktop'], style);
+            const value = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
             if (isNotEmpty(value)) css.Desktop += ` ${selector} { ${value} } `;
         }
 
         if (isNotEmpty(attribute['Tablet'])) {
-            const value = multiProperty(attribute['Tablet'], style);
+            const value = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
             if (isNotEmpty(value)) css.Tablet += ` ${selector} { ${value} } `;
         }
 
         if (isNotEmpty(attribute['Mobile'])) {
-            const value = multiProperty(attribute['Mobile'], style);
+            const value = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
             if (isNotEmpty(value)) css.Mobile += ` ${selector} { ${value} } `;
         }
     }
@@ -46,13 +47,13 @@ export const plainGenerator = (attribute, style, css) => {
     return css;
 };
 
-const multiProperty = (attribute, props) => {
+const multiProperty = (attribute, props, otherAttribute, device) => {
     const { type, properties } = props;
     let styles = '';
     if (properties && properties.length > 0) {
         properties.forEach(el => {
             if (el.name) {
-                let value = generateValue(attribute, el, type);
+                let value = generateValue(attribute, el, type, otherAttribute, device);
                 if (isNotEmpty(value)) {
                     styles += ` ${el.name}: ${value}; `;
                 }
@@ -62,12 +63,12 @@ const multiProperty = (attribute, props) => {
     return styles;
 };
 
-const generateValue = (attribute, props, type) => {
+const generateValue = (attribute, props, type, otherAttribute, deviceType = null) => {
     let value = null;
     const { pattern, patternValues, valueType, functionName, functionProps, excludeValue = [] } = props;
     switch (valueType) {
         case 'function':
-            value = renderFunctionValue(functionName, attribute, functionProps);
+            value = renderFunctionValue(functionName, attribute, functionProps, otherAttribute, deviceType);
             break;
         case 'pattern':
             value = renderPatternValues(pattern, patternValues, attribute);
@@ -79,13 +80,13 @@ const generateValue = (attribute, props, type) => {
             break;
         case 'direct':
         default:
-            value = renderValue(type, attribute);
+            value = renderValue(type, attribute, otherAttribute);
             break;
     }
     return value;
 };
 
-const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
+const renderFunctionValue = (functionName, attribute, functionProps = {}, otherAttribute, device) => {
     let value = null;
     switch (functionName) {
         case 'handleAlign':
@@ -128,13 +129,21 @@ const renderFunctionValue = (functionName, attribute, functionProps = {}) => {
             const { angle } = functionProps;
             if (isNotEmpty(attribute)) {
                 const colors = attribute.map(gradient => `${gradient.color} ${gradient.offset * 100}%`);
-                value = `linear-gradient(${angle}deg, ${colors.join(',')});`;
+                value = `linear-gradient(${angle}deg, ${colors.join(',')})`;
             }
             break;
         default:
             value = '';
             break;
     }
+    const props = {
+        functionName,
+        attribute,
+        functionProps,
+        otherAttribute,
+        device
+    };
+    value = applyFilters('gutenverse-css-generator-plain-function', value, props);
     return value;
 };
 
