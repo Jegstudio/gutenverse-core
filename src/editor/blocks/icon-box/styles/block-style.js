@@ -10,6 +10,7 @@ const getBlockStyle = (elementId, attributes) => {
             'type': 'plain',
             'id': 'iconPositionResponsive',
             'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+            'responsive' : true,
             'properties': [
                 {
                     'name': 'display',
@@ -25,6 +26,7 @@ const getBlockStyle = (elementId, attributes) => {
             'type': 'plain',
             'id': 'iconPositionResponsive',
             'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+            'responsive' : true,
             'properties': [
                 {
                     'name': 'display',
@@ -39,6 +41,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPositionResponsive',
         'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+        'responsive' : true,
         'properties': [
             {
                 'name': 'display',
@@ -52,6 +55,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPositionResponsive',
         'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
+        'responsive' : true,
         'properties': [
             {
                 'name': 'display',
@@ -65,6 +69,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPositionResponsive',
         'selector': `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
+        'responsive' : true,
         'properties': [
             {
                 'name': 'margin-right',
@@ -78,6 +83,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPositionResponsive',
         'selector': `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
+        'responsive' : true,
         'properties': [
             {
                 'name': 'margin-left',
@@ -91,6 +97,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'iconPositionResponsive',
         'selector': `.${elementId} .guten-icon-box-wrapper .icon-box.icon-box-header`,
+        'responsive' : true,
         'properties': [
             {
                 'name': 'margin-left',
@@ -102,7 +109,7 @@ const getBlockStyle = (elementId, attributes) => {
 
     isNotEmpty(attributes['align']) && data.push({
         'type': 'plain',
-        'id': 'alignment',
+        'id': 'align',
         'selector': `.guten-icon-box.${elementId} .guten-icon-box-wrapper`,
         'properties': [
             {

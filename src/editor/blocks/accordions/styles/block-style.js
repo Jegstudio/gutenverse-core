@@ -354,7 +354,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId} .accordion-item .accordion-text`,
+        'selector': `.${elementId} .accordion-item .accordion-heading`,
     });
 
     isNotEmpty(attributes['titleTextColor']) && data.push({
@@ -372,7 +372,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['titleBackgroundColor']) && data.push({
         'type': 'color',
         'id': 'titleBackgroundColor',
-        'selector': `.${elementId} .accordion-item .accordion-text`,
+        'selector': `.${elementId} .accordion-item .accordion-heading`,
         'properties': [
             {
                 'name': 'background-color',
@@ -384,14 +384,14 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['titleBorder']) && data.push({
         'type': 'border',
         'id': 'titleBorder',
-        'selector': `.${elementId} .accordion-item .accordion-text`,
+        'selector': `.${elementId} .accordion-item .accordion-heading`,
     });
 
     isNotEmpty(attributes['titleBorderResponsive']) && data.push({
         'type': 'borderResponsive',
         'responsive': true,
         'id': 'titleBorderResponsive',
-        'selector': `.${elementId} .accordion-item .accordion-text`,
+        'selector': `.${elementId} .accordion-item .accordion-heading`,
     });
 
     isNotEmpty(attributes['titleActiveColor']) && data.push({
@@ -409,7 +409,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['titleBackgroundActiveColor']) && data.push({
         'type': 'color',
         'id': 'titleBackgroundActiveColor',
-        'selector': `.${elementId} .accordion-item.active .accordion-text`,
+        'selector': `.${elementId} .accordion-item.active .accordion-heading`,
         'properties': [
             {
                 'name': 'background-color',
@@ -421,14 +421,14 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['titleBorderActive']) && data.push({
         'type': 'border',
         'id': 'titleBorderActive',
-        'selector': `.${elementId} .accordion-item.active .accordion-text`,
+        'selector': `.${elementId} .accordion-item.active .accordion-heading`,
     });
 
     isNotEmpty(attributes['titleBorderActiveResponsive']) && data.push({
         'type': 'borderResponsive',
         'responsive': true,
         'id': 'titleBorderActiveResponsive',
-        'selector': `.${elementId} .accordion-item.active .accordion-text`,
+        'selector': `.${elementId} .accordion-item.active .accordion-heading`,
     });
 
     /**Panel List */
