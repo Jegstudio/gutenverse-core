@@ -104,7 +104,10 @@ export const panelList = () => {
         {
             title: __('Pointer Event', '--gctd--'),
             initialOpen: false,
-            panelArray: pointerEventPanel,
+            panelArray: (props) => pointerEventPanel({
+                ...props,
+                selector : `.section-${props.elementId}`
+            }),
             tabRole: TabStyle
         },
         {
