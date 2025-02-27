@@ -9,7 +9,7 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { isNotEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
@@ -353,7 +353,6 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
         console.warn('ElementRef is Missing!');
         return;
     }
-
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];
@@ -364,7 +363,6 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
         const attribute = attributes[id];
         if (attribute) {
             const css = generateCSSString(attribute, liveStyle);
-
             css.Desktop && deviceTypeDesktop.push(css.Desktop);
             css.Tablet && deviceTypeTablet.push(css.Tablet);
             css.Mobile && deviceTypeMobile.push(css.Mobile);
@@ -381,7 +379,6 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
             }
         }
     }
-
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
 
     let theWindow = getWindow(elementRef);
