@@ -1,7 +1,7 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 
 const panelCategoryStyle = (elementId, attributes, data) => {
-    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && attributes['categoryVerticalAlign'] !== 'end' && data.push({
+    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && data.push({
         'type': 'plain',
         'id': 'categoryVerticalAlign',
         'responsive': true,
@@ -9,24 +9,24 @@ const panelCategoryStyle = (elementId, attributes, data) => {
         'properties': [
             {
                 'name': 'height',
-                'valueType': 'pattern',
-                'pattern': '100%; display: grid; grid-template-rows: 1fr auto'
+                'valueType': 'function',
+                'functionName': 'postBlockContentAlign',
             }
         ],
     });
 
-    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && attributes['categoryVerticalAlign'] !== 'end' && data.push({
-        'type': 'plain',
-        'responsive': true,
-        'id': 'categoryVerticalAlign',
-        'selector': `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
-        'properties': [
-            {
-                'name': 'align-self',
-                'valueType': 'direct',
-            }
-        ],
-    });
+    // isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && attributes['categoryVerticalAlign'] !== 'end' && data.push({
+    //     'type': 'plain',
+    //     'responsive': true,
+    //     'id': 'categoryVerticalAlign',
+    //     'selector': `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
+    //     'properties': [
+    //         {
+    //             'name': 'align-self',
+    //             'valueType': 'direct',
+    //         }
+    //     ],
+    // });
 
     isNotEmpty(attributes['categoryColor']) && data.push({
         'type': 'color',

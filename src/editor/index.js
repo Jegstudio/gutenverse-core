@@ -3,6 +3,7 @@ import { isBlockActive } from 'gutenverse-core/helper';
 import { updateBlockList } from 'gutenverse-core/editor-helper';
 import { addFilter } from '@wordpress/hooks';
 import { IconLottieSVG, IconMegaMenuSVG } from '../assets/icon';
+import { plainGeneratorFunction } from './components/styling/generate-css';
 
 
 addFilter(
@@ -62,6 +63,12 @@ addFilter(
             ...list,
         ];
     }
+);
+
+addFilter(
+    'gutenverse-css-generator-plain-function',
+    'gutenverse/css/generator/plain/function',
+    (value, props) => plainGeneratorFunction(value, props)
 );
 
 const registerBlocks = () => {
