@@ -73,7 +73,7 @@ export const displayPanel = (props) => {
                     'type': 'unitPoint',
                     'id': 'displayWidth',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element`,
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
                     'properties': [
                         {
                             'name': 'width',
@@ -116,8 +116,8 @@ export const displayPanel = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'displayHeight',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element`,
                     'properties': [
                         {
                             'name': 'height',
