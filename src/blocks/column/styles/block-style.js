@@ -176,7 +176,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['opacity']) && data.push({
         'type': 'plain',
         'id': 'opacity',
-        'selector': `.${elementId} > .guten-background-overlay`,
+        'selector': ` .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay`,
         'properties': [
             {
                 'name': 'opacity',
@@ -188,7 +188,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['opacityHover']) && data.push({
         'type': 'plain',
         'id': 'opacityHover',
-        'selector': `.${elementId}:hover > .guten-background-overlay`,
+        'selector': `.${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay`,
         'properties': [
             {
                 'name': 'opacity',
