@@ -17,6 +17,7 @@ import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const GalleryBlock = compose(
     // withPartialRender,
@@ -62,6 +63,7 @@ const GalleryBlock = compose(
     const shuffleInstance = useRef(null);
     const observerRef = useRef(null);
     const sizerRef = useRef(null);
+    const deviceType = getDeviceType();
 
     const [liveAttr, setLiveAttr] = useState({
         showed,
@@ -83,6 +85,7 @@ const GalleryBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            deviceType.toLowerCase(),
             [`layout-${layout}`],
             [`grid-desktop-${column && column['Desktop'] ? column['Desktop'] : 3}`],
             [`grid-tablet-${column && column['Tablet'] ? column['Tablet'] : 2}`],
