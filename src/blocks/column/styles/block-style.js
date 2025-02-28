@@ -158,19 +158,19 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['backgroundHover']) && data.push({
         'type': 'background',
         'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-animated .animated-layer`,
     });
 
     isNotEmpty(attributes['backgroundOverlay']) && data.push({
         'type': 'background',
         'id': 'backgroundOverlay',
-        'selector': `.${elementId} > .guten-background-overlay`,
+        'selector': ` .${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-overlay`,
     });
 
     isNotEmpty(attributes['backgroundOverlayHover']) && data.push({
         'type': 'background',
         'id': 'backgroundOverlayHover',
-        'selector': `.${elementId}:hover > .guten-background-overlay`,
+        'selector': `.${elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay, .${elementId}.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper:hover > .guten-background-overlay`,
     });
 
     isNotEmpty(attributes['opacity']) && data.push({
