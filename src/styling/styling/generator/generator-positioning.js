@@ -1,7 +1,7 @@
 import { skipDevice, handleAlignV} from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 
-export const positioningCSS = (property, values, attributeType, skipDeviceType, multiAttr) => {
+export const positioningCSS = (properties, values, attributeType, skipDeviceType, multiAttr) => {
     const positioning = {
         Desktop: [],
         Tablet: [],
@@ -25,7 +25,7 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
                 ['Desktop', 'Tablet', 'Mobile'].forEach(device => {
                     if (!isEmpty(values[device])) {
                         const { unit, point } = values[device];
-                        positioning[device].push(`${property[0]}: ${point}${unit};`);
+                        positioning[device].push(`${properties[0].name}: ${point}${unit};`);
                     }
                 });
             }
@@ -86,7 +86,7 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
                 for (let i = 0; i < devices.length; i++) {
                     let device = devices[i];
                     if (!isEmpty(values[device])) {
-                        const pos = `${property}: ${handleAlignV(values[device])};`;
+                        const pos = `${properties.name}: ${handleAlignV(values[device])};`;
                         positioning[device].push(pos);
                     }
                 }
@@ -101,13 +101,13 @@ export const positioningCSS = (property, values, attributeType, skipDeviceType, 
 };
 
 export const positioningGenerator = (props, style, css) => {
-    const {selector, property = [], attributeType, skipDeviceType, multiAttr} = style;
+    const {selector, properties = [], attributeType, skipDeviceType, multiAttr} = style;
 
     // const blockName = select('core/block-editor').getBlockName(clientId);
     // const checkSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
     // const customSelector = blockName !== 'gutenverse/section' ? checkSelector : `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`;
 
-    const positioning = positioningCSS(property, props, attributeType, skipDeviceType, multiAttr);
+    const positioning = positioningCSS(properties, props, attributeType, skipDeviceType, multiAttr);
 
     if (positioning.Desktop.length) {
         css.Desktop = `${selector} { ` + positioning.Desktop.join(' ') + ' }';
