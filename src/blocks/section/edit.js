@@ -12,7 +12,7 @@ import { PanelController } from 'gutenverse-core/controls';
 import { SectionDividerBottom, SectionDividerTop } from './components/section-divider';
 import { SectionDividerAnimatedBottom, SectionDividerAnimatedTop } from './components/section-divider-animated';
 import { dispatch, useSelect } from '@wordpress/data';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useAnimationSticky, useDisplayEditor } from 'gutenverse-core/hooks';
 import { isSticky, isAnimationActive } from 'gutenverse-core/helper';
 import { __ } from '@wordpress/i18n';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
@@ -153,7 +153,7 @@ const SectionBlock = compose(
     withPartialRender,
     // withAnimationAdvance('section'),
     // withAnimationBackground(),
-    withAnimationSticky(),
+    // withAnimationSticky(),
     withCopyElementToolbar(),
     // withMouseMoveEffect,
     // withCursorEffect,
@@ -192,6 +192,7 @@ const SectionBlock = compose(
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
     useDynamicScript(elementRef);
+    useAnimationSticky(props, elementRef);
 
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
