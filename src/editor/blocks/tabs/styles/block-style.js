@@ -307,6 +307,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     //Positioning Panel
+    //Positioning Panel
     isNotEmpty(attributes['positioningType']) && data.push(
         {
             'type': 'positioning',
@@ -361,7 +362,12 @@ const getBlockStyle = (elementId, attributes) => {
     {
         'type': 'positioning',
         'id': 'positioningAlign',
-        'property': ['vertical-align'],
+        'properties': [
+            {
+                'name' : 'vertical-align',
+                'valueType' : 'direct'
+            }
+        ],
         'attributeType': 'align',
         'selector': `.${elementId}.guten-element`,
     });
@@ -379,7 +385,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
-        'property': ['left'],
+        'properties': [
+            {
+                'name' : 'left',
+                'valueType' : 'direct'
+            }
+        ],
         'responsive': true,
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
@@ -387,7 +398,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
-        'property': ['right'],
+        'properties': [
+            {
+                'name' : 'right',
+                'valueType' : 'direct'
+            }
+        ],
         'responsive': true,
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
@@ -395,7 +411,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningTop',
-        'property': ['top'],
+        'properties': [
+            {
+                'name' : 'top',
+                'valueType' : 'direct'
+            }
+        ],
         'responsive': true,
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
@@ -403,7 +424,12 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
-        'property': ['bottom'],
+        'properties': [
+            {
+                'name' : 'bottom',
+                'valueType' : 'direct'
+            }
+        ],
         'responsive': true,
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',

@@ -28,7 +28,7 @@ const panelAvatarData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelButtonData = (elementId, attributes, data) => {
 
@@ -61,13 +61,13 @@ const panelButtonData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['bggradientButton']) && data.push({
         'type': 'background',
         'id': 'bggradientButton',
         'selector': `.${elementId}.guten-post-comment input[type=submit]`,
     });
-    
+
     isNotEmpty(attributes['borderButton']) && data.push({
         'type': 'border',
         'id': 'borderButton',
@@ -79,7 +79,7 @@ const panelButtonData = (elementId, attributes, data) => {
         'id': 'borderButtonResponsive',
         'selector': `.${elementId}.guten-post-comment input[type=submit]`,
     });
-    
+
     isNotEmpty(attributes['marginButton']) && data.push({
         'type': 'dimension',
         'id': 'marginButton',
@@ -105,7 +105,7 @@ const panelButtonData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId}.guten-post-comment input[type=submit]`,
     });
-    
+
     isNotEmpty(attributes['colorButtonHover']) && data.push({
         'type': 'color',
         'id': 'colorButtonHover',
@@ -129,13 +129,13 @@ const panelButtonData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['bggradientButtonHover']) && data.push({
         'type': 'background',
         'id': 'bggradientButtonHover',
         'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
     });
-    
+
     isNotEmpty(attributes['borderButtonHover']) && data.push({
         'type': 'border',
         'id': 'borderButtonHover',
@@ -147,7 +147,7 @@ const panelButtonData = (elementId, attributes, data) => {
         'id': 'borderButtonHoverResponsive',
         'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
     });
-    
+
     isNotEmpty(attributes['marginButtonHover']) && data.push({
         'type': 'dimension',
         'id': 'marginButtonHover',
@@ -174,16 +174,16 @@ const panelButtonData = (elementId, attributes, data) => {
         'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
     });
     return data;
-}
+};
 
 const panelInputData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['inputTypography']) && data.push({
         'type': 'typography',
         'id': 'inputTypography',
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
     });
-    
+
     isNotEmpty(attributes['inputBorder']) && data.push({
         'type': 'border',
         'id': 'inputBorder',
@@ -195,7 +195,7 @@ const panelInputData = (elementId, attributes, data) => {
         'id': 'inputBorderResponsive',
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
     });
-    
+
     isNotEmpty(attributes['inputMargin']) && data.push({
         'type': 'dimension',
         'id': 'inputMargin',
@@ -221,11 +221,11 @@ const panelInputData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
     });
-    
+
     isNotEmpty(attributes['inputColorNormal']) && data.push({
         'type': 'color',
         'id': 'inputColorNormal',
-        'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+        'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
         'properties': [
             {
                 'name': 'color',
@@ -237,7 +237,7 @@ const panelInputData = (elementId, attributes, data) => {
     isNotEmpty(attributes['inputBgColorNormal']) && data.push({
         'type': 'color',
         'id': 'inputBgColorNormal',
-        'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+        'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
         'properties': [
             {
                 'name': 'background-color',
@@ -245,7 +245,7 @@ const panelInputData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['inputColorHover']) && data.push({
         'type': 'color',
         'id': 'inputColorHover',
@@ -269,7 +269,7 @@ const panelInputData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['inputColorFocus']) && data.push({
         'type': 'color',
         'id': 'inputColorFocus',
@@ -293,7 +293,7 @@ const panelInputData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['inputAreaBoxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'inputAreaBoxShadow',
@@ -318,10 +318,10 @@ const panelInputData = (elementId, attributes, data) => {
         'selector': `.${elementId} .comment-form input:not([type=submit],[type=checkbox]):hover, .${elementId} .comment-form textarea:hover`,
     });
     return data;
-}
+};
 
 const panelMainCommentData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['mainContainerBgColor']) && data.push({
         'type': 'color',
         'id': 'mainContainerBgColor',
@@ -359,13 +359,13 @@ const panelMainCommentData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .commentlist .comment.depth-1`,
     });
-    
+
     isNotEmpty(attributes['mainContainerBorder']) && data.push({
         'type': 'borderResponsive',
         'id': 'mainContainerBorder',
         'selector': `.${elementId} .commentlist .comment.depth-1`,
     });
-    
+
     isNotEmpty(attributes['mainBgColor']) && data.push({
         'type': 'color',
         'id': 'mainBgColor',
@@ -403,7 +403,7 @@ const panelMainCommentData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
     });
-    
+
     isNotEmpty(attributes['mainBorder']) && data.push({
         'type': 'borderResponsive',
         'id': 'mainBorder',
@@ -411,10 +411,10 @@ const panelMainCommentData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelReplyData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['replyBgColor']) && data.push({
         'type': 'color',
         'id': 'replyBgColor',
@@ -452,7 +452,7 @@ const panelReplyData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .commentlist .comment .children`,
     });
-    
+
     isNotEmpty(attributes['replyBorder']) && data.push({
         'type': 'borderResponsive',
         'id': 'replyBorder',
@@ -460,16 +460,16 @@ const panelReplyData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelTypographyHeadingData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['typographyHeading']) && data.push({
         'type': 'typography',
         'id': 'typographyHeading',
         'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6`,
     });
-    
+
     isNotEmpty(attributes['colorHeading']) && data.push({
         'type': 'color',
         'id': 'colorHeading',
@@ -494,13 +494,13 @@ const panelTypographyHeadingData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} .comment-reply-title`,
     });
-    
+
     isNotEmpty(attributes['typographyCommentTitle']) && data.push({
         'type': 'typography',
         'id': 'typographyCommentTitle',
         'selector': `.${elementId} .guten-post-comment-title p`,
     });
-    
+
     isNotEmpty(attributes['colorCommentTitle']) && data.push({
         'type': 'color',
         'id': 'colorCommentTitle',
@@ -530,7 +530,7 @@ const panelTypographyHeadingData = (elementId, attributes, data) => {
         'id': 'commentCountTypography',
         'selector': `.${elementId} .guten-post-comment-title p span.comment-count`,
     });
-    
+
     isNotEmpty(attributes['commentCountColor']) && data.push({
         'type': 'color',
         'id': 'commentCountColor',
@@ -542,13 +542,13 @@ const panelTypographyHeadingData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['postTitleTypography']) && data.push({
         'type': 'typography',
         'id': 'postTitleTypography',
         'selector': `.${elementId} .guten-post-comment-title p span.comment-post-title`,
     });
-    
+
     isNotEmpty(attributes['postTitleColor']) && data.push({
         'type': 'color',
         'id': 'postTitleColor',
@@ -562,16 +562,16 @@ const panelTypographyHeadingData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelTypographyLabelData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['typographyLabel']) && data.push({
         'type': 'typography',
         'id': 'typographyLabel',
         'selector': `.${elementId} label`,
     });
-    
+
     isNotEmpty(attributes['colorLabel']) && data.push({
         'type': 'color',
         'id': 'colorLabel',
@@ -610,16 +610,16 @@ const panelTypographyLabelData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelTypographyLlinkData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['typographyLink']) && data.push({
         'type': 'typography',
         'id': 'typographyLink',
         'selector': `.${elementId} .comment-form a`,
     });
-    
+
     isNotEmpty(attributes['colorLink']) && data.push({
         'type': 'color',
         'id': 'colorLink',
@@ -644,13 +644,13 @@ const panelTypographyLlinkData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .comment-form a`,
     });
-    
+
     isNotEmpty(attributes['userNameTypography']) && data.push({
         'type': 'typography',
         'id': 'userNameTypography',
         'selector': `.${elementId} .commentlist b.fn a.url`,
     });
-    
+
     isNotEmpty(attributes['userNameColor']) && data.push({
         'type': 'color',
         'id': 'userNameColor',
@@ -668,7 +668,7 @@ const panelTypographyLlinkData = (elementId, attributes, data) => {
         'id': 'dateTypography',
         'selector': `.${elementId} .commentlist .comment-metadata a time`,
     });
-    
+
     isNotEmpty(attributes['dateColor']) && data.push({
         'type': 'color',
         'id': 'dateColor',
@@ -680,13 +680,13 @@ const panelTypographyLlinkData = (elementId, attributes, data) => {
             }
         ]
     });
-    
+
     isNotEmpty(attributes['replyLinkTypography']) && data.push({
         'type': 'typography',
         'id': 'replyLinkTypography',
         'selector': `.${elementId} .commentlist .reply .comment-reply-link`,
     });
-    
+
     isNotEmpty(attributes['replyLinkColor']) && data.push({
         'type': 'color',
         'id': 'replyLinkColor',
@@ -700,16 +700,16 @@ const panelTypographyLlinkData = (elementId, attributes, data) => {
     });
 
     return data;
-}
+};
 
 const panelTypographyTextData = (elementId, attributes, data) => {
-    
+
     isNotEmpty(attributes['typographyText']) && data.push({
         'type': 'typography',
         'id': 'typographyText',
         'selector': `.${elementId} .comment-form p`,
     });
-    
+
     isNotEmpty(attributes['colorText']) && data.push({
         'type': 'color',
         'id': 'colorText',
@@ -734,13 +734,13 @@ const panelTypographyTextData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .comment-form p`,
     });
-    
+
     isNotEmpty(attributes['typographyTextList']) && data.push({
         'type': 'typography',
         'id': 'typographyTextList',
         'selector': `.${elementId} .commentlist .comment p`,
     });
-    
+
     isNotEmpty(attributes['colorTextList']) && data.push({
         'type': 'color',
         'id': 'colorTextList',
@@ -765,13 +765,13 @@ const panelTypographyTextData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} .commentlist .comment p`,
     });
-    
+
     isNotEmpty(attributes['suffixTypography']) && data.push({
         'type': 'typography',
         'id': 'suffixTypography',
         'selector': `.${elementId} span.says`,
     });
-    
+
     isNotEmpty(attributes['suffixColor']) && data.push({
         'type': 'color',
         'id': 'suffixColor',
@@ -796,9 +796,9 @@ const panelTypographyTextData = (elementId, attributes, data) => {
         ],
         'selector': `.${elementId} span.says`,
     });
-    
+
     return data;
-}
+};
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -954,7 +954,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {
@@ -967,7 +967,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'second',
             'attributeType': 'type',
             'multiAttr': {
@@ -980,7 +980,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'skipDeviceType': 'first',
         'attributeType': 'width',
         'multiAttr': {
@@ -989,66 +989,93 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
-    isNotEmpty(attributes['positioningAlign']) && data.push({
-        'type': 'plain',
-        'id': 'positioningAlign',
-        'responsive': true,
-        'properties': [
-            {
-                'name' : 'align-self',
-                'valueType' : 'direct'
-            }
-        ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'property': ['vertical-align'],
-        'attributeType': 'align',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    });
+    isNotEmpty(attributes['positioningAlign']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'positioningAlign',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-self',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.${elementId}.guten-element`,
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        }
+    );
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
         'properties': [
             {
-                'name' : 'position',
-                'valueType' : 'direct'
+                'name': 'position',
+                'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
     });
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
-        'property': ['left'],
+        'properties': [
+            {
+                'name': 'left',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
-        'property': ['right'],
+        'properties': [
+            {
+                'name': 'right',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningTop',
-        'property': ['top'],
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
-        'property': ['bottom'],
+        'properties': [
+            {
+                'name': 'bottom',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     return data;

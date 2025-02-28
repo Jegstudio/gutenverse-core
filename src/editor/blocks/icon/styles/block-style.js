@@ -68,34 +68,36 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
-    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderWidth'])
-    && attributes['iconView'] === 'framed' && attributes['iconShape'] === 'custom' && data.push({
-        'type': 'dimension',
-        'id': 'iconShape',
-        'properties': [
-            {
-                'name': 'border-width',
-                'valueType': 'direct',
-                'multiDimension': false,
-                'minimumValue' : 2,
-            }
-        ],
-        'selector': `.${elementId} .guten-icon-wrapper`,
-    });
+    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderWidth']) && attributes['iconView'] === 'framed' && attributes['iconShape'] === 'custom' && data.push(
+        {
+            'type': 'dimension',
+            'id': 'iconShape',
+            'properties': [
+                {
+                    'name': 'border-width',
+                    'valueType': 'direct',
+                    'multiDimension': false,
+                    'minimumValue': 2,
+                }
+            ],
+            'selector': `.${elementId} .guten-icon-wrapper`,
+        }
+    );
 
-    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderRadius'])
-    && attributes['iconShape'] === 'custom' && data.push({
-        'type': 'dimension',
-        'id': 'iconShape',
-        'properties': [
-            {
-                'name': 'border-radius',
-                'valueType': 'direct',
-                'multiDimension': false,
-            }
-        ],
-        'selector': `.${elementId} .guten-icon-wrapper`,
-    });
+    isNotEmpty(attributes['iconShape']) && isNotEmpty(attributes['iconBorderRadius']) && attributes['iconShape'] === 'custom' && data.push(
+        {
+            'type': 'dimension',
+            'id': 'iconShape',
+            'properties': [
+                {
+                    'name': 'border-radius',
+                    'valueType': 'direct',
+                    'multiDimension': false,
+                }
+            ],
+            'selector': `.${elementId} .guten-icon-wrapper`,
+        }
+    );
 
     isNotEmpty(attributes['iconBorderWidth']) && attributes['iconView'] === 'framed' && attributes['iconShape'] === 'custom' && data.push({
         'type': 'dimension',
@@ -105,7 +107,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'name': 'border-width',
                 'valueType': 'direct',
                 'multiDimension': false,
-                'minimumValue' : 2,
+                'minimumValue': 2,
             }
         ],
         'selector': `.${elementId} .guten-icon-wrapper`,
@@ -132,8 +134,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed i`,
             'properties': [
                 {
-                    'name' : 'color',
-                    'valueType' : 'direct'
+                    'name': 'color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -143,8 +145,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed`,
             'properties': [
                 {
-                    'name' : 'border-color',
-                    'valueType' : 'direct'
+                    'name': 'border-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -154,8 +156,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.stacked`,
             'properties': [
                 {
-                    'name' : 'background-color',
-                    'valueType' : 'direct'
+                    'name': 'background-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -168,8 +170,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.stacked i`,
             'properties': [
                 {
-                    'name' : 'color',
-                    'valueType' : 'direct'
+                    'name': 'color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -179,8 +181,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed`,
             'properties': [
                 {
-                    'name' : 'background-color',
-                    'valueType' : 'direct'
+                    'name': 'background-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -193,8 +195,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed:hover i`,
             'properties': [
                 {
-                    'name' : 'color',
-                    'valueType' : 'direct'
+                    'name': 'color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -204,8 +206,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
             'properties': [
                 {
-                    'name' : 'border-color',
-                    'valueType' : 'direct'
+                    'name': 'border-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -215,8 +217,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.stacked:hover`,
             'properties': [
                 {
-                    'name' : 'background-color',
-                    'valueType' : 'direct'
+                    'name': 'background-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -229,8 +231,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.stacked:hover i`,
             'properties': [
                 {
-                    'name' : 'color',
-                    'valueType' : 'direct'
+                    'name': 'color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -240,8 +242,8 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
             'properties': [
                 {
-                    'name' : 'background-color',
-                    'valueType' : 'direct'
+                    'name': 'background-color',
+                    'valueType': 'direct'
                 }
             ],
         },
@@ -379,7 +381,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {
@@ -392,7 +394,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'second',
             'attributeType': 'type',
             'multiAttr': {
@@ -405,7 +407,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'skipDeviceType': 'first',
         'attributeType': 'width',
         'multiAttr': {
@@ -414,66 +416,93 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
-    isNotEmpty(attributes['positioningAlign']) && data.push({
-        'type': 'plain',
-        'id': 'positioningAlign',
-        'responsive': true,
-        'properties': [
-            {
-                'name' : 'align-self',
-                'valueType' : 'direct'
-            }
-        ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'property': ['vertical-align'],
-        'attributeType': 'align',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    });
+    isNotEmpty(attributes['positioningAlign']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'positioningAlign',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-self',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.${elementId}.guten-element`,
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        }
+    );
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
         'properties': [
             {
-                'name' : 'position',
-                'valueType' : 'direct'
+                'name': 'position',
+                'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
     });
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
-        'property': ['left'],
+        'properties': [
+            {
+                'name': 'left',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
-        'property': ['right'],
+        'properties': [
+            {
+                'name': 'right',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningTop',
-        'property': ['top'],
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
-        'property': ['bottom'],
+        'properties': [
+            {
+                'name': 'bottom',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     return data;

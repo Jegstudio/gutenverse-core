@@ -3,8 +3,8 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
-    const device = getDeviceType()
-    
+    const device = getDeviceType();
+
     //panel content
     isNotEmpty(attributes['formStyle']) && attributes['formStyle'][device] === '100%' && data.push(
         {
@@ -80,7 +80,7 @@ const getBlockStyle = (elementId, attributes) => {
             'responsive': true,
         },
     );
-    
+
     isNotEmpty(attributes['inputHeight']) && data.push(
         {
             'type': 'plain',
@@ -101,13 +101,13 @@ const getBlockStyle = (elementId, attributes) => {
             'responsive': true,
         },
     );
-    
+
     isNotEmpty(attributes['inputWidth']) && data.push(
         {
             'type': '%' !== attributes['inputWidth'][device]['unit'] ? 'unitPoint' : 'plain',
             'id': 'inputWidth',
             'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-            'properties': '%' !== attributes['inputWidth'][device]['unit'] ? 
+            'properties': '%' !== attributes['inputWidth'][device]['unit'] ?
                 [{
                     'name': 'width',
                     'valueType': 'direct',
@@ -145,7 +145,7 @@ const getBlockStyle = (elementId, attributes) => {
             }],
             'responsive': true,
         },
-    )
+    );
 
     isNotEmpty(attributes['buttonWidth']) && data.push(
         {
@@ -162,7 +162,7 @@ const getBlockStyle = (elementId, attributes) => {
             'responsive': true,
         },
     );
-    
+
     isNotEmpty(attributes['alignContent']) && data.push(
         {
             'type': 'plain',
@@ -230,7 +230,7 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
     });
-    
+
     isNotEmpty(attributes['placeholderColor']) && data.push({
         'type': 'color',
         'id': 'placeholderColor',
@@ -243,13 +243,13 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
-    
+
     isNotEmpty(attributes['inputTypography']) && data.push({
         'type': 'typography',
         'id': 'inputTypography',
         'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
     });
-    
+
     isNotEmpty(attributes['inputColorNormal']) && data.push({
         'type': 'color',
         'id': 'inputColorNormal',
@@ -275,7 +275,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
-    
+
     isNotEmpty(attributes['inputBorderNormal']) && data.push({
         'type': 'border',
         'id': 'inputBorderNormal',
@@ -287,7 +287,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'inputBorderNormalResponsive',
         'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
     });
-    
+
     isNotEmpty(attributes['inputColorHover']) && data.push({
         'type': 'color',
         'id': 'inputColorHover',
@@ -313,7 +313,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
-    
+
     isNotEmpty(attributes['inputBorderHover']) && data.push({
         'type': 'border',
         'id': 'inputBorderHover',
@@ -325,7 +325,7 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'inputBorderHoverResponsive',
         'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
     });
-    
+
     isNotEmpty(attributes['inputColorFocus']) && data.push({
         'type': 'color',
         'id': 'inputColorFocus',
@@ -351,7 +351,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
     });
-    
+
     isNotEmpty(attributes['inputBorderFocus']) && data.push(
         {
             'type': 'border',
@@ -362,7 +362,7 @@ const getBlockStyle = (elementId, attributes) => {
             'type': 'plain',
             'id': 'inputBorderFocus',
             'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
-            'properties':[
+            'properties': [
                 {
                     'name': 'outline',
                     'valueType': 'pattern',
@@ -382,7 +382,7 @@ const getBlockStyle = (elementId, attributes) => {
             'type': 'plain',
             'id': 'inputBorderFocusResponsive',
             'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
-            'properties':[
+            'properties': [
                 {
                     'name': 'outline',
                     'valueType': 'pattern',
@@ -391,7 +391,7 @@ const getBlockStyle = (elementId, attributes) => {
             ]
         }
     );
-    
+
     isNotEmpty(attributes['inputAreaBoxShadow']) && data.push({
         'type': 'boxShadow',
         'id': 'inputAreaBoxShadow',
@@ -427,7 +427,7 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
     });
-    
+
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
@@ -560,7 +560,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {
@@ -573,7 +573,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+            'selector': `.${elementId}.guten-element`,
             'skipDeviceType': 'second',
             'attributeType': 'type',
             'multiAttr': {
@@ -586,7 +586,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'skipDeviceType': 'first',
         'attributeType': 'width',
         'multiAttr': {
@@ -595,66 +595,93 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
-    isNotEmpty(attributes['positioningAlign']) && data.push({
-        'type': 'plain',
-        'id': 'positioningAlign',
-        'responsive': true,
-        'properties': [
-            {
-                'name' : 'align-self',
-                'valueType' : 'direct'
-            }
-        ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'property': ['vertical-align'],
-        'attributeType': 'align',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
-    });
+    isNotEmpty(attributes['positioningAlign']) && data.push(
+        {
+            'type': 'plain',
+            'id': 'positioningAlign',
+            'responsive': true,
+            'properties': [
+                {
+                    'name': 'align-self',
+                    'valueType': 'direct'
+                }
+            ],
+            'selector': `.${elementId}.guten-element`,
+        },
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        }
+    );
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
         'properties': [
             {
-                'name' : 'position',
-                'valueType' : 'direct'
+                'name': 'position',
+                'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
     });
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
-        'property': ['left'],
+        'properties': [
+            {
+                'name': 'left',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
-        'property': ['right'],
+        'properties': [
+            {
+                'name': 'right',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningTop',
-        'property': ['top'],
+        'properties': [
+            {
+                'name': 'top',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
-        'property': ['bottom'],
+        'properties': [
+            {
+                'name': 'bottom',
+                'valueType': 'direct'
+            }
+        ],
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+        'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
     return data;
