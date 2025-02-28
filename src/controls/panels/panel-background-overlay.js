@@ -7,7 +7,9 @@ export const backgroundOverlayPanel = (props) => {
         normalOptions,
         hoverOptions,
         switcher,
-        setSwitcher
+        setSwitcher,
+        hoverSelector,
+        normalSelector
     } = props;
 
     return [
@@ -36,7 +38,7 @@ export const backgroundOverlayPanel = (props) => {
                 {
                     'type': 'background',
                     'id': 'backgroundOverlay',
-                    'selector': `.${elementId} > .guten-background-overlay`,
+                    'selector': normalSelector ? normalSelector :`.${elementId} > .guten-background-overlay`,
                 }
             ]
         },
@@ -52,7 +54,7 @@ export const backgroundOverlayPanel = (props) => {
                 {
                     'type': 'plain',
                     'id': 'opacity',
-                    'selector': `.${elementId} > .guten-background-overlay`,
+                    'selector': normalSelector ? normalSelector :`.${elementId} > .guten-background-overlay`,
                     'properties': [
                         {
                             'name': 'opacity',
@@ -72,7 +74,7 @@ export const backgroundOverlayPanel = (props) => {
                 {
                     'type': 'background',
                     'id': 'backgroundOverlayHover',
-                    'selector': `.${elementId}:hover > .guten-background-overlay`,
+                    'selector': hoverSelector ? hoverSelector :`.${elementId}:hover > .guten-background-overlay`,
                 }
             ]
         },
@@ -88,7 +90,7 @@ export const backgroundOverlayPanel = (props) => {
                 {
                     'type': 'plain',
                     'id': 'opacityHover',
-                    'selector': `.${elementId}:hover > .guten-background-overlay`,
+                    'selector': hoverSelector ? hoverSelector :`.${elementId}:hover > .guten-background-overlay`,
                     'properties': [
                         {
                             'name': 'opacity',
