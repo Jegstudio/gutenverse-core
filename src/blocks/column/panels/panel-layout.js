@@ -1,4 +1,4 @@
-import { useSelect } from '@wordpress/data';
+import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { AlertControl, RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -15,7 +15,7 @@ export const layoutPanel = ({ elementId, clientId }) => {
     const {
         getBlock,
         getBlockRootClientId,
-    } = useSelect(select => select('core/block-editor'), []);
+    } = select('core/block-editor');
 
     const rootClientId = getBlockRootClientId(clientId);
     const sectionAttr = rootClientId ? getBlock(rootClientId)?.attributes : {};
