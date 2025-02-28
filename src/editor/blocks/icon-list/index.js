@@ -6,7 +6,7 @@ import metadata from './block.json';
 import { IconListSVG } from '../../../assets/icon/index';
 import example from './data/example';
 
-const { name, attributes } = metadata;
+const { name, attributes, supports } = metadata;
 
 export { metadata, name };
 
@@ -18,7 +18,9 @@ export const settings = {
     deprecated : [
         {
             attributes : attributes,
-            save : saveV1
+            supports,
+            save : saveV1,
+            isEligible : true
         }
     ]
 };
