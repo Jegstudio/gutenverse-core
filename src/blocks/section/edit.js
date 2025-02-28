@@ -21,7 +21,7 @@ import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 import { roundToDown } from 'round-to';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const SectionPlaceholder = ({ clientId, name, wrapper }) => {
@@ -153,7 +153,7 @@ const SectionBlock = compose(
     withPartialRender,
     // withAnimationAdvance('section'),
     // withAnimationBackground(),
-    // withAnimationSticky(),
+    withAnimationSticky(),
     withCopyElementToolbar(),
     // withMouseMoveEffect,
     // withCursorEffect,
@@ -191,6 +191,7 @@ const SectionBlock = compose(
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
