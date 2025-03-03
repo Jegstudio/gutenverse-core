@@ -500,3 +500,42 @@ export const customHandleBackground = (background) => {
 
     return style;
 };
+
+const injectScriptTag = (tagId, theWindow, src) => {
+    let scriptTag = theWindow.document.getElementById(tagId);
+    if (!scriptTag) {
+        scriptTag = theWindow.document.createElement('script');
+        scriptTag.id = tagId;
+        scriptTag.src = src;
+        theWindow.document.head.appendChild(scriptTag);
+    }
+};
+
+export const useDynamicScript = (elementRef) => {
+    const scriptList = applyFilters(
+        'gutenverse.dynamic.script',
+        [],
+        null
+    );
+    const iframeWindowRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            iframeWindowRef.current = null;
+        };
+    }, []);
+
+    useEffect(() => {
+        if (elementRef) {
+            if (!iframeWindowRef.current) {
+                iframeWindowRef.current = getWindow(elementRef);
+            }
+
+            scriptList?.map(script => {
+                if (script?.id && script?.src) {
+                    injectScriptTag(script.id, iframeWindowRef.current, script.src);
+                }
+            });
+        }
+    }, [elementRef, scriptList]);
+};
