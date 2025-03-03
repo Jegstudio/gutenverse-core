@@ -106,6 +106,15 @@ const generateCSSString = (attribute, style) => {
             break;
     }
 
+    css = applyFilters(
+        'gutenverse.generate.css.string',
+        css,
+        {
+            attribute,
+            style
+        }
+    );
+
     return css;
 };
 
@@ -370,7 +379,7 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
             if (type === 'repeater') {
                 let { repeaterOpt } = liveStyle;
                 attribute.forEach((el, index) => {
-                    const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile} = extractStyleFont(elementId, el, repeaterOpt[index]);
+                    const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile } = extractStyleFont(elementId, el, repeaterOpt[index]);
 
                     deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
                     deviceTypeTablet = [...deviceTypeTablet, ...tablet];
@@ -382,7 +391,7 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
 
     let theWindow = getWindow(elementRef);
-    if(theWindow){
+    if (theWindow) {
         const tagId = 'gutenverse-temp-css-' + elementId;
         let cssElement = theWindow.document.getElementById(tagId);
         if (!cssElement) {
