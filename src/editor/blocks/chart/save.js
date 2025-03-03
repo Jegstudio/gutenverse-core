@@ -18,7 +18,7 @@ const save = compose(
 
     const className = classnames(
         'guten-element',
-        'guten-nav-menu',
+        'guten-chart',
         elementId,
         animationClass,
         displayClass
@@ -26,7 +26,7 @@ const save = compose(
 
     return (
         <div {...useBlockProps.save({ className })}>
-            <div>Hello</div>
+            <canvas id="acquisitions" style="box-sizing: border-box; height: 250px; width: 250px;"></canvas>
         </div>
     );
 });

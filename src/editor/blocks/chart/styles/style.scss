@@ -1,0 +1,43 @@
+.guten-chart {
+    display: flex;
+    flex-direction: row;
+
+    .chart-content {
+        width: 50%;
+        display: inherit;
+        position: relative;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        transition: all .4s ease;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        
+        .chart-inside {
+            top: 50%;
+            width: 100%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            text-align: center;
+            transform: translateY(-50%);
+
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.guten-chart:hover {
+    .chart-front {
+        transform: translateY(100%);
+        opacity: 0;
+        visibility: hidden;
+    }
+    .content-back {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+}

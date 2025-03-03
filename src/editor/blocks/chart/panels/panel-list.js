@@ -1,9 +1,30 @@
 import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, mouseMoveEffectPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { contentPanel } from './panel-content';
+import { settingPanel } from './panel-setting';
+import { chartItemPanel } from './panel-chart-item';
 
 export const panelList = () => {
     return [
+        {
+            title: __('Setting', 'gutenverse'),
+            initialOpen: true,
+            panelArray: settingPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Chart Item', 'gutenverse'),
+            initialOpen: false,
+            panelArray: chartItemPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Content', 'gutenverse'),
+            initialOpen: false,
+            panelArray: contentPanel,
+            tabRole: TabSetting
+        },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
