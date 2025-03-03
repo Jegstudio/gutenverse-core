@@ -256,28 +256,19 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
     });
 
-    isNotEmpty(attributes['buttonBorderHover']) && !attributes['hoverWithParent'] && data.push({
+    isNotEmpty(attributes['buttonBorderHover']) && data.push({
         'type': 'border',
         'id': 'buttonBorderHover',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
+        'selector': attributes['hoverWithParent'] ? attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button` : 
+        `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
     });
 
-    isNotEmpty(attributes['buttonBorderHover']) && attributes['hoverWithParent'] && data.push({
-        'type': 'border',
-        'id': 'buttonBorderHover',
-        'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button`,
-    });
-
-    isNotEmpty(attributes['buttonBorderHover']) && device !== 'Desktop' && !attributes['hoverWithParent'] && data.push({
-        'type': 'border',
-        'id': 'buttonBorderHover',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-    });
-
-    isNotEmpty(attributes['buttonBorderHover']) && device !== 'Desktop' && attributes['hoverWithParent'] && data.push({
-        'type': 'border',
-        'id': 'buttonBorderHover',
-        'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button`,
+    isNotEmpty(attributes['buttonBorderHover']) && device !== 'Desktop' && data.push({
+        'type': 'borderResponsive',
+        'id': 'buttonBorderHoverResponsive',
+        'responsive': true,
+        'selector': attributes['hoverWithParent'] ? attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button` : 
+        `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
     });
 
     isNotEmpty(attributes['buttonBoxShadow']) && data.push({
