@@ -1,9 +1,7 @@
-import { isNotEmpty } from 'gutenverse-core/helper';
 
 export const plainGeneratorFunction = (value, props) => {
     const {
         functionName,
-        otherAttribute,
         attribute
     } = props;
     switch (functionName) {
