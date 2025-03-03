@@ -4,7 +4,7 @@ import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withAnimationAdvance, withAnimationSticky, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCursorEffect, withAnimationBackground, withCustomStyle, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withAnimationAdvance, withAnimationSticky, withCopyElementToolbar, withAnimationStickyV2, withPassRef } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -21,7 +21,7 @@ import { isEmptyValue } from 'gutenverse-core/editor-helper';
 import { FluidCanvas } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 import { roundToDown } from 'round-to';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const SectionPlaceholder = ({ clientId, name, wrapper }) => {
@@ -151,10 +151,11 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 // Section Block
 const SectionBlock = compose(
     withPartialRender,
+    withPassRef,
+    withCopyElementToolbar(),
+    withAnimationStickyV2(),
     // withAnimationAdvance('section'),
     // withAnimationBackground(),
-    // withAnimationSticky(),
-    withCopyElementToolbar(),
     // withMouseMoveEffect,
     // withCursorEffect,
     // withBackgroundEffect,
@@ -171,7 +172,8 @@ const SectionBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        slideElement
+        slideElement,
+        setBlockRef
     } = props;
 
     const {
@@ -191,6 +193,7 @@ const SectionBlock = compose(
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const { settingsData } = window['GutenverseConfig'];
     const { template_page: templatePage } = settingsData || {};
@@ -231,6 +234,12 @@ const SectionBlock = compose(
 
         setAttributes({ isChild });
     }, [isSelected]);
+
+    useEffect(() => {
+        if (elementRef?.current) {
+            setBlockRef(elementRef?.current);
+        }
+    }, [elementRef]);
 
     const componentProps = {
         ...props,
