@@ -59,7 +59,6 @@ const Accordion = compose(
     } = attributes;
 
     const elementRef = useRef(null);
-    const titleRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
@@ -189,7 +188,6 @@ const Accordion = compose(
             <div className="accordion-heading" onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
                 <RichTextComponent
-                    ref={titleRef}
                     classNames={'accordion-text'}
                     tagName={titleTag}
                     aria-label={__('Accordion Title', 'gutenverse')}

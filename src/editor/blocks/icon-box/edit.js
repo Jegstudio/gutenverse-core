@@ -87,9 +87,6 @@ const IconBoxBlock = compose(
     const displayClass = useDisplayEditor(attributes);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const elementRef = useRef();
-    const titleRef = useRef();
-    const descRef = useRef();
-    const badgeRef = useRef();
     const prevHoverWithParent = useRef();
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
@@ -257,7 +254,6 @@ const IconBoxBlock = compose(
                 {iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
                     <RichTextComponent
-                        ref={titleRef}
                         classNames={'title'}
                         tagName={titleTag}
                         aria-label={__('Icon Box Title', 'gutenverse')}
@@ -278,7 +274,6 @@ const IconBoxBlock = compose(
                         parentHasLink={isGlobalLinkSet}
                     />
                     <RichTextComponent
-                        ref={descRef}
                         classNames={'icon-box-description'}
                         tagName={'p'}
                         aria-label={__('Icon Box Description', 'gutenverse')}
@@ -303,7 +298,6 @@ const IconBoxBlock = compose(
                 {iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <RichTextComponent
-                        ref={badgeRef}
                         classNames={'badge-text'}
                         tagName={'span'}
                         aria-label={__('Icon Box Badge', 'gutenverse')}

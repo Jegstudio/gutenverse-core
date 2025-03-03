@@ -104,7 +104,7 @@ const ImageBoxPicker = (props) => {
     );
 };
 
-const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, setPanelState }) => {
+const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) => {
     const {
         getBlocks
     } = useSelect(
@@ -178,7 +178,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
             )}>
                 {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
                 <RichTextComponent
-                    ref={titleRef}
                     tagName={'span'}
                     aria-label={__('Image Box Title', 'gutenverse')}
                     placeholder={__('Image Box Title', 'gutenverse')}
@@ -200,7 +199,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, 
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
             <RichTextComponent
-                ref={descRef}
                 classNames={'body-description'}
                 tagName={'p'}
                 aria-label={__('Image Box Description', 'gutenverse')}
@@ -257,8 +255,6 @@ const ImageBoxBlock = compose(
     FilterDynamic(props);
     HighLightToolbar(props);
     const elementRef = useRef();
-    const descRef = useRef();
-    const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
@@ -360,7 +356,7 @@ const ImageBoxBlock = compose(
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef} />
+                <ImageBoxBody {...props} />
             </div>
         </div>
     </>;

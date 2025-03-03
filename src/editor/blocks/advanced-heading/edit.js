@@ -63,16 +63,7 @@ const AdvancedHeadingBlock = compose(
     HighLightToolbar(props);
 
     const richTextContent = (data, tag, classes, identifier ) => {
-        let ref = null;
-        if(identifier === 'subText'){
-            ref = subTextRef;
-        }else if(identifier === 'text'){
-            ref = textRef;
-        }else if(identifier === 'focusText'){
-            ref = focusTextRef;
-        }
         return <RichTextComponent
-            ref={ref}
             classNames={classes}
             tagName={tag}
             aria-label={__('Advanced Heading', 'gutenverse')}
