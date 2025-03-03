@@ -20,7 +20,6 @@ export const settings = {
             attributes : attributes,
             supports,
             save : saveV1,
-            isEligible : true
         }
     ]
 };
