@@ -22,7 +22,8 @@ export const signal = {
     styleDrawerSignal: new MiniSignal,
     refreshSignal: new MiniSignal,
     throwSignal: new MiniSignal,
-    afterFilterSignal: new MiniSignal
+    afterFilterSignal: new MiniSignal,
+    globalStyleSignal: new MiniSignal,
 };
 
 export const getTimeAgo = (diff) => {

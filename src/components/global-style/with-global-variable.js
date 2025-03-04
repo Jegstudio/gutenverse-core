@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 import { useCallback, useEffect, useState } from '@wordpress/element';
 import { Helmet } from 'gutenverse-core/components';
+import { v4 } from 'uuid';
 
 import {
     getGoogleFontDatas,
@@ -30,6 +31,7 @@ import {
 import { modifyGlobalVariable } from 'gutenverse-core/requests';
 import elementChange from 'element-change';
 import { applyFilters } from '@wordpress/hooks';
+import { signal } from 'gutenverse-core/editor-helper';
 
 const withGlobalVariable = GlobalStyle => {
     return props => {
@@ -38,6 +40,7 @@ const withGlobalVariable = GlobalStyle => {
         const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
         const [headElement, setHeadElement] = useState(null);
         const { uploadPath } = window['GutenverseConfig'];
+        const [globalStyleSignal, setGlobalStyleSignal] = useState(false);
 
         const setWindow = () => {
             setTimeout(() => {
@@ -219,7 +222,7 @@ const withGlobalVariable = GlobalStyle => {
                     ...font,
                     weight
                 });
-            }else if(font?.type === 'custom_font_pro'){
+            } else if (font?.type === 'custom_font_pro') {
                 setCustomFonts(id, {
                     ...font,
                     weight
@@ -232,12 +235,12 @@ const withGlobalVariable = GlobalStyle => {
                 href={`https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFont)}`}
                 rel="stylesheet" type="text/css" />;
         };
-        
+
         const renderCustomFont = () => {
             let customFontData = Object.keys(customFont).map((value) => {
                 return customFont[value].value;
             });
-            let uniqueFont = customFontData.filter((value,index,array) => array.indexOf(value) === index);
+            let uniqueFont = customFontData.filter((value, index, array) => array.indexOf(value) === index);
             return !isEmpty(uniqueFont) &&
                 applyFilters(
                     'gutenverse.apply-custom-font',
@@ -255,6 +258,14 @@ const withGlobalVariable = GlobalStyle => {
                 weight
             });
         };
+
+        useEffect(() => {
+            const bindGlobalStyling = signal.globalStyleSignal.add(() => setGlobalStyleSignal(true));
+
+            return () => {
+                bindGlobalStyling.detach();
+            };
+        }, []);
 
         useEffect(() => {
             if (window?.GutenverseConfig?.globalVariable?.fonts) {
@@ -284,6 +295,8 @@ const withGlobalVariable = GlobalStyle => {
                 fonts: variable?.fonts,
                 googlefont: getGoogleFontDatas(googleFont)
             });
+
+            signal.globalStyleSignal.dispatch(v4());
         }, [userConfig, variable, deviceType]);
 
         return <>
