@@ -147,7 +147,7 @@ export const renderFont = (fonts) => {
         if (item?.font?.font?.type === 'google') {
             googleFonts[item.id] = {
                 ...item?.font?.font,
-                weight : item?.font.weight
+                weight: item?.font.weight
             };
         }
     });
@@ -161,7 +161,7 @@ export const renderCustomFont = (fonts) => {
         if (item?.font?.font?.type === 'custom_font_pro') {
             customFonts[item.id] = {
                 ...item?.font?.font,
-                weight : item?.font.weight
+                weight: item?.font.weight
             };
         }
     });
@@ -175,3 +175,37 @@ export const renderCustomFont = (fonts) => {
         uploadPath
     );
 };
+
+export const injectGlobalStyle = (variable) => {
+    const { fonts, window } = variable;
+    const globalCSS = buildGlobalStyle(variable);
+    console.log(variable)
+    let cssElement = window.document.getElementById('gutenverse-global-style');
+    if(!cssElement){
+        const style = document.createElement('style');
+        style.id = 'gutenverse-global-style';
+        window.document.head.appendChild(style);
+    }
+    console.log(cssElement)
+    cssElement.innerHTML = globalCSS;
+    if (fonts) {
+        const googleFont = renderFont(fonts);
+        const customFont = renderCustomFont(fonts);
+
+        if (googleFont) {
+            const link = document.createElement('link');
+            link.href = googleFont;
+            link.rel = 'stylesheet';
+            window.document.head.appendChild(link);
+        }
+
+        if (customFont) {
+            customFont.forEach((font) => {
+                const link = document.createElement('link');
+                link.href = font;
+                link.rel = 'stylesheet';
+                window.document.head.appendChild(link);
+            });
+        }
+    }
+}

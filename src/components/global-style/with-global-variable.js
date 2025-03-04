@@ -40,7 +40,6 @@ const withGlobalVariable = GlobalStyle => {
         const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
         const [headElement, setHeadElement] = useState(null);
         const { uploadPath } = window['GutenverseConfig'];
-        const [globalStyleSignal, setGlobalStyleSignal] = useState(false);
 
         const setWindow = () => {
             setTimeout(() => {
@@ -259,17 +258,6 @@ const withGlobalVariable = GlobalStyle => {
             });
         };
 
-        // useEffect(() => {
-        //     const bindGlobalStyling = signal.globalStyleSignal.add(() => setGlobalStyleSignal({
-        //         globalCSS : adminStyles,
-        //         customFont: renderCustomFont(),
-        //         googleFont: renderFont()
-        //     }));
-        //     return () => {
-        //         bindGlobalStyling.detach();
-        //     };
-        // }, []);
-
         useEffect(() => {
             if (window?.GutenverseConfig?.globalVariable?.fonts) {
                 const fonts = window?.GutenverseConfig?.globalVariable?.fonts;
@@ -278,7 +266,6 @@ const withGlobalVariable = GlobalStyle => {
 
                 // Set Google Fonts
                 fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
-
                 setAdminStyles(buildStyle({
                     fonts,
                     userConfig
@@ -311,9 +298,9 @@ const withGlobalVariable = GlobalStyle => {
 
         return <>
             <Helmet device={deviceType} head={headElement}>
-                {<style id="global-variable-style">{adminStyles}</style>}
+                {/* {<style id="global-variable-style">{adminStyles}</style>}
                 {renderFont()}
-                {renderCustomFont()}
+                {renderCustomFont()} */}
             </Helmet>
             <GlobalStyle
                 {...props}

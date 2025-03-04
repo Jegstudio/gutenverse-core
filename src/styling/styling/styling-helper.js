@@ -9,7 +9,7 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { isNotEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
@@ -23,8 +23,8 @@ import { pointerEventGenerator } from './generator/generator-pointer-events';
 import { shapeDividerGenerator } from './generator/generator-shape-divider';
 import { signal } from 'gutenverse-core/editor-helper';
 import { v4 } from 'uuid';
-import { throttle } from '@wordpress/compose';
-import { buildGlobalStyle, injectGlobalStyle, renderCustomFont, renderFont } from './global-style';
+import memoize from 'lodash/memoize';
+import { injectGlobalStyle } from './global-style';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -166,7 +166,7 @@ export const getWindowId = (elementRef) => {
     return null;
 };
 
-export const injectStyleTag = (css, theWindow, ) => {
+export const injectStyleTag = (css, theWindow) => {
     let cssElement = theWindow.document.getElementById('gutenverse-block-css');
     if (!cssElement) {
         cssElement = theWindow.document.createElement('style');
@@ -323,25 +323,23 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     return { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont };
 };
 
-const renderGlobalStyle = (props) => {
-    // const { generatedCSS, fontUsed } = useMemo(() => {
-    //     if (elementId) {
-    //         return { generatedCSS, fontUsed };
-    //     } else {
-    //         return { generatedCSS: '', fontUsed: [] };
-    //     }
-    // }, [props]);
-    console.log('Global Style Rendered', props);
-};
+// const renderGlobalStyle = (props) => {
+//     console.log('Global Style Rendered', props);
+// };
 
-export const throttleGlobalStyle = throttle((props) => {
+const createGlobalKey = (uuid, globalKey) => `${uuid}-${globalKey}`;
 
-    renderGlobalStyle(props);
-}, 100);
+const memoizeGlobalStyle = memoize((uuid, props) => {
+    injectGlobalStyle({
+        id: uuid,
+        ...props,
+    });
+}, createGlobalKey);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
     const [confirmSignal, setConfirmSignal] = useState(false);
-    const [globalStyleSignal, setGlobalStyleSignal] = useState(false);
+    const [globalStyleSignal, setGlobalStyleSignal] = useState(null);
+    const [iframeWindowId, setIframeWindowId] = useState('');
 
     const { generatedCSS, fontUsed } = useMemo(() => {
         if (elementId) {
@@ -354,16 +352,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         }
     }, [elementId, attributes, confirmSignal]);
 
-    const { globalCSS, googleFont, customFont } = useMemo(() => {
-        const { fonts } = globalStyleSignal;
-        const globalCSS = buildGlobalStyle(globalStyleSignal);
-        const googleFont = renderFont(fonts);
-        const customFont = renderCustomFont(fonts);
-        return { globalCSS, googleFont, customFont };
-    }, [globalStyleSignal]);
-
     const iframeWindowRef = useRef(null);
-    const iframeWindowId = useRef(null);
     const idHolder = useRef(null);
 
     useEffect(() => {
@@ -372,14 +361,13 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 
     useEffect(() => {
         const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
-        const bindGlobal = signal.globalStyleSignal.add((props) => setGlobalStyleSignal(props));
-
+        const bindGlobalStyling = signal.globalStyleSignal.add((props) => setGlobalStyleSignal(props));
         return () => {
             injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             iframeWindowRef.current = null;
             bindStyling.detach();
-            bindGlobal.detach();
+            bindGlobalStyling.detach();
         };
     }, []);
 
@@ -387,7 +375,8 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         if (elementRef) {
             if (!iframeWindowRef.current) {
                 iframeWindowRef.current = getWindow(elementRef);
-                iframeWindowId.current = getWindowId(elementRef);
+                const windowId = getWindowId(elementRef);
+                setIframeWindowId(windowId);
             }
             if (generatedCSS) {
                 injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS);
@@ -399,20 +388,14 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
-        if(globalStyleSignal){
-            if (!iframeWindowRef.current) {
-                iframeWindowRef.current = getWindow(elementRef);
-                iframeWindowId.current = getWindowId(elementRef);
-            }
-            injectGlobalStyle({
-                id : iframeWindowId.current,
-                css : globalCSS,
-                googleFont,
-                customFont
+        if (iframeWindowId !== '' && isNotEmpty(globalStyleSignal)) {
+            console.log(globalStyleSignal)
+            memoizeGlobalStyle(iframeWindowId, {
+                window : iframeWindowRef.current,
+                ...globalStyleSignal
             });
         }
     }, [globalStyleSignal]);
-
 };
 
 export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, timeout = true) => {
