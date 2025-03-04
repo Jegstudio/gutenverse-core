@@ -192,19 +192,42 @@ export const injectGlobalStyle = (variable) => {
         const customFont = renderCustomFont(fonts);
 
         if (googleFont) {
-            const link = document.createElement('link');
-            link.href = googleFont;
-            link.rel = 'stylesheet';
-            theWindow.document.head.appendChild(link);
+            let googleTag = theWindow.document.getElementById('gutenverse-global-google-font');
+            if (!theWindow.gutenverseGoogleFontUrl) {
+                theWindow.gutenverseGoogleFontUrl = '';
+            }
+            if (!googleTag) {
+                googleTag = document.createElement('link');
+                googleTag.rel = 'stylesheet';
+                googleTag.type = 'text/css';
+                googleTag.id = 'gutenverse-global-google-font';
+                googleTag.href = googleFont;
+                theWindow.document.head.appendChild(googleTag);
+                theWindow.gutenverseGoogleFontUrl = googleFont;
+            } else {
+                if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
+                    googleTag.href = googleFont;
+                    theWindow.gutenverseGoogleFontUrl = googleFont;
+                }
+            }
         }
 
         if (customFont) {
-            customFont.forEach((font) => {
-                const link = document.createElement('link');
-                link.href = font;
-                link.rel = 'stylesheet';
-                theWindow.document.head.appendChild(link);
-            });
+            let customTag = theWindow.document.getElementsByClassName('gutenverse-pro-global-custom-font');
+            if (customTag.length > 0) {
+                while (customTag.length > 0) {
+                    customTag[0].remove(); // Always remove the first element since the collection updates dynamically
+                }
+            } else {
+                customFont.forEach(el => {
+                    customTag = document.createElement('link');
+                    customTag.rel = 'stylesheet';
+                    customTag.type = 'text/css';
+                    customTag.href = el;
+                    customTag.classList.add('gutenverse-pro-global-custom-font');
+                    theWindow.document.head.appendChild(customTag);
+                });
+            }
         }
     }
 }
