@@ -179,15 +179,14 @@ export const renderCustomFont = (fonts) => {
 export const injectGlobalStyle = (variable) => {
     const { fonts, window } = variable;
     const globalCSS = buildGlobalStyle(variable);
-    console.log(variable)
-    let cssElement = window.document.getElementById('gutenverse-global-style');
-    if(!cssElement){
-        const style = document.createElement('style');
-        style.id = 'gutenverse-global-style';
-        window.document.head.appendChild(style);
+    let cssGlobal = window.document.getElementById('gutenverse-global-style');
+    if (!cssGlobal) {
+        cssGlobal = document.createElement('style');
+        cssGlobal.id = 'gutenverse-global-style';
+        window.document.head.appendChild(cssGlobal);
     }
-    console.log(cssElement)
-    cssElement.innerHTML = globalCSS;
+    console.log(variable.colors);
+    cssGlobal.innerHTML = globalCSS;
     if (fonts) {
         const googleFont = renderFont(fonts);
         const customFont = renderCustomFont(fonts);

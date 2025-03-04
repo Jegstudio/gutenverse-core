@@ -388,8 +388,8 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
+        console.log(globalStyleSignal, iframeWindowId)
         if (iframeWindowId !== '' && isNotEmpty(globalStyleSignal)) {
-            console.log(globalStyleSignal)
             memoizeGlobalStyle(iframeWindowId, {
                 window : iframeWindowRef.current,
                 ...globalStyleSignal
