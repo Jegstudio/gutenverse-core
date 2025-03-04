@@ -259,13 +259,16 @@ const withGlobalVariable = GlobalStyle => {
             });
         };
 
-        useEffect(() => {
-            const bindGlobalStyling = signal.globalStyleSignal.add(() => setGlobalStyleSignal(true));
-
-            return () => {
-                bindGlobalStyling.detach();
-            };
-        }, []);
+        // useEffect(() => {
+        //     const bindGlobalStyling = signal.globalStyleSignal.add(() => setGlobalStyleSignal({
+        //         globalCSS : adminStyles,
+        //         customFont: renderCustomFont(),
+        //         googleFont: renderFont()
+        //     }));
+        //     return () => {
+        //         bindGlobalStyling.detach();
+        //     };
+        // }, []);
 
         useEffect(() => {
             if (window?.GutenverseConfig?.globalVariable?.fonts) {
@@ -280,6 +283,10 @@ const withGlobalVariable = GlobalStyle => {
                     fonts,
                     userConfig
                 }));
+                signal.globalStyleSignal.dispatch({
+                    colors : userConfig?.settings?.color?.palette,
+                    fonts : fonts,
+                });
             }
         }, []);
 
@@ -296,7 +303,10 @@ const withGlobalVariable = GlobalStyle => {
                 googlefont: getGoogleFontDatas(googleFont)
             });
 
-            signal.globalStyleSignal.dispatch(v4());
+            signal.globalStyleSignal.dispatch({
+                colors : userConfig?.settings?.color?.palette,
+                fonts : variable?.fonts,
+            });
         }, [userConfig, variable, deviceType]);
 
         return <>

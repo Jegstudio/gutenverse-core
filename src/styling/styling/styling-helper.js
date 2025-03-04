@@ -24,6 +24,7 @@ import { shapeDividerGenerator } from './generator/generator-shape-divider';
 import { signal } from 'gutenverse-core/editor-helper';
 import { v4 } from 'uuid';
 import { throttle } from '@wordpress/compose';
+import { buildGlobalStyle, injectGlobalStyle, renderCustomFont, renderFont } from './global-style';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -165,7 +166,7 @@ export const getWindowId = (elementRef) => {
     return null;
 };
 
-export const injectStyleTag = (css, theWindow) => {
+export const injectStyleTag = (css, theWindow, ) => {
     let cssElement = theWindow.document.getElementById('gutenverse-block-css');
     if (!cssElement) {
         cssElement = theWindow.document.createElement('style');
@@ -323,11 +324,19 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 };
 
 const renderGlobalStyle = (props) => {
+    // const { generatedCSS, fontUsed } = useMemo(() => {
+    //     if (elementId) {
+    //         return { generatedCSS, fontUsed };
+    //     } else {
+    //         return { generatedCSS: '', fontUsed: [] };
+    //     }
+    // }, [props]);
     console.log('Global Style Rendered', props);
 };
 
-export const throttleGlobalStyle = throttle((uuiid) => {
-    renderGlobalStyle(uuiid);
+export const throttleGlobalStyle = throttle((props) => {
+
+    renderGlobalStyle(props);
 }, 100);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
@@ -345,6 +354,14 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
         }
     }, [elementId, attributes, confirmSignal]);
 
+    const { globalCSS, googleFont, customFont } = useMemo(() => {
+        const { fonts } = globalStyleSignal;
+        const globalCSS = buildGlobalStyle(globalStyleSignal);
+        const googleFont = renderFont(fonts);
+        const customFont = renderCustomFont(fonts);
+        return { globalCSS, googleFont, customFont };
+    }, [globalStyleSignal]);
+
     const iframeWindowRef = useRef(null);
     const iframeWindowId = useRef(null);
     const idHolder = useRef(null);
@@ -355,14 +372,14 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 
     useEffect(() => {
         const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
-        const bindGlobalStyling = signal.globalStyleSignal.add((key) => setGlobalStyleSignal(key));
+        const bindGlobal = signal.globalStyleSignal.add((props) => setGlobalStyleSignal(props));
 
         return () => {
             injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             iframeWindowRef.current = null;
             bindStyling.detach();
-            bindGlobalStyling.detach();
+            bindGlobal.detach();
         };
     }, []);
 
@@ -371,7 +388,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             if (!iframeWindowRef.current) {
                 iframeWindowRef.current = getWindow(elementRef);
                 iframeWindowId.current = getWindowId(elementRef);
-                throttleGlobalStyle(iframeWindowId.current);
             }
             if (generatedCSS) {
                 injectStyleToIFrame(idHolder.current, iframeWindowRef.current, generatedCSS);
@@ -383,8 +399,19 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
-        throttleGlobalStyle(iframeWindowId.current);
-    }, [iframeWindowId.current, globalStyleSignal]);
+        if(globalStyleSignal){
+            if (!iframeWindowRef.current) {
+                iframeWindowRef.current = getWindow(elementRef);
+                iframeWindowId.current = getWindowId(elementRef);
+            }
+            injectGlobalStyle({
+                id : iframeWindowId.current,
+                css : globalCSS,
+                googleFont,
+                customFont
+            });
+        }
+    }, [globalStyleSignal]);
 
 };
 
