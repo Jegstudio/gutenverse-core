@@ -177,13 +177,13 @@ export const renderCustomFont = (fonts) => {
 };
 
 export const injectGlobalStyle = (variable) => {
-    const { fonts, window } = variable;
+    const { fonts, theWindow } = variable;
     const globalCSS = buildGlobalStyle(variable);
-    let cssGlobal = window.document.getElementById('gutenverse-global-style');
+    let cssGlobal = theWindow.document.getElementById('gutenverse-global-style');
     if (!cssGlobal) {
         cssGlobal = document.createElement('style');
         cssGlobal.id = 'gutenverse-global-style';
-        window.document.head.appendChild(cssGlobal);
+        theWindow.document.head.appendChild(cssGlobal);
     }
     console.log(variable.colors);
     cssGlobal.innerHTML = globalCSS;
@@ -195,7 +195,7 @@ export const injectGlobalStyle = (variable) => {
             const link = document.createElement('link');
             link.href = googleFont;
             link.rel = 'stylesheet';
-            window.document.head.appendChild(link);
+            theWindow.document.head.appendChild(link);
         }
 
         if (customFont) {
@@ -203,7 +203,7 @@ export const injectGlobalStyle = (variable) => {
                 const link = document.createElement('link');
                 link.href = font;
                 link.rel = 'stylesheet';
-                window.document.head.appendChild(link);
+                theWindow.document.head.appendChild(link);
             });
         }
     }

@@ -323,16 +323,15 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     return { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont };
 };
 
-// const renderGlobalStyle = (props) => {
-//     console.log('Global Style Rendered', props);
-// };
-
 const createGlobalKey = (uuid, globalKey) => `${uuid}-${globalKey}`;
 
-const memoizeGlobalStyle = memoize((uuid, props) => {
+const memoizeGlobalStyle = memoize((uuid, globalKey, theWindow, props) => {
+    let variables = JSON.parse(props);
     injectGlobalStyle({
         id: uuid,
-        ...props,
+        globalKey,
+        theWindow,
+        ...variables,
     });
 }, createGlobalKey);
 
@@ -388,12 +387,9 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
-        console.log(globalStyleSignal, iframeWindowId)
         if (iframeWindowId !== '' && isNotEmpty(globalStyleSignal)) {
-            memoizeGlobalStyle(iframeWindowId, {
-                window : iframeWindowRef.current,
-                ...globalStyleSignal
-            });
+            const {globalKey} = globalStyleSignal;
+            memoizeGlobalStyle(iframeWindowId, globalKey, iframeWindowRef.current, JSON.stringify(globalStyleSignal));
         }
     }, [globalStyleSignal]);
 };

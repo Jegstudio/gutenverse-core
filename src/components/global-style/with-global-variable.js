@@ -273,6 +273,7 @@ const withGlobalVariable = GlobalStyle => {
                 signal.globalStyleSignal.dispatch({
                     colors : userConfig?.settings?.color?.palette,
                     fonts : fonts,
+                    globalKey : v4()
                 });
             }
         }, []);
@@ -293,6 +294,7 @@ const withGlobalVariable = GlobalStyle => {
             signal.globalStyleSignal.dispatch({
                 colors : userConfig?.settings?.color?.palette,
                 fonts : variable?.fonts,
+                globalKey : v4()
             });
         }, [userConfig, variable, deviceType]);
 
