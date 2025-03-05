@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
 import { dispatch, select } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
+import { applyFilters } from '@wordpress/hooks';
 
 export const buildGlobalStyle = (variable) => {
     let variableStyle = elementVar();
@@ -155,6 +156,7 @@ export const getGlobalVariable = () => {
     } = dispatch('gutenverse/global-style');
 
     let variable = getVariable();
+    const { uploadPath } = window['GutenverseConfig'];
 
     const addFont = (id, font, weight) => {
         if (font?.type === 'google') {
@@ -184,7 +186,16 @@ export const getGlobalVariable = () => {
         googleArr[value]  = uniqueArray;
     });
     const customFont = getCustomFont();
-
+    let customArr = [];
+    Object.values(customFont).forEach(item => {
+        customArr.push(item.value);
+        customArr = [...new Set(customArr)];
+    });
+    let newCustomArr = !isEmpty(customArr) && applyFilters(
+        'gutenverse.v3.apply-custom-font',
+        customArr,
+        uploadPath
+    );
     // Get global settings from wp
     const _globalStylesId = select(
         coreStore
@@ -200,7 +211,7 @@ export const getGlobalVariable = () => {
     return {
         colors,
         googleArr,
-        customFont,
+        customArr : newCustomArr,
         fonts
     };
 };

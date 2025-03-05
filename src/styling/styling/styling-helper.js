@@ -333,6 +333,12 @@ const memoizeGlobalStyle = memoize((uuid, globalKey, theWindow) => {
     const globalVariables = getGlobalVariable();
     const globalCSS = buildGlobalStyle(globalVariables);
     injectStyleTag(globalCSS, theWindow, 'gutenverse-global-style-css-v2');
+    injectFontStyle(theWindow, {
+        googleArr : globalVariables.googleArr,
+        customArr : globalVariables.customArr,
+        customFontClass : 'gutenverse-pro-global-custom-font-editor',
+        googleFontId : 'gutenverse-global-google-font-editor'
+    });
 }, createGlobalKey);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
