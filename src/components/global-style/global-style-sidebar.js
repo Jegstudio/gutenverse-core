@@ -83,6 +83,6 @@ export default compose(
             setCustomFonts: setCustomFonts
         };
     }),
-    
+
     withGlobalVariable,
 )(GlobalStyleSidebar);
