@@ -1,5 +1,5 @@
 import cryptoRandomString from 'crypto-random-string';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useDeferredValue, useEffect, useRef, useState } from '@wordpress/element';
 import { ChromePicker } from 'react-color';
 import { Trash } from 'react-feather';
 import classnames from 'classnames';
@@ -41,6 +41,8 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
 const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
     const [open, setControlOpen] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
+    const [color, setColor] = useState(value);
+    const deferredColor = useDeferredValue(color);
 
     const wrapperRef = useRef();
     const colorRef = useRef();
@@ -70,12 +72,16 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
         });
     };
 
-    const editColor = (rgba) => {
-        updateColor({
-            ...value,
+    const handleEditDeferredValue = (rgba) => {
+        setColor({
+            ...color,
             color: rgba
         });
     };
+
+    useEffect(() => {
+        updateColor(deferredColor);
+    }, [deferredColor]);
 
     return <div className={classnames('gutenverse-control-wrapper', 'single-variable-color', 'gutenverse-control-color')}>
         <div className={'single-variable-color-wrapper'}>
@@ -96,12 +102,14 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
                 </h2>
             </div>
             <ChromePicker
-                color={value.color}
+                color={color.color}
                 onChange={color => {
-                    editColor(color.rgb);
+                    handleEditDeferredValue(color.rgb);
+                    // editColor(color.rgb);
                 }}
                 onChangeComplete={(color) => {
-                    editColor(color.rgb);
+                    handleEditDeferredValue(color.rgb);
+                    // editColor(color.rgb);
                 }}
             />
         </div> : null}

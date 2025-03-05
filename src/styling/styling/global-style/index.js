@@ -1,4 +1,4 @@
-import { responsiveBreakpoint, variableColorName, getGoogleFontParams, variableFontName } from 'gutenverse-core/helper';
+import { responsiveBreakpoint, variableColorName, variableFontName } from 'gutenverse-core/helper';
 import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from '../styling-utility';
 import { isEmpty } from 'lodash';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
@@ -170,12 +170,14 @@ export const getGlobalVariable = () => {
                 weight
             });
         }
-    }
+    };
+
     let fonts = [];
     if (variable?.fonts) {
         fonts = variable.fonts;
         fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
     }
+
     const googleFont = getGoogleFont();
     let googleArr = [];
     Object.values(googleFont).forEach(item => {
@@ -185,6 +187,7 @@ export const getGlobalVariable = () => {
         const uniqueArray = [...new Set(arrWeight)];
         googleArr[value]  = uniqueArray;
     });
+
     const customFont = getCustomFont();
     let customArr = [];
     Object.values(customFont).forEach(item => {
@@ -196,6 +199,7 @@ export const getGlobalVariable = () => {
         customArr,
         uploadPath
     );
+
     // Get global settings from wp
     const _globalStylesId = select(
         coreStore
@@ -208,6 +212,7 @@ export const getGlobalVariable = () => {
         )
         : undefined;
     let colors = record?.settings?.color.palette;
+
     return {
         colors,
         googleArr,

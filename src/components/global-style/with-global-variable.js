@@ -1,57 +1,41 @@
-import { useSelect } from '@wordpress/data';
 import debounce from 'lodash/debounce';
-import { useCallback, useEffect, useState } from '@wordpress/element';
+import { useCallback, useEffect } from '@wordpress/element';
 import { v4 } from 'uuid';
-
 import {
     getGoogleFontDatas,
-    determineLocation,
-    theDeviceType,
 } from 'gutenverse-core/helper';
 import {
     useGlobalStylesConfig,
 } from 'gutenverse-core/editor-helper';
-
 import { modifyGlobalVariable } from 'gutenverse-core/requests';
-import elementChange from 'element-change';
 import { signal } from 'gutenverse-core/editor-helper';
 
 const withGlobalVariable = GlobalStyle => {
     return props => {
-        const { variable, googleFont, setGoogleFonts, setCustomFonts } = props;
-        const [headElement, setHeadElement] = useState(null);
-
-        const setWindow = () => {
-            setTimeout(() => {
-                const canvas = document.querySelector('[name=\'editor-canvas\']');
-                const wrapper = !canvas ? window : canvas.contentWindow;
-                setHeadElement(wrapper.document.getElementsByTagName('head')[0]);
-            }, 500);
-        };
-
-        elementChange('#editor', setWindow);
-        elementChange('#site-editor', setWindow);
+        const { variable, googleFont, setCustomFonts, setGoogleFonts } = props;
 
         // Get global settings from wp
         const { userConfig } = useGlobalStylesConfig();
-
-        // Keep this using useSelect instead of getDeviceType, to trigger changes
-        const {
-            deviceType,
-        } = useSelect(
-            () => {
-                const location = determineLocation();
-                return {
-                    deviceType: theDeviceType(location)
-                };
-            },
-            []
-        );
 
         const debounceSave = useCallback(
             debounce((params) => modifyGlobalVariable(params), 200),
             []
         );
+
+        useEffect(() => {
+            signal.globalStyleSignal.dispatch(v4());
+        }, []);
+
+        useEffect(() => {
+            debounceSave({
+                variable: variable,
+                colors: variable?.colors,
+                fonts: variable?.fonts,
+                googlefont: getGoogleFontDatas(googleFont)
+            });
+
+            signal.globalStyleSignal.dispatch(v4());
+        }, [variable, userConfig]);
 
         const addFont = (id, font, weight) => {
             if (font?.type === 'google') {
@@ -66,22 +50,6 @@ const withGlobalVariable = GlobalStyle => {
                 });
             }
         };
-
-        useEffect(() => {
-            signal.globalStyleSignal.dispatch(v4());
-        }, []);
-
-        useEffect(() => {
-
-            debounceSave({
-                variable: variable,
-                colors: variable?.colors,
-                fonts: variable?.fonts,
-                googlefont: getGoogleFontDatas(googleFont)
-            });
-
-            signal.globalStyleSignal.dispatch(v4());
-        }, [userConfig, variable, deviceType]);
 
         return <>
             <GlobalStyle
