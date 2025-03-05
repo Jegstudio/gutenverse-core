@@ -20,3 +20,4 @@ export { withPartialRender } from './with-partial-render';
 // v2
 export { withPassRef } from './with-pass-ref';
 export { withAnimationStickyV2 } from './with-animation-sticky-v2';
+export { withAnimationAdvanceV2 } from './with-animation-advance-v2';
