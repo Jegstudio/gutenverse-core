@@ -22,13 +22,12 @@ class Editor_Assets {
 		add_action( 'admin_footer', array( $this, 'register_root' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_script' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_backend' ) );
-		add_action( 'enqueue_block_assets', array( $this, 'block_assets' ) );
 	}
 
 	/**
-	 * Block Assets.
+	 * Register Javascript Script
 	 */
-	public function block_assets() {
+	public function register_script() {
 		// Register & Enqueue Style.
 		wp_enqueue_style(
 			'gutenverse-editor-style',
@@ -36,12 +35,7 @@ class Editor_Assets {
 			array( 'wp-edit-blocks', 'fontawesome-gutenverse', 'gutenverse-iconlist' ),
 			GUTENVERSE_FRAMEWORK_VERSION
 		);
-	}
 
-	/**
-	 * Register Javascript Script
-	 */
-	public function register_script() {
 		wp_enqueue_style( 'gutenverse-frontend-style' );
 
 		wp_enqueue_script( 'gutenverse-core-event' );
