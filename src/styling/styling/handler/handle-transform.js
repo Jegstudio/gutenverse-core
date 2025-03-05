@@ -24,7 +24,7 @@ export const handleTransform = (values) => {
         opacity,
     } = values;
 
-    if(duration){
+    if (duration) {
         DeviceLoop(device => {
             const _duration = deviceStyleValue(device, duration);
             const duration_ = _duration ? _duration : '0.4';
@@ -34,17 +34,17 @@ export const handleTransform = (values) => {
                 elementStyle
             });
         })
-    }else{
-        const duration_ = duration ? duration: '0.4';
+    } else {
+        const duration_ = duration ? duration : '0.4';
         normalAppender({
             style: `transition: transform ${duration_}s, opacity ${duration_}s;`,
             elementStyle
         });
     }
-    if(delay){
+    if (delay) {
         DeviceLoop(device => {
             const _delay = deviceStyleValue(device, delay);
-            if(_delay){
+            if (_delay) {
                 responsiveAppender({
                     style: `transition-delay: ${_delay}s;`,
                     device,
@@ -232,7 +232,7 @@ export const handleTransform = (values) => {
     }
 
     if (opacity || opacity === 0) {
-        const opacity_ = ! isEmpty(opacity) || opacity === 0 ? opacity: '1';
+        const opacity_ = !isEmpty(opacity) || opacity === 0 ? opacity : '1';
         normalAppender({
             style: `opacity: ${opacity_};`,
             elementStyle
@@ -424,7 +424,7 @@ export const handleTransformHover = (values) => {
     }
 
     if (opacityHover || opacityHover === 0) {
-        const opacity_ = ! isEmpty(opacityHover) || opacityHover === 0 ? opacityHover: '1';
+        const opacity_ = !isEmpty(opacityHover) || opacityHover === 0 ? opacityHover : '1';
         normalAppender({
             style: `opacity: ${opacity_};`,
             elementStyle
