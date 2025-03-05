@@ -9,7 +9,7 @@ import { Helmet } from 'gutenverse-core/components';
 import { backgroundGenerator } from './generator/generator-background';
 import { borderGenerator } from './generator/generator-border';
 import { borderResponsiveGenerator } from './generator/generator-border-responsive';
-import { isNotEmpty, recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
+import { recursiveDuplicateCheck, responsiveBreakpoint } from 'gutenverse-core/helper';
 import { dispatch, select } from '@wordpress/data';
 import { boxShadowCSS } from './generator/generator-box-shadow';
 import { maskGenerator } from './generator/generator-mask';
@@ -24,7 +24,7 @@ import { shapeDividerGenerator } from './generator/generator-shape-divider';
 import { signal } from 'gutenverse-core/editor-helper';
 import { v4 } from 'uuid';
 import memoize from 'lodash/memoize';
-import { injectGlobalStyle } from './global-style';
+import { buildGlobalStyle, getGlobalVariable } from './global-style';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -166,11 +166,11 @@ export const getWindowId = (elementRef) => {
     return null;
 };
 
-export const injectStyleTag = (css, theWindow) => {
-    let cssElement = theWindow.document.getElementById('gutenverse-block-css');
+export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') => {
+    let cssElement = theWindow.document.getElementById(cssId);
     if (!cssElement) {
         cssElement = theWindow.document.createElement('style');
-        cssElement.id = 'gutenverse-block-css';
+        cssElement.id = cssId;
         theWindow.document.head.appendChild(cssElement);
     }
     cssElement.innerHTML = css;
@@ -325,14 +325,10 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 
 const createGlobalKey = (uuid, globalKey) => `${uuid}-${globalKey}`;
 
-const memoizeGlobalStyle = memoize((uuid, globalKey, theWindow, props) => {
-    let variables = JSON.parse(props);
-    injectGlobalStyle({
-        id: uuid,
-        globalKey,
-        theWindow,
-        ...variables,
-    });
+const memoizeGlobalStyle = memoize((uuid, globalKey, theWindow) => {
+    const globalVariables = getGlobalVariable();
+    const globalCSS = buildGlobalStyle(globalVariables);
+    injectStyleTag(globalCSS, theWindow, 'gutenverse-global-style-css-v2');
 }, createGlobalKey);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
@@ -387,11 +383,10 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
-        if (iframeWindowId !== '' && isNotEmpty(globalStyleSignal)) {
-            const {globalKey} = globalStyleSignal;
-            memoizeGlobalStyle(iframeWindowId, globalKey, iframeWindowRef.current, JSON.stringify(globalStyleSignal));
+        if (iframeWindowId !== '') {
+            memoizeGlobalStyle(iframeWindowId, globalStyleSignal, iframeWindowRef.current);
         }
-    }, [globalStyleSignal]);
+    }, [iframeWindowId, globalStyleSignal]);
 };
 
 export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, timeout = true) => {

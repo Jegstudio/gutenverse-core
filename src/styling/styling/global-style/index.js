@@ -1,8 +1,9 @@
 import { responsiveBreakpoint, variableColorName, getGoogleFontParams, variableFontName } from 'gutenverse-core/helper';
-import { DeviceLoop, deviceStyleValue, elementVar, normalAppender, responsiveAppender } from '../styling-utility';
+import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from '../styling-utility';
 import { isEmpty } from 'lodash';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
-import { applyFilters } from '@wordpress/hooks';
+import { dispatch, select } from '@wordpress/data';
+import { store as coreStore } from '@wordpress/core-data';
 
 export const buildGlobalStyle = (variable) => {
     let variableStyle = elementVar();
@@ -141,93 +142,66 @@ const pointCheck = (deviceType, value) => {
     return _value;
 };
 
-export const renderFont = (fonts) => {
-    const googleFonts = {};
-    fonts.forEach(item => {
-        if (item?.font?.font?.type === 'google') {
-            googleFonts[item.id] = {
-                ...item?.font?.font,
-                weight: item?.font.weight
-            };
-        }
-    });
-    return !isEmpty(googleFonts) && `https://fonts.googleapis.com/css?family=${getGoogleFontParams(googleFonts)}`;
-};
+export const getGlobalVariable = () => {
+    const {
+        getGoogleFont,
+        getCustomFont,
+        getVariable,
+    } = select('gutenverse/global-style');
 
-export const renderCustomFont = (fonts) => {
-    const { uploadPath } = window['GutenverseConfig'];
-    const customFonts = {};
-    fonts.forEach(item => {
-        if (item?.font?.font?.type === 'custom_font_pro') {
-            customFonts[item.id] = {
-                ...item?.font?.font,
-                weight: item?.font.weight
-            };
-        }
-    });
-    let customFontData = Object.keys(customFonts).map((value) => {
-        return fonts[value].value;
-    });
-    let uniqueFont = customFontData.filter((value, index, array) => array.indexOf(value) === index);
-    return !isEmpty(uniqueFont) && applyFilters(
-        'gutenverse.v3.apply-custom-font',
-        uniqueFont,
-        uploadPath
-    );
-};
+    const {
+        setGoogleFonts,
+        setCustomFonts,
+    } = dispatch('gutenverse/global-style');
 
-export const injectGlobalStyle = (variable) => {
-    const { fonts, theWindow } = variable;
-    const globalCSS = buildGlobalStyle(variable);
-    let cssGlobal = theWindow.document.getElementById('gutenverse-global-style');
-    if (!cssGlobal) {
-        cssGlobal = document.createElement('style');
-        cssGlobal.id = 'gutenverse-global-style';
-        theWindow.document.head.appendChild(cssGlobal);
-    }
-    console.log(variable.colors);
-    cssGlobal.innerHTML = globalCSS;
-    if (fonts) {
-        const googleFont = renderFont(fonts);
-        const customFont = renderCustomFont(fonts);
+    let variable = getVariable();
 
-        if (googleFont) {
-            let googleTag = theWindow.document.getElementById('gutenverse-global-google-font');
-            if (!theWindow.gutenverseGoogleFontUrl) {
-                theWindow.gutenverseGoogleFontUrl = '';
-            }
-            if (!googleTag) {
-                googleTag = document.createElement('link');
-                googleTag.rel = 'stylesheet';
-                googleTag.type = 'text/css';
-                googleTag.id = 'gutenverse-global-google-font';
-                googleTag.href = googleFont;
-                theWindow.document.head.appendChild(googleTag);
-                theWindow.gutenverseGoogleFontUrl = googleFont;
-            } else {
-                if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
-                    googleTag.href = googleFont;
-                    theWindow.gutenverseGoogleFontUrl = googleFont;
-                }
-            }
-        }
-
-        if (customFont) {
-            let customTag = theWindow.document.getElementsByClassName('gutenverse-pro-global-custom-font');
-            if (customTag.length > 0) {
-                while (customTag.length > 0) {
-                    customTag[0].remove(); // Always remove the first element since the collection updates dynamically
-                }
-            } else {
-                customFont.forEach(el => {
-                    customTag = document.createElement('link');
-                    customTag.rel = 'stylesheet';
-                    customTag.type = 'text/css';
-                    customTag.href = el;
-                    customTag.classList.add('gutenverse-pro-global-custom-font');
-                    theWindow.document.head.appendChild(customTag);
-                });
-            }
+    const addFont = (id, font, weight) => {
+        if (font?.type === 'google') {
+            setGoogleFonts(id, {
+                ...font,
+                weight
+            });
+        } else if (font?.type === 'custom_font_pro') {
+            setCustomFonts(id, {
+                ...font,
+                weight
+            });
         }
     }
-}
+    let fonts = [];
+    if (variable?.fonts) {
+        fonts = variable.fonts;
+        fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
+    }
+    const googleFont = getGoogleFont();
+    const customFont = getCustomFont();
+    // Get global settings from wp
+    const _globalStylesId = select(
+        coreStore
+    ).__experimentalGetCurrentGlobalStylesId();
+    const record = _globalStylesId
+        ? select(coreStore).getEditedEntityRecord(
+            'root',
+            'globalStyles',
+            _globalStylesId
+        )
+        : undefined;
+    let colors = record?.settings?.color.palette;
+    return {
+        colors,
+        googleFont,
+        customFont,
+        fonts
+    };
+};
+
+const handleFont = (typography, addFont, id) => {
+    const weight = typography?.weight && typography?.style === 'italic' ? `${typography?.weight}italic` : typography?.weight;
+    injectFont({
+        controlId: id,
+        addFont: addFont,
+        font: typography.font,
+        weight
+    });
+};
