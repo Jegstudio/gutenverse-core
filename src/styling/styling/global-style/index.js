@@ -7,12 +7,16 @@ import { store as coreStore } from '@wordpress/core-data';
 import { applyFilters } from '@wordpress/hooks';
 
 export const buildGlobalStyle = (variable) => {
+
     let variableStyle = elementVar();
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
     const { fonts, colors } = variable;
+
     fonts?.map(item => {
+
         const { id, font: typography } = item;
         if (typography) {
+
             const { font, size, weight, transform, style, decoration, lineHeight, spacing } = typography;
 
             if (font) {
@@ -23,11 +27,14 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (size) {
+
                 DeviceLoop(device => {
                     const _size = pointCheck(device, size);
 
                     if (_size && !isEmpty(_size.point)) {
+
                         const unit = _size.unit ? _size.unit : 'px';
+
                         responsiveAppender({
                             style: `${variableFontName(id, 'size')} : ${_size.point}${unit};`,
                             device,
@@ -35,10 +42,13 @@ export const buildGlobalStyle = (variable) => {
                         });
                     }
                 });
+
             }
 
             if (weight) {
+
                 const checkWeight = weight === 'default' ? '400' : weight;
+
                 normalAppender({
                     style: `${variableFontName(id, 'weight')} : ${checkWeight};`,
                     elementStyle: variableStyle
@@ -46,6 +56,7 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (transform && transform !== 'default') {
+
                 normalAppender({
                     style: `${variableFontName(id, 'transform')} : ${transform};`,
                     elementStyle: variableStyle
@@ -53,6 +64,7 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (style && style !== 'default') {
+
                 normalAppender({
                     style: `${variableFontName(id, 'style')} : ${style};`,
                     elementStyle: variableStyle
@@ -60,6 +72,7 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (decoration && decoration !== 'default') {
+
                 normalAppender({
                     style: `${variableFontName(id, 'decoration')} : ${decoration};`,
                     elementStyle: variableStyle
@@ -67,10 +80,12 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (lineHeight) {
+
                 DeviceLoop(device => {
                     const _lineHeight = pointCheck(device, lineHeight);
 
                     if (_lineHeight && !isEmpty(_lineHeight.point)) {
+
                         const unit = _lineHeight.unit ? _lineHeight.unit : 'px';
                         responsiveAppender({
                             style: `${variableFontName(id, 'lineHeight')} : ${_lineHeight.point}${unit};`,
@@ -82,6 +97,7 @@ export const buildGlobalStyle = (variable) => {
             }
 
             if (spacing) {
+
                 DeviceLoop(device => {
                     const _spacing = deviceStyleValue(device, spacing);
 
@@ -99,6 +115,7 @@ export const buildGlobalStyle = (variable) => {
 
     // render non fullsite editor themes colors
     colors?.theme && colors?.theme.map(item => {
+
         const { slug, color } = item;
         const property = variableColorName(slug);
 
@@ -110,6 +127,7 @@ export const buildGlobalStyle = (variable) => {
 
     // render custom colors
     colors?.custom && colors?.custom.map(item => {
+
         const { slug, color } = item;
         const property = variableColorName(slug);
 
@@ -144,6 +162,7 @@ const pointCheck = (deviceType, value) => {
 };
 
 export const getGlobalVariable = () => {
+
     const {
         getGoogleFont,
         getCustomFont,
@@ -159,12 +178,16 @@ export const getGlobalVariable = () => {
     const { uploadPath } = window['GutenverseConfig'];
 
     const addFont = (id, font, weight) => {
+
         if (font?.type === 'google') {
+
             setGoogleFonts(id, {
                 ...font,
                 weight
             });
+
         } else if (font?.type === 'custom_font_pro') {
+
             setCustomFonts(id, {
                 ...font,
                 weight
@@ -173,6 +196,7 @@ export const getGlobalVariable = () => {
     };
 
     let fonts = [];
+
     if (variable?.fonts) {
         fonts = variable.fonts;
         fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
@@ -180,20 +204,25 @@ export const getGlobalVariable = () => {
 
     const googleFont = getGoogleFont();
     let googleArr = [];
+
     Object.values(googleFont).forEach(item => {
-        let {value, weight} = item;
+
+        let { value, weight } = item;
         let arrWeight = googleArr[value] ? googleArr[value] : [];
         arrWeight.push(weight);
         const uniqueArray = [...new Set(arrWeight)];
-        googleArr[value]  = uniqueArray;
+        googleArr[value] = uniqueArray;
     });
 
     const customFont = getCustomFont();
     let customArr = [];
+
     Object.values(customFont).forEach(item => {
+
         customArr.push(item.value);
         customArr = [...new Set(customArr)];
     });
+
     let newCustomArr = !isEmpty(customArr) && applyFilters(
         'gutenverse.v3.apply-custom-font',
         customArr,
@@ -204,6 +233,7 @@ export const getGlobalVariable = () => {
     const _globalStylesId = select(
         coreStore
     ).__experimentalGetCurrentGlobalStylesId();
+
     const record = _globalStylesId
         ? select(coreStore).getEditedEntityRecord(
             'root',
@@ -211,17 +241,19 @@ export const getGlobalVariable = () => {
             _globalStylesId
         )
         : undefined;
+
     let colors = record?.settings?.color.palette;
 
     return {
         colors,
         googleArr,
-        customArr : newCustomArr,
+        customArr: newCustomArr,
         fonts
     };
 };
 
 const handleFont = (typography, addFont, id) => {
+
     const weight = typography?.weight && typography?.style === 'italic' ? `${typography?.weight}italic` : typography?.weight;
     injectFont({
         controlId: id,
@@ -229,4 +261,5 @@ const handleFont = (typography, addFont, id) => {
         font: typography.font,
         weight
     });
+
 };
