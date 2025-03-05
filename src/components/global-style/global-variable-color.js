@@ -105,11 +105,9 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
                 color={color.color}
                 onChange={color => {
                     handleEditDeferredValue(color.rgb);
-                    // editColor(color.rgb);
                 }}
                 onChangeComplete={(color) => {
                     handleEditDeferredValue(color.rgb);
-                    // editColor(color.rgb);
                 }}
             />
         </div> : null}
