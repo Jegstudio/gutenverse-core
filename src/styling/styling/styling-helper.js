@@ -23,8 +23,8 @@ import { pointerEventGenerator } from './generator/generator-pointer-events';
 import { shapeDividerGenerator } from './generator/generator-shape-divider';
 import { signal } from 'gutenverse-core/editor-helper';
 import { v4 } from 'uuid';
-import memoize from 'lodash/memoize';
 import { buildGlobalStyle, getGlobalVariable } from './global-style';
+import memoize from 'lodash/memoize';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -70,7 +70,6 @@ const generateCSSString = (attribute, style) => {
     };
 
     switch (type) {
-
         case 'typography':
             css = typographyGenerator(attribute, style, css);
             break;
@@ -166,21 +165,16 @@ export const mergeFontDevice = (fonts) => {
 };
 
 export const getWindow = (elementRef) => {
-
     if (elementRef.current) {
-
         return elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
-
     }
     return null;
 };
 
 export const getWindowId = (elementRef) => {
-
     const theWindow = getWindow(elementRef);
 
     if (theWindow) {
-
         if (!theWindow.gutenverseWindowId) {
             theWindow.gutenverseWindowId = v4();
         }
@@ -194,7 +188,6 @@ export const injectStyleTag = (css, theWindow, cssId = 'gutenverse-block-css') =
     let cssElement = theWindow.document.getElementById(cssId);
 
     if (!cssElement) {
-
         cssElement = theWindow.document.createElement('style');
         cssElement.id = cssId;
         theWindow.document.head.appendChild(cssElement);
@@ -222,7 +215,6 @@ const injectStyleToIFrame = (elementId, theWindow, css, remove = false) => {
 };
 
 const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
-
     if (!theWindow) {
         return;
     }
@@ -239,13 +231,12 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
 
     let googleArr = [];
     let customArr = [];
+
     Object.values(theWindow.gutenverseFont).forEach(value => {
         const gFont = value[0];
 
         if (gFont && typeof gFont === 'object') {
-
             Object.entries(gFont).forEach(([fontKey, fontWeights]) => {
-
                 if (!fontWeights || fontWeights.length === 0 || fontWeights.includes(undefined)) {
                     fontWeights = ['400', '400italic', '700', '700italic'];
                 }
@@ -256,12 +247,10 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
                 } else {
                     googleArr[fontKey] = Array.from(new Set([...googleArr[fontKey], ...uniqueWeights]));
                 }
-
             });
         }
 
         if (value[1].length > 0) {
-
             value[1].forEach(link => {
                 let check = customArr.find(el => el === link);
                 if (!check) {
@@ -281,7 +270,6 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
 };
 
 const injectFontStyle = (theWindow, props) => {
-
     let { googleArr, customArr, customFontClass, googleFontId, storeName } = props;
     const iframeDoc = theWindow.document;
     const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
@@ -291,12 +279,12 @@ const injectFontStyle = (theWindow, props) => {
         .join('|')}`;
 
     let googleTag = iframeDoc.getElementById(googleFontId);
+
     if (!theWindow[storeName]) {
         theWindow[storeName] = '';
     }
 
     if (!googleTag) {
-
         googleTag = document.createElement('link');
         googleTag.rel = 'stylesheet';
         googleTag.type = 'text/css';
@@ -304,9 +292,7 @@ const injectFontStyle = (theWindow, props) => {
         googleTag.href = googleFont;
         head.appendChild(googleTag);
         theWindow[storeName] = googleFont;
-
     } else {
-
         if (googleFont !== theWindow[storeName]) {
             googleTag.href = googleFont;
             theWindow[storeName] = googleFont;
@@ -314,14 +300,12 @@ const injectFontStyle = (theWindow, props) => {
     }
 
     if (customArr.length > 0) {
-
         let customTag = iframeDoc.getElementsByClassName(customFontClass);
         if (customTag.length > 0) {
             while (customTag.length > 0) {
                 customTag[0].remove(); // Always remove the first element since the collection updates dynamically
             }
         }
-
         customArr.forEach(el => {
             customTag = document.createElement('link');
             customTag.rel = 'stylesheet';
@@ -345,13 +329,11 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
     }
 
     for (let index = 0; index < blockStyles.length; index++) {
-
         const style = blockStyles[index];
         const { type, id } = style;
         const value = attributes[id];
 
         if (attributes[id]) {
-
             const css = generateCSSString(value, style);
 
             css.Desktop && deviceTypeDesktop.push(css.Desktop);
@@ -370,9 +352,7 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
             }
 
             if (type === 'repeater') {
-
                 let { repeaterOpt } = style;
-
                 value.forEach((el, index) => {
                     const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile, gatheredFont: font } = extractStyleFont(elementId, el, repeaterOpt[index]);
                     deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
@@ -389,7 +369,6 @@ const extractStyleFont = (elementId, attributes, arrStyle) => {
 const createGlobalKey = ({ uuid, globalKey }) => `${uuid}-${globalKey}`;
 
 const memoizeGlobalStyle = memoize(({ theWindow }) => {
-
     const globalVariables = getGlobalVariable();
     const globalCSS = buildGlobalStyle(globalVariables);
 
@@ -402,28 +381,22 @@ const memoizeGlobalStyle = memoize(({ theWindow }) => {
         googleFontId: 'gutenverse-global-google-font-editor',
         storeName: 'globalGutenverseGoogleFontUrl'
     });
-
 }, createGlobalKey);
 
 export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef) => {
-
     const [confirmSignal, setConfirmSignal] = useState(false);
     const [globalStyleSignal, setGlobalStyleSignal] = useState(null);
     const [iframeWindowId, setIframeWindowId] = useState('');
 
     const { generatedCSS, fontUsed } = useMemo(() => {
-
         if (elementId) {
             const { deviceTypeDesktop, deviceTypeMobile, deviceTypeTablet, gatheredFont } = extractStyleFont(elementId, attributes, getBlockStyle);
             const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
             const fontUsed = mergeFontDevice(gatheredFont);
             return { generatedCSS, fontUsed };
-
         } else {
-
             return { generatedCSS: '', fontUsed: [] };
         }
-
     }, [elementId, attributes, confirmSignal]);
 
     const iframeWindowRef = useRef(null);
@@ -434,24 +407,20 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId]);
 
     useEffect(() => {
-
         const bindStyling = signal.afterFilterSignal.add(() => setConfirmSignal(true));
         const bindGlobalStyling = signal.globalStyleSignal.add((key) => setGlobalStyleSignal(key));
 
         return () => {
-
             injectStyleToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             injectFontToIFrame(idHolder.current, iframeWindowRef.current, '', 1);
             iframeWindowRef.current = null;
             bindStyling.detach();
             bindGlobalStyling.detach();
-
         };
     }, []);
 
     useEffect(() => {
         if (elementRef) {
-
             if (!iframeWindowRef.current) {
                 iframeWindowRef.current = getWindow(elementRef);
                 const windowId = getWindowId(elementRef);
@@ -469,9 +438,7 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [elementId, attributes, confirmSignal, elementRef]);
 
     useEffect(() => {
-
         if (iframeWindowId !== '') {
-
             memoizeGlobalStyle({
                 uuid: iframeWindowId,
                 globalKey: globalStyleSignal,
@@ -482,7 +449,6 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
 };
 
 export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, timeout = true) => {
-
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
         return;
@@ -506,11 +472,9 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
             css.Mobile && deviceTypeMobile.push(css.Mobile);
 
             if (type === 'repeater') {
-
                 let { repeaterOpt } = liveStyle;
 
                 attribute.forEach((el, index) => {
-
                     const { deviceTypeDesktop: desktop, deviceTypeTablet: tablet, deviceTypeMobile: mobile } = extractStyleFont(elementId, el, repeaterOpt[index]);
 
                     deviceTypeDesktop = [...deviceTypeDesktop, ...desktop];
@@ -530,21 +494,17 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
         let cssElement = theWindow.document.getElementById(tagId);
 
         if (!cssElement) {
-
             cssElement = theWindow.document.createElement('style');
             cssElement.id = tagId;
             theWindow.document.head.appendChild(cssElement);
-
         }
 
         cssElement.innerHTML = generatedCSS;
 
         const timeoutId = timeout && setTimeout(() => {
-
             if (cssElement.parentNode) {
                 cssElement.parentNode.removeChild(cssElement);
             }
-
         }, 1000);
 
         return timeoutId;
@@ -553,36 +513,26 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
 
 // Call this to remove any remaining temporary styles.
 export const removeLiveStyle = (elementRef, elementId) => {
-
     let theWindow = getWindow(elementRef);
     let cssElement = theWindow.document.getElementById('gutenverse-temp-css-' + elementId);
 
     if (cssElement && cssElement.parentNode) {
-
         cssElement.parentNode.removeChild(cssElement);
     }
 };
 
 export const useGenerateElementId = (clientId, elementId, elementRef) => {
     useEffect(() => {
-
         if (!elementId) {
-
             createElementId(clientId);
-
         } else {
-
             const { getBlocks } = select('core/block-editor');
             const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
 
             if (windowEl?.document) {
-
                 const htmlEl = windowEl.document.documentElement;
-
                 if (!htmlEl.classList.contains('block-editor-block-preview__content-iframe')) {
-
                     if (recursiveDuplicateCheck(getBlocks(), clientId, elementId)) {
-
                         createElementId(clientId);
                     }
                 }
@@ -592,7 +542,6 @@ export const useGenerateElementId = (clientId, elementId, elementRef) => {
 };
 
 const createElementId = (clientId) => {
-
     const uniqueId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
     const { updateBlockAttributes } = dispatch('core/block-editor');
 
@@ -601,12 +550,10 @@ const createElementId = (clientId) => {
 };
 
 export const headStyleSheet = (fontUsed, elementRef) => {
-
     if (elementRef.current) {
         const windowEl = elementRef.current.ownerDocument.defaultView || elementRef.current.ownerDocument.parentWindow;
 
         if (windowEl?.document) {
-
             const headEl = windowEl.document.getElementsByTagName('head')[0];
             return (
                 <Helmet head={headEl}>
@@ -619,26 +566,21 @@ export const headStyleSheet = (fontUsed, elementRef) => {
 };
 
 export const skipDevice = (attributes, name, callback) => {
-
     if (attributes[name] === null || attributes[name] === undefined) return;
 
     if (typeof attributes[name] === 'object') {
         let devices = [];
 
         ['Desktop', 'Tablet', 'Mobile'].forEach(device => {
-
             if (!callback(attributes, device)) {
                 devices.push(device);
             } else if ((!attributes[name][device] || isEmpty(attributes[name][device]))) {
                 devices.push(device);
             }
-
         });
 
         return devices;
-
     } else {
-
         console.log('make sure the attribute is using device control : ', name);
 
     }
@@ -677,11 +619,9 @@ export const customHandleBackground = (background) => {
 };
 
 const injectScriptTag = (tagId, theWindow, src) => {
-
     let scriptTag = theWindow.document.getElementById(tagId);
 
     if (!scriptTag) {
-
         scriptTag = theWindow.document.createElement('script');
         scriptTag.id = tagId;
         scriptTag.src = src;
