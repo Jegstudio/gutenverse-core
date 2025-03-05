@@ -175,7 +175,16 @@ export const getGlobalVariable = () => {
         fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
     }
     const googleFont = getGoogleFont();
+    let googleArr = [];
+    Object.values(googleFont).forEach(item => {
+        let {value, weight} = item;
+        let arrWeight = googleArr[value] ? googleArr[value] : [];
+        arrWeight.push(weight);
+        const uniqueArray = [...new Set(arrWeight)];
+        googleArr[value]  = uniqueArray;
+    });
     const customFont = getCustomFont();
+
     // Get global settings from wp
     const _globalStylesId = select(
         coreStore
@@ -190,7 +199,7 @@ export const getGlobalVariable = () => {
     let colors = record?.settings?.color.palette;
     return {
         colors,
-        googleFont,
+        googleArr,
         customFont,
         fonts
     };

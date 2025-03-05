@@ -200,46 +200,50 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
         } else {
             theWindow.gutenverseFont[elementId] = font;
         }
-        injectFontStyle(theWindow);
+        let googleArr = [];
+        let customArr = [];
+        Object.entries(theWindow.gutenverseFont).forEach(([fontName, value]) => {
+            const gFont = value[0];
+            if (gFont && typeof gFont === 'object') {
+                Object.entries(gFont).forEach(([fontKey, fontWeights]) => {
+                    if (!fontWeights || fontWeights.length === 0 || fontWeights.includes(undefined)) {
+                        fontWeights = ['400', '400italic', '700', '700italic'];
+                    }
+                    const uniqueWeights = Array.from(new Set(fontWeights.filter(weight => weight !== undefined)));
+                    if (!googleArr[fontKey]) {
+                        googleArr[fontKey] = uniqueWeights;
+                    } else {
+                        googleArr[fontKey] = Array.from(new Set([...googleArr[fontKey], ...uniqueWeights]));
+                    }
+                });
+            }
+            if (value[1].length > 0) {
+                value[1].forEach(link => {
+                    let check = customArr.find(el => el === link);
+                    if (!check) {
+                        customArr = [...customArr, link];
+                    }
+                });
+            }
+        });
+        injectFontStyle(theWindow, {
+            googleArr,
+            customArr,
+            customFontClass : 'gutenverse-pro-custom-font-editor',
+            googleFontId : 'gutenverse-google-font-editor'
+        });
     }
 };
 
-const injectFontStyle = (theWindow) => {
-    let googleArr = [];
-    let customArr = [];
-
-    Object.entries(theWindow.gutenverseFont).forEach(([fontName, value]) => {
-        const gFont = value[0];
-        if (gFont && typeof gFont === 'object') {
-            Object.entries(gFont).forEach(([fontKey, fontWeights]) => {
-                if (!fontWeights || fontWeights.length === 0 || fontWeights.includes(undefined)) {
-                    fontWeights = ['400', '400italic', '700', '700italic'];
-                }
-                const uniqueWeights = Array.from(new Set(fontWeights.filter(weight => weight !== undefined)));
-                if (!googleArr[fontKey]) {
-                    googleArr[fontKey] = uniqueWeights;
-                } else {
-                    googleArr[fontKey] = Array.from(new Set([...googleArr[fontKey], ...uniqueWeights]));
-                }
-            });
-        }
-        if (value[1].length > 0) {
-            value[1].forEach(link => {
-                let check = customArr.find(el => el === link);
-                if (!check) {
-                    customArr = [...customArr, link];
-                }
-            });
-        }
-    });
-
+const injectFontStyle = (theWindow, props) => {
+    let {googleArr, customArr, customFontClass, googleFontId} =  props;
     const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
         .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
         .join('|')}`;
 
     const iframeDoc = theWindow.document;
     const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
-    let googleTag = iframeDoc.getElementById('gutenverse-google-font-editor');
+    let googleTag = iframeDoc.getElementById(googleFontId);
     if (!theWindow.gutenverseGoogleFontUrl) {
         theWindow.gutenverseGoogleFontUrl = '';
     }
@@ -247,7 +251,7 @@ const injectFontStyle = (theWindow) => {
         googleTag = document.createElement('link');
         googleTag.rel = 'stylesheet';
         googleTag.type = 'text/css';
-        googleTag.id = 'gutenverse-google-font-editor';
+        googleTag.id = googleFontId;
         googleTag.href = googleFont;
         head.appendChild(googleTag);
         theWindow.gutenverseGoogleFontUrl = googleFont;
@@ -259,7 +263,7 @@ const injectFontStyle = (theWindow) => {
     }
 
     if (customArr.length > 0) {
-        let customTag = iframeDoc.getElementsByClassName('gutenverse-pro-custom-font-editor');
+        let customTag = iframeDoc.getElementsByClassName(customFontClass);
         if (customTag.length > 0) {
             while (customTag.length > 0) {
                 customTag[0].remove(); // Always remove the first element since the collection updates dynamically
@@ -270,7 +274,7 @@ const injectFontStyle = (theWindow) => {
                 customTag.rel = 'stylesheet';
                 customTag.type = 'text/css';
                 customTag.href = el;
-                customTag.classList.add('gutenverse-pro-custom-font-editor');
+                customTag.classList.add(customFontClass);
                 head.appendChild(customTag);
             });
         }
