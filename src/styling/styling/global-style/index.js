@@ -203,25 +203,28 @@ export const getGlobalVariable = () => {
     }
 
     const googleFont = getGoogleFont();
-    let googleArr = [];
+    const googleMap = new Map();
 
-    Object.values(googleFont).forEach(item => {
-
-        let { value, weight } = item;
-        let arrWeight = googleArr[value] ? googleArr[value] : [];
-        arrWeight.push(weight);
-        const uniqueArray = [...new Set(arrWeight)];
-        googleArr[value] = uniqueArray;
+    Object.values(googleFont).forEach(({ value, weight }) => {
+        if (!googleMap.has(value)) {
+            googleMap.set(value, new Set());
+        }
+        googleMap.get(value).add(weight);
     });
+
+    // Convert back to an object if needed
+    const googleArr = Object.fromEntries(
+        Array.from(googleMap, ([key, set]) => [key, Array.from(set)])
+    );
 
     const customFont = getCustomFont();
-    let customArr = [];
+    const customSet = new Set();
 
-    Object.values(customFont).forEach(item => {
-
-        customArr.push(item.value);
-        customArr = [...new Set(customArr)];
+    Object.values(customFont).forEach(({ value }) => {
+        customSet.add(value);
     });
+
+    const customArr = Array.from(customSet);
 
     let newCustomArr = !isEmpty(customArr) && applyFilters(
         'gutenverse.v3.apply-custom-font',
