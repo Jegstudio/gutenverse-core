@@ -230,13 +230,14 @@ const injectFontToIFrame = (elementId, theWindow, font, remove = false) => {
             googleArr,
             customArr,
             customFontClass : 'gutenverse-pro-custom-font-editor',
-            googleFontId : 'gutenverse-google-font-editor'
+            googleFontId : 'gutenverse-google-font-editor',
+            storeName : 'generalGutenverseGoogleFontUrl'
         });
     }
 };
 
 const injectFontStyle = (theWindow, props) => {
-    let {googleArr, customArr, customFontClass, googleFontId} =  props;
+    let {googleArr, customArr, customFontClass, googleFontId, storeName} =  props;
     const googleFont = `https://fonts.googleapis.com/css?family=${Object.entries(googleArr)
         .map(([font, weights]) => `${font.replace(' ', '+')}:wght@${weights.join(',')}`)
         .join('|')}`;
@@ -244,8 +245,8 @@ const injectFontStyle = (theWindow, props) => {
     const iframeDoc = theWindow.document;
     const head = iframeDoc.head || iframeDoc.getElementByTagName('head')[0];
     let googleTag = iframeDoc.getElementById(googleFontId);
-    if (!theWindow.gutenverseGoogleFontUrl) {
-        theWindow.gutenverseGoogleFontUrl = '';
+    if (!theWindow[storeName]) {
+        theWindow[storeName] = '';
     }
     if (!googleTag) {
         googleTag = document.createElement('link');
@@ -254,11 +255,11 @@ const injectFontStyle = (theWindow, props) => {
         googleTag.id = googleFontId;
         googleTag.href = googleFont;
         head.appendChild(googleTag);
-        theWindow.gutenverseGoogleFontUrl = googleFont;
+        theWindow[storeName] = googleFont;
     } else {
-        if (googleFont !== theWindow.gutenverseGoogleFontUrl) {
+        if (googleFont !== theWindow[storeName]) {
             googleTag.href = googleFont;
-            theWindow.gutenverseGoogleFontUrl = googleFont;
+            theWindow[storeName] = googleFont;
         }
     }
 
@@ -268,16 +269,15 @@ const injectFontStyle = (theWindow, props) => {
             while (customTag.length > 0) {
                 customTag[0].remove(); // Always remove the first element since the collection updates dynamically
             }
-        } else {
-            customArr.forEach(el => {
-                customTag = document.createElement('link');
-                customTag.rel = 'stylesheet';
-                customTag.type = 'text/css';
-                customTag.href = el;
-                customTag.classList.add(customFontClass);
-                head.appendChild(customTag);
-            });
         }
+        customArr.forEach(el => {
+            customTag = document.createElement('link');
+            customTag.rel = 'stylesheet';
+            customTag.type = 'text/css';
+            customTag.href = el;
+            customTag.classList.add(customFontClass);
+            head.appendChild(customTag);
+        });
     }
 };
 
@@ -337,7 +337,8 @@ const memoizeGlobalStyle = memoize((uuid, globalKey, theWindow) => {
         googleArr : globalVariables.googleArr,
         customArr : globalVariables.customArr,
         customFontClass : 'gutenverse-pro-global-custom-font-editor',
-        googleFontId : 'gutenverse-global-google-font-editor'
+        googleFontId : 'gutenverse-global-google-font-editor',
+        storeName : 'globalGutenverseGoogleFontUrl'
     });
 }, createGlobalKey);
 
