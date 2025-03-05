@@ -130,6 +130,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             allowDeviceControl={true}
                             hideRange={true}
                             onValueChange={size => onTypographyChange({ ...value.font, size })}
+                            onLocalChange={size => onTypographyChange({ ...value.font, size })}
                         />
                         <SelectControl
                             label={__('Weight', '--gctd--')}
@@ -237,6 +238,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                                 },
                             }}
                             onValueChange={lineHeight => onTypographyChange({ ...value.font, lineHeight })}
+                            onLocalChange={lineHeight => onTypographyChange({ ...value.font, lineHeight })}
                         />
                         <SelectControl
                             label={__('Transform', '--gctd--')}
@@ -298,6 +300,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     value={value.font.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value.font, spacing })}
+                    onLocalChange={spacing => onTypographyChange({ ...value.font, spacing })}
                 />
             </>
         </div>}
@@ -328,14 +331,6 @@ const GlobalVariableFont = (props) => {
     const deleteVariableFont = id => {
         deleteFontVar(id);
     };
-
-    // const [importFonts, setImportFonts] = useState('');
-
-    // const onImportFonts = () => {
-    //     JSON.parse(importFonts).map(item => {
-    //         addFontVar(item);
-    //     });
-    // };
 
     return <>
         <PanelTutorial
@@ -375,15 +370,6 @@ const GlobalVariableFont = (props) => {
                 </div>
             </div>
         </div>}
-        {/* {isTools && <div className="guten-dev-tools">
-            <textarea id="global-fonts" name="global-fonts" rows="4" cols="50" value={importFonts} onChange={e => setImportFonts(e.target.value)}>
-            </textarea>
-            <div className={'variable-import'}>
-                <div onClick={() => onImportFonts()}>
-                    {__('Import Fonts', '--gctd--')}
-                </div>
-            </div>
-        </div>} */}
     </>;
 };
 

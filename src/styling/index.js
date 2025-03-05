@@ -43,7 +43,8 @@ export {
     skipDevice,
     handleFilterImage,
     updateLiveStyle,
-    removeLiveStyle
+    removeLiveStyle,
+    useDynamicScript
 } from './styling/styling-helper';
 
 export { backgroundGenerator } from './styling/generator/generator-background';

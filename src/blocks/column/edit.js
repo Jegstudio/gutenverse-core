@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose, debounce } from '@wordpress/compose';
-import { withCustomStyle, withCopyElementToolbar, withAnimationSticky, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -729,10 +729,11 @@ const ColumnBlockControl = (props) => {
 
 // Column Block edit component
 const ColumnBlock = compose(
+    withPassRef,
+    withCopyElementToolbar(),
+    withAnimationStickyV2(),
     // withAnimationAdvance('column'),
     // withAnimationBackground(),
-    // withAnimationSticky(),
-    withCopyElementToolbar(),
     // withMouseMoveEffect,
     // withBackgroundEffect,
     // withCursorEffect,
@@ -760,6 +761,7 @@ const ColumnBlock = compose(
         attributes,
         setAttributes,
         isSelected,
+        setBlockRef
     } = props;
 
     const {
@@ -785,6 +787,7 @@ const ColumnBlock = compose(
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
@@ -899,6 +902,12 @@ const ColumnBlock = compose(
 
         return () => clearTimeout(timeout);
     }, [delayedDeviceType]);
+
+    useEffect(() => {
+        if (elementRef?.current) {
+            setBlockRef(elementRef?.current);
+        }
+    }, [elementRef]);
 
     const stickyClasses = useMemo(() => {
         if (!sticky) return '';

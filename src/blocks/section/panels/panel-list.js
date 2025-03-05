@@ -128,6 +128,16 @@ export const panelList = () => {
             panelArray: stickyPanel,
             pro: true,
         },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'section'
+            }),
+            pro: true,
+        },
         // {
         //     title: __('Cursor Effect', '--gctd--'),
         //     initialOpen: false,
@@ -166,16 +176,6 @@ export const panelList = () => {
         //     initialOpen: false,
         //     panelArray: mouseMoveEffectPanel,
         //     tabRole: TabSetting,
-        //     pro: true,
-        // },
-        // {
-        //     title: __('Advanced Animation', '--gctd--'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'section'
-        //     }),
         //     pro: true,
         // },
         // {
