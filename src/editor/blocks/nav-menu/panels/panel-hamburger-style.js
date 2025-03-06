@@ -61,7 +61,7 @@ export const hamburgerStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
                 }
             ],
         },
@@ -74,13 +74,13 @@ export const hamburgerStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: 
+            liveStyle:
             [
                 {
                     'type': 'plain',
                     'id': 'hamburgerSize',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu i`,
                     'properties': [
                         {
                             'name': 'font-size',
@@ -164,7 +164,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'hamburgerColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
                     'properties': [
                         {
                             'name': 'color',
@@ -184,7 +184,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'id': 'hamburgerBgNormal',
                     'type': 'background',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
                 }
             ],
         },
@@ -197,7 +197,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'hamburgerBorderNormal',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
                 }
             ],
         },
@@ -212,7 +212,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'hamburgerBorderNormalResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
                 }
             ],
         },
@@ -227,7 +227,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'hamburgerColorHover',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
                     'properties': [
                         {
                             'name': 'color',
@@ -247,7 +247,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'id': 'hamburgerBgHover',
                     'type': 'background',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
                 }
             ],
         },
@@ -260,7 +260,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'hamburgerBorderHover',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
                 }
             ],
         },
@@ -275,7 +275,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'hamburgerBorderHoverResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
                 }
             ],
         },
@@ -314,7 +314,7 @@ export const hamburgerStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
                 }
             ],
         },
@@ -331,7 +331,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'plain',
                     'id': 'closeSize',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i`,
                     'responsive': true,
                     'properties': [
                         {
@@ -416,7 +416,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'closeColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
                     'properties': [
                         {
                             'name': 'color',
@@ -436,7 +436,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'id': 'closeBgNormal',
                     'type': 'background',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
                 }
             ],
         },
@@ -449,7 +449,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'closeBorderNormal',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
                 }
             ],
         },
@@ -464,7 +464,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'closeBorderNormalResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
                 }
             ],
         },
@@ -479,7 +479,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'color',
                     'id': 'closeColorHover',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
                     'properties': [
                         {
                             'name': 'color',
@@ -499,7 +499,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'id': 'closeBgHover',
                     'type': 'background',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
                 }
             ],
         },
@@ -512,7 +512,7 @@ export const hamburgerStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'closeBorderHover',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
                 }
             ],
         },
@@ -527,7 +527,7 @@ export const hamburgerStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'closeBorderHoverResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
                 }
             ],
         },

@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, ColorControl, DimensionControl, RangeControl, BoxShadowControl } from 'gutenverse-core/controls';
-import { handleBackground, handleColor, handleDimension, handleBoxShadow, allowRenderBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const menuWrapperPanel = (props) => {
@@ -24,8 +23,8 @@ export const menuWrapperPanel = (props) => {
                 {
                     'type': 'plain',
                     'id': 'menuHeight',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                     'responsive': true,
                     'properties': [
                         {
@@ -51,7 +50,7 @@ export const menuWrapperPanel = (props) => {
                 {
                     'id': 'menuBackground',
                     'type': 'background',
-                    'selector': `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper, .${elementId} .guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper, .${elementId} .guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu.break-point-tablet .gutenverse-menu-wrapper, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu.break-point-mobile .gutenverse-menu-wrapper`,
                 }
             ],
         },
@@ -66,7 +65,7 @@ export const menuWrapperPanel = (props) => {
                     'type': 'color',
                     'id': 'mobileWrapperBackground',
                     'responsive': true,
-                    'selector': `.${elementId} .break-point-mobile.guten-nav-menu .gutenverse-menu-wrapper, .${elementId} .break-point-tablet.guten-nav-menu .gutenverse-menu-wrapper`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-mobile.guten-nav-menu .gutenverse-menu-wrapper, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .break-point-tablet.guten-nav-menu .gutenverse-menu-wrapper`,
                     'properties': [
                         {
                             'name': 'color',
@@ -151,7 +150,7 @@ export const menuWrapperPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .gutenverse-menu-wrapper`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper`,
                 }
             ],
         },

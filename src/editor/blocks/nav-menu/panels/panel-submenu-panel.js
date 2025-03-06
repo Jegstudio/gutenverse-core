@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const SubmenuPanelStyle = (props) => {
     const {
@@ -55,7 +53,7 @@ export const SubmenuPanelStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'submenuPanelBorder',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                 }
             ],
         },
@@ -70,7 +68,7 @@ export const SubmenuPanelStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'submenuPanelBorderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                 }
             ],
         },
@@ -83,7 +81,7 @@ export const SubmenuPanelStyle = (props) => {
                 {
                     'id': 'submenuPanelBackground',
                     'type': 'background',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                 },
             ],
         },
@@ -100,7 +98,7 @@ export const SubmenuPanelStyle = (props) => {
                 {
                     'type': 'plain',
                     'id': 'submenuPanelWidth',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                     'responsive': true,
                     'properties': [
                         {
@@ -131,7 +129,7 @@ export const SubmenuPanelStyle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
                 }
             ],
         },

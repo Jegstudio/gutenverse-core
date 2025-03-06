@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderResponsiveControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
-export const itemStylePanel = (props) => { 
+export const itemStylePanel = (props) => {
     const {
         elementId,
         switcher,
@@ -79,7 +78,7 @@ export const itemStylePanel = (props) => {
                     'type': 'color',
                     'id': 'itemTextNormalColor',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -99,7 +98,7 @@ export const itemStylePanel = (props) => {
                 {
                     'id': 'itemTextNormalBg',
                     'type': 'background',
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                 }
             ],
         },
@@ -114,7 +113,7 @@ export const itemStylePanel = (props) => {
                     'type': 'color',
                     'id': 'itemTextHoverColor',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -134,7 +133,7 @@ export const itemStylePanel = (props) => {
                     'id': 'itemTextHoverBg',
                     'type': 'background',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
                 }
             ],
         },
@@ -149,10 +148,10 @@ export const itemStylePanel = (props) => {
                     'type': 'color',
                     'id': 'itemTextActiveColor',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
-                        .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a, 
-                        .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                        .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a, 
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -171,10 +170,10 @@ export const itemStylePanel = (props) => {
                 {
                     'id': 'itemTextActiveBg',
                     'type': 'background',
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
                 }
             ],
         },
@@ -189,7 +188,7 @@ export const itemStylePanel = (props) => {
                     'id': 'itemMenuBorderNormal',
                     'type': 'borderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                 }
             ],
         },
@@ -204,8 +203,8 @@ export const itemStylePanel = (props) => {
                     'id': 'itemMenuBorderHover',
                     'type': 'borderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
                 }
             ],
         },
@@ -220,8 +219,8 @@ export const itemStylePanel = (props) => {
                     'id': 'itemMenuBorderActive',
                     'type': 'borderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
                 }
             ],
         },

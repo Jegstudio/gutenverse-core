@@ -31,7 +31,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'plain',
                     'id': 'SubmenuIndicatorSize',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a > i, .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a > i, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a > i`,
                     'properties': [
                         {
                             'name': 'font-size',
@@ -98,7 +98,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'submenuIndicatorBorder',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
                 }
             ],
         },
@@ -113,7 +113,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'submenuIndicatorBorderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a i`,
                 }
             ],
         },
@@ -186,7 +186,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuTextNormalColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -207,7 +207,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuIndicatorColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children > a > i`,
                     'properties': [
                         {
                             'name': 'color',
@@ -227,7 +227,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'id': 'submenuTextNormalBg',
                     'type': 'background',
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                 },
             ],
         },
@@ -242,7 +242,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuTextHoverColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -263,7 +263,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuIndicatorHoverColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children:hover > a > i`,
                     'properties': [
                         {
                             'name': 'color',
@@ -282,7 +282,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'id': 'submenuTextHoverBg',
                     'type': 'background',
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:hover > a`,
                 },
             ],
         },
@@ -297,7 +297,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuTextActiveColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
                     'properties': [
                         {
                             'name': 'color',
@@ -318,7 +318,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'color',
                     'id': 'submenuIndicatorActiveColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children.current-menu-parent > a > i`,
                     'properties': [
                         {
                             'name': 'color',
@@ -337,7 +337,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'id': 'submenuTextActiveBg',
                     'type': 'background',
-                    'selector': `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .gutenverse-menu-wrapper .gutenverse-menu .sub-menu > li.current-menu-item > a`,
                 },
             ],
         },
@@ -355,7 +355,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'submenuItemBorder',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                 }
             ],
         },
@@ -370,7 +370,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'submenuItemBorderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li > a`,
                 }
             ],
         },
@@ -388,7 +388,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'submenuFirstItemBorder',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
                 }
             ],
         },
@@ -403,7 +403,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'submenuFirstItemBorderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:first-child > a`,
                 }
             ],
         },
@@ -421,7 +421,7 @@ export const SubmenuItemStyle = (props) => {
                 {
                     'type': 'border',
                     'id': 'submenuLastItemBorder',
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
                 }
             ],
         },
@@ -436,7 +436,7 @@ export const SubmenuItemStyle = (props) => {
                     'type': 'borderResponsive',
                     'id': 'submenuLastItemBorderResponsive',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu .sub-menu li:last-child > a`,
                 }
             ],
         },
