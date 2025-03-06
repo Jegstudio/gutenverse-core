@@ -114,6 +114,11 @@ const generateCSSString = (attribute, style) => {
             css = shapeDividerGenerator(attribute, style, css);
             break;
 
+        case 'injectCSS':
+            const { cssStyles } = style;
+            css.Desktop = cssStyles;
+            break;
+
         case 'boxShadow':
         case 'textShadow':
         case 'color':
