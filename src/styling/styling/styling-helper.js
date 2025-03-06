@@ -114,11 +114,6 @@ const generateCSSString = (attribute, style) => {
             css = shapeDividerGenerator(attribute, style, css);
             break;
 
-        case 'injectCSS':
-            const { cssStyles } = style;
-            css.Desktop = cssStyles;
-            break;
-
         case 'boxShadow':
         case 'textShadow':
         case 'color':
@@ -468,9 +463,7 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
         const liveStyle = liveStyles[index];
         const { type, id } = liveStyle;
         const attribute = attributes[id];
-
         if (attribute) {
-
             const css = generateCSSString(attribute, liveStyle);
             css.Desktop && deviceTypeDesktop.push(css.Desktop);
             css.Tablet && deviceTypeTablet.push(css.Tablet);
@@ -487,7 +480,13 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
                     deviceTypeMobile = [...deviceTypeMobile, ...mobile];
                 });
             }
+        }else{
+            if('injectCSS' === type){
+                const css = generateCSSString(attribute, liveStyle);
+                css.Desktop && deviceTypeDesktop.push(css.Desktop);
+            }
         }
+
     }
 
     const generatedCSS = mergeCSSDevice(deviceTypeDesktop, deviceTypeTablet, deviceTypeMobile);
