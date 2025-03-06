@@ -228,9 +228,9 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id: id
                                     };
-                                    onValueChange(value);
+                                    setLocalColor(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
@@ -249,9 +249,9 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id
                                     };
-                                    onValueChange(value);
+                                    setLocalColor(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
@@ -270,9 +270,9 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id
                                     };
-                                    onValueChange(value);
+                                    setLocalColor(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
