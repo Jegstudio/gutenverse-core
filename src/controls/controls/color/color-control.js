@@ -229,6 +229,7 @@ const ColorControl = (props) => {
                                         id: id
                                     };
                                     setLocalColor(value);
+                                    onValueChange(value);
                                 },
                                 active: localColor.id === id
                             };
@@ -250,6 +251,7 @@ const ColorControl = (props) => {
                                         id
                                     };
                                     setLocalColor(value);
+                                    onValueChange(value);
                                 },
                                 active: localColor.id === id
                             };
@@ -271,6 +273,7 @@ const ColorControl = (props) => {
                                         id
                                     };
                                     setLocalColor(value);
+                                    onValueChange(value);
                                 },
                                 active: localColor.id === id
                             };
@@ -300,8 +303,8 @@ const ColorControl = (props) => {
                 onChange={color => {
                     setLocalColor(color.rgb);
                 }}
-                onChangeComplete={() => {
-                    onValueChange(localColor);
+                onChangeComplete={(color) => {
+                    onValueChange(color.rgb);
                 }}
             />
         </div> : null}
