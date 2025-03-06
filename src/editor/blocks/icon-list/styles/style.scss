@@ -18,6 +18,7 @@
             a {
                 color: var(--guten-txt-color) !important;
                 display: flex;
+                align-items: center;
             }
         }
     
@@ -44,10 +45,12 @@
         a {
             color: var(--guten-txt-color) !important;
             display: flex;
+            align-items: center;
         }
     }
 
     &.inline-icon-list {
+        display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         .guten-icon-list-item{
