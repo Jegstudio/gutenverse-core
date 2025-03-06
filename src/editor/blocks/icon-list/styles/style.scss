@@ -1,7 +1,33 @@
 .guten-icon-list {
+
     .list-wrapper {
         display: flex;
         flex-direction: column;
+
+        .guten-icon-list-item {
+            .list-divider{
+                width: auto;
+                height: auto;
+            }
+            .list-text {
+                &.no-icon {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+            a {
+                color: var(--guten-txt-color) !important;
+                display: flex;
+            }
+        }
+    
+        &.inline-icon-list {
+            flex-direction: row;
+            flex-wrap: wrap;
+            .guten-icon-list-item{
+                display: flex;
+            }
+        }
     }
 
     .guten-icon-list-item {
@@ -28,5 +54,4 @@
             display: flex;
         }
     }
-    
 }

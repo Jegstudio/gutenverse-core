@@ -58,7 +58,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['spaceBetween'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:not(.inline-icon-list) div.guten-icon-list-item:not(div:first-of-type) > a, .{$this->element_id} .list-wrapper:not(.inline-icon-list) div.guten-icon-list-item:not(div:first-of-type) > a",
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list) > div.guten-icon-list-item:not(div:first-of-type) > a, .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > div.guten-icon-list-item:not(div:first-of-type) > a",
 					'property'       => function ( $value ) {
 						return "margin-top: calc({$value}px/2);";
 					},
@@ -69,7 +69,7 @@ class Icon_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)",
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list) > .guten-icon-list-item:not(:last-child), .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:last-child)",
 					'property'       => function ( $value ) {
 						return "padding-bottom: calc({$value}px/2);";
 					},
@@ -80,7 +80,7 @@ class Icon_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.inline-icon-list .guten-icon-list-item:not(:last-child), .{$this->element_id} .list-wrapper.inline-icon-list .guten-icon-list-item:not(:last-child)",
+					'selector'       => ".{$this->element_id}.inline-icon-list > .guten-icon-list-item:not(:last-child), .{$this->element_id} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:last-child)",
 					'property'       => function ( $value ) {
 						return "margin-right: calc({$value}px/2);";
 					},
@@ -90,7 +90,7 @@ class Icon_List extends Style_Abstract {
 			);
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.inline-icon-list div.guten-icon-list-item:not(div:first-of-type) > a, .{$this->element_id} .list-wrapper.inline-icon-list div.guten-icon-list-item:not(div:first-of-type) > a",
+					'selector'       => ".{$this->element_id}.inline-icon-list > div.guten-icon-list-item:not(div:first-of-type) > a, .{$this->element_id} > .list-wrapper.inline-icon-list > div.guten-icon-list-item:not(div:first-of-type) > a",
 					'property'       => function ( $value ) {
 						return "margin-left: calc({$value}px/2);";
 					},
@@ -103,7 +103,7 @@ class Icon_List extends Style_Abstract {
 		if ( isset( $this->attrs['alignList'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:not(.inline-icon-list), .{$this->element_id} .list-wrapper:not(.inline-icon-list)",
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list), .{$this->element_id} > .list-wrapper:not(.inline-icon-list)",
 					'property'       => function ( $value ) {
 						return "align-items: {$value};";
 					},
@@ -114,7 +114,7 @@ class Icon_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.inline-icon-list, .{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item a, .{$this->element_id} .list-wrapper.inline-icon-list, .{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item a",
+					'selector'       => ".{$this->element_id}.inline-icon-list, .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > a, .{$this->element_id} > .list-wrapper.inline-icon-list, .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > a",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
@@ -125,7 +125,7 @@ class Icon_List extends Style_Abstract {
 
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item a, .{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item a",
+					'selector'       => ".{$this->element_id}:not(.inline-icon-list) > .guten-icon-list-item > a, .{$this->element_id} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item > a",
 					'property'       => function ( $value ) {
 						return "text-align: {$value};";
 					},
