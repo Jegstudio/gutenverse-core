@@ -33,7 +33,7 @@ export const handleTransform = (values) => {
                 device,
                 elementStyle
             });
-        })
+        });
     } else {
         const duration_ = duration ? duration : '0.4';
         normalAppender({
@@ -51,7 +51,7 @@ export const handleTransform = (values) => {
                     elementStyle
                 });
             }
-        })
+        });
     }
 
     if (ease) {
