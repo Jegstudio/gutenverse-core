@@ -244,8 +244,8 @@ export const getGlobalVariable = () => {
             _globalStylesId
         )
         : undefined;
-
-    let colors = record?.settings?.color.palette;
+    
+    let colors = record?.settings?.color?.palette;
 
     return {
         colors,
