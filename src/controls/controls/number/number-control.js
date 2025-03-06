@@ -13,6 +13,7 @@ const NumberControl = (props) => {
         step,
         value,
         allowDeviceControl,
+        showDeviceControl = false,
         onValueChange,
         description = '',
         proLabel,
@@ -30,7 +31,7 @@ const NumberControl = (props) => {
             label={label}
             description={description}
             proLabel={proLabel}
-            allowDeviceControl={allowDeviceControl}
+            allowDeviceControl={allowDeviceControl ? allowDeviceControl : showDeviceControl}
         />
         <div className={'control-body'}>
             <input
