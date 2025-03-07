@@ -59,6 +59,7 @@ const Accordion = compose(
     } = attributes;
 
     const elementRef = useRef(null);
+
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
@@ -68,6 +69,7 @@ const Accordion = compose(
         className: classnames(
             'accordion-item',
             elementId,
+            first && 'active'
         ),
         ref: elementRef
     });

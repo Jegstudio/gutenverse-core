@@ -554,7 +554,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['hamburgerPadding']) && data.push({
-        'type': 'padding',
+        'type': 'dimension',
         'id': 'hamburgerPadding',
         'responsive': true,
         'properties': [
@@ -582,6 +582,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['hamburgerColorNormal']) && data.push({
         'type': 'color',
         'id': 'hamburgerColorNormal',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
         'properties': [
             {
@@ -612,6 +613,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['hamburgerColorHover']) && data.push({
         'type': 'color',
         'id': 'hamburgerColorHover',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
         'properties': [
             {
@@ -700,6 +702,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['closeColorNormal']) && data.push({
         'type': 'color',
         'id': 'closeColorNormal',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
         'properties': [
             {
@@ -730,6 +733,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['closeColorHover']) && data.push({
         'type': 'color',
         'id': 'closeColorHover',
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
         'properties': [
             {
@@ -811,7 +815,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     isNotEmpty(attributes['mobileMenuMargin']) && data.push({
-        'type': 'padding',
+        'type': 'dimension',
         'id': 'mobileMenuMargin',
         'responsive': true,
         'properties': [
