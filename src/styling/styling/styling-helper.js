@@ -654,9 +654,7 @@ export const useDynamicScript = (elementRef) => {
             }
 
             scriptList?.map(script => {
-                if (script?.id && script?.src) {
-                    injectScriptTag(script.id, iframeWindowRef.current, script.src);
-                }
+                injectScriptTag(script.id, iframeWindowRef.current, script.src);
             });
         }
     }, [elementRef, scriptList]);
