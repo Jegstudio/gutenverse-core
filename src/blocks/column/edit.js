@@ -2,10 +2,10 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose, debounce } from '@wordpress/compose';
-import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withScriptHelperV2 } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withScriptHelperV2, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
-import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { determineLocation, isAnimationActive, isSticky, theDeviceType } from 'gutenverse-core/helper';
 import { dispatch, select, useSelect } from '@wordpress/data';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -733,7 +733,7 @@ const ColumnBlock = compose(
     withCopyElementToolbar(),
     withScriptHelperV2(),
     withAnimationStickyV2(),
-    withAnimationAdvance('column'),
+    withAnimationAdvanceV2('column'),
     // withAnimationBackground(),
     // withMouseMoveEffect,
     // withBackgroundEffect,
