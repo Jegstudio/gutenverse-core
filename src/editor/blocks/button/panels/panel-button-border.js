@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderBoxShadow, handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const buttonBorderPanel = (props) => {
@@ -14,20 +12,6 @@ export const buttonBorderPanel = (props) => {
     } = props;
 
     const device = getDeviceType();
-
-    const customHandleHoverBorder = (value, normal) =>{
-        //make button border use the normal value if hover value is empty
-        const newValue = {
-            ...value,
-            all : {
-                ...value?.all,
-                type: value?.all?.type ? value.all.type : normal?.all?.type,
-                width: value?.all?.width ? value.all.width : normal?.all?.width,
-                color: value?.all?.color ? value.all.color : normal?.all?.color,
-            }
-        };
-        return handleBorder(newValue);
-    };
 
     return [
         {
@@ -82,8 +66,7 @@ export const buttonBorderPanel = (props) => {
                 {
                     'type': 'border',
                     'id': 'buttonBorderHover',
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : 
-                    `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                 }
             ],
         },
@@ -98,8 +81,7 @@ export const buttonBorderPanel = (props) => {
                     'type': 'borderResponsive',
                     'id': 'buttonBorderHoverResponsive',
                     'responsive': true,
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : 
-                    `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                 }
             ],
         },
@@ -137,8 +119,7 @@ export const buttonBorderPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : 
-                    `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                 }
             ],
         }

@@ -1,5 +1,4 @@
 import { __ } from '@wordpress/i18n';
-import { handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
@@ -25,7 +24,7 @@ export const stylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__styleHover}) => setSwitcher({...switcher, styleHover: __styleHover})
+            onChange: ({ __styleHover }) => setSwitcher({ ...switcher, styleHover: __styleHover })
         },
         {
             id: 'color',
@@ -74,7 +73,7 @@ export const stylePanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'hoverTextColor',
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span` : 
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span` :
                         `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
                     'properties': [
                         {
@@ -94,7 +93,7 @@ export const stylePanel = (props) => {
                 {
                     'type': 'color',
                     'id': 'hoverTextColor',
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i` : 
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i` :
                         `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
                     'properties': [
                         {

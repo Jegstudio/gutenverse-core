@@ -229,17 +229,10 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive' : true
     });
 
-    isNotEmpty(attributes['buttonBackgroundHover']) && attributes['hoverWithParent'] && data.push({
+    isNotEmpty(attributes['buttonBackgroundHover']) && data.push({
         'type': 'background',
         'id': 'buttonBackgroundHover',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-        'responsive' : true
-    });
-
-    isNotEmpty(attributes['buttonBackgroundHover']) && !attributes['hoverWithParent'] && data.push({
-        'type': 'background',
-        'id': 'buttonBackgroundHover',
-        'selector': attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button`,
+        'selector': attributes['hoverWithParent'] ? attributes['parentSelector'] + ` .${elementId}.guten-button-wrapper .guten-button` : `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
         'responsive' : true
     });
 
