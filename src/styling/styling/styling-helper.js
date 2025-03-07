@@ -480,8 +480,8 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
                     deviceTypeMobile = [...deviceTypeMobile, ...mobile];
                 });
             }
-        }else{
-            if('injectCSS' === type){
+        } else {
+            if ('injectCSS' === type) {
                 const css = generateCSSString(attribute, liveStyle);
                 css.Desktop && deviceTypeDesktop.push(css.Desktop);
             }
@@ -633,6 +633,12 @@ const injectScriptTag = (tagId, theWindow, src) => {
     }
 };
 
+const createScriptKey = ({ windowId, handle }) => `${windowId}-${handle}`;
+
+const memoizeScript = memoize(({ handle, theWindow, url }) => {
+    injectScriptTag(handle, theWindow, url);
+}, createScriptKey);
+
 export const useDynamicScript = (elementRef) => {
     const scriptList = applyFilters(
         'gutenverse.dynamic.script',
@@ -640,22 +646,25 @@ export const useDynamicScript = (elementRef) => {
         null
     );
     const iframeWindowRef = useRef(null);
+    const [iframeWindowId, setIframeWindowId] = useState('');
 
     useEffect(() => {
+        if (!iframeWindowRef.current) {
+            iframeWindowRef.current = getWindow(elementRef);
+            const windowId = getWindowId(elementRef);
+            setIframeWindowId(windowId);
+        }
+
         return () => {
             iframeWindowRef.current = null;
         };
     }, []);
 
     useEffect(() => {
-        if (elementRef) {
-            if (!iframeWindowRef.current) {
-                iframeWindowRef.current = getWindow(elementRef);
-            }
-
+        if (iframeWindowId) {
             scriptList?.map(script => {
-                injectScriptTag(script.id, iframeWindowRef.current, script.src);
+                memoizeScript({ windowId: iframeWindowId, handle: script?.id, theWindow: iframeWindowRef.current, url: script?.src });
             });
         }
-    }, [elementRef, scriptList]);
+    }, [iframeWindowId]);
 };
