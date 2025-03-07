@@ -352,74 +352,11 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     //Positioning Panel
-    isNotEmpty(attributes['positioningType']) && data.push(
-        {
-            'type': 'positioning',
-            'id': 'positioningType',
-            'selector': `.${elementId}.guten-element`,
-            'skipDeviceType': 'first',
-            'attributeType': 'type',
-            'multiAttr': {
-                'positioningType': attributes['positioningType'],
-                'inBlock': attributes['inBlock']
-            }
-        },
-    );
-    isNotEmpty(attributes['positioningType']) && isNotEmpty(attributes['positioningWidth']) && data.push(
-        {
-            'type': 'positioning',
-            'id': 'positioningType',
-            'selector': `.${elementId}.guten-element`,
-            'skipDeviceType': 'second',
-            'attributeType': 'type',
-            'multiAttr': {
-                'positioningWidth': attributes['positioningWidth'],
-                'positioningType': attributes['positioningType'],
-                'inBlock': attributes['inBlock']
-            }
-        }
-    );
-    isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
-        'type': 'positioning',
-        'id': 'positioningWidth',
-        'selector': `.${elementId}.guten-element`,
-        'skipDeviceType': 'first',
-        'attributeType': 'width',
-        'multiAttr': {
-            'positioningWidth': attributes['positioningWidth'],
-            'positioningType': attributes['positioningType'],
-            'inBlock': attributes['inBlock']
-        }
-    });
-    isNotEmpty(attributes['positioningAlign']) && data.push(
-        {
-            'type': 'plain',
-            'id': 'positioningAlign',
-            'responsive': true,
-            'properties': [
-                {
-                    'name': 'align-self',
-                    'valueType': 'direct'
-                }
-            ],
-            'selector': `.${elementId}.guten-element`,
-        },
-        {
-            'type': 'positioning',
-            'id': 'positioningAlign',
-            'properties': [
-                {
-                    'name': 'vertical-align',
-                    'valueType': 'direct'
-                }
-            ],
-            'attributeType': 'align',
-            'selector': `.${elementId}.guten-element`,
-        }
-    );
-    isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
+    
+    isNotEmpty(attributes['positionType']) && data.push({
         'type': 'plain',
-        'id': 'positioningLocation',
+        'id': 'positionType',
+        'responsive': true,
         'properties': [
             {
                 'name': 'position',
@@ -428,59 +365,74 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     });
-    isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
-        'type': 'positioning',
-        'id': 'positioningLeft',
+
+    isNotEmpty(attributes['positionLeft']) && data.push({
+        'type': 'unitPoint',
+        'id': 'positionLeft',
+        'responsive': true,
         'properties': [
             {
                 'name': 'left',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName' : 'handleWrapperPosition'
             }
         ],
-        'responsive': true,
+        'otherAttribute' : {
+            'positionType' : attributes['positionType']
+        },
         'selector': `.${elementId}.guten-element`,
-        'attributeType': 'custom',
     });
-    isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
-        'type': 'positioning',
-        'id': 'positioningRight',
+
+    isNotEmpty(attributes['positionRight']) && data.push({
+        'type': 'unitPoint',
+        'id': 'positionRight',
+        'responsive': true,
         'properties': [
             {
                 'name': 'right',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName' : 'handleWrapperPosition'
             }
         ],
-        'responsive': true,
+        'otherAttribute' : {
+            'positionType' : attributes['positionType']
+        },
         'selector': `.${elementId}.guten-element`,
-        'attributeType': 'custom',
     });
-    isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
-        'type': 'positioning',
-        'id': 'positioningTop',
+
+    isNotEmpty(attributes['positionTop']) && data.push({
+        'type': 'unitPoint',
+        'id': 'positionTop',
+        'responsive': true,
         'properties': [
             {
                 'name': 'top',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName' : 'handleWrapperPosition'
             }
         ],
-        'responsive': true,
+        'otherAttribute' : {
+            'positionType' : attributes['positionType']
+        },
         'selector': `.${elementId}.guten-element`,
-        'attributeType': 'custom',
     });
-    isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
-        'type': 'positioning',
-        'id': 'positioningBottom',
+
+    isNotEmpty(attributes['positionBottom']) && data.push({
+        'type': 'unitPoint',
+        'id': 'positionBottom',
+        'responsive': true,
         'properties': [
             {
                 'name': 'bottom',
-                'valueType': 'direct'
+                'valueType': 'function',
+                'functionName' : 'handleWrapperPosition'
             }
         ],
-        'responsive': true,
+        'otherAttribute' : {
+            'positionType' : attributes['positionType']
+        },
         'selector': `.${elementId}.guten-element`,
-        'attributeType': 'custom',
     });
-
     return data;
 };
 
