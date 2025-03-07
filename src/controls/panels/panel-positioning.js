@@ -111,7 +111,7 @@ export const positioningPanel = (props) => {
                 {
                     'type': 'positioning',
                     'id': 'positioningWidth',
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.${elementId}.guten-element`,
                     'skipDeviceType': 'first',
                     'attributeType': 'width',
                     'multiAttr': {
@@ -226,9 +226,14 @@ export const positioningPanel = (props) => {
                 {
                     'type': 'positioning',
                     'id': 'positioningLeft',
-                    'property': ['left'],
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct'
+                        }
+                    ],
                     'responsive': true,
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.${elementId}.guten-element`,
                     'attributeType': 'custom',
                 }
             ]
@@ -280,9 +285,14 @@ export const positioningPanel = (props) => {
                 {
                     'type': 'positioning',
                     'id': 'positioningRight',
-                    'property': ['right'],
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct'
+                        }
+                    ],
                     'responsive': true,
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.${elementId}.guten-element`,
                     'attributeType': 'custom',
                 }
             ]
@@ -334,9 +344,14 @@ export const positioningPanel = (props) => {
                 {
                     'type': 'positioning',
                     'id': 'positioningTop',
-                    'property': ['top'],
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct'
+                        }
+                    ],
                     'responsive': true,
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.${elementId}.guten-element`,
                     'attributeType': 'custom',
                 }
             ]
@@ -388,9 +403,14 @@ export const positioningPanel = (props) => {
                 {
                     'type': 'positioning',
                     'id': 'positioningBottom',
-                    'property': ['bottom'],
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct'
+                        }
+                    ],
                     'responsive': true,
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.${elementId}.guten-element`,
                     'attributeType': 'custom',
                 }
             ]

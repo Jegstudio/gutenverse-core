@@ -12,7 +12,7 @@ export const unitPointCSS = (attribute, name, important = false) => {
 export const unitPointGenerator = (attribute, style, css) => {
     const { selector, responsive = false, otherAttribute } = style;
     if (!responsive) {
-        let valueCSS = multiProperty(attribute, style, otherAttribute );
+        let valueCSS = multiProperty(attribute, style, otherAttribute);
         if (valueCSS) css.Desktop = `${selector} { ` + valueCSS + ' }';
     } else {
         if (attribute['Desktop']) {
@@ -41,14 +41,14 @@ const multiProperty = (attribute, props, otherAttribute, deviceType) => {
                 props: el,
                 otherAttribute,
                 deviceType
-            }
+            };
             styles += `${generateValue(property)} `;
         });
     }
     return styles;
 };
 
-const generateValue = ({attribute, props, otherAttribute, deviceType = null}) => {
+const generateValue = ({ attribute, props, otherAttribute, deviceType = null }) => {
     let value = null;
     const { valueType, name, important, pattern, patternValues, functionName, functionProps } = props;
     switch (valueType) {
@@ -74,13 +74,12 @@ const generateValue = ({attribute, props, otherAttribute, deviceType = null}) =>
 
 const renderFunctionValue = (functionName, functionProps, attribute, otherAttribute, deviceType) => {
     let value = '';
-    console.log(otherAttribute)
     switch (functionName) {
         case 'handleWrapperPosition':
-            const {positionType} = otherAttribute;
-            if( deviceType && positionType && positionType[deviceType] !== 'default' ){
+            const { positionType } = otherAttribute;
+            if (deviceType && positionType && positionType[deviceType] !== 'default') {
                 value = `${attribute['point']}${attribute['unit']}`;
-            }else if( !deviceType && positionType && positionType !== 'default' ){
+            } else if (!deviceType && positionType && positionType !== 'default') {
                 value = `${attribute['point']}${attribute['unit']}`;
             }
             break;
