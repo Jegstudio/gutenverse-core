@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose, debounce } from '@wordpress/compose';
-import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2 } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withAnimationAdvance, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withScriptHelperV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -731,8 +731,9 @@ const ColumnBlockControl = (props) => {
 const ColumnBlock = compose(
     withPassRef,
     withCopyElementToolbar(),
+    withScriptHelperV2(),
     withAnimationStickyV2(),
-    // withAnimationAdvance('column'),
+    withAnimationAdvance('column'),
     // withAnimationBackground(),
     // withMouseMoveEffect,
     // withBackgroundEffect,
@@ -787,7 +788,6 @@ const ColumnBlock = compose(
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
 
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
     const rootClientId = getBlockRootClientId(clientId);
@@ -904,8 +904,8 @@ const ColumnBlock = compose(
     }, [delayedDeviceType]);
 
     useEffect(() => {
-        if (elementRef?.current) {
-            setBlockRef(elementRef?.current);
+        if (elementRef) {
+            setBlockRef(elementRef);
         }
     }, [elementRef]);
 
