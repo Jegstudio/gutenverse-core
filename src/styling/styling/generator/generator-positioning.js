@@ -25,7 +25,9 @@ export const positioningCSS = (properties, values, attributeType, skipDeviceType
                 ['Desktop', 'Tablet', 'Mobile'].forEach(device => {
                     if (!isEmpty(values[device])) {
                         const { unit, point } = values[device];
-                        positioning[device].push(`${properties[0].name}: ${point}${unit};`);
+                        if(point){
+                            positioning[device].push(`${properties[0].name}: ${point}${unit};`);
+                        }
                     }
                 });
             }

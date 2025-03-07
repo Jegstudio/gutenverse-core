@@ -352,7 +352,7 @@ const getBlockStyle = (elementId, attributes) => {
     });
 
     //Positioning Panel
-    
+
     isNotEmpty(attributes['positionType']) && data.push({
         'type': 'plain',
         'id': 'positionType',
@@ -374,11 +374,11 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'left',
                 'valueType': 'function',
-                'functionName' : 'handleWrapperPosition'
+                'functionName': 'handleWrapperPosition'
             }
         ],
-        'otherAttribute' : {
-            'positionType' : attributes['positionType']
+        'otherAttribute': {
+            'positionType': attributes['positionType']
         },
         'selector': `.${elementId}.guten-element`,
     });
@@ -391,11 +391,11 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'right',
                 'valueType': 'function',
-                'functionName' : 'handleWrapperPosition'
+                'functionName': 'handleWrapperPosition'
             }
         ],
-        'otherAttribute' : {
-            'positionType' : attributes['positionType']
+        'otherAttribute': {
+            'positionType': attributes['positionType']
         },
         'selector': `.${elementId}.guten-element`,
     });
@@ -408,11 +408,11 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'top',
                 'valueType': 'function',
-                'functionName' : 'handleWrapperPosition'
+                'functionName': 'handleWrapperPosition'
             }
         ],
-        'otherAttribute' : {
-            'positionType' : attributes['positionType']
+        'otherAttribute': {
+            'positionType': attributes['positionType']
         },
         'selector': `.${elementId}.guten-element`,
     });
@@ -425,11 +425,11 @@ const getBlockStyle = (elementId, attributes) => {
             {
                 'name': 'bottom',
                 'valueType': 'function',
-                'functionName' : 'handleWrapperPosition'
+                'functionName': 'handleWrapperPosition'
             }
         ],
-        'otherAttribute' : {
-            'positionType' : attributes['positionType']
+        'otherAttribute': {
+            'positionType': attributes['positionType']
         },
         'selector': `.${elementId}.guten-element`,
     });

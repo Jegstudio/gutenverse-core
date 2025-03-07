@@ -329,12 +329,14 @@ const BackgroundControl = (props) => {
                         value={value.xposition}
                         allowDeviceControl={true}
                         onValueChange={xposition => onValueChange({ ...value, xposition })}
+                        onLocalChange={xposition => onLocalChange({ ...value, xposition })}
                     />
                     <SizeControl
                         label={__('Y Position', '--gctd--')}
                         value={value.yposition}
                         allowDeviceControl={true}
                         onValueChange={yposition => onValueChange({ ...value, yposition })}
+                        onLocalChange={yposition => onLocalChange({ ...value, yposition })}
                     />
                 </>}
             <SelectControl
@@ -400,6 +402,7 @@ const BackgroundControl = (props) => {
                         value={value.width}
                         allowDeviceControl={true}
                         onValueChange={width => onValueChange({ ...value, width })}
+                        onLocalChange={width => onLocalChange({ ...value, width })}
                         units={{
                             px: {
                                 text: 'px',
@@ -590,6 +593,7 @@ const BackgroundControl = (props) => {
                 unit="s"
                 value={value.displayDuration}
                 onValueChange={displayDuration => onValueChange({ ...value, displayDuration })}
+                onLocalChange={displayDuration => onLocalChange({ ...value, displayDuration })}
             />
             <SelectControl
                 label={__('Transition', '--gctd--')}
@@ -627,6 +631,7 @@ const BackgroundControl = (props) => {
                 unit="s"
                 value={value.duration}
                 onValueChange={duration => onValueChange({ ...value, duration })}
+                onLocalChange={duration => onLocalChange({ ...value, duration })}
             />
             <SelectControl
                 label={__('Background Position', '--gctd--')}
