@@ -5,7 +5,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
@@ -16,8 +16,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PostTermsBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar()
 )((props) => {
     const {
@@ -81,16 +80,16 @@ const PostTermsBlock = compose(
     const contentHTML = () => {
         switch (contentType) {
             case 'block':
-                if( !isEmpty(terms) ){
+                if (!isEmpty(terms)) {
                     return <div className={`post-term-block ${inlineDisplay ? 'inline-display' : ''}`}>
                         {
-                            terms.map((term, index) => {
-                                const name = term?.name; 
+                            terms.map((term) => {
+                                const name = term?.name;
                                 return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()} className="term-item"><HtmlTag >{name}</HtmlTag></a> : <HtmlTag className="term-item">{name}</HtmlTag>;
                             })
                         }
                     </div>;
-                }else{
+                } else {
                     return <div className="post-term-block">
                         {
                             linkTo && linkTo !== 'none' ? <a href="#" className="term-item" onClick={e => e.preventDefault()}><HtmlTag >{'Post Terms'}</HtmlTag></a> : <HtmlTag className="term-item">{'Post Terms'}</HtmlTag>
@@ -108,7 +107,7 @@ const PostTermsBlock = compose(
                     }) : linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{'Post Terms'}</a> : 'Post Terms'}
                 </HtmlTag>;
         }
-    }
+    };
 
     return <>
         <InspectorControls>

@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
@@ -15,7 +14,6 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PopupBuilder = compose(
-    // withCustomStyle(panelList),
     withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {

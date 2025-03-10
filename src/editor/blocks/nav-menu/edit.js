@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -18,8 +18,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const NavMenuBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {
@@ -52,7 +51,7 @@ const NavMenuBlock = compose(
     const elementRef = useRef();
     const [response, setResponse] = useState(null);
     const [loading, setLoading] = useState(true);
-    
+
     const removeClick = () => {
         if (elementRef.current) {
             setTimeout(() => {
