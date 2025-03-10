@@ -1,10 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withCursorEffect, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPartialRender, withPassRef, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { useCallback } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
@@ -62,9 +62,10 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 
 const FlexibleWrapper = compose(
     withPartialRender,
-    // withAnimationBackground(),
+    withPassRef,
     withCopyElementToolbar(),
-    // withAnimationAdvance('wrapper'),
+    withAnimationAdvanceV2('wrapper'),
+    withAnimationBackgroundV2(),
     // withMouseMoveEffect,
     // withBackgroundEffect,
     // withCursorEffect,
@@ -81,7 +82,8 @@ const FlexibleWrapper = compose(
         setAttributes,
         panelIsClicked,
         setPanelIsClicked,
-        slideElement
+        slideElement,
+        setBlockRef
     } = props;
 
     const {
@@ -135,7 +137,7 @@ const FlexibleWrapper = compose(
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
                 'guten-background-effect-active': isBackgroundEffect,
-                'guten-background-slideshow' : isSlideShow,
+                'guten-background-slideshow': isSlideShow,
             }
         ),
         ref: elementRef
@@ -143,8 +145,14 @@ const FlexibleWrapper = compose(
 
     const Component = hasChildBlocks ? WrapperContainer : WrapperPlaceholder;
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     return <>
-        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef}/>
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar

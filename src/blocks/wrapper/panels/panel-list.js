@@ -130,22 +130,22 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Background Animation', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: backgroundAnimatedPanel,
-        //     pro: true,
-        // },
-        // {
-        //     title: __('Advanced Animation', '--gctd--'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'wrapper'
-        //     }),
-        //     pro: true,
-        // },
+        {
+            title: __('Background Animation', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'wrapper'
+            }),
+            pro: true,
+        },
         // {
         //     title: __('Condition', 'gutenverse'),
         //     panelArray: conditionPanel,
