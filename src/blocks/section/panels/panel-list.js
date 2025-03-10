@@ -164,13 +164,13 @@ export const panelList = () => {
         //     panelArray: dividerPanelAnimated,
         //     pro: true,
         // },
-        // {
-        //     title: __('Transform', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: transformPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         // {
         //     title: __('Mouse Move Effect', '--gctd--'),
         //     initialOpen: false,

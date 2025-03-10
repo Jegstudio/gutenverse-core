@@ -440,6 +440,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         },
     );
+
     isNotEmpty(attributes['positioningType']) && isNotEmpty(attributes['positioningWidth']) && data.push(
         {
             'type': 'positioning',
@@ -454,6 +455,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         }
     );
+
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
@@ -466,6 +468,7 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
+
     isNotEmpty(attributes['positioningAlign']) && data.push(
         {
             'type': 'plain',
@@ -492,6 +495,7 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         }
     );
+
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
@@ -503,6 +507,7 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
     });
+
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
@@ -516,6 +521,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
+
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
@@ -529,6 +535,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
+
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningTop',
@@ -542,6 +549,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.section-wrapper[data-id="${elementId?.split('-')[1]}"]`,
         'attributeType': 'custom',
     });
+
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
@@ -559,7 +567,7 @@ const getBlockStyle = (elementId, attributes) => {
     return [
         ...data,
         ...applyFilters(
-            'gutenverse.section.sticky.style',
+            'gutenverse.section.blockStyle',
             [],
             {
                 elementId,
