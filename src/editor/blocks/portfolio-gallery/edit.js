@@ -1,33 +1,27 @@
-/* External dependencies */
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { classnames } from 'gutenverse-core/components';
-
-/* WordPress dependencies */
 import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
-
-/* Gutenverse dependencies */
-import { withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-
-/* Local dependencies */
 import { panelList } from './panels/panel-list';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PortfolioGalleryBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('portfolio-gallery'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('portfolio-gallery')
     // withMouseMoveEffect,
 )(props => {
     const {
         attributes,
         setAttributes,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -47,6 +41,7 @@ const PortfolioGalleryBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const [current, setCurrent] = useState(0);
 
@@ -83,6 +78,12 @@ const PortfolioGalleryBlock = compose(
             setCurrent(isCurrent);
         }
     }, [images]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />

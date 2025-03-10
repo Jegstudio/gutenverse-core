@@ -1,27 +1,28 @@
 
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const ButtonsBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('buttons'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('buttons'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -49,6 +50,13 @@ const ButtonsBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef, localAttr);
+    useDynamicScript(elementRef);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const innerBlockProps = useInnerBlocksProps(
         blockProps,
@@ -61,7 +69,7 @@ const ButtonsBlock = compose(
     );
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr}/>
+        <BlockPanelController panelList={panelList} props={props} setLocalAttr={setLocalAttr} />
         <div {...innerBlockProps} />
     </>;
 });

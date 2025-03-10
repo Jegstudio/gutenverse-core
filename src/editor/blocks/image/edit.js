@@ -2,7 +2,6 @@ import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { Image } from 'gutenverse-core/components';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, useBlockProps, MediaUploadCheck, MediaUpload, } from '@wordpress/block-editor';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { classnames } from 'gutenverse-core/components';
@@ -14,13 +13,11 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -111,10 +108,10 @@ const ImagePicker = (props) => {
 };
 
 const ImageBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('image'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('image')
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -132,7 +129,8 @@ const ImageBlock = compose(
         isSelected,
         setPanelState,
         panelIsClicked,
-        setPanelIsClicked
+        setPanelIsClicked,
+        setBlockRef,
     } = props;
 
     const {
@@ -158,6 +156,7 @@ const ImageBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -211,6 +210,7 @@ const ImageBlock = compose(
             return <a className="guten-image-wrapper" href={url} target={linkTarget} rel={rel}><ImageBoxFigure {...attributes} /></a>;
         }
     };
+
     const blockElement = <div {...blockProps}>
         {!isEmpty(imgSrc) ? urlAriaLabel() : <ImagePicker {...props}>{({ open }) => <img src={defaultSrc} onClick={open} />}</ImagePicker>}
         {caption()}
@@ -238,6 +238,12 @@ const ImageBlock = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     const ImageToolbar = () => {
         return applyFilters('gutenverse.button.url-toolbar',
             <URLToolbar
@@ -260,7 +266,7 @@ const ImageBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         {imgSrc && <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>

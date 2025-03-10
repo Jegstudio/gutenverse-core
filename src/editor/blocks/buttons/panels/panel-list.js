@@ -46,16 +46,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Advanced Animation', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => advanceAnimationPanel({
-        //         ...props,
-        //         blockType: 'column'
-        //     }),
-        //     pro: true,
-        // },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'column'
+            }),
+            pro: true,
+        },
         {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,

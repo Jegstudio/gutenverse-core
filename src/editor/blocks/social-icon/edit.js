@@ -1,11 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import {
-    BlockControls, InspectorControls,
-    RichText,
-    useBlockProps,
-} from '@wordpress/block-editor';
+import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -18,24 +14,23 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('social-icon'),
-    withCopyElementToolbar()
+    withPartialRender,
+    withPassRef,
+    withCopyElementToolbar(),
+    withAnimationAdvanceV2('social-icon')
 )(props => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const {
@@ -45,7 +40,8 @@ const SocialIcon = compose(
         clientId,
         setPanelState,
         panelIsClicked,
-        setPanelIsClicked
+        setPanelIsClicked,
+        setBlockRef,
     } = props;
 
     const {
@@ -101,6 +97,10 @@ const SocialIcon = compose(
         section: 1,
     };
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
+
     useEffect(() => {
         const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
             'gutenverse.dynamic.fetch-url',
@@ -118,8 +118,11 @@ const SocialIcon = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <InspectorControls>

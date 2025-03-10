@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withAnimationAdvance, withMouseMoveEffect, withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender, withPassRef, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -18,16 +18,16 @@ import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('button'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('button'),
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -36,10 +36,10 @@ const ButtonBlock = compose(
         isSelected,
         clientId,
         context: { hoverWithParent, parentSelector },
-        // refreshStyle,
         setPanelState,
         panelIsClicked,
-        setPanelIsClicked
+        setPanelIsClicked,
+        setBlockRef,
     } = props;
 
     const prevHoverWithParent = useRef();
@@ -49,7 +49,6 @@ const ButtonBlock = compose(
                 hoverWithParent: hoverWithParent,
                 parentSelector: parentSelector
             });
-            // refreshStyle();
         }
         prevHoverWithParent.current = hoverWithParent;
     }, [attributes.hoverWithParent, hoverWithParent, parentSelector]);
@@ -70,6 +69,7 @@ const ButtonBlock = compose(
         dynamicContent,
         dynamicUrl,
     } = attributes;
+
     const {
         getBlockRootClientId,
         getBlock,
@@ -86,6 +86,8 @@ const ButtonBlock = compose(
     const elementRef = useRef(null);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
+
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
@@ -154,6 +156,12 @@ const ButtonBlock = compose(
             });
         }
     }, []);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const onToggleOpenInNewTab = useCallback(
         (value) => {

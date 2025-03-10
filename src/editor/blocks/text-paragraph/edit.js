@@ -1,22 +1,18 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
-
 
 const TextBlockControl = (props) => {
     HighLightToolbar(props);
@@ -24,10 +20,10 @@ const TextBlockControl = (props) => {
 };
 
 const TextBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('text-paragraph'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('text-paragraph'),
     // withMouseMoveEffect,
 )((props) => {
     const {
@@ -35,16 +31,20 @@ const TextBlock = compose(
         clientId,
         setAttributes,
         setPanelState,
+        setBlockRef,
     } = props;
+
     const {
         elementId,
     } = attributes;
+
     const {
         getBlocks
     } = useSelect(
         (select) => select('core/block-editor'),
         []
     );
+
     const elementRef = useRef();
     const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
@@ -53,6 +53,7 @@ const TextBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -65,6 +66,7 @@ const TextBlock = compose(
         ),
         ref: elementRef
     });
+
     const onSplit = (value, isOriginal) => {
         const newBlock = createBlock('gutenverse/text-paragraph', {
             paragraph: value,
@@ -77,6 +79,7 @@ const TextBlock = compose(
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
+
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
         setPanelState,
@@ -85,6 +88,12 @@ const TextBlock = compose(
             section: 0,
         }
     );
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
