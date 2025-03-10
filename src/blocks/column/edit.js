@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose, debounce } from '@wordpress/compose';
-import { withCopyElementToolbar, withCursorEffect, withAnimationBackground, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withCursorEffect, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -733,7 +733,7 @@ const ColumnBlock = compose(
     withCopyElementToolbar(),
     withAnimationStickyV2(),
     withAnimationAdvanceV2('column'),
-    // withAnimationBackground(),
+    withAnimationBackgroundV2(),
     // withMouseMoveEffect,
     // withBackgroundEffect,
     // withCursorEffect,

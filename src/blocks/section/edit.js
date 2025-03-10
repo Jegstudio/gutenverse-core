@@ -4,7 +4,7 @@ import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withAnimationBackground, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withCopyElementToolbar, withAnimationAdvanceV2, withAnimationStickyV2, withPassRef } from 'gutenverse-core/hoc';
+import { withCursorEffect, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withCopyElementToolbar, withAnimationAdvanceV2, withAnimationStickyV2, withPassRef, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -155,8 +155,7 @@ const SectionBlock = compose(
     withCopyElementToolbar(),
     withAnimationStickyV2(),
     withAnimationAdvanceV2('section'),
-    // withAnimationAdvance('section'),
-    // withAnimationBackground(),
+    withAnimationBackgroundV2(),
     // withMouseMoveEffect,
     // withCursorEffect,
     // withBackgroundEffect,
