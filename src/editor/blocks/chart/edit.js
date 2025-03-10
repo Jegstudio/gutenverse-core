@@ -1,24 +1,44 @@
 import anime from 'animejs';
 import { __ } from '@wordpress/i18n';
+import { Chart } from 'chart.js/auto';
 import { createPortal } from 'react-dom';
 import { compose } from '@wordpress/compose';
 import { panelList } from './panels/panel-list';
 import { applyFilters } from '@wordpress/hooks';
+import { getChartData } from './data/chartData';
+import { getColor } from 'gutenverse-core/styling';
 import { displayShortcut } from '@wordpress/keycodes';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { useBlockProps, BlockControls } from '@wordpress/block-editor';
 import { IconLibrary, PanelController } from 'gutenverse-core/controls';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useEffect, useState, useRef, useCallback } from '@wordpress/element';
-import { Chart, DoughnutController, ArcElement, Tooltip, Legend } from 'chart.js';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { withCustomStyle, withMouseMoveEffect, withPartialRender, withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { getColor } from 'gutenverse-core/styling';
 
 const NEW_TAB_REL = 'noreferrer noopener';
+
+export const flipClasses = (contentType) => {
+    const flipClass = [];
+
+    if (contentType) {
+        const { Desktop, Tablet, Mobile } = contentType;
+
+        const isDesktopFlip = Desktop === 'flipCard';
+        const isTabletFlip = Tablet === 'flipCard' || (Tablet === undefined && Desktop === 'flipCard');
+        const isMobileFlip = Mobile === 'flipCard' || (Mobile === undefined && isTabletFlip);
+
+        isDesktopFlip ? flipClass.push('Desktop-flipCard') : (isTabletFlip || isMobileFlip) && flipClass.push('Desktop-noFlip');
+        isTabletFlip ? flipClass.push('Tablet-flipCard') : (isDesktopFlip || isMobileFlip) && flipClass.push('Tablet-noFlip');
+        isMobileFlip ? flipClass.push('Mobile-flipCard') : (isDesktopFlip || isTabletFlip) && flipClass.push('Mobile-noFlip');
+    }
+
+    return flipClass;
+}
 
 const ChartBlock = compose(
     withPartialRender,
@@ -29,7 +49,6 @@ const ChartBlock = compose(
     const {
         clientId,
         attributes,
-        deviceType,
         isSelected,
         setPanelState,
         setElementRef,
@@ -45,36 +64,36 @@ const ChartBlock = compose(
         url,
         rel,
         linkTarget,
-        enableContent = true,
-        chartContent = 'icon',
+        enableContent,
+        chartContent,
         tooltipDisplay,
         legendDisplay,
         chartItems,
         chartType,
-        totalValue
+        totalValue,
+        animationDuration,
+        contentType,
+        minValue,
+        cutout,
+        barThickness,
+        cutoutBackground,
+        enableContentParsed
     } = attributes;
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const multiValue = chartItems.length > 1;
+    const deviceType = getDeviceType();
     const elementRef = useRef();
     const numberRef = useRef();
     const chartRef = useRef();
     const titleRef = useRef();
     const descRef = useRef();
-
-    let multiValue = false;
-    let values = [];
-    let labels = [];
-    let backgroundColor = [];
-
-    const size = '90%';
-    const duration = 3600;
-
-    const panelState = {
-        panel: 'setting',
-        section: 2,
-    };
+    // const panelState = {
+    //     panel: 'setting',
+    //     section: 2,
+    // };
     
     const blockProps = useBlockProps({
         ref: elementRef,
@@ -84,28 +103,28 @@ const ChartBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType.toLowerCase(),
+            flipClasses(contentType)
         ),
     });
 
-    const onToggleOpenInNewTab = useCallback(
-        (value) => {
-            const newLinkTarget = value ? '_blank' : undefined;
+    // const onToggleOpenInNewTab = useCallback(
+    //     (value) => {
+    //         const newLinkTarget = value ? '_blank' : undefined;
 
-            let updatedRel = rel;
-            if (newLinkTarget && !rel) {
-                updatedRel = NEW_TAB_REL;
-            } else if (!newLinkTarget && rel === NEW_TAB_REL) {
-                updatedRel = undefined;
-            }
+    //         let updatedRel = rel;
+    //         if (newLinkTarget && !rel) {
+    //             updatedRel = NEW_TAB_REL;
+    //         } else if (!newLinkTarget && rel === NEW_TAB_REL) {
+    //             updatedRel = undefined;
+    //         }
 
-            setAttributes({
-                linkTarget: newLinkTarget,
-                rel: updatedRel,
-            });
-        },
-        [rel, setAttributes]
-    );
+    //         setAttributes({
+    //             linkTarget: newLinkTarget,
+    //             rel: updatedRel,
+    //         });
+    //     },
+    //     [rel, setAttributes]
+    // );
 
     useEffect(() => {
         if (elementRef.current) {
@@ -113,68 +132,31 @@ const ChartBlock = compose(
         }
     }, [elementRef]);
 
-    chartItems.forEach((item, index) => {
-        values.push(item.value);
-        labels.push(item.label);
-        backgroundColor.push(getColor(item.backgroundColor));
-    });
-
-
-
-    if (chartItems.length > 1) {
-        multiValue = true;
-    } else {
-        multiValue = false;
-    }
-
-    const sum = values.reduce((acc, val) => acc + val, 0);
-
-    if (sum < 100) {
-        const difference = 100 - sum;
-        values.push(difference);
-        labels.push('gutenEmptyDataSet');
-        backgroundColor.push('rgba(255, 255, 255, 0)')
-    }
-
+    useEffect(() => {
+        if (enableContent[deviceType] === true) {
+            setAttributes({enableContentParsed : {
+                ...enableContentParsed,
+                [deviceType] : 'true'
+            }});
+        } else {
+            setAttributes({enableContentParsed : {
+                ...enableContentParsed,
+                [deviceType] : 'false'
+            }});
+        }
+    }, [enableContent]);
 
     useEffect(() => {
-        const canvas = document.getElementById(`chart-canvas-${elementId}`);
-        if (!canvas) return;
-
-        setAttributes({})
-
-        const backgroundPlugin = {
-            id: 'customBackground',
-            beforeDraw: (chart) => {
-                const { ctx, chartArea } = chart;
-                const { width, height } = chart;
-                const centerX = chartArea.left + (chartArea.right - chartArea.left) / 2;
-                const centerY = chartArea.top + (chartArea.bottom - chartArea.top) / 2;
-                const outerRadius = Math.min(width, height) / 2;
-                const cutoutPercent = parseFloat(chart.options.cutout);
-                const innerRadius = (outerRadius * cutoutPercent) / 100;
-                ctx.save();
-                
-                ctx.fillStyle = 'lightgray';
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, outerRadius, 0, Math.PI * 2);
-                ctx.fill();
-        
-                ctx.globalCompositeOperation = 'destination-out'; 
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, innerRadius, 0, Math.PI * 2);
-                ctx.fill();
-        
-                ctx.globalCompositeOperation = 'source-over';
-                ctx.restore();
-            }
-        };
-
-        Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
-        if (!multiValue) {
-            Chart.register(backgroundPlugin);
+        const iframe = document.querySelector('iframe[name="editor-canvas"]');
+        let iframecanvas;
+        if (iframe) {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframecanvas = iframeDoc.getElementById(`chart-canvas-${elementId}`);
         }
 
+        const canvas = document.getElementById(`chart-canvas-${elementId}`) || iframecanvas;
+        if (!canvas) return;
+        
         const customPositioner = (elements, eventPosition) => ({
             x: eventPosition.x,
             y: eventPosition.y,
@@ -183,83 +165,51 @@ const ChartBlock = compose(
         const tooltipPlugin = Chart.registry.getPlugin('tooltip');
         if (tooltipPlugin) {
             tooltipPlugin.positioners.custom = customPositioner;
-        } else {
-            console.warn('Tooltip plugin is not available');
         }
 
-        const newChart = new Chart(canvas, {
-            type: chartType,
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        data: values,
-                        backgroundColor: backgroundColor,
-                        borderWidth: 0,
-                    },
-                ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: size,
-                plugins: {
-                    tooltip: {
-                        enabled: tooltipDisplay,
-                        position: 'custom',
-                        filter: (tooltipItem) => {
-                            return tooltipItem.label !== 'gutenEmptyDataSet';
-                        },
-                        callbacks: {
-                            label: (tooltipItem) => {
-                                if (multiValue) return `${tooltipItem.raw}% of ${totalValue}`;
-                                return `${tooltipItem.label}: ${tooltipItem.raw}%`;
-                            },
-                        },
-                    },
-                    legend: {
-                        display: legendDisplay,
-                        filter: (legendItem) => {
-                            return legendItem.label !== 'gutenEmptyDataSet';
-                        },
-                    },
-                },
-                animation: {
-                    animateRotate: true,
-                    duration: duration,
-                    easing: 'easeInOutQuart'
-                },
-            },
-            plugins: !multiValue ? [backgroundPlugin] : []
-        });
+        const data = getChartData(attributes, multiValue, canvas);
 
-        chartRef.current = newChart; 
+        const generateChart = new Chart(canvas, data);
+        chartRef.current = generateChart;
+
         return () => {
             if (chartRef.current) {
                 chartRef.current.destroy();
                 chartRef.current = null;
             }
         };
-    }, [tooltipDisplay, legendDisplay, chartItems]);
+    }, [
+        cutout,
+        minValue,
+        chartType,
+        chartItems,
+        totalValue,
+        chartContent,
+        barThickness,
+        legendDisplay,
+        tooltipDisplay,
+        cutoutBackground,
+        animationDuration,
+    ]);
 
     useEffect(() => {
-        if (!numberRef.current || chartContent !== 'percentage') return;
+        if (!numberRef.current || (chartContent !== 'percentage' && 'number' !== chartContent)) return;
     
         const animation = anime({
             targets: numberRef.current,
-            innerHTML: multiValue ? [0, totalValue] : [0, values[0]], 
-            duration,
+            innerHTML: multiValue || 'number' === chartContent ? [0, totalValue] : [0, chartItems[0].value], 
+            duration: animationDuration,
             easing: 'cubicBezier(.02, .01, .47, 1)',
             round: 1,
         });
     
         return () => animation.pause();
-    }, [chartItems, duration, chartContent, totalValue]);
+    }, [chartItems, animationDuration, chartContent, totalValue, chartType]);
 
     // FilterDynamic(props);
     // HighLightToolbar(props);
 
-    const insideChart = <div className='chart-inside'>
+    const insideChart = <div className={`chart-inside type-${chartType}`}>
         { 
             'percentage' === chartContent || 'number' === chartContent ? 
                 <span ref={numberRef} >{multiValue || 'number' === chartContent ? '0' : '0%'}</span> 
@@ -289,7 +239,7 @@ const ChartBlock = compose(
             gutenverseRoot
         )}
         <div {...blockProps} >
-            {enableContent && <div className="chart-content">
+            {enableContent[deviceType] && <div className="chart-content content-card">
                 <RichTextComponent
                     ref={titleRef}
                     classNames={'chart-title'}
@@ -311,6 +261,7 @@ const ChartBlock = compose(
                     // isUseHighlight={true}
                     // parentHasLink={isGlobalLinkSet}
                 />
+                {'doughnut' !== chartType && 'none' !== chartContent ? insideChart : ''}
                 <RichTextComponent
                     ref={descRef}
                     classNames={'chart-description'}
@@ -333,11 +284,11 @@ const ChartBlock = compose(
                     // parentHasLink={isGlobalLinkSet}
                 />
             </div>}
-            <div className='chart-content'>
-                <div>
+            <div className='chart-content content-chart'>
+                <div className='chart-container'>
                     <canvas id={`chart-canvas-${elementId}`} width="500" height="500" style={{boxSizing:'border-box', height: '250px', width: '250px'}}></canvas>
                 </div>
-                {chartContent !== 'none' ? insideChart : ''}
+                {chartContent !== 'none' && 'doughnut' === chartType ? insideChart : ''}
             </div>
         </div>
     </>;

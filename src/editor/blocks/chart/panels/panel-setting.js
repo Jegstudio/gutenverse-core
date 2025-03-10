@@ -4,13 +4,8 @@ import { IconRadioControl, SelectControl, TextControl, CheckboxControl } from 'g
 export const settingPanel = (props) => {
     const {
         elementId,
+        chartType,
     } = props;
-    // style: [
-    //     {
-    //         selector: `.${elementId}`,
-    //         render: value => `align-items: ${value};`
-    //     },
-    // ],
     
     return [
         {
@@ -22,10 +17,19 @@ export const settingPanel = (props) => {
                     label: __('Pie'),
                     value: 'doughnut'
                 },
+                {
+                    label: __('Bar'),
+                    value: 'bar'
+                },
+                // {
+                //     label: __('Line'),
+                //     value: 'line'
+                // },
             ],
         },
         {
             id: 'legendDisplay',
+            show: 'doughnut' !== chartType,
             label: __('Show Legend', 'gutenverse'),
             component: CheckboxControl
         },

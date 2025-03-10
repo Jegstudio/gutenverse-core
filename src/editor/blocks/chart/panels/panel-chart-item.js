@@ -1,31 +1,27 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ImageControl, RangeControl, RepeaterControl, AlertControl, TextControl, ColorControl } from 'gutenverse-core/controls';
+import { AlertControl, SelectControl, RangeControl, RepeaterControl, TextControl, ColorControl } from 'gutenverse-core/controls';
 
 export const chartItemPanel = (props) => {
-        const {chartItems, chartContent} = props;
-        
-        let multiValue = false;
-        if (chartItems.length > 1) {
-            multiValue = true;
-        } else {
-            multiValue = false;
-        }
+    const {
+        chartContent,
+        chartItems,
+        chartType
+    } = props;
+
+    let multiValue = false;
+    if (chartItems.length > 1) {
+        multiValue = true;
+    } else {
+        multiValue = false;
+    }
+
     return [
-        {
-            id: 'totalValue',
-            label: __('Total Value', 'gutenverse'),
-            show: multiValue,
-            component: RangeControl,
-            min: 0,
-            max: 5000,
-            step: 10,
-        },
         {
             id: 'activate-notice',
             component: AlertControl,
             show: !multiValue && 'number' !== chartContent,
             children: <>
-                <span>{__('If Chart has more than 1 item, Total Value will be used instead of the percentage.', 'gutenverse')}</span>
+                <span>{__('If Chart has more than 1 item, Max Value will be used instead of the percentage.', 'gutenverse')}</span>
             </>
         },
         {
@@ -36,11 +32,32 @@ export const chartItemPanel = (props) => {
                 label: 'Chart Item',
                 value: "20",
                 backgroundColor: {
-                    "r": 1,
-                    "g": 134,
-                    "b": 255,
-                    "a": 1
-                }
+                    r: Math.floor(Math.random() * 256),
+                    g: Math.floor(Math.random() * 256),
+                    b: Math.floor(Math.random() * 256),
+                    a: 1
+                },
+                colorGradientOne: {
+                    r: Math.floor(Math.random() * 256),
+                    g: Math.floor(Math.random() * 256),
+                    b: Math.floor(Math.random() * 256),
+                    a: 1
+                },
+                colorGradientTwo: {
+                    r: Math.floor(Math.random() * 256),
+                    g: Math.floor(Math.random() * 256),
+                    b: Math.floor(Math.random() * 256),
+                    a: 1
+                },
+                gradientDirection: 'topBottom',
+                barThickness: 20,
+                borderColor: {
+                    r: Math.floor(Math.random() * 256),
+                    g: Math.floor(Math.random() * 256),
+                    b: Math.floor(Math.random() * 256),
+                    a: 1
+                },
+                borderWidth: 0
             },
             options: [
                 {
@@ -53,13 +70,70 @@ export const chartItemPanel = (props) => {
                     label: __('Value', 'gutenverse'),
                     component: RangeControl,
                     min: 0,
-                    max: 100,
+                    max: 500,
                     step: 1,
                 },
                 {
+                    id: 'colorMode',
+                    label: __('Color Mode', 'gutenverse'),
+                    component: SelectControl,
+                    options: [
+                        {
+                            label: __('Default', 'gutenverse'),
+                            value: 'default'
+                        },
+                        {
+                            label: __('Gradient', 'gutenverse'),
+                            value: 'gradient'
+                        }
+                    ],
+                },
+                {
+                    id: 'colorGradientOne',
+                    show: value => value.colorMode === 'gradient',
+                    label: __('Gradient Color 1', 'gutenverse'),
+                    component: ColorControl,
+                },
+                {
+                    id: 'colorGradientTwo',
+                    show: value => value.colorMode === 'gradient',
+                    label: __('Gradient Color 2', 'gutenverse'),
+                    component: ColorControl,
+                },
+                {
+                    id: 'gradientDirection',
+                    label: __('Gradient Direction', 'gutenverse'),
+                    show: value => value.colorMode === 'gradient',
+                    component: SelectControl,
+                    options: [
+                        {
+                            label: __('Top to Bottom', 'gutenverse'),
+                            value: 'topBottom'
+                        },
+                        {
+                            label: __('Left to Right', 'gutenverse'),
+                            value: 'leftRight'
+                        }
+                    ],
+                },
+                {
                     id: 'backgroundColor',
+                    show: value => value.colorMode === 'default' || value.colorMode === undefined,
                     label: __('Color', 'gutenverse'),
                     component: ColorControl,
+                },
+                {
+                    id: 'borderColor',
+                    label: __('Border Color', 'gutenverse'),
+                    component: ColorControl,
+                },
+                {
+                    id: 'borderWidth',
+                    label: __('Border Width', 'gutenverse'),
+                    component: RangeControl,
+                    min: 0,
+                    max: 10,
+                    step: 1,
                 },
             ],
         },

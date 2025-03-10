@@ -4,6 +4,8 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { contentPanel } from './panel-content';
 import { settingPanel } from './panel-setting';
 import { chartItemPanel } from './panel-chart-item';
+import { chartPanel } from './panel-chart';
+import { cardPanel } from './panel-card';
 
 export const panelList = () => {
     return [
@@ -14,16 +16,28 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Content', 'gutenverse'),
+            initialOpen: false,
+            panelArray: contentPanel,
+            tabRole: TabSetting
+        },
+        {
             title: __('Chart Item', 'gutenverse'),
             initialOpen: false,
             panelArray: chartItemPanel,
             tabRole: TabSetting
         },
         {
-            title: __('Content', 'gutenverse'),
+            title: __('Card Style', 'gutenverse'),
             initialOpen: false,
-            panelArray: contentPanel,
-            tabRole: TabSetting
+            panelArray: cardPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Chart Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: chartPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Background', 'gutenverse'),

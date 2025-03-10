@@ -1,21 +1,29 @@
 import { __ } from '@wordpress/i18n';
-import { IconRadioControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { AlertControl, SelectControl, RangeControl, CheckboxControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const contentPanel = (props) => {
     const {
         elementId,
+        enableContent,
+        chartType,
+        chartContent,
+        chartItems,
     } = props;
-    // style: [
-    //     {
-    //         selector: `.${elementId}`,
-    //         render: value => `align-items: ${value};`
-    //     },
-    // ],
+
+    let multiValue = false;
+    if (chartItems.length > 1) {
+        multiValue = true;
+    } else {
+        multiValue = false;
+    }
+
+    const deviceType = getDeviceType();
     
     return [
         {
             id: 'chartContent',
-            label: __('Chart Content', 'gutenverse'),
+            label: __('Indicator Content', 'gutenverse'),
             component: SelectControl,
             options: [
                 {
@@ -36,8 +44,42 @@ export const contentPanel = (props) => {
                 },
             ],
         },
+
+        {
+            id: 'minValue',
+            label: __('Min Value', 'gutenverse'),
+            show: 'bar' === chartType && 'number' === chartContent,
+            component: RangeControl,
+            min: 0,
+            max: 5000,
+            step: 10,
+        },
+        {
+            id: 'totalValue',
+            label: __('Max Value', 'gutenverse'),
+            description: __('If Chart has more than 1 item or Chart Content is Number, Max Value will be used', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 5000,
+            step: 10,
+        },
+        {
+            id: 'animationDuration',
+            label: __('Animation Duration', 'gutenverse'),
+            component: RangeControl,
+            min: 0,
+            max: 10000,
+            step: 10,
+        },
+        {
+            id: 'enableContent',
+            label: __('Enable Content', 'gutenverse'),
+            component: CheckboxControl,
+            allowDeviceControl: true,
+        },
         {
             id: 'titleTag',
+            show: enableContent && enableContent[deviceType],
             label: __('Title Tag', 'gutenverse'),
             component: SelectControl,
             options: [
@@ -68,6 +110,38 @@ export const contentPanel = (props) => {
                 {
                     label: __('SPAN'),
                     value: 'span'
+                },
+            ],
+        },
+        {
+            id: 'contentType',
+            show: enableContent && enableContent[deviceType],
+            label: __('Content Type', 'gutenverse'),
+            component: SelectControl,
+            allowDeviceControl: true,
+            options: [
+                {
+                    label: __('Static'),
+                    value: 'column-reverse'
+                },
+                {
+                    label: __('Flip card'),
+                    value: 'flipCard'
+                },
+                {
+                    label: __('Float Left'),
+                    value: 'row'
+                },
+                {
+                    label: __('Float Right'),
+                    value: 'row-reverse'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId}, .${elementId}.Mobile-noFlip, .${elementId}.Desktop-noFlip, .${elementId}.Tablet-noFlip`,
+                    allowRender: value => value !== 'flipCard',
+                    render: value => `flex-direction: ${value};`
                 },
             ],
         },
