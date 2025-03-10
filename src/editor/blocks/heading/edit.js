@@ -1,24 +1,17 @@
-/* External dependencies */
-import { useRef } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
-
-/* WordPress dependencies */
 import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-
-/* Gutenverse dependencies */
-import { withCopyElementToolbar, withMouseMoveEffect, withAnimationAdvance } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
-
-/* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import getBlockStyle from './styles/block-style';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 
 const HeadingBlockControl = (props) => {
     const {
@@ -61,16 +54,17 @@ const HeadingInspection = (props) => {
 };
 
 const HeadingBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('heading'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('heading'),
     // withMouseMoveEffect,
 )(props => {
     const {
         attributes,
         setAttributes,
         clientId,
+        setBlockRef,
     } = props;
 
     let {
@@ -79,8 +73,11 @@ const HeadingBlock = compose(
     } = attributes;
 
     const elementRef = useRef(null);
+
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
+
     const tagName = 'h' + type;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -93,6 +90,12 @@ const HeadingBlock = compose(
             displayClass,
         )
     });
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <HeadingInspection {...props} elementRef={elementRef}/>

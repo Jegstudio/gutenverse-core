@@ -1,30 +1,28 @@
 import { compose } from '@wordpress/compose';
-
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { encodeDataToURL } from 'gutenverse-core/helper';
-import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useEffect, useRef } from '@wordpress/element';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-styles';
 
 const GoogleMapsBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('google-maps'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('google-maps'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         isSelected,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -52,6 +50,7 @@ const GoogleMapsBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const parameter = {
         q: location,
@@ -69,6 +68,12 @@ const GoogleMapsBlock = compose(
         src: 'https://maps.google.com/maps?' + encodeDataToURL(parameter),
         title: parameter['q'],
     };
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />

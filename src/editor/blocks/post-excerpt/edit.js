@@ -6,7 +6,7 @@ import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
@@ -15,8 +15,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PostExcerptBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar()
 )((props) => {
     const {
@@ -49,8 +48,8 @@ const PostExcerptBlock = compose(
     });
 
     const [
-        rawExcerpt,
-        setExcerpt,
+        // rawExcerpt,
+        // setExcerpt,
         { rendered: renderedExcerpt, protected: isProtected } = {},
     ] = useEntityProp('postType', postType, 'excerpt', postId);
 
@@ -68,7 +67,7 @@ const PostExcerptBlock = compose(
         );
         return document.body.textContent || document.body.innerText || '';
     }, [renderedExcerpt]);
-    
+
     if (!postType || !postId) {
         return (
             <div {...blockProps}>

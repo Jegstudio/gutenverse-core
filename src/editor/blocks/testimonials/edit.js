@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -17,8 +17,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const TestimonialsBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {

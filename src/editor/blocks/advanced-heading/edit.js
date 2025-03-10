@@ -1,31 +1,29 @@
 import { compose } from '@wordpress/compose';
-import { useRef } from '@wordpress/element';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { useEffect, useRef } from '@wordpress/element';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const AdvancedHeadingBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('advance-heading'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('advance-heading'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         setAttributes,
         clientId,
-        setPanelState
+        setPanelState,
+        setBlockRef
     } = props;
 
     const {
@@ -40,13 +38,14 @@ const AdvancedHeadingBlock = compose(
     } = attributes;
 
     const elementRef = useRef(null);
-    const focusTextRef = useRef();
-    const textRef = useRef();
-    const subTextRef = useRef();
+    // const focusTextRef = useRef();
+    // const textRef = useRef();
+    // const subTextRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -62,7 +61,7 @@ const AdvancedHeadingBlock = compose(
     FilterDynamic(props);
     HighLightToolbar(props);
 
-    const richTextContent = (data, tag, classes, identifier ) => {
+    const richTextContent = (data, tag, classes, identifier) => {
         return <RichTextComponent
             classNames={classes}
             tagName={tag}
@@ -72,8 +71,8 @@ const AdvancedHeadingBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            panelDynamic={{panel : 'setting', section : 1}}
-            panelPosition={{panel : 'style', section : 1}}
+            panelDynamic={{ panel: 'setting', section: 1 }}
+            panelPosition={{ panel: 'style', section: 1 }}
             contentAttribute={identifier}
             setPanelState={setPanelState}
             textChilds={identifier + 'Childs'}
@@ -83,22 +82,28 @@ const AdvancedHeadingBlock = compose(
         />;
     };
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}
-            {showSub === 'top' && richTextContent(subText,SubTag,'heading-subtitle','subText')}
+            {showSub === 'top' && richTextContent(subText, SubTag, 'heading-subtitle', 'subText')}
             {showSub === 'top' && showLine === 'between' && <div className="heading-line between"></div>}
             <div className={`heading-section ${['top', 'bottom', 'between'].includes(showLine) ? 'outside-line' : ''}`}>
                 {showLine === 'before' && <div className="heading-line before"></div>}
                 <TitleTag className="heading-title">
-                    {richTextContent(text,'span','heading-title','text')}
-                    {richTextContent(focusText,'span','heading-focus','focusText')}
+                    {richTextContent(text, 'span', 'heading-title', 'text')}
+                    {richTextContent(focusText, 'span', 'heading-focus', 'focusText')}
                 </TitleTag>
                 {showLine === 'after' && <div className="heading-line after"></div>}
             </div>
             {showSub === 'bottom' && showLine === 'between' && <div className="heading-line between"></div>}
-            {showSub === 'bottom' && richTextContent(subText,SubTag,'heading-subtitle','subText')}
+            {showSub === 'bottom' && richTextContent(subText, SubTag, 'heading-subtitle', 'subText')}
             {showLine === 'bottom' && <div className="heading-line bottom"></div>}
         </div>
     </>;

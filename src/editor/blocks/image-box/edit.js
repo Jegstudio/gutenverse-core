@@ -1,13 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
-import {
-    BlockControls,
-    MediaUpload,
-    MediaUploadCheck,
-    useBlockProps,
-    useInnerBlocksProps
-} from '@wordpress/block-editor';
+import { BlockControls, MediaUpload, MediaUploadCheck, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -18,15 +11,13 @@ import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef, useState } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const NEW_TAB_REL = 'noreferrer noopener';
@@ -227,10 +218,10 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
 };
 
 const ImageBoxBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('image-box'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('image-box')
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -240,7 +231,8 @@ const ImageBoxBlock = compose(
         clientId,
         setPanelState,
         panelIsClicked,
-        setPanelIsClicked
+        setPanelIsClicked,
+        setBlockRef,
     } = props;
 
     const {
@@ -254,16 +246,19 @@ const ImageBoxBlock = compose(
 
     FilterDynamic(props);
     HighLightToolbar(props);
+
     const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
+
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
     );
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -318,6 +313,12 @@ const ImageBoxBlock = compose(
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockControls>

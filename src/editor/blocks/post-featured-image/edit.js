@@ -6,7 +6,7 @@ import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { imagePlaceholder } from 'gutenverse-core/config';
@@ -16,8 +16,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const PostFeaturedImageBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar()
 )((props) => {
     const {

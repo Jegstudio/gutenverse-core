@@ -1,6 +1,5 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -11,24 +10,23 @@ import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
 import { u } from 'gutenverse-core/components';
 import Shuffle from 'shufflejs';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const GalleryBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('gallery'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('gallery'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -52,6 +50,7 @@ const GalleryBlock = compose(
         filterSearchIconPosition,
         filterSearchFormText,
     } = attributes;
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [showPopup, setShowPop] = useState(false);
@@ -76,6 +75,7 @@ const GalleryBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -157,6 +157,7 @@ const GalleryBlock = compose(
             });
         }
     };
+
     //liveAttribute disini belum untuk showedItem
     useEffect(() => {
         setShowedItems(showed);
@@ -167,7 +168,7 @@ const GalleryBlock = compose(
             ...liveAttr,
             showedItems
         });
-    },[showedItems]);
+    }, [showedItems]);
 
     useEffect(() => {
         if (elementRef.current) {
@@ -182,6 +183,12 @@ const GalleryBlock = compose(
             observerRef.current = null;
         };
     }, [liveAttr]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />

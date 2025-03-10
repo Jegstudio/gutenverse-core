@@ -2,13 +2,9 @@ import { useEffect, useState } from '@wordpress/element';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
-import {
-    RichText,
-    useBlockProps,
-    useInnerBlocksProps, BlockControls
-} from '@wordpress/block-editor';
+import { RichText, useBlockProps, useInnerBlocksProps, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { cryptoRandomString } from 'gutenverse-core/components';
 import { trash, plus } from 'gutenverse-core/components';
@@ -166,8 +162,7 @@ const TabHeading = ({
 
 
 const Tabs = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar(),
     // withMouseMoveEffect
 )(props => {

@@ -1,7 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
@@ -12,14 +11,12 @@ import { IconLibrary } from 'gutenverse-core/controls';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import * as divider from './data/divider-style';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const DividerOnly = (props) => {
@@ -72,15 +69,16 @@ const DividerContent = (props) => {
 };
 
 const DividerBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('divider'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('divider'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         clientId,
+        setBlockRef
     } = props;
 
     const {
@@ -100,6 +98,7 @@ const DividerBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -136,6 +135,12 @@ const DividerBlock = compose(
         }
     }, [type]);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     const Component = content && content !== 'none' ? DividerContent : DividerOnly;
 
     const theProps = {
@@ -147,7 +152,7 @@ const DividerBlock = compose(
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         {content === 'icon' && <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton

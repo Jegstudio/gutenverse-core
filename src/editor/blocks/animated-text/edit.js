@@ -1,6 +1,5 @@
 import { compose } from '@wordpress/compose';
 import { useRef } from '@wordpress/element';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -15,14 +14,13 @@ import TextStylePop from './components/text-style-pop';
 import TextStyleSlide from './components/text-style-slide';
 import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const AnimatedTextBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {

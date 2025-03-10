@@ -1,30 +1,25 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect } from 'gutenverse-core/hoc';
-
-import {
-    useInnerBlocksProps, useBlockProps,
-} from '@wordpress/block-editor';
+import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useEffect, useRef } from '@wordpress/element';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const SocialIcons = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('social-icons'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('social-icons'),
     // withMouseMoveEffect
 )(props => {
     const {
         attributes,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -37,7 +32,11 @@ const SocialIcons = compose(
 
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
-    const elementRef = useRef();
+    const elementRef = useRef(null);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -63,8 +62,11 @@ const SocialIcons = compose(
         __experimentalAppenderTagName: 'div',
     });
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />

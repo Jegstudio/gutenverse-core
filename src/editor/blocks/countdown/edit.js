@@ -4,21 +4,23 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const CountDownBlock = compose(
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('countdown'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('countdown'),
     // withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -49,6 +51,7 @@ const CountDownBlock = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -69,7 +72,7 @@ const CountDownBlock = compose(
     });
 
     const handleTimer = (distance) => {
-        if(showDays){
+        if (showDays) {
             let day = Math.floor(distance / (1000 * 60 * 60 * 24));
             setDays(day);
             let hour = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -78,21 +81,21 @@ const CountDownBlock = compose(
             setMinutes(minute);
             let second = Math.floor((distance % (1000 * 60)) / 1000);
             setSeconds(second);
-        }else{
-            if(showHours){
+        } else {
+            if (showHours) {
                 let hour = Math.floor(distance / (1000 * 60 * 60));
                 setHours(hour);
                 let minute = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 setMinutes(minute);
                 let second = Math.floor((distance % (1000 * 60)) / 1000);
                 setSeconds(second);
-            }else{
-                if(showMinutes){
+            } else {
+                if (showMinutes) {
                     let minute = Math.floor(distance / (1000 * 60));
                     setMinutes(minute);
                     let second = Math.floor((distance % (1000 * 60)) / 1000);
                     setSeconds(second);
-                }else{
+                } else {
                     let second = Math.floor(distance / 1000);
                     setSeconds(second);
                 }
@@ -102,53 +105,58 @@ const CountDownBlock = compose(
 
     useEffect(() => {
         const countDownInterval = setInterval(() => {
-            if(dueDate){
+            if (dueDate) {
                 let targetDate = new Date(dueDate);
                 let now = new Date();
                 let distance = targetDate - now;
-                if( distance > 0 ){
+                if (distance > 0) {
                     handleTimer(distance);
-                }else{
+                } else {
                     clearInterval(countDownInterval);
                 }
             }
-        },1000);
+        }, 1000);
         return () => clearInterval(countDownInterval);
-    }, [dueDate, showDays, showHours, showMinutes ]);
+    }, [dueDate, showDays, showHours, showMinutes]);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="guten-countdown-wrapper">
                 {showDays && <>
                     <div className="time-container days-wrapper">
-                        { ( labelDays && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelDays}</div> }
+                        {(labelDays && (labelPosition === 'left' || labelPosition === 'top')) && <div className="countdown-label">{labelDays}</div>}
                         <div className="countdown-value">{days}</div>
-                        { ( labelDays && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelDays}</div> }
+                        {(labelDays && (labelPosition === 'right' || labelPosition === 'bottom')) && <div className="countdown-label">{labelDays}</div>}
                     </div>
                     {showDivider && <div className="countdown-divider">{dividerType}</div>}
                 </>}
                 {showHours && <>
                     <div className="time-container hours-wrapper">
-                        { ( labelHours && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelHours}</div> }
+                        {(labelHours && (labelPosition === 'left' || labelPosition === 'top')) && <div className="countdown-label">{labelHours}</div>}
                         <div className="countdown-value">{hours}</div>
-                        { ( labelHours && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelHours}</div> }
+                        {(labelHours && (labelPosition === 'right' || labelPosition === 'bottom')) && <div className="countdown-label">{labelHours}</div>}
                     </div>
                     {showDivider && <div className="countdown-divider">{dividerType}</div>}
                 </>}
                 {showMinutes && <>
                     <div className="time-container minutes-wrapper">
-                        { ( labelMinutes && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+                        {(labelMinutes && (labelPosition === 'left' || labelPosition === 'top')) && <div className="countdown-label">{labelMinutes}</div>}
                         <div className="countdown-value">{minutes}</div>
-                        { ( labelMinutes && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelMinutes}</div> }
+                        {(labelMinutes && (labelPosition === 'right' || labelPosition === 'bottom')) && <div className="countdown-label">{labelMinutes}</div>}
                     </div>
                     {(showDivider && showSeconds) && <div className="countdown-divider">{dividerType}</div>}
                 </>}
                 {showSeconds && <div className="time-container seconds-wrapper">
-                    { ( labelSeconds && (labelPosition === 'left' || labelPosition === 'top' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+                    {(labelSeconds && (labelPosition === 'left' || labelPosition === 'top')) && <div className="countdown-label">{labelSeconds}</div>}
                     <div className="countdown-value">{seconds}</div>
-                    { ( labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom' ) ) && <div className="countdown-label">{labelSeconds}</div> }
+                    {(labelSeconds && (labelPosition === 'right' || labelPosition === 'bottom')) && <div className="countdown-label">{labelSeconds}</div>}
                 </div>}
             </div>
             {

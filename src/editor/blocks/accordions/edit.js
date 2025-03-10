@@ -1,27 +1,26 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvance, withMouseMoveEffect } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { plus } from 'gutenverse-core/components';
 import { displayShortcut } from '@wordpress/keycodes';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 
 const Accordions = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
-    // withAnimationAdvance('accordions'),
+    withPartialRender,
+    withPassRef,
     withCopyElementToolbar(),
+    withAnimationAdvanceV2('accordions'),
     // withMouseMoveEffect
 )(props => {
     const {
@@ -39,6 +38,7 @@ const Accordions = compose(
     const {
         attributes,
         clientId,
+        setBlockRef
     } = props;
 
     const {
@@ -53,6 +53,7 @@ const Accordions = compose(
 
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -66,6 +67,12 @@ const Accordions = compose(
             });
         });
     }, [iconOpen, iconClosed, iconPosition, titleTag]);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const innerBlocksProps = useInnerBlocksProps({
         className: classnames(
@@ -115,7 +122,7 @@ const Accordions = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

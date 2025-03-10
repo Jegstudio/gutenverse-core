@@ -1,9 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState, useRef, RawHTML } from '@wordpress/element';
-import {
-    withMouseMoveEffect,
-    withCopyElementToolbar,
-} from 'gutenverse-core/hoc';
+import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, PostSkeleton, u } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -17,8 +14,7 @@ import getBlockStyle from './styles/block-style';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const PostBlockBlock = compose(
-    // withPartialRender,
-    // withCustomStyle(panelList),
+    withPartialRender,
     withCopyElementToolbar(),
     // withMouseMoveEffect,
 )((props) => {

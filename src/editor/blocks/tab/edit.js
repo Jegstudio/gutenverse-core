@@ -1,14 +1,8 @@
 
-import {
-    useInnerBlocksProps,
-} from '@wordpress/block-editor';
+import { useInnerBlocksProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
 
-// const Tab = compose(
-//     withPartialRender,
-//     withCustomStyle(panelList)
-// )(props => {
 const Tab = props => {
     const {
         attributes,

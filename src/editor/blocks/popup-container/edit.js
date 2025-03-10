@@ -1,5 +1,4 @@
 import { compose } from '@wordpress/compose';
-
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { InnerBlocks } from '@wordpress/block-editor';
@@ -7,7 +6,6 @@ import { classnames } from 'gutenverse-core/components';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 
 const PopupContainer = compose(
-    // withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
