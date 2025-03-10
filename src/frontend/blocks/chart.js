@@ -14,7 +14,8 @@ class GutenverseChart extends Default {
                 if (rawData) {
                     const parsedData = JSON.parse(rawData);
                     const canvas = u(dataElement).find('canvas');
-                    const chartData = this._getChartData(parsedData, canvas);
+                    if (!canvas.nodes[0]) return;
+                    const chartData = this._getChartData(parsedData, canvas.nodes[0]);
 
                     const customPositioner = (elements, eventPosition) => ({
                         x: eventPosition.x,
@@ -108,7 +109,7 @@ class GutenverseChart extends Default {
             if (item.colorMode === 'default' || item.colorMode === undefined) {
                 color = this._theColor(item.backgroundColor);
             } else {
-                const gradient = "topBottom" === item.gradientDirection ? canvas.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas.getContext('2d').createLinearGradient(0, 0, 400, 0);
+                const gradient = "topBottom" === item.gradientDirection ? canvas?.getContext('2d').createLinearGradient(0, 0, 0, 400) : canvas?.getContext('2d').createLinearGradient(0, 0, 400, 0);
                 gradient.addColorStop(0, this._theColor(item.colorGradientOne));
                 gradient.addColorStop(1, this._theColor(item.colorGradientTwo)); 
                 color = gradient; 
