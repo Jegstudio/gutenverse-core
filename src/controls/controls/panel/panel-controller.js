@@ -28,6 +28,19 @@ export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr
         {...props}
     />;
 };
+
+const openSidebar = () => {
+    // Detect whether we're in the Post Editor or the Template Editor
+    const isSiteEditor = !!select('core/edit-site');
+
+    // Open Actual Sidebar.
+    if (isSiteEditor) {
+        dispatch('core/edit-site').openGeneralSidebar('edit-site/block');
+    } else {
+        dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
+    }
+};
+
 const PanelController = ({ ...props }) => {
     const {
         clientId,
@@ -49,11 +62,7 @@ const PanelController = ({ ...props }) => {
         const { panel = null, section = 0 } = panelState;
 
         if (null !== panel && 0 !== section) {
-            const sidebarOpen = select('core/edit-post').getActiveGeneralSidebarName();
-            if ('edit-post/block' !== sidebarOpen) {
-                dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
-            }
-
+            openSidebar();
             setActiveTab(panel);
             setTimeout(() => {
                 setOpenTab(section);
