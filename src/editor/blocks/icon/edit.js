@@ -22,6 +22,7 @@ import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -36,9 +37,6 @@ const IconBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked,
         clientId,
         setBlockRef,
     } = props;
@@ -53,6 +51,13 @@ const IconBlock = compose(
         linkTarget,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const elementRef = useRef();
@@ -99,7 +104,7 @@ const IconBlock = compose(
         [rel, setAttributes]
     );
 
-    const panelState = {
+    const iconPanelState = {
         panel: 'setting',
         section: 2,
     };
@@ -132,7 +137,7 @@ const IconBlock = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -145,12 +150,12 @@ const IconBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={panelState}
+                        panelState={iconPanelState}
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    panelState
+                    iconPanelState
                 )}
                 <ToolbarButton
                     name="icon"

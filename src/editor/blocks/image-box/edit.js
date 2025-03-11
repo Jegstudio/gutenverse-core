@@ -19,6 +19,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -229,9 +230,6 @@ const ImageBoxBlock = compose(
         setAttributes,
         isSelected,
         clientId,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked,
         setBlockRef,
     } = props;
 
@@ -243,6 +241,13 @@ const ImageBoxBlock = compose(
         contentStyle,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     FilterDynamic(props);
     HighLightToolbar(props);
@@ -292,7 +297,7 @@ const ImageBoxBlock = compose(
         [rel, setAttributes]
     );
 
-    const panelState = {
+    const imageBoxPanelState = {
         panel: 'setting',
         section: 3,
     };
@@ -333,13 +338,13 @@ const ImageBoxBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={panelState}
+                        panelState={imageBoxPanelState}
                         title="Item Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    panelState
+                    imageBoxPanelState
                 )}
                 <ImageBoxPicker {...props}>
                     {({ open }) => <ToolbarButton
@@ -351,7 +356,7 @@ const ImageBoxBlock = compose(
                 </ImageBoxPicker>
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <div {...blockProps}>
             <div className="inner-container">
                 <div className="image-box-header">

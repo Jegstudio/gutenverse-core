@@ -13,6 +13,7 @@ import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const TextBlockControl = (props) => {
     HighLightToolbar(props);
@@ -30,13 +31,17 @@ const TextBlock = compose(
         attributes,
         clientId,
         setAttributes,
-        setPanelState,
         setBlockRef,
     } = props;
 
     const {
         elementId,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
 
     const {
         getBlocks
@@ -96,7 +101,7 @@ const TextBlock = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <TextBlockControl {...props} />
         <RichTextComponent
             isBlockProps={true}

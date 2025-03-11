@@ -20,6 +20,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -36,9 +37,6 @@ const ButtonBlock = compose(
         isSelected,
         clientId,
         context: { hoverWithParent, parentSelector },
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked,
         setBlockRef,
     } = props;
 
@@ -69,6 +67,13 @@ const ButtonBlock = compose(
         dynamicContent,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     const {
         getBlockRootClientId,
@@ -182,7 +187,7 @@ const ButtonBlock = compose(
         [rel, setAttributes]
     );
 
-    const panelState = {
+    const buttonPanelState = {
         panel: 'setting',
         section: 1,
     };
@@ -212,7 +217,7 @@ const ButtonBlock = compose(
             anchorRef={blockProps.ref}
             usingDynamic={true}
             setPanelState={setPanelState}
-            panelState={panelState}
+            panelState={buttonPanelState}
             panelIsClicked={panelIsClicked}
             setPanelIsClicked={setPanelIsClicked}
         />;
@@ -251,7 +256,7 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}
@@ -262,7 +267,7 @@ const ButtonBlock = compose(
         )}
         <BlockControls>
             <ToolbarGroup>
-                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, panelState)}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, buttonPanelState)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}

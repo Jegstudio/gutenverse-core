@@ -10,6 +10,7 @@ import { __ } from '@wordpress/i18n';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const AdvancedHeadingBlock = compose(
     withPartialRender,
@@ -22,7 +23,6 @@ const AdvancedHeadingBlock = compose(
         attributes,
         setAttributes,
         clientId,
-        setPanelState,
         setBlockRef
     } = props;
 
@@ -36,6 +36,11 @@ const AdvancedHeadingBlock = compose(
         showSub,
         showLine,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
 
     const elementRef = useRef(null);
     // const focusTextRef = useRef();
@@ -89,7 +94,7 @@ const AdvancedHeadingBlock = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}
             {showSub === 'top' && richTextContent(subText, SubTag, 'heading-subtitle', 'subText')}

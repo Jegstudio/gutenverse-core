@@ -19,6 +19,7 @@ import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -127,9 +128,6 @@ const ImageBlock = compose(
         attributes,
         setAttributes,
         isSelected,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked,
         setBlockRef,
     } = props;
 
@@ -145,6 +143,13 @@ const ImageBlock = compose(
         ariaLabel,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     const defaultSrc = imagePlaceholder;
     const rootBlockId = getBlockRootClientId(clientId);
@@ -216,7 +221,7 @@ const ImageBlock = compose(
         {caption()}
     </div>;
 
-    const panelState = {
+    const imagePanelState = {
         panel: 'setting',
         section: 2,
     };
@@ -255,18 +260,18 @@ const ImageBlock = compose(
                 anchorRef={blockProps.ref}
                 usingDynamic={true}
                 setPanelState={setPanelState}
-                panelState={panelState}
+                panelState={imagePanelState}
                 title="Item Link"
                 panelIsClicked={panelIsClicked}
                 setPanelIsClicked={setPanelIsClicked}
             />,
             props,
-            panelState
+            imagePanelState
         );
     };
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {imgSrc && <BlockControls>
             <ToolbarGroup>
                 <ImagePicker {...props}>

@@ -25,6 +25,7 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -51,9 +52,6 @@ const IconBoxBlock = compose(
         isSelected,
         attributes,
         setAttributes,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked,
         setBlockRef,
     } = props;
 
@@ -80,6 +78,13 @@ const IconBoxBlock = compose(
         hoverWithParent,
         parentSelector
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
@@ -186,7 +191,7 @@ const IconBoxBlock = compose(
         setAttributes({ parentSelector: `.${elementId}:hover .guten-icon-box-wrapper` });
     }, [hoverWithParent, parentSelector]);
 
-    const panelState = {
+    const iconBoxPanelState = {
         panel: 'setting',
         section: 2,
     };
@@ -218,7 +223,7 @@ const IconBoxBlock = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -231,13 +236,13 @@ const IconBoxBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={panelState}
+                        panelState={iconBoxPanelState}
                         title="Global Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    panelState
+                    iconBoxPanelState
                 )}
                 <ToolbarButton
                     name="icon"

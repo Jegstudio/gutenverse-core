@@ -10,6 +10,7 @@ import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const TeamBlock = compose(
     withPartialRender,
@@ -28,6 +29,11 @@ const TeamBlock = compose(
     const {
         elementId,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -70,7 +76,7 @@ const TeamBlock = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div  {...blockProps}>
             <TeamProfile
                 frontEnd={false}
@@ -78,6 +84,7 @@ const TeamBlock = compose(
                 descRef={descRef}
                 jobRef={jobRef}
                 nameRef={nameRef}
+                setPanelState={setPanelState}
                 {...props}
             />
         </div>

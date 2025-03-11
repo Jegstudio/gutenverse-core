@@ -21,6 +21,7 @@ import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -34,9 +35,6 @@ const IconListItemBlock = compose(
         setAttributes,
         isSelected,
         clientId,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked
     } = props;
 
     const {
@@ -48,6 +46,13 @@ const IconListItemBlock = compose(
         hideIcon,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
 
     const elementRef = useRef(null);
     const animationClass = useAnimationEditor(attributes);
@@ -96,7 +101,7 @@ const IconListItemBlock = compose(
     FilterDynamic(props);
     HighLightToolbar(props);
 
-    const panelState = {
+    const iconListItemPanelState = {
         panel: 'setting',
         section: 0,
     };
@@ -124,7 +129,7 @@ const IconListItemBlock = compose(
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}
@@ -142,13 +147,13 @@ const IconListItemBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={panelState}
+                        panelState={iconListItemPanelState}
                         title="Item Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    panelState
+                    iconListItemPanelState
                 )}
                 <ToolbarButton
                     name="icon"

@@ -13,6 +13,7 @@ import { BlockPanelController, PanelTutorial } from 'gutenverse-core/controls';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 export const AccordionIcon = ({ iconOpen, iconClosed }) => {
     return <div className={'accordion-icon'}>
@@ -44,7 +45,6 @@ const Accordion = compose(
         attributes,
         setAttributes,
         clientId,
-        setPanelState
     } = props;
 
     const {
@@ -55,6 +55,11 @@ const Accordion = compose(
         first,
         elementId
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
 
     const elementRef = useRef(null);
 
@@ -183,7 +188,7 @@ const Accordion = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div {...blockProps}>
             <div className="accordion-heading" onClick={setFirstActive}>
                 {iconPosition === 'left' && <AccordionIcon iconClosed={iconClosed} iconOpen={iconOpen} />}
