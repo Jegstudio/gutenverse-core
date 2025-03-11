@@ -7,8 +7,8 @@ export const layoutPanel = ({ elementId, forceColumnHundred }) => {
 
     const minWidth = {
         Desktop: 5,
-        Tablet: 10,
-        Mobile: 15,
+        Tablet: 0,
+        Mobile: 0,
     };
 
     return [

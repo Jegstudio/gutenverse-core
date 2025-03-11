@@ -32,7 +32,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'forceColumnHundred',
         'responsive': true,
-        'selector': `.guten-element.${elementId}`,
+        'responsiveSelector': true,
+        'selector': {
+            'Desktop': `.${elementId}`,
+            'Tablet': `.${elementId}`,
+            'Mobile': `.guten-element.${elementId}`,
+        },
         'properties': [
             {
                 'name': 'width',
