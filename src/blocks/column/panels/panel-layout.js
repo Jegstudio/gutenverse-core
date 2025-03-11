@@ -1,9 +1,8 @@
-import { select } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { AlertControl, RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
+import { CheckboxControl, RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const layoutPanel = ({ elementId, clientId }) => {
+export const layoutPanel = ({ elementId, forceColumnHundred }) => {
     const deviceType = getDeviceType();
 
     const minWidth = {
@@ -12,37 +11,17 @@ export const layoutPanel = ({ elementId, clientId }) => {
         Mobile: 15,
     };
 
-    const {
-        getBlock,
-        getBlockRootClientId,
-    } = select('core/block-editor');
-
-    const rootClientId = getBlockRootClientId(clientId);
-    const sectionAttr = rootClientId ? getBlock(rootClientId)?.attributes : {};
-
-    const checkValue = (devices, currentMode) => {
-        const deviceOrder = ['Desktop', 'Tablet', 'Mobile'];
-        const startIndex = deviceOrder.indexOf(currentMode);
-        for (let i = startIndex; i >= 0; i--) {
-            const device = deviceOrder[i];
-            if (devices[device] === true) {
-                return device;
-            }
-        }
-        return false;
-    };
-
     return [
         {
-            id: 'column-notice',
-            component: AlertControl,
-            children: <>
-                <span>{__('The "Wrap Column 100%" option in the Section settings overrides Column Width. Disable it to use the Column Width below.')}</span>
-            </>,
-            show: checkValue(sectionAttr?.wrapColumn, deviceType),
+            id: 'forceColumnHundred',
+            label: __('Force Column 100%', '--gctd--'),
+            description: __('This will force the column width to be 100%.', '--gctd--'),
+            allowDeviceControl: true,
+            component: CheckboxControl,
         },
         {
             id: 'width',
+            show: !forceColumnHundred || !forceColumnHundred[deviceType],
             label: __('Column Width', '--gctd--'),
             component: RangeColumnControl,
             min: minWidth[deviceType],

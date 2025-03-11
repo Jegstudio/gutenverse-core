@@ -60,6 +60,23 @@ class Column extends Style_Abstract {
 			$this->inject_column_width_style( ".{$this->element_id}", $this->attrs['width'] );
 		}
 
+		if ( isset( $this->attrs['forceColumnHundred'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}",
+					'property'       => function ( $value ) {
+						if ( empty( $value ) ) {
+							return null;
+						}
+
+						return 'width: 100%;';
+					},
+					'value'          => $this->attrs['forceColumnHundred'],
+					'device_control' => true,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['verticalAlign'] ) ) {
 			$this->inject_style(
 				array(

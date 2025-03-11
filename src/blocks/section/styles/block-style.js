@@ -23,34 +23,6 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
-    isNotEmpty(attributes['wrapColumn']) && data.push({
-        'type': 'plain',
-        'id': 'wrapColumn',
-        'responsive': true,
-        'selector': `.${elementId} > .guten-container`,
-        'properties': [
-            {
-                'name': 'flex-wrap',
-                'valueType': 'pattern',
-                'pattern': 'wrap',
-            }
-        ],
-    });
-
-    isNotEmpty(attributes['wrapColumn']) && data.push({
-        'type': 'plain',
-        'id': 'wrapColumn',
-        'responsive': true,
-        'selector': `.${elementId} > .guten-container > .guten-column`,
-        'properties': [
-            {
-                'name': 'width',
-                'valueType': 'pattern',
-                'pattern': '100%',
-            }
-        ],
-    });
-
     isNotEmpty(attributes['heightControl']) && attributes['heightControl'] === 'fit' && data.push({
         'type': 'plain',
         'id': 'heightControl',

@@ -308,7 +308,7 @@ abstract class Style_Interface {
 			}
 
 			if ( 'Mobile' === $device ) {
-				$selector = ".guten-section {$selector}.guten-column ";
+				$selector = "{$selector}.guten-column ";
 				if ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ]   = array();
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
