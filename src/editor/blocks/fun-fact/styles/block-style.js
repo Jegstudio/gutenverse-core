@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
     /**Panel Content Style */
@@ -627,7 +628,17 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.fun-fact.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

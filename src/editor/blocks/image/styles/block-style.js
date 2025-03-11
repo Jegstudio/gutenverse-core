@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import panelCaptionStyle from './panel-style/style-caption';
 import panelImageStyle from './panel-style/style-image';
 
@@ -264,7 +265,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.image.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

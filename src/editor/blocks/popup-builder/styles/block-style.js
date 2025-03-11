@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import panelCloseStyle from './panel-style/style-close';
 import panelContainerStyle from './panel-style/style-container';
 import panelOverlayStyle from './panel-style/style-overlay';
@@ -268,7 +269,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.popup-builder.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

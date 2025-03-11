@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import panelCategoryStyle from './panel-style/style-category';
 import panelCommentStyle from './panel-style/style-comment';
 import panelContentContainerStyle from './panel-style/style-content-container';
@@ -287,7 +288,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.post-block.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

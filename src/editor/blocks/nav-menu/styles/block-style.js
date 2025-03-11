@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const getBlockStyle = (elementId, attributes) => {
@@ -146,7 +147,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['itemTextNormalColor']) && data.push({
         'type': 'color',
         'id': 'itemTextNormalColor',
-        'responsive' : true,
+        'responsive': true,
         'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
         'properties': [
             {
@@ -1172,7 +1173,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.nav-menu.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 

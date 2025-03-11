@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import colorStyle from './panel-style/style-color';
 import contentStyle from './panel-style/style-content';
 
@@ -186,18 +187,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'properties': [
-            {
-                'name' : 'vertical-align',
-                'valueType' : 'direct'
-            }
-        ],
-        'attributeType': 'align',
-        'selector': `.${elementId}.guten-element`,
-    });
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
@@ -214,8 +215,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningLeft',
         'properties': [
             {
-                'name' : 'left',
-                'valueType' : 'direct'
+                'name': 'left',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -227,8 +228,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningRight',
         'properties': [
             {
-                'name' : 'right',
-                'valueType' : 'direct'
+                'name': 'right',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -240,8 +241,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningTop',
         'properties': [
             {
-                'name' : 'top',
-                'valueType' : 'direct'
+                'name': 'top',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -253,15 +254,25 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningBottom',
         'properties': [
             {
-                'name' : 'bottom',
-                'valueType' : 'direct'
+                'name': 'bottom',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.social-icon.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 

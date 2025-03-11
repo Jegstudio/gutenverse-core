@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -7,15 +8,15 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'width',
         'selector': `.${elementId} video, .${elementId} .guten-video-background`,
-        'responsive' : true,
-        'properties' : [
+        'responsive': true,
+        'properties': [
             {
-                'name' : 'width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}%!important',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}%!important',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -26,15 +27,15 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'height',
         'selector': `.${elementId} video, .${elementId} .guten-video-background`,
-        'responsive' : true,
-        'properties' : [
+        'responsive': true,
+        'properties': [
             {
-                'name' : 'height',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px!important',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'height',
+                'valueType': 'pattern',
+                'pattern': '{value}px!important',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -45,15 +46,15 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'captionSpace',
         'selector': `.${elementId} .guten-caption`,
-        'responsive' : true,
-        'properties' : [
+        'responsive': true,
+        'properties': [
             {
-                'name' : 'margin-top',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'margin-top',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -63,17 +64,17 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector':  `.${elementId} .guten-caption`,
+        'selector': `.${elementId} .guten-caption`,
     });
 
     isNotEmpty(attributes['captionColor']) && data.push({
         'type': 'color',
         'id': 'captionColor',
         'selector': `.${elementId} .guten-caption`,
-        'properties' : [
+        'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -257,13 +258,13 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'property': ['vertical-align'],
-        'attributeType': 'align',
-        'selector': `.${elementId}.guten-element`,
-    });
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'property': ['vertical-align'],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
@@ -308,7 +309,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.video.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

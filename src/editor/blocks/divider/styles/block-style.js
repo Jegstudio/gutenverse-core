@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
@@ -8,8 +9,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct'
+                'name': 'color',
+                'valueType': 'direct'
             }
         ]
     });
@@ -21,12 +22,12 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
         'properties': [
             {
-                'name' : 'margin',
-                'valueType' : 'pattern',
-                'pattern' : '0 {value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'margin',
+                'valueType': 'pattern',
+                'pattern': '0 {value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -43,11 +44,11 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'unitPoint',
         'id': 'iconSize',
         'selector': `.${elementId} .guten-divider-content i`,
-        'responsive' : true,
-        'properties' : [
+        'responsive': true,
+        'properties': [
             {
-                'name' : 'font-size',
-                'valueType' : 'direct'
+                'name': 'font-size',
+                'valueType': 'direct'
             }
         ]
     });
@@ -60,12 +61,12 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}%',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'width',
+                'valueType': 'pattern',
+                'pattern': '{value}%',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -79,12 +80,12 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : '--divider-pattern-height',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': '--divider-pattern-height',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -98,12 +99,12 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'border-width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'border-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -117,12 +118,12 @@ const getBlockStyle = (elementId, attributes) => {
         'responsive': true,
         'properties': [
             {
-                'name' : 'padding',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px 0',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'padding',
+                'valueType': 'pattern',
+                'pattern': '{value}px 0',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -135,8 +136,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .guten-divider-line`,
         'properties': [
             {
-                'name' : 'border-color',
-                'valueType' : 'direct',
+                'name': 'border-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -147,8 +148,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId} .guten-divider-style`,
         'properties': [
             {
-                'name' : 'background-color',
-                'valueType' : 'direct',
+                'name': 'background-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -157,11 +158,11 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'dividerAlign',
         'selector': `.${elementId}.wp-block-gutenverse-divider`,
-        'responsive' : true,
+        'responsive': true,
         'properties': [
             {
-                'name' : 'justify-content',
-                'valueType' : 'direct',
+                'name': 'justify-content',
+                'valueType': 'direct',
             }
         ]
     });
@@ -307,6 +308,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         },
     );
+
     isNotEmpty(attributes['positioningType']) && isNotEmpty(attributes['positioningWidth']) && data.push(
         {
             'type': 'positioning',
@@ -321,6 +323,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         }
     );
+
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
@@ -333,6 +336,7 @@ const getBlockStyle = (elementId, attributes) => {
             'inBlock': attributes['inBlock']
         }
     });
+
     isNotEmpty(attributes['positioningAlign']) && data.push(
         {
             'type': 'plain',
@@ -359,6 +363,7 @@ const getBlockStyle = (elementId, attributes) => {
             'selector': `.${elementId}.guten-element`,
         }
     );
+
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
@@ -370,6 +375,7 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     });
+
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningLeft',
@@ -383,6 +389,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
+
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningRight',
@@ -409,6 +416,7 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
+
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
         'id': 'positioningBottom',
@@ -423,7 +431,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.divider.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

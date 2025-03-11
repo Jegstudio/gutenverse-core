@@ -1,4 +1,6 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
+
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
 
@@ -639,7 +641,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.feature-list.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export const featureListGetBlockStyle = (elementId, attribute) => {

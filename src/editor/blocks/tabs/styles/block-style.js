@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -10,9 +11,9 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-element.${elementId}`,
         'properties': [
             {
-                'name' : 'display',
-                'valueType' : 'pattern',
-                'pattern' : 'block'
+                'name': 'display',
+                'valueType': 'pattern',
+                'pattern': 'block'
             }
         ]
     });
@@ -23,9 +24,9 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-element.${elementId}`,
         'properties': [
             {
-                'name' : 'display',
-                'valueType' : 'pattern',
-                'pattern' : 'flex'
+                'name': 'display',
+                'valueType': 'pattern',
+                'pattern': 'flex'
             }
         ]
     });
@@ -36,9 +37,9 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-element.${elementId} .tab-heading-item`,
         'properties': [
             {
-                'name' : 'justify-content',
-                'valueType' : 'pattern',
-                'pattern' : 'center'
+                'name': 'justify-content',
+                'valueType': 'pattern',
+                'pattern': 'center'
             }
         ]
     });
@@ -49,9 +50,9 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-element.${elementId} .tab-heading-item`,
         'properties': [
             {
-                'name' : 'justify-content',
-                'valueType' : 'pattern',
-                'pattern' : 'end'
+                'name': 'justify-content',
+                'valueType': 'pattern',
+                'pattern': 'end'
             }
         ]
     });
@@ -67,12 +68,12 @@ const getBlockStyle = (elementId, attributes) => {
                     .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
         'properties': [
             {
-                'name' : 'border-width',
-                'valueType' : 'pattern',
-                'pattern' : '{value}px',
-                'patternValues' : {
-                    'value' : {
-                        'type' : 'direct'
+                'name': 'border-width',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
                     }
                 }
             }
@@ -91,8 +92,8 @@ const getBlockStyle = (elementId, attributes) => {
                     .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
         'properties': [
             {
-                'name' : 'border-color',
-                'valueType' : 'direct',
+                'name': 'border-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -106,8 +107,8 @@ const getBlockStyle = (elementId, attributes) => {
                     .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
         'properties': [
             {
-                'name' : 'background-color',
-                'valueType' : 'direct',
+                'name': 'background-color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -119,8 +120,8 @@ const getBlockStyle = (elementId, attributes) => {
                     .guten-tabs.${elementId} .tab-heading-item svg`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -134,8 +135,8 @@ const getBlockStyle = (elementId, attributes) => {
                     .guten-tabs.${elementId} .tab-heading-mobile .tab-option .tab-option-item`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -152,8 +153,8 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.guten-tabs.${elementId} .tab-body`,
         'properties': [
             {
-                'name' : 'color',
-                'valueType' : 'direct',
+                'name': 'color',
+                'valueType': 'direct',
             }
         ]
     });
@@ -359,18 +360,18 @@ const getBlockStyle = (elementId, attributes) => {
         ],
         'selector': `.${elementId}.guten-element`,
     },
-    {
-        'type': 'positioning',
-        'id': 'positioningAlign',
-        'properties': [
-            {
-                'name' : 'vertical-align',
-                'valueType' : 'direct'
-            }
-        ],
-        'attributeType': 'align',
-        'selector': `.${elementId}.guten-element`,
-    });
+        {
+            'type': 'positioning',
+            'id': 'positioningAlign',
+            'properties': [
+                {
+                    'name': 'vertical-align',
+                    'valueType': 'direct'
+                }
+            ],
+            'attributeType': 'align',
+            'selector': `.${elementId}.guten-element`,
+        });
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'plain',
         'id': 'positioningLocation',
@@ -387,8 +388,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningLeft',
         'properties': [
             {
-                'name' : 'left',
-                'valueType' : 'direct'
+                'name': 'left',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -400,8 +401,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningRight',
         'properties': [
             {
-                'name' : 'right',
-                'valueType' : 'direct'
+                'name': 'right',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -413,8 +414,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningTop',
         'properties': [
             {
-                'name' : 'top',
-                'valueType' : 'direct'
+                'name': 'top',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -426,8 +427,8 @@ const getBlockStyle = (elementId, attributes) => {
         'id': 'positioningBottom',
         'properties': [
             {
-                'name' : 'bottom',
-                'valueType' : 'direct'
+                'name': 'bottom',
+                'valueType': 'direct'
             }
         ],
         'responsive': true,
@@ -435,7 +436,17 @@ const getBlockStyle = (elementId, attributes) => {
         'attributeType': 'custom',
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.tabs.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 export default getBlockStyle;

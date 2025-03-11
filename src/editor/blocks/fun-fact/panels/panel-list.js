@@ -93,12 +93,12 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Transform', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: transformPanel,
-        //     pro: true
-        // },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
         // {
         //     title: __('Mouse Move Effect', 'gutenverse'),
         //     initialOpen: false,

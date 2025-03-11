@@ -37,16 +37,16 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Transform', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: (props) => transformPanel({
-        //         ...props,
-        //         selector: `.${props.elementId} .guten-button`,
-        //         hoverSelector: `.${props.elementId} .guten-button:hover`,
-        //     }),
-        //     pro: true
-        // },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => transformPanel({
+                ...props,
+                selector: `.${props.elementId} .guten-button`,
+                hoverSelector: `.${props.elementId} .guten-button:hover`,
+            }),
+            pro: true
+        },
         // {
         //     title: __('Mouse Move Effect', 'gutenverse'),
         //     initialOpen: false,

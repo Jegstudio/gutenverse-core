@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const panelAvatarData = (elementId, attributes, data) => {
 
@@ -1078,7 +1079,18 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
-    return data;
+
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.post-comment.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 

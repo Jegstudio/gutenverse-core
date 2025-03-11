@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 import percentageStyle from './panel-style/style-percentage';
 import progressStyle from './panel-style/style-progress';
 import titleStyle from './panel-style/style-title';
@@ -265,7 +266,17 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.progress-bar.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 
