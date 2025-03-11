@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withCursorEffect, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPartialRender, withPassRef, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
+import { withPartialRender, withPassRef, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';

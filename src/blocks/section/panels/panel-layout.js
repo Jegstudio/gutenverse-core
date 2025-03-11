@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 
 export const layoutPanel = (props) => {
     const {
@@ -55,13 +55,6 @@ export const layoutPanel = (props) => {
                     ],
                 }
             ]
-        },
-        {
-            id: 'wrapColumn',
-            label: __('Wrap Column 100%', '--gctd--'),
-            description: __('If the current wrap is unchecked, it will use the higher resolution\'s wrap value.', '--gctd--'),
-            allowDeviceControl: true,
-            component: CheckboxControl,
         },
         {
             id: 'gap',

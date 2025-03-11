@@ -294,13 +294,17 @@ abstract class Style_Interface {
 		foreach ( $devices as $device ) {
 			$this->generated[ $device ][ $selector ] = array();
 			if ( 'Desktop' === $device ) {
-				if ( isset( $value[ $device ] ) ) {
+				if ( isset( $this->attrs['forceColumnHundred']['Desktop'] ) ) {
+					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
+				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
 				}
 			}
 
 			if ( 'Tablet' === $device ) {
-				if ( isset( $value[ $device ] ) ) {
+				if ( isset( $this->attrs['forceColumnHundred']['Tablet'] ) ) {
+					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
+				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
 				} else {
 					$this->generated[ $device ][ $selector ][] = "width: {$value['Desktop']}%;";
@@ -308,8 +312,10 @@ abstract class Style_Interface {
 			}
 
 			if ( 'Mobile' === $device ) {
-				$selector = ".guten-section {$selector}.guten-column ";
-				if ( isset( $value[ $device ] ) ) {
+				$selector = "{$selector}.guten-element";
+				if ( isset( $this->attrs['forceColumnHundred']['Mobile'] ) ) {
+					$this->generated[ $device ][ $selector ][] = 'width: 100%;';
+				} elseif ( isset( $value[ $device ] ) ) {
 					$this->generated[ $device ][ $selector ]   = array();
 					$this->generated[ $device ][ $selector ][] = "width: {$value[$device]}%;";
 				}
@@ -510,7 +516,7 @@ abstract class Style_Interface {
 						if ( strlen( $hex ) === 3 ) {
 							$hex = str_repeat( $hex[0], 2 ) . str_repeat( $hex[1], 2 ) . str_repeat( $hex[2], 2 );
 						}
-						return  array(
+						return array(
 							'r' => hexdec( substr( $hex, 0, 2 ) ),
 							'g' => hexdec( substr( $hex, 2, 2 ) ),
 							'b' => hexdec( substr( $hex, 4, 2 ) ),

@@ -46,7 +46,7 @@ export const backgroundPanel = (props) => {
             {
                 'type': 'background',
                 'id': 'background',
-                'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                'selector': normalSelector ? normalSelector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
             }
         ],
     },

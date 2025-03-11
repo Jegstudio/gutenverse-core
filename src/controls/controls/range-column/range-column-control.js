@@ -178,22 +178,31 @@ const RangeColumnControl = (props) => {
     const cacheOption = () => {
         const columns = getBlock(rootClientId)?.innerBlocks;
         const totalColumn = columns?.length;
+        let isOneForced100 = false;
 
-        const nextColumnId = getNextBlockClientId(clientId, rootClientId);
-        const previousColumnId = getPreviousBlockClientId(clientId, rootClientId);
-        const neightborId = totalColumn > 1 ? nextColumnId === null ? previousColumnId : nextColumnId : null;
-        setNightborClientId(neightborId);
-
-        setTotalWidth(100 - columns.reduce((value, column) => {
-            const { clientId: currentClientId, attributes } = column;
-            const { width } = attributes;
-
-            if (currentClientId !== clientId && neightborId !== currentClientId) {
-                return value + width[deviceType];
-            } else {
-                return value;
+        columns.forEach(column => {
+            if (column?.attributes?.forceColumnHundred && column?.attributes?.forceColumnHundred['Desktop']) {
+                isOneForced100 = true;
             }
-        }, 0));
+        });
+
+        if (!isOneForced100) {
+            const nextColumnId = getNextBlockClientId(clientId, rootClientId);
+            const previousColumnId = getPreviousBlockClientId(clientId, rootClientId);
+            const neightborId = totalColumn > 1 ? nextColumnId === null ? previousColumnId : nextColumnId : null;
+            setNightborClientId(neightborId);
+
+            setTotalWidth(100 - columns.reduce((value, column) => {
+                const { clientId: currentClientId, attributes } = column;
+                const { width } = attributes;
+
+                if (currentClientId !== clientId && neightborId !== currentClientId) {
+                    return value + width[deviceType];
+                } else {
+                    return value;
+                }
+            }, 0));
+        }
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>

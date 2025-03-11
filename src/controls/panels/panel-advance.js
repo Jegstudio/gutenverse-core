@@ -32,7 +32,7 @@ export const advancePanel = (props) => {
             },
             style: [
                 {
-                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                     frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
                     render: value => {
                         return handleDimension(value, 'margin');
@@ -66,7 +66,7 @@ export const advancePanel = (props) => {
             },
             style: [
                 {
-                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                     frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
                     render: value => handleDimension(value, 'padding')
                 }
@@ -82,7 +82,7 @@ export const advancePanel = (props) => {
             step: 1,
             style: [
                 {
-                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    selector: selector ? selector : `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                     frontendSelector: frontendSelector ? frontendSelector : `.${elementId}`,
                     render: value => `z-index: ${value};`
                 }

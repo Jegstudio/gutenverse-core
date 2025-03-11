@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -7,7 +8,12 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'width',
         'responsive': true,
-        'selector': `.${elementId}`,
+        'responsiveSelector': true,
+        'selector': {
+            'Desktop': `.${elementId}`,
+            'Tablet': `.${elementId}`,
+            'Mobile': `.guten-element.${elementId}`,
+        },
         'properties': [
             {
                 'name': 'width',
@@ -18,6 +24,25 @@ const getBlockStyle = (elementId, attributes) => {
                         'type': 'direct',
                     },
                 }
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['forceColumnHundred']) && data.push({
+        'type': 'plain',
+        'id': 'forceColumnHundred',
+        'responsive': true,
+        'responsiveSelector': true,
+        'selector': {
+            'Desktop': `.${elementId}`,
+            'Tablet': `.${elementId}`,
+            'Mobile': `.guten-element.${elementId}`,
+        },
+        'properties': [
+            {
+                'name': 'width',
+                'valueType': 'static',
+                'staticValue': '100%',
             }
         ],
     });
@@ -350,7 +375,17 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
-    return data;
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.column.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 

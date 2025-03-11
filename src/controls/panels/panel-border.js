@@ -38,7 +38,7 @@ export const borderPanel = (props) => {
                 {
                     'type': 'border',
                     'id': 'border',
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [
@@ -59,7 +59,7 @@ export const borderPanel = (props) => {
                 {
                     'type': 'borderResponsive',
                     'id': 'borderResponsive',
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [
@@ -125,7 +125,7 @@ export const borderPanel = (props) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
                 }
             ],
             style: [

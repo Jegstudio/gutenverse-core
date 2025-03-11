@@ -101,7 +101,6 @@ export const panelList = () => {
         },
 
         // Pro
-
         {
             title: __('Sticky', '--gctd--'),
             panelArray: stickyPanel,
