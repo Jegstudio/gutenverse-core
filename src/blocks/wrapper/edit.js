@@ -16,6 +16,7 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
@@ -80,8 +81,6 @@ const FlexibleWrapper = compose(
         attributes,
         isSelected,
         setAttributes,
-        panelIsClicked,
-        setPanelIsClicked,
         slideElement,
         setBlockRef
     } = props;
@@ -96,6 +95,11 @@ const FlexibleWrapper = compose(
         linkTarget,
         background
     } = attributes;
+
+    const {
+        panelIsClicked,
+        setPanelIsClicked
+    } = useRichTextParameter();
 
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
@@ -152,7 +156,7 @@ const FlexibleWrapper = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar
