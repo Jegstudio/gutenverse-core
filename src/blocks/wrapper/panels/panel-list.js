@@ -116,13 +116,13 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Transform', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: transformPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         // {
         //     title: __('Mouse Move Effect', 'gutenverse'),
         //     initialOpen: false,

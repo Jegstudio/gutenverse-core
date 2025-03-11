@@ -1,4 +1,5 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
+import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
     let data = [];
@@ -433,7 +434,18 @@ const getBlockStyle = (elementId, attributes) => {
         },
         'selector': `.${elementId}.guten-element`,
     });
-    return data;
+
+    return [
+        ...data,
+        ...applyFilters(
+            'gutenverse.wrapper.blockStyle',
+            [],
+            {
+                elementId,
+                attributes
+            }
+        )
+    ];
 };
 
 
