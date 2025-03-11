@@ -4,7 +4,7 @@ import { default as SectionVariation } from './components/section-variation';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import classnames from 'classnames';
 import SectionLayoutToolbar from './components/section-layout-toolbar';
-import { withCursorEffect, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withCopyElementToolbar, withAnimationAdvanceV2, withAnimationStickyV2, withPassRef, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
+import { withCursorEffect, withBackgroundEffect, withMouseMoveEffect, withPartialRender, withBackgroundSlideshow, withAnimationAdvanceV2, withAnimationStickyV2, withPassRef, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import { compose } from '@wordpress/compose';
 import SectionVideoContainer from './components/section-video-container';
 import { panelList } from './panels/panel-list';
@@ -23,6 +23,7 @@ import isEmpty from 'lodash/isEmpty';
 import { roundToDown } from 'round-to';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SectionPlaceholder = ({ clientId, name, wrapper }) => {
     const { getBlockType } = useSelect((select) => select('core/blocks'), []);
@@ -152,7 +153,6 @@ const SectionBlockControl = ({ attributes, setAttributes, clientId }) => {
 const SectionBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationStickyV2(),
     withAnimationAdvanceV2('section'),
     withAnimationBackgroundV2(),
@@ -251,6 +251,7 @@ const SectionBlock = compose(
     const dataId = elementId ? elementId.split('-')[1] : '';
 
     return <>
+        <CopyElementToolbar {...props}/>
         <SectionBlockControl {...props} clientId={clientId} />
         <SectionInspection {...props} elementRef={elementRef} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
