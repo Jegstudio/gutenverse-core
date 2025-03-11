@@ -10,16 +10,15 @@ import { addQueryArgs } from '@wordpress/url';
 import { RawHTML } from '@wordpress/element';
 import { PostListSkeleton, u } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostListBlock = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -314,6 +313,7 @@ const PostListBlock = compose(
     });
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {!loading ? <RawHTML key="html" className="guten-raw-wrapper">

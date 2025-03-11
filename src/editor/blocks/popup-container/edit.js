@@ -1,13 +1,10 @@
-import { compose } from '@wordpress/compose';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
-const PopupContainer = compose(
-    withCopyElementToolbar()
-)((props) => {
+const PopupContainer = (props) => {
     const {
         clientId,
         attributes,
@@ -18,6 +15,7 @@ const PopupContainer = compose(
     } = attributes;
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props}/>
         <div className={classnames(
             'guten-element',
@@ -32,6 +30,6 @@ const PopupContainer = compose(
             </div>
         </div>
     </>;
-});
+};
 
 export default PopupContainer;

@@ -14,14 +14,14 @@ import TextStylePop from './components/text-style-pop';
 import TextStyleSlide from './components/text-style-slide';
 import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
-import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -88,6 +88,7 @@ const AnimatedTextBlock = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             {loadAnimatedtext()}

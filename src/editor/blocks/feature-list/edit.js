@@ -5,16 +5,16 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useRef } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const FeatureListBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('feature-list'),
     // withMouseMoveEffect
 )((props) => {
@@ -78,6 +78,7 @@ const FeatureListBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="feature-list-wrapper">

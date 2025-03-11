@@ -5,13 +5,13 @@ import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { plus } from 'gutenverse-core/components';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -19,7 +19,6 @@ import getBlockStyle from './styles/block-style';
 const Accordions = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('accordions'),
     // withMouseMoveEffect
 )(props => {
@@ -104,6 +103,7 @@ const Accordions = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props} />
         <InspectorControls>
             <div className={'parent-button'}>
                 <Button primary={true} onClick={() => addChild()}>

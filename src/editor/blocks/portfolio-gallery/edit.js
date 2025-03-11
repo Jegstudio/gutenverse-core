@@ -2,18 +2,18 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { panelList } from './panels/panel-list';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PortfolioGalleryBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('portfolio-gallery')
     // withMouseMoveEffect,
 )(props => {
@@ -86,6 +86,7 @@ const PortfolioGalleryBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className={`portfolio-gallery-container ${behavior}`}>

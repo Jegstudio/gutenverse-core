@@ -3,7 +3,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
@@ -12,6 +12,7 @@ import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -21,8 +22,7 @@ const Placeholder = () => {
 };
 
 const PostContentBlock = compose(
-    withPartialRender,
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
@@ -54,6 +54,7 @@ const PostContentBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Content works?', 'gutenverse')}

@@ -6,7 +6,7 @@ import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { imagePlaceholder } from 'gutenverse-core/config';
@@ -14,10 +14,10 @@ import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostFeaturedImageBlock = compose(
-    withPartialRender,
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
@@ -74,6 +74,7 @@ const PostFeaturedImageBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Featured Image works?', 'gutenverse')}

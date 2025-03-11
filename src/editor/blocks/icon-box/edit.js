@@ -16,7 +16,7 @@ import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
@@ -26,13 +26,13 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBoxBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('icon-box'),
     // withMouseMoveEffect
 )((props) => {
@@ -223,6 +223,7 @@ const IconBoxBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         <BlockControls>
             <ToolbarGroup>

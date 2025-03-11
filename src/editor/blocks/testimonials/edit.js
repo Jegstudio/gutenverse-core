@@ -8,17 +8,16 @@ import WPSwiper from '../../components/swiper/wp-swiper';
 import ContentItem from './components/content-item';
 import { swiperSettings } from '../../components/swiper/helper';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const TestimonialsBlock = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {
 
@@ -72,6 +71,7 @@ const TestimonialsBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="testimonials-list" onClick={focusBlock}>

@@ -5,17 +5,17 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostTitleBlock = compose(
-    withPartialRender,
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
@@ -54,6 +54,7 @@ const PostTitleBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Title works?', 'gutenverse')}

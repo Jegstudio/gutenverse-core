@@ -11,7 +11,7 @@ import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef, useState } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
@@ -20,6 +20,7 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -221,7 +222,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
 const ImageBoxBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('image-box')
     // withMouseMoveEffect
 )((props) => {
@@ -326,6 +326,7 @@ const ImageBoxBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',

@@ -5,16 +5,16 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { encodeDataToURL } from 'gutenverse-core/helper';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-styles';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const GoogleMapsBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('google-maps'),
     // withMouseMoveEffect
 )((props) => {
@@ -76,6 +76,7 @@ const GoogleMapsBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <iframe {...iframeParam} />

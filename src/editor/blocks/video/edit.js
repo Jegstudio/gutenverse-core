@@ -12,11 +12,12 @@ import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { AlertControl } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
     const playerStyle = {};
@@ -78,7 +79,6 @@ const VideoPicker = (props) => {
 const VideoBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('video'),
     // withMouseMoveEffect
 )((props) => {
@@ -195,6 +195,7 @@ const VideoBlock = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <div className={'header-control'}>
                 <AlertControl type={'warning'}>

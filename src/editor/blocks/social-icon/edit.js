@@ -14,7 +14,7 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
@@ -24,13 +24,13 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('social-icon')
 )(props => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
@@ -130,6 +130,7 @@ const SocialIcon = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <SelectParent {...props}>
                 {__('Modify Icon Group', 'gutenverse')}

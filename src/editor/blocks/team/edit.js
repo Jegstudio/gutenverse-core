@@ -5,17 +5,17 @@ import { panelList } from './panels/panel-list';
 import TeamProfile from './components/team-profile';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const TeamBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('team'),
     // withMouseMoveEffect
 )((props) => {
@@ -76,6 +76,7 @@ const TeamBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div  {...blockProps}>
             <TeamProfile

@@ -1,4 +1,3 @@
-import { compose } from '@wordpress/compose';
 import { useCallback, useState, useEffect, useRef } from '@wordpress/element';
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
@@ -12,7 +11,6 @@ import { IconLibrary } from 'gutenverse-core/controls';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
@@ -22,12 +20,11 @@ import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-const IconListItemBlock = compose(
-    withCopyElementToolbar(),
-)((props) => {
+const IconListItemBlock = (props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
     const {
@@ -124,6 +121,7 @@ const IconListItemBlock = compose(
     }, [dynamicUrl, dynamicHref]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <SelectParent {...props}>
                 {__('Modify Icon Group', 'gutenverse')}
@@ -191,6 +189,6 @@ const IconListItemBlock = compose(
             </a>
         </li>
     </>;
-});
+};
 
 export default IconListItemBlock;

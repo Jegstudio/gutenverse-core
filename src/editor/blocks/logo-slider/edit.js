@@ -7,12 +7,12 @@ import { panelList } from './panels/panel-list';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { Swiper, swiperSettings } from '../../components/swiper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const logoNormalLazyLoad = (logo) => {
     if (logo.lazyLoad) {
@@ -30,7 +30,6 @@ export const logoHoverLazyLoad = (logo) => {
 };
 const LogoSlider = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )((props) => {
     const {
@@ -110,6 +109,7 @@ const LogoSlider = compose(
     ]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr} />
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>

@@ -13,7 +13,6 @@ import { displayShortcut } from '@wordpress/keycodes';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'gutenverse-core/components';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { reorder } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
@@ -21,6 +20,7 @@ import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const TabHeadingItem = ({
     tab,
@@ -163,7 +163,6 @@ const TabHeading = ({
 
 const Tabs = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )(props => {
     const {
@@ -337,6 +336,7 @@ const Tabs = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <BlockControls>
             <ToolbarGroup>

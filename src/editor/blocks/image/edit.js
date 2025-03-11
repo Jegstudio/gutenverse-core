@@ -13,13 +13,14 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -111,7 +112,6 @@ const ImagePicker = (props) => {
 const ImageBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('image')
     // withMouseMoveEffect
 )((props) => {
@@ -271,6 +271,7 @@ const ImageBlock = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {imgSrc && <BlockControls>
             <ToolbarGroup>

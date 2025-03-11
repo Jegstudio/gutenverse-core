@@ -10,16 +10,16 @@ import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
 import { u } from 'gutenverse-core/components';
 import Shuffle from 'shufflejs';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const GalleryBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('gallery'),
     // withMouseMoveEffect
 )((props) => {
@@ -191,6 +191,7 @@ const GalleryBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} liveAttr={liveAttr} setLiveAttr={setLiveAttr} />
         {showPopup && createPortal(<GalleryPopup activeIndex={activeIndex} {...attributes} onClose={() => setShowPop(false)} />, gutenverseRoot)}
         <div  {...blockProps} data-grid={grid}>

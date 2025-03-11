@@ -9,6 +9,7 @@ import { SelectParent } from 'gutenverse-core/components';
 import { isOnEditor } from 'gutenverse-core/helper';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SingleSocialShare = (props) => {
     const {
@@ -40,6 +41,7 @@ const SingleSocialShare = (props) => {
     });
 
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <SelectParent {...props}>
                 {__('Modify Share Group', 'gutenverse')}

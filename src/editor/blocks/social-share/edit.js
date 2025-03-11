@@ -9,15 +9,14 @@ import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SocialShare = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect
 )(props => {
     const {
@@ -81,6 +80,7 @@ const SocialShare = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...innerBlocksProps} />
     </>;

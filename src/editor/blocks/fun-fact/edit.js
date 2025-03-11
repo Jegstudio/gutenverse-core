@@ -7,15 +7,15 @@ import { panelList } from './panels/panel-list';
 import anime from 'animejs';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const FunFactBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('fun-fact'),
     // withMouseMoveEffect
 )((props) => {
@@ -102,6 +102,7 @@ const FunFactBlock = compose(
     });
 
     return <>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div className="fun-fact-inner">

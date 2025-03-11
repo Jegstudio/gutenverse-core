@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -11,11 +11,11 @@ import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const AdvancedHeadingBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('advance-heading'),
     // withMouseMoveEffect
 )((props) => {
@@ -43,9 +43,6 @@ const AdvancedHeadingBlock = compose(
     } = useRichTextParameter();
 
     const elementRef = useRef(null);
-    // const focusTextRef = useRef();
-    // const textRef = useRef();
-    // const subTextRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     useGenerateElementId(clientId, elementId, elementRef);
@@ -94,6 +91,7 @@ const AdvancedHeadingBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div  {...blockProps}>
             {showLine === 'top' && <div className="heading-line top"></div>}

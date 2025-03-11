@@ -1,10 +1,10 @@
 import { useEffect, useRef } from '@wordpress/element';
-import { RichTextComponent, classnames } from 'gutenverse-core/components';
+import { RichTextComponent, classnames, CopyElementToolbar } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceV2, withCopyElementToolbar, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -57,7 +57,6 @@ const HeadingInspection = (props) => {
 const HeadingBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('heading'),
     // withMouseMoveEffect,
 )(props => {
@@ -104,6 +103,7 @@ const HeadingBlock = compose(
     }, [elementRef]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <HeadingInspection {...props} elementRef={elementRef} panelState={panelState} />
         <HeadingBlockControl {...props} />
         <span ref={elementRef} style={{ display: 'none' }}></span>

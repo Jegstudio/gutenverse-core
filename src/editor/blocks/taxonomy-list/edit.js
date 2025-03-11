@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import {
     useBlockProps,
 } from '@wordpress/block-editor';
@@ -13,10 +13,10 @@ import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const IconListBlock = compose(
     withPartialRender,
-    withCopyElementToolbar(),
     // withMouseMoveEffect,
 )((props) => {
     const {
@@ -120,6 +120,7 @@ const IconListBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {!loading ? <RawHTML key="html" className="guten-raw-wrapper">

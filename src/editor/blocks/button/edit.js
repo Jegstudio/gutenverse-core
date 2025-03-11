@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withCopyElementToolbar, withPartialRender, withPassRef, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
+import { withPartialRender, withPassRef, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -21,13 +21,13 @@ import getBlockStyle from './styles/block-style';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('button'),
     // withMouseMoveEffect
 )((props) => {
@@ -256,6 +256,7 @@ const ButtonBlock = compose(
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {openIconLibrary && createPortal(
             <IconLibrary

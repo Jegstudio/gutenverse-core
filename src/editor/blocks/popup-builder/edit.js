@@ -1,4 +1,3 @@
-import { compose } from '@wordpress/compose';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
@@ -7,16 +6,13 @@ import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
-const PopupBuilder = compose(
-    withCopyElementToolbar(),
-    // withMouseMoveEffect
-)((props) => {
+const PopupBuilder = (props) => {
     const {
         attributes,
         clientId
@@ -83,6 +79,7 @@ const PopupBuilder = compose(
     };
 
     return <>
+        <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="guten-popup-holder" onClick={toggleShow}>
@@ -118,6 +115,6 @@ const PopupBuilder = compose(
             </div>}
         </div>
     </>;
-});
+};
 
 export default PopupBuilder;
