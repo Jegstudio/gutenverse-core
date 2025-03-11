@@ -1,9 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BorderControl, BorderResponsiveControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, HeadingControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const imagePanel = ({ elementId }) => {
+export const imagePanel = (props) => {
+    const {
+        elementId,
+        switcher,
+        setSwitcher
+    } = props;
     const device = getDeviceType();
 
     return [
@@ -105,8 +110,24 @@ export const imagePanel = ({ elementId }) => {
             ]
         },
         {
+            id: '__imageHover',
+            component: SwitchControl,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __imageHover }) => setSwitcher({ ...switcher, imageHover: __imageHover })
+        },
+        {
             id: 'opacity',
-            label: __('Opacity', 'gutenverse'),
+            label: __('Opacity normal', 'gutenverse'),
+            show: !switcher.imageHover || switcher.imageHover === 'normal',
             component: RangeControl,
             min: 0.1,
             max: 1,
@@ -128,7 +149,8 @@ export const imagePanel = ({ elementId }) => {
         },
         {
             id: 'imgFilter',
-            label: __('Image Filter', 'gutenverse'),
+            label: __('Image Filter Normal', 'gutenverse'),
+            show: !switcher.imageHover || switcher.imageHover === 'normal',
             component: ImageFilterControl,
             liveStyle: [
                 {
@@ -144,6 +166,54 @@ export const imagePanel = ({ elementId }) => {
                     ],
                 }
             ]
+        },
+        {
+            id: 'opacityHover',
+            label: __('Opacity Hover', 'gutenverse'),
+            show: switcher.imageHover === 'hover',
+            component: RangeControl,
+            min: 0.1,
+            max: 1,
+            step: 0.1,
+            isParseFloat: false,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'opacityHover',
+                    'selector': `.${elementId}.guten-image:hover img`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'imgFilterHover',
+            label: __('Image Filter Hover', 'gutenverse'),
+            show: switcher.imageHover === 'hover',
+            component: ImageFilterControl,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'imgFilterHover',
+                    'selector': `.${elementId}.guten-image:hover img`,
+                    'properties': [
+                        {
+                            'name': 'filter',
+                            'valueType': 'function',
+                            'functionName': 'handleFilterImage',
+                        }
+                    ],
+                }
+            ]
+        },
+        {
+            id: 'hoverDivider',
+            component: HeadingControl,
+            label: __('', 'gutenverse'),
         },
         {
             id: 'imageFit',

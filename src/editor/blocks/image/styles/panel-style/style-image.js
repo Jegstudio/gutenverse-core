@@ -66,6 +66,31 @@ const panelImageStyle = (elementId, attributes, data) => {
         ],
     });
 
+    isNotEmpty(attributes['opacityHover']) && data.push({
+        'type': 'plain',
+        'id': 'opacityHover',
+        'selector': `.${elementId}.guten-image:hover img`,
+        'properties': [
+            {
+                'name': 'opacity',
+                'valueType': 'direct'
+            }
+        ]
+    });
+
+    isNotEmpty(attributes['imgFilterHover']) && data.push({
+        'type': 'plain',
+        'id': 'imgFilterHover',
+        'selector': `.${elementId}.guten-image:hover img`,
+        'properties': [
+            {
+                'name': 'filter',
+                'valueType': 'function',
+                'functionName': 'handleFilterImage',
+            }
+        ],
+    });
+
     isNotEmpty(attributes['imageFit']) && data.push({
         'type': 'plain',
         'id': 'imageFit',

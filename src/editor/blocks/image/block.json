@@ -60,6 +60,14 @@
       "type": "object",
       "copyStyle": true
     },
+    "opacityHover": {
+      "type": "string",
+      "copyStyle": true
+    },
+    "imgFilterHover": {
+      "type": "object",
+      "copyStyle": true
+    },
     "imgFit": {
       "type": "object",
       "copyStyle": true
