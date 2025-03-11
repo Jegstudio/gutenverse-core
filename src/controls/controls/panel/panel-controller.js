@@ -50,7 +50,7 @@ const PanelController = ({ ...props }) => {
         panelList,
         elementRef,
         panelState = { panel: null, section: 0 },
-        setPanelIsClicked,
+        setPanelIsClicked = () => {},
     } = props;
 
     const [switcher, setSwitcher] = useState({});
