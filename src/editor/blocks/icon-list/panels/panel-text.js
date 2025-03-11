@@ -60,7 +60,7 @@ export const panelText = (props) => {
                     'selector': `.${elementId} .guten-icon-list-item .list-text, .block-editor-block-list__layout .wp-block.${elementId} .guten-icon-list-item .list-text`,
                     'properties': [
                         {
-                            'name': 'padding-left',
+                            'name': 'gap',
                             'valueType': 'pattern',
                             'pattern': '{value}px',
                             'patternValues': {

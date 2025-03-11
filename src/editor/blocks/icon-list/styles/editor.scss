@@ -1,7 +1,10 @@
 .guten-icon-list{
+    ul{
+        margin: 0px;
+    }
     .list-wrapper{
         list-style: none;
-        padding: 0;
+        padding: 0px;
         display: flex;
         flex-direction: column;
 
