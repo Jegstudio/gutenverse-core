@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 export const dimensionCSS = (attribute, prefix = '', multi = true, min = 0) => {
     const { dimension, unit } = attribute;
     const positions = ['top', 'right', 'bottom', 'left'];
@@ -40,24 +42,27 @@ export const dimensionGenerator = (attribute, style, css) => {
     const { selector, responsive = false } = style;
     if (!responsive) {
         const value = multiProperty(attribute, style);
-        if (value) css.Desktop = `${selector} { ` + value + ' }';
+        let new_string = value.replace(' ', '');
+        if (!isEmpty(new_string)) css.Desktop = `${selector} { ` + value + ' }';
     }
 
     if (responsive) {
         if (attribute['Desktop']) {
             const value = multiProperty(attribute['Desktop'], style);
-            if (value) css.Desktop = `${selector} { ` + value + ' }';
+            let new_string = value.replace(' ', '');
+            if (!isEmpty(new_string)) css.Desktop = `${selector} { ` + value + ' }';
         }
         if (attribute['Tablet']) {
             const value = multiProperty(attribute['Tablet'], style);
-            if (value) css.Tablet = `${selector} { ` + value + ' }';
+            let new_string = value.replace(' ', '');
+            if (!isEmpty(new_string)) css.Tablet = `${selector} { ` + value + ' }';
         }
         if (attribute['Mobile']) {
             const value = multiProperty(attribute['Mobile'], style);
-            if (value) css.Mobile = `${selector} { ` + value + ' }';
+            let new_string = value.replace(' ', '');
+            if (!isEmpty(new_string)) css.Mobile = `${selector} { ` + value + ' }';
         }
     }
-
     return css;
 };
 
