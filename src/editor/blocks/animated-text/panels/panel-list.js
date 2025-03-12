@@ -95,11 +95,11 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Condition', 'gutenverse'),
-        //     panelArray: conditionPanel,
-        //     initialOpen: false,
-        //     pro: true
-        // },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
     ];
 };
