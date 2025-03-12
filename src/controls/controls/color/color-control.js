@@ -293,6 +293,7 @@ const ColorControl = (props) => {
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(allowDeviceControl ? {} : '');
+                            setLocalColor(allowDeviceControl ? {} : '');
                         }} />
                     </span>
                 </Tooltip>
