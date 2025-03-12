@@ -130,14 +130,14 @@ class Image extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['opacityhover'] ) ) {
+		if ( isset( $this->attrs['opacityHover'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id}:hover img",
 					'property'       => function ( $value ) {
 						return "opacity: {$value};";
 					},
-					'value'          => $this->attrs['opacityhover'],
+					'value'          => $this->attrs['opacityHover'],
 					'device_control' => false,
 				)
 			);
