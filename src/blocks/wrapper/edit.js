@@ -6,7 +6,6 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useRef } from '@wordpress/element';
 import { useCallback } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
@@ -16,6 +15,8 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
@@ -63,7 +64,6 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 const FlexibleWrapper = compose(
     withPartialRender,
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationAdvanceV2('wrapper'),
     withAnimationBackgroundV2(),
     // withMouseMoveEffect,
@@ -80,8 +80,6 @@ const FlexibleWrapper = compose(
         attributes,
         isSelected,
         setAttributes,
-        panelIsClicked,
-        setPanelIsClicked,
         slideElement,
         setBlockRef
     } = props;
@@ -96,6 +94,11 @@ const FlexibleWrapper = compose(
         linkTarget,
         background
     } = attributes;
+
+    const {
+        panelIsClicked,
+        setPanelIsClicked
+    } = useRichTextParameter();
 
     const elementRef = useRef();
     useGenerateElementId(clientId, elementId, elementRef);
@@ -152,7 +155,8 @@ const FlexibleWrapper = compose(
     }, [elementRef]);
 
     return <>
-        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar

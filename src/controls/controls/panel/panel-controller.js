@@ -10,7 +10,7 @@ import PanelTabPro from './panel-tab-pro';
 import { u } from 'gutenverse-core/components';
 import { dispatch, select } from '@wordpress/data';
 
-export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef }) => {
+export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef, panelState, setPanelIsClicked }) => {
     const { panelProps, isSelected, setAttributes } = props;
     const defaultPanelProps = {
         ...panelProps,
@@ -25,6 +25,8 @@ export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr
         isSelected={isSelected}
         deviceType={deviceType}
         elementRef={elementRef}
+        panelState = {panelState}
+        setPanelIsClicked = {setPanelIsClicked}
         {...props}
     />;
 };
@@ -47,8 +49,8 @@ const PanelController = ({ ...props }) => {
         panelProps,
         panelList,
         elementRef,
-        panelState,
-        setPanelIsClicked,
+        panelState = { panel: null, section: 0 },
+        setPanelIsClicked = () => {},
     } = props;
 
     const [switcher, setSwitcher] = useState({});
@@ -59,7 +61,7 @@ const PanelController = ({ ...props }) => {
     }, [activeTab]);
 
     useEffect(() => {
-        const { panel = null, section = 0 } = panelState;
+        const { panel, section } = panelState;
 
         if (null !== panel && 0 !== section) {
             openSidebar();

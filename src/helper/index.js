@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
 import { useSetting, useSettings } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -726,4 +727,11 @@ export const isNotEmpty = (val) => {
     if (Array.isArray(val)) return val.length !== 0; // Empty array
     if (typeof val === 'object' && val !== null) return Object.keys(val).length !== 0; // Empty object
     return !!val;
+};
+
+export const useRichTextParameter = () => {
+    const [panelState, setPanelState] = useState({panel : null, section : 0});
+    const [panelIsClicked, setPanelIsClicked] = useState(false);
+
+    return { panelState, setPanelState, panelIsClicked, setPanelIsClicked };
 };

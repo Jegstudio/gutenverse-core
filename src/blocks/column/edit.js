@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from '@wordpress/element';
 import { InnerBlocks, useBlockProps, Inserter, BlockControls } from '@wordpress/block-editor';
 import classnames from 'classnames';
 import { compose, debounce } from '@wordpress/compose';
-import { withCopyElementToolbar, withCursorEffect, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
+import { withCursorEffect, withMouseMoveEffect, withBackgroundEffect, withBackgroundSlideshow, withPassRef, withAnimationStickyV2, withAnimationAdvanceV2, withAnimationBackgroundV2 } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { PanelController } from 'gutenverse-core/controls';
 import { removeLiveStyle, setDeviceClasses, updateLiveStyle, useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -21,6 +21,7 @@ import isEmpty from 'lodash/isEmpty';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
 import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const getPosition = (blockId) => {
     const parentClientId = useSelect((select) => {
@@ -730,7 +731,6 @@ const ColumnBlockControl = (props) => {
 // Column Block edit component
 const ColumnBlock = compose(
     withPassRef,
-    withCopyElementToolbar(),
     withAnimationStickyV2(),
     withAnimationAdvanceV2('column'),
     withAnimationBackgroundV2(),
@@ -992,6 +992,7 @@ const ColumnBlock = compose(
     const Component = hasChildBlocks ? ColumnWrapper : ColumnPlaceholder;
 
     return <>
+        <CopyElementToolbar {...props}/>
         {isSelected && <ColumnBlockControl {...props} updateBlockWidth={updateBlockWidth} adjacentBlock={adjacentBlock} clientId={clientId} />}
         <ColumnInspection {...props} setAttributes={setAttributes} elementRef={elementRef} />
         <Component {...theProps} />
