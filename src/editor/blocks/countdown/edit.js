@@ -4,7 +4,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -15,7 +15,7 @@ const CountDownBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('countdown'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

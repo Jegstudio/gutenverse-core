@@ -13,7 +13,7 @@ import { imagePlaceholder } from 'gutenverse-core/config';
 import { useEffect } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
 import { isEmpty } from 'lodash';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
@@ -112,8 +112,8 @@ const ImagePicker = (props) => {
 const ImageBlock = compose(
     withPartialRender,
     withPassRef,
-    withAnimationAdvanceV2('image')
-    // withMouseMoveEffect
+    withAnimationAdvanceV2('image'),
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlock,

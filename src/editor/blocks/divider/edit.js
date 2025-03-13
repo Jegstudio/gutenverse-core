@@ -14,7 +14,7 @@ import * as divider from './data/divider-style';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -73,7 +73,7 @@ const DividerBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('divider'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

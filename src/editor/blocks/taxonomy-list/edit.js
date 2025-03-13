@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import {
     useBlockProps,
 } from '@wordpress/block-editor';
@@ -17,7 +17,7 @@ import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const IconListBlock = compose(
     withPartialRender,
-    // withMouseMoveEffect,
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

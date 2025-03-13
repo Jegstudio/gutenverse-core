@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -17,7 +17,7 @@ const AdvancedHeadingBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('advance-heading'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

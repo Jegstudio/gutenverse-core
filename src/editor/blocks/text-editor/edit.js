@@ -5,7 +5,7 @@ import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -15,7 +15,7 @@ const TextEditorBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('text-editor'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

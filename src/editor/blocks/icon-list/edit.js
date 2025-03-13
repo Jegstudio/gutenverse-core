@@ -4,7 +4,7 @@ import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -14,8 +14,8 @@ import { CopyElementToolbar } from 'gutenverse-core/components';
 const IconListBlock = compose(
     withPartialRender,
     withPassRef,
-    withAnimationAdvanceV2('icon-list')
-    // withMouseMoveEffect
+    withAnimationAdvanceV2('icon-list'),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

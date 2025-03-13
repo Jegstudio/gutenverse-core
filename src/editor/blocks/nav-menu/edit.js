@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -19,7 +19,7 @@ import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NavMenuBlock = compose(
     withPartialRender,
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

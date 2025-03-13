@@ -7,7 +7,7 @@ import { panelList } from './panels/panel-list';
 import anime from 'animejs';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -17,7 +17,7 @@ const FunFactBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('fun-fact'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

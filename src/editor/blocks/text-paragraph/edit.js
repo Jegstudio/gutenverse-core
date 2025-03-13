@@ -3,7 +3,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
@@ -25,7 +25,7 @@ const TextBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('text-paragraph'),
-    // withMouseMoveEffect,
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

@@ -47,13 +47,13 @@ export const panelList = () => {
             }),
             pro: true
         },
-        // {
-        //     title: __('Mouse Move Effect', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: mouseMoveEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Animation Effects', 'gutenverse'),
             initialOpen: false,

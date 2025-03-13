@@ -11,7 +11,7 @@ import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef, useState } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
@@ -222,8 +222,8 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
 const ImageBoxBlock = compose(
     withPartialRender,
     withPassRef,
-    withAnimationAdvanceV2('image-box')
-    // withMouseMoveEffect
+    withAnimationAdvanceV2('image-box'),
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

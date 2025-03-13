@@ -12,7 +12,7 @@ import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { AlertControl } from 'gutenverse-core/controls';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -80,7 +80,7 @@ const VideoBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('video'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

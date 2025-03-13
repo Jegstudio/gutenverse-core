@@ -1,6 +1,6 @@
 
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -16,7 +16,7 @@ const ButtonsBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('buttons'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

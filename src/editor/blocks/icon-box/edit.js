@@ -16,7 +16,7 @@ import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
@@ -34,7 +34,7 @@ const IconBoxBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('icon-box'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         getBlocks,

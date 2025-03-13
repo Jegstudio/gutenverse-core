@@ -10,7 +10,7 @@ import GalleryPopup from './components/gallery-popup';
 import GalleryItem from './components/gallery-item';
 import { u } from 'gutenverse-core/components';
 import Shuffle from 'shufflejs';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -21,7 +21,7 @@ const GalleryBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('gallery'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

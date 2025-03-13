@@ -1,6 +1,6 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withPartialRender, withPassRef, withAnimationAdvanceV2 } from 'gutenverse-core/hoc';
+import { withPartialRender, withPassRef, withAnimationAdvanceV2, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
@@ -29,7 +29,7 @@ const ButtonBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('button'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

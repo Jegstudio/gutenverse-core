@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -30,7 +30,7 @@ export const logoHoverLazyLoad = (logo) => {
 };
 const LogoSlider = compose(
     withPartialRender,
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         selectBlock

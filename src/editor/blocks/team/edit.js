@@ -5,7 +5,7 @@ import { panelList } from './panels/panel-list';
 import TeamProfile from './components/team-profile';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
@@ -17,7 +17,7 @@ const TeamBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('team'),
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
 
     const {

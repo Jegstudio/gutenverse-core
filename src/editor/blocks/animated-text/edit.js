@@ -14,7 +14,7 @@ import TextStylePop from './components/text-style-pop';
 import TextStyleSlide from './components/text-style-slide';
 import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
@@ -22,7 +22,7 @@ import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
-    // withMouseMoveEffect
+    withMouseMoveEffect
 )((props) => {
     const {
         attributes,

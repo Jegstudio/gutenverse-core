@@ -119,13 +119,13 @@ export const panelList = () => {
             panelArray: transformPanel,
             pro: true
         },
-        // {
-        //     title: __('Mouse Move Effect', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: mouseMoveEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Advance Animation', 'gutenverse'),
             initialOpen: false,

@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
@@ -58,7 +58,7 @@ const HeadingBlock = compose(
     withPartialRender,
     withPassRef,
     withAnimationAdvanceV2('heading'),
-    // withMouseMoveEffect,
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,
