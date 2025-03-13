@@ -29,7 +29,7 @@ const panelTextStyle = (elementId, attributes, data) => {
         'type': 'plain',
         'id': 'textIndent',
         'responsive': true,
-        'selector': `.${elementId} .guten-icon-list-item .list-text, .block-editor-block-list__layout .wp-block.${elementId} .guten-icon-list-item .list-text`,
+        'selector': `.${elementId} .guten-icon-list-item a, .block-editor-block-list__layout .wp-block.${elementId} .guten-icon-list-item a`,
         'properties': [
             {
                 'name': 'gap',

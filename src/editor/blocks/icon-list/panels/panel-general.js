@@ -36,7 +36,7 @@ export const panelGeneral = (props) => {
                     'type': 'plain',
                     'id': 'spaceDivider',
                     'responsive' : true,
-                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'margin',
@@ -49,7 +49,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ]
-                },
+                }
             ]
         },
         {
@@ -61,10 +61,10 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'color',
                     'id': 'colorDivider',
-                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
-                            'name': 'color',
+                            'name': 'border-color',
                             'valueType': 'direct'
                         }
                     ]
@@ -97,14 +97,14 @@ export const panelGeneral = (props) => {
         },
         {
             id: 'widthDivider',
-            label: __('Width Divider', 'gutenverse'),
+            label: displayInline ? __('Height Divider', 'gutenverse') : __('Width Divider', 'gutenverse'),
             show: isDivider,
             component: SizeControl,
             liveStyle: [
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'width',
@@ -115,7 +115,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'height',
@@ -134,7 +134,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-top-width',
@@ -145,7 +145,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'sizeDivider',
-                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
+                    'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:nth-child(1)) .list-divider`,
                     'properties': [
                         {
                             'name': 'border-left-width',
@@ -181,7 +181,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId} ul:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} ul:not(.inline-icon-list) li.guten-icon-list-item:not(:first-of-type) > a`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > li.guten-icon-list-item:not(:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} > .list-wrapper:not(.inline-icon-list) > li.guten-icon-list-item:not(:first-of-type) > a`,
                 },
                 {
                     'type': 'plain',
@@ -199,7 +199,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} ul:not(.inline-icon-list) .guten-icon-list-item:not(:last-child)`,
+                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item:not(:last-child)`,
 
                 },
                 {
@@ -218,7 +218,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} ul.inline-icon-list .guten-icon-list-item:not(:last-child)`,
+                    'selector': `.${elementId} > .list-wrapper.inline-icon-list .guten-icon-list-item:not(:last-child), .block-editor-block-list__layout .wp-block.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item:not(:last-child)`,
 
                 },
                 {
@@ -237,7 +237,7 @@ export const panelGeneral = (props) => {
                             }
                         }
                     ],
-                    'selector': `.${elementId} ul.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} ul.inline-icon-list li.guten-icon-list-item:not(li:first-of-type) > a`,
+                    'selector': `.${elementId} > .list-wrapper.inline-icon-list > li.guten-icon-list-item:not(li:first-of-type) > a, .block-editor-block-list__layout .wp-block.${elementId} > .list-wrapper.inline-icon-list > li.guten-icon-list-item:not(li:first-of-type) > a`,
 
                 }
             ]
