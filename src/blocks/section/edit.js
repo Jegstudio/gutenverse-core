@@ -158,8 +158,8 @@ const SectionBlock = compose(
     withAnimationBackgroundV2(),
     withMouseMoveEffect,
     withBackgroundSlideshow,
+    withBackgroundEffect,
     // withCursorEffect,
-    // withBackgroundEffect,
 )((props) => {
     const {
         getBlockRootClientId,

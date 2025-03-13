@@ -736,7 +736,7 @@ const ColumnBlock = compose(
     withAnimationBackgroundV2(),
     withMouseMoveEffect,
     withBackgroundSlideshow,
-    // withBackgroundEffect,
+    withBackgroundEffect,
     // withCursorEffect,
 )((props) => {
     const {

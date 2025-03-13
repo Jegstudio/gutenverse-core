@@ -99,16 +99,16 @@ export const panelList = () => {
 
         // Pro
 
-        // {
-        //     title: __('Background Effect', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: (props) => backgroundEffectPanel({
-        //         ...props,
-        //         selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
-        //     }),
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundEffectPanel({
+                ...props,
+                selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
+            }),
+            tabRole: TabSetting,
+            pro: true,
+        },
         // {
         //     title: __('Cursor Effect', '--gctd--'),
         //     initialOpen: false,
