@@ -17,21 +17,21 @@ export const panelList = () => {
             panelArray: stylePanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Text Clip', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => {
-        //         const { elementId } = props;
-        //         return textClipPanel({
-        //             ...props,
-        //             textClipSelector: `.editor-styles-wrapper .${elementId} .text-content .letter, .editor-styles-wrapper .${elementId} .text-content`,
-        //             textClipId: 'textClip'
-        //         });
-        //     },
-        //     pro: true,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Text Clip', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => {
+                const { elementId } = props;
+                return textClipPanel({
+                    ...props,
+                    textClipSelector: `.editor-styles-wrapper .${elementId} .text-content .letter, .editor-styles-wrapper .${elementId} .text-content`,
+                    textClipId: 'textClip'
+                });
+            },
+            pro: true,
+            tabRole: TabStyle
+        },
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,

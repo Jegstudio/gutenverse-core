@@ -82,21 +82,21 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Text Clip', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelAdvance: true,
-        //     panelArray: (props) => {
-        //         const { elementId } = props;
-        //         return textClipPanel({
-        //             ...props,
-        //             textClipSelector: `.${elementId}`,
-        //             textClipId: 'textClip'
-        //         });
-        //     },
-        //     pro: true,
-        //     tabRole: TabStyle
-        // },
+        {
+            title: __('Text Clip', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => {
+                const { elementId } = props;
+                return textClipPanel({
+                    ...props,
+                    textClipSelector: `.${elementId}`,
+                    textClipId: 'textClip'
+                });
+            },
+            pro: true,
+            tabRole: TabStyle
+        },
         // {
         //     title: __('Highlight Style', 'gutenverse'),
         //     panelArray: (props) => childStylePanel({
