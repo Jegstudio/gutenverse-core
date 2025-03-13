@@ -135,13 +135,13 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Background Effect', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: backgroundEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Background Animated', '--gctd--'),
             initialOpen: false,
@@ -171,13 +171,13 @@ export const panelList = () => {
             tabRole: TabSetting,
             pro: true,
         },
-        // {
-        //     title: __('Mouse Move Effect', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: mouseMoveEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Mouse Move Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Condition', 'gutenverse'),
             panelArray: conditionPanel,

@@ -586,7 +586,6 @@ export const skipDevice = (attributes, name, callback) => {
         return devices;
     } else {
         console.log('make sure the attribute is using device control : ', name);
-
     }
 };
 

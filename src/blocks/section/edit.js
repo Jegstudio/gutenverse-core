@@ -156,7 +156,7 @@ const SectionBlock = compose(
     withAnimationStickyV2(),
     withAnimationAdvanceV2('section'),
     withAnimationBackgroundV2(),
-    // withMouseMoveEffect,
+    withMouseMoveEffect,
     // withCursorEffect,
     // withBackgroundEffect,
     // withBackgroundSlideshow,

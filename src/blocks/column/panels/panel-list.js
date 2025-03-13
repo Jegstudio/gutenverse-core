@@ -123,13 +123,13 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Mouse Move Effect', 'gutenverse'),
-        //     initialOpen: false,
-        //     panelArray: mouseMoveEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Background Animation', '--gctd--'),
             initialOpen: false,

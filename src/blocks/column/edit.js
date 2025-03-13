@@ -734,7 +734,7 @@ const ColumnBlock = compose(
     withAnimationStickyV2(),
     withAnimationAdvanceV2('column'),
     withAnimationBackgroundV2(),
-    // withMouseMoveEffect,
+    withMouseMoveEffect,
     // withBackgroundEffect,
     // withCursorEffect,
     // withBackgroundSlideshow,
