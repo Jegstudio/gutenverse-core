@@ -505,7 +505,7 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
 
         cssElement.innerHTML = generatedCSS;
 
-        const timeoutId = timeout && setTimeout(() => {
+        const timeoutId = timeout  && liveStyles.length > 0 && setTimeout(() => {
             if (cssElement.parentNode) {
                 cssElement.parentNode.removeChild(cssElement);
             }
