@@ -1,7 +1,7 @@
 import cryptoRandomString from 'crypto-random-string';
-import { useDeferredValue, useEffect, useRef, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { ChromePicker } from 'react-color';
-import { Trash } from 'react-feather';
+import { Edit, Edit2, Trash } from 'react-feather';
 import classnames from 'classnames';
 import { __ } from '@wordpress/i18n';
 import cloneDeep from 'lodash/cloneDeep';
@@ -38,11 +38,10 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
     </Prompt> : null;
 };
 
-const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
+const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete }) => {
     const [open, setControlOpen] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [color, setColor] = useState(value);
-    const deferredColor = useDeferredValue(color);
 
     const wrapperRef = useRef();
     const colorRef = useRef();
@@ -72,28 +71,19 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
         });
     };
 
-    const handleEditDeferredValue = (rgba) => {
-        setColor({
-            ...color,
-            color: rgba
-        });
-    };
-
-    useEffect(() => {
-        updateColor(deferredColor);
-    }, [deferredColor]);
-
     return <div className={classnames('gutenverse-control-wrapper', 'single-variable-color', 'gutenverse-control-color')}>
         <div className={'single-variable-color-wrapper'}>
             <div className={'single-variable-item-wrapper'}>
                 <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
-                    <div style={{ backgroundColor: renderColor(value.color) }} />
+                    <div style={{ backgroundColor: renderColor(color.color) }} />
                 </div>
                 <input type="text" value={value.name} onChange={editName} className={'color-name'} />
             </div>
-            <div className={'color-delete'} onClick={() => setOpenPopup(true)}>
+            {showDelete ? <div className={'color-delete'} onClick={() => setOpenPopup(true)}>
                 <Trash size={12} />
-            </div>
+            </div> : <div className={'color-delete'} onClick={() => toggleOpen()}>
+                <Edit2 size={12} />
+            </div>}
         </div>
         {open ? <div className={'control-color-display'} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
@@ -104,21 +94,27 @@ const SingleVariableColor = ({ value, updateColor, deleteColor }) => {
             <ChromePicker
                 color={color.color}
                 onChange={color => {
-                    handleEditDeferredValue(color.rgb);
+                    setColor({
+                        ...value,
+                        color: color.rgb
+                    });
                 }}
                 onChangeComplete={(color) => {
-                    handleEditDeferredValue(color.rgb);
+                    updateColor({
+                        ...value,
+                        color: color.rgb
+                    });
                 }}
             />
         </div> : null}
-        <ThePrompt openPopup={openPopup} closePopup={() => setOpenPopup(false)} deleteColor={deleteColor} value={value} />
+        {showDelete && <ThePrompt openPopup={openPopup} closePopup={() => setOpenPopup(false)} deleteColor={deleteColor} value={value} />}
     </div>;
 };
 
 const ThemeVariableColor = ({ value }) => {
     return <div className={classnames('gutenverse-control-wrapper', 'single-variable-color', 'gutenverse-control-color')}>
         <div className={'single-variable-color-wrapper'}>
-            <div className={'single-variable-item-wrapper'}>
+            <div className={'single-variable-item-wrapper'} style={{ width: '100%' }}>
                 <div className={'control-color'}>
                     <div style={{ backgroundColor: renderColor(value.color) }} />
                 </div>
@@ -136,6 +132,7 @@ const GlobalVariableColor = () => {
 
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
     const [customPalette, setCustomPalette] = useState(customs ? customs : []);
+    const [themesPalette, setThemePalette] = useState(themePalette ? themePalette : []);
 
     const defaultColor = !isEmpty(defaultPalette) && defaultPalette.map(item => {
         return {
@@ -188,9 +185,7 @@ const GlobalVariableColor = () => {
         };
 
         const updatedCustoms = [...customPalette];
-
         updatedCustoms[index] = updated;
-
         setCustomPalette(updatedCustoms);
     };
 
@@ -200,16 +195,38 @@ const GlobalVariableColor = () => {
         setCustomPalette([...updatedCustoms]);
     };
 
+    const updateThemesColor = (index, value) => {
+        const { id: slug, name, color } = value;
+        const updated = {
+            slug,
+            name,
+            color: rgbToHex(color)
+        };
+
+        const updatedCustoms = [...themePalette];
+        updatedCustoms[index] = updated;
+        setThemePalette(updatedCustoms);
+    };
+
     useEffect(() => {
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.custom';
 
             set(newUserConfig, pathToSet, customPalette);
-
             return newUserConfig;
         });
     }, [customPalette]);
+
+    useEffect(() => {
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.theme';
+
+            set(newUserConfig, pathToSet, themesPalette);
+            return newUserConfig;
+        });
+    }, [themesPalette]);
 
     // const [importColors, setImportColors] = useState('');
 
@@ -234,6 +251,7 @@ const GlobalVariableColor = () => {
                     value={value}
                     updateColor={(value) => updateVariableColor(index, value)}
                     deleteColor={() => deleteVariableColor(index)}
+                    showDelete={true}
                 />;
             })}
             {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
@@ -246,9 +264,17 @@ const GlobalVariableColor = () => {
             </div>}
             <div style={{ display: 'block', height: '10px' }}></div>
             <h4>{__('Theme Colors', '--gctd--')}</h4>
-            {!isEmpty(themeColor) && themeColor.map(value => <ThemeVariableColor key={value.slug} value={value} />)}
+            {!isEmpty(themeColor) && themeColor.map((value, index) => {
+                return <SingleVariableColor
+                    key={value.slug}
+                    value={value}
+                    updateColor={(value) => updateThemesColor(index, value)}
+                    deleteColor={() => { }}
+                    showDelete={false}
+                />;
+            })}
             <h4>{__('Default Colors', '--gctd--')}</h4>
-            {!isEmpty(defaultColor) && defaultColor.map(value => <ThemeVariableColor key={value.slug} value={value} />)}
+            {!isEmpty(defaultColor) && defaultColor.map(value => <ThemeVariableColor key={value.slug} value={value} allowChange={false} userConfig={userConfig} />)}
             {/* {isTools && <div className="guten-dev-tools">
                 <textarea id="global-colors" name="global-colors" rows="4" cols="50" value={importColors} onChange={e => setImportColors(e.target.value)}>
                 </textarea>
