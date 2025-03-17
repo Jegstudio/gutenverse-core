@@ -1174,7 +1174,7 @@ abstract class Style_Interface {
 			}
 			if ( isset( $background_effect['boxShadow'] ) ) {
 				$box_shadow = $background_effect['boxShadow'];
-				if ( '' === $box_shadow['color'] ) {
+				if ( isset( $box_shadow['color'] ) && '' === $box_shadow['color'] ) {
 					$box_shadow['color'] = array(
 						'type' => 'variable',
 						'id'   => 'primary',

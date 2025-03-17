@@ -68,7 +68,7 @@ const FlexibleWrapper = compose(
     withAnimationBackgroundV2(),
     withMouseMoveEffect,
     withBackgroundSlideshow,
-    withBackgroundEffect,
+    withBackgroundEffect('wrapper'),
     // withCursorEffect,
 )((props) => {
     const {
