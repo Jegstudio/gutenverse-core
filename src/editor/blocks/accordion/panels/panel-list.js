@@ -17,14 +17,14 @@ export const panelList = () => {
         //     tabRole: TabSetting,
         //     pro: true,
         // },
-        // {
-        //     title: __('Highlight Style', 'gutenverse'),
-        //     panelArray: (props) => childStylePanel({
-        //         ...props,
-        //         arrOfTextChilds : ['titleChilds']
-        //     }),
-        //     tabRole: TabStyle,
-        //     pro: true
-        // },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['titleChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
+        },
     ];
 };

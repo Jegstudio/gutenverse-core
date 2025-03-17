@@ -113,15 +113,15 @@ export const panelList = () => {
             panelArray: panelIconBoxContainer,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Highlight Style', 'gutenverse'),
-        //     panelArray: (props) => childStylePanel({
-        //         ...props,
-        //         arrOfTextChilds : ['titleChilds','descriptionChilds','badgeChilds']
-        //     }),
-        //     tabRole: TabStyle,
-        //     pro: true
-        // },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['titleChilds','descriptionChilds','badgeChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
+        },
         {
             title: __('Icon Style', 'gutenverse'),
             initialOpen: false,

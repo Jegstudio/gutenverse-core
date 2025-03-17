@@ -97,16 +97,16 @@ export const panelList = () => {
             pro: true,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Highlight Style', 'gutenverse'),
-        //     panelArray: (props) => childStylePanel({
-        //         ...props,
-        //         arrOfTextChilds : ['textChilds']
-        //     }),
-        //     initialOpen: false,
-        //     tabRole: TabStyle,
-        //     pro: true
-        // },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['textChilds']
+            }),
+            initialOpen: false,
+            tabRole: TabStyle,
+            pro: true
+        },
         {
             title: __('Positioning', 'gutenverse'),
             initialOpen: false,

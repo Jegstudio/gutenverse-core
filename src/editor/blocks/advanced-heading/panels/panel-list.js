@@ -32,15 +32,15 @@ export const panelList = () => {
             panelArray: linePanel,
             tabRole: TabStyle
         },
-        // {
-        //     title: __('Highlight Style', 'gutenverse'),
-        //     panelArray: (props) => childStylePanel({
-        //         ...props,
-        //         arrOfTextChilds : ['textChilds','focusTextChilds','subTextChilds']
-        //     }),
-        //     tabRole: TabStyle,
-        //     pro: true
-        // },
+        {
+            title: __('Highlight Style', 'gutenverse'),
+            panelArray: (props) => childStylePanel({
+                ...props,
+                arrOfTextChilds : ['textChilds','focusTextChilds','subTextChilds']
+            }),
+            tabRole: TabStyle,
+            pro: true
+        },
         {
             title: __('Main Title', 'gutenverse'),
             panelArray: mainTitlePanel,
