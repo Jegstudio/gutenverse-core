@@ -448,12 +448,26 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [iframeWindowId, globalStyleSignal]);
 };
 
-export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, timeout = true) => {
+const populateStyle = (cssElement, currentStyleId, generatedCSS, removeStyle = false) => {
+    const wrapCurrentStyle = removeStyle ? '' : `${currentStyleId}\n ${generatedCSS}\n ${currentStyleId} `;
+
+    const escapedId = currentStyleId.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
+    const regex = new RegExp(escapedId + '(.+?)' + escapedId, 's');
+
+    if (regex.test(cssElement.innerHTML)) {
+        cssElement.innerHTML = cssElement.innerHTML.replace(regex, wrapCurrentStyle);
+    } else {
+        cssElement.innerHTML += wrapCurrentStyle;
+    }
+};
+
+export const updateLiveStyle = (styleId, elementId, attributes, liveStyles, elementRef, timeout = true) => {
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
         return;
     }
 
+    const currentStyleId = `/* ${styleId}-${elementId} */`;
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];
@@ -503,7 +517,7 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
             theWindow.document.head.appendChild(cssElement);
         }
 
-        cssElement.innerHTML = generatedCSS;
+        populateStyle(cssElement, currentStyleId, generatedCSS);
 
         const timeoutId = timeout  && liveStyles.length > 0 && setTimeout(() => {
             if (cssElement.parentNode) {
@@ -516,12 +530,14 @@ export const updateLiveStyle = (elementId, attributes, liveStyles, elementRef, t
 };
 
 // Call this to remove any remaining temporary styles.
-export const removeLiveStyle = (elementRef, elementId) => {
+export const removeLiveStyle = (styleId, elementRef, elementId) => {
+    const currentStyleId = `/* ${styleId}-${elementId} */`;
     let theWindow = getWindow(elementRef);
     let cssElement = theWindow.document.getElementById('gutenverse-temp-css-' + elementId);
 
     if (cssElement && cssElement.parentNode) {
-        cssElement.parentNode.removeChild(cssElement);
+        populateStyle(cssElement, currentStyleId, '', true);
+        !cssElement.innerHTML.trim() && cssElement.parentNode.removeChild(cssElement);
     }
 };
 

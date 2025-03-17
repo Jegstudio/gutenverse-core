@@ -138,6 +138,7 @@ const RangeColumnControl = (props) => {
         }
 
         updateLiveStyle(
+            'guten-column-range-editor',
             elementId,
             attributes,
             styles,
@@ -147,7 +148,7 @@ const RangeColumnControl = (props) => {
     };
 
     const doChangeValue = () => {
-        removeLiveStyle(elementRef, elementId);
+        removeLiveStyle('guten-column-range-editor', elementRef, elementId);
 
         setAttributes({
             [controlId]: {

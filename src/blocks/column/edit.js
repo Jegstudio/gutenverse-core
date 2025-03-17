@@ -232,6 +232,7 @@ const onResize = (props, off) => {
     }
 
     updateLiveStyle(
+        'guten-column-editor',
         elementId,
         attributes,
         styles,
@@ -262,7 +263,7 @@ const onResizeStop = (props) => {
         elementRef
     } = props;
 
-    removeLiveStyle(elementRef, elementId);
+    removeLiveStyle('guten-column-editor', elementRef, elementId);
 
     const parentBlock = getBlock(parentId);
     if (parentBlock) {
