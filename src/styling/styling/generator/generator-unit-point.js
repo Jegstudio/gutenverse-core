@@ -13,19 +13,19 @@ export const unitPointGenerator = (attribute, style, css) => {
     const { selector, responsive = false, otherAttribute } = style;
     if (!responsive) {
         let valueCSS = multiProperty(attribute, style, otherAttribute);
-        if (valueCSS) css.Desktop = `${selector} { ` + valueCSS + ' }';
+        if (isNotEmpty(valueCSS)) css.Desktop = ` ${selector} { ${valueCSS} } `;
     } else {
         if (attribute['Desktop']) {
             let valueCSS = multiProperty(attribute['Desktop'], style, otherAttribute, 'Desktop');
-            if (valueCSS) css.Desktop = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Desktop = `${selector} { ` + valueCSS + ' }';
         }
         if (attribute['Tablet']) {
             let valueCSS = multiProperty(attribute['Tablet'], style, otherAttribute, 'Tablet');
-            if (valueCSS) css.Tablet = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Tablet = `${selector} { ` + valueCSS + ' }';
         }
         if (attribute['Mobile']) {
             let valueCSS = multiProperty(attribute['Mobile'], style, otherAttribute, 'Mobile');
-            if (valueCSS) css.Mobile = `${selector} { ` + valueCSS + ' }';
+            if (isNotEmpty(valueCSS)) css.Mobile = `${selector} { ` + valueCSS + ' }';
         }
     }
     return css;
