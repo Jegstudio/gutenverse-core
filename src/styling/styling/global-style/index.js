@@ -31,7 +31,7 @@ export const buildGlobalStyle = (variable) => {
                 DeviceLoop(device => {
                     const _size = pointCheck(device, size);
 
-                    if (_size && !isEmpty(_size.point)) {
+                    if (_size && isNotEmpty(_size.point)) {
 
                         const unit = _size.unit ? _size.unit : 'px';
 
