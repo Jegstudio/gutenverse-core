@@ -52,7 +52,7 @@ const BlockController = (props) => {
                 [id]: value
             };
 
-            timeoutRef.current = liveStyle && updateLiveStyle(elementId, newValue, liveStyle, elementRef);
+            timeoutRef.current = liveStyle && updateLiveStyle({elementId, attributes: newValue, styles: liveStyle, elementRef});
             if(setLiveAttr){
                 setLiveAttr({
                     ...liveAttr,

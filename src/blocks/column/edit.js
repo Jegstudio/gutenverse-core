@@ -231,14 +231,14 @@ const onResize = (props, off) => {
         });
     }
 
-    updateLiveStyle(
-        'guten-column-editor',
+    updateLiveStyle({
+        styleId: 'guten-column-editor',
         elementId,
         attributes,
         styles,
         elementRef,
-        false
-    );
+        timeout: false
+    });
 
     setNewWidth({
         current: calcCurentModPercent,
@@ -738,7 +738,7 @@ const ColumnBlock = compose(
     withMouseMoveEffect,
     withBackgroundSlideshow,
     withBackgroundEffect('column'),
-    // withCursorEffect,
+    withCursorEffect,
 )((props) => {
     const {
         getBlock,

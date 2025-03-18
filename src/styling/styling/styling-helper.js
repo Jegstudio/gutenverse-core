@@ -461,13 +461,14 @@ const populateStyle = (cssElement, currentStyleId, generatedCSS, removeStyle = f
     }
 };
 
-export const updateLiveStyle = (styleId, elementId, attributes, liveStyles, elementRef, timeout = true) => {
+export const updateLiveStyle = (props) => {
+    const {elementId, attributes, styles : liveStyles, elementRef, timeout = true, styleId = null} = props;
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
         return;
     }
 
-    const currentStyleId = `/* ${styleId}-${elementId} */`;
+    const currentStyleId = styleId === null ? `/* ${elementId} */` : `/* ${styleId}-${elementId} */`;
     let deviceTypeDesktop = [];
     let deviceTypeTablet = [];
     let deviceTypeMobile = [];

@@ -137,14 +137,14 @@ const RangeColumnControl = (props) => {
             });
         }
 
-        updateLiveStyle(
-            'guten-column-range-editor',
+        updateLiveStyle({
+            styleId: 'guten-column-range-editor',
             elementId,
             attributes,
             styles,
             elementRef,
-            false
-        );
+            timeout: false
+        });
     };
 
     const doChangeValue = () => {

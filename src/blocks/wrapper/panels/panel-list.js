@@ -109,13 +109,13 @@ export const panelList = () => {
             tabRole: TabSetting,
             pro: true,
         },
-        // {
-        //     title: __('Cursor Effect', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: cursorEffectPanel,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Transform', '--gctd--'),
             initialOpen: false,
