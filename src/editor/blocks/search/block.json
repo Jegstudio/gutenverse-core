@@ -231,6 +231,34 @@
 		"condition": {
 			"type": "object",
 			"default": {}
+		},
+		"icon": {
+			"type": "string",
+			"default": "gtn gtn-x-line"
+		},
+		"iconColor": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconColorHover": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconSize": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconRotate": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconPadding": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"iconMargin": {
+			"type": "object",
+			"copyStyle": true
 		}
 	},
 	"supports": {
