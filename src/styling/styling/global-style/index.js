@@ -1,4 +1,4 @@
-import { responsiveBreakpoint, variableColorName, variableFontName } from 'gutenverse-core/helper';
+import { isNotEmpty, responsiveBreakpoint, variableColorName, variableFontName } from 'gutenverse-core/helper';
 import { DeviceLoop, deviceStyleValue, elementVar, injectFont, normalAppender, responsiveAppender } from '../styling-utility';
 import { isEmpty } from 'lodash';
 import { hexToRgb, renderColor } from 'gutenverse-core/editor-helper';
@@ -226,7 +226,7 @@ export const getGlobalVariable = () => {
 
     const customArr = Array.from(customSet);
 
-    let newCustomArr = !isEmpty(customArr) && applyFilters(
+    let newCustomArr = isNotEmpty(customArr) && applyFilters(
         'gutenverse.v3.apply-custom-font',
         customArr,
         uploadPath
@@ -244,7 +244,7 @@ export const getGlobalVariable = () => {
             _globalStylesId
         )
         : undefined;
-    
+
     let colors = record?.settings?.color?.palette;
 
     return {

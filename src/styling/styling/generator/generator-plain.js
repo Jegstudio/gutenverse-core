@@ -12,7 +12,7 @@ const cssGenerator = (attribute, style, css) => {
     }
 
     if (responsive) {
-        let selectors = responsiveSelector ? {...selector} : {
+        let selectors = responsiveSelector ? { ...selector } : {
             'Desktop': selector,
             'Tablet': selector,
             'Mobile': selector,
