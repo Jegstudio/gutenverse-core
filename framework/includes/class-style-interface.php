@@ -512,7 +512,7 @@ abstract class Style_Interface {
 						$global_color = $value['color'];
 						$hex          = str_replace( '#', '', $global_color );
 
-						// Handle shorthand HEX codes (e.g., #abc)
+						// Handle shorthand HEX codes (e.g., #abc).
 						if ( strlen( $hex ) === 3 ) {
 							$hex = str_repeat( $hex[0], 2 ) . str_repeat( $hex[1], 2 ) . str_repeat( $hex[2], 2 );
 						}
@@ -682,6 +682,7 @@ abstract class Style_Interface {
 
 			if ( isset( $cursor_efect['entranceTransition'] ) ) {
 				$entrance_transition = $cursor_efect['entranceTransition'];
+				$transition_speed    = isset( $cursor_efect['transitionSpeed']['point'] ) ? $cursor_efect['transitionSpeed']['point'] : 1;
 
 				switch ( $entrance_transition ) {
 					case 'opacity':
@@ -690,9 +691,13 @@ abstract class Style_Interface {
 								array(
 									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
 									'property'       => function ( $value ) {
-										return "transition: opacity {$value}s, transform 0s;";
+										if ( $value ) {
+											return "transition: opacity {$value}s, transform 0s;";
+										} else {
+											return 'transition: opacity 1s, transform 0s;';
+										}
 									},
-									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'value'          => $transition_speed,
 									'device_control' => false,
 								)
 							);
@@ -704,9 +709,13 @@ abstract class Style_Interface {
 								array(
 									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
 									'property'       => function ( $value ) {
-										return "transition: opacity 0s, transform {$value}s;";
+										if ( $value ) {
+											return "transition: opacity 0s, transform {$value}s;";
+										} else {
+											return 'transition: opacity 1s, transform 0s;';
+										}
 									},
-									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'value'          => $transition_speed,
 									'device_control' => false,
 								)
 							);
@@ -718,9 +727,67 @@ abstract class Style_Interface {
 								array(
 									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
 									'property'       => function ( $value ) {
-										return "transition: opacity {$value}s, transform {$value}s;";
+										if ( $value ) {
+											return "transition: opacity {$value}s, transform {$value}s;";
+										} else {
+											return 'transition: opacity 1s, transform 0s;';
+										}
 									},
-									'value'          => $cursor_efect['transitionSpeed']['point'],
+									'value'          => $transition_speed,
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'rotateX':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										if ( $value ) {
+											return "transition: opacity 0s, transform {$value}s;";
+										} else {
+											return 'transition: opacity 0s, transform 1s;';
+										}
+									},
+									'value'          => $transition_speed,
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'rotateY':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										if ( $value ) {
+											return "transition: opacity 0s, transform {$value}s;";
+										} else {
+											return 'transition: opacity 0s, transform 1s;';
+										}
+									},
+									'value'          => $transition_speed,
+									'device_control' => false,
+								)
+							);
+						}
+						break;
+					case 'rotateXY':
+						if ( isset( $cursor_efect['transitionSpeed'] ) ) {
+							$this->inject_style(
+								array(
+									'selector'       => ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content.enter, .{$this->element_id}-cursor-effect.cursor-effect .innerCursor.enter",
+									'property'       => function ( $value ) {
+										if ( $value ) {
+											return "transition: opacity 0s, transform {$value}s;";
+										} else {
+											return 'transition: opacity 0s, transform 1s;';
+										}
+									},
+									'value'          => $transition_speed,
 									'device_control' => false,
 								)
 							);
@@ -961,7 +1028,7 @@ abstract class Style_Interface {
 					}
 
 					if ( isset( $cursor_efect['imageBorder'] ) ) {
-						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content .cursor-image";
+						$selector = ".{$this->element_id}-cursor-effect.cursor-effect .cursor-content";
 						$borders  = $cursor_efect['imageBorder'];
 
 						uksort(

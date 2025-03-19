@@ -448,8 +448,8 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
     }, [iframeWindowId, globalStyleSignal]);
 };
 
-const populateStyle = (cssElement, currentStyleId, generatedCSS, removeStyle = false) => {
-    const wrapCurrentStyle = removeStyle ? '' : `${currentStyleId}\n ${generatedCSS}\n ${currentStyleId} `;
+const populateStyle = (cssElement, currentStyleId, generatedCSS) => {
+    const wrapCurrentStyle = '' === generatedCSS ? '' : `${currentStyleId}\n ${generatedCSS}\n ${currentStyleId} `;
 
     const escapedId = currentStyleId.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
     const regex = new RegExp(escapedId + '(.+?)' + escapedId, 's');
@@ -462,6 +462,7 @@ const populateStyle = (cssElement, currentStyleId, generatedCSS, removeStyle = f
 };
 
 export const updateLiveStyle = (props) => {
+    //add styleId to keep the style
     const {elementId, attributes, styles : liveStyles, elementRef, timeout = true, styleId = null} = props;
     if (!elementRef) {
         console.warn('ElementRef is Missing!');
@@ -509,7 +510,7 @@ export const updateLiveStyle = (props) => {
 
     if (theWindow) {
 
-        const tagId = 'gutenverse-temp-css-' + elementId;
+        const tagId = styleId === null ? 'gutenverse-temp-css-' + elementId : 'gutenverse-live-style-css';
         let cssElement = theWindow.document.getElementById(tagId);
 
         if (!cssElement) {
@@ -522,7 +523,8 @@ export const updateLiveStyle = (props) => {
 
         const timeoutId = timeout  && liveStyles.length > 0 && setTimeout(() => {
             if (cssElement.parentNode) {
-                cssElement.parentNode.removeChild(cssElement);
+                populateStyle(cssElement, currentStyleId, '');
+                !cssElement.innerHTML.trim() && cssElement.parentNode.removeChild(cssElement);
             }
         }, 1000);
 
@@ -532,12 +534,13 @@ export const updateLiveStyle = (props) => {
 
 // Call this to remove any remaining temporary styles.
 export const removeLiveStyle = (styleId, elementRef, elementId) => {
-    const currentStyleId = `/* ${styleId}-${elementId} */`;
+    const currentStyleId = styleId === null ? `/* ${elementId} */` : `/* ${styleId}-${elementId} */`;
+    const tagId = styleId === null ? 'gutenverse-temp-css-' + elementId : 'gutenverse-live-style-css';
     let theWindow = getWindow(elementRef);
-    let cssElement = theWindow.document.getElementById('gutenverse-temp-css-' + elementId);
+    let cssElement = theWindow.document.getElementById(tagId);
 
     if (cssElement && cssElement.parentNode) {
-        populateStyle(cssElement, currentStyleId, '', true);
+        populateStyle(cssElement, currentStyleId, '');
         !cssElement.innerHTML.trim() && cssElement.parentNode.removeChild(cssElement);
     }
 };

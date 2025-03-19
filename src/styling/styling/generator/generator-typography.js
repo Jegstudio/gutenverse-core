@@ -1,6 +1,6 @@
 import { variableFontName } from 'gutenverse-core/helper';
 
-const typographyCSS = (attribute) => {
+export const typographyCSS = (attribute) => {
     let typography = {
         'Desktop': [],
         'Tablet': [],

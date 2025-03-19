@@ -1,4 +1,5 @@
-import { elementVar, normalAppender } from '../styling-utility';
+import { typographyCSS } from '../generator/generator-typography';
+import { elementVar, normalAppender} from '../styling-utility';
 import { handleBackground } from './handle-background';
 import { handleBorder } from './handle-border';
 import { getColor } from './handle-color';
@@ -21,6 +22,7 @@ export const handleCursorEffect = (style, props, id) => {
         textBorder,
         typography,
         blur,
+        imageBorder
     } = style;
 
     switch (type) {
@@ -56,13 +58,11 @@ export const handleCursorEffect = (style, props, id) => {
                 };
             }
             if (typography) {
-                const newElementStyle = handleTypography(typography, props, id);
-                elementStyle.adminStyle = {
-                    ...elementStyle.adminStyle,
-                    Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
-                    Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
-                    Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
-                };
+                const typographyStyle = typographyCSS(typography);
+                normalAppender({
+                    style: typographyStyle.Desktop.join(' '),
+                    elementStyle
+                });
             }
             break;
 
@@ -92,6 +92,15 @@ export const handleCursorEffect = (style, props, id) => {
                     style: `width: ${imageWidth.point}${imageWidth.unit};`,
                     elementStyle
                 });
+            }
+            if (imageBorder) {
+                const newElementStyle = handleBorder(imageBorder);
+                elementStyle.adminStyle = {
+                    ...elementStyle.adminStyle,
+                    Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
+                    Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
+                    Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
+                };
             }
             break;
 
@@ -169,11 +178,13 @@ export const handleTransitionCursorEffect = (style) => {
         transitionSpeed
     } = style;
 
+    const speed = transitionSpeed?.point ? transitionSpeed?.point : 1;
+
     switch (entranceTransition) {
         case 'opacity':
             normalAppender({
                 style: `
-                    transition: opacity ${transitionSpeed?.point}s, transform 0s;
+                    transition: opacity ${speed}s, transform 0s;
                 `,
                 elementStyle
             });
@@ -181,7 +192,7 @@ export const handleTransitionCursorEffect = (style) => {
         case 'scale':
             normalAppender({
                 style: `
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
@@ -189,7 +200,7 @@ export const handleTransitionCursorEffect = (style) => {
         case 'opacityScale':
             normalAppender({
                 style: `
-                    transition: opacity ${transitionSpeed?.point}s, transform ${transitionSpeed?.point}s;
+                    transition: opacity ${speed}s, transform ${speed}s;
                 `,
                 elementStyle
             });
@@ -197,8 +208,7 @@ export const handleTransitionCursorEffect = (style) => {
         case 'rotateY':
             normalAppender({
                 style: `
-                    transform: translate(-50%, -50%) scale(0) rotateY(0deg) !important;
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
@@ -206,7 +216,15 @@ export const handleTransitionCursorEffect = (style) => {
         case 'rotateX':
             normalAppender({
                 style: `
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                    transition: opacity 0s, transform ${speed}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateXY':
+            normalAppender({
+                style: `
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
@@ -237,10 +255,10 @@ export const handleImageCursorEffect = (style) => {
     let elementStyle = elementVar();
 
     const {
-        imageBorder,
+        // imageBorder,
         imageFit,
     } = style;
-    elementStyle = imageBorder ? handleBorder(imageBorder) : elementStyle;
+    // elementStyle = imageBorder ? handleBorder(imageBorder) : elementStyle;
     if (imageFit) {
         normalAppender({
             style: `object-fit: ${imageFit};`,
