@@ -238,19 +238,23 @@
 		},
 		"closeIconColor": {
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {}
 		},
 		"closeIconColorHover": {
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {}
 		},
 		"closeIconSize": {
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {}
 		},
 		"closeIconRotate": {
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {}
 		},
 		"closeIconPadding": {
 			"type": "object",
