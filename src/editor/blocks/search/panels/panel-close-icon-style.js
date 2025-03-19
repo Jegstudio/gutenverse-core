@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 
-export const iconStylePanel = (props) => {
+export const closeIconStylePanel = (props) => {
     const {
         elementId,
         switcher,
@@ -10,8 +10,8 @@ export const iconStylePanel = (props) => {
 
     return [
         {
-            id: 'iconSize',
-            label: __('Icon Size', 'gutenverse'),
+            id: 'closeIconSize',
+            label: __('Close Icon Size', 'gutenverse'),
             component: RangeControl,
             min: 10,
             max: 300,
@@ -21,9 +21,9 @@ export const iconStylePanel = (props) => {
             liveStyle: [
                 {
                     'type': 'plain',
-                    'id': 'iconSize',
+                    'id': 'closeIconSize',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
+                    'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon`,
                     'properties': [
                         {
                             'name': 'font-size',
@@ -40,8 +40,8 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconRotate',
-            label: __('Icon Rotate', 'gutenverse'),
+            id: 'closeIconRotate',
+            label: __('Close Icon Rotate', 'gutenverse'),
             component: RangeControl,
             min: 1,
             max: 360,
@@ -51,9 +51,9 @@ export const iconStylePanel = (props) => {
             liveStyle: [
                 {
                     'type': 'plain',
-                    'id': 'iconRotate',
+                    'id': 'closeIconRotate',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
+                    'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon`,
                     'properties': [
                         {
                             'name': 'transform',
@@ -70,8 +70,8 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconPadding',
-            label: __('Padding', 'gutenverse'),
+            id: 'closeIconPadding',
+            label: __('Close Icon Padding', 'gutenverse'),
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
@@ -91,8 +91,8 @@ export const iconStylePanel = (props) => {
             },
         },
         {
-            id: 'iconMargin',
-            label: __('Margin', 'gutenverse'),
+            id: 'closeIconMargin',
+            label: __('Close Icon Margin', 'gutenverse'),
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
@@ -127,7 +127,7 @@ export const iconStylePanel = (props) => {
             onChange: ({ __iconHover }) => setSwitcher({ ...switcher, iconStyle: __iconHover })
         },
         {
-            id: 'iconColor',
+            id: 'closeIconColor',
             show: !switcher.iconStyle || switcher.iconStyle === 'normal',
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
@@ -135,9 +135,9 @@ export const iconStylePanel = (props) => {
             liveStyle: [
                 {
                     'type': 'color',
-                    'id': 'iconColor',
+                    'id': 'closeIconColor',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
+                    'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon`,
                     'properties': [
                         {
                             'name': 'color',
@@ -148,7 +148,7 @@ export const iconStylePanel = (props) => {
             ]
         },
         {
-            id: 'iconColorHover',
+            id: 'closeIconColorHover',
             show: switcher.iconStyle === 'hover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
@@ -156,9 +156,9 @@ export const iconStylePanel = (props) => {
             liveStyle: [
                 {
                     'type': 'color',
-                    'id': 'iconColorHover',
+                    'id': 'closeIconColorHover',
                     'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
+                    'selector': `.${elementId} .gutenverse-search-form .search-input-container:hover .icon`,
                     'properties': [
                         {
                             'name': 'color',
