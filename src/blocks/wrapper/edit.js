@@ -17,6 +17,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { useRichTextParameter } from 'gutenverse-core/helper';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import SectionVideoContainer from '../section/components/section-video-container';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
@@ -34,6 +35,7 @@ const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
             {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
+            <SectionVideoContainer attributes={attributes}/>
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
@@ -50,6 +52,7 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
     return (
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
+            <SectionVideoContainer attributes={attributes}/>
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 <InnerBlocks
@@ -81,7 +84,7 @@ const FlexibleWrapper = compose(
         isSelected,
         setAttributes,
         slideElement,
-        setBlockRef
+        setBlockRef,
     } = props;
 
     const {
@@ -153,7 +156,6 @@ const FlexibleWrapper = compose(
             setBlockRef(elementRef);
         }
     }, [elementRef]);
-
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>

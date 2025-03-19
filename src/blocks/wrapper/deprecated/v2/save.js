@@ -4,14 +4,13 @@ import { useBlockProps } from '@wordpress/block-editor';
 import { InnerBlocks } from '@wordpress/block-editor';
 import { useAnimationAdvanceData, useAnimationFrontend, useDisplayFrontend } from 'gutenverse-core/hooks';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundSlideshowScript, withVideoBackground } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceScript, withBackgroundEffectScript, withCursorEffectScript, withMouseMoveEffectScript, withBackgroundSlideshowScript } from 'gutenverse-core/hoc';
 import { isAnimationActive } from 'gutenverse-core/helper';
 import { FluidCanvasSave } from 'gutenverse-core/components';
 import isEmpty from 'lodash/isEmpty';
 
 const save = compose(
     withAnimationAdvanceScript('wrapper'),
-    withVideoBackground,
     withCursorEffectScript,
     withMouseMoveEffectScript,
     withBackgroundEffectScript,
@@ -20,7 +19,6 @@ const save = compose(
     const {
         attributes,
         slideElements,
-        videoContainer,
     } = props;
     const {
         elementId,
@@ -85,7 +83,6 @@ const save = compose(
                     }
                 </div>}
             <FluidCanvasSave attributes={attributes} />
-            {background.type === 'video' && videoContainer}
             {!_isBgAnimated && isSlideShow && slideElements}
             {
                 (!isEmpty(backgroundOverlay) || !isEmpty(backgroundOverlayHover)) && <div className="guten-background-overlay"></div>
