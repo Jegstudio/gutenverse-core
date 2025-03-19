@@ -685,6 +685,92 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `.${elementId}.guten-element`,
         'attributeType': 'custom',
     });
+
+    /* Close Icon Style */
+    isNotEmpty(attributes['closeIconSize']) && data.push({
+        'type': 'plain',
+        'id': 'closeIconSize',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon i`,
+        'properties': [
+            {
+                'name': 'font-size',
+                'valueType': 'pattern',
+                'pattern': '{value}px',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+    isNotEmpty(attributes['closeIconRotate']) && data.push({
+        'type': 'plain',
+        'id': 'closeIconRotate',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon `,
+        'properties': [
+            {
+                'name': 'transform',
+                'valueType': 'pattern',
+                'pattern': 'rotate({value}deg)',
+                'patternValues': {
+                    'value': {
+                        'type': 'direct'
+                    }
+                }
+            }
+        ]
+    });
+    isNotEmpty(attributes['closeIconMargin']) && data.push({
+        'type': 'dimension',
+        'id': 'closeIconMargin',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon `,
+        'properties': [
+            {
+                'name': 'margin',
+                'valueType': 'direct',
+            }
+        ]
+    });
+    isNotEmpty(attributes['closeIconPadding']) && data.push({
+        'type': 'dimension',
+        'id': 'closeIconPadding',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon `,
+        'properties': [
+            {
+                'name': 'padding',
+                'valueType': 'direct'
+            }
+        ]
+    });
+    isNotEmpty(attributes['closeIconColor']) && data.push({
+        'type': 'color',
+        'id': 'closeIconColor',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct',
+            }
+        ]
+    });
+    isNotEmpty(attributes['closeIconColorHover']) && data.push({
+        'type': 'color',
+        'id': 'closeIconColorHover',
+        'responsive': true,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container:hover .close-icon`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct',
+            }
+        ]
+    });
     return [
         ...data,
         ...applyFilters(
