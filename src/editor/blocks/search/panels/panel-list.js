@@ -3,8 +3,8 @@ import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPa
 import { inputPanel } from './panel-input';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { contentPanel } from './panel-content';
-import { iconPanel } from './panel-icon';
-import { iconStylePanel } from './panel-icon-style';
+import { closeIconPanel } from './panel-close-icon';
+import { closeIconStylePanel } from './panel-close-icon-style';
 
 export const panelList = () => {
     return [
@@ -22,9 +22,9 @@ export const panelList = () => {
         },
         /* TabStyle */
         {
-            title: __('Icon Styling', 'gutenverse'),
+            title: __('Close Icon Styling', 'gutenverse'),
             initialOpen: false,
-            panelArray: iconStylePanel,
+            panelArray: closeIconStylePanel,
             tabRole: TabStyle
         },
         {
@@ -55,9 +55,9 @@ export const panelList = () => {
         },
         /* TabSetting */
         {
-            title: __('Icon', 'gutenverse'),
+            title: __('Close Icon', 'gutenverse'),
             initialOpen: false,
-            panelArray: iconPanel,
+            panelArray: closeIconPanel,
             tabRole: TabSetting
         },
         {
