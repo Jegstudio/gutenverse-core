@@ -232,31 +232,31 @@
 			"type": "object",
 			"default": {}
 		},
-		"icon": {
+		"closeIcon": {
 			"type": "string",
 			"default": "gtn gtn-x-line"
 		},
-		"iconColor": {
+		"closeIconColor": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconColorHover": {
+		"closeIconColorHover": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconSize": {
+		"closeIconSize": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconRotate": {
+		"closeIconRotate": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconPadding": {
+		"closeIconPadding": {
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconMargin": {
+		"closeIconMargin": {
 			"type": "object",
 			"copyStyle": true
 		}
