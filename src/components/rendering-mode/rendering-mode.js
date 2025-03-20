@@ -6,7 +6,7 @@ import { store as editorStore } from '@wordpress/editor';
 const TEMPLATE_LOCKED_POST_TYPES = ['page', 'post'];
 
 const renderingMode = registerPlugin('gutenverse-default-rendering-mode', {
-    render: function Edit() {
+    render: () => {
         const { setRenderingMode } = useDispatch(editorStore);
 
         const [postType] = useSelect((select) => [select(editorStore).getCurrentPostType()], []);
