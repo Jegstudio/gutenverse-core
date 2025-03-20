@@ -73,6 +73,13 @@ const SizeControl = (props) => {
                 step: 0.1,
                 unit: 'vh',
             },
+            vw: {
+                text: 'vw',
+                min: 0.1,
+                max: 10,
+                step: 0.1,
+                unit: 'vw',
+            },
             ['%']: {
                 text: '%',
                 min: 1,
