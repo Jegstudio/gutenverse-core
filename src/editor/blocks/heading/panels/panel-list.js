@@ -13,6 +13,19 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text',
+                    arrOfTextChilds : ['dynamicDataList']
+                });
+            },
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
             title: __('Spacing', 'gutenverse'),
             initialOpen: false,
             panelArray: advancePanel,
@@ -68,20 +81,6 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
-
-        // {
-        //     title: __('Dynamic Data', 'gutenverse'),
-        //     panelArray: (props) => {
-        //         return dynamicContentPanel({
-        //             ...props,
-        //             blockType: 'text',
-        //             arrOfTextChilds : ['dynamicDataList']
-        //         });
-        //     },
-        //     initialOpen: false,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
         {
             title: __('Text Clip', 'gutenverse'),
             initialOpen: false,

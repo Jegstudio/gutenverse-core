@@ -363,7 +363,7 @@ const ImageBoxBlock = compose(
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} />
+                <ImageBoxBody {...props} setPanelState={setPanelState} />
             </div>
         </div>
     </>;

@@ -15,13 +15,13 @@ export const panelList = () => {
             panelArray: buttonPanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Dynamic Data', 'gutenverse'),
-        //     panelArray: dynamicContentPanel,
-        //     initialOpen: false,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: dynamicContentPanel,
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,

@@ -14,19 +14,19 @@ export const panelList = () => {
             panelArray: settingPanel,
             tabRole: TabSetting
         },
-        // {
-        //     title: __('Dynamic Data', 'gutenverse'),
-        //     panelArray: (props) => {
-        //         return dynamicContentPanel({
-        //             ...props,
-        //             blockType: 'text',
-        //             arrOfTextChilds : ['textDynamicList','focusTextDynamicList','subTextDynamicList']
-        //         });
-        //     },
-        //     initialOpen: false,
-        //     tabRole: TabSetting,
-        //     pro: true,
-        // },
+        {
+            title: __('Dynamic Data', 'gutenverse'),
+            panelArray: (props) => {
+                return dynamicContentPanel({
+                    ...props,
+                    blockType: 'text',
+                    arrOfTextChilds : ['textDynamicList','focusTextDynamicList','subTextDynamicList']
+                });
+            },
+            initialOpen: false,
+            tabRole: TabSetting,
+            pro: true,
+        },
         {
             title: __('Line', 'gutenverse'),
             panelArray: linePanel,
