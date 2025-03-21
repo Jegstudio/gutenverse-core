@@ -121,16 +121,18 @@ const Library = () => {
         }
     }, [open]);
 
+    const libraryModal = <LibraryModal
+        open={open}
+        setOpen={setOpen}
+        visible={visible}
+        setVisibility={setVisibility}
+        loading={loading}
+        setLoading={setLoading}
+    />;
+
     return <>
         <EscListener execute={() => setVisibility(false)} />
-        <LibraryModal
-            open={open}
-            setOpen={setOpen}
-            visible={visible}
-            setVisibility={setVisibility}
-            loading={loading}
-            setLoading={setLoading}
-        />
+        {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
         {injectLocation && createPortal(libraryButton, injectLocation)}
     </>;
 };
