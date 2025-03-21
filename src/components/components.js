@@ -6,7 +6,6 @@ import elementChange from 'element-change';
 import { applyFilters } from '@wordpress/hooks';
 import { autoRecovery } from './auto-recovery';
 import { editorWarn } from './editor-warn';
-import renderingMode from './rendering-mode/rendering-mode';
 
 /* Other Editor Components */
 import './hook';
