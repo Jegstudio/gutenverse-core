@@ -98,6 +98,7 @@ export const inputPanel = props => {
             ],
             onChange: ({ __itemState }) => setSwitcher({ ...switcher, inputState: __itemState })
         },
+        /** Selector  .search-input-container*/
         {
             id: 'inputColorNormal',
             show: !switcher.inputState || switcher.inputState === 'normal',
@@ -109,7 +110,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    'selector': `.${elementId} .search-input-container`,
                     'properties': [
                         {
                             'name': 'color',
@@ -130,7 +131,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputBgColorNormal',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    'selector': `.${elementId} .search-input-container`,
                     'properties': [
                         {
                             'name': 'background-color',
@@ -149,7 +150,7 @@ export const inputPanel = props => {
                 {
                     'type': 'border',
                     'id': 'inputBorderNormal',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    'selector': `.${elementId} .search-input-container`,
                 }
             ]
         },
@@ -163,7 +164,7 @@ export const inputPanel = props => {
                 {
                     'type': 'borderResponsive',
                     'id': 'inputBorderNormalResponsive',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input`,
+                    'selector': `.${elementId} .search-input-container`,
                 }
             ]
         },
@@ -178,7 +179,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputColorHover',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+                    'selector': `.${elementId} .search-input-container:hover`,
                     'properties': [
                         {
                             'name': 'color',
@@ -199,7 +200,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputBgColorHover',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+                    'selector': `.${elementId} .search-input-container:hover`,
                     'properties': [
                         {
                             'name': 'background-color',
@@ -218,7 +219,7 @@ export const inputPanel = props => {
                 {
                     'type': 'border',
                     'id': 'inputBorderHover',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+                    'selector': `.${elementId} .search-input-container:hover`,
                 }
             ]
         },
@@ -232,7 +233,7 @@ export const inputPanel = props => {
                 {
                     'type': 'borderResponsive',
                     'id': 'inputBorderHoverResponsive',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover`,
+                    'selector': `.${elementId} .search-input-container:hover`,
                 }
             ]
         },
@@ -247,7 +248,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputColorFocus',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    'selector': `.${elementId} .search-input-container:focus`,
                     'properties': [
                         {
                             'name': 'color',
@@ -268,7 +269,7 @@ export const inputPanel = props => {
                     'type': 'color',
                     'id': 'inputBgColorFocus',
                     'responsive': true,
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    'selector': `.${elementId} .search-input-container:focus`,
                     'properties': [
                         {
                             'name': 'background-color',
@@ -287,12 +288,12 @@ export const inputPanel = props => {
                 {
                     'type': 'border',
                     'id': 'inputBorderFocus',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    'selector': `.${elementId} .search-input-container:focus`,
                 },
                 {
                     'type': 'plain',
                     'id': 'inputBorderFocus',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+                    'selector': `.${elementId} .search-input-container:focus-visible`,
                     'properties':[
                         {
                             'name': 'outline',
@@ -313,12 +314,12 @@ export const inputPanel = props => {
                 {
                     'type': 'borderResponsive',
                     'id': 'inputBorderFocusResponsive',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus`,
+                    'selector': `.${elementId} .search-input-container:focus`,
                 },
                 {
                     'type': 'plain',
                     'id': 'inputBorderFocusResponsive',
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:focus-visible`,
+                    'selector': `.${elementId} .search-input-container:focus-visible`,
                     'properties':[
                         {
                             'name': 'outline',
@@ -344,7 +345,7 @@ export const inputPanel = props => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .guten-button-wrapper .guten-button`,
+                    'selector': `.${elementId} .search-input-container, .${elementId} .guten-button-wrapper .guten-button`,
                 }
             ]
         },
@@ -363,7 +364,7 @@ export const inputPanel = props => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
+                    'selector': `.${elementId} .search-input-container:hover, .${elementId} .guten-button-wrapper .guten-button:hover`,
                 }
             ]
         },
@@ -382,7 +383,7 @@ export const inputPanel = props => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `.${elementId} .gutenverse-search.gutenverse-search-input:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
+                    'selector': `.${elementId} .search-input-container:hover, .${elementId} .guten-button-wrapper .guten-button:focus`,
                 }
             ]
         }
