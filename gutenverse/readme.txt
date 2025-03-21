@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,6 +298,11 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
+= 2.2.1 =
+##### New & Improvements
+* add line height css to post block
+* allow post content inside text editor block
+
 = 2.2.0 =
 ##### New & Improvements
 * add option to customize link styling within text based blocks
