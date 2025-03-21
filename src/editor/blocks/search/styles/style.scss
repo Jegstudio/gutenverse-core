@@ -3,8 +3,9 @@
     flex-wrap: wrap;
 
     .gutenverse-search.gutenverse-search-input {
-        border-width: 1px;
+        border: none;
         width: 350px;
+        background-color: inherit;
     }
     .guten-search-button-wrapper, .guten-button-wrapper{
         display: inline-flex!important;
@@ -12,5 +13,18 @@
     }
     .search-input-container {
         display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+    }
+    .close-icon {
+        position: relative;
+        padding: 3px;
+        font-size: 20px;
+        color: var(--guten-txt-color);
+
+        i {
+            position: inherit;
+            display: block;
+        }
     }
 }
