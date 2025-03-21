@@ -771,7 +771,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['iconBoxOverlay']) && data.push({
         'type': 'background',
         'id': 'iconBoxOverlay',
-        'selector': `.${elementId} .guten-icon-box-wrapper:before`,
+        'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
     });
 
     isNotEmpty(attributes['iconBoxHoverOverlay']) && data.push({

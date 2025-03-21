@@ -35,7 +35,7 @@ export const panelOverlay = (props) => {
                 {
                     'type': 'background',
                     'id': 'iconBoxOverlay',
-                    'selector': `.${elementId} .guten-icon-box-wrapper:before`,
+                    'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
                 }
             ],
         },
