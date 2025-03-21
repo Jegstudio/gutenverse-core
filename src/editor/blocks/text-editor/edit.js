@@ -56,11 +56,11 @@ const TextEditorBlock = compose(
     const innerBlocksProps = enableHeading? useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/heading', 'gutenverse/heading'],
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/post-content', 'core/heading', 'gutenverse/heading'],
     }) : useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph'],
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/post-content'],
     });
 
     const innerBlocksContent = useSelect((select) => {
