@@ -1,4 +1,4 @@
-import { select, subscribe, dispatch } from '@wordpress/data';
+import { select, subscribe } from '@wordpress/data';
 import { render } from '@wordpress/element';
 import { useState, useEffect } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';

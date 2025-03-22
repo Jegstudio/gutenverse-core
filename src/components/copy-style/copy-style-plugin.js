@@ -65,11 +65,6 @@ const BlockSettingMenuCopy = () => {
                 }
             });
 
-            console.log('======== Copied Key ========');
-            console.log(copiedKey);
-            console.log('======== Non Copied Key ========');
-            console.log(nonCopiedKey);
-
             copiedStyle = {
                 gutenverse: true,
                 type: name,
@@ -86,6 +81,8 @@ const BlockSettingMenuCopy = () => {
     />;
 };
 
-registerPlugin('gutenverse-block-menu-setting-copy', {
+const gutenverseCopyPlugin = registerPlugin('gutenverse-block-menu-setting-copy', {
     render: BlockSettingMenuCopy,
 });
+
+export default gutenverseCopyPlugin;

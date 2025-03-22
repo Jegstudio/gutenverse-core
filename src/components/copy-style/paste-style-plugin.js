@@ -6,7 +6,7 @@ import { useDispatch } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import cryptoRandomString from 'crypto-random-string';
-import { getAllGutenverseBlock } from './copy-style';
+import { getAllGutenverseBlock } from './copy-style-plugin';
 import { GradientIconPasteSVG } from 'gutenverse-core/icons';
 
 const BlockSettingMenuPaste = () => {
@@ -66,6 +66,8 @@ const BlockSettingMenuPaste = () => {
     />;
 };
 
-registerPlugin('gutenverse-block-menu-setting-paste', {
+const gutenversePastePlugin = registerPlugin('gutenverse-block-menu-setting-paste', {
     render: BlockSettingMenuPaste,
 });
+
+export default gutenversePastePlugin;
