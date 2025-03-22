@@ -1,15 +1,8 @@
-import domReady from '@wordpress/dom-ready';
-import { editorWarn } from './editor-warn';
-
-/* Other Editor Components */
+// Other Editor Components
 import './hook';
 import './data/block';
 
-domReady(() => {
-    editorWarn();
-});
-
-/* Copy & Paste Style */
+// Copy & Paste Style
 export { default as gutenverseCopyPlugin } from './copy-style/copy-style-plugin';
 export { default as gutenversePastePlugin } from './copy-style/paste-style-plugin';
 
@@ -21,3 +14,6 @@ export { default as gutenverseGlobalStyle } from './global-style/global-style-pl
 
 // Autorecovery
 export { default as gutenverseAutoRecovery } from './auto-recovery/auto-recovery-plugin';
+
+// Missing Block Warn
+export { default as gutenverseWarnMissing } from './missing-block-warn/missing-block-wran-plugin';
