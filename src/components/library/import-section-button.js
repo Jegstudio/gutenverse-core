@@ -8,33 +8,67 @@ import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
+import { select } from '@wordpress/data';
+import { store as editorStore } from '@wordpress/editor';
 
 const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
-
     let fail = 0;
+
+    const getBlocksRecursively = (blocks) => {
+        let allBlocks = [];
+        blocks.forEach(block => {
+            allBlocks.push(block);
+            if (block.innerBlocks.length > 0) {
+                allBlocks = allBlocks.concat(getBlocksRecursively(block.innerBlocks));
+            }
+        });
+        return allBlocks;
+    };
+
+    /**
+     * Todo: Find better implementation (WordPress API)
+     */
+    const getParentId = () => {
+        const renderingMode = select(editorStore).getRenderingMode();
+        const editorBlocks = select('core/block-editor').getBlocks();
+
+        if (renderingMode === 'template-locked') {
+            const allBlocks = getBlocksRecursively(editorBlocks);
+            const postBlock = allBlocks.filter(block => {
+                return block.name === 'core/post-content' || block.name === 'gutenverse/post-content';
+            });
+
+            if (postBlock.length > 0) {
+                return postBlock[0].clientId;
+            }
+        }
+    };
 
     const insertBlocksTemplate = (data) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
             const { contents, images } = data;
             const patterns = injectImagesToContent(contents, images);
+
             const blocks = parse(patterns);
-            insertBlocks(blocks);
+            const parentBlockId = getParentId();
+
+            insertBlocks(blocks, undefined, parentBlockId);
             resolve();
         });
     };
 
     const importContent = (e) => {
-        setExporting({show: true, message: 'Fetching Data...', progress: ''});
+        setExporting({ show: true, message: 'Fetching Data...', progress: '' });
         setSelectItem(data);
         setShowOverlay(true);
         setTimeout(() => {
-            setExporting(prev => ({...prev, progress: '1/4'}));
+            setExporting(prev => ({ ...prev, progress: '1/4' }));
         }, 1000);
         e.stopPropagation();
-        dispatch( 'gutenverse/library' ).setSectionProgress(__('Fetching Data', '--gctd--'));
-        dispatch( 'gutenverse/library' ).setLockSectionImport(slug);
+        dispatch('gutenverse/library').setSectionProgress(__('Fetching Data', '--gctd--'));
+        dispatch('gutenverse/library').setLockSectionImport(slug);
 
         const params = customAPI ? {
             slug,
@@ -53,7 +87,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
                 count++;
                 setExporting(prev => ({ ...prev, message: `Importing Image Assets ${count} of ${images.length + 1}`, progress: '2/4' }));
                 const result = await importImage(img).catch(() => {
-                    imgs.push({id: 0, url: ''});
+                    imgs.push({ id: 0, url: '' });
                     fail++;
                 });
                 if (result) {
@@ -68,30 +102,30 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
 
         importSingleSectionContent(params, customAPI).then(result => {
             const data = JSON.parse(result);
-            setExporting(prev => ({...prev, message: 'Importing Assets...', progress: '2/4'}));
-            dispatch( 'gutenverse/library' ).setSectionProgress(__('Importing Assets', '--gctd--'));
+            setExporting(prev => ({ ...prev, message: 'Importing Assets...', progress: '2/4' }));
+            dispatch('gutenverse/library').setSectionProgress(__('Importing Assets', '--gctd--'));
             return processImages(data);
         }).then(result => {
-            setExporting(prev => ({...prev, message: 'Deploying Content...', progress: '3/4'}));
-            dispatch( 'gutenverse/library' ).setSectionProgress(__('Deploying Content', '--gctd--'));
+            setExporting(prev => ({ ...prev, message: 'Deploying Content...', progress: '3/4' }));
+            dispatch('gutenverse/library').setSectionProgress(__('Deploying Content', '--gctd--'));
             return insertBlocksTemplate(result);
         }).finally(() => {
-            setExporting(prev => ({...prev, message: 'Done!', progress: '4/4'}));
+            setExporting(prev => ({ ...prev, message: 'Done!', progress: '4/4' }));
             setTimeout(() => {
                 setShowOverlay(false);
-                dispatch( 'gutenverse/library' ).setLockSectionImport(null);
+                dispatch('gutenverse/library').setLockSectionImport(null);
                 closeImporter();
-                setExporting({show: false, message: 'Done!', progress: ''});
+                setExporting({ show: false, message: 'Done!', progress: '' });
                 if (fail) {
                     dispatch('gutenverse/library').setImportNotice(`${fail} image not imported.`);
                 }
             }, 300);
         }).catch(() => {
-            setExporting(prev => ({...prev, message: 'Failed!', progress: '4/4'}));
+            setExporting(prev => ({ ...prev, message: 'Failed!', progress: '4/4' }));
             setTimeout(() => {
                 dispatch('gutenverse/library').setImportNotice('Please Try Again.');
                 setShowOverlay(false);
-                setExporting({show: false, message: 'Failed!', progress: ''});
+                setExporting({ show: false, message: 'Failed!', progress: '' });
             }, 300);
         });
     };
@@ -108,7 +142,7 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
     };
 
     const ProButton = () => {
-        return <ButtonUpgradePro licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} isBanner={true} location="card-pro"/>;
+        return <ButtonUpgradePro licenseActiveButton={ImportButton()} link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=librarysection&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`} isBanner={true} location="card-pro" />;
     };
 
     const renderButton = () => {
