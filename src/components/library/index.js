@@ -45,6 +45,7 @@ const Library = () => {
     const [injectLocation, setInjectLocation] = useState(null);
     const [refresh, setRefresh] = useState(null); // eslint-disable-line no-unused-vars
     const [loading, setLoading] = useState(true);
+    const [libraryError, setLibraryError] = useState(false);
 
     const refreshSignal = (key) => {
         setRefresh(key);
@@ -128,12 +129,14 @@ const Library = () => {
         setVisibility={setVisibility}
         loading={loading}
         setLoading={setLoading}
+        setLibraryError={setLibraryError}
     />;
 
     return <>
         <EscListener execute={() => setVisibility(false)} />
         {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
         {injectLocation && createPortal(libraryButton, injectLocation)}
+        {libraryError !== false && createPortal(libraryError, document.getElementById('gutenverse-error'))}
     </>;
 };
 

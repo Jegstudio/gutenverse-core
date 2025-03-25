@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect, dispatch, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
@@ -10,39 +10,70 @@ import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 import { select } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
-const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem }) => {
+const ImportSectionButton = props => {
+    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError } = props;
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
     let fail = 0;
-
-    const getBlocksRecursively = (blocks) => {
-        let allBlocks = [];
-        blocks.forEach(block => {
-            allBlocks.push(block);
-            if (block.innerBlocks.length > 0) {
-                allBlocks = allBlocks.concat(getBlocksRecursively(block.innerBlocks));
-            }
-        });
-        return allBlocks;
-    };
 
     /**
      * Todo: Find better implementation (WordPress API)
      */
     const getParentId = () => {
         const renderingMode = select(editorStore).getRenderingMode();
-        const editorBlocks = select('core/block-editor').getBlocks();
+        const blockNames = ['core/post-content', 'gutenverse/post-content'];
 
         if (renderingMode === 'template-locked') {
-            const allBlocks = getBlocksRecursively(editorBlocks);
-            const postBlock = allBlocks.filter(block => {
-                return block.name === 'core/post-content' || block.name === 'gutenverse/post-content';
-            });
+            for (let i = 0; i < blockNames.length; i++) {
+                const [postContentClientId] = select(blockEditorStore).getBlocksByName(
+                    blockNames[i]
+                );
 
-            if (postBlock.length > 0) {
-                return postBlock[0].clientId;
+                if (postContentClientId) {
+                    return postContentClientId;
+                }
             }
+
+            // return false, if no post content block found.
+            return false;
         }
+    };
+
+    const ImportNotice = ({ resolve, blocks }) => {
+        const { setRenderingMode } = useDispatch(editorStore);
+        const { insertBlocks } = dispatch('core/block-editor');
+
+        const importContent = () => {
+            resolve();
+            setLibraryError(false);
+            setRenderingMode('post-only');
+            setTimeout(() => {
+                insertBlocks(blocks);
+            }, 500);
+        };
+
+        const cancelImport = () => {
+            setLibraryError(false);
+            resolve();
+        };
+
+        return <div id="gutenverse-warn">
+            <div className="gutenverse-editor-warn">
+                <div className="gutenverse-warn-wrapper">
+                    <div className="gutenverse-warn-header">
+                        <span>{__('Import Section Notice', '--gctd--')}</span>
+                    </div>
+                    <div className="gutenverse-warn-description">
+                        {__('We cannot import content because we can\'t find Post Content inside your Template. Procced to swith to Post View instead of template to import content?', '--gctd--')}
+                    </div>
+                    <div className="gutenverse-warn-footer">
+                        <button className="cancel" onClick={() => cancelImport()}>Dismiss</button>
+                        <button className="primary" onClick={() => importContent()}>Keep Import</button>
+                    </div>
+                </div>
+            </div>
+        </div>;
     };
 
     const insertBlocksTemplate = (data) => {
@@ -54,8 +85,14 @@ const ImportSectionButton = ({ data, closeImporter, importer, setShowOverlay, se
             const blocks = parse(patterns);
             const parentBlockId = getParentId();
 
-            insertBlocks(blocks, undefined, parentBlockId);
-            resolve();
+            if (parentBlockId === false) {
+                setLibraryError(() => {
+                    return <ImportNotice resolve={resolve} blocks={blocks} />;
+                });
+            } else {
+                insertBlocks(blocks, undefined, parentBlockId);
+                resolve();
+            }
         });
     };
 
