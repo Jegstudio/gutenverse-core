@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useMemo } from '@wordpress/element';
 import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -8,13 +8,13 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import {
-    InspectorControls,
-    useBlockProps
-} from '@wordpress/block-editor';
+import { InspectorControls, RecursionProvider, useBlockProps, useInnerBlocksProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
+import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
+import { useEntityProp, useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
+import { parse } from '@wordpress/blocks';
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -23,20 +23,176 @@ const Placeholder = () => {
     </div>;
 };
 
+const ReadOnlyContent = ({
+    parentLayout,
+    layoutClassNames,
+    userCanEdit,
+    postType,
+    postId,
+}) => {
+    const [, , content] = useEntityProp(
+        'postType',
+        postType,
+        'content',
+        postId
+    );
+    const blockProps = useBlockProps({ className: layoutClassNames });
+    const blocks = useMemo(() => {
+        return content?.raw ? parse(content.raw) : [];
+    }, [content?.raw]);
+    const blockPreviewProps = useBlockPreview({
+        blocks,
+        props: blockProps,
+        layout: parentLayout,
+    });
+
+    if (userCanEdit) {
+        /*
+         * Rendering the block preview using the raw content blocks allows for
+         * block support styles to be generated and applied by the editor.
+         *
+         * The preview using the raw blocks can only be presented to users with
+         * edit permissions for the post to prevent potential exposure of private
+         * block content.
+         */
+        return <div {...blockPreviewProps}></div>;
+    }
+
+    return content?.protected ? (
+        <div {...blockProps}>
+            <Warning>{__('This content is password protected.')}</Warning>
+        </div>
+    ) : (
+        <div
+            {...blockProps}
+            dangerouslySetInnerHTML={{ __html: content?.rendered }}
+        ></div>
+    );
+};
+
+const EditableContent = ({ context = {} }) => {
+    const { postType, postId } = context;
+
+    const [blocks, onInput, onChange] = useEntityBlockEditor(
+        'postType',
+        postType,
+        { id: postId }
+    );
+
+    const entityRecord = useSelect(
+        (select) => {
+            return select(coreStore).getEntityRecord(
+                'postType',
+                postType,
+                postId
+            );
+        },
+        [postType, postId]
+    );
+
+    const hasInnerBlocks = !!entityRecord?.content?.raw || blocks?.length;
+
+    const initialInnerBlocks = [['core/paragraph']];
+
+    const props = useInnerBlocksProps(
+        {
+            className: classnames(
+                'guten-element',
+                'guten-post-content',
+            ),
+        },
+        {
+            value: blocks,
+            onInput,
+            onChange,
+            template: !hasInnerBlocks ? initialInnerBlocks : undefined,
+        },
+    );
+
+    return <div {...props} />;
+};
+
+const Content = (props) => {
+    const { context: { queryId, postType, postId } = {}, layoutClassNames } =
+        props;
+
+    const userCanEdit = useSelect(
+        (select) =>
+            select(coreStore).canUser('update', {
+                kind: 'postType',
+                name: postType,
+                id: postId,
+            }),
+        [postType, postId]
+    );
+
+    if (userCanEdit === undefined) {
+        return null;
+    }
+
+    const isDescendentOfQueryLoop = Number.isFinite(queryId);
+    const isEditable = userCanEdit && !isDescendentOfQueryLoop;
+
+    return isEditable ? (
+        <EditableContent {...props} />
+    ) : (
+        <ReadOnlyContent
+            parentLayout={props.parentLayout}
+            layoutClassNames={layoutClassNames}
+            userCanEdit={userCanEdit}
+            postType={postType}
+            postId={postId}
+        />
+    );
+}
+
+const RecursionError = () => {
+    const blockProps = useBlockProps();
+    return (
+        <div {...blockProps}>
+            <Warning>
+                {__('Block cannot be rendered inside itself.')}
+            </Warning>
+        </div>
+    );
+};
+
 const PostContentBlock = compose(
     withPartialRender,
     withCustomStyle(panelList),
     withCopyElementToolbar()
 )((props) => {
     const {
+        clientId,
         attributes,
         setElementRef,
+        context,
+        __unstableLayoutClassNames: layoutClassNames,
+        __unstableParentLayout: parentLayout,
     } = props;
+
+    const { setBlockEditingMode, unsetBlockEditingMode } = useDispatch(blockEditorStore);
+
+    useEffect(() => {
+        setBlockEditingMode(clientId, 'default');
+
+        return () => {
+            unsetBlockEditingMode(clientId);
+        };
+
+    }, [clientId, setBlockEditingMode, unsetBlockEditingMode]);
 
     const {
         elementId,
         inheritLayout,
     } = attributes;
+
+    const { postId: contextPostId, postType: contextPostType } = context;
+    const hasAlreadyRendered = useHasRecursion(contextPostId);
+
+    if (contextPostId && contextPostType && hasAlreadyRendered) {
+        return <RecursionError />;
+    }
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
@@ -80,10 +236,19 @@ const PostContentBlock = compose(
         {inheritLayout && layout && layout.contentSize && <style>
             {`.${elementId} > .post-content > * { max-width: ${layout.contentSize}; margin-left:auto; margin-right: auto; }`}
         </style>}
-        <div
-            {...blockProps}>
-            <Placeholder />
-        </div>
+        <RecursionProvider uniqueId={contextPostId}>
+            {contextPostId && contextPostType ? (
+                <div {...blockProps}>
+                    <Content
+                        context={context}
+                        parentLayout={parentLayout}
+                        layoutClassNames={layoutClassNames}
+                    />
+                </div>
+            ) : (
+                <Placeholder layoutClassNames={layoutClassNames} />
+            )}
+        </RecursionProvider>
     </>;
 });
 
