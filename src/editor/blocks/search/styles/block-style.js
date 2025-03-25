@@ -692,7 +692,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'closeIconSize',
         'responsive': true,
-        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon i`,
+        'selector': `.${elementId} .gutenverse-search-form .search-input-container .close-icon`,
         'properties': [
             {
                 'name': 'font-size',
