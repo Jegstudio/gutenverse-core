@@ -68,7 +68,7 @@ const SearchBlock = compose(
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     if (closeIconRef.current) {
-        closeIconRef.current.style.opacity = inputValue !== '' ? 1 : 0;
+        closeIconRef.current.style.visibility = inputValue !== '' ? 'visible' : 'hidden';
     }
 
     return <>
