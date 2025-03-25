@@ -236,19 +236,19 @@ const PostContentBlock = compose(
         {inheritLayout && layout && layout.contentSize && <style>
             {`.${elementId} > .post-content > * { max-width: ${layout.contentSize}; margin-left:auto; margin-right: auto; }`}
         </style>}
-        <RecursionProvider uniqueId={contextPostId}>
-            {contextPostId && contextPostType ? (
-                <div {...blockProps}>
+        <div {...blockProps}>
+            <RecursionProvider uniqueId={contextPostId}>
+                {contextPostId && contextPostType ? (
                     <Content
                         context={context}
                         parentLayout={parentLayout}
                         layoutClassNames={layoutClassNames}
                     />
-                </div>
-            ) : (
-                <Placeholder layoutClassNames={layoutClassNames} />
-            )}
-        </RecursionProvider>
+                ) : (
+                    <Placeholder layoutClassNames={layoutClassNames} />
+                )}
+            </RecursionProvider>
+        </div>
     </>;
 });
 
