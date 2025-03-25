@@ -425,7 +425,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container .close-icon",
 					'property'       => function ( $value ) {
-						return "font-size: {$value};";
+						return "font-size: {$value}px;";
 					},
 					'value'          => $this->attrs['closeIconSize'],
 					'device_control' => true,
@@ -438,7 +438,7 @@ class Search extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .gutenverse-search-form .search-input-container .close-icon",
 					'property'       => function ( $value ) {
-						return "transform: {$value};";
+						return "transform: rotate({$value}deg);";
 					},
 					'value'          => $this->attrs['closeIconRotate'],
 					'device_control' => true,
@@ -492,7 +492,7 @@ class Search extends Style_Abstract {
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
-					'value'          => $this->attrs['closeIconColor'],
+					'value'          => $this->attrs['closeIconColorHover'],
 					'device_control' => true,
 				)
 			);
