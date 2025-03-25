@@ -4,41 +4,16 @@ import { withSelect, dispatch, useDispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
-import { injectImagesToContent } from 'gutenverse-core/helper';
+import { getParentId, injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
-import { select } from '@wordpress/data';
 import { store as editorStore } from '@wordpress/editor';
-import { store as blockEditorStore } from '@wordpress/block-editor';
 
 const ImportSectionButton = props => {
     const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError } = props;
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
     let fail = 0;
-
-    /**
-     * Todo: Find better implementation (WordPress API)
-     */
-    const getParentId = () => {
-        const renderingMode = select(editorStore).getRenderingMode();
-        const blockNames = ['core/post-content', 'gutenverse/post-content'];
-
-        if (renderingMode === 'template-locked') {
-            for (let i = 0; i < blockNames.length; i++) {
-                const [postContentClientId] = select(blockEditorStore).getBlocksByName(
-                    blockNames[i]
-                );
-
-                if (postContentClientId) {
-                    return postContentClientId;
-                }
-            }
-
-            // return false, if no post content block found.
-            return false;
-        }
-    };
 
     const ImportNotice = ({ resolve, blocks }) => {
         const { setRenderingMode } = useDispatch(editorStore);
