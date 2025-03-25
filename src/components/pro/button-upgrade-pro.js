@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { IconCrownSVG, IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
+import { IconCrownBannerSVG, IconKeySVG } from 'gutenverse-core/icons';
 import classnames from 'classnames';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
@@ -81,7 +81,7 @@ const ButtonUpgradePro = ({
                     button(__('Renew License', '--gctd--'), 'key', false, false),
                     licenseActiveButton);
             }
-        } 
+        }
     }, {location,isBanner});
     return <TheButton />;
 };
