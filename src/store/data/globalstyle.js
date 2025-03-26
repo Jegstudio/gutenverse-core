@@ -21,9 +21,13 @@ export const variableReducer = (state = defaultState, action) => {
                 ],
             };
         case 'EDIT_VARIABLE_FONT':
+            let fonts = state.fonts;
+            if (typeof fonts === 'object') {
+                fonts = Object.values(fonts);
+            }
             return {
                 ...state,
-                fonts: state.fonts.map(font => {
+                fonts: fonts.map(font => {
                     if (font.id === action.font.id) {
                         return action.font;
                     } else {

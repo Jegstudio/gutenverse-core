@@ -61,8 +61,10 @@ const TypographyControl = (props) => {
 
     const variableFontUpdate = () => {
         const variable = select('gutenverse/global-style')?.getVariable();
-        const { fonts } = variable;
-
+        let { fonts } = variable;
+        if (typeof fonts === 'object') {
+            fonts = Object.values(fonts);
+        }
         setVariableFont(fonts);
     };
 

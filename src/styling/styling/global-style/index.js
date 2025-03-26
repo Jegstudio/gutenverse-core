@@ -198,7 +198,10 @@ export const getGlobalVariable = () => {
     let fonts = [];
 
     if (variable?.fonts) {
-        fonts = variable.fonts;
+        fonts = variable?.fonts;
+        if(typeof fonts === 'object'){
+            fonts = Object.values(fonts);
+        }
         fonts.map(({ id, font }) => font && handleFont(font, addFont, id));
     }
 
