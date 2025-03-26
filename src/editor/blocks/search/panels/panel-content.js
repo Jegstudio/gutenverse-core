@@ -103,10 +103,10 @@ export const contentPanel = props => {
             },
             liveStyle: [
                 {
-                    'type': '%' !== inputWidth[device]['unit'] ? 'unitPoint' : 'plain',
+                    'type': isNotEmpty(inputWidth) && '%' !== inputWidth[device]['unit'] ? 'unitPoint' : 'plain',
                     'id': 'inputWidth',
                     'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-                    'properties': '%' !== inputWidth[device]['unit'] ? 
+                    'properties': isNotEmpty(inputWidth) && '%' !== inputWidth[device]['unit'] ? 
                         [{
                             'name': 'width',
                             'valueType': 'direct',

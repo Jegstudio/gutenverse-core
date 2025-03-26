@@ -2,7 +2,7 @@ import { compose } from '@wordpress/compose';
 import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { useRef } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { classnames } from 'gutenverse-core/components';
 import { BlockPanelController } from 'gutenverse-core/controls';
@@ -19,6 +19,7 @@ const SearchBlock = compose(
         clientId
     } = props;
     const {
+        closeIcon,
         showButton,
         inputPlaceholder,
         elementId,
@@ -26,6 +27,8 @@ const SearchBlock = compose(
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const elementRef = useRef();
+    const [inputValue, setInputValue] = useState('');
+    const closeIconRef = useRef();
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -64,22 +67,31 @@ const SearchBlock = compose(
     useGenerateElementId(clientId, elementId, elementRef);
     useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
+    if (closeIconRef.current) {
+        closeIconRef.current.style.visibility = inputValue !== '' ? 'visible' : 'hidden';
+    }
+
     return <>
         <CopyElementToolbar {...props}/>
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
-            <div
-                className="gutenverse-search-form"
-            >
+            <div className="gutenverse-search-form">
                 <div className="search-input-container">
-                    <input type="search"
+                    <input type="text"
                         placeholder={inputPlaceholder}
                         name="s"
                         className={classnames(
                             'gutenverse-search',
                             'gutenverse-search-input',
                         )}
+                        value={inputValue}
+                        onChange={(event) => {
+                            setInputValue(event.target.value);
+                        }}
                     />
+                    <div className="close-icon" ref={closeIconRef} onClick={() => setInputValue('')}>
+                        <i className={closeIcon}></i>
+                    </div>
                 </div>
                 {
                     showButton && <div className="gutenverse-search-button" {...innerBlockProps} />
