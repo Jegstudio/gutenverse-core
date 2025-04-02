@@ -7,43 +7,12 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        //tab setting
         {
             title: __('Content', 'gutenverse'),
             panelArray: panelContent,
             initialOpen: true,
             tabRole: TabSetting
-        },
-        {
-            title: __('Style', 'gutenverse'),
-            panelArray: panelStyle,
-            initialOpen: true,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'google-maps-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient'],
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'google-maps-border',
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
         },
         {
             title: __('Display', 'gutenverse'),
@@ -103,6 +72,40 @@ export const panelList = () => {
             panelArray: conditionPanel,
             initialOpen: false,
             pro: true
+        },
+
+        //tab style
+        {
+            title: __('Style', 'gutenverse'),
+            panelArray: panelStyle,
+            initialOpen: true,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'google-maps-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => borderPanel({
+                ...props,
+                styleId: 'google-maps-border',
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
     ];
 };

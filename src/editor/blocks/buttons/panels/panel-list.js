@@ -5,37 +5,13 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        //tab setting
         {
             title: __('Buttons', 'gutenverse'),
             panelArray: buttonsPanel,
             tabRole: TabSetting
         },
-        {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'buttons-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'buttons-border',
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
+
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
@@ -94,6 +70,34 @@ export const panelList = () => {
             panelArray: conditionPanel,
             initialOpen: false,
             pro: true
+        },
+
+        //tab style
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'buttons-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => borderPanel({
+                ...props,
+                styleId: 'buttons-border',
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
     ];
 };

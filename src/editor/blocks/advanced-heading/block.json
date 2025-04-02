@@ -96,7 +96,7 @@
         },
         "lineStyle": {
             "type": "string",
-            "default": "default",
+            "default": "solid",
             "copyStyle": true
         },
         "lineMargin": {

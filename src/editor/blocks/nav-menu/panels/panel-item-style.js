@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderResponsiveControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleBackground, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemStylePanel = (props) => {
     const {
@@ -14,14 +13,6 @@ export const itemStylePanel = (props) => {
             id: 'itemTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'itemSpacing',
@@ -39,13 +30,6 @@ export const itemStylePanel = (props) => {
                     unit: 'em'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'itemMargin',
@@ -63,13 +47,6 @@ export const itemStylePanel = (props) => {
                     unit: 'em'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: '__itemState',
@@ -96,12 +73,19 @@ export const itemStylePanel = (props) => {
             label: __('Item Text Normal Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'itemTextNormalColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -110,14 +94,13 @@ export const itemStylePanel = (props) => {
             component: BackgroundControl,
             label: __('Item Text Normal Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'itemTextNormalBg',
+                    'type': 'background',
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'itemTextHoverColor',
@@ -125,12 +108,19 @@ export const itemStylePanel = (props) => {
             label: __('Item Text Hover Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'itemTextHoverColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -138,14 +128,14 @@ export const itemStylePanel = (props) => {
             show: switcher.itemState === 'hover',
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'itemTextHoverBg',
+                    'type': 'background',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'itemTextActiveColor',
@@ -153,17 +143,22 @@ export const itemStylePanel = (props) => {
             label: __('Item Text Active Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a`,
-                    render: value => handleColor(value, 'color')
-                },
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
-                    render: value => handleColor(value, 'color')
-                },
+                    'type': 'color',
+                    'id': 'itemTextActiveColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a, 
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                        .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ],
         },
         {
@@ -171,20 +166,16 @@ export const itemStylePanel = (props) => {
             show: switcher.itemState === 'active',
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
-                },
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'itemTextActiveBg',
+                    'type': 'background',
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-item > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-item > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'itemMenuBorderNormal',
@@ -192,13 +183,14 @@ export const itemStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
-                    render: value => handleBorderResponsive(value)
+                    'id': 'itemMenuBorderNormal',
+                    'type': 'borderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li > a, .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'itemMenuBorderHover',
@@ -206,13 +198,15 @@ export const itemStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
-                    render: value => handleBorderResponsive(value)
+                    'id': 'itemMenuBorderHover',
+                    'type': 'borderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li:hover > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li:hover > a`,
                 }
-            ]
+            ],
         },
         {
             id: 'itemMenuBorderActive',
@@ -220,13 +214,15 @@ export const itemStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
-                    .${elementId} .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
-                    render: value => handleBorderResponsive(value)
+                    'id': 'itemMenuBorderActive',
+                    'type': 'borderResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > li.current-menu-ancestor > a,
+                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu .gutenverse-menu-wrapper .gutenverse-menu > ul > li.current-menu-ancestor > a`,
                 }
-            ]
+            ],
         },
 
     ];

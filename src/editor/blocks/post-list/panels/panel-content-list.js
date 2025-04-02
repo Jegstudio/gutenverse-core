@@ -3,8 +3,6 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentListPanel = (props) => {
     const {
@@ -38,12 +36,6 @@ export const contentListPanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-post`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'contentMargin',
@@ -65,12 +57,6 @@ export const contentListPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'contentPadding',
@@ -92,12 +78,6 @@ export const contentListPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'contentWidth',
@@ -124,10 +104,18 @@ export const contentListPanel = (props) => {
                     step: 1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    render: value => handleUnitPoint(value, 'width')
+                    'type': 'unitPoint',
+                    'id': 'contentWidth',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postlist .guten-post a`,
                 }
             ]
         },
@@ -153,11 +141,11 @@ export const contentListPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'contentBackground',
+                    'selector': `.${elementId} .guten-postlist .guten-post`,
                 }
             ]
         },
@@ -168,11 +156,11 @@ export const contentListPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post:hover`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'contentHoverBackground',
+                    'selector': `.${elementId} .guten-postlist .guten-post:hover`,
                 }
             ]
         },
@@ -181,11 +169,11 @@ export const contentListPanel = (props) => {
             show: (!switcher.contentHover || switcher.contentHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'contentBorder',
+                    'selector': `.${elementId} .guten-postlist .guten-post a`,
                 }
             ]
         },
@@ -195,11 +183,11 @@ export const contentListPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'contentBorderResponsive',
+                    'selector': `.${elementId} .guten-postlist .guten-post a`,
                 }
             ]
         },
@@ -208,11 +196,11 @@ export const contentListPanel = (props) => {
             show: switcher.contentHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'contentHoverBorder',
+                    'selector': `.${elementId} .guten-postlist .guten-post:hover a`,
                 }
             ]
         },
@@ -222,35 +210,49 @@ export const contentListPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post:hover a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'contentHoverBorderResponsive',
+                    'selector': `.${elementId} .guten-postlist .guten-post:hover a`,
                 }
             ]
         },
         {
             id: 'contentShadow',
-            label: __('Hover Box Shadow', 'gutenverse'),
+            label: __('Box Shadow', 'gutenverse'),
+            show: !switcher.contentHover || switcher.contentHover === 'normal',
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'contentShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postlist .guten-post a`,
                 }
             ]
         },
         {
             id: 'contentHoverShadow',
-            label: __('Box Shadow', 'gutenverse'),
+            label: __('Hover Box Shadow', 'gutenverse'),
+            show: switcher.contentHover === 'hover',
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postlist .guten-post:hover a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'contentHoverShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postlist .guten-post:hover a`,
                 }
             ]
         },

@@ -1,20 +1,18 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import {
-    InspectorControls,
-    useBlockProps
-} from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -24,13 +22,11 @@ const Placeholder = () => {
 };
 
 const PostContentBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId
     } = props;
 
     const {
@@ -40,14 +36,8 @@ const PostContentBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postTitleRef = useRef();
+    const elementRef = useRef();
     const layout = useSettingFallback('layout');
-
-    useEffect(() => {
-        if (postTitleRef.current) {
-            setElementRef(postTitleRef.current);
-        }
-    }, [postTitleRef]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -57,10 +47,14 @@ const PostContentBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postTitleRef
+        ref: elementRef
     });
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Content works?', 'gutenverse')}
@@ -76,7 +70,7 @@ const PostContentBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         {inheritLayout && layout && layout.contentSize && <style>
             {`.${elementId} > .post-content > * { max-width: ${layout.contentSize}; margin-left:auto; margin-right: auto; }`}
         </style>}

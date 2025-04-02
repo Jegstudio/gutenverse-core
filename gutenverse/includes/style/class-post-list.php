@@ -703,7 +703,7 @@ class Post_List extends Style_Abstract {
 				array(
 					'selector'       => ".{$this->element_id} .guten-postlist .guten-block-pagination, .{$this->element_id} .guten-postlist .guten_block_nav",
 					'property'       => function ( $value ) {
-						return "text-align: {$value};";
+						return "justify-content: {$this->handle_align_reverse($value)};";
 					},
 					'value'          => $this->attrs['paginationAlign'],
 					'device_control' => true,

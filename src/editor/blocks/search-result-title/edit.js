@@ -1,26 +1,24 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
-import { classnames, RichTextComponent } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { classnames } from 'gutenverse-core/components';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SearchResultTitleBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
     } = props;
     const {
         elementId,
@@ -30,11 +28,7 @@ const SearchResultTitleBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const searchResultTitleRef = useRef();
-
-    useEffect(() => {
-        searchResultTitleRef.current && setElementRef(searchResultTitleRef.current);
-    }, [searchResultTitleRef]);
+    const elementRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -44,9 +38,14 @@ const SearchResultTitleBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: searchResultTitleRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Search Result Title works?', 'gutenverse')}
@@ -62,7 +61,7 @@ const SearchResultTitleBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <HtmlTag>{staticText} <span className="search-input-text">{__('<Search Input>', 'gutenverse')}</span></HtmlTag>
         </div>

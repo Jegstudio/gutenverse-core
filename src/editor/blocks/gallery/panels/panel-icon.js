@@ -1,15 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SelectControl, SwitchControl, TypographyControl, BackgroundControl, HeadingControl } from 'gutenverse-core/controls';
-import { getDeviceType, isEmptyValue } from 'gutenverse-core/editor-helper';
-import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const iconPanel = (props) => {
     const device = getDeviceType();
-    const { 
-        elementId, 
-        selectionIconPadding, 
+    const {
+        elementId,
+        selectionIconPadding,
         switcher,
-        setSwitcher 
+        setSwitcher
     } = props;
     return [
         {
@@ -52,10 +51,23 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
+        },
+        {
+            id: 'iconColor',
+            label: __('Icon Color', 'gutenverse'),
+            show: !switcher.textIcon || switcher.textIcon === 'icon',
+            component: ColorControl,
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .item-buttons`,
-                    render: value => handleDimension(value, 'margin')
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -64,24 +76,17 @@ export const iconPanel = (props) => {
             label: __('Icon Background', 'gutenverse'),
             show: !switcher.textIcon || switcher.textIcon === 'icon',
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    render: value => handleColor(value, 'background')
-                }
-            ]
-        },
-        {
-            id: 'iconColor',
-            label: __('Icon Color', 'gutenverse'),
-            show: !switcher.textIcon || switcher.textIcon === 'icon',
-            component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconBg',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
+                    'properties': [
+                        {
+                            'name': 'background',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -95,11 +100,24 @@ export const iconPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    render: value => `font-size: ${value}px`
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -144,14 +162,6 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.zoom span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.zoom span`,
-                    allowRender: () => selectionIconPadding === 'custom',
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'linkIconPadding',
@@ -178,14 +188,6 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link.link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link.link span`,
-                    allowRender: () => selectionIconPadding === 'custom',
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'iconPadding',
@@ -212,26 +214,17 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    allowRender: () => selectionIconPadding === 'all',
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'iconBorder',
             show: device === 'Desktop' && !switcher.textIcon || switcher.textIcon === 'icon',
             label: __('Icon Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorder',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
                 }
             ]
         },
@@ -241,12 +234,11 @@ export const iconPanel = (props) => {
             label: __('Icon Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span,
-                    .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'iconBorderResponsive',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-button .item-buttons .gallery-link span, .${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .item-caption-over .item-buttons .gallery-link span`,
                 }
             ]
         },
@@ -260,10 +252,24 @@ export const iconPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text`,
-                    render: value => `gap: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconTextGap',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text`,
+                    'properties': [
+                        {
+                            'name': 'gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -291,18 +297,13 @@ export const iconPanel = (props) => {
                     label: __('Right')
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text`,
-                    render: value => `flex-direction: ${value};`
-                }
-            ]
         },
 
         //text zoom style
         {
             id: 'textZoomHeading',
             component: HeadingControl,
+            show: switcher.textIcon === 'text',
             label: __('Text Zoom Styles')
         },
         {
@@ -310,13 +311,6 @@ export const iconPanel = (props) => {
             label: __('Text Zoom Typography', 'gutenverse'),
             show: switcher.textIcon === 'text',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'textZoomColor',
@@ -324,12 +318,20 @@ export const iconPanel = (props) => {
             show: switcher.textIcon === 'text',
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'textZoomColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'textZoomBackground',
@@ -338,11 +340,11 @@ export const iconPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'textZoomBackground',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
                 }
             ]
         },
@@ -352,10 +354,11 @@ export const iconPanel = (props) => {
             label: __('Text Zoom Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'textZoomBorder',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
                 }
             ]
         },
@@ -384,12 +387,6 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'textZoomPadding',
@@ -416,18 +413,13 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.zoom .item-icon-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
 
         //text link style
         {
             id: 'textLinkHeading',
             component: HeadingControl,
+            show: switcher.textIcon === 'text',
             label: __('Text Link Styles')
         },
         {
@@ -435,13 +427,6 @@ export const iconPanel = (props) => {
             label: __('Text Link Typography', 'gutenverse'),
             show: switcher.textIcon === 'text',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'textLinkColor',
@@ -449,12 +434,20 @@ export const iconPanel = (props) => {
             show: switcher.textIcon === 'text',
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'textLinkColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'textLinkBackground',
@@ -463,11 +456,11 @@ export const iconPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'textLinkBackground',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
                 }
             ]
         },
@@ -477,10 +470,11 @@ export const iconPanel = (props) => {
             label: __('Text Link Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'textLinkBorder',
+                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
                 }
             ]
         },
@@ -509,12 +503,6 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'textLinkPadding',
@@ -541,12 +529,6 @@ export const iconPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .gallery-link.with-text.link .item-icon-text`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
 
     ];

@@ -114,3 +114,56 @@
         }
     }
 }
+.editor-styles-wrapper {
+    .gutenverse-popup-gallery {
+        &.layout-card .gallery-items .gallery-item-wrap {
+            .grid-item {
+                .thumbnail-wrap {
+                    .style-overlay {
+                        transition: none !important;
+                    }
+                }
+            }
+        }
+        .search-filters-wrap {
+            .filter-wrap {
+                ul.search-filter-controls {
+                    li {
+                        transition: none !important;
+                    }
+                }
+            }
+        }
+        .gallery-items {
+            .gallery-item-wrap {
+                &:hover .grid-item {
+                    .video-wrap a {
+                        transition: none !important;
+                    }
+                }
+                .grid-item {
+                    .caption-wrap {
+                        &.style-overlay {
+                            transition: none !important;
+                            &.overlay-slide .item-caption-over {
+                                .item-title {
+                                    transition: none !important;
+                                }
+                                .item-content,
+                                .item-buttons {
+                                    transition: none !important;
+                                }
+                            }
+                            &.overlay-zoom {
+                                .item-hover-bg,
+                                .item-caption-over {
+                                    transition: none !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

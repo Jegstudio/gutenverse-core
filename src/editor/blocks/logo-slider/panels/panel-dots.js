@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const dotsPanel = (props) => {
     const {
@@ -18,10 +17,24 @@ export const dotsPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullets .swiper-pagination-bullet`,
-                    render: value => `margin: 0 calc(${value}px / 2);`
+                    'type': 'plain',
+                    'id': 'dotsSpacingHorizontal',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullets .swiper-pagination-bullet`,
+                    'properties': [
+                        {
+                            'name': 'margin',
+                            'valueType': 'pattern',
+                            'pattern': '0 calc({value}px / 2)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -34,10 +47,24 @@ export const dotsPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullets`,
-                    render: value => `margin-top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dotsSpacingVertical',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullets`,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -54,7 +81,7 @@ export const dotsPanel = (props) => {
                     label: 'Active'
                 }
             ],
-            onChange: ({__dotsNav}) => setSwitcher({...switcher, dotsNav: __dotsNav})
+            onChange: ({ __dotsNav }) => setSwitcher({ ...switcher, dotsNav: __dotsNav })
         },
         {
             id: 'dotsWidth',
@@ -66,10 +93,24 @@ export const dotsPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet`,
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dotsWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullet`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -83,10 +124,24 @@ export const dotsPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet`,
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dotsHeight',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullet`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -111,10 +166,19 @@ export const dotsPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet`,
-                    render: value => handleDimension(value, 'border-radius', false)
+                    'type': 'dimension',
+                    'id': 'dotsRadius',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'border-radius',
+                            'valueType': 'direct',
+                            'multiDimension': false
+                        }
+                    ],
+                    'selector': `.${elementId} .swiper-pagination-bullet`,
                 }
             ]
         },
@@ -124,10 +188,18 @@ export const dotsPanel = (props) => {
             label: __('Dots Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'dotsColor',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct',
+                        }
+                    ],
+                    'selector': `.${elementId} .swiper-pagination-bullet`,
                 }
             ]
         },
@@ -141,10 +213,24 @@ export const dotsPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dotsActiveWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -158,10 +244,24 @@ export const dotsPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dotsActiveHeight',
+                    'responsive': true,
+                    'selector': `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -186,10 +286,19 @@ export const dotsPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
-                    render: value => handleDimension(value, 'border-radius', false)
+                    'type': 'dimension',
+                    'id': 'dotsActiveRadius',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'border-radius',
+                            'valueType': 'direct',
+                            'multiDimension': false
+                        }
+                    ],
+                    'selector': `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
                 }
             ]
         },
@@ -199,10 +308,18 @@ export const dotsPanel = (props) => {
             label: __('Active Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'dotsActiveColor',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct',
+                        }
+                    ],
+                    'selector': `.${elementId} .swiper-pagination-bullet.swiper-pagination-bullet-active`,
                 }
             ]
         },

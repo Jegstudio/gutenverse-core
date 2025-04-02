@@ -1,5 +1,4 @@
 import { BackgroundControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleBackground } from 'gutenverse-core/styling';
 
 export const buttonBackgroundPanel = (props) => {
     const {
@@ -26,7 +25,7 @@ export const buttonBackgroundPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__buttonBgHover}) => setSwitcher({...switcher, buttonBg: __buttonBgHover})
+            onChange: ({ __buttonBgHover }) => setSwitcher({ ...switcher, buttonBg: __buttonBgHover })
         },
         {
             id: 'buttonBackground',
@@ -34,13 +33,14 @@ export const buttonBackgroundPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: normalOptions,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'id': 'buttonBackground',
+                    'type': 'background',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
                 }
-            ]
+            ],
         },
         {
             id: 'buttonBackgroundHover',
@@ -48,20 +48,14 @@ export const buttonBackgroundPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: hoverOptions,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
-                    hasChild: true,
-                    allowRender: () => !hoverWithParent,
-                    render: value => handleBackground(value)
+                    'id': 'buttonBackground',
+                    'type': 'background',
+                    'responsive': true,
+                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button` : `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover`,
                 },
-                {
-                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button`,
-                    hasChild: true,
-                    allowRender: () => hoverWithParent,
-                    render: value => handleBackground(value)
-                },
-            ]
+            ],
         }
     ];
 };

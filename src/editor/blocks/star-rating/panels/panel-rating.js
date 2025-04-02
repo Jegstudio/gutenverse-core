@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { IconRadioControl, TextControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
-export const panelRating = ({elementId}) => {
+export const panelRating = () => {
     return [
         {
             id: 'align',
@@ -32,12 +32,6 @@ export const panelRating = ({elementId}) => {
                     icon: <AlignJustify/>,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .rating-wrapper`,
-                    render: value => `justify-content: ${value};`
-                }
-            ]
         },
         {
             id: 'title',

@@ -28,12 +28,6 @@ export const panelContentStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-body .title`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'titleMargin',
@@ -55,46 +49,47 @@ export const panelContentStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-body .title`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'titleColor',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-body .title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'titleColor',
+                    'selector': `.${elementId} .icon-box.icon-box-body .title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'titleHoverColor',
             label: __('Title Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-body .title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'titleHoverColor',
+                    'selector': `.${elementId}:hover .icon-box.icon-box-body .title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-body .title`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'descMargin',
@@ -116,57 +111,65 @@ export const panelContentStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-body .icon-box-description`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'descColor',
             label: __('Description Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-body .icon-box-description`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'descColor',
+                    'selector': `.${elementId} .icon-box.icon-box-body .icon-box-description`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'descHoverColor',
             label: __('Description Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-body .icon-box-description`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'descHoverColor',
+                    'selector': `.${elementId}:hover .icon-box.icon-box-body .icon-box-description`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'descTypography',
             label: __('Description Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-body .icon-box-description`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'watermarkColor',
             label: __('Watermark Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .hover-watermark i`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'watermarkColor',
+                    'selector': `.${elementId} .hover-watermark i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'watermarkSize',
@@ -177,12 +180,25 @@ export const panelContentStyle = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .hover-watermark i`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'watermarkSize',
+                    'selector': `.${elementId} .hover-watermark i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
     ];
 };

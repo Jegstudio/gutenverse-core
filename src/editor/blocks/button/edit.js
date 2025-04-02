@@ -1,10 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useRef, useState, useCallback, useEffect } from '@wordpress/element';
-import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
+import { withPartialRender, withPassRef, withAnimationAdvanceV2, withMouseMoveEffect } from 'gutenverse-core/hoc';
 import { useBlockProps, RichText, BlockControls } from '@wordpress/block-editor';
 import { classnames, link } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { PanelController, IconLibrary } from 'gutenverse-core/controls';
+import { IconLibrary } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
@@ -17,27 +17,27 @@ import { useSelect, dispatch } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
+import getBlockStyle from './styles/block-style';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { BlockPanelController } from 'gutenverse-core/controls';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const ButtonBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('button'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('button'),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         setAttributes,
         isSelected,
-        setElementRef,
         clientId,
         context: { hoverWithParent, parentSelector },
-        refreshStyle,
-        setPanelState,
-        panelIsClicked,
-        setPanelIsClicked
+        setBlockRef,
     } = props;
 
     const prevHoverWithParent = useRef();
@@ -47,7 +47,6 @@ const ButtonBlock = compose(
                 hoverWithParent: hoverWithParent,
                 parentSelector: parentSelector
             });
-            refreshStyle();
         }
         prevHoverWithParent.current = hoverWithParent;
     }, [attributes.hoverWithParent, hoverWithParent, parentSelector]);
@@ -68,6 +67,14 @@ const ButtonBlock = compose(
         dynamicContent,
         dynamicUrl,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+        setPanelIsClicked,
+        panelIsClicked
+    } = useRichTextParameter();
+
     const {
         getBlockRootClientId,
         getBlock,
@@ -81,7 +88,11 @@ const ButtonBlock = compose(
     } = dispatch('core/block-editor');
 
     const textRef = useRef();
-    const buttonRef = useRef();
+    const elementRef = useRef(null);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
+
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const placeholder = showIcon ? '' : __('Button Text...');
     const animationClass = useAnimationEditor(attributes);
@@ -98,7 +109,7 @@ const ButtonBlock = compose(
             elementId,
             displayClass,
         ),
-        ref: buttonRef
+        ref: elementRef
     });
 
     const buttonProps = {
@@ -150,7 +161,13 @@ const ButtonBlock = compose(
             });
         }
     }, []);
-    
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     const onToggleOpenInNewTab = useCallback(
         (value) => {
             const newLinkTarget = value ? '_blank' : undefined;
@@ -170,14 +187,7 @@ const ButtonBlock = compose(
         [rel, setAttributes]
     );
 
-    useEffect(() => {
-        if (buttonRef.current) {
-            setElementRef(buttonRef.current);
-        }
-    }, [buttonRef]);
-
-
-    const panelState = {
+    const buttonPanelState = {
         panel: 'setting',
         section: 1,
     };
@@ -207,7 +217,7 @@ const ButtonBlock = compose(
             anchorRef={blockProps.ref}
             usingDynamic={true}
             setPanelState={setPanelState}
-            panelState={panelState}
+            panelState={buttonPanelState}
             panelIsClicked={panelIsClicked}
             setPanelIsClicked={setPanelIsClicked}
         />;
@@ -224,29 +234,30 @@ const ButtonBlock = compose(
             dynamicContent
         );
 
-        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
 
-        ( typeof dynamicTextContent.then === 'function' ) && !isEmpty(dynamicContent) && dynamicTextContent
+        (typeof dynamicTextContent.then === 'function') && !isEmpty(dynamicContent) && dynamicTextContent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicText) {
                     setDynamicText(result);
                 }
-            }).catch(() => {});
+            }).catch(() => { });
         if (dynamicText !== undefined) {
             setAttributes({ content: dynamicText });
         }
     }, [dynamicContent, dynamicUrl, dynamicText, dynamicHref]);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
         {openIconLibrary && createPortal(
             <IconLibrary
                 closeLibrary={() => setOpenIconLibrary(false)}
@@ -257,7 +268,7 @@ const ButtonBlock = compose(
         )}
         <BlockControls>
             <ToolbarGroup>
-                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, panelState)}
+                {applyFilters('gutenverse.button.url-toolbar', <ButtonURLToolbar />, props, buttonPanelState)}
                 {!allowLink && <ToolbarButton
                     name="link"
                     icon={link}
@@ -276,6 +287,7 @@ const ButtonBlock = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
+        <span ref={elementRef} style={{ display: 'none' }}></span>
         <div  {...blockProps}>
             {role === 'link' ?
                 <a {...buttonProps} onClick={() => textRef.current.focus()} aria-label={ariaLabel}>{buttonText}</a> :
