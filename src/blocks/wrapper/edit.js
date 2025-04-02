@@ -1,12 +1,11 @@
 import { compose } from '@wordpress/compose';
 import { useBlockProps, InnerBlocks, BlockControls } from '@wordpress/block-editor';
-import { withAnimationAdvance, withCursorEffect, withAnimationBackground, withCustomStyle, withMouseMoveEffect, withBackgroundEffect, withPartialRender, withBackgroundSlideshow } from 'gutenverse-core/hoc';
+import { withPartialRender, withPassRef, withAnimationAdvanceV2, withAnimationBackgroundV2, withMouseMoveEffect, withBackgroundSlideshow, withBackgroundEffect, withCursorEffect } from 'gutenverse-core/hoc';
 import classnames from 'classnames';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useRef } from '@wordpress/element';
-import { useEffect, useCallback } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useEffect, useRef } from '@wordpress/element';
+import { useCallback } from '@wordpress/element';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { isAnimationActive } from 'gutenverse-core/helper';
@@ -14,6 +13,11 @@ import { FluidCanvas } from 'gutenverse-core/components';
 import { ToolbarGroup } from '@wordpress/components';
 import { URLToolbar } from 'gutenverse-core/toolbars';
 import isEmpty from 'lodash/isEmpty';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
+import SectionVideoContainer from '../section/components/section-video-container';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
@@ -31,6 +35,7 @@ const WrapperContainer = ({ attributes, blockProps, slideElement }) => {
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
             {!isAnimationActive(backgroundAnimated) && background?.slideImage?.length > 0 && slideElement}
+            <SectionVideoContainer attributes={attributes}/>
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 {isBackgroundEffect && <div className="guten-background-effect"><div className="inner-background-container"></div></div>}
@@ -47,6 +52,7 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
     return (
         <div {...blockProps}>
             <FluidCanvas attributes={attributes} />
+            <SectionVideoContainer attributes={attributes}/>
             <div className="guten-background-overlay" />
             <div className="guten-inner-wrap">
                 <InnerBlocks
@@ -60,31 +66,25 @@ const WrapperPlaceholder = ({ attributes, blockProps, clientId }) => {
 
 const FlexibleWrapper = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationBackground(),
-    withCopyElementToolbar(),
-    withAnimationAdvance('wrapper'),
+    withPassRef,
+    withAnimationAdvanceV2('wrapper'),
+    withAnimationBackgroundV2(),
     withMouseMoveEffect,
-    withBackgroundEffect,
-    withCursorEffect,
     withBackgroundSlideshow,
+    withBackgroundEffect('wrapper'),
+    withCursorEffect,
 )((props) => {
     const {
         getBlockOrder
-    } = useSelect(
-        (select) => select('core/block-editor'),
-        []
-    );
+    } = useSelect((select) => select('core/block-editor'), []);
 
     const {
         clientId,
         attributes,
-        setElementRef,
         isSelected,
         setAttributes,
-        panelIsClicked,
-        setPanelIsClicked,
-        slideElement
+        slideElement,
+        setBlockRef,
     } = props;
 
     const {
@@ -98,7 +98,15 @@ const FlexibleWrapper = compose(
         background
     } = attributes;
 
-    const wrapperRef = useRef();
+    const {
+        panelIsClicked,
+        setPanelIsClicked
+    } = useRichTextParameter();
+
+    const elementRef = useRef();
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const hasChildBlocks = getBlockOrder(clientId).length > 0;
@@ -135,22 +143,22 @@ const FlexibleWrapper = compose(
             {
                 'background-animated': isAnimationActive(backgroundAnimated),
                 'guten-background-effect-active': isBackgroundEffect,
-                'guten-background-slideshow' : isSlideShow,
+                'guten-background-slideshow': isSlideShow,
             }
         ),
-        ref: wrapperRef
+        ref: elementRef
     });
 
     const Component = hasChildBlocks ? WrapperContainer : WrapperPlaceholder;
 
     useEffect(() => {
-        if (wrapperRef.current) {
-            setElementRef(wrapperRef.current);
+        if (elementRef) {
+            setBlockRef(elementRef);
         }
-    }, [wrapperRef]);
-
+    }, [elementRef]);
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController props={props} panelList={panelList} elementRef={elementRef} setPanelIsClicked={setPanelIsClicked}/>
         <BlockControls>
             <ToolbarGroup>
                 <URLToolbar

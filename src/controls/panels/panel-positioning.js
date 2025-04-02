@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
-import { handleAlignV, handleUnitPoint, deviceStyleValue } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { deviceStyleValue, handleAlignV, handleUnitPoint } from 'gutenverse-core/styling';
 import { select } from '@wordpress/data';
 import isEmpty from 'lodash/isEmpty';
 
@@ -13,7 +13,7 @@ export const positioningPanel = (props) => {
         positioningWidth,
         positioningLocation,
         selector,
-        options= [
+        options = [
             {
                 value: 'default',
                 label: 'Default'
@@ -33,14 +33,15 @@ export const positioningPanel = (props) => {
         ],
         inBlock = true,
     } = props;
+
     const setPositioning = (value, width = false) => {
         switch (value) {
             case 'full':
                 return 'width: 100%!important;';
             case 'inline':
-                return `width: auto!important; display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
+                return `width: auto!important; display: ${inBlock ? 'inline-block' : 'inline-flex'}!important;`;
             case 'custom':
-                return `${handleUnitPoint(width, 'width', true)} display: ${ inBlock ? 'inline-block' : 'inline-flex' }!important;`;
+                return `${handleUnitPoint(width, 'width', true)} display: ${inBlock ? 'inline-block' : 'inline-flex'}!important;`;
         }
     };
 
@@ -65,7 +66,7 @@ export const positioningPanel = (props) => {
                 {
                     selector: customSelector,
                     updateID: 'positioningWidth-style-0',
-                    allowRender: value => value && !isEmpty( positioningWidth ) && deviceStyleValue(deviceType, positioningWidth) && deviceStyleValue(deviceType, value) === 'custom',
+                    allowRender: value => value && !isEmpty(positioningWidth) && deviceStyleValue(deviceType, positioningWidth) && deviceStyleValue(deviceType, value) === 'custom',
                     render: value => setPositioning(value, deviceStyleValue(deviceType, positioningWidth))
                 }
             ]
@@ -104,6 +105,20 @@ export const positioningPanel = (props) => {
                     selector: customSelector,
                     allowRender: () => positioningType && deviceStyleValue(deviceType, positioningType) === 'custom',
                     render: value => setPositioning(deviceStyleValue(deviceType, positioningType), value)
+                }
+            ],
+            liveStyle: [
+                {
+                    'type': 'positioning',
+                    'id': 'positioningWidth',
+                    'selector': `.${elementId}.guten-element`,
+                    'skipDeviceType': 'first',
+                    'attributeType': 'width',
+                    'multiAttr': {
+                        'positioningWidth': positioningWidth,
+                        'positioningType': positioningType,
+                        'inBlock': inBlock
+                    }
                 }
             ]
         },
@@ -159,7 +174,7 @@ export const positioningPanel = (props) => {
             style: [
                 {
                     selector: customSelector,
-                    allowRender: value => value && positioningLocation !== 'default' ,
+                    allowRender: value => value && positioningLocation !== 'default',
                     render: value => `position: ${value};`
                 }
             ]
@@ -206,6 +221,21 @@ export const positioningPanel = (props) => {
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
                     render: value => handleUnitPoint(value, 'left')
                 },
+            ],
+            liveStyle: [
+                {
+                    'type': 'positioning',
+                    'id': 'positioningLeft',
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element`,
+                    'attributeType': 'custom',
+                }
             ]
         },
         {
@@ -250,6 +280,21 @@ export const positioningPanel = (props) => {
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
                     render: value => handleUnitPoint(value, 'right')
                 },
+            ],
+            liveStyle: [
+                {
+                    'type': 'positioning',
+                    'id': 'positioningRight',
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element`,
+                    'attributeType': 'custom',
+                }
             ]
         },
         {
@@ -294,6 +339,21 @@ export const positioningPanel = (props) => {
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
                     render: value => handleUnitPoint(value, 'top'),
                 },
+            ],
+            liveStyle: [
+                {
+                    'type': 'positioning',
+                    'id': 'positioningTop',
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element`,
+                    'attributeType': 'custom',
+                }
             ]
         },
         {
@@ -338,6 +398,21 @@ export const positioningPanel = (props) => {
                     allowRender: () => positioningLocation && positioningLocation !== 'default',
                     render: value => handleUnitPoint(value, 'bottom'),
                 },
+            ],
+            liveStyle: [
+                {
+                    'type': 'positioning',
+                    'id': 'positioningBottom',
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-element`,
+                    'attributeType': 'custom',
+                }
             ]
         }
     ];

@@ -37,7 +37,7 @@ const SectionContent = (props) => {
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger } = props;
+    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setLibraryError } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
@@ -137,7 +137,7 @@ const SectionContentWrapper = (props) => {
                 leftBannerImg="library-graphic-library-left.png"
                 rightBannerImg="library-graphic-library-right.png"
                 backgroundGradient="library-bg-library.png"
-                link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
+                link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
             />
             <SectionContentData
                 current={content.current}
@@ -149,13 +149,14 @@ const SectionContentWrapper = (props) => {
                 scroller={scroller}
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
+                setLibraryError={setLibraryError}
             />
         </div>
     </>;
 };
 
 export const SectionContentData = props => {
-    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode } = props;
+    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setLibraryError } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
             <div className="empty-wrapper">
@@ -166,7 +167,14 @@ export const SectionContentData = props => {
                 <span>{__('It seems we can\'t find any results based on your search.', '--gctd--')}</span>
             </div>
         </div> : <>
-            <SectionItems categoryCache={categoryCache} data={data} closeImporter={closeImporter} setCurrentItem={setCurrentItem} setPluginInstallMode={setPluginInstallMode} />
+            <SectionItems
+                categoryCache={categoryCache}
+                data={data}
+                closeImporter={closeImporter}
+                setCurrentItem={setCurrentItem}
+                setPluginInstallMode={setPluginInstallMode}
+                setLibraryError={setLibraryError}
+            />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
     } else {
@@ -208,6 +216,7 @@ const SectionItems = props => {
             setPluginInstallMode={props.setPluginInstallMode}
             setSelectItem={setSelectItem}
             selectItem={selectItem}
+            setLibraryError={props.setLibraryError}
         />)}
     </Masonry>;
 };
@@ -223,7 +232,7 @@ const SectionContentItem = props => {
     const plugins = getPluginData();
     const library = getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem } = props;
+    const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem, setLibraryError } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
     const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
@@ -231,7 +240,7 @@ const SectionContentItem = props => {
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
     const [name, setName] = useState('');
-    const [ isLoaded, setIsLoaded ] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         if (item.categories !== undefined && item.categories.length > 0) {
@@ -280,9 +289,9 @@ const SectionContentItem = props => {
                 </div>
             </div>}
             <div className="library-item-holder " style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '' , zIndex: isLoaded ? '5' : ''
+                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '', zIndex: isLoaded ? '5' : ''
             }}>
-                <img src={image} onLoad={() => setIsLoaded(true)}/>
+                <img src={image} onLoad={() => setIsLoaded(true)} />
                 <div className="library-item-detail">
                     {requirementStatus?.length === 0 ? <div className={`library-item-overlay ${showOverlay ? 'show-overlay' : ''}`}>
                         <ImportSectionButton
@@ -291,6 +300,7 @@ const SectionContentItem = props => {
                             setShowOverlay={setShowOverlay}
                             setExporting={setExporting}
                             setSelectItem={setSelectItem}
+                            setLibraryError={setLibraryError}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>

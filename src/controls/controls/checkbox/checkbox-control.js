@@ -14,7 +14,6 @@ const CheckboxControl = (props) => {
         label,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
         proLabel,
         usePreviousDevice = false,
         usePreviousDeviceValue = false,
@@ -31,7 +30,6 @@ const CheckboxControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {
@@ -64,7 +62,7 @@ const CheckboxControl = (props) => {
     }, [device, deviceValues, checked]);
 
     const checkboxContent = <>
-        <input id={`${id}-checkbox`} ref={inputRef} type="checkbox" checked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
+        <input id={`${id}-checkbox`} ref={inputRef} type="checkbox" defaultChecked={checked} onClick={e => onChange(e.target.checked)} hidden disabled={proLabel}/>
         <span className="switch"/>
     </>;
 

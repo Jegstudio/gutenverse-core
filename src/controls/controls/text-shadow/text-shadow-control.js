@@ -16,7 +16,7 @@ const TextShadowControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
+    onLocalChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -51,7 +51,7 @@ const TextShadowControl = ({
 
     const TextShadowToggle = () => {
         return <div className={toggleClass} onClick={() => toggleShow()}>
-            <IconTypographySVG/>
+            <IconTypographySVG />
         </div>;
     };
 
@@ -60,9 +60,9 @@ const TextShadowControl = ({
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
-            outLabel={<TextShadowToggle/>}
+            outLabel={<TextShadowToggle />}
         />
-        <div className={bodyClass} ref={wrapperRef}>
+        {show && <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
                     {__('Text Shadow', '--gctd--')}
@@ -71,8 +71,7 @@ const TextShadowControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                            onStyleChange({});
-                        }}/>
+                        }} />
                     </span>
                 </Tooltip>
             </div>
@@ -80,7 +79,7 @@ const TextShadowControl = ({
                 label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
+                onLocalChange={color => onLocalChange({ ...value, color })}
             />
             <RangeControl
                 label={__('Horizontal', '--gctd--')}
@@ -90,7 +89,7 @@ const TextShadowControl = ({
                 value={value.horizontal}
                 unit="px"
                 onValueChange={horizontal => onValueChange({ ...value, horizontal })}
-                onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
+                onLocalChange={horizontal => onLocalChange({ ...value, horizontal })}
             />
             <RangeControl
                 label={__('Vertical', '--gctd--')}
@@ -100,7 +99,7 @@ const TextShadowControl = ({
                 value={value.vertical}
                 unit="px"
                 onValueChange={vertical => onValueChange({ ...value, vertical })}
-                onStyleChange={vertical => onStyleChange({ ...value, vertical })}
+                onLocalChange={vertical => onLocalChange({ ...value, vertical })}
             />
             <RangeControl
                 label={__('Blur', '--gctd--')}
@@ -110,9 +109,9 @@ const TextShadowControl = ({
                 value={value.blur}
                 unit="%"
                 onValueChange={blur => onValueChange({ ...value, blur })}
-                onStyleChange={blur => onStyleChange({ ...value, blur })}
+                onLocalChange={blur => onLocalChange({ ...value, blur })}
             />
-        </div>
+        </div>}
     </div>;
 };
 

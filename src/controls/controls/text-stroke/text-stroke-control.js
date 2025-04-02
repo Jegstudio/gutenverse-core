@@ -16,7 +16,7 @@ const TextStrokeControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
+    onLocalChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -51,7 +51,7 @@ const TextStrokeControl = ({
 
     const TextShadowToggle = () => {
         return <div className={toggleClass} onClick={() => toggleShow()}>
-            <IconTypographySVG/>
+            <IconTypographySVG />
         </div>;
     };
 
@@ -60,9 +60,9 @@ const TextStrokeControl = ({
             label={label}
             description={description}
             allowDeviceControl={allowDeviceControl}
-            outLabel={<TextShadowToggle/>}
+            outLabel={<TextShadowToggle />}
         />
-        <div className={bodyClass} ref={wrapperRef}>
+        {show && <div className={bodyClass} ref={wrapperRef}>
             <div className={'gutenverse-control-heading'}>
                 <h2>
                     {__('Text Stroke', '--gctd--')}
@@ -71,8 +71,7 @@ const TextStrokeControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange({});
-                            onStyleChange({});
-                        }}/>
+                        }} />
                     </span>
                 </Tooltip>
             </div>
@@ -80,13 +79,13 @@ const TextStrokeControl = ({
                 label={__('Stroke Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
+                onLocalChange={color => onLocalChange({ ...value, color })}
             />
             <SizeControl
                 label={__('Stroke Width', '--gctd--')}
                 value={value.width}
                 onValueChange={width => onValueChange({ ...value, width })}
-                onStyleChange={width => onStyleChange({ ...value, width })}
+                onLocalChange={width => onLocalChange({ ...value, width })}
                 units={{
                     px: {
                         text: 'px',
@@ -111,7 +110,7 @@ const TextStrokeControl = ({
                     }
                 }}
             />
-        </div>
+        </div>}
     </div>;
 };
 

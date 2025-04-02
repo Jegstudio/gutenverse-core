@@ -10,14 +10,50 @@ import PanelTabPro from './panel-tab-pro';
 import { u } from 'gutenverse-core/components';
 import { dispatch, select } from '@wordpress/data';
 
+export const BlockPanelController = ({ props, panelList, deviceType, setLiveAttr, liveAttr, elementRef, panelState, setPanelIsClicked }) => {
+    const { panelProps, isSelected, setAttributes } = props;
+    const defaultPanelProps = {
+        ...panelProps,
+        ...props.attributes,
+        setAttributes,
+        setLiveAttr,
+        liveAttr
+    };
+    return <PanelController
+        panelList={panelList}
+        panelProps={defaultPanelProps}
+        isSelected={isSelected}
+        deviceType={deviceType}
+        elementRef={elementRef}
+        panelState = {panelState}
+        setPanelIsClicked = {setPanelIsClicked}
+        {...props}
+    />;
+};
+
+const openSidebar = () => {
+    // Detect whether we're in the Post Editor or the Template Editor
+    const isSiteEditor = !!select('core/edit-site');
+
+    // Open Actual Sidebar.
+    if (isSiteEditor) {
+        dispatch('core/edit-site').openGeneralSidebar('edit-site/block');
+    } else {
+        dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
+    }
+};
+
 const PanelController = ({ ...props }) => {
     const {
+        clientId,
         panelProps,
         panelList,
         elementRef,
-        panelState,
-        setPanelIsClicked,
+        panelState = { panel: null, section: 0 },
+        setPanelIsClicked = () => {},
     } = props;
+
+    const [switcher, setSwitcher] = useState({});
     const [activeTab, setActiveTab] = useState(null);
     const [openTab, setOpenTab] = useState(0);
     useEffect(() => {
@@ -25,14 +61,10 @@ const PanelController = ({ ...props }) => {
     }, [activeTab]);
 
     useEffect(() => {
-        const { panel = null, section = 0 } = panelState;
+        const { panel, section } = panelState;
 
         if (null !== panel && 0 !== section) {
-            const sidebarOpen = select('core/edit-post').getActiveGeneralSidebarName();
-            if ('edit-post/block' !== sidebarOpen) {
-                dispatch('core/edit-post').openGeneralSidebar('edit-post/block');
-            }
-
+            openSidebar();
             setActiveTab(panel);
             setTimeout(() => {
                 setOpenTab(section);
@@ -94,6 +126,13 @@ const PanelController = ({ ...props }) => {
         tabList
     );
 
+    const thePanelProps = {
+        ...panelProps,
+        clientId,
+        switcher,
+        setSwitcher,
+    };
+
     return <>
         <InspectorControls>
             <div className="gutenverse-panel-wrapper" ref={onRefChange} onClick={() => setPanelIsClicked(true)} >
@@ -137,7 +176,7 @@ const PanelController = ({ ...props }) => {
                         >
                             <BlockController
                                 panelArray={panel.panelArray}
-                                panelProps={panelProps}
+                                panelProps={thePanelProps}
                                 elementRef={elementRef}
                             />
                         </PanelBody>;
@@ -159,7 +198,7 @@ const PanelController = ({ ...props }) => {
                     >
                         <BlockController
                             panelArray={panel.panelArray}
-                            panelProps={panelProps}
+                            panelProps={thePanelProps}
                             elementRef={elementRef}
                         />
                     </PanelBody>;

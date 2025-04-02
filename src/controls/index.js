@@ -1,3 +1,4 @@
+
 // Export Block Controller
 export { default as BlockController } from './block-controller';
 
@@ -79,6 +80,7 @@ export { default as ProLock } from './controls/pro-lock';
 
 // Export Panel Controller
 export { default as PanelController } from './controls/panel/panel-controller';
+export { BlockPanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
 export { childStylePanel } from './panels/panel-child-style';

@@ -1,50 +1,52 @@
 import { __ } from '@wordpress/i18n';
-import { RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
+import { CheckboxControl, RangeColumnControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { BuildColumnWidthStyle } from 'gutenverse-core/styling';
 
-export const layoutPanel = (props) => {
-    const {
-        elementId,
-        clientId,
-        setAttributes,
-        addStyle,
-    } = props;
+export const layoutPanel = ({ elementId, forceColumnHundred }) => {
     const deviceType = getDeviceType();
-
-    const allowRender = value => {
-        return value[deviceType] && value[deviceType] !== 'default';
-    };
 
     const minWidth = {
         Desktop: 5,
-        Tablet: 10,
-        Mobile: 15,
-    };
-
-    const additionalProps = {
-        elementId,
-        clientId,
-        addStyle,
-        setAttributes
+        Tablet: 0,
+        Mobile: 0,
     };
 
     return [
         {
+            id: 'forceColumnHundred',
+            label: __('Force Column 100%', '--gctd--'),
+            description: __('This will force the column width to be 100%.', '--gctd--'),
+            allowDeviceControl: true,
+            component: CheckboxControl,
+        },
+        {
             id: 'width',
+            show: !forceColumnHundred || !forceColumnHundred[deviceType],
             label: __('Column Width', '--gctd--'),
             component: RangeColumnControl,
             min: minWidth[deviceType],
             step: 0.1,
-            additionalProps,
-            onChange: (value) => {
-                const { width } = value;
-
-                addStyle(
-                    'column-width',
-                    BuildColumnWidthStyle(width, `.${elementId}`)
-                );
-            }
+            allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'width',
+                    'responsive': true,
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}%',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct',
+                                },
+                            }
+                        }
+                    ],
+                },
+            ]
         },
         {
             id: 'verticalAlign',
@@ -81,19 +83,6 @@ export const layoutPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    // allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `align-content: ${value}; align-items: ${value};`;
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'horizontalAlign',
@@ -130,30 +119,6 @@ export const layoutPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks > .block-editor-block-list__layout`,
-                    // allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `justify-content: ${value};`;
-                        }
-                    }
-                },
-                {
-                    selector: `.guten-section > .guten-container > .${elementId}.guten-column > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .block-editor-inner-blocks`,
-                    allowRender: value => allowRender(value),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return 'width: 100%;';
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'order',
@@ -202,12 +167,6 @@ export const layoutPanel = (props) => {
                     value: 10
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `order: ${value};`
-                }
-            ]
         }
     ];
 };

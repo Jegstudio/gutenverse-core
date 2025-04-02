@@ -117,27 +117,13 @@ class Theme_Helper {
 	 */
 	public function additional_custom_templates( $theme_json ) {
 		if ( apply_filters( 'gutenverse_themes_override_mechanism', false ) ) {
-			$wp_theme        = wp_get_theme();
-			$theme_json_file = $wp_theme->get_file_path( 'theme.json' );
+			$consist_template = array(
+				'template-basic' => false,
+				'blank-canvas'   => false,
+			);
 
-			if ( is_readable( $theme_json_file ) ) {
-				$theme_json_data = wp_json_file_decode( $theme_json_file, array( 'associative' => true ) );
-			} else {
-				$theme_json_data = array();
-			}
-
+			$theme_json_data  = $theme_json->get_data();
 			$custom_templates = apply_filters( 'gutenverse_themes_template', array(), 'wp_template' );
-
-			$theme_json_data['customTemplates'][] = array(
-				'name'  => 'template-basic',
-				'title' => 'Template Basic',
-			);
-
-			$theme_json_data['customTemplates'][] = array(
-				'name'  => 'blank-canvas',
-				'title' => 'Blank Canvas',
-			);
-
 			foreach ( $custom_templates as $custom ) {
 				$title = str_replace( '-', ' ', $custom['slug'] );
 
@@ -145,13 +131,22 @@ class Theme_Helper {
 					'name'  => $custom['slug'],
 					'title' => ucwords( $title ),
 				);
+
+				if ( array_key_exists( $custom['slug'], $consist_template ) ) {
+					$consist_template[ $custom['slug'] ] = true;
+				}
 			}
 
-			if ( class_exists( 'WP_Theme_JSON_Data_Gutenberg' ) ) {
-				return new \WP_Theme_JSON_Data_Gutenberg( $theme_json_data, 'theme' );
-			} else {
-				return new \WP_Theme_JSON_Data( $theme_json_data, 'theme' );
+			foreach ( $consist_template as $key => $value ) {
+				if ( ! $value ) {
+					$theme_json_data['customTemplates'][] = array(
+						'name'  => $key,
+						'title' => ucwords( str_replace( '-', ' ', $key ) ),
+					);
+				}
 			}
+
+			$theme_json->update_with( $theme_json_data );
 		}
 
 		return $theme_json;

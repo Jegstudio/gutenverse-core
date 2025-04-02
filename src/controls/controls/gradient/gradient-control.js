@@ -33,7 +33,6 @@ const GradientControl = (props) => {
             { offset: '1.00', color: 'rgb(126, 32, 207)' }
         ],
         onValueChange,
-        onStyleChange,
         description = '',
         proLabel,
         useLocation = true,
@@ -47,7 +46,6 @@ const GradientControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {

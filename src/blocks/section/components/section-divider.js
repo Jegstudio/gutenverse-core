@@ -12,6 +12,7 @@ export const SectionDividerTop = ({attributes}) => {
         type,
         flip,
         front,
+        invert,
         colorMode,
         gradientColor,
         gradientAngle,
@@ -28,7 +29,7 @@ export const SectionDividerTop = ({attributes}) => {
         'guten-shape-divider-top',
         {
             'guten-shape-flip': flip,
-            'guten-shape-zindex': front
+            'guten-shape-zindex': front,
         }
     );
 
@@ -36,6 +37,7 @@ export const SectionDividerTop = ({attributes}) => {
         divider = shapeDividerLoader({
             id: `divider-top-${elementId}`,
             type,
+            invert,
             gradient: colorMode === 'gradient',
             gradientColor,
             gradientAngle,
@@ -59,6 +61,7 @@ export const SectionDividerBottom = ({attributes}) => {
         type,
         flip,
         front,
+        invert,
         colorMode,
         gradientColor,
         gradientAngle,
@@ -83,6 +86,7 @@ export const SectionDividerBottom = ({attributes}) => {
         divider = shapeDividerLoader({
             id: `divider-bottom-${elementId}`,
             type,
+            invert,
             gradient: colorMode === 'gradient',
             gradientColor,
             gradientAngle,

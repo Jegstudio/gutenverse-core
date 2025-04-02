@@ -40,7 +40,7 @@ const SelectorItem = ({ data, indent, onChange, elementRef, showChild }) => {
     const { toggleBlockHighlight } = useDispatch(blockEditorStore);
 
     const highlightBlock = () => {
-        const doc = elementRef.ownerDocument;
+        const doc = elementRef.current.ownerDocument;
         const win = doc.defaultView || doc.parentWindow;
         const scrollWindow = doc.getElementsByClassName('interface-interface-skeleton__content')[0] || win;
         const element = doc.getElementById(`block-${clientId}`);
@@ -112,7 +112,6 @@ const ElementSelectorControl = (props) => {
         placeholder = '',
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         description = '',
         elementRef,
         blocks = select('core/block-editor').getBlocks(),
@@ -124,13 +123,11 @@ const ElementSelectorControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const toggleExpand = () => {
         setExpand(value => !value);
     };
-
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-selector'}>
         <ControlHeadingSimple
             id={`${id}-selector`}

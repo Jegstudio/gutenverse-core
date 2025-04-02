@@ -3,6 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
 import { useSetting, useSettings } from '@wordpress/block-editor';
+import { useState } from '@wordpress/element';
+import { store as editorStore } from '@wordpress/editor';
+import { store as blockEditorStore } from '@wordpress/block-editor';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -507,15 +510,17 @@ export const getActiveWindow = () => {
 export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
     let count = 0;
 
-    blocks.map(block => {
-        if (!(elementId === undefined && block.attributes.elementId === undefined) &&
-            elementId === block.attributes.elementId &&
-            clientId !== block.clientId) {
-            count += 1;
+    blocks.forEach(block => {
+        if (!(elementId === undefined && block.attributes.elementId === undefined)) {
+            if (elementId === block.attributes.elementId && clientId !== block.clientId) {
+                count += 1;
+            }
         }
-
         if (block.innerBlocks.length > 0) {
             count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        }
+        if (count > 0) {
+            return count;
         }
     });
 
@@ -718,4 +723,40 @@ export const dummyText = (minLength, maxLength) => {
         result.push(loremIpsumWords[Math.floor(Math.random() * loremIpsumWords.length)]);
     }
     return result.join(' ');
+};
+
+export const isNotEmpty = (val) => {
+    if (Array.isArray(val)) return val.length !== 0; // Empty array
+    if (typeof val === 'object' && val !== null) return Object.keys(val).length !== 0; // Empty object
+    return !!val;
+};
+
+export const useRichTextParameter = () => {
+    const [panelState, setPanelState] = useState({ panel: null, section: 0 });
+    const [panelIsClicked, setPanelIsClicked] = useState(false);
+
+    return { panelState, setPanelState, panelIsClicked, setPanelIsClicked };
+};
+
+/**
+ * Todo: Find better implementation (WordPress API)
+ */
+export const getParentId = () => {
+    const renderingMode = select(editorStore).getRenderingMode();
+    const blockNames = ['core/post-content', 'gutenverse/post-content'];
+
+    if (renderingMode === 'template-locked') {
+        for (let i = 0; i < blockNames.length; i++) {
+            const [postContentClientId] = select(blockEditorStore).getBlocksByName(
+                blockNames[i]
+            );
+
+            if (postContentClientId) {
+                return postContentClientId;
+            }
+        }
+
+        // return false, if no post content block found.
+        return false;
+    }
 };

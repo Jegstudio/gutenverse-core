@@ -19,7 +19,6 @@ const ImageControl = (props) => {
         allowDeviceControl,
         value = {},
         onValueChange,
-        onStyleChange,
         description = '',
         useExternalValue,
         externalValue = {},
@@ -34,7 +33,6 @@ const ImageControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const removeImage = (e) => {

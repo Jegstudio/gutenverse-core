@@ -1,6 +1,6 @@
 
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginBlockSettingsMenuItem } from '@wordpress/edit-post';
+import { PluginBlockSettingsMenuItem } from '@wordpress/editor';
 import { useSelect } from '@wordpress/data';
 import { getBlockType } from '@wordpress/blocks';
 import copy from 'clipboard-copy';
@@ -65,11 +65,6 @@ const BlockSettingMenuCopy = () => {
                 }
             });
 
-            console.log('======== Copied Key ========');
-            console.log(copiedKey);
-            console.log('======== Non Copied Key ========');
-            console.log(nonCopiedKey);
-
             copiedStyle = {
                 gutenverse: true,
                 type: name,
@@ -86,6 +81,8 @@ const BlockSettingMenuCopy = () => {
     />;
 };
 
-registerPlugin('gutenverse-block-menu-setting-copy', {
+const gutenverseCopyPlugin = registerPlugin('gutenverse-block-menu-setting-copy', {
     render: BlockSettingMenuCopy,
 });
+
+export default gutenverseCopyPlugin;

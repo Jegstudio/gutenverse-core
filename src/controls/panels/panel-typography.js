@@ -10,6 +10,20 @@ export const typographyPanel = ({elementId}) => {
             id: 'typographyHeadingColor',
             label: __('Heading Color', '--gctd--'),
             component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'typographyHeadingColor',
+                    'selector': `.${elementId} .wp-block-gutenverse-heading`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ],
+            // style below is deprecated
             style: [
                 {
                     selector: `.${elementId} .wp-block-gutenverse-heading`,
@@ -21,6 +35,20 @@ export const typographyPanel = ({elementId}) => {
             id: 'typographyTextColor',
             label: __('Text Color', '--gctd--'),
             component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'typographyTextColor',
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ],
+            // style below is deprecated
             style: [
                 {
                     selector: `.${elementId}`,
@@ -32,6 +60,20 @@ export const typographyPanel = ({elementId}) => {
             id: 'typographyLinkColor',
             label: __('Link Color', '--gctd--'),
             component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'typographyLinkColor',
+                    'selector': `.${elementId} a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ],
+            // style below is deprecated
             style: [
                 {
                     selector: `.${elementId} a`,
@@ -43,6 +85,20 @@ export const typographyPanel = ({elementId}) => {
             id: 'typographyLinkHoverColor',
             label: __('Link Hover Color', '--gctd--'),
             component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'typographyLinkHoverColor',
+                    'selector': `.${elementId} a:hover`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ],
+            // style below is deprecated
             style: [
                 {
                     selector: `.${elementId} a:hover`,
@@ -77,6 +133,7 @@ export const typographyPanel = ({elementId}) => {
                     icon: <AlignJustify/>,
                 },
             ],
+            // style below is deprecated
             style: [
                 {
                     selector: `.${elementId}`,

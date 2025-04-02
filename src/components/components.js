@@ -1,52 +1,22 @@
-import { render } from '@wordpress/element';
-import GlobalStyle from './global-style';
-import domReady from '@wordpress/dom-ready';
-import GutenverseLibrary from './library';
-import elementChange from 'element-change';
-import { applyFilters } from '@wordpress/hooks';
-import { autoRecovery } from './auto-recovery';
-import { editorWarn } from './editor-warn';
-
-/* Other Editor Components */
+// Other Editor Components
 import './hook';
 import './data/block';
 
-/* Copy & Paste Style */
-import './copy-style/copy-style';
-import './copy-style/paste-style';
+// Copy & Paste Style
+export { default as gutenverseCopyPlugin } from './copy-style/copy-style-plugin';
+export { default as gutenversePastePlugin } from './copy-style/paste-style-plugin';
 
-elementChange('#site-editor', () => {
-    const library = document.getElementById('gutenverse-library-button');
-    // const globalStyle = document.getElementById('global-style-options');
+// GutenverseLibrary Plugin
+export { default as gutenverseLibraryPlugin } from './library/library-plugin';
 
-    if (library === null) {
-        const content = applyFilters(
-            'gutenverse.site.editor.content',
-            <>
-                <GlobalStyle />
-                <GutenverseLibrary />
-            </>,
-            null
-        );
+// Global Style Plugin
+export { default as gutenverseGlobalStyle } from './global-style/global-style-plugin';
 
-        render(content, document.getElementById('gutenverse-root'));
-    }
-});
+// Autorecovery
+export { default as gutenverseAutoRecovery } from './auto-recovery/auto-recovery-plugin';
 
-domReady(() => {
-    autoRecovery();
-    editorWarn();
+// Missing Block Warn
+export { default as gutenverseWarnMissing } from './missing-block-warn/missing-block-wran-plugin';
 
-    if (document.getElementById('gutenverse-root')) {
-        const content = applyFilters(
-            'gutenverse.site.editor.content',
-            <>
-                <GlobalStyle />
-                <GutenverseLibrary />
-            </>,
-            null
-        );
-        render(content, document.getElementById('gutenverse-root'));
-    }
-});
-
+// Inserter Plugin
+export { default as gutenverseInserterPlugin } from './inserter/inserter-plugin';

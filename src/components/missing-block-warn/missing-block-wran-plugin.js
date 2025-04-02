@@ -1,41 +1,26 @@
-import { select, subscribe, dispatch } from '@wordpress/data';
-import { render } from '@wordpress/element';
-import { useState, useEffect } from '@wordpress/element';
+import { select, useSelect } from '@wordpress/data';
+import { useState, useEffect, createPortal } from '@wordpress/element';
 import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
-import debounce from 'lodash/debounce';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import semver from 'semver';
 import { Loader } from 'react-feather';
 import { LogoIconGutenverseSVG } from 'gutenverse-core/icons';
+import { registerPlugin } from '@wordpress/plugins';
 
-export const editorWarn = () => {
-    const checkMissingBlock = debounce(() => {
-        if (window?.GutenverseConfig?.missingBlocksWarn) {
-            const missingBlock = checkForMissingBlocks(['gutenverse']);
-            if (missingBlock && missingBlock.length > 0) {
-                const root = document.getElementById('gutenverse-root');
-
-                const warnRoot = document.createElement('div');
-                warnRoot.id = 'gutenverse-warn';
-
-                root.parentNode.insertBefore(warnRoot, root.nextSibling);
-                render(<WarnModal missingBlock={missingBlock} />, warnRoot);
-            }
+const checkMissingBlock = () => {
+    if (window?.GutenverseConfig?.missingBlocksWarn) {
+        const missingBlock = checkForMissingBlocks(['gutenverse']);
+        if (missingBlock && missingBlock.length > 0) {
+            return <div id={'gutenverse-warn'}>
+                <WarnModal missingBlock={missingBlock} />
+            </div>;
         }
-    }, 1000);
+    }
 
-    let content = false;
-
-    subscribe(() => {
-        const temporaryContent = select('core/editor').getEditedPostContent();
-        if (select('core').getEntityRecords('postType', 'wp_block') !== null && content !== temporaryContent) {
-            content = temporaryContent;
-            checkMissingBlock();
-        }
-    });
+    return null;
 };
 
 const checkForMissingBlocks = (unsupportedBlockNames, blocks = false) => {
@@ -414,3 +399,25 @@ const PluginsData = ({
         />;
     });
 };
+
+const gutenverseWarnMissing = registerPlugin('gutenverse-warn-missing', {
+    render: () => {
+        const [blockWarn, setBlockWarn] = useState(null);
+        const [content, screen] = useSelect(select => {
+            return [
+                select('core/editor').getEditedPostContent(),
+                select('core/editor').getCurrentPostType()
+            ];
+        });
+
+        useEffect(() => {
+            setBlockWarn(checkMissingBlock());
+        }, [content, screen]);
+
+        return <>
+            {createPortal(blockWarn, document.getElementById('gutenverse-error'))}
+        </>;
+    }
+});
+
+export default gutenverseWarnMissing;

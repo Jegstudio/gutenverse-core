@@ -6,7 +6,7 @@ import { Edit2, RefreshCw, Trash } from 'react-feather';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { PanelTutorial, SelectControl } from 'gutenverse-core/controls';
-import { Prompt, PromptContent, PromptHeader} from 'gutenverse-core/components';
+import { Prompt, PromptContent, PromptHeader } from 'gutenverse-core/components';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { FontControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { injectFont } from 'gutenverse-core/styling';
@@ -121,7 +121,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     label={__('Font Family', '--gctd--')}
                     value={value.font.font}
                     onValueChange={font => onTypographyChange({ ...value.font, font })}
-                    onStyleChange={() => { }}
                 />
                 <div className={'font-value-wrapper'}>
                     <div>
@@ -131,13 +130,12 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             allowDeviceControl={true}
                             hideRange={true}
                             onValueChange={size => onTypographyChange({ ...value.font, size })}
-                            onStyleChange={() => { }}
+                            onLocalChange={size => onTypographyChange({ ...value.font, size })}
                         />
                         <SelectControl
                             label={__('Weight', '--gctd--')}
                             value={value.font.weight}
                             onValueChange={weight => onTypographyChange({ ...value.font, weight })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -193,7 +191,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             label={__('Decoration', '--gctd--')}
                             value={value.font.decoration}
                             onValueChange={decoration => onTypographyChange({ ...value.font, decoration })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -241,13 +238,12 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                                 },
                             }}
                             onValueChange={lineHeight => onTypographyChange({ ...value.font, lineHeight })}
-                            onStyleChange={() => { }}
+                            onLocalChange={lineHeight => onTypographyChange({ ...value.font, lineHeight })}
                         />
                         <SelectControl
                             label={__('Transform', '--gctd--')}
                             value={value.font.transform}
                             onValueChange={transform => onTypographyChange({ ...value.font, transform })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -275,7 +271,6 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                             label={__('Style', '--gctd--')}
                             value={value.font.style}
                             onValueChange={style => onTypographyChange({ ...value.font, style })}
-                            onStyleChange={() => { }}
                             options={[
                                 {
                                     label: __('Default', '--gctd--'),
@@ -305,7 +300,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                     value={value.font.spacing}
                     allowDeviceControl={true}
                     onValueChange={spacing => onTypographyChange({ ...value.font, spacing })}
-                    onStyleChange={() => { }}
+                    onLocalChange={spacing => onTypographyChange({ ...value.font, spacing })}
                 />
             </>
         </div>}
@@ -314,7 +309,11 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
 };
 
 const GlobalVariableFont = (props) => {
-    const { variableFont, addFontVar, editFontVar, deleteFontVar, addFont } = props;
+    let { variableFont, addFontVar, editFontVar, deleteFontVar, addFont } = props;
+
+    if (typeof variableFont === 'object') {
+        variableFont = Object.values(variableFont);
+    }
 
     const addVariableFont = () => {
         const newFont = {
@@ -336,14 +335,6 @@ const GlobalVariableFont = (props) => {
     const deleteVariableFont = id => {
         deleteFontVar(id);
     };
-
-    // const [importFonts, setImportFonts] = useState('');
-
-    // const onImportFonts = () => {
-    //     JSON.parse(importFonts).map(item => {
-    //         addFontVar(item);
-    //     });
-    // };
 
     return <>
         <PanelTutorial
@@ -383,15 +374,6 @@ const GlobalVariableFont = (props) => {
                 </div>
             </div>
         </div>}
-        {/* {isTools && <div className="guten-dev-tools">
-            <textarea id="global-fonts" name="global-fonts" rows="4" cols="50" value={importFonts} onChange={e => setImportFonts(e.target.value)}>
-            </textarea>
-            <div className={'variable-import'}>
-                <div onClick={() => onImportFonts()}>
-                    {__('Import Fonts', '--gctd--')}
-                </div>
-            </div>
-        </div>} */}
     </>;
 };
 

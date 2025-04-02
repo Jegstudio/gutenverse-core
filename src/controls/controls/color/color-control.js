@@ -8,7 +8,7 @@ import { withDeviceControl } from 'gutenverse-core/hoc';
 import { __ } from '@wordpress/i18n';
 import { Tooltip } from '@wordpress/components';
 import { RefreshCw, Globe, ChevronRight } from 'react-feather';
-import { renderColor, signal, hexToRgb } from 'gutenverse-core/editor-helper';
+import { renderColor, signal, hexToRgb, getDeviceType } from 'gutenverse-core/editor-helper';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
@@ -34,7 +34,7 @@ const ColorControl = (props) => {
         value = allowDeviceControl ? {} : '',
         alpha = true,
         onValueChange,
-        onStyleChange,
+        onLocalChange,
         description = '',
     } = props;
 
@@ -45,7 +45,6 @@ const ColorControl = (props) => {
 
     const [open, setControlOpen] = useState(false);
     const [localColor, setLocalColor] = useState(value);
-    const [updating, setUpdating] = useState(false);
     const [variableOpen, setVariableOpen] = useState(false);
 
     const defaultPalette = useSettingFallback('color.palette.default');
@@ -164,6 +163,25 @@ const ColorControl = (props) => {
         };
     }, [variableWrapperRef]);
 
+    const isFirstRender = useRef(true);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        if (localColor) {
+            onLocalChange(localColor);
+        }
+    }, [localColor]);
+
+    const deviceType = getDeviceType();
+
+    useEffect(() => {
+        setLocalColor(value);
+    }, [deviceType]);
+
     const id = useInstanceId(ColorControl, 'inspector-color-control');
 
     const ColorContent = <div className={'control-color-wrapper'}>
@@ -176,7 +194,7 @@ const ColorControl = (props) => {
                 </div>
             </Tooltip>
             <div className={'control-color'} onClick={() => toggleOpen()} ref={colorRef}>
-                <div style={{ backgroundColor: renderColor(updating ? localColor : getColorValue(value)) }} />
+                <div style={{ backgroundColor: renderColor(getColorValue(localColor)) }} />
             </div>
         </div>
     </div>;
@@ -210,10 +228,10 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id: id
                                     };
+                                    setLocalColor(value);
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
@@ -232,10 +250,10 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id
                                     };
+                                    setLocalColor(value);
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
@@ -254,10 +272,10 @@ const ColorControl = (props) => {
                                         type: 'variable',
                                         id
                                     };
+                                    setLocalColor(value);
                                     onValueChange(value);
-                                    onStyleChange(value);
                                 },
-                                active: value.id === id
+                                active: localColor.id === id
                             };
 
                             return <VariableColorItem key={id} {...props} />;
@@ -275,22 +293,19 @@ const ColorControl = (props) => {
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(allowDeviceControl ? {} : '');
-                            onStyleChange(null);
+                            setLocalColor(allowDeviceControl ? {} : '');
                         }} />
                     </span>
                 </Tooltip>
             </div>
             <ChromePicker
                 disableAlpha={!alpha}
-                color={updating ? localColor : getColorValue(value)}
+                color={getColorValue(localColor)}
                 onChange={color => {
-                    onStyleChange(color.rgb);
-                    setLocalColor(color.hsl);
-                    setUpdating(true);
+                    setLocalColor(color.rgb);
                 }}
                 onChangeComplete={(color) => {
                     onValueChange(color.rgb);
-                    setUpdating(false);
                 }}
             />
         </div> : null}

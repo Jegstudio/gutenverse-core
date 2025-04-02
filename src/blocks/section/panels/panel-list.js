@@ -1,8 +1,8 @@
 import { layoutPanel } from './panel-layout';
 import { structurePanel } from './panel-structure';
 import { __ } from '@wordpress/i18n';
-import { dividerPanel } from './panel-divider';
 import { advancePanel, animationPanel, backgroundOverlayPanel, backgroundPanel, borderPanel, cursorEffectPanel, mouseMoveEffectPanel, backgroundEffectPanel, maskPanel, positioningPanel, responsivePanel, transformPanel, typographyPanel, pointerEventPanel, conditionPanel } from 'gutenverse-core/controls';
+import { dividerPanel } from './panel-divider';
 import { stickyPanel } from './panel-sticky';
 import { advanceAnimationPanel } from 'gutenverse-core/controls';
 import { backgroundAnimatedPanel } from 'gutenverse-core/controls';
@@ -12,6 +12,7 @@ import { blurPanel } from './panel-blur';
 
 export const panelList = () => {
     return [
+        // Settings
         {
             title: __('Layouts', '--gctd--'),
             panelArray: layoutPanel,
@@ -24,6 +25,103 @@ export const panelList = () => {
             id: 'structure',
             tabRole: TabSetting
         },
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'section-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Shape Divider', '--gctd--'),
+            initialOpen: false,
+            panelArray: dividerPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', '--gctd--'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'section-animation'
+            }),
+            tabRole: TabSetting
+        },
+
+        // Styles
+        {
+            title: __('Background', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background Overlay', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => pointerEventPanel({
+                ...props,
+                selector : `.section-${props.elementId}`
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Typography', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => typographyPanel({
+                ...props,
+                styleId: 'section-typography'
+            }),
+            tabRole: TabStyle
+        },
+
+        // Pro
+
         {
             title: __('Sticky', '--gctd--'),
             initialOpen: false,
@@ -45,102 +143,27 @@ export const panelList = () => {
             pro: true,
         },
         {
-            title: __('Background', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                blockType: 'section',
-                styleId: 'section-background',
-                normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
-                hoverOptions: ['default', 'gradient'],
-                normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-background-animated .animated-layer`,
-                hoverSelector: `.${props.elementId}:not(.background-animated):hover, .${props.elementId}.background-animated:hover > .guten-background-animated .animated-layer`,
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Background Overlay', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundOverlayPanel({
-                ...props,
-                styleId: 'section-background-overlay',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Blur', '--gctd--'),
-            initialOpen: false,
-            panelArray: blurPanel,
-            tabRole: TabStyle
-        },
-        {
             title: __('Background Animated', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
             pro: true,
         },
         {
-            title: __('Border', '--gctd--'),
+            title: __('Advanced Animation', '--gctd--'),
             initialOpen: false,
-            panelArray: (props) => borderPanel({
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
                 ...props,
-                styleId: 'section-border'
+                blockType: 'section'
             }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', '--gctd--'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Pointer Event', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => pointerEventPanel({
-                ...props,
-                selector: `.section-${props.elementId}`
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Typography', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => typographyPanel({
-                ...props,
-                styleId: 'section-typography'
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Shape Divider', '--gctd--'),
-            initialOpen: false,
-            panelArray: dividerPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Shape Divider Animated', '--gctd--'),
-            initialOpen: false,
-            panelArray: dividerPanelAnimated,
             pro: true,
         },
-        {
-            title: __('Display', '--gctd--'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'section-animation'
-            }),
-            tabRole: TabSetting
-        },
+        // {
+        //     title: __('Shape Divider Animated', '--gctd--'),
+        //     initialOpen: false,
+        //     panelArray: dividerPanelAnimated,
+        //     pro: true,
+        // },
         {
             title: __('Transform', '--gctd--'),
             initialOpen: false,
@@ -154,31 +177,6 @@ export const panelList = () => {
             panelArray: mouseMoveEffectPanel,
             tabRole: TabSetting,
             pro: true,
-        },
-        {
-            title: __('Advanced Animation', '--gctd--'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'section'
-            }),
-            pro: true,
-        },
-        {
-            title: __('Positioning', '--gctd--'),
-            initialOpen: false,
-            panelArray: positioningPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Spacing', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'section-advance',
-            }),
-            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),

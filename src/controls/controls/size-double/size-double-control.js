@@ -82,7 +82,6 @@ const SizeDoubleControl = (props) => {
         liveUpdate,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
         description = '',
         hideRange = false,
         overlap = false
@@ -99,7 +98,6 @@ const SizeDoubleControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {
@@ -166,11 +164,6 @@ const SizeDoubleControl = (props) => {
                         value={updating ? localValueStart : start}
                         onChange={(e) => {
                             const point = exactPoint('start', e.target.value);
-
-                            onStyleChange({
-                                ...value,
-                                start: point,
-                            });
                             setLocalValueStart(point);
                             setUpdating(true);
 
@@ -191,11 +184,6 @@ const SizeDoubleControl = (props) => {
                         value={updating ? localValueEnd : end}
                         onChange={(e) => {
                             const point = exactPoint('end', e.target.value);
-
-                            onStyleChange({
-                                ...value,
-                                end: point,
-                            });
                             setLocalValueEnd(point);
                             setUpdating(true);
 

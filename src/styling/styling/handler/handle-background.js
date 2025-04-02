@@ -108,7 +108,7 @@ export const handleBackground = (background) => {
 
                 if (_blend) {
                     responsiveAppender({
-                        style: `background-blend-mode: ${_blend};`,
+                        style: `background-blend-mode: ${_blend}; mix-blend-mode: ${_blend};`,
                         device,
                         elementStyle
                     });

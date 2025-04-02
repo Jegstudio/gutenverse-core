@@ -1,4 +1,5 @@
-import { elementVar, normalAppender } from '../styling-utility';
+import { typographyCSS } from '../generator/generator-typography';
+import { elementVar, normalAppender} from '../styling-utility';
 import { handleBackground } from './handle-background';
 import { handleBorder } from './handle-border';
 import { getColor } from './handle-color';
@@ -21,56 +22,58 @@ export const handleCursorEffect = (style, props, id) => {
         textBorder,
         typography,
         blur,
+        imageBorder
     } = style;
 
     switch (type) {
         case 'text':
-            if(textColor){
+            if (textColor) {
                 normalAppender({
                     style: `color: ${getColor(textColor)};`,
                     elementStyle
                 });
             }
-            if(background){
+            if (background) {
                 const newElementStyle = handleBackground(background);
-                elementStyle.adminStyle = {...elementStyle.adminStyle,
+                elementStyle.adminStyle = {
+                    ...elementStyle.adminStyle,
                     Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
                     Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
                     Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
                 };
             }
-            if(padding){
+            if (padding) {
                 normalAppender({
                     style: `padding-top: ${padding?.dimension?.top}${padding?.unit}; padding-right: ${padding?.dimension?.right}${padding?.unit}; padding-bottom: ${padding?.dimension?.bottom}${padding?.unit}; padding-left: ${padding?.dimension?.left}${padding?.unit};`,
                     elementStyle
                 });
             }
-            if(textBorder){
+            if (textBorder) {
                 const newElementStyle = handleBorder(textBorder);
-                elementStyle.adminStyle = {...elementStyle.adminStyle,
+                elementStyle.adminStyle = {
+                    ...elementStyle.adminStyle,
                     Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
                     Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
                     Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
                 };
             }
-            if(typography){
-                const newElementStyle = handleTypography(typography, props, id);
-                elementStyle.adminStyle = {...elementStyle.adminStyle,
-                    Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
-                    Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
-                    Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
-                };
+            if (typography) {
+                const typographyStyle = typographyCSS(typography);
+                normalAppender({
+                    style: typographyStyle.Desktop.join(' '),
+                    elementStyle
+                });
             }
             break;
 
         case 'icon':
-            if(iconColor){
+            if (iconColor) {
                 normalAppender({
                     style: `color: ${getColor(iconColor)};`,
                     elementStyle
                 });
             }
-            if(iconSize?.point){
+            if (iconSize?.point) {
                 normalAppender({
                     style: `width: ${iconSize.point}${iconSize.unit};height: ${iconSize.point}${iconSize.unit};`,
                     elementStyle
@@ -78,28 +81,37 @@ export const handleCursorEffect = (style, props, id) => {
             }
             break;
         case 'image':
-            if(imageHeight?.point){
+            if (imageHeight?.point) {
                 normalAppender({
                     style: `height: ${imageHeight.point}${imageHeight.unit};`,
                     elementStyle
                 });
             }
-            if(imageWidth?.point){
+            if (imageWidth?.point) {
                 normalAppender({
                     style: `width: ${imageWidth.point}${imageWidth.unit};`,
                     elementStyle
                 });
             }
+            if (imageBorder) {
+                const newElementStyle = handleBorder(imageBorder);
+                elementStyle.adminStyle = {
+                    ...elementStyle.adminStyle,
+                    Desktop: `${elementStyle.adminStyle.Desktop} ${newElementStyle.adminStyle.Desktop}`,
+                    Mobile: `${elementStyle.adminStyle.Tablet} ${newElementStyle.adminStyle.Tablet}`,
+                    Tablet: `${elementStyle.adminStyle.Mobile} ${newElementStyle.adminStyle.Mobile}`,
+                };
+            }
             break;
 
         default:
-            if(primaryColor){
+            if (primaryColor) {
                 normalAppender({
                     style: `border: 4px solid ${getColor(primaryColor)};`,
                     elementStyle
                 });
             }
-            if (primarySize?.point){
+            if (primarySize?.point) {
                 normalAppender({
                     style: `
                         width: ${primarySize.point}${primarySize.unit};
@@ -110,7 +122,7 @@ export const handleCursorEffect = (style, props, id) => {
             }
             break;
     }
-    if(blur){
+    if (blur) {
         normalAppender({
             style: `-webkit-backdrop-filter: blur(${blur}px); backdrop-filter: blur(${blur}px);`,
             elementStyle
@@ -128,8 +140,8 @@ export const handleInnerCursorEffect = (style) => {
         defaultStyle
     } = style;
 
-    if (secondaryColor){
-        if(defaultStyle === 'style2'){
+    if (secondaryColor) {
+        if (defaultStyle === 'style2') {
             normalAppender({
                 style: `
                     &::before,
@@ -139,14 +151,14 @@ export const handleInnerCursorEffect = (style) => {
                 `,
                 elementStyle
             });
-        }else {
+        } else {
             normalAppender({
                 style: `background-color: ${getColor(secondaryColor)};`,
                 elementStyle
             });
         }
     }
-    if (secondarySize?.point){
+    if (secondarySize?.point) {
         normalAppender({
             style: `
                 width: ${secondarySize.point}${secondarySize.unit};
@@ -166,44 +178,53 @@ export const handleTransitionCursorEffect = (style) => {
         transitionSpeed
     } = style;
 
-    switch(entranceTransition){
+    const speed = transitionSpeed?.point ? transitionSpeed?.point : 1;
+
+    switch (entranceTransition) {
         case 'opacity':
             normalAppender({
-                style:`
-                    transition: opacity ${transitionSpeed?.point}s, transform 0s;
+                style: `
+                    transition: opacity ${speed}s, transform 0s;
                 `,
                 elementStyle
             });
             break;
         case 'scale':
             normalAppender({
-                style:`
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                style: `
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
             break;
         case 'opacityScale':
             normalAppender({
-                style:`
-                    transition: opacity ${transitionSpeed?.point}s, transform ${transitionSpeed?.point}s;
+                style: `
+                    transition: opacity ${speed}s, transform ${speed}s;
                 `,
                 elementStyle
             });
             break;
         case 'rotateY':
             normalAppender({
-                style:`
-                    transform: translate(-50%, -50%) scale(0) rotateY(0deg) !important;
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                style: `
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
             break;
         case 'rotateX':
             normalAppender({
-                style:`
-                    transition: opacity 0s, transform ${transitionSpeed?.point}s;
+                style: `
+                    transition: opacity 0s, transform ${speed}s;
+                `,
+                elementStyle
+            });
+            break;
+        case 'rotateXY':
+            normalAppender({
+                style: `
+                    transition: opacity 0s, transform ${speed}s;
                 `,
                 elementStyle
             });
@@ -213,16 +234,16 @@ export const handleTransitionCursorEffect = (style) => {
     }
 
     return elementStyle;
-}
+};
 
-export const handleIconCursorEffect = (style) =>{
+export const handleIconCursorEffect = (style) => {
     const elementStyle = elementVar();
 
     const {
         iconSize,
     } = style;
 
-    if(iconSize?.point){
+    if (iconSize?.point) {
         normalAppender({
             style: `font-size:${iconSize.point}${iconSize.unit};`,
             elementStyle
@@ -230,15 +251,15 @@ export const handleIconCursorEffect = (style) =>{
     }
     return elementStyle;
 };
-export const handleImageCursorEffect = (style) =>{
+export const handleImageCursorEffect = (style) => {
     let elementStyle = elementVar();
 
     const {
-        imageBorder,
+        // imageBorder,
         imageFit,
     } = style;
-    elementStyle = imageBorder? handleBorder(imageBorder): elementStyle;
-    if(imageFit){
+    // elementStyle = imageBorder ? handleBorder(imageBorder) : elementStyle;
+    if (imageFit) {
         normalAppender({
             style: `object-fit: ${imageFit};`,
             elementStyle

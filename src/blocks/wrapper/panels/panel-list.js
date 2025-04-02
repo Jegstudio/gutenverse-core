@@ -8,10 +8,27 @@ import { positionPanel } from './panel-position';
 
 export const panelList = () => {
     return [
+        // Settings
+
         {
             title: __('Wrapper Display', '--gctd--'),
             initialOpen: false,
             panelArray: displayPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'wrapper-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
             tabRole: TabSetting
         },
         {
@@ -21,12 +38,23 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Animation Effects', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'wrapper'
+            }),
+            tabRole: TabSetting
+        },
+
+        // Styles
+
+        {
             title: __('Background', '--gctd--'),
             initialOpen: false,
             panelArray: (props) => backgroundPanel({
                 ...props,
                 blockType: 'wrapper',
-                styleId: 'wrapper-background',
                 normalOptions: ['default', 'gradient', 'video', 'fluid', 'slide'],
                 hoverOptions: ['default', 'gradient'],
                 normalSelector: `.${props.elementId}:not(.background-animated), .${props.elementId}.background-animated > .guten-inner-wrap > .guten-background-animated .animated-layer`,
@@ -34,6 +62,43 @@ export const panelList = () => {
             }),
             tabRole: TabStyle
         },
+        {
+            title: __('Background Overlay', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundOverlayPanel({
+                ...props,
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Blur', '--gctd--'),
+            initialOpen: false,
+            panelArray: blurPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', '--gctd--'),
+            initialOpen: false,
+            panelArray: borderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', '--gctd--'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Pointer Event', '--gctd--'),
+            initialOpen: false,
+            panelArray: pointerEventPanel,
+            tabRole: TabStyle
+        },
+
+        // Pro
+
         {
             title: __('Background Effect', '--gctd--'),
             initialOpen: false,
@@ -50,59 +115,6 @@ export const panelList = () => {
             panelArray: cursorEffectPanel,
             tabRole: TabSetting,
             pro: true,
-        },
-        {
-            title: __('Background Overlay', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundOverlayPanel({
-                ...props,
-                styleId: 'wrapper-background-overlay',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Blur', '--gctd--'),
-            initialOpen: false,
-            panelArray: blurPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'wrapper-border'
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', '--gctd--'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Pointer Event', '--gctd--'),
-            initialOpen: false,
-            panelArray: pointerEventPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Animation Effects', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'wrapper'
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Display', '--gctd--'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
         },
         {
             title: __('Transform', '--gctd--'),
@@ -133,15 +145,6 @@ export const panelList = () => {
                 blockType: 'wrapper'
             }),
             pro: true,
-        },
-        {
-            title: __('Spacing', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'wrapper-advance',
-            }),
-            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),

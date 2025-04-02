@@ -1,6 +1,5 @@
-import throttle from 'lodash/throttle';
-import { useCallback } from '@wordpress/element';
-import { setControlStyle } from 'gutenverse-core/editor-helper';
+import { updateLiveStyle } from 'gutenverse-core/styling';
+import { useEffect, useRef } from '@wordpress/element';
 
 const BlockController = (props) => {
     const {
@@ -9,28 +8,23 @@ const BlockController = (props) => {
         elementRef
     } = props;
 
-    const throttleSave = useCallback(
-        throttle(({ id, value, style, allowDeviceControl }) => {
-            style.map((item, index) => {
-                setControlStyle({
-                    ...panelProps,
-                    id: item.updateID ? item.updateID : `${id}-style-${index}`,
-                    value,
-                    style: item,
-                    allowDeviceControl
-                });
-            });
-        }, 100),
-        []
-    );
+    let timeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     return panelArray(panelProps).map((item) => {
-        const { id, show, onChange, component: Component, style, allowDeviceControl = false, proLabel, forceType } = item;
-        const { clientId, setAttributes } = panelProps;
+        const { id, show, onChange, component: Component, proLabel, forceType, liveStyle = [] } = item;
+        const { clientId, setAttributes, elementId, setLiveAttr, liveAttr } = panelProps;
 
         const onValueChange = (value) => {
 
-            switch(forceType) {
+            switch (forceType) {
                 case 'string':
                     value = value.toString();
                     break;
@@ -43,7 +37,7 @@ const BlockController = (props) => {
             const newValue = {
                 [id]: value
             };
-            if(!proLabel){
+            if (!proLabel) {
                 setAttributes(newValue);
             }
 
@@ -53,9 +47,17 @@ const BlockController = (props) => {
             }) : null;
         };
 
-        const onStyleChange = (value) => {
-            if (style) {
-                throttleSave({ id, value, style, allowDeviceControl });
+        const onLocalChange = (value) => {
+            const newValue = {
+                [id]: value
+            };
+
+            timeoutRef.current = liveStyle && updateLiveStyle({elementId, attributes: newValue, styles: liveStyle, elementRef});
+            if(setLiveAttr){
+                setLiveAttr({
+                    ...liveAttr,
+                    [id] : value
+                });
             }
         };
 
@@ -66,10 +68,9 @@ const BlockController = (props) => {
             value={panelProps[id]}
             values={panelProps}
             onValueChange={onValueChange}
-            onStyleChange={onStyleChange}
+            onLocalChange={onLocalChange}
             elementRef={elementRef}
             isOpen={true}
-            throttleSave={throttleSave}
         />;
     });
 };

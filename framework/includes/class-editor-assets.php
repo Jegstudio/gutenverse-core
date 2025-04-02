@@ -105,7 +105,7 @@ class Editor_Assets {
 		$config['autoBlockRecovery'] = gutenverse_autoblock_recovery();
 		$config['missingBlocksWarn'] = gutenverse_missing_blocks();
 		$config['eventBanner']       = gutenverse_get_event_banner();
-		$config['clientUrl']               = get_site_url();
+		$config['clientUrl']         = get_site_url();
 		$config['activeTheme']       = get_option( 'stylesheet' );
 
 		if ( defined( 'GUTENVERSE' ) ) {
