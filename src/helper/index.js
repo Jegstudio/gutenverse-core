@@ -2,7 +2,8 @@ import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
-import { useSetting, useSettings } from '@wordpress/block-editor';
+import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
+import { store as editorStore } from '@wordpress/editor';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -718,4 +719,27 @@ export const dummyText = (minLength, maxLength) => {
         result.push(loremIpsumWords[Math.floor(Math.random() * loremIpsumWords.length)]);
     }
     return result.join(' ');
+};
+
+/**
+ * Todo: Find better implementation (WordPress API)
+ */
+export const getParentId = () => {
+    const renderingMode = select(editorStore).getRenderingMode();
+    const blockNames = ['core/post-content', 'gutenverse/post-content'];
+
+    if (renderingMode === 'template-locked') {
+        for (let i = 0; i < blockNames.length; i++) {
+            const [postContentClientId] = select(blockEditorStore).getBlocksByName(
+                blockNames[i]
+            );
+
+            if (postContentClientId) {
+                return postContentClientId;
+            }
+        }
+
+        // return false, if no post content block found.
+        return false;
+    }
 };
