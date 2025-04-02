@@ -3,11 +3,12 @@ import { Loader } from 'react-feather';
 import { LogoFullWhiteNoTextSVG, IconBlocksSVG, IconLayoutsSVG, IconLoveSVG } from 'gutenverse-core/icons';
 import { __ } from '@wordpress/i18n';
 import LibraryModal from './library-modal';
-import { dispatch } from '@wordpress/data';
+import { dispatch, useSelect } from '@wordpress/data';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import { getEditSiteHeader, signal } from 'gutenverse-core/editor-helper';
 import EscListener from '../esc-listener/esc-listener';
 export { libraryStore } from 'gutenverse-core/store';
+import { store as editorStore } from '@wordpress/editor';
 
 const initLibraryState = {
     active: 'layout',
@@ -39,12 +40,15 @@ const initLayoutState = {
     library: 'layout',
 };
 
-const Library = () => {
+const Library = ({screen}) => {
     const [open, setOpen] = useState(false);
     const [visible, setVisibility] = useState(true);
     const [injectLocation, setInjectLocation] = useState(null);
     const [refresh, setRefresh] = useState(null); // eslint-disable-line no-unused-vars
     const [loading, setLoading] = useState(true);
+    const [libraryError, setLibraryError] = useState(false);
+
+    const { getRenderingMode } = useSelect(editorStore);
 
     const refreshSignal = (key) => {
         setRefresh(key);
@@ -73,7 +77,7 @@ const Library = () => {
                     <LogoFullWhiteNoTextSVG />
                 </div>
                 <span>
-                    {loading && open ? __('Populating Library . . .', '--gctd--') : __('Gutenverse Library', '--gctd--')}
+                    {loading && open ? __('Updating...', '--gctd--') : __('Library', '--gctd--')}
                 </span>
             </div>
         </div>
@@ -121,17 +125,21 @@ const Library = () => {
         }
     }, [open]);
 
+    const libraryModal = <LibraryModal
+        open={open}
+        setOpen={setOpen}
+        visible={visible}
+        setVisibility={setVisibility}
+        loading={loading}
+        setLoading={setLoading}
+        setLibraryError={setLibraryError}
+    />;
+
     return <>
         <EscListener execute={() => setVisibility(false)} />
-        <LibraryModal
-            open={open}
-            setOpen={setOpen}
-            visible={visible}
-            setVisibility={setVisibility}
-            loading={loading}
-            setLoading={setLoading}
-        />
+        {createPortal(libraryModal, document.getElementById('gutenverse-root'))}
         {injectLocation && createPortal(libraryButton, injectLocation)}
+        {libraryError !== false && createPortal(libraryError, document.getElementById('gutenverse-error'))}
     </>;
 };
 

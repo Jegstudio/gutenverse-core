@@ -15,6 +15,7 @@ const LibraryModal = props => {
         visible,
         setOpen,
         setVisibility,
+        setLibraryError,
         loading,
         modalData,
         importer
@@ -127,6 +128,7 @@ const LibraryModal = props => {
                         active={modalData.libraryData.active}
                         closeImporter={closeImporter}
                         burger={burger}
+                        setLibraryError={setLibraryError}
                     />
                 </div>
             </div>
