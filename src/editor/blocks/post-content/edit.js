@@ -15,6 +15,9 @@ import { useSettingFallback } from 'gutenverse-core/helper';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '@wordpress/editor';
 import { parse } from '@wordpress/blocks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 
 const Placeholder = () => {
