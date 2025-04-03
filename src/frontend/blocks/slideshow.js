@@ -42,10 +42,10 @@ class GutenverseSlideshow extends Default {
             el.classList.remove(parentClass);
         });
 
-        slideshowContainer[currentIndex].classList.add(currentClass);
-        slideshowContainer[prevIndex].classList.add(prevClass);
-        slideshowContainer[currentIndex].classList.add(parentClass);
-        slideshowContainer[prevIndex].classList.add(parentClass);
+        slideshowContainer[currentIndex]?.classList.add(currentClass);
+        slideshowContainer[prevIndex]?.classList.add(prevClass);
+        slideshowContainer[currentIndex]?.classList.add(parentClass);
+        slideshowContainer[prevIndex]?.classList.add(parentClass);
 
         let intervalToggle = setInterval(() => {
             if (slideshowContainer.length <= 2) {
