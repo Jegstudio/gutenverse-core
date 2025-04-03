@@ -4,7 +4,7 @@ import { withSelect, dispatch, useDispatch, select } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
-import { getParentId, injectImagesToContent } from 'gutenverse-core/helper';
+import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
@@ -40,7 +40,7 @@ const ImportSectionButton = props => {
                         <span>{__('Import Section Notice', '--gctd--')}</span>
                     </div>
                     <div className="gutenverse-warn-description">
-                        {__('We cannot import content because we can\'t find Post Content inside your Template. Procced to swith to Post View instead of template to import content?', '--gctd--')}
+                        {__('We can\'t import content because the Post Content is missing from your Template. Would you like to switch to Post View instead in order to import the content?', '--gctd--')}
                     </div>
                     <div className="gutenverse-warn-footer">
                         <button className="cancel" onClick={() => cancelImport()}>Dismiss</button>
