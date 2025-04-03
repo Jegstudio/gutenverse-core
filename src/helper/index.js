@@ -2,10 +2,9 @@ import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
-import { useSetting, useSettings } from '@wordpress/block-editor';
 import { useState } from '@wordpress/element';
+import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
-import { store as blockEditorStore } from '@wordpress/block-editor';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
