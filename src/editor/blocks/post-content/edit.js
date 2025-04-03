@@ -8,8 +8,8 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { InspectorControls, RecursionProvider, useBlockProps, useInnerBlocksProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { InspectorControls, RecursionProvider, useBlockProps, useInnerBlocksProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
+import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
@@ -144,7 +144,7 @@ const Content = (props) => {
             postId={postId}
         />
     );
-}
+};
 
 const RecursionError = () => {
     const blockProps = useBlockProps();
@@ -163,24 +163,12 @@ const PostContentBlock = compose(
     withCopyElementToolbar()
 )((props) => {
     const {
-        clientId,
         attributes,
         setElementRef,
         context,
         __unstableLayoutClassNames: layoutClassNames,
         __unstableParentLayout: parentLayout,
     } = props;
-
-    const { setBlockEditingMode, unsetBlockEditingMode } = useDispatch(blockEditorStore);
-
-    useEffect(() => {
-        setBlockEditingMode(clientId, 'default');
-
-        return () => {
-            unsetBlockEditingMode(clientId);
-        };
-
-    }, [clientId, setBlockEditingMode, unsetBlockEditingMode]);
 
     const {
         elementId,
