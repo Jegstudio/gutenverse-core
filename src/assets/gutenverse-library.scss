@@ -1681,11 +1681,24 @@ $border: #eaeaea;
 
 .gutenverse-lock-button {
     cursor: pointer;
-    font-size: 14px;
-    line-height: 18px;
-    padding: 10px 12px;
-    font-family: "Poppins", serif;
-    font-weight: 300;
+    display: flex;
+    padding: 8px;
+    border-radius: 5px;
+    transition: border-radius 0.5s ease, background-color 0.5s ease, border 0.5s ease;
+
+    &:hover {
+        border-radius: 50px;
+    }
+
+    &.locked {
+        background-color: #FFFAEB;
+        border: 1px solid #FEC84B;
+    }
+
+    &.unlocked {
+        background-color: #F6FEF9;
+        border: 1px solid #6CE9A6;
+    }
 }
 
 .gutenverse-import,
