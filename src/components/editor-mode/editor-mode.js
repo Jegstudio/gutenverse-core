@@ -7,7 +7,13 @@ import { getEditSiteHeader } from 'gutenverse-core/editor-helper';
 const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
     render: () => {
         const [injectLocation, setInjectLocation] = useState(null);
-        const { getRenderingMode } = useSelect(editorStore);
+        const { renderingMode, currentPostType } = useSelect((select) => {
+            return {
+                renderingMode: select(editorStore).getRenderingMode(),
+                currentPostType: select(editorStore).getCurrentPostType(),
+            };
+        }, []);
+
         const { setRenderingMode } = useDispatch(editorStore);
 
         useEffect(() => {
@@ -17,17 +23,19 @@ const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
         });
 
         const changeMode = () => {
-            getRenderingMode() === 'template-locked' ? setRenderingMode('post-only') : setRenderingMode('template-locked');
+            renderingMode === 'template-locked' ? setRenderingMode('post-only') : setRenderingMode('template-locked');
         };
 
         const editorModeButton = (
-            <div className="gutenverse-top-button" onClick={changeMode}>
-                {getRenderingMode() === 'template-locked' ? 'Locked' : 'Unlocked'}
+            <div className="gutenverse-lock-button" onClick={changeMode}>
+                {renderingMode === 'template-locked' ? '🔒 Locked' : '🔓 Unlocked'}
             </div>
         );
 
+        console.log(renderingMode, currentPostType);
+
         return <>
-            {injectLocation && createPortal(editorModeButton, injectLocation)}
+            {injectLocation && ['post', 'page'].includes(currentPostType) && createPortal(editorModeButton, injectLocation)}
         </>;
     },
 });

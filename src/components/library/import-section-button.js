@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { importImage, importSingleSectionContent } from 'gutenverse-core/requests';
-import { withSelect, dispatch, useDispatch } from '@wordpress/data';
+import { withSelect, dispatch, useDispatch, select } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDownload2SVG } from 'gutenverse-core/icons';
 import { Loader } from 'react-feather';
@@ -56,16 +56,15 @@ const ImportSectionButton = props => {
             const { insertBlocks } = dispatch('core/block-editor');
             const { contents, images } = data;
             const patterns = injectImagesToContent(contents, images);
-
             const blocks = parse(patterns);
-            const parentBlockId = getParentId();
+            const renderingMode = select(editorStore).getRenderingMode();
 
-            if (parentBlockId === false) {
+            if (renderingMode === 'template-locked') {
                 setLibraryError(() => {
                     return <ImportNotice resolve={resolve} blocks={blocks} />;
                 });
             } else {
-                insertBlocks(blocks, undefined, parentBlockId);
+                insertBlocks(blocks);
                 resolve();
             }
         });

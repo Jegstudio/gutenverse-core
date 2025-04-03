@@ -1679,6 +1679,15 @@ $border: #eaeaea;
     }
 }
 
+.gutenverse-lock-button {
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 18px;
+    padding: 10px 12px;
+    font-family: "Poppins", serif;
+    font-weight: 300;
+}
+
 .gutenverse-import,
 .gutenverse-export {
     position: absolute;

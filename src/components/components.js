@@ -6,9 +6,6 @@ import './data/block';
 export { default as gutenverseCopyPlugin } from './copy-style/copy-style-plugin';
 export { default as gutenversePastePlugin } from './copy-style/paste-style-plugin';
 
-// Editor Mode Plugin
-export { default as gutenverseEditorModePlugin } from './editor-mode/editor-mode';
-
 // GutenverseLibrary Plugin
 export { default as gutenverseLibraryPlugin } from './library/library-plugin';
 
@@ -20,3 +17,6 @@ export { default as gutenverseAutoRecovery } from './auto-recovery/auto-recovery
 
 // Missing Block Warn
 export { default as gutenverseWarnMissing } from './missing-block-warn/missing-block-wran-plugin';
+
+// Editor Mode Plugin
+export { default as gutenverseEditorModePlugin } from './editor-mode/editor-mode';
