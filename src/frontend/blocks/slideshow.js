@@ -37,9 +37,9 @@ class GutenverseSlideshow extends Default {
         let prevIndex = 0;
 
         slideshowContainer.forEach(el => {
-            el.classList.remove(prevClass);
-            el.classList.remove(currentClass);
-            el.classList.remove(parentClass);
+            el?.classList.remove(prevClass);
+            el?.classList.remove(currentClass);
+            el?.classList.remove(parentClass);
         });
 
         slideshowContainer[currentIndex]?.classList.add(currentClass);
@@ -50,13 +50,13 @@ class GutenverseSlideshow extends Default {
         let intervalToggle = setInterval(() => {
             if (slideshowContainer.length <= 2) {
                 setTimeout(() => {
-                    slideshowContainer[prevIndex].classList.remove(parentClass);
+                    slideshowContainer[prevIndex]?.classList.remove(parentClass);
                 }, transition);
-            } else  slideshowContainer[prevIndex].classList.remove(parentClass);
-            slideshowContainer[prevIndex].classList.remove(prevClass);
+            } else  slideshowContainer[prevIndex]?.classList.remove(parentClass);
+            slideshowContainer[prevIndex]?.classList.remove(prevClass);
             prevIndex = (prevIndex + 1) % elements.length;
-            slideshowContainer[prevIndex].classList.add(prevClass);
-            slideshowContainer[prevIndex].classList.add(parentClass);
+            slideshowContainer[prevIndex]?.classList.add(prevClass);
+            slideshowContainer[prevIndex]?.classList.add(parentClass);
 
             slideshowContainer[currentIndex]?.classList.remove(currentClass);
             currentIndex = (currentIndex + 1) % elements.length;
@@ -64,7 +64,7 @@ class GutenverseSlideshow extends Default {
             slideshowContainer[currentIndex]?.classList.add(parentClass);
             if (currentIndex === 1 && slideshowContainer.length <= 2) {
                 setTimeout(() => {
-                    slideshowContainer[0].classList.remove(parentClass);
+                    slideshowContainer[0]?.classList.remove(parentClass);
                 }, transition);
             }
 
