@@ -1,5 +1,5 @@
 import { compose } from '@wordpress/compose';
-import { createPortal, useEffect, useState } from '@wordpress/element';
+import { createPortal, useEffect, useMemo, useState } from '@wordpress/element';
 import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
 import { PanelController } from 'gutenverse-core/controls';
@@ -8,13 +8,15 @@ import { useRef } from '@wordpress/element';
 import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, store as blockEditorStore } from '@wordpress/block-editor';
+import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '@wordpress/editor';
+import { parse } from '@wordpress/blocks';
+
 
 const Placeholder = () => {
     return <div className="post-content">
@@ -54,7 +56,9 @@ const EditNotice = ({ setEditorWarn }) => {
 };
 
 const ReadOnlyContent = ({
+    userCanEdit,
     layoutClassNames,
+    parentLayout,
     postType,
     postId,
 }) => {
@@ -65,6 +69,26 @@ const ReadOnlyContent = ({
         postId
     );
     const blockProps = useBlockProps({ className: layoutClassNames });
+    const blocks = useMemo(() => {
+        return content?.raw ? parse(content.raw) : [];
+    }, [content?.raw]);
+    const blockPreviewProps = useBlockPreview({
+        blocks,
+        props: blockProps,
+        layout: parentLayout,
+    });
+
+    if (userCanEdit) {
+        /*
+         * Rendering the block preview using the raw content blocks allows for
+         * block support styles to be generated and applied by the editor.
+         *
+         * The preview using the raw blocks can only be presented to users with
+         * edit permissions for the post to prevent potential exposure of private
+         * block content.
+         */
+        return <div {...blockPreviewProps}></div>;
+    }
 
     return content?.protected ? (
         <div {...blockProps}>
