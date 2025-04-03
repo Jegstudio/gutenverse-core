@@ -74,7 +74,7 @@ const Library = () => {
                     <LogoFullWhiteNoTextSVG />
                 </div>
                 <span>
-                    {loading && open ? __('Updating Library...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
+                    {loading && open ? __('Updating...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
                 </span>
             </div>
         </div>
