@@ -32,8 +32,6 @@ const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
             </div>
         );
 
-        console.log(renderingMode, currentPostType);
-
         return <>
             {injectLocation && ['post', 'page'].includes(currentPostType) && createPortal(editorModeButton, injectLocation)}
         </>;
