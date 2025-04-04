@@ -42,7 +42,7 @@ const BlockSettingMenuCopy = () => {
         []
     );
 
-    return <PluginBlockSettingsMenuItem
+    return PluginBlockSettingsMenuItem ? <PluginBlockSettingsMenuItem
         allowedBlocks={registeredGutenverse}
         label={__('Copy Style', '--gctd--')}
         icon={<GradientIconCopySVG />}
@@ -78,7 +78,7 @@ const BlockSettingMenuCopy = () => {
                 });
             });
         }}
-    />;
+    /> : null;
 };
 
 const gutenverseCopyPlugin = registerPlugin('gutenverse-block-menu-setting-copy', {

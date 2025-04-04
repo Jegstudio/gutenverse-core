@@ -28,7 +28,7 @@ const BlockSettingMenuPaste = () => {
         });
     };
 
-    return <PluginBlockSettingsMenuItem
+    return PluginBlockSettingsMenuItem ? <PluginBlockSettingsMenuItem
         allowedBlocks={registeredGutenverse}
         label={__('Paste Style', '--gctd--')}
         icon={<GradientIconPasteSVG/>}
@@ -63,7 +63,7 @@ const BlockSettingMenuPaste = () => {
                 showNotice(__('Unable to read Paste Style', '--gctd--'));
             }
         }}
-    />;
+    /> : null;
 };
 
 const gutenversePastePlugin = registerPlugin('gutenverse-block-menu-setting-paste', {
