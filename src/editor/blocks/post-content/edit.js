@@ -46,7 +46,7 @@ const EditNotice = ({ setEditorWarn }) => {
         title={__('Gutenverse Post Content is Locked.', '--gctd--')}
         description={__('On "Show Template" mode, Gutenverse Post Content cannot be edited. Please switch to Content Editing mode to edit the content.', '--gctd--')}
         buttonText={__('Switch Mode', '--gctd--')}
-        onCLick={editContent}
+        onClick={editContent}
         onClose={cancelEdit}
     />;
 };
