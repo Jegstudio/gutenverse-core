@@ -161,6 +161,7 @@ const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, show
                 setEditorWarn(false);
             }}
             onClose={() => setEditorWarn(false)}
+            scheme="danger"
         />, document.getElementById('gutenverse-root'))}
     </div>;
 };
