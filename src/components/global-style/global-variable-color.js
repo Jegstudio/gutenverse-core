@@ -50,8 +50,7 @@ const slugify = (text) => {
         .replace(/--+/g, '-');
 };
 
-
-const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, showEditSlug = false }) => {
+const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, showEditSlug = false, checkDoubleSlug = () => { } }) => {
     const [open, setControlOpen] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [color, setColor] = useState(value);
@@ -73,7 +72,8 @@ const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, show
     };
 
     const editSlug = (e) => {
-        const slug = slugify(e.target.value);
+        let slug = slugify(e.target.value);
+        slug = checkDoubleSlug(slug);
         updateColor({
             ...value,
             id: slug
@@ -282,19 +282,21 @@ const GlobalVariableColor = () => {
         });
     }, [themesPalette]);
 
-    // const [importColors, setImportColors] = useState('');
+    const checkDoubleSlug = (slug, idx, colors) => {
+        let doubleFlag = false;
+        colors.forEach((item, index) => {
+            if (index !== idx && item.slug === slug) {
+                doubleFlag = true;
+            }
+        });
 
-    // const onImportColors = () => {
-    //     setUserConfig((currentConfig) => {
-    //         const newUserConfig = cloneDeep(currentConfig);
-    //         const pathToSet = 'settings.color.palette.custom';
-    //         const newData = JSON.parse(importColors);
-
-    //         set(newUserConfig, pathToSet, newData);
-
-    //         return newUserConfig;
-    //     });
-    // };
+        if (doubleFlag) {
+            const newSlug = `${slug}-${Math.floor(Math.random() * 100)}`;
+            return checkDoubleSlug(newSlug, idx, colors);
+        } else {
+            return slug;
+        }
+    };
 
     return <>
         {<div className={'color-variable-wrapper'}>
@@ -307,6 +309,7 @@ const GlobalVariableColor = () => {
                     deleteColor={() => deleteVariableColor(index)}
                     showDelete={true}
                     showEditSlug={true}
+                    checkDoubleSlug={slug => checkDoubleSlug(slug, index, customPalette)}
                 />;
             })}
             {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
@@ -330,15 +333,6 @@ const GlobalVariableColor = () => {
             })}
             <h4>{__('Default Colors', '--gctd--')}</h4>
             {!isEmpty(defaultColor) && defaultColor.map(value => <ThemeVariableColor key={value.slug} value={value} allowChange={false} userConfig={userConfig} />)}
-            {/* {isTools && <div className="guten-dev-tools">
-                <textarea id="global-colors" name="global-colors" rows="4" cols="50" value={importColors} onChange={e => setImportColors(e.target.value)}>
-                </textarea>
-                <div className={'variable-import'}>
-                    <div onClick={() => onImportColors()}>
-                        {__('Import Colors', '--gctd--')}
-                    </div>
-                </div>
-            </div>} */}
         </div>}
     </>;
 };
