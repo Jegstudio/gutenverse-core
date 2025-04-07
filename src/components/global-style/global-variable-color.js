@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
 import set from 'lodash/set';
-import { getLastSequence, rgbToHex, useSettingFallback } from 'gutenverse-core/helper';
+import { getLastSequence, rgbToHex, slugify, useSettingFallback } from 'gutenverse-core/helper';
 import { hexToRgb, useGlobalStylesConfig, renderColor } from 'gutenverse-core/editor-helper';
 import { IconCloseSVG } from 'gutenverse-core/icons';
 import { Prompt, PromptContent, PromptHeader } from 'gutenverse-core/components';
@@ -38,16 +38,6 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
             </>
         </PromptContent>
     </Prompt> : null;
-};
-
-const slugify = (text) => {
-    return text
-        .toString()
-        .toLowerCase()
-        .trim()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w-]+/g, '')
-        .replace(/--+/g, '-');
 };
 
 const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, showEditSlug = false, checkDoubleSlug = () => { } }) => {

@@ -759,3 +759,17 @@ export const getParentId = () => {
         return false;
     }
 };
+
+
+/**
+ * Generate Slug from Text.
+ */
+export const slugify = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-');
+};
