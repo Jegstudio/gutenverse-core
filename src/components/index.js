@@ -12,6 +12,7 @@ export { default as AlertModal } from './alert/alert-modal';
 export { FluidCanvasEdit as FluidCanvas } from './fluid-canvas/fluid-canvas';
 export { FluidCanvasSave as FluidCanvasSave } from './fluid-canvas/fluid-canvas';
 export { default as RichTextComponent } from './richtext/RichTextComponent';
+export { default as Notice } from './notice/index';
 
 /* Skeleton */
 export { default as Skeleton } from './skeleton/skeleton';
