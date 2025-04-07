@@ -8,11 +8,12 @@ import { __ } from '@wordpress/i18n';
 
 const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
     render: () => {
+        const [compatible, setCompatible] = useState(true);
         const [injectLocation, setInjectLocation] = useState(null);
         const { renderingMode, currentPostType } = useSelect((select) => {
             return {
-                renderingMode: select(editorStore).getRenderingMode(),
-                currentPostType: select(editorStore).getCurrentPostType(),
+                renderingMode: select(editorStore).getRenderingMode ? select(editorStore).getRenderingMode() : '_return',
+                currentPostType: select(editorStore).getCurrentPostType ? select(editorStore).getCurrentPostType() : '_return',
             };
         }, []);
 
@@ -24,8 +25,14 @@ const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
             });
         });
 
+        useEffect(() => {
+            if (renderingMode === '_return' || currentPostType === '_return') {
+                setCompatible(false);
+            }
+        }, [renderingMode]);
+
         const changeMode = () => {
-            renderingMode === 'template-locked' ? setRenderingMode('post-only') : setRenderingMode('template-locked');
+            setRenderingMode && renderingMode === 'template-locked' ? setRenderingMode('post-only') : setRenderingMode('template-locked');
         };
 
         const editorModeButton = (
@@ -43,7 +50,7 @@ const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
         );
 
         return <>
-            {injectLocation && ['post', 'page'].includes(currentPostType) && createPortal(editorModeButton, injectLocation)}
+            {compatible && injectLocation && ['post', 'page'].includes(currentPostType) && createPortal(editorModeButton, injectLocation)}
         </>;
     },
 });
