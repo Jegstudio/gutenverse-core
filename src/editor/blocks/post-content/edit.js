@@ -8,7 +8,7 @@ import { useRef } from '@wordpress/element';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
-import { useDispatch, useSelect } from '@wordpress/data';
+import { select, useDispatch, useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { useSettingFallback } from 'gutenverse-core/helper';
@@ -187,7 +187,10 @@ const PostContentBlock = compose(
         ),
         ref: elementRef,
         onClick: () => {
-            setEditorWarn(true);
+            const renderingMode = select(editorStore).getRenderingMode();
+            if (renderingMode === 'template-locked') {
+                setEditorWarn(true);
+            }
         },
     });
 
