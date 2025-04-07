@@ -95,6 +95,28 @@ const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, show
             </div>}
         </div>
         {open ? <div className={'gutenverse-variable-detail-wrapper'}>
+            <div className={'control-color-display'} ref={wrapperRef}>
+                <div className={'gutenverse-control-heading'}>
+                    <h2>
+                        {__('Color Picker', '--gctd--')}
+                    </h2>
+                </div>
+                <ChromePicker
+                    color={color.color}
+                    onChange={color => {
+                        setColor({
+                            ...value,
+                            color: color.rgb
+                        });
+                    }}
+                    onChangeComplete={(color) => {
+                        updateColor({
+                            ...value,
+                            color: color.rgb
+                        });
+                    }}
+                />
+            </div>
             {showEditSlug && <div className={'gutenverse-variable-slug'}>
                 <div className={'gutenverse-control-heading'}>
                     <h2>
@@ -125,28 +147,6 @@ const SingleVariableColor = ({ value, updateColor, deleteColor, showDelete, show
                     </>}
                 </div>
             </div>}
-            <div className={'control-color-display'} ref={wrapperRef}>
-                <div className={'gutenverse-control-heading'}>
-                    <h2>
-                        {__('Color Picker', '--gctd--')}
-                    </h2>
-                </div>
-                <ChromePicker
-                    color={color.color}
-                    onChange={color => {
-                        setColor({
-                            ...value,
-                            color: color.rgb
-                        });
-                    }}
-                    onChangeComplete={(color) => {
-                        updateColor({
-                            ...value,
-                            color: color.rgb
-                        });
-                    }}
-                />
-            </div>
         </div> : null}
         {showDelete && <ThePrompt openPopup={openPopup} closePopup={() => setOpenPopup(false)} deleteColor={deleteColor} value={value} />}
         {editorWarn && createPortal(<Notice
