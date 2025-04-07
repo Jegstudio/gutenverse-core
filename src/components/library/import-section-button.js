@@ -9,6 +9,7 @@ import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 import { store as editorStore } from '@wordpress/editor';
+import Notice from '../notice';
 
 const ImportSectionButton = props => {
     const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError } = props;
@@ -33,25 +34,16 @@ const ImportSectionButton = props => {
             resolve();
         };
 
-        return <div id="gutenverse-warn">
-            <div className="gutenverse-editor-warn">
-                <div className="gutenverse-warn-wrapper post-content">
-                    <div className="close-icon" onClick={cancelImport}>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.998 4.5493L11.4488 3L7.99805 6.52113L4.54734 3L2.99805 4.5493L6.51917 8L2.99805 11.4507L4.54734 13L7.99805 9.47887L11.4488 13L12.998 11.4507L9.47692 8L12.998 4.5493Z" fill="#99A2A9" />
-                        </svg>
-                    </div>
-                    <div className="lock-icon">
-                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.4286 0.517446C11.0653 -0.172482 9.93558 -0.172482 9.5723 0.517446L0.122776 18.4514C0.0377128 18.6121 -0.0044578 18.7922 0.000372931 18.9742C0.00520366 19.1562 0.0568709 19.3338 0.150341 19.4898C0.24381 19.6457 0.375894 19.7747 0.533723 19.8641C0.691551 19.9535 0.869741 20.0004 1.05093 20H19.95C20.131 20.0004 20.3091 19.9536 20.4668 19.8642C20.6246 19.7749 20.7565 19.646 20.8499 19.4901C20.9433 19.3342 20.9949 19.1567 20.9996 18.9749C21.0044 18.793 20.9622 18.613 20.8771 18.4524L11.4286 0.517446ZM11.5504 16.8352H9.45051V14.7253H11.5504V16.8352ZM9.45051 12.6154V7.34077H11.5504L11.5515 12.6154H9.45051Z" fill="#FFB200" />
-                        </svg>
-                    </div>
-                    <h3>{__('Import Section Notice', '--gctd--')}</h3>
-                    <p>{__('We can\'t import content because the Post Content is missing from your Template. Would you like to switch to Post View instead in order to import the content?', '--gctd--')}</p>
-                    <button className="primary" onClick={editContent}>{__('Keep Import', '--gctd--')}</button>
-                </div>
-            </div>
-        </div>;
+        return <Notice
+            icon={<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.4286 0.517446C11.0653 -0.172482 9.93558 -0.172482 9.5723 0.517446L0.122776 18.4514C0.0377128 18.6121 -0.0044578 18.7922 0.000372931 18.9742C0.00520366 19.1562 0.0568709 19.3338 0.150341 19.4898C0.24381 19.6457 0.375894 19.7747 0.533723 19.8641C0.691551 19.9535 0.869741 20.0004 1.05093 20H19.95C20.131 20.0004 20.3091 19.9536 20.4668 19.8642C20.6246 19.7749 20.7565 19.646 20.8499 19.4901C20.9433 19.3342 20.9949 19.1567 20.9996 18.9749C21.0044 18.793 20.9622 18.613 20.8771 18.4524L11.4286 0.517446ZM11.5504 16.8352H9.45051V14.7253H11.5504V16.8352ZM9.45051 12.6154V7.34077H11.5504L11.5515 12.6154H9.45051Z" fill="#FFB200" />
+            </svg>}
+            title={__('Import Section Notice.', '--gctd--')}
+            description={__('We can\'t import content because the Post Content is missing from your Template. Would you like to switch to Post View instead in order to import the content?', '--gctd--')}
+            buttonText={__('Keep Import', '--gctd--')}
+            onCLick={editContent}
+            onClose={cancelImport}
+        />;
     };
 
     const insertBlocksTemplate = (data) => {
