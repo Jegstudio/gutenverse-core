@@ -41,7 +41,9 @@ const ImportSectionButton = props => {
             title={__('Import Section Notice.', '--gctd--')}
             description={__('We can\'t import content because the Post Content is missing from your Template. Would you like to switch to Post View instead in order to import the content?', '--gctd--')}
             buttonText={__('Keep Import', '--gctd--')}
-            onCLick={editContent}
+            cancelButtonText={__('Dismiss', '--gctd--')}
+            cancelButton={true}
+            onClick={editContent}
             onClose={cancelImport}
         />;
 
