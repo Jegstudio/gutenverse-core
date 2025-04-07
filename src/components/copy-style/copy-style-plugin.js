@@ -1,6 +1,7 @@
 
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginBlockSettingsMenuItem } from '@wordpress/editor';
+import { PluginBlockSettingsMenuItem as PluginBlockSettingsMenuItemOld } from '@wordpress/edit-post';
 import { useSelect } from '@wordpress/data';
 import { getBlockType } from '@wordpress/blocks';
 import copy from 'clipboard-copy';
@@ -42,7 +43,9 @@ const BlockSettingMenuCopy = () => {
         []
     );
 
-    return PluginBlockSettingsMenuItem ? <PluginBlockSettingsMenuItem
+    const PluginComponent = PluginBlockSettingsMenuItem ? PluginBlockSettingsMenuItem : PluginBlockSettingsMenuItemOld;
+
+    return PluginComponent ? <PluginComponent
         allowedBlocks={registeredGutenverse}
         label={__('Copy Style', '--gctd--')}
         icon={<GradientIconCopySVG />}
