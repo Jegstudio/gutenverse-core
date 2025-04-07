@@ -31,7 +31,10 @@ const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
                     <div className={'prompt-button cancel'} onClick={() => closePopup()}>
                         {__('Cancel', '--gctd--')}
                     </div>
-                    <div className={'prompt-button submit'} onClick={() => deleteColor(value.id)}>
+                    <div className={'prompt-button submit'} onClick={() => {
+                        deleteColor(value.id);
+                        closePopup();
+                    }}>
                         {__('Delete', '--gctd--')}
                     </div>
                 </div>

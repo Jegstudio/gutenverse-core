@@ -311,7 +311,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) 
             <div className={'gutenverse-variable-slug'}>
                 <div className={'gutenverse-control-heading'}>
                     <h2>
-                        {__('Color Slug', '--gctd--')}
+                        {__('Typography Slug', '--gctd--')}
                     </h2>
                 </div>
                 <div className={'variable-input-wrapper'}>
@@ -347,11 +347,12 @@ const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) 
             title={__('Font Slug Edit is Locked', '--gctd--')}
             description={__('Warning: All blocks assigned to this will lose their font. Only unlock if you understand the consequences', '--gctd--')}
             buttonText={__('Unlock Slug', '--gctd--')}
-            onCLick={() => {
+            onClick={() => {
                 setSlugLock(false);
                 setEditorWarn(false);
             }}
             onClose={() => setEditorWarn(false)}
+            scheme="danger"
         />, document.getElementById('gutenverse-root'))}
     </div>;
 };
