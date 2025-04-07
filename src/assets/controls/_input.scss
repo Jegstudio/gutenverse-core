@@ -940,7 +940,7 @@
           width: min-content;
         }
       }
-      
+
       .control-body {
         margin-right: 0;
 
@@ -1147,6 +1147,43 @@
         }
       }
 
+      .gutenverse-variable-detail-wrapper {
+        flex-direction: column;
+
+        .gutenverse-variable-slug {
+          border: 1px solid #e6e6ef;
+          border-radius: 5px;
+          margin-top: 10px;
+          width: 100%;
+
+          .gutenverse-control-heading {
+            h2 {
+              border-bottom: 1px solid #e6e6ef;
+              padding: 5px 10px 10px;
+              margin-bottom: 0px;
+            }
+          }
+
+          .variable-input-wrapper {
+            justify-content: center;
+            align-items: center;
+            padding: 20px 12px;
+            display: flex;
+            
+            .variable-input {
+              width: 88%;
+            }
+
+            .variable-input-lock {
+              cursor: pointer;
+              display: flex;
+              justify-content: flex-end;
+              width: 12%;
+            }
+          }
+        }
+      }
+
       .control-color-variable {
         display: block;
         border: 1px solid #e6e6ef;
@@ -1266,6 +1303,7 @@
         display: block;
         margin-top: 10px;
         border-radius: 3px;
+        width: 100%;
 
         .chrome-picker {
           width: 100% !important;
@@ -1918,9 +1956,11 @@
       >* {
         display: block;
       }
-      .control-title{
+
+      .control-title {
         display: flex;
       }
+
       .gradient-type {
         display: flex;
         justify-content: space-between;
