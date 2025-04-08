@@ -6,10 +6,9 @@ import { Edit2, RefreshCw, Trash } from 'react-feather';
 import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 import { PanelTutorial, SelectControl } from 'gutenverse-core/controls';
-import { Prompt, PromptContent, PromptHeader} from 'gutenverse-core/components';
-import { IconCloseSVG } from 'gutenverse-core/icons';
 import { FontControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { injectFont } from 'gutenverse-core/styling';
+import Notice from '../notice';
 
 const handleFont = (typography, props, id) => {
     const weight = typography.weight && typography.style === 'italic' ? `${typography.weight}italic` : typography.weight;
@@ -19,32 +18,6 @@ const handleFont = (typography, props, id) => {
         font: typography.font,
         weight
     });
-};
-
-const ThePrompt = ({ openPopup, closePopup, deleteColor, value }) => {
-    return openPopup ? <Prompt closePrompt={() => closePopup()} className={'variable-font'}>
-        <PromptHeader>
-            <>
-                <h3>{__('Delete Font Variable', '--gctd--')}</h3>
-                <div className={'gutenverse-close'} onClick={() => closePopup()}>
-                    <IconCloseSVG size={20} />
-                </div>
-            </>
-        </PromptHeader>
-        <PromptContent>
-            <>
-                <p>{__('You are about to delete one of your Font Variable. If you are assign this variable to blocks, it will lost the typography.', '--gctd--')}</p>
-                <div className={'prompt-buttons'}>
-                    <div className={'prompt-button cancel'} onClick={() => closePopup()}>
-                        {__('Cancel', '--gctd--')}
-                    </div>
-                    <div className={'prompt-button submit'} onClick={() => deleteColor(value.id)}>
-                        {__('Delete', '--gctd--')}
-                    </div>
-                </div>
-            </>
-        </PromptContent>
-    </Prompt> : null;
 };
 
 const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
@@ -309,7 +282,19 @@ const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
                 />
             </>
         </div>}
-        <ThePrompt openPopup={openPopup} closePopup={() => setOpenPopup(false)} deleteColor={() => deleteFont(value.id)} value={value} />
+        {openPopup && <Notice
+            icon={<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M11.4286 0.517446C11.0653 -0.172482 9.93558 -0.172482 9.5723 0.517446L0.122776 18.4514C0.0377128 18.6121 -0.0044578 18.7922 0.000372931 18.9742C0.00520366 19.1562 0.0568709 19.3338 0.150341 19.4898C0.24381 19.6457 0.375894 19.7747 0.533723 19.8641C0.691551 19.9535 0.869741 20.0004 1.05093 20H19.95C20.131 20.0004 20.3091 19.9536 20.4668 19.8642C20.6246 19.7749 20.7565 19.646 20.8499 19.4901C20.9433 19.3342 20.9949 19.1567 20.9996 18.9749C21.0044 18.793 20.9622 18.613 20.8771 18.4524L11.4286 0.517446ZM11.5504 16.8352H9.45051V14.7253H11.5504V16.8352ZM9.45051 12.6154V7.34077H11.5504L11.5515 12.6154H9.45051Z" fill="#FFB200" />
+            </svg>}
+            title={__('Delete Font Variable?', '--gctd--')}
+            description={__('You are about to delete one of your Font Variable. If you are assign this variable to blocks, it will lost the typography.', '--gctd--')}
+            buttonText={__('Delete', '--gctd--')}
+            cancelButtonText={__('Cancel', '--gctd--')}
+            cancelButton={true}
+            onClick={() => deleteFont(value?.id)}
+            onClose={() => setOpenPopup(false)}
+            scheme="danger"
+        />}
     </div>;
 };
 
