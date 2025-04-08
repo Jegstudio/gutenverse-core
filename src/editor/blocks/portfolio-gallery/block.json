@@ -14,11 +14,9 @@
 			"copyStyle": true
 		},
 		"column":{
-			"type": "object",
+			"type": "integer",
 			"copyStyle": true,
-			"default": {
-				"Desktop" : 4
-			}
+			"default": 4
 		},
 		"images": {
 			"type": "array",
@@ -34,22 +32,19 @@
 					"id": "Two",
 					"title": "Two",
 					"subtitle": "Sub Title",
-					"current" : false,
-					"link": "#"
+					"current" : false
 				},
 				{
 					"id": "Three",
 					"title": "Three",
 					"subtitle": "Sub Title",
-					"current" : false,
-					"link": "#"
+					"current" : false
 				},
 				{
 					"id": "Four",
 					"title": "Four",
 					"subtitle": "Sub Title",
-					"current": false,
-					"link": "#"
+					"current": false
 				}
 			]
 		},

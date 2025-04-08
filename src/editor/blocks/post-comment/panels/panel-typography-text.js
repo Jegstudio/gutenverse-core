@@ -31,23 +31,25 @@ export const textTypographyPanel = (props) => {
             label: __('Text Typography', 'gutenverse'),
             show: !switcher.commentType || switcher.commentType === 'formComment',
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .comment-form p`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'colorText',
             label: __('Text Color', 'gutenverse'),
             show: !switcher.commentType || switcher.commentType === 'formComment',
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorText',
-                'selector': `.${elementId} .comment-form p`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form p`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'marginText',
@@ -74,6 +76,12 @@ export const textTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .comment-form p`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         //list comment
         {
@@ -87,23 +95,25 @@ export const textTypographyPanel = (props) => {
             label: __('Text Typography', 'gutenverse'),
             show: switcher.commentType === 'listComment',
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment p`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'colorTextList',
             label: __('Text Color', 'gutenverse'),
             show: switcher.commentType === 'listComment',
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorTextList',
-                'selector': `.${elementId} .commentlist p`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist p`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'marginTextList',
@@ -130,6 +140,12 @@ export const textTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment p`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         //suffix text
         {
@@ -143,23 +159,25 @@ export const textTypographyPanel = (props) => {
             label: __('Suffix Typography', 'gutenverse'),
             show: switcher.commentType === 'listComment',
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'suffixColor',
             label: __('Suffix Color', 'gutenverse'),
             show: switcher.commentType === 'listComment',
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'suffixColor',
-                'selector': `.${elementId} span.says`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'suffixMargin',
@@ -186,6 +204,12 @@ export const textTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} span.says`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
     ];
 };

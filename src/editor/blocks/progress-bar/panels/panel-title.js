@@ -1,24 +1,19 @@
 
 import { __ } from '@wordpress/i18n';
 import { ColorControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
-export const titlePanel = ({ elementId }) => {
+export const titlePanel = ({elementId, ...props}) => {
     return [
         {
             id: 'titleColor',
             label: __('Title color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColor',
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar-content .skill-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar-content .skill-title`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -26,22 +21,23 @@ export const titlePanel = ({ elementId }) => {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar-content .skill-title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'titleTextShadow',
             label: __('Title Shadow', 'gutenverse'),
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'titleTextShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar-content .skill-title`,
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar-content .skill-title`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         }

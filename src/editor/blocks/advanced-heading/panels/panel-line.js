@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
-import { isNotEmpty } from 'gutenverse-core/helper';
+import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const linePanel = (props) => {
     const {
@@ -45,17 +45,10 @@ export const linePanel = (props) => {
             label: __('Line Color', 'gutenverse'),
             show: showLine && showLine !== 'none',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'lineColor',
-                    'type': 'color',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    render: value => handleColor(value, 'border-color')
                 }
             ]
         },
@@ -69,24 +62,11 @@ export const linePanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            liveStyle: [
-                isNotEmpty(showLine) && showLine !== 'none' && {
-                    'id': 'lineWidth',
-                    'type': 'plain',
-                    'responsive': true,
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                }
-                            }
-                        }
-                    ]
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `width: ${value}%;`
                 }
             ]
         },
@@ -100,24 +80,11 @@ export const linePanel = (props) => {
             min: 0,
             max: 50,
             step: 1,
-            liveStyle: [
-                isNotEmpty(showLine) && showLine !== 'none' && {
-                    'id': 'lineWidth',
-                    'type': 'plain',
-                    'properties': [
-                        {
-                            'name': 'border-top-width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
-                    'responsive': true,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `border-top-width: ${value}px;`
                 }
             ]
         },
@@ -144,6 +111,13 @@ export const linePanel = (props) => {
                     value: 'double'
                 },
             ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => `border-top-style: ${value};`
+                }
+            ]
         },
         {
             id: 'lineMargin',
@@ -170,6 +144,13 @@ export const linePanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-advanced-heading .heading-line`,
+                    allowRender: () => showLine && showLine !== 'none',
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
     ];
 };

@@ -35,17 +35,25 @@ export const avatarPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .comment-author img.avatar`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'avatarBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'id': 'avatarBorder',
-                'selector': `.${elementId} .comment-author img.avatar`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-author img.avatar`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
         },
         {
             id: 'avatarBorderResponsive',
@@ -53,11 +61,13 @@ export const avatarPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'avatarBorderResponsive',
-                'selector': `.${elementId} .comment-author img.avatar`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-author img.avatar`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
     ];
 };

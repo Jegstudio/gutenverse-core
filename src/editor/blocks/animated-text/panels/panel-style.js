@@ -1,5 +1,7 @@
 import { __ } from '@wordpress/i18n';
+import { allowRenderTextShadow, handleColor, handleTextStroke, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {
     const {
@@ -11,17 +13,10 @@ export const stylePanel = (props) => {
             id: 'color',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'color',
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.editor-styles-wrapper .${elementId} *`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -29,22 +24,23 @@ export const stylePanel = (props) => {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} *`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'textShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'textShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    selector: `.editor-styles-wrapper .${elementId} *`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         },
@@ -52,11 +48,11 @@ export const stylePanel = (props) => {
             id: 'textStroke',
             label: __('Text Stroke', 'gutenverse'),
             component: TextStrokeControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textStroke',
-                    'id': 'textStroke',
-                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    selector: `.editor-styles-wrapper .${elementId} *`,
+                    hasChild: true,
+                    render: value => handleTextStroke(value)
                 }
             ]
         }

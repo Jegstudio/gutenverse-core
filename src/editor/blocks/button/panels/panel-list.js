@@ -9,11 +9,16 @@ import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
-        //tab setting
         {
             title: __('Button', 'gutenverse'),
             panelArray: buttonPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Style', 'gutenverse'),
+            panelArray: stylePanel,
+            initialOpen: false,
+            tabRole: TabStyle
         },
         {
             title: __('Dynamic Data', 'gutenverse'),
@@ -21,6 +26,49 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabSetting,
             pro: true,
+        },
+        {
+            title: __('Button Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => buttonBackgroundPanel({
+                ...props,
+                styleId: 'button-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Button Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: buttonBorderPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'element-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => borderPanel({
+                ...props,
+                styleId: 'element-border',
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
         {
             title: __('Display', 'gutenverse'),
@@ -88,57 +136,6 @@ export const panelList = () => {
             panelArray: conditionPanel,
             initialOpen: false,
             pro: true
-        },
-
-        //tab style
-        {
-            title: __('Style', 'gutenverse'),
-            panelArray: stylePanel,
-            initialOpen: false,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Button Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => buttonBackgroundPanel({
-                ...props,
-                styleId: 'button-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient'],
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Button Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: buttonBorderPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'element-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient'],
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'element-border',
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
         },
     ];
 };

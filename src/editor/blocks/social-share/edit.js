@@ -1,27 +1,28 @@
 
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import {
     useInnerBlocksProps,
     useBlockProps
 } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SocialShare = compose(
     withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
         attributes,
-        clientId
+        setElementRef
     } = props;
 
     const {
@@ -32,7 +33,7 @@ const SocialShare = compose(
         showText,
     } = attributes;
 
-    const elementRef = useRef();
+    const socialShareRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -50,7 +51,7 @@ const SocialShare = compose(
             {
                 'show-text': showText,
             }),
-        ref: elementRef
+        ref: socialShareRef
     });
 
     const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -76,12 +77,14 @@ const SocialShare = compose(
         __experimentalAppenderTagName: 'div',
     });
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useEffect(() => {
+        if (socialShareRef.current) {
+            setElementRef(socialShareRef.current);
+        }
+    }, [socialShareRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div {...innerBlocksProps} />
     </>;
 });

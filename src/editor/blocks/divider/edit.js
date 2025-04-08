@@ -1,24 +1,24 @@
 import { compose } from '@wordpress/compose';
 import { __ } from '@wordpress/i18n';
 import { useEffect } from '@wordpress/element';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { useState } from '@wordpress/element';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
 import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
 import * as divider from './data/divider-style';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const DividerOnly = (props) => {
     const { dividerClass, dividerStyle } = props;
@@ -71,14 +71,15 @@ const DividerContent = (props) => {
 
 const DividerBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('divider'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('divider'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId,
-        setBlockRef
+        setElementRef,
+        deviceType
     } = props;
 
     const {
@@ -87,18 +88,15 @@ const DividerBlock = compose(
         type,
     } = attributes;
 
-    const elementRef = useRef(null);
+    const dividerRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dividerStyle, setDividerStyle] = useState(null);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
     const isRegular = ['default', 'double', 'dotted', 'dashed'].includes(type);
-    const isTribal = ['fir', 'halfrounds', 'leaves', 'stripes', 'squares', 'trees', 'tribal', 'x'].includes(type);
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
+    const isTribal = ['fir', 'halfrounds', 'leaves', 'stripes', 'squares', 'trees', 'tribal', 'x'].includes(type);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -107,11 +105,12 @@ const DividerBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            deviceType.toLowerCase(),
             {
                 ['guten-divider-tribal']: type && isTribal,
             },
         ),
-        ref: elementRef
+        ref: dividerRef
     });
 
     const dividerClass = {
@@ -126,6 +125,12 @@ const DividerBlock = compose(
     };
 
     useEffect(() => {
+        if (dividerRef.current) {
+            setElementRef(dividerRef.current);
+        }
+    }, [dividerRef]);
+
+    useEffect(() => {
         if (divider[`divider_${type}`]) {
             setDividerStyle({
                 ['--divider-pattern-url']: divider[`divider_${type}`]
@@ -134,12 +139,6 @@ const DividerBlock = compose(
             setDividerStyle(null);
         }
     }, [type]);
-
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
 
     const Component = content && content !== 'none' ? DividerContent : DividerOnly;
 
@@ -152,13 +151,12 @@ const DividerBlock = compose(
     };
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         {content === 'icon' && <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton
                     name="icon"
-                    icon={<LogoCircleColor24SVG />}
+                    icon={<LogoCircleColor24SVG/>}
                     title={__('Choose Icon', 'gutenverse')}
                     shortcut={displayShortcut.primary('i')}
                     onClick={() => setOpenIconLibrary(true)}

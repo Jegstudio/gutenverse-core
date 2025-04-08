@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const SubmenuPanelStyle = (props) => {
     const {
@@ -26,6 +28,12 @@ export const SubmenuPanelStyle = (props) => {
                     unit: 'em'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'submenuPanelMargin',
@@ -43,19 +51,25 @@ export const SubmenuPanelStyle = (props) => {
                     unit: 'em'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-element .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'submenuPanelBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'submenuPanelBorder',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'submenuPanelBorderResponsive',
@@ -63,27 +77,26 @@ export const SubmenuPanelStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'submenuPanelBorderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'submenuPanelBackground',
             component: BackgroundControl,
             label: __('Submenu Panel Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'submenuPanelBackground',
-                    'type': 'background',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
-                },
-            ],
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'submenuPanelWidth',
@@ -94,44 +107,24 @@ export const SubmenuPanelStyle = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'submenuPanelWidth',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    render: value => `width: ${value}px;`
                 }
-            ],
+            ]
         },
         {
             id: 'submenuPanelShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'submenuPanelShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    selector: `.${elementId}.guten-element .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-menu li.menu-item-has-children .sub-menu`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
-            ],
+            ]
         },
     ];
 };

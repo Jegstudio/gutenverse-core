@@ -1,9 +1,16 @@
 import { compose } from '@wordpress/compose';
 import { useEffect } from '@wordpress/element';
-import { BlockControls, MediaUpload, MediaUploadCheck, useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import {
+    BlockControls,
+    MediaUpload,
+    MediaUploadCheck,
+    useBlockProps,
+    useInnerBlocksProps
+} from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
@@ -11,16 +18,14 @@ import { useCallback } from '@wordpress/element';
 import { Image } from 'gutenverse-core/components';
 import { imagePlaceholder } from 'gutenverse-core/config';
 import { useRef, useState } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { applyFilters } from '@wordpress/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
@@ -97,7 +102,7 @@ const ImageBoxPicker = (props) => {
     );
 };
 
-const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) => {
+const ImageBoxBody = ({ setAttributes, attributes, clientId, titleRef, descRef, setPanelState }) => {
     const {
         getBlocks
     } = useSelect(
@@ -162,7 +167,6 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
             updateBlockAttributes(block.clientId, { url, rel, linkTarget });
         });
     }, [url, rel, linkTarget, separateButtonLink]);
-
     return <div className="image-box-body">
         <div className="body-inner">
             <TitleTag className={classnames(
@@ -171,6 +175,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
             )}>
                 {titleIconPosition === 'before' && titleIcon !== '' && <i className={titleIcon} />}
                 <RichTextComponent
+                    ref={titleRef}
                     tagName={'span'}
                     aria-label={__('Image Box Title', 'gutenverse')}
                     placeholder={__('Image Box Title', 'gutenverse')}
@@ -192,6 +197,7 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
                 {titleIconPosition === 'after' && titleIcon !== '' && <i className={titleIcon} />}
             </TitleTag>
             <RichTextComponent
+                ref={descRef}
                 classNames={'body-description'}
                 tagName={'p'}
                 aria-label={__('Image Box Description', 'gutenverse')}
@@ -221,16 +227,19 @@ const ImageBoxBody = ({ setAttributes, attributes, clientId, setPanelState }) =>
 
 const ImageBoxBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('image-box'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('image-box'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         setAttributes,
         isSelected,
-        clientId,
-        setBlockRef,
+        setElementRef,
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -242,28 +251,17 @@ const ImageBoxBlock = compose(
         dynamicUrl,
     } = attributes;
 
-    const {
-        panelState,
-        setPanelState,
-        setPanelIsClicked,
-        panelIsClicked
-    } = useRichTextParameter();
-
     FilterDynamic(props);
     HighLightToolbar(props);
-
-    const elementRef = useRef();
+    const imageBoxRef = useRef();
+    const descRef = useRef();
+    const titleRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
-
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
     );
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -275,7 +273,7 @@ const ImageBoxBlock = compose(
             'no-margin',
             `style-${contentStyle}`,
         ),
-        ref: elementRef
+        ref: imageBoxRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -297,7 +295,13 @@ const ImageBoxBlock = compose(
         [rel, setAttributes]
     );
 
-    const imageBoxPanelState = {
+    useEffect(() => {
+        if (imageBoxRef.current) {
+            setElementRef(imageBoxRef.current);
+        }
+    }, [imageBoxRef]);
+
+    const panelState = {
         panel: 'setting',
         section: 3,
     };
@@ -308,25 +312,18 @@ const ImageBoxBlock = compose(
             dynamicUrl
         );
 
-        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => { });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
-
     return <>
-        <CopyElementToolbar {...props}/>
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -339,13 +336,13 @@ const ImageBoxBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={imageBoxPanelState}
+                        panelState={panelState}
                         title="Item Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    imageBoxPanelState
+                    panelState
                 )}
                 <ImageBoxPicker {...props}>
                     {({ open }) => <ToolbarButton
@@ -357,13 +354,13 @@ const ImageBoxBlock = compose(
                 </ImageBoxPicker>
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
+        <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div className="inner-container">
                 <div className="image-box-header">
                     <ImageBoxFigure {...attributes} />
                 </div>
-                <ImageBoxBody {...props} setPanelState={setPanelState} />
+                <ImageBoxBody {...props} titleRef={titleRef} descRef={descRef} />
             </div>
         </div>
     </>;

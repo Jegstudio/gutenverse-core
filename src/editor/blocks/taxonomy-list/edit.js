@@ -1,27 +1,27 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withAnimationAdvance, withCopyElementToolbar, withPartialRender } from 'gutenverse-core/hoc';
 import {
-    useBlockProps,
+    useInnerBlocksProps, useBlockProps,
 } from '@wordpress/block-editor';
 import { classnames, PostListSkeleton } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEffect, useState, useRef, RawHTML } from '@wordpress/element';
 import { useDisplayEditor, useAnimationEditor } from 'gutenverse-core/hooks';
 import { dummyText, isOnEditor } from 'gutenverse-core/helper';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const IconListBlock = compose(
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
+    withMouseMoveEffect,
     withPartialRender,
-    withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId
+        setElementRef,
+        refreshStyle
     } = props;
 
     const {
@@ -33,11 +33,11 @@ const IconListBlock = compose(
         sortType,
         hideEmpty,
         showIcon,
+        layout,
         taxonomyType,
         showDivider
     } = attributes;
-
-    const elementRef = useRef();
+    const taxonomyListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -53,11 +53,17 @@ const IconListBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: taxonomyListRef
     });
 
     useEffect(() => {
-        if (isOnEditor()) {
+        if (taxonomyListRef.current) {
+            setElementRef && setElementRef(taxonomyListRef.current);
+        }
+    }, [taxonomyListRef]);
+
+    useEffect(() => {
+        if ( isOnEditor() ) {
             setLoading(true);
             elementId && apiFetch({
                 path: addQueryArgs('/wp/v2/block-renderer/gutenverse/taxonomy-list', {
@@ -71,7 +77,6 @@ const IconListBlock = compose(
                         icon,
                         hideEmpty,
                         showIcon,
-                        showDivider,
                         taxonomyType
                     }
                 }),
@@ -80,7 +85,7 @@ const IconListBlock = compose(
             }).catch(() => {
                 setResponse('<span>Error</span>');
             }).finally(() => setLoading(false));
-        } else {
+        }else{
             setResponse(`<div class="taxonomy-list-wrapper">
                     <div class="taxonomy-list-item">
 						<a href="#">
@@ -116,12 +121,12 @@ const IconListBlock = compose(
         taxonomyType
     ]);
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useEffect(() => {
+        refreshStyle()
+    },[layout, showDivider])
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             {!loading ? <RawHTML key="html" className="guten-raw-wrapper">
                 {response}

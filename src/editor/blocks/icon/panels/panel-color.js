@@ -25,151 +25,77 @@ export const contentColor = (props) => {
             ],
             onChange: ({__iconClr}) => setSwitcher({...switcher, iconClr: __iconClr})
         },
-        /* color icon */
-        {
-            id: 'iconColorTwo',
-            show: !switcher.iconClr || switcher.iconClr === 'normal',
-            label: __('Normal Color', 'gutenverse'),
-            component: ColorControl,
-            liveStyle: [
-                {
-                    'id': 'iconColorTwo',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.stacked i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                },
-                {
-                    'id': 'iconColorTwo',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                }
-            ],
-        },
-        /* color icon background */
         {
             id: 'iconColorOne',
             show: !switcher.iconClr || switcher.iconClr === 'normal',
-            label: __('Normal Background Color', 'gutenverse'),
+            label: __('Primary Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'iconColorOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.framed i`,
+                    render: value => handleColor(value, 'color')
                 },
                 {
-                    'id': 'iconColorOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.framed`,
+                    render: value => handleColor(value, 'border-color')
                 },
                 {
-                    'id': 'iconColorOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.stacked`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.stacked`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ],
         },
-        /* color icon hover*/
         {
-            id: 'iconColorHoverTwo',
-            show: switcher.iconClr === 'hover',
-            label: __('Hover Color', 'gutenverse'),
+            id: 'iconColorTwo',
+            show: !switcher.iconClr || switcher.iconClr === 'normal',
+            label: __('Secondary Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'iconColorHoverTwo',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.stacked:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.stacked i`,
+                    render: value => handleColor(value, 'color')
                 },
                 {
-                    'id': 'iconColorHoverTwo',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                }
+                    selector: `.${elementId} .guten-icon-wrapper.framed`,
+                    render: value => handleColor(value, 'background-color')
+                },
             ],
         },
-        /* color icon background hover */
         {
             id: 'iconColorHoverOne',
             show: switcher.iconClr === 'hover',
-            label: __('Hover Background Color', 'gutenverse'),
+            label: __('Primary Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'iconColorHoverOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.framed:hover i`,
+                    render: value => handleColor(value, 'color')
                 },
                 {
-                    'id': 'iconColorHoverOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.framed:hover`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.framed:hover`,
+                    render: value => handleColor(value, 'border-color')
                 },
                 {
-                    'id': 'iconColorHoverOne',
-                    'type': 'color',
-                    'selector': `.${elementId} .guten-icon-wrapper.stacked:hover`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-icon-wrapper.stacked:hover`,
+                    render: value => handleColor(value, 'background-color')
                 }
-            ],
+            ]
+        },
+        {
+            id: 'iconColorHoverTwo',
+            show: switcher.iconClr === 'hover',
+            label: __('Secondary Hover Color', 'gutenverse'),
+            component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-wrapper.stacked:hover i`,
+                    render: value => handleColor(value, 'color')
+                },
+                {
+                    selector: `.${elementId} .guten-icon-wrapper.framed:hover`,
+                    render: value => handleColor(value, 'background-color')
+                },
+            ]
         },
     ];
 };

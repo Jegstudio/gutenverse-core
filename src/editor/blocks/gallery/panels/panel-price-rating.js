@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, DimensionControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, DimensionControl, HeadingControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const priceRatingPanel = (props) => {
     const {
@@ -46,6 +47,13 @@ export const priceRatingPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price, .${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    allowRender : () => selectionPriceRatingPadding === 'all',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: '__priceRating',
@@ -68,7 +76,7 @@ export const priceRatingPanel = (props) => {
             component: DimensionControl,
             position: ['top', 'right', 'bottom', 'left'],
             allowDeviceControl: true,
-            show: selectionPriceRatingPadding === 'custom' && (!switcher.priceRating || switcher.priceRating === 'price'),
+            show: selectionPriceRatingPadding === 'custom' && (!switcher.priceRating || switcher.priceRating === 'price') ,
             units: {
                 px: {
                     text: 'px',
@@ -83,6 +91,13 @@ export const priceRatingPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    allowRender: () => selectionPriceRatingPadding === 'custom',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'ratingPadding',
@@ -105,6 +120,13 @@ export const priceRatingPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    allowRender: () => selectionPriceRatingPadding === 'custom',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'priceMargin',
@@ -127,6 +149,12 @@ export const priceRatingPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'ratingMargin',
@@ -149,6 +177,12 @@ export const priceRatingPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'pricePositioningLeft',
@@ -186,19 +220,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'pricePositioningLeft',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
-                    'properties': [
-                        {
-                            'name': 'left',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
             ]
         },
         {
@@ -237,19 +263,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'pricePositioningRight',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
-                    'properties': [
-                        {
-                            'name': 'right',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleUnitPoint(value, 'right')
+                },
             ]
         },
         {
@@ -288,19 +306,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'pricePositioningTop',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
-                    'properties': [
-                        {
-                            'name': 'top',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
             ]
         },
         {
@@ -339,19 +349,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'pricePositioningBottom',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
-                    'properties': [
-                        {
-                            'name': 'bottom',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
             ]
         },
         {
@@ -390,19 +392,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'ratingPositioningLeft',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    'properties': [
-                        {
-                            'name': 'left',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleUnitPoint(value, 'left')
+                },
             ]
         },
         {
@@ -441,19 +435,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'ratingPositioningRight',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    'properties': [
-                        {
-                            'name': 'right',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleUnitPoint(value, 'right')
+                },
             ]
         },
         {
@@ -492,19 +478,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'ratingPositioningTop',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    'properties': [
-                        {
-                            'name': 'top',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleUnitPoint(value, 'top'),
+                },
             ]
         },
         {
@@ -543,19 +521,11 @@ export const priceRatingPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'ratingPositioningBottom',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    'properties': [
-                        {
-                            'name': 'bottom',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleUnitPoint(value, 'bottom'),
+                },
             ]
         },
         {
@@ -563,69 +533,62 @@ export const priceRatingPanel = (props) => {
             label: __('Color', 'gutenverse'),
             component: ColorControl,
             show: (!switcher.priceRating || switcher.priceRating === 'price'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'priceColor',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'priceTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
             show: (!switcher.priceRating || switcher.priceRating === 'price'),
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-price`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'ratingColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.priceRating === 'rating',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'ratingColor',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'ratingStarColor',
             label: __('Star Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.priceRating === 'rating',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'ratingStarColor',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating li`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating li`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'ratingTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
             show: switcher.priceRating === 'rating',
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .caption-wrap .caption-head .item-rating`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
     ];
 };

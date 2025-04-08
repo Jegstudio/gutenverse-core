@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconStylePanel = (props) => {
     const {
@@ -13,6 +14,127 @@ export const iconStylePanel = (props) => {
 
     return [
         {
+            id: '__iconHover',
+            component: SwitchControl,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __iconHover }) => setSwitcher({ ...switcher, iconStyle: __iconHover })
+        },
+        {
+            id: 'iconColor',
+            show: !switcher.iconStyle || switcher.iconStyle === 'normal',
+            label: __('Normal Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'iconBgColor',
+            show: !switcher.iconStyle || switcher.iconStyle === 'normal',
+            label: __('Normal Background Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
+        },
+        {
+            id: 'iconBorder',
+            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderResponsive',
+            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
+            id: 'iconColorHover',
+            show: switcher.iconStyle === 'hover',
+            label: __('Hover Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
+        },
+        {
+            id: 'iconBgColorHover',
+            show: switcher.iconStyle === 'hover',
+            label: __('Hover Background Color', 'gutenverse'),
+            component: ColorControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
+        },
+        {
+            id: 'iconBorderHover',
+            show: switcher.iconStyle === 'hover' && device === 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
+        },
+        {
+            id: 'iconBorderHoverResponsive',
+            show: switcher.iconStyle === 'hover' && device !== 'Desktop',
+            label: __('Border', 'gutenverse'),
+            component: BorderResponsiveControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner:hover .icon`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
+        },
+        {
             id: 'iconSize',
             label: __('Icon Size', 'gutenverse'),
             component: RangeControl,
@@ -21,24 +143,10 @@ export const iconStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => `font-size: ${value}px;`
                 }
             ]
         },
@@ -51,24 +159,10 @@ export const iconStylePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'deg',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconRotate',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon `,
-                    'properties': [
-                        {
-                            'name': 'transform',
-                            'valueType': 'pattern',
-                            'pattern': 'rotate({value}deg)',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => `transform: rotate(${value}deg);`
                 }
             ]
         },
@@ -92,6 +186,12 @@ export const iconStylePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'iconMargin',
@@ -113,159 +213,12 @@ export const iconStylePanel = (props) => {
                     unit: '%'
                 },
             },
-        },
-        {
-            id: '__iconHover',
-            component: SwitchControl,
-            options: [
+            style: [
                 {
-                    value: 'normal',
-                    label: 'Normal'
-                },
-                {
-                    value: 'hover',
-                    label: 'Hover'
-                }
-            ],
-            onChange: ({ __iconHover }) => setSwitcher({ ...switcher, iconStyle: __iconHover })
-        },
-        {
-            id: 'iconColor',
-            show: !switcher.iconStyle || switcher.iconStyle === 'normal',
-            label: __('Normal Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .fun-fact-inner .icon`,
+                    render: value => handleDimension(value, 'margin')
                 }
             ]
         },
-        {
-            id: 'iconBgColor',
-            show: !switcher.iconStyle || switcher.iconStyle === 'normal',
-            label: __('Normal Background Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'iconBgColor',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .icon`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct',
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            id: 'iconBorder',
-            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device === 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderControl,
-            liveStyle: [
-                {
-                    'type': 'border',
-                    'id': 'iconBorder',
-                    'selector': `.${elementId} .fun-fact-inner .icon`,
-                }
-            ]
-        },
-        {
-            id: 'iconBorderResponsive',
-            show: (!switcher.iconStyle || switcher.iconStyle === 'normal') && device !== 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'borderResponsive',
-                    'id': 'iconBorderResponsive',
-                    'selector': `.${elementId} .fun-fact-inner .icon`,
-                }
-            ]
-        },
-        {
-            id: 'iconColorHover',
-            show: switcher.iconStyle === 'hover',
-            label: __('Hover Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'iconColorHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            id: 'iconBgColorHover',
-            show: switcher.iconStyle === 'hover',
-            label: __('Hover Background Color', 'gutenverse'),
-            component: ColorControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'iconBgColorHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner:hover .icon`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct',
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            id: 'iconBorderHover',
-            show: switcher.iconStyle === 'hover' && device === 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderControl,
-            liveStyle: [
-                {
-                    'type': 'border',
-                    'id': 'iconBorderHover',
-                    'selector': `.${elementId} .fun-fact-inner:hover .icon`,
-                }
-            ]
-        },
-        {
-            id: 'iconBorderHoverResponsive',
-            show: switcher.iconStyle === 'hover' && device !== 'Desktop',
-            label: __('Border', 'gutenverse'),
-            component: BorderResponsiveControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'borderResponsive',
-                    'id': 'iconBorderHoverResponsive',
-                    'selector': `.${elementId} .fun-fact-inner:hover .icon`,
-                }
-            ]
-        }
     ];
 };

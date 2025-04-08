@@ -16,8 +16,7 @@ const save = compose(
     const {
         inputPlaceholder,
         elementId,
-        showButton,
-        closeIcon,
+        showButton
     } = attributes;
     const advanceAnimationData = useAnimationAdvanceData(attributes);
     const animationClass = useAnimationFrontend(attributes);
@@ -36,8 +35,8 @@ const save = compose(
             <form
                 className="gutenverse-search-form"
             >
-                <div className="search-input-container">
-                    <input type="text"
+                <div className='search-input-container'>
+                    <input type="search"
                         placeholder={inputPlaceholder}
                         name="s"
                         className={classnames(
@@ -45,9 +44,6 @@ const save = compose(
                             'gutenverse-search-input',
                         )}
                     />
-                    <div className="close-icon">
-                        <i className={closeIcon}></i>
-                    </div>
                 </div>
                 {
                     showButton && <InnerBlocks.Content className="gutenverse-search-button" />

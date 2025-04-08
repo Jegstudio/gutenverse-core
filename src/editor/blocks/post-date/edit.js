@@ -1,29 +1,30 @@
 import { compose } from '@wordpress/compose';
+import { useEffect } from '@wordpress/element';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { getDate } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
 import { useRef } from '@wordpress/element';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useEntityProp } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { getSettings } from '@wordpress/date';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostDateBlock = compose(
-    withPartialRender
+    withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        context: { postId, postType },
-        clientId
+        setElementRef,
+        context: { postId, postType }
     } = props;
 
     const {
@@ -38,7 +39,11 @@ const PostDateBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const elementRef = useRef();
+    const postDateRef = useRef();
+
+    useEffect(() => {
+        postDateRef.current && setElementRef(postDateRef.current);
+    }, [postDateRef]);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -49,7 +54,7 @@ const PostDateBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: postDateRef
     });
 
     const [defaultDateFormat] = useEntityProp(
@@ -116,11 +121,7 @@ const PostDateBlock = compose(
         }
     };
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-
     return <>
-        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Date works?', 'gutenverse')}
@@ -136,7 +137,7 @@ const PostDateBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             <HtmlTag>{getDateResult()}</HtmlTag>
         </div>

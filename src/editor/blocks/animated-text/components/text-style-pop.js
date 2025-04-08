@@ -8,8 +8,7 @@ const TextStylePop = (props) => {
         titleTag: TitleTag,
         loop,
         animatedTextRef,
-        splitByWord,
-        style
+        splitByWord
     } = props;
 
     const [animation, setAnimation] = useState();
@@ -18,15 +17,15 @@ const TextStylePop = (props) => {
         const textWrapper = u(animatedTextRef.current).find('.text-content .letters');
         textWrapper.html(textWrapper.text().replace(splitByWord ? /\b\w+\b/g : /\S/g, (word) => `<span class='letter'>${word}</span>`));
 
-        const animeInit = anime.timeline({ loop })
+        const animeInit = anime.timeline({loop})
             .add({
                 targets: [...animatedTextRef.current.getElementsByClassName('letter')],
-                scale: [0.3, 1],
-                opacity: [0, 1],
+                scale: [0.3,1],
+                opacity: [0,1],
                 translateZ: 0,
                 easing: 'easeOutExpo',
                 duration: 600,
-                delay: (el, i) => 70 * (i + 1)
+                delay: (el, i) => 70 * (i+1)
             });
 
         loop && animeInit.add({
@@ -40,15 +39,15 @@ const TextStylePop = (props) => {
         setAnimation(animeInit);
     };
 
+    useEffect(() => animatedTextRef.current && animeInit(), [animatedTextRef]);
+
     useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
+        if (animation) {
+            animation.restart();
+            animation.remove([...animatedTextRef.current.getElementsByClassName('letter'), ...animatedTextRef.current.getElementsByClassName('text-content')]);
+            animeInit();
+        }
+    }, [props]);
 
     return <TitleTag className="text-content">
         <span className="text-wrapper">

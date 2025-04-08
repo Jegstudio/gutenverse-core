@@ -3,8 +3,6 @@ import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPa
 import { inputPanel } from './panel-input';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 import { contentPanel } from './panel-content';
-import { closeIconPanel } from './panel-close-icon';
-import { closeIconStylePanel } from './panel-close-icon-style';
 
 export const panelList = () => {
     return [
@@ -20,13 +18,7 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabSetting
         },
-        /* TabStyle */
-        {
-            title: __('Close Icon Styling', 'gutenverse'),
-            initialOpen: false,
-            panelArray: closeIconStylePanel,
-            tabRole: TabStyle
-        },
+        /* Put Your List Here */
         {
             title: __('Background', 'gutenverse'),
             initialOpen: false,
@@ -53,13 +45,6 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
-        /* TabSetting */
-        {
-            title: __('Close Icon', 'gutenverse'),
-            initialOpen: false,
-            panelArray: closeIconPanel,
-            tabRole: TabSetting
-        },
         {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
@@ -82,16 +67,6 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'form-input-text-advance',
-            }),
-            tabRole: TabSetting
-        },
-        /* Pro */
-        {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,
             panelArray: transformPanel,
@@ -103,6 +78,15 @@ export const panelList = () => {
             panelArray: mouseMoveEffectPanel,
             tabRole: TabSetting,
             pro: true,
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'form-input-text-advance',
+            }),
+            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),

@@ -1,5 +1,7 @@
 import { __ } from '@wordpress/i18n';
+import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const namePanel = (props) => {
     const {
@@ -16,24 +18,10 @@ export const namePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'nameSpace',
-                    'responsive': true,
-                    'selector': `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title`,
-                    'properties': [
-                        {
-                            'name': 'margin-bottom',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title`,
+                    render: value => `margin-bottom: ${value}px;`
                 }
             ]
         },
@@ -41,18 +29,11 @@ export const namePanel = (props) => {
             id: 'nameColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'nameColor',
-                    'selector': `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title,
-                    .${elementId} .profile-title> a, #${elementId} .profile-title> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title> a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title,
+                            .${elementId} .profile-title> a, #${elementId} .profile-title> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title> a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -60,27 +41,36 @@ export const namePanel = (props) => {
             id: 'nameColorHover',
             label: __('Hover Text Color', 'gutenverse'),
             component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover .profile-title, #${elementId}:hover .profile-title, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title,
+                            .${elementId}:hover .profile-title> a, #${elementId}:hover .profile-title> a, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-title> a`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'nameTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title,
+                            .${elementId} .profile-title> a, #${elementId} .profile-title> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title> a`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'nameTextShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'nameTextShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title`,
+                    selector: `.${elementId} .profile-title, #${elementId} .profile-title, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-title`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         }

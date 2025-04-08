@@ -13,7 +13,6 @@ import { globalDynamicPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
-        //tab setting
         {
             title: __('General', 'gutenverse'),
             panelArray: panelGeneral,
@@ -46,67 +45,6 @@ export const panelList = () => {
             tabRole: TabSetting,
             pro: true,
         },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Positioning', 'gutenverse'),
-            initialOpen: false,
-            panelArray: positioningPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'icon-box-animation'
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', 'gutenverse'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'icon-box'
-            }),
-            pro: true
-        },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'icon-box-advance',
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
-        },
-
-        //tab style
         {
             title: __('Container Style', 'gutenverse'),
             initialOpen: false,
@@ -171,6 +109,65 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', 'gutenverse'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'icon-box-animation'
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', 'gutenverse'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'icon-box'
+            }),
+            pro: true
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'icon-box-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

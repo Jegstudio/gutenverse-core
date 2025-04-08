@@ -198,7 +198,7 @@ class Api {
 
 		$post_data->set_attributes( $attributes );
 
-		$render = $post_data->render_content( false, $attributes['excludeCurrentPost'] );
+		$render = $post_data->render_frontend();
 
 		return array(
 			'rendered' => $render,

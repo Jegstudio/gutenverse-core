@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, IconControl, RangeControl, SizeControl, SelectControl, DimensionControl, BackgroundControl, BorderControl, SwitchControl, BoxShadowControl, BorderResponsiveControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const closePanel = (props) => {
     const {
@@ -54,29 +55,16 @@ export const closePanel = (props) => {
             show: showCloseButton,
             allowDeviceControl: true,
             unit: 'px',
+            unit: 'px',
             min: 1,
             max: 200,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'closeButtonSize',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close i`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close i`,
+                    render: (value) => `font-size: ${value}px;`,
+                },
+            ],
         },
         {
             id: 'closePositioningLeft',
@@ -114,20 +102,12 @@ export const closePanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'closePositioningLeft',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'left',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close`,
+                    render: (value) => handleUnitPoint(value, 'left'),
+                },
+            ],
         },
         {
             id: 'closePositioningRight',
@@ -165,20 +145,12 @@ export const closePanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'closePositioningRight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'right',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close`,
+                    render: (value) => handleUnitPoint(value, 'right'),
+                },
+            ],
         },
         {
             id: 'closePositioningTop',
@@ -216,20 +188,12 @@ export const closePanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'closePositioningTop',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'top',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close`,
+                    render: (value) => handleUnitPoint(value, 'top'),
+                },
+            ],
         },
         {
             id: 'closePositioningBottom',
@@ -267,20 +231,12 @@ export const closePanel = (props) => {
                     unit: 'vw',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'closePositioningBottom',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'bottom',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close`,
+                    render: (value) => handleUnitPoint(value, 'bottom'),
+                },
+            ],
         },
         {
             id: 'closePadding',
@@ -303,6 +259,12 @@ export const closePanel = (props) => {
                     unit: '%',
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-popup .guten-popup-close`,
+                    render: (value) => handleDimension(value, 'padding'),
+                },
+            ],
         },
         {
             id: '__closeSwitch',
@@ -326,20 +288,12 @@ export const closePanel = (props) => {
             show: showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'closeButtonColor',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-close i`,
+                    render: (value) => handleColor(value, 'color'),
+                },
+            ],
         },
         {
             id: 'closeButtonBgColor',
@@ -347,24 +301,24 @@ export const closePanel = (props) => {
             show: showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             label: __('Close Icon Background Color', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'closeButtonBgColor',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close`,
+                    hasChild: true,
+                    render: (value) => handleBackground(value),
+                },
+            ],
         },
         {
             id: 'closeBorder',
             show: device === 'Desktop' && showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'closeBorder',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
+                    selector: `.${elementId} .guten-popup .guten-popup-close`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -374,30 +328,24 @@ export const closePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'closeBorderResponsive',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-close`,
+                    allowRender: () => device !== 'Desktop',
+                    render: (value) => handleBorderResponsive(value),
+                },
+            ],
         },
         {
             id: 'closeBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
             show: showCloseButton && (!switcher.closeSwitch || switcher.closeSwitch === 'normal'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'closeBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close`,
+                    selector: `.${elementId} .guten-popup .guten-popup-close`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -407,20 +355,12 @@ export const closePanel = (props) => {
             show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'closeButtonColorHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-close:hover i`,
+                    render: (value) => handleColor(value, 'color'),
+                },
+            ],
         },
         {
             id: 'closeButtonBgColorHover',
@@ -428,24 +368,24 @@ export const closePanel = (props) => {
             show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover'),
             label: __('Close Icon Background Color', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'closeButtonBgColorHover',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup-close:hover`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup-close:hover`,
+                    hasChild: true,
+                    render: (value) => handleBackground(value),
+                },
+            ],
         },
         {
             id: 'closeBorderHover',
             show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'closeBorderHover',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
+                    selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -455,30 +395,24 @@ export const closePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'closeBorderHoverResponsive',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: (value) => handleBorderResponsive(value),
+                },
+            ],
         },
         {
             id: 'closeBoxShadowHover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
             show: showCloseButton && (switcher.closeSwitch && switcher.closeSwitch === 'hover'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'closeBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-close:hover`,
+                    selector: `.${elementId} .guten-popup .guten-popup-close:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         }

@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, RangeControl } from 'gutenverse-core/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const panelIcon = (props) => {
     const {
@@ -11,17 +12,10 @@ export const panelIcon = (props) => {
             id: 'iconColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.${elementId} .guten-icon-list-item i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-icon-list-item i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -29,17 +23,10 @@ export const panelIcon = (props) => {
             id: 'iconColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorHover',
-                    'selector': `.${elementId} .guten-icon-list-item:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-icon-list-item:hover i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -50,47 +37,13 @@ export const panelIcon = (props) => {
             allowDeviceControl: true,
             unit: 'px',
             min: 1,
-            max: 100,
+            max : 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-icon-list-item i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        },
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        },
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        },
-                    ]
-                },
+                    selector: `.${elementId} .guten-icon-list-item i`,
+                    render: value => `font-size: ${value}px;`
+                }
             ]
         },
     ];

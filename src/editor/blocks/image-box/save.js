@@ -75,9 +75,9 @@ const save = compose(
         <div className="inner-container">
             <div className="image-box-header">
                 {
-                    buttonUrl ?
-                        <a href={buttonUrl} ><ImageBoxFigure {...attributes} /></a> :
-                        <ImageBoxFigure {...attributes} />
+                    buttonUrl ? 
+                    <a href={buttonUrl} ><ImageBoxFigure {...attributes} /></a> :
+                    <ImageBoxFigure {...attributes} />
                 }
             </div>
             <div className="image-box-body">

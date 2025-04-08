@@ -19,19 +19,6 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'spacer-background',
-                normalOptions: [ 'default', 'gradient' ],
-                hoverOptions: [ 'default', 'gradient' ],
-                normalSelector: `.${props.elementId}, .${props.elementId}.guten-spacer.is-selected`,
-                hoverSelector: `.${props.elementId}:hover,.${props.elementId}.guten-spacer.is-selected:hover`,
-            }),
-            tabRole: TabStyle
-        },
-        {
             title: __('Border', 'gutenverse'),
             initialOpen: false,
             panelArray: (props) => borderPanel({
@@ -91,6 +78,19 @@ export const panelList = () => {
                 styleId: 'spacer-advance',
             }),
             tabRole: TabSetting
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'spacer-background',
+                normalOptions: [ 'default', 'gradient' ],
+                hoverOptions: [ 'default', 'gradient' ],
+                normalSelector: `.${props.elementId}, .${props.elementId}.guten-spacer.is-selected`,
+                hoverSelector: `.${props.elementId}:hover,.${props.elementId}.guten-spacer.is-selected:hover`,
+            }),
+            tabRole: TabStyle
         },
         {
             title: __('Condition', 'gutenverse'),

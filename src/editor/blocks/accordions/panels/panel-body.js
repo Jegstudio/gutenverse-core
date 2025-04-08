@@ -7,6 +7,7 @@ import {
     TypographyControl
 } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelBody = (props) => {
     const {
@@ -20,6 +21,13 @@ export const panelBody = (props) => {
             id: 'contentTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'contentPadding',
@@ -41,51 +49,45 @@ export const panelBody = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'contentTextColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'contentTextColor',
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'contentBackgroundColor',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    render: value => handleColor(value, 'background-color')
                 }
-            ]
+            ],
         },
         {
             id: 'contentBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -95,11 +97,11 @@ export const panelBody = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId} .accordion-item .accordion-content`,
+                    selector: `.${elementId} .accordion-item .accordion-content`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

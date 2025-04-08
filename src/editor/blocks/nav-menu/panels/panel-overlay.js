@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
-import { RangeControl, SelectControl, BackgroundControl, AlertControl } from 'gutenverse-core/controls';
+import { RangeControl, SelectControl, BackgroundControl, AlertControl, ColorControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor } from 'gutenverse-core/styling';
 
 export const overlayPanel = (props) => {
     const {
@@ -23,15 +24,14 @@ export const overlayPanel = (props) => {
             show: mobileEnableOverlay,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'overlayBackground',
-                    'type': 'background',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
-                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'overlayOpacity',
@@ -42,28 +42,13 @@ export const overlayPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
-            liveStyle:
-                [
-                    {
-                        'type': 'plain',
-                        'id': 'overlayOpacity',
-                        'responsive': true,
-                        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
-                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
-                        'properties': [
-                            {
-                                'name': 'opacity',
-                                'valueType': 'pattern',
-                                'pattern': 'calc({value}/100)',
-                                'patternValues': {
-                                    'value': {
-                                        'type': 'direct',
-                                    },
-                                }
-                            }
-                        ],
-                    }
-                ],
+            style: [
+                {
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+                    render: value => `opacity: calc(${value}/100);`
+                }
+            ]
         },
         {
             id: 'overlayPointer',
@@ -80,6 +65,13 @@ export const overlayPanel = (props) => {
                     value: 'auto'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+                    render: value => `pointer-events: ${value} !important;`
+                }
+            ]
         },
         {
             id: 'blur-notice',
@@ -97,38 +89,13 @@ export const overlayPanel = (props) => {
             min: 0,
             max: 100,
             allowDeviceControl: true,
-            liveStyle:
-                [
-                    {
-                        'type': 'plain',
-                        'id': 'overlayBlur',
-                        'responsive': true,
-                        'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
-                    .${elementId}.guten-element.wp-block-gutenverse-nav-menu.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
-                        'properties': [
-                            {
-                                'name': '-webkit-backdrop-filter',
-                                'valueType': 'pattern',
-                                'pattern': 'blur({value}px)',
-                                'patternValues': {
-                                    'value': {
-                                        'type': 'direct',
-                                    },
-                                }
-                            },
-                            {
-                                'name': 'backdrop-filter',
-                                'valueType': 'pattern',
-                                'pattern': 'blur({value}px)',
-                                'patternValues': {
-                                    'value': {
-                                        'type': 'direct',
-                                    },
-                                }
-                            }
-                        ],
-                    }
-                ],
+            style: [
+                {
+                    selector: `.${elementId}.mobile.tablet-breakpoint .guten-nav-menu .guten-nav-overlay, 
+                    .${elementId}.tablet.tablet-breakpoint .guten-nav-menu .guten-nav-overlay`,
+                    render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
+                }
+            ]
         }
     ];
 };

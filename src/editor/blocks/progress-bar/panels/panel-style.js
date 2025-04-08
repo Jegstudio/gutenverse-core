@@ -1,7 +1,9 @@
 import { __ } from '@wordpress/i18n';
 import { BoxShadowControl, ColorControl, DimensionControl, GradientControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleColor, handleDimension, handleGradient } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const stylePanel = ({ elementId, colorMode }) => {
+export const stylePanel = ({elementId, colorMode}) => {
     return [
         {
             id: 'colorMode',
@@ -23,21 +25,10 @@ export const stylePanel = ({ elementId, colorMode }) => {
             show: colorMode === 'gradient',
             label: __('Bar Gradient', 'gutenverse'),
             component: GradientControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'barGradient',
-                    'properties': [
-                        {
-                            'name': 'background',
-                            'valueType': 'function',
-                            'functionName': 'handleGradient',
-                            'functionProps': {
-                                'angle': '90'
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .number-percentage, .${elementId} .progress-group .number-percentage`
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => handleGradient(value, '90')
                 }
             ]
         },
@@ -46,21 +37,10 @@ export const stylePanel = ({ elementId, colorMode }) => {
             show: colorMode === 'gradient',
             label: __('Track Gradient', 'gutenverse'),
             component: GradientControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'trackGradient',
-                    'properties': [
-                        {
-                            'name': 'background',
-                            'valueType': 'function',
-                            'functionName': 'handleGradient',
-                            'functionProps': {
-                                'angle': '90'
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`,
+                    render: value => handleGradient(value, '90')
                 }
             ]
         },
@@ -69,17 +49,10 @@ export const stylePanel = ({ elementId, colorMode }) => {
             show: colorMode === 'default' || !colorMode,
             label: __('Bar Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'barColor',
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar`
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -88,17 +61,10 @@ export const stylePanel = ({ elementId, colorMode }) => {
             show: colorMode === 'default' || !colorMode,
             label: __('Track Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'trackColor',
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -111,24 +77,10 @@ export const stylePanel = ({ elementId, colorMode }) => {
             min: 1,
             max: 200,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'trackHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar`
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -148,6 +100,12 @@ export const stylePanel = ({ elementId, colorMode }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => handleDimension(value, 'border-radius', false)
+                }
+            ]
         },
         {
             id: 'trackRadius',
@@ -165,6 +123,12 @@ export const stylePanel = ({ elementId, colorMode }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`,
+                    render: value => handleDimension(value, 'border-radius', false)
+                }
+            ]
         },
         {
             id: 'barPadding',
@@ -182,6 +146,12 @@ export const stylePanel = ({ elementId, colorMode }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'barMargin',
@@ -199,22 +169,22 @@ export const stylePanel = ({ elementId, colorMode }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'barBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'barBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    selector: `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

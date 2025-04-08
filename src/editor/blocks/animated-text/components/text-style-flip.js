@@ -8,8 +8,7 @@ const TextStyleFlip = (props) => {
         titleTag: TitleTag,
         loop,
         animatedTextRef,
-        splitByWord,
-        style
+        splitByWord
     } = props;
 
     const [animation, setAnimation] = useState();
@@ -40,14 +39,12 @@ const TextStyleFlip = (props) => {
     useEffect(() => animatedTextRef.current && animeInit(), [animatedTextRef]);
 
     useEffect(() => {
-        animeInit();
-        return () => {
-            if (animation) {
-                animation.remove();
-                setAnimation(null);
-            }
-        };
-    }, [loop, splitByWord, style]);
+        if (animation) {
+            animation.restart();
+            animation.remove([...animatedTextRef.current.getElementsByClassName('letter'), ...animatedTextRef.current.getElementsByClassName('text-content')]);
+            animeInit();
+        }
+    }, [props]);
 
     return <TitleTag className="text-content">
         <span className="text-wrapper">

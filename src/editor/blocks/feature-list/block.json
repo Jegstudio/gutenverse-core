@@ -32,35 +32,35 @@
 				}
 			]
 		},
-		"iconWrapperShape": {
+		"iconWrapperShape":{
 			"type": "string",
 			"default": "square",
 			"copyStyle": true
 		},
-		"iconPosition": {
+		"iconPosition":{
 			"type": "string",
 			"default": "left",
 			"copyStyle": true
 		},
-		"showConnector": {
+		"showConnector":{
 			"type": "boolean",
 			"default": false,
 			"copyStyle": true
 		},
-		"listSpace": {
+		"listSpace":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"connectorStyle": {
+		"connectorStyle":{
 			"type": "string",
 			"default": "solid",
 			"copyStyle": true
 		},
-		"connectorColor": {
+		"connectorColor":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"connectorWidth": {
+		"connectorWidth":{
 			"type": "object",
 			"copyStyle": true
 		},
@@ -68,11 +68,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconColor": {
+		"iconColor":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBackground": {
+		"iconBackground":{
 			"type": "object",
 			"copyStyle": true
 		},
@@ -80,11 +80,11 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconColorHover": {
+		"iconColorHover":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconBackgroundHover": {
+		"iconBackgroundHover":{
 			"type": "object",
 			"copyStyle": true
 		},
@@ -92,44 +92,36 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconSize": {
+		"iconSize":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"iconContentSpacing": {
+		"iconContentSpacing":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"contentSpace": {
+		"titleTypography":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleTypography": {
+		"titleColor":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleColor": {
+		"descTypography":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"descTypography": {
+		"descColor":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"descColor": {
+		"titleColorHover":{
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleColorHover": {
+		"descColorHover":{
 			"type": "object",
-			"copyStyle": true
-		},
-		"descColorHover": {
-			"type": "object",
-			"copyStyle": true
-		},
-		"contentPosition": {
-			"type": "string",
 			"copyStyle": true
 		},
 		"mouseMoveEffect": {
@@ -255,26 +247,26 @@
 			"copyStyle": true
 		},
 		"lazyLoad": {
-			"type": "boolean",
+			"type" : "boolean",
 			"copyStyle": true
 		},
 		"condition": {
 			"type": "object",
 			"default": {}
 		},
-		"hoverWithParent": {
+		"hoverWithParent":{
 			"type": "boolean",
 			"default": false,
 			"copyStyle": true
 		},
-		"parentSelector": {
-			"type": "string",
+		"parentSelector":{
+			"type":"string",
 			"copyStyle": true
 		},
 		"hasInnerBlocks": {
-			"type": "boolean",
-			"default": false
-		}
+            "type": "boolean",
+            "default": false
+        }
 	},
 	"supports": {
 		"className": false

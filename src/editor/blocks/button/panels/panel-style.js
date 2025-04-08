@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const stylePanel = (props) => {
@@ -24,90 +25,80 @@ export const stylePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __styleHover }) => setSwitcher({ ...switcher, styleHover: __styleHover })
+            onChange: ({__styleHover}) => setSwitcher({...switcher, styleHover: __styleHover})
         },
         {
             id: 'color',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'color',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button span`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button span`,
+                    render: value => handleColor(value, 'color')
                 }
-            ],
+            ]
         },
         {
             id: 'iconColor',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    render: value => handleColor(value, 'color')
                 }
-            ],
+            ]
         },
         {
             id: 'hoverTextColor',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoverTextColor',
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span` :
-                        `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ],
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover span`,
+                    allowRender : () => !hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button span`,
+                    allowRender : () => hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
+            ]
         },
         {
             id: 'hoverIconColor',
             show: switcher.styleHover === 'hover',
             label: __('Hover Icon Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoverTextColor',
-                    'selector': hoverWithParent ? parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i` :
-                        `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ],
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button:hover i`,
+                    allowRender : () => !hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
+                {
+                    selector: parentSelector + ` .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender : () => hoverWithParent,
+                    render: value => handleColor(value, 'color')
+                },
+            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button span`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
     ];
 };
+

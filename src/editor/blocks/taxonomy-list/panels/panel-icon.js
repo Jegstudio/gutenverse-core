@@ -1,6 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
-import { AlertControl, ColorControl, IconControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { AlertControl, ColorControl, IconControl, SizeControl, SwitchControl} from 'gutenverse-core/controls';
+import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {
     const {
@@ -53,18 +54,11 @@ export const iconPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSpace',
-                    'responsive': true,
-                    'selector': `.${elementId} .taxonomy-list-wrapper .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list`,
+                    allowRender: () => true,
+                    render: value => handleUnitPoint(value, 'margin-right')
                 }
             ]
         },
@@ -97,18 +91,11 @@ export const iconPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId} .taxonomy-list-wrapper .icon-list i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .icon-list i`,
+                    allowRender: () => true,
+                    render: value => handleUnitPoint(value, 'font-size')
                 }
             ]
         },
@@ -133,17 +120,10 @@ export const iconPanel = (props) => {
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             show: (!switcher.iconSwitch || switcher.iconSwitch === 'normal') && showIcon,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .icon-list`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -152,17 +132,10 @@ export const iconPanel = (props) => {
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.iconSwitch === 'hover' && showIcon,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorHover',
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover .icon-list`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },

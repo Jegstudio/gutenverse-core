@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, ColorControl, DimensionControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, allowRenderTextShadow, handleBackground, handleColor, handleDimension, handleTextShadow, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {
@@ -15,11 +16,11 @@ export const contentPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'activeBackground',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item.current-item`,
+                    selector: `.${elementId} .portfolio-gallery-container .row-item.current-item`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -44,6 +45,12 @@ export const contentPanel = (props) => {
                     icon: <AlignRight />,
                 }
             ],
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info`,
+                    render: value => `text-align: ${value}; `
+                }
+            ]
         },
         {
             id: 'contentPadding',
@@ -65,6 +72,12 @@ export const contentPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'contentBackground',
@@ -72,11 +85,11 @@ export const contentPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'contentBackground',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info::after`,
+                    selector: `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info::after`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -84,11 +97,25 @@ export const contentPanel = (props) => {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'subTitleTypography',
             label: __('Sub Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: '__hoverSwitch',
@@ -110,17 +137,10 @@ export const contentPanel = (props) => {
             label: __('Title Color', 'gutenverse'),
             show: switcher.hoverSwitch === 'normal' || !switcher.hoverSwitch,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColor',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -129,17 +149,10 @@ export const contentPanel = (props) => {
             label: __('Sub Title Color', 'gutenverse'),
             show: switcher.hoverSwitch === 'normal' || !switcher.hoverSwitch,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'subTitleColor',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -148,17 +161,11 @@ export const contentPanel = (props) => {
             label: __('Title Text Shadow', 'gutenverse'),
             show: switcher.hoverSwitch === 'normal' || !switcher.hoverSwitch,
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'titleTextShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-title`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         },
@@ -167,17 +174,11 @@ export const contentPanel = (props) => {
             label: __('Sub Title Text Shadow', 'gutenverse'),
             show: switcher.hoverSwitch === 'normal' || !switcher.hoverSwitch,
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'subTitleTextShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    selector: `.${elementId} .portfolio-gallery-container .row-item .row-item-info .info-subtitle`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         },
@@ -186,17 +187,10 @@ export const contentPanel = (props) => {
             label: __('Title Color', 'gutenverse'),
             show: switcher.hoverSwitch === 'hover',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColorHover',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -205,17 +199,10 @@ export const contentPanel = (props) => {
             label: __('Sub Title Color', 'gutenverse'),
             show: switcher.hoverSwitch === 'hover',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'subTitleColorHover',
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -224,17 +211,11 @@ export const contentPanel = (props) => {
             label: __('Title Text Shadow', 'gutenverse'),
             show: switcher.hoverSwitch === 'hover',
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'titleTextShadowHover',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+                    selector: `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-title`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         },
@@ -243,17 +224,11 @@ export const contentPanel = (props) => {
             label: __('Sub Title Text Shadow', 'gutenverse'),
             show: switcher.hoverSwitch === 'hover',
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'subTitleTextShadowHover',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+                    selector: `.${elementId} .portfolio-gallery-container .row-item:hover .row-item-info .info-subtitle`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         },

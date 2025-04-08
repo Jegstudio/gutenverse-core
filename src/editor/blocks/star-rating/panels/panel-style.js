@@ -1,23 +1,17 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
-export const panelStyle = ({ elementId }) => {
+export const panelStyle = ({elementId, ...props}) => {
     return [
         {
             id: 'titleColor',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColor',
-                    'selector': `.${elementId} .rating-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .rating-title`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -25,6 +19,13 @@ export const panelStyle = ({ elementId }) => {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .rating-title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'gap',
@@ -35,24 +36,10 @@ export const panelStyle = ({ elementId }) => {
             min: 1,
             max: 50,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'gap',
-                    'selector': `.${elementId} .rating-title`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .rating-title`,
+                    render: value => `margin-right: ${value}px;`
                 }
             ]
         },
@@ -65,24 +52,10 @@ export const panelStyle = ({ elementId }) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconSize',
-                    'selector': `.${elementId} .rating-icons i`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .rating-icons i`,
+                    render: value => `font-size: ${value}px;`
                 }
             ]
         },
@@ -95,24 +68,10 @@ export const panelStyle = ({ elementId }) => {
             min: 1,
             max: 50,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconGap',
-                    'selector': `.${elementId} .rating-icons i`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .rating-icons i`,
+                    render: value => `margin-right: ${value}px;`
                 }
             ]
         },
@@ -120,17 +79,10 @@ export const panelStyle = ({ elementId }) => {
             id: 'iconColorMarked',
             label: __('Icon Color (Marked)', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorMarked',
-                    'selector': `.${elementId} .rating-icons i.full`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .rating-icons i.full`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -138,17 +90,10 @@ export const panelStyle = ({ elementId }) => {
             id: 'iconColorUnmarked',
             label: __('Icon Color (Unmarked)', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorUnmarked',
-                    'selector': `.${elementId} .rating-icons i.empty`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .rating-icons i.empty`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },

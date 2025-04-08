@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { AlertControl, BackgroundControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { AlertControl, BackgroundControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const blockPanel = (props) => {
     const {
@@ -42,6 +43,12 @@ export const blockPanel = (props) => {
                     icon: <AlignRight />,
                 }
             ],
+            style: [
+                {
+                    selector: `.${elementId} .post-term-block .term-item `,
+                    render: value => `text-align: ${value};`
+                },
+            ]
         },
         {
             id: 'termPadding',
@@ -64,6 +71,12 @@ export const blockPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .post-term-block .term-item`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: '__termHover',
@@ -87,11 +100,11 @@ export const blockPanel = (props) => {
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
             show: contentType === 'block' && ( !switcher.termHover || switcher.termHover === 'normal' ),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'termBackground',
-                    'selector': `.${elementId} .post-term-block .term-item`,
+                    selector: `.${elementId} .post-term-block .term-item`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -101,11 +114,11 @@ export const blockPanel = (props) => {
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
             show: contentType === 'block' && ( switcher.termHover === 'hover' ),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'termBackgroundHover',
-                    'selector': `.${elementId} .post-term-block .term-item:hover`,
+                    selector: `.${elementId} .post-term-block .term-item:hover`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -115,13 +128,12 @@ export const blockPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'termBorder',
-                    'selector': `.${elementId} .post-term-block .term-item`,
+                    selector: `.${elementId} .post-term-block .term-item`,
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'termBorderHover',
@@ -129,51 +141,38 @@ export const blockPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'termBorderHover',
-                    'selector': `.${elementId} .post-term-block .term-item:hover`,
+                    selector: `.${elementId} .post-term-block .term-item:hover`,
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'termBoxShadow',
             show: contentType === 'block' && ( !switcher.termHover || switcher.termHover === 'normal' ),
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'termBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .post-term-block .term-item`,
+                    selector: `.${elementId} .post-term-block .term-item`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
-            ],
+            ]
         },
         {
             id: 'termBoxShadowHover',
             show: contentType === 'block' && ( switcher.termHover === 'hover' ),
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'termBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .post-term-block .term-item:hover`,
+                    selector: `.${elementId} .post-term-block .term-item:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
-            ],
+            ]
         },
     ];
 };

@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, RangeControl, SelectControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 
 export const captionPanel = (props) => {
@@ -42,24 +43,10 @@ export const captionPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'captionSpace',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-caption`,
-                    'properties': [
-                        {
-                            'name': 'margin-top',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-caption`,
+                    render: value => `margin-top: ${value}px;`
                 }
             ]
         },
@@ -67,24 +54,24 @@ export const captionPanel = (props) => {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-caption`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'captionColor',
             label: __('Caption Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'captionColor',
-                    'selector': `.${elementId} .guten-caption`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-caption`,
+                    render: (value) => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
     ];
 };

@@ -1,28 +1,28 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { isEmpty } from 'lodash';
 import { useRef } from '@wordpress/element';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostAuthorBlock = compose(
-    withPartialRender
+    withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        clientId,
+        setElementRef,
         context: { postId, postType }
     } = props;
 
@@ -38,7 +38,7 @@ const PostAuthorBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const elementRef = useRef();
+    const postAuthorRef = useRef();
     const linkTarget = authorLinkTarget ? '_blank' : '_self';
     const [authorName, setAuthorName] = useState('Post Author');
 
@@ -88,6 +88,10 @@ const PostAuthorBlock = compose(
         }
     }, [authorType, authorDetails]);
 
+    useEffect(() => {
+        postAuthorRef.current && setElementRef(postAuthorRef.current);
+    }, [postAuthorRef]);
+
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -97,14 +101,10 @@ const PostAuthorBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: postAuthorRef
     });
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-
     return <>
-        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Author works?', 'gutenverse')}
@@ -120,7 +120,7 @@ const PostAuthorBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             {! isEmpty(authorDetails) && authorAvatar && <img className="avatar photo" width="48" src={authorDetails['avatar_urls']['48']} alt={authorDetails['name']}/>}
             <HtmlTag>{! isEmpty(authorDetails) && authorLink ? <a href={authorDetails['link']} target={linkTarget} rel={authorLinkRel} onClick={e => e.preventDefault()}>{authorName}</a> : authorName}</HtmlTag>

@@ -1,8 +1,10 @@
+import { compose } from '@wordpress/compose';
 import { useCallback, useState, useEffect, useRef } from '@wordpress/element';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { ToolbarButton, ToolbarGroup } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
@@ -11,27 +13,32 @@ import { IconLibrary } from 'gutenverse-core/controls';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { gutenverseRoot } from 'gutenverse-core/helper';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-const IconListItemBlock = (props) => {
+const IconListItemBlock = compose(
+    withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
+)((props) => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
 
     const {
         attributes,
         setAttributes,
         isSelected,
+        setElementRef,
         clientId,
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -44,21 +51,11 @@ const IconListItemBlock = (props) => {
         dynamicUrl,
     } = attributes;
 
-    const {
-        panelState,
-        setPanelState,
-        setPanelIsClicked,
-        panelIsClicked
-    } = useRichTextParameter();
-
-    const elementRef = useRef(null);
+    const iconListItemRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     useEffect(() => {
         setAttributes({
@@ -74,7 +71,7 @@ const IconListItemBlock = (props) => {
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: iconListItemRef
     });
     const onToggleOpenInNewTab = useCallback(
         (value) => {
@@ -95,10 +92,16 @@ const IconListItemBlock = (props) => {
         [rel, setAttributes]
     );
 
+    useEffect(() => {
+        if (iconListItemRef.current) {
+            setElementRef(iconListItemRef.current);
+        }
+    }, [iconListItemRef]);
+
     FilterDynamic(props);
     HighLightToolbar(props);
 
-    const iconListItemPanelState = {
+    const panelState = {
         panel: 'setting',
         section: 0,
     };
@@ -109,25 +112,24 @@ const IconListItemBlock = (props) => {
             dynamicUrl
         );
 
-        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => { });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
     return <>
-        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <SelectParent {...props}>
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
+        <PanelController panelList={panelList} {...props} />
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}
@@ -145,13 +147,13 @@ const IconListItemBlock = (props) => {
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={iconListItemPanelState}
+                        panelState={panelState}
                         title="Item Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    iconListItemPanelState
+                    panelState
                 )}
                 <ToolbarButton
                     name="icon"
@@ -162,11 +164,11 @@ const IconListItemBlock = (props) => {
                 />
             </ToolbarGroup>
         </BlockControls>
-        <li {...blockProps}>
-            <div className="list-divider"></div>
+        <li  {...blockProps}>
             <a id={elementId}>
                 {!hideIcon && <i className={icon} />}
                 <RichTextComponent
+                    ref={iconListItemRef}
                     classNames={`list-text ${hideIcon ? 'no-icon' : ''}`}
                     tagName={'span'}
                     aria-label={__('List text')}
@@ -189,6 +191,6 @@ const IconListItemBlock = (props) => {
             </a>
         </li>
     </>;
-};
+});
 
 export default IconListItemBlock;

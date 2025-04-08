@@ -1,66 +1,55 @@
 import { compose } from '@wordpress/compose';
+import { withCustomStyle,  withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, RichTextComponent } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useEffect, useRef } from '@wordpress/element';
 import { applyFilters } from '@wordpress/hooks';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
+
 
 const TextBlockControl = (props) => {
-    HighLightToolbar(props);
+    HighLightToolbar (props);
     FilterDynamic(props);
 };
-
 const TextBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('text-paragraph'),
-    withMouseMoveEffect
+    withCustomStyle(panelList),
+    withAnimationAdvance('text-paragraph'),
+    withCopyElementToolbar(),
+    withMouseMoveEffect,
 )((props) => {
+    const { panelProps} = props;
     const {
         attributes,
+        setElementRef,
         clientId,
         setAttributes,
-        setBlockRef,
+        setPanelState,
     } = props;
-
     const {
         elementId,
         paragraph
     } = attributes;
-
-    const {
-        panelState,
-        setPanelState,
-    } = useRichTextParameter();
-
     const {
         getBlocks
     } = useSelect(
         (select) => select('core/block-editor'),
         []
     );
-
-    const elementRef = useRef();
+    const textRef = useRef();
     const oldBlock = getBlocks();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const { insertBlock, replaceBlock } = dispatch('core/block-editor');
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
-
+    const {insertBlock, replaceBlock} = dispatch('core/block-editor');
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -70,22 +59,20 @@ const TextBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: textRef
     });
-
     const onSplit = (value, isOriginal) => {
-        const newBlock = createBlock('gutenverse/text-paragraph', {
+        const newBlock = createBlock( 'gutenverse/text-paragraph', {
             paragraph: value,
-        });
-        if (isOriginal) {
-            replaceBlock(clientId, newBlock);
-        } else {
+        } );
+        if(isOriginal){
+            replaceBlock(clientId,newBlock);
+        }else{
             const testBlock = getBlocks();
-            const currentBlockIndex = testBlock.findIndex((el, index) => el.clientId !== oldBlock[index].clientId);
+            const currentBlockIndex = testBlock.findIndex((el,index) => el.clientId !== oldBlock[index].clientId);
             insertBlock(newBlock, currentBlockIndex + 1);
         }
     };
-
     applyFilters(
         'gutenverse.pro.dynamic.toolbar',
         setPanelState,
@@ -96,10 +83,10 @@ const TextBlock = compose(
     );
 
     useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
+        if (textRef.current) {
+            setElementRef(textRef.current);
         }
-    }, [elementRef]);
+    }, [textRef]);
 
     useEffect(() => {
         const parser = new DOMParser();
@@ -109,14 +96,16 @@ const TextBlock = compose(
         if (newContainsAnchorTag !== attributes.containsAnchorTag) {
             setAttributes({ containsAnchorTag: newContainsAnchorTag });
         }
-    }, [paragraph]);
-
+    }, [paragraph])
     return <>
-        <CopyElementToolbar {...props} />
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
-        <TextBlockControl {...props} />
+        <PanelController
+            {...props}
+            panelList={panelList}
+            panelProps={panelProps}
+        />
+        <TextBlockControl {...props}/>
         <RichTextComponent
-            isBlockProps={true}
+            isBlockProps = {true}
             blockProps={blockProps}
             tagName={'p'}
             onChange={value => setAttributes({ paragraph: value })}
@@ -126,13 +115,13 @@ const TextBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            panelDynamic={{ panel: 'setting', section: 0 }}
-            panelPosition={{ panel: 'style', section: 1 }}
+            panelDynamic={{panel : 'setting', section : 0}}
+            panelPosition={{panel : 'style', section : 2}}
             contentAttribute={'paragraph'}
             setPanelState={setPanelState}
             isOnSplit={true}
-            onSplit={(value, isOriginal) => onSplit(value, isOriginal)}
-            onReplace={() => { }}
+            onSplit={(value,isOriginal) => onSplit(value, isOriginal)}
+            onReplace= {() => {}}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
             isUseDinamic={true}

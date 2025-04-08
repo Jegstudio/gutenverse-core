@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, IconControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { handleUnitPoint } from 'gutenverse-core/styling';
 
 export const settingsPanel = (props) => {
     const {
@@ -23,6 +24,19 @@ export const settingsPanel = (props) => {
             ]
         },
         {
+            id: 'rowHeight',
+            label: __('Row Height', 'gutenverse'),
+            component: SizeControl,
+            allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+                    allowRender: () => true,
+                    render: value => handleUnitPoint(value, 'height')
+                }
+            ]
+        },
+        {
             id: 'column',
             label: __('Column', 'gutenverse'),
             component: RangeControl,
@@ -30,45 +44,11 @@ export const settingsPanel = (props) => {
             max: 10,
             step: 1,
             allowDeviceControl: true,
-            isParseFloat : true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'column',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
-                    'properties': [
-                        {
-                            'name': 'flex',
-                            'valueType': 'pattern',
-                            'pattern': 'calc(100% / {value}); max-width: calc(100% / {value})',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                }
-            ]
-        },
-        {
-            id: 'rowHeight',
-            label: __('Row Height', 'gutenverse'),
-            component: SizeControl,
-            allowDeviceControl: true,
-            liveStyle: [
-                {
-                    'type': 'unitPoint',
-                    'id': 'rowHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-portfolio-gallery .portfolio-gallery-container .content-items .row-item`,
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+                    allowRender: () => true,
+                    render: value => `flex: calc(100% / ${value}); max-width: calc(100% / ${value});`
                 }
             ]
         },
@@ -76,6 +56,23 @@ export const settingsPanel = (props) => {
             id: 'reversePosition',
             label: __('Reverse Position', 'gutenverse'),
             component: CheckboxControl,
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item`,
+                    allowRender: value => value,
+                    render: value => 'flex-direction: column-reverse;'
+                },
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper`,
+                    allowRender: value => value,
+                    render: value => 'transform: translateY(-100%); '
+                },
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-item-info::after`,
+                    allowRender: value => value,
+                    render: value => 'transform-origin: 0 100%;'
+                }
+            ]
         },
         {
             id: 'showLink',
@@ -109,6 +106,13 @@ export const settingsPanel = (props) => {
                     label: __('Right')
                 }
             ],
+            style: [
+                {
+                    selector: `.${elementId} .portfolio-gallery-container .content-items .row-item .row-link-wrapper a`,
+                    allowRender: value => value,
+                    render: value => `flex-direction: ${value};`
+                }
+            ]
         }
     ];
 };

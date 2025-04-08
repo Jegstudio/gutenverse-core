@@ -1,9 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { BlockControls, useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
 import { RichTextComponent, classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
@@ -16,24 +17,23 @@ import { useEffect } from '@wordpress/element';
 import { HighLightToolbar, URLToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
 import { useCallback } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const IconBoxBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('icon-box'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('icon-box'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
@@ -52,7 +52,10 @@ const IconBoxBlock = compose(
         isSelected,
         attributes,
         setAttributes,
-        setBlockRef,
+        setElementRef,
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -78,19 +81,14 @@ const IconBoxBlock = compose(
         hoverWithParent,
         parentSelector
     } = attributes;
-
-    const {
-        panelState,
-        setPanelState,
-        setPanelIsClicked,
-        panelIsClicked
-    } = useRichTextParameter();
-
     const imageAltText = imageAlt || null;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
-    const elementRef = useRef();
+    const iconBoxRef = useRef();
+    const titleRef = useRef();
+    const descRef = useRef();
+    const badgeRef = useRef();
     const prevHoverWithParent = useRef();
     const [dynamicHref, setDynamicHref] = useState();
     const isGlobalLinkSet = url !== undefined && url !== '';
@@ -119,7 +117,7 @@ const IconBoxBlock = compose(
             displayClass,
             `icon-position-${iconPosition}`,
         ),
-        ref: elementRef
+        ref: iconBoxRef
     });
     const imageLazyLoad = () => {
         if (lazyLoad) {
@@ -146,10 +144,6 @@ const IconBoxBlock = compose(
                 return null;
         }
     };
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
 
     const innerBlockProps = useInnerBlocksProps(
         {},
@@ -179,6 +173,12 @@ const IconBoxBlock = compose(
     );
 
     useEffect(() => {
+        if (iconBoxRef.current) {
+            setElementRef(iconBoxRef.current);
+        }
+    }, [iconBoxRef]);
+
+    useEffect(() => {
         !separateButtonLink && getBlocks(clientId).map(block => {
             updateBlockAttributes(block.clientId, { url, rel, linkTarget });
         });
@@ -191,7 +191,7 @@ const IconBoxBlock = compose(
         setAttributes({ parentSelector: `.${elementId}:hover .guten-icon-box-wrapper` });
     }, [hoverWithParent, parentSelector]);
 
-    const iconBoxPanelState = {
+    const panelState = {
         panel: 'setting',
         section: 2,
     };
@@ -216,15 +216,8 @@ const IconBoxBlock = compose(
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
-
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} deviceType={deviceType} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
+        <PanelController panelList={panelList} {...props} deviceType={deviceType} />
         <BlockControls>
             <ToolbarGroup>
                 {applyFilters('gutenverse.button.url-toolbar',
@@ -237,13 +230,13 @@ const IconBoxBlock = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={iconBoxPanelState}
+                        panelState={panelState}
                         title="Global Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    iconBoxPanelState
+                    panelState
                 )}
                 <ToolbarButton
                     name="icon"
@@ -267,6 +260,7 @@ const IconBoxBlock = compose(
                 {iconPosition !== 'bottom' && iconContent()}
                 <div className="icon-box icon-box-body">
                     <RichTextComponent
+                        ref={titleRef}
                         classNames={'title'}
                         tagName={titleTag}
                         aria-label={__('Icon Box Title', 'gutenverse')}
@@ -287,6 +281,7 @@ const IconBoxBlock = compose(
                         parentHasLink={isGlobalLinkSet}
                     />
                     <RichTextComponent
+                        ref={descRef}
                         classNames={'icon-box-description'}
                         tagName={'p'}
                         aria-label={__('Icon Box Description', 'gutenverse')}
@@ -311,6 +306,7 @@ const IconBoxBlock = compose(
                 {iconPosition === 'bottom' && iconContent()}
                 {badgeShow && <div className={`icon-box-badge ${badgePosition}`}>
                     <RichTextComponent
+                        ref={badgeRef}
                         classNames={'badge-text'}
                         tagName={'span'}
                         aria-label={__('Icon Box Badge', 'gutenverse')}

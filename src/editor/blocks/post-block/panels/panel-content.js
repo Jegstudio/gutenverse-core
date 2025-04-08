@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { CheckboxControl, IconControl, IconRadioControl, ImageRadioControl, RangeControl, SelectControl, SelectSortableControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, IconControl, IconRadioControl, ImageRadioControl, RangeControl, SelectControl, SelectSearchControl, SelectSortableControl, TextControl } from 'gutenverse-core/controls';
 
 export const contentPanel = (props) => {
     const {
@@ -50,23 +50,23 @@ export const contentPanel = (props) => {
             component: ImageRadioControl,
             options: [
                 {
-                    image: <img src={`${gutenverseImgDir}/post-block-1.png`} />,
+                    image: <img src={`${gutenverseImgDir}/post-block-1.png`}/>,
                     value: 'type-1'
                 },
                 {
-                    image: <img src={`${gutenverseImgDir}/post-block-2.png`} />,
+                    image: <img src={`${gutenverseImgDir}/post-block-2.png`}/>,
                     value: 'type-2'
                 },
                 {
-                    image: <img src={`${gutenverseImgDir}/post-block-3.png`} />,
+                    image: <img src={`${gutenverseImgDir}/post-block-3.png`}/>,
                     value: 'type-3'
                 },
                 {
-                    image: <img src={`${gutenverseImgDir}/post-block-4.png`} />,
+                    image: <img src={`${gutenverseImgDir}/post-block-4.png`}/>,
                     value: 'type-4'
                 },
                 {
-                    image: <img src={`${gutenverseImgDir}/post-block-5.png`} />,
+                    image: <img src={`${gutenverseImgDir}/post-block-5.png`}/>,
                     value: 'type-5'
                 },
             ],
@@ -86,23 +86,10 @@ export const contentPanel = (props) => {
             min: 1,
             max: 3,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'column',
-                    'selector': `.${elementId} .guten-postblock .guten-posts`,
-                    'properties': [
-                        {
-                            'name': 'grid-template-columns',
-                            'valueType': 'pattern',
-                            'pattern': 'repeat({value}, minmax(0, 1fr))',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-postblock .guten-posts`,
+                    render: value => `grid-template-columns: repeat(${value}, minmax(0, 1fr));`
                 }
             ]
         },
@@ -175,17 +162,17 @@ export const contentPanel = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft />,
+                    icon: <AlignLeft/>,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter />,
+                    icon: <AlignCenter/>,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight />,
+                    icon: <AlignRight/>,
                 },
             ],
         },

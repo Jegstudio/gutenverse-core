@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, HeadingControl, IconRadioControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const itemHoverPanel = (props) => {
     const {
@@ -17,13 +18,17 @@ export const itemHoverPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'itemHoverBackground',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
+        },
+        {
+            id: 'submenuSplitter1',
+            component: HeadingControl,
         },
         {
             id: 'itemHoverOpacity',
@@ -33,18 +38,10 @@ export const itemHoverPanel = (props) => {
             min: 0,
             max: 1,
             step: 0.01,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'itemHoverOpacity',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg`,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    render: value => `opacity: ${value};`
                 }
             ]
         },
@@ -68,17 +65,23 @@ export const itemHoverPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item .thumbnail-wrap .caption-wrap`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'itemHoverBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'itemHoverBorder',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -88,11 +91,11 @@ export const itemHoverPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'itemHoverBorderResponsive',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap .item-hover-bg`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -118,6 +121,12 @@ export const itemHoverPanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap`,
+                    render: value => `text-align: ${value};`
+                }
+            ]
         },
         {
             id: 'submenuTitleSplitter',
@@ -128,42 +137,35 @@ export const itemHoverPanel = (props) => {
             id: 'itemHoverTitleColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'itemHoverTitleColor',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-overlay .item-caption-over .item-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'itemHoverTitleColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'itemHoverTitleColorHover',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-overlay:hover .item-caption-over .item-title`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over:hover .item-title`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'itemHoverTitleTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'itemHoverTitleMargin',
@@ -185,6 +187,12 @@ export const itemHoverPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'itemHoverTitlePadding',
@@ -206,6 +214,12 @@ export const itemHoverPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-title`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'submenuContentSplitter',
@@ -216,42 +230,35 @@ export const itemHoverPanel = (props) => {
             id: 'itemHoverContentColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'itemHoverContentColor',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-overlay .item-caption-over .item-content`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'itemHoverContentColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'itemHoverContentColorHover',
-                    'selector': `.${elementId}.guten-gallery .gallery-items .gallery-item-wrap .grid-item .caption-wrap.style-overlay:hover .item-caption-over .item-content`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over:hover .item-content`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'itemHoverContentTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'itemHoverContentMargin',
@@ -273,6 +280,12 @@ export const itemHoverPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'itemHoverContentPadding',
@@ -294,6 +307,12 @@ export const itemHoverPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap.style-overlay .item-caption-over .item-content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

@@ -1,35 +1,37 @@
 import { compose } from '@wordpress/compose';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
 import { isEmpty } from 'lodash';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { Swiper, swiperSettings } from '../../components/swiper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 export const logoNormalLazyLoad = (logo) => {
-    if (logo.lazyLoad) {
+    if(logo.lazyLoad){
         return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    } else {
+    }else{
         return <img className="main-image" src={getImageSrc(logo.src)} alt={logo.title} />;
     }
 };
 export const logoHoverLazyLoad = (logo) => {
-    if (logo.lazyLoad) {
+    if(logo.lazyLoad){
         return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} loading="lazy" />;
-    } else {
+    }else{
         return <img className="hover-image" src={!isEmpty(logo.hoverSrc) ? getImageSrc(logo.hoverSrc) : getImageSrc(logo.src)} alt={logo.title} />;
     }
 };
 const LogoSlider = compose(
     withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
@@ -39,38 +41,17 @@ const LogoSlider = compose(
     const {
         clientId,
         attributes,
+        setElementRef
     } = props;
 
     const {
         elementId,
-        logos,
-        initialSlide,
-        spacing,
-        itemShowed,
-        loop,
-        showNav,
-        showArrow,
-        autoplay,
-        autoplayTimeout
+        logos
     } = attributes;
 
-    const elementRef = useRef();
+    const sliderRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-
-    const [liveAttr, setLiveAttr] = useState({
-        initialSlide,
-        spacing,
-        itemShowed,
-        loop,
-        showNav,
-        showArrow,
-        autoplay,
-        autoplayTimeout
-    });
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -82,7 +63,7 @@ const LogoSlider = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: sliderRef
     });
 
     const focusBlock = () => {
@@ -90,31 +71,17 @@ const LogoSlider = compose(
     };
 
     useEffect(() => {
-        setLiveAttr({
-            ...liveAttr,
-            loop,
-            showNav,
-            showArrow,
-            initialSlide,
-            autoplay,
-            autoplayTimeout
-        });
-    }, [
-        loop,
-        showNav,
-        showArrow,
-        initialSlide,
-        autoplay,
-        autoplayTimeout
-    ]);
+        if (sliderRef.current) {
+            setElementRef(sliderRef.current);
+        }
+    }, [sliderRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} setLiveAttr={setLiveAttr} liveAttr={liveAttr} />
+        <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             <div className="client-list" onClick={focusBlock}>
                 <Swiper
-                    {...swiperSettings(liveAttr)}
+                    {...swiperSettings(attributes)}
                     shouldSwiperUpdate={true}
                     rebuildOnUpdate={true}>
                     {logos.map((logo, index) => {

@@ -1,11 +1,16 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, TypographyControl, SelectControl, DimensionControl } from 'gutenverse-core/controls';
+import { handleTypography, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const panelDropcap = (props) => {
     const {
         elementId,
         dropcap,
         dropcapBorderType,
+        dropcapBorderColor,
+        dropcapBorderWidth,
+        dropcapBorderRadius,
+        removeStyle,
     } = props;
 
 
@@ -20,23 +25,23 @@ export const panelDropcap = (props) => {
             show: dropcap,
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'dropcapColor',
             show: dropcap,
             label: __('Dropcap Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'dropcapColor',
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -45,17 +50,10 @@ export const panelDropcap = (props) => {
             show: dropcap,
             label: __('Dropcap Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'dropcapBgColor',
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -74,6 +72,12 @@ export const panelDropcap = (props) => {
                     unit: 'em'
                 },
             },
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleDimension(value, 'margin', false)
+                }
+            ]
         },
         {
             id: 'dropcapPadding',
@@ -90,6 +94,12 @@ export const panelDropcap = (props) => {
                     unit: 'em'
                 },
             },
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleDimension(value, 'padding', false)
+                }
+            ]
         },
         {
             id: 'dropcapBorderType',
@@ -126,23 +136,44 @@ export const panelDropcap = (props) => {
                     value: 'groove'
                 },
             ],
+            onChange: ({ dropcapBorderType }) => {
+                if ('default' === dropcapBorderType || 'none' === dropcapBorderType) {
+                    removeStyle('dropcapBorderColor-style-0');
+                    removeStyle('dropcapBorderWidth-style-0');
+                    removeStyle('dropcapBorderRadius-style-0');
+                }
+            },
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => `border-style: ${value};`
+                },
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    allowRender: value => !['default', 'none'].includes(value) && dropcap,
+                    render: () => handleColor(dropcapBorderColor, 'border-color')
+                },
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    allowRender: value => !['default', 'none'].includes(value) && dropcap,
+                    render: () => handleDimension(dropcapBorderWidth, 'border-width', false)
+                },
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    allowRender: value => !['default', 'none'].includes(value) && dropcap,
+                    render: () => handleDimension(dropcapBorderRadius, 'border-radius', false)
+                },
+            ]
         },
         {
             id: 'dropcapBorderColor',
             label: __('Border Color', 'gutenverse'),
             show: !['default', 'none'].includes(dropcapBorderType) && dropcap,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'dropcapBorderColor',
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleColor(value, 'border-color')
                 }
             ]
         },
@@ -162,6 +193,12 @@ export const panelDropcap = (props) => {
                     unit: 'em'
                 },
             },
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => handleDimension(value, 'border-width', false)
+                }
+            ]
         },
         {
             id: 'dropcapBorderRadius',
@@ -179,6 +216,14 @@ export const panelDropcap = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.gutenverse-text-editor.${elementId}.dropcap > div > p:first-child:first-letter, .gutenverse-text-editor.${elementId}.dropcap > div > div > p:first-child:first-letter`,
+                    render: value => {
+                        return handleDimension(value, 'border-radius', false);
+                    }
+                }
+            ]
         },
     ];
 };

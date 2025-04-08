@@ -19,15 +19,15 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Style', 'gutenverse'),
-            panelArray: panelStyle,
-            initialOpen: false,
-            tabRole: TabStyle
-        },
-        {
             title: __('Masking', 'gutenverse'),
             initialOpen: false,
             panelArray: maskPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Style', 'gutenverse'),
+            panelArray: panelStyle,
+            initialOpen: false,
             tabRole: TabStyle
         },
         {

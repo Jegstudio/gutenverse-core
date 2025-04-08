@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -10,21 +10,21 @@ import { useRef } from '@wordpress/element';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
 import { NavSkeleton, classnames, NavSkeletonNormal } from 'gutenverse-core/components';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NavMenuBlock = compose(
     withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        deviceType,
-        clientId
+        setElementRef,
+        deviceType
     } = props;
 
     const {
@@ -157,18 +157,20 @@ const NavMenuBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType?.toLowerCase(),
+            deviceType.toLowerCase(),
             `${breakpoint}-breakpoint`,
         ),
         ['data-item-indicator']: submenuItemIndicator
     });
 
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useEffect(() => {
+        if (elementRef.current) {
+            setElementRef(elementRef.current);
+        }
+    }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             {menuId ? !loading ? <RawHTML key="html">
                 {response}

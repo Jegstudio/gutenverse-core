@@ -3,6 +3,8 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleAlignReverse, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const contentContainerPanel = ({ elementId }) => {
     const device = getDeviceType();
@@ -30,6 +32,16 @@ export const contentContainerPanel = ({ elementId }) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    render: value => `text-align: ${value};`
+                },
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content .guten-post-meta-bottom`,
+                    render: value => `justify-content: ${handleAlignReverse(value)};`
+                }
+            ]
         },
         {
             id: 'contentContainerBackground',
@@ -37,11 +49,11 @@ export const contentContainerPanel = ({ elementId }) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'contentContainerBackground',
-                    'selector': `.${elementId} .guten-postblock .guten-postblock-content`,
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -65,6 +77,12 @@ export const contentContainerPanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'contentPadding',
@@ -86,17 +104,23 @@ export const contentContainerPanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'contentBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'contentBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-postblock-content`,
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -106,11 +130,11 @@ export const contentContainerPanel = ({ elementId }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'contentBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-postblock-content`,
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -118,17 +142,11 @@ export const contentContainerPanel = ({ elementId }) => {
             id: 'contentContainerShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'contentContainerShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postblock .guten-postblock-content`,
+                    selector: `.${elementId} .guten-postblock .guten-postblock-content`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

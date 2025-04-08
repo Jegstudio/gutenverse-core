@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, TypographyControl, CheckboxControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const excerptPanel = (props) => {
     const {
@@ -27,35 +28,47 @@ export const excerptPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'excerptColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'excerptColor',
-                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt p`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt p`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
         {
             id: 'excerptTypography',
             label: __('Typography', 'gutenverse'),
-            component: TypographyControl
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt p`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'excerptInline',
             label: __('Set Inline Excerpt', 'gutenverse'),
             component: CheckboxControl,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-excerpt`,
+                    render: value => `display: ${value ? 'inline-flex' : 'flex'};`
+                },
+            ],
         },
     ];
 };

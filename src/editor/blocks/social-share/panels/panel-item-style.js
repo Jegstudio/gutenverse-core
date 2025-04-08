@@ -8,6 +8,7 @@ import {
     TypographyControl
 } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleColor, handleUnitPoint, handleTypography, handleBorderResponsive, handleBorder } from 'gutenverse-core/styling';
 
 export const panelItemStyle = props => {
     const {
@@ -23,6 +24,13 @@ export const panelItemStyle = props => {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'iconSize',
@@ -43,22 +51,10 @@ export const panelItemStyle = props => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'direct'
-                        },
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item i`,
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item i`,
+                    render: value => `${handleUnitPoint(value, 'font-size')}; ${handleUnitPoint(value, 'width')};`
                 }
             ]
         },
@@ -82,17 +78,10 @@ export const panelItemStyle = props => {
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-icon i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-icon i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -101,17 +90,10 @@ export const panelItemStyle = props => {
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Icon Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconBackgroundColor',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-icon`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-icon`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -120,17 +102,10 @@ export const panelItemStyle = props => {
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Text Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'backgroundColor',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -139,17 +114,10 @@ export const panelItemStyle = props => {
             show: !switcher.socialHover || switcher.socialHover === 'normal',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'textColor',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item .gutenverse-share-text`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -158,11 +126,11 @@ export const panelItemStyle = props => {
             show: (!switcher.socialHover || switcher.socialHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'borderType',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item`,
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -172,11 +140,11 @@ export const panelItemStyle = props => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'borderTypeResponsive',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item`,
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -185,17 +153,10 @@ export const panelItemStyle = props => {
             show: switcher.socialHover === 'hover',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-icon i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-icon i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -204,17 +165,10 @@ export const panelItemStyle = props => {
             show: switcher.socialHover === 'hover',
             label: __('Icon Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconBackgroundColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-icon`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-icon`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -223,17 +177,10 @@ export const panelItemStyle = props => {
             show: switcher.socialHover === 'hover',
             label: __('Text Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'backgroundColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-text`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-text`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -242,17 +189,10 @@ export const panelItemStyle = props => {
             show: switcher.socialHover === 'hover',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'textColorHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover .gutenverse-share-text`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -261,11 +201,11 @@ export const panelItemStyle = props => {
             show: switcher.socialHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'borderTypeHover',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover`,
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -275,11 +215,11 @@ export const panelItemStyle = props => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'borderTypeHoverResponsive',
-                    'selector': `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover`,
+                    selector: `.editor-styles-wrapper .${elementId} .gutenverse-share-item:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

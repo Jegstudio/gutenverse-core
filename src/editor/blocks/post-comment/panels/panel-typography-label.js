@@ -12,38 +12,35 @@ export const labelTypographyPanel = (props) => {
             id: 'typographyLabel',
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} label`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'colorLabel',
             label: __('Label Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorLabel',
-                'selector': `.${elementId} label`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} label`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'colorRequired',
             label: __('Required Indicator Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorRequired',
-                'selector': `.${elementId} label span`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} label span`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'marginLabel',
@@ -69,6 +66,18 @@ export const labelTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    render: value => handleDimension(value, 'margin'),
+                    selector: `
+                        .${elementId} label,
+                        .${elementId} .comment-form-author label,
+                        .${elementId} .comment-form-comment label,
+                        .${elementId} .comment-form-email label,
+                        .${elementId} .comment-form-url label
+                    `,
+                }
+            ]
         },
     ];
 };

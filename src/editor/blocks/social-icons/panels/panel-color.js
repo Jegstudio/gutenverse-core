@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const contentColor = (props) => {
     const {
@@ -42,35 +43,21 @@ export const contentColor = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __socialIconsHover }) => setSwitcher({ ...switcher, socialIconsHover: __socialIconsHover })
+            onChange: ({__socialIconsHover}) => setSwitcher({...switcher, socialIconsHover: __socialIconsHover})
         },
         {
             id: 'iconColor',
             label: __('Icon Color', 'gutenverse'),
             show: !switcher.socialIconsHover || switcher.socialIconsHover === 'normal',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a i, .${elementId}.border .guten-social-icon a i, .${elementId}.custom .guten-social-icon a i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.fill .guten-social-icon a i, .${elementId}.border .guten-social-icon a i, .${elementId}.custom .guten-social-icon a i`,
+                    render: value => handleColor(value, 'color')
                 },
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.${elementId}.border .guten-social-icon a`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.border .guten-social-icon a`,
+                    render: value => handleColor(value, 'border-color')
                 }
             ]
         },
@@ -79,17 +66,10 @@ export const contentColor = (props) => {
             label: __('Background Color', 'gutenverse'),
             show: !switcher.socialIconsHover || switcher.socialIconsHover === 'normal',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'bgColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -98,17 +78,10 @@ export const contentColor = (props) => {
             label: __('Text Color', 'gutenverse'),
             show: !switcher.socialIconsHover || switcher.socialIconsHover === 'normal',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'textColor',
-                    'selector': `.${elementId} .guten-social-icon a span`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-social-icon a span`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -117,28 +90,14 @@ export const contentColor = (props) => {
             label: __('Icon Color', 'gutenverse'),
             show: switcher.socialIconsHover === 'hover',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoverIconColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a:hover i, .${elementId}.border .guten-social-icon a:hover i, .${elementId}.custom .guten-social-icon a:hover i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.fill .guten-social-icon a:hover i, .${elementId}.border .guten-social-icon a:hover i, .${elementId}.custom .guten-social-icon a:hover i`,
+                    render: value => handleColor(value, 'color')
                 },
                 {
-                    'type': 'color',
-                    'id': 'hoverIconColor',
-                    'selector': `.${elementId}.border .guten-social-icon a:hover`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.border .guten-social-icon a:hover`,
+                    render: value => handleColor(value, 'border-color')
                 }
             ]
         },
@@ -147,17 +106,10 @@ export const contentColor = (props) => {
             label: __('Background Color', 'gutenverse'),
             show: switcher.socialIconsHover === 'hover',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoverBgColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -166,17 +118,10 @@ export const contentColor = (props) => {
             label: __('Text Color', 'gutenverse'),
             show: switcher.socialIconsHover === 'hover',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoverTextColor',
-                    'selector': `.${elementId} .guten-social-icon a:hover span`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-social-icon a:hover span`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },

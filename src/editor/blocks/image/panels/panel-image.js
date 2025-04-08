@@ -1,14 +1,13 @@
 import { __ } from '@wordpress/i18n';
-import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { BorderControl, BorderResponsiveControl, BoxShadowControl, HeadingControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-export const imagePanel = (props) => {
-    const {
-        elementId,
-        switcher,
-        setSwitcher
-    } = props;
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, IconRadioControl, ImageFilterControl, RangeControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { isEmptyString } from 'gutenverse-core/helper';
+import { allowRenderBoxShadow, handleAlignReverse, handleBorder, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
+
+export const imagePanel = ({ elementId }) => {
     const device = getDeviceType();
 
     return [
@@ -34,6 +33,12 @@ export const imagePanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-image-wrapper`,
+                    render: value => `justify-content: ${handleAlignReverse(value)};`
+                }
+            ]
         },
         {
             id: 'width',
@@ -60,20 +65,12 @@ export const imagePanel = (props) => {
                     step: 1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'width',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-image img`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
+                    selector: `.${elementId} img`,
+                    render: value => handleUnitPoint(value, 'width')
+                },
+            ],
         },
         {
             id: 'height',
@@ -94,126 +91,46 @@ export const imagePanel = (props) => {
                     step: 1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'height',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-image img`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            id: '__imageHover',
-            component: SwitchControl,
-            options: [
-                {
-                    value: 'normal',
-                    label: 'Normal'
+                    selector: `.editor-styles-wrapper .${elementId} img`,
+                    render: value => handleUnitPoint(value, 'height')
                 },
-                {
-                    value: 'hover',
-                    label: 'Hover'
-                }
             ],
-            onChange: ({ __imageHover }) => setSwitcher({ ...switcher, imageHover: __imageHover })
         },
         {
             id: 'opacity',
-            label: __('Opacity normal', 'gutenverse'),
-            show: !switcher.imageHover || switcher.imageHover === 'normal',
+            label: __('Opacity', 'gutenverse'),
             component: RangeControl,
             min: 0.1,
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'opacity',
-                    'selector': `.${elementId}.guten-image img`,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
+                    selector: `.${elementId} img`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
         },
         {
             id: 'imgFilter',
-            label: __('Image Filter Normal', 'gutenverse'),
-            show: !switcher.imageHover || switcher.imageHover === 'normal',
+            label: __('Image Filter', 'gutenverse'),
             component: ImageFilterControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imgFilter',
-                    'selector': `.${elementId}.guten-image img`,
-                    'properties': [
-                        {
-                            'name': 'filter',
-                            'valueType': 'function',
-                            'functionName': 'handleFilterImage',
-                        }
-                    ],
+                    selector: `.${elementId} img`,
+                    allowRender: props => props !== undefined,
+                    render: ({ brightness, contrast, blur, saturation, hue }) => {
+                        return `filter: 
+                            brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+                            contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+                            saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+                            blur( ${!isEmptyString(blur) ? blur : 0}px )
+                            hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+                    }
                 }
             ]
-        },
-        {
-            id: 'opacityHover',
-            label: __('Opacity Hover', 'gutenverse'),
-            show: switcher.imageHover === 'hover',
-            component: RangeControl,
-            min: 0.1,
-            max: 1,
-            step: 0.1,
-            isParseFloat: false,
-            liveStyle: [
-                {
-                    'type': 'plain',
-                    'id': 'opacityHover',
-                    'selector': `.${elementId}.guten-image:hover img`,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            id: 'imgFilterHover',
-            label: __('Image Filter Hover', 'gutenverse'),
-            show: switcher.imageHover === 'hover',
-            component: ImageFilterControl,
-            liveStyle: [
-                {
-                    'type': 'plain',
-                    'id': 'imgFilterHover',
-                    'selector': `.${elementId}.guten-image:hover img`,
-                    'properties': [
-                        {
-                            'name': 'filter',
-                            'valueType': 'function',
-                            'functionName': 'handleFilterImage',
-                        }
-                    ],
-                }
-            ]
-        },
-        {
-            id: 'hoverDivider',
-            component: HeadingControl,
-            label: __('', 'gutenverse'),
         },
         {
             id: 'imageFit',
@@ -238,17 +155,23 @@ export const imagePanel = (props) => {
                     value: 'contain'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} img`,
+                    render: value => value !== 'default' ? `object-fit: ${value};` : ''
+                }
+            ]
         },
         {
             id: 'imgBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'imgBorder',
-                    'selector': `.${elementId}.guten-image img`,
+                    selector: `.${elementId} img`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -258,11 +181,11 @@ export const imagePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'imgBorderResponsive',
-                    'selector': `.${elementId}.guten-image img`,
+                    selector: `.${elementId} img`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -270,17 +193,11 @@ export const imagePanel = (props) => {
             id: 'imgShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'imgShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-image img`,
+                    selector: `.${elementId} img`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         }

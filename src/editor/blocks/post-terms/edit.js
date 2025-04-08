@@ -1,27 +1,28 @@
 import { compose } from '@wordpress/compose';
+import { useEffect } from '@wordpress/element';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
-import { withPartialRender } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { isEmpty } from 'lodash';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostTermsBlock = compose(
-    withPartialRender
+    withPartialRender,
+    withCustomStyle(panelList),
+    withCopyElementToolbar()
 )((props) => {
     const {
         attributes,
-        clientId,
+        setElementRef,
         context: { postId, postType }
     } = props;
 
@@ -37,7 +38,7 @@ const PostTermsBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const elementRef = useRef();
+    const postTermRef = useRef();
 
     let type = taxonomy === 'post_tag' ? 'tags' : 'categories';
 
@@ -61,6 +62,12 @@ const PostTermsBlock = compose(
         [taxonomy]
     );
 
+    useEffect(() => {
+        if (postTermRef.current) {
+            setElementRef(postTermRef.current);
+        }
+    }, [postTermRef]);
+
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -70,26 +77,22 @@ const PostTermsBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: postTermRef
     });
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-
 
     const contentHTML = () => {
         switch (contentType) {
             case 'block':
-                if (!isEmpty(terms)) {
+                if( !isEmpty(terms) ){
                     return <div className={`post-term-block ${inlineDisplay ? 'inline-display' : ''}`}>
                         {
-                            terms.map((term) => {
-                                const name = term?.name;
+                            terms.map((term, index) => {
+                                const name = term?.name; 
                                 return linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()} className="term-item"><HtmlTag >{name}</HtmlTag></a> : <HtmlTag className="term-item">{name}</HtmlTag>;
                             })
                         }
                     </div>;
-                } else {
+                }else{
                     return <div className="post-term-block">
                         {
                             linkTo && linkTo !== 'none' ? <a href="#" className="term-item" onClick={e => e.preventDefault()}><HtmlTag >{'Post Terms'}</HtmlTag></a> : <HtmlTag className="term-item">{'Post Terms'}</HtmlTag>
@@ -107,10 +110,9 @@ const PostTermsBlock = compose(
                     }) : linkTo && linkTo !== 'none' ? <a href="#" onClick={e => e.preventDefault()}>{'Post Terms'}</a> : 'Post Terms'}
                 </HtmlTag>;
         }
-    };
+    }
 
     return <>
-        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Terms works?', 'gutenverse')}
@@ -126,7 +128,7 @@ const PostTermsBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div  {...blockProps}>
             {contentHTML()}
         </div>

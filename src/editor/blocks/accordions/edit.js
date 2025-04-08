@@ -1,25 +1,25 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withAnimationAdvance, withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps, InspectorControls, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
+import { PanelController } from 'gutenverse-core/controls';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
-import { Button, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { Button, ToolbarButton, ToolbarGroup} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { plus } from 'gutenverse-core/components';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 import { displayShortcut } from '@wordpress/keycodes';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
 
 const Accordions = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('accordions'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('accordions'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
@@ -37,7 +37,7 @@ const Accordions = compose(
     const {
         attributes,
         clientId,
-        setBlockRef
+        setElementRef
     } = props;
 
     const {
@@ -48,13 +48,15 @@ const Accordions = compose(
         titleTag,
     } = attributes;
 
-    const elementRef = useRef(null);
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+    const accordionRef = useRef();
+
+    useEffect(() => {
+        if (accordionRef.current) {
+            setElementRef(accordionRef.current);
+        }
+    }, [accordionRef]);
 
     useEffect(() => {
         getBlocks(clientId).map(child => {
@@ -67,12 +69,6 @@ const Accordions = compose(
         });
     }, [iconOpen, iconClosed, iconPosition, titleTag]);
 
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
-
     const innerBlocksProps = useInnerBlocksProps({
         className: classnames(
             'guten-accordions',
@@ -83,7 +79,7 @@ const Accordions = compose(
         allowedBlocks: ['gutenverse/accordion'],
         orientation: 'vertical',
         __experimentalAppenderTagName: 'div',
-        ref: elementRef
+        ref: accordionRef
     });
 
     const blockProps = useBlockProps({
@@ -94,7 +90,7 @@ const Accordions = compose(
             animationClass,
             displayClass
         ),
-        ref: elementRef
+        ref: accordionRef
     });
 
     const addChild = () => {
@@ -103,10 +99,9 @@ const Accordions = compose(
     };
 
     return <>
-        <CopyElementToolbar {...props} />
         <InspectorControls>
             <div className={'parent-button'}>
-                <Button primary={true} onClick={() => addChild()}>
+                <Button isPrimary onClick={() => addChild()}>
                     {__('Add Accordion Child', 'gutenverse')}
                 </Button>
             </div>
@@ -122,7 +117,7 @@ const Accordions = compose(
                 />
             </ToolbarGroup>
         </BlockControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

@@ -1,5 +1,7 @@
 import { __ } from '@wordpress/i18n';
+import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const jobPanel = (props) => {
     const {
@@ -16,24 +18,10 @@ export const jobPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'jobSpace',
-                    'responsive': true,
-                    'selector': `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
-                    'properties': [
-                        {
-                            'name': 'margin-bottom',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
+                    render: value => `margin-bottom: ${value}px;`
                 }
             ]
         },
@@ -41,18 +29,11 @@ export const jobPanel = (props) => {
             id: 'jobColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'jobColor',
-                    'selector': `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub,
-                    .${elementId} .profile-sub> a, #${elementId} .profile-sub> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub,
+                            .${elementId} .profile-sub> a, #${elementId} .profile-sub> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -60,27 +41,36 @@ export const jobPanel = (props) => {
             id: 'jobColorHover',
             label: __('Hover Text Color', 'gutenverse'),
             component: ColorControl,
+            style: [
+                {
+                    selector: `.${elementId}:hover .profile-sub, #${elementId}:hover .profile-sub, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub,
+                            .${elementId}:hover .profile-sub> a, #${elementId}:hover .profile-sub> a, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'jobTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub,
+                            .${elementId} .profile-sub> a, #${elementId} .profile-sub> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub> a`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'jobTextShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'textShadow',
-                    'id': 'jobTextShadow',
-                    'properties': [
-                        {
-                            'name': 'text-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
+                    selector: `.${elementId} .profile-sub, #${elementId} .profile-sub, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-sub`,
+                    allowRender: (value) => allowRenderTextShadow(value),
+                    render: value => handleTextShadow(value)
                 }
             ]
         }

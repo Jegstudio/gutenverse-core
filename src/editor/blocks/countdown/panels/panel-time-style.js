@@ -1,6 +1,7 @@
 
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, ColorControl, DimensionControl, HeadingControl, RangeControl, SelectControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const timeStylePanel = (props) => {
     const {
@@ -8,6 +9,7 @@ export const timeStylePanel = (props) => {
         oneForAll,
         switcher,
         setSwitcher,
+        labelPosition
     } = props;
 
     return [
@@ -19,7 +21,7 @@ export const timeStylePanel = (props) => {
         {
             id: '__tabTime',
             component: SwitchControl,
-            show: !oneForAll,
+            show: ! oneForAll,
             options: [
                 {
                     value: 'days',
@@ -50,17 +52,11 @@ export const timeStylePanel = (props) => {
             label: __('Digit color', 'gutenverse'),
             show: oneForAll,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'oneForAllDigitColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container .countdown-value`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container .countdown-value`,
+                    allowRender: () => oneForAll,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -69,24 +65,25 @@ export const timeStylePanel = (props) => {
             label: __('Digit Typography', 'gutenverse'),
             component: TypographyControl,
             show: oneForAll,
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container .countdown-value`,
+                    hasChild: true,
+                    allowRender: () => oneForAll,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'oneForAllLabelColor',
             label: __('Label color', 'gutenverse'),
             show: oneForAll,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'oneForAllLabelColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container .countdown-label`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container .countdown-label`,
+                    allowRender: () => oneForAll,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -95,23 +92,25 @@ export const timeStylePanel = (props) => {
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
             show: oneForAll,
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container .countdown-label`,
+                    hasChild: true,
+                    allowRender: () => oneForAll,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'daysDigitColor',
             label: __('Digit color', 'gutenverse'),
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'daysDigitColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-value`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-value`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -119,50 +118,53 @@ export const timeStylePanel = (props) => {
             id: 'daysDigitTypography',
             label: __('Digit Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-value`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'daysLabelColor',
             label: __('Label color', 'gutenverse'),
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'daysLabelColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-label`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-label`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleColor(value, 'color')
                 }
             ]
-
         },
         {
             id: 'daysLabelTypography',
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper .countdown-label`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'hoursDigitColor',
             label: __('Digit color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoursDigitColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-value`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-value`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -170,24 +172,26 @@ export const timeStylePanel = (props) => {
             id: 'hoursDigitTypography',
             label: __('Digit Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-value`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'hoursLabelColor',
             label: __('Label color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hoursLabelColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-label`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-label`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -195,24 +199,26 @@ export const timeStylePanel = (props) => {
             id: 'hoursLabelTypography',
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper .countdown-label`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'minutesDigitColor',
             label: __('Digit color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'minutesDigitColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-value`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-value`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -220,24 +226,26 @@ export const timeStylePanel = (props) => {
             id: 'minutesDigitTypography',
             label: __('Digit Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-value`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'minutesLabelColor',
             label: __('Label color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'minutesLabelColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-label`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-label`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -245,24 +253,26 @@ export const timeStylePanel = (props) => {
             id: 'minutesLabelTypography',
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper .countdown-label`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'secondsDigitColor',
             label: __('Digit color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'secondsDigitColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-value`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-value`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -270,24 +280,26 @@ export const timeStylePanel = (props) => {
             id: 'secondsDigitTypography',
             label: __('Digit Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-value`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'secondsLabelColor',
             label: __('Label color', 'gutenverse'),
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'secondsLabelColor',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-label`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-label`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -295,7 +307,15 @@ export const timeStylePanel = (props) => {
             id: 'secondsLabelTypography',
             label: __('Label Typography', 'gutenverse'),
             component: TypographyControl,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper .countdown-label`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'backgroundOptions',
@@ -320,16 +340,17 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'oneForAllBackground',
-            show: oneForAll && (switcher.oneForAllBackgroundTab === 'normal' || !switcher.oneForAllBackgroundTab),
+            show: oneForAll && ( switcher.oneForAllBackgroundTab === 'normal' || !switcher.oneForAllBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'oneForAllBackground',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container`,
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    hasChild: true,
+                    allowRender: () => oneForAll,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -340,18 +361,19 @@ export const timeStylePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'oneForAllBackgroundHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container:hover`,
+                    hasChild: true,
+                    allowRender: () => oneForAll,
+                    render: value => handleBackground(value)
+                },
             ]
         },
         {
             id: '__daysBackgroundTab',
             component: SwitchControl,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             options: [
                 {
                     value: 'normal',
@@ -366,38 +388,40 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'daysBackground',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ('normal' === switcher.daysBackgroundTab || !switcher.daysBackgroundTab),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( 'normal' === switcher.daysBackgroundTab || !switcher.daysBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'daysBackground',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleBackground(value)
                 }
             ]
         },
         {
             id: 'daysBackgroundHover',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && 'hover' === switcher.daysBackgroundTab,
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && 'hover' === switcher.daysBackgroundTab,
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'daysBackgroundHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleBackground(value)
+                },
             ]
         },
         {
             id: '__hoursBackgroundTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             options: [
                 {
                     value: 'normal',
@@ -412,38 +436,40 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'hoursBackground',
-            show: !oneForAll && switcher.tabTime === 'hours' && (switcher.hoursBackgroundTab === 'normal' || !switcher.hoursBackgroundTab),
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBackgroundTab === 'normal' || !switcher.hoursBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'hoursBackground',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleBackground(value)
                 }
             ]
         },
         {
             id: 'hoursBackgroundHover',
-            show: !oneForAll && switcher.tabTime === 'hours' && switcher.hoursBackgroundTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'hoursBackgroundHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleBackground(value)
+                },
             ]
         },
         {
             id: '__minutesBackgroundTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             options: [
                 {
                     value: 'normal',
@@ -458,38 +484,40 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'minutesBackground',
-            show: !oneForAll && switcher.tabTime === 'minutes' && (switcher.minutesBackgroundTab === 'normal' || !switcher.minutesBackgroundTab),
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBackgroundTab === 'normal' || !switcher.minutesBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'minutesBackground',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleBackground(value)
                 }
             ]
         },
         {
             id: 'minutesBackgroundHover',
-            show: !oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBackgroundTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'minutesBackgroundHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleBackground(value)
+                },
             ]
         },
         {
             id: '__secondsBackgroundTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             options: [
                 {
                     value: 'normal',
@@ -504,32 +532,34 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'secondsBackground',
-            show: !oneForAll && switcher.tabTime === 'seconds' && (switcher.secondsBackgroundTab === 'normal' || !switcher.secondsBackgroundTab),
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBackgroundTab === 'normal' || !switcher.secondsBackgroundTab ),
             component: BackgroundControl,
             label: __('Background', 'gutenverse'),
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'secondsBackground',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleBackground(value)
                 }
             ]
         },
         {
             id: 'secondsBackgroundHover',
-            show: !oneForAll && switcher.tabTime === 'seconds' && switcher.minutesBackgroundTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.minutesBackgroundTab === 'hover',
             label: __('Background Hover', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'secondsBackgroundHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
+                    hasChild: true,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleBackground(value)
+                },
             ]
         },
         {
@@ -555,15 +585,15 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'oneForAllBorder',
-            show: oneForAll && (switcher.oneForAllBorderTab === 'normal' || !switcher.oneForAllBorderTab),
+            show: oneForAll && ( switcher.oneForAllBorderTab === 'normal' || !switcher.oneForAllBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'oneForAllBorder',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container`,
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    allowRender: () => oneForAll,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -573,18 +603,18 @@ export const timeStylePanel = (props) => {
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'oneForAllBorderHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container:hover`,
+                    allowRender: () => oneForAll,
+                    render: value => handleBorderResponsive(value)
+                },
             ]
         },
         {
             id: '__daysBorderTab',
             component: SwitchControl,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             options: [
                 {
                     value: 'normal',
@@ -599,36 +629,36 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'daysBorder',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && (switcher.daysBorderTab === 'normal' || !switcher.daysBorderTab),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( switcher.daysBorderTab === 'normal' || !switcher.daysBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'daysBorder',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
             id: 'daysBorderHover',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBorderTab === 'hover',
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'daysBorderHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleBorderResponsive(value)
+                },
             ]
         },
         {
             id: '__hoursBorderTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             options: [
                 {
                     value: 'normal',
@@ -643,36 +673,36 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'hoursBorder',
-            show: !oneForAll && switcher.tabTime === 'hours' && (switcher.hoursBorderTab === 'normal' || !switcher.hoursBorderTab),
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBorderTab === 'normal' || !switcher.hoursBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'hoursBorder',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
             id: 'hoursBorderHover',
-            show: !oneForAll && switcher.tabTime === 'hours' && switcher.hoursBorderTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'hoursBorderHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleBorderResponsive(value)
+                },
             ]
         },
         {
             id: '__minutesBorderTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             options: [
                 {
                     value: 'normal',
@@ -687,36 +717,36 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'minutesBorder',
-            show: !oneForAll && switcher.tabTime === 'minutes' && (switcher.minutesBorderTab === 'normal' || !switcher.minutesBorderTab),
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBorderTab === 'normal' || !switcher.minutesBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'minutesBorder',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
             id: 'minutesBorderHover',
-            show: !oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBorderTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'minutesBorderHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleBorderResponsive(value)
+                },
             ]
         },
         {
             id: '__secondsBorderTab',
             component: SwitchControl,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             options: [
                 {
                     value: 'normal',
@@ -731,30 +761,30 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'secondsBorder',
-            show: !oneForAll && switcher.tabTime === 'seconds' && (switcher.secondsBorderTab === 'normal' || !switcher.secondsBorderTab),
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBorderTab === 'normal' || !switcher.secondsBorderTab ),
             component: BorderResponsiveControl,
             label: __('Border', 'gutenverse'),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'secondsBorder',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
         {
             id: 'secondsBorderHover',
-            show: !oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBorderTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBorderTab === 'hover',
             label: __('Border Hover', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'secondsBorderHover',
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleBorderResponsive(value)
+                },
             ]
         },
         {
@@ -780,20 +810,14 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'oneForAllBoxShadow',
-            show: oneForAll && (switcher.oneForAllBoxShadowTab === 'normal' || !switcher.oneForAllBoxShadowTab),
+            show: oneForAll && ( switcher.oneForAllBoxShadowTab === 'normal' || !switcher.oneForAllBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'oneForAllBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    allowRender: (value) => (oneForAll && allowRenderBoxShadow(value)),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -802,18 +826,12 @@ export const timeStylePanel = (props) => {
             show: oneForAll && switcher.oneForAllBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'oneForAllBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container:hover`,
+                    allowRender: (value) => oneForAll && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                },
             ]
         },
         {
@@ -834,40 +852,28 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'daysBoxShadow',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && (switcher.daysBoxShadowTab === 'normal' || !switcher.daysBoxShadowTab),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && ( switcher.daysBoxShadowTab === 'normal' || !switcher.daysBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'daysBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .days-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: (value) => (! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime)) && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
         {
             id: 'daysBoxShadowHover',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBoxShadowTab === 'hover',
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime) && switcher.daysBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'daysBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper:hover`,
+                    allowRender: (value) => (! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime)) && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                },
             ]
         },
         {
@@ -888,40 +894,28 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'hoursBoxShadow',
-            show: !oneForAll && switcher.tabTime === 'hours' && (switcher.hoursBoxShadowTab === 'normal' || !switcher.hoursBoxShadowTab),
+            show: ! oneForAll && switcher.tabTime === 'hours' && ( switcher.hoursBoxShadowTab === 'normal' || !switcher.hoursBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'hoursBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .hours-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'hours') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
         {
             id: 'hoursBoxShadowHover',
-            show: !oneForAll && switcher.tabTime === 'hours' && switcher.hoursBoxShadowTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'hours' && switcher.hoursBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'hoursBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper:hover`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'hours') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                },
             ]
         },
         {
@@ -942,40 +936,28 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'minutesBoxShadow',
-            show: !oneForAll && switcher.tabTime === 'minutes' && (switcher.minutesBoxShadowTab === 'normal' || !switcher.minutesBoxShadowTab),
+            show: ! oneForAll && switcher.tabTime === 'minutes' && ( switcher.minutesBoxShadowTab === 'normal' || !switcher.minutesBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'minutesBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .minutes-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'minutes') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
         {
             id: 'minutesBoxShadowHover',
-            show: !oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBoxShadowTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'minutes' && switcher.minutesBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'minutesBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper:hover`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'minutes') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                },
             ]
         },
         {
@@ -996,40 +978,28 @@ export const timeStylePanel = (props) => {
         },
         {
             id: 'secondsBoxShadow',
-            show: !oneForAll && switcher.tabTime === 'seconds' && (switcher.secondsBoxShadowTab === 'normal' || !switcher.secondsBoxShadowTab),
+            show: ! oneForAll && switcher.tabTime === 'seconds' && ( switcher.secondsBoxShadowTab === 'normal' || !switcher.secondsBoxShadowTab ),
             component: BoxShadowControl,
             label: __('Box Shadow', 'gutenverse'),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'secondsBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .seconds-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'seconds') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
         {
             id: 'secondsBoxShadowHover',
-            show: !oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBoxShadowTab === 'hover',
+            show: ! oneForAll && switcher.tabTime === 'seconds' && switcher.secondsBoxShadowTab === 'hover',
             label: __('Box Shadow Hover', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'secondsBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
-                }
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper:hover`,
+                    allowRender: (value) => (! oneForAll && switcher.tabTime === 'seconds') && allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                },
             ]
         },
         {
@@ -1062,7 +1032,13 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    allowRender: () => oneForAll,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'oneForAllMargin',
@@ -1089,11 +1065,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    allowRender: () => oneForAll,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'daysPadding',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             component: DimensionControl,
             label: __('Padding', 'gutenverse'),
             allowDeviceControl: true,
@@ -1116,11 +1098,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'daysMargin',
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             component: DimensionControl,
             label: __('Margin', 'gutenverse'),
             allowDeviceControl: true,
@@ -1143,11 +1131,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'hoursPadding',
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             component: DimensionControl,
             label: __('Padding', 'gutenverse'),
             allowDeviceControl: true,
@@ -1170,11 +1164,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'hoursMargin',
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             component: DimensionControl,
             label: __('Margin', 'gutenverse'),
             allowDeviceControl: true,
@@ -1197,11 +1197,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'minutesPadding',
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             component: DimensionControl,
             label: __('Padding', 'gutenverse'),
             allowDeviceControl: true,
@@ -1224,11 +1230,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'minutesMargin',
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             component: DimensionControl,
             label: __('Margin', 'gutenverse'),
             allowDeviceControl: true,
@@ -1251,11 +1263,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'secondsPadding',
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             component: DimensionControl,
             label: __('Padding', 'gutenverse'),
             allowDeviceControl: true,
@@ -1278,11 +1296,17 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'secondsMargin',
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             component: DimensionControl,
             label: __('Margin', 'gutenverse'),
             allowDeviceControl: true,
@@ -1305,7 +1329,13 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-
+            style: [
+                {
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'widthHeightOptions',
@@ -1339,18 +1369,11 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'oneForAllWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container`,
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    allowRender: () => oneForAll,
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1364,24 +1387,11 @@ export const timeStylePanel = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'oneForAllHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .time-container`,
+                    selector: `.guten-element.guten-countdown.${elementId} .time-container`,
+                    allowRender: () => oneForAll,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -1390,7 +1400,7 @@ export const timeStylePanel = (props) => {
             label: __('Set Width', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             units: {
                 px: {
                     text: 'px',
@@ -1412,18 +1422,11 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'daysWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1432,29 +1435,16 @@ export const timeStylePanel = (props) => {
             label: __('Set Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
             unit: 'px',
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'daysHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -1463,7 +1453,7 @@ export const timeStylePanel = (props) => {
             label: __('Set Width', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             units: {
                 px: {
                     text: 'px',
@@ -1485,18 +1475,11 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'hoursWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1505,29 +1488,16 @@ export const timeStylePanel = (props) => {
             label: __('Set Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'hours',
+            show: ! oneForAll && switcher.tabTime === 'hours',
             unit: 'px',
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'hoursHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -1536,7 +1506,7 @@ export const timeStylePanel = (props) => {
             label: __('Set Width', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             units: {
                 px: {
                     text: 'px',
@@ -1558,18 +1528,11 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'minutesWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1578,29 +1541,16 @@ export const timeStylePanel = (props) => {
             label: __('Set Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'minutes',
+            show: ! oneForAll && switcher.tabTime === 'minutes',
             unit: 'px',
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'minutesHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -1609,7 +1559,7 @@ export const timeStylePanel = (props) => {
             label: __('Set Width', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             units: {
                 px: {
                     text: 'px',
@@ -1631,18 +1581,11 @@ export const timeStylePanel = (props) => {
                     unit: 'rem'
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'secondsWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => handleUnitPoint(value, 'width')
                 }
             ]
         },
@@ -1651,29 +1594,16 @@ export const timeStylePanel = (props) => {
             label: __('Set Height', 'gutenverse'),
             component: RangeControl,
             allowDeviceControl: true,
-            show: !oneForAll && switcher.tabTime === 'seconds',
+            show: ! oneForAll && switcher.tabTime === 'seconds',
             unit: 'px',
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'secondsHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    selector: `.guten-element.guten-countdown.${elementId} .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -1696,7 +1626,19 @@ export const timeStylePanel = (props) => {
                 }
             ],
             show: oneForAll,
-
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    allowRender: () => oneForAll,
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `justify-content: ${value};`;
+                        }else{
+                            return `align-items: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'oneForAllHorizontalAlign',
@@ -1717,7 +1659,19 @@ export const timeStylePanel = (props) => {
                 }
             ],
             show: oneForAll,
-
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    allowRender: () => oneForAll,
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `align-items: ${value};`;
+                        }else{
+                            return `justify-content: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'daysVerticalAlign',
@@ -1737,8 +1691,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `justify-content: ${value};`;
+                        }else{
+                            return `align-items: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'daysHorizontalAlign',
@@ -1758,8 +1724,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
-
+            show: ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .days-wrapper`,
+                    allowRender: () => ! oneForAll && (switcher.tabTime === 'days' || !switcher.tabTime),
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `align-items: ${value};`;
+                        }else{
+                            return `justify-content: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'hoursVerticalAlign',
@@ -1779,8 +1757,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'hours',
-
+            show: ! oneForAll && switcher.tabTime === 'hours',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `justify-content: ${value};`;
+                        }else{
+                            return `align-items: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'hoursHorizontalAlign',
@@ -1800,8 +1790,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'hours',
-
+            show: ! oneForAll && switcher.tabTime === 'hours',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .hours-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'hours',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `align-items: ${value};`;
+                        }else{
+                            return `justify-content: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'minutesVerticalAlign',
@@ -1821,8 +1823,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'minutes',
-
+            show: ! oneForAll && switcher.tabTime === 'minutes',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `justify-content: ${value};`;
+                        }else{
+                            return `align-items: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'minutesHorizontalAlign',
@@ -1842,8 +1856,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'minutes',
-
+            show: ! oneForAll && switcher.tabTime === 'minutes',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .minutes-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'minutes',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `align-items: ${value};`;
+                        }else{
+                            return `justify-content: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'secondsVerticalAlign',
@@ -1863,8 +1889,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'seconds',
-
+            show: ! oneForAll && switcher.tabTime === 'seconds',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `justify-content: ${value};`;
+                        }else{
+                            return `align-items: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'secondsHorizontalAlign',
@@ -1884,8 +1922,20 @@ export const timeStylePanel = (props) => {
                     value: 'end',
                 }
             ],
-            show: !oneForAll && switcher.tabTime === 'seconds',
-
+            show: ! oneForAll && switcher.tabTime === 'seconds',
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .seconds-wrapper`,
+                    allowRender: () => ! oneForAll && switcher.tabTime === 'seconds',
+                    render: (value) => {
+                        if( labelPosition === 'top' || labelPosition === 'bottom' ){
+                            return `align-items: ${value};`;
+                        }else{
+                            return `justify-content: ${value};`;
+                        }
+                    }
+                }
+            ]
         },
     ];
 };

@@ -17,7 +17,6 @@
                 display: flex;
                 justify-content: space-between;
                 flex-direction: column;
-                overflow: hidden;
                 &:not(:last-child){
                     border-right: 1px solid rgba(255,255,255, .3);
                 }
@@ -25,8 +24,6 @@
                     display: flex;
                     transition: all .5s ease;
                     transform: translateY(100%);
-                    opacity: 0;
-                    padding: 10px 20px 10px 20px;
                     a{
                         display: flex;
                         flex-direction: row;
@@ -39,7 +36,6 @@
                     position: relative;
                     display: flex;
                     flex-direction: column;
-                    padding: 10px 20px 10px 20px;
                     &> * {
                         transition: all .5s;
                     }
@@ -63,7 +59,6 @@
                     }
                     .row-link-wrapper{
                         transform: translateY(0);
-                        opacity: 1;
                     }
                 }
             }

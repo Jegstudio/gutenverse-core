@@ -1,7 +1,11 @@
 
 import { __ } from '@wordpress/i18n';
-import { ColorControl, IconRadioControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { CheckboxControl, ColorControl, DimensionControl, IconControl, IconRadioControl, RangeControl, SelectControl, SelectSearchControl, SizeControl, SwitchControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
+import { addQueryArgs } from '@wordpress/url';
+import apiFetch from '@wordpress/api-fetch';
+import { isOnEditor } from 'gutenverse-core/helper';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const contentStylePanel = (props) => {
     const {
@@ -9,10 +13,11 @@ export const contentStylePanel = (props) => {
         layout,
         switcher,
         setSwitcher,
+        contentAlignment
     } = props;
 
     const optionAlign = () => {
-        if (layout === 'column') {
+        if( layout === 'column' ){
             return [
                 {
                     label: __('Align Left', 'gutenverse'),
@@ -29,8 +34,8 @@ export const contentStylePanel = (props) => {
                     value: 'flex-end',
                     icon: <AlignRight />,
                 },
-            ];
-        } else {
+            ]
+        }else{
             return [
                 {
                     label: __('Align Left', 'gutenverse'),
@@ -52,9 +57,9 @@ export const contentStylePanel = (props) => {
                     value: 'space-between',
                     icon: <AlignJustify />,
                 },
-            ];
+            ]
         }
-    };
+    }
     return [
         {
             id: 'contentAlignment',
@@ -62,37 +67,48 @@ export const contentStylePanel = (props) => {
             allowDeviceControl: true,
             component: IconRadioControl,
             options: optionAlign(),
+            style: [
+                {
+                    selector: `.${elementId} .taxonomy-list-wrapper`,
+                    allowRender: () => layout === 'column' && contentAlignment !== 'space-between',
+                    render: value => `align-items: ${value}; `
+                },
+                {
+                    selector: `.${elementId} .taxonomy-list-wrapper`,
+                    allowRender: () => layout === 'row',
+                    render: value => `justify-content: ${value}; `
+                },
+            ]
         },
         {
             id: 'contentSpacing',
             label: __('Content Spacing', 'gutenverse'),
             component: SizeControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'contentSpacing',
-                    'responsive': true,
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
-                    'properties': [
-                        {
-                            'name': 'padding',
-                            'valueType': 'pattern',
-                            'pattern': layout === 'column' ? 'calc({value}/2) 0' : '0 calc({value}/2)',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                }
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    allowRender: () => layout === 'column',
+                    render: value => `padding: calc(${value['point']}${value['unit']}/2) 0;`
+                },
+                {
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item`,
+                    allowRender: () => layout === 'row',
+                    render: value => `padding: 0 calc(${value['point']}${value['unit']}/2);`
+                },
             ]
         },
         {
             id: 'contentTypography',
             label: __('Content Typography', 'gutenverse'),
-            component: TypographyControl
+            component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a .taxonomy-list-content`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: '__contentSwitch',
@@ -114,17 +130,10 @@ export const contentStylePanel = (props) => {
             label: __('Content Color', 'gutenverse'),
             component: ColorControl,
             show: !switcher.contentSwitch || switcher.contentSwitch === 'normal',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'contentColor',
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -133,17 +142,10 @@ export const contentStylePanel = (props) => {
             label: __('Content Color', 'gutenverse'),
             component: ColorControl,
             show: switcher.contentSwitch === 'hover',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'contentColorHover',
-                    'selector': `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .taxonomy-list-wrapper .taxonomy-list-item a:hover`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },

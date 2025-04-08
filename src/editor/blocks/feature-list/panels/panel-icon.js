@@ -1,13 +1,12 @@
 import { __ } from '@wordpress/i18n';
-import { BackgroundControl, BorderResponsiveControl, ColorControl, RangeControl, RepeaterControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
-import { featureListGetBlockStyle } from '../styles/block-style';
+import { AlertControl, BackgroundControl, BorderResponsiveControl, ColorControl, RangeControl, RepeaterControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { handleBackground, handleBorderResponsive, handleColor } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher,
-        featureList
+        setSwitcher
     } = props;
     return [
         {
@@ -17,53 +16,15 @@ export const iconPanel = (props) => {
             min: 10,
             max: 500,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconWrapperSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        },
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon-wrapper .icon`,
+                    render: value => `width : ${value}px; height : ${value}px;`
                 },
                 {
-                    'type': 'plain',
-                    'id': 'iconWrapperSize',
-                    'selector': `.${elementId}.guten-feature-list`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': '--icon-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
-                }
+                    selector: `.${elementId}.guten-feature-list`,
+                    render: value => `--icon-size: ${value}px;`
+                },
             ]
         },
         {
@@ -94,18 +55,10 @@ export const iconPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconContentSpacing',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item`,
-                    'properties': [
-                        {
-                            'name': 'gap',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item`,
+                    render: value => `gap:${value['point']}${value['unit']};`
                 }
             ]
         },
@@ -130,30 +83,14 @@ export const iconPanel = (props) => {
             label: __('Icon Size', 'gutenverse'),
             show: (switcher.styleSwitch === 'all' || !switcher.styleSwitch),
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
+                    render: value => `font-size:${value['point']}${value['unit']};`
                 },
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon img`,
+                    render: value => `width:${value['point']}${value['unit']};`
                 }
             ]
         },
@@ -178,17 +115,10 @@ export const iconPanel = (props) => {
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             show: (switcher.styleSwitch === 'all' || !switcher.styleSwitch) && (switcher.allStyleSwitch === 'normal' || !switcher.allStyleSwitch),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -197,17 +127,10 @@ export const iconPanel = (props) => {
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             show: (switcher.styleSwitch === 'all' || !switcher.styleSwitch) && switcher.allStyleSwitch === 'hover',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColorHover',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -215,13 +138,13 @@ export const iconPanel = (props) => {
             id: 'iconBackground',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: ['default', 'gradient'],
+            options: [ 'default', 'gradient' ],
             show: (switcher.styleSwitch === 'all' || !switcher.styleSwitch) && (switcher.allStyleSwitch === 'normal' || !switcher.allStyleSwitch),
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'iconBackground',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon`,
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -229,13 +152,13 @@ export const iconPanel = (props) => {
             id: 'iconBackgroundHover',
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: ['default', 'gradient'],
+            options: [ 'default', 'gradient' ],
             show: (switcher.styleSwitch === 'all' || !switcher.styleSwitch) && switcher.allStyleSwitch === 'hover',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'iconBackgroundHover',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -245,11 +168,10 @@ export const iconPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'iconBorder',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon`,
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item .icon`,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -259,11 +181,10 @@ export const iconPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'iconBorderHover',
-                    'selector': `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
+                    selector: `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:hover .icon`,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -281,6 +202,16 @@ export const iconPanel = (props) => {
                     component: SizeControl,
                     label: __('Icon Size', 'gutenverse'),
                     allowDeviceControl: true,
+                    style: [
+                        {
+                            selector: (index) =>  `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}) .icon i`,
+                            render: value => `font-size:${value['point']}${value['unit']};`
+                        },
+                        {
+                            selector: (index) => `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}) .icon img`,
+                            render: value => `width:${value['point']}${value['unit']};`
+                        }
+                    ]
                 },
                 {
                     id: '__singleStyleSwitch',
@@ -302,29 +233,52 @@ export const iconPanel = (props) => {
                     label: __('Icon Color', 'gutenverse'),
                     component: ColorControl,
                     show: () => switcher.singleStyleSwitch === 'normal' || !switcher.singleStyleSwitch,
+                    style: [
+                        {
+                            selector: (index) => `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}) .icon i`,
+                            render: value => handleColor(value, 'color')
+                        }
+                    ]
                 },
                 {
                     id: 'iconColorHover',
                     label: __('Icon Color', 'gutenverse'),
                     component: ColorControl,
                     show: () => switcher.singleStyleSwitch === 'hover',
-
+                    style: [
+                        {
+                            selector: (index) =>  `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}):hover .icon i`,
+                            render: value => handleColor(value, 'color')
+                        }
+                    ]
                 },
                 {
                     id: 'iconBackground',
                     component: BackgroundControl,
                     allowDeviceControl: true,
-                    options: ['default', 'gradient'],
+                    options: [ 'default', 'gradient' ],
                     show: () => switcher.singleStyleSwitch === 'normal' || !switcher.singleStyleSwitch,
-
+                    style: [
+                        {
+                            selector: (index) => `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}) .icon`,
+                            hasChild: true,
+                            render: value => handleBackground(value)
+                        }
+                    ]
                 },
                 {
                     id: 'iconBackgroundHover',
                     component: BackgroundControl,
                     allowDeviceControl: true,
-                    options: ['default', 'gradient'],
+                    options: [ 'default', 'gradient' ],
                     show: () => switcher.singleStyleSwitch === 'hover',
-
+                    style: [
+                        {
+                            selector: (index) =>  `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}):hover .icon`,
+                            hasChild: true,
+                            render: value => handleBackground(value)
+                        }
+                    ]
                 },
                 {
                     id: 'iconBorder',
@@ -332,7 +286,12 @@ export const iconPanel = (props) => {
                     label: __('Border', 'gutenverse'),
                     component: BorderResponsiveControl,
                     allowDeviceControl: true,
-
+                    style: [
+                        {
+                            selector: (index) => `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}) .icon`,
+                            render: value => handleBorderResponsive(value)
+                        }
+                    ]
                 },
                 {
                     id: 'iconBorderHover',
@@ -340,16 +299,14 @@ export const iconPanel = (props) => {
                     label: __('Border', 'gutenverse'),
                     component: BorderResponsiveControl,
                     allowDeviceControl: true,
-
+                    style: [
+                        {
+                            selector: (index) =>  `.${elementId}.guten-feature-list .feature-list-wrapper .feature-list-item:nth-child(${index+1}):hover .icon`,
+                            render: value => handleBorderResponsive(value)
+                        }
+                    ]
                 },
             ],
-            liveStyle : [
-                {
-                    'type': 'repeater',
-                    'id': 'featureList',
-                    'repeaterOpt': featureListGetBlockStyle(elementId, featureList)
-                }
-            ]
         },
     ];
 };

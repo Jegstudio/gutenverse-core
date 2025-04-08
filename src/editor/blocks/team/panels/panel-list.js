@@ -6,8 +6,13 @@ import { jobPanel } from './panel-job';
 import { descPanel } from './panel-desc';
 import { contentPanel } from './panel-content';
 import { imagePanel } from './panel-image';
+import { profileBackgroundPanel } from './panel-profile-background';
+import { profileBorderPanel } from './panel-profile-border';
+import { imageBorderPanel } from './panel-image-border';
+import { overlayPanel } from './panel-content-overlay';
 import { hoverPanel } from './panel-content-hover';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
+import { imageBackgroundPanel } from './panel-image-background';
 
 export const panelList = () => {
     return [
@@ -51,6 +56,12 @@ export const panelList = () => {
             tabRole: TabStyle
         },
         {
+            title: __('Overlay Profile', 'gutenverse'),
+            initialOpen: false,
+            panelArray: overlayPanel,
+            tabRole: TabStyle
+        },
+        {
             title: __('Name Typography', 'gutenverse'),
             initialOpen: false,
             panelArray: namePanel,
@@ -72,6 +83,41 @@ export const panelList = () => {
             title: __('Social Hover', 'gutenverse'),
             initialOpen: false,
             panelArray: hoverPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Profile Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => profileBackgroundPanel({
+                ...props,
+                styleId: 'team-profile-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient'],
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Profile Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => profileBorderPanel({
+                ...props,
+                styleId: 'team-profile-border',
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Image Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => imageBorderPanel({
+                ...props,
+                styleId: 'team-image-border',
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Image Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: imageBackgroundPanel,
             tabRole: TabStyle
         },
         {
@@ -121,6 +167,7 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
+        
         {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,

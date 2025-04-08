@@ -13,17 +13,12 @@ export const replyPanel = (props) => {
             label: __('Reply Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'replyBgColor',
-                'selector': `.${elementId} .commentlist .comment .children`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment .children`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'replyMargin',
@@ -49,6 +44,12 @@ export const replyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment .children`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'replyPadding',
@@ -74,17 +75,24 @@ export const replyPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment .children`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'replyBorder',
             label: __('Reply Border', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'replyBorder',
-                'selector': `.${elementId} .commentlist .comment .children`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment .children`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
     ];
 };

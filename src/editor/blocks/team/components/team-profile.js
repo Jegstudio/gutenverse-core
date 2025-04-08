@@ -12,6 +12,9 @@ const TeamProfile = (props) => {
         setPanelState,
         frontEnd,
         clientId,
+        nameRef,
+        jobRef,
+        descRef,
     } = props;
     const {
         profileType,
@@ -44,8 +47,17 @@ const TeamProfile = (props) => {
                     value={data}
                 />;
             }else{
+                let ref = null;
+                if(identifier === 'name'){
+                    ref = nameRef;
+                }else if(identifier === 'job'){
+                    ref = jobRef;
+                }else if(identifier === 'description'){
+                    ref = descRef;
+                }
                 return(
                     <RichTextComponent
+                        ref={ref}
                         classNames={classnames}
                         tagName={tag}
                         onChange={value => setAttributes({ [identifier]: value })}
@@ -74,8 +86,15 @@ const TeamProfile = (props) => {
                     value={data}
                 />;
             }else{
+                let ref = null;
+                if(identifier === 'name'){
+                    ref = nameRef;
+                }else if(identifier === 'job'){
+                    ref = jobRef;
+                }
                 return(
                     <RichTextComponent
+                        ref={ref}
                         classNames={classnames}
                         tagName={tag}
                         onChange={value => setAttributes({ [identifier]: value })}

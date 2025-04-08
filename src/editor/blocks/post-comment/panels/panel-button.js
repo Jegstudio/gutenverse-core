@@ -17,6 +17,13 @@ export const buttonPanel = (props) => {
             id: 'typographyButton',
             label: __('Button Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: '__buttonHoverControl',
@@ -38,34 +45,24 @@ export const buttonPanel = (props) => {
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             label: __('Button Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorButton',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            } 
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'bgcolorButton',
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             label: __('Button Background', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'bgcolorButton',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'bggradientButton',
@@ -73,22 +70,26 @@ export const buttonPanel = (props) => {
             show: !switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal',
             allowDeviceControl: true,
             options: ['gradient'],
-            liveStyle: {
-                'type': 'background',
-                'id': 'bggradientButton',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'borderButton',
             show: (!switcher.buttonHoverControl || switcher.buttonHoverControl === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'id': 'borderButton',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
         },
         {
             id: 'borderButtonResponsive',
@@ -96,11 +97,13 @@ export const buttonPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'borderButtonResponsive',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
         {
             id: 'marginButton',
@@ -123,6 +126,12 @@ export const buttonPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
         },
         {
             id: 'paddingButton',
@@ -145,40 +154,36 @@ export const buttonPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'colorButtonHover',
             show: switcher.buttonHoverControl === 'hover',
             label: __('Button Color Hover', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'colorButtonHover',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'bgcolorButtonHover',
             show: switcher.buttonHoverControl === 'hover',
             label: __('Button Background Hover', 'gutenverse'),
             component: ColorControl,
-            liveStyle: {
-                'type': 'color',
-                'id': 'bgcolorButtonHover',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'bggradientButtonHover',
@@ -186,22 +191,26 @@ export const buttonPanel = (props) => {
             show: switcher.buttonHoverControl === 'hover',
             allowDeviceControl: true,
             options: ['gradient'],
-            liveStyle: {
-                'type': 'background',
-                'id': 'bggradientButtonHover',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
+                }
+            ]
         },
         {
             id: 'borderButtonHover',
             show: switcher.buttonHoverControl === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'id': 'borderButtonHover',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
         },
         {
             id: 'borderButtonHoverResponsive',
@@ -209,11 +218,13 @@ export const buttonPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'borderButtonHoverResponsive',
-                'selector': `.${elementId}.guten-post-comment input[type=submit]:hover`,
-            }
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
         {
             id: 'marginButtonHover',
@@ -236,6 +247,12 @@ export const buttonPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
         },
         {
             id: 'paddingButtonHover',
@@ -258,6 +275,12 @@ export const buttonPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-post-comment input[type=submit]:hover`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
     ];
 };

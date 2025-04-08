@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const arrowPanel = (props) => {
     const {
@@ -21,24 +23,10 @@ export const arrowPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'arrowFontSize',
-                    'responsive': true,
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => `font-size: ${value}px;`
                 }
             ]
         },
@@ -67,18 +55,10 @@ export const arrowPanel = (props) => {
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'arrowColor',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -88,18 +68,10 @@ export const arrowPanel = (props) => {
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'arrowBgColor',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -124,6 +96,12 @@ export const arrowPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'arrowMargin',
@@ -146,6 +124,12 @@ export const arrowPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'arrowOpacity',
@@ -156,19 +140,10 @@ export const arrowPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'arrowOpacity',
-                    'responsive': true,
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'function',
-                            'functionName': 'handleOpacity'
-                        }
-                    ]
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    render: value => `opacity: calc(${value}/100);`
                 }
             ]
         },
@@ -177,11 +152,11 @@ export const arrowPanel = (props) => {
             show: (!switcher.arrowHover || switcher.arrowHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'arrowBorder',
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -191,11 +166,11 @@ export const arrowPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'arrowBorderResponsive',
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -204,17 +179,11 @@ export const arrowPanel = (props) => {
             show: !switcher.arrowHover || switcher.arrowHover === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'arrowBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-']`,
+                    selector: `.${elementId} div[class*='swiper-button-']`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -224,6 +193,12 @@ export const arrowPanel = (props) => {
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover `,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'arrowHoverBgColor',
@@ -231,6 +206,12 @@ export const arrowPanel = (props) => {
             label: __('Background Hover Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'arrowHoverPadding',
@@ -253,6 +234,12 @@ export const arrowPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'arrowHoverMargin',
@@ -275,6 +262,12 @@ export const arrowPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'arrowHoverOpacity',
@@ -285,12 +278,25 @@ export const arrowPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    render: value => `opacity: calc(${value}/100);`
+                }
+            ]
         },
         {
             id: 'arrowBorderHover',
             show: switcher.arrowHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
         },
         {
             id: 'arrowBorderHoverResponsive',
@@ -298,12 +304,26 @@ export const arrowPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
         {
             id: 'arrowBoxShadowHover',
             show: switcher.arrowHover === 'hover',
             label: __('Hover Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
+            style: [
+                {
+                    selector: `.${elementId} div[class*='swiper-button-']:not(.swiper-button-disabled):hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
         },
         {
             id: 'arrowDisabledColor',
@@ -311,18 +331,10 @@ export const arrowPanel = (props) => {
             label: __('Disabled Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'arrowDisabledColor',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-'].swiper-button-disabled`,
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -332,18 +344,10 @@ export const arrowPanel = (props) => {
             label: __('Background Disabled Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'arrowDisabledBgColor',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-'].swiper-button-disabled`,
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -367,7 +371,13 @@ export const arrowPanel = (props) => {
                     text: '%',
                     unit: '%'
                 },
-            }
+            },
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'arrowDisabledMargin',
@@ -390,6 +400,12 @@ export const arrowPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'arrowDisabledOpacity',
@@ -400,19 +416,10 @@ export const arrowPanel = (props) => {
             max: 100,
             step: 1,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'arrowDisabledOpacity',
-                    'responsive': true,
-                    'selector': `.${elementId} div[class*='swiper-button-'].swiper-button-disabled`,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'function',
-                            'functionName': 'handleOpacity'
-                        }
-                    ]
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => `opacity: calc(${value}/100);`
                 }
             ]
         },
@@ -422,11 +429,10 @@ export const arrowPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'arrowBorderHoverResponsive',
-                    'selector': `.${elementId} div[class*='swiper-button-'].swiper-button-disabled`,
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -435,17 +441,11 @@ export const arrowPanel = (props) => {
             show: switcher.arrowHover === 'disabled',
             label: __('Disabled Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'arrowBoxShadowDisabled',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} div[class*='swiper-button-'].swiper-button-disabled`,
+                    selector: `.${elementId} .swiper-button-disabled`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         }

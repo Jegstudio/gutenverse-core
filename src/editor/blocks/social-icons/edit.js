@@ -1,25 +1,29 @@
 import { compose } from '@wordpress/compose';
-import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+
+import {
+    useInnerBlocksProps, useBlockProps,
+} from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { panelList } from './panels/panel-list';
-import { BlockPanelController } from 'gutenverse-core/controls';
-import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
+import { PanelController } from 'gutenverse-core/controls';
+import { useRef } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 
 const SocialIcons = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('social-icons'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('social-icons'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
         attributes,
-        clientId,
-        setBlockRef,
+        setElementRef
     } = props;
 
     const {
@@ -32,11 +36,7 @@ const SocialIcons = compose(
 
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
-    const elementRef = useRef(null);
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
+    const socialIconsRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -52,7 +52,7 @@ const SocialIcons = compose(
             {
                 'show-text': showText,
             }),
-        ref: elementRef
+        ref: socialIconsRef
     });
 
     const innerBlocksProps = useInnerBlocksProps(blockProps, {
@@ -63,14 +63,13 @@ const SocialIcons = compose(
     });
 
     useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
+        if (socialIconsRef.current) {
+            setElementRef(socialIconsRef.current);
         }
-    }, [elementRef]);
+    }, [socialIconsRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController panelList={panelList} {...props} />
         <div {...innerBlocksProps} />
     </>;
 });

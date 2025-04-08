@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const itemStylePanel = ({ elementId }) => {
     const device = getDeviceType();
@@ -26,6 +28,12 @@ export const itemStylePanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'itemMargin',
@@ -47,17 +55,23 @@ export const itemStylePanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'itemBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'itemBorder',
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -67,11 +81,11 @@ export const itemStylePanel = ({ elementId }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'itemBorderResponsive',
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -79,17 +93,11 @@ export const itemStylePanel = ({ elementId }) => {
             id: 'itemBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'itemBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -98,11 +106,11 @@ export const itemStylePanel = ({ elementId }) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'itemBackground',
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .grid-item`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         }

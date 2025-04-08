@@ -18,24 +18,10 @@ export const panelFloating = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'floatMarginTop',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box.style-floating .inner-container .image-box-body .body-inner`,
-                    'properties': [
-                        {
-                            'name': 'margin-top',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
+                    render: value => `margin-top: ${value}px;`
                 }
             ]
         },
@@ -48,24 +34,10 @@ export const panelFloating = props => {
             step: 1,
             allowDeviceControl: true,
             unit: '%',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'floatWidth',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box.style-floating .inner-container .image-box-body`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body`,
+                    render: value => `width: ${value}%;`
                 }
             ]
         },
@@ -82,7 +54,7 @@ export const panelFloating = props => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __imageBoxFloat }) => setSwitcher({ ...switcher, imageBoxFloat: __imageBoxFloat })
+            onChange: ({__imageBoxFloat}) => setSwitcher({...switcher, imageBoxFloat: __imageBoxFloat})
         },
         {
             id: 'floatHeight',
@@ -94,24 +66,10 @@ export const panelFloating = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'floatHeight',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box.style-floating .inner-container .image-box-body .body-inner`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.style-floating .inner-container .image-box-body .body-inner`,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -125,24 +83,10 @@ export const panelFloating = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'floatHeightHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box.style-floating:hover .inner-container .image-box-body .body-inner`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId}.style-floating:hover .inner-container .image-box-body .body-inner`,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },

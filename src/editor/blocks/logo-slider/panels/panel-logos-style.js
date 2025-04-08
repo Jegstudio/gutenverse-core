@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const logosStylePanel = (props) => {
     const {
@@ -8,6 +10,9 @@ export const logosStylePanel = (props) => {
         imageFixHeight,
         switcher,
         setSwitcher,
+        removeStyle,
+        imageHeight,
+        imageFit,
     } = props;
 
     const device = getDeviceType();
@@ -17,6 +22,26 @@ export const logosStylePanel = (props) => {
             id: 'imageFixHeight',
             label: __('Fix Height', 'gutenverse'),
             component: CheckboxControl,
+            onChange: values => {
+                if (!values.imageFixHeight) {
+                    removeStyle('imageHeight-style-0');
+                    removeStyle('imageFit-style-0');
+                }
+            },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+                    allowRender: (value) => imageHeight !== undefined && value,
+                    render: () => {
+                        return `height: ${imageHeight[device]}px;`;
+                    }
+                },
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+                    allowRender: (value) => imageFit !== undefined && value,
+                    render: () => `object-fit: ${imageFit[device]};`
+                }
+            ]
         },
         {
             id: 'imageHeight',
@@ -28,24 +53,11 @@ export const logosStylePanel = (props) => {
             step: 1,
             unit: 'px',
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+                    allowRender: () => imageFixHeight,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -77,6 +89,13 @@ export const logosStylePanel = (props) => {
                 },
             ],
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image img`,
+                    allowRender: () => imageFixHeight,
+                    render: value => `object-fit: ${value};`
+                }
+            ]
         },
         {
             id: '__imageHover',
@@ -114,6 +133,12 @@ export const logosStylePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'imageMargin',
@@ -136,6 +161,12 @@ export const logosStylePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'transitionDuration',
@@ -146,6 +177,13 @@ export const logosStylePanel = (props) => {
             max: 10,
             step: 0.1,
             allowDeviceControl: true,
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image, .${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    allowRender: value => value,
+                    render: value => `transition-duration: ${value}s;`
+                }
+            ]
         },
         {
             id: 'imageHoverPadding',
@@ -168,6 +206,12 @@ export const logosStylePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'imageHoverMargin',
@@ -190,6 +234,12 @@ export const logosStylePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'logoBackgroundNormal',
@@ -197,11 +247,11 @@ export const logosStylePanel = (props) => {
             label: __('Logo Background Normal', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'logoBackgroundNormal',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -211,11 +261,11 @@ export const logosStylePanel = (props) => {
             label: __('Logo Background Hover', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'logoBackgroundHover',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -224,11 +274,11 @@ export const logosStylePanel = (props) => {
             show: (!switcher.imageHover || switcher.imageHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'imageBorder',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -238,11 +288,11 @@ export const logosStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'imageBorderResponsive',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -251,17 +301,11 @@ export const logosStylePanel = (props) => {
             show: !switcher.imageHover || switcher.imageHover === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'imageBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -273,30 +317,23 @@ export const logosStylePanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'opacity',
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
-                }
-            ]
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .main-image`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
         },
         {
             id: 'imageBorderHover',
             show: switcher.imageHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'imageBorderHover',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -306,11 +343,11 @@ export const logosStylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'imageBorderHoverResponsive',
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -319,17 +356,11 @@ export const logosStylePanel = (props) => {
             show: switcher.imageHover === 'hover',
             label: __('Hover Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'imageBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image .hover-image`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -342,19 +373,12 @@ export const logosStylePanel = (props) => {
             max: 1,
             step: 0.1,
             isParseFloat: false,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'hoverOpacity',
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-client-logo .swiper-container .image-list:hover .content-image .hover-image`,
-                }
-            ]
+                    selector: `.${elementId}.guten-client-logo .swiper-container .image-list:hover .content-image .hover-image`,
+                    render: value => `opacity: ${value};`
+                },
+            ],
         },
     ];
 };

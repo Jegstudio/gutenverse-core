@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { ColorControl } from 'gutenverse-core/controls';
 import { TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const contentStyle = (props) => {
     const {
@@ -16,28 +17,15 @@ export const contentStyle = (props) => {
             unit: 'px',
             min: 0,
             max: 100,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'borderWidth',
-                    'selector': `.guten-tabs.${elementId} .tab-heading-item, 
-                    .guten-tabs.${elementId} .tab-heading-item:after,
-                    .guten-tabs.${elementId} .tab-heading-item:before,
-                    .guten-tabs.${elementId} .tab-body,
-                    .guten-tabs.${elementId} .tab-heading-mobile,
-                    .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
-                    'properties': [
-                        {
-                            'name': 'border-width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-heading-item, 
+                                .guten-tabs.${elementId} .tab-heading-item:after,
+                                .guten-tabs.${elementId} .tab-heading-item:before,
+                                .guten-tabs.${elementId} .tab-body,
+                                .guten-tabs.${elementId} .tab-heading-mobile,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
+                    render: value => `border-width: ${value}px;`
                 }
             ]
         },
@@ -45,23 +33,16 @@ export const contentStyle = (props) => {
             id: 'borderColor',
             label: __('Border Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'borderColor',
-                    'selector': `.guten-tabs.${elementId} .tab-heading-item.active,
-                    .guten-tabs.${elementId}.vertical .tab-heading-item.active, 
-                    .guten-tabs.${elementId} .tab-heading-item.active:after,
-                    .guten-tabs.${elementId} .tab-heading-item.active:before,
-                    .guten-tabs.${elementId} .tab-body, 
-                    .guten-tabs.${elementId} .tab-heading-mobile,
-                    .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-heading-item.active,
+                                .guten-tabs.${elementId}.vertical .tab-heading-item.active, 
+                                .guten-tabs.${elementId} .tab-heading-item.active:after,
+                                .guten-tabs.${elementId} .tab-heading-item.active:before,
+                                .guten-tabs.${elementId} .tab-body, 
+                                .guten-tabs.${elementId} .tab-heading-mobile,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
+                    render: value => handleColor(value, 'border-color')
                 }
             ]
         },
@@ -69,20 +50,13 @@ export const contentStyle = (props) => {
             id: 'backgroundColor',
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'backgroundColor',
-                    'selector': `.guten-tabs.${elementId} .tab-heading-item.active,
-                    .guten-tabs.${elementId} .tab-body, 
-                    .guten-tabs.${elementId} .tab-heading-mobile, 
-                    .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-heading-item.active,
+                                .guten-tabs.${elementId} .tab-body, 
+                                .guten-tabs.${elementId} .tab-heading-mobile, 
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-option`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -90,18 +64,11 @@ export const contentStyle = (props) => {
             id: 'titleColor',
             label: __('Title Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColor',
-                    'selector': `.guten-tabs.${elementId} .tab-heading-item, 
-                    .guten-tabs.${elementId} .tab-heading-item svg`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-heading-item, 
+                                .guten-tabs.${elementId} .tab-heading-item svg`,
+                    render: value => `${handleColor(value, 'color')}`
                 }
             ]
         },
@@ -109,20 +76,16 @@ export const contentStyle = (props) => {
             id: 'titleActiveColor',
             label: __('Title Active Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleActiveColor',
-                    'selector': `.guten-tabs.${elementId} .tab-heading-item.active, 
-                    .guten-tabs.${elementId} .tab-heading-item.active svg,
-                    .guten-tabs.${elementId} .tab-heading-mobile .tab-title,
-                    .guten-tabs.${elementId} .tab-heading-mobile .tab-option .tab-option-item`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-heading-item.active, 
+                                .guten-tabs.${elementId} .tab-heading-item.active svg,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-title,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-option .tab-option-item`,
+                    frontendSelector: `.guten-tabs.${elementId} .tab-heading-item.active,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-title,
+                                .guten-tabs.${elementId} .tab-heading-mobile .tab-option .tab-option-item`,
+                    render: value => `${handleColor(value, 'color')}`
                 }
             ]
         },
@@ -130,22 +93,22 @@ export const contentStyle = (props) => {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.guten-tabs.${elementId} .tab-heading-item, .guten-tabs.${elementId} .tab-heading-mobile`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'contentColor',
             label: __('Content Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'contentColor',
-                    'selector': `.guten-tabs.${elementId} .tab-body`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.guten-tabs.${elementId} .tab-body`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -153,6 +116,15 @@ export const contentStyle = (props) => {
             id: 'contentTypography',
             label: __('Content Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.guten-tabs.${elementId} .tab-body, 
+                        .guten-tabs.${elementId} .tab-body p, 
+                        .guten-tabs.${elementId} .tab-body a`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'contentPadding',
@@ -174,6 +146,12 @@ export const contentStyle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .tab-body`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
     ];
 };

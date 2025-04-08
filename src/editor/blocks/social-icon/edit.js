@@ -1,9 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { useCallback, useState } from '@wordpress/element';
 import { compose } from '@wordpress/compose';
-import { BlockControls, InspectorControls, RichText, useBlockProps } from '@wordpress/block-editor';
+import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
+import {
+    BlockControls, InspectorControls,
+    RichText,
+    useBlockProps,
+} from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { createPortal } from 'react-dom';
 import { IconLibrary } from 'gutenverse-core/controls';
@@ -14,32 +19,32 @@ import { URLToolbar } from 'gutenverse-core/toolbars';
 import { LogoCircleColor24SVG } from 'gutenverse-core/icons';
 import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
-import { withAnimationAdvanceV2, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { SelectParent } from 'gutenverse-core/components';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { applyFilters } from '@wordpress/hooks';
 import isEmpty from 'lodash/isEmpty';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { useRichTextParameter } from 'gutenverse-core/helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
 const SocialIcon = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('social-icon')
+    withCustomStyle(panelList),
+    withAnimationAdvance('social-icon'),
+    withCopyElementToolbar()
 )(props => {
     const [openIconLibrary, setOpenIconLibrary] = useState(false);
     const {
         attributes,
         setAttributes,
         isSelected,
-        clientId,
-        setBlockRef,
+        setElementRef,
+        setPanelState,
+        panelIsClicked,
+        setPanelIsClicked
     } = props;
 
     const {
@@ -52,17 +57,10 @@ const SocialIcon = compose(
         dynamicUrl,
     } = attributes;
 
-    const {
-        panelState,
-        setPanelState,
-        setPanelIsClicked,
-        panelIsClicked
-    } = useRichTextParameter();
-
     const displayClass = useDisplayEditor(attributes);
     const animationClass = useAnimationEditor(attributes);
     const socialType = getSocialType(icon);
-    const elementRef = useRef();
+    const socialIconRef = useRef();
     const [dynamicHref, setDynamicHref] = useState();
 
     const blockProps = useBlockProps({
@@ -75,7 +73,7 @@ const SocialIcon = compose(
             animationClass,
             displayClass,
         ),
-        ref: elementRef
+        ref: socialIconRef
     });
 
     const onToggleOpenInNewTab = useCallback(
@@ -97,14 +95,16 @@ const SocialIcon = compose(
         [rel, setAttributes]
     );
 
-    const socialIconPanelState = {
+    useEffect(() => {
+        if (socialIconRef.current) {
+            setElementRef(socialIconRef.current);
+        }
+    }, [socialIconRef]);
+
+    const panelState = {
         panel: 'setting',
         section: 1,
     };
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
 
     useEffect(() => {
         const dynamicUrlcontent = isEmpty(dynamicUrl) || !isOnEditor() ? dynamicUrl : applyFilters(
@@ -112,31 +112,24 @@ const SocialIcon = compose(
             dynamicUrl
         );
 
-        (typeof dynamicUrlcontent.then === 'function') && !isEmpty(dynamicUrl) && dynamicUrlcontent
+        ( typeof dynamicUrlcontent.then === 'function' ) && !isEmpty(dynamicUrl) && dynamicUrlcontent
             .then(result => {
                 if ((!Array.isArray(result) || result.length > 0) && result !== undefined && result !== dynamicHref) {
                     setDynamicHref(result);
                 } else if (result !== dynamicHref) setDynamicHref(undefined);
-            }).catch(() => { });
+            }).catch(() => {});
         if (dynamicHref !== undefined) {
             setAttributes({ url: dynamicHref, isDynamic: true });
         } else { setAttributes({ url: url }); }
     }, [dynamicUrl, dynamicHref]);
 
-    useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
-        }
-    }, [elementRef]);
-
     return <>
-        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <SelectParent {...props}>
                 {__('Modify Icon Group', 'gutenverse')}
             </SelectParent>
         </InspectorControls>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} setPanelIsClicked={setPanelIsClicked} />
+        <PanelController panelList={panelList} {...props} />
         {openIconLibrary && createPortal(<IconLibrary
             closeLibrary={() => setOpenIconLibrary(false)}
             value={icon}
@@ -154,13 +147,13 @@ const SocialIcon = compose(
                         anchorRef={blockProps.ref}
                         usingDynamic={true}
                         setPanelState={setPanelState}
-                        panelState={socialIconPanelState}
+                        panelState={panelState}
                         title="Item Link"
                         panelIsClicked={panelIsClicked}
                         setPanelIsClicked={setPanelIsClicked}
                     />,
                     props,
-                    socialIconPanelState
+                    panelState
                 )}
                 <ToolbarButton
                     name="icon"

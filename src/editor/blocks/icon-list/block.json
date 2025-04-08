@@ -176,10 +176,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"spaceDivider":{
-			"type": "object",
-			"copyStyle": true
-		},
 		"colorDivider": {
 			"type": "object",
 			"copyStyle": true

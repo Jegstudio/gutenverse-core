@@ -14,24 +14,10 @@ export const contentStylePanel = (props) => {
             min: 1,
             max: 4,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'column',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'flex',
-                            'valueType': 'pattern',
-                            'pattern': '0 0 calc( 100% / {value} ); max-width: calc( (100% / {value}) - 1%)',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
+                    render: value => `flex : 0 0 calc( 100% / ${value} ); max-width: calc( (100% / ${value}) - 1%);`
                 }
             ]
         },
@@ -43,24 +29,10 @@ export const contentStylePanel = (props) => {
             max: 100,
             unit: 'px',
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'rowGap',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'row-gap',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper`,
+                    render: value => `row-gap: ${value}px;`
                 }
             ]
         },
@@ -86,6 +58,18 @@ export const contentStylePanel = (props) => {
                     value: 'right',
                 },
             ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    render: (value) => {
+                        if( 'top' === value || 'bottom' === value){
+                            return 'flex-direction: column;';
+                        }else{
+                            return 'flex-direction: row;';
+                        }
+                    }
+                }
+            ]
         },
         {
             id: 'labelSpacing',
@@ -95,24 +79,10 @@ export const contentStylePanel = (props) => {
             max: 100,
             unit: 'px',
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'labelSpacing',
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'gap',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.editor-styles-wrapper .${elementId}.guten-countdown .time-container`,
+                    render: value => `gap: ${value}px;`
                 }
             ]
         },

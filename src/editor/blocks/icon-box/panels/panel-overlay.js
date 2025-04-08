@@ -31,13 +31,13 @@ export const panelOverlay = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'iconBoxOverlay',
-                    'selector': `.${elementId}.guten-icon-box .guten-icon-box-wrapper`,
+                    selector: `.${elementId} .guten-icon-box-wrapper:before`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'iconBoxHoverOverlay',
@@ -45,13 +45,13 @@ export const panelOverlay = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'iconBoxHoverOverlay',
-                    'selector': `.${elementId} .guten-icon-box-wrapper:hover:before`,
+                    selector: `.${elementId} .guten-icon-box-wrapper:hover:before`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'iconBoxOverlayDirection',

@@ -1,40 +1,38 @@
 import { compose } from '@wordpress/compose';
-import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
+
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import {
+    useInnerBlocksProps, useBlockProps,
+} from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
-import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useEffect } from '@wordpress/element';
+import { useRef } from '@wordpress/element';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const IconListBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('icon-list'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('icon-list'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        clientId,
-        setBlockRef,
+        setElementRef
     } = props;
 
     const {
         elementId,
         displayInline,
     } = attributes;
-
-    const elementRef = useRef(null);
+    const iconListRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -44,18 +42,14 @@ const IconListBlock = compose(
             elementId,
             animationClass,
             displayClass,
+            {
+                'inline-icon-list': displayInline
+            },
         ),
-        ref: elementRef
+        ref: iconListRef
     });
 
-    const innerBlocksProps = useInnerBlocksProps({
-        className: classnames(
-            'list-wrapper',
-            {
-                'inline-icon-list': displayInline,
-            }
-        )
-    }, {
+    const innerBlocksProps = useInnerBlocksProps(blockProps, {
         template: [
             ['gutenverse/icon-list-item', { icon: 'fas fa-check', text: 'List Item 1' }],
             ['gutenverse/icon-list-item', { icon: 'fas fa-check', text: 'List Item 2' }],
@@ -64,19 +58,15 @@ const IconListBlock = compose(
         allowedBlocks: ['gutenverse/icon-list-item'],
         __experimentalAppenderTagName: 'div',
     });
-
     useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
+        if (iconListRef.current) {
+            setElementRef && setElementRef(iconListRef.current);
         }
-    }, [elementRef]);
+    }, [iconListRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
-        <div {...blockProps}>
-            <ul {...innerBlocksProps} />
-        </div>
+        <PanelController panelList={panelList} {...props} />
+        <ul {...innerBlocksProps} />
     </>;
 });
 

@@ -14,7 +14,6 @@ import { overlayPanel } from './panel-overlay';
 
 export const panelList = () => {
     return [
-        //tab setting
         {
             title: __('Menu', 'gutenverse'),
             panelArray: menuPanel,
@@ -33,57 +32,6 @@ export const panelList = () => {
             initialOpen: false,
             tabRole: TabSetting
         },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Positioning', 'gutenverse'),
-            initialOpen: false,
-            panelArray: positioningPanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'nav-menu-animation'
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Transform', 'gutenverse'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            pro: true
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'nav-menu-advance',
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
-        },
-
-        //tab style
         {
             title: __('Menu Wrapper Style', 'gutenverse'),
             panelArray: menuWrapperPanel,
@@ -151,6 +99,55 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: maskPanel,
             tabRole: TabStyle
+        },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', 'gutenverse'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'nav-menu-animation'
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Transform', 'gutenverse'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            pro: true
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'nav-menu-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
         },
     ];
 };

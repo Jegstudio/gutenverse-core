@@ -10,7 +10,7 @@ const GalleryItem = (attributes) => {
         linkIcon,
         zoomText,
         linkText,
-        onZoom = () => { },
+        onZoom = () => {},
         zoomOptions = 'item'
     } = attributes;
 
@@ -29,21 +29,21 @@ const GalleryItem = (attributes) => {
         let arr = [];
         let j = 0;
         for (let i = 0; i < rating * 2; i++) {
-            if (i % 2 === 0) {
+            if (i%2 === 0) {
                 arr.push(1);
                 j++;
             } else {
-                arr[j - 1]++;
+                arr[j-1]++;
             }
         }
 
         return arr.map((item, key) => item === 2 ? <li key={key}><i className="fas fa-star"></i></li> : <li key={key}><i className="fas fa-star-half"></i></li>);
     };
     const imageCondition = () => {
-        if (galleryItem.lazyLoad) {
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy" />;
-        } else {
-            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} />;
+        if(galleryItem.lazyLoad){
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title} loading="lazy"/>;
+        }else{
+            return <img src={getImageSrc(galleryItem.src)} alt={galleryItem.title}/>;
         }
     };
 
@@ -59,7 +59,7 @@ const GalleryItem = (attributes) => {
                         <div className="item-buttons">
                             {(zoomOptions !== 'disable' && (zoomIcon || undefined !== zoomText)) && <div className={`gallery-link zoom ${'none' !== zoomText && 'with-text'}`}>
                                 {undefined !== zoomText && <p className="item-icon-text zoom-text">
-                                    {zoomText}
+                                        {zoomText}
                                 </p>}
                                 {zoomIcon && <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
@@ -67,7 +67,7 @@ const GalleryItem = (attributes) => {
                             </div>}
                             {(!galleryItem.disableLink && (linkIcon || undefined !== linkText)) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`} onClick={e => e.preventDefault()}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
-                                    {linkText}
+                                        {linkText}
                                 </p>}
                                 {linkIcon && <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>
@@ -103,17 +103,17 @@ const GalleryItem = (attributes) => {
                     </div>
                     <div className="caption-button">
                         <div className="item-buttons">
-                            {(zoomOptions !== 'disable' && zoomIcon) && <div className={`gallery-link zoom ${'none' !== zoomText && 'with-text'}`}>
+                            {(zoomOptions !== 'disable' && zoomIcon ) && <div className={`gallery-link zoom ${'none' !== zoomText && 'with-text'}`}>
                                 {undefined !== zoomText && <p className="item-icon-text zoom-text">
-                                    {zoomText}
+                                        {zoomText}
                                 </p>}
                                 <span className="item-icon-inner" onClick={onZoom}>
                                     <i className={zoomIcon} aria-hidden="true"></i>
                                 </span>
                             </div>}
-                            {(!galleryItem.disableLink && linkIcon) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
+                            {(!galleryItem.disableLink && linkIcon ) && <a href={galleryItem.link ? galleryItem.link : ''} className={`gallery-link link ${'none' !== zoomText && 'with-text'}`}>
                                 {undefined !== linkText && <p className="item-icon-text link-text">
-                                    {linkText}
+                                        {linkText}
                                 </p>}
                                 <span className="item-icon-inner">
                                     <i className={linkIcon} aria-hidden="true"></i>

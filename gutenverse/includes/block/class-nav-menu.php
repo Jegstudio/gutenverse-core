@@ -87,13 +87,13 @@ class Nav_Menu extends Block_Abstract {
 			$alt      = get_bloginfo( 'name' ) . ' - ' . get_bloginfo( 'description' );
 
 			$attachment = wp_get_attachment_image_src( $image_id, $size );
-			$src        = '';
-			if ( ! empty( $media['sizes'][ $size ]['url'] ) ) {
-				$src = $media['sizes'][ $size ]['url'];
-			}
 
-			if ( ! empty( $attachment ) && ! empty( $media['sizes'][ $size ]['url'] ) && $attachment[0] === $media['sizes'][ $size ]['url'] ) {
+			$src = '';
+
+			if ( ! empty( $attachment ) ) {
 				$src = $attachment[0];
+			} elseif ( ! empty( $media['sizes'][ $size ]['url'] ) ) {
+				$src = $media['sizes'][ $size ]['url'];
 			}
 
 			return '<img src="' . esc_url( $src ) . '" alt="' . $alt . '">';

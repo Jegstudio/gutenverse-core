@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelTitleStyle = props => {
     const {
@@ -28,11 +29,24 @@ export const panelTitleStyle = props => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-body .body-title`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
         },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-body .body-title`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'titleIconSize',
@@ -43,26 +57,12 @@ export const panelTitleStyle = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'titleIconSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-title i`,
+                    render: value => `font-size: ${value}px;`
                 }
-            ]
+            ],
         },
         {
             id: 'titleIconSpacing',
@@ -73,44 +73,16 @@ export const panelTitleStyle = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'titleIconSpacing',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-before i`,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-title.icon-position-before i`,
+                    render: value => `margin-right: ${value}px;`
                 },
                 {
-                    'type': 'plain',
-                    'id': 'titleIconSpacing',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title.icon-position-after i`,
-                    'properties': [
-                        {
-                            'name': 'margin-left',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-title.icon-position-after i`,
+                    render: value => `margin-left: ${value}px;`
                 }
-            ]
+            ],
         },
         {
             id: '__titleHover',
@@ -131,76 +103,48 @@ export const panelTitleStyle = props => {
             show: !__titleHover || __titleHover === 'normal',
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleNormalColor',
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title, .${elementId}.gutenverse-image-box .image-box-body .body-title a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-title, .${elementId} .image-box-body .body-title a`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleNormalIconColor',
             show: !__titleHover || __titleHover === 'normal',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleNormalIconColor',
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-title i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-title i`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleHoverColor',
             show: __titleHover === 'hover',
             label: __('Title Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleHoverColor',
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-body .body-title, .${elementId}.gutenverse-image-box:hover .image-box-body .body-title a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-title, .${elementId}:hover .image-box-body .body-title a`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleHoverIconColor',
             show: __titleHover === 'hover',
             label: __('Icon Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleHoverIconColor',
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-body .body-title i`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-title i`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
     ];
 };

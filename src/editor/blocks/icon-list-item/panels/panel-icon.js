@@ -16,24 +16,10 @@ export const panelIcon = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconLineHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'line-height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-icon-list-item i`,
+                    selector: `.${elementId} i`,
+                    render: value => `line-height: ${value}px;`
                 }
             ]
         },

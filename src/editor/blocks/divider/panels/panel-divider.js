@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { ColorControl, IconRadioControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { handleColor } from 'gutenverse-core/styling';
 
 export const dividerPanel = ({ elementId }) => {
     return [
@@ -117,26 +118,12 @@ export const dividerPanel = ({ elementId }) => {
             min: 10,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'width',
-                    'selector': `.${elementId} .guten-divider-wrapper`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-divider-wrapper`,
+                    render: value => `width: ${value}%;`
                 }
-            ]
+            ],
         },
         {
             id: 'size',
@@ -147,43 +134,15 @@ export const dividerPanel = ({ elementId }) => {
             min: 1,
             max: 100,
             step: 0.1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'size',
-                    'selector': `.${elementId} .guten-divider-style`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': '--divider-pattern-height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-divider-style`,
+                    render: value => `--divider-pattern-height: ${value}px;`
                 },
                 {
-                    'type': 'plain',
-                    'id': 'size',
-                    'selector': `.${elementId} .guten-divider-line`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'border-width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .guten-divider-line`,
+                    render: value => `border-width: ${value}px;`
+                },
             ]
         },
         {
@@ -195,24 +154,10 @@ export const dividerPanel = ({ elementId }) => {
             min: 1,
             max: 50,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'gap',
-                    'selector': `.${elementId} .guten-divider-wrapper`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'padding',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px 0',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-divider-wrapper`,
+                    render: value => `padding: ${value}px 0;`
                 }
             ]
         },
@@ -220,28 +165,14 @@ export const dividerPanel = ({ elementId }) => {
             id: 'dividerColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'dividerColor',
-                    'selector': `.${elementId} .guten-divider-line`,
-                    'properties': [
-                        {
-                            'name': 'border-color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .guten-divider-line`,
+                    render: value => handleColor(value, 'border-color')
                 },
                 {
-                    'type': 'color',
-                    'id': 'dividerColor',
-                    'selector': `.${elementId} .guten-divider-style`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .guten-divider-style`,
+                    render: value => handleColor(value, 'background-color')
                 }
             ]
         },
@@ -267,6 +198,12 @@ export const dividerPanel = ({ elementId }) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `justify-content: ${value};`,
+                },
+            ]
         },
     ];
 };

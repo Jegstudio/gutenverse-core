@@ -2,8 +2,9 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl, SelectControl, TextControl } from 'gutenverse-core/controls';
+import { handleAlign } from 'gutenverse-core/styling';
 
-export const settingPanel = ({showSub}) => {
+export const settingPanel = ({elementId, showSub}) => {
     return [
         {
             id: 'alignText',
@@ -27,6 +28,12 @@ export const settingPanel = ({showSub}) => {
                     icon: <AlignRight/>,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}, .${elementId} .heading-section`,
+                    render: value => `justify-content: ${value}; text-align: ${handleAlign(value)};`
+                }
+            ]
         },
         {
             id: 'titleTag',

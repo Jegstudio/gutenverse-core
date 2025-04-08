@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
 export const panelText = (props) => {
     const {
@@ -11,17 +12,10 @@ export const panelText = (props) => {
             id: 'textColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'textColor',
-                    'selector': `.${elementId} .guten-icon-list-item .list-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-icon-list-item .list-text`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -29,17 +23,10 @@ export const panelText = (props) => {
             id: 'textColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'textColorHover',
-                    'selector': `.${elementId} .guten-icon-list-item:hover .list-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-icon-list-item:hover .list-text`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -50,26 +37,12 @@ export const panelText = (props) => {
             allowDeviceControl: true,
             unit: 'px',
             min: 1,
-            max: 50,
+            max : 50,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'textIndent',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-icon-list-item a, .block-editor-block-list__layout .wp-block.${elementId} .guten-icon-list-item a`,
-                    'properties': [
-                        {
-                            'name': 'gap',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-icon-list-item .list-text, .block-editor-block-list__layout .wp-block.${elementId} .guten-icon-list-item .list-text`,
+                    render: value => `padding-left: ${value}px;`
                 }
             ]
         },
@@ -77,6 +50,13 @@ export const panelText = (props) => {
             id: 'textTypography',
             label: __('Text Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-list-item .list-text`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
     ];
 };

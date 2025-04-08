@@ -50,6 +50,12 @@ export const panelIconBoxContainer = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'containerPaddingHover',
@@ -72,6 +78,12 @@ export const panelIconBoxContainer = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}:hover .guten-icon-box-wrapper`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'containerBackground',
@@ -79,14 +91,13 @@ export const panelIconBoxContainer = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'containerBackground',
-                    'type': 'background',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-icon-box-wrapper`,
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBackgroundHover',
@@ -94,27 +105,26 @@ export const panelIconBoxContainer = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'containerBackgroundHover',
-                    'type': 'background',
-                    'responsive': true,
-                    'selector': `.${elementId}:hover .guten-icon-box-wrapper`,
+                    selector: `.${elementId}:hover .guten-icon-box-wrapper`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBorder',
             show: (!switcher.containerStyle || switcher.containerStyle === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'containerBorder',
-                    'selector': `.${elementId} .guten-icon-box-wrapper`,
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBorderResponsive',
@@ -122,52 +132,39 @@ export const panelIconBoxContainer = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'containerBorderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-icon-box-wrapper`,
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBoxShadow',
             show: !switcher.containerStyle || switcher.containerStyle === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'containerBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-icon-box-wrapper`,
+                    selector: `.${elementId} .guten-icon-box-wrapper`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBorderHover',
             show: switcher.containerStyle === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'containerBorderHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}:hover .guten-icon-box-wrapper`,
+                    selector: `.${elementId}:hover .guten-icon-box-wrapper`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBorderHoverResponsive',
@@ -175,33 +172,26 @@ export const panelIconBoxContainer = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'containerBorderHoverResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}:hover .guten-icon-box-wrapper`,
+                    selector: `.${elementId}:hover .guten-icon-box-wrapper`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'containerBoxShadowHover',
             show: switcher.containerStyle === 'hover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'containerBoxShadowHover',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}:hover .guten-icon-box-wrapper`,
+                    selector: `.${elementId}:hover .guten-icon-box-wrapper`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
-            ],
+            ]
         }
     ];
 };

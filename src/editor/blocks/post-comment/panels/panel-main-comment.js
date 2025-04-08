@@ -18,17 +18,12 @@ export const mainCommentPanel = (props) => {
             label: __('Container Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'mainContainerBgColor',
-                'selector': `.${elementId} .commentlist .comment.depth-1`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'mainContainerMargin',
@@ -54,6 +49,12 @@ export const mainCommentPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'mainContainerPadding',
@@ -79,17 +80,24 @@ export const mainCommentPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'mainContainerBorder',
             label: __('Container Border', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'mainContainerBorder',
-                'selector': `.${elementId} .commentlist .comment.depth-1`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
         {
             id: 'submenuSplitter2',
@@ -101,17 +109,12 @@ export const mainCommentPanel = (props) => {
             label: __('Comment Background Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'mainBgColor',
-                'selector': `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'mainMargin',
@@ -137,6 +140,12 @@ export const mainCommentPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'mainPadding',
@@ -162,17 +171,24 @@ export const mainCommentPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'mainBorder',
             label: __('Comment Border', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'mainBorder',
-                'selector': `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .commentlist .comment.depth-1 > .comment-body`,
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
     ];
 };

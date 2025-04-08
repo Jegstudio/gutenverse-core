@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive } from 'gutenverse-core/styling';
 
 export const thumbnailPanel = ({ elementId }) => {
     const device = getDeviceType();
@@ -11,11 +12,11 @@ export const thumbnailPanel = ({ elementId }) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'thumbnailBorder',
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -25,11 +26,11 @@ export const thumbnailPanel = ({ elementId }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'thumbnailBorderResponsive',
-                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

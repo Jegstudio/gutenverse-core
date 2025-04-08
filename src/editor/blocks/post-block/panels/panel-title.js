@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const titlePanel = (props) => {
     const {
@@ -29,6 +30,12 @@ export const titlePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-title`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: '__styleHover',
@@ -43,24 +50,17 @@ export const titlePanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({ __styleHover }) => setSwitcher({ ...switcher, styleHover: __styleHover })
+            onChange: ({__styleHover}) => setSwitcher({...switcher, styleHover: __styleHover})
         },
         {
             id: 'titleColor',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColor',
-                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-title a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-title a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -69,23 +69,23 @@ export const titlePanel = (props) => {
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-post-title a`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'titleColorHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'titleColorHover',
-                    'selector': `.${elementId} .guten-postblock .guten-post:hover .guten-postblock-content .guten-post-title a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postblock .guten-post:hover .guten-postblock-content .guten-post-title a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -94,6 +94,13 @@ export const titlePanel = (props) => {
             show: switcher.styleHover === 'hover',
             label: __('Hover Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post:hover .guten-postblock-content .guten-post-title a`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ]
         },
     ];
 };

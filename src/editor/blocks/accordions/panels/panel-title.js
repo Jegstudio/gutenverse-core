@@ -1,9 +1,9 @@
 import { __ } from '@wordpress/i18n';
-import { BorderResponsiveControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
+import { BorderResponsiveControl, SelectControl } from 'gutenverse-core/controls';
 import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl, BackgroundControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography, handleBackground } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
-import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
 export const panelTitle = (props) => {
     const {
@@ -17,39 +17,17 @@ export const panelTitle = (props) => {
         titleActiveBackground,
     } = props;
 
-    if (!isEmpty(titleBackgroundColor) && isEmpty(titleBackground)) {
-        setAttributes({ titleBackground: { color: titleBackgroundColor, type: 'default' } });
+    if(!isEmpty(titleBackgroundColor) && isEmpty(titleBackground)) {
+        setAttributes({titleBackground: {color: titleBackgroundColor, type: 'default'}})
     }
-    if (!isEmpty(titleBackgroundActiveColor) && isEmpty(titleActiveBackground)) {
-        setAttributes({ titleActiveBackground: { color: titleBackgroundActiveColor, type: 'default' } });
+    if(!isEmpty(titleBackgroundActiveColor) && isEmpty(titleActiveBackground)) {
+        setAttributes({titleActiveBackground: {color: titleBackgroundActiveColor, type: 'default'}})
     }
 
     const device = getDeviceType();
 
     return [
-        {
-            id: 'titleAlign',
-            label: __('Title Alignment', 'gutenverse'),
-            component: IconRadioControl,
-            allowDeviceControl: true,
-            options: [
-                {
-                    label: __('Align Left', 'gutenverse'),
-                    value: 'left',
-                    icon: <AlignLeft />,
-                },
-                {
-                    label: __('Align Center', 'gutenverse'),
-                    value: 'center',
-                    icon: <AlignCenter />,
-                },
-                {
-                    label: __('Align Right', 'gutenverse'),
-                    value: 'right',
-                    icon: <AlignRight />,
-                },
-            ]
-        },
+
         {
             id: 'titleTag',
             label: __('Title Tag', 'gutenverse'),
@@ -89,6 +67,13 @@ export const panelTitle = (props) => {
             id: 'titleTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-text`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'titlePadding',
@@ -110,6 +95,12 @@ export const panelTitle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: '__accTitleActive',
@@ -131,38 +122,24 @@ export const panelTitle = (props) => {
             show: !switcher.accTitle || switcher.accTitle === 'normal',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleTextColor',
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item .accordion-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item .accordion-text`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleBackgroundColor',
             show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBackgroundColor',
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item .accordion-text`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    render: value => handleColor(value, 'background-color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleBackground',
@@ -170,11 +147,11 @@ export const panelTitle = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'titleBackground',
-                    'selector': `.${elementId} .accordion-item .accordion-heading`,
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -183,11 +160,11 @@ export const panelTitle = (props) => {
             show: (!switcher.accTitle || switcher.accTitle === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBorder',
-                    'type': 'border',
-                    'selector': `.${elementId} .accordion-item .accordion-text`,
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -197,12 +174,11 @@ export const panelTitle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBorderResponsive',
-                    'type': 'borderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId} .accordion-item .accordion-text`,
+                    selector: `.${elementId} .accordion-item .accordion-heading`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -211,38 +187,24 @@ export const panelTitle = (props) => {
             show: switcher.accTitle === 'active',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleActiveColor',
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item.active .accordion-text`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item.active .accordion-text`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleBackgroundActiveColor',
             show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBackgroundActiveColor',
-                    'type': 'color',
-                    'selector': `.${elementId} .accordion-item.active .accordion-text`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    render: value => handleColor(value, 'background-color')
                 }
-            ]
+            ],
         },
         {
             id: 'titleActiveBackground',
@@ -250,11 +212,11 @@ export const panelTitle = (props) => {
             label: __('Active Background', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'titleActiveBackground',
-                    'selector': `.${elementId} .accordion-item.active .accordion-heading`,
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -263,11 +225,11 @@ export const panelTitle = (props) => {
             show: switcher.accTitle === 'active' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBorderActive',
-                    'type': 'border',
-                    'selector': `.${elementId} .accordion-item.active .accordion-text`,
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -277,12 +239,11 @@ export const panelTitle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'id': 'titleBorderActiveResponsive',
-                    'type': 'borderResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId} .accordion-item.active .accordion-text`,
+                    selector: `.${elementId} .accordion-item.active .accordion-heading`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

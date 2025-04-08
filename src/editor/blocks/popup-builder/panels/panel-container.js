@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleDimension } from 'gutenverse-core/styling';
 
 export const containerPanel = (props) => {
     const { elementId } = props;
@@ -28,30 +29,45 @@ export const containerPanel = (props) => {
                     unit: '%',
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-popup .guten-popup-content`,
+                    render: (value) => handleDimension(value, 'padding')
+                },
+                {
+                    selector: `.${elementId} .guten-popup-left .guten-popup-container, .${elementId} .guten-popup-right .guten-popup-container`,
+                    render: (value) => {
+                        const { dimension, unit = 'px' } = value || {};
+                        const { top = 10, bottom = 10 } = dimension || {};
+
+                        return `min-height: calc(100vh - ${parseFloat(top) + parseFloat(bottom)}${unit})`;
+                    },
+                },
+            ],
         },
         {
             id: 'backgroundColor',
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'backgroundColor',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-content`,
+                    hasChild: true,
+                    render: (value) => handleBackground(value),
+                },
+            ],
         },
         {
             id: 'containerBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'containerBorder',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
+                    selector: `.${elementId} .guten-popup .guten-popup-content`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -61,31 +77,25 @@ export const containerPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'containerBorderResponsive',
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-content`,
+                    allowRender: () => device !== 'Desktop',
+                    render: (value) => handleBorderResponsive(value),
+                },
+            ],
         },
         {
             id: 'containerBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'containerBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-popup-builder .guten-popup .guten-popup-content`,
-                }
-            ]
+                    selector: `.${elementId} .guten-popup .guten-popup-content`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: (value) => handleBoxShadow(value),
+                },
+            ],
         },
     ];
 };

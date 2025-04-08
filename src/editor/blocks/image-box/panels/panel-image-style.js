@@ -1,5 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BoxShadowControl, DimensionControl, ImageFilterControl, RangeControl, SelectControl, SizeControl, SwitchControl } from 'gutenverse-core/controls';
+import { isEmptyString } from 'gutenverse-core/helper';
+import { allowRenderBoxShadow, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelImageStyle = props => {
     const {
@@ -28,6 +31,12 @@ export const panelImageStyle = props => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
         },
         {
             id: 'imagePadding',
@@ -49,6 +58,12 @@ export const panelImageStyle = props => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ],
         },
         {
             id: 'imageBorderRadius',
@@ -65,22 +80,22 @@ export const panelImageStyle = props => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header`,
+                    render: value => handleDimension(value, 'border-radius', false)
+                }
+            ],
         },
         {
             id: 'imageBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'imageBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-header`,
+                    selector: `.${elementId} .inner-container .image-box-header`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },
@@ -103,18 +118,10 @@ export const panelImageStyle = props => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'imageHeight',
-                    'responsive': true,
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-header img`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    render: value => handleUnitPoint(value, 'height')
                 }
             ]
         },
@@ -144,6 +151,12 @@ export const panelImageStyle = props => {
                     value: 'none'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    render: value => `object-fit: ${value}`
+                }
+            ]
         },
         {
             id: '__imageHover',
@@ -168,21 +181,17 @@ export const panelImageStyle = props => {
             max: 1,
             step: 0.1,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageOpacity',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'function',
-                            'functionName': 'handleOpacity'
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    render: value => {
+                        if(  1 < value && 100 >= value  ){
+                            value = value/100;
                         }
-                    ],
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-header img`,
+                        return `opacity: ${value};`;
+                    }
                 }
-            ]
+            ],
         },
         {
             id: 'imageHoverOpacity',
@@ -193,21 +202,17 @@ export const panelImageStyle = props => {
             max: 1,
             step: 0.1,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageHoverOpacity',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'opacity',
-                            'valueType': 'function',
-                            'functionName': 'handleOpacity'
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
+                    render: value => {
+                        if( 1 < value && 100 >= value  ){
+                            value = value/100;
                         }
-                    ],
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-header img`,
+                        return `opacity: ${value};`;
+                    }
                 }
-            ]
+            ],
         },
         {
             id: 'imageHoverScale',
@@ -218,68 +223,54 @@ export const panelImageStyle = props => {
             max: 2,
             step: 0.1,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageHoverScale',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'transform',
-                            'valueType': 'pattern',
-                            'pattern': ` scale({value});
-                    -webkit-transform: scale({value}); 
-                    -o-transform: scale({value}); 
-                    -moz-transform: scale({value}); 
-                    -ms-transform: scale({value});`,
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-header img`,
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
+                    render: value => `-webkit-transform: scale(${value}); 
+                    -o-transform: scale(${value}); 
+                    -moz-transform: scale(${value}); 
+                    -ms-transform: scale(${value}); 
+                    transform: scale(${value});`
                 }
-            ]
+            ],
         },
         {
             id: 'imageFilter',
             label: __('Image Filter', 'gutenverse'),
-            show: !__imageHover || __imageHover === 'normal',
+            show:!__imageHover || __imageHover === 'normal',
             component: ImageFilterControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageFilter',
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-header img`,
-                    'properties': [
-                        {
-                            'name': 'filter',
-                            'valueType': 'function',
-                            'functionName': 'handleFilterImage',
-                        }
-                    ],
+                    selector: `.${elementId} .inner-container .image-box-header img`,
+                    allowRender: props => props !== undefined,
+                    render: ({ brightness, contrast, blur, saturation, hue }) => {
+                        return `filter: 
+                            brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+                            contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+                            saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+                            blur( ${!isEmptyString(blur) ? blur : 0}px )
+                            hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+                    }
                 }
             ]
         },
         {
             id: 'imageFilterHover',
             label: __('Image Filter', 'gutenverse'),
-            show: __imageHover === 'hover',
+            show:__imageHover === 'hover',
             component: ImageFilterControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageFilterHover',
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-header img`,
-                    'properties': [
-                        {
-                            'name': 'filter',
-                            'valueType': 'function',
-                            'functionName': 'handleFilterImage',
-                        }
-                    ],
+                    selector: `.${elementId}:hover .inner-container .image-box-header img`,
+                    allowRender: props => props !== undefined,
+                    render: ({ brightness, contrast, blur, saturation, hue }) => {
+                        return `filter: 
+                            brightness( ${!isEmptyString(brightness) ? brightness : 100}% )
+                            contrast( ${!isEmptyString(contrast) ? contrast : 100}% )
+                            saturate( ${!isEmptyString(saturation) ? saturation : 100}% )
+                            blur( ${!isEmptyString(blur) ? blur : 0}px )
+                            hue-rotate( ${!isEmptyString(hue) ? hue : 0}deg );`;
+                    }
                 }
             ]
         },

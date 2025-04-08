@@ -1,11 +1,14 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, TypographyControl, SelectControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const categoryPanel = (props) => {
     const {
         elementId,
         postblockType,
+        categoryEnabled
     } = props;
 
     const device = getDeviceType();
@@ -31,22 +34,35 @@ export const categoryPanel = (props) => {
                     value: 'end'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
+                    allowRender: (value) => {
+                        return ('type-5' === postblockType) && 'end' !== value && categoryEnabled;
+                    },
+                    render: () => {
+                        return 'height: 100%; display: grid; grid-template-rows: 1fr auto;';
+                    }
+                },
+                {
+                    selector: `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content .post-category-container`,
+                    allowRender: (value) => {
+                        return ('type-5' === postblockType) && 'end' !== value;
+                    },
+                    render: (value) => {
+                        return `align-self: ${value}`;
+                    }
+                }
+            ]
         },
         {
             id: 'categoryColor',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'categoryColor',
-                    'selector': `.${elementId} .guten-postblock .guten-post-category a`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postblock .guten-post-category a`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -54,22 +70,22 @@ export const categoryPanel = (props) => {
             id: 'categoryTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post-category a`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'categoryBackground',
             label: __('Background', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'categoryBackground',
-                    'selector': `.${elementId} .guten-postblock .guten-post-category`,
-                    'properties': [
-                        {
-                            'name' : 'background-color',
-                            'valueType' : 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    render: value => handleColor(value, 'background')
                 }
             ]
         },
@@ -93,6 +109,12 @@ export const categoryPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'categoryPadding',
@@ -114,17 +136,23 @@ export const categoryPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'categoryBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'categoryBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-post-category`,
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -134,11 +162,11 @@ export const categoryPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'categoryBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-post-category`,
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -146,17 +174,11 @@ export const categoryPanel = (props) => {
             id: 'categoryShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'categoryShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postblock .guten-post-category`,
+                    selector: `.${elementId} .guten-postblock .guten-post-category`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

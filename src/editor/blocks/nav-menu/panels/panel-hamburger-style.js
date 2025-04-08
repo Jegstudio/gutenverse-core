@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl, SizeControl, RangeControl, SwitchControl, BackgroundControl, ColorControl, DimensionControl, HeadingControl, BorderControl, BorderResponsiveControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const hamburgerStyle = (props) => {
     const {
@@ -30,6 +31,12 @@ export const hamburgerStyle = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .gutenverse-hamburger-wrapper`,
+                    render: value => `justify-content: ${value}`
+                },
+            ]
         },
         {
             id: 'hamburgerWidth',
@@ -50,20 +57,12 @@ export const hamburgerStyle = (props) => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'minutesWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    render: value => handleUnitPoint(value, 'width')
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerSize',
@@ -74,25 +73,10 @@ export const hamburgerStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle:
-            [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'hamburgerSize',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu i`,
+                    render: value => `font-size: ${value}px;`
                 }
             ],
         },
@@ -116,6 +100,12 @@ export const hamburgerStyle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'hamburgerMargin',
@@ -137,6 +127,12 @@ export const hamburgerStyle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: '__hamburgerState',
@@ -159,19 +155,11 @@ export const hamburgerStyle = (props) => {
             label: __('Icon Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hamburgerColorNormal',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    render: value => handleColor(value, 'color')
+                },
             ],
         },
         {
@@ -180,26 +168,26 @@ export const hamburgerStyle = (props) => {
             component: BackgroundControl,
             label: __('Normal Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'hamburgerBgNormal',
-                    'type': 'background',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerBorderNormal',
             show: (switcher.hamburgerState === undefined || switcher.hamburgerState === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'hamburgerBorderNormal',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerBorderNormalResponsive',
@@ -207,14 +195,13 @@ export const hamburgerStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'hamburgerBorderNormalResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu`,
+                    allowRender: () => device !== 'Dekstop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerColorHover',
@@ -222,19 +209,11 @@ export const hamburgerStyle = (props) => {
             label: __('Hover Icon Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'hamburgerColorHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    render: value => handleColor(value, 'color')
+                },
             ],
         },
         {
@@ -243,26 +222,26 @@ export const hamburgerStyle = (props) => {
             component: BackgroundControl,
             label: __('Hover Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'hamburgerBgHover',
-                    'type': 'background',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerBorderHover',
             show: switcher.hamburgerState === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'hamburgerBorderHover',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'hamburgerBorderHoverResponsive',
@@ -270,14 +249,13 @@ export const hamburgerStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'hamburgerBorderHoverResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-hamburger-menu:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeIconHeading',
@@ -303,20 +281,12 @@ export const hamburgerStyle = (props) => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'closeWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    render: value => handleUnitPoint(value, 'width')
                 }
-            ],
+            ]
         },
         {
             id: 'closeSize',
@@ -327,24 +297,10 @@ export const hamburgerStyle = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'closeSize',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu i`,
+                    render: value => `font-size: ${value}px;`
                 }
             ],
         },
@@ -368,6 +324,12 @@ export const hamburgerStyle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'closeMargin',
@@ -389,6 +351,12 @@ export const hamburgerStyle = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: '__closeState',
@@ -411,19 +379,11 @@ export const hamburgerStyle = (props) => {
             label: __('Icon Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'closeColorNormal',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    render: value => handleColor(value, 'color')
+                },
             ],
         },
         {
@@ -432,26 +392,26 @@ export const hamburgerStyle = (props) => {
             component: BackgroundControl,
             label: __('Normal Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'closeBgNormal',
-                    'type': 'background',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeBorderNormal',
             show: (switcher.closeState === undefined || switcher.closeState === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'closeBorderNormal',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeBorderNormalResponsive',
@@ -459,14 +419,13 @@ export const hamburgerStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'closeBorderNormalResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeColorHover',
@@ -474,19 +433,11 @@ export const hamburgerStyle = (props) => {
             label: __('Hover Icon Color', 'gutenverse'),
             allowDeviceControl: true,
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'closeColorHover',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    render: value => handleColor(value, 'color')
+                },
             ],
         },
         {
@@ -495,26 +446,26 @@ export const hamburgerStyle = (props) => {
             component: BackgroundControl,
             label: __('Hover Background', 'gutenverse'),
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'id': 'closeBgHover',
-                    'type': 'background',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeBorderHover',
             show: switcher.closeState === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'closeBorderHover',
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
-            ],
+            ]
         },
         {
             id: 'closeBorderHoverResponsive',
@@ -522,14 +473,13 @@ export const hamburgerStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'closeBorderHoverResponsive',
-                    'responsive': true,
-                    'selector': `.${elementId}.guten-element.wp-block-gutenverse-nav-menu .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    selector: `.${elementId} .guten-nav-menu .gutenverse-menu-wrapper .gutenverse-nav-identity-panel .gutenverse-close-menu:hover`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
-            ],
+            ]
         },
     ];
 };

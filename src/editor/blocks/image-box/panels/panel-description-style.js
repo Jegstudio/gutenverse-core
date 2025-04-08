@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelDescriptionStyle = props => {
     const {
@@ -28,11 +29,24 @@ export const panelDescriptionStyle = props => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ],
         },
         {
             id: 'descriptionTypography',
             label: __('Description Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: '__descriptionHover',
@@ -53,38 +67,24 @@ export const panelDescriptionStyle = props => {
             show: !__descriptionHover || __descriptionHover === 'normal',
             label: __('Description Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'descriptionNormalColor',
-                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-inner .body-description`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId} .inner-container .image-box-body .body-inner .body-description`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
         {
             id: 'descriptionHoverColor',
             show: __descriptionHover === 'hover',
             label: __('Description Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'descriptionHoverColor',
-                    'selector': `.${elementId}.gutenverse-image-box:hover .inner-container .image-box-body .body-inner .body-description`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct'
-                        }
-                    ]
+                    selector: `.${elementId}:hover .inner-container .image-box-body .body-inner .body-description`,
+                    render: value => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
     ];
 };

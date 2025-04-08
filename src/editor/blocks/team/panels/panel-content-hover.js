@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const hoverPanel = (props) => {
     const {
@@ -34,6 +36,12 @@ export const hoverPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover:hover .profile-body`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'hoverMargin',
@@ -59,17 +67,23 @@ export const hoverPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover:hover .profile-body`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'hoverContentBgColor',
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'hoverContentBgColor',
-                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -78,11 +92,11 @@ export const hoverPanel = (props) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'hoverContentBorder',
-                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -92,11 +106,11 @@ export const hoverPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'hoverContentBorderResponsive',
-                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -104,17 +118,11 @@ export const hoverPanel = (props) => {
             id: 'hoverContentShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'hoverContentShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    selector: `.${elementId}.guten-team .profile-box .profile-card.card-hover .profile-body:before`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

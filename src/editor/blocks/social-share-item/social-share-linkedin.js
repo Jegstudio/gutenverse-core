@@ -4,11 +4,13 @@ import { compose } from '@wordpress/compose';
 import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import SingleSocialShare from './single-social-share';
 import jsondata from './block.json';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { IconShareLinkedinSVG } from '../../../assets/icon/index';
 
 const SocialShareLinkedin = compose(
     withPartialRender,
     withCustomStyle(panelList),
+    withCopyElementToolbar()
 )(props => {
     const socialProps = {
         ...props,

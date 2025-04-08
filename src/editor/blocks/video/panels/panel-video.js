@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, NumberControl, RangeControl, SelectControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
 import { isYoutubeUrl } from 'gutenverse-core/helper';
 import { isEmpty } from 'lodash';
+import { handleColor, handleTypography } from 'gutenverse-core/styling';
 
 export const videoPanel = (props) => {
     const {
@@ -82,24 +83,11 @@ export const videoPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'width',
-                    'selector': `.${elementId} video, .${elementId} .guten-video-background`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%!important',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} video, .${elementId} .guten-video-background`,
+                    allowRender: () => videoSrc !== undefined && videoType !== undefined,
+                    render: value => `width: ${value}%!important;`
                 }
             ]
         },
@@ -113,24 +101,11 @@ export const videoPanel = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'height',
-                    'selector': `.${elementId} video, .${elementId} .guten-video-background`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px!important',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} video, .${elementId} .guten-video-background`,
+                    allowRender: () => videoSrc !== undefined && videoType !== undefined,
+                    render: value => `height: ${value}px!important;`
                 }
             ]
         },
@@ -170,24 +145,10 @@ export const videoPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'captionSpace',
-                    'selector': `.${elementId} .guten-caption`,
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'margin-top',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-caption`,
+                    render: value => `margin-top: ${value}px;`
                 }
             ]
         },
@@ -196,26 +157,25 @@ export const videoPanel = (props) => {
             show: videoSrc !== undefined && captionType !== undefined && captionType !== 'none',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-
+            style: [
+                {
+                    selector: `.${elementId} .guten-caption`,
+                    hasChild: true,
+                    render: (value,id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'captionColor',
             show: videoSrc !== undefined && captionType !== undefined && captionType !== 'none',
             label: __('Caption Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'captionColor',
-                    'selector': `.${elementId} .guten-caption`,
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ]
+                    selector: `.${elementId} .guten-caption`,
+                    render: (value) => handleColor(value, 'color')
                 }
-            ]
+            ],
         },
     ];
 };

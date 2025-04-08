@@ -1,7 +1,14 @@
 import { __ } from '@wordpress/i18n';
-import { DimensionControl } from 'gutenverse-core/controls';
+import { BorderControl, BorderResponsiveControl, BoxShadowControl, CheckboxControl, DimensionControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
-export const logosWrapperPanel = () => {
+export const logosWrapperPanel = (props) => {
+    const {
+        elementId,
+    } = props;
+
 
     return [
         {
@@ -24,6 +31,12 @@ export const logosWrapperPanel = () => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'logoWrapperMargin',
@@ -45,6 +58,12 @@ export const logosWrapperPanel = () => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId}.guten-client-logo .swiper-container .content-image`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         }
     ];
 };

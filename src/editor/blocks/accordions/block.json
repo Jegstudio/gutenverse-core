@@ -44,10 +44,6 @@
 			"type": "object",
 			"copyStyle": true
 		},
-		"titleAlign":{
-			"type": "object",
-			"copyStyle": true
-		},
 		"titleTag": {
 			"type": "string",
 			"default": "span"

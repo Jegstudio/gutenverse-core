@@ -67,7 +67,6 @@ class Editor_Assets {
 	 */
 	public function block_config( $config ) {
 		$config['gutenverseImgDir']             = GUTENVERSE_URL . '/assets/img';
-		$config['gutenverseImgPlaceholder']     = GUTENVERSE_URL . '/assets/img/img-placeholder.png';
 		$config['pluginVersions'][ GUTENVERSE ] = array(
 			'name'           => GUTENVERSE_NAME,
 			'version'        => GUTENVERSE_VERSION,

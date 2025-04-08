@@ -3,6 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { handleBackground, handleBorder, handleBorderResponsive, handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const metaPanel = (props) => {
     const {
@@ -36,11 +37,25 @@ export const metaPanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists`,
+                    render: value => `text-align: ${value};`
+                },
+            ]
         },
         {
             id: 'metaTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists, 
+                    .${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ]
         },
         {
             id: 'metaIconSize',
@@ -51,24 +66,10 @@ export const metaPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'metaIconSize',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists i`,
+                    render: value => `font-size: ${value}px;`
                 }
             ]
         },
@@ -81,24 +82,10 @@ export const metaPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'metaIconSpacing',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists i`,
-                    'properties': [
-                        {
-                            'name': 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists i`,
+                    render: value => `margin-right: ${value}px;`
                 }
             ]
         },
@@ -122,6 +109,12 @@ export const metaPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'metaPadding',
@@ -143,6 +136,12 @@ export const metaPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: '__metaHover',
@@ -164,17 +163,10 @@ export const metaPanel = (props) => {
             show: !switcher.metaHover || switcher.metaHover === 'normal',
             label: __('Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'metaColor',
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -183,17 +175,10 @@ export const metaPanel = (props) => {
             show: switcher.metaHover === 'hover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'metaColorHover',
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -204,11 +189,11 @@ export const metaPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'metaBackground',
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -219,11 +204,11 @@ export const metaPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'metaHoverBackground',
-                    'selector': `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -232,11 +217,11 @@ export const metaPanel = (props) => {
             show: (!switcher.metaHover || switcher.metaHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'metaBorder',
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -246,11 +231,11 @@ export const metaPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'metaBorderResponsive',
-                    'selector': `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .meta-lists span`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -259,11 +244,11 @@ export const metaPanel = (props) => {
             show: switcher.metaHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'metaHoverBorder',
-                    'selector': `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -273,11 +258,11 @@ export const metaPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'metaHoverBorderResponsive',
-                    'selector': `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a .meta-lists span`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

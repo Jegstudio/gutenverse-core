@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { AlertControl, BackgroundControl, ColorControl, DimensionControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { handleBackground, handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const iconPanel = (props) => {
     const {
@@ -35,6 +36,12 @@ export const iconPanel = (props) => {
                     value: 'flex-end',
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    render: value => `align-self: ${value};`
+                }
+            ]
         },
         {
             id: 'iconWidth',
@@ -46,24 +53,10 @@ export const iconPanel = (props) => {
             min: 1,
             max: 200,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconWidth',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    render: value => `width: ${value}px;`
                 }
             ]
         },
@@ -77,24 +70,10 @@ export const iconPanel = (props) => {
             min: 1,
             max: 200,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconHeight',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -108,24 +87,10 @@ export const iconPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconLineHeight',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list`,
-                    'properties': [
-                        {
-                            'name': 'line-height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    render: value => `line-height: ${value}px;`
                 }
             ]
         },
@@ -139,24 +104,10 @@ export const iconPanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list i`,
+                    render: value => `font-size: ${value}px;`
                 }
             ]
         },
@@ -181,6 +132,12 @@ export const iconPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'iconRadius',
@@ -203,23 +160,22 @@ export const iconPanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list i`,
+                    render: value => handleDimension(value, 'border-radius', false)
+                }
+            ]
         },
         {
             id: 'iconColor',
             label: __('Icon Color', 'gutenverse'),
             component: ColorControl,
             show: iconEnabled,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconColor',
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list i`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -228,17 +184,10 @@ export const iconPanel = (props) => {
             label: __('Icon Hover Color', 'gutenverse'),
             component: ColorControl,
             show: iconEnabled,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'color',
-                    'id': 'iconHoverColor',
-                    'properties': [
-                        {
-                            'name': 'color',
-                            'valueType': 'direct',
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postlist .guten-post:hover a .icon-list i`,
+                    selector: `.${elementId} .guten-postlist .guten-post:hover a .icon-list i`,
+                    render: value => handleColor(value, 'color')
                 }
             ]
         },
@@ -247,13 +196,13 @@ export const iconPanel = (props) => {
             label: __('Background', 'gutenverse'),
             component: BackgroundControl,
             allowDeviceControl: true,
-            options: ['default', 'gradient'],
+            options: [ 'default', 'gradient' ],
             show: iconEnabled,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'iconBackground',
-                    'selector': `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    selector: `.${elementId} .guten-postlist .guten-post a .icon-list`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },

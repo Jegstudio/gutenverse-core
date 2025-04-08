@@ -1,5 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { DimensionControl, RangeControl, SelectControl, BorderResponsiveControl } from 'gutenverse-core/controls';
+import { handleDimension, handleBorderResponsive } from 'gutenverse-core/styling';
 
 export const imagePanel = (props) => {
     const {
@@ -16,24 +17,10 @@ export const imagePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageWidth',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a img`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a img`,
+                    render: value => `width: ${value}%;`
                 }
             ]
         },
@@ -46,24 +33,10 @@ export const imagePanel = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'imageHeight',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postlist .guten-post a img`,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
+                    selector: `.${elementId} .guten-postlist .guten-post a img`,
+                    render: value => `height: ${value}px;`
                 }
             ]
         },
@@ -90,6 +63,12 @@ export const imagePanel = (props) => {
                     value: 'contain'
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a img`,
+                    render: value => value !== 'default' ? `object-fit: ${value};` : ''
+                }
+            ]
         },
         {
             id: 'imageMargin',
@@ -111,17 +90,22 @@ export const imagePanel = (props) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postlist .guten-post a img`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'imageBorder',
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'imageBorder',
-                    'selector': `.${elementId} .guten-postlist .guten-post a img`,
+                    selector: `.${elementId} .guten-postlist .guten-post a img`,
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },

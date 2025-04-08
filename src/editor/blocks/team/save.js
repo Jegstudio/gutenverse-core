@@ -13,7 +13,6 @@ const save = compose(
     withAnimationAdvanceScript('team'),
     withMouseMoveEffectScript
 )((props) => {
-    
     const {
         attributes,
         setAttributes,

@@ -1,25 +1,27 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState, useRef, RawHTML } from '@wordpress/element';
-import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import {
+    withCustomStyle,
+    withMouseMoveEffect,
+    withCopyElementToolbar,
+    withPartialRender,
+} from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames, PostSkeleton, u } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
-import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostBlockBlock = compose(
     withPartialRender,
-    withMouseMoveEffect
+    withCustomStyle(panelList),
+    withCopyElementToolbar(),
+    withMouseMoveEffect,
 )((props) => {
-    const { attributes, clientId, setAttributes } = props;
-    const deviceType = getDeviceType();
+    const { attributes, deviceType, setElementRef, setAttributes } = props;
 
     const {
         elementId,
@@ -83,41 +85,44 @@ const PostBlockBlock = compose(
     const [loading, setLoading] = useState(true);
     const [postLoaded, setPostLoaded] = useState(0);
     const [page, setPage] = useState(1);
-    const elementRef = useRef();
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    const postBlockRef = useRef();
 
     useEffect(() => {
-        if (numberPost > 0) {
+        if (postBlockRef.current) {
+            setElementRef(postBlockRef.current);
+        }
+    }, [postBlockRef]);
+
+    useEffect(() => {
+        if(numberPost > 0){
             setPostLoaded(parseInt(numberPost));
-        } else {
+        }else{
             setAttributes({
                 ...attributes,
-                numberPost: 1
-            });
+                numberPost : 1
+            })
         }
 
     }, [numberPost]);
 
     useEffect(() => {
         if (postLoaded) {
-            u(elementRef.current)
+            u(postBlockRef.current)
                 .find('.guten-block-loadmore')
                 .on('click', () => {
                     setPostLoaded(postLoaded + parseInt(paginationNumberPost));
                 });
-            u(elementRef.current)
+            u(postBlockRef.current)
                 .find('.btn-pagination.next:not(.disabled)')
                 .on('click', () => {
                     setPage(page + 1);
                 });
-            u(elementRef.current)
+            u(postBlockRef.current)
                 .find('.btn-pagination.prev:not(.disabled)')
                 .on('click', () => {
                     setPage(page - 1);
                 });
-            u(elementRef.current)
+            u(postBlockRef.current)
                 .find('.btn-pagination')
                 .each((el) => {
                     const page = el.getAttribute('data-page');
@@ -233,7 +238,7 @@ const PostBlockBlock = compose(
                         </div>` : ''}
                         ${commentEnabled ? `<div class="guten-meta-comment icon-position-before">
                             <a href="javascript:void(0);" data-href="dummy-data">
-                                ${commentIconPosition === 'before' ? '<i aria-hidden="true" class="fas fa-comment"></i><span>0</span>' : '<span>0</span><i aria-hidden="true" class="fas fa-comment"></i>'}
+                                ${commentIconPosition === 'before' ? '<i aria-hidden="true" class="fas fa-comment"></i><span>0</span>' : '<span>0</span><i aria-hidden="true" class="fas fa-comment"></i>' }
                             </a>
                         </div>` : ''}
                     </div>` : '';
@@ -254,7 +259,7 @@ const PostBlockBlock = compose(
                                 <div class="guten-thumb"><a href="javascript:void(0);">
                                         <div class="thumbnail-container ">
                                             <img loading="eager" width="400" height="400"
-                                                src="${`https://picsum.photos/400/400?random=${i + 1}`}"
+                                                src="${`https://picsum.photos/400/400?random=${i+1}`}"
                                                 class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
                                                 decoding="async" loading="lazy"
                                                 sizes="(max-width: 400px) 100vw, 400px" />
@@ -278,15 +283,15 @@ const PostBlockBlock = compose(
                 default:
                     pagination = '';
                     break;
-                case 'loadmore':
+                case 'loadmore' :
                     pagination =
-                        `<div class="guten-block-pagination guten-align">
+                    `<div class="guten-block-pagination guten-align">
                         <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>
                     </div>`;
                     break;
-                case 'prevnext':
+                case 'prevnext' :
                     pagination =
-                        `<div class="guten_block_nav additional_class" data-page="1">
+                    `<div class="guten_block_nav additional_class" data-page="1">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev disabled" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -295,9 +300,9 @@ const PostBlockBlock = compose(
                         </a>
                     </div>`;
                     break;
-                case 'number':
+                case 'number' :
                     pagination =
-                        `<div class="guten_block_nav" data-page="4">
+                    `<div class="guten_block_nav" data-page="4">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -391,7 +396,7 @@ const PostBlockBlock = compose(
             displayClass,
             deviceType.toLowerCase(),
         ),
-        ref: elementRef,
+        ref: postBlockRef,
     });
 
     const postSkeletonCondition = () => {
@@ -403,8 +408,7 @@ const PostBlockBlock = compose(
     };
     return (
         <>
-            <CopyElementToolbar {...props}/>
-            <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+            <PanelController panelList={panelList} {...props} />
             <div {...blockProps}>
                 {!loading ? (
                     <RawHTML key="html" className="guten-raw-wrapper">

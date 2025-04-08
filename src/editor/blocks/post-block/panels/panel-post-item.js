@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const postItemPanel = ({ elementId }) => {
     const device = getDeviceType();
@@ -15,24 +17,10 @@ export const postItemPanel = ({ elementId }) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'postItemGap',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postblock .guten-posts`,
-                    'properties': [
-                        {
-                            'name': 'grid-column-gap',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-postblock .guten-posts`,
+                    render: value => `grid-column-gap: ${value}px;`
                 }
             ]
         },
@@ -42,11 +30,11 @@ export const postItemPanel = ({ elementId }) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            liveStyle: [
+            style: [
                 {
-                    'type': 'background',
-                    'id': 'postItemBackground',
-                    'selector': `.${elementId} .guten-postblock .guten-post`,
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    hasChild: true,
+                    render: value => handleBackground(value)
                 }
             ]
         },
@@ -70,6 +58,12 @@ export const postItemPanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'postItemPadding',
@@ -91,17 +85,23 @@ export const postItemPanel = ({ elementId }) => {
                     unit: '%'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'postItemBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'postItemBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-post`,
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -111,11 +111,11 @@ export const postItemPanel = ({ elementId }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'postItemBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-post`,
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -123,17 +123,11 @@ export const postItemPanel = ({ elementId }) => {
             id: 'postItemBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'postItemBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postblock .guten-post`,
+                    selector: `.${elementId} .guten-postblock .guten-post`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

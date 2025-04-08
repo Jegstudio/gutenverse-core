@@ -2,8 +2,9 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, IconRadioControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
+import { handleUnitPoint } from 'gutenverse-core/styling';
 
-export const settingPanel = ({ elementId }) => {
+export const settingPanel = ({elementId}) => {
     return [
         {
             id: 'titleTag',
@@ -110,19 +111,29 @@ export const settingPanel = ({ elementId }) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'flex-start',
-                    icon: <AlignLeft />,
+                    icon: <AlignLeft/>,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter />,
+                    icon: <AlignCenter/>,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'flex-end',
-                    icon: <AlignRight />,
+                    icon: <AlignRight/>,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `justify-content: ${value};`
+                },
+                {
+                    selector: `.${elementId} > *`,
+                    render: value => `text-align: ${value === 'flex-start' ? 'left' : value === 'flex-end' ? 'right' : 'center'};`
+                }
+            ]
         },
         {
             id: 'loop',
@@ -148,20 +159,12 @@ export const settingPanel = ({ elementId }) => {
                     step: 1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'height',
-                    'properties': [
-                        {
-                            'name': 'min-height',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId}`,
-                    'responsive': true
-                }
-            ]
+                    selector: `.${elementId}`,
+                    render: value => handleUnitPoint(value, 'min-height')
+                },
+            ],
         },
         {
             id: 'verticalAlign',
@@ -180,6 +183,12 @@ export const settingPanel = ({ elementId }) => {
                 {
                     label: __('Bottom'),
                     value: 'flex-end'
+                },
+            ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `align-items: ${value};`
                 },
             ],
         },

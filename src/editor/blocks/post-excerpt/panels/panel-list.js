@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { advancePanel, animationPanel, backgroundPanel, borderPanel, conditionPanel, maskPanel, positioningPanel, responsivePanel, transformPanel } from 'gutenverse-core/controls';
 import { settingPanel } from './panel-setting';
+// import { settingPanelDeprecated } from './panel-setting-deprecated';
 import { stylePanel } from './panel-style';
 import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
@@ -11,6 +12,10 @@ export const panelList = () => {
             panelArray: settingPanel,
             tabRole: TabSetting
         },
+        /* {
+            title: __('Setting (Deprecated)', 'gutenverse'),
+            panelArray: settingPanelDeprecated
+        }, */
         {
             title: __('Style', 'gutenverse'),
             initialOpen: false,

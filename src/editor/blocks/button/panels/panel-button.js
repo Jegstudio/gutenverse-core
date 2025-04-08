@@ -2,7 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TextControl } from 'gutenverse-core/controls';
-import { isNotEmpty } from 'gutenverse-core/helper';
+import { handleDimension, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const buttonPanel = (props) => {
     const {
@@ -36,6 +36,12 @@ export const buttonPanel = (props) => {
                     icon: <AlignRight/>,
                 },
             ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper`,
+                    render: value => `justify-content: ${value};`
+                }
+            ]
         },
         {
             id: 'role',
@@ -121,28 +127,12 @@ export const buttonPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'buttonWidth',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                    'key': 'buttonWidth',
-                                },
-            
-                            }
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    render: value => `width: ${value}%;`
                 }
-            ],
+            ]
         },
         {
             id: 'buttonHeight',
@@ -153,26 +143,12 @@ export const buttonPanel = (props) => {
             min: 1,
             max: 1000,
             step: 1,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'buttonHeight',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'height',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px !important',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ],
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    render: value => `height: ${value}px!important;`
                 }
-            ],
+            ]
         },
         {
             id: 'showIcon',
@@ -194,6 +170,13 @@ export const buttonPanel = (props) => {
                     value: 'after'
                 },
             ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender: () => showIcon,
+                    render: value => value === 'after' ? `margin-left: ${iconSpacing}px;` : `margin-right: ${iconSpacing}px;`
+                }
+            ]
         },
         {
             id: 'iconSpacing',
@@ -205,24 +188,11 @@ export const buttonPanel = (props) => {
             min: 0,
             max: 50,
             step: 1,
-            liveStyle: [
-                isNotEmpty(iconPosition) && isNotEmpty(iconSpacing) &&  {
-                    'type': 'plain',
-                    'id': 'iconSpacing',
-                    'responsive': true,
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
-                    'properties': [
-                        {
-                            'name': iconPosition === 'after' ? 'margin-left' : 'margin-right',
-                            'valueType': 'pattern',
-                            'pattern': '{value}px',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct',
-                                },
-                            }
-                        }
-                    ],
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender: () => showIcon,
+                    render: value => iconPosition === 'after' ? `margin-left: ${value}px;` : `margin-right: ${value}px;`
                 }
             ]
         },
@@ -246,20 +216,13 @@ export const buttonPanel = (props) => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'direct'
-                        }
-                    ]
-                },
-            ],
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender: () => showIcon,
+                    render: value => handleUnitPoint(value, 'font-size')
+                }
+            ]
         },
         {
             id: 'paddingButton',
@@ -285,11 +248,24 @@ export const buttonPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'iconLineHeight',
             label: __('Remove Icon Line Height', 'gutenverse'),
             component: CheckboxControl,
+            style: [
+                {
+                    selector: `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button i`,
+                    allowRender: value => value,
+                    render: () => 'line-height: normal',
+                }
+            ]
         },
     ];
 };

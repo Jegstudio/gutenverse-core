@@ -2,6 +2,7 @@ import { __ } from '@wordpress/i18n';
 
 import { CheckboxControl, IconRadioControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
+import { handleUnitPoint, handleTypography, handleAlign } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {
@@ -34,6 +35,16 @@ export const contentPanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}`,
+                    render: value => `justify-content: ${value};`
+                },
+                {
+                    selector: `.${elementId} .guten-social-icon`,
+                    render: value => `text-align: ${handleAlign(value)}`
+                },
+            ]
         },
         {
             id: 'iconSize',
@@ -54,18 +65,10 @@ export const contentPanel = (props) => {
                     step: 0.1
                 },
             },
-            liveStyle: [
+            style: [
                 {
-                    'type': 'unitPoint',
-                    'id': 'iconSize',
-                    'responsive': true,
-                    'properties': [
-                        {
-                            'name': 'font-size',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-social-icon i`,
+                    selector: `.${elementId} .guten-social-icon i`,
+                    render: value => handleUnitPoint(value, 'font-size')
                 }
             ]
         },
@@ -107,6 +110,13 @@ export const contentPanel = (props) => {
             label: __('Typography', 'gutenverse'),
             show: shape !== 'circle' && showText,
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .guten-social-icon span`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
     ];
 };

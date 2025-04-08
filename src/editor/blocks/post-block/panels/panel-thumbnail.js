@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
+import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const thumbnailPanel = ({ elementId }) => {
     const device = getDeviceType();
@@ -15,24 +17,10 @@ export const thumbnailPanel = ({ elementId }) => {
             step: 1,
             allowDeviceControl: true,
             unit: '%',
-            liveStyle: [
+            style: [
                 {
-                    'type': 'plain',
-                    'id': 'thumbnailWidth',
-                    'responsive': true,
-                    'selector': `.${elementId} .guten-postblock:not(.postblock-type-5) .guten-thumb, .${elementId} .guten-postblock.postblock-type-5 .guten-post`,
-                    'properties': [
-                        {
-                            'name': 'width',
-                            'valueType': 'pattern',
-                            'pattern': '{value}%; flex-basis: {value}%',
-                            'patternValues': {
-                                'value': {
-                                    'type': 'direct'
-                                }
-                            }
-                        }
-                    ]
+                    selector: `.${elementId} .guten-postblock:not(.postblock-type-5) .guten-thumb, .${elementId} .guten-postblock.postblock-type-5 .guten-post`,
+                    render: value => `width: ${value}%; flex-basis: ${value}%;`
                 }
             ]
         },
@@ -55,7 +43,13 @@ export const thumbnailPanel = ({ elementId }) => {
                     text: '%',
                     unit: '%'
                 },
-            }
+            },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'thumbnailPadding',
@@ -76,18 +70,24 @@ export const thumbnailPanel = ({ elementId }) => {
                     text: '%',
                     unit: '%'
                 },
-            }
+            },
+            style: [
+                {
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: 'thumbnailBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'border',
-                    'id': 'thumbnailBorder',
-                    'selector': `.${elementId} .guten-postblock .guten-thumb`,
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
                 }
             ]
         },
@@ -97,11 +97,11 @@ export const thumbnailPanel = ({ elementId }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'borderResponsive',
-                    'id': 'thumbnailBorderResponsive',
-                    'selector': `.${elementId} .guten-postblock .guten-thumb`,
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
                 }
             ]
         },
@@ -109,17 +109,11 @@ export const thumbnailPanel = ({ elementId }) => {
             id: 'thumbnailBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: [
+            style: [
                 {
-                    'type': 'boxShadow',
-                    'id': 'thumbnailBoxShadow',
-                    'properties': [
-                        {
-                            'name': 'box-shadow',
-                            'valueType': 'direct'
-                        }
-                    ],
-                    'selector': `.${elementId} .guten-postblock .guten-thumb`,
+                    selector: `.${elementId} .guten-postblock .guten-thumb`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
                 }
             ]
         },

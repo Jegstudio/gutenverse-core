@@ -452,7 +452,7 @@
 			"copyStyle": true
 		},
 		"enableLoadAlign": {
-			"type": "object",
+			"type": "string",
 			"copyStyle": true
 		},
 		"loadMoreMarginTop": {

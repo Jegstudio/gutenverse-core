@@ -17,17 +17,26 @@ export const inputPanel = (props) => {
             id: 'inputTypography',
             label: __('Input Typography', 'gutenverse'),
             component: TypographyControl,
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    hasChild: true,
+                    render: (value, id) => handleTypography(value, props, id)
+                }
+            ],
         },
         {
             id: 'inputBorder',
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            liveStyle: {
-                'type': 'border',
-                'id': 'inputBorder',
-                'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    hasChild: true,
+                    render: value => handleBorder(value)
+                }
+            ]
         },
         {
             id: 'inputBorderResponsive',
@@ -35,11 +44,13 @@ export const inputPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'borderResponsive',
-                'id': 'inputBorderResponsive',
-                'selector': `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    allowRender: () => device !== 'Desktop',
+                    render: value => handleBorderResponsive(value)
+                }
+            ]
         },
         {
             id: 'inputMargin',
@@ -65,6 +76,12 @@ export const inputPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleDimension(value, 'margin')
+                }
+            ]
         },
         {
             id: 'inputPadding',
@@ -90,6 +107,12 @@ export const inputPanel = (props) => {
                     unit: 'rem'
                 },
             },
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleDimension(value, 'padding')
+                }
+            ]
         },
         {
             id: '__itemState',
@@ -116,17 +139,12 @@ export const inputPanel = (props) => {
             label: __('Input Color Normal', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputColorNormal',
-                'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'inputBgColorNormal',
@@ -134,17 +152,12 @@ export const inputPanel = (props) => {
             label: __('Input Background Color Normal', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputBgColorNormal',
-                'selector':`.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]), .${elementId} .comment-form textarea`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'inputColorHover',
@@ -152,17 +165,12 @@ export const inputPanel = (props) => {
             label: __('Input Color Hover', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputColorHover',
-                'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+                    render: value => handleColor(value, 'color')
+                }
+            ]
         },
         {
             id: 'inputBgColorHover',
@@ -170,17 +178,12 @@ export const inputPanel = (props) => {
             label: __('Input Background Color Hover', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputBgColorHover',
-                'selector': `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]):hover, .${elementId} .comment-form textarea:hover`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: 'inputColorFocus',
@@ -188,17 +191,12 @@ export const inputPanel = (props) => {
             label: __('Input Color Focus', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputColorFocus',
-                'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
-                'properties': [
-                    {
-                        'name': 'color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
+                    render: value => handleColor(value, 'color')
+                },
+            ]
         },
         {
             id: 'inputBgColorFocus',
@@ -206,17 +204,12 @@ export const inputPanel = (props) => {
             label: __('Input Background Color Focus', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            liveStyle: {
-                'type': 'color',
-                'id': 'inputBgColorFocus',
-                'selector': `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
-                'properties': [
-                    {
-                        'name': 'background-color',
-                        'valueType': 'direct'
-                    }
-                ]
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit]):focus, .${elementId} .comment-form textarea:focus, .${elementId} .comment-form input:not([type=submit]):focus-visible, .${elementId} .comment-form textarea:focus-visible`,
+                    render: value => handleColor(value, 'background-color')
+                }
+            ]
         },
         {
             id: '__inputAreaHover',
@@ -238,34 +231,26 @@ export const inputPanel = (props) => {
             show: !switcher.inputAreaHover || switcher.inputAreaHover === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: {
-                'type': 'boxShadow',
-                'id': 'inputAreaBoxShadow',
-                'properties': [
-                    {
-                        'name': 'box-shadow',
-                        'valueType': 'direct'
-                    }
-                ],
-                'selector': `.${elementId} .comment-form input:not([type=submit],[type=checkbox]), .${elementId} .comment-form textarea`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit],[type=checkbox]), .${elementId} .comment-form textarea`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
         },
         {
             id: 'inputAreaBoxShadowHover',
             show: switcher.inputAreaHover === 'hover',
             label: __('Hover Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            liveStyle: {
-                'type': 'boxShadow',
-                'id': 'inputAreaBoxShadowHover',
-                'properties': [
-                    {
-                        'name': 'box-shadow',
-                        'valueType': 'direct'
-                    }
-                ],
-                'selector': `.${elementId} .comment-form input:not([type=submit],[type=checkbox]):hover, .${elementId} .comment-form textarea:hover`,
-            }
+            style: [
+                {
+                    selector: `.${elementId} .comment-form input:not([type=submit],[type=checkbox]):hover, .${elementId} .comment-form textarea:hover`,
+                    allowRender: (value) => allowRenderBoxShadow(value),
+                    render: value => handleBoxShadow(value)
+                }
+            ]
         }
     ];
 };

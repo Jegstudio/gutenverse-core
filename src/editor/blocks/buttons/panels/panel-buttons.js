@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { IconRadioControl } from 'gutenverse-core/controls';
 
-export const buttonsPanel = () => {
+export const buttonsPanel = ({elementId}) => {
     return [
         {
             id: 'alignButtons',
@@ -27,6 +27,12 @@ export const buttonsPanel = () => {
                     icon: <AlignRight/>,
                 },
             ],
+            style: [
+                {
+                    selector: `.${elementId}, .${elementId} .guten-button-wrapper`,
+                    render: value => `justify-content: ${value};`
+                },
+            ]
         }
     ];
 };

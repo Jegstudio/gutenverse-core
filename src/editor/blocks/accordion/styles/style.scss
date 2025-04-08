@@ -13,18 +13,8 @@
   }
 
   .accordion-body {
-    transition: height .2s;
+    transition: height 0s;
     transition-timing-function: cubic-bezier(0,-0.13,0,1.04);
-    height: 0px;
-    &.active{
-      height: auto;
-    }
-  }
-
-  .accordion-header{
-    &.active{
-      height: auto;
-    }
   }
 
   &.active {

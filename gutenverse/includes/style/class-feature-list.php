@@ -179,18 +179,6 @@ class Feature_List extends Style_Abstract {
 	 * Generate style in content panel
 	 */
 	public function content_style() {
-		if ( isset( $this->attrs['contentPosition'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.guten-feature-list .feature-list-wrapper .feature-list-item",
-					'property'       => function ( $value ) {
-						return "align-items : {$value};";
-					},
-					'value'          => $this->attrs['contentPosition'],
-					'device_control' => false,
-				)
-			);
-		}
 		if ( isset( $this->attrs['titleTypography'] ) ) {
 			$this->inject_typography(
 				array(

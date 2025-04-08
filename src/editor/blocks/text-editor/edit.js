@@ -1,28 +1,31 @@
 import { compose } from '@wordpress/compose';
+import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { BlockPanelController } from 'gutenverse-core/controls';
+import { PanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps } from '@wordpress/block-editor';
-import { useEffect, useRef } from '@wordpress/element';
-import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
-import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
-import getBlockStyle from './styles/block-style';
-import { CopyElementToolbar } from 'gutenverse-core/components';
+import { useRef, useEffect } from '@wordpress/element';
+import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withAnimationAdvance } from 'gutenverse-core/hoc';
+import { useAnimationEditor } from 'gutenverse-core/hooks';
+import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { useSelect } from '@wordpress/data';
 
 const TextEditorBlock = compose(
     withPartialRender,
-    withPassRef,
-    withAnimationAdvanceV2('text-editor'),
+    withCustomStyle(panelList),
+    withAnimationAdvance('text-editor'),
+    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
+    const { panelProps} = props;
+
+
     const {
         attributes,
-        clientId,
-        setBlockRef,
-        setAttributes
+        setElementRef,
+        setAttributes,
     } = props;
 
     const {
@@ -33,11 +36,7 @@ const TextEditorBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const elementRef = useRef();
-
-    useGenerateElementId(clientId, elementId, elementRef);
-    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
-    useDynamicScript(elementRef);
+    const textEditorRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -51,17 +50,17 @@ const TextEditorBlock = compose(
                 'dropcap': dropcap
             },
         ),
-        ref: elementRef
+        ref: textEditorRef
     });
 
-    const innerBlocksProps = enableHeading ? useInnerBlocksProps({
+    const innerBlocksProps = enableHeading? useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph', 'core/post-content', 'core/heading', 'gutenverse/heading'],
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph', 'core/heading', 'gutenverse/heading'],
     }) : useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph', 'core/post-content'],
+        allowedBlocks: ['gutenverse/text-paragraph','core/paragraph'],
     });
 
     const innerBlocksContent = useSelect((select) => {
@@ -74,27 +73,30 @@ const TextEditorBlock = compose(
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlString, 'text/html');
         return doc.querySelector('a') !== null;
-    };
+    }
 
     useEffect(() => {
-        const containsAnchorTag = innerBlocksContent.some(innerBlock =>
+        const containsAnchorTag = innerBlocksContent.some(innerBlock => 
             hasLink(innerBlock.attributes?.content || innerBlock.attributes?.paragraph || '')
         );
-
+    
         if (containsAnchorTag !== attributes.containsAnchorTag) {
             setAttributes({ containsAnchorTag: containsAnchorTag });
         }
     }, [innerBlocksContent]);
 
     useEffect(() => {
-        if (elementRef) {
-            setBlockRef(elementRef);
+        if (textEditorRef.current) {
+            setElementRef(textEditorRef.current);
         }
-    }, [elementRef]);
+    }, [textEditorRef]);
 
     return <>
-        <CopyElementToolbar {...props} />
-        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
+        <PanelController
+            {...props}
+            panelList={panelList}
+            panelProps={panelProps}
+        />
         <div  {...blockProps}>
             <div {...innerBlocksProps} />
         </div>

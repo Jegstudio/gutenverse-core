@@ -23,8 +23,6 @@ class Taxonomy_List extends Block_Abstract {
 	 * @param integer $category_qty .
 	 * @param array   $included_category .
 	 * @param string  $sort .
-	 * @param bool    $hide_empty .
-	 * @param string  $orderby .
 	 *
 	 * @return string
 	 */
@@ -55,7 +53,7 @@ class Taxonomy_List extends Block_Abstract {
 				foreach ( $categories as $category ) {
 					echo '<div class="taxonomy-list-item">
 						<a href="' . esc_url( get_term_link( $category ) ) . '">
-							' . $icon . '
+							' . $icon  . '
 							<div class="taxonomy-list-content">' . esc_html( $category->name ) . '</div>
 						</a>
 					</div>';
