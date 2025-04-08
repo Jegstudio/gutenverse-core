@@ -171,12 +171,29 @@ const ThemeVariableColor = ({ value }) => {
     </div>;
 };
 
-const GlobalVariableColor = () => {
-    const defaultPalette = useSettingFallback('color.palette.default');
-    const themePalette = useSettingFallback('color.palette.theme');
+const checkDoubleSlug = (slug, idx, colors) => {
+    let doubleFlag = false;
+    colors.forEach((item, index) => {
+        if (index !== idx && item.slug === slug) {
+            doubleFlag = true;
+        }
+    });
 
-    const { userConfig, setUserConfig } = useGlobalStylesConfig();
+    if (doubleFlag) {
+        const newSlug = `${slug}-${Math.floor(Math.random() * 100)}`;
+        return checkDoubleSlug(newSlug, idx, colors);
+    } else {
+        return slug;
+    }
+};
 
+
+/**
+ * Global Custom Color Component
+ *
+ * @returns {JSX.Element}
+ */
+const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
     const [customPalette, setCustomPalette] = useState(customs ? customs.map(item => {
         return {
@@ -185,9 +202,6 @@ const GlobalVariableColor = () => {
         };
     }) : []);
     const [customColor, setCustomColor] = useState(null);
-
-    const [themesPalette, setThemesPalette] = useState(themePalette ? themePalette : []);
-    const [dummyThemesPalette, setDummyThemesPalette] = useState(null);
 
     useEffect(() => {
         const customColors = customPalette.map(item => {
@@ -202,14 +216,15 @@ const GlobalVariableColor = () => {
         setCustomColor(customColors);
     }, [customPalette]);
 
-    const defaultColor = !isEmpty(defaultPalette) && defaultPalette.map(item => {
-        return {
-            id: item.slug,
-            type: 'default',
-            name: item.name,
-            color: hexToRgb(item.color)
-        };
-    });
+    useEffect(() => {
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.custom';
+
+            set(newUserConfig, pathToSet, customPalette);
+            return newUserConfig;
+        });
+    }, [customPalette]);
 
     const addVariableColor = () => {
         const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customColor)}`;
@@ -247,99 +262,120 @@ const GlobalVariableColor = () => {
         setCustomPalette([...updatedCustoms]);
     };
 
-    useEffect(() => {
-        setUserConfig((currentConfig) => {
-            const newUserConfig = cloneDeep(currentConfig);
-            const pathToSet = 'settings.color.palette.custom';
+    return <>
+        <h4 style={{ marginTop: 0 }}>{__('Custom Colors', '--gctd--')}</h4>
+        {!isEmpty(customColor) && customColor.map((value, index) => {
+            return <SingleVariableColor
+                key={value.key}
+                value={value}
+                updateColor={(value) => updateVariableColor(index, value)}
+                deleteColor={() => deleteVariableColor(index)}
+                showDelete={true}
+                showEditSlug={true}
+                checkDoubleSlug={slug => checkDoubleSlug(slug, index, customPalette)}
+            />;
+        })}
+        {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
+            {__('Empty Variable Color', '--gctd--')}
+        </div>}
+        {<div className={'color-variable-add'}>
+            <div onClick={() => addVariableColor()}>
+                {__('Add Color', '--gctd--')}
+            </div>
+        </div>}
+    </>;
+};
 
-            set(newUserConfig, pathToSet, customPalette);
-            return newUserConfig;
-        });
-    }, [customPalette]);
+const GlobalDefaultColor = ({ userConfig }) => {
+    const defaultPalette = useSettingFallback('color.palette.default');
+    const defaultColor = !isEmpty(defaultPalette) && defaultPalette.map(item => {
+        return {
+            id: item.slug,
+            type: 'default',
+            name: item.name,
+            color: hexToRgb(item.color)
+        };
+    });
+
+    return <>
+        <h4>{__('Default Colors', '--gctd--')}</h4>
+        {!isEmpty(defaultColor) && defaultColor.map(value => {
+            return <ThemeVariableColor
+                key={value.slug}
+                value={value}
+                allowChange={false}
+                userConfig={userConfig}
+            />;
+        })}
+    </>;
+};
+
+const GlobalThemesColor = ({ userConfig, setUserConfig }) => {
+    const themePalette = useSettingFallback('color.palette.theme');
+    const [dummyThemesPalette, setDummyThemesPalette] = useState(themePalette ? themePalette.map(item => {
+        return {
+            id: item.slug,
+            slug: item.slug,
+            type: 'theme',
+            name: item.name,
+            color: hexToRgb(item.color)
+        };
+    }) : []);
 
     const updateThemesColor = (index, value) => {
         const { id: slug, name, color } = value;
         const updated = {
+            id: slug,
             slug,
             name,
-            color: rgbToHex(color)
+            color: color
         };
 
-        const updatedCustoms = [...themePalette];
+        const updatedCustoms = [...dummyThemesPalette];
         updatedCustoms[index] = updated;
-        setThemesPalette(updatedCustoms);
+        setDummyThemesPalette(updatedCustoms);
     };
 
     useEffect(() => {
-        setDummyThemesPalette(themePalette ? themePalette.map(item => {
-            return {
-                id: item.slug,
-                type: 'theme',
-                name: item.name,
-                color: hexToRgb(item.color)
-            };
-        }) : []);
-
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.theme';
+            const themesColors = dummyThemesPalette.map(item => {
+                return {
+                    ...item,
+                    color: rgbToHex(item.color)
+                };
+            });
 
-            set(newUserConfig, pathToSet, themesPalette);
+            set(newUserConfig, pathToSet, themesColors);
             return newUserConfig;
         });
-    }, [themesPalette]);
+    }, [dummyThemesPalette]);
 
-    const checkDoubleSlug = (slug, idx, colors) => {
-        let doubleFlag = false;
-        colors.forEach((item, index) => {
-            if (index !== idx && item.slug === slug) {
-                doubleFlag = true;
-            }
-        });
+    return <>
+        <h4>{__('Theme Colors', '--gctd--')}</h4>
+        {!isEmpty(dummyThemesPalette) && dummyThemesPalette.map((value, index) => {
+            return <SingleVariableColor
+                key={value.slug}
+                value={value}
+                updateColor={(value) => updateThemesColor(index, value)}
+                deleteColor={() => { }}
+                showDelete={false}
+            />;
+        })}
+    </>;
+};
 
-        if (doubleFlag) {
-            const newSlug = `${slug}-${Math.floor(Math.random() * 100)}`;
-            return checkDoubleSlug(newSlug, idx, colors);
-        } else {
-            return slug;
-        }
-    };
+const GlobalVariableColor = () => {
+    const { userConfig, setUserConfig } = useGlobalStylesConfig();
 
     return <>
         {<div className={'color-variable-wrapper'}>
-            <h4 style={{ marginTop: 0 }}>{__('Custom Colors', '--gctd--')}</h4>
-            {!isEmpty(customColor) && customColor.map((value, index) => {
-                return <SingleVariableColor
-                    key={value.key}
-                    value={value}
-                    updateColor={(value) => updateVariableColor(index, value)}
-                    deleteColor={() => deleteVariableColor(index)}
-                    showDelete={true}
-                    showEditSlug={true}
-                    checkDoubleSlug={slug => checkDoubleSlug(slug, index, customPalette)}
-                />;
-            })}
-            {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
-                {__('Empty Variable Color', '--gctd--')}
-            </div>}
-            {<div className={'color-variable-add'}>
-                <div onClick={() => addVariableColor()}>
-                    {__('Add Color', '--gctd--')}
-                </div>
-            </div>}
+            <GlobalCustomColor userConfig={userConfig} setUserConfig={setUserConfig} />
             <div style={{ display: 'block', height: '10px' }}></div>
-            <h4>{__('Theme Colors', '--gctd--')}</h4>
-            {!isEmpty(dummyThemesPalette) && dummyThemesPalette.map((value, index) => {
-                return <SingleVariableColor
-                    key={value.slug}
-                    value={value}
-                    updateColor={(value) => updateThemesColor(index, value)}
-                    deleteColor={() => { }}
-                    showDelete={false}
-                />;
-            })}
-            <h4>{__('Default Colors', '--gctd--')}</h4>
-            {!isEmpty(defaultColor) && defaultColor.map(value => <ThemeVariableColor key={value.slug} value={value} allowChange={false} userConfig={userConfig} />)}
+            <GlobalThemesColor userConfig={userConfig} setUserConfig={setUserConfig} />
+            <div style={{ display: 'block', height: '10px' }}></div>
+            <GlobalDefaultColor userConfig={userConfig} setUserConfig={setUserConfig} />
         </div>}
     </>;
 };
