@@ -17,7 +17,6 @@ import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { store as editorStore } from '@wordpress/editor';
 import { parse } from '@wordpress/blocks';
 
-
 const Placeholder = () => {
     return <div className="post-content">
         <p>{__('This will be your post\'s content block, it will display all the blocks in any single post or page.', 'gutenverse')}</p>
@@ -89,10 +88,7 @@ const ReadOnlyContent = ({
             <Warning>{__('This content is password protected.')}</Warning>
         </div>
     ) : (
-        <div
-            {...blockProps}
-            dangerouslySetInnerHTML={{ __html: content?.rendered }}
-        ></div>
+        <Placeholder />
     );
 };
 
@@ -229,7 +225,7 @@ const PostContentBlock = compose(
                         layoutClassNames={layoutClassNames}
                     />
                 ) : (
-                    <Placeholder layoutClassNames={layoutClassNames} />
+                    <Placeholder />
                 )}
             </RecursionProvider>
         </div>
