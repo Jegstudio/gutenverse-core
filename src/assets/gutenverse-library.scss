@@ -937,6 +937,7 @@ $border: #eaeaea;
 }
 
 .gutenverse-library-single-layout,
+.gutenverse-library-single-section,
 .plugin-install-popup {
     position: absolute;
     top: 0;
@@ -1463,6 +1464,124 @@ $border: #eaeaea;
 
         span {
             margin-left: 5px;
+        }
+    }
+}
+
+.gutenverse-library-single-section {
+    padding: 20px 120px 2.5%;
+    flex-direction: column;
+    gap: 20px;
+
+    .back-button {
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        font-size: 12px;
+        color: #1c1d21;
+
+        span {
+            margin-left: 5px;
+        }
+    }
+
+    .single-previewer-container {
+        width: 100%;
+        flex-direction: column;
+        overflow: hidden;
+
+        .single-previewer {
+            width: 100%;
+            overflow-y: auto;
+            padding: 10px 120px 0px;
+
+            .single-previewer-footer {
+                border-top: solid 1px #E3E4E6;
+                height: 70px;
+                background-color: white;
+                position: sticky;
+                bottom: 0;
+                display: flex;
+                justify-content: space-between;
+                margin: 0px -120px;
+                align-items: center;
+                padding: 0 20px;
+                z-index: 9999999;
+    
+                .section-button {
+                    cursor: pointer;
+                    width: 156px;
+                    height: 38px;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin-left: 20px;
+                    gap: 6px;
+                    border-radius: 5px;
+                    box-shadow: 0 8px 44px 0 rgba(255, 255, 255, 0.12);
+                    border: 1px solid #3b57f7;
+                    color: #fff;
+                    font: 600 12px Roboto;
+                    text-align: center;
+                    background-color: #3b57f7;
+    
+                    .section-button-inner {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        flex-direction: row;
+                        padding: 10px 10px;
+                        justify-content: center;
+                        gap: 6px;
+                    }
+    
+                    &:hover {
+                        transform: scale(0.94);
+    
+                        svg {
+                            color: white;
+                            fill: white;
+                        }
+                    }
+    
+                    &.disabled {
+                        background: #e3e4e6;
+                        color: #99a2a9;
+    
+                        &:hover {
+                            background: #e3e4e6;
+                            color: #807e7e;
+                        }
+                    }
+                }
+
+                .previewer-options-container {
+                    display: flex;
+                    gap: 16px;
+
+                    label {
+                        font-family: "Roboto", sans-serif;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 100%;
+                        letter-spacing: 0%;
+
+                        &.selected {
+                            color: #3B57F7;
+                        }
+                    }
+                }
+            }
+
+            // .library-content-container {
+            //     >* {
+            //         transform: scale(.8);
+            //     }
+            // }
         }
     }
 }

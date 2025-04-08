@@ -19,6 +19,8 @@ const checkIfAlwaysRendered = (clientId) => {
         'gutenverse/popup-container'
     ];
 
+    if(getBlock(clientId) === null || !getBlock(clientId)) renderBlock = true;
+
     parents.map(id => {
         const block = getBlock(id);
 

@@ -11,7 +11,7 @@ import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
 import { store as editorStore } from '@wordpress/editor';
 
 const ImportSectionButton = props => {
-    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError } = props;
+    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError, setSingleId, setSingleData, singleData } = props;
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
     let fail = 0;
 
@@ -145,10 +145,26 @@ const ImportSectionButton = props => {
         });
     };
 
+    const allowGlobal = true;
+
     const ImportButton = () => {
-        return (
+        return (allowGlobal && !singleData) ? (
             <div className="section-button import-section">
-                <div className="section-button-inner" onClick={importContent}>
+                <div className="section-button-inner" onClick={() => {
+                    setSingleId(data.id);
+                    setSingleData(data);
+                }}>
+                    <span>{__('Select this section', '--gctd--')}</span>
+                    <IconDownload2SVG />
+                </div>
+            </div>
+        ) : (
+            <div className="section-button import-section">
+                <div className="section-button-inner" onClick={(e) => {
+                    importContent(e);
+                    setSingleId(null);
+                    setSingleData(null);
+                }}>
                     <span>{__('Import this section', '--gctd--')}</span>
                     <IconDownload2SVG />
                 </div>

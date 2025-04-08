@@ -3,9 +3,8 @@ import { elementVar, normalAppender} from '../styling-utility';
 import { handleBackground } from './handle-background';
 import { handleBorder } from './handle-border';
 import { getColor } from './handle-color';
-import { handleTypography } from './handle-typography';
 
-export const handleCursorEffect = (style, props, id) => {
+export const handleCursorEffect = (style) => {
     let elementStyle = elementVar();
 
     const {
