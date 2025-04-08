@@ -89,7 +89,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
                 slideshowContainer[currentIndex]?.classList.add(parentClass);
                 if (currentIndex === 1 && slideshowContainer.length <= 2) {
                     setTimeout(() => {
-                        slideshowContainer[0].classList.remove(parentClass);
+                        slideshowContainer[0]?.classList.remove(parentClass);
                     }, transition);
                 }
 

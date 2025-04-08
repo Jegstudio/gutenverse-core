@@ -117,7 +117,7 @@ const TypographyControl = (props) => {
         };
     }, [variableWrapperRef]);
 
-    const bodyClass = classnames('control-body', 'control-toggle-body', 'triangle', {
+    const bodyClass = classnames('control-body', 'control-toggle-body', 'guten-triangle', {
         'hide': !show
     });
 

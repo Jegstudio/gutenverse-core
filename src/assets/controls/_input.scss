@@ -157,8 +157,52 @@
     height: 150px;
   }
 
-  &.gutenverse-control- {
+  .gutenverse-variable-detail-wrapper {
+    display: flex;
+    flex-direction: column;
 
+    .gutenverse-variable-slug {
+      border: 1px solid #e6e6ef;
+      border-radius: 5px;
+      margin-top: 10px;
+      width: 100%;
+
+      .gutenverse-control-heading {
+        h2 {
+          border-bottom: 1px solid #e6e6ef;
+          padding: 5px 10px 10px;
+          margin-bottom: 0px;
+        }
+      }
+
+      .variable-input-wrapper {
+        justify-content: center;
+        align-items: center;
+        padding: 20px 12px;
+        display: flex;
+
+        .variable-input {
+          width: 88%;
+        }
+
+        .variable-input-lock {
+          cursor: pointer;
+          display: flex;
+          justify-content: flex-end;
+          width: 12%;
+        }
+      }
+    }
+
+    > .control-body {
+      margin: 0;
+      border: 1px solid #e6e6ef;
+      border-radius: 5px;
+      padding: 15px;
+    }
+  }
+
+  &.gutenverse-control- {
     /** Alert **/
     &alert {
       .control-body {
@@ -934,7 +978,13 @@
           width: min-content;
         }
       }
-      
+
+      &.flexible-wrapper-background {
+        .control-title {
+          width: min-content;
+        }
+      }
+
       .control-body {
         margin-right: 0;
 
@@ -1260,6 +1310,7 @@
         display: block;
         margin-top: 10px;
         border-radius: 3px;
+        width: 100%;
 
         .chrome-picker {
           width: 100% !important;
@@ -1912,9 +1963,11 @@
       >* {
         display: block;
       }
-      .control-title{
+
+      .control-title {
         display: flex;
       }
+
       .gradient-type {
         display: flex;
         justify-content: space-between;
@@ -1966,9 +2019,10 @@
     }
 
     &heading-splitter {
-      font-size: 12px;
-      padding-bottom: 10px;
+      font-size: 13px !important;
+      padding-bottom: 0px !important;
       margin-top: 0;
+      text-transform: capitalize !important;
 
       &:not(.first) {
         border-top: 1px solid #e6e6ef;

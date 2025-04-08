@@ -65,16 +65,15 @@ const Library = () => {
                 setOpen(true);
                 setVisibility(true);
             }}>
-                {loading && open && <div style={{ marginRight: '10px' }}>
+                {loading && open ? <div style={{ marginRight: '10px' }}>
                     <div className="rotating" style={{ display: 'flex' }}>
                         <Loader size={20} />
                     </div>
-                </div>}
-                <div style={{ marginRight: '7px', display: 'flex' }}>
+                </div> : <div style={{ marginRight: '7px', display: 'flex' }}>
                     <LogoFullWhiteNoTextSVG />
-                </div>
+                </div>}
                 <span>
-                    {loading && open ? __('Populating Library . . .', '--gctd--') : __('Gutenverse Library', '--gctd--')}
+                    {loading && open ? __('Updating...', '--gctd--') : __('Gutenverse Library', '--gctd--')}
                 </span>
             </div>
         </div>

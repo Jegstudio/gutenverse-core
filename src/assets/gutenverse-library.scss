@@ -1679,6 +1679,32 @@ $border: #eaeaea;
     }
 }
 
+.gutenverse-lock-button {
+    cursor: pointer;
+    display: flex;
+    padding: 8px;
+    border-radius: 5px;
+
+    &:hover {
+
+        &.locked {
+            background-color: #FFFAEB;
+        }
+    
+        &.unlocked {
+            background-color: #F6FEF9;
+        }
+    }
+
+    &.locked {
+        border: 1px solid #FEC84B;
+    }
+
+    &.unlocked {
+        border: 1px solid #6CE9A6;
+    }
+}
+
 .gutenverse-import,
 .gutenverse-export {
     position: absolute;
