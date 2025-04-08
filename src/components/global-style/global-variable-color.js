@@ -178,8 +178,29 @@ const GlobalVariableColor = () => {
     const { userConfig, setUserConfig } = useGlobalStylesConfig();
 
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
-    const [customPalette, setCustomPalette] = useState(customs ? customs : []);
-    const [themesPalette, setThemePalette] = useState(themePalette ? themePalette : []);
+    const [customPalette, setCustomPalette] = useState(customs ? customs.map(item => {
+        return {
+            ...item,
+            key: item.key ? item.key : cryptoRandomString({ length: 6, type: 'alphanumeric' })
+        };
+    }) : []);
+    const [customColor, setCustomColor] = useState(null);
+
+    const [themesPalette, setThemesPalette] = useState(themePalette ? themePalette : []);
+    const [dummyThemesPalette, setDummyThemesPalette] = useState(null);
+
+    useEffect(() => {
+        const customColors = customPalette.map(item => {
+            return {
+                id: item.slug,
+                type: 'custom',
+                name: item.name,
+                color: hexToRgb(item.color),
+                key: item.key
+            };
+        });
+        setCustomColor(customColors);
+    }, [customPalette]);
 
     const defaultColor = !isEmpty(defaultPalette) && defaultPalette.map(item => {
         return {
@@ -190,29 +211,12 @@ const GlobalVariableColor = () => {
         };
     });
 
-    const themeColor = !isEmpty(themePalette) && themePalette.map(item => {
-        return {
-            id: item.slug,
-            type: 'theme',
-            name: item.name,
-            color: hexToRgb(item.color)
-        };
-    });
-
-    const customColor = customPalette.map(item => {
-        return {
-            id: item.slug,
-            type: 'custom',
-            name: item.name,
-            color: hexToRgb(item.color)
-        };
-    });
-
     const addVariableColor = () => {
         const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customColor)}`;
-
+        const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
         const newColor = {
-            slug: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
+            slug: key,
+            key: key,
             name: name,
             color: '#fff'
         };
@@ -224,9 +228,10 @@ const GlobalVariableColor = () => {
     };
 
     const updateVariableColor = (index, value) => {
-        const { id: slug, name, color } = value;
+        const { id: slug, key, name, color } = value;
         const updated = {
             slug,
+            key,
             name,
             color: rgbToHex(color)
         };
@@ -242,19 +247,6 @@ const GlobalVariableColor = () => {
         setCustomPalette([...updatedCustoms]);
     };
 
-    const updateThemesColor = (index, value) => {
-        const { id: slug, name, color } = value;
-        const updated = {
-            slug,
-            name,
-            color: rgbToHex(color)
-        };
-
-        const updatedCustoms = [...themePalette];
-        updatedCustoms[index] = updated;
-        setThemePalette(updatedCustoms);
-    };
-
     useEffect(() => {
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
@@ -265,7 +257,29 @@ const GlobalVariableColor = () => {
         });
     }, [customPalette]);
 
+    const updateThemesColor = (index, value) => {
+        const { id: slug, name, color } = value;
+        const updated = {
+            slug,
+            name,
+            color: rgbToHex(color)
+        };
+
+        const updatedCustoms = [...themePalette];
+        updatedCustoms[index] = updated;
+        setThemesPalette(updatedCustoms);
+    };
+
     useEffect(() => {
+        setDummyThemesPalette(themePalette ? themePalette.map(item => {
+            return {
+                id: item.slug,
+                type: 'theme',
+                name: item.name,
+                color: hexToRgb(item.color)
+            };
+        }) : []);
+
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.theme';
@@ -296,7 +310,7 @@ const GlobalVariableColor = () => {
             <h4 style={{ marginTop: 0 }}>{__('Custom Colors', '--gctd--')}</h4>
             {!isEmpty(customColor) && customColor.map((value, index) => {
                 return <SingleVariableColor
-                    key={index}
+                    key={value.key}
                     value={value}
                     updateColor={(value) => updateVariableColor(index, value)}
                     deleteColor={() => deleteVariableColor(index)}
@@ -315,7 +329,7 @@ const GlobalVariableColor = () => {
             </div>}
             <div style={{ display: 'block', height: '10px' }}></div>
             <h4>{__('Theme Colors', '--gctd--')}</h4>
-            {!isEmpty(themeColor) && themeColor.map((value, index) => {
+            {!isEmpty(dummyThemesPalette) && dummyThemesPalette.map((value, index) => {
                 return <SingleVariableColor
                     key={value.slug}
                     value={value}
