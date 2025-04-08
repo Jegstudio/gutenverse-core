@@ -81,87 +81,129 @@ export const panelIconStyle = (props) => {
             show: (!switcher.icon || switcher.icon === 'normal') && (!iconStyleMode || iconStyleMode === 'color'),
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon i`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconColor',
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'iconHoverColor',
             show: switcher.icon === 'hover' && (!iconStyleMode || iconStyleMode === 'color'),
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon i`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'iconHoverColor',
+                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'iconBgColor',
             show: (!switcher.icon || switcher.icon === 'normal') && (!iconStyleMode || iconStyleMode === 'color'),
             label: __('Normal Background Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'iconBgColor',
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'iconHoverBgColor',
             show: switcher.icon === 'hover' && (!iconStyleMode || iconStyleMode === 'color'),
             label: __('Hover Background Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'iconHoverBgColor',
+                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'iconBackground',
             show: (!switcher.icon || switcher.icon === 'normal') && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon.style-gradient`,
-                    hasChild: true,
-                    render: value => customHandleBackground(value)
+                    'type': 'plain',
+                    'id': 'iconBackground',
+                    'properties': [
+                        {
+                            'name': 'background-image',
+                            'valueType': 'function',
+                            'functionName' : 'customHandleBackground'
+                        }
+                    ],
+                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon.style-gradient`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconBackgroundHover',
             show: switcher.icon === 'hover' && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon.style-gradient`,
-                    hasChild: true,
-                    render: value => customHandleBackground(value)
+                    'type': 'plain',
+                    'id': 'iconBackgroundHover',
+                    'properties': [
+                        {
+                            'name': 'background-image',
+                            'valueType': 'function',
+                            'functionName' : 'customHandleBackground'
+                        }
+                    ],
+                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon.style-gradient`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconBorder',
             show: (!switcher.icon || switcher.icon === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon `,
-                    hasChild: true,
-                    render: value => handleBorder(value)
-                },
-            ]
+                    'type': 'border',
+                    'id': 'iconBorder',
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon `,
+                }
+            ],
         },
         {
             id: 'iconBorderResponsive',
@@ -169,38 +211,46 @@ export const panelIconStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => handleBorderResponsive(value)
+                    'type': 'iconBorderResponsive',
+                    'id': 'buttonBorderHoverResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconBoxShadow',
             show: !switcher.icon || switcher.icon === 'normal',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'iconBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconBorderHover',
             show: switcher.icon === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'iconBorderHover',
+                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconBorderHoverResponsive',
@@ -208,25 +258,33 @@ export const panelIconStyle = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    render: value => handleBorderResponsive(value)
-                },
-            ]
+                    'type': 'iconBorderResponsive',
+                    'id': 'iconBorderHoverResponsive',
+                    'responsive': true,
+                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon`,
+                }
+            ],
         },
         {
             id: 'iconBoxShadowHover',
             show: switcher.icon === 'hover',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .icon-box.icon-box-header .icon`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'iconBoxShadowHover',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}:hover .icon-box.icon-box-header .icon`,
                 }
-            ]
+            ],
         },
         {
             id: 'iconPadding',
@@ -248,12 +306,6 @@ export const panelIconStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'iconMargin',
@@ -275,12 +327,6 @@ export const panelIconStyle = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'iconRotate',
@@ -291,12 +337,25 @@ export const panelIconStyle = (props) => {
             min: 1,
             max: 360,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .icon-box.icon-box-header .icon`,
-                    render: value => `transform: rotate(${value}deg);`
+                    'type': 'plain',
+                    'id': 'iconRotate',
+                    'selector': `.${elementId} .icon-box.icon-box-header .icon`,
+                    'properties': [
+                        {
+                            'name': 'transform',
+                            'valueType': 'pattern',
+                            'pattern': 'rotate({value}deg)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
     ];
 };

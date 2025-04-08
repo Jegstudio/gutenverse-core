@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { ColorControl, IconControl, IconRadioControl, RangeControl, SelectControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {
@@ -39,17 +38,17 @@ export const contentPanel = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ]
         },
@@ -58,10 +57,17 @@ export const contentPanel = (props) => {
             label: __('Color', 'gutenverse'),
             show: ['text', 'icon'].includes(content),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'contentColor',
+                    'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -75,10 +81,24 @@ export const contentPanel = (props) => {
             min: 1,
             max: 50,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
-                    render: value => `margin: 0 ${value}px;`
+                    'type': 'plain',
+                    'id': 'contentSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-divider-content span, .${elementId} .guten-divider-content i`,
+                    'properties': [
+                        {
+                            'name': 'margin',
+                            'valueType': 'pattern',
+                            'pattern': '0 {value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -87,13 +107,6 @@ export const contentPanel = (props) => {
             label: __('Typography', 'gutenverse'),
             show: content === 'text',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-divider-content span`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'icon',
@@ -121,10 +134,18 @@ export const contentPanel = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-divider-content i`,
-                    render: value => handleUnitPoint(value, 'font-size')
+                    'type': 'unitPoint',
+                    'id': 'iconSize',
+                    'selector': `.${elementId} .guten-divider-content i`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },

@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 /* Gutenverse dependencies */
 import { IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 
-export const contentPanel = ({ elementId }) => {
+export const contentPanel = () => {
     return [
         {
             id: 'type',
@@ -67,12 +67,6 @@ export const contentPanel = ({ elementId }) => {
                     value: 'justify',
                     icon: <AlignJustify />,
                 },
-            ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
             ]
         },
     ];

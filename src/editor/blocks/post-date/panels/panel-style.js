@@ -1,9 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
-import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, IconRadioControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const stylePanel = (props) => {
     const {
@@ -40,24 +38,11 @@ export const stylePanel = (props) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId}`,
-                    render: value => `justify-content: ${value};`
-                },
-            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.editor-styles-wrapper .${elementId} *`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: '__styleHover',
@@ -79,50 +64,76 @@ export const stylePanel = (props) => {
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} *`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'color',
+                    'selector': `.editor-styles-wrapper .${elementId} *`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadow',
             show: !switcher.styleHover || switcher.styleHover === 'normal',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId} *`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .${elementId} *`,
                 }
-            ]
+            ],
         },
         {
             id: 'colorHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}:hover *`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'colorHover',
+                    'selector': `.editor-styles-wrapper .${elementId}:hover *`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadowHover',
             show: switcher.styleHover === 'hover',
             label: __('Hover Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.editor-styles-wrapper .${elementId}:hover *`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadowHover',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .${elementId}:hover *`,
                 }
-            ]
+            ],
         }
     ];
 };

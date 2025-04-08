@@ -1,26 +1,25 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import CommentPlaceholder from './components/comment-placeholder';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostCommentBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -37,11 +36,7 @@ const PostCommentBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postCommentRef = useRef();
-
-    useEffect(() => {
-        postCommentRef.current && setElementRef(postCommentRef.current);
-    }, [postCommentRef]);
+    const elementRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -52,10 +47,14 @@ const PostCommentBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postCommentRef
+        ref: elementRef
     });
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Comment works?', 'gutenverse')}
@@ -71,7 +70,7 @@ const PostCommentBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <CommentPlaceholder 
                 showForm={showForm}

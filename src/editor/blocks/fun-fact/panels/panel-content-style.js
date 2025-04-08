@@ -1,18 +1,25 @@
 import { __ } from '@wordpress/i18n';
 import { ColorControl, DimensionControl, RangeControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
-export const contentStylePanel = ({elementId, ...props}) => {
+export const contentStylePanel = ({ elementId }) => {
     return [
         {
             id: 'numberColor',
             label: __('Number Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'numberColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -21,10 +28,18 @@ export const contentStylePanel = ({elementId, ...props}) => {
             label: __('Title Color', 'gutenverse'),
             component: ColorControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .title`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'titleColor',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .title`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -32,25 +47,11 @@ export const contentStylePanel = ({elementId, ...props}) => {
             id: 'numberTypography',
             label: __('Number Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'titleTypography',
             label: __('Title Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .title`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'numberBottomSpace',
@@ -61,26 +62,24 @@ export const contentStylePanel = ({elementId, ...props}) => {
             min: 0,
             max: 300,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper `,
-                    render: value => `margin-bottom: ${value}px;`
-                }
-            ]
-        },
-        {
-            id: 'titleBottomSpace',
-            label: __('Title Bottom Space', 'gutenverse'),
-            component: RangeControl,
-            allowDeviceControl: true,
-            unit: 'px',
-            min: 0,
-            max: 300,
-            step: 1,
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content .title `,
-                    render: value => `margin-bottom: ${value}px;`
+                    'type': 'plain',
+                    'id': 'numberBottomSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
+                    'properties': [
+                        {
+                            'name': 'margin-bottom',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -93,10 +92,54 @@ export const contentStylePanel = ({elementId, ...props}) => {
             min: 0,
             max: 300,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .fun-fact-inner .content .number-wrapper .number.loaded`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'numberRightSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .number-wrapper `,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'titleBottomSpace',
+            label: __('Title Bottom Space', 'gutenverse'),
+            component: RangeControl,
+            allowDeviceControl: true,
+            unit: 'px',
+            min: 0,
+            max: 300,
+            step: 1,
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'titleBottomSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-fun-fact .fun-fact-inner .content .title `,
+                    'properties': [
+                        {
+                            'name': 'margin-bottom',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -120,12 +163,6 @@ export const contentStylePanel = ({elementId, ...props}) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .fun-fact-inner .content`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
     ];
 };

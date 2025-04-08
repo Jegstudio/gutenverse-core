@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl } from 'gutenverse-core/controls';
-import { handleBackground } from 'gutenverse-core/styling';
 
 export const overlayPanel = (props) => {
     const {
@@ -13,11 +12,11 @@ export const overlayPanel = (props) => {
             label: __('Overlay Background', 'gutenverse'),
             component: BackgroundControl,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-popup-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'overlayColor',
+                    'selector': `.${elementId}.guten-popup-builder .guten-popup-overlay`,
                 }
             ]
         },

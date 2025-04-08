@@ -1,26 +1,21 @@
-import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController} from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelTutorial } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
-const ArchiveTitleBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar()
-)((props) => {
+const ArchiveTitleBlock = (props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { archiveId, archiveType }
     } = props;
     const {
@@ -33,14 +28,13 @@ const ArchiveTitleBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const archiveTitleRef = useRef();
+    const elementRef = useRef();
     const linkTarget = archiveLinkTarget ? '_blank' : '_self';
-
     const [ archiveTitle = 'Archive Title' ] = useEntityProp('postType', archiveType, 'title', archiveId);
     const [ link ] = useEntityProp( 'postType', archiveType, 'link', archiveId );
-    useEffect(() => {
-        archiveTitleRef.current && setElementRef(archiveTitleRef.current);
-    }, [archiveTitleRef]);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -50,9 +44,10 @@ const ArchiveTitleBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: archiveTitleRef
+        ref: elementRef
     });
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Archive Title works?', 'gutenverse')}
@@ -68,11 +63,11 @@ const ArchiveTitleBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             <HtmlTag>{archiveLink ? <a href={link} target={linkTarget} rel={archiveLinkRel} onClick={e => e.preventDefault()}>{archiveTitle}</a> : archiveTitle}</HtmlTag>
         </div>
     </>;
-});
+};
 
 export default ArchiveTitleBlock;

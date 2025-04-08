@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { SizeControl } from 'gutenverse-core/controls';
-import { handleUnitPoint } from 'gutenverse-core/styling';
 
-export const spacerPanel = ({elementId}) => {
+export const spacerPanel = ({ elementId }) => {
     return [
         {
             id: 'space',
@@ -29,10 +28,19 @@ export const spacerPanel = ({elementId}) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-spacer`,
-                    render: value => handleUnitPoint(value, 'padding-bottom', true)
+                    'type': 'unitPoint',
+                    'id': 'space',
+                    'selector': `.${elementId}.guten-spacer`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'padding-bottom',
+                            'valueType': 'direct',
+                            'important': true
+                        }
+                    ]
                 }
             ]
         },

@@ -1,25 +1,21 @@
-/* External dependencies */
 import { useEffect, useRef } from '@wordpress/element';
-import { RichTextComponent, classnames } from 'gutenverse-core/components';
-
-/* WordPress dependencies */
+import { RichTextComponent, classnames, CopyElementToolbar } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { BlockControls, useBlockProps } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { compose } from '@wordpress/compose';
-
-/* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { PanelController } from 'gutenverse-core/controls';
-
-/* Local dependencies */
 import { panelList } from './panels/panel-list';
 import HeadingTypeToolbar from './components/heading-type-toolbar';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
+import getBlockStyle from './styles/block-style';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import { useRichTextParameter } from 'gutenverse-core/helper';
 
 const HeadingBlockControl = (props) => {
-    const{
+    const {
         attributes,
         setAttributes,
     } = props;
@@ -43,41 +39,52 @@ const HeadingBlockControl = (props) => {
 };
 
 const HeadingInspection = (props) => {
-    const { panelProps, isSelected } = props;
+    const { panelProps, isSelected, setAttributes, elementRef } = props;
     const defaultPanelProps = {
         ...panelProps,
         ...props.attributes,
+        setAttributes,
     };
     return <PanelController
         panelList={panelList}
         panelProps={defaultPanelProps}
         isSelected={isSelected}
+        elementRef={elementRef}
         {...props}
     />;
 };
 
 const HeadingBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('heading'),
-    withCopyElementToolbar(),
-    withMouseMoveEffect,
+    withPassRef,
+    withAnimationAdvanceV2('heading'),
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,
         setAttributes,
-        setElementRef,
         clientId,
-        setPanelState
+        setBlockRef,
     } = props;
-    const {
+
+    let {
         elementId,
         type,
         content,
     } = attributes;
 
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
+
+    const elementRef = useRef(null);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
+
     const tagName = 'h' + type;
-    const headingRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
 
@@ -87,15 +94,14 @@ const HeadingBlock = compose(
             elementId,
             animationClass,
             displayClass,
-        ),
-        ref: headingRef
+        )
     });
 
     useEffect(() => {
-        if (headingRef.current) {
-            setElementRef(headingRef.current);
+        if (elementRef) {
+            setBlockRef(elementRef);
         }
-    }, [headingRef]);
+    }, [elementRef]);
 
     useEffect(() => {
         const parser = new DOMParser();
@@ -108,12 +114,13 @@ const HeadingBlock = compose(
     }, [content])
 
     return <>
-        <HeadingInspection {...props} />
+        <CopyElementToolbar {...props}/>
+        <HeadingInspection {...props} elementRef={elementRef} panelState={panelState} />
         <HeadingBlockControl {...props} />
+        <span ref={elementRef} style={{ display: 'none' }}></span>
         <RichTextComponent
-            isBlockProps = {true}
+            isBlockProps={true}
             blockProps={blockProps}
-            ref={headingRef}
             tagName={tagName}
             onChange={value => setAttributes({ content: value })}
             placeholder={__('Write heading…')}
@@ -122,10 +129,10 @@ const HeadingBlock = compose(
             setAttributes={setAttributes}
             attributes={attributes}
             clientId={clientId}
-            panelPosition={{panel : 'style', section : 2}}
-            panelDynamic={{panel: 'setting', section: 1}}
-            contentAttribute={'content'}
             setPanelState={setPanelState}
+            panelPosition={{ panel: 'style', section: 5 }}
+            panelDynamic={{ panel: 'setting', section: 1 }}
+            contentAttribute={'content'}
             textChilds={'textChilds'}
             dynamicList={'dynamicDataList'}
             isUseDinamic={true}

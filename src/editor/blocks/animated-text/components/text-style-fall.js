@@ -8,7 +8,8 @@ const TextStyleFall = (props) => {
         titleTag: TitleTag,
         loop,
         animatedTextRef,
-        splitByWord
+        splitByWord,
+        style
     } = props;
 
     const [animation, setAnimation] = useState();
@@ -38,14 +39,15 @@ const TextStyleFall = (props) => {
         setAnimation(animeInit);
     };
 
-    useEffect(() => animatedTextRef.current && animeInit(), [animatedTextRef]);
-
     useEffect(() => {
-        if (animation) {
-            animation.remove([...animatedTextRef.current.getElementsByClassName('letter')]);
-            animeInit();
-        }
-    }, [props]);
+        animeInit();
+        return () => {
+            if (animation) {
+                animation.remove();
+                setAnimation(null);
+            }
+        };
+    }, [loop, splitByWord, style]);
 
     return <TitleTag className="text-content">{text}</TitleTag>;
 };

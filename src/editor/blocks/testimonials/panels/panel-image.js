@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, DimensionControl, RangeControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
 
 export const panelImage = ({ elementId, contentType }) => {
     const device = getDeviceType();
@@ -12,11 +11,11 @@ export const panelImage = ({ elementId, contentType }) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-testimonial-item .profile-image`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'imageBackground',
+                    'selector': `.${elementId} .guten-testimonial-item .profile-image`,
                 }
             ]
         },
@@ -25,11 +24,11 @@ export const panelImage = ({ elementId, contentType }) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'imageBorder',
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
                 }
             ]
         },
@@ -39,11 +38,11 @@ export const panelImage = ({ elementId, contentType }) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'imageBorderResponsive',
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image`,
                 }
             ]
         },
@@ -63,12 +62,6 @@ export const panelImage = ({ elementId, contentType }) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .profile-image img`,
-                    render: value => handleDimension(value, 'border-radius', false)
-                }
-            ],
         },
         {
             id: 'imageMargin',
@@ -90,12 +83,6 @@ export const panelImage = ({ elementId, contentType }) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .profile-image`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'imagePadding',
@@ -117,12 +104,6 @@ export const panelImage = ({ elementId, contentType }) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .profile-image`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: 'bottomSpace',
@@ -134,10 +115,24 @@ export const panelImage = ({ elementId, contentType }) => {
             min: -200,
             max: 200,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials.style-1 .swiper-container .guten-testimonial-item .testimonial-box .comment-bio`,
-                    render: value => `bottom: ${value}px;`
+                    'type': 'plain',
+                    'id': 'bottomSpace',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-testimonials.style-1 .swiper-container .guten-testimonial-item .testimonial-box .comment-bio`,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -150,10 +145,24 @@ export const panelImage = ({ elementId, contentType }) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img`,
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageWidth',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -166,10 +175,24 @@ export const panelImage = ({ elementId, contentType }) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img`,
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageHeight',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-image img`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },

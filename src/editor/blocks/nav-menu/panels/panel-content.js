@@ -3,10 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { IconRadioControl, SelectControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
-export const contentPanel = (props) => {
-    const {
-        elementId,
-    } = props;
+export const contentPanel = () => {
 
     return [
         {
@@ -36,12 +33,6 @@ export const contentPanel = (props) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .gutenverse-menu-wrapper .gutenverse-menu`,
-                    render: value => `justify-content: ${value};`,
-                },
-            ]
         },
         {
             id: 'breakpoint',

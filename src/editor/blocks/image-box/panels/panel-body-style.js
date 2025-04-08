@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, DimensionControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleDimension } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 
 export const panelBodyStyle = props => {
     const {
@@ -17,11 +15,11 @@ export const panelBodyStyle = props => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'bodyBackground',
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-inner`,
                 }
             ]
         },
@@ -30,11 +28,11 @@ export const panelBodyStyle = props => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'containerBorder',
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-inner`,
                 }
             ]
         },
@@ -44,11 +42,11 @@ export const panelBodyStyle = props => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'containerBorderResponsive',
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-inner`,
                 }
             ]
         },
@@ -76,12 +74,6 @@ export const panelBodyStyle = props => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'containerMargin',
@@ -107,22 +99,22 @@ export const panelBodyStyle = props => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'containerBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'containerBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .image-box-body .body-inner`,
                 }
             ]
         }
