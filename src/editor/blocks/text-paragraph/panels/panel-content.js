@@ -1,11 +1,14 @@
 import { __ } from '@wordpress/i18n';
 
-import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl } from 'gutenverse-core/controls';
+import { ColorControl, HeadingControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {
         elementId,
+        containsAnchorTag,
+        switcher,
+        setSwitcher
     } = props;
 
     return [
@@ -117,6 +120,78 @@ export const panelContent = (props) => {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
+        },
+        {
+            id: 'linkHeader',
+            component: HeadingControl,
+            label: __('Link', 'gutenverse'),
+            show: containsAnchorTag,
+        },
+        {
+            id: '__linkHover',
+            component: SwitchControl,
+            show: containsAnchorTag,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __linkHover }) => setSwitcher({ ...switcher, state: __linkHover })
+        },
+        {
+            id: 'linkColor',
+            label: __('Link Color', 'gutenverse'),
+            component: ColorControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'linkColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} a`,
+                }
+            ]
+        },
+        {
+            id: 'linkTypography',
+            label: __('Link Typography', 'gutenverse'),
+            component: TypographyControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+        },
+        {
+            id: 'linkColorHover',
+            label: __('Link Color Hover', 'gutenverse'),
+            component: ColorControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'linkColorHover',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} a:hover`,
+                }
+            ]
+        },
+        {
+            id: 'linkTypographyHover',
+            label: __('Link Typography Hover', 'gutenverse'),
+            component: TypographyControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
         },
     ];
 };

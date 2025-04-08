@@ -1,7 +1,7 @@
 import { isNotEmpty } from 'gutenverse-core/helper';
 
 const panelCategoryStyle = (elementId, attributes, data) => {
-    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && data.push({
+    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['categoryEnabled'] && attributes['postblockType'] === 'type-5' && data.push({
         'type': 'plain',
         'id': 'categoryVerticalAlign',
         'responsive': true,
@@ -11,22 +11,29 @@ const panelCategoryStyle = (elementId, attributes, data) => {
                 'name': 'height',
                 'valueType': 'function',
                 'functionName': 'postBlockContentAlign',
+                'functionProps': {
+                    'selectorType' : 'first',
+                }
             }
         ],
     });
 
-    // isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && attributes['categoryVerticalAlign'] !== 'end' && data.push({
-    //     'type': 'plain',
-    //     'responsive': true,
-    //     'id': 'categoryVerticalAlign',
-    //     'selector': `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content`,
-    //     'properties': [
-    //         {
-    //             'name': 'align-self',
-    //             'valueType': 'direct',
-    //         }
-    //     ],
-    // });
+    isNotEmpty(attributes['categoryVerticalAlign']) && attributes['postblockType'] === 'type-5' && data.push({
+        'type': 'plain',
+        'responsive': true,
+        'id': 'categoryVerticalAlign',
+        'selector': `.${elementId} .guten-postblock .guten-block-container .guten-postblock-content .post-category-container`,
+        'properties': [
+            {
+                'name': 'align-self',
+                'valueType': 'function',
+                'functionName': 'postBlockContentAlign',
+                'functionProps': {
+                    'selectorType' : 'second',
+                }
+            }
+        ],
+    });
 
     isNotEmpty(attributes['categoryColor']) && data.push({
         'type': 'color',

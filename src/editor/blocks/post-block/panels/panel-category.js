@@ -5,7 +5,7 @@ import { getDeviceType } from 'gutenverse-core/editor-helper';
 export const categoryPanel = (props) => {
     const {
         elementId,
-        postblockType
+        postblockType,
     } = props;
 
     const device = getDeviceType();

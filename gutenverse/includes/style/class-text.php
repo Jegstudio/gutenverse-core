@@ -82,6 +82,54 @@ class Text extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['linkColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} a",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['linkTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkTypographyHover'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} a:hover",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['linkTypographyHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['alignment'] ) ) {
 			$this->inject_style(
 				array(

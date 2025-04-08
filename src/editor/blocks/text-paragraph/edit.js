@@ -36,6 +36,7 @@ const TextBlock = compose(
 
     const {
         elementId,
+        paragraph
     } = attributes;
 
     const {
@@ -100,8 +101,18 @@ const TextBlock = compose(
         }
     }, [elementRef]);
 
+    useEffect(() => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(paragraph, 'text/html');
+        const newContainsAnchorTag = doc.querySelector('a') !== null;
+
+        if (newContainsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: newContainsAnchorTag });
+        }
+    }, [paragraph]);
+
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <TextBlockControl {...props} />
         <RichTextComponent

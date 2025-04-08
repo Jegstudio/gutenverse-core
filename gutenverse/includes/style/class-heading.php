@@ -68,19 +68,58 @@ class Heading extends Style_Abstract {
 			);
 		}
 
-		$link_style = '';
-		if ( isset( $this->attrs['useStyleInLink'] ) ) {
-			$link_style = $this->attrs['useStyleInLink'] ?
-				", .guten-element.{$this->element_id} a:not(.guten-text-highlight a), 
-				.guten-element.{$this->element_id} a:not(.guten-text-highlight a) *, 
-				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a), 
-				.guten-element.{$this->element_id} a:hover:not(.guten-text-highlight a) *" : '';
+		if ( isset( $this->attrs['linkColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkTypography'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} a",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['linkTypography'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkColorHover'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id} a:hover",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'color' );
+					},
+					'value'          => $this->attrs['linkColorHover'],
+					'device_control' => false,
+				)
+			);
+		}
+
+		if ( isset( $this->attrs['linkTypographyHover'] ) ) {
+			$this->inject_typography(
+				array(
+					'selector'       => ".{$this->element_id} a:hover",
+					'property'       => function ( $value ) {},
+					'value'          => $this->attrs['linkTypographyHover'],
+					'device_control' => false,
+				)
+			);
 		}
 
 		if ( isset( $this->attrs['color'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id} {$link_style}",
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return $this->handle_color( $value, 'color' );
 					},
@@ -93,7 +132,7 @@ class Heading extends Style_Abstract {
 		if ( isset( $this->attrs['typography'] ) ) {
 			$this->inject_typography(
 				array(
-					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id} {$link_style}",
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {},
 					'value'          => $this->attrs['typography'],
 					'device_control' => false,
@@ -104,7 +143,7 @@ class Heading extends Style_Abstract {
 		if ( isset( $this->attrs['textShadow'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id} {$link_style}",
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return $this->handle_text_shadow( $value );
 					},
@@ -117,7 +156,7 @@ class Heading extends Style_Abstract {
 		if ( isset( $this->attrs['textStroke'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id} {$link_style}",
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return $this->handle_text_stroke( $value );
 					},
@@ -130,7 +169,7 @@ class Heading extends Style_Abstract {
 		if ( isset( $this->attrs['overflowWrap'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id} {$link_style}",
+					'selector'       => "h1.guten-element.{$this->element_id}, h2.guten-element.{$this->element_id}, h3.guten-element.{$this->element_id}, h4.guten-element.{$this->element_id}, h5.guten-element.{$this->element_id}, h6.guten-element.{$this->element_id}",
 					'property'       => function ( $value ) {
 						return "overflow-wrap: {$value}; word-break: {$value};";
 					},

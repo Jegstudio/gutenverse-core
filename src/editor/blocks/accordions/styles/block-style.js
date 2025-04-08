@@ -382,6 +382,12 @@ const getBlockStyle = (elementId, attributes) => {
         ],
     });
 
+    isNotEmpty(attributes['titleBackground']) && data.push({
+        'type': 'background',
+        'id': 'titleBackground',
+        'selector': `.${elementId} .accordion-item .accordion-heading`,
+    });
+
     isNotEmpty(attributes['titleBorder']) && data.push({
         'type': 'border',
         'id': 'titleBorder',
@@ -417,6 +423,12 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
+    });
+
+    isNotEmpty(attributes['titleActiveBackground']) && data.push({
+        'type': 'background',
+        'id': 'titleActiveBackground',
+        'selector': `.${elementId} .accordion-item.active .accordion-heading`,
     });
 
     isNotEmpty(attributes['titleBorderActive']) && data.push({

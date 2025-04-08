@@ -70,6 +70,7 @@ const HeadingBlock = compose(
     let {
         elementId,
         type,
+        content,
     } = attributes;
 
     const {
@@ -101,6 +102,16 @@ const HeadingBlock = compose(
             setBlockRef(elementRef);
         }
     }, [elementRef]);
+
+    useEffect(() => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(content, 'text/html');
+        const newContainsAnchorTag = doc.querySelector('a') !== null;
+
+        if (newContainsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: newContainsAnchorTag });
+        }
+    }, [content])
 
     return <>
         <CopyElementToolbar {...props}/>

@@ -2,15 +2,15 @@
 import { __ } from '@wordpress/i18n';
 
 /* Gutenverse dependencies */
-import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, CheckboxControl } from 'gutenverse-core/controls';
+import { ColorControl, TextShadowControl, TextStrokeControl, TypographyControl, SelectControl, HeadingControl, SwitchControl } from 'gutenverse-core/controls';
 
-export const stylePanel = ({ elementId, useStyleInLink }) => {
-    const linkStyle = useStyleInLink ? `
-        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
-
+export const stylePanel = (props) => {
+    const {
+        elementId,
+        containsAnchorTag,
+        switcher,
+        setSwitcher
+    } = props;
     return [
         {
             id: 'color',
@@ -20,7 +20,7 @@ export const stylePanel = ({ elementId, useStyleInLink }) => {
                 {
                     'type': 'color',
                     'id': 'color',
-                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
                     'properties': [
                         {
                             'name': 'color',
@@ -49,7 +49,7 @@ export const stylePanel = ({ elementId, useStyleInLink }) => {
                             'valueType': 'direct'
                         }
                     ],
-                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
                 }
             ]
         },
@@ -61,7 +61,7 @@ export const stylePanel = ({ elementId, useStyleInLink }) => {
                 {
                     'type': 'textStroke',
                     'id': 'textStroke',
-                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+                    'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
                 }
             ]
         },
@@ -83,10 +83,76 @@ export const stylePanel = ({ elementId, useStyleInLink }) => {
             ],
         },
         {
-            id: 'useStyleInLink',
-            label: __('Use Style in Link', 'gutenverse'),
-            description: __('Applies heading block styling to links within text, overriding the default core link style.', 'gutenverse'),
-            component: CheckboxControl,
+            id: 'linkHeader',
+            component: HeadingControl,
+            label: __('Link', 'gutenverse'),
+            show: containsAnchorTag,
+        },
+        {
+            id: '__linkHover',
+            component: SwitchControl,
+            show: containsAnchorTag,
+            options: [
+                {
+                    value: 'normal',
+                    label: 'Normal'
+                },
+                {
+                    value: 'hover',
+                    label: 'Hover'
+                }
+            ],
+            onChange: ({ __linkHover }) => setSwitcher({ ...switcher, state: __linkHover })
+        },
+        {
+            id: 'linkColor',
+            label: __('Link Color', 'gutenverse'),
+            component: ColorControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'linkColor',
+                    'selector': `.${elementId} a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
+        },
+        {
+            id: 'linkTypography',
+            label: __('Link Typography', 'gutenverse'),
+            component: TypographyControl,
+            show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
+        },
+        {
+            id: 'linkColorHover',
+            label: __('Link Color Hover', 'gutenverse'),
+            component: ColorControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'linkColorHover',
+                    'selector': `.${elementId} a:hover`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                }
+            ]
+        },
+        {
+            id: 'linkTypographyHover',
+            label: __('Link Typography Hover', 'gutenverse'),
+            component: TypographyControl,
+            show: (switcher.state === 'hover') && containsAnchorTag,
         },
     ];
 };

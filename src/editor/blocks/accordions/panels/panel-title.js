@@ -1,15 +1,28 @@
 import { __ } from '@wordpress/i18n';
-import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BorderResponsiveControl, IconRadioControl, SelectControl } from 'gutenverse-core/controls';
-import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { BorderControl, ColorControl, DimensionControl, SwitchControl, TypographyControl, BackgroundControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
+import isEmpty from 'lodash/isEmpty';
+import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 
 export const panelTitle = (props) => {
     const {
         elementId,
         switcher,
-        setSwitcher
+        setSwitcher,
+        setAttributes,
+        titleBackgroundActiveColor,
+        titleBackgroundColor,
+        titleBackground,
+        titleActiveBackground,
     } = props;
+
+    if (!isEmpty(titleBackgroundColor) && isEmpty(titleBackground)) {
+        setAttributes({ titleBackground: { color: titleBackgroundColor, type: 'default' } });
+    }
+    if (!isEmpty(titleBackgroundActiveColor) && isEmpty(titleActiveBackground)) {
+        setAttributes({ titleActiveBackground: { color: titleBackgroundActiveColor, type: 'default' } });
+    }
 
     const device = getDeviceType();
 
@@ -134,7 +147,7 @@ export const panelTitle = (props) => {
         },
         {
             id: 'titleBackgroundColor',
-            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
@@ -148,6 +161,20 @@ export const panelTitle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
+                }
+            ]
+        },
+        {
+            id: 'titleBackground',
+            show: !switcher.accTitle || switcher.accTitle === 'normal',
+            label: __('Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'titleBackground',
+                    'selector': `.${elementId} .accordion-item .accordion-heading`,
                 }
             ]
         },
@@ -200,7 +227,7 @@ export const panelTitle = (props) => {
         },
         {
             id: 'titleBackgroundActiveColor',
-            show: switcher.accTitle === 'active',
+            show: false,
             label: __('Background Color', 'gutenverse'),
             component: ColorControl,
             liveStyle: [
@@ -214,6 +241,20 @@ export const panelTitle = (props) => {
                             'valueType': 'direct'
                         }
                     ],
+                }
+            ]
+        },
+        {
+            id: 'titleActiveBackground',
+            show: switcher.accTitle === 'active',
+            label: __('Active Background', 'gutenverse'),
+            component: BackgroundControl,
+            options: ['default', 'gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'titleActiveBackground',
+                    'selector': `.${elementId} .accordion-item.active .accordion-heading`,
                 }
             ]
         },

@@ -20,7 +20,7 @@ class GutenverseNavMenu extends Default {
             singleMenu: wrapper.find('li.menu-item:not(.menu-item-has-children)'),
             overlay: wrapper.find('.guten-nav-overlay'),
         };
-
+        this.__handleAnchor(element);
         this._firstLoad(item);
     }
 
@@ -98,6 +98,28 @@ class GutenverseNavMenu extends Default {
                 item.overlay.removeClass('active');
             });
         }
+    }
+    __normalizeUrl(url){
+        return url.endsWith('/') ? url.slice(0, -1) : url;
+    }
+    __removingClass(element, currentUrl){
+        let menuLinks = u(element).find('.gutenverse-menu a');
+        menuLinks.each(link => {
+            const parentLi = u(link).closest('li');
+            if (this.__normalizeUrl(link.href) !== currentUrl) {
+                parentLi.removeClass('current-menu-item');
+            }else{
+                parentLi.addClass('current-menu-item');
+            }
+        });
+    }
+    __handleAnchor(element){
+        let currentUrl = this.__normalizeUrl(window.location.href);
+        this.__removingClass(element, currentUrl);
+        window.addEventListener('popstate', (event) => {
+            currentUrl = this.__normalizeUrl(window.location.href);
+            this.__removingClass(element, currentUrl);
+        });
     }
 }
 export default GutenverseNavMenu;

@@ -2,18 +2,12 @@ import { isNotEmpty } from 'gutenverse-core/helper';
 import { applyFilters } from '@wordpress/hooks';
 
 const getBlockStyle = (elementId, attributes) => {
-
-    const linkStyle = attributes['useStyleInLink'] ? `
-        , .guten-element.${elementId} a:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:not(.guten-text-highlight a) *, 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a), 
-        .guten-element.${elementId} a:hover:not(.guten-text-highlight a) *` : '';
     let data = [];
 
     isNotEmpty(attributes['textAlign']) && data.push({
         'type': 'plain',
         'id': 'textAlign',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
         'properties': [
             {
                 'name': 'text-align',
@@ -26,7 +20,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['color']) && data.push({
         'type': 'color',
         'id': 'color',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
         'properties': [
             {
                 'name': 'color',
@@ -38,7 +32,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
     });
 
     isNotEmpty(attributes['textShadow']) && data.push({
@@ -50,13 +44,13 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
     });
 
     isNotEmpty(attributes['textStroke']) && data.push({
         'type': 'textStroke',
         'id': 'textStroke',
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
     });
 
     isNotEmpty(attributes['overflowWrap']) && data.push({
@@ -73,7 +67,43 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}${linkStyle}`,
+        'selector': `h1.guten-element.${elementId},h2.guten-element.${elementId},h3.guten-element.${elementId},h4.guten-element.${elementId},h5.guten-element.${elementId},h6.guten-element.${elementId}`,
+    });
+
+    isNotEmpty(attributes['linkColor']) && data.push({
+        'type': 'color',
+        'id': 'linkColor',
+        'selector': `.${elementId} a`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['linkTypography']) && data.push({
+        'type': 'typography',
+        'id': 'linkTypography',
+        'selector': `.${elementId} a`
+    });
+
+    isNotEmpty(attributes['linkColorHover']) && data.push({
+        'type': 'color',
+        'id': 'linkColorHover',
+        'selector': `.${elementId} a:hover`,
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+    });
+
+    isNotEmpty(attributes['linkTypographyHover']) && data.push({
+        'type': 'typography',
+        'id': 'linkTypographyHover',
+        'selector': `.${elementId} a:hover`
     });
 
     isNotEmpty(attributes['background']) && data.push({

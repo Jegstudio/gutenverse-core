@@ -10,6 +10,7 @@ import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
+import { useSelect } from '@wordpress/data';
 
 const TextEditorBlock = compose(
     withPartialRender,
@@ -20,7 +21,8 @@ const TextEditorBlock = compose(
     const {
         attributes,
         clientId,
-        setBlockRef
+        setBlockRef,
+        setAttributes
     } = props;
 
     const {
@@ -55,12 +57,34 @@ const TextEditorBlock = compose(
     const innerBlocksProps = enableHeading ? useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph', 'core/heading'],
+        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph', 'core/post-content', 'core/heading', 'gutenverse/heading'],
     }) : useInnerBlocksProps({
         template: [['gutenverse/text-paragraph']]
     }, {
-        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph'],
+        allowedBlocks: ['gutenverse/text-paragraph', 'core/paragraph', 'core/post-content'],
     });
+
+    const innerBlocksContent = useSelect((select) => {
+        const { getBlock } = select('core/block-editor');
+        const block = getBlock(props.clientId);
+        return block?.innerBlocks || [];
+    }, [props.clientId]);
+
+    const hasLink = (htmlString) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlString, 'text/html');
+        return doc.querySelector('a') !== null;
+    };
+
+    useEffect(() => {
+        const containsAnchorTag = innerBlocksContent.some(innerBlock =>
+            hasLink(innerBlock.attributes?.content || innerBlock.attributes?.paragraph || '')
+        );
+
+        if (containsAnchorTag !== attributes.containsAnchorTag) {
+            setAttributes({ containsAnchorTag: containsAnchorTag });
+        }
+    }, [innerBlocksContent]);
 
     useEffect(() => {
         if (elementRef) {
@@ -69,7 +93,7 @@ const TextEditorBlock = compose(
     }, [elementRef]);
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             <div {...innerBlocksProps} />

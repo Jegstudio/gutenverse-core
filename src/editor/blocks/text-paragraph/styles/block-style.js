@@ -61,6 +61,42 @@ const getBlockStyle = (elementId, attributes) => {
         'selector': `${elementId}`,
     });
 
+    isNotEmpty(attributes['linkColor']) && data.push({
+        'type': 'color',
+        'id': 'linkColor',
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} a`,
+    });
+
+    isNotEmpty(attributes['linkTypography']) && data.push({
+        'type': 'typography',
+        'id': 'linkTypography',
+        'selector': `.${elementId} a`,
+    });
+
+    isNotEmpty(attributes['linkColorHover']) && data.push({
+        'type': 'color',
+        'id': 'linkColorHover',
+        'properties': [
+            {
+                'name': 'color',
+                'valueType': 'direct'
+            }
+        ],
+        'selector': `.${elementId} a:hover`,
+    });
+
+    isNotEmpty(attributes['linkTypographyHover']) && data.push({
+        'type': 'typography',
+        'id': 'linkTypographyHover',
+        'selector': `.${elementId} a:hover`,
+    });
+
     /**Panel List */
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',

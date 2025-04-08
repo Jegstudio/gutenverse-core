@@ -56,12 +56,22 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"titleBackground": {
+			"type": "object",
+			"default": {},
+			"copyStyle": true
+		},
 		"titleTextColor": {
 			"type": "object",
 			"copyStyle": true
 		},
 		"titleActiveColor": {
 			"type": "object",
+			"copyStyle": true
+		},
+		"titleActiveBackground": {
+			"type": "object",
+			"default": {},
 			"copyStyle": true
 		},
 		"titleTypography": {
