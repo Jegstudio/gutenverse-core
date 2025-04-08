@@ -255,6 +255,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 			position: relative;
 
 			&.notice-content {
+				box-sizing: content-box;
 				width: calc(320px - 48px);
 				display: flex;
 				justify-content: center;
@@ -284,6 +285,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 					color: #0f1538;
 					text-align: center;
 					margin: 20px auto 8px;
+					text-transform: none;
 				}
 
 				p {
