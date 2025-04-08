@@ -906,7 +906,7 @@ if ( ! function_exists( 'gutenverse_global_font_style_generator' ) ) {
 				$line_height = $font['lineHeight'];
 				if ( $line_height ) {
 					foreach ( $variable_style as $device => $value ) {
-						if ( isset( $line_height[ $device ] ) && $line_height[ $device ]['point'] ) {
+						if ( isset( $line_height[ $device ] ) && isset( $line_height[ $device ]['point'] ) ) {
 							$value = $line_height[ $device ]['point'] . $line_height[ $device ]['unit'];
 							gutenverse_responsive_appender(
 								gutenverse_variable_font_name( $id, 'lineHeight' ) . ':' . $value . ';',

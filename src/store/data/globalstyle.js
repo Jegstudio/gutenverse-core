@@ -25,16 +25,10 @@ export const variableReducer = (state = defaultState, action) => {
             if (typeof fonts === 'object') {
                 fonts = Object.values(fonts);
             }
+            fonts[action.index] = action.font;
             return {
                 ...state,
-                fonts: fonts.map(font => {
-                    if (font.id === action.font.id) {
-                        return action.font;
-                    } else {
-                        return font;
-                    }
-
-                })
+                fonts: fonts
             };
         case 'DELETE_VARIABLE_FONT':
             return {
@@ -59,10 +53,11 @@ export const variableAction = {
             font
         };
     },
-    editVariableFont: (font) => {
+    editVariableFont: (font, index) => {
         return {
             type: 'EDIT_VARIABLE_FONT',
-            font
+            font,
+            index
         };
     },
     deleteVariableFont: (id) => {
