@@ -51,7 +51,10 @@ const GradientControl = (props) => {
     };
 
     useEffect(() => {
-        wrapperRef?.current?.querySelector([ '.csh', '.cs']).addEventListener('click', () => {
+        const csh = wrapperRef?.current?.querySelector('.csh, .cs');
+        if (!csh) return;
+
+        const handleClick = () => {
             setControlOpen(true);
             const divs = document.querySelectorAll('.cs');
             divs.forEach((div, index) => {
@@ -60,7 +63,13 @@ const GradientControl = (props) => {
                     setLocation(value[index].offset * 100);
                 }
             });
-        });
+        };
+
+        csh.addEventListener('click', handleClick);
+
+        return () => {
+            csh.removeEventListener('click', handleClick);
+        };
     }, [value]);
 
     useEffect(() => {
