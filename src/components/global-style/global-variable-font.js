@@ -21,7 +21,7 @@ const handleFont = (typography, props, id) => {
     });
 };
 
-const SingleVariableFont = ({ value, updateFont, deleteFont }) => {
+const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) => {
     const [open, setControlOpen] = useState(false);
     const [openPopup, setOpenPopup] = useState(false);
     const [slugLock, setSlugLock] = useState(true);

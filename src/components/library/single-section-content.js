@@ -12,6 +12,7 @@ import { Loader } from 'react-feather';
 import semver from 'semver';
 import { ExportNotice } from './library-helper';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
+import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
 import { applyFilters } from '@wordpress/hooks';
 import { useSelect } from '@wordpress/data';
@@ -71,8 +72,8 @@ const SingleSectionContent = (props) => {
                 const updatedContentImage = data.contents_global.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
                     return data.images[index];
                 });
-                const updatedContentGlobal = handleGlobalStyleContent(updatedContentImage);
-                console.log(data);
+                const updatedContentGlobal = handleGlobalStyleContent(updatedContentImage, data.global);
+
                 setContent(updatedContentGlobal);
             } else {
                 const updatedContentImage = data.contents.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
@@ -188,8 +189,63 @@ const SingleSectionContent = (props) => {
     </>;
 };
 
-const handleGlobalStyleContent = (content) => {
-    return content;
+const handleGlobalStyleContent = (content, global) => {
+    const globalVariables = getGlobalVariable();
+
+    let unavailableFont=[];
+    let updatedContent;
+    updatedContent = extractTypographyBlocks(content).reduceRight((result, { start, end, block }) => {
+        if (block.includes('"type":"variable"')) {
+            let notExist = false;
+            let font = {};
+            const updatedBlock = block.replace(/"id"\s*:\s*"([^"]+)"/, (_, id) => {
+                const matchedFont = globalVariables.fonts.find(f => f.id === id.toLowerCase());
+                if(!matchedFont) {
+                    font = global.font.find(f => f.slug.toLowerCase() === id.toLowerCase());
+                    unavailableFont.push({id : id, font: font});
+                    notExist = true;
+                }
+                return `"id":"${id.toLowerCase()}"`;
+            });
+
+            if (notExist) {
+                return result.slice(0, start) + `"typography": ${font.font}` + result.slice(end);
+            } else {
+                return result.slice(0, start) + updatedBlock + result.slice(end);
+            }
+        }
+
+        return result;
+    }, content);
+
+    return updatedContent;
+};
+
+const extractTypographyBlocks = (content) => {
+    const matches = [];
+    let index = 0;
+
+    while ((index = content.indexOf('"typography":{', index)) !== -1) {
+        let start = index + '"typography":'.length;
+        let braceCount = 0;
+        let end = start;
+
+        if (content[start] === '{') {
+            do {
+                const char = content[end];
+                if (char === '{') braceCount++;
+                else if (char === '}') braceCount--;
+                end++;
+            } while (braceCount > 0 && end < content.length);
+
+            const block = content.slice(index, end);
+            matches.push({ start: index, end, block });
+        }
+
+        index = end;
+    }
+
+    return matches;
 };
 
 const ThemeNotification = ({ requirementStatus, setPluginInstallMode, library, singleData, setActive, active, slug }) => {
