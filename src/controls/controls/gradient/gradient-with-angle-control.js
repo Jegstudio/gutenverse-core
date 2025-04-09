@@ -9,6 +9,7 @@ const GradientWithAngleControl = (props) => {
         label,
         value = {},
         onValueChange,
+        onLocalChange,
     } = props;
 
     const id = useInstanceId(GradientWithAngleControl, 'inspector-gradient-with-angle-control');
@@ -20,6 +21,7 @@ const GradientWithAngleControl = (props) => {
                 description={__('Drag a circle outside the box to remove it. \nYou can\'t remove if there are only two left.', '--gctd--')}
                 value={value.gradientColor}
                 onValueChange={gradientColor => onValueChange({ ...value, gradientColor })}
+                onLocalChange={onLocalChange}
             />
         </div>
         <div className={'gradient-type'} style={{display: 'block'}}>
