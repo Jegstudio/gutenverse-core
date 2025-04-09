@@ -189,9 +189,6 @@ export const ExportNotice = (props) => {
         <div className="library-export-notice-container">
             <div className="importing-notice">
                 <div className="notice-inner">
-                    {/* <div className="rotating">
-                        <Loader size={18} />
-                    </div> */}
                     <span>{props.message}</span>
                     <span>{props.progress}</span>
                 </div>

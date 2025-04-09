@@ -7,16 +7,16 @@ import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, W
 import { getPluginRequirementStatus, likeLayout } from './library-helper';
 import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
 import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
-import ImportLayout from './import-layout';
-import { Loader } from 'react-feather';
+// import ImportLayout from './import-layout';
+// import { Loader } from 'react-feather';
 import semver from 'semver';
-import { ExportNotice } from './library-helper';
+// import { ExportNotice } from './library-helper';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
 import { applyFilters } from '@wordpress/hooks';
-import { useSelect } from '@wordpress/data';
-import { useEntityProp, store as coreStore } from '@wordpress/core-data';
+// import { useSelect } from '@wordpress/data';
+// import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { parse } from '@wordpress/blocks';
 
 const SingleSectionContent = (props) => {
@@ -30,7 +30,9 @@ const SingleSectionContent = (props) => {
         singleData,
         setPluginInstallMode,
         setCurrentItem,
-        setExporting
+        setExporting,
+        setSelectItem,
+        setLibraryError
     } = props;
 
     const [active, setActive] = useState(0);
@@ -159,8 +161,8 @@ const SingleSectionContent = (props) => {
                                     closeImporter={closeImporter}
                                     setShowOverlay={() => {}}
                                     setExporting={setExporting}
-                                    setSelectItem={() => {}}
-                                    setLibraryError={() => {}}
+                                    setSelectItem={setSelectItem}
+                                    setLibraryError={setLibraryError}
                                     setSingleId={setSingleId}
                                     singleData={singleData}
                                     setSingleData={setSingleData}
