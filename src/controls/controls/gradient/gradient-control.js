@@ -33,6 +33,7 @@ const GradientControl = (props) => {
             { offset: '1.00', color: 'rgb(126, 32, 207)' }
         ],
         onValueChange,
+        onLocalChange,
         description = '',
         proLabel,
         useLocation = true,
@@ -122,6 +123,7 @@ const GradientControl = (props) => {
                 value={location}
                 onValueChange={(value) => setLocation(parseFloat(value))}
                 onStyleChange={() => { }}
+                onLocalChange={onLocalChange}
             />}
         </div>
     </div>;
