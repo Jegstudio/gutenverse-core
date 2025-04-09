@@ -42,26 +42,37 @@ const GradientControl = (props) => {
     const [controlOpen, setControlOpen] = useState(false);
     const [location, setLocation] = useState(0);
     const [activeIndex, setActiveIndex] = useState(-1);
-    let newValue = value;
 
     const onChange = value => {
         onValueChange(value);
     };
 
     useEffect(() => {
-        wrapperRef?.current?.querySelector([ '.csh', '.cs']).addEventListener('click', () => {
+        const csh = wrapperRef?.current?.querySelector('.csh, .cs');
+        if (!csh) return;
+
+        const handleClick = () => {
             setControlOpen(true);
             const divs = document.querySelectorAll('.cs');
-            divs.forEach((div, index) => {
+            for (let index = 0; index < divs.length; index++) {
+                const div = divs[index];
                 if (div.classList.contains('active')) {
                     setActiveIndex(index);
                     setLocation(value[index].offset * 100);
+                    break;
                 }
-            });
-        });
+            }
+        };
+
+        csh.addEventListener('click', handleClick);
+
+        return () => {
+            csh.removeEventListener('click', handleClick);
+        };
     }, [value]);
 
     useEffect(() => {
+        const newValue = [...value];
         newValue[activeIndex] = {...newValue[activeIndex], offset: `${location/100}`};
         onChange(newValue);
     },[location, activeIndex]);
@@ -94,7 +105,7 @@ const GradientControl = (props) => {
                 {...{
                     width: 205,
                     paletteHeight: 40,
-                    palette: newValue,
+                    palette: value,
                     onPaletteChange: onChange,
                     maxStops: 18,
                     stopRemovalDrop: 25
