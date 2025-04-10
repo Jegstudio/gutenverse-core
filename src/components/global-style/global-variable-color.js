@@ -179,43 +179,25 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
     const [customPalette, setCustomPalette] = useState(customs ? customs.map(item => {
         return {
-            ...item,
-            key: item.key ? item.key : cryptoRandomString({ length: 6, type: 'alphanumeric' })
+            key: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
+            id: item.slug,
+            slug: item.slug,
+            type: 'custom',
+            name: item.name,
+            color: hexToRgb(item.color)
         };
     }) : []);
-    const [customColor, setCustomColor] = useState(null);
-
-    useEffect(() => {
-        const customColors = customPalette.map(item => {
-            return {
-                id: item.slug,
-                type: 'custom',
-                name: item.name,
-                color: hexToRgb(item.color),
-                key: item.key
-            };
-        });
-        setCustomColor(customColors);
-    }, [customPalette]);
-
-    useEffect(() => {
-        setUserConfig((currentConfig) => {
-            const newUserConfig = cloneDeep(currentConfig);
-            const pathToSet = 'settings.color.palette.custom';
-
-            set(newUserConfig, pathToSet, customPalette);
-            return newUserConfig;
-        });
-    }, [customPalette]);
 
     const addVariableColor = () => {
-        const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customColor)}`;
+        const name = `${__('Variable Color', '--gctd--')} #${getLastSequence(customPalette)}`;
         const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
         const newColor = {
-            slug: key,
             key: key,
+            id: key,
+            slug: key,
+            type: 'custom',
             name: name,
-            color: '#fff'
+            color: hexToRgb('#fff')
         };
 
         setCustomPalette([
@@ -228,9 +210,10 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
         const { id: slug, key, name, color } = value;
         const updated = {
             slug,
+            id: slug,
             key,
             name,
-            color: rgbToHex(color)
+            color: color
         };
 
         const updatedCustoms = [...customPalette];
@@ -244,9 +227,24 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
         setCustomPalette([...updatedCustoms]);
     };
 
+    useEffect(() => {
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.custom';
+
+            set(newUserConfig, pathToSet, customPalette.map(item => {
+                return {
+                    ...item,
+                    color: rgbToHex(item.color)
+                };
+            }));
+            return newUserConfig;
+        });
+    }, [customPalette]);
+
     return <>
         <h4 style={{ marginTop: 0 }}>{__('Custom Colors', '--gctd--')}</h4>
-        {!isEmpty(customColor) && customColor.map((value, index) => {
+        {!isEmpty(customPalette) && customPalette.map((value, index) => {
             return <SingleVariableColor
                 key={value.key}
                 value={value}
@@ -257,7 +255,7 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
                 checkDoubleSlug={slug => checkDoubleSlug(slug, index, customPalette)}
             />;
         })}
-        {isEmpty(customColor) && <div className="empty-variable" onClick={() => addVariableColor()}>
+        {isEmpty(customPalette) && <div className="empty-variable" onClick={() => addVariableColor()}>
             {__('Empty Variable Color', '--gctd--')}
         </div>}
         {<div className={'color-variable-add'}>
