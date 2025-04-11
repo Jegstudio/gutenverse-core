@@ -1,27 +1,20 @@
-import { __, _n, sprintf } from '@wordpress/i18n';
+import { __, } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
-import { useEffect, useState, useRef, useMemo } from '@wordpress/element';
+import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
-import { getInstalledThemes } from 'gutenverse-core/requests';
-import { InspectorControls, RecursionProvider, useBlockProps, useHasRecursion, Warning, __experimentalUseBlockPreview as useBlockPreview, store as blockEditorStore } from '@wordpress/block-editor';
-import { getPluginRequirementStatus, likeLayout } from './library-helper';
-import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
-import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
-// import ImportLayout from './import-layout';
-// import { Loader } from 'react-feather';
-import semver from 'semver';
-// import { ExportNotice } from './library-helper';
+import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
+import { getPluginRequirementStatus} from './library-helper';
+import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
+import { LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
 import { applyFilters } from '@wordpress/hooks';
-// import { useSelect } from '@wordpress/data';
-// import { useEntityProp, store as coreStore } from '@wordpress/core-data';
 import { parse } from '@wordpress/blocks';
+import { hexToRgb } from 'gutenverse-core/editor-helper';
 
 const SingleSectionContent = (props) => {
     const {
-        libraryData,
         pluginData,
         setSingleId,
         backText,
@@ -35,15 +28,12 @@ const SingleSectionContent = (props) => {
         setLibraryError
     } = props;
 
-    const [active, setActive] = useState(0);
     const [content, setContent] = useState(null);
-    const imageContent = useRef(null);
-    const [imageCover, setImageCover] = useState(null);
-    const [requirementStatus, setRequirementStatus] = useState(false);
-    const { installedPlugin } = pluginData;
-    const { layoutData } = libraryData;
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = singleData;
     const [selectedOption, setSelectedOption] = useState('default');
+    const [dataToImport, setDataToImport] = useState(singleData);
+    const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
+    const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -74,13 +64,14 @@ const SingleSectionContent = (props) => {
                 const updatedContentImage = data.contents_global.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
                     return data.images[index];
                 });
-                const updatedContentGlobal = handleGlobalStyleContent(updatedContentImage, data.global);
-
+                const updatedContentGlobal = handleGlobalStyleContent(updatedContentImage, data.global, setUnavailableGlobalFonts, setUnavailableGlobalColors);
+                setDataToImport('global');
                 setContent(updatedContentGlobal);
             } else {
                 const updatedContentImage = data.contents.replace(/\{\{\{image:(\d+):url\}\}\}/g, (_, index) => {
                     return data.images[index];
                 });
+                setDataToImport('defult');
                 setContent(updatedContentImage);
             }
         });
@@ -92,6 +83,7 @@ const SingleSectionContent = (props) => {
         contentSize: '1140px',
         wideSize: '1240px'
     };
+
     return <>
         <div className={singleClass}>
             {singleData === null ? <>
@@ -166,6 +158,10 @@ const SingleSectionContent = (props) => {
                                     setSingleId={setSingleId}
                                     singleData={singleData}
                                     setSingleData={setSingleData}
+                                    dataToImport={dataToImport}
+                                    extractTypographyBlocks={extractTypographyBlocks}
+                                    unavailableGlobalFonts={unavailableGlobalFonts}
+                                    unavailableGlobalColors={unavailableGlobalColors}
                                 />
                             </div>
                         </div>
@@ -191,12 +187,12 @@ const SingleSectionContent = (props) => {
     </>;
 };
 
-const handleGlobalStyleContent = (content, global) => {
+const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, setUnavailableGlobalColors) => {
     const globalVariables = getGlobalVariable();
 
-    let unavailableFont=[];
-    let updatedContent;
-    updatedContent = extractTypographyBlocks(content).reduceRight((result, { start, end, block }) => {
+    let unavailableFonts=[];
+    let unavailableColors=[];
+    const updatedTypography = extractTypographyBlocks(content).reduceRight((result, { start, end, block }) => {
         if (block.includes('"type":"variable"')) {
             let notExist = false;
             let font = {};
@@ -204,7 +200,7 @@ const handleGlobalStyleContent = (content, global) => {
                 const matchedFont = globalVariables.fonts.find(f => f.id === id.toLowerCase());
                 if(!matchedFont) {
                     font = global.font.find(f => f.slug.toLowerCase() === id.toLowerCase());
-                    unavailableFont.push({id : id, font: font});
+                    unavailableFonts.push({id : id, font: font});
                     notExist = true;
                 }
                 return `"id":"${id.toLowerCase()}"`;
@@ -220,7 +216,32 @@ const handleGlobalStyleContent = (content, global) => {
         return result;
     }, content);
 
-    return updatedContent;
+    const updatedColor = updatedTypography.replace(
+        /({"type":"variable","id":")([^"]+)("})/g,
+        (_, prefix, id, suffix) => {
+            let notExist = false;
+            let color = {};
+            const populateColor = globalVariables.colors.custom.concat(globalVariables.colors.theme);
+            const matchedColor = populateColor.find(f => f.slug.toLowerCase() === id.toLowerCase());
+
+            if (!matchedColor) {
+                color = global.color.find(c => c.slug.toLowerCase() === id.toLowerCase());
+                unavailableColors.push({id : id, color: color});
+                notExist = true;
+            }
+
+            if (notExist) {
+                return `${JSON.stringify(hexToRgb(color.color))}`;
+            } else {
+                return `${prefix}${id.toLowerCase()}${suffix}`;
+            }
+        }
+    );
+
+    setUnavailableGlobalFonts(unavailableFonts);
+    setUnavailableGlobalColors(unavailableColors);
+
+    return updatedColor;
 };
 
 const extractTypographyBlocks = (content) => {
@@ -248,114 +269,6 @@ const extractTypographyBlocks = (content) => {
     }
 
     return matches;
-};
-
-const ThemeNotification = ({ requirementStatus, setPluginInstallMode, library, singleData, setActive, active, slug }) => {
-    if (requirementStatus.length === 0) {
-        return <ThemeInstallNotification
-            library={library}
-            singleData={singleData}
-            setActive={setActive}
-            active={active}
-            slug={slug}
-        />;
-    } else {
-        return <RequiredPluginNotification
-            requirementStatus={requirementStatus}
-            setPluginInstallMode={setPluginInstallMode}
-        />;
-    }
-};
-
-const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
-    const [themeExist, setThemeExist] = useState(false);
-    const [installedLoad, setInstalledLoad] = useState(false);
-    const [isInstalled, setIsInstalled] = useState(false);
-    const [isActive, setIsActive] = useState(false);
-    const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
-
-    useEffect(() => {
-        const { themeData } = library;
-        let isThemeExist = false;
-
-        themeData.map(theme => {
-            if (theme.data.slug === slug) {
-                isThemeExist = true;
-            }
-        });
-
-        if (isThemeExist) {
-            setActive(0);
-            getInstalledThemes().then(result => {
-                setInstalledLoad(true);
-                result.map(theme => {
-                    if (theme.stylesheet === slug) {
-                        setIsInstalled(true);
-
-                        if (theme.status === 'active') {
-                            setIsActive(true);
-                        }
-                    }
-                });
-            });
-            setThemeExist(true);
-        }
-    }, []);
-
-    const InstallStatus = () => {
-        const { themeListUrl, pluginVersions } = window['GutenverseConfig'];
-
-        const pluginVersion = pluginVersions?.gutenverse?.version || '0.0.0';
-
-        if (isInstalled) {
-            if (!isActive && semver.gte(pluginVersion, singleData?.compatibleVersion || '0.0.0')) {
-                return <div className="single-install-themes active">
-                    <h3>{__('Activate', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
-                    <p>{__('You already install the themes, you can get all template by activating this themes.', '--gctd--')}</p>
-                    <a href={`${themeListUrl}&keyword=${singleData.title}&slug=${singleData.slug}&action=activate`} target={'_blank'} rel="noreferrer">
-                        {__('Activate Themes', '--gctd--')} →
-                    </a>
-                    <IconCircleExclamationSVG />
-                </div>;
-            }
-
-            return null;
-        } else {
-            return <div className="single-install-themes">
-                <h3>{__('Install', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')} {!singleData.isPro ? __('For Free', '--gctd--') : ''}</h3>
-                <p>{__('Check out and install our fully supported Full Site Editing (FSE) themes.', '--gctd--')}</p>
-                <a href={`${themeListUrl}&keyword=${singleData.slug}&action=install`} target={'_blank'} rel="noreferrer">
-                    {__('Install Themes', '--gctd--')} →
-                </a>
-                <IconCircleExclamationSVG />
-            </div>;
-        }
-    };
-
-    const themeInstallBlock = () => {
-        return !installedLoad ? <InstallThemeStatusSkeleton /> : <InstallStatus />;
-    };
-
-    return themeExist && !isThemeforest && themeInstallBlock();
-};
-
-const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode }) => {
-    return <div className="plugin-requirement-notice">
-        <div className="plugin-requirement-icon">
-            <IconInfoYellowSVG />
-        </div>
-        <div className="plugin-requirement-content">
-            <h3>{__('Plugin Requirements', '--gctd--')}</h3>
-            <p>{sprintf(
-                _n('There is plugin need to be installed or updated for this layout work correctly.', 'There are %s plugins need to be installed or updated for this layout work correctly.', requirementStatus.length, '--gctd--'),
-                requirementStatus.length
-            )}</p>
-            <a href="#" onClick={(e) => {
-                setPluginInstallMode(true);
-                e.preventDefault();
-            }}>{__('Manage Plugin Requirement →', '--gctd--')}</a>
-        </div>
-    </div>;
 };
 
 const Placeholder = ({singleData, setPluginInstallMode, pluginData, setCurrentItem}) => {
@@ -450,17 +363,6 @@ const ReadOnlyContent = ({
     * block content.
     */
     return <div {...blockPreviewProps}></div>;
-
-    // return content?.protected ? (
-    //     <div {...blockProps}>
-    //         <Warning>{__('This content is password protected.')}</Warning>
-    //     </div>
-    // ) : (
-    //     <div
-    //         {...blockProps}
-    //         dangerouslySetInnerHTML={{ __html: content?.rendered }}
-    //     ></div>
-    // );
 };
 
 export default withSelect(select => {

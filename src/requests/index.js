@@ -354,6 +354,26 @@ export const importImage = params => {
     });
 };
 
+export const importGlobalStyle = params => {
+    return new Promise((resolve, reject) => {
+        if (isEmpty(params)) {
+            resolve(params);
+        } else {
+            apiFetch({
+                path: 'gutenverse-client/v1/import/images',
+                method: 'POST',
+                data: {
+                    imageUrl: params
+                }
+            }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        }
+    });
+};
+
 export const templateNotification = params => {
     const { userId, templates } = params;
     return new Promise((resolve, reject) => {

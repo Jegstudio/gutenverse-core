@@ -8,13 +8,26 @@ import { injectImagesToContent } from 'gutenverse-core/helper';
 import { parse } from '@wordpress/blocks';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
+import cryptoRandomString from 'crypto-random-string';
 import { store as editorStore } from '@wordpress/editor';
 import Notice from '../notice';
+import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
+import cloneDeep from 'lodash/cloneDeep';
+import set from 'lodash/set';
 
 const ImportSectionButton = props => {
-    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError, setSingleId, setSingleData, singleData } = props;
+    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError, setSingleId, setSingleData, singleData, dataToImport, extractTypographyBlocks, unavailableGlobalFonts, unavailableGlobalColors } = props;
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
     let fail = 0;
+    const { userConfig, setUserConfig } = useGlobalStylesConfig();
+    const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
+    const customPalette = customs ? customs.map(item => {
+        return {
+            ...item,
+            key: item.key ? item.key : cryptoRandomString({ length: 6, type: 'alphanumeric' })
+        };
+    }) : [];
+    const { addVariableFont } = dispatch('gutenverse/global-style');
 
     const ImportNotice = ({ resolve, blocks }) => {
         const { setRenderingMode } = useDispatch(editorStore);
@@ -24,6 +37,7 @@ const ImportSectionButton = props => {
             resolve();
             setLibraryError(false);
             setRenderingMode('post-only');
+            processGlobalStyle();
             setTimeout(() => {
                 insertBlocks(blocks);
             }, 500);
@@ -49,11 +63,74 @@ const ImportSectionButton = props => {
 
     };
 
+
+    const processGlobalStyle = () => {
+
+        //import global Color
+        let colorCount = 0;
+        const newColor = [];
+        for (const color of unavailableGlobalColors) {
+            colorCount++;
+            setExporting(prev => ({ ...prev, message: `Importing Global Color ${colorCount} of ${unavailableGlobalColors.length + 1}`, progress: '3/4' }));
+            const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
+            const colorData = color.color;
+            newColor.push({
+                slug: colorData.slug.toLowerCase(),
+                key: key,
+                name: colorData.name,
+                color: colorData.color
+            });
+        }
+        setUserConfig((currentConfig) => {
+            const newUserConfig = cloneDeep(currentConfig);
+            const pathToSet = 'settings.color.palette.custom';
+
+            set(newUserConfig, pathToSet, [...customPalette, ...newColor]);
+            return newUserConfig;
+        });
+
+        //import global Font
+        let fontCount = 0;
+        for (const font of unavailableGlobalFonts) {
+            fontCount++;
+            setExporting(prev => ({ ...prev, message: `Importing Global Color ${fontCount} of ${unavailableGlobalFonts.length + 1}`, progress: '3/4' }));
+            const fontData = font.font;
+
+            addVariableFont({
+                id: font?.id.toLowerCase(),
+                name: fontData?.name,
+                font: JSON.parse(fontData?.font)
+            });
+        }
+    };
+
     const insertBlocksTemplate = (data) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
-            const { contents, images } = data;
-            const patterns = injectImagesToContent(contents, images);
+            const { contents, images, contents_global, global } = data;
+            let patterns;
+            if ('global' === dataToImport) {
+                const updatedTypography = extractTypographyBlocks(contents_global).reduceRight((result, { start, end, block }) => {
+                    if (block.includes('"type":"variable"')) {
+                        const updatedBlock = block.replace(/"id"\s*:\s*"([^"]+)"/, (_, id) => {
+                            return `"id":"${id.toLowerCase()}"`;
+                        });
+
+                        return result.slice(0, start) + updatedBlock + result.slice(end);
+                    }
+
+                    return result;
+                }, contents_global);
+
+                const updatedColor = updatedTypography.replace(
+                    /({"type":"variable","id":")([^"]+)("})/g,
+                    (_, prefix, id, suffix) => `${prefix}${id.toLowerCase()}${suffix}`
+                );
+
+                patterns = injectImagesToContent(updatedColor, images);
+            } else {
+                patterns = injectImagesToContent(contents, images);
+            }
 
             const blocks = parse(patterns);
             const renderingMode = select(editorStore).getRenderingMode();
@@ -63,6 +140,7 @@ const ImportSectionButton = props => {
                     return <ImportNotice resolve={resolve} blocks={blocks} />;
                 });
             } else {
+                processGlobalStyle();
                 insertBlocks(blocks);
                 resolve();
             }
@@ -90,7 +168,7 @@ const ImportSectionButton = props => {
             }
         );
 
-        const processImages = async ({ images, contents }) => {
+        const processImages = async ({ images, contents, contents_global, global }) => {
             let count = 0;
             const imgs = [];
             for (const img of images) {
@@ -106,7 +184,9 @@ const ImportSectionButton = props => {
             }
             return {
                 images: imgs,
-                contents
+                contents,
+                contents_global,
+                global
             };
         };
 
@@ -140,10 +220,10 @@ const ImportSectionButton = props => {
         });
     };
 
-    const allowGlobal = true;
+    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
 
     const ImportButton = () => {
-        return (allowGlobal && !singleData) ? (
+        return (supportGlobalImport && !singleData) ? (
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={() => {
                     setSingleId(data.id);
