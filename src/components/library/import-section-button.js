@@ -12,8 +12,10 @@ import cryptoRandomString from 'crypto-random-string';
 import { store as editorStore } from '@wordpress/editor';
 import Notice from '../notice';
 import { useGlobalStylesConfig } from 'gutenverse-core/editor-helper';
+import { signal } from 'gutenverse-core/editor-helper';
 import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
+import { v4 } from 'uuid';
 
 const ImportSectionButton = props => {
     const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError, setSingleId, setSingleData, singleData, dataToImport, extractTypographyBlocks, unavailableGlobalFonts, unavailableGlobalColors } = props;
@@ -34,10 +36,10 @@ const ImportSectionButton = props => {
         const { insertBlocks } = dispatch('core/block-editor');
 
         const editContent = () => {
+            processGlobalStyle();
             resolve();
             setLibraryError(false);
             setRenderingMode('post-only');
-            processGlobalStyle();
             setTimeout(() => {
                 insertBlocks(blocks);
             }, 500);
@@ -65,6 +67,7 @@ const ImportSectionButton = props => {
 
 
     const processGlobalStyle = () => {
+        signal.globalStyleSignal.dispatch(v4());
 
         //import global Color
         let colorCount = 0;
@@ -108,6 +111,7 @@ const ImportSectionButton = props => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
             const { contents, images, contents_global, global } = data;
+            
             let patterns;
             if ('global' === dataToImport) {
                 const updatedTypography = extractTypographyBlocks(contents_global).reduceRight((result, { start, end, block }) => {

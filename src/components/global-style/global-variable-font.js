@@ -26,6 +26,7 @@ const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) 
     const [openPopup, setOpenPopup] = useState(false);
     const [slugLock, setSlugLock] = useState(true);
     const [editorWarn, setEditorWarn] = useState(false);
+    const [selectedToDelete, setSelectedToDelete] = useState(null);
 
     const wrapperRef = useRef();
     const fontRef = useRef();
@@ -72,7 +73,10 @@ const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) 
                 <input type="text" value={value.name} onChange={editName} className={'font-name'} />
             </div>
             <Tooltip text={__('Delete', '--gctd--')}>
-                <div className={'font-delete'} onClick={() => setOpenPopup(true)}>
+                <div className={'font-delete'} onClick={() => {
+                    setOpenPopup(true);
+                    setSelectedToDelete(value);
+                }}>
                     <Trash size={12} />
                 </div>
             </Tooltip>
@@ -331,7 +335,10 @@ const SingleVariableFont = ({ value, updateFont, deleteFont, checkDoubleSlug }) 
             buttonText={__('Delete', '--gctd--')}
             cancelButtonText={__('Cancel', '--gctd--')}
             cancelButton={true}
-            onClick={() => deleteFont(value?.id)}
+            onClick={() => {
+                deleteFont(selectedToDelete?.id);
+                setOpenPopup(false);
+            }}
             onClose={() => setOpenPopup(false)}
             scheme="danger"
         />}

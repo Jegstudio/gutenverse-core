@@ -1528,6 +1528,7 @@ $border: #eaeaea;
                     font: 600 12px Roboto;
                     text-align: center;
                     background-color: #3b57f7;
+                    transition: all .3s ease;
     
                     .section-button-inner {
                         width: 100%;
@@ -1537,6 +1538,12 @@ $border: #eaeaea;
                         padding: 10px 10px;
                         justify-content: center;
                         gap: 6px;
+                        box-sizing: border-box;
+
+                        span {
+                            display: flex;
+                            align-items: center;
+                        }
                     }
     
                     &:hover {
@@ -1546,6 +1553,11 @@ $border: #eaeaea;
                             color: white;
                             fill: white;
                         }
+                    }
+
+                    svg {
+                        width: 14px;
+                        height: 14px;
                     }
     
                     &.disabled {
