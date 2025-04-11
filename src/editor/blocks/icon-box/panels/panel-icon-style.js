@@ -76,6 +76,7 @@ export const panelIconStyle = (props) => {
             ],
             onChange: ({ __iconHover }) => setSwitcher({ ...switcher, icon: __iconHover })
         },
+        // Icon Color
         {
             id: 'iconColor',
             show: (!switcher.icon || switcher.icon === 'normal') && (!iconStyleMode || iconStyleMode === 'color'),
@@ -114,6 +115,7 @@ export const panelIconStyle = (props) => {
                 }
             ],
         },
+        // Bg Color
         {
             id: 'iconBgColor',
             show: (!switcher.icon || switcher.icon === 'normal') && (!iconStyleMode || iconStyleMode === 'color'),
@@ -152,15 +154,16 @@ export const panelIconStyle = (props) => {
                 }
             ],
         },
+        // Icon Gradient
         {
-            id: 'iconBackground',
+            id: 'iconGradient',
             show: (!switcher.icon || switcher.icon === 'normal') && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
             liveStyle: [
                 {
                     'type': 'plain',
-                    'id': 'iconBackground',
+                    'id': 'iconGradient',
                     'properties': [
                         {
                             'name': 'background-image',
@@ -168,19 +171,19 @@ export const panelIconStyle = (props) => {
                             'functionName' : 'customHandleBackground'
                         }
                     ],
-                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon.style-gradient`,
+                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon .icon-style-gradient`,
                 }
             ],
         },
         {
-            id: 'iconBackgroundHover',
+            id: 'iconGradientHover',
             show: switcher.icon === 'hover' && iconStyleMode === 'gradient',
             component: BackgroundControl,
             options: ['gradient'],
             liveStyle: [
                 {
                     'type': 'plain',
-                    'id': 'iconBackgroundHover',
+                    'id': 'iconGradientHover',
                     'properties': [
                         {
                             'name': 'background-image',
@@ -188,7 +191,48 @@ export const panelIconStyle = (props) => {
                             'functionName' : 'customHandleBackground'
                         }
                     ],
-                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon.style-gradient`,
+                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon .icon-style-gradient`,
+                }
+            ],
+        },
+        // Bg Gradient
+        {
+            id: 'iconBgGradient',
+            show: (!switcher.icon || switcher.icon === 'normal') && iconStyleMode === 'gradient',
+            component: BackgroundControl,
+            options: ['gradient'],
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'iconBgGradient',
+                    'properties': [
+                        {
+                            'name': 'background-image',
+                            'valueType': 'function',
+                            'functionName' : 'customHandleBackground'
+                        }
+                    ],
+                    'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon.bg-style-gradient`,
+                }
+            ],
+        },
+        {
+            id: 'iconBgGradientHover',
+            show: switcher.icon === 'hover' && iconStyleMode === 'gradient',
+            component: BackgroundControl,
+            options: ['gradient'],
+            liveStyle: [
+                {
+                    'type': 'plain',
+                    'id': 'iconBgGradientHover',
+                    'properties': [
+                        {
+                            'name': 'background-image',
+                            'valueType': 'function',
+                            'functionName' : 'customHandleBackground'
+                        }
+                    ],
+                    'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon.bg-style-gradient`,
                 }
             ],
         },

@@ -132,13 +132,13 @@ const IconBoxBlock = compose(
         switch (iconType) {
             case 'icon':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode}`} onClick={() => setOpenIconLibrary(true)}>
-                        <i className={icon}></i>
+                    <div className={`icon bg-style-${iconStyleMode}`} onClick={() => setOpenIconLibrary(true)}>
+                        <i className={`${icon} icon-style-${iconStyleMode}`}></i>
                     </div>
                 </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode}`}>
+                    <div className={`icon bg-style-${iconStyleMode}`}>
                         {imageLazyLoad()}
                     </div>
                 </div>;
