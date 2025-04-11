@@ -1770,6 +1770,7 @@ $border: #eaeaea;
     border-radius: 3px;
     display: flex;
     align-items: center;
+    min-width: max-content;
 
     &.empty {
         background: #a73203;
