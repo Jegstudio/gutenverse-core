@@ -39,11 +39,11 @@
       "copyStyle": true
     },
     "barGradient": {
-      "type": "array",
+      "type": "object",
       "copyStyle": true
     },
     "trackGradient": {
-      "type": "array",
+      "type": "object",
       "copyStyle": true
     },
     "barColor": {
