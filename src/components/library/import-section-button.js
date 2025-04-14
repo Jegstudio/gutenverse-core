@@ -31,12 +31,12 @@ const ImportSectionButton = props => {
     }) : [];
     const { addVariableFont } = dispatch('gutenverse/global-style');
 
-    const ImportNotice = ({ resolve, blocks }) => {
+    const ImportNotice = ({ resolve, blocks, supportGlobalImport }) => {
         const { setRenderingMode } = useDispatch(editorStore);
         const { insertBlocks } = dispatch('core/block-editor');
 
         const editContent = () => {
-            processGlobalStyle();
+            supportGlobalImport && processGlobalStyle();
             resolve();
             setLibraryError(false);
             setRenderingMode('post-only');
@@ -107,11 +107,11 @@ const ImportSectionButton = props => {
         }
     };
 
-    const insertBlocksTemplate = (data) => {
+    const insertBlocksTemplate = (data, supportGlobalImport) => {
         return new Promise((resolve) => {
             const { insertBlocks } = dispatch('core/block-editor');
             const { contents, images, contents_global, global } = data;
-            
+
             let patterns;
             if ('global' === dataToImport) {
                 const updatedTypography = extractTypographyBlocks(contents_global).reduceRight((result, { start, end, block }) => {
@@ -137,21 +137,26 @@ const ImportSectionButton = props => {
             }
 
             const blocks = parse(patterns);
+            const newBlocks = blocks.map(block => {
+                const blocksString = JSON.stringify(block).replace(/class=\\"[^"]*\\"/g, 'class=\\"\\"');
+                const test = blocksString.replace(/"className":"[^"]*"/g,  '"className":""');
+                return JSON.parse(test);
+            });
             const renderingMode = select(editorStore).getRenderingMode();
 
             if (renderingMode === 'template-locked') {
                 setLibraryError(() => {
-                    return <ImportNotice resolve={resolve} blocks={blocks} />;
+                    return <ImportNotice resolve={resolve} blocks={newBlocks} supportGlobalImport={supportGlobalImport} />;
                 });
             } else {
-                processGlobalStyle();
-                insertBlocks(blocks);
+                supportGlobalImport && processGlobalStyle();
+                insertBlocks(newBlocks);
                 resolve();
             }
         });
     };
 
-    const importContent = (e) => {
+    const importContent = (e, supportGlobalImport) => {
         setExporting({ show: true, message: 'Fetching Data...', progress: '' });
         setSelectItem(data);
         setShowOverlay(true);
@@ -202,7 +207,7 @@ const ImportSectionButton = props => {
         }).then(result => {
             setExporting(prev => ({ ...prev, message: 'Deploying Content...', progress: '3/4' }));
             dispatch('gutenverse/library').setSectionProgress(__('Deploying Content', '--gctd--'));
-            return insertBlocksTemplate(result);
+            return insertBlocksTemplate(result, supportGlobalImport);
         }).finally(() => {
             setExporting(prev => ({ ...prev, message: 'Done!', progress: '4/4' }));
             setTimeout(() => {
@@ -225,6 +230,7 @@ const ImportSectionButton = props => {
     };
 
     const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+    // const supportGlobalImport = false; //untuk testing
 
     const ImportButton = () => {
         return (supportGlobalImport && !singleData) ? (
@@ -240,7 +246,7 @@ const ImportSectionButton = props => {
         ) : (
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={(e) => {
-                    importContent(e);
+                    importContent(e, supportGlobalImport);
                     setSingleId(null);
                     setSingleData(null);
                 }}>
