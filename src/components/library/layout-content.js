@@ -39,6 +39,7 @@ const LayoutContent = (props) => {
             singleData={singleData}
             pluginInstallMode={pluginInstallMode}
             setPluginInstallMode={setPluginInstallMode}
+            setLibraryError={props.setLibraryError}
         />}
         <div className="gutenverse-library-inner-body">
             <LayoutContentList {...props}
