@@ -1469,7 +1469,7 @@ $border: #eaeaea;
 }
 
 .gutenverse-library-single-section {
-    padding: 20px 120px 2.5%;
+    padding: 20px 120px 110px;
     flex-direction: column;
     gap: 20px;
 
@@ -1490,23 +1490,47 @@ $border: #eaeaea;
         flex-direction: column;
         overflow: hidden;
 
+        .editor-styles-wrapper.wrapper-imitator {
+            transform: scale(.7);
+            transform-origin: top;
+            height: fit-content;
+            margin-bottom: calc(((.3 - 1)* 100%) + 70px);
+        }
+
         .single-previewer {
             width: 100%;
             overflow-y: auto;
-            padding: 10px 120px 0px;
+            padding: 10px 0px 0px;
+            border-radius: 10px 10px 0 0;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+              }
+              
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+            }
 
             .single-previewer-footer {
                 border-top: solid 1px #E3E4E6;
                 height: 70px;
                 background-color: white;
-                position: sticky;
-                bottom: 0;
+                position: absolute;
                 display: flex;
                 justify-content: space-between;
-                margin: 0px -120px;
+                margin: 0px 0px;
                 align-items: center;
                 padding: 0 20px;
                 z-index: 9999999;
+                bottom: 40px;
+                right: 120px;
+                left: 120px;
+                border-radius: 0px 0 10px 10px;
     
                 .section-button {
                     cursor: pointer;
@@ -1582,8 +1606,16 @@ $border: #eaeaea;
                         line-height: 100%;
                         letter-spacing: 0%;
 
+                        input {
+                            border: 1px solid #BDBEBF; 
+                        }
+                        
                         &.selected {
                             color: #3B57F7;
+
+                            input:before {
+                                background-color: #3B57F7;
+                            }
                         }
                     }
                 }
