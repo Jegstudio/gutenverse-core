@@ -68,9 +68,9 @@ class Countdown extends Style_Abstract {
 		if ( isset( $this->attrs['column'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-countdown .guten-countdown-wrapper .time-container",
+					'selector'       => ".{$this->element_id}.guten-countdown .guten-countdown-wrapper .item-flex",
 					'property'       => function ( $value ) {
-						return "flex : 0 0 calc( 100% / {$value} ); max-width: calc( (100% / {$value}) - 1% );";
+						return "flex : 0 0 calc( 100% / {$value} ); max-width: calc( (100% / {$value}) );";
 					},
 					'value'          => $this->attrs['column'],
 					'device_control' => true,
