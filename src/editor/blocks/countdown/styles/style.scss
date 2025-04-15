@@ -3,6 +3,14 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+
+    .item-flex{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
     .time-container{
         display: flex;
         flex-direction: column;
