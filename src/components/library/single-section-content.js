@@ -95,11 +95,53 @@ const SingleSectionContent = (props) => {
                 </div>
             </> : singleData !== null ?
                 <>
-                    <div className="back-button" onClick={() => setSingleId(null)}>
-                        <IconArrowLeftSVG />
-                        <span>
-                            {backText}
-                        </span>
+                    <div className="back-button" >
+                        <div onClick={() => setSingleId(null)}>
+                            <IconArrowLeftSVG />
+                            <span>
+                                {backText}
+                            </span>
+                        </div>
+                        <div className="single-previewer-footer">
+                            <div className="previewer-options-container">
+                                <label className={selectedOption === 'default' ? 'selected' : ''}>
+                                    <input
+                                        type="radio"
+                                        name="styleOption"
+                                        value="default"
+                                        checked={selectedOption === 'default'}
+                                        onChange={handleChange}
+                                    />
+                                    Use Default Style
+                                </label>
+
+                                <label className={selectedOption === 'global' ? 'selected' : ''}>
+                                    <input
+                                        type="radio"
+                                        name="styleOption"
+                                        value="global"
+                                        checked={selectedOption === 'global'}
+                                        onChange={handleChange}
+                                    />
+                                    Use Current Global Style
+                                </label>
+                            </div>
+                            <ImportSectionButton
+                                data={singleData}
+                                closeImporter={closeImporter}
+                                setShowOverlay={() => {}}
+                                setExporting={setExporting}
+                                setSelectItem={setSelectItem}
+                                setLibraryError={setLibraryError}
+                                setSingleId={setSingleId}
+                                singleData={singleData}
+                                setSingleData={setSingleData}
+                                dataToImport={dataToImport}
+                                extractTypographyBlocks={extractTypographyBlocks}
+                                unavailableGlobalFonts={unavailableGlobalFonts}
+                                unavailableGlobalColors={unavailableGlobalColors}
+                            />
+                        </div>
                     </div>
                     <div className="single-previewer-container">
                         <div className="single-previewer">
@@ -113,57 +155,11 @@ const SingleSectionContent = (props) => {
                                                 layoutClassNames={layoutClassNames}
                                             />
                                         ) : (
-                                            <Placeholder
-                                                layoutClassNames={layoutClassNames}
-                                                singleData={singleData}
-                                                setPluginInstallMode={setPluginInstallMode}
-                                                pluginData={pluginData}
-                                                setCurrentItem={setCurrentItem}
-                                            />
+                                            <LeftSkeleton />
                                         )}
                                     </div>
                                 </div>
                             </RecursionProvider>
-                            <div className="single-previewer-footer">
-                                <div className="previewer-options-container">
-                                    <label className={selectedOption === 'default' ? 'selected' : ''}>
-                                        <input
-                                            type="radio"
-                                            name="styleOption"
-                                            value="default"
-                                            checked={selectedOption === 'default'}
-                                            onChange={handleChange}
-                                        />
-                                        Use Default Style
-                                    </label>
-
-                                    <label className={selectedOption === 'global' ? 'selected' : ''}>
-                                        <input
-                                            type="radio"
-                                            name="styleOption"
-                                            value="global"
-                                            checked={selectedOption === 'global'}
-                                            onChange={handleChange}
-                                        />
-                                        Use Current Global Style
-                                    </label>
-                                </div>
-                                <ImportSectionButton
-                                    data={singleData}
-                                    closeImporter={closeImporter}
-                                    setShowOverlay={() => {}}
-                                    setExporting={setExporting}
-                                    setSelectItem={setSelectItem}
-                                    setLibraryError={setLibraryError}
-                                    setSingleId={setSingleId}
-                                    singleData={singleData}
-                                    setSingleData={setSingleData}
-                                    dataToImport={dataToImport}
-                                    extractTypographyBlocks={extractTypographyBlocks}
-                                    unavailableGlobalFonts={unavailableGlobalFonts}
-                                    unavailableGlobalColors={unavailableGlobalColors}
-                                />
-                            </div>
                         </div>
                     </div>
                 </>
