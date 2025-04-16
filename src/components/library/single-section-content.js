@@ -95,14 +95,14 @@ const SingleSectionContent = (props) => {
                 </div>
             </> : singleData !== null ?
                 <>
-                    <div className="back-button" >
-                        <div onClick={() => setSingleId(null)}>
+                    <div className="single-previewer-toolbar">
+                        <div className="back-button" onClick={() => setSingleId(null)}>
                             <IconArrowLeftSVG />
                             <span>
                                 {backText}
                             </span>
                         </div>
-                        <div className="single-previewer-footer">
+                        <div className="single-previewer-control">
                             <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
