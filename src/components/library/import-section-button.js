@@ -42,13 +42,23 @@ const ImportSectionButton = props => {
             setExporting(prev => ({ ...prev, message: `Importing Global Color ${colorCount} of ${unavailableGlobalColors.length + 1}`, progress: '3/4' }));
             const key = cryptoRandomString({ length: 6, type: 'alphanumeric' });
             const colorData = color.color;
-            newColor.push({
-                slug: colorData.slug.toLowerCase(),
-                key: key,
-                name: colorData.name,
-                color: colorData.color
-            });
+            if (colorData) {
+                newColor.push({
+                    slug: colorData.slug.toLowerCase(),
+                    key: key,
+                    name: colorData.name,
+                    color: colorData.color
+                });
+            } else {
+                newColor.push({
+                    slug: color.id.toLowerCase(),
+                    key: key,
+                    name: color.id.toLowerCase(),
+                    color: {}
+                });
+            }
         }
+
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.custom';

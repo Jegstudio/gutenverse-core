@@ -1,5 +1,5 @@
 import { __, } from '@wordpress/i18n';
-import { withSelect } from '@wordpress/data';
+import { withSelect, dispatch } from '@wordpress/data';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
@@ -231,7 +231,7 @@ const handleGlobalStyleContent = (content, global, setUnavailableGlobalFonts, se
             }
 
             if (notExist) {
-                return `${JSON.stringify(hexToRgb(color.color))}`;
+                return `${JSON.stringify(hexToRgb(color ? color.color : {}))}`;
             } else {
                 return `${prefix}${id.toLowerCase()}${suffix}`;
             }
