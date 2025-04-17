@@ -162,16 +162,12 @@ const SectionBlock = compose(
     withCursorEffect,
 )((props) => {
     const {
-        getBlockRootClientId,
         getBlocks,
-        getBlock
     } = useSelect((select) => select('core/block-editor'), []);
 
     const {
         clientId,
         attributes,
-        setAttributes,
-        isSelected,
         slideElement,
         setBlockRef
     } = props;
