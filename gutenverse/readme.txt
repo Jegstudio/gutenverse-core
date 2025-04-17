@@ -4,7 +4,7 @@ Contributors: Jegstudio
 Tags: blocks, editor, gutenberg, gutenberg blocks, page builder
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 2.2.2
+Stable tag: 3.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -298,9 +298,39 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 
 == Changelog ==
-= 2.2.2 =
+= 3.0.0 =
 ##### New & Improvements
+* significantly improve editing experience inside the editor
+* improve page and post editing preview
+* add option in template library to import with global styles (for supported themes only)
+* add new one for all setting in countdown block
 * add button to easily show/hide template on posts/pages
+
+##### Bug Fixes
+* fix library, allow redirect import from template mode.
+* fix post content, allow redirect edit from template mode.
+* fix security issue. credit: Webbernaut.
+* fix button alignment when width is custom
+* fix progress bar gradient angle
+* fix icon box style background gradient
+* fix nav menu mobile logo when imported from library
+* fix flexible wrapper with video backrgound
+* fix icon list divider label setting
+* fix background ripple effect color
+* fix background effect delay
+* fix team style for title and social
+* fix copy paste style
+* fix icon list icon size
+* fix icon list when inline
+* fix post block read more button
+* fix post block pagination number
+* fix icon list divider
+* fix icon box data missing when deleted
+* fix feature list content position
+* fix portfolio gallery column
+* fix custom font
+* fix progress bar error when in gradient mode
+
 
 ##### Bug Fixes
 * fix library, allow redirect import from template mode.
