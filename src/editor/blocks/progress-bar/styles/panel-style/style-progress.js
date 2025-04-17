@@ -9,10 +9,7 @@ const progressStyle = (elementId, attributes, data) => {
                 {
                     'name': 'background',
                     'valueType': 'function',
-                    'functionName' : 'handleGradient',
-                    'functionProps' : {
-                        'angle' : '90'
-                    }
+                    'functionName' : 'customHandleBackground',
                 }
             ],
             'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar`,
@@ -25,10 +22,7 @@ const progressStyle = (elementId, attributes, data) => {
                 {
                     'name': 'background',
                     'valueType': 'function',
-                    'functionName' : 'handleGradient',
-                    'functionProps' : {
-                        'angle' : '90'
-                    }
+                    'functionName' : 'customHandleBackground',
                 }
             ],
             'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`
