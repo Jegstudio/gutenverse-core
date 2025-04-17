@@ -10,7 +10,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['alignButton']) && data.push({
         'type': 'plain',
         'id': 'alignButton',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper .guten-button`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-button-wrapper`,
         'properties': [
             {
                 'name': 'justify-content',
