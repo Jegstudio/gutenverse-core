@@ -1,6 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect, dispatch, select } from '@wordpress/data';
 import { getPluginRequirementStatus } from './library-helper';
 import { applyFilters } from '@wordpress/hooks';
 import { IconDownload2SVG } from 'gutenverse-core/icons';
@@ -10,8 +10,10 @@ import { parse } from '@wordpress/blocks';
 import { Loader } from 'react-feather';
 import ButtonUpgradePro from '../pro/button-upgrade-pro';
 import { upgradeProUrl, clientUrl, activeTheme } from 'gutenverse-core/config';
+import { store as editorStore } from '@wordpress/editor';
+import { ImportNotice } from './library-helper';
 
-const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting }) => {
+const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setPluginInstallMode, setExporting, setLibraryError }) => {
     const { isPro, slug, title, compatibleVersion, requirements, customAPI = null, customArgs = {} } = data;
     const pluginRequirement = getPluginRequirementStatus({
         plugins: plugins.installedPlugin,
@@ -25,8 +27,23 @@ const ImportLayout = ({ data, activePage, closeImporter, plugins, importer, setP
             const { contents, images } = data;
             const patterns = injectImagesToContent(contents, images);
             const blocks = parse(patterns);
-            insertBlocks(blocks);
-            resolve();
+
+            const renderingMode = select(editorStore).getRenderingMode();
+
+            if (renderingMode === 'template-locked') {
+                setLibraryError(() => {
+                    return <ImportNotice
+                        resolve={resolve}
+                        blocks={blocks}
+                        supportGlobalImport={false}
+                        setLibraryError={setLibraryError}
+                        processGlobalStyle={() => {}}
+                    />;
+                });
+            } else {
+                insertBlocks(blocks);
+                resolve();
+            }
         });
     };
 

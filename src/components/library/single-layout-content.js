@@ -23,6 +23,7 @@ const SingleLayoutContent = (props) => {
         setSingleData,
         singleData,
         setPluginInstallMode,
+        setLibraryError
     } = props;
 
     const [active, setActive] = useState(0);
@@ -135,7 +136,7 @@ const SingleLayoutContent = (props) => {
                                 </div> : <img src={imageCover} key={imageCover} />}
                             </div>
                             {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress}/> : <div className="layout-action">
-                                <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} />
+                                <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} setLibraryError={setLibraryError} />
                                 {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
                                     {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
                                 </a>}
