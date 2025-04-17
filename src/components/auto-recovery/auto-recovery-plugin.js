@@ -62,7 +62,7 @@ export const recoverBlocks = (allBlocks, invalidBlock) => {
                 parse(
                     select('core').getEntityRecords('postType', 'wp_block', {
                         include: [ref],
-                    })?.[0]?.content?.raw
+                    })?.[0]?.content?.raw || []
                 ) || [];
 
             const [recoveredBlocks, isRecovered] =
