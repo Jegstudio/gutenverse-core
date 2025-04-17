@@ -241,7 +241,7 @@ const ImportSectionButton = props => {
                     setSingleId(data.id);
                     setSingleData(data);
                 }}>
-                    <span>{__('Select this section', '--gctd--')}</span>
+                    <span>{__('Preview Section', '--gctd--')}</span>
                     <IconDownload2SVG />
                 </div>
             </div>

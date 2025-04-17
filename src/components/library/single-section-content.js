@@ -94,8 +94,8 @@ const SingleSectionContent = (props) => {
                 </div>
             </> : singleData !== null ?
                 <>
-                    <div className="back-button" >
-                        <div onClick={() => setSingleId(null)}>
+                    <div className="single-previewer-toolbar">
+                        <div className="back-button" onClick={() => setSingleId(null)}>
                             <IconArrowLeftSVG />
                             <span>
                                 {backText}
@@ -265,64 +265,6 @@ const extractTypographyBlocks = (content) => {
     }
 
     return matches;
-};
-
-const Placeholder = ({singleData, setPluginInstallMode, pluginData, setCurrentItem}) => {
-
-    const classname = classnames('library-item');
-    const paddingBottom = (singleData?.cover[2] / singleData?.cover[1] * 100 < 10) ? 0 : singleData?.cover[2] / singleData?.cover[1] * 100;
-    const minHeight = paddingBottom === 0 ? 50 : 0;
-    const [image, setImage] = useState('');
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [requirementStatus, setRequirementStatus] = useState(false);
-    const { installedPlugin } = pluginData;
-
-    useEffect(() => {
-        const img = new Image();
-        img.onload = () => {
-            setImage(singleData.cover[0]);
-        };
-        img.src = singleData.cover[0];
-    });
-
-    useEffect(() => {
-        const { requirements, compatibleVersion } = singleData;
-        const requirement = getPluginRequirementStatus({
-            plugins: installedPlugin,
-            requirements,
-            compatibleVersion
-        });
-        setRequirementStatus(requirement);
-    }, [singleData, installedPlugin]);
-
-    const setToCurrentItem = () => {
-        setCurrentItem(singleData);
-        setPluginInstallMode(true);
-    };
-
-    return <div className={classname}>
-        <div className="library-item-content">
-            <div className="library-item-holder " style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '', zIndex: isLoaded ? '5' : ''
-            }}>
-                <img src={image} onLoad={() => setIsLoaded(true)} />
-                <div className="library-item-detail">
-                    {requirementStatus?.length === 0 && <div className="library-item-overlay">
-                        <div className="section-button import-section" onClick={() => setToCurrentItem()}>
-                            <div className="section-button-inner">
-                                <span>
-                                    {__('Missing Requirement', '--gctd--')}
-                                    <br />
-                                    {__('Click for more detail', '--gctd--')}
-                                </span>
-                            </div>
-                        </div>
-                    </div>}
-                    {singleData.pro && <div className="pro-flag">{__('PRO', '--gctd--')}</div>}
-                </div>
-            </div>
-        </div>
-    </div>;
 };
 
 const Content = (props) => {
