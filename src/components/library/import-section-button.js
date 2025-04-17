@@ -18,18 +18,35 @@ import set from 'lodash/set';
 import { v4 } from 'uuid';
 
 const ImportSectionButton = props => {
-    const { data, closeImporter, importer, setShowOverlay, setExporting, setSelectItem, setLibraryError, setSingleId, setSingleData, singleData, dataToImport, extractTypographyBlocks, unavailableGlobalFonts, unavailableGlobalColors } = props;
+    const { 
+        data,
+        closeImporter,
+        importer,
+        setShowOverlay,
+        setExporting,
+        setSelectItem,
+        setLibraryError,
+        setSingleId,
+        setSingleData,
+        singleData,
+        dataToImport,
+        extractTypographyBlocks,
+        unavailableGlobalFonts,
+        unavailableGlobalColors,
+        supportGlobalImport
+    } = props;
+
     const { pro: isPro, slug, customAPI = null, customArgs = {} } = data;
-    let fail = 0;
     const { userConfig, setUserConfig } = useGlobalStylesConfig();
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
+    const { addVariableFont } = dispatch('gutenverse/global-style');
+    let fail = 0;
     const customPalette = customs ? customs.map(item => {
         return {
             ...item,
             key: item.key ? item.key : cryptoRandomString({ length: 6, type: 'alphanumeric' })
         };
     }) : [];
-    const { addVariableFont } = dispatch('gutenverse/global-style');
 
     const processGlobalStyle = () => {
         signal.globalStyleSignal.dispatch(v4());
@@ -112,11 +129,18 @@ const ImportSectionButton = props => {
             }
 
             const blocks = parse(patterns);
+
+            //handle elementId on section import
             const newBlocks = blocks.map(block => {
                 const blocksString = JSON.stringify(block).replace(/class=\\"[^"]*\\"/g, 'class=\\"\\"');
-                const test = blocksString.replace(/"className":"[^"]*"/g,  '"className":""');
-                return JSON.parse(test);
+                const removeClassName = blocksString.replace(/"className":"[^"]*"/g,  '"className":""');
+                const contentWithNewId = removeClassName.replace(/"elementId":"guten-[^"]+"/g, () => {
+                    const newId = 'guten-' + cryptoRandomString({ length: 6, type: 'alphanumeric' });
+                    return `"elementId":"${newId}"`;
+                });
+                return JSON.parse(contentWithNewId);
             });
+
             const renderingMode = select(editorStore).getRenderingMode();
 
             if (renderingMode === 'template-locked') {
@@ -210,17 +234,14 @@ const ImportSectionButton = props => {
         });
     };
 
-    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
-    // const supportGlobalImport = false; //untuk testing
-
     const ImportButton = () => {
-        return (supportGlobalImport && !singleData) ? (
+        return !singleData ? (
             <div className="section-button import-section">
                 <div className="section-button-inner" onClick={() => {
                     setSingleId(data.id);
                     setSingleData(data);
                 }}>
-                    <span>{__('Select this section', '--gctd--')}</span>
+                    <span>{__('Preview Section', '--gctd--')}</span>
                     <IconDownload2SVG />
                 </div>
             </div>

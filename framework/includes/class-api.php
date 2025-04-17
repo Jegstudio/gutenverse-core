@@ -342,7 +342,6 @@ class Api {
 		$upload_base_path = $upload_dir['basedir'];
 
 		$directory_to_check = $upload_base_path . '/gutenverse/' . self::DATA_FOLDER;
-		$this->update_library_data();
 		if ( ! is_dir( $directory_to_check ) ) {
 			$this->update_library_data();
 		}

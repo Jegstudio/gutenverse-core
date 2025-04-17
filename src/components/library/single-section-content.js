@@ -1,5 +1,5 @@
 import { __, } from '@wordpress/i18n';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
@@ -15,14 +15,11 @@ import { hexToRgb } from 'gutenverse-core/editor-helper';
 
 const SingleSectionContent = (props) => {
     const {
-        pluginData,
         setSingleId,
         backText,
         closeImporter,
         setSingleData,
         singleData,
-        setPluginInstallMode,
-        setCurrentItem,
         setExporting,
         setSelectItem,
         setLibraryError
@@ -34,6 +31,8 @@ const SingleSectionContent = (props) => {
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
+    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+    // const supportGlobalImport = false; //untuk testing
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -95,11 +94,54 @@ const SingleSectionContent = (props) => {
                 </div>
             </> : singleData !== null ?
                 <>
-                    <div className="back-button" onClick={() => setSingleId(null)}>
-                        <IconArrowLeftSVG />
-                        <span>
-                            {backText}
-                        </span>
+                    <div className="single-previewer-toolbar">
+                        <div className="back-button" onClick={() => setSingleId(null)}>
+                            <IconArrowLeftSVG />
+                            <span>
+                                {backText}
+                            </span>
+                        </div>
+                        <div className="single-previewer-control">
+                            {supportGlobalImport && <div className="previewer-options-container">
+                                <label className={selectedOption === 'default' ? 'selected' : ''}>
+                                    <input
+                                        type="radio"
+                                        name="styleOption"
+                                        value="default"
+                                        checked={selectedOption === 'default'}
+                                        onChange={handleChange}
+                                    />
+                                    Use Default Style
+                                </label>
+
+                                <label className={selectedOption === 'global' ? 'selected' : ''}>
+                                    <input
+                                        type="radio"
+                                        name="styleOption"
+                                        value="global"
+                                        checked={selectedOption === 'global'}
+                                        onChange={handleChange}
+                                    />
+                                    Use Current Global Style
+                                </label>
+                            </div>}
+                            <ImportSectionButton
+                                data={singleData}
+                                closeImporter={closeImporter}
+                                setShowOverlay={() => {}}
+                                setExporting={setExporting}
+                                setSelectItem={setSelectItem}
+                                setLibraryError={setLibraryError}
+                                setSingleId={setSingleId}
+                                singleData={singleData}
+                                setSingleData={setSingleData}
+                                dataToImport={dataToImport}
+                                extractTypographyBlocks={extractTypographyBlocks}
+                                unavailableGlobalFonts={unavailableGlobalFonts}
+                                unavailableGlobalColors={unavailableGlobalColors}
+                                supportGlobalImport={supportGlobalImport}
+                            />
+                        </div>
                     </div>
                     <div className="single-previewer-container">
                         <div className="single-previewer">
@@ -113,57 +155,11 @@ const SingleSectionContent = (props) => {
                                                 layoutClassNames={layoutClassNames}
                                             />
                                         ) : (
-                                            <Placeholder
-                                                layoutClassNames={layoutClassNames}
-                                                singleData={singleData}
-                                                setPluginInstallMode={setPluginInstallMode}
-                                                pluginData={pluginData}
-                                                setCurrentItem={setCurrentItem}
-                                            />
+                                            <LeftSkeleton />
                                         )}
                                     </div>
                                 </div>
                             </RecursionProvider>
-                            <div className="single-previewer-footer">
-                                <div className="previewer-options-container">
-                                    <label className={selectedOption === 'default' ? 'selected' : ''}>
-                                        <input
-                                            type="radio"
-                                            name="styleOption"
-                                            value="default"
-                                            checked={selectedOption === 'default'}
-                                            onChange={handleChange}
-                                        />
-                                        Use Default Style
-                                    </label>
-
-                                    <label className={selectedOption === 'global' ? 'selected' : ''}>
-                                        <input
-                                            type="radio"
-                                            name="styleOption"
-                                            value="global"
-                                            checked={selectedOption === 'global'}
-                                            onChange={handleChange}
-                                        />
-                                        Use Current Global Style
-                                    </label>
-                                </div>
-                                <ImportSectionButton
-                                    data={singleData}
-                                    closeImporter={closeImporter}
-                                    setShowOverlay={() => {}}
-                                    setExporting={setExporting}
-                                    setSelectItem={setSelectItem}
-                                    setLibraryError={setLibraryError}
-                                    setSingleId={setSingleId}
-                                    singleData={singleData}
-                                    setSingleData={setSingleData}
-                                    dataToImport={dataToImport}
-                                    extractTypographyBlocks={extractTypographyBlocks}
-                                    unavailableGlobalFonts={unavailableGlobalFonts}
-                                    unavailableGlobalColors={unavailableGlobalColors}
-                                />
-                            </div>
                         </div>
                     </div>
                 </>
@@ -269,64 +265,6 @@ const extractTypographyBlocks = (content) => {
     }
 
     return matches;
-};
-
-const Placeholder = ({singleData, setPluginInstallMode, pluginData, setCurrentItem}) => {
-
-    const classname = classnames('library-item');
-    const paddingBottom = (singleData?.cover[2] / singleData?.cover[1] * 100 < 10) ? 0 : singleData?.cover[2] / singleData?.cover[1] * 100;
-    const minHeight = paddingBottom === 0 ? 50 : 0;
-    const [image, setImage] = useState('');
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [requirementStatus, setRequirementStatus] = useState(false);
-    const { installedPlugin } = pluginData;
-
-    useEffect(() => {
-        const img = new Image();
-        img.onload = () => {
-            setImage(singleData.cover[0]);
-        };
-        img.src = singleData.cover[0];
-    });
-
-    useEffect(() => {
-        const { requirements, compatibleVersion } = singleData;
-        const requirement = getPluginRequirementStatus({
-            plugins: installedPlugin,
-            requirements,
-            compatibleVersion
-        });
-        setRequirementStatus(requirement);
-    }, [singleData, installedPlugin]);
-
-    const setToCurrentItem = () => {
-        setCurrentItem(singleData);
-        setPluginInstallMode(true);
-    };
-
-    return <div className={classname}>
-        <div className="library-item-content">
-            <div className="library-item-holder " style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '', zIndex: isLoaded ? '5' : ''
-            }}>
-                <img src={image} onLoad={() => setIsLoaded(true)} />
-                <div className="library-item-detail">
-                    {requirementStatus?.length === 0 && <div className="library-item-overlay">
-                        <div className="section-button import-section" onClick={() => setToCurrentItem()}>
-                            <div className="section-button-inner">
-                                <span>
-                                    {__('Missing Requirement', '--gctd--')}
-                                    <br />
-                                    {__('Click for more detail', '--gctd--')}
-                                </span>
-                            </div>
-                        </div>
-                    </div>}
-                    {singleData.pro && <div className="pro-flag">{__('PRO', '--gctd--')}</div>}
-                </div>
-            </div>
-        </div>
-    </div>;
 };
 
 const Content = (props) => {
