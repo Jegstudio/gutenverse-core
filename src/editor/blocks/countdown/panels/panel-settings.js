@@ -1,7 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, DateTimeControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
 
 export const settingPanel = (props) => {
     const {
@@ -86,10 +85,17 @@ export const settingPanel = (props) => {
             id: 'dividerColor',
             label: __('Divider color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.guten-element.guten-countdown.${elementId} .countdown-divider`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'dividerColor',
+                    'selector': `.guten-element.guten-countdown.${elementId} .countdown-divider`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -102,10 +108,24 @@ export const settingPanel = (props) => {
             min: 0,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.guten-element.guten-countdown.${elementId} .countdown-divider`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'dividerSize',
+                    'selector': `.guten-element.guten-countdown.${elementId} .countdown-divider`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },

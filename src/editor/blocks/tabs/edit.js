@@ -2,27 +2,25 @@ import { useEffect, useState } from '@wordpress/element';
 import { createBlocksFromInnerBlocksTemplate, createBlock } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
-import {
-    RichText,
-    useBlockProps,
-    useInnerBlocksProps, BlockControls
-} from '@wordpress/block-editor';
+import { RichText, useBlockProps, useInnerBlocksProps, BlockControls } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { cryptoRandomString } from 'gutenverse-core/components';
 import { trash, plus } from 'gutenverse-core/components';
 import { ToolbarButton, ToolbarGroup, Tooltip } from '@wordpress/components';
 import { displayShortcut } from '@wordpress/keycodes';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { useRef } from '@wordpress/element';
 import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'gutenverse-core/components';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { reorder } from 'gutenverse-core/helper';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch, useSelect } from '@wordpress/data';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const TabHeadingItem = ({
     tab,
@@ -165,8 +163,6 @@ const TabHeading = ({
 
 const Tabs = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
@@ -186,8 +182,6 @@ const Tabs = compose(
         clientId,
         attributes,
         setAttributes,
-        addStyle,
-        setElementRef
     } = props;
 
     const {
@@ -195,11 +189,15 @@ const Tabs = compose(
         tabs,
         orientation,
     } = attributes;
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
     const deviceType = getDeviceType();
     const [activeTab, setActiveTab] = useState(0);
-    const tabsRef = useRef();
+    const elementRef = useRef();
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     useEffect(() => {
         if (tabs === undefined) {
@@ -249,7 +247,7 @@ const Tabs = compose(
             displayClass,
             deviceType,
         ),
-        ref: tabsRef
+        ref: elementRef
     });
 
     const innerBlocksProps = useInnerBlocksProps({
@@ -288,11 +286,14 @@ const Tabs = compose(
 
     const changeActiveTab = key => {
         setActiveTab(key);
-
-        addStyle(
-            'tab-style',
-            `[data-block="${clientId}"].guten-tabs .tab-body .tab-body-item.tab-${key} { display: block }`
-        );
+        if(elementRef.current){
+            elementRef.current.querySelectorAll('.tab-body-item.active').forEach(childs => {
+                childs.classList.remove('active');
+            });
+            elementRef.current.querySelectorAll(`.tab-body-item[data-id="${key}"]`).forEach(childs => {
+                childs.classList.add('active');
+            });
+        }
     };
 
     const headingParameter = {
@@ -334,14 +335,9 @@ const Tabs = compose(
         changeActiveTab(tabId);
     };
 
-    useEffect(() => {
-        if (tabsRef.current) {
-            setElementRef(tabsRef.current);
-        }
-    }, [tabsRef]);
-
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <BlockControls>
             <ToolbarGroup>
                 <ToolbarButton

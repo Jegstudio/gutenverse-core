@@ -53,33 +53,62 @@ class Progress_Bar extends Style_Abstract {
 	}
 
 	/**
+	 * Creating custom handle background to handle old values because format is changed
+	 *
+	 * @param string $selector .
+	 * @param object $background .
+	 */
+	public function custom_handle_gradient( $selector, $background ) {
+		$this->inject_style(
+			array(
+				'selector'       => $selector,
+				'property'       => function ( $value ) {
+					$gradient_color        = $value['gradientColor'];
+					$gradient_type         = $value['gradientType'];
+					$gradient_angle        = $value['gradientAngle'];
+					$gradient_radial       = $value['gradientRadial'];
+
+					if ( ! empty( $gradient_color ) ) {
+						$colors = array();
+
+						foreach ( $gradient_color as $gradient ) {
+							$offset  = $gradient['offset'] * 100;
+							$colors[] = "{$gradient['color']} {$offset}%";
+						}
+
+						$colors = join( ',', $colors );
+
+						if ( 'radial' === $gradient_type ) {
+							return "background: radial-gradient(at {$gradient_radial}, {$colors});";
+						} else {
+							return "background: linear-gradient({$gradient_angle}deg, {$colors});";
+						}
+					}
+				},
+				'value'          => array(
+					'gradientColor'       => isset( $background['gradientColor'] ) ? $background['gradientColor'] : null,
+					'gradientPosition'    => isset( $background['gradientPosition'] ) ? $background['gradientPosition'] : 0,
+					'gradientEndColor'    => isset( $background['gradientEndColor'] ) ? $background['gradientEndColor'] : null,
+					'gradientEndPosition' => isset( $background['gradientEndPosition'] ) ? $background['gradientEndPosition'] : 100,
+					'gradientType'        => isset( $background['gradientType'] ) ? $background['gradientType'] : 'linear',
+					'gradientAngle'       => isset( $background['gradientAngle'] ) ? $background['gradientAngle'] : 180,
+					'gradientRadial'      => isset( $background['gradientRadial'] ) ? $background['gradientRadial'] : 'center center',
+				),
+				'device_control' => false,
+			)
+		);
+	}
+
+	/**
 	 * Generate style base on attribute.
 	 */
 	public function generate() {
 		if ( isset( $this->attrs['barGradient'] ) && isset( $this->attrs['colorMode'] ) && 'gradient' === $this->attrs['colorMode'] ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar",
-					'property'       => function ( $value ) {
-						return $this->handle_gradient( $value, '90' );
-					},
-					'value'          => $this->attrs['barGradient'],
-					'device_control' => false,
-				)
-			);
+			$this->custom_handle_gradient( ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar", $this->attrs['barGradient'] );
 		}
 
 		if ( isset( $this->attrs['trackGradient'] ) && isset( $this->attrs['colorMode'] ) && 'gradient' === $this->attrs['colorMode'] ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar .skill-track",
-					'property'       => function ( $value ) {
-						return $this->handle_gradient( $value, '90' );
-					},
-					'value'          => $this->attrs['trackGradient'],
-					'device_control' => false,
-				)
-			);
+			$this->custom_handle_gradient( ".{$this->element_id} .progress-group .progress-skill-bar .skill-bar .skill-track", $this->attrs['trackGradient'] );
 		}
 
 		if ( isset( $this->attrs['barColor'] ) && ( ( isset( $this->attrs['colorMode'] ) && 'default' === $this->attrs['colorMode'] ) || ! isset( $this->attrs['colorMode'] ) ) ) {

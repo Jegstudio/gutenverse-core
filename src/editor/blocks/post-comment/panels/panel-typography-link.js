@@ -19,24 +19,22 @@ export const linkTypographyPanel = (props) => {
             id: 'typographyLink',
             label: __('Link Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .comment-form a`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'colorLink',
             label: __('Link Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .comment-form a`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'colorLink',
+                'selector': `.${elementId} .comment-form a`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         {
             id: 'marginLink',
@@ -62,12 +60,6 @@ export const linkTypographyPanel = (props) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .comment-form a`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'linkHeader2',
@@ -98,25 +90,23 @@ export const linkTypographyPanel = (props) => {
             label: __('User Name Typography', 'gutenverse'),
             show: !switcher.linkType || switcher.linkType === 'userName',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist b.fn a.url`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'userNameColor',
             label: __('User Name Color', 'gutenverse'),
             show: !switcher.linkType || switcher.linkType === 'userName',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist b.fn a.url`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'userNameColor',
+                'selector': `.${elementId} .commentlist b.fn a.url`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         // {
         //     id: 'userNameMargin',
@@ -155,25 +145,23 @@ export const linkTypographyPanel = (props) => {
             label: __('Date Typography', 'gutenverse'),
             show: switcher.linkType === 'date',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .comment-metadata a time`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'dateColor',
             label: __('Date Color', 'gutenverse'),
             show: switcher.linkType === 'date',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .comment-metadata a time`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'dateColor',
+                'selector': `.${elementId} .commentlist .comment-metadata a time`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         // {
         //     id: 'dateMargin',
@@ -212,25 +200,23 @@ export const linkTypographyPanel = (props) => {
             label: __('Reply Typography', 'gutenverse'),
             show: switcher.linkType === 'reply',
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .reply .comment-reply-link`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'replyLinkColor',
             label: __('Reply Color', 'gutenverse'),
             show: switcher.linkType === 'reply',
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .commentlist .reply .comment-reply-link`,
-                    render: value => handleColor(value, 'color')
-                }
-            ]
+            liveStyle: {
+                'type': 'color',
+                'id': 'replyLinkColor',
+                'selector': `.${elementId} .commentlist .reply .comment-reply-link`,
+                'properties': [
+                    {
+                        'name': 'color',
+                        'valueType': 'direct'
+                    }
+                ]
+            }
         },
         // {
         //     id: 'replyLinkMargin',

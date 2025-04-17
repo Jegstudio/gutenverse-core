@@ -1,11 +1,10 @@
 import { compose } from '@wordpress/compose';
 import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, MediaUpload, MediaUploadCheck, RichText, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
 import { __ } from '@wordpress/i18n';
 import { ArrowLeft } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { Button } from '@wordpress/components';
 import { ReactPlayer } from 'gutenverse-core/components';
@@ -13,11 +12,12 @@ import { useRef } from '@wordpress/element';
 import { useEffect } from '@wordpress/element';
 import { isEmpty } from 'lodash';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { AlertControl } from 'gutenverse-core/controls';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const VideoContainer = ({ videoSrc, start, end, videoType, hideControls, playing, loop, muted, width, height }) => {
     const playerStyle = {};
@@ -78,15 +78,15 @@ const VideoPicker = (props) => {
 
 const VideoBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('video'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('video'),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
         setAttributes,
-        setElementRef
+        clientId,
+        setBlockRef,
     } = props;
 
     const {
@@ -106,7 +106,11 @@ const VideoBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const videoRef = useRef();
+    const elementRef = useRef(null);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -121,7 +125,7 @@ const VideoBlock = compose(
                 'video-loaded': videoSrc
             },
         ),
-        ref: videoRef
+        ref: elementRef
     });
 
     const caption = () => {
@@ -145,6 +149,12 @@ const VideoBlock = compose(
     };
 
     const [videoURL, setVideoURL] = useState(null);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
 
     const selectType = () => {
         switch (videoType) {
@@ -184,13 +194,8 @@ const VideoBlock = compose(
         }
     };
 
-    useEffect(() => {
-        if (videoRef.current) {
-            setElementRef(videoRef.current);
-        }
-    }, [videoRef]);
-
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <div className={'header-control'}>
                 <AlertControl type={'warning'}>
@@ -199,7 +204,7 @@ const VideoBlock = compose(
                 </AlertControl>
             </div>
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <figure {...blockProps}>
             {!isEmpty(videoSrc) ? videoRender() : selectType()}
             {!isEmpty(videoSrc) ? caption() : null}

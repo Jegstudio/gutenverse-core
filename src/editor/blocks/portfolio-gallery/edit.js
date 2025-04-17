@@ -1,33 +1,29 @@
-/* External dependencies */
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { classnames, u } from 'gutenverse-core/components';
-
-/* WordPress dependencies */
+import { classnames } from 'gutenverse-core/components';
 import { useBlockProps } from '@wordpress/block-editor';
 import { compose } from '@wordpress/compose';
-
-/* Gutenverse dependencies */
-import { withCustomStyle, withAnimationAdvance, withCopyElementToolbar, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
-
-/* Local dependencies */
 import { panelList } from './panels/panel-list';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PortfolioGalleryBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('portfolio-gallery'),
-    withCopyElementToolbar(),
-    withMouseMoveEffect,
+    withPassRef,
+    withAnimationAdvanceV2('portfolio-gallery'),
+    withMouseMoveEffect
 )(props => {
     const {
         attributes,
         setAttributes,
-        setElementRef,
+        clientId,
+        setBlockRef,
     } = props;
-    
+
     const {
         elementId,
         images,
@@ -37,9 +33,15 @@ const PortfolioGalleryBlock = compose(
         behavior
     } = attributes;
 
-    const portofolioGalleryRef = useRef();
+    const { gutenverseImgPlaceholder } = window['GutenverseConfig'];
+
+    const elementRef = useRef();
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const [current, setCurrent] = useState(0);
 
@@ -51,23 +53,17 @@ const PortfolioGalleryBlock = compose(
             displayClass,
             'guten-portfolio-gallery'
         ),
-        ref: portofolioGalleryRef
+        ref: elementRef
     });
 
-    useEffect(() => {
-        if (portofolioGalleryRef.current) {
-            setElementRef(portofolioGalleryRef.current);
-        }
-    }, [portofolioGalleryRef]);
-
     const handleOnClick = (index) => {
-        if(behavior === 'onclick'){
+        if (behavior === 'onclick') {
             setCurrent(index);
         }
     };
 
     const handleMouseEnter = (index) => {
-        if(behavior === 'onhover'){
+        if (behavior === 'onhover') {
             setCurrent(index);
         }
     };
@@ -75,25 +71,32 @@ const PortfolioGalleryBlock = compose(
     useEffect(() => {
         let newImages = images;
         let isCurrent = images.findIndex(el => el.current);
-        if( isCurrent === -1 ){
+        if (isCurrent === -1) {
             newImages[0].current = true;
-            setAttributes({images : newImages});
-        }else{
+            setAttributes({ images: newImages });
+        } else {
             setCurrent(isCurrent);
         }
     }, [images]);
 
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className={`portfolio-gallery-container ${behavior}`}>
                 <div className="content-items">
                     {
-                        images.map((el,index) => {
+                        images.map((el, index) => {
                             return <div key={el._key} className={`row-item ${current === index ? 'current-item' : ''}`} data-tab={`portfolio-gallery-tab-${index}`} onClick={() => handleOnClick(index)} onMouseEnter={() => handleMouseEnter(index)}>
                                 <div className="row-item-info">
                                     {el.subtitle && <p className="info-subtitle">{el.subtitle}</p>}
-                                    {el.title && <h2 className="info-title">{el.title}</h2>} 
+                                    {el.title && <h2 className="info-title">{el.title}</h2>}
                                 </div>
                                 {
                                     showLink && el.link && <div className="row-link-wrapper">
@@ -103,14 +106,14 @@ const PortfolioGalleryBlock = compose(
                                         </a>
                                     </div>
                                 }
-                            </div>
+                            </div>;
                         })
                     }
                 </div>
                 <div className="image-items">
                     {
-                        images.map((el,index) => {
-                            return <div key={index} id={`portfolio-gallery-tab-${index}`} className={`image-item ${current === index ? 'current-item' : ''}`} style={{backgroundImage:`url(${getImageSrc(el.src)})`}}></div>
+                        images.map((el, index) => {
+                            return <div key={index} id={`portfolio-gallery-tab-${index}`} className={`image-item ${current === index ? 'current-item' : ''}`} style={{ backgroundImage: `url(${getImageSrc(el.src, gutenverseImgPlaceholder)})` }}></div>;
                         })
                     }
                 </div>

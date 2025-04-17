@@ -2,8 +2,6 @@ import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { BackgroundControl, BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
-import { allowRenderBoxShadow, handleBackground, handleBorder, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
-
 
 export const readmorePanel = (props) => {
     const {
@@ -19,13 +17,6 @@ export const readmorePanel = (props) => {
             id: 'readmoreTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-readmore`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: 'readmoreMargin',
@@ -47,12 +38,6 @@ export const readmorePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-readmore`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ]
         },
         {
             id: 'readmorePadding',
@@ -74,12 +59,6 @@ export const readmorePanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-readmore`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ]
         },
         {
             id: 'readmoreSpacing',
@@ -90,16 +69,44 @@ export const readmorePanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-before .guten-readmore i`,
-                    render: value => `margin-right: ${value}px;`
+                    'type': 'plain',
+                    'id': 'readmoreSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-before .guten-readmore i`,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 },
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-after .guten-readmore i`,
-                    render: value => `margin-left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'readmoreSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore.icon-position-after .guten-readmore i`,
+                    'properties': [
+                        {
+                            'name': 'margin-left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'readmoreIconSize',
@@ -120,10 +127,18 @@ export const readmorePanel = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore i`,
-                    render: value => handleUnitPoint(value, 'font-size')
+                    'type': 'unitPoint',
+                    'id': 'readmoreIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -149,12 +164,20 @@ export const readmorePanel = (props) => {
                 },
             },
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
-                    render: value => handleUnitPoint(value, 'width')
-                },
-            ],
+                    'type': 'unitPoint',
+                    'id': 'readmoreWidth',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct',
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'readmoreAlign',
@@ -178,12 +201,6 @@ export const readmorePanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore .guten-readmore`,
-                    render: value => `justify-content: ${value};`
-                }
-            ]
         },
         {
             id: '__readmoreHover',
@@ -205,10 +222,17 @@ export const readmorePanel = (props) => {
             show: !switcher.readmoreHover || switcher.readmoreHover === 'normal',
             label: __('Normal color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'readmoreColor',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -217,10 +241,17 @@ export const readmorePanel = (props) => {
             show: switcher.readmoreHover === 'hover',
             label: __('Hover color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'readmoreHoverColor',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
             ]
         },
@@ -231,11 +262,11 @@ export const readmorePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'readmoreBackground',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
                 }
             ]
         },
@@ -246,11 +277,11 @@ export const readmorePanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: ['default', 'gradient'],
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'readmoreHoverBackground',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
                 }
             ]
         },
@@ -259,11 +290,11 @@ export const readmorePanel = (props) => {
             show: (!switcher.readmoreHover || switcher.readmoreHover === 'normal') && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'readmoreBorder',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
                 }
             ]
         },
@@ -273,11 +304,11 @@ export const readmorePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'readmoreBorderResponsive',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
                 }
             ]
         },
@@ -286,11 +317,11 @@ export const readmorePanel = (props) => {
             show: switcher.readmoreHover === 'hover' && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'readmoreHoverBorder',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
                 }
             ]
         },
@@ -300,35 +331,49 @@ export const readmorePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'readmoreHoverBorderResponsive',
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
                 }
             ]
         },
         {
             id: 'readmoreShadow',
-            label: __('Hover Box Shadow', 'gutenverse'),
+            label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            show: !switcher.readmoreHover || switcher.readmoreHover === 'normal',
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'readmoreShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore a`,
                 }
             ]
         },
         {
             id: 'readmoreHoverShadow',
-            label: __('Box Shadow', 'gutenverse'),
+            label: __('Hover Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            show: switcher.readmoreHover === 'hover',
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'readmoreHoverShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-postblock .guten-post .guten-postblock-content .guten-meta-readmore:hover a`,
                 }
             ]
         },

@@ -1,7 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { allowRenderTextShadow, handleColor, handleTypography } from 'gutenverse-core/styling';
 import { ColorControl, RangeControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleTextShadow } from 'gutenverse-core/styling';
 
 export const descPanel = (props) => {
     const {
@@ -18,10 +16,24 @@ export const descPanel = (props) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc`,
-                    render: value => `margin-bottom: ${value}px;`
+                    'type': 'plain',
+                    'id': 'descSpace',
+                    'responsive': true,
+                    'selector': `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc`,
+                    'properties': [
+                        {
+                            'name': 'margin-bottom',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -29,11 +41,18 @@ export const descPanel = (props) => {
             id: 'descColor',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
-                            .${elementId} .profile-desc> a, #${elementId} .profile-desc> a, #${elementId} .profile-phone> a, #${elementId} .profile-email> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'descColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
+                    .${elementId} .profile-desc> a, #${elementId} .profile-desc> a, #${elementId} .profile-phone> a, #${elementId} .profile-email> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
                 }
             ]
         },
@@ -41,11 +60,18 @@ export const descPanel = (props) => {
             id: 'descColorHover',
             label: __('Hover Text Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover .profile-desc, #${elementId}:hover .profile-desc, #${elementId}:hover .profile-phone, #${elementId}:hover .profile-email, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-desc,
-                            .${elementId}:hover .profile-desc> a, #${elementId}:hover .profile-desc> a, #${elementId}:hover .profile-phone> a, #${elementId}:hover .profile-email> a, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'descColorHover',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}:hover .profile-desc, #${elementId}:hover .profile-desc, #${elementId}:hover .profile-phone, #${elementId}:hover .profile-email, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-desc,
+                    .${elementId}:hover .profile-desc> a, #${elementId}:hover .profile-desc> a, #${elementId}:hover .profile-phone> a, #${elementId}:hover .profile-email> a, .${elementId}:hover .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
                 }
             ]
         },
@@ -53,25 +79,23 @@ export const descPanel = (props) => {
             id: 'descTypography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
-                            .${elementId} .profile-desc> a, #${elementId} .profile-desc> a, #${elementId} .profile-phone> a, #${elementId} .profile-email> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'descTextShadow',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
-                            .${elementId} .profile-desc> a, #${elementId} .profile-desc> a, #${elementId} .profile-phone> a, #${elementId} .profile-email> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'descTextShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .profile-desc, #${elementId} .profile-desc, #${elementId} .profile-phone, #${elementId} .profile-email, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc,
+                    .${elementId} .profile-desc> a, #${elementId} .profile-desc> a, #${elementId} .profile-phone> a, #${elementId} .profile-email> a, .${elementId} .profile-box .profile-card.card-overlay .profile-body .profile-desc> a`,
                 }
             ]
         }

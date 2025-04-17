@@ -19,6 +19,7 @@ const getImageSrc = ( src ) => {
 const save = compose(
     withMouseMoveEffectScript
 )(({ attributes }) => {
+
     const {
         elementId,
         testimonialData,
@@ -46,6 +47,7 @@ const save = compose(
         `style-${contentType}`,
         'quote-override',
     );
+    
     return (
         <div {...useBlockProps.save({ className })}>
             <div className="testimonials-list">

@@ -1,7 +1,6 @@
 
 import { __ } from '@wordpress/i18n';
-import { AlertControl, ColorControl, SelectControl, SizeControl} from 'gutenverse-core/controls';
-import { handleColor } from 'gutenverse-core/styling';
+import { AlertControl, ColorControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
 
 export const dividerPanel = (props) => {
     const {
@@ -23,12 +22,18 @@ export const dividerPanel = (props) => {
             label: __('Color Divider', 'gutenverse'),
             show: showDivider,
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : () => showDivider,
-                    render: value => handleColor(value, 'border-color')
-                },
+                    'type': 'color',
+                    'id': 'colorDivider',
+                    'selector': `.${elementId} .taxonomy-list-item:not(:first-child))`,
+                    'properties': [
+                        {
+                            'name': 'border-color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -36,7 +41,7 @@ export const dividerPanel = (props) => {
             label: __('Type Divider', 'gutenverse'),
             show: showDivider,
             component: SelectControl,
-            options:[
+            options: [
                 {
                     label: __('Solid', 'gutenverse'),
                     value: 'solid'
@@ -54,35 +59,24 @@ export const dividerPanel = (props) => {
                     value: 'dashed'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : () => (showDivider && layout === 'column'),
-                    render: value => `border-top-style : ${value};`
-                },
-                {
-                    selector: `.${elementId} .taxonomy-list-item:not(:nth-child(1))`,
-                    allowRender : () => (showDivider && layout === 'row'),
-                    render: value => `border-left-style : ${value};`
-                },
-            ]
         },
         {
             id: 'widthDivider',
             label: __('Width Divider', 'gutenverse'),
             show: showDivider,
             component: SizeControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .taxonomy-list-item`,
-                    allowRender : () => showDivider && layout === 'column',
-                    render: value => `width : ${value.point}${value.unit};`
-                },
-                {
-                    selector: `.${elementId} .taxonomy-list-item`,
-                    allowRender : () => showDivider && layout === 'row',
-                    render: value => `height : ${value.point}${value.unit};`
-                },
+                    'type': 'unitPoint',
+                    'id': 'widthDivider',
+                    'selector': `.${elementId} .taxonomy-list-item`,
+                    'properties': [
+                        {
+                            'name': layout === 'column' ? 'width' : 'height',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -90,12 +84,18 @@ export const dividerPanel = (props) => {
             label: __('Size Divider', 'gutenverse'),
             show: showDivider,
             component: SizeControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .taxonomy-list-item`,
-                    allowRender : () => showDivider,
-                    render: value => `border-width: ${value.point}${value.unit};`
-                },
+                    'type': 'unitPoint',
+                    'id': 'sizeDivider',
+                    'selector': `.${elementId} .taxonomy-list-item`,
+                    'properties': [
+                        {
+                            'name': 'border-width',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
             ]
         },
     ];

@@ -1,10 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
-import { allowRenderBoxShadow, allowRenderTextShadow, handleBorder, handleBorderResponsive, handleColor, handleTypography, handleUnitPoint } from 'gutenverse-core/styling';
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, ColorControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TextShadowControl, TypographyControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { handleTextShadow } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const stylePanel = (props) => {
@@ -46,25 +43,12 @@ export const stylePanel = (props) => {
                     icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `justify-content: ${value};`
-                },
-            ]
         },
         {
             id: 'typography',
             show: authorType && authorType !== 'user_image',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
-                    hasChild: true,
-                    render: (value, id) => handleTypography(value, props, id)
-                }
-            ]
         },
         {
             id: '__styleHover',
@@ -87,50 +71,76 @@ export const stylePanel = (props) => {
             show: (!switcher.styleHover || switcher.styleHover === 'normal') && authorType && authorType !== 'user_image',
             label: __('Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'color',
+                    'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadow',
             show: (!switcher.styleHover || switcher.styleHover === 'normal') && authorType && authorType !== 'user_image',
             label: __('Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadow',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} h1, .${elementId} h2, .${elementId} h3, .${elementId} h4, .${elementId} h5, .${elementId} h6, .${elementId} span, .${elementId} a`,
                 }
-            ]
+            ],
         },
         {
             id: 'colorHover',
             show: switcher.styleHover === 'hover' && authorType && authorType !== 'user_image',
             label: __('Hover Text color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'colorHover',
+                    'selector': `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
                 }
-            ]
+            ],
         },
         {
             id: 'textShadowHover',
             show: switcher.styleHover === 'hover' && authorType && authorType !== 'user_image',
             label: __('Hover Text Shadow', 'gutenverse'),
             component: TextShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
-                    allowRender: (value) => allowRenderTextShadow(value),
-                    render: value => handleTextShadow(value)
+                    'type': 'textShadow',
+                    'id': 'textShadowHover',
+                    'properties': [
+                        {
+                            'name': 'text-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}:hover h1, .${elementId}:hover h2, .${elementId}:hover h3, .${elementId}:hover h4, .${elementId}:hover h5, .${elementId}:hover h6, .${elementId}:hover span, .${elementId}:hover a`,
                 }
-            ]
+            ],
         },
         {
             id: 'size',
@@ -158,12 +168,19 @@ export const stylePanel = (props) => {
                     step: 1
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar,
-                    render: value => handleUnitPoint(value, 'width')
-                },
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'unitPoint',
+                    'id': 'size',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -176,12 +193,25 @@ export const stylePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar,
-                    render: value => `margin-right: ${value}px;`
-                },
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'plain',
+                    'id': 'avatarGap',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'margin-right',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -193,12 +223,25 @@ export const stylePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar,
-                    render: value => `opacity: calc(${value}/100);`
-                },
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'plain',
+                    'id': 'opacity',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}/100)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -211,12 +254,25 @@ export const stylePanel = (props) => {
             min: 0,
             max: 360,
             step: 1,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar,
-                    render: value => `transform: rotate(${value}deg);`
-                },
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'plain',
+                    'id': 'rotate',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'transform',
+                            'valueType': 'pattern',
+                            'pattern': 'rotate({value}deg)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -224,13 +280,13 @@ export const stylePanel = (props) => {
             show: authorAvatar && device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'border',
+                    'id': 'authorBorder',
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         },
         {
             id: 'authorBorderResponsive',
@@ -238,26 +294,32 @@ export const stylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: () => authorAvatar && device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'borderResponsive',
+                    'id': 'authorBorderResponsive',
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         },
         {
             id: 'authorBoxShadow',
             show: authorAvatar,
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
-                {
-                    selector: `.${elementId} img`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+            liveStyle: [
+                authorAvatar && {
+                    'type': 'boxShadow',
+                    'id': 'authorBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         }
     ];
 };

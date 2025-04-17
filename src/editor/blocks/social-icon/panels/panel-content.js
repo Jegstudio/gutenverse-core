@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, DimensionControl, IconControl, SizeControl, TextControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleDimension, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
 
 export const contentPanel = (props) => {
     const {
@@ -35,10 +34,18 @@ export const contentPanel = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle : [
                 {
-                    selector: `.guten-social-icon #${elementId} i`,
-                    render: value => handleUnitPoint(value, 'font-size')
+                    'type': 'unitPoint',
+                    'id': 'iconSize',
+                    'responsive' : true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.guten-social-icon #${elementId} i`,
                 }
             ]
         },
@@ -65,13 +72,6 @@ export const contentPanel = (props) => {
             label: __('Typography', 'gutenverse'),
             show: !forceHideText,
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.guten-social-icon #${elementId} span`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'borderRadius',
@@ -88,12 +88,6 @@ export const contentPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.guten-social-icons .guten-social-icon a#${elementId}`,
-                    render: value => handleDimension(value, 'border-radius', false)
-                }
-            ],
         },
         {
             id: 'ariaLabel',

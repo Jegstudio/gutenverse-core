@@ -87,13 +87,13 @@ const save = compose(
         switch (iconType) {
             case 'icon':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode}`}>
-                        <i className={icon}></i>
+                    <div className={`icon bg-style-${iconStyleMode}`}>
+                        <i className={`${icon} icon-style-${iconStyleMode}`}></i>
                     </div>
                 </div>;
             case 'image':
                 return <div className="icon-box icon-box-header">
-                    <div className={`icon style-${iconStyleMode} type-image`}>
+                    <div className={`icon bg-style-${iconStyleMode} type-image`}>
                         {imageLazyLoad()}
                     </div>
                 </div>;

@@ -8,43 +8,7 @@ import { dynamicContentPanel } from './panel-dynamic-content';
 
 export const panelList = () => {
     return [
-        {
-            title: __('Icon', 'gutenverse'),
-            panelArray: iconPanel,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Icon Color', 'gutenverse'),
-            initialOpen: false,
-            panelArray: contentColor,
-            tabRole: TabStyle
-        },
-        {
-            title: __('Background', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => backgroundPanel({
-                ...props,
-                styleId: 'heading-background',
-                normalOptions: ['default', 'gradient'],
-                hoverOptions: ['default', 'gradient']
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Border', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => borderPanel({
-                ...props,
-                styleId: 'heading-border'
-            }),
-            tabRole: TabStyle
-        },
-        {
-            title: __('Masking', 'gutenverse'),
-            initialOpen: false,
-            panelArray: maskPanel,
-            tabRole: TabStyle
-        },
+        //tab setting
         {
             title: __('Animation Effects', 'gutenverse'),
             initialOpen: false,
@@ -111,6 +75,45 @@ export const panelList = () => {
             panelArray: conditionPanel,
             initialOpen: false,
             pro: true
+        },
+
+        //tab style
+        {
+            title: __('Icon', 'gutenverse'),
+            panelArray: iconPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Icon Color', 'gutenverse'),
+            initialOpen: false,
+            panelArray: contentColor,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Background', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => backgroundPanel({
+                ...props,
+                styleId: 'heading-background',
+                normalOptions: ['default', 'gradient'],
+                hoverOptions: ['default', 'gradient']
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Border', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => borderPanel({
+                ...props,
+                styleId: 'heading-border'
+            }),
+            tabRole: TabStyle
+        },
+        {
+            title: __('Masking', 'gutenverse'),
+            initialOpen: false,
+            panelArray: maskPanel,
+            tabRole: TabStyle
         },
     ];
 };

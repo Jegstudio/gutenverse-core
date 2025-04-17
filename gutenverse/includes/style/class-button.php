@@ -62,7 +62,7 @@ class Button extends Style_Abstract {
 		if ( isset( $this->attrs['alignButton'] ) ) {
 			$this->inject_style(
 				array(
-					'selector'       => ".{$this->element_id}.guten-button-wrapper .guten-button",
+					'selector'       => ".{$this->element_id}.guten-button-wrapper",
 					'property'       => function ( $value ) {
 						return "justify-content: {$value};";
 					},
