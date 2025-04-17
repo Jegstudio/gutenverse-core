@@ -2,6 +2,7 @@ import { AES, enc, mode, pad } from 'crypto-js';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 import { select } from '@wordpress/data';
+import { useState } from '@wordpress/element';
 import { useSetting, useSettings, store as blockEditorStore } from '@wordpress/block-editor';
 import { store as editorStore } from '@wordpress/editor';
 
@@ -508,15 +509,17 @@ export const getActiveWindow = () => {
 export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
     let count = 0;
 
-    blocks.map(block => {
-        if (!(elementId === undefined && block.attributes.elementId === undefined) &&
-            elementId === block.attributes.elementId &&
-            clientId !== block.clientId) {
-            count += 1;
+    blocks.forEach(block => {
+        if (!(elementId === undefined && block.attributes.elementId === undefined)) {
+            if (elementId === block.attributes.elementId && clientId !== block.clientId) {
+                count += 1;
+            }
         }
-
         if (block.innerBlocks.length > 0) {
             count += recursiveDuplicateCheck(block.innerBlocks, clientId, elementId);
+        }
+        if (count > 0) {
+            return count;
         }
     });
 
@@ -524,21 +527,26 @@ export const recursiveDuplicateCheck = (blocks, clientId, elementId) => {
 };
 
 export function rgbToHex({ r, g, b, a }) {
-    const color = [
-        r.toString(16),
-        g.toString(16),
-        b.toString(16),
-        a < 1 ? Math.round(a * 255).toString(16).substring(0, 2) : ''
-    ];
+    const isValidRGB = [r, g, b].every(val => typeof val === 'number' && val >= 0 && val <= 255);
+    if (!isValidRGB) {
+        return null;
+    } else {
+        const color = [
+            r.toString(16),
+            g.toString(16),
+            b.toString(16),
+            a < 1 ? Math.round(a * 255).toString(16).substring(0, 2) : ''
+        ];
 
-    // Pad single-digit output values
-    color.forEach(function (part, i) {
-        if (part.length === 1) {
-            color[i] = '0' + part;
-        }
-    });
+        // Pad single-digit output values
+        color.forEach(function (part, i) {
+            if (part.length === 1) {
+                color[i] = '0' + part;
+            }
+        });
 
-    return ('#' + color.join(''));
+        return ('#' + color.join(''));
+    }
 }
 
 export const isFSE = () => {
@@ -721,6 +729,19 @@ export const dummyText = (minLength, maxLength) => {
     return result.join(' ');
 };
 
+export const isNotEmpty = (val) => {
+    if (Array.isArray(val)) return val.length !== 0; // Empty array
+    if (typeof val === 'object' && val !== null) return Object.keys(val).length !== 0; // Empty object
+    return !!val;
+};
+
+export const useRichTextParameter = () => {
+    const [panelState, setPanelState] = useState({ panel: null, section: 0 });
+    const [panelIsClicked, setPanelIsClicked] = useState(false);
+
+    return { panelState, setPanelState, panelIsClicked, setPanelIsClicked };
+};
+
 /**
  * Todo: Find better implementation (WordPress API)
  */
@@ -742,4 +763,18 @@ export const getParentId = () => {
         // return false, if no post content block found.
         return false;
     }
+};
+
+
+/**
+ * Generate Slug from Text.
+ */
+export const slugify = (text) => {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-');
 };

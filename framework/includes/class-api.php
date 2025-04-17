@@ -815,6 +815,9 @@ class Api {
 		}
 
 		$additional = apply_filters( 'gutenverse_json_data_' . $name, array() );
+		if ( ! $json ) {
+			$json = array();
+		}
 		return array_merge( $json, $additional );
 	}
 

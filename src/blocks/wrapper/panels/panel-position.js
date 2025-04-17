@@ -1,5 +1,4 @@
 import { __ } from '@wordpress/i18n';
-import { handleUnitPoint } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
 import isEmpty from 'lodash/isEmpty';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
@@ -42,14 +41,6 @@ export const positionPanel = (props) => {
                     label: 'Sticky'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    render: value => {
-                        return `position: ${value};`;
-                    }
-                },
-            ]
         },
         {
             id: 'positionLeft',
@@ -80,12 +71,23 @@ export const positionPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle : [
                 {
-                    selector: customSelector,
-                    allowRender: () => positionType && positionType[deviceType] !== 'default',
-                    render: value => handleUnitPoint(value, 'left')
-                },
+                    'type': 'unitPoint',
+                    'id': 'positionLeft',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'function',
+                            'functionName' : 'handleWrapperPosition'
+                        }
+                    ],
+                    'otherAttribute' : {
+                        'positionType' : positionType
+                    },
+                    'selector': customSelector,
+                }
             ]
         },
         {
@@ -117,12 +119,23 @@ export const positionPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle : [
                 {
-                    selector: customSelector,
-                    allowRender: () => positionType && positionType[deviceType] !== 'default',
-                    render: value => handleUnitPoint(value, 'right')
-                },
+                    'type': 'unitPoint',
+                    'id': 'positionRight',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'right',
+                            'valueType': 'function',
+                            'functionName' : 'handleWrapperPosition'
+                        }
+                    ],
+                    'otherAttribute' : {
+                        'positionType' : positionType
+                    },
+                    'selector': customSelector,
+                }
             ]
         },
         {
@@ -154,12 +167,23 @@ export const positionPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle : [
                 {
-                    selector: customSelector,
-                    allowRender: () => positionType && positionType[deviceType] !== 'default',
-                    render: value => handleUnitPoint(value, 'top'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'positionTop',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'function',
+                            'functionName' : 'handleWrapperPosition'
+                        }
+                    ],
+                    'otherAttribute' : {
+                        'positionType' : positionType
+                    },
+                    'selector': customSelector,
+                }
             ]
         },
         {
@@ -191,12 +215,23 @@ export const positionPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle : [
                 {
-                    selector: customSelector,
-                    allowRender: () => positionType && positionType[deviceType] !== 'default',
-                    render: value => handleUnitPoint(value, 'bottom'),
-                },
+                    'type': 'unitPoint',
+                    'id': 'positionBottom',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'bottom',
+                            'valueType': 'function',
+                            'functionName' : 'handleWrapperPosition'
+                        }
+                    ],
+                    'otherAttribute' : {
+                        'positionType' : positionType
+                    },
+                    'selector': customSelector,
+                }
             ]
         }
     ];

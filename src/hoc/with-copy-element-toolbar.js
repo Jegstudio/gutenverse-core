@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { useCallback, useEffect, useRef, useState } from '@wordpress/element';
 import { BlockControls } from '@wordpress/block-editor';
 import { ToolbarGroup } from '@wordpress/components';
 import { Tooltip } from '@wordpress/components';
@@ -9,26 +9,26 @@ export const withCopyElementToolbar = () => (BlockElement) => {
         const { attributes } = props;
         const { elementId } = attributes;
         const [dummyID, setDummyID] = useState(elementId);
-        const [panelState, setPanelState] = useState({});
-        const [panelIsClicked, setPanelIsClicked] = useState(false);
 
         const copyRef = useRef();
 
-        const copyText =  () => {
+        const copyText = useCallback(() => {
             navigator.clipboard.writeText(elementId);
 
             setDummyID(__('Copied...', '--gctd--'));
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
                 setDummyID(elementId);
             }, 500);
-        };
+
+            return () => clearTimeout(timeoutId);
+        }, [elementId]);
 
         useEffect(() => {
             setDummyID(elementId);
         }, [elementId]);
 
         return <>
-            <BlockElement {...props} panelState={panelState} setPanelState={setPanelState} panelIsClicked={panelIsClicked} setPanelIsClicked={setPanelIsClicked} />
+            <BlockElement {...props} />
             <BlockControls>
                 <ToolbarGroup>
                     <Tooltip text={__('Click to Copy Element Id', '--gctd--')}>

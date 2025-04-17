@@ -1,11 +1,22 @@
-import { getDeviceType } from 'gutenverse-core/editor-helper';
+import { useSelect } from '@wordpress/data';
+import { determineLocation, theDeviceType } from 'gutenverse-core/helper';
 
 export const withDeviceControl = (BlockControl) => {
     return (props) => {
         const { allowDeviceControl = false, value = {} } = props;
-        const deviceType = getDeviceType();
+        const {
+            deviceType,
+        } = useSelect(
+            () => {
+                const location = determineLocation();
+                return {
+                    deviceType: theDeviceType(location)
+                };
+            },
+            []
+        );
 
-        const panelProps = allowDeviceControl? {
+        const panelProps = allowDeviceControl ? {
             ...props,
             onValueChange: (data) => {
                 const newData = data !== undefined? {
@@ -15,13 +26,13 @@ export const withDeviceControl = (BlockControl) => {
 
                 props.onValueChange(newData);
             },
-            onStyleChange: (data) => {
+            onLocalChange: (data) => {
                 const newData = data !== undefined? {
                     ...value,
                     [deviceType]: data
                 } : {};
 
-                props.onStyleChange(newData);
+                props.onLocalChange(newData);
             },
             value: value[deviceType],
         } : props;

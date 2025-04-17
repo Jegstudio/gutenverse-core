@@ -143,7 +143,6 @@ const TimeRangeControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         description = '',
     } = props;
 
@@ -161,7 +160,6 @@ const TimeRangeControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const setChangeBegin = (data) => {

@@ -11,7 +11,6 @@ const IconRadioControl = ({
     allowDeviceControl,
     value = '',
     onValueChange,
-    onStyleChange,
     options,
     description = '',
     blockType = '',
@@ -20,7 +19,6 @@ const IconRadioControl = ({
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const onRadioClicked = (itemValue) => {

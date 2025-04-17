@@ -1,12 +1,13 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { imagePlaceholder } from 'gutenverse-core/config';
+import { updateLiveStyle } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 
 export const withBackgroundSlideshow = (BlockControl) => {
     return (props) => {
-        const {attributes, addStyle, removeStyle} = props;
-        const {background = {}, elementId} = attributes;
-        const {slideImage = {}, infiniteLoop = false} = background;
+        const { attributes, blockRef } = props;
+        const { background = {}, elementId } = attributes;
+        const { slideImage = {}, infiniteLoop = false } = background;
         const elementRefs = useRef(null);
         const slideshowContainerRefs = useRef([]);
         const slideshowImageRefs = useRef([]);
@@ -33,20 +34,17 @@ export const withBackgroundSlideshow = (BlockControl) => {
             slideshowImageRefs.current = slideshowImageRefs.current.filter((el) => el !== null);
 
             const duration = (background.displayDuration < 0.1 || undefined === background.displayDuration) ? 1000 : background.displayDuration * 1000;
-            const transitions = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000 ;
+            const transitions = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000;
             const transitionDuration = (transitions < duration) ? transitions : duration - 100;
             const slideshowImage = slideshowImageRefs.current;
             const slideshowContainer = slideshowContainerRefs.current;
             slideshowImage?.length > 0 && toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, transitionDuration);
 
-            const styles = generateStyle(background, elementId);
-            addStyle(`${elementId}-background-slideshow`, styles);
-
             return () => {
-                removeStyle(`${elementId}-background-slideshow`);
                 clearInterval(intervalToggle);
             };
-        }, [background.displayDuration,
+        }, [
+            background.displayDuration,
             background.duration,
             background.slideImage?.length,
             background.transition,
@@ -57,10 +55,12 @@ export const withBackgroundSlideshow = (BlockControl) => {
             background.backgroundSize,
             background.kenBurns,
             background.direction,
+            blockRef,
         ]);
 
         let intervalToggle;
-        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, transition, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
+        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, transition, prevClass = 'previous', currentClass = 'current', parentClass = 'hasToggledClass') {
+            if (!blockRef) return;
             let currentIndex = 1;
             let prevIndex = 0;
 
@@ -80,7 +80,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
                     setTimeout(() => {
                         slideshowContainer[prevIndex].classList.remove(parentClass);
                     }, transition);
-                } else  slideshowContainer[prevIndex].classList.remove(parentClass);
+                } else slideshowContainer[prevIndex].classList.remove(parentClass);
                 slideshowContainer[prevIndex].classList.remove(prevClass);
                 prevIndex = (prevIndex + 1) % elements.length;
                 slideshowContainer[prevIndex].classList.add(prevClass);
@@ -92,7 +92,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
                 slideshowContainer[currentIndex]?.classList.add(parentClass);
                 if (currentIndex === 1 && slideshowContainer.length <= 2) {
                     setTimeout(() => {
-                        slideshowContainer[0].classList.remove(parentClass);
+                        slideshowContainer[0]?.classList.remove(parentClass);
                     }, transition);
                 }
 
@@ -100,6 +100,32 @@ export const withBackgroundSlideshow = (BlockControl) => {
                     clearInterval(intervalToggle);
                 }
             }, duration);
+
+            updateLiveStyle({
+                styleId: 'guten-background-slideshow-style',
+                elementId,
+                attributes: {
+                    slideshow: {
+                        duration: background.duration,
+                        backgroundPosition: background.backgroundPosition,
+                        transition: background.transition,
+                        backgroundSize: background.backgroundSize,
+                        backgroundRepeat: background.backgroundRepeat,
+                        kenBurns: background.kenBurns,
+                        direction: background.direction,
+                        displayDuration: background.displayDuration,
+                    }
+                },
+                styles: [
+                    {
+                        'type': 'slideshow',
+                        'id': 'slideshow',
+                        'selector': `${elementId}`,
+                    }
+                ],
+                elementRef: blockRef,
+                timeout: false
+            });
 
             if (duration <= 0) {
                 clearInterval(intervalToggle);
@@ -119,93 +145,4 @@ export const withBackgroundSlideshow = (BlockControl) => {
             {...newProps}
         />;
     };
-};
-
-const generateStyle = (background, elementId) => {
-    const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction, displayDuration = 1} = background;
-    const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
-    const effectDirection = 'directionOut' === direction ? 'ken-burns-toggle-out' : 'ken-burns-toggle-in';
-    const transitions = (duration < 0.1 || undefined === duration) ? 1 : parseFloat(duration);
-    const transitionDuration = (parseFloat(transitions) < parseFloat(displayDuration)) ? parseFloat(transitions) : displayDuration - 0.1;
-    let styles = '';
-
-    styles += `
-        .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
-            background-size: ${backgroundSize};
-            background-position: ${bgPosition};
-            background-repeat: ${backgroundRepeat};
-        }
-            
-        ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
-            animation: ${effectDirection} 20s linear forwards;
-        }` : ''}
-    `;
-
-    switch (transition) {
-        case 'slideRight': {
-            styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                z-index: 1;
-                ${`animation: previous-slideRight ${transitionDuration}s ease-in-out forwards;`}
-            }
-            
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                z-index: 2;
-                ${`animation: current-slideRight ${transitionDuration}s ease-in-out forwards;`}
-            }`;
-            break;
-        }
-        case 'slideLeft': {
-            styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                z-index: 1;
-                left: unset;
-                ${`animation: previous-slideLeft ${transitionDuration}s ease-in-out forwards;`}
-            }
-            
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                z-index: 2;
-                left: unset;
-                ${`animation: current-slideLeft ${transitionDuration}s ease-in-out forwards;`}
-            }`;
-            break;
-        }
-        case 'slideTop': {
-            styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                z-index: 1;
-                top: unset;
-                ${`animation: previous-slideTop ${transitionDuration}s ease-in-out forwards;`}
-            }
-            
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                z-index: 2;
-                top: unset;
-                ${`animation: current-slideTop ${transitionDuration}s ease-in-out forwards;`}
-            }`;
-            break;
-        }
-        case 'slideDown': {
-            styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                z-index: 1;
-                ${`animation: previous-slideBottom ${transitionDuration}s ease-in-out forwards;`}
-            }
-            
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                z-index: 2;
-                ${`animation: current-slideBottom ${transitionDuration}s ease-in-out forwards;`}
-            }`;
-            break;
-        }
-        default: {
-            styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
-            }`;
-            break;
-        }
-    }
-
-    return styles;
 };

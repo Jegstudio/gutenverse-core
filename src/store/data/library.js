@@ -2,72 +2,22 @@ import { createReduxStore, combineReducers, register } from '@wordpress/data';
 
 export const modalSelector = {
     getModalData: (state) => {
-        const { modal } = state;
-        const {
-            libraryData,
-            layoutContentData
-        } = modal;
-
-        return {
-            layoutContentData,
-            libraryData
-        };
+        return state.modal;
     },
     getImporterData: (state) => {
-        const { modal } = state;
-        const {
-            layoutProgress,
-            lockLayoutImport,
-            sectionProgress,
-            lockSectionImport,
-            importNotice
-        } = modal;
-
-        return {
-            layoutProgress,
-            lockLayoutImport,
-            sectionProgress,
-            lockSectionImport,
-            importNotice
-        };
+        return state.modal;
     },
 };
 
 export const librarySelector = {
     getLibraryData: (state) => {
-        const { library } = state;
-        const {
-            layoutData,
-            layoutCategories,
-            themeData,
-            themeCategories,
-            sectionData,
-            sectionCategories,
-            pluginEcosystem
-        } = library;
-
-        return {
-            layoutData,
-            layoutCategories,
-            themeData,
-            themeCategories,
-            sectionData,
-            sectionCategories,
-            pluginEcosystem
-        };
+        return state.library;
     },
 };
 
 export const pluginSelector = {
     getPluginData: (state) => {
-        const { plugin } = state;
-        const {
-            installedPlugin
-        } = plugin;
-
-        return {
-            installedPlugin
-        };
+        return state.plugin;
     },
 };
 

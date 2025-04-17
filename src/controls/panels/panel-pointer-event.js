@@ -12,6 +12,7 @@ export const pointerEventPanel = (props) => {
             id: 'pointer',
             allowDeviceControl: true,
             component: PointerControl,
+            // style below is deprecated
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,

@@ -8,7 +8,6 @@ const pointerEventControl = (props) =>{
     const {
         value = {},
         onValueChange,
-        onStyleChange,
     } = props;
 
     const id = useInstanceId(pointerEventControl, 'inspector-pointer-control');
@@ -18,7 +17,6 @@ const pointerEventControl = (props) =>{
             label={__('Pointer Type', '--gctd--')}
             value={value.pointer}
             onValueChange={pointer => onValueChange({ ...value, pointer })}
-            onStyleChange={pointer => onStyleChange({ ...value, pointer })}
             allowDeviceControl={true}
             options={[
                 {

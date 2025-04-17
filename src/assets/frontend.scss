@@ -43,6 +43,11 @@
     }
 }
 
+.guten-data {
+    width: 0 !important;
+    height: 0 !important;
+}
+
 // Hide block that has animation until animation is loaded
 
 .guten-element-hide[class^="desktop-"],

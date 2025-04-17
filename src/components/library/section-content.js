@@ -13,10 +13,15 @@ import BannerPro from '../pro/banner-pro';
 import { Loader } from 'react-feather';
 import { ExportNotice } from './library-helper';
 import { activeTheme, clientUrl, upgradeProUrl } from 'gutenverse-core/config';
+import SingleSectionContent from './single-section-content';
 
 const SectionContent = (props) => {
     const [currentItem, setCurrentItem] = useState(null);
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
+    const [singleId, setSingleId] = useState(null);
+    const [singleData, setSingleData] = useState(null);
+    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
+    const [selectItem, setSelectItem] = useState({});
 
     return <>
         {pluginInstallMode && <PluginInstallMode
@@ -25,19 +30,40 @@ const SectionContent = (props) => {
             setPluginInstallMode={setPluginInstallMode}
             backString={__('Back to sections', '--gctd--')}
         />}
+        {singleId !== null && <SingleSectionContent
+            id={singleId}
+            setSingleId={setSingleId}
+            backText={__('Back to sections', '--gctd--')}
+            closeImporter={props.closeImporter}
+            setSingleData={setSingleData}
+            setCurrentItem={setCurrentItem}
+            singleData={singleData}
+            pluginInstallMode={pluginInstallMode}
+            setPluginInstallMode={setPluginInstallMode}
+            setExporting={setExporting}
+            selectItem={selectItem}
+            setSelectItem={setSelectItem}
+            setLibraryError={props.setLibraryError}
+        />}
         <div className="gutenverse-library-inner-body">
             <SectionContentWrapper
                 {...props}
                 closeImporter={props.closeImporter}
                 setPluginInstallMode={setPluginInstallMode}
                 setCurrentItem={setCurrentItem}
+                setSingleId={setSingleId}
+                setSingleData={setSingleData}
+                setExporting={setExporting}
+                exporting={exporting}
+                selectItem={selectItem}
+                setSelectItem={setSelectItem}
             />
         </div>
     </>;
 };
 
 const SectionContentWrapper = (props) => {
-    const { modalData, closeImporter, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setLibraryError } = props;
+    const { modalData, closeImporter, setExporting, exporting, setCurrentItem, setPluginInstallMode, dispatchData, libraryData: library, burger, setLibraryError, setSingleId, setSingleData, selectItem, setSelectItem } = props;
     const { layoutContentData: data } = modalData;
     const [categories, setCategories] = useState({});
     const [license, setLicense] = useState(false);
@@ -150,13 +176,19 @@ const SectionContentWrapper = (props) => {
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
                 setLibraryError={setLibraryError}
+                setSingleId={setSingleId}
+                setSingleData={setSingleData}
+                setExporting={setExporting}
+                exporting={exporting}
+                selectItem={selectItem}
+                setSelectItem={setSelectItem}
             />
         </div>
     </>;
 };
 
 export const SectionContentData = props => {
-    const { data, current, total, changePaging, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setLibraryError } = props;
+    const { data, current, total, changePaging, setExporting, exporting, closeImporter, categoryCache, scroller, setCurrentItem, setPluginInstallMode, setLibraryError, setSingleId, setSingleData, selectItem, setSelectItem } = props;
     if (data !== undefined) {
         return data.length === 0 ? <div className="empty-content">
             <div className="empty-wrapper">
@@ -174,6 +206,12 @@ export const SectionContentData = props => {
                 setCurrentItem={setCurrentItem}
                 setPluginInstallMode={setPluginInstallMode}
                 setLibraryError={setLibraryError}
+                setSingleId={setSingleId}
+                setSingleData={setSingleData}
+                setExporting={setExporting}
+                exporting={exporting}
+                selectItem={selectItem}
+                setSelectItem={setSelectItem}
             />
             <Paging current={current} total={total} changePaging={changePaging} scroller={scroller} />
         </>;
@@ -183,7 +221,7 @@ export const SectionContentData = props => {
 };
 
 const SectionItems = props => {
-    const { categoryCache, closeImporter } = props;
+    const { categoryCache, closeImporter, setSingleId, setSingleData, setExporting, exporting, selectItem, setSelectItem } = props;
     let { data } = props;
     let breakpointColumnsObj = {
         default: 3,
@@ -191,7 +229,6 @@ const SectionItems = props => {
         700: 2,
         500: 1
     };
-    const [selectItem, setSelectItem] = useState({});
 
     if ('Header' === categoryCache) {
         breakpointColumnsObj = {
@@ -216,7 +253,11 @@ const SectionItems = props => {
             setPluginInstallMode={props.setPluginInstallMode}
             setSelectItem={setSelectItem}
             selectItem={selectItem}
+            setSingleId={setSingleId}
+            setSingleData={setSingleData}
             setLibraryError={props.setLibraryError}
+            setExporting={setExporting}
+            exporting={exporting}
         />)}
     </Masonry>;
 };
@@ -232,10 +273,9 @@ const SectionContentItem = props => {
     const plugins = getPluginData();
     const library = getLibraryData();
 
-    const { item, closeImporter, setCurrentItem, setPluginInstallMode, selectItem, setSelectItem, setLibraryError } = props;
+    const { item, closeImporter, setCurrentItem, setExporting, exporting, setPluginInstallMode, selectItem, setSelectItem, setLibraryError, setSingleId, setSingleData } = props;
     const [image, setImage] = useState('');
     const [showOverlay, setShowOverlay] = useState(false);
-    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
     const { section: sectionId } = library;
     const [requirementStatus, setRequirementStatus] = useState(false);
     const { installedPlugin } = plugins;
@@ -301,6 +341,8 @@ const SectionContentItem = props => {
                             setExporting={setExporting}
                             setSelectItem={setSelectItem}
                             setLibraryError={setLibraryError}
+                            setSingleId={setSingleId}
+                            setSingleData={setSingleData}
                         />
                     </div> : <div className="library-item-overlay">
                         <div className="section-button import-section" onClick={() => setToCurrentItem()}>
@@ -318,8 +360,7 @@ const SectionContentItem = props => {
             </div>
         </div>
         <div className="library-item-divider" />
-        {/* <ExportNotice message="fetching" progress="1/4" /> */}
-        {(exporting.show && selectItem.id === item.id) ? <ExportNotice message={exporting.message} progress={exporting.progress} /> :
+        {(exporting?.show && selectItem.id === item.id) ? <ExportNotice message={exporting?.message} progress={exporting?.progress} /> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">
                     <div className="library-item-left">

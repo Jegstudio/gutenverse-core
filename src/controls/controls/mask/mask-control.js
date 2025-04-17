@@ -10,7 +10,6 @@ const MaskControl = (props) => {
     const {
         value = {},
         onValueChange,
-        onStyleChange,
     } = props;
 
     const {
@@ -26,7 +25,6 @@ const MaskControl = (props) => {
             label={__('Shape', '--gctd--')}
             value={value.shape}
             onValueChange={shape => onValueChange({ ...value, shape })}
-            onStyleChange={shape => onStyleChange({ ...value, shape })}
             options={[
                 {
                     label: __('None', '--gctd--'),
@@ -54,14 +52,12 @@ const MaskControl = (props) => {
             label={__('Upload SVG', '--gctd--')}
             value={value.svg}
             onValueChange={svg => onValueChange({ ...value, svg })}
-            onStyleChange={svg => onStyleChange({ ...value, svg })}
         />}
         {value.shape && '' !== value.shape && <>
             <SelectControl
                 label={__('Size', '--gctd--')}
                 value={value.size}
                 onValueChange={size => onValueChange({ ...value, size })}
-                onStyleChange={size => onStyleChange({ ...value, size })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -84,7 +80,6 @@ const MaskControl = (props) => {
                     value={value.scale}
                     allowDeviceControl={true}
                     onValueChange={scale => onValueChange({ ...value, scale })}
-                    onStyleChange={scale => onStyleChange({ ...value, scale })}
                     units={{
                         px: {
                             text: 'px',
@@ -121,7 +116,6 @@ const MaskControl = (props) => {
                 label={__('Background Position', '--gctd--')}
                 value={value.position}
                 onValueChange={position => onValueChange({ ...value, position })}
-                onStyleChange={position => onStyleChange({ ...value, position })}
                 allowDeviceControl={true}
                 options={[
                     {
@@ -177,14 +171,12 @@ const MaskControl = (props) => {
                         value={value.xposition}
                         allowDeviceControl={true}
                         onValueChange={xposition => onValueChange({ ...value, xposition })}
-                        onStyleChange={xposition => onStyleChange({ ...value, xposition })}
                     />
                     <SizeControl
                         label={__('Y Position', '--gctd--')}
                         value={value.yposition}
                         allowDeviceControl={true}
                         onValueChange={yposition => onValueChange({ ...value, yposition })}
-                        onStyleChange={yposition => onStyleChange({ ...value, yposition })}
                     />
                 </>
             }
@@ -192,7 +184,6 @@ const MaskControl = (props) => {
                 label={__('Repeat', '--gctd--')}
                 value={value.repeat}
                 onValueChange={repeat => onValueChange({ ...value, repeat })}
-                onStyleChange={repeat => onStyleChange({ ...value, repeat })}
                 allowDeviceControl={true}
                 options={[
                     {

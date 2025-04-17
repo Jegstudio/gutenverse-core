@@ -4,14 +4,13 @@ import { __ } from '@wordpress/i18n';
 import { NumberControl, SelectControl } from 'gutenverse-core/controls';
 import { applyFilters } from '@wordpress/hooks';
 
-const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
+const animationOption = ({ id, value, onValueChange }) => {
     return <div id={id}>
         <SelectControl
             label={__('Animation Entrance', '--gctd--')}
             value={value.type}
             allowDeviceControl={true}
             onValueChange={type => onValueChange({ ...value, type })}
-            onStyleChange={type => onStyleChange({ ...value, type })}
             options={[
                 {
                     label: 'None',
@@ -199,7 +198,6 @@ const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
             label={__('Duration', '--gctd--')}
             value={value.duration}
             onValueChange={duration => onValueChange({ ...value, duration })}
-            onStyleChange={duration => onStyleChange({ ...value, duration })}
             options={[
                 {
                     label: __('Normal', '--gctd--'),
@@ -223,7 +221,6 @@ const animationOption = ({ id, value, onValueChange, onStyleChange }) => {
             max={5000}
             step={1}
             onValueChange={delay => onValueChange({ ...value, delay })}
-            onStyleChange={delay => onStyleChange({ ...value, delay })}
         />
     </div>;
 };
@@ -232,7 +229,6 @@ const AnimationControl = (props) => {
     const {
         value = {},
         onValueChange,
-        onStyleChange,
     } = props;
 
     const id = useInstanceId(AnimationControl, 'inspector-animation-control');
@@ -240,7 +236,6 @@ const AnimationControl = (props) => {
         id,
         value,
         onValueChange,
-        onStyleChange
     };
 
     return applyFilters(

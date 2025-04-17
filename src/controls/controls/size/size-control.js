@@ -1,11 +1,13 @@
-import {useEffect, useState, useRef} from '@wordpress/element';
-import {useInstanceId} from '@wordpress/compose';
+import { useEffect, useState, useRef } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
+import { debounce } from 'lodash';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
-const UnitControl = ({units, activeUnit, changeUnit}) => {
+const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
 
     const toggleOpen = () => {
@@ -71,6 +73,13 @@ const SizeControl = (props) => {
                 step: 0.1,
                 unit: 'vh',
             },
+            vw: {
+                text: 'vw',
+                min: 0.1,
+                max: 10,
+                step: 0.1,
+                unit: 'vw',
+            },
             ['%']: {
                 text: '%',
                 min: 1,
@@ -87,50 +96,56 @@ const SizeControl = (props) => {
             }
         },
         value = {},
-        liveUpdate,
         allowDeviceControl,
         onValueChange,
-        onStyleChange,
+        onLocalChange,
         description = '',
         hideRange = false,
     } = props;
-    const {unit = '', point = ''} = value;
-    const [activeUnit, setActiveUnit] = useState(null);
 
-    const onChange = value => {
-        onValueChange(value);
-        onStyleChange(value);
+    const [localValue, setLocalValue] = useState(value);
+    const id = useInstanceId(SizeControl, 'inspector-size-control');
+    const isFirstRender = useRef(true);
+
+    const handleOnChange = (id, value) => {
+        setLocalValue({
+            ...localValue,
+            [id]: value
+        });
     };
+
+    const deviceType = getDeviceType();
 
     useEffect(() => {
-        if(unit === '') {
+        setLocalValue(value);
+    }, [deviceType]);
+
+    useEffect(() => {
+        if (!localValue.unit || localValue.unit === '') {
             const firstUnit = Object.keys(units)[0];
-            setActiveUnit(firstUnit);
-        } else {
-            setActiveUnit(unit);
+            setLocalValue({
+                ...localValue,
+                unit: firstUnit
+            });
         }
-    }, [unit]);
 
-    const changeUnit = (unit) => {
-        setActiveUnit(unit);
-        onChange({
-            unit: unit,
-            point: ''
-        });
-    };
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
 
-    const changePoint = (point) => {
-        onChange({
-            ...value,
-            point,
-            unit: activeUnit
-        });
-    };
+        onLocalChange(localValue);
 
-    const id = useInstanceId(SizeControl, 'inspector-size-control');
+        const debouncedHandler = debounce(() => {
+            onValueChange(localValue);
+        }, 150);
 
-    const [localValue, setLocalValue] = useState(point);
-    const [updating, setUpdating] = useState(false);
+        debouncedHandler();
+
+        return () => {
+            debouncedHandler.cancel();
+        };
+    }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-size'}>
         <ControlHeadingSimple
@@ -145,39 +160,12 @@ const SizeControl = (props) => {
                     id={`${id}-range`}
                     type="range"
                     className="control-input-range"
-                    min={activeUnit ? units[activeUnit]?.min : null}
-                    max={activeUnit ? units[activeUnit]?.max : null}
-                    step={activeUnit ? units[activeUnit]?.step : null}
-                    value={updating ? localValue : point}
+                    min={localValue.unit ? units[localValue.unit]?.min : null}
+                    max={localValue.unit ? units[localValue.unit]?.max : null}
+                    step={localValue.unit ? units[localValue.unit]?.step : null}
+                    value={localValue.point}
                     onChange={(e) => {
-                        onStyleChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
-                        setLocalValue(e.target.value);
-                        setUpdating(true);
-                        liveUpdate ? onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        }) : null;
-                    }}
-                    onMouseUp={(e) => {
-                        onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
-                        setUpdating(false);
-                    }}
-                    onTouchEnd={(e) => {
-                        onValueChange({
-                            ...value,
-                            point: e.target.value,
-                            unit: activeUnit
-                        });
-                        setUpdating(false);
+                        handleOnChange('point', e.target.value);
                     }}
                 />
             </div>}
@@ -185,16 +173,16 @@ const SizeControl = (props) => {
                 <input
                     type="number"
                     className="control-input-number"
-                    min={activeUnit ? units[activeUnit]?.min : null}
-                    max={activeUnit ? units[activeUnit]?.max : null}
-                    step={activeUnit ? units[activeUnit]?.step : null}
-                    value={updating ? localValue : point}
-                    onChange={(e) => changePoint(e.target.value)}
+                    min={localValue.unit ? units[localValue.unit]?.min : null}
+                    max={localValue.unit ? units[localValue.unit]?.max : null}
+                    step={localValue.unit ? units[localValue.unit]?.step : null}
+                    value={localValue.point}
+                    onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
-                    activeUnit={activeUnit}
+                    activeUnit={localValue.unit}
                     units={units}
-                    changeUnit={changeUnit}
+                    changeUnit={(value) => handleOnChange('unit', value)}
                 />
             </div>
         </div>

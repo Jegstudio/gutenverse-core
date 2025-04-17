@@ -8,7 +8,7 @@ export const borderPanel = (props) => {
         elementId,
         switcher,
         setSwitcher,
-        selector,
+        selector
     } = props;
 
     const device = getDeviceType();
@@ -34,6 +34,13 @@ export const borderPanel = (props) => {
             show: (!switcher.border || switcher.border === 'normal') && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'border',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
@@ -48,6 +55,13 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'borderResponsive',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
@@ -61,6 +75,13 @@ export const borderPanel = (props) => {
             show: switcher.border === 'hover' && device === 'Desktop',
             label: __('Border Type', '--gctd--'),
             component: BorderControl,
+            liveStyle: [
+                {
+                    'type': 'border',
+                    'id': 'borderHover',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
@@ -75,6 +96,13 @@ export const borderPanel = (props) => {
             label: __('Border Type', '--gctd--'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
+            liveStyle: [
+                {
+                    'type': 'borderResponsive',
+                    'id': 'borderHoverResponsive',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,
@@ -87,19 +115,45 @@ export const borderPanel = (props) => {
             show: !switcher.border || switcher.border === 'normal',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
+            liveStyle: [
+                {
+                    'type': 'boxShadow',
+                    'id': 'boxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? selector : `.${elementId}`,
                     allowRender: (value) => allowRenderBoxShadow(value),
                     render: value => handleBoxShadow(value)
                 }
-            ]
+            ],
         },
         {
             id: 'boxShadowHover',
             show: switcher.border === 'hover',
             label: __('Box Shadow', '--gctd--'),
             component: BoxShadowControl,
+            liveStyle: [
+                {
+                    'type': 'boxShadow',
+                    'id': 'boxShadowHover',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
+                }
+            ],
             style: [
                 {
                     selector: selector ? `${selector}:hover` : `.${elementId}:hover`,

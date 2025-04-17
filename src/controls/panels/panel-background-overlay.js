@@ -1,16 +1,15 @@
-import { handleBackground } from 'gutenverse-core/styling';
 import { BackgroundControl, RangeControl, SwitchControl } from 'gutenverse-core/controls';
 import { __ } from '@wordpress/i18n';
 
-export const    backgroundOverlayPanel = (props) => {
+export const backgroundOverlayPanel = (props) => {
     const {
         elementId,
         normalOptions,
         hoverOptions,
-        normalSelector,
-        hoverSelector,
         switcher,
-        setSwitcher
+        setSwitcher,
+        hoverSelector,
+        normalSelector
     } = props;
 
     return [
@@ -27,7 +26,7 @@ export const    backgroundOverlayPanel = (props) => {
                     label: 'Hover'
                 }
             ],
-            onChange: ({__bgOverlayHover}) => setSwitcher({...switcher, bgOverlay: __bgOverlayHover})
+            onChange: ({ __bgOverlayHover }) => setSwitcher({ ...switcher, bgOverlay: __bgOverlayHover })
         },
         {
             id: 'backgroundOverlay',
@@ -35,11 +34,11 @@ export const    backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: normalOptions,
-            style: [
+            liveStyle: [
                 {
-                    selector: normalSelector ? normalSelector : `.${elementId} > .guten-background-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'backgroundOverlay',
+                    'selector': normalSelector ? normalSelector :`.${elementId} > .guten-background-overlay`,
                 }
             ]
         },
@@ -51,14 +50,19 @@ export const    backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
-            style: [
+            liveStyle: [
                 {
-                    selector: normalSelector ? normalSelector : `.${elementId} > .guten-background-overlay`,
-                    render: value => {
-                        return `opacity: ${value};`;
-                    }
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'opacity',
+                    'selector': normalSelector ? normalSelector :`.${elementId} > .guten-background-overlay`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ],
+                }
+            ]
         },
         {
             id: 'backgroundOverlayHover',
@@ -66,11 +70,11 @@ export const    backgroundOverlayPanel = (props) => {
             component: BackgroundControl,
             allowDeviceControl: true,
             options: hoverOptions,
-            style: [
+            liveStyle: [
                 {
-                    selector: hoverSelector ? hoverSelector : `.${elementId}:hover > .guten-background-overlay`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'backgroundOverlayHover',
+                    'selector': hoverSelector ? hoverSelector :`.${elementId}:hover > .guten-background-overlay`,
                 }
             ]
         },
@@ -82,12 +86,19 @@ export const    backgroundOverlayPanel = (props) => {
             min: 0.1,
             max: 1,
             step: 0.1,
-            style: [
+            liveStyle: [
                 {
-                    selector: hoverSelector ? hoverSelector : `.${elementId}:hover > .guten-background-overlay`,
-                    render: value => `opacity: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'opacityHover',
+                    'selector': hoverSelector ? hoverSelector :`.${elementId}:hover > .guten-background-overlay`,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'direct',
+                        }
+                    ],
+                }
+            ]
         },
     ];
 };
