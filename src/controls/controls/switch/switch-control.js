@@ -5,14 +5,12 @@ const SwitchControl = ({
     value,
     options,
     onValueChange,
-    onStyleChange,
     description = '',
 }) => {
     const id = useInstanceId(SwitchControl, 'inspector-hover-control');
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-hover'}>

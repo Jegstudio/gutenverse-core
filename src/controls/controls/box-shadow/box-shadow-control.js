@@ -17,7 +17,7 @@ const BoxShadowControl = ({
     allowDeviceControl,
     value = {},
     onValueChange,
-    onStyleChange,
+    onLocalChange,
     description = '',
 }) => {
     const [show, setShow] = useState(false);
@@ -72,7 +72,6 @@ const BoxShadowControl = ({
                     <span>
                         <RefreshCw onClick={() => {
                             onValueChange(undefined);
-                            onStyleChange(undefined);
                         }}/>
                     </span>
                 </Tooltip>
@@ -81,7 +80,7 @@ const BoxShadowControl = ({
                 label={__('Color', '--gctd--')}
                 value={value.color}
                 onValueChange={color => onValueChange({ ...value, color })}
-                onStyleChange={color => onStyleChange({ ...value, color })}
+                onLocalChange={color => onLocalChange({ ...value, color })}
             />
             <RangeControl
                 label={__('Horizontal', '--gctd--')}
@@ -91,7 +90,7 @@ const BoxShadowControl = ({
                 unit="px"
                 value={value.horizontal}
                 onValueChange={horizontal => onValueChange({ ...value, horizontal })}
-                onStyleChange={horizontal => onStyleChange({ ...value, horizontal })}
+                onLocalChange={horizontal => onLocalChange({ ...value, horizontal })}
             />
             <RangeControl
                 label={__('Vertical', '--gctd--')}
@@ -101,7 +100,7 @@ const BoxShadowControl = ({
                 unit="px"
                 value={value.vertical}
                 onValueChange={vertical => onValueChange({ ...value, vertical })}
-                onStyleChange={vertical => onStyleChange({ ...value, vertical })}
+                onLocalChange={vertical => onLocalChange({ ...value, vertical })}
             />
             <RangeControl
                 label={__('Blur', '--gctd--')}
@@ -110,7 +109,7 @@ const BoxShadowControl = ({
                 step={1}
                 value={value.blur}
                 onValueChange={blur => onValueChange({ ...value, blur })}
-                onStyleChange={blur => onStyleChange({ ...value, blur })}
+                onLocalChange={blur => onLocalChange({ ...value, blur })}
             />
             <RangeControl
                 label={__('Spread', '--gctd--')}
@@ -120,13 +119,12 @@ const BoxShadowControl = ({
                 unit="px"
                 value={value.spread}
                 onValueChange={spread => onValueChange({ ...value, spread })}
-                onStyleChange={spread => onStyleChange({ ...value, spread })}
+                onLocalChange={spread => onLocalChange({ ...value, spread })}
             />
             <SelectControl
                 label={__('Position', '--gctd--')}
                 value={value.position}
                 onValueChange={position => onValueChange({ ...value, position })}
-                onStyleChange={position => onStyleChange({ ...value, position })}
                 options={[
                     {
                         label: __('Outset', '--gctd--'),

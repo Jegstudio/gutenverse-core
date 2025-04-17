@@ -1,3 +1,4 @@
+
 // Export Block Controller
 export { default as BlockController } from './block-controller';
 
@@ -40,6 +41,7 @@ export { default as SwitchControl } from './controls/switch/switch-control';
 export { default as HeadingControl } from './controls/heading/heading-control';
 export { default as DateControl } from './controls/date/date-control';
 export { default as GradientControl } from './controls/gradient/gradient-control';
+export { default as GradientWithAngleControl } from './controls/gradient/gradient-with-angle-control';
 export { default as AngleControl } from './controls/angle/angle-control';
 export { default as IDGeneratorControl } from './controls/id-generator/id-generator-control';
 export { default as ChildIDGeneratorControl } from './controls/id-generator/child-id-generator-control';
@@ -79,6 +81,7 @@ export { default as ProLock } from './controls/pro-lock';
 
 // Export Panel Controller
 export { default as PanelController } from './controls/panel/panel-controller';
+export { BlockPanelController } from './controls/panel/panel-controller';
 
 // Export General Panel
 export { childStylePanel } from './panels/panel-child-style';

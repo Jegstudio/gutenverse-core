@@ -6,8 +6,6 @@ import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
-import { RangeControl } from 'gutenverse-core/controls';
-import { __ } from '@wordpress/i18n';
 
 const ColorPicker = ({ onSelect, ...rest }) => {
     return <ChromePicker
@@ -24,6 +22,42 @@ const ColorPicker = ({ onSelect, ...rest }) => {
     />;
 };
 
+const RangeControl = ({
+    label,
+    min = 0,
+    max = 100,
+    step = 1,
+    value = 0,
+    onChange = () => {},
+}) => {
+    const [internalValue, setInternalValue] = useState(value);
+
+    useEffect(() => {
+        setInternalValue(value);
+    }, [value]);
+
+    const handleChange = (e) => {
+        const newValue = parseFloat(e.target.value);
+        setInternalValue(newValue);
+        onChange(newValue);
+    };
+
+    return (
+        <div className={'control-body'}>
+            {label && <label>{label}</label>}
+            <input
+                type={'range'}
+                min={min}
+                max={max}
+                step={step}
+                value={internalValue}
+                onChange={handleChange}
+            />
+            <span>{internalValue}%</span>
+        </div>
+    );
+};
+
 const GradientControl = (props) => {
     const {
         label,
@@ -33,7 +67,6 @@ const GradientControl = (props) => {
             { offset: '1.00', color: 'rgb(126, 32, 207)' }
         ],
         onValueChange,
-        onStyleChange,
         description = '',
         proLabel,
         useLocation = true,
@@ -47,24 +80,27 @@ const GradientControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     useEffect(() => {
         const csh = wrapperRef?.current?.querySelector('.csh, .cs');
         if (!csh) return;
 
-        const handleClick = () => {
-            setControlOpen(true);
-            const divs = document.querySelectorAll('.cs');
+        const getActiveIndex = () => {
+            const divs = wrapperRef.current.querySelectorAll('.cs');
             for (let index = 0; index < divs.length; index++) {
                 const div = divs[index];
                 if (div.classList.contains('active')) {
-                    setActiveIndex(index);
-                    setLocation(value[index].offset * 100);
-                    break;
+                    return index;
                 }
             }
+        };
+
+        const handleClick = () => {
+            setControlOpen(true);
+            const index = getActiveIndex();
+            setActiveIndex(index);
+            setLocation(value[index].offset * 100);
         };
 
         csh.addEventListener('click', handleClick);
@@ -117,14 +153,13 @@ const GradientControl = (props) => {
                 {controlOpen && <ColorPicker/>}
             </GradientPicker>
             {controlOpen && useLocation && <RangeControl
-                label={__('Location', '--gctd--')}
+                label="Location"
                 min={0}
                 max={100}
-                step={0.1}
-                unit="%"
+                step={1}
                 value={location}
-                onValueChange={(value) => setLocation(parseFloat(value))}
-                onStyleChange={() => { }}
+                onChange={(val) => setLocation(val)}
+                unit={'%'}
             />}
         </div>
     </div>;

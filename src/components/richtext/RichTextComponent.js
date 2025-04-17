@@ -3,7 +3,7 @@ import { useSelect, dispatch } from '@wordpress/data';
 import { createBlock } from '@wordpress/blocks';
 import { dynamicData } from './module/dynamic-data';
 import { highlight } from './module/highlight';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useState, useDeferredValue } from '@wordpress/element';
 
 const RichTextComponent = (props) => {
     const {
@@ -17,15 +17,15 @@ const RichTextComponent = (props) => {
         isOnSplit = false,
         ariaLabel,
         onChange,
-        ref,
         classNames = '',
         isBlockProps = false,
         isUseDinamic = false,
         isUseHighlight = false,
     } = props;
-    
+
     const [query, setQuery] = useState(content); // Input value
-    const [debouncedQuery, setDebouncedQuery] = useState(''); 
+    const [isTyping, setIsTyping] = useState(false);
+    const deferredQuery = useDeferredValue(query);
 
     if(isUseDinamic){
         dynamicData(props);
@@ -62,26 +62,24 @@ const RichTextComponent = (props) => {
     const onReplace = (value) => {
     };
 
-    useEffect(() => {
-        // Start a timer for the debounce
-        const timer = setTimeout(() => {
-            setDebouncedQuery(query); // Update debounced value after delay
-        }, 500); // Delay: 500ms
-
-        return () => {
-            clearTimeout(timer); // Cleanup the timer if query changes before the delay ends
-        };
-    }, [query]);
-
     const handleOnChange = (value) => {
         setQuery(value);
+        setIsTyping(true);
     };
 
     useEffect(() => {
-        if (debouncedQuery) {
-            onChange(debouncedQuery);
+        const timer = setTimeout(() => {
+            setIsTyping(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [query]);
+
+    useEffect(() => {
+        if (!isTyping && deferredQuery !== undefined) {
+            onChange(deferredQuery);
         }
-    }, [debouncedQuery]);
+    }, [deferredQuery, isTyping]);
 
     const contentOfRichText = () => {
         if(isBlockProps){
@@ -106,7 +104,6 @@ const RichTextComponent = (props) => {
                 multiline={multiline}
                 aria-label={ariaLabel}
                 className={classNames}
-                ref={ref}
                 onChange={value => handleOnChange(value)}
             />;
         }

@@ -55,7 +55,6 @@ const DateTimeRangeControl = (props) => {
         allowDeviceControl,
         value = allowDeviceControl ? {} : '',
         onValueChange,
-        onStyleChange,
         enableTime = true,
         minDate,
         description = '',
@@ -66,7 +65,6 @@ const DateTimeRangeControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-date-range'}>

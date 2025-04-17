@@ -1,18 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { handleUnitPoint, DeviceLoop } from 'gutenverse-core/styling';
 import { SelectControl, SizeControl } from 'gutenverse-core/controls';
-import isEmpty from 'lodash/isEmpty';
-import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const displayPanel = (props) => {
     const {
         elementId,
-        selector,
         displayType
     } = props;
-
-    const deviceType = getDeviceType();
-    const customSelector = !isEmpty(selector) ? selector : `.${elementId}.guten-element`;
 
     return [
         {
@@ -45,19 +38,6 @@ export const displayPanel = (props) => {
                     label: 'None'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    render: value => {
-                        return `display: ${value};`;
-                    }
-                },
-                {
-                    selector: `${customSelector} .block-editor-inner-blocks, ${customSelector} .block-editor-block-list__layout`,
-                    allowRender: value => value && value === 'inline',
-                    render: value => `display: ${value};`
-                },
-            ]
         },
         {
             id: 'displayWidth',
@@ -88,11 +68,18 @@ export const displayPanel = (props) => {
                     unit: 'vw',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: customSelector,
-                    allowRender: () => displayType && ['block', 'flex', 'grid'].includes(displayType),
-                    render: value => handleUnitPoint(value, 'width', true)
+                    'type': 'unitPoint',
+                    'id': 'displayWidth',
+                    'responsive': true,
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
@@ -125,11 +112,18 @@ export const displayPanel = (props) => {
                     unit: 'vh',
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: customSelector,
-                    allowRender: () => displayType && ['block', 'flex', 'inline-block', 'grid'].includes(displayType),
-                    render: value => handleUnitPoint(value, 'height')
+                    'type': 'unitPoint',
+                    'id': 'displayHeight',
+                    'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element.guten-wrap-helper`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'direct',
+                        }
+                    ],
                 }
             ]
         },
@@ -152,12 +146,6 @@ export const displayPanel = (props) => {
                     value: 'inherit'
                 }
             ],
-            style: [
-                {
-                    selector: `.${elementId}.guten-element .guten-inner-wrap`,
-                    render: value => `width: ${value}`
-                }
-            ]
         },
         {
             id: 'horizontalAlign',
@@ -195,19 +183,6 @@ export const displayPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: `${customSelector}, ${customSelector} .block-editor-block-list__layout`,
-                    allowRender: value => value[deviceType] && value[deviceType] !== 'default' && ['flex', 'grid'].includes(displayType),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `justify-content: ${value};`;
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'verticalAlign',
@@ -245,19 +220,6 @@ export const displayPanel = (props) => {
                     value: 'space-evenly'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    allowRender: value => value[deviceType] && value[deviceType] !== 'default' && ['flex', 'grid'].includes(displayType),
-                    render: value => {
-                        if (value === 'default') {
-                            return null;
-                        } else {
-                            return `align-content: ${value}; align-items: ${value};`;
-                        }
-                    }
-                }
-            ]
         },
         {
             id: 'displayOverflow',
@@ -285,14 +247,6 @@ export const displayPanel = (props) => {
                     label: 'Auto'
                 },
             ],
-            style: [
-                {
-                    selector: customSelector,
-                    render: value => {
-                        return `overflow: ${value};`;
-                    }
-                },
-            ]
         },
     ];
 };

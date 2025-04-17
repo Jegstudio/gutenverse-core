@@ -19,7 +19,6 @@ const ImageSizeControl = (props) => {
         allowDeviceControl,
         value = {},
         onValueChange,
-        onStyleChange,
         description = '',
     } = props;
 
@@ -30,7 +29,6 @@ const ImageSizeControl = (props) => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const removeImage = (e) => {
@@ -101,7 +99,6 @@ const ImageSizeControl = (props) => {
                     label={__('Image Size', '--gctd--')}
                     value={size}
                     onValueChange={size => onValueChange({...value, size})}
-                    onStyleChange={size => onStyleChange({...value, size})}
                     options={getSize()}
                 />
             </div>

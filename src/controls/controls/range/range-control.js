@@ -1,10 +1,12 @@
-import { useState, useRef } from '@wordpress/element';
+import { useState, useRef, useEffect } from '@wordpress/element';
 import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash/debounce';
+import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const RangeControl = ({
     label,
@@ -12,23 +14,47 @@ const RangeControl = ({
     max,
     step,
     value = '',
-    liveUpdate,
     disabled = false,
     allowDeviceControl,
     showDeviceControl = false,
-    onStart = () => {},
-    onEnd = () => {},
+    onStart = () => { },
+    onEnd = () => { },
     onValueChange,
-    onStyleChange,
+    onLocalChange,
     description = '',
     isParseFloat = false,
     unit,
 }) => {
     const id = useInstanceId(RangeControl, 'inspector-range-control');
     const [localValue, setLocalValue] = useState(value);
-    const [updating, setUpdating] = useState(false);
     const inputRef = useRef(null);
     const unitRef = useRef(null);
+    const isFirstRender = useRef(true);
+
+    const deviceType = getDeviceType();
+
+    useEffect(() => {
+        setLocalValue(value);
+    }, [deviceType]);
+
+    useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
+        onLocalChange(localValue);
+
+        const debouncedHandler = debounce(() => {
+            onValueChange(localValue);
+        }, 150);
+
+        debouncedHandler();
+
+        return () => {
+            debouncedHandler.cancel();
+        };
+    }, [localValue]);
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-range'}>
         <ControlHeadingSimple
@@ -46,30 +72,15 @@ const RangeControl = ({
                     min={min}
                     max={max}
                     step={step}
-                    value={updating ? localValue : value}
+                    value={localValue}
                     disabled={disabled}
                     onMouseDown={onStart}
                     onChange={(e) => {
-                        if(isParseFloat){
-                            onStyleChange(parseFloat(e.target.value));
+                        if (isParseFloat) {
                             setLocalValue(parseFloat(e.target.value));
-                            liveUpdate ? onValueChange(parseFloat(e.target.value)) : null;
-                        }else{
-                            onStyleChange(e.target.value);
+                        } else {
                             setLocalValue(e.target.value);
-                            liveUpdate ? onValueChange(e.target.value) : null;
                         }
-                        setUpdating(true);
-                    }}
-                    onMouseUp={(e) => {
-                        if(isParseFloat){
-                            onValueChange(parseFloat(e.target.value));
-                        }else{
-                            onValueChange(e.target.value);
-
-                        }
-                        setUpdating(false);
-                        onEnd();
                     }}
                 />
             </div>
@@ -81,16 +92,14 @@ const RangeControl = ({
                     max={max}
                     step={step}
                     disabled={disabled}
-                    value={updating ? localValue : value}
+                    value={localValue}
                     onFocus={onStart}
                     onBlur={onEnd}
                     onChange={(e) => {
-                        if(isParseFloat){
-                            onStyleChange(parseFloat(e.target.value));
-                            onValueChange(parseFloat(e.target.value));
-                        }else{
-                            onStyleChange(e.target.value);
-                            onValueChange(e.target.value);
+                        if (isParseFloat) {
+                            setLocalValue(parseFloat(e.target.value));
+                        } else {
+                            setLocalValue(e.target.value);
                         }
                     }}
                     ref={inputRef}

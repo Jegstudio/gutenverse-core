@@ -9,7 +9,6 @@ const ImageRadioControl = props => {
     const {
         label,
         onValueChange,
-        onStyleChange,
         options,
         value,
         description
@@ -19,7 +18,6 @@ const ImageRadioControl = props => {
 
     const onChange = value => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     return (

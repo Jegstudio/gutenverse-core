@@ -1,13 +1,16 @@
-
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 import ReactPlayer from 'react-player';
 
 const SectionVideoContainer = ({ attributes }) => {
+    const { background = {} } = attributes;
     const {
-        background = {}
-    } = attributes;
-
-    background.videoPlayOnMobile = background.videoPlayOnMobile || false;
+        type,
+        videoLink,
+        videoPlayOnMobile = false,
+        videoPlayOnce,
+        videoStartTime = 0,
+        videoEndTime = 0
+    } = background;
 
     const deviceType = getDeviceType();
 
@@ -25,37 +28,37 @@ const SectionVideoContainer = ({ attributes }) => {
         youtube: {
             playerVars: {
                 showinfo: 0,
-                start: background.videoStartTime ? parseInt(background.videoStartTime) : 0,
-                end: background.videoEndTime ? parseInt(background.videoEndTime) : 0
+                start: parseInt(videoStartTime),
+                end: parseInt(videoEndTime),
             },
         }
     };
 
-    const videoPlayer = background.type && background.type === 'video' ? (
+    // If device is mobile and video is not set to play, return null
+    if (deviceType === 'Mobile' && !videoPlayOnMobile) {
+        return null;
+    }
+
+    // If there is no video type or no valid link, return null
+    if (type !== 'video' || !videoLink) {
+        return null;
+    }
+
+    return (
         <ReactPlayer
             className="guten-video-bg-wrapper"
-            url={background.videoLink}
+            url={videoLink}
             controls={false}
             width="100%"
             height="100%"
             playing={true}
             muted={true}
-            loop={!background.videoPlayOnce}
+            loop={!videoPlayOnce}
             playsinline={true}
             style={playerStyle}
             config={playerConfig}
         />
-    ) : null;
-
-    if ('Mobile' === deviceType) {
-        if (background.videoPlayOnMobile) {
-            return videoPlayer;
-        } else {
-            return null;
-        }
-    } else {
-        return videoPlayer;
-    }
+    );
 };
 
 export default SectionVideoContainer;

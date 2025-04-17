@@ -38,10 +38,34 @@ export const blurPanel = (props) => {
         min: 0,
         max: 100,
         allowDeviceControl: true,
-        style: [
+        liveStyle: [
             {
-                selector: `.${elementId}`,
-                render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
+                'type': 'plain',
+                'id': 'blur',
+                'responsive': true,
+                'selector': `section.guten-section.${elementId}:before`,
+                'properties': [
+                    {
+                        'name': '-webkit-backdrop-filter',
+                        'valueType': 'pattern',
+                        'pattern': 'blur({value}px)',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    },
+                    {
+                        'name': 'backdrop-filter',
+                        'valueType': 'pattern',
+                        'pattern': 'blur({value}px)',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
             }
         ]
     },
@@ -53,10 +77,34 @@ export const blurPanel = (props) => {
         min: 0,
         max: 100,
         allowDeviceControl: true,
-        style: [
+        liveStyle: [
             {
-                selector: `.${elementId}:hover`,
-                render: value => `-webkit-backdrop-filter: blur(${value}px); backdrop-filter: blur(${value}px);`
+                'type': 'plain',
+                'id': 'blurHover',
+                'responsive': true,
+                'selector': `section.guten-section.${elementId}:hover::before`,
+                'properties': [
+                    {
+                        'name': '-webkit-backdrop-filter',
+                        'valueType': 'pattern',
+                        'pattern': 'blur({value}px)',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    },
+                    {
+                        'name': 'backdrop-filter',
+                        'valueType': 'pattern',
+                        'pattern': 'blur({value}px)',
+                        'patternValues': {
+                            'value': {
+                                'type': 'direct',
+                            },
+                        }
+                    }
+                ],
             }
         ]
     }];

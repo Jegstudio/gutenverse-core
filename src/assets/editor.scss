@@ -290,7 +290,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 
 				p {
 					font-family: "Plus Jakarta Sans", serif;
-					font-size: 12px;
+					font-size: 13px;
 					line-height: 1.5;
 					text-align: center;
 					color: #40505d;
@@ -406,6 +406,23 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 				}
 			}
 		}
+
+    &.cancel,
+    &.primary  {
+      font-size: 13px;
+      padding: 10px 20px;
+    }
+
+    &.primary {
+      background: #0d1dc5;
+      color: #fff;
+      border-color: #4e4ef0;
+    }
+
+    &:hover {
+      color: #3b57f7;
+      border-color: #3b57f7;
+    }
 
 		.gutenverse-warn-list {
 			list-style-type: disc;

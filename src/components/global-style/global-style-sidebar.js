@@ -5,16 +5,14 @@ import { ArrowLeft } from 'react-feather';
 import { PanelBody } from '@wordpress/components';
 import { LogoColorSVG, LogoWhiteSVG } from 'gutenverse-core/icons';
 import GlobalStyleContent from './global-style-content';
-import { isFSE } from 'gutenverse-core/helper';
 import withGlobalVariable from './with-global-variable';
 import { signal } from 'gutenverse-core/editor-helper';
 import CardPro from '../pro/card-pro';
+import { PluginSidebar } from '@wordpress/editor';
 
 const GlobalStyleSidebar = props => {
-    const { wp } = window;
     const { variable, googleFont } = props;
     const [stage, setStage] = useState();
-    const Sidebar = (isFSE() ? wp.editSite : wp.editPost).PluginSidebar;
 
     useEffect(() => {
         let binding = signal ? signal.styleDrawerSignal.add(changeStage) : null;
@@ -28,7 +26,7 @@ const GlobalStyleSidebar = props => {
         setStage(stage);
     };
 
-    return <Sidebar
+    return <PluginSidebar
         name="gutenverse-sidebar"
         title={<div className={'global-style-extended'}>{stage && <ArrowLeft size={20} className="back-button" onClick={() => setStage('')} />}<span>{'Global Style Extended'}</span></div>}
         icon={<div className={'gutenverse-icon'}>
@@ -47,11 +45,10 @@ const GlobalStyleSidebar = props => {
             }}
             />
         </PanelBody>
-    </Sidebar>;
+    </PluginSidebar>;
 };
 
 export default compose(
-
     withSelect(select => {
         const {
             getVariable,
@@ -85,6 +82,5 @@ export default compose(
             setCustomFonts: setCustomFonts
         };
     }),
-    
     withGlobalVariable,
 )(GlobalStyleSidebar);

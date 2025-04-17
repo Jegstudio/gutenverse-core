@@ -6,7 +6,6 @@ export const maskPanel = (props) => {
         elementId,
         selector
     } = props;
-
     return [
         {
             id: 'mask',
