@@ -9,11 +9,59 @@ import { TabSetting, TabStyle } from 'gutenverse-core/controls';
 
 export const panelList = () => {
     return [
+        /** Tab Settings */
         {
             title: __('Progress', 'gutenverse'),
             panelArray: progressPanel,
             tabRole: TabSetting
         },
+        {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Positioning', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => positioningPanel({
+                ...props,
+                options: [
+                    {
+                        value: 'default',
+                        label: 'Default'
+                    },
+                    {
+                        value: 'full',
+                        label: 'Full Width (100%)'
+                    },
+                    {
+                        value: 'custom',
+                        label: 'Custom'
+                    }
+                ]
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'progress-bar-animation'
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'progress-bar-advance',
+            }),
+            tabRole: TabSetting
+        },
+        /** Tab Style */
         {
             title: __('Style', 'gutenverse'),
             initialOpen: false,
@@ -58,43 +106,7 @@ export const panelList = () => {
             panelArray: maskPanel,
             tabRole: TabStyle
         },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Positioning', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => positioningPanel({
-                ...props,
-                options: [
-                    {
-                        value: 'default',
-                        label: 'Default'
-                    },
-                    {
-                        value: 'full',
-                        label: 'Full Width (100%)'
-                    },
-                    {
-                        value: 'custom',
-                        label: 'Custom'
-                    }
-                ]
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'progress-bar-animation'
-            }),
-            tabRole: TabSetting
-        },
+        /** Pro */
         {
             title: __('Transform', 'gutenverse'),
             initialOpen: false,
@@ -117,15 +129,6 @@ export const panelList = () => {
                 blockType: 'progress-bar'
             }),
             pro: true
-        },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'progress-bar-advance',
-            }),
-            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),
