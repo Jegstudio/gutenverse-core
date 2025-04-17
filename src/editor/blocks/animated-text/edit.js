@@ -1,9 +1,8 @@
 import { compose } from '@wordpress/compose';
-import { useEffect, useRef } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { useRef } from '@wordpress/element';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TextStyleZoom from './components/text-style-zoom';
 import TextStyleFade from './components/text-style-fade';
@@ -15,18 +14,19 @@ import TextStylePop from './components/text-style-pop';
 import TextStyleSlide from './components/text-style-slide';
 import TextStyleRising from './components/text-style-rising';
 import TextStyleFall from './components/text-style-fall';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const AnimatedTextBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -36,14 +36,10 @@ const AnimatedTextBlock = compose(
         titleTag: TitleTag,
     } = attributes;
 
-    const animatedTextRef = useRef();
+    const elementRef = useRef(null);
     const displayClass = useDisplayEditor(attributes);
-
-    useEffect(() => {
-        if (animatedTextRef.current) {
-            setElementRef(animatedTextRef.current);
-        }
-    }, [animatedTextRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -56,12 +52,12 @@ const AnimatedTextBlock = compose(
                 [`style-${style}`]: style && style !== 'none'
             },
         ),
-        ref: animatedTextRef
+        ref: elementRef
     });
 
     const animationProps = {
         ...attributes,
-        animatedTextRef
+        animatedTextRef : elementRef
     };
 
     const loadAnimatedtext = () => {
@@ -92,7 +88,8 @@ const AnimatedTextBlock = compose(
     };
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef}/>
         <div  {...blockProps}>
             {loadAnimatedtext()}
         </div>

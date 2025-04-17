@@ -1,34 +1,36 @@
 import { compose } from '@wordpress/compose';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import WPSwiper from '../../components/swiper/wp-swiper';
 import ContentItem from './components/content-item';
 import { swiperSettings } from '../../components/swiper/helper';
 import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { dispatch } from '@wordpress/data';
 import { getImageSrc } from 'gutenverse-core/editor-helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
+
 const TestimonialsBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
+
     const {
         selectBlock
     } = dispatch('core/block-editor');
+
     const {
         clientId,
         attributes,
-        setElementRef,
         setAttributes
     } = props;
+
     const {
         elementId,
         testimonialData,
@@ -42,9 +44,11 @@ const TestimonialsBlock = compose(
         iconRatingFull,
         starPosition,
     } = attributes;
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const testimonialRef = useRef();
+    const elementRef = useRef();
+
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -56,18 +60,19 @@ const TestimonialsBlock = compose(
             `style-${contentType}`,
             'quote-override',
         ),
-        ref: testimonialRef
+        ref: elementRef
     });
+
     const focusBlock = () => {
         selectBlock(clientId);
     };
-    useEffect(() => {
-        if (testimonialRef.current) {
-            setElementRef(testimonialRef.current);
-        }
-    }, [testimonialRef]);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             <div className="testimonials-list" onClick={focusBlock}>
                 <WPSwiper

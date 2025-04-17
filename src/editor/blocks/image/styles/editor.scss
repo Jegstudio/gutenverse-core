@@ -1,6 +1,7 @@
 .guten-image {
     &.select-image img {
         cursor: pointer;
+        pointer-events: auto;
     }
 
     .ReactCrop {

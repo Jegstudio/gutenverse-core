@@ -1,8 +1,7 @@
 import { __ } from '@wordpress/i18n';
 
-import { ColorControl, IconRadioControl, RangeControl, SizeControl, TypographyControl, HeadingControl, SwitchControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint, handleTypography } from 'gutenverse-core/styling';
-import {AlignLeft, AlignCenter, AlignRight, AlignJustify} from 'gutenverse-core/components';
+import { ColorControl, HeadingControl, IconRadioControl, RangeControl, SizeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
+import { AlignLeft, AlignCenter, AlignRight, AlignJustify } from 'gutenverse-core/components';
 
 export const panelContent = (props) => {
     const {
@@ -11,7 +10,7 @@ export const panelContent = (props) => {
         switcher,
         setSwitcher
     } = props;
-    
+
     return [
         {
             id: 'columns',
@@ -21,12 +20,20 @@ export const panelContent = (props) => {
             max: 10,
             step: 1,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => `columns: ${value};`
-                },
-            ],
+                    'type': 'plain',
+                    'id': 'columns',
+                    'selector': `.${elementId}`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'columns',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
         },
         {
             id: 'gap',
@@ -48,10 +55,18 @@ export const panelContent = (props) => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => handleUnitPoint(value, 'column-gap')
+                    'type': 'unitPoint',
+                    'id': 'gap',
+                    'selector': `.${elementId}`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'column-gap',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -64,53 +79,47 @@ export const panelContent = (props) => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
                 {
                     label: __('Align Justify', 'gutenverse'),
                     value: 'justify',
-                    icon: <AlignJustify/>,
+                    icon: <AlignJustify />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'textColor',
             label: __('Text Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'textColor',
+                    'selector': `.${elementId}`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'typography',
             label: __('Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'linkHeader',
@@ -139,50 +148,50 @@ export const panelContent = (props) => {
             label: __('Link Color', 'gutenverse'),
             component: ColorControl,
             show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} a`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'linkColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} a`,
                 }
-            ],
+            ]
         },
         {
             id: 'linkTypography',
             label: __('Link Typography', 'gutenverse'),
             component: TypographyControl,
             show: (!switcher.state || switcher.state === 'normal') && containsAnchorTag,
-            style: [
-                {
-                    selector: `.${elementId} a`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'linkColorHover',
             label: __('Link Color Hover', 'gutenverse'),
             component: ColorControl,
             show: (switcher.state === 'hover') && containsAnchorTag,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} a:hover`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'linkColorHover',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} a:hover`,
                 }
-            ],
+            ]
         },
         {
             id: 'linkTypographyHover',
             label: __('Link Typography Hover', 'gutenverse'),
             component: TypographyControl,
             show: (switcher.state === 'hover') && containsAnchorTag,
-            style: [
-                {
-                    selector: `.${elementId} a:hover`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
     ];
 };

@@ -1,29 +1,29 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { RawHTML } from '@wordpress/element';
 import { PostListSkeleton, u } from 'gutenverse-core/components';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor, dummyText } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostListBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef
+        clientId
     } = props;
 
     const {
@@ -75,13 +75,10 @@ const PostListBlock = compose(
     const [loading, setLoading] = useState(true);
     const [postLoaded, setPostLoaded] = useState(0);
     const [page, setPage] = useState(1);
-    const postListRef = useRef();
+    const elementRef = useRef();
 
-    useEffect(() => {
-        if (postListRef.current) {
-            setElementRef(postListRef.current);
-        }
-    }, [postListRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     useEffect(() => {
         setPostLoaded(parseInt(numberPost));
@@ -89,20 +86,20 @@ const PostListBlock = compose(
 
     useEffect(() => {
         if (postLoaded) {
-            u(postListRef.current).find('.guten-block-loadmore').on('click', () => {
+            u(elementRef.current).find('.guten-block-loadmore').on('click', () => {
                 setPostLoaded(postLoaded + parseInt(paginationNumberPost));
             });
-            u(postListRef.current)
+            u(elementRef.current)
                 .find('.btn-pagination.next:not(.disabled)')
                 .on('click', () => {
                     setPage(page + 1);
                 });
-            u(postListRef.current)
+            u(elementRef.current)
                 .find('.btn-pagination.prev:not(.disabled)')
                 .on('click', () => {
                     setPage(page - 1);
                 });
-            u(postListRef.current)
+            u(elementRef.current)
                 .find('.btn-pagination')
                 .each((el) => {
                     const page = el.getAttribute('data-page');
@@ -178,10 +175,10 @@ const PostListBlock = compose(
         } else {
             let articles = '';
             for (let i = 0; i < numberPost; i++) {
-                const bg = backgroundImageEnabled ? `style="background-image: url(${`https://picsum.photos/400/400?random=${i+1}`})"` : '';
+                const bg = backgroundImageEnabled ? `style="background-image: url(${`https://picsum.photos/400/400?random=${i + 1}`})"` : '';
 
                 const img = imageEnabled ? `<img loading="eager" width="400" height="400"
-                        src="${`https://picsum.photos/400/400?random=${i+1}`}"
+                        src="${`https://picsum.photos/400/400?random=${i + 1}`}"
                         class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
                         decoding="async" loading="lazy"
                         sizes="(max-width: 400px) 100vw, 400px" />` : '';
@@ -212,15 +209,15 @@ const PostListBlock = compose(
                 default:
                     pagination = '';
                     break;
-                case 'loadmore' :
+                case 'loadmore':
                     pagination =
-                    `<div class="guten-block-pagination guten-align">
+                        `<div class="guten-block-pagination guten-align">
                         <div class="guten-block-loadmore icon-position-before"><span data-load="Load More" data-loading="Loading..."> ${paginationLoadmoreText}</span></div>
                     </div>`;
                     break;
-                case 'prevnext' :
+                case 'prevnext':
                     pagination =
-                    `<div class="guten_block_nav additional_class" data-page="1">
+                        `<div class="guten_block_nav additional_class" data-page="1">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev disabled" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -229,9 +226,9 @@ const PostListBlock = compose(
                         </a>
                     </div>`;
                     break;
-                case 'number' :
+                case 'number':
                     pagination =
-                    `<div class="guten_block_nav" data-page="4">
+                        `<div class="guten_block_nav" data-page="4">
                         <a href="javascript:void(0);" data-href="#" class="btn-pagination prev" title="Prev">
                             <i class="${paginationPrevIcon}"></i> ${paginationPrevNextText ? paginationPrevText : ''}
                         </a>
@@ -312,11 +309,12 @@ const PostListBlock = compose(
             displayClass,
             [`layout-${layout}`],
         ),
-        ref: postListRef
+        ref: elementRef
     });
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {!loading ? <RawHTML key="html" className="guten-raw-wrapper">
                 {response}

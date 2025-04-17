@@ -22,15 +22,15 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Logo Style', 'gutenverse'),
-            initialOpen: false,
-            panelArray: logosStylePanel,
-            tabRole: TabStyle
-        },
-        {
             title: __('Logo Wrapper Style', 'gutenverse'),
             initialOpen: false,
             panelArray: logosWrapperPanel,
+            tabRole: TabStyle
+        },
+        {
+            title: __('Logo Style', 'gutenverse'),
+            initialOpen: false,
+            panelArray: logosStylePanel,
             tabRole: TabStyle
         },
         {

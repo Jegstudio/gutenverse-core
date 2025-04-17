@@ -42,25 +42,6 @@ export const panelIcon = (props) => {
                     removeStyle('imageHeight-style-0');
                 }
             },
-            style: [
-                {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon i`,
-                    allowRender: value => value === 'icon',
-                    render: () => `font-size: ${iconSize[deviceType]}px;`
-                },
-                {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: value => value === 'image',
-                    render: () => {
-                        return `width: ${imageWidth}px;`;
-                    }
-                },
-                {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: value => value === 'image',
-                    render: () => `height: ${imageHeight}px;`
-                }
-            ]
         },
         {
             id: 'iconSize',
@@ -72,13 +53,26 @@ export const panelIcon = (props) => {
             min: 1,
             max: 200,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon i`,
-                    allowRender: () => iconType && iconType === 'icon',
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'iconSize',
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon i`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
         {
             id: 'image',
@@ -125,13 +119,6 @@ export const panelIcon = (props) => {
                     label: 'Scale Down'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon img`,
-                    allowRender: () => iconType && iconType === 'image',
-                    render: value => `object-fit: ${value};`
-                }
-            ]
         },
         {
             id: 'imageWidthResponsive',
@@ -144,13 +131,26 @@ export const panelIcon = (props) => {
             max: 400,
             step: 1,
             isParseFloat: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageWidthResponsive',
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
         {
             id: 'imageHeightResponsive',
@@ -163,13 +163,26 @@ export const panelIcon = (props) => {
             max: 400,
             step: 1,
             isParseFloat: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image' & deviceType !== 'Desktop',
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageHeightResponsive',
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
         {
             id: 'imageWidth',
@@ -182,13 +195,25 @@ export const panelIcon = (props) => {
             max: 400,
             step: 1,
             isParseFloat: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
-                    render: value => `width: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageWidth',
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    'properties': [
+                        {
+                            'name': 'width',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
         {
             id: 'imageHeight',
@@ -201,13 +226,25 @@ export const panelIcon = (props) => {
             max: 400,
             step: 1,
             isParseFloat: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
-                    allowRender: () => iconType && iconType === 'image' && deviceType === 'Desktop',
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'imageHeight',
+                    'selector': `.${elementId} .guten-icon-box-wrapper .icon-box .icon`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ]
+            ],
         },
     ];
 };

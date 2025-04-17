@@ -1,7 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { IconControl, RangeControl, SelectControl, TextControl } from 'gutenverse-core/controls';
 
-export const settingPanel = ({elementId, grid}) => {
+export const settingPanel = ({ elementId, grid }) => {
     return [
         {
             id: 'zoomOptions',
@@ -38,11 +38,24 @@ export const settingPanel = ({elementId, grid}) => {
             min: 100,
             max: 10000,
             step: 1,
-            unit: 's',
-            style: [
+            unit: 'ms',
+            liveStyle: [
                 {
-                    selector: `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap`,
-                    render: value => `animation-duration: ${value/1000}s!important;`
+                    'type': 'plain',
+                    'id': 'animationDuration',
+                    'selector': `.${elementId} .gallery-items .gallery-item-wrap .thumbnail-wrap .caption-wrap`,
+                    'properties': [
+                        {
+                            'name': 'animation-duration',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}s/1000)!important',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -80,12 +93,24 @@ export const settingPanel = ({elementId, grid}) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            liveUpdate: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}:not([data-grid="masonry"]) .gallery-items .gallery-item-wrap .thumbnail-wrap`,
-                    allowRender: (value) => value && grid === 'grid',
-                    render: value => `height: ${value}px;`
+                    'type': 'plain',
+                    'id': 'height',
+                    'responsive' : true,
+                    'selector': `.${elementId}:not([data-grid="masonry"]) .gallery-items .gallery-item-wrap .thumbnail-wrap`,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },

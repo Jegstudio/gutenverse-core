@@ -1,7 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
-import { AlertControl, BackgroundControl, BorderResponsiveControl, BoxShadowControl, ColorControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
-import { allowRenderBoxShadow, handleBackground, handleBorderResponsive, handleBoxShadow, handleColor, handleDimension } from 'gutenverse-core/styling';
+import { AlertControl, BackgroundControl, BorderResponsiveControl, BoxShadowControl, DimensionControl, IconRadioControl, RangeControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const blockPanel = (props) => {
     const {
@@ -43,12 +42,6 @@ export const blockPanel = (props) => {
                     icon: <AlignRight />,
                 }
             ],
-            style: [
-                {
-                    selector: `.${elementId} .post-term-block .term-item `,
-                    render: value => `text-align: ${value};`
-                },
-            ]
         },
         {
             id: 'termPadding',
@@ -71,12 +64,6 @@ export const blockPanel = (props) => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId} .post-term-block .term-item`,
-                    render: value => handleDimension(value, 'padding')
-                }
-            ],
         },
         {
             id: '__termHover',
@@ -100,11 +87,11 @@ export const blockPanel = (props) => {
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
             show: contentType === 'block' && ( !switcher.termHover || switcher.termHover === 'normal' ),
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'termBackground',
+                    'selector': `.${elementId} .post-term-block .term-item`,
                 }
             ]
         },
@@ -114,11 +101,11 @@ export const blockPanel = (props) => {
             allowDeviceControl: true,
             options: [ 'default', 'gradient' ],
             show: contentType === 'block' && ( switcher.termHover === 'hover' ),
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item:hover`,
-                    hasChild: true,
-                    render: value => handleBackground(value)
+                    'type': 'background',
+                    'id': 'termBackgroundHover',
+                    'selector': `.${elementId} .post-term-block .term-item:hover`,
                 }
             ]
         },
@@ -128,12 +115,13 @@ export const blockPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item`,
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'termBorder',
+                    'selector': `.${elementId} .post-term-block .term-item`,
                 }
-            ]
+            ],
         },
         {
             id: 'termBorderHover',
@@ -141,38 +129,51 @@ export const blockPanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item:hover`,
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'termBorderHover',
+                    'selector': `.${elementId} .post-term-block .term-item:hover`,
                 }
-            ]
+            ],
         },
         {
             id: 'termBoxShadow',
             show: contentType === 'block' && ( !switcher.termHover || switcher.termHover === 'normal' ),
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'termBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .post-term-block .term-item`,
                 }
-            ]
+            ],
         },
         {
             id: 'termBoxShadowHover',
             show: contentType === 'block' && ( switcher.termHover === 'hover' ),
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .post-term-block .term-item:hover`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'termBoxShadowHover',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .post-term-block .term-item:hover`,
                 }
-            ]
+            ],
         },
     ];
 };

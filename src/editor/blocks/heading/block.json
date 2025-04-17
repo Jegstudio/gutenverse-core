@@ -86,6 +86,10 @@
 			},
 			"copyStyle": true
 		},
+		"useStyleInLink": {
+			"type": "boolean",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},

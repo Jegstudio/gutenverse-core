@@ -1,42 +1,43 @@
 import { compose } from '@wordpress/compose';
-// import { useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { classnames } from 'gutenverse-core/components';
-// import { getSaveElement } from '@wordpress/blocks';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import TeamProfile from './components/team-profile';
-// import TeamPopup from './components/team-popup';
-// import { createPortal } from 'react-dom';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-// import { gutenverseRoot } from 'gutenverse-core/helper';
-import { useRef } from '@wordpress/element';
-import { useEffect } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
-import { withAnimationAdvance } from 'gutenverse-core/hoc';
-import { useAnimationEditor } from 'gutenverse-core/hooks';
-import { useDisplayEditor } from 'gutenverse-core/hooks';
+import { useEffect, useRef } from '@wordpress/element';
+import { withAnimationAdvanceV2, withMouseMoveEffect, withPartialRender, withPassRef } from 'gutenverse-core/hoc';
+import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { HighLightToolbar, FilterDynamic } from 'gutenverse-core/toolbars';
-// import { useSelect } from '@wordpress/data';
-
+import { useDynamicScript, useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { useRichTextParameter } from 'gutenverse-core/helper';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const TeamBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withAnimationAdvance('team'),
-    withCopyElementToolbar(),
+    withPassRef,
+    withAnimationAdvanceV2('team'),
     withMouseMoveEffect
 )((props) => {
+
     const {
         attributes,
-        setElementRef
+        clientId,
+        setBlockRef,
     } = props;
+
     const {
         elementId,
     } = attributes;
+
+    const {
+        panelState,
+        setPanelState,
+    } = useRichTextParameter();
+
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const teamRef = useRef();
+    const elementRef = useRef();
     const nameRef = useRef();
     const descRef = useRef();
     const jobRef = useRef();
@@ -49,8 +50,12 @@ const TeamBlock = compose(
             displayClass,
             animationClass,
         ),
-        ref: teamRef
+        ref: elementRef
     });
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+    useDynamicScript(elementRef);
 
     const innerBlocksProps = useInnerBlocksProps({}, {
         template: [['gutenverse/social-icons']],
@@ -61,15 +66,18 @@ const TeamBlock = compose(
 
     const socialComponent = <div {...innerBlocksProps} />;
 
-    useEffect(() => {
-        if (teamRef.current) {
-            setElementRef(teamRef.current);
-        }
-    }, [teamRef]);
     HighLightToolbar(props);
     FilterDynamic(props);
+
+    useEffect(() => {
+        if (elementRef) {
+            setBlockRef(elementRef);
+        }
+    }, [elementRef]);
+
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} panelState={panelState} />
         <div  {...blockProps}>
             <TeamProfile
                 frontEnd={false}
@@ -77,6 +85,7 @@ const TeamBlock = compose(
                 descRef={descRef}
                 jobRef={jobRef}
                 nameRef={nameRef}
+                setPanelState={setPanelState}
                 {...props}
             />
         </div>

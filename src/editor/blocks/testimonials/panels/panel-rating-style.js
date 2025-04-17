@@ -2,7 +2,6 @@ import { __ } from '@wordpress/i18n';
 
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
 import { ColorControl, DimensionControl, IconRadioControl, RangeControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension } from 'gutenverse-core/styling';
 
 export const panelRatingStyle = ({ elementId }) => {
     return [
@@ -28,27 +27,25 @@ export const panelRatingStyle = ({ elementId }) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}.style-1 ul.rating-stars, 
-                                .${elementId}.style-2 ul.rating-stars, 
-                                .${elementId}.style-3 ul.rating-stars, 
-                                .${elementId}.style-4 ul.rating-stars`,
-                    render: value => `justify-content: ${value};`
-                }
-            ]
         },
         {
             id: 'ratingColor',
             label: __('Normal Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.style-1 .guten-testimonial-item ul.rating-stars li, 
-                                .${elementId}.style-2 .guten-testimonial-item ul.rating-stars li, 
-                                .${elementId}.style-3 .guten-testimonial-item ul.rating-stars li, 
-                                .${elementId}.style-4 .guten-testimonial-item ul.rating-stars li`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'ratingColor',
+                    'selector': `.${elementId}.style-1 .guten-testimonial-item ul.rating-stars li, 
+                    .${elementId}.style-2 .guten-testimonial-item ul.rating-stars li, 
+                    .${elementId}.style-3 .guten-testimonial-item ul.rating-stars li, 
+                    .${elementId}.style-4 .guten-testimonial-item ul.rating-stars li`,
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -56,13 +53,20 @@ export const panelRatingStyle = ({ elementId }) => {
             id: 'ratingColorHover',
             label: __('Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.style-1 .guten-testimonial-item:hover ul.rating-stars li, 
+                    'type': 'color',
+                    'id': 'ratingColorHover',
+                    'selector': `.${elementId}.style-1 .guten-testimonial-item:hover ul.rating-stars li, 
                                 .${elementId}.style-2 .guten-testimonial-item:hover ul.rating-stars li, 
                                 .${elementId}.style-3 .guten-testimonial-item:hover ul.rating-stars li, 
                                 .${elementId}.style-4 .guten-testimonial-item:hover ul.rating-stars li`,
-                    render: value => handleColor(value, 'color')
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct',
+                        }
+                    ]
                 }
             ]
         },
@@ -75,10 +79,24 @@ export const panelRatingStyle = ({ elementId }) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} ul.rating-stars li i`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'ratingIconSize',
+                    'responsive': true,
+                    'selector': `.${elementId} ul.rating-stars li i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -91,13 +109,27 @@ export const panelRatingStyle = ({ elementId }) => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.style-1 ul.rating-stars, 
+                    'type': 'plain',
+                    'id': 'ratingIconGap',
+                    'responsive': true,
+                    'selector': `.${elementId}.style-1 ul.rating-stars, 
                                 .${elementId}.style-2 ul.rating-stars, 
                                 .${elementId}.style-3 ul.rating-stars, 
                                 .${elementId}.style-4 ul.rating-stars`,
-                    render: value => `gap: ${value}px;`
+                    'properties': [
+                        {
+                            'name': 'gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -125,21 +157,6 @@ export const panelRatingStyle = ({ elementId }) => {
                     unit: 'rem'
                 },
             },
-            style: [
-                {
-                    selector:  `.${elementId}.style-1 ul.rating-stars, 
-                                .${elementId}.style-2 ul.rating-stars, 
-                                .${elementId}.style-3 ul.rating-stars, 
-                                .${elementId}.style-4 ul.rating-stars,
-                                .${elementId}.style-1 .comment-header ul.rating-stars, 
-                                .${elementId}.style-2 .comment-header ul.rating-stars, 
-                                .${elementId}.style-3 .comment-header ul.rating-stars, 
-                                .${elementId}.style-4 .comment-header ul.rating-stars`,
-                    render: value => {
-                        return handleDimension(value, 'margin');
-                    }
-                }
-            ]
         },
     ];
 };

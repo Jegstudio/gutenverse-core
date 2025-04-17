@@ -11,7 +11,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { isOnEditor } from 'gutenverse-core/helper';
 const MenuControl = (props) => {
-    const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, onStyleChange, description = '', noOptionsText, proLabel } = props;
+    const { label, allowDeviceControl, value = allowDeviceControl ? {} : undefined, onValueChange, description = '', noOptionsText, proLabel } = props;
     const noOptionsMessage = () => (noOptionsText ? noOptionsText : __('No Option', 'gutenverse'));
     const [options, setOptions] = useState([]);
 
@@ -26,7 +26,6 @@ const MenuControl = (props) => {
 
     const onChange = (value) => {
         onValueChange(value);
-        onStyleChange(value);
     };
 
     const customStyles = {

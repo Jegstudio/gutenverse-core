@@ -38,11 +38,24 @@ export const contentPanel = (props) => {
             min: 1,
             max: 3,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-posts`,
-                    allowRender: () => layout === 'horizontal',
-                    render: value => `grid-template-columns: repeat(${value}, minmax(0, 1fr));`
+                    'type': 'plain',
+                    'id': 'column',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-posts`,
+                    'properties': [
+                        {
+                            'name': 'grid-template-columns',
+                            'valueType': 'pattern',
+                            'pattern': 'repeat({value}, minmax(0, 1fr))',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
                 }
             ]
         },
@@ -56,11 +69,24 @@ export const contentPanel = (props) => {
             min: 1,
             max: 200,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-posts`,
-                    allowRender: () => layout === 'horizontal',
-                    render: value => `grid-column-gap: ${value}px;`
+                    'type': 'plain',
+                    'id': 'columnGap',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-posts`,
+                    'properties': [
+                        {
+                            'name': 'grid-column-gap',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
                 }
             ]
         },

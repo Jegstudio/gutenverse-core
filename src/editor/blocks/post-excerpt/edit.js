@@ -1,27 +1,26 @@
 import { compose } from '@wordpress/compose';
-import { useEffect } from '@wordpress/element';
-import { withCustomStyle, withPartialRender } from 'gutenverse-core/hoc';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import { useEntityProp } from '@wordpress/core-data';
 import { useMemo } from '@wordpress/element';
 import { useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { withPartialRender } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { __ } from '@wordpress/i18n';
 import { PanelTutorial } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const PostExcerptBlock = compose(
-    withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar()
+    withPartialRender
 )((props) => {
     const {
         attributes,
-        setElementRef,
+        clientId,
         context: { postId, postType }
     } = props;
 
@@ -34,11 +33,7 @@ const PostExcerptBlock = compose(
 
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const postExcerptRef = useRef();
-
-    useEffect(() => {
-        postExcerptRef.current && setElementRef(postExcerptRef.current);
-    }, [postExcerptRef]);
+    const elementRef = useRef();
 
     const blockProps = useBlockProps({
         className: classnames(
@@ -49,7 +44,7 @@ const PostExcerptBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: postExcerptRef
+        ref: elementRef
     });
 
     const [
@@ -64,6 +59,7 @@ const PostExcerptBlock = compose(
      * excerpt has been produced from the content.
      */
     const strippedRenderedExcerpt = useMemo(() => {
+
         if (!renderedExcerpt) return '';
         const document = new window.DOMParser().parseFromString(
             renderedExcerpt,
@@ -71,6 +67,7 @@ const PostExcerptBlock = compose(
         );
         return document.body.textContent || document.body.innerText || '';
     }, [renderedExcerpt]);
+
     if (!postType || !postId) {
         return (
             <div {...blockProps}>
@@ -105,7 +102,11 @@ const PostExcerptBlock = compose(
         {showReadmore && <a href="#link-disabled-in-editor" onClick={e => e.preventDefault()}>{readmoreText}</a>}
     </HtmlTag>;
 
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
     return <>
+        <CopyElementToolbar {...props}/>
         <InspectorControls>
             <PanelTutorial
                 title={__('How Post Excerpt works?', 'gutenverse')}
@@ -121,7 +122,7 @@ const PostExcerptBlock = compose(
                 ]}
             />
         </InspectorControls>
-        <PanelController panelList={panelList} {...props} />
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
             {excerptContent}
         </div>

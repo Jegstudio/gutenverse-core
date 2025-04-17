@@ -1,6 +1,5 @@
 import { __ } from '@wordpress/i18n';
 import { CheckboxControl, ColorControl, DimensionControl, RangeControl, SwitchControl, TypographyControl } from 'gutenverse-core/controls';
-import { handleColor, handleDimension, handleTypography } from 'gutenverse-core/styling';
 
 export const panelContentTypography = props => {
     const {
@@ -14,25 +13,16 @@ export const panelContentTypography = props => {
             id: 'nameTypography',
             label: __('Name Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .profile-info .profile-name`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'designationTypography',
             label: __('Designation Typography', 'gutenverse'),
             component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
+        },
+        {
+            id: 'descriptionTypography',
+            label: __('Comment Typography', 'gutenverse'),
+            component: TypographyControl,
         },
         {
             id: 'designationSpacing',
@@ -43,24 +33,26 @@ export const panelContentTypography = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
-                    render: value => `margin-top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'designationSpacing',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
+                    'properties': [
+                        {
+                            'name': 'margin-top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
             ]
-        },
-        {
-            id: 'descriptionTypography',
-            label: __('Comment Typography', 'gutenverse'),
-            component: TypographyControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .comment-content p`,
-                    hasChild: true,
-                    render: (value,id) => handleTypography(value, props, id)
-                }
-            ],
         },
         {
             id: 'descriptionMargin',
@@ -82,12 +74,6 @@ export const panelContentTypography = props => {
                     unit: '%'
                 },
             },
-            style: [
-                {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p`,
-                    render: value => handleDimension(value, 'margin')
-                }
-            ],
         },
         {
             id: 'quoteSize',
@@ -98,12 +84,26 @@ export const panelContentTypography = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
-                    render: value => `font-size: ${value}px;`
+                    'type': 'plain',
+                    'id': 'quoteSize',
+                    'responsive': true,
+                    'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
+                    'properties': [
+                        {
+                            'name': 'font-size',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'quoteOverride',
@@ -120,13 +120,26 @@ export const panelContentTypography = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
-                    allowRender: () => quoteOverride,
-                    render: value => `top: ${value}px;`
+                    'type': 'plain',
+                    'id': 'quotePositionTop',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
+                    'properties': [
+                        {
+                            'name': 'top',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: 'quotePositionLeft',
@@ -138,13 +151,26 @@ export const panelContentTypography = props => {
             step: 1,
             allowDeviceControl: true,
             unit: 'px',
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
-                    allowRender: () => quoteOverride,
-                    render: value => `left: ${value}px;`
+                    'type': 'plain',
+                    'id': 'quotePositionLeft',
+                    'responsive': true,
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .icon-content.quote-override`,
+                    'properties': [
+                        {
+                            'name': 'left',
+                            'valueType': 'pattern',
+                            'pattern': '{value}px',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ]
                 }
-            ],
+            ]
         },
         {
             id: '__textHover',
@@ -165,96 +191,100 @@ export const panelContentTypography = props => {
             show: !__textHover || __textHover === 'normal',
             label: __('Name Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-name`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'nameNormalColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-name`,
                 }
-            ],
+            ]
         },
         {
             id: 'nameHoverColor',
             show: __textHover === 'hover',
             label: __('Name Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .profile-info .profile-name`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
         },
         {
             id: 'designationNormalColor',
             show: !__textHover || __textHover === 'normal',
             label: __('Designation Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'designationNormalColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .profile-info .profile-des`,
                 }
-            ],
+            ]
         },
         {
             id: 'designationHoverColor',
             show: __textHover === 'hover',
             label: __('Designation Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .profile-info .profile-des`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
         },
         {
             id: 'descriptionNormalColor',
             show: !__textHover || __textHover === 'normal',
             label: __('Comment Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'descriptionNormalColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item .testimonial-box .comment-content p`,
                 }
-            ],
+            ]
         },
         {
             id: 'descriptionHoverColor',
             show: __textHover === 'hover',
             label: __('Comment Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId}.guten-testimonials .swiper-container .guten-testimonial-item:hover .testimonial-box .comment-content p`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
         },
         {
             id: 'quoteNormalColor',
             show: !__textHover || __textHover === 'normal',
             label: __('Quote Icon Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
-                    render: value => handleColor(value, 'color')
+                    'type': 'color',
+                    'id': 'quoteNormalColor',
+                    'properties': [
+                        {
+                            'name': 'color',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} .guten-testimonial-item .testimonial-box .icon-content i`,
                 }
-            ],
+            ]
         },
         {
             id: 'quoteHoverColor',
             show: __textHover === 'hover',
             label: __('Quote Icon Hover Color', 'gutenverse'),
             component: ColorControl,
-            style: [
-                {
-                    selector: `.${elementId} .guten-testimonial-item:hover .testimonial-box .icon-content i`,
-                    render: value => handleColor(value, 'color')
-                }
-            ],
         },
     ];
 };

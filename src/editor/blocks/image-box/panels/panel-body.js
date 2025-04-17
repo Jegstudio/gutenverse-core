@@ -2,7 +2,6 @@
 import { __ } from '@wordpress/i18n';
 import { AlignCenter, AlignLeft, AlignRight } from 'gutenverse-core/components';
 import { CheckboxControl, ColorControl, IconControl, IconRadioControl, SelectControl, SizeControl } from 'gutenverse-core/controls';
-import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
 export const panelBody = props => {
     const {
@@ -73,25 +72,19 @@ export const panelBody = props => {
                 {
                     label: __('Align Left', 'gutenverse'),
                     value: 'left',
-                    icon: <AlignLeft/>,
+                    icon: <AlignLeft />,
                 },
                 {
                     label: __('Align Center', 'gutenverse'),
                     value: 'center',
-                    icon: <AlignCenter/>,
+                    icon: <AlignCenter />,
                 },
                 {
                     label: __('Align Right', 'gutenverse'),
                     value: 'right',
-                    icon: <AlignRight/>,
+                    icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .inner-container .image-box-body .body-inner`,
-                    render: value => `text-align: ${value};`
-                }
-            ]
         },
         {
             id: 'hoverBottom',
@@ -103,10 +96,17 @@ export const panelBody = props => {
             show: hoverBottom,
             label: __('Border Bottom Color', 'gutenverse'),
             component: ColorControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .inner-container .border-bottom .animated`,
-                    render: value => handleColor(value, 'background-color')
+                    'type': 'color',
+                    'id': 'hoverBottomColor',
+                    'selector': `.${elementId}.gutenverse-image-box .inner-container .border-bottom .animated`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         },
@@ -146,10 +146,18 @@ export const panelBody = props => {
                     step: 0.1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} .border-bottom, .${elementId} .border-bottom .animated `,
-                    render: value => handleUnitPoint(value, 'height')
+                    'type': 'unitPoint',
+                    'id': 'hoverBottomHeight',
+                    'responsive': true,
+                    'selector': `.${elementId}.gutenverse-image-box .border-bottom, .${elementId}.gutenverse-image-box .border-bottom .animated `,
+                    'properties': [
+                        {
+                            'name': 'height',
+                            'valueType': 'direct'
+                        }
+                    ]
                 }
             ]
         }

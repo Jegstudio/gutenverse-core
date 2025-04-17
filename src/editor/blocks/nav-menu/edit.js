@@ -1,8 +1,8 @@
 import { compose } from '@wordpress/compose';
 import { useEffect, useState } from '@wordpress/element';
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { useBlockProps } from '@wordpress/block-editor';
-import { PanelController } from 'gutenverse-core/controls';
+import { BlockPanelController } from 'gutenverse-core/controls';
 import { panelList } from './panels/panel-list';
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
@@ -10,21 +10,21 @@ import { useRef } from '@wordpress/element';
 import { RawHTML } from '@wordpress/element';
 import GutenverseNavMenu from '../../../frontend/blocks/nav-menu';
 import { NavSkeleton, classnames, NavSkeletonNormal } from 'gutenverse-core/components';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
 import { useAnimationEditor } from 'gutenverse-core/hooks';
 import { useDisplayEditor } from 'gutenverse-core/hooks';
 import { isOnEditor } from 'gutenverse-core/helper';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const NavMenuBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )((props) => {
     const {
         attributes,
-        setElementRef,
-        deviceType
+        deviceType,
+        clientId
     } = props;
 
     const {
@@ -157,20 +157,18 @@ const NavMenuBlock = compose(
             elementId,
             animationClass,
             displayClass,
-            deviceType.toLowerCase(),
+            deviceType?.toLowerCase(),
             `${breakpoint}-breakpoint`,
         ),
         ['data-item-indicator']: submenuItemIndicator
     });
 
-    useEffect(() => {
-        if (elementRef.current) {
-            setElementRef(elementRef.current);
-        }
-    }, [elementRef]);
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div {...blockProps}>
             {menuId ? !loading ? <RawHTML key="html">
                 {response}

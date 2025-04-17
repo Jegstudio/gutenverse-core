@@ -1,33 +1,34 @@
 import { compose } from '@wordpress/compose';
-
-import { withCustomStyle, withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
+import { withMouseMoveEffect, withPartialRender } from 'gutenverse-core/hoc';
 import { panelList } from './panels/panel-list';
 import { useInnerBlocksProps, useBlockProps } from '@wordpress/block-editor';
-import { useEffect, useRef } from '@wordpress/element';
-import { withCopyElementToolbar } from 'gutenverse-core/hoc';
+import { useRef, useState } from '@wordpress/element';
 import { useAnimationEditor, useDisplayEditor } from 'gutenverse-core/hooks';
 import { classnames } from 'gutenverse-core/components';
-import { PanelController } from 'gutenverse-core/controls';
-
+import { BlockPanelController } from 'gutenverse-core/controls';
+import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
+import getBlockStyle from './styles/block-style';
+import { CopyElementToolbar } from 'gutenverse-core/components';
 
 const SearchBlock = compose(
     withPartialRender,
-    withCustomStyle(panelList),
-    withCopyElementToolbar(),
     withMouseMoveEffect
 )(props => {
     const {
         attributes,
-        setElementRef,
+        clientId
     } = props;
     const {
+        closeIcon,
         showButton,
         inputPlaceholder,
         elementId,
     } = attributes;
     const animationClass = useAnimationEditor(attributes);
     const displayClass = useDisplayEditor(attributes);
-    const searchRef = useRef();
+    const elementRef = useRef();
+    const [inputValue, setInputValue] = useState('');
+    const closeIconRef = useRef();
     const blockProps = useBlockProps({
         className: classnames(
             'guten-element',
@@ -35,7 +36,7 @@ const SearchBlock = compose(
             animationClass,
             displayClass,
         ),
-        ref: searchRef
+        ref: elementRef
     });
     const innerBlockProps = useInnerBlocksProps(
         {className: classnames('guten-search-button-wrapper')},
@@ -62,27 +63,35 @@ const SearchBlock = compose(
             __experimentalAppenderTagName: 'div',
         }
     );
-    useEffect(() => {
-        if (searchRef.current) {
-            setElementRef(searchRef.current);
-        }
-    }, [searchRef]);
+
+    useGenerateElementId(clientId, elementId, elementRef);
+    useDynamicStyle(elementId, attributes, getBlockStyle, elementRef);
+
+    if (closeIconRef.current) {
+        closeIconRef.current.style.visibility = inputValue !== '' ? 'visible' : 'hidden';
+    }
 
     return <>
-        <PanelController panelList={panelList} {...props} />
+        <CopyElementToolbar {...props}/>
+        <BlockPanelController panelList={panelList} props={props} elementRef={elementRef} />
         <div  {...blockProps}>
-            <div
-                className="gutenverse-search-form"
-            >
+            <div className="gutenverse-search-form">
                 <div className="search-input-container">
-                    <input type="search"
+                    <input type="text"
                         placeholder={inputPlaceholder}
                         name="s"
                         className={classnames(
                             'gutenverse-search',
                             'gutenverse-search-input',
                         )}
+                        value={inputValue}
+                        onChange={(event) => {
+                            setInputValue(event.target.value);
+                        }}
                     />
+                    <div className="close-icon" ref={closeIconRef} onClick={() => setInputValue('')}>
+                        <i className={closeIcon}></i>
+                    </div>
                 </div>
                 {
                     showButton && <div className="gutenverse-search-button" {...innerBlockProps} />

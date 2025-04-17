@@ -2,8 +2,6 @@ import { __ } from '@wordpress/i18n';
 
 import { BorderControl, BorderResponsiveControl, BoxShadowControl, IconRadioControl, RangeControl, SizeControl } from 'gutenverse-core/controls';
 import { AlignCenter, AlignLeft, AlignRight } from 'react-feather';
-import { allowRenderBoxShadow, handleBorder, handleBorderResponsive, handleUnitPoint } from 'gutenverse-core/styling';
-import { handleBoxShadow } from 'gutenverse-core/styling';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 export const stylePanel = (props) => {
@@ -36,12 +34,6 @@ export const stylePanel = (props) => {
                     icon: <AlignRight />,
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId}`,
-                    render: value => `justify-content: ${value};`
-                },
-            ]
         },
         {
             id: 'size',
@@ -68,11 +60,19 @@ export const stylePanel = (props) => {
                     step: 1
                 },
             },
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    render: value => handleUnitPoint(value, 'max-width')
-                },
+                    'type': 'unitPoint',
+                    'id': 'size',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'max-width',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -83,11 +83,25 @@ export const stylePanel = (props) => {
             min: 1,
             max: 100,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    render: value => `opacity: calc(${value}/100);`
-                },
+                    'type': 'plain',
+                    'id': 'opacity',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'opacity',
+                            'valueType': 'pattern',
+                            'pattern': 'calc({value}/100)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -99,11 +113,25 @@ export const stylePanel = (props) => {
             min: 0,
             max: 360,
             step: 1,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    render: value => `transform: rotate(${value}deg);`
-                },
+                    'type': 'plain',
+                    'id': 'rotate',
+                    'responsive': true,
+                    'properties': [
+                        {
+                            'name': 'transform',
+                            'valueType': 'pattern',
+                            'pattern': 'rotate({value}deg)',
+                            'patternValues': {
+                                'value': {
+                                    'type': 'direct'
+                                }
+                            }
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
+                }
             ],
         },
         {
@@ -111,13 +139,13 @@ export const stylePanel = (props) => {
             show: device === 'Desktop',
             label: __('Border', 'gutenverse'),
             component: BorderControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    hasChild: true,
-                    render: value => handleBorder(value)
+                    'type': 'border',
+                    'id': 'imageBorder',
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         },
         {
             id: 'imageBorderResponsive',
@@ -125,25 +153,31 @@ export const stylePanel = (props) => {
             label: __('Border', 'gutenverse'),
             component: BorderResponsiveControl,
             allowDeviceControl: true,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    allowRender: () => device !== 'Desktop',
-                    render: value => handleBorderResponsive(value)
+                    'type': 'borderResponsive',
+                    'id': 'imageBorderResponsive',
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         },
         {
             id: 'imageBoxShadow',
             label: __('Box Shadow', 'gutenverse'),
             component: BoxShadowControl,
-            style: [
+            liveStyle: [
                 {
-                    selector: `.${elementId} img`,
-                    allowRender: (value) => allowRenderBoxShadow(value),
-                    render: value => handleBoxShadow(value)
+                    'type': 'boxShadow',
+                    'id': 'imageBoxShadow',
+                    'properties': [
+                        {
+                            'name': 'box-shadow',
+                            'valueType': 'direct'
+                        }
+                    ],
+                    'selector': `.${elementId} img`,
                 }
-            ]
+            ],
         }
     ];
 };

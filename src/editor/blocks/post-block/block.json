@@ -645,6 +645,14 @@
 			"type": "object",
 			"copyStyle": true
 		},
+		"paginationDisabledBorder": {
+			"type": "object",
+			"copyStyle": true
+		},
+		"paginationDisabledShadow":{
+			"type": "object",
+			"copyStyle": true
+		},
 		"background": {
 			"type": "object",
 			"default": {},

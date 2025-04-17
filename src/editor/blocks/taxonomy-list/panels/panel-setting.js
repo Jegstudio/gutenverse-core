@@ -1,16 +1,11 @@
 
 import { __ } from '@wordpress/i18n';
-import { CheckboxControl, ColorControl, IconControl, RangeControl, SelectControl, SelectSearchControl, SizeControl, SwitchControl, TextControl } from 'gutenverse-core/controls';
+import { CheckboxControl, RangeControl, SelectControl, SelectSearchControl } from 'gutenverse-core/controls';
 import { addQueryArgs } from '@wordpress/url';
 import apiFetch from '@wordpress/api-fetch';
 import { isOnEditor } from 'gutenverse-core/helper';
-import { handleColor, handleUnitPoint } from 'gutenverse-core/styling';
 
-export const settingPanel = (props) => {
-    const {
-        elementId,
-        layout
-    } = props;
+export const settingPanel = () => {
     const searchCategory =  isOnEditor() ? input => new Promise(resolve => {
         apiFetch({
             path: addQueryArgs('/wp/v2/categories', {
@@ -130,12 +125,6 @@ export const settingPanel = (props) => {
                     value: 'row'
                 },
             ],
-            style: [
-                {
-                    selector: `.${elementId} .taxonomy-list-wrapper`,
-                    render: value => `flex-direction: ${value};`
-                },
-            ]
         },
         {
             id: 'showIcon',
