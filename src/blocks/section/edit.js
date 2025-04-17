@@ -228,18 +228,6 @@ const SectionBlock = compose(
     });
 
     useEffect(() => {
-        if (isSelected) {
-            const rootId = getBlockRootClientId(clientId);
-            const rootBlock = getBlock(rootId);
-            const isChild = rootBlock?.name === 'gutenverse/column' || rootBlock?.name === 'gutenverse/form-builder';
-
-            if (attributes.isChild !== isChild) {
-                setAttributes({ isChild });
-            }
-        }
-    }, [isSelected]);
-
-    useEffect(() => {
         if (elementRef) {
             setBlockRef(elementRef);
         }
