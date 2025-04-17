@@ -24,7 +24,7 @@ export const contentStylePanel = (props) => {
                         {
                             'name': 'flex',
                             'valueType': 'pattern',
-                            'pattern': '0 0 calc( 100% / {value} ); max-width: calc( (100% / {value}) - 1%)',
+                            'pattern': '0 0 calc( 100% / {value} ); max-width: calc( (100% / {value}))',
                             'patternValues': {
                                 'value': {
                                     'type': 'direct'

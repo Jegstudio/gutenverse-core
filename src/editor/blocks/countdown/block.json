@@ -11,7 +11,8 @@
 		},
 		"column" :{
 			"type": "object",
-			"copyStyle": true
+			"copyStyle": true,
+			"default": {}
 		},
 		"rowGap" :{
 			"type": "object",

@@ -1,5 +1,6 @@
 
 import edit from './edit';
+import saveV1 from './deprecated/v1/save';
 import save from './save';
 import saveV1 from './deprecated/v1/save';
 import metadata from './block.json';
@@ -17,9 +18,9 @@ export const settings = {
     save,
     deprecated: [
         {
-            attributes,
             support,
-            save: saveV1,
-        }
+            attributes,
+            save: saveV1
+        },
     ]
 };
