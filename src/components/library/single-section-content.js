@@ -101,7 +101,7 @@ const SingleSectionContent = (props) => {
                                 {backText}
                             </span>
                         </div>
-                        <div className="single-previewer-footer">
+                        <div className="single-previewer-control">
                             {supportGlobalImport && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
