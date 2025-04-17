@@ -420,12 +420,20 @@ class Icon_Box extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['iconBackground'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id} .icon-box.icon-box-header .icon.style-gradient", $this->attrs['iconBackground'] );
+		if ( isset( $this->attrs['iconGradient'] ) ) {
+			$this->custom_handle_background( ".{$this->element_id} .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradient'] );
 		}
 
-		if ( isset( $this->attrs['iconBackgroundHover'] ) ) {
-			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.style-gradient", $this->attrs['iconBackgroundHover'] );
+		if ( isset( $this->attrs['iconGradientHover'] ) ) {
+			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon .icon-style-gradient", $this->attrs['iconGradientHover'] );
+		}
+
+		if ( isset( $this->attrs['iconBgGradient'] ) ) {
+			$this->custom_handle_background( ".{$this->element_id} .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradient'] );
+		}
+
+		if ( isset( $this->attrs['iconBgGradientHover'] ) ) {
+			$this->custom_handle_background( ".{$this->element_id}:hover .icon-box.icon-box-header .icon.bg-style-gradient", $this->attrs['iconBgGradientHover'] );
 		}
 
 		if ( isset( $this->attrs['iconBorder'] ) && 'icon' === $this->attrs['iconType'] ) {

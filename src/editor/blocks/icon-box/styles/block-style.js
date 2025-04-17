@@ -438,9 +438,9 @@ const getBlockStyle = (elementId, attributes) => {
         ]
     });
 
-    isNotEmpty(attributes['iconBackground']) && data.push({
+    isNotEmpty(attributes['iconGradient']) && data.push({
         'type': 'plain',
-        'id': 'iconBackground',
+        'id': 'iconGradient',
         'properties': [
             {
                 'name': 'background-image',
@@ -448,12 +448,12 @@ const getBlockStyle = (elementId, attributes) => {
                 'functionName': 'customHandleBackground'
             }
         ],
-        'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon.style-gradient`,
+        'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon .icon-style-gradient`,
     });
 
-    isNotEmpty(attributes['iconBackgroundHover']) && data.push({
+    isNotEmpty(attributes['iconGradientHover']) && data.push({
         'type': 'plain',
-        'id': 'iconBackgroundHover',
+        'id': 'iconGradientHover',
         'properties': [
             {
                 'name': 'background-image',
@@ -461,7 +461,34 @@ const getBlockStyle = (elementId, attributes) => {
                 'functionName': 'customHandleBackground'
             }
         ],
-        'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon.style-gradient`,
+        'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon .icon-style-gradient`,
+    });
+
+    //
+    isNotEmpty(attributes['iconBgGradient']) && data.push({
+        'type': 'plain',
+        'id': 'iconBgGradient',
+        'properties': [
+            {
+                'name': 'background-image',
+                'valueType': 'function',
+                'functionName': 'customHandleBackground'
+            }
+        ],
+        'selector': `.guten-icon-box.${elementId} .icon-box.icon-box-header .icon.bg-style-gradient`,
+    });
+
+    isNotEmpty(attributes['iconBgGradientHover']) && data.push({
+        'type': 'plain',
+        'id': 'iconBgGradientHover',
+        'properties': [
+            {
+                'name': 'background-image',
+                'valueType': 'function',
+                'functionName': 'customHandleBackground'
+            }
+        ],
+        'selector': `.guten-icon-box.${elementId}:hover .icon-box.icon-box-header .icon.bg-style-gradient`,
     });
 
     isNotEmpty(attributes['iconBorder']) && data.push({

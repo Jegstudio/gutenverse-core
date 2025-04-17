@@ -8,13 +8,13 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['column']) && data.push({
         'type': 'plain',
         'id': 'column',
-        'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .time-container`,
+        'selector': `.editor-styles-wrapper .${elementId}.guten-countdown .guten-countdown-wrapper .item-flex`,
         'responsive': true,
         'properties': [
             {
                 'name': 'flex',
                 'valueType': 'pattern',
-                'pattern': '0 0 calc( 100% / {value} ); max-width: calc( (100% / {value}) - 1%)',
+                'pattern': '0 0 calc( 100% / {value} ); max-width: calc( (100% / {value}))',
                 'patternValues': {
                     'value': {
                         'type': 'direct'

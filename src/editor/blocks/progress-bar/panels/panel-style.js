@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { BoxShadowControl, ColorControl, DimensionControl, GradientControl, RangeControl, SelectControl } from 'gutenverse-core/controls';
+import { BoxShadowControl, ColorControl, DimensionControl, RangeControl, SelectControl, GradientWithAngleControl } from 'gutenverse-core/controls';
 
 export const stylePanel = ({ elementId, colorMode }) => {
     return [
@@ -22,7 +22,7 @@ export const stylePanel = ({ elementId, colorMode }) => {
             id: 'barGradient',
             show: colorMode === 'gradient',
             label: __('Bar Gradient', 'gutenverse'),
-            component: GradientControl,
+            component: GradientWithAngleControl,
             liveStyle: [
                 {
                     'type': 'plain',
@@ -31,10 +31,7 @@ export const stylePanel = ({ elementId, colorMode }) => {
                         {
                             'name': 'background',
                             'valueType': 'function',
-                            'functionName': 'handleGradient',
-                            'functionProps': {
-                                'angle': '90'
-                            }
+                            'functionName': 'customHandleBackground',
                         }
                     ],
                     'selector': `.${elementId} .progress-group .progress-skill-bar .number-percentage, .${elementId} .progress-group .number-percentage`
@@ -45,7 +42,7 @@ export const stylePanel = ({ elementId, colorMode }) => {
             id: 'trackGradient',
             show: colorMode === 'gradient',
             label: __('Track Gradient', 'gutenverse'),
-            component: GradientControl,
+            component: GradientWithAngleControl,
             liveStyle: [
                 {
                     'type': 'plain',
@@ -54,10 +51,7 @@ export const stylePanel = ({ elementId, colorMode }) => {
                         {
                             'name': 'background',
                             'valueType': 'function',
-                            'functionName': 'handleGradient',
-                            'functionProps': {
-                                'angle': '90'
-                            }
+                            'functionName': 'customHandleBackground',
                         }
                     ],
                     'selector': `.${elementId} .progress-group .progress-skill-bar .skill-bar .skill-track`
