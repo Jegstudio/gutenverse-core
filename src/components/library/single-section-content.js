@@ -1,5 +1,5 @@
 import { __, } from '@wordpress/i18n';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
@@ -15,14 +15,11 @@ import { hexToRgb } from 'gutenverse-core/editor-helper';
 
 const SingleSectionContent = (props) => {
     const {
-        pluginData,
         setSingleId,
         backText,
         closeImporter,
         setSingleData,
         singleData,
-        setPluginInstallMode,
-        setCurrentItem,
         setExporting,
         setSelectItem,
         setLibraryError
@@ -34,6 +31,8 @@ const SingleSectionContent = (props) => {
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
+    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+    // const supportGlobalImport = false; //untuk testing
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -103,7 +102,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-footer">
-                            <div className="previewer-options-container">
+                            {supportGlobalImport && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -125,7 +124,7 @@ const SingleSectionContent = (props) => {
                                     />
                                     Use Current Global Style
                                 </label>
-                            </div>
+                            </div>}
                             <ImportSectionButton
                                 data={singleData}
                                 closeImporter={closeImporter}
@@ -140,6 +139,7 @@ const SingleSectionContent = (props) => {
                                 extractTypographyBlocks={extractTypographyBlocks}
                                 unavailableGlobalFonts={unavailableGlobalFonts}
                                 unavailableGlobalColors={unavailableGlobalColors}
+                                supportGlobalImport={supportGlobalImport}
                             />
                         </div>
                     </div>
