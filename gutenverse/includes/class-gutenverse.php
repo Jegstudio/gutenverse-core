@@ -186,19 +186,13 @@ class Gutenverse {
 	/**
 	 * Plugin Update Notice.
 	 *
-	 * @param string $plugin String Update Notice.
+	 * @param string $plugin_name String Plugin Name.
+	 * @param string $notice_header String Header For Notice.
+	 * @param string $notice_description String Description For Notice.
+	 * @param string $notice_action String Action Text For Notice.
+	 * @param string $notice_action_2 String Action Text For Notice.
 	 */
-	public function plugin_update_notice( $plugin ) {
-		$plugin_name = '';
-
-		switch ( $plugin ) {
-			case 'gutenverse-form/gutenverse-form.php':
-				$plugin_name = 'Gutenverse Form';
-				break;
-			case 'gutenverse-news/gutenverse-news.php':
-				$plugin_name = 'Gutenverse News';
-				break;
-		}
+	public function plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 ) {
 
 		?>
 		<style>
@@ -217,8 +211,7 @@ class Gutenverse {
 					<h2>
 						<?php
 						printf(
-							// translators: %s is plugin name.
-							esc_html__( 'Update %s Plugin!', 'gutenverse' ),
+							esc_html( $notice_header ),
 							esc_html( $plugin_name )
 						);
 						?>
@@ -226,8 +219,7 @@ class Gutenverse {
 					<p>
 						<?php
 						printf(
-							// translators: %s is plugin name.
-							esc_html__( 'We notice that you are using old version of %s plugin and will cause gutenverse plugin crashed. ', 'gutenverse' ),
+							esc_html( $notice_description ),
 							esc_html( $plugin_name )
 						);
 						?>
@@ -236,15 +228,23 @@ class Gutenverse {
 						<?php
 						printf(
 							'%s <strong>%s %s</strong> %s',
-							esc_html__( 'We currently disabled gutenverse plugin.', 'gutenverse' ),
+							esc_html( $notice_action ),
 							esc_html__( 'Please update', 'gutenverse' ),
 							esc_html( $plugin_name ),
-							esc_html__( 'to prevent your site from crashed.', 'gutenverse' )
+							esc_html( $notice_action_2 )
 						);
 						?>
 					</p>
 					<div class="gutenverse-upgrade-action">
-						<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>"><?php esc_html_e( 'Update Gutenverse Form Plugin', 'gutenverse' ); ?></a>						
+					<a class='button-primary upgrade-themes' href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">
+							<?php
+								printf(
+									// translators: %s is plugin name.
+									esc_html__( 'Update %s Plugin', 'gutenverse' ),
+									esc_html( $plugin_name )
+								);
+							?>
+						</a>						
 					</div>
 				</div>
 			</div>
@@ -272,6 +272,26 @@ class Gutenverse {
 	}
 
 	/**
+	 * Check weather a plugin is updated up to a version.
+	 *
+	 * @param string $plugin plugin name.
+	 * @param string $version_to_compare version to check if current plugin is equal to or higher.
+	 *
+	 * @return bool
+	 */
+	public function is_plugin_updated( $plugin, $version_to_compare ) {
+		$is_updated = false;
+		$plugins    = get_plugins();
+
+		if ( isset( $plugins[ $plugin ] ) ) {
+			$current_plugin_version = $plugins[ $plugin ]['Version'];
+			$is_updated             = version_compare( $current_plugin_version, $version_to_compare, '>=' );
+		}
+
+		return $is_updated;
+	}
+
+	/**
 	 * Register Framework.
 	 */
 	public function register_framework() {
@@ -286,22 +306,64 @@ class Gutenverse {
 		$checks  = array(
 			'gutenverse-form/gutenverse-form.php',
 			'gutenverse-news/gutenverse-news.php',
+			'gutenverse-pro/gutenverse-pro.php',
 		);
 
 		$instance = $this;
 
-		foreach ( $checks as $plugin ) {
-			if ( isset( $plugins[ $plugin ] ) ) {
-				$form = $plugins[ $plugin ];
+		if ( ! $instance->is_plugin_updated( 'gutenverse-form/gutenverse-form.php', '2.0.0' ) ) {
+			foreach ( $checks as $plugin ) {
+				if ( isset( $plugins[ $plugin ] ) ) {
+					$form = $plugins[ $plugin ];
 
-				if ( version_compare( $form['Version'], '1.0.0', '<' ) && is_plugin_active( $plugin ) ) {
-					add_action(
-						'admin_notices',
-						function () use ( $instance, $plugin ) {
-							$instance->plugin_update_notice( $plugin );
-						}
-					);
-					return false;
+					$plugin_name      = '';
+					$required_version = '1.0.0';
+					switch ( $plugin ) {
+						case 'gutenverse-form/gutenverse-form.php':
+							$required_version = '2.0.0';
+							$plugin_name      = 'Gutenverse Form';
+
+							break;
+						case 'gutenverse-news/gutenverse-news.php':
+							$required_version = '1.0.0';
+							$plugin_name      = 'Gutenverse News';
+							break;
+						case 'gutenverse-pro/gutenverse-pro.php':
+							$required_version = '2.0.0';
+							$plugin_name      = 'Gutenverse Pro';
+							break;
+					}
+
+					if ( version_compare( $form['Version'], '1.0.0', '<' ) && is_plugin_active( $plugin ) ) {
+						add_action(
+							'admin_notices',
+							function () use ( $instance, $plugin_name ) {
+								// translators: %s is plugin name.
+								$notice_header = 'Update %s Plugin!';
+								// translators: %s is plugin name.
+								$notice_description = 'We notice that you are using old version of %s plugin and will cause Gutenverse plugin crashed. ';
+								$notice_action      = 'We currently disabled Gutenverse plugin.';
+								$notice_action_2    = 'to prevent your site from crashing.';
+								$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
+							}
+						);
+						return false;
+					}
+
+					if ( version_compare( $form['Version'], $required_version, '<' ) && is_plugin_active( $plugin ) ) {
+						add_action(
+							'admin_notices',
+							function () use ( $instance, $plugin_name, $required_version ) {
+								// translators: %s is plugin name.
+								$notice_header = 'Update %s Plugin!';
+								// translators: %s is plugin name.
+								$notice_description = "We notice that you haven't update %s plugin to version {$required_version} or above but, currently using Gutenverse version 3.0.0 or above.";
+								$notice_action      = 'You might see issue on the Editor. ';
+								$notice_action_2    = 'to ensure smooth editing experience!';
+								$instance->plugin_update_notice( $plugin_name, $notice_header, $notice_description, $notice_action, $notice_action_2 );
+							}
+						);
+					}
 				}
 			}
 		}
@@ -386,7 +448,7 @@ class Gutenverse {
 			$active_plugins_multisite = array_keys( $multisite_plugins );
 			$active_plugins           = array_merge( $active_plugins, $active_plugins_multisite );
 		}
-		if ( ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins ) ) {
+		if ( ! in_array( 'gutenverse-form/gutenverse-form.php', $active_plugins, true ) ) {
 			$this->form_fallback = new Form_Fallback_Init();
 		}
 	}
