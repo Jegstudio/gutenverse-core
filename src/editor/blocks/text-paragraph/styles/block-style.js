@@ -58,7 +58,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['typography']) && data.push({
         'type': 'typography',
         'id': 'typography',
-        'selector': `${elementId}`,
+        'selector': `.${elementId}`,
     });
 
     isNotEmpty(attributes['linkColor']) && data.push({
