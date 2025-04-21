@@ -137,7 +137,7 @@ const save = compose(
         </div>
     );
     return (
-        <div {...useBlockProps.save({ className, ...advanceAnimationData })} >
+        <div className={className} {...advanceAnimationData} >
             {hasInnerBlocks ? <ContentBody /> : <WrapAHref {...props}>
                 <ContentBody />
             </WrapAHref>}
