@@ -19,6 +19,7 @@ import { useDynamicStyle, useGenerateElementId } from 'gutenverse-core/styling';
 import getBlockStyle from './styles/block-style';
 import { CopyElementToolbar } from 'gutenverse-core/components';
 
+
 const Placeholder = () => {
     return <div className="post-content">
         <p>{__('This will be your post\'s content block, it will display all the blocks in any single post or page.', 'gutenverse')}</p>
@@ -90,7 +91,10 @@ const ReadOnlyContent = ({
             <Warning>{__('This content is password protected.')}</Warning>
         </div>
     ) : (
-        <Placeholder />
+        <div
+            {...blockProps}
+            dangerouslySetInnerHTML={{ __html: content?.rendered }}
+        ></div>
     );
 };
 
@@ -223,7 +227,7 @@ const PostContentBlock = compose(
                         layoutClassNames={layoutClassNames}
                     />
                 ) : (
-                    <Placeholder />
+                    <Placeholder layoutClassNames={layoutClassNames} />
                 )}
             </RecursionProvider>
         </div>
