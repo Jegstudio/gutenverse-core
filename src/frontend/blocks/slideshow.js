@@ -21,8 +21,10 @@ class GutenverseSlideshow extends Default {
         const {slideImage = {}, infiniteLoop, displayDuration} = background;
 
         if (slideImage?.length < 1 || undefined === slideImage?.length) return;
-        const transition = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000 ;
-        const transitionDuration = (transition < displayDuration * 1000) ? transition : (displayDuration * 1000) - 100;
+
+        const duration = (background.displayDuration < 0.1 || undefined === background.displayDuration) ? 1000 : background.displayDuration * 1000;
+        const transition = (background.duration < 0.1 || undefined === background.duration) ? 1000 : background.duration * 1000;
+        const transitionDuration = (transition < duration) ? transition : duration - 100;
         const images = slideImage.map((image) => image?.image?.image);
         const elementId = `guten-${dataId}`;
 
@@ -75,11 +77,21 @@ class GutenverseSlideshow extends Default {
     }
 
     generateStyle(background, elementId) {
-        const {duration, backgroundPosition, transition, backgroundSize, backgroundRepeat, kenBurns, direction, displayDuration} = background;
+        const {
+            duration,
+            backgroundPosition,
+            transition,
+            backgroundSize,
+            backgroundRepeat,
+            kenBurns,
+            direction,
+            displayDuration
+        } = background;
+
         const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
         const effectDirection = 'directionOut' === direction ? 'ken-burns-toggle-out' : 'ken-burns-toggle-in';
-        const transitions = (duration < 0.1 || undefined === duration) ? 1 : duration;
-        const transitionDuration = (transitions >= displayDuration) ? transitions : displayDuration - 0.1;
+        const transitions = (duration < 0.1 || undefined === duration) ? 1 : parseFloat(duration);
+        const transitionDuration = (parseFloat(transitions) < parseFloat(displayDuration)) ? parseFloat(transitions) : displayDuration - 0.1;
         let styles = '';
 
         styles += `
