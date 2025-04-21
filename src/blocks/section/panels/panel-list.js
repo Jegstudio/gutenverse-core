@@ -26,13 +26,30 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', '--gctd--'),
+            title: __('Sticky', '--gctd--'),
             initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'section-advance',
-            }),
-            tabRole: TabSetting
+            panelArray: stickyPanel,
+            pro: true,
+        },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Animated', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true,
         },
         {
             title: __('Shape Divider', '--gctd--'),
@@ -41,15 +58,15 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
+            title: __('Shape Divider Animated', '--gctd--'),
+            initialOpen: false,
+            panelArray: dividerPanelAnimated,
+            pro: true,
+        },
+        {
             title: __('Display', '--gctd--'),
             initialOpen: false,
             panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Positioning', '--gctd--'),
-            initialOpen: false,
-            panelArray: positioningPanel,
             tabRole: TabSetting
         },
         {
@@ -61,7 +78,51 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-
+        {
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Mouse Move Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'section'
+            }),
+            pro: true,
+        },
+        {
+            title: __('Positioning', '--gctd--'),
+            initialOpen: false,
+            panelArray: positioningPanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'section-advance',
+            }),
+            tabRole: TabSetting
+        },
+        {
+            title: __('Condition', 'gutenverse'),
+            panelArray: conditionPanel,
+            initialOpen: false,
+            pro: true
+        },
         // Styles
         {
             title: __('Background', '--gctd--'),
@@ -118,71 +179,6 @@ export const panelList = () => {
                 styleId: 'section-typography'
             }),
             tabRole: TabStyle
-        },
-
-        // Pro
-
-        {
-            title: __('Sticky', '--gctd--'),
-            initialOpen: false,
-            panelArray: stickyPanel,
-            pro: true,
-        },
-        {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Background Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Background Animated', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundAnimatedPanel,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', '--gctd--'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'section'
-            }),
-            pro: true,
-        },
-        // {
-        //     title: __('Shape Divider Animated', '--gctd--'),
-        //     initialOpen: false,
-        //     panelArray: dividerPanelAnimated,
-        //     pro: true,
-        // },
-        {
-            title: __('Transform', '--gctd--'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Mouse Move Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Condition', 'gutenverse'),
-            panelArray: conditionPanel,
-            initialOpen: false,
-            pro: true
         },
     ];
 };

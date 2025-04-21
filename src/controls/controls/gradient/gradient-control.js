@@ -73,7 +73,6 @@ const GradientControl = (props) => {
     } = props;
 
     const wrapperRef = useRef();
-    const isFirstRender = useRef(true);
     const [controlOpen, setControlOpen] = useState(false);
     const [location, setLocation] = useState(0);
     const [activeIndex, setActiveIndex] = useState(-1);
