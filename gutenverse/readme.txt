@@ -330,6 +330,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * fix portfolio gallery column
 * fix custom font
 * fix progress bar error when in gradient mode
+* fix post author avatar
 
 
 ##### Bug Fixes
