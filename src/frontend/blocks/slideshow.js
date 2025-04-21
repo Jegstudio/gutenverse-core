@@ -30,11 +30,21 @@ class GutenverseSlideshow extends Default {
 
         const slideshowImage = document.querySelectorAll(`.guten-${dataId}-slideshow-image`);
         const slideshowContainer = document.querySelectorAll(`.guten-${dataId}-child-slideshow`);
-        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, displayDuration * 1000, infiniteLoop, images, transitionDuration);
+        slideshowImage.length > 0 && this.toggleClassWithDuration(slideshowImage, slideshowContainer, duration, infiniteLoop, images, transitionDuration);
         this.generateStyle(background, elementId);
     }
 
-    toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, images, transition, prevClass = 'previous',  currentClass = 'current', parentClass = 'hasToggledClass') {
+    toggleClassWithDuration(
+        elements,
+        slideshowContainer,
+        duration,
+        infiniteLoop,
+        images,
+        transition,
+        prevClass = 'previous',
+        currentClass = 'current',
+        parentClass = 'hasToggledClass'
+    ) {
         let currentIndex = 1;
         let prevIndex = 0;
 
@@ -85,7 +95,7 @@ class GutenverseSlideshow extends Default {
             backgroundRepeat,
             kenBurns,
             direction,
-            displayDuration
+            displayDuration = 1
         } = background;
 
         const bgPosition = backgroundPosition && 'default' !== backgroundPosition ? backgroundPosition.replace(/-/g, ' ') : 'center';
@@ -95,79 +105,79 @@ class GutenverseSlideshow extends Default {
         let styles = '';
 
         styles += `
-            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
-                background-size: ${backgroundSize};
-                background-position: ${bgPosition};
-                background-repeat: ${backgroundRepeat};
-            }
-                
-            ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
-                animation: ${effectDirection} 20s linear forwards;
-            }` : ''}
-        `;
+        .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
+            background-size: ${backgroundSize};
+            background-position: ${bgPosition};
+            background-repeat: ${backgroundRepeat};
+        }
+            
+        ${kenBurns ? `.bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.hasToggledClass .${elementId}-slideshow-image {
+            animation: ${effectDirection} 20s linear forwards;
+        }` : ''}
+    `;
 
         switch (transition) {
             case 'slideRight': {
                 styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    z-index: 1;
-                    ${`animation: previous-slideRight ${transitionDuration}s ease-in-out forwards;`}
-                }
-                
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                    z-index: 2;
-                    ${`animation: current-slideRight ${transitionDuration}s ease-in-out forwards;`}
-                }`;
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                z-index: 1;
+                ${`animation: previous-slideRight ${transitionDuration}s ease-in-out forwards;`}
+            }
+            
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                z-index: 2;
+                ${`animation: current-slideRight ${transitionDuration}s ease-in-out forwards;`}
+            }`;
                 break;
             }
             case 'slideLeft': {
                 styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    z-index: 1;
-                    left: unset;
-                    ${`animation: previous-slideLeft ${transitionDuration}s ease-in-out forwards;`}
-                }
-                
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                    z-index: 2;
-                    left: unset;
-                    ${`animation: current-slideLeft ${transitionDuration}s ease-in-out forwards;`}
-                }`;
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                z-index: 1;
+                left: unset;
+                ${`animation: previous-slideLeft ${transitionDuration}s ease-in-out forwards;`}
+            }
+            
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                z-index: 2;
+                left: unset;
+                ${`animation: current-slideLeft ${transitionDuration}s ease-in-out forwards;`}
+            }`;
                 break;
             }
             case 'slideTop': {
                 styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    z-index: 1;
-                    top: unset;
-                    ${`animation: previous-slideTop ${transitionDuration}s ease-in-out forwards;`}
-                }
-                
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                    z-index: 2;
-                    top: unset;
-                    ${`animation: current-slideTop ${transitionDuration}s ease-in-out forwards;`}
-                }`;
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                z-index: 1;
+                top: unset;
+                ${`animation: previous-slideTop ${transitionDuration}s ease-in-out forwards;`}
+            }
+            
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                z-index: 2;
+                top: unset;
+                ${`animation: current-slideTop ${transitionDuration}s ease-in-out forwards;`}
+            }`;
                 break;
             }
             case 'slideDown': {
                 styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    z-index: 1;
-                    ${`animation: previous-slideBottom ${transitionDuration}s ease-in-out forwards;`}
-                }
-                
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
-                    z-index: 2;
-                    ${`animation: current-slideBottom ${transitionDuration}s ease-in-out forwards;`}
-                }`;
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                z-index: 1;
+                ${`animation: previous-slideBottom ${transitionDuration}s ease-in-out forwards;`}
+            }
+            
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.current {
+                z-index: 2;
+                ${`animation: current-slideBottom ${transitionDuration}s ease-in-out forwards;`}
+            }`;
                 break;
             }
             default: {
                 styles += `
-                .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
-                    ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
-                }`;
+            .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow.previous {
+                ${`animation: fade ${transitionDuration}s ease-in-out forwards;`}
+            }`;
                 break;
             }
         }
