@@ -305,6 +305,7 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 * add option in template library to import with global styles (for supported themes only)
 * add new one for all setting in countdown block
 * add button to easily show/hide template on posts/pages
+* add background gradient to social icon
 
 ##### Bug Fixes
 * fix library, allow redirect import from template mode.
