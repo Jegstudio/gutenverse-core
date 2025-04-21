@@ -43,6 +43,7 @@ const GradientControl = (props) => {
     const [controlOpen, setControlOpen] = useState(false);
     const [location, setLocation] = useState(0);
     const [activeIndex, setActiveIndex] = useState(-1);
+    const isFirstRender = useRef(true);
 
     const onChange = value => {
         onValueChange(value);
@@ -73,10 +74,15 @@ const GradientControl = (props) => {
     }, [value]);
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         const newValue = [...value];
-        newValue[activeIndex] = {...newValue[activeIndex], offset: `${location/100}`};
+        newValue[activeIndex] = { ...newValue[activeIndex], offset: `${location / 100}` };
         onChange(newValue);
-    },[location, activeIndex]);
+    }, [location, activeIndex]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -112,7 +118,7 @@ const GradientControl = (props) => {
                     stopRemovalDrop: 25
                 }}
             >
-                {controlOpen && <ColorPicker/>}
+                {controlOpen && <ColorPicker />}
             </GradientPicker>
             {controlOpen && useLocation && <RangeControl
                 label={__('Location', '--gctd--')}
