@@ -181,7 +181,13 @@ class Gutenverse {
 	 * Set Activation Transient
 	 */
 	public function set_activation_transient() {
-		set_transient( 'gutenverse_redirect', 1, 30 );
+		$check_url = explode(
+			'/',
+			$_SERVER['REQUEST_URI']
+		);
+		if ( 'wp-json' !== $check_url[1] ) {
+			set_transient( 'gutenverse_redirect', 1, 30 );
+		}
 	}
 	/**
 	 * Plugin Update Notice.
