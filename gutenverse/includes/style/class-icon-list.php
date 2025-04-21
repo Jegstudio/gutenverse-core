@@ -352,7 +352,7 @@ class Icon_List extends Style_Abstract {
 				if ( isset( $this->attrs['widthDivider'] ) ) {
 					$this->inject_style(
 						array(
-							'selector'       => ".{$this->element_id}:not(.inline-icon-list) .guten-icon-list-item:not(:first-child) .list-divider, .{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:first-child) .list-divider",
+							'selector'       => ".{$this->element_id} .list-wrapper:not(.inline-icon-list) .guten-icon-list-item:not(:first-child) .list-divider",
 							'property'       => function ( $value ) {
 								return $this->handle_unit_point( $value, 'width' );
 							},
