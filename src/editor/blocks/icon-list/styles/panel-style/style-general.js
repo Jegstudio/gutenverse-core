@@ -97,7 +97,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
-        'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
+        'selector': `.${elementId}.guten-icon-list > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
         'properties': [
             {
                 'name': 'width',
@@ -109,7 +109,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
     isNotEmpty(attributes['widthDivider']) && data.push({
         'type': 'unitPoint',
         'id': 'widthDivider',
-        'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
+        'selector': `.${elementId}.guten-icon-list > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
         'properties': [
             {
                 'name': 'height',
@@ -257,7 +257,7 @@ const panelGeneralStyle = (elementId, attributes, data) => {
                     'valueType': 'direct'
                 }
             ],
-            'selector': `.${elementId} ul .guten-icon-list-item a`,
+            'selector': `.${elementId} ul.list-wrapper .guten-icon-list-item a`,
         });
     } else {
         isNotEmpty(attributes['verticalAlign']) && data.push({
