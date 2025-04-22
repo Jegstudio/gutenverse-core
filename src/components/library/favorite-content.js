@@ -231,6 +231,7 @@ const FavoriteContent = props => {
                         setPluginInstallMode={setPluginInstallMode}
                         content={content}
                         setSlug={setSlug}
+                        closeImporter={props.closeImporter}
                     />}
                     {'section' === layoutContentData.library && <FavoriteSectionContent
                         current={content.current}
