@@ -44,17 +44,20 @@ class Upgrader {
 	 */
 	public function upgrade_like() {
 		if ( ! apply_filters( 'gutenverse_server_mode', false ) ) {
-			$flag = Meta_Option::instance()->get_option( 'converted-library', false );
+			$flag     = Meta_Option::instance()->get_option( 'converted-library', false );
+			$layouts  = Meta_Option::instance()->get_option( 'liked_layout' );
+			$sections = Meta_Option::instance()->get_option( 'liked_section' );
 
-			if ( ! $flag ) {
+			if ( ! $flag && count( $layouts ) > 0 && count( $sections ) > 0 ) {
 				// Force to update library.
 				Api::instance()->update_library_data();
 				$data = Api::instance()->library_data();
 
 				$this->upgrade_like_layout( $data['theme-data'] );
 				$this->upgrade_like_section( $data['section-data'] );
-				Meta_Option::instance()->set_option( 'converted-library', true );
 			}
+
+			Meta_Option::instance()->set_option( 'converted-library', true );
 		}
 	}
 
@@ -67,8 +70,7 @@ class Upgrader {
 		$layouts = Meta_Option::instance()->get_option( 'liked_layout' );
 
 		/** Replace Layouts */
-		$liked_layouts  = array();
-		$liked_sections = array();
+		$liked_layouts = array();
 		foreach ( $layouts as $layout ) {
 			foreach ( $data as $item ) {
 				if ( $item['id'] === $layout ) {
