@@ -3,9 +3,8 @@ import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
-import { getPluginRequirementStatus} from './library-helper';
 import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
-import { LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
+import { LeftSkeleton, RightSkeleton, FullSkeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
@@ -155,7 +154,7 @@ const SingleSectionContent = (props) => {
                                                 layoutClassNames={layoutClassNames}
                                             />
                                         ) : (
-                                            <LeftSkeleton />
+                                            <FullSkeleton />
                                         )}
                                     </div>
                                 </div>

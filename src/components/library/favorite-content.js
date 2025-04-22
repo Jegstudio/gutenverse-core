@@ -11,6 +11,7 @@ import PluginInstallMode from './plugin-install-mode';
 import { saveLayoutLikeState } from 'gutenverse-core/requests';
 import BannerPro from '../pro/banner-pro';
 import { upgradeProUrl, clientUrl, activeTheme } from 'gutenverse-core/config';
+import SingleSectionContent from './single-section-content';
 
 const FavoriteContent = props => {
     const { modalData, library, burger } = props;
@@ -32,7 +33,7 @@ const FavoriteContent = props => {
         dispatch('gutenverse/library').setCategories([]);
         dispatch('gutenverse/library').setAuthor('');
         dispatch('gutenverse/library').setLicense('');
-        dispatch( 'gutenverse/library' ).setStatus('');
+        dispatch('gutenverse/library').setStatus('');
         dispatch('gutenverse/library').setPaging(1);
     }, []);
 
@@ -135,7 +136,7 @@ const FavoriteContent = props => {
             name={currentItem.title}
             data={currentItem}
             setPluginInstallMode={setPluginInstallMode}
-            backString={'layout' === layoutContentData.library ? sprintf(__('Back to %s', '--gctd--'), currentItem.title) : __('Back to sections', '--gctd--')}
+            backString={'layout' === layoutContentData.library ? sprintf(__('Back to %s', '--gctd--'), currentItem.title) : __('Back to Favorite sections', '--gctd--')}
         />}
         {singleId !== null && 'layout' === layoutContentData.library && <SingleLayoutContent
             id={singleId}
@@ -157,13 +158,13 @@ const FavoriteContent = props => {
                 <ul className="gutenverse-sidebar-list">
                     <li className={layoutContentData.library === 'layout' ? 'active' : ''} onClick={() => {
                         setLibrary('layout');
-                        dispatch( 'gutenverse/library' ).setCategories([]);
+                        dispatch('gutenverse/library').setCategories([]);
                     }}>
                         <IconLayoutsSVG /><span>{__('Layout', '--gctd--')}</span>
                     </li>
                     <li className={layoutContentData.library === 'section' ? 'active' : ''} onClick={() => {
                         setLibrary('section');
-                        dispatch( 'gutenverse/library' ).setCategories([]);
+                        dispatch('gutenverse/library').setCategories([]);
                     }}>
                         <IconBlocksSVG /><span>{__('Section', '--gctd--')}</span>
                     </li>
@@ -189,11 +190,11 @@ const FavoriteContent = props => {
                         <h2 className="gutenverse-library-side-heading">
                             {__('Style', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={layoutCategories} slug={'style'} data={layoutContentData} type={'layout'}/>
+                        <RenderCategories categories={layoutCategories} slug={'style'} data={layoutContentData} type={'layout'} />
                         <h2 className="gutenverse-library-side-heading">
                             {__('Color', '--gctd--')}
                         </h2>
-                        <RenderCategories categories={layoutCategories} slug={'color'} data={layoutContentData} type={'layout'}/>
+                        <RenderCategories categories={layoutCategories} slug={'color'} data={layoutContentData} type={'layout'} />
                     </> : <>
                         <h2 className="gutenverse-library-side-heading">
                             {__('Style', '--gctd--')}
@@ -209,36 +210,108 @@ const FavoriteContent = props => {
             <div className="gutenverse-library-inner" ref={scrollerRef}>
                 <BannerPro
                     subtitle={__('Welcome to Gutenverse Library', '--gctd--')}
-                    title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br/>{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
+                    title={<>{__('Discover ', '--gctd--')}<span>{__(' Premium Themes ', '--gctd--')}</span><br />{__(' and Sections You Never Meet Before!', '--gctd--')}</>}
                     customStyles={{ paddingTop: '30px' }}
-                    container = "library"
-                    leftBannerImg = "library-graphic-library-left.png"
-                    rightBannerImg = "library-graphic-library-right.png"
-                    backgroundGradient = "library-bg-library.png"
-                    link = {`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
+                    container="library"
+                    leftBannerImg="library-graphic-library-left.png"
+                    rightBannerImg="library-graphic-library-right.png"
+                    backgroundGradient="library-bg-library.png"
+                    link={`${upgradeProUrl}?utm_source=gutenverse&utm_medium=library&utm_client_site=${clientUrl}&utm_client_theme=${activeTheme}`}
                 />
                 <>
-                    {'layout' === layoutContentData.library && <LayoutContentData
-                        current={content.current}
-                        data={content.data}
-                        total={content.total}
-                        changePaging={null}
+                    {'layout' === layoutContentData.library && <FavoriteLayoutContent
+                        singleId={singleId}
+                        layoutContentData={layoutContentData}
+                        slug={slug}
                         setSingleId={setSingleId}
-                        setSlug={setSlug}
                         changeContentLike={changeContentLike}
+                        setCurrentItem={setCurrentItem}
+                        currentItem={currentItem}
+                        pluginInstallMode={pluginInstallMode}
+                        setPluginInstallMode={setPluginInstallMode}
+                        content={content}
+                        setSlug={setSlug}
                     />}
-                    {'section' === layoutContentData.library && <SectionContentData
+                    {'section' === layoutContentData.library && <FavoriteSectionContent
                         current={content.current}
                         data={content.data}
                         total={content.total}
                         changePaging={null}
                         closeImporter={props.closeImporter}
+                        pluginInstallMode={pluginInstallMode}
                         setPluginInstallMode={setPluginInstallMode}
                         setCurrentItem={setCurrentItem}
                     />}
                 </>
             </div>
         </div>
+    </>;
+};
+
+const FavoriteLayoutContent = props => {
+    const {singleId, layoutContentData, slug, setSingleId, changeContentLike, setCurrentItem, currentItem, pluginInstallMode, setPluginInstallMode, content, setSlug} = props;
+    return <>
+        {singleId !== null && 'layout' === layoutContentData.library && <SingleLayoutContent
+            id={singleId}
+            slug={slug}
+            setSingleId={setSingleId}
+            backText={__('Back to Favorite Layout', '--gctd--')}
+            closeImporter={props.closeImporter}
+            changeContentLike={changeContentLike}
+            setSingleData={setCurrentItem}
+            singleData={currentItem}
+            pluginInstallMode={pluginInstallMode}
+            setPluginInstallMode={setPluginInstallMode}
+        />}
+        <LayoutContentData
+            current={content.current}
+            data={content.data}
+            total={content.total}
+            changePaging={null}
+            setSingleId={setSingleId}
+            setSlug={setSlug}
+            changeContentLike={changeContentLike}
+        />
+    </>;
+};
+
+const FavoriteSectionContent = props => {
+    const { pluginInstallMode, setPluginInstallMode } = props;
+    const [singleId, setSingleId] = useState(null);
+    const [singleData, setSingleData] = useState(null);
+    const [currentItem, setCurrentItem] = useState(null);
+    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
+    const [selectItem, setSelectItem] = useState({});
+
+    return <>
+        {singleId !== null && <SingleSectionContent
+            id={singleId}
+            setSingleId={setSingleId}
+            backText={__('Back to Favorite sections', '--gctd--')}
+            closeImporter={props.closeImporter}
+            setSingleData={setSingleData}
+            setCurrentItem={setCurrentItem}
+            singleData={singleData}
+            pluginInstallMode={pluginInstallMode}
+            setPluginInstallMode={setPluginInstallMode}
+            setExporting={setExporting}
+            selectItem={selectItem}
+            setSelectItem={setSelectItem}
+            setLibraryError={props.setLibraryError}
+        />}
+        <SectionContentData
+            singleData={singleData}
+            setSingleData={setSingleData}
+            singleId={singleId}
+            setSingleId={setSingleId}
+            currentItem={currentItem}
+            exporting={exporting}
+            selectItem={selectItem}
+            setExporting={setExporting}
+            setSelectItem={setSelectItem}
+            setCurrentItem={setCurrentItem}
+            {...props}
+        />
     </>;
 };
 
