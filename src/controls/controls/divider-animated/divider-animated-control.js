@@ -9,6 +9,7 @@ const DividerAnimatedControl = (props) => {
     const {
         value = {},
         onValueChange,
+        onLocalChange,
         elementRef
     } = props;
 
@@ -98,6 +99,7 @@ const DividerAnimatedControl = (props) => {
             label={__('Width', '--gctd--')}
             value={value.width}
             onValueChange={width => onValueChange({ ...value, width })}
+            onLocalChange={onLocalChange}
             min={100}
             max={300}
             step={1}
@@ -108,6 +110,7 @@ const DividerAnimatedControl = (props) => {
             label={__('Height', '--gctd--')}
             value={value.height}
             onValueChange={height => onValueChange({ ...value, height })}
+            onLocalChange={onLocalChange}
             min={1}
             max={500}
             step={1}
@@ -118,6 +121,7 @@ const DividerAnimatedControl = (props) => {
             label={__('Speed', '--gctd--')}
             value={value.speed}
             onValueChange={speed => onValueChange({ ...value, speed })}
+            onLocalChange={onLocalChange}
             min={0}
             max={10}
             step={0.1}
