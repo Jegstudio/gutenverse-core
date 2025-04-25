@@ -10,8 +10,11 @@
     .list-divider{
         display: flex;
     }
-    i{
+    a {
         display: flex;
-        align-items: center;
+        i{
+            display: flex;
+            align-items: center;
+        }
     }
 }
