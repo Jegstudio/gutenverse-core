@@ -362,18 +362,6 @@ class Dashboard {
 			1
 		);
 
-		if ( $show_theme_list ) {
-			add_submenu_page(
-				self::TYPE,
-				esc_html__( 'Theme List', '--gctd--' ),
-				esc_html__( 'Theme List', '--gctd--' ),
-				'manage_options',
-				$path . 'theme-list',
-				null,
-				2
-			);
-		}
-
 		add_submenu_page(
 			self::TYPE,
 			esc_html__( 'Blocks', '--gctd--' ),
