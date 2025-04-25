@@ -1,5 +1,5 @@
 import { __ } from '@wordpress/i18n';
-import { ColorControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
+import { BackgroundControl, ColorControl, SelectControl, SwitchControl } from 'gutenverse-core/controls';
 
 export const contentColor = (props) => {
     const {
@@ -75,25 +75,6 @@ export const contentColor = (props) => {
             ]
         },
         {
-            id: 'bgColor',
-            label: __('Background Color', 'gutenverse'),
-            show: !switcher.socialIconsHover || switcher.socialIconsHover === 'normal',
-            component: ColorControl,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'bgColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             id: 'textColor',
             label: __('Text Color', 'gutenverse'),
             show: !switcher.socialIconsHover || switcher.socialIconsHover === 'normal',
@@ -143,25 +124,6 @@ export const contentColor = (props) => {
             ]
         },
         {
-            id: 'hoverBgColor',
-            label: __('Background Color', 'gutenverse'),
-            show: switcher.socialIconsHover === 'hover',
-            component: ColorControl,
-            liveStyle: [
-                {
-                    'type': 'color',
-                    'id': 'hoverBgColor',
-                    'selector': `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
-                    'properties': [
-                        {
-                            'name': 'background-color',
-                            'valueType': 'direct'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             id: 'hoverTextColor',
             label: __('Text Color', 'gutenverse'),
             show: switcher.socialIconsHover === 'hover',
@@ -177,6 +139,90 @@ export const contentColor = (props) => {
                             'valueType': 'direct'
                         }
                     ]
+                }
+            ]
+        },
+        // Bg Swithcer
+        {
+            id: '__bgIconType',
+            component: SwitchControl,
+            options: [
+                {
+                    value: 'color',
+                    label: 'Color'
+                },
+                {
+                    value: 'gradient',
+                    label: 'Gradient'
+                }
+            ],
+            onChange: ({ __bgIconType }) => setSwitcher({ ...switcher, bgIconsType: __bgIconType })
+        },
+        // Bg Color
+        {
+            id: 'bgColor',
+            label: __('Background Color', 'gutenverse'),
+            show: (!switcher.socialIconsHover || switcher.socialIconsHover === 'normal') && (!switcher.bgIconsType || switcher.bgIconsType === 'color'),
+            component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'bgColor',
+                    'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 'hoverBgColor',
+            label: __('Hover Background Color', 'gutenverse'),
+            show: switcher.socialIconsHover === 'hover' && (!switcher.bgIconsType || switcher.bgIconsType === 'color'),
+            component: ColorControl,
+            liveStyle: [
+                {
+                    'type': 'color',
+                    'id': 'hoverBgColor',
+                    'selector': `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
+                    'properties': [
+                        {
+                            'name': 'background-color',
+                            'valueType': 'direct'
+                        }
+                    ]
+                }
+            ]
+        },
+        // Bg gradient
+        {
+            id: 'bgGradient',
+            label: __('Background Gradient', 'gutenverse'),
+            show: (!switcher.socialIconsHover || switcher.socialIconsHover === 'normal') && switcher.bgIconsType === 'gradient',
+            component: BackgroundControl,
+            options: ['gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'bgGradient',
+                    'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
+                }
+            ]
+        },
+        {
+            id: 'hoverBgGradient',
+            label: __('Hover Background Gradient', 'gutenverse'),
+            show: switcher.socialIconsHover === 'hover' && switcher.bgIconsType === 'gradient',
+            component: BackgroundControl,
+            options: ['gradient'],
+            liveStyle: [
+                {
+                    'type': 'background',
+                    'id': 'hoverBgGradient',
+                    'selector': `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
                 }
             ]
         },

@@ -237,6 +237,14 @@
     "condition": {
         "type": "object",
         "default": {}
+    },
+    "bgGradient": {
+      "type": "object",
+      "copyStyle": true
+    },
+    "hoverBgGradient": {
+      "type": "object",
+      "copyStyle": true
     }
   },
   "variations": [

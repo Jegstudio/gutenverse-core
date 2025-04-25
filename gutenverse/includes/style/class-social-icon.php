@@ -103,19 +103,6 @@ class Social_Icon extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['bgColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".guten-social-icons.fill .guten-social-icon #{$this->element_id}, .guten-social-icons.border .guten-social-icon #{$this->element_id}, .guten-social-icons.custom .guten-social-icon #{$this->element_id}",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background-color' );
-					},
-					'value'          => $this->attrs['bgColor'],
-					'device_control' => false,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['textColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -153,6 +140,19 @@ class Social_Icon extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['bgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".guten-social-icons.fill .guten-social-icon #{$this->element_id}, .guten-social-icons.border .guten-social-icon #{$this->element_id}, .guten-social-icons.custom .guten-social-icon #{$this->element_id}",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['bgColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -163,6 +163,20 @@ class Social_Icon extends Style_Abstract {
 					'value'          => $this->attrs['hoverBgColor'],
 					'device_control' => false,
 				)
+			);
+		}
+
+		if ( isset( $this->attrs['bgGradient'] ) ) {
+			$this->handle_background(
+				".guten-social-icons.fill .guten-social-icon #{$this->element_id}, .guten-social-icons.border .guten-social-icon #{$this->element_id}, .guten-social-icons.custom .guten-social-icon #{$this->element_id}",
+				$this->attrs['bgGradient']
+			);
+		}
+
+		if ( isset( $this->attrs['hoverBgGradient'] ) ) {
+			$this->handle_background(
+				".guten-social-icons.fill .guten-social-icon #{$this->element_id}:hover, .guten-social-icons.border .guten-social-icon #{$this->element_id}:hover, .guten-social-icons.custom .guten-social-icon #{$this->element_id}:hover",
+				$this->attrs['hoverBgGradient']
 			);
 		}
 
