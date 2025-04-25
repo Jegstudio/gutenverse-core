@@ -1,4 +1,9 @@
-const Notice = ({ icon, title, description, buttonText, onClick, onClose, cancelButtonText, cancelButton = false, scheme = 'normal' }) => {
+const Notice = ({ icon, title, description, buttonText, onClick, onClose, cancelButtonText, cancelButton = false, scheme = 'normal', confirmation = false, isChecked = false, setIsChecked = () => {} }) => {
+
+    const handleCheckboxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
+
     return <div id="gutenverse-warn">
         <div className="gutenverse-editor-warn">
             <div className={`gutenverse-warn-wrapper notice-content ${scheme}`}>
@@ -16,6 +21,14 @@ const Notice = ({ icon, title, description, buttonText, onClick, onClose, cancel
                     <button className="primary" onClick={() => onClick()}>{buttonText}</button>
                     {cancelButton && <button className="cancel" onClick={() => onClose()}>{cancelButtonText}</button>}
                 </div>
+                {confirmation && <label>
+                    <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
+                    />
+                    <span>Do not Show Again</span>
+                </label>}
             </div>
         </div>
     </div>;
