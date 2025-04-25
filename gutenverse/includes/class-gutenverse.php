@@ -189,6 +189,7 @@ class Gutenverse {
 			set_transient( 'gutenverse_redirect', 1, 30 );
 		}
 	}
+
 	/**
 	 * Plugin Update Notice.
 	 *
