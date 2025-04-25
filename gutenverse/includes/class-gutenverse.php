@@ -318,7 +318,7 @@ class Gutenverse {
 
 		$instance = $this;
 
-		if ( ! $instance->is_plugin_updated( 'gutenverse-form/gutenverse-form.php', '2.0.0' ) ) {
+		if ( ! $instance->is_plugin_updated( 'gutenverse-form/gutenverse-form.php', '2.0.0' ) || ! is_plugin_active( 'gutenverse-form/gutenverse-form.php' ) ) {
 			foreach ( $checks as $plugin ) {
 				if ( isset( $plugins[ $plugin ] ) ) {
 					$form = $plugins[ $plugin ];
