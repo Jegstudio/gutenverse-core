@@ -180,7 +180,7 @@ const DimensionControl = (props) => {
                 id={id}
                 proLabel={proLabel}
                 units={units}
-                activeUnit={activeUnit}
+                activeUnit={activeUnit || Object.keys(units)[0]}
                 changeUnit={changeUnit}
             />
         </div>
