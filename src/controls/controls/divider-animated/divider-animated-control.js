@@ -216,6 +216,7 @@ const DividerAnimatedControl = (props) => {
                     label={formatString(__('Color {0}', '--gctd--'), i + 1)}
                     value={value[`color${i}`]}
                     onValueChange={color => onValueChange({ ...value, [`color${i}`]: color })}
+                    onLocalChange={color => onLocalChange({ ...value, [`color${i}`]: color })}
                 />
             ))
         )}
