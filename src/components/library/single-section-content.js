@@ -1,11 +1,10 @@
 import { __, } from '@wordpress/i18n';
-import { withSelect, dispatch } from '@wordpress/data';
+import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useMemo } from '@wordpress/element';
 import classnames from 'classnames';
 import { RecursionProvider, useBlockProps, __experimentalUseBlockPreview as useBlockPreview } from '@wordpress/block-editor';
-import { getPluginRequirementStatus} from './library-helper';
 import { IconEmpty2SVG, IconArrowLeftSVG } from 'gutenverse-core/icons';
-import { LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
+import { LeftSkeleton, RightSkeleton, FullSkeleton } from 'gutenverse-core/components';
 import { importSingleSectionContent } from 'gutenverse-core/requests';
 import { getGlobalVariable } from '../../styling/styling/global-style/index';
 import ImportSectionButton from './import-section-button';
@@ -15,14 +14,11 @@ import { hexToRgb } from 'gutenverse-core/editor-helper';
 
 const SingleSectionContent = (props) => {
     const {
-        pluginData,
         setSingleId,
         backText,
         closeImporter,
         setSingleData,
         singleData,
-        setPluginInstallMode,
-        setCurrentItem,
         setExporting,
         setSelectItem,
         setLibraryError
@@ -34,6 +30,8 @@ const SingleSectionContent = (props) => {
     const [dataToImport, setDataToImport] = useState(singleData);
     const [unavailableGlobalFonts, setUnavailableGlobalFonts] = useState([]);
     const [unavailableGlobalColors, setUnavailableGlobalColors] = useState([]);
+    const {supportGlobalImport} =  window['GutenverseConfig'] || window['GutenverseData'] || {};
+    // const supportGlobalImport = false; //untuk testing
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -103,7 +101,7 @@ const SingleSectionContent = (props) => {
                             </span>
                         </div>
                         <div className="single-previewer-control">
-                            <div className="previewer-options-container">
+                            {supportGlobalImport && <div className="previewer-options-container">
                                 <label className={selectedOption === 'default' ? 'selected' : ''}>
                                     <input
                                         type="radio"
@@ -125,7 +123,7 @@ const SingleSectionContent = (props) => {
                                     />
                                     Use Current Global Style
                                 </label>
-                            </div>
+                            </div>}
                             <ImportSectionButton
                                 data={singleData}
                                 closeImporter={closeImporter}
@@ -140,6 +138,7 @@ const SingleSectionContent = (props) => {
                                 extractTypographyBlocks={extractTypographyBlocks}
                                 unavailableGlobalFonts={unavailableGlobalFonts}
                                 unavailableGlobalColors={unavailableGlobalColors}
+                                supportGlobalImport={supportGlobalImport}
                             />
                         </div>
                     </div>
@@ -155,7 +154,7 @@ const SingleSectionContent = (props) => {
                                                 layoutClassNames={layoutClassNames}
                                             />
                                         ) : (
-                                            <LeftSkeleton />
+                                            <FullSkeleton />
                                         )}
                                     </div>
                                 </div>
@@ -265,64 +264,6 @@ const extractTypographyBlocks = (content) => {
     }
 
     return matches;
-};
-
-const Placeholder = ({singleData, setPluginInstallMode, pluginData, setCurrentItem}) => {
-
-    const classname = classnames('library-item');
-    const paddingBottom = (singleData?.cover[2] / singleData?.cover[1] * 100 < 10) ? 0 : singleData?.cover[2] / singleData?.cover[1] * 100;
-    const minHeight = paddingBottom === 0 ? 50 : 0;
-    const [image, setImage] = useState('');
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [requirementStatus, setRequirementStatus] = useState(false);
-    const { installedPlugin } = pluginData;
-
-    useEffect(() => {
-        const img = new Image();
-        img.onload = () => {
-            setImage(singleData.cover[0]);
-        };
-        img.src = singleData.cover[0];
-    });
-
-    useEffect(() => {
-        const { requirements, compatibleVersion } = singleData;
-        const requirement = getPluginRequirementStatus({
-            plugins: installedPlugin,
-            requirements,
-            compatibleVersion
-        });
-        setRequirementStatus(requirement);
-    }, [singleData, installedPlugin]);
-
-    const setToCurrentItem = () => {
-        setCurrentItem(singleData);
-        setPluginInstallMode(true);
-    };
-
-    return <div className={classname}>
-        <div className="library-item-content">
-            <div className="library-item-holder " style={{
-                paddingBottom: `${paddingBottom}%`, minHeight: `${minHeight}px`, background: isLoaded ? 'white' : '', zIndex: isLoaded ? '5' : ''
-            }}>
-                <img src={image} onLoad={() => setIsLoaded(true)} />
-                <div className="library-item-detail">
-                    {requirementStatus?.length === 0 && <div className="library-item-overlay">
-                        <div className="section-button import-section" onClick={() => setToCurrentItem()}>
-                            <div className="section-button-inner">
-                                <span>
-                                    {__('Missing Requirement', '--gctd--')}
-                                    <br />
-                                    {__('Click for more detail', '--gctd--')}
-                                </span>
-                            </div>
-                        </div>
-                    </div>}
-                    {singleData.pro && <div className="pro-flag">{__('PRO', '--gctd--')}</div>}
-                </div>
-            </div>
-        </div>
-    </div>;
 };
 
 const Content = (props) => {

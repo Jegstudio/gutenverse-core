@@ -19,7 +19,7 @@ export const isInvalid = (block) => {
         return false;
     }
 
-    if (isValid || !validationIssues.length) {
+    if (isValid || !validationIssues?.length) {
         return false;
     }
 
@@ -39,7 +39,7 @@ const recursivelyRecoverInvalidBlockList = (blocks) => {
                 }
             }
 
-            if (block.innerBlocks.length) {
+            if (block.innerBlocks?.length) {
                 recursivelyRecoverBlocks(block.innerBlocks);
             }
         });
@@ -53,18 +53,17 @@ const recursivelyRecoverInvalidBlockList = (blocks) => {
 export const recoverBlocks = (allBlocks, invalidBlock) => {
     return allBlocks.map((block) => {
         const currentBlock = block;
-
         if (isReusableBlock(getBlockType(block.name))) {
             const {
                 attributes: { ref },
             } = block;
-            const parsedBlocks =
+            const blockContent = select('core').getEntityRecords('postType', 'wp_block', {
+                include: [ref],
+            });
+            const parsedBlocks = blockContent ?
                 parse(
-                    select('core').getEntityRecords('postType', 'wp_block', {
-                        include: [ref],
-                    })?.[0]?.content?.raw
-                ) || [];
-
+                    blockContent?.[0]?.content?.raw
+                ) : [];
             const [recoveredBlocks, isRecovered] =
                 recursivelyRecoverInvalidBlockList(parsedBlocks);
 
@@ -78,8 +77,7 @@ export const recoverBlocks = (allBlocks, invalidBlock) => {
                 };
             }
         }
-
-        if (currentBlock.innerBlocks && currentBlock.innerBlocks.length) {
+        if (currentBlock.innerBlocks && currentBlock.innerBlocks?.length) {
             const newInnerBlocks = recoverBlocks(currentBlock.innerBlocks, invalidBlock);
             if (
                 newInnerBlocks.some((InnerBlock) => InnerBlock.recovered)

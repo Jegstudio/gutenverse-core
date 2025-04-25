@@ -33,7 +33,7 @@ export { default as PostTermsSkeleton } from './skeleton/post-terms-skeleton';
 export { default as PostTextSkeleton } from './skeleton/post-text-skeleton';
 export { default as PostTitleSkeleton } from './skeleton/post-title-skeleton';
 export { default as SelectSkeleton } from './skeleton/select-skeleton';
-export { LeftSkeleton, RightSkeleton } from './skeleton/single-layout-skeleton';
+export { FullSkeleton, LeftSkeleton, RightSkeleton } from './skeleton/single-layout-skeleton';
 
 /* PRO notice */
 export { default as BannerPro } from './pro/banner-pro';

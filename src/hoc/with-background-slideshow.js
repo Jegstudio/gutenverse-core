@@ -1,10 +1,11 @@
 import { useEffect, useRef } from '@wordpress/element';
 import { imagePlaceholder } from 'gutenverse-core/config';
+import { updateLiveStyle } from 'gutenverse-core/styling';
 import isEmpty from 'lodash/isEmpty';
 
 export const withBackgroundSlideshow = (BlockControl) => {
     return (props) => {
-        const { attributes } = props;
+        const { attributes, blockRef } = props;
         const { background = {}, elementId } = attributes;
         const { slideImage = {}, infiniteLoop = false } = background;
         const elementRefs = useRef(null);
@@ -54,10 +55,21 @@ export const withBackgroundSlideshow = (BlockControl) => {
             background.backgroundSize,
             background.kenBurns,
             background.direction,
+            blockRef,
         ]);
 
         let intervalToggle;
-        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, transition, prevClass = 'previous', currentClass = 'current', parentClass = 'hasToggledClass') {
+        const toggleClassWithDuration = (
+            elements,
+            slideshowContainer,
+            duration,
+            infiniteLoop,
+            transition,
+            prevClass = 'previous',
+            currentClass = 'current',
+            parentClass = 'hasToggledClass'
+        ) => {
+            if (!blockRef) return;
             let currentIndex = 1;
             let prevIndex = 0;
 
@@ -75,7 +87,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
             intervalToggle = setInterval(() => {
                 if (slideshowContainer.length <= 2) {
                     setTimeout(() => {
-                        slideshowContainer[prevIndex].classList.remove(parentClass);
+                        slideshowContainer[prevIndex].classList?.remove(parentClass);
                     }, transition);
                 } else slideshowContainer[prevIndex].classList.remove(parentClass);
                 slideshowContainer[prevIndex].classList.remove(prevClass);
@@ -97,6 +109,32 @@ export const withBackgroundSlideshow = (BlockControl) => {
                     clearInterval(intervalToggle);
                 }
             }, duration);
+
+            updateLiveStyle({
+                styleId: 'guten-background-slideshow-style',
+                elementId,
+                attributes: {
+                    slideshow: {
+                        duration: background.duration,
+                        backgroundPosition: background.backgroundPosition,
+                        transition: background.transition,
+                        backgroundSize: background.backgroundSize,
+                        backgroundRepeat: background.backgroundRepeat,
+                        kenBurns: background.kenBurns,
+                        direction: background.direction,
+                        displayDuration: background.displayDuration,
+                    }
+                },
+                styles: [
+                    {
+                        'type': 'slideshow',
+                        'id': 'slideshow',
+                        'selector': `${elementId}`,
+                    }
+                ],
+                elementRef: blockRef,
+                timeout: false
+            });
 
             if (duration <= 0) {
                 clearInterval(intervalToggle);

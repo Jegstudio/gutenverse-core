@@ -256,7 +256,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 
 			&.notice-content {
 				box-sizing: content-box;
-				width: calc(320px - 48px);
+				width: 300px;
 				display: flex;
 				justify-content: center;
 				flex-direction: column;
@@ -278,7 +278,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 				}
 
 				h3 {
-					font-family: Inter;
+					font-family: Roboto;
 					font-size: 18px;
 					font-weight: 600;
 					text-align: left;
@@ -289,12 +289,15 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 				}
 
 				p {
-					font-family: "Plus Jakarta Sans", serif;
-					font-size: 13px;
+					color: #40505d;
+					font-family: Roboto;
+					font-weight: 300;
+					font-size: 14px;
 					line-height: 1.5;
 					text-align: center;
 					color: #40505d;
 					margin: 0 auto 20px;
+					padding: 0 10px;
 				}
 
 				.buttons {
@@ -304,8 +307,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 				}
 
 				button {
-					border: solid 1px #e3e4e6;
-					border-radius: 4px;
+					border: none;
 					color: #40505d;
 					display: flex;
 					flex-direction: row;
@@ -324,6 +326,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 					}
 
 					&.cancel {
+						border: solid 1px #e3e4e6;
 						background-color: #fff;
 					}
 				}

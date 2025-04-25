@@ -25,6 +25,7 @@ import { signal } from 'gutenverse-core/editor-helper';
 import { v4 } from 'uuid';
 import { buildGlobalStyle, getGlobalVariable } from './global-style';
 import memoize from 'lodash/memoize';
+import { slideshowGenerator } from './generator/generator-slideshow';
 
 const mergeCSSDevice = (Desktop, Tablet, Mobile) => {
     const { tabletBreakpoint, mobileBreakpoint } = responsiveBreakpoint();
@@ -112,6 +113,10 @@ const generateCSSString = (attribute, style) => {
 
         case 'shapeDivider':
             css = shapeDividerGenerator(attribute, style, css);
+            break;
+
+        case 'slideshow':
+            css = slideshowGenerator(attribute, style, css);
             break;
 
         case 'boxShadow':
