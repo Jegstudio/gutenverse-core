@@ -104,7 +104,6 @@ const DimensionControl = (props) => {
 
     const { unit = '', dimension = {} } = value;
     const [activeUnit, setActiveUnit] = useState(null);
-    const isFirstRender = useRef(true);
 
     const onChange = value => {
         onValueChange(value);
@@ -119,11 +118,6 @@ const DimensionControl = (props) => {
     };
 
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-
         if (unit === '') {
             const firstUnit = Object.keys(units)[0];
             setActiveUnit(firstUnit);
