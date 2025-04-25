@@ -17,25 +17,27 @@ export const panelList = () => {
             tabRole: TabSetting
         },
         {
-            title: __('Spacing', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                styleId: 'wrapper-advance',
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Display', '--gctd--'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
             title: __('Position', '--gctd--'),
             initialOpen: false,
             panelArray: positionPanel,
             tabRole: TabSetting
+        },
+        {
+            title: __('Background Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => backgroundEffectPanel({
+                ...props,
+                selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
+            }),
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Cursor Effect', '--gctd--'),
+            initialOpen: false,
+            panelArray: cursorEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
         },
         {
             title: __('Animation Effects', '--gctd--'),
@@ -46,9 +48,52 @@ export const panelList = () => {
             }),
             tabRole: TabSetting
         },
-
+        {
+            title: __('Display', '--gctd--'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Transform', '--gctd--'),
+            initialOpen: false,
+            panelArray: transformPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Mouse Move Effect', 'gutenverse'),
+            initialOpen: false,
+            panelArray: mouseMoveEffectPanel,
+            tabRole: TabSetting,
+            pro: true,
+        },
+        {
+            title: __('Background Animation', '--gctd--'),
+            initialOpen: false,
+            panelArray: backgroundAnimatedPanel,
+            pro: true,
+        },
+        {
+            title: __('Advanced Animation', '--gctd--'),
+            initialOpen: false,
+            panelAdvance: true,
+            panelArray: (props) => advanceAnimationPanel({
+                ...props,
+                blockType: 'wrapper'
+            }),
+            pro: true,
+        },
+        {
+            title: __('Spacing', '--gctd--'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                styleId: 'wrapper-advance',
+            }),
+            tabRole: TabSetting
+        },
         // Styles
-
         {
             title: __('Background', '--gctd--'),
             initialOpen: false,
@@ -95,56 +140,6 @@ export const panelList = () => {
             initialOpen: false,
             panelArray: pointerEventPanel,
             tabRole: TabStyle
-        },
-
-        // Pro
-
-        {
-            title: __('Background Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: (props) => backgroundEffectPanel({
-                ...props,
-                selector: `.${props.elementId}> .guten-inner-wrap> .guten-background-effect`
-            }),
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Cursor Effect', '--gctd--'),
-            initialOpen: false,
-            panelArray: cursorEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Transform', '--gctd--'),
-            initialOpen: false,
-            panelArray: transformPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Mouse Move Effect', 'gutenverse'),
-            initialOpen: false,
-            panelArray: mouseMoveEffectPanel,
-            tabRole: TabSetting,
-            pro: true,
-        },
-        {
-            title: __('Background Animation', '--gctd--'),
-            initialOpen: false,
-            panelArray: backgroundAnimatedPanel,
-            pro: true,
-        },
-        {
-            title: __('Advanced Animation', '--gctd--'),
-            initialOpen: false,
-            panelAdvance: true,
-            panelArray: (props) => advanceAnimationPanel({
-                ...props,
-                blockType: 'wrapper'
-            }),
-            pro: true,
         },
         {
             title: __('Condition', 'gutenverse'),

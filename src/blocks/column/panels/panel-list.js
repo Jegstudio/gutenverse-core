@@ -13,30 +13,6 @@ export const panelList = () => {
             panelArray: layoutPanel,
             tabRole: TabSetting
         },
-        {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => advancePanel({
-                ...props,
-                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`
-            }),
-            tabRole: TabSetting
-        },
-        {
-            title: __('Display', 'gutenverse'),
-            initialOpen: false,
-            panelArray: responsivePanel,
-            tabRole: TabSetting
-        },
-        {
-            title: __('Animation Effects', 'gutenverse'),
-            initialOpen: false,
-            panelArray: (props) => animationPanel({
-                ...props,
-                styleId: 'column-animation'
-            }),
-            tabRole: TabSetting
-        },
 
         // Styles
         {
@@ -131,6 +107,21 @@ export const panelList = () => {
             pro: true,
         },
         {
+            title: __('Display', 'gutenverse'),
+            initialOpen: false,
+            panelArray: responsivePanel,
+            tabRole: TabSetting
+        },
+        {
+            title: __('Animation Effects', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => animationPanel({
+                ...props,
+                styleId: 'column-animation'
+            }),
+            tabRole: TabSetting
+        },
+        {
             title: __('Background Animation', '--gctd--'),
             initialOpen: false,
             panelArray: backgroundAnimatedPanel,
@@ -145,6 +136,15 @@ export const panelList = () => {
                 blockType: 'column'
             }),
             pro: true,
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: (props) => advancePanel({
+                ...props,
+                selector: `.editor-styles-wrapper .is-root-container .${props.elementId} > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper`
+            }),
+            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),

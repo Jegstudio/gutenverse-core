@@ -59,7 +59,16 @@ export const withBackgroundSlideshow = (BlockControl) => {
         ]);
 
         let intervalToggle;
-        function toggleClassWithDuration(elements, slideshowContainer, duration, infiniteLoop, transition, prevClass = 'previous', currentClass = 'current', parentClass = 'hasToggledClass') {
+        const toggleClassWithDuration = (
+            elements,
+            slideshowContainer,
+            duration,
+            infiniteLoop,
+            transition,
+            prevClass = 'previous',
+            currentClass = 'current',
+            parentClass = 'hasToggledClass'
+        ) => {
             if (!blockRef) return;
             let currentIndex = 1;
             let prevIndex = 0;
@@ -78,7 +87,7 @@ export const withBackgroundSlideshow = (BlockControl) => {
             intervalToggle = setInterval(() => {
                 if (slideshowContainer.length <= 2) {
                     setTimeout(() => {
-                        slideshowContainer[prevIndex].classList.remove(parentClass);
+                        slideshowContainer[prevIndex].classList?.remove(parentClass);
                     }, transition);
                 } else slideshowContainer[prevIndex].classList.remove(parentClass);
                 slideshowContainer[prevIndex].classList.remove(prevClass);

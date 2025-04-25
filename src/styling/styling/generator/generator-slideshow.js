@@ -16,9 +16,6 @@ const slideshowStyle = (attribute, elementId) => {
     const transitionDuration = (parseFloat(transitions) < parseFloat(displayDuration)) ? parseFloat(transitions) : displayDuration - 0.1;
     let styles = '';
 
-    // let asd = '.editor-styles-wrapper .is-root-container .guten-U01x6O:not(.background-animated) > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper, .guten-U01x6O.background-animated > .guten-column-resizeable > .sticky-wrapper > .guten-column-wrapper > .guten-background-animated .animated-layer';
-
-
     styles += `
         .bg-slideshow-container .bg-slideshow-item .${elementId}-child-slideshow .${elementId}-slideshow-image {
             background-size: ${backgroundSize};
