@@ -99,7 +99,7 @@ const save = compose(
 
     return (
         <div className={wrapperClassName} data-id={dataId}>
-            <section {...useBlockProps.save({ className, ...advanceAnimationData })}>
+            <section {...useBlockProps.save({ className, ...advanceAnimationData, id: attributes.anchor })}>
                 <FluidCanvasSave attributes={attributes} />
                 {(_isSticky || _isBgAnimated || _isTopDividerAnimated || _isBottomDividerAnimated || isSlideShow) &&
                     <div className="guten-data">

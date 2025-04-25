@@ -6,6 +6,9 @@
   "category": "gutenverse-structure",
   "allowCopyStyle": true,
   "attributes": {
+    "anchor": {
+    "type": "string"
+  },
     "layout": {
       "type": "string",
       "default": "boxed",

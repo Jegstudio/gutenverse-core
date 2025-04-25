@@ -1,12 +1,12 @@
-import {useEffect, useState, useRef} from '@wordpress/element';
-import {useInstanceId} from '@wordpress/compose';
+import { useEffect, useState, useRef } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { Link } from 'react-feather';
 import ControlHeadingSimple from '../part/control-heading-simple';
 
-const UnitControl = ({units, activeUnit, changeUnit}) => {
+const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
 
     const toggleOpen = () => {
@@ -41,7 +41,7 @@ const UnitControl = ({units, activeUnit, changeUnit}) => {
 };
 
 const DimensionInput = (props) => {
-    const {position, changeDimension, changeAllDimension, value, id, proLabel, units, activeUnit, changeUnit} = props;
+    const { position, changeDimension, changeAllDimension, value, id, proLabel, units, activeUnit, changeUnit } = props;
     const [active, setActive] = useState(!proLabel);
 
     const inputs = position.map(pos => {
@@ -84,7 +84,7 @@ const DimensionInput = (props) => {
             </ul>
         </div>
         <div className="dimension-item sync-wrapper">
-            <div onClick={() => !proLabel && setActive(!active)} className={`sync-icon ${active ? 'active' : ''}`}><Link size={16}/></div>
+            <div onClick={() => !proLabel && setActive(!active)} className={`sync-icon ${active ? 'active' : ''}`}><Link size={16} /></div>
         </div>
     </>;
 };
@@ -102,7 +102,7 @@ const DimensionControl = (props) => {
         proLabel
     } = props;
 
-    const {unit = '', dimension = {}} = value;
+    const { unit = '', dimension = {} } = value;
     const [activeUnit, setActiveUnit] = useState(null);
 
     const onChange = value => {

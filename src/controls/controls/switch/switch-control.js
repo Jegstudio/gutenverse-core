@@ -1,31 +1,35 @@
 
 import { useInstanceId } from '@wordpress/compose';
+import { useState } from '@wordpress/element';
 
 const SwitchControl = ({
-    value,
+    id,
     options,
-    onValueChange,
+    onChange,
     description = '',
 }) => {
-    const id = useInstanceId(SwitchControl, 'inspector-hover-control');
+    const idElement = useInstanceId(SwitchControl, 'inspector-hover-control');
+    const [active, setActive] = useState(null);
 
-    const onChange = value => {
-        onValueChange(value);
+    const onClick = value => {
+        setActive(value);
+
+        onChange ? onChange({ [id]: value }) : null;
     };
 
-    return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-hover'}>
+    return <div id={idElement} className={'gutenverse-control-wrapper gutenverse-control-hover'}>
         <div className={'control-body'}>
             {options.map((item, index) => {
-                const checked = value ? value === item.value : index === 0;
+                const checked = active ? active === item.value : index === 0;
 
-                return <label key={index} htmlFor={`${id}-${item.value}`}>
+                return <label key={index} htmlFor={`${idElement}-${item.value}`}>
                     <input
-                        onClick={() => onChange(options[index]['value'])}
-                        onChange={() => {}}
+                        onClick={() => onClick(options[index]['value'])}
+                        onChange={() => { }}
                         checked={checked}
                         type={'radio'}
-                        id={`${id}-${item.value}`}
-                        name={`${id}`}
+                        id={`${idElement}-${item.value}`}
+                        name={`${idElement}`}
                         value={item.label}
                     />
                     <span>{item.label}</span>
