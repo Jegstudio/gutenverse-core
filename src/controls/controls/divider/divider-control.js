@@ -12,7 +12,6 @@ const DividerControl = (props) => {
     } = props;
 
     const id = useInstanceId(DividerControl, 'inspector-divider-control');
-
     const isCapableInvert = [
         'arrow',
         'curve',

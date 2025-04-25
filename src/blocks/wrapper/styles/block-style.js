@@ -117,7 +117,7 @@ const getBlockStyle = (elementId, attributes) => {
         'type': 'plain',
         'id': 'blur',
         'responsive': true,
-        'selector': `section.guten-section.${elementId}:before`,
+        'selector': `.${elementId}.guten-element`,
         'properties': [
             {
                 'name': '-webkit-backdrop-filter',

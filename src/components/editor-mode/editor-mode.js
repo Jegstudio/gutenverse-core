@@ -37,7 +37,7 @@ const gutenverseEditorModePlugin = registerPlugin('gutenverse-editor-mode', {
 
         const editorModeButton = (
             <Tooltip
-                placement="right"
+                placement="bottom"
                 text={renderingMode === 'template-locked' ? __('You are on Show Template mode. Click to go into Content Editing.', '--gctd--') : __('You are currently in Content Editing mode. Click to go to Show Template mode.', '--gctd--')}>
                 <div className={`gutenverse-lock-button ${renderingMode === 'template-locked' ? 'locked' : 'unlocked'}`} onClick={changeMode}>
                     {renderingMode === 'template-locked' ? <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
