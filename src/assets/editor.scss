@@ -288,7 +288,7 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 					text-transform: none;
 				}
 
-				p {
+				p, label {
 					color: #40505d;
 					font-family: Roboto;
 					font-weight: 300;
@@ -298,6 +298,11 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 					color: #40505d;
 					margin: 0 auto 20px;
 					padding: 0 10px;
+				}
+
+				label {
+					margin-bottom: 0px;
+					margin-top: 10px;				
 				}
 
 				.buttons {
