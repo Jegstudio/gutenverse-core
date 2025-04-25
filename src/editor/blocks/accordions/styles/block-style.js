@@ -448,37 +448,37 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['background']) && data.push({
         'type': 'background',
         'id': 'background',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['backgroundHover']) && data.push({
         'type': 'background',
         'id': 'backgroundHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['border']) && data.push({
         'type': 'border',
         'id': 'border',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['borderHover']) && data.push({
         'type': 'border',
         'id': 'borderHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['borderResponsive']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsive',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['borderResponsiveHover']) && data.push({
         'type': 'borderResponsive',
         'id': 'borderResponsiveHover',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['boxShadow']) && data.push({
@@ -490,7 +490,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['boxShadowHover']) && data.push({
@@ -502,14 +502,14 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element:hover`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}:hover`,
     });
 
     isNotEmpty(attributes['mask']) && data.push({
         'type': 'mask',
         'id': 'mask',
         'responsive': true,
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['padding']) && data.push({
@@ -522,7 +522,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['margin']) && data.push({
@@ -535,7 +535,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['zIndex']) && data.push({
@@ -548,13 +548,13 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
     });
 
     isNotEmpty(attributes['animation']) && isNotEmpty(attributes['animation']['delay']) && data.push({
         'type': 'plain',
         'id': 'animation',
-        'selector': `.editor-styles-wrapper .is-root-container .${elementId}.guten-element`,
+        'selector': `.editor-styles-wrapper .is-root-container .${elementId}`,
         'properties': [
             {
                 'name': 'animation-delay',
@@ -576,7 +576,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.${elementId}.guten-element`,
+            'selector': `.${elementId}`,
             'skipDeviceType': 'first',
             'attributeType': 'type',
             'multiAttr': {
@@ -589,7 +589,7 @@ const getBlockStyle = (elementId, attributes) => {
         {
             'type': 'positioning',
             'id': 'positioningType',
-            'selector': `.${elementId}.guten-element`,
+            'selector': `.${elementId}`,
             'skipDeviceType': 'second',
             'attributeType': 'type',
             'multiAttr': {
@@ -602,7 +602,7 @@ const getBlockStyle = (elementId, attributes) => {
     isNotEmpty(attributes['positioningWidth']) && isNotEmpty(attributes['positioningType']) && data.push({
         'type': 'positioning',
         'id': 'positioningWidth',
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
         'skipDeviceType': 'first',
         'attributeType': 'width',
         'multiAttr': {
@@ -622,7 +622,7 @@ const getBlockStyle = (elementId, attributes) => {
                     'valueType': 'direct'
                 }
             ],
-            'selector': `.${elementId}.guten-element`,
+            'selector': `.${elementId}`,
         },
         {
             'type': 'positioning',
@@ -634,7 +634,7 @@ const getBlockStyle = (elementId, attributes) => {
                 }
             ],
             'attributeType': 'align',
-            'selector': `.${elementId}.guten-element`,
+            'selector': `.${elementId}`,
         }
     );
     isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -646,7 +646,7 @@ const getBlockStyle = (elementId, attributes) => {
                 'valueType': 'direct'
             }
         ],
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
     });
     isNotEmpty(attributes['positioningLeft']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
         'type': 'positioning',
@@ -658,7 +658,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'responsive': true,
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningRight']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -671,7 +671,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'responsive': true,
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningTop']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -684,7 +684,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'responsive': true,
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
         'attributeType': 'custom',
     });
     isNotEmpty(attributes['positioningBottom']) && isNotEmpty(attributes['positioningLocation']) && attributes['positioningLocation'] !== 'default' && data.push({
@@ -697,7 +697,7 @@ const getBlockStyle = (elementId, attributes) => {
             }
         ],
         'responsive': true,
-        'selector': `.${elementId}.guten-element`,
+        'selector': `.${elementId}`,
         'attributeType': 'custom',
     });
 
