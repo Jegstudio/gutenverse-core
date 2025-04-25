@@ -1,4 +1,20 @@
-const Notice = ({ icon, title, description, buttonText, onClick, onClose, cancelButtonText, cancelButton = false, scheme = 'normal', confirmation = false, isChecked = false, setIsChecked = () => {} }) => {
+const Notice = (props) => {
+
+    const {
+        icon,
+        title,
+        description,
+        buttonText,
+        onClick,
+        onClose,
+        cancelButtonText,
+        cancelButton = false,
+        scheme = 'normal',
+        confirmation = false,
+        isChecked = false,
+        setIsChecked = () => {},
+        checkBoxText = ''
+    } = props;
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -27,7 +43,7 @@ const Notice = ({ icon, title, description, buttonText, onClick, onClose, cancel
                         checked={isChecked}
                         onChange={handleCheckboxChange}
                     />
-                    <span>Do not Show Again</span>
+                    <span>{checkBoxText}</span>
                 </label>}
             </div>
         </div>
