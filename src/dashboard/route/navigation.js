@@ -16,9 +16,6 @@ const Navigation = ({ location }) => {
         url
     } = window['GutenverseDashboard'];
 
-    const isThemeforest = !window['GutenThemeConfig'] ? false : window['GutenThemeConfig']['isThemeforest'] && true ;
-
-
     const [injectLocation, setInjectLocation] = useState(null);
     const { pathname, search } = location;
     const query = new URLSearchParams(search);
@@ -38,12 +35,6 @@ const Navigation = ({ location }) => {
                 slug: homeSlug,
                 path: 'ecosystem',
                 priority: 1
-            },
-            !isThemeforest && {
-                name: __('Theme List', '--gctd--'),
-                slug: homeSlug,
-                path: 'theme-list',
-                priority: 2
             },
             {
                 name: __('Blocks', '--gctd--'),

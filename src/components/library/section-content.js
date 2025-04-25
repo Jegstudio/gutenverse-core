@@ -20,7 +20,7 @@ const SectionContent = (props) => {
     const [pluginInstallMode, setPluginInstallMode] = useState(false);
     const [singleId, setSingleId] = useState(null);
     const [singleData, setSingleData] = useState(null);
-    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
+    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
     const [selectItem, setSelectItem] = useState({});
 
     return <>

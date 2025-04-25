@@ -121,17 +121,17 @@ const SizeControl = (props) => {
     }, [deviceType]);
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         if (!localValue.unit || localValue.unit === '') {
             const firstUnit = Object.keys(units)[0];
             setLocalValue({
                 ...localValue,
                 unit: firstUnit
             });
-        }
-
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
         }
 
         onLocalChange(localValue);

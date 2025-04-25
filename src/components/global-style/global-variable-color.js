@@ -177,6 +177,7 @@ const checkDoubleSlug = (slug, idx, colors) => {
  */
 const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
     const customs = userConfig.settings.color && userConfig.settings.color.palette && userConfig.settings.color.palette.custom;
+    const isFirstRender = useRef(true);
     const [customPalette, setCustomPalette] = useState(customs ? customs.map(item => {
         return {
             key: cryptoRandomString({ length: 6, type: 'alphanumeric' }),
@@ -228,6 +229,11 @@ const GlobalCustomColor = ({ userConfig, setUserConfig }) => {
     };
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.custom';
@@ -291,6 +297,7 @@ const GlobalDefaultColor = ({ userConfig }) => {
 };
 
 const GlobalThemesColor = ({ userConfig, setUserConfig }) => {
+    const isFirstRender = useRef(true);
     const themePalette = useSettingFallback('color.palette.theme');
     const [dummyThemesPalette, setDummyThemesPalette] = useState(themePalette ? themePalette.map(item => {
         return {
@@ -317,6 +324,11 @@ const GlobalThemesColor = ({ userConfig, setUserConfig }) => {
     };
 
     useEffect(() => {
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            return;
+        }
+
         setUserConfig((currentConfig) => {
             const newUserConfig = cloneDeep(currentConfig);
             const pathToSet = 'settings.color.palette.theme';

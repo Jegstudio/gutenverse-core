@@ -1,6 +1,5 @@
 import { useEffect, useState } from '@wordpress/element';
 import Dashboard from '../content/dashboard/dashboard';
-import ThemeList from '../content/themelist/themelist';
 import BlockList from '../content/blocklist/blocklist';
 import Settings from '../content/settings/settings';
 import SystemRequirement from '../content/system/system';
@@ -114,9 +113,6 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     if (homeSlug === page) {
         switch (path) {
-            case 'theme-list':
-                routePage = <ThemeList {...props} />;
-                break;
             case 'block-list':
                 routePage = <BlockList {...props} />;
                 break;

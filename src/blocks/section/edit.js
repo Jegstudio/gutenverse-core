@@ -162,16 +162,12 @@ const SectionBlock = compose(
     withCursorEffect,
 )((props) => {
     const {
-        getBlockRootClientId,
         getBlocks,
-        getBlock
     } = useSelect((select) => select('core/block-editor'), []);
 
     const {
         clientId,
         attributes,
-        setAttributes,
-        isSelected,
         slideElement,
         setBlockRef
     } = props;
@@ -228,14 +224,6 @@ const SectionBlock = compose(
     });
 
     useEffect(() => {
-        const rootId = getBlockRootClientId(clientId);
-        const rootBlock = getBlock(rootId);
-        const isChild = rootBlock && (rootBlock.name === 'gutenverse/column' || rootBlock.name === 'gutenverse/form-builder');
-
-        setAttributes({ isChild });
-    }, [isSelected]);
-
-    useEffect(() => {
         if (elementRef) {
             setBlockRef(elementRef);
         }
@@ -251,7 +239,7 @@ const SectionBlock = compose(
     const dataId = elementId ? elementId.split('-')[1] : '';
 
     return <>
-        <CopyElementToolbar {...props}/>
+        <CopyElementToolbar {...props} />
         <SectionBlockControl {...props} clientId={clientId} />
         <SectionInspection {...props} elementRef={elementRef} />
         <div id={dataId} className={`guten-section-wrapper section-wrapper section-${elementId} sticky-${stickyPosition} ${inheritLayout ? 'inherit-layout' : ''} ${cursorEffect?.show ? 'guten-cursor-effect' : ''}`} ref={sectionWrapper} data-id={dataId}>
