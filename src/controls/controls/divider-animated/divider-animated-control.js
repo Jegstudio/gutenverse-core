@@ -99,18 +99,18 @@ const DividerAnimatedControl = (props) => {
             label={__('Width', '--gctd--')}
             value={value.width}
             onValueChange={width => onValueChange({ ...value, width })}
-            onLocalChange={onLocalChange}
-            min={100}
-            max={300}
+            onLocalChange={width => onLocalChange({ ...value, width })}
+            min={1}
+            max={100}
             step={1}
             allowDeviceControl={true}
-            unit="px"
+            unit="%"
         />
         <RangeControl
             label={__('Height', '--gctd--')}
             value={value.height}
             onValueChange={height => onValueChange({ ...value, height })}
-            onLocalChange={onLocalChange}
+            onLocalChange={height => onLocalChange({ ...value, height })}
             min={1}
             max={500}
             step={1}
@@ -121,7 +121,7 @@ const DividerAnimatedControl = (props) => {
             label={__('Speed', '--gctd--')}
             value={value.speed}
             onValueChange={speed => onValueChange({ ...value, speed })}
-            onLocalChange={onLocalChange}
+            onLocalChange={speed => onLocalChange({ ...value, speed })}
             min={0}
             max={10}
             step={0.1}
@@ -167,6 +167,7 @@ const DividerAnimatedControl = (props) => {
                 value={value.offset}
                 default={{ point: 50, unit: '%' }}
                 onValueChange={offset => onValueChange({ ...value, offset })}
+                onLocalChange={offset => onLocalChange({ ...value, offset })}
                 units={{
                     ['%']: {
                         text: '%',
