@@ -5,6 +5,7 @@ import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import { Link } from 'react-feather';
 import ControlHeadingSimple from '../part/control-heading-simple';
+import isEmpty from 'lodash/isEmpty';
 
 const UnitControl = ({ units, activeUnit, changeUnit }) => {
     const wrapperRef = useRef(null);
@@ -118,11 +119,11 @@ const DimensionControl = (props) => {
     };
 
     useEffect(() => {
-        if (unit === '') {
+        if (isEmpty(unit)) {
             const firstUnit = Object.keys(units)[0];
             setActiveUnit(firstUnit);
 
-            onChange({});
+            onChange({...value, unit: firstUnit});
         } else {
             setActiveUnit(unit);
         }
@@ -174,7 +175,7 @@ const DimensionControl = (props) => {
                 id={id}
                 proLabel={proLabel}
                 units={units}
-                activeUnit={activeUnit || Object.keys(units)[0]}
+                activeUnit={activeUnit}
                 changeUnit={changeUnit}
             />
         </div>
