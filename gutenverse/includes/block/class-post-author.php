@@ -95,6 +95,10 @@ class Post_Author extends Block_Abstract {
 				break;
 		}
 
+		if ( empty( $author_name ) ) {
+			$author_name = get_the_author_meta( 'display_name', $post->post_author );
+		}
+
 		return $author_name;
 	}
 

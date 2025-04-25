@@ -130,19 +130,6 @@ class Social_Icons extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['bgColor'] ) ) {
-			$this->inject_style(
-				array(
-					'selector'       => ".{$this->element_id}.fill .guten-social-icon a, .{$this->element_id}.border .guten-social-icon a, .{$this->element_id}.custom .guten-social-icon a",
-					'property'       => function ( $value ) {
-						return $this->handle_color( $value, 'background-color' );
-					},
-					'value'          => $this->attrs['bgColor'],
-					'device_control' => false,
-				)
-			);
-		}
-
 		if ( isset( $this->attrs['shape'] ) ) {
 			if ( isset( $this->attrs['textColor'] ) ) {
 				$this->inject_style(
@@ -219,6 +206,19 @@ class Social_Icons extends Style_Abstract {
 			);
 		}
 
+		if ( isset( $this->attrs['bgColor'] ) ) {
+			$this->inject_style(
+				array(
+					'selector'       => ".{$this->element_id}.fill .guten-social-icon a, .{$this->element_id}.border .guten-social-icon a, .{$this->element_id}.custom .guten-social-icon a",
+					'property'       => function ( $value ) {
+						return $this->handle_color( $value, 'background-color' );
+					},
+					'value'          => $this->attrs['bgColor'],
+					'device_control' => false,
+				)
+			);
+		}
+
 		if ( isset( $this->attrs['hoverBgColor'] ) ) {
 			$this->inject_style(
 				array(
@@ -229,6 +229,20 @@ class Social_Icons extends Style_Abstract {
 					'value'          => $this->attrs['hoverBgColor'],
 					'device_control' => false,
 				)
+			);
+		}
+
+		if ( isset( $this->attrs['bgGradient'] ) ) {
+			$this->handle_background(
+				".{$this->element_id}.fill .guten-social-icon a, .{$this->element_id}.border .guten-social-icon a, .{$this->element_id}.custom .guten-social-icon a",
+				$this->attrs['bgGradient']
+			);
+		}
+
+		if ( isset( $this->attrs['hoverBgGradient'] ) ) {
+			$this->handle_background(
+				".{$this->element_id}.fill .guten-social-icon a:hover, .{$this->element_id}.border .guten-social-icon a:hover, .{$this->element_id}.custom .guten-social-icon a:hover",
+				$this->attrs['hoverBgGradient']
 			);
 		}
 

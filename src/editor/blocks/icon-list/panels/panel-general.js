@@ -104,7 +104,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId} > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId}.guten-icon-list > .list-wrapper:not(.inline-icon-list) > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'width',
@@ -115,7 +115,7 @@ export const panelGeneral = (props) => {
                 {
                     'type': 'unitPoint',
                     'id': 'widthDivider',
-                    'selector': `.${elementId} > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
+                    'selector': `.${elementId}.guten-icon-list > .list-wrapper.inline-icon-list > .guten-icon-list-item .list-divider`,
                     'properties': [
                         {
                             'name': 'height',

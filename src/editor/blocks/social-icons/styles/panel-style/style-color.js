@@ -24,18 +24,6 @@ const colorStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['bgColor']) && data.push({
-        'type': 'color',
-        'id': 'bgColor',
-        'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
-        'properties' : [
-            {
-                'name' : 'background-color',
-                'valueType' : 'direct'
-            }
-        ]
-    });
-
     isNotEmpty(attributes['textColor']) && data.push({
         'type': 'color',
         'id': 'textColor',
@@ -71,6 +59,30 @@ const colorStyle = (elementId, attributes, data) => {
         ]
     });
 
+    isNotEmpty(attributes['hoverTextColor']) && data.push({
+        'type': 'color',
+        'id': 'hoverTextColor',
+        'selector': `.${elementId} .guten-social-icon a:hover span`,
+        'properties' : [
+            {
+                'name' : 'color',
+                'valueType' : 'direct'
+            }
+        ]
+    });
+
+    // Bg Color
+    isNotEmpty(attributes['bgColor']) && data.push({
+        'type': 'color',
+        'id': 'bgColor',
+        'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
+        'properties' : [
+            {
+                'name' : 'background-color',
+                'valueType' : 'direct'
+            }
+        ]
+    });
     isNotEmpty(attributes['hoverBgColor']) && data.push({
         'type': 'color',
         'id': 'hoverBgColor',
@@ -83,16 +95,16 @@ const colorStyle = (elementId, attributes, data) => {
         ]
     });
 
-    isNotEmpty(attributes['hoverTextColor']) && data.push({
-        'type': 'color',
-        'id': 'hoverTextColor',
-        'selector': `.${elementId} .guten-social-icon a:hover span`,
-        'properties' : [
-            {
-                'name' : 'color',
-                'valueType' : 'direct'
-            }
-        ]
+    // Bg Gradient
+    isNotEmpty(attributes['bgGradient']) && data.push({
+        'type': 'background',
+        'id': 'bgGradient',
+        'selector': `.${elementId}.fill .guten-social-icon a, .${elementId}.border .guten-social-icon a, .${elementId}.custom .guten-social-icon a`,
+    });
+    isNotEmpty(attributes['hoverBgGradient']) && data.push({
+        'type': 'background',
+        'id': 'hoverBgGradient',
+        'selector': `.${elementId}.fill .guten-social-icon a:hover, .${elementId}.border .guten-social-icon a:hover, .${elementId}.custom .guten-social-icon a:hover`,
     });
     return data;
 };

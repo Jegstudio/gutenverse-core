@@ -1283,14 +1283,14 @@ class Post_Block extends Style_Abstract {
 			);
 		}
 
-		if ( isset( $this->attrs['paginationDisabledBorderResponsive'] ) ) {
+		if ( isset( $this->attrs['paginationDisabledBorder'] ) ) {
 			$this->inject_style(
 				array(
 					'selector'       => ".{$this->element_id} .guten-postblock .guten_block_nav .btn-pagination.disabled",
 					'property'       => function ( $value ) {
 						return $this->handle_border_responsive( $value );
 					},
-					'value'          => $this->attrs['paginationDisabledBorderResponsive'],
+					'value'          => $this->attrs['paginationDisabledBorder'],
 					'device_control' => true,
 				)
 			);
