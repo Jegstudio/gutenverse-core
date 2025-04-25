@@ -20,7 +20,7 @@ const SelectParent = (props) => {
     };
 
     return <div className={'parent-button'}>
-        <Button isPrimary onClick={selectParent}>
+        <Button variant="primary" onClick={selectParent}>
             {props.children}
         </Button>
     </div>;
