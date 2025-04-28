@@ -155,7 +155,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
         );
     }
 
-    return <div className={`content-wrapper ${path === 'theme-list' || !path ? 'dashboard' : path}`}>
+    return <div className={`content-wrapper ${path ? path : 'dashboard'}`}>
         {routePage}
     </div>;
 };
