@@ -13,7 +13,8 @@ const Navigation = ({ location }) => {
         pluginVersions,
         upgradeProUrl,
         activeTheme,
-        url
+        url,
+        showThemeList
     } = window['GutenverseDashboard'];
 
     const [injectLocation, setInjectLocation] = useState(null);
@@ -35,6 +36,12 @@ const Navigation = ({ location }) => {
                 slug: homeSlug,
                 path: 'ecosystem',
                 priority: 1
+            },
+            !isEmpty(showThemeList) && {
+                name: __('Theme List', '--gctd--'),
+                slug: homeSlug,
+                path: 'theme-list',
+                priority: 2
             },
             {
                 name: __('Blocks', '--gctd--'),

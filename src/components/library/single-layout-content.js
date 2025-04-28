@@ -2,12 +2,15 @@ import { __, _n, sprintf } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
 import { useEffect, useState, useRef } from '@wordpress/element';
 import classnames from 'classnames';
+import { getInstalledThemes } from 'gutenverse-core/requests';
 import { getPluginRequirementStatus, likeLayout } from './library-helper';
-import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconInfoYellowSVG, IconEyeSVG } from 'gutenverse-core/icons';
-import { LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
+import { IconHeartFullSVG, IconLoveSVG, IconEmpty2SVG, IconArrowLeftSVG, IconCircleExclamationSVG, IconInfoYellowSVG , IconEyeSVG } from 'gutenverse-core/icons';
+import { InstallThemeStatusSkeleton, LeftSkeleton, RightSkeleton } from 'gutenverse-core/components';
 import ImportLayout from './import-layout';
 import { Loader } from 'react-feather';
+import semver from 'semver';
 import { ExportNotice } from './library-helper';
+import isEmpty from 'lodash/isEmpty';
 
 const SingleLayoutContent = (props) => {
     const {
@@ -28,7 +31,7 @@ const SingleLayoutContent = (props) => {
     const imageContent = useRef(null);
     const [imageCover, setImageCover] = useState(null);
     const [requirementStatus, setRequirementStatus] = useState(false);
-    const [exporting, setExporting] = useState({ show: false, message: '', progress: '' });
+    const [exporting, setExporting] = useState({show: false, message: '', progress: ''});
     const { installedPlugin } = pluginData;
     const { layoutData } = libraryData;
 
@@ -133,10 +136,10 @@ const SingleLayoutContent = (props) => {
                                     </div>
                                 </div> : <img src={imageCover} key={imageCover} />}
                             </div>
-                            {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress} /> : <div className="layout-action">
+                            {exporting.show ? <ExportNotice message={exporting.message} progress={exporting.progress}/> : <div className="layout-action">
                                 <ImportLayout activePage={active} data={singleData} closeImporter={closeImporter} setPluginInstallMode={setPluginInstallMode} setExporting={setExporting} setLibraryError={setLibraryError} />
                                 {singleData.demo && <a href={singleData.demo} className="layout-button" target="_blank" rel="noreferrer">
-                                    {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height={12.8} />
+                                    {__('View Demo', '--gctd--')} <IconEyeSVG width={12.8} height= {12.8} />
                                 </a>}
                             </div>}
                         </div>
@@ -208,12 +211,92 @@ const SingleLayoutContent = (props) => {
 };
 
 const ThemeNotification = ({ requirementStatus, setPluginInstallMode, library, singleData, setActive, active, slug }) => {
-    if (requirementStatus.length !== 0) {
+    if (requirementStatus.length === 0) {
+        return <ThemeInstallNotification
+            library={library}
+            singleData={singleData}
+            setActive={setActive}
+            active={active}
+            slug={slug}
+        />;
+    } else {
         return <RequiredPluginNotification
             requirementStatus={requirementStatus}
             setPluginInstallMode={setPluginInstallMode}
         />;
     }
+};
+
+const ThemeInstallNotification = ({ library, slug, singleData, setActive }) => {
+    const [themeExist, setThemeExist] = useState(false);
+    const [installedLoad, setInstalledLoad] = useState(false);
+    const [isInstalled, setIsInstalled] = useState(false);
+    const [isActive, setIsActive] = useState(false);
+    const { showThemeList } = window['GutenverseConfig'];
+
+    useEffect(() => {
+        const { themeData } = library;
+        let isThemeExist = false;
+
+        themeData.map(theme => {
+            if (theme.data.slug === slug) {
+                isThemeExist = true;
+            }
+        });
+
+        if (isThemeExist) {
+            setActive(0);
+            getInstalledThemes().then(result => {
+                setInstalledLoad(true);
+                result.map(theme => {
+                    if (theme.stylesheet === slug) {
+                        setIsInstalled(true);
+
+                        if (theme.status === 'active') {
+                            setIsActive(true);
+                        }
+                    }
+                });
+            });
+            setThemeExist(true);
+        }
+    }, []);
+
+    const InstallStatus = () => {
+        const { themeListUrl, pluginVersions } = window['GutenverseConfig'];
+
+        const pluginVersion = pluginVersions?.gutenverse?.version || '0.0.0';
+
+        if (isInstalled) {
+            if (!isActive && semver.gte(pluginVersion, singleData?.compatibleVersion || '0.0.0')) {
+                return <div className="single-install-themes active">
+                    <h3>{__('Activate', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')}</h3>
+                    <p>{__('You already install the themes, you can get all template by activating this themes.', '--gctd--')}</p>
+                    <a href={`${themeListUrl}&keyword=${singleData.title}&slug=${singleData.slug}&action=activate`} target={'_blank'} rel="noreferrer">
+                        {__('Activate Themes', '--gctd--')} →
+                    </a>
+                    <IconCircleExclamationSVG />
+                </div>;
+            }
+
+            return null;
+        } else {
+            return <div className="single-install-themes">
+                <h3>{__('Install', '--gctd--')} {singleData.title} {__('Themes', '--gctd--')} {!singleData.isPro ? __('For Free', '--gctd--') : ''}</h3>
+                <p>{__('Check out and install our fully supported Full Site Editing (FSE) themes.', '--gctd--')}</p>
+                <a href={`${themeListUrl}&keyword=${singleData.slug}&action=install`} target={'_blank'} rel="noreferrer">
+                    {__('Install Themes', '--gctd--')} →
+                </a>
+                <IconCircleExclamationSVG />
+            </div>;
+        }
+    };
+
+    const themeInstallBlock = () => {
+        return !installedLoad ? <InstallThemeStatusSkeleton /> : <InstallStatus />;
+    };
+
+    return themeExist && !isEmpty(showThemeList) && themeInstallBlock();
 };
 
 const RequiredPluginNotification = ({ requirementStatus, setPluginInstallMode }) => {

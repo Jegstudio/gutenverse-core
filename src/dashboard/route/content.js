@@ -13,6 +13,8 @@ import { applyFilters } from '@wordpress/hooks';
 import { compose } from '@wordpress/compose';
 import { fetchLibraryData } from 'gutenverse-core/requests';
 import Ecosystem from '../content/ecosystem/ecosystem';
+import Themelist from '../content/themelist/themelist';
+import isEmpty from 'lodash/isEmpty';
 
 const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const { createInfoNotice, createErrorNotice } = useDispatch(noticesStore);
@@ -20,7 +22,8 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     const page = query.get('page');
     let path = query.get('path');
     const {
-        homeSlug
+        homeSlug,
+        showThemeList
     } = window['GutenverseDashboard'];
     const {
         settingsData
@@ -113,6 +116,9 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
 
     if (homeSlug === page) {
         switch (path) {
+            case 'theme-list':
+                routePage = !isEmpty( showThemeList ) ? <Themelist {...props} /> : <Dashboard {...props} />;
+                break;
             case 'block-list':
                 routePage = <BlockList {...props} />;
                 break;
@@ -149,7 +155,7 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
         );
     }
 
-    return <div className={`content-wrapper ${path ? path : 'dashboard'}`}>
+    return <div className={`content-wrapper ${path === 'theme-list' || !path ? 'dashboard' : path}`}>
         {routePage}
     </div>;
 };
