@@ -115,9 +115,13 @@ const Content = ({ initialLibraryData, initialPluginData, location }) => {
     };
 
     if (homeSlug === page) {
+        if (path === 'theme-list' && isEmpty( showThemeList )) {
+            path = 'dashboard'; // force fallback to dashboard
+        }
+
         switch (path) {
             case 'theme-list':
-                routePage = !isEmpty( showThemeList ) ? <Themelist {...props} /> : <Dashboard {...props} />;
+                routePage = <Themelist {...props} />;
                 break;
             case 'block-list':
                 routePage = <BlockList {...props} />;
