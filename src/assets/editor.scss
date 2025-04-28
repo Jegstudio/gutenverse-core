@@ -300,9 +300,31 @@ h2.block-editor-inserter__panel-title span.gutenverse-category {
 					padding: 0 10px;
 				}
 
-				label {
+				label.checkbox {
 					margin-bottom: 0px;
-					margin-top: 10px;				
+					margin-top: 10px;
+					
+					input {
+						margin: 0 6px 0 0;
+						border-radius: 2px;
+					}
+
+					input:before {
+						content: '';
+					}
+
+					&.checked {
+						input {
+							border-color: #3B57F7;
+						}
+
+						input:before {
+							content: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 9 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.5 0.75L3.375 4.875L1.5 3' stroke='%233B57F7' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+							display: flex;
+							justify-content: center;
+							align-items: center;
+						}
+					}
 				}
 
 				.buttons {

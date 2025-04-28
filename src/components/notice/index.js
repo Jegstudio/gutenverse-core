@@ -37,7 +37,7 @@ const Notice = (props) => {
                     <button className="primary" onClick={() => onClick()}>{buttonText}</button>
                     {cancelButton && <button className="cancel" onClick={() => onClose()}>{cancelButtonText}</button>}
                 </div>
-                {confirmation && <label>
+                {confirmation && <label className={`checkbox ${isChecked? 'checked' : ''}`}>
                     <input
                         type="checkbox"
                         checked={isChecked}
