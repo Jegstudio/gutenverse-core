@@ -101,7 +101,7 @@ const SizeControl = (props) => {
         onLocalChange,
         description = '',
         hideRange = false,
-        defaultUnit = 'px',
+        defaultUnit = '',
     } = props;
 
     const [localValue, setLocalValue] = useState(value);
@@ -113,6 +113,13 @@ const SizeControl = (props) => {
             ...localValue,
             [id]: value
         });
+    };
+
+    const getDefaultUnit = () => {
+        if (defaultUnit == '') {
+            return Object.keys(units)[0];
+        }
+        return defaultUnit;
     };
 
     const deviceType = getDeviceType();
@@ -181,7 +188,7 @@ const SizeControl = (props) => {
                     onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
-                    activeUnit={localValue.unit?? defaultUnit}
+                    activeUnit={localValue.unit?? getDefaultUnit()}
                     units={units}
                     changeUnit={(value) => handleOnChange('unit', value)}
                 />
