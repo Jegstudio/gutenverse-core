@@ -111,11 +111,6 @@ const GradientControl = (props) => {
     }, [value]);
 
     useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-
         const newValue = [...value];
         newValue[activeIndex] = { ...newValue[activeIndex], offset: `${location / 100}` };
         onChange(newValue);
