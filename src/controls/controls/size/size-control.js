@@ -134,14 +134,6 @@ const SizeControl = (props) => {
             return;
         }
 
-        if (!localValue.unit || localValue.unit === '') {
-            const firstUnit = Object.keys(units)[0];
-            setLocalValue({
-                ...localValue,
-                unit: firstUnit
-            });
-        }
-
         onLocalChange(localValue);
 
         const debouncedHandler = debounce(() => {
