@@ -63,14 +63,10 @@
             }
 
             .icon-style-gradient {
-                background-image: linear-gradient(180deg,var(--guten-bg-color) 0,var(--guten-base-color) 100%);
+                background-image: linear-gradient(180deg,var(--guten-txt-color) 0,var(--guten-txt-color) 100%);
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
                 -webkit-background-clip: text;
-            }
-
-            .bg-style-gradient {
-                background-image: linear-gradient(180deg,red 0,blue 100%);
             }
         }
         &.icon-box-body {
