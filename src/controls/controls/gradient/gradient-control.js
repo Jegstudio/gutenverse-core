@@ -28,7 +28,7 @@ const RangeControl = ({
     max = 100,
     step = 1,
     value = 0,
-    onChange = () => {},
+    onChange = () => { },
 }) => {
     const [internalValue, setInternalValue] = useState(value);
 
@@ -76,6 +76,7 @@ const GradientControl = (props) => {
     const [controlOpen, setControlOpen] = useState(false);
     const [location, setLocation] = useState(0);
     const [activeIndex, setActiveIndex] = useState(-1);
+    const isFirstRender = useRef(true);
 
     const onChange = value => {
         onValueChange(value);
@@ -110,6 +111,11 @@ const GradientControl = (props) => {
     }, [value]);
 
     useEffect(() => {
+        if (isFirstRender.current && props?.value?.length) {
+            isFirstRender.current = false;
+            return;
+        }
+
         const newValue = [...value];
         newValue[activeIndex] = { ...newValue[activeIndex], offset: `${location / 100}` };
         onChange(newValue);
