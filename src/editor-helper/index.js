@@ -392,16 +392,24 @@ export const getRgbaValue = (colorId) => {
     return rgbaObject;
 };
 
-export const getEditSiteHeader = () => {
-    return new Promise(resolve => {
-        setTimeout(() => {
+export const getEditSiteHeader = (retries = 500, interval = 500) => {
+    return new Promise((resolve, reject) => {
+        const check = (attempt = 0) => {
             let header = document.getElementsByClassName('edit-post-header-toolbar')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header_start')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__start')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__center')[0];
             header = header ? header : document.getElementsByClassName('edit-site-header-edit-mode__end')[0];
 
-            resolve(header);
-        }, 1000);
+            if (header) {
+                resolve(header);
+            } else if (attempt < retries) {
+                setTimeout(() => check(attempt + 1), interval);
+            } else {
+                reject(new Error('Header element not found'));
+            }
+        };
+
+        check();
     });
 };

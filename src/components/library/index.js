@@ -39,7 +39,8 @@ const initLayoutState = {
     library: 'layout',
 };
 
-const Library = () => {
+const Library = (props) => {
+    const { uuid } = props;
     const [open, setOpen] = useState(false);
     const [visible, setVisibility] = useState(true);
     const [injectLocation, setInjectLocation] = useState(null);
@@ -83,7 +84,7 @@ const Library = () => {
         getEditSiteHeader().then(result => {
             setInjectLocation(result);
         });
-    });
+    }, uuid);
 
     // Init store.
     useEffect(() => {
