@@ -103,7 +103,7 @@ const getBlockStyle = (elementId, attributes) => {
         },
     );
 
-    isNotEmpty(attributes['inputWidth']) && data.push(
+    isNotEmpty(attributes['inputWidth']) && isNotEmpty(attributes['inputWidth'][device]) && data.push(
         {
             'type': '%' !== attributes['inputWidth'][device]['unit'] ? 'unitPoint' : 'plain',
             'id': 'inputWidth',

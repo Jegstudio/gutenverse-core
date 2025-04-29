@@ -13,6 +13,8 @@ export const contentPanel = props => {
 
     const device = getDeviceType();
 
+    const inputWidthDevice = inputWidth[device] ? inputWidth[device] : { point : "100", unit : "%" };
+
     return [
         {
             id: 'inputPlaceholder',
@@ -103,10 +105,10 @@ export const contentPanel = props => {
             },
             liveStyle: [
                 {
-                    'type': isNotEmpty(inputWidth) && '%' !== inputWidth[device]['unit'] ? 'unitPoint' : 'plain',
+                    'type': isNotEmpty(inputWidth) && '%' !== inputWidthDevice['unit'] ? 'unitPoint' : 'plain',
                     'id': 'inputWidth',
                     'selector': `.${elementId} .gutenverse-search.gutenverse-search-input, .${elementId} .gutenverse-search-form .gutenverse-search-input, .${elementId} .search-input-container .gutenverse-search.gutenverse-search-input`,
-                    'properties': isNotEmpty(inputWidth) && '%' !== inputWidth[device]['unit'] ? 
+                    'properties': isNotEmpty(inputWidth) && '%' !== inputWidthDevice['unit'] ? 
                         [{
                             'name': 'width',
                             'valueType': 'direct',
