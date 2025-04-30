@@ -13,6 +13,7 @@ import isEmpty from 'lodash/isEmpty';
 import isObject from 'lodash/isObject';
 import mapValues from 'lodash/mapValues';
 import pickBy from 'lodash/pickBy';
+import { useEffect } from '@wordpress/element';
 
 export const check = val => isArray(val) && !isEmpty(val);
 
@@ -413,3 +414,29 @@ export const getEditSiteHeader = (retries = 500, interval = 500) => {
         check();
     });
 };
+
+const patchHistoryMethod = (method) => {
+    const original = history[method];
+    return function (...args) {
+        const result = original.apply(this, args);
+        window.dispatchEvent(new Event('urlchange'));
+        return result;
+    };
+};
+
+export const useUrlChange = (callback) => {
+    useEffect(() => {
+        history.pushState = patchHistoryMethod('pushState');
+        history.replaceState = patchHistoryMethod('replaceState');
+
+        const handleChange = () => callback(window.location.href);
+
+        window.addEventListener('popstate', handleChange);
+        window.addEventListener('urlchange', handleChange);
+
+        return () => {
+            window.removeEventListener('popstate', handleChange);
+            window.removeEventListener('urlchange', handleChange);
+        };
+    }, [callback]);
+}
