@@ -359,7 +359,6 @@ const SectionContentItem = props => {
                 </div>
             </div>
         </div>
-        <div className="library-item-divider" />
         {(exporting?.show && selectItem.id === item.id) ? <ExportNotice message={exporting?.message} progress={exporting?.progress} /> :
             <div className="library-item-bottom">
                 <div className="library-item-wrapper">
