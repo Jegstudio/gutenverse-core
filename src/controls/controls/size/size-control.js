@@ -130,6 +130,12 @@ const SizeControl = (props) => {
 
     const deviceType = getDeviceType();
 
+    useEffect(()=> {
+        if(localValue.point !== value.point || localValue.unit !== value.unit) {
+            setLocalValue(generateValue(value));
+        }
+    },[value]);
+
     useEffect(() => {
         setLocalValue(value);
     }, [deviceType]);
@@ -169,7 +175,7 @@ const SizeControl = (props) => {
                     min={localValue.unit ? units[localValue.unit]?.min : null}
                     max={localValue.unit ? units[localValue.unit]?.max : null}
                     step={localValue.unit ? units[localValue.unit]?.step : null}
-                    value={localValue.point}
+                    value={localValue.point ?? ''}
                     onChange={(e) => {
                         handleOnChange('point', e.target.value);
                     }}
@@ -182,7 +188,7 @@ const SizeControl = (props) => {
                     min={localValue.unit ? units[localValue.unit]?.min : null}
                     max={localValue.unit ? units[localValue.unit]?.max : null}
                     step={localValue.unit ? units[localValue.unit]?.step : null}
-                    value={localValue.point}
+                    value={localValue.point ?? ''}
                     onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
