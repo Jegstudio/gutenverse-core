@@ -4,7 +4,7 @@ import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
 import { withDeviceControl } from 'gutenverse-core/hoc';
 import ControlHeadingSimple from '../part/control-heading-simple';
-import { debounce } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import { getDeviceType } from 'gutenverse-core/editor-helper';
 
 const UnitControl = ({ units, activeUnit, changeUnit }) => {
@@ -101,6 +101,7 @@ const SizeControl = (props) => {
         onLocalChange,
         description = '',
         hideRange = false,
+        defaultUnit = '',
     } = props;
 
     const [localValue, setLocalValue] = useState(value);
@@ -114,6 +115,13 @@ const SizeControl = (props) => {
         });
     };
 
+    const getDefaultUnit = () => {
+        if (defaultUnit == '') {
+            return Object.keys(units)[0];
+        }
+        return defaultUnit;
+    };
+
     const deviceType = getDeviceType();
 
     useEffect(() => {
@@ -124,14 +132,6 @@ const SizeControl = (props) => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
             return;
-        }
-
-        if (!localValue.unit || localValue.unit === '') {
-            const firstUnit = Object.keys(units)[0];
-            setLocalValue({
-                ...localValue,
-                unit: firstUnit
-            });
         }
 
         onLocalChange(localValue);
@@ -180,7 +180,7 @@ const SizeControl = (props) => {
                     onChange={(e) => handleOnChange('point', e.target.value)}
                 />
                 <UnitControl
-                    activeUnit={localValue.unit}
+                    activeUnit={localValue.unit?? getDefaultUnit()}
                     units={units}
                     changeUnit={(value) => handleOnChange('unit', value)}
                 />
