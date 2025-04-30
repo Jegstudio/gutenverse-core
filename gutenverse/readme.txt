@@ -299,6 +299,9 @@ Spectra - WordPress Gutenberg Blocks, Otter – Gutenberg Blocks – Page Builde
 
 == Changelog ==
 = 3.0.1 =
+##### New & Improvemenets
+* update border control ui when clicked and filled
+
 ##### Bug Fixes
 * fix social icons vertical align in editor
 * fix responsive style in editor - some block back to default style
