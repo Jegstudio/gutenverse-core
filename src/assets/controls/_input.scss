@@ -104,7 +104,6 @@
 }
 
 .gutenverse-control-wrapper {
-
   font-size: 13px;
 
   input[type="text"],
@@ -207,9 +206,9 @@
     &alert {
       .control-body {
         padding: 16px;
-        background-color: #F9F9FF;
+        background-color: #f9f9ff;
         align-items: flex-start;
-        border: 1px solid #E3E4E6;
+        border: 1px solid #e3e4e6;
         border-radius: 5px;
         margin: 0;
 
@@ -390,7 +389,7 @@
         align-items: center;
         font-weight: bold;
 
-        >div {
+        > div {
           position: relative;
         }
 
@@ -425,7 +424,7 @@
           background: white;
           z-index: 9;
 
-          >span {
+          > span {
             position: relative;
             width: 100%;
             cursor: pointer;
@@ -488,7 +487,7 @@
         box-shadow: inset 0 2px 3px rgba($input-switch-shadow, 0.1);
       }
 
-      input:checked+.switch {
+      input:checked + .switch {
         background: $input-switch-active;
       }
 
@@ -504,7 +503,7 @@
         padding-top: 1px;
       }
 
-      input:checked+.switch::before {
+      input:checked + .switch::before {
         left: 11px;
         right: auto;
         color: #fff;
@@ -523,10 +522,12 @@
         left: 2px;
         box-shadow: 0 1px 3px rgba($input-switch-shadow, 0.4);
         transform: translate3d(0, -50%, 0);
-        transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
+        transition:
+          all 350ms cubic-bezier(0, 0.95, 0.38, 0.98),
+          background 150ms ease;
       }
 
-      input:checked+.switch::after {
+      input:checked + .switch::after {
         transform: translate3d(27px, -50%, 0);
       }
     }
@@ -560,14 +561,18 @@
             width: 100%;
             height: 5.2px;
             cursor: pointer;
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
+            box-shadow:
+              0 0 0 rgba(0, 0, 0, 0),
+              0 0 0 rgba(13, 13, 13, 0);
             background: #e2e2e2;
             border-radius: 1.3px;
             border: 0.2px solid rgba(1, 1, 1, 0);
           }
 
           &::-webkit-slider-thumb {
-            box-shadow: 0 0 2.8px #000000, 0 0 0 #0d0d0d;
+            box-shadow:
+              0 0 2.8px #000000,
+              0 0 0 #0d0d0d;
             border: 3.7px solid #ffffff;
             height: 13px;
             width: 13px;
@@ -586,14 +591,18 @@
             width: 100%;
             height: 5.2px;
             cursor: pointer;
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
+            box-shadow:
+              0 0 0 rgba(0, 0, 0, 0),
+              0 0 0 rgba(13, 13, 13, 0);
             background: #e2e2e2;
             border-radius: 1.3px;
             border: 0.2px solid rgba(1, 1, 1, 0);
           }
 
           &::-moz-range-thumb {
-            box-shadow: 0 0 2.8px #000000, 0 0 0 #0d0d0d;
+            box-shadow:
+              0 0 2.8px #000000,
+              0 0 0 #0d0d0d;
             border: 3.7px solid #ffffff;
             height: 13px;
             width: 13px;
@@ -615,18 +624,24 @@
             background: #d5d5d5;
             border: 0.2px solid rgba(1, 1, 1, 0);
             border-radius: 2.6px;
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
+            box-shadow:
+              0 0 0 rgba(0, 0, 0, 0),
+              0 0 0 rgba(13, 13, 13, 0);
           }
 
           &::-ms-fill-upper {
             background: #e2e2e2;
             border: 0.2px solid rgba(1, 1, 1, 0);
             border-radius: 2.6px;
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
+            box-shadow:
+              0 0 0 rgba(0, 0, 0, 0),
+              0 0 0 rgba(13, 13, 13, 0);
           }
 
           &::-ms-thumb {
-            box-shadow: 0 0 2.8px #000000, 0 0 0 #0d0d0d;
+            box-shadow:
+              0 0 2.8px #000000,
+              0 0 0 #0d0d0d;
             border: 3.7px solid #ffffff;
             width: 13px;
             border-radius: 15px;
@@ -751,10 +766,10 @@
 
           .control-locked {
             cursor: pointer;
-            background: #FFDBDE;
-            border: 0.3px solid #C1313F;
+            background: #ffdbde;
+            border: 0.3px solid #c1313f;
             border-radius: 2px;
-            color: #C1313F;
+            color: #c1313f;
             padding: 4px 5px;
             border-radius: 3px;
             margin: 0;
@@ -797,7 +812,7 @@
               background-color: white;
               position: relative;
 
-              &>* {
+              & > * {
                 display: flex;
               }
 
@@ -807,8 +822,8 @@
                 right: 10px;
 
                 svg {
-                  color: #99A2A9;
-                  fill: #99A2A9;
+                  color: #99a2a9;
+                  fill: #99a2a9;
                 }
               }
 
@@ -847,7 +862,7 @@
                 display: flex;
                 align-items: center;
                 margin: 16px 0;
-                color: #40505D;
+                color: #40505d;
               }
 
               .illustration {
@@ -876,7 +891,7 @@
                   align-items: center;
                   margin: 0;
                   padding-bottom: 2px;
-                  border-bottom: 1px solid #3B57F7;
+                  border-bottom: 1px solid #3b57f7;
                   color: #011627;
                 }
               }
@@ -889,7 +904,6 @@
     /** Font **/
     &dynamic,
     &font {
-
       .post-option,
       .font-option {
         padding: 7px 15px;
@@ -988,7 +1002,7 @@
       .control-body {
         margin-right: 0;
 
-        >* {
+        > * {
           width: auto;
           line-height: 0;
 
@@ -1004,8 +1018,8 @@
         height: 0;
         display: none;
 
-        +svg,
-        +.icon-radio {
+        + svg,
+        + .icon-radio {
           cursor: pointer;
           border: 1px solid #ddd;
           border-radius: 3px;
@@ -1014,13 +1028,13 @@
           padding: 2px;
         }
 
-        +.icon-radio {
+        + .icon-radio {
           width: 100%;
           text-align: center;
         }
 
-        &:checked+svg,
-        &:checked+.icon-radio {
+        &:checked + svg,
+        &:checked + .icon-radio {
           background: #e7ecfd;
           border: 1px solid #e7ecfd;
           color: #3b57f7;
@@ -1053,7 +1067,7 @@
         height: 0;
         display: none;
 
-        +svg {
+        + svg {
           cursor: pointer;
           border: 1px solid #c1c1c1;
           padding: 5px;
@@ -1152,7 +1166,7 @@
           bottom: 3px;
         }
 
-        >div {
+        > div {
           position: relative;
           z-index: 5;
           width: 18px;
@@ -1250,7 +1264,7 @@
             gap: 10px;
             position: relative;
 
-            >span {
+            > span {
               position: absolute;
             }
 
@@ -1259,14 +1273,14 @@
               border: 1px solid #ddd;
               border-radius: 3px;
 
-              >div {
+              > div {
                 width: 22px;
                 height: 22px;
                 border-radius: 2px;
               }
             }
 
-            .variable-color-item-wrapper>div {
+            .variable-color-item-wrapper > div {
               width: 20px;
               height: 20px;
               border-radius: 50%;
@@ -1352,7 +1366,7 @@
         display: flex;
         justify-content: space-between;
 
-        &>div {
+        & > div {
           width: 45%;
         }
 
@@ -1553,7 +1567,9 @@
         background-image: linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd),
           linear-gradient(45deg, #ddd 25%, transparent 0, transparent 75%, #ddd 0, #ddd);
         background-size: 12px 12px;
-        background-position: 0 0, 6px 6px;
+        background-position:
+          0 0,
+          6px 6px;
         background-color: #fff;
         width: 100%;
         cursor: pointer;
@@ -1567,7 +1583,7 @@
         background-position: center;
         position: relative;
 
-        >* {
+        > * {
           color: #333;
           font-size: 70px;
           position: absolute;
@@ -1850,7 +1866,7 @@
         width: 40%;
         margin-right: 10px;
 
-        &>div {
+        & > div {
           display: flex;
           width: 100%;
           justify-content: center;
@@ -1863,6 +1879,28 @@
 
           &.active {
             background-color: #e7ecfd;
+          }
+
+          &.filled {
+            .border-top {
+              border-top-color: #3b57f7;
+            }
+
+            .border-left {
+              border-left-color: #3b57f7;
+            }
+
+            .border-all {
+              border-color: #3b57f7;
+            }
+
+            .border-right {
+              border-right-color: #3b57f7;
+            }
+
+            .border-bottom {
+              border-bottom-color: #3b57f7;
+            }
           }
 
           div {
@@ -1896,7 +1934,7 @@
       .border-value {
         width: 60%;
 
-        &>div {
+        & > div {
           margin-bottom: 5px;
 
           &.gutenverse-control-color {
@@ -1912,7 +1950,7 @@
           }
         }
 
-        &>div:not(.gutenverse-control-color) {
+        & > div:not(.gutenverse-control-color) {
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -1939,28 +1977,28 @@
 
     /** mask **/
     &mask {
-      >* {
+      > * {
         display: block;
       }
     }
 
     /** pointer event **/
     &pointer {
-      >* {
+      > * {
         display: block;
       }
     }
 
     /** condition **/
     &condition {
-      >* {
+      > * {
         display: block;
       }
     }
 
     /** background **/
     &background {
-      >* {
+      > * {
         display: block;
       }
 
@@ -1972,7 +2010,7 @@
         display: flex;
         justify-content: space-between;
 
-        &>div {
+        & > div {
           width: 45%;
 
           .control-body {
@@ -2010,7 +2048,7 @@
         height: 0;
         display: none;
 
-        &:checked+span {
+        &:checked + span {
           background: #e7ecfd;
           color: #3b57f7;
           border: 1px solid #e7ecfd;
@@ -2032,7 +2070,7 @@
     }
 
     &gradient {
-      &>* {
+      & > * {
         display: block;
       }
 
@@ -2097,7 +2135,7 @@
       .wrapper {
         display: flex;
 
-        &>* {
+        & > * {
           flex-grow: 1;
         }
       }
@@ -2147,7 +2185,7 @@
         position: relative;
         margin-right: 20px;
 
-        &>div,
+        & > div,
         .saturation-white,
         .saturation-black {
           border-radius: 5px;
@@ -2263,7 +2301,8 @@
         position: absolute;
         width: 11px;
         cursor: pointer;
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAQAAABzuJQIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAB7SURBVCjP3c7BDQMhDETRP4gyUlb6SEphe9w+JgdArIMPm2uGizV6MpbpERgBzGb0tuZcLvTbDSoHrMUMQmFrY/IaaOeKB7yE+1yTz43irZNXbXcCFosuXqFt9g0cyZICT7LkrU+b62vGeVv4IX+Phc+tfABZK3xj5cgHC29ECUeufxkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMDUtMzFUMTg6NDE6MzIrMDI6MDD31tLGAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTA1LTMxVDE4OjQxOjMyKzAyOjAwhotqegAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=) right center;
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAARCAQAAABzuJQIAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAB7SURBVCjP3c7BDQMhDETRP4gyUlb6SEphe9w+JgdArIMPm2uGizV6MpbpERgBzGb0tuZcLvTbDSoHrMUMQmFrY/IaaOeKB7yE+1yTz43irZNXbXcCFosuXqFt9g0cyZICT7LkrU+b62vGeVv4IX+Phc+tfABZK3xj5cgHC29ECUeufxkAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTctMDUtMzFUMTg6NDE6MzIrMDI6MDD31tLGAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE3LTA1LTMxVDE4OjQxOjMyKzAyOjAwhotqegAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAASUVORK5CYII=)
+          right center;
 
         div {
           height: 7px;
@@ -2324,7 +2363,9 @@
         .popover {
           z-index: 2;
           margin-top: 6px;
-          box-shadow: rgba(0, 0, 0, 0.15) 0 0 0 1px, rgba(0, 0, 0, 0.15) 0 8px 16px;
+          box-shadow:
+            rgba(0, 0, 0, 0.15) 0 0 0 1px,
+            rgba(0, 0, 0, 0.15) 0 8px 16px;
           padding: 12px;
           border-radius: 4px;
           position: absolute;
@@ -2400,7 +2441,6 @@
 
     &locked {
       &-layout {
-
         video {
           border-radius: 6px;
         }
@@ -2468,14 +2508,14 @@
             align-items: center;
             margin: 0;
             padding-bottom: 2px;
-            border-bottom: 1px solid #3B57F7;
+            border-bottom: 1px solid #3b57f7;
             color: #011627;
           }
         }
       }
 
       &-pro-notice {
-        >div {
+        > div {
           display: block;
           text-align: center;
         }

@@ -1,5 +1,5 @@
-import {useState} from '@wordpress/element';
-import {useInstanceId} from '@wordpress/compose';
+import { useState } from '@wordpress/element';
+import { useInstanceId } from '@wordpress/compose';
 import ControlHeadingSimple from '../part/control-heading-simple';
 import { compose } from '@wordpress/compose';
 import { withParentControl } from 'gutenverse-core/hoc';
@@ -30,9 +30,21 @@ const BorderControl = (props) => {
             <RefreshCw size={14} onClick={() => {
                 onValueChange(undefined);
                 setActive('all');
-            }}/>
+            }} />
         </span>
     </Tooltip>;
+
+    const checkActiveBorder = (state) => {
+        return state === active ? 'active' : '';
+    };
+
+    const setActiveBorder = (state) => {
+        setActive(state);
+    };
+
+    const checkFilledBorder = (position) => {
+        return props?.value?.[position] ? 'filled' : '';
+    };
 
     return <div id={id} className={'gutenverse-control-wrapper gutenverse-control-borders'}>
         <ControlHeadingSimple
@@ -45,23 +57,23 @@ const BorderControl = (props) => {
         <div className={'control-body'}>
             <div className={'border-icons'}>
                 <div>
-                    <div className={`icon ${active === 'top' ? 'active' : ''}`} onClick={() => setActive('top')}>
+                    <div className={`icon ${checkActiveBorder('top')} ${checkFilledBorder('top')}`} onClick={() => setActiveBorder('top')}>
                         <div className={'border-top'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${active === 'left' ? 'active' : ''}`} onClick={() => setActive('left')}>
+                    <div className={`icon ${checkActiveBorder('left')} ${checkFilledBorder('left')}`} onClick={() => setActiveBorder('left')}>
                         <div className={'border-left'}></div>
                     </div>
-                    <div className={`icon ${active === 'all' ? 'active' : ''}`} onClick={() => setActive('all')}>
+                    <div className={`icon ${checkActiveBorder('all')} ${checkFilledBorder('all')}`} onClick={() => setActiveBorder('all')}>
                         <div className={'border-all'}></div>
                     </div>
-                    <div className={`icon ${active === 'right' ? 'active' : ''}`} onClick={() => setActive('right')}>
+                    <div className={`icon ${checkActiveBorder('right')} ${checkFilledBorder('right')}`} onClick={() => setActiveBorder('right')}>
                         <div className={'border-right'}></div>
                     </div>
                 </div>
                 <div>
-                    <div className={`icon ${active === 'bottom' ? 'active' : ''}`} onClick={() => setActive('bottom')}>
+                    <div className={`icon ${checkActiveBorder('bottom')} ${checkFilledBorder('bottom')}`} onClick={() => setActiveBorder('bottom')}>
                         <div className={'border-bottom'}></div>
                     </div>
                 </div>
