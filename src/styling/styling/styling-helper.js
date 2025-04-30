@@ -451,6 +451,38 @@ export const useDynamicStyle = (elementId, attributes, getBlockStyle, elementRef
             });
         }
     }, [iframeWindowId, globalStyleSignal]);
+
+    //make sure the generated css element always at the end of iFrame head
+    useEffect(() => {
+        if (!iframeWindowRef.current) return;
+
+        const head = iframeWindowRef.current.document.head;
+        if (!head) return;
+
+        const styleEl = head.querySelector('#gutenverse-block-css');
+        if (!styleEl) return;
+
+        const moveToEndIfNeeded = () => {
+            const lastEl = head.lastElementChild;
+            const liveStyleEl = head.querySelector('[id^="gutenverse-temp-css-"]');
+            if (styleEl !== lastEl && lastEl !== liveStyleEl) {
+                head.removeChild(styleEl);
+                head.appendChild(styleEl);
+            }
+        };
+
+        const timeout = setTimeout(moveToEndIfNeeded, 1000);
+        const observer = new MutationObserver(() => {
+            moveToEndIfNeeded();
+        });
+
+        observer.observe(head, { childList: true });
+
+        return () => {
+            clearTimeout(timeout);
+            observer.disconnect();
+        };
+    }, [iframeWindowRef.current]);
 };
 
 const populateStyle = (cssElement, currentStyleId, generatedCSS) => {
