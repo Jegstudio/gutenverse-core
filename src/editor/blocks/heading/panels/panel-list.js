@@ -26,12 +26,6 @@ export const panelList = () => {
             pro: true,
         },
         {
-            title: __('Spacing', 'gutenverse'),
-            initialOpen: false,
-            panelArray: advancePanel,
-            tabRole: TabSetting
-        },
-        {
             title: __('Display', 'gutenverse'),
             initialOpen: false,
             panelArray: responsivePanel,
@@ -134,6 +128,12 @@ export const panelList = () => {
                 blockType: 'heading'
             }),
             pro: true
+        },
+        {
+            title: __('Spacing', 'gutenverse'),
+            initialOpen: false,
+            panelArray: advancePanel,
+            tabRole: TabSetting
         },
         {
             title: __('Condition', 'gutenverse'),
